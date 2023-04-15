@@ -11,14 +11,15 @@
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
-    "dev": "turbo dev --parallel",
+    "dev:both": "turbo dev --parallel",
+    "dev": "turbo dev --filter @graysky/app",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
     "type-check": "turbo type-check"
   },
   "dependencies": {
-    "@acme/eslint-config": "^0.1.0",
+    "@graysky/eslint-config": "^0.1.0",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@manypkg/cli": "^0.20.0",
     "@types/prettier": "^2.7.2",

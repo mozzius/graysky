@@ -10,8 +10,8 @@ const defineConfig = (): ExpoConfig => ({
   userInterfaceStyle: "light",
   splash: {
     image: "./assets/icon.png",
-    resizeMode: "contain",
-    backgroundColor: "#1F104A",
+    resizeMode: "cover",
+    backgroundColor: "#888888",
   },
   updates: {
     fallbackToCacheTimeout: 0,
@@ -24,7 +24,7 @@ const defineConfig = (): ExpoConfig => ({
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
-      backgroundColor: "#1F104A",
+      backgroundColor: "#888888",
     },
   },
   extra: {

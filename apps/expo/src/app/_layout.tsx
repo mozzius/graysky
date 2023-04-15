@@ -1,15 +1,13 @@
-import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { TRPCProvider } from "../utils/api";
+const queryClient = new QueryClient();
 
-// This is the main layout of the app
-// It wraps your pages with the providers they need
-const RootLayout = () => {
+export default function RootLayout() {
   return (
-    <TRPCProvider>
+    <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         {/*
           The Stack component displays the current page.
@@ -18,14 +16,12 @@ const RootLayout = () => {
         <Stack
           screenOptions={{
             headerStyle: {
-              backgroundColor: "#f472b6",
+              backgroundColor: "#fff",
             },
           }}
         />
         <StatusBar />
       </SafeAreaProvider>
-    </TRPCProvider>
+    </QueryClientProvider>
   );
-};
-
-export default RootLayout;
+}
