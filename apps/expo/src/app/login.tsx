@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
@@ -9,20 +9,25 @@ import {
 } from "@atproto/api";
 import { useMutation } from "@tanstack/react-query";
 
-const agent = new BskyAgent({
-  service: "https://bsky.app",
-  persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
-    // store the session-data for reuse
-    console.log({
-      evt,
-      sess,
-    });
-  },
-});
+import { fetchHandler } from "../utils/polyfills/fetch-polyfill";
 
 export default function Login() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+
+  const agent = useMemo(() => {
+    BskyAgent.configure({ fetch: fetchHandler });
+    return new BskyAgent({
+      service: "https://bsky.social/",
+      persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
+        // store the session-data for reuse
+        console.log({
+          evt,
+          sess,
+        });
+      },
+    });
+  }, []);
 
   const login = useMutation({
     mutationKey: ["login"],
@@ -31,7 +36,7 @@ export default function Login() {
         console.log({ identifier, password });
         await agent.login({ identifier, password });
       } catch (err) {
-        console.error("caught error");
+        console.info("caught error");
         console.error((err as Error).stack);
       }
     },

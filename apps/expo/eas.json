@@ -21,6 +21,13 @@
       "ios": {
         "resourceClass": "m-medium"
       }
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "submit": {

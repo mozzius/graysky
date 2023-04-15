@@ -1,0 +1,72 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import "fast-text-encoding";
+import "react-native-url-polyfill/auto";
+import Graphemer from "graphemer";
+
+export {};
+
+/**
+https://github.com/MaxArt2501/base64-js
+The MIT License (MIT)
+Copyright (c) 2014 MaxArt2501
+ */
+
+const b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+// Regular expression to check formal correctness of base64 encoded strings
+const b64re =
+  /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
+
+globalThis.atob = (str: string): string => {
+  // atob can work with strings with whitespaces, even inside the encoded part,
+  // but only \t, \n, \f, \r and ' ', which can be stripped.
+  str = String(str).replace(/[\t\n\f\r ]+/g, "");
+  if (!b64re.test(str)) {
+    throw new TypeError(
+      "Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.",
+    );
+  }
+
+  // Adding the padding if missing, for semplicity
+  str += "==".slice(2 - (str.length & 3));
+  let bitmap,
+    result = "",
+    r1,
+    r2,
+    i = 0;
+  for (; i < str.length; ) {
+    bitmap =
+      (b64.indexOf(str.charAt(i++)) << 18) |
+      (b64.indexOf(str.charAt(i++)) << 12) |
+      ((r1 = b64.indexOf(str.charAt(i++))) << 6) |
+      (r2 = b64.indexOf(str.charAt(i++)));
+
+    result +=
+      r1 === 64
+        ? String.fromCharCode((bitmap >> 16) & 255)
+        : r2 === 64
+        ? String.fromCharCode((bitmap >> 16) & 255, (bitmap >> 8) & 255)
+        : String.fromCharCode(
+            (bitmap >> 16) & 255,
+            (bitmap >> 8) & 255,
+            bitmap & 255,
+          );
+  }
+  return result;
+};
+
+const splitter = new Graphemer();
+globalThis.Intl = globalThis.Intl || {};
+
+// @ts-expect-error we're polyfilling -prf
+globalThis.Intl.Segmenter =
+  globalThis.Intl.Segmenter ||
+  class Segmenter {
+    constructor() {}
+    // NOTE
+    // this is not a precisely correct polyfill but it's sufficient for our needs
+    // -prf
+    segment = splitter.iterateGraphemes;
+  };
