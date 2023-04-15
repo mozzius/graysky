@@ -11,13 +11,13 @@ import { useMutation } from "@tanstack/react-query";
 
 const agent = new BskyAgent({
   service: "https://bsky.app",
-  // persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
-  //   // store the session-data for reuse
-  //   console.log({
-  //     evt,
-  //     sess,
-  //   });
-  // },
+  persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
+    // store the session-data for reuse
+    console.log({
+      evt,
+      sess,
+    });
+  },
 });
 
 export default function Login() {
