@@ -110,6 +110,7 @@ export default function RootLayout() {
           {loading && <SplashScreen />}
           <Stack
             screenOptions={{
+              headerShown: true,
               headerStyle: {
                 backgroundColor: "#fff",
               },

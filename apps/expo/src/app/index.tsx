@@ -17,7 +17,6 @@ export default function LandingPage() {
   return (
     <View className="flex-1">
       <StatusBar style="light" />
-      <Stack.Screen options={{ headerShown: false }} />
       <ImageBackground className="flex-1" source={background}>
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <Text className="mx-auto mt-16 text-6xl font-bold text-white">
