@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
-import { cx } from "../utils/cx";
+import { cx } from "../lib/utils/cx";
 
 interface ButtonProps extends React.PropsWithChildren {
   onPress: () => void;
@@ -21,7 +21,7 @@ export const Button = ({
     <TouchableOpacity
       onPress={onPress}
       className={cx(
-        "flex items-center justify-center rounded-sm px-4 py-2",
+        "items-center justify-center rounded-sm px-4 py-2",
         {
           black: "bg-black",
           white: "bg-white",

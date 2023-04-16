@@ -1,4 +1,4 @@
-import "./src/utils/polyfills/platform-polyfills";
+import "./src/lib/utils/polyfills/platform-polyfills";
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";
 
