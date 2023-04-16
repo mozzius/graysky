@@ -99,7 +99,7 @@ export default function RootLayout() {
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
       // Redirect away from the sign-in page.
-      router.replace("/app");
+      router.replace("/timeline");
     }
   }, [did, segments, router, loading]);
 

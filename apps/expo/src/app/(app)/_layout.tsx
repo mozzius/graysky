@@ -1,13 +1,13 @@
 import { Stack, Tabs } from "expo-router";
 
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 
 export default function AppLayout() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   return (
     <>
       <Stack.Screen
-        options={{ headerTitle: agent.session.handle, animation: "none" }}
+        options={{ headerTitle: agent.session?.handle, animation: "none" }}
       />
       <Tabs screenOptions={{ headerShown: false }} />
     </>
