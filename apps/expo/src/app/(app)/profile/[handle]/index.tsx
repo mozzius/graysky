@@ -22,6 +22,7 @@ export default function ProfilePage() {
         options={{
           headerTransparent: true,
           headerTitle: "",
+          headerBackTitle: "",
           headerStyle: {
             backgroundColor: "transparent",
           },

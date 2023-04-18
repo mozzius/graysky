@@ -52,7 +52,6 @@
     "@graysky/tailwind-config": "*",
     "@types/babel__core": "^7.20.0",
     "@types/react": "^18.0.33",
-    "@types/react-native-fs": "^2.13.0",
     "@types/webpack-env": "^1.18.0",
     "eslint": "^8.38.0",
     "postcss": "^8.4.21",

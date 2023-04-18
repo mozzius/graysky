@@ -53,9 +53,7 @@ export default function Timeline() {
             onEndReached={() => void timeline.fetchNextPage()}
             data={timeline.data.pages.flatMap((page) => page.feed)}
             estimatedItemSize={110}
-            renderItem={({ item }) => (
-              <FeedPost item={item} key={item.post.cid} />
-            )}
+            renderItem={({ item }) => <FeedPost item={item} />}
             keyExtractor={(item) => item.post.uri}
           />
         </>
