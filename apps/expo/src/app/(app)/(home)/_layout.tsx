@@ -1,17 +1,13 @@
 import { Stack, Tabs } from "expo-router";
 import { Cloudy, User } from "lucide-react-native";
 
-import { useAgent } from "../../../lib/agent";
-
 export default function AppLayout() {
-  const agent = useAgent();
   return (
     <>
       <Stack.Screen
         options={{
-          headerTitle: agent.session?.handle,
+          headerShown: false,
           animation: "none",
-          headerBackTitleVisible: false,
         }}
       />
       <Tabs screenOptions={{ headerShown: false }}>

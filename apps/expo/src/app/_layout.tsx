@@ -9,12 +9,11 @@ import {
   type AtpSessionEvent,
 } from "@atproto/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 import { AgentProvider } from "../lib/agent";
+import { queryClient } from "../lib/query-client";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
-
-const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const segments = useSegments();
@@ -39,7 +38,7 @@ export default function RootLayout() {
             void AsyncStorage.removeItem("session");
             setSession(null);
             Alert.alert(
-              "An error occurred",
+              "Could not log you in",
               "Please check your details and try again",
             );
             break;

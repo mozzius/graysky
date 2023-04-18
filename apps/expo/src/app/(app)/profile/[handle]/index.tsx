@@ -1,8 +1,8 @@
-import { Image, ScrollView, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { Stack, useSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 
+import { ProfileInfo } from "../../../../components/profile-info";
 import { useAuthedAgent } from "../../../../lib/agent";
 
 export default function ProfilePage() {
@@ -16,8 +16,6 @@ export default function ProfilePage() {
     return profile.data;
   });
 
-  if (!profile.data) return null;
-
   return (
     <ScrollView>
       <Stack.Screen
@@ -29,12 +27,13 @@ export default function ProfilePage() {
           },
         }}
       />
-      <Image
-        source={{ uri: profile.data.banner }}
-        className="h-48 w-full"
-        alt="banner image"
-      />
-      <Text>{JSON.stringify(profile.data, null, 2)}</Text>
+      {profile.data ? (
+        <ProfileInfo profile={profile.data} />
+      ) : (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator />
+        </View>
+      )}
     </ScrollView>
   );
 }
