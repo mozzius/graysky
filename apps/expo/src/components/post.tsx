@@ -1,12 +1,14 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
-import { type AppBskyFeedDefs, type AppBskyFeedPost } from "@atproto/api";
+import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
 
 import { useLike, useRepost } from "../lib/hooks";
+import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
-import { Embed, type PostEmbed } from "./embed";
+import { Embed } from "./embed";
+import { RichText } from "./rich-text";
 
 interface Props {
   post: AppBskyFeedDefs.ThreadViewPost["post"];
@@ -19,6 +21,12 @@ export const Post = ({ post, hasReply }: Props) => {
 
   const profileHref = `/profile/${post.author.handle}`;
 
+  if (!AppBskyFeedPost.isRecord(post.record)) {
+    return null;
+  }
+
+  assert(AppBskyFeedPost.validateRecord(post.record));
+
   return (
     <View
       className={cx(
@@ -27,7 +35,7 @@ export const Post = ({ post, hasReply }: Props) => {
       )}
     >
       <Link href={profileHref} asChild>
-        <TouchableOpacity className="flex-row">
+        <TouchableOpacity className="mb-2 flex-row">
           {post.author.avatar ? (
             <Image
               source={{ uri: post.author.avatar }}
@@ -60,11 +68,9 @@ export const Post = ({ post, hasReply }: Props) => {
         </TouchableOpacity>
       </Link>
       {/* text content */}
-      <Text className="mt-3 text-lg leading-6">
-        {(post.record as AppBskyFeedPost.Record).text}
-      </Text>
+      <RichText value={post.record.text} size="lg" />
       {/* embeds */}
-      {post.embed && <Embed content={post.embed as PostEmbed} />}
+      {post.embed && <Embed content={post.embed} truncate={false} />}
       {/* actions */}
       <View className="mt-4 flex-row justify-between">
         <TouchableOpacity className="flex-row items-center gap-2">

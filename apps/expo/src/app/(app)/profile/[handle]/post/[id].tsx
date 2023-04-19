@@ -1,5 +1,5 @@
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
-import { Stack, useSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -7,13 +7,18 @@ import { Post } from "../../../../../components/post";
 import { useAuthedAgent } from "../../../../../lib/agent";
 
 export default function PostPage() {
-  const { handle, id } = useSearchParams() as { id: string; handle: string };
+  const { handle, id } = useLocalSearchParams() as {
+    id: string;
+    handle: string;
+  };
   const agent = useAuthedAgent();
 
   const thread = useQuery(["profile", handle, "post", id], async () => {
-    const {
-      data: { did },
-    } = await agent.resolveHandle({ handle });
+    let did = handle;
+    if (!did.startsWith("did:")) {
+      const { data } = await agent.resolveHandle({ handle });
+      did = data.did;
+    }
     const uri = `at://${did}/app.bsky.feed.post/${id}`;
     const postThread = await agent.getPostThread({ uri });
     return postThread.data.thread;

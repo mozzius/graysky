@@ -1,5 +1,5 @@
 import { ActivityIndicator, ScrollView, View } from "react-native";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { ProfileInfo } from "../../../components/profile-info";
 import { useAuthedAgent } from "../../../lib/agent";
@@ -12,6 +12,18 @@ export default function ProfilePage() {
       actor: agent.session.handle,
     });
     return profile.data;
+  });
+
+  const profilePosts = useInfiniteQuery({
+    queryKey: ["profile", agent.session.handle, "posts"],
+    queryFn: async ({ pageParam }) => {
+      const timeline = await agent.getAuthorFeed({
+        actor: agent.session.handle,
+        cursor: pageParam as string | undefined,
+      });
+      return timeline.data;
+    },
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   return (

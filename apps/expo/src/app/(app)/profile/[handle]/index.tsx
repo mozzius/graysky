@@ -1,12 +1,12 @@
 import { ActivityIndicator, ScrollView, View } from "react-native";
-import { Stack, useSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProfileInfo } from "../../../../components/profile-info";
 import { useAuthedAgent } from "../../../../lib/agent";
 
 export default function ProfilePage() {
-  const { handle } = useSearchParams() as { handle: string };
+  const { handle } = useLocalSearchParams() as { handle: string };
   const agent = useAuthedAgent();
 
   const profile = useQuery(["profile", handle], async () => {

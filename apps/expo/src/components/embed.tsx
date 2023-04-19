@@ -9,12 +9,16 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import {
-  type AppBskyEmbedExternal,
-  type AppBskyEmbedImages,
-  type AppBskyEmbedRecord,
-  type AppBskyEmbedRecordWithMedia,
-  type AppBskyFeedPost,
+  AppBskyEmbedExternal,
+  AppBskyEmbedImages,
+  AppBskyEmbedRecord,
+  AppBskyEmbedRecordWithMedia,
+  AppBskyFeedPost,
+  type AppBskyActorDefs,
+  type AppBskyFeedDefs,
 } from "@atproto/api";
+
+import { assert } from "../lib/utils/assert";
 
 function useImageAspectRatio(imageUrl: string) {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -39,111 +43,88 @@ function useImageAspectRatio(imageUrl: string) {
   return aspectRatio;
 }
 
-type EmbeddedImage = {
-  $type: "app.bsky.embed.images#view";
-} & AppBskyEmbedImages.View;
-
-type EmbeddedExternal = {
-  $type: "app.bsky.embed.external#view";
-} & AppBskyEmbedExternal.View;
-
-type EmbeddedRecord = {
-  $type: "app.bsky.embed.record#view";
-} & AppBskyEmbedRecord.View;
-
-type EmbeddedRecordWithMedia = {
-  $type: "app.bsky.embed.record#viewWithMedia";
-} & AppBskyEmbedRecordWithMedia.View;
-
-export type PostEmbed =
-  | EmbeddedImage
-  | EmbeddedExternal
-  | EmbeddedRecord
-  | EmbeddedRecordWithMedia;
-
 interface Props {
-  content: PostEmbed;
+  content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
+  truncate?: boolean;
 }
 
-export const Embed = ({ content }: Props) => {
+export const Embed = ({ content, truncate = true }: Props) => {
   try {
-    switch (content.$type) {
-      case "app.bsky.embed.images#view":
-        return <ImageEmbed content={content} />;
-      case "app.bsky.embed.external#view":
-        return (
-          <TouchableOpacity
-            onPress={() => void Linking.openURL(content.external.uri)}
-            className="my-1.5 rounded border border-neutral-300 p-2"
-          >
-            <Text className="text-base font-semibold" numberOfLines={2}>
-              {content.external.title || content.external.uri}
-            </Text>
-
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
-              {content.external.uri}
-            </Text>
-          </TouchableOpacity>
-        );
-      case "app.bsky.embed.record#view":
-        // may break - TODO figure this out
-        const record = content.record as AppBskyEmbedRecord.ViewRecord;
-        const value = record.value as {
-          $type: "app.bsky.feed.post";
-        } & AppBskyFeedPost.Record;
-        let postContent = null;
-
-        switch (value.$type) {
-          case "app.bsky.feed.post":
-            postContent = (
-              <Text className="mt-1 text-base leading-5" numberOfLines={4}>
-                {value.text}
-              </Text>
-            );
-            break;
-          default:
-            console.warn("Unsupported nested embed type", content);
-            postContent = (
-              <Text className="mt-1 text-base italic">
-                Unsupported nested embed type
-              </Text>
-            );
-        }
-
-        return (
-          <PostEmbed author={record.author} uri={record.uri}>
-            {postContent}
-          </PostEmbed>
-        );
-      case "app.bsky.embed.record#viewWithMedia":
-        // may break - TODO figure this out
-        const recordWithMedia =
-          content.record as unknown as AppBskyEmbedRecord.ViewRecord;
-
-        console.log(JSON.stringify(recordWithMedia, null, 2));
-
-        return (
-          <PostEmbed
-            author={recordWithMedia.author}
-            uri={recordWithMedia.uri}
-          ></PostEmbed>
-        );
-
-      default:
-        console.info("Unsupported embed type", content);
-        throw new Error("Unsupported embed type");
+    // Case 1: Image
+    if (AppBskyEmbedImages.isView(content)) {
+      assert(AppBskyEmbedImages.validateView(content));
+      return <ImageEmbed content={content} />;
     }
+
+    // Case 2: External link
+    if (AppBskyEmbedExternal.isView(content)) {
+      assert(AppBskyEmbedExternal.validateView(content));
+      return (
+        <TouchableOpacity
+          onPress={() => void Linking.openURL(content.external.uri)}
+          className="my-1.5 rounded border border-neutral-300 p-2"
+        >
+          <Text className="text-base font-semibold" numberOfLines={2}>
+            {content.external.title || content.external.uri}
+          </Text>
+
+          <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            {content.external.uri}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+
+    // Case 3: Record (quote or linked post)
+    let record: AppBskyEmbedRecord.View["record"] | null = null;
+    let media: AppBskyEmbedRecordWithMedia.View["media"] | null = null;
+
+    if (AppBskyEmbedRecord.isView(content)) {
+      assert(AppBskyEmbedRecord.validateView(content));
+      record = content.record;
+    }
+
+    if (AppBskyEmbedRecordWithMedia.isView(content)) {
+      assert(AppBskyEmbedRecordWithMedia.validateView(content));
+      record = content.record.record;
+      media = content.media;
+    }
+
+    if (record !== null) {
+      // record can either be ViewRecord or ViewNotFound
+      if (!AppBskyEmbedRecord.isViewRecord(record))
+        throw new Error("Not found");
+      assert(AppBskyEmbedRecord.validateViewRecord(record));
+
+      if (!AppBskyFeedPost.isRecord(record.value))
+        throw new Error("An error occurred");
+      assert(AppBskyFeedPost.validateRecord(record.value));
+
+      return (
+        <PostEmbed author={record.author} uri={record.uri}>
+          <Text
+            className="mt-1 text-base leading-5"
+            numberOfLines={truncate ? 4 : undefined}
+          >
+            {record.value.text}
+          </Text>
+          {media && <Embed content={media} />}
+        </PostEmbed>
+      );
+    }
+
+    throw new Error("Unsupported embed type");
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
       <View className="my-1.5 rounded bg-neutral-100 p-2">
-        <Text className="text-center">Unsupported embed type</Text>
+        <Text className="text-center">{(err as Error).message}</Text>
       </View>
     );
   }
 };
 
-const ImageEmbed = ({ content }: { content: EmbeddedImage }) => {
+const ImageEmbed = ({ content }: { content: AppBskyEmbedImages.View }) => {
   const aspectRatio = useImageAspectRatio(content.images[0]!.thumb);
   switch (content.images.length) {
     case 0:
@@ -216,7 +197,7 @@ const PostEmbed = ({
   uri,
   children,
 }: React.PropsWithChildren<{
-  author: AppBskyEmbedRecord.ViewRecord["author"];
+  author: AppBskyActorDefs.ProfileViewBasic;
   uri: string;
 }>) => {
   const profileHref = `/profile/${author.handle}`;

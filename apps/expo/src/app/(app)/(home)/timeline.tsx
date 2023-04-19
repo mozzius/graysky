@@ -52,7 +52,7 @@ export default function Timeline() {
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
             data={timeline.data.pages.flatMap((page) => page.feed)}
-            estimatedItemSize={110}
+            estimatedItemSize={367}
             renderItem={({ item }) => <FeedPost item={item} />}
             keyExtractor={(item) => item.post.uri}
           />

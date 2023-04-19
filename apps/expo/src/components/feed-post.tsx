@@ -1,12 +1,14 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
-import { type AppBskyFeedDefs, type AppBskyFeedPost } from "@atproto/api";
+import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
 
 import { useLike, useRepost } from "../lib/hooks";
+import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
-import { Embed, type PostEmbed } from "./embed";
+import { Embed } from "./embed";
+import { RichText } from "./rich-text";
 
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
@@ -21,8 +23,16 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
 
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
+  if (!AppBskyFeedPost.isRecord(item.post.record)) {
+    return null;
+  }
+
+  assert(AppBskyFeedPost.validateRecord(item.post.record));
+
+  // TODO - don't nest feedposts!
+
   return (
-    <>
+    <View>
       {item.reply?.parent && (
         <FeedPost item={{ post: item.reply.parent }} hasReply />
       )}
@@ -86,15 +96,11 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
             {/* text content */}
             <Link href={postHref} asChild>
               <TouchableOpacity>
-                <Text className="text-base leading-6">
-                  {(item.post.record as AppBskyFeedPost.Record).text}
-                </Text>
+                <RichText value={item.post.record.text} />
               </TouchableOpacity>
             </Link>
             {/* embeds */}
-            {item.post.embed && (
-              <Embed content={item.post.embed as PostEmbed} />
-            )}
+            {item.post.embed && <Embed content={item.post.embed} />}
             {/* actions */}
             <View className="mt-2 flex-row justify-between">
               <TouchableOpacity className="flex-row items-center gap-2">
@@ -138,7 +144,7 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
           </View>
         </View>
       </View>
-    </>
+    </View>
   );
 };
 
