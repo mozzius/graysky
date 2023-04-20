@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
@@ -19,6 +20,21 @@ export default function Timeline() {
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
+
+  const data = useMemo(() => {
+    if (timeline.status !== "success") return [];
+    const flat = timeline.data.pages.flatMap((page) => page.feed);
+    return flat
+      .map((item) =>
+        item.reply
+          ? [
+              { item: { post: item.reply.parent }, hasReply: true },
+              { item, hasReply: false },
+            ]
+          : [{ item, hasReply: false }],
+      )
+      .flat();
+  }, [timeline]);
 
   switch (timeline.status) {
     case "loading":
@@ -51,10 +67,12 @@ export default function Timeline() {
             refreshing={timeline.isRefetching}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
-            data={timeline.data.pages.flatMap((page) => page.feed)}
-            estimatedItemSize={367}
-            renderItem={({ item }) => <FeedPost item={item} />}
-            keyExtractor={(item) => item.post.uri}
+            data={data}
+            estimatedItemSize={91}
+            renderItem={({ item: { hasReply, item } }) => (
+              <FeedPost item={item} hasReply={hasReply} />
+            )}
+            keyExtractor={({ item }) => item.post.uri}
           />
         </>
       );
