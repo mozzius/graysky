@@ -1,6 +1,6 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
 
 import { useLike, useRepost } from "../lib/hooks";
@@ -40,11 +40,7 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
       )}
       // onLayout={(x) => console.log(x.nativeEvent.layout)}
     >
-      {item.reason && (
-        <View className="mb-1 ml-16 flex-1 flex-row items-center">
-          {reasonToText(item.reason as AppBskyFeedDefs.ReasonRepost)}
-        </View>
-      )}
+      <Reason item={item} />
       <View className="flex-1 flex-row">
         {/* left col */}
         <View className="flex flex-col items-center px-2">
@@ -143,19 +139,18 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
   );
 };
 
-const reasonToText = (reason: AppBskyFeedDefs.ReasonRepost) => {
-  switch (reason.$type) {
-    case "app.bsky.feed.defs#reasonRepost":
-      return (
-        <>
-          <Repeat color="#1C1C1E" size={12} />
-          <Text className="ml-1.5 flex-1 text-sm" numberOfLines={1}>
-            Reposted by {reason.by.displayName ?? reason.by.handle}
-          </Text>
-        </>
-      );
-    default:
-      console.log("unknown reason type", reason.$type);
-      return null;
-  }
+const Reason = ({ item }: Props) => {
+  if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
+  assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
+
+  return (
+    <Link href={`/profile/${item.reason.by.handle}`} asChild>
+      <Pressable className="mb-1 ml-12 flex-1 flex-row items-center">
+        <Repeat color="#1C1C1E" size={12} />
+        <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
+          Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
+        </Text>
+      </Pressable>
+    </Link>
+  );
 };
