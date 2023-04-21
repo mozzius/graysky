@@ -49,7 +49,7 @@ interface Props {
 }
 
 export const Embed = ({ content, truncate = true }: Props) => {
-  console.log(JSON.stringify(content, null, 2));
+  if (!content) return null;
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {

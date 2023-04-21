@@ -28,7 +28,7 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
           setLikeUri(like.uri);
         } catch (err) {
           setLiked(false);
-          console.log(err);
+          console.warn(err);
         }
       } else {
         try {
@@ -37,7 +37,7 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
           setLikeUri(undefined);
         } catch (err) {
           setLiked(true);
-          console.log(err);
+          console.warn(err);
         }
       }
     },
@@ -75,7 +75,7 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
           setRepostUri(repost.uri);
         } catch (err) {
           setReposted(false);
-          console.log(err);
+          console.warn(err);
         }
       } else {
         try {
@@ -84,7 +84,7 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
           setRepostUri(undefined);
         } catch (err) {
           setReposted(true);
-          console.log(err);
+          console.warn(err);
         }
       }
     },

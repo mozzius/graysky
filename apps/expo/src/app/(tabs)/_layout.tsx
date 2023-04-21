@@ -1,5 +1,5 @@
 import { Stack, Tabs } from "expo-router";
-import { Cloudy, User } from "lucide-react-native";
+import { Bell, Cloudy, Search, User } from "lucide-react-native";
 
 export default function AppLayout() {
   return (
@@ -18,6 +18,26 @@ export default function AppLayout() {
             tabBarShowLabel: false,
             tabBarIcon({ focused }) {
               return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="search"
+          options={{
+            title: "Search",
+            tabBarShowLabel: false,
+            tabBarIcon({ focused }) {
+              return <Search color={focused ? "#505050" : "#9b9b9b"} />;
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="notifications"
+          options={{
+            title: "Notifications",
+            tabBarShowLabel: false,
+            tabBarIcon({ focused }) {
+              return <Bell color={focused ? "#505050" : "#9b9b9b"} />;
             },
           }}
         />

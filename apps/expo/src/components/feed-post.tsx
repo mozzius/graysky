@@ -38,7 +38,6 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
         item.reply?.parent && "pt-0",
         !hasReply && "border-b border-b-neutral-200",
       )}
-      // onLayout={(x) => console.log(x.nativeEvent.layout)}
     >
       <Reason item={item} />
       <View className="flex-1 flex-row">
