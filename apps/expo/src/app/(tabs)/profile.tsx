@@ -1,5 +1,5 @@
-import { ProfileView } from "../../../components/profile-view";
-import { useAuthedAgent } from "../../../lib/agent";
+import { ProfileView } from "../../components/profile-view";
+import { useAuthedAgent } from "../../lib/agent";
 
 export default function ProfilePage() {
   const agent = useAuthedAgent();

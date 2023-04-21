@@ -4,9 +4,9 @@ import { Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { Button } from "../../../components/button";
-import { FeedPost } from "../../../components/feed-post";
-import { useAuthedAgent } from "../../../lib/agent";
+import { Button } from "../../components/button";
+import { FeedPost } from "../../components/feed-post";
+import { useAuthedAgent } from "../../lib/agent";
 
 export default function Timeline() {
   const agent = useAuthedAgent();

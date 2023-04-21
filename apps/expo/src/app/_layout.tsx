@@ -21,6 +21,9 @@ export default function RootLayout() {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
 
+  // need to implement this
+  // https://expo.github.io/router/docs/features/routing#shared-routes
+
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
     return new BskyAgent({

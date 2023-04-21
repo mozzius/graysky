@@ -4,10 +4,10 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
-import { FeedPost } from "../../../../../../../components/feed-post";
-import { Post } from "../../../../../../../components/post";
-import { useAuthedAgent } from "../../../../../../../lib/agent";
-import { assert } from "../../../../../../../lib/utils/assert";
+import { FeedPost } from "../../../../components/feed-post";
+import { Post } from "../../../../components/post";
+import { useAuthedAgent } from "../../../../lib/agent";
+import { assert } from "../../../../lib/utils/assert";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;

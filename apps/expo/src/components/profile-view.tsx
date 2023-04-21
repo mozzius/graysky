@@ -121,7 +121,7 @@ export const ProfileView = ({ handle }: Props) => {
             ListHeaderComponent={<ProfileInfo profile={profile.data} />}
             ListFooterComponent={
               timeline.isFetching ? (
-                <View className="w-full items-center py-4">
+                <View className="w-full items-center py-8">
                   <ActivityIndicator />
                 </View>
               ) : (
