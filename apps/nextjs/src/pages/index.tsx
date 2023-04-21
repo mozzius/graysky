@@ -1,8 +1,7 @@
 import { useState } from "react";
-import type { NextPage } from "next";
 import Head from "next/head";
 
-export const Home: NextPage = () => {
+export default function HomePage() {
   const [count, setCount] = useState(0);
 
   return (
@@ -18,4 +17,4 @@ export const Home: NextPage = () => {
       </main>
     </div>
   );
-};
+}
