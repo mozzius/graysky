@@ -61,18 +61,24 @@ export default function Timeline() {
         <>
           <Stack.Screen options={{ headerShown: true }} />
           <FlashList
+            data={data}
+            renderItem={({ item: { hasReply, item } }) => (
+              <FeedPost item={item} hasReply={hasReply} />
+            )}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => void timeline.fetchNextPage()}
             onRefresh={() => {
               if (!timeline.isRefetching) void timeline.refetch();
             }}
             refreshing={timeline.isRefetching}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => void timeline.fetchNextPage()}
-            data={data}
             estimatedItemSize={91}
-            renderItem={({ item: { hasReply, item } }) => (
-              <FeedPost item={item} hasReply={hasReply} />
-            )}
-            keyExtractor={({ item }) => item.post.uri}
+            ListFooterComponent={
+              timeline.isFetching ? (
+                <View className="w-full items-center py-4">
+                  <ActivityIndicator />
+                </View>
+              ) : null
+            }
           />
         </>
       );

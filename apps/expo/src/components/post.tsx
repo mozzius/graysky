@@ -11,11 +11,11 @@ import { Embed } from "./embed";
 import { RichText } from "./rich-text";
 
 interface Props {
-  post: AppBskyFeedDefs.ThreadViewPost["post"];
-  hasReply?: boolean;
+  post: AppBskyFeedDefs.PostView;
+  hasParent?: boolean;
 }
 
-export const Post = ({ post, hasReply }: Props) => {
+export const Post = ({ post, hasParent }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post);
   const { reposted, repostCount, toggleRepost } = useRepost(post);
 
@@ -30,8 +30,8 @@ export const Post = ({ post, hasReply }: Props) => {
   return (
     <View
       className={cx(
-        "bg-white p-4 pb-5",
-        !hasReply && "border-b border-b-neutral-200",
+        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3",
+        hasParent && "border-t",
       )}
     >
       <Link href={profileHref} asChild>

@@ -34,11 +34,13 @@ export const ProfileInfo = ({ profile }: Props) => {
       />
       <View className="relative bg-white px-4 pb-4">
         <View className="h-10 flex-row items-center justify-end">
-          <Image
-            source={{ uri: profile.avatar }}
-            className="absolute -top-10 left-0 h-20 w-20 rounded-full border-4 border-white"
-            alt="avatar image"
-          />
+          <View className="absolute -top-10 left-0 rounded-full border-4 border-white">
+            <Image
+              source={{ uri: profile.avatar }}
+              className="h-20 w-20 rounded-full"
+              alt="avatar image"
+            />
+          </View>
           {agent.session?.handle !== profile.handle && (
             <Button
               disabled={toggleFollow.isLoading}
