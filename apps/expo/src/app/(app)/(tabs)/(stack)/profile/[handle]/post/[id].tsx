@@ -4,10 +4,10 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
-import { FeedPost } from "../../../../../components/feed-post";
-import { Post } from "../../../../../components/post";
-import { useAuthedAgent } from "../../../../../lib/agent";
-import { assert } from "../../../../../lib/utils/assert";
+import { FeedPost } from "../../../../../../../components/feed-post";
+import { Post } from "../../../../../../../components/post";
+import { useAuthedAgent } from "../../../../../../../lib/agent";
+import { assert } from "../../../../../../../lib/utils/assert";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;
@@ -130,6 +130,7 @@ export default function PostPage() {
             initialScrollIndex={thread.data.index}
             // estimatedFirstItemOffset={thread.data.index * 91}
             estimatedItemSize={91}
+            getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item }) =>
               item.primary ? (
                 <Post post={item.post} hasParent={item.hasParent} />

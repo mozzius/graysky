@@ -176,17 +176,19 @@ const ImageEmbed = ({ content }: { content: AppBskyEmbedImages.View }) => {
               className="aspect-square w-[32%]"
             />
           ))}
-          <ImageBackground
-            source={{ uri: content.images[2]!.thumb }}
-            alt={content.images[2]!.alt}
-            className="flex aspect-square w-[32%] flex-row"
-          >
-            <View className="h-full w-full items-center justify-center bg-black/60 p-1">
-              <Text className="text-center text-base font-bold text-white">
-                +{content.images.length - 2}
-              </Text>
-            </View>
-          </ImageBackground>
+          <View className="aspect-square w-[32%]">
+            <ImageBackground
+              source={{ uri: content.images[2]!.thumb }}
+              alt={content.images[2]!.alt}
+              resizeMode="cover"
+            >
+              <View className="h-full w-full items-center justify-center bg-black/60 p-1">
+                <Text className="text-center text-base font-bold text-white">
+                  +{content.images.length - 2}
+                </Text>
+              </View>
+            </ImageBackground>
+          </View>
         </View>
       );
   }
