@@ -49,6 +49,7 @@ interface Props {
 }
 
 export const Embed = ({ content, truncate = true }: Props) => {
+  console.log(JSON.stringify(content, null, 2));
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
@@ -101,15 +102,19 @@ export const Embed = ({ content, truncate = true }: Props) => {
       assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
-        <PostEmbed author={record.author} uri={record.uri}>
-          <Text
-            className="mt-1 text-base leading-5"
-            numberOfLines={truncate ? 4 : undefined}
-          >
-            {record.value.text}
-          </Text>
+        <>
           {media && <Embed content={media} />}
-        </PostEmbed>
+          <PostEmbed author={record.author} uri={record.uri}>
+            <Text
+              className="mt-1 text-base leading-5"
+              numberOfLines={truncate ? 4 : undefined}
+            >
+              {record.value.text}
+            </Text>
+            {/* in what case will there be more than one? in what order do we show them? */}
+            {record.embeds && <Embed content={record.embeds[0]} />}
+          </PostEmbed>
+        </>
       );
     }
 

@@ -113,6 +113,7 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: true,
+              headerBackTitle: "",
               headerStyle: {
                 backgroundColor: "#fff",
               },

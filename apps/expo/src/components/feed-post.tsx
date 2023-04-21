@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
@@ -145,12 +145,12 @@ const Reason = ({ item }: Props) => {
 
   return (
     <Link href={`/profile/${item.reason.by.handle}`} asChild>
-      <Pressable className="mb-1 ml-12 flex-1 flex-row items-center">
+      <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color="#1C1C1E" size={12} />
         <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </Link>
   );
 };

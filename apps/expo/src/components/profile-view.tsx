@@ -62,10 +62,12 @@ export const ProfileView = ({ handle }: Props) => {
           <Stack.Screen
             options={{
               headerTitle: "",
-              headerBackTitleVisible: false,
+              headerTransparent: true,
+              headerStyle: {
+                backgroundColor: atTop ? "transparent" : undefined,
+              },
             }}
           />
-          <Stack.Screen options={{ headerTitle: "Post" }} />
           <ActivityIndicator />
         </View>
       );
@@ -75,7 +77,10 @@ export const ProfileView = ({ handle }: Props) => {
           <Stack.Screen
             options={{
               headerTitle: "",
-              headerBackTitleVisible: false,
+              headerTransparent: true,
+              headerStyle: {
+                backgroundColor: atTop ? "transparent" : undefined,
+              },
             }}
           />
           <Text className="text-center text-xl">
@@ -90,7 +95,6 @@ export const ProfileView = ({ handle }: Props) => {
             options={{
               headerTransparent: true,
               headerTitle: "",
-              headerBackTitleVisible: false,
               ...(!atTop
                 ? {
                     headerBlurEffect: "systemThinMaterialLight",
