@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Button } from "../../components/button";
 import { FeedPost } from "../../components/feed-post";
+import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -84,35 +85,23 @@ export default function Timeline() {
   const header = (
     <>
       <Stack.Screen options={{ headerShown: true }} />
-      <View className="w-full flex-row border-b border-neutral-200 bg-white">
-        <TouchableOpacity
+      <Tabs>
+        <Tab
+          text="Following"
           onPress={() => setMode("following")}
-          className={cx(
-            "ml-4 border-y-2 border-transparent py-3 text-xl",
-            mode === "following" && "border-b-black",
-          )}
-        >
-          <Text className="font-medium">Following</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          active={mode === "following"}
+        />
+        <Tab
+          text="What's Hot"
           onPress={() => setMode("popular")}
-          className={cx(
-            "ml-4 border-y-2 border-transparent py-3 text-xl",
-            mode === "popular" && "border-b-black",
-          )}
-        >
-          <Text>What&apos;s Hot</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          active={mode === "popular"}
+        />
+        <Tab
+          text="Mutuals"
           onPress={() => setMode("mutuals")}
-          className={cx(
-            "ml-4 border-y-2 border-transparent py-3 text-xl",
-            mode === "mutuals" && "border-b-black",
-          )}
-        >
-          <Text>Mutuals</Text>
-        </TouchableOpacity>
-      </View>
+          active={mode === "mutuals"}
+        />
+      </Tabs>
     </>
   );
 

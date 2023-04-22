@@ -8,13 +8,14 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useAuthedAgent } from "../lib/agent";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
+import { Tab, Tabs } from "./tabs";
 
 interface Props {
   handle: string;
 }
 
 export const ProfileView = ({ handle }: Props) => {
-  const [withReplies] = useState(false);
+  const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
 
@@ -26,13 +27,23 @@ export const ProfileView = ({ handle }: Props) => {
   });
 
   const timeline = useInfiniteQuery({
-    queryKey: ["profile", handle, "feed"],
+    queryKey: ["profile", handle, "feed", mode],
     queryFn: async ({ pageParam }) => {
-      const timeline = await agent.getAuthorFeed({
-        actor: handle,
-        cursor: pageParam as string | undefined,
-      });
-      return timeline.data;
+      switch (mode) {
+        case "posts":
+        case "replies":
+          const feed = await agent.getAuthorFeed({
+            actor: handle,
+            cursor: pageParam as string | undefined,
+          });
+          return feed.data;
+        case "likes":
+          // ????????
+          return {
+            feed: [],
+            cursor: undefined,
+          };
+      }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
@@ -42,18 +53,15 @@ export const ProfileView = ({ handle }: Props) => {
     const flat = timeline.data.pages.flatMap((page) => page.feed);
     return flat
       .map((item) =>
-        item.reply
-          ? withReplies
-            ? [
-                { item: { post: item.reply.parent }, hasReply: true },
-                { item, hasReply: false },
-              ]
-            : []
+        mode === "replies" && item.reply
+          ? [
+              { item: { post: item.reply.parent }, hasReply: true },
+              { item, hasReply: false },
+            ]
           : [{ item, hasReply: false }],
       )
-      .flat()
-      .filter(Boolean);
-  }, [timeline, withReplies]);
+      .flat();
+  }, [timeline, mode]);
 
   switch (profile.status) {
     case "loading":
@@ -107,10 +115,31 @@ export const ProfileView = ({ handle }: Props) => {
             }}
           />
           <FlashList
-            data={data}
-            renderItem={({ item: { hasReply, item } }) => (
-              <FeedPost item={item} hasReply={hasReply} />
-            )}
+            data={[null, ...data]}
+            renderItem={({ item }) =>
+              item === null ? (
+                <Tabs>
+                  <Tab
+                    text="Posts"
+                    active={mode === "posts"}
+                    onPress={() => void setMode("posts")}
+                  />
+                  <Tab
+                    text="Posts & Replies"
+                    active={mode === "replies"}
+                    onPress={() => void setMode("replies")}
+                  />
+                  <Tab
+                    text="Likes"
+                    active={mode === "likes"}
+                    onPress={() => void setMode("likes")}
+                  />
+                </Tabs>
+              ) : (
+                <FeedPost {...item} />
+              )
+            }
+            stickyHeaderIndices={[0]}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
             // onRefresh={() => {

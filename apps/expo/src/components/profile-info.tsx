@@ -50,7 +50,16 @@ export const ProfileInfo = ({ profile }: Props) => {
           )}
         </View>
         <Text className="mt-1 text-2xl font-medium">{profile.displayName}</Text>
-        <Text className="text-neutral-500">@{profile.handle}</Text>
+        <Text>
+          {profile.viewer?.followedBy && (
+            <>
+              <Text className="bg-neutral-100 px-1 font-semibold">
+                {" Follows you "}
+              </Text>{" "}
+            </>
+          )}
+          <Text className="text-neutral-500">@{profile.handle}</Text>
+        </Text>
         <View className="mt-3 flex-row">
           <Text>
             <Text className="font-bold">{profile.followersCount}</Text>{" "}
@@ -58,6 +67,9 @@ export const ProfileInfo = ({ profile }: Props) => {
           </Text>
           <Text className="ml-4">
             <Text className="font-bold">{profile.followsCount}</Text> Following
+          </Text>
+          <Text className="ml-4">
+            <Text className="font-bold">{profile.postsCount ?? 0}</Text> Posts
           </Text>
         </View>
         {profile.description && (
