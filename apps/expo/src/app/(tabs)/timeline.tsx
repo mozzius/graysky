@@ -1,16 +1,29 @@
 import { useMemo, useState } from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
+import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Button } from "../../components/button";
 import { FeedPost } from "../../components/feed-post";
 import { useAuthedAgent } from "../../lib/agent";
+import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
 
+const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
+  if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
+    assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
+    return item.reason.by.did;
+  } else {
+    return item.post.author.did;
+  }
+};
+
 export default function Timeline() {
-  const [mode, setMode] = useState<"popular" | "following">("following");
+  const [mode, setMode] = useState<"popular" | "following" | "mutuals">(
+    "following",
+  );
   const agent = useAuthedAgent();
 
   const timeline = useInfiniteQuery({
@@ -23,10 +36,31 @@ export default function Timeline() {
           });
           return popular.data;
         case "following":
-          const timeline = await agent.getTimeline({
+          const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
-          return timeline.data;
+          return following.data;
+        case "mutuals":
+          const all = await agent.getTimeline({
+            cursor: pageParam as string | undefined,
+          });
+          const actors = new Set<string>();
+          for (const item of all.data.feed) {
+            const actor = actorFromPost(item);
+            actors.add(actor);
+          }
+          const profiles = await agent.getProfiles({ actors: [...actors] });
+          return {
+            feed: all.data.feed.filter((item) => {
+              const actor = actorFromPost(item);
+              const profile = profiles.data.profiles.find(
+                (profile) => profile.did === actor,
+              );
+              if (!profile) return false;
+              return profile.viewer?.following && profile.viewer?.followedBy;
+            }),
+            cursor: all.data.cursor,
+          };
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -34,8 +68,8 @@ export default function Timeline() {
 
   const data = useMemo(() => {
     if (timeline.status !== "success") return [];
-    const flat = timeline.data.pages.flatMap((page) => page.feed);
-    return flat
+    const flattened = timeline.data.pages.flatMap((page) => page.feed);
+    return flattened
       .map((item) =>
         item.reply
           ? [
@@ -68,6 +102,15 @@ export default function Timeline() {
           )}
         >
           <Text>What&apos;s Hot</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setMode("mutuals")}
+          className={cx(
+            "ml-4 border-y-2 border-transparent py-3 text-xl",
+            mode === "mutuals" && "border-b-black",
+          )}
+        >
+          <Text>Mutuals</Text>
         </TouchableOpacity>
       </View>
     </>
