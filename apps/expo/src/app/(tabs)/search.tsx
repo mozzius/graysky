@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-import { useAuthedAgent } from "../../lib/agent";
+// import { useAuthedAgent } from "../../lib/agent";
 
 export default function SearchPage() {
-  const agent = useAuthedAgent();
+  // const agent = useAuthedAgent();
 
   return (
     <View className="flex-1 justify-center">

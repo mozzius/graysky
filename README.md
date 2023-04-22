@@ -15,7 +15,9 @@ pnpm install
 You can then start the expo server with:
 
 ```bash
-pnpm dev
+pnpm dev:expo
 ```
 
-(Note: this is a shortcut for `expo start --ios`)
+(Note: this is just a shortcut for `expo start`)
+
+Then just scan the QR code!
