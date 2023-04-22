@@ -21,3 +21,5 @@ pnpm dev:expo
 (Note: this is just a shortcut for `expo start`)
 
 Then just scan the QR code!
+
+OoOps!
