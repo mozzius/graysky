@@ -46,7 +46,8 @@ export const ProfileView = ({ handle }: Props) => {
           const { data } = await agent.api.com.atproto.repo.listRecords({
             repo: handle,
             collection: "app.bsky.feed.like",
-            limit: 3,
+            // smaller limit since we have to fetch each post
+            limit: 10,
             cursor: pageParam as string | undefined,
           });
 
