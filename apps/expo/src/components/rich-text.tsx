@@ -31,7 +31,14 @@ export const RichText = ({ value, size = "base" }: Props) => {
                 className="text-blue-500"
                 onPress={(evt) => {
                   evt.stopPropagation();
-                  void Linking.openURL(segment.link!.uri);
+                  const url = segment.link!.uri;
+                  // TODO: better heuristic?
+                  if (url.startsWith("https://bsky.app/profile")) {
+                    const path = url.slice("https://bsky.app".length);
+                    router.push(path);
+                  } else {
+                    void Linking.openURL(url);
+                  }
                 }}
               >
                 {segment.text}
