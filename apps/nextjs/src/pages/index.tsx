@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Head from "next/head";
 
+import { api } from "~/utils/api";
+
 export default function HomePage() {
-  const [count, setCount] = useState(0);
+  const query = api.useless.ping.useQuery();
 
   return (
     <div>
@@ -12,8 +14,7 @@ export default function HomePage() {
 
       <main>
         <h1>Home</h1>
-        <p>Count: {count}</p>
-        <button onClick={() => setCount((c) => c + 1)} />
+        <p>{query.data}</p>
       </main>
     </div>
   );
