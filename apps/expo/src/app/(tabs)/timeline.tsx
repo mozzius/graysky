@@ -12,6 +12,7 @@ import { cx } from "../../lib/utils/cx";
 export default function Timeline() {
   const [mode, setMode] = useState<"popular" | "following">("following");
   const agent = useAuthedAgent();
+
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", mode],
     queryFn: async ({ pageParam }) => {
