@@ -114,7 +114,7 @@ export const FeedPost = ({
           )}
           {/* text content */}
           <Link href={postHref} asChild>
-            <Pressable>
+            <Pressable className="my-0.5">
               <RichText value={item.post.record.text} />
             </Pressable>
           </Link>

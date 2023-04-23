@@ -75,8 +75,9 @@ export const RichText = ({ value, size = "base" }: Props) => {
 
   return (
     <Text
-      className={cx("text-base", {
+      className={cx({
         "text-sm": size === "sm",
+        "text-base leading-[22px]": size === "base",
         "text-lg leading-6": size === "lg",
       })}
     >

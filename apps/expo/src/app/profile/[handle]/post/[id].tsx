@@ -109,7 +109,7 @@ export default function PostPage() {
 
   // hacky but needed until https://github.com/Shopify/flash-list/issues/671 is fixed
   useEffect(() => {
-    if (thread.data) {
+    if (thread.data && !hasScrolled.current) {
       const index = thread.data.index;
       hasScrolled.current = true;
       setTimeout(() => {
@@ -146,6 +146,11 @@ export default function PostPage() {
             ref={ref}
             data={thread.data.posts}
             estimatedItemSize={91}
+            refreshing={thread.isRefetching}
+            onRefresh={() => {
+              if (!thread.isRefetching) thread.refetch();
+            }}
+            ListFooterComponent={<View className="h-20" />}
             getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item, index }) =>
               item.primary ? (
@@ -158,7 +163,6 @@ export default function PostPage() {
                 />
               )
             }
-            ListFooterComponent={<View className="h-screen" />}
           />
         </>
       );

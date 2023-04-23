@@ -109,11 +109,13 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <AgentProvider value={agent}>
+          <StatusBar style="dark" />
           {loading && <SplashScreen />}
           <Stack
             screenOptions={{
               headerShown: true,
               headerBackTitle: "",
+              fullScreenGestureEnabled: true,
               headerStyle: {
                 backgroundColor: "#fff",
               },
