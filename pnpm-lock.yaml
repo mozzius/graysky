@@ -82,6 +82,9 @@ importers:
       expo-status-bar:
         specifier: ~1.4.4
         version: 1.4.4
+      expo-updates:
+        specifier: ^0.16.4
+        version: 0.16.4(expo@48.0.11)
       fast-text-encoding:
         specifier: ^1.0.6
         version: 1.0.6
@@ -5165,6 +5168,10 @@ packages:
       - supports-color
     dev: false
 
+  /expo-eas-client@0.5.1:
+    resolution: {integrity: sha512-i3L/iwhI6cFhSUpVsCxSU5qehNznL/rQFYoof6qUIh3CMyijCuTEwjEhwbw2a5W6obPBzQUXbomMSFDO6D5/0Q==}
+    dev: false
+
   /expo-file-system@15.2.2(expo@48.0.11):
     resolution: {integrity: sha512-LFkOLcWwlmnjkURxZ3/0ukS35OswX8iuQknLHRHeyk8mUA8fpRPPelD/a1lS+yclqfqavMJmTXVKM1Nsq5XVMA==}
     peerDependencies:
@@ -5181,6 +5188,10 @@ packages:
     dependencies:
       expo: 48.0.11(@babel/core@7.21.4)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-json-utils@0.5.1:
+    resolution: {integrity: sha512-Y5boshyf40vPjwxNnOIfacZPNkOymecZRQ1k+TSXlq6gnw5XRsnM5hnP0VLVYhdv8x+9CX6E1fDsDUNvsK38Dg==}
     dev: false
 
   /expo-keep-awake@12.0.1(expo@48.0.11):
@@ -5202,6 +5213,12 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-manifests@0.5.2:
+    resolution: {integrity: sha512-WnsTlE2le3pV/B/AJPKTOSjb2K9AT1mPDCfQxTQ/KMCwF95saoXYt2OPF3hxZNaMAV6VIAhXgd5Y6wpcH9ruPQ==}
+    dependencies:
+      expo-json-utils: 0.5.1
     dev: false
 
   /expo-modules-autolinking@1.2.0:
@@ -5284,6 +5301,41 @@ packages:
 
   /expo-status-bar@1.4.4:
     resolution: {integrity: sha512-5DV0hIEWgatSC3UgQuAZBoQeaS9CqeWRZ3vzBR9R/+IUD87Adbi4FGhU10nymRqFXOizGsureButGZIXPs7zEA==}
+    dev: false
+
+  /expo-structured-headers@3.1.1:
+    resolution: {integrity: sha512-oV6yNGsJxQt7S9HYZTr+4L0I/yRwOF38USJ81I1KiN3GQI4C2z7P5OosyREA2VL9O+kUZVCCpNYsBLSa3/5bAQ==}
+    dev: false
+
+  /expo-updates-interface@0.9.1(expo@48.0.11):
+    resolution: {integrity: sha512-wk88LLhseQ7LJvxdN7BTKiryyqALxnrvr+lyHK3/prg76Yy0EGi2Q/oE/rtFyyZ1JmQDRbO/5pdX0EE6QqVQXQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
+    dev: false
+
+  /expo-updates@0.16.4(expo@48.0.11):
+    resolution: {integrity: sha512-hEUotP10sBiYn6dvkYC2rIa+kAmsBuaMp32sIVNAYEwKMQJqEwqNAKTU6CpJ4Aoc//BYL2Hv8qNo/UsT4rATRg==}
+    hasBin: true
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/code-signing-certificates': 0.0.5
+      '@expo/config': 8.0.2
+      '@expo/config-plugins': 6.0.1
+      '@expo/metro-config': 0.7.1
+      arg: 4.1.0
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-eas-client: 0.5.1
+      expo-manifests: 0.5.2
+      expo-structured-headers: 3.1.1
+      expo-updates-interface: 0.9.1(expo@48.0.11)
+      fbemitter: 3.0.0
+      resolve-from: 5.0.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
     dev: false
 
   /expo@48.0.11(@babel/core@7.21.4):

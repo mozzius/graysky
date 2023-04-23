@@ -29,6 +29,7 @@
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
+    "expo-updates": "^0.16.4",
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",
     "lucide-react-native": "^0.172.0",
