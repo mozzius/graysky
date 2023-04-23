@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
@@ -79,16 +79,16 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
               </Text>
               {/* get age of post - e.g. 5m */}
               <Text className="text-base text-neutral-500">
-                {" "}
-                · {timeSince(new Date(item.post.indexedAt))}
+                {" · "}
+                {timeSince(new Date(item.post.indexedAt))}
               </Text>
             </TouchableOpacity>
           </Link>
           {/* text content */}
           <Link href={postHref} asChild>
-            <TouchableOpacity>
+            <Pressable>
               <RichText value={item.post.record.text} />
-            </TouchableOpacity>
+            </Pressable>
           </Link>
           {/* embeds */}
           {item.post.embed && <Embed content={item.post.embed} />}

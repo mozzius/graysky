@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 3.3.0"
+    "version": ">= 3.10.0"
   },
   "build": {
     "development": {
@@ -13,20 +13,12 @@
     "preview": {
       "distribution": "internal",
       "ios": {
-        "simulator": true,
         "resourceClass": "m-medium"
       }
     },
     "production": {
       "ios": {
         "resourceClass": "m-medium"
-      }
-    },
-    "development-simulator": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
       }
     }
   },

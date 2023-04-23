@@ -1,10 +1,11 @@
 import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
-  name: "graysky",
+  name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
-  version: "1.0.0",
+  version: "0.0.1",
+  owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
@@ -18,10 +19,13 @@ const defineConfig = (): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    supportsTablet: true,
-    bundleIdentifier: "app.graysky.ios",
+    supportsTablet: false,
+    bundleIdentifier: "dev.mozzius.graysky",
+    buildNumber: "1",
   },
   android: {
+    package: "dev.mozzius.graysky",
+    versionCode: 1,
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#888888",
@@ -29,7 +33,7 @@ const defineConfig = (): ExpoConfig => ({
   },
   extra: {
     eas: {
-      projectId: "graysky",
+      projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
     },
   },
   plugins: ["./expo-plugins/with-modify-gradle.js"],
