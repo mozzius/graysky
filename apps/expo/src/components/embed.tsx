@@ -46,15 +46,16 @@ function useImageAspectRatio(imageUrl: string) {
 interface Props {
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
+  depth?: number;
 }
 
-export const Embed = ({ content, truncate = true }: Props) => {
+export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return <ImageEmbed content={content} />;
+      return <ImageEmbed content={content} depth={depth} />;
     }
 
     // Case 2: External link
@@ -103,7 +104,7 @@ export const Embed = ({ content, truncate = true }: Props) => {
 
       return (
         <>
-          {media && <Embed content={media} />}
+          {media && <Embed content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             <Text
               className="mt-1 text-base leading-5"
@@ -112,7 +113,9 @@ export const Embed = ({ content, truncate = true }: Props) => {
               {record.value.text}
             </Text>
             {/* in what case will there be more than one? in what order do we show them? */}
-            {record.embeds && <Embed content={record.embeds[0]} />}
+            {record.embeds && (
+              <Embed content={record.embeds[0]} depth={depth + 1} />
+            )}
           </PostEmbed>
         </>
       );
@@ -129,7 +132,13 @@ export const Embed = ({ content, truncate = true }: Props) => {
   }
 };
 
-const ImageEmbed = ({ content }: { content: AppBskyEmbedImages.View }) => {
+const ImageEmbed = ({
+  content,
+  depth,
+}: {
+  content: AppBskyEmbedImages.View;
+  depth: number;
+}) => {
   const aspectRatio = useImageAspectRatio(content.images[0]!.thumb);
   switch (content.images.length) {
     case 0:
@@ -140,13 +149,18 @@ const ImageEmbed = ({ content }: { content: AppBskyEmbedImages.View }) => {
         <Image
           source={{ uri: image.thumb }}
           alt={image.alt}
-          className="my-1.5 w-full rounded"
-          style={{ aspectRatio }}
+          className="mt-1.5 w-full rounded"
+          style={{
+            aspectRatio:
+              depth > 0
+                ? Math.max(aspectRatio, 1.5)
+                : Math.max(aspectRatio, 0.5),
+          }}
         />
       );
     case 2:
       return (
-        <View className="my-1.5 flex flex-row justify-between overflow-hidden rounded">
+        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image) => (
             <Image
               key={image.fullsize}
@@ -159,7 +173,7 @@ const ImageEmbed = ({ content }: { content: AppBskyEmbedImages.View }) => {
       );
     case 3:
       return (
-        <View className="my-1.5 flex flex-row justify-between overflow-hidden rounded">
+        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image) => (
             <Image
               key={image.fullsize}
@@ -213,7 +227,7 @@ const PostEmbed = ({
 
   return (
     <Link href={postHref} asChild>
-      <TouchableOpacity className="my-1.5 flex-1 rounded border border-neutral-300 p-2">
+      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
         <View className="flex flex-row items-center overflow-hidden">
           <Image
             source={{ uri: author.avatar }}
