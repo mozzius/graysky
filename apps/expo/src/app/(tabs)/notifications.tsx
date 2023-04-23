@@ -346,7 +346,12 @@ const PostNotification = ({
               <RichText value={post.data.post.record.text} size="sm" />
             </Text>
             {post.data.post.embed && (
-              <Embed content={post.data.post.embed} truncate depth={1} />
+              <Embed
+                uri={post.data.post.uri}
+                content={post.data.post.embed}
+                truncate
+                depth={1}
+              />
             )}
           </View>
         );

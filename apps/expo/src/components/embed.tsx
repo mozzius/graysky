@@ -3,6 +3,7 @@ import {
   Image,
   ImageBackground,
   Linking,
+  Pressable,
   Text,
   TouchableOpacity,
   View,
@@ -18,7 +19,9 @@ import {
   type AppBskyFeedDefs,
 } from "@atproto/api";
 
+import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
+import { cx } from "../lib/utils/cx";
 
 function useImageAspectRatio(imageUrl: string) {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -44,18 +47,19 @@ function useImageAspectRatio(imageUrl: string) {
 }
 
 interface Props {
+  uri: string;
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
   depth?: number;
 }
 
-export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
+export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return <ImageEmbed content={content} depth={depth} />;
+      return <ImageEmbed uri={uri} content={content} depth={depth} />;
     }
 
     // Case 2: External link
@@ -64,15 +68,30 @@ export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
       return (
         <TouchableOpacity
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="my-1.5 rounded border border-neutral-300 p-2"
+          className="my-1.5 overflow-hidden rounded border border-neutral-300"
         >
-          <Text className="text-base font-semibold" numberOfLines={2}>
-            {content.external.title || content.external.uri}
-          </Text>
-
-          <Text className="text-sm text-neutral-400" numberOfLines={1}>
-            {content.external.uri}
-          </Text>
+          {content.external.thumb && (
+            <Image
+              source={{ uri: content.external.thumb }}
+              className="h-32 w-full object-cover"
+            />
+          )}
+          <View
+            className={cx(
+              "w-full p-2",
+              content.external.thumb && "border-t border-neutral-300",
+            )}
+          >
+            <Text className="text-base font-semibold" numberOfLines={2}>
+              {content.external.title || content.external.uri}
+            </Text>
+            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+              {content.external.uri}
+            </Text>
+            <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
+              {content.external.description}
+            </Text>
+          </View>
         </TouchableOpacity>
       );
     }
@@ -104,7 +123,7 @@ export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
 
       return (
         <>
-          {media && <Embed content={media} depth={depth + 1} />}
+          {media && <Embed uri={uri} content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             <Text
               className="mt-1 text-base leading-5"
@@ -114,7 +133,11 @@ export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
             </Text>
             {/* in what case will there be more than one? in what order do we show them? */}
             {record.embeds && (
-              <Embed content={record.embeds[0]} depth={depth + 1} />
+              <Embed
+                uri={record.uri}
+                content={record.embeds[0]}
+                depth={depth + 1}
+              />
             )}
           </PostEmbed>
         </>
@@ -133,81 +156,105 @@ export const Embed = ({ content, truncate = true, depth = 0 }: Props) => {
 };
 
 const ImageEmbed = ({
+  uri,
   content,
   depth,
 }: {
+  uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
 }) => {
   const aspectRatio = useImageAspectRatio(content.images[0]!.thumb);
+  const href = `/images/${encodeURIComponent(uri)}`;
+
+  useEffect(() => {
+    queryClient.setQueryData(["images", uri], content.images);
+  }, [content.images]);
+
   switch (content.images.length) {
     case 0:
       return null;
     case 1:
       const image = content.images[0]!;
       return (
-        <Image
-          source={{ uri: image.thumb }}
-          alt={image.alt}
-          className="mt-1.5 w-full rounded"
-          style={{
-            aspectRatio:
-              depth > 0
-                ? Math.max(aspectRatio, 1.5)
-                : Math.max(aspectRatio, 0.5),
-          }}
-        />
+        <Link href={href} asChild>
+          <Pressable>
+            <Image
+              source={{ uri: image.thumb }}
+              alt={image.alt}
+              className="mt-1.5 w-full rounded"
+              style={{
+                aspectRatio:
+                  depth > 0
+                    ? Math.max(aspectRatio, 1.5)
+                    : Math.max(aspectRatio, 0.5),
+              }}
+            />
+          </Pressable>
+        </Link>
       );
     case 2:
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
-          {content.images.map((image) => (
-            <Image
-              key={image.fullsize}
-              source={{ uri: image.thumb }}
-              alt={image.alt}
-              className="aspect-square w-[49%]"
-            />
+          {content.images.map((image, i) => (
+            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
+              <Pressable className="w-[49%]">
+                <Image
+                  source={{ uri: image.thumb }}
+                  alt={image.alt}
+                  className="aspect-square"
+                />
+              </Pressable>
+            </Link>
           ))}
         </View>
       );
     case 3:
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
-          {content.images.map((image) => (
-            <Image
-              key={image.fullsize}
-              source={{ uri: image.thumb }}
-              alt={image.alt}
-              className="aspect-square w-[32%]"
-            />
+          {content.images.map((image, i) => (
+            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
+              <Pressable className="w-[32%]">
+                <Image
+                  source={{ uri: image.thumb }}
+                  alt={image.alt}
+                  className="aspect-square"
+                />
+              </Pressable>
+            </Link>
           ))}
         </View>
       );
     default:
       return (
         <View className="my-1.5 flex flex-row justify-between overflow-hidden rounded">
-          {content.images.slice(0, 2).map((image) => (
-            <Image
-              key={image.fullsize}
-              source={{ uri: image.thumb }}
-              alt={image.alt}
-              className="aspect-square w-[32%]"
-            />
+          {content.images.slice(0, 2).map((image, i) => (
+            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
+              <Pressable className="w-[32%]">
+                <Image
+                  key={image.fullsize}
+                  source={{ uri: image.thumb }}
+                  alt={image.alt}
+                  className="aspect-square"
+                />
+              </Pressable>
+            </Link>
           ))}
-          <View className="aspect-square w-[32%]">
-            <ImageBackground
-              source={{ uri: content.images[2]!.thumb }}
-              alt={content.images[2]!.alt}
-              resizeMode="cover"
-            >
-              <View className="h-full w-full items-center justify-center bg-black/60 p-1">
-                <Text className="text-center text-base font-bold text-white">
-                  +{content.images.length - 2}
-                </Text>
-              </View>
-            </ImageBackground>
-          </View>
+          <Link href={href} asChild>
+            <Pressable className="aspect-square w-[32%]">
+              <ImageBackground
+                source={{ uri: content.images[2]!.thumb }}
+                alt={content.images[2]!.alt}
+                resizeMode="cover"
+              >
+                <View className="h-full w-full items-center justify-center bg-black/60 p-1">
+                  <Text className="text-center text-base font-bold text-white">
+                    +{content.images.length - 2}
+                  </Text>
+                </View>
+              </ImageBackground>
+            </Pressable>
+          </Link>
         </View>
       );
   }

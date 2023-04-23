@@ -119,7 +119,9 @@ export const FeedPost = ({
             </Pressable>
           </Link>
           {/* embeds */}
-          {item.post.embed && <Embed content={item.post.embed} />}
+          {item.post.embed && (
+            <Embed uri={item.post.uri} content={item.post.embed} />
+          )}
           {/* actions */}
           <View className="mt-2 flex-row justify-between">
             <TouchableOpacity className="flex-row items-center gap-2">

@@ -70,7 +70,9 @@ export const Post = ({ post, hasParent }: Props) => {
       {/* text content */}
       <RichText value={post.record.text} size="lg" />
       {/* embeds */}
-      {post.embed && <Embed content={post.embed} truncate={false} />}
+      {post.embed && (
+        <Embed uri={post.uri} content={post.embed} truncate={false} />
+      )}
       {/* actions */}
       <View className="mt-4 flex-row justify-between">
         <TouchableOpacity className="flex-row items-center gap-2">
