@@ -19,13 +19,10 @@ const defineConfig = (): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    supportsTablet: false,
+    supportsTablet: true,
     bundleIdentifier: "dev.mozzius.graysky",
-    buildNumber: "1",
   },
   android: {
-    package: "dev.mozzius.graysky",
-    versionCode: 1,
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#888888",
