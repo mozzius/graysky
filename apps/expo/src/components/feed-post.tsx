@@ -13,9 +13,16 @@ import { RichText } from "./rich-text";
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
   hasReply?: boolean;
+  unread?: boolean;
+  inlineReason?: React.ReactNode;
 }
 
-export const FeedPost = ({ item, hasReply = false }: Props) => {
+export const FeedPost = ({
+  item,
+  hasReply = false,
+  unread,
+  inlineReason,
+}: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
 
@@ -36,7 +43,8 @@ export const FeedPost = ({ item, hasReply = false }: Props) => {
       className={cx(
         "bg-white px-2 pt-2",
         item.reply?.parent && "pt-0",
-        !hasReply && "border-b border-b-neutral-200",
+        !hasReply && "border-b border-neutral-200",
+        unread && "border-blue-200 bg-blue-50",
       )}
     >
       <Reason item={item} />

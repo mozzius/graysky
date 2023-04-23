@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
@@ -22,6 +23,8 @@ export default function PostPage() {
     handle: string;
   };
   const agent = useAuthedAgent();
+  const ref = useRef<FlashList<any>>(null);
+  const hasScrolled = useRef(false);
 
   const thread = useQuery(["profile", handle, "post", id], async () => {
     let did = handle;
@@ -104,6 +107,20 @@ export default function PostPage() {
     return { posts, index };
   });
 
+  // hacky but needed until https://github.com/Shopify/flash-list/issues/671 is fixed
+  useEffect(() => {
+    if (thread.data) {
+      const index = thread.data.index;
+      hasScrolled.current = true;
+      setTimeout(() => {
+        ref.current?.scrollToIndex({
+          animated: true,
+          index,
+        });
+      }, 50);
+    }
+  }, [thread.data]);
+
   switch (thread.status) {
     case "loading":
       return (
@@ -126,9 +143,8 @@ export default function PostPage() {
         <>
           <Stack.Screen options={{ headerTitle: "Post" }} />
           <FlashList
+            ref={ref}
             data={thread.data.posts}
-            initialScrollIndex={thread.data.index}
-            // estimatedFirstItemOffset={thread.data.index * 91}
             estimatedItemSize={91}
             getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item }) =>
