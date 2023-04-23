@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.tsx",
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
