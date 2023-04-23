@@ -72,7 +72,6 @@ export const FeedPost = ({
             </TouchableOpacity>
           </Link>
         </View>
-
         {/* right col */}
         <View className="flex-1 pb-2.5 pl-1 pr-2">
           <Link href={profileHref} asChild>
@@ -95,6 +94,7 @@ export const FeedPost = ({
           {/* text content */}
           <Link href={postHref} asChild>
             <Pressable>
+              {inlineReason}
               <RichText value={item.post.record.text} />
             </Pressable>
           </Link>

@@ -14,7 +14,14 @@ import {
 } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Heart, Repeat, UserPlus } from "lucide-react-native";
+import {
+  AtSign,
+  Heart,
+  MessageCircle,
+  Quote,
+  Repeat,
+  UserPlus,
+} from "lucide-react-native";
 
 import { Button } from "../../components/button";
 import { Embed } from "../../components/embed";
@@ -211,7 +218,9 @@ const Notification = ({
     case "quote":
     case "mention":
       if (!subject) return null;
-      return <PostNotification uri={subject} unread={!isRead} />;
+      return (
+        <PostNotification reason={reason} uri={subject} unread={!isRead} />
+      );
     default:
       console.warn("Unknown notification reason", reason);
       return null;
@@ -275,7 +284,10 @@ const ProfileList = ({
           {actors[0].displayName?.trim() ?? actors[0].handle}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        {" " + action + " · " + timeSince(new Date(indexedAt))}
+        {" " + action}
+        <Text className="text-neutral-500">
+          {" · " + timeSince(new Date(indexedAt))}
+        </Text>
       </Text>
     </View>
   );
@@ -285,10 +297,12 @@ const PostNotification = ({
   uri,
   unread,
   inline,
+  reason,
 }: {
   uri: string;
   unread: boolean;
   inline?: boolean;
+  reason?: "mention" | "reply" | "quote" | (string & {});
 }) => {
   const agent = useAuthedAgent();
 
@@ -335,6 +349,38 @@ const PostNotification = ({
           </View>
         );
       }
-      return <FeedPost item={post.data} unread={unread} />;
+      let inlineReason = null;
+      switch (reason) {
+        case "mention":
+          inlineReason = (
+            <View className="flex-row items-center">
+              <AtSign size={12} color="#737373" />
+              <Text className="ml-1 text-neutral-500">mentioned you</Text>
+            </View>
+          );
+          break;
+        case "reply":
+          inlineReason = (
+            <View className="flex-row items-center">
+              <MessageCircle size={12} color="#737373" />
+              <Text className="ml-1 text-neutral-500">replied to you</Text>
+            </View>
+          );
+          break;
+        case "quote":
+          inlineReason = (
+            <View className="flex-row items-center">
+              <Quote size={12} color="#737373" />
+              <Text className="ml-1 text-neutral-500">quoted you</Text>
+            </View>
+          );
+      }
+      return (
+        <FeedPost
+          item={post.data}
+          inlineReason={inlineReason}
+          unread={unread}
+        />
+      );
   }
 };
