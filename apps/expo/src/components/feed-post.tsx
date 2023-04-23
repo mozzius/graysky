@@ -1,7 +1,13 @@
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
+import {
+  Heart,
+  MessageCircle,
+  MessageSquare,
+  Repeat,
+  User,
+} from "lucide-react-native";
 
 import { useLike, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
@@ -14,14 +20,14 @@ interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
   hasReply?: boolean;
   unread?: boolean;
-  inlineReason?: React.ReactNode;
+  inlineParent?: boolean;
 }
 
 export const FeedPost = ({
   item,
   hasReply = false,
   unread,
-  inlineReason,
+  inlineParent,
 }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
@@ -36,13 +42,16 @@ export const FeedPost = ({
 
   assert(AppBskyFeedPost.validateRecord(item.post.record));
 
+  const displayInlineParent = inlineParent || !!item.reason;
+
   // TODO - don't nest feedposts!
 
   return (
     <View
       className={cx(
         "bg-white px-2 pt-2",
-        item.reply?.parent && "pt-0",
+        // todo: better approach
+        // item.reply?.parent && "pt-0",
         !hasReply && "border-b border-neutral-200",
         unread && "border-blue-200 bg-blue-50",
       )}
@@ -91,10 +100,20 @@ export const FeedPost = ({
               </Text>
             </TouchableOpacity>
           </Link>
+          {/* inline "replying to so-and-so" */}
+          {displayInlineParent && !!item.reply && (
+            <TouchableOpacity className="flex-row items-center">
+              <MessageCircle size={12} color="#737373" />
+              <Text className="ml-1 text-neutral-500">
+                replying to{" "}
+                {item.reply.parent.author.displayName ??
+                  `@${item.reply.parent.author.handle}`}
+              </Text>
+            </TouchableOpacity>
+          )}
           {/* text content */}
           <Link href={postHref} asChild>
             <Pressable>
-              {inlineReason}
               <RichText value={item.post.record.text} />
             </Pressable>
           </Link>

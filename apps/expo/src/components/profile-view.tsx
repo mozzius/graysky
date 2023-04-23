@@ -71,7 +71,22 @@ export const ProfileView = ({ handle }: Props) => {
                 console.warn(`Missing post: ${record.value.subject.uri}`);
                 return null;
               }
-              return post.data.thread;
+
+              // convert thread view post to feed view post
+              return {
+                post: post.data.thread.post,
+                ...(AppBskyFeedDefs.isThreadViewPost(post.data.thread.parent) &&
+                AppBskyFeedDefs.validateThreadViewPost(post.data.thread.parent)
+                  .success
+                  ? {
+                      reply: {
+                        parent: post.data.thread.parent.post,
+                        // not technically correct but we don't use this field
+                        root: post.data.thread.parent.post,
+                      },
+                    }
+                  : {}),
+              } satisfies AppBskyFeedDefs.FeedViewPost;
             }),
           );
           return {
@@ -89,14 +104,21 @@ export const ProfileView = ({ handle }: Props) => {
     if (timeline.status !== "success") return [];
     const flat = timeline.data.pages.flatMap((page) => page.feed);
     return flat
-      .map((item) =>
-        mode === "replies" && item.reply
-          ? [
-              { item: { post: item.reply.parent }, hasReply: true },
-              { item, hasReply: false },
-            ]
-          : [{ item, hasReply: false }],
-      )
+      .map((item) => {
+        switch (mode) {
+          case "posts":
+            return item.reply ? [] : [{ item, hasReply: false }];
+          case "replies":
+            return item.reply && !item.reason
+              ? [
+                  { item: { post: item.reply.parent }, hasReply: true },
+                  { item, hasReply: false },
+                ]
+              : [{ item, hasReply: false }];
+          case "likes":
+            return [{ item, hasReply: false }];
+        }
+      })
       .flat();
   }, [timeline, mode]);
 
@@ -195,7 +217,7 @@ export const ProfileView = ({ handle }: Props) => {
                   />
                 </Tabs>
               ) : (
-                <FeedPost {...item} />
+                <FeedPost {...item} inlineParent={mode === "likes"} />
               )
             }
             stickyHeaderIndices={[0]}

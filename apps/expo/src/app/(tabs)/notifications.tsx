@@ -14,14 +14,7 @@ import {
 } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import {
-  AtSign,
-  Heart,
-  MessageCircle,
-  Quote,
-  Repeat,
-  UserPlus,
-} from "lucide-react-native";
+import { Heart, Repeat, UserPlus } from "lucide-react-native";
 
 import { Button } from "../../components/button";
 import { Embed } from "../../components/embed";
@@ -218,9 +211,7 @@ const Notification = ({
     case "quote":
     case "mention":
       if (!subject) return null;
-      return (
-        <PostNotification reason={reason} uri={subject} unread={!isRead} />
-      );
+      return <PostNotification uri={subject} unread={!isRead} />;
     default:
       console.warn("Unknown notification reason", reason);
       return null;
@@ -297,12 +288,10 @@ const PostNotification = ({
   uri,
   unread,
   inline,
-  reason,
 }: {
   uri: string;
   unread: boolean;
   inline?: boolean;
-  reason?: "mention" | "reply" | "quote" | (string & {});
 }) => {
   const agent = useAuthedAgent();
 
@@ -318,7 +307,19 @@ const PostNotification = ({
         throw Error("Post not found");
       assert(AppBskyFeedDefs.validateThreadViewPost(data.thread));
 
-      return data.thread;
+      return {
+        post: data.thread.post,
+        ...(AppBskyFeedDefs.isThreadViewPost(data.thread.parent) &&
+        AppBskyFeedDefs.validateFeedViewPost(data.thread.parent.post).success
+          ? {
+              reply: {
+                parent: data.thread.parent.post,
+                // not technically correct but we don't use this field
+                root: data.thread.parent.post,
+              },
+            }
+          : {}),
+      } satisfies AppBskyFeedDefs.FeedViewPost;
     },
   });
 
@@ -349,38 +350,7 @@ const PostNotification = ({
           </View>
         );
       }
-      let inlineReason = null;
-      switch (reason) {
-        case "mention":
-          inlineReason = (
-            <View className="flex-row items-center">
-              <AtSign size={12} color="#737373" />
-              <Text className="ml-1 text-neutral-500">mentioned you</Text>
-            </View>
-          );
-          break;
-        case "reply":
-          inlineReason = (
-            <View className="flex-row items-center">
-              <MessageCircle size={12} color="#737373" />
-              <Text className="ml-1 text-neutral-500">replied to you</Text>
-            </View>
-          );
-          break;
-        case "quote":
-          inlineReason = (
-            <View className="flex-row items-center">
-              <Quote size={12} color="#737373" />
-              <Text className="ml-1 text-neutral-500">quoted you</Text>
-            </View>
-          );
-      }
-      return (
-        <FeedPost
-          item={post.data}
-          inlineReason={inlineReason}
-          unread={unread}
-        />
-      );
+
+      return <FeedPost item={post.data} inlineParent unread={unread} />;
   }
 };
