@@ -153,8 +153,12 @@ export default function Timeline() {
           <FlashList
             ref={ref}
             data={data}
-            renderItem={({ item: { hasReply, item } }) => (
-              <FeedPost item={item} hasReply={hasReply} />
+            renderItem={({ item: { hasReply, item }, index }) => (
+              <FeedPost
+                item={item}
+                hasReply={hasReply}
+                isReply={data[index - 1]?.hasReply}
+              />
             )}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}

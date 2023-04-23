@@ -147,11 +147,15 @@ export default function PostPage() {
             data={thread.data.posts}
             estimatedItemSize={91}
             getItemType={(item) => (item.primary ? "big" : "small")}
-            renderItem={({ item }) =>
+            renderItem={({ item, index }) =>
               item.primary ? (
                 <Post post={item.post} hasParent={item.hasParent} />
               ) : (
-                <FeedPost item={{ post: item.post }} hasReply={item.hasReply} />
+                <FeedPost
+                  item={{ post: item.post }}
+                  hasReply={item.hasReply}
+                  isReply={thread.data.posts[index - 1]?.hasReply}
+                />
               )
             }
             ListFooterComponent={<View className="h-screen" />}

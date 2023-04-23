@@ -18,6 +18,7 @@ import { RichText } from "./rich-text";
 
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
+  isReply?: boolean;
   hasReply?: boolean;
   unread?: boolean;
   inlineParent?: boolean;
@@ -25,6 +26,7 @@ interface Props {
 
 export const FeedPost = ({
   item,
+  isReply = false,
   hasReply = false,
   unread,
   inlineParent,
@@ -50,8 +52,7 @@ export const FeedPost = ({
     <View
       className={cx(
         "bg-white px-2 pt-2",
-        // todo: better approach
-        // item.reply?.parent && "pt-0",
+        isReply && !item.reason && "pt-0",
         !hasReply && "border-b border-neutral-200",
         unread && "border-blue-200 bg-blue-50",
       )}

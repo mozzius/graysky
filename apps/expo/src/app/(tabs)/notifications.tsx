@@ -307,10 +307,11 @@ const PostNotification = ({
         throw Error("Post not found");
       assert(AppBskyFeedDefs.validateThreadViewPost(data.thread));
 
+      // convert thread view post to feed view post
       return {
         post: data.thread.post,
         ...(AppBskyFeedDefs.isThreadViewPost(data.thread.parent) &&
-        AppBskyFeedDefs.validateFeedViewPost(data.thread.parent.post).success
+        AppBskyFeedDefs.validateThreadViewPost(data.thread.parent).success
           ? {
               reply: {
                 parent: data.thread.parent.post,

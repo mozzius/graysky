@@ -107,7 +107,9 @@ export const ProfileView = ({ handle }: Props) => {
       .map((item) => {
         switch (mode) {
           case "posts":
-            return item.reply ? [] : [{ item, hasReply: false }];
+            return item.reply && !item.reason
+              ? []
+              : [{ item, hasReply: false }];
           case "replies":
             return item.reply && !item.reason
               ? [
@@ -176,7 +178,7 @@ export const ProfileView = ({ handle }: Props) => {
           <FlashList
             ref={ref}
             data={[null, ...data]}
-            renderItem={({ item }) =>
+            renderItem={({ item, index }) =>
               item === null ? (
                 <Tabs>
                   <Tab
@@ -217,7 +219,11 @@ export const ProfileView = ({ handle }: Props) => {
                   />
                 </Tabs>
               ) : (
-                <FeedPost {...item} inlineParent={mode === "likes"} />
+                <FeedPost
+                  {...item}
+                  isReply={mode === "replies" && data[index]?.hasReply}
+                  inlineParent={mode !== "replies"}
+                />
               )
             }
             stickyHeaderIndices={[0]}
