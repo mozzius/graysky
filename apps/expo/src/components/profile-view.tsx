@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
@@ -20,6 +20,7 @@ export const ProfileView = ({ handle }: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
+  const ref = useRef<FlashList<any>>(null);
 
   const profile = useQuery(["profile", handle], async () => {
     const profile = await agent.getProfile({
@@ -151,6 +152,7 @@ export const ProfileView = ({ handle }: Props) => {
             }}
           />
           <FlashList
+            ref={ref}
             data={[null, ...data]}
             renderItem={({ item }) =>
               item === null ? (
@@ -158,17 +160,38 @@ export const ProfileView = ({ handle }: Props) => {
                   <Tab
                     text="Posts"
                     active={mode === "posts"}
-                    onPress={() => void setMode("posts")}
+                    onPress={() =>
+                      mode === "posts"
+                        ? ref.current?.scrollToIndex({
+                            index: 0,
+                            animated: true,
+                          })
+                        : setMode("posts")
+                    }
                   />
                   <Tab
                     text="Posts & Replies"
                     active={mode === "replies"}
-                    onPress={() => void setMode("replies")}
+                    onPress={() =>
+                      mode === "replies"
+                        ? ref.current?.scrollToIndex({
+                            index: 0,
+                            animated: true,
+                          })
+                        : setMode("replies")
+                    }
                   />
                   <Tab
                     text="Likes"
                     active={mode === "likes"}
-                    onPress={() => void setMode("likes")}
+                    onPress={() =>
+                      mode === "likes"
+                        ? ref.current?.scrollToIndex({
+                            index: 0,
+                            animated: true,
+                          })
+                        : setMode("likes")
+                    }
                   />
                 </Tabs>
               ) : (

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
@@ -25,6 +25,7 @@ export default function Timeline() {
     "following",
   );
   const agent = useAuthedAgent();
+  const ref = useRef<FlashList<any>>(null);
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", mode],
@@ -87,18 +88,30 @@ export default function Timeline() {
       <Tabs>
         <Tab
           text="Following"
-          onPress={() => setMode("following")}
           active={mode === "following"}
+          onPress={() =>
+            mode === "following"
+              ? ref.current?.scrollToIndex({ index: 0, animated: true })
+              : setMode("following")
+          }
         />
         <Tab
           text="What's Hot"
-          onPress={() => setMode("popular")}
           active={mode === "popular"}
+          onPress={() =>
+            mode === "popular"
+              ? ref.current?.scrollToIndex({ index: 0, animated: true })
+              : setMode("popular")
+          }
         />
         <Tab
           text="Mutuals"
-          onPress={() => setMode("mutuals")}
           active={mode === "mutuals"}
+          onPress={() =>
+            mode === "mutuals"
+              ? ref.current?.scrollToIndex({ index: 0, animated: true })
+              : setMode("mutuals")
+          }
         />
       </Tabs>
     </>
@@ -135,6 +148,7 @@ export default function Timeline() {
         <>
           {header}
           <FlashList
+            ref={ref}
             data={data}
             renderItem={({ item: { hasReply, item } }) => (
               <FeedPost item={item} hasReply={hasReply} />
