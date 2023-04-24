@@ -23,3 +23,20 @@ pnpm dev:expo
 (Note: this is just a shortcut for `expo start`)
 
 Then just scan the QR code!
+
+## Near-term Roadmap
+
+- [x] Notifications screen
+- [x] Image viewer
+- [x] Pull to refresh fix
+- [ ] Post composer
+- [ ] Quote composer
+- [ ] Search screen
+- [ ] Followers/Following screens
+- [ ] Context menu - post actions
+- [ ] Context menu - user actions
+- [ ] Settings screen
+- [ ] Image viewer: Pinch to zoom
+- [ ] Haptics
+- [ ] Push notifications
+- [ ] App Store???
