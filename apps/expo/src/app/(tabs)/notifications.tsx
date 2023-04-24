@@ -332,7 +332,7 @@ const PostNotification = ({
       if (inline) return <View className="h-10" />;
       return (
         <NotificationItem unread={unread}>
-          <View className="h-20" />
+          <View className="h-32" />
         </NotificationItem>
       );
     case "error":
