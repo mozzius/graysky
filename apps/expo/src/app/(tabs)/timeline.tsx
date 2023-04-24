@@ -161,6 +161,7 @@ export default function Timeline() {
                 item={item}
                 hasReply={hasReply}
                 isReply={data[index - 1]?.hasReply}
+                inlineParent={!data[index - 1]?.hasReply}
               />
             )}
             onEndReachedThreshold={0.5}

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Link, Stack } from "expo-router";
 import {
+  AppBskyEmbedImages,
   AppBskyFeedDefs,
   AppBskyFeedPost,
   AppBskyNotificationListNotifications,
@@ -275,7 +276,7 @@ const ProfileList = ({
       </View>
       <Text className="mt-2 text-base">
         <Text className="font-medium">
-          {actors[0].displayName?.trim() ?? actors[0].handle}
+          {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
         {" " + action}
@@ -348,14 +349,15 @@ const PostNotification = ({
             <Text className="text-neutral-500">
               <RichText value={post.data.post.record.text} size="sm" />
             </Text>
-            {post.data.post.embed && (
-              <Embed
-                uri={post.data.post.uri}
-                content={post.data.post.embed}
-                truncate
-                depth={1}
-              />
-            )}
+            {post.data.post.embed &&
+              AppBskyEmbedImages.isView(post.data.post.embed) && (
+                <Embed
+                  uri={post.data.post.uri}
+                  content={post.data.post.embed}
+                  truncate
+                  depth={1}
+                />
+              )}
           </View>
         );
       }

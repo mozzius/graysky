@@ -1,6 +1,7 @@
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useQuery } from "@tanstack/react-query";
 import {
   Heart,
   MessageCircle,
@@ -9,6 +10,7 @@ import {
   User,
 } from "lucide-react-native";
 
+import { useAuthedAgent } from "../lib/agent";
 import { useLike, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
@@ -45,8 +47,6 @@ export const FeedPost = ({
   assert(AppBskyFeedPost.validateRecord(item.post.record));
 
   const displayInlineParent = inlineParent || !!item.reason;
-
-  // TODO - don't nest feedposts!
 
   return (
     <View
@@ -102,16 +102,28 @@ export const FeedPost = ({
             </TouchableOpacity>
           </Link>
           {/* inline "replying to so-and-so" */}
-          {displayInlineParent && !!item.reply && (
-            <TouchableOpacity className="flex-row items-center">
-              <MessageCircle size={12} color="#737373" />
-              <Text className="ml-1 text-neutral-500">
-                replying to{" "}
-                {item.reply.parent.author.displayName ??
-                  `@${item.reply.parent.author.handle}`}
-              </Text>
-            </TouchableOpacity>
-          )}
+          {displayInlineParent &&
+            (!!item.reply ? (
+              <Link
+                href={`/profile/${
+                  item.reply.parent.author.handle
+                }/post/${item.reply.parent.uri.split("/").pop()}`}
+                asChild
+              >
+                <TouchableOpacity className="flex-row items-center">
+                  <MessageCircle size={12} color="#737373" />
+                  <Text className="ml-1 text-neutral-500">
+                    replying to{" "}
+                    {item.reply.parent.author.displayName ??
+                      `@${item.reply.parent.author.handle}`}
+                  </Text>
+                </TouchableOpacity>
+              </Link>
+            ) : (
+              !!item.post.record.reply && (
+                <ReplyParentAuthor uri={item.post.record.reply!.parent.uri} />
+              )
+            ))}
           {/* text content */}
           <Link href={postHref} asChild>
             <Pressable className="my-0.5">
@@ -178,6 +190,38 @@ const Reason = ({ item }: Props) => {
         <Repeat color="#1C1C1E" size={12} />
         <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
+        </Text>
+      </TouchableOpacity>
+    </Link>
+  );
+};
+
+const ReplyParentAuthor = ({ uri }: { uri: string }) => {
+  const agent = useAuthedAgent();
+  const { data } = useQuery({
+    queryKey: ["post", uri],
+    queryFn: async () => {
+      const thread = await agent.getPostThread({
+        uri,
+        depth: 0,
+      });
+      if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
+        assert(AppBskyFeedDefs.validateThreadViewPost(thread.data.thread));
+        return thread.data.thread.post;
+      }
+      throw new Error("invalid post");
+    },
+  });
+  if (!data) return null;
+  return (
+    <Link
+      href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
+      asChild
+    >
+      <TouchableOpacity className="flex-row items-center">
+        <MessageCircle size={12} color="#737373" />
+        <Text className="ml-1 text-neutral-500">
+          replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
       </TouchableOpacity>
     </Link>
