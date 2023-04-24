@@ -143,6 +143,7 @@ export const FeedPost = ({
             <TouchableOpacity
               disabled={toggleRepost.isLoading}
               onPress={() => toggleRepost.mutate()}
+              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               className="flex-row items-center gap-2"
             >
               <Repeat size={16} color={reposted ? "#2563eb" : "#1C1C1E"} />
@@ -157,6 +158,7 @@ export const FeedPost = ({
             <TouchableOpacity
               disabled={toggleLike.isLoading}
               onPress={() => toggleLike.mutate()}
+              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               className="flex-row items-center gap-2"
             >
               <Heart

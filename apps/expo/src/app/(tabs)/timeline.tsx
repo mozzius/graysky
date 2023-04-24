@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { Stack } from "expo-router";
+import { Tabs as NavigationTabs, Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -91,6 +91,11 @@ export default function Timeline() {
   const header = (
     <>
       <Stack.Screen options={{ headerShown: true }} />
+      <NavigationTabs.Screen
+        listeners={(...args: any[]) => {
+          console.log("listeners", args);
+        }}
+      />
       <Tabs>
         <Tab
           text="Following"

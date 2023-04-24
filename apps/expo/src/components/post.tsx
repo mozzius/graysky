@@ -82,7 +82,8 @@ export const Post = ({ post, hasParent }: Props) => {
         <TouchableOpacity
           disabled={toggleRepost.isLoading}
           onPress={() => toggleRepost.mutate()}
-          className="flex-row items-center gap-2"
+          hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+          className="flex-row items-center gap-2 "
         >
           <Repeat size={16} color={reposted ? "#2563eb" : "#1C1C1E"} />
           <Text
@@ -96,6 +97,7 @@ export const Post = ({ post, hasParent }: Props) => {
         <TouchableOpacity
           disabled={toggleLike.isLoading}
           onPress={() => toggleLike.mutate()}
+          hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
           className="flex-row items-center gap-2"
         >
           <Heart
