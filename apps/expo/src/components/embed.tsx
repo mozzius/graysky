@@ -88,9 +88,11 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             <Text className="text-sm text-neutral-400" numberOfLines={1}>
               {content.external.uri}
             </Text>
-            <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
-              {content.external.description}
-            </Text>
+            {content.external.description && (
+              <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
+                {content.external.description}
+              </Text>
+            )}
           </View>
         </TouchableOpacity>
       );
