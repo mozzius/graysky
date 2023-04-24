@@ -26,9 +26,9 @@ export default function AppLayout() {
       />
       <Tabs screenOptions={{ headerShown: false }}>
         <Tabs.Screen
-          name="timeline"
+          name="skyline"
           options={{
-            title: "Timeline",
+            title: "Skyline",
             tabBarShowLabel: false,
             tabBarIcon({ focused }) {
               return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;

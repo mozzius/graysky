@@ -200,7 +200,7 @@ const Reason = ({ item }: Props) => {
 
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const agent = useAuthedAgent();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["post", uri],
     queryFn: async () => {
       const thread = await agent.getPostThread({
@@ -214,6 +214,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       throw new Error("invalid post");
     },
   });
+  if (isLoading) return <View className="h-[17px]" />;
   if (!data) return null;
   return (
     <Link
