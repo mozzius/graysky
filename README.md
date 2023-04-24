@@ -30,7 +30,7 @@ Then just scan the QR code!
 - [x] Image viewer
 - [x] Pull to refresh fix
 - [ ] Post composer
-- [ ] Quote composer
+- [ ] Reply/Quote composer
 - [ ] Search screen
 - [ ] Followers/Following screens
 - [ ] Context menu - post actions
