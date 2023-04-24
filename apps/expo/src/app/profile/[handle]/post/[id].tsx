@@ -9,6 +9,7 @@ import { FeedPost } from "../../../../components/feed-post";
 import { Post } from "../../../../components/post";
 import { useAuthedAgent } from "../../../../lib/agent";
 import { assert } from "../../../../lib/utils/assert";
+import { useUserRefresh } from "../../../../lib/utils/query";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;
@@ -107,6 +108,8 @@ export default function PostPage() {
     return { posts, index };
   });
 
+  const { refreshing, handleRefresh } = useUserRefresh(thread.refetch);
+
   // hacky but needed until https://github.com/Shopify/flash-list/issues/671 is fixed
   useEffect(() => {
     if (thread.data && !hasScrolled.current) {
@@ -146,10 +149,8 @@ export default function PostPage() {
             ref={ref}
             data={thread.data.posts}
             estimatedItemSize={91}
-            refreshing={thread.isRefetching}
-            onRefresh={() => {
-              if (!thread.isRefetching) thread.refetch();
-            }}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             ListFooterComponent={<View className="h-20" />}
             getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item, index }) =>

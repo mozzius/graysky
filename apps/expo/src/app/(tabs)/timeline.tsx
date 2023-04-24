@@ -10,6 +10,7 @@ import { FeedPost } from "../../components/feed-post";
 import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
 import { assert } from "../../lib/utils/assert";
+import { useUserRefresh } from "../../lib/utils/query";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
@@ -66,6 +67,8 @@ export default function Timeline() {
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
+
+  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
 
   const data = useMemo(() => {
     if (timeline.status !== "success") return [];
@@ -162,10 +165,8 @@ export default function Timeline() {
             )}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={() => {
-              if (!timeline.isRefetching) void timeline.refetch();
-            }}
-            refreshing={timeline.isRefetching}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             estimatedItemSize={91}
             ListFooterComponent={
               timeline.isFetching ? (

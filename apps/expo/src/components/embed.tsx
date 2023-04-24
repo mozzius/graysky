@@ -171,7 +171,7 @@ const ImageEmbed = ({
 
   useEffect(() => {
     queryClient.setQueryData(["images", uri], content.images);
-  }, [content.images]);
+  }, [content.images, uri]);
 
   switch (content.images.length) {
     case 0:

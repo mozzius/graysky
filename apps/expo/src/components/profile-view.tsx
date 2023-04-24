@@ -8,6 +8,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "../lib/agent";
 import { assert } from "../lib/utils/assert";
+import { useUserRefresh } from "../lib/utils/query";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
 import { Tab, Tabs } from "./tabs";
@@ -99,6 +100,8 @@ export const ProfileView = ({ handle }: Props) => {
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
+
+  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
 
   const data = useMemo(() => {
     if (timeline.status !== "success") return [];
@@ -229,10 +232,8 @@ export const ProfileView = ({ handle }: Props) => {
             stickyHeaderIndices={[0]}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={() => {
-              if (!timeline.isRefetching) void timeline.refetch();
-            }}
-            refreshing={timeline.isRefetching}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             estimatedItemSize={91}
             onScroll={(evt) => {
               const { contentOffset } = evt.nativeEvent;

@@ -24,6 +24,7 @@ import { useAuthedAgent } from "../../lib/agent";
 import { queryClient } from "../../lib/query-client";
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
+import { useRefreshOnFocus, useUserRefresh } from "../../lib/utils/query";
 import { timeSince } from "../../lib/utils/time";
 
 type NotificationGroup = {
@@ -60,6 +61,10 @@ export default function NotificationsPage() {
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
+
+  useRefreshOnFocus(notifications.refetch);
+
+  const { refreshing, handleRefresh } = useUserRefresh(notifications.refetch);
 
   const data = useMemo(() => {
     if (!notifications.data) return [];
@@ -126,10 +131,8 @@ export default function NotificationsPage() {
             estimatedItemSize={105}
             onEndReachedThreshold={0.5}
             onEndReached={() => void notifications.fetchNextPage()}
-            onRefresh={() => {
-              if (!notifications.isRefetching) void notifications.refetch();
-            }}
-            refreshing={notifications.isRefetching}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             ListFooterComponent={
               notifications.isFetching ? (
                 <View className="w-full items-center py-4">
