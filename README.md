@@ -37,6 +37,7 @@ Then just scan the QR code!
 - [ ] Context menu - user actions
 - [ ] Settings screen
 - [ ] Image viewer: Pinch to zoom
-- [ ] Haptics
+- [x] Haptics
+- [ ] More haptics!
 - [ ] Push notifications
 - [ ] App Store???

@@ -26,6 +26,7 @@
     "expo": "^48.0.11",
     "expo-constants": "~14.2.1",
     "expo-file-system": "^15.2.2",
+    "expo-haptics": "^12.2.1",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.1",

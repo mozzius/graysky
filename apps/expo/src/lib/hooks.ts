@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import * as Haptics from "expo-haptics";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useMutation } from "@tanstack/react-query";
 
@@ -21,6 +22,7 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
   const toggleLike = useMutation({
     mutationKey: ["like", post.uri],
     mutationFn: async () => {
+      Haptics.selectionAsync();
       if (!likeUri) {
         try {
           setLiked(true);
@@ -68,6 +70,7 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
   const toggleRepost = useMutation({
     mutationKey: ["repost", post.uri],
     mutationFn: async () => {
+      Haptics.selectionAsync();
       if (!repostUri) {
         try {
           setReposted(true);
