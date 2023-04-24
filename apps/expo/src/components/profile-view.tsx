@@ -1,12 +1,17 @@
 import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "../lib/agent";
+import { useTabPressScroll } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { useUserRefresh } from "../lib/utils/query";
 import { FeedPost } from "./feed-post";
@@ -15,13 +20,18 @@ import { Tab, Tabs } from "./tabs";
 
 interface Props {
   handle: string;
+  header?: boolean;
 }
 
-export const ProfileView = ({ handle }: Props) => {
+export const ProfileView = ({ handle, header = true }: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<any>>(null);
+  const headerHeight = useHeaderHeight();
+  const { top } = useSafeAreaInsets();
+
+  const tabOffset = headerHeight - top;
 
   const profile = useQuery(["profile", handle], async () => {
     const profile = await agent.getProfile({
@@ -127,17 +137,60 @@ export const ProfileView = ({ handle }: Props) => {
       .flat();
   }, [timeline, mode]);
 
+  useTabPressScroll(ref);
+
+  const tabs = (offset: boolean) => (
+    <Tabs
+      style={{
+        marginTop: offset ? tabOffset : 0,
+      }}
+    >
+      <Tab
+        text="Posts"
+        active={mode === "posts"}
+        onPress={() =>
+          mode === "posts"
+            ? ref.current?.scrollToIndex({
+                index: 0,
+                animated: true,
+              })
+            : setMode("posts")
+        }
+      />
+      <Tab
+        text="Posts & Replies"
+        active={mode === "replies"}
+        onPress={() =>
+          mode === "replies"
+            ? ref.current?.scrollToIndex({
+                index: 0,
+                animated: true,
+              })
+            : setMode("replies")
+        }
+      />
+      <Tab
+        text="Likes"
+        active={mode === "likes"}
+        onPress={() =>
+          mode === "likes"
+            ? ref.current?.scrollToIndex({
+                index: 0,
+                animated: true,
+              })
+            : setMode("likes")
+        }
+      />
+    </Tabs>
+  );
+
   switch (profile.status) {
     case "loading":
       return (
         <View className="flex-1 items-center justify-center">
           <Stack.Screen
             options={{
-              headerTitle: "",
-              headerTransparent: true,
-              headerStyle: {
-                backgroundColor: atTop ? "transparent" : undefined,
-              },
+              headerShown: false,
             }}
           />
           <ActivityIndicator />
@@ -148,11 +201,8 @@ export const ProfileView = ({ handle }: Props) => {
         <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen
             options={{
-              headerTitle: "",
-              headerTransparent: true,
-              headerStyle: {
-                backgroundColor: atTop ? "transparent" : undefined,
-              },
+              headerShown: true,
+              headerTitle: "Profile not found",
             }}
           />
           <Text className="text-center text-xl">
@@ -162,65 +212,21 @@ export const ProfileView = ({ handle }: Props) => {
       );
     case "success":
       return (
-        <SafeAreaView className="flex-1" edges={["top", "left", "right"]}>
+        <SafeAreaView className="flex-1" edges={["top"]}>
           <Stack.Screen
             options={{
               headerTransparent: true,
               headerTitle: "",
-              ...(!atTop
-                ? {
-                    headerBlurEffect: "systemThinMaterialLight",
-                  }
-                : {
-                    headerStyle: {
-                      backgroundColor: atTop ? "transparent" : undefined,
-                    },
-                  }),
+              headerBlurEffect: "systemThinMaterialLight",
+              headerShown: header && !atTop,
             }}
           />
           <FlashList
             ref={ref}
             data={[null, ...data]}
-            renderItem={({ item, index }) =>
+            renderItem={({ item, index, target }) =>
               item === null ? (
-                <Tabs>
-                  <Tab
-                    text="Posts"
-                    active={mode === "posts"}
-                    onPress={() =>
-                      mode === "posts"
-                        ? ref.current?.scrollToIndex({
-                            index: 0,
-                            animated: true,
-                          })
-                        : setMode("posts")
-                    }
-                  />
-                  <Tab
-                    text="Posts & Replies"
-                    active={mode === "replies"}
-                    onPress={() =>
-                      mode === "replies"
-                        ? ref.current?.scrollToIndex({
-                            index: 0,
-                            animated: true,
-                          })
-                        : setMode("replies")
-                    }
-                  />
-                  <Tab
-                    text="Likes"
-                    active={mode === "likes"}
-                    onPress={() =>
-                      mode === "likes"
-                        ? ref.current?.scrollToIndex({
-                            index: 0,
-                            animated: true,
-                          })
-                        : setMode("likes")
-                    }
-                  />
-                </Tabs>
+                tabs(target === "StickyHeader" && header)
               ) : (
                 <FeedPost
                   {...item}
@@ -229,7 +235,7 @@ export const ProfileView = ({ handle }: Props) => {
                 />
               )
             }
-            stickyHeaderIndices={[0]}
+            stickyHeaderIndices={atTop ? [] : [0]}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
             onRefresh={handleRefresh}
@@ -239,7 +245,9 @@ export const ProfileView = ({ handle }: Props) => {
               const { contentOffset } = evt.nativeEvent;
               setAtTop(contentOffset.y <= 30);
             }}
-            ListHeaderComponent={<ProfileInfo profile={profile.data} />}
+            ListHeaderComponent={
+              <ProfileInfo profile={profile.data} backButton={header} />
+            }
             ListFooterComponent={
               timeline.isFetching ? (
                 <View className="w-full items-center py-8">

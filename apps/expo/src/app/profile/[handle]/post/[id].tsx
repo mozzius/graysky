@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FeedPost } from "../../../../components/feed-post";
 import { Post } from "../../../../components/post";
 import { useAuthedAgent } from "../../../../lib/agent";
+import { useTabPressScroll } from "../../../../lib/hooks";
 import { assert } from "../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../lib/utils/query";
 
@@ -112,7 +113,7 @@ export default function PostPage() {
 
   // hacky but needed until https://github.com/Shopify/flash-list/issues/671 is fixed
   useEffect(() => {
-    if (thread.data && !hasScrolled.current) {
+    if (thread.isSuccess && !hasScrolled.current) {
       const index = thread.data.index;
       hasScrolled.current = true;
       setTimeout(() => {
@@ -120,9 +121,11 @@ export default function PostPage() {
           animated: true,
           index,
         });
-      }, 50);
+      }, 500);
     }
-  }, [thread.data]);
+  }, [thread.isSuccess]);
+
+  useTabPressScroll(ref);
 
   switch (thread.status) {
     case "loading":

@@ -4,5 +4,5 @@ import { useAuthedAgent } from "../../lib/agent";
 export default function ProfilePage() {
   const agent = useAuthedAgent();
 
-  return <ProfileView handle={agent.session.handle} />;
+  return <ProfileView handle={agent.session.handle} header={false} />;
 }

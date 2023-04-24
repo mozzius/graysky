@@ -22,6 +22,7 @@ import { Embed } from "../../components/embed";
 import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
 import { useAuthedAgent } from "../../lib/agent";
+import { useTabPressScrollRef } from "../../lib/hooks";
 import { queryClient } from "../../lib/query-client";
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -99,6 +100,10 @@ export default function NotificationsPage() {
     return grouped;
   }, [notifications.data]);
 
+  const ref = useTabPressScrollRef(() => {
+    notifications.refetch();
+  });
+
   switch (notifications.status) {
     case "loading":
       return (
@@ -127,6 +132,7 @@ export default function NotificationsPage() {
         <>
           <Stack.Screen options={{ headerShown: true }} />
           <FlashList
+            ref={ref}
             data={data}
             renderItem={({ item }) => <Notification {...item} />}
             estimatedItemSize={105}

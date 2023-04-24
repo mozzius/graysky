@@ -1,30 +1,39 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 
 import { cx } from "../lib/utils/cx";
 
-export const Tabs = ({
-  children,
-  className,
-}: React.PropsWithChildren<{ className?: string }>) => {
+interface TabsProps extends React.PropsWithChildren {
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+}
+
+export const Tabs = ({ children, className, style }: TabsProps) => {
   return (
     <View
       className={cx(
         "w-full flex-row border-b border-neutral-200 bg-white",
         className,
       )}
+      style={style}
     >
       {children}
     </View>
   );
 };
 
-interface Props {
+interface TabProps {
   active: boolean;
   onPress: () => void;
   text: string;
 }
 
-export const Tab = ({ active, onPress, text }: Props) => {
+export const Tab = ({ active, onPress, text }: TabProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}

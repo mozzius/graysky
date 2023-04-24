@@ -62,7 +62,7 @@ export const FeedPost = ({
         {/* left col */}
         <View className="flex flex-col items-center px-2">
           <Link href={profileHref} asChild>
-            <TouchableOpacity>
+            <Pressable>
               {item.post.author.avatar ? (
                 <Image
                   source={{ uri: item.post.author.avatar }}
@@ -74,18 +74,18 @@ export const FeedPost = ({
                   <User size={32} color="#1C1C1E" />
                 </View>
               )}
-            </TouchableOpacity>
+            </Pressable>
           </Link>
           <Link href={postHref} asChild>
-            <TouchableOpacity className="w-full grow items-center">
+            <Pressable className="w-full grow items-center">
               {hasReply && <View className="w-1 grow bg-neutral-200" />}
-            </TouchableOpacity>
+            </Pressable>
           </Link>
         </View>
         {/* right col */}
         <View className="flex-1 pb-2.5 pl-1 pr-2">
           <Link href={profileHref} asChild>
-            <TouchableOpacity className="flex-row items-center">
+            <Pressable className="flex-row items-center">
               <Text numberOfLines={1} className="max-w-[85%] text-base">
                 <Text className="font-semibold">
                   {item.post.author.displayName}
@@ -99,7 +99,7 @@ export const FeedPost = ({
                 {" · "}
                 {timeSince(new Date(item.post.indexedAt))}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </Link>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
@@ -110,14 +110,14 @@ export const FeedPost = ({
                 }/post/${item.reply.parent.uri.split("/").pop()}`}
                 asChild
               >
-                <TouchableOpacity className="flex-row items-center">
+                <Pressable className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
                   <Text className="ml-1 text-neutral-500">
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               </Link>
             ) : (
               !!item.post.record.reply && (
@@ -220,12 +220,12 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
       asChild
     >
-      <TouchableOpacity className="flex-row items-center">
+      <Pressable className="flex-row items-center">
         <MessageCircle size={12} color="#737373" />
         <Text className="ml-1 text-neutral-500">
           replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </Link>
   );
 };

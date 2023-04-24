@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Haptics from "expo-haptics";
+import { useNavigation } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
+import { type FlashList } from "@shopify/flash-list";
 import { useMutation } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "./agent";
@@ -100,4 +102,34 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
       (reposted && repostUri !== post.viewer?.repost ? 1 : 0),
     toggleRepost,
   };
+};
+
+export const useTabPressScroll = (
+  ref: React.RefObject<FlashList<any>>,
+  callback = () => {},
+) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // @ts-expect-error doesn't know what kind of navigator it is
+    const unsub = navigation.addListener("tabPress", () => {
+      if (navigation.isFocused()) {
+        ref.current?.scrollToOffset({
+          offset: 0,
+          animated: true,
+        });
+        callback();
+      }
+    });
+
+    return unsub;
+  }, [callback]);
+};
+
+export const useTabPressScrollRef = (callback = () => {}) => {
+  const ref = useRef<FlashList<any>>(null);
+
+  useTabPressScroll(ref, callback);
+
+  return ref;
 };

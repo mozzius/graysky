@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { Tabs as NavigationTabs, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import { Button } from "../../components/button";
 import { FeedPost } from "../../components/feed-post";
 import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
+import { useTabPressScroll } from "../../lib/hooks";
 import { assert } from "../../lib/utils/assert";
 import { useUserRefresh } from "../../lib/utils/query";
 
@@ -88,14 +89,11 @@ export default function Timeline() {
       .flat();
   }, [timeline]);
 
+  useTabPressScroll(ref);
+
   const header = (
     <>
       <Stack.Screen options={{ headerShown: true }} />
-      <NavigationTabs.Screen
-        listeners={(...args: any[]) => {
-          console.log("listeners", args);
-        }}
-      />
       <Tabs>
         <Tab
           text="Following"
