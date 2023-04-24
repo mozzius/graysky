@@ -68,7 +68,7 @@ export const Post = ({ post, hasParent }: Props) => {
         </TouchableOpacity>
       </Link>
       {/* text content */}
-      <RichText value={post.record.text} size="lg" />
+      <RichText text={post.record.text} facets={post.record.facets} size="lg" />
       {/* embeds */}
       {post.embed && (
         <Embed uri={post.uri} content={post.embed} truncate={false} />

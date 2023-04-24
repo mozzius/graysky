@@ -127,7 +127,10 @@ export const FeedPost = ({
           {/* text content */}
           <Link href={postHref} asChild>
             <Pressable className="my-0.5">
-              <RichText value={item.post.record.text} />
+              <RichText
+                text={item.post.record.text}
+                facets={item.post.record.facets}
+              />
             </Pressable>
           </Link>
           {/* embeds */}
