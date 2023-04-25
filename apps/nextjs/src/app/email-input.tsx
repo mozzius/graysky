@@ -23,14 +23,14 @@ export const EmailInput = () => {
     case "idle":
       return (
         <form
-          className="flex max-w-[90%] gap-1 rounded border p-1 backdrop-blur backdrop-brightness-50"
+          className="flex max-w-[90%] gap-1 rounded border border-neutral-400 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
           onSubmit={(evt) => {
             evt.preventDefault();
             send.mutate();
           }}
         >
           <input
-            className="flex-1 rounded-sm border bg-transparent px-4 py-2 text-white"
+            className="flex-1 rounded-sm border border-neutral-400 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
             type="email"
             value={email}
             onChange={(evt) => setEmail(evt.target.value)}
@@ -40,25 +40,31 @@ export const EmailInput = () => {
           <button
             type="submit"
             disabled={!email}
-            className="rounded-sm border px-4 text-white"
+            className="cursor-pointer rounded-sm border border-neutral-400 px-4 text-white transition hover:border-white hover:bg-white hover:text-black"
           >
             Join Waitlist
           </button>
         </form>
       );
     case "loading":
-      return <div className="h-[52px]" />;
+      return (
+        <div className="grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
+          <p className="text-center text-transparent text-white">
+            Thanks for joining the waitlist. We'll be in touch.
+          </p>
+        </div>
+      );
     case "success":
       return (
-        <div className="grid h-[52px] w-full place-items-center text-white">
+        <div className="grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
           <p className="text-center text-white">
-            Thanks for joining the waitlist
+            Thanks for joining the waitlist. We'll be in touch.
           </p>
         </div>
       );
     case "error":
       return (
-        <div className="grid h-[52px] w-full place-items-center text-white">
+        <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-400 text-white backdrop-blur backdrop-brightness-50">
           <p className="text-center text-white">
             Error: {(send.error as Error)?.message ?? "Something went wrong"}
           </p>
