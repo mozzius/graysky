@@ -68,7 +68,13 @@ export const Post = ({ post, hasParent }: Props) => {
         </TouchableOpacity>
       </Link>
       {/* text content */}
-      <RichText text={post.record.text} facets={post.record.facets} size="lg" />
+      {post.record.text && (
+        <RichText
+          text={post.record.text}
+          facets={post.record.facets}
+          size="lg"
+        />
+      )}
       {/* embeds */}
       {post.embed && (
         <Embed uri={post.uri} content={post.embed} truncate={false} />
@@ -83,7 +89,7 @@ export const Post = ({ post, hasParent }: Props) => {
           disabled={toggleRepost.isLoading}
           onPress={() => toggleRepost.mutate()}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-          className="flex-row items-center gap-2 "
+          className="flex-row items-center gap-2"
         >
           <Repeat size={16} color={reposted ? "#2563eb" : "#1C1C1E"} />
           <Text

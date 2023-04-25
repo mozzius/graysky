@@ -29,6 +29,8 @@ import { cx } from "../../lib/utils/cx";
 import { useRefreshOnFocus, useUserRefresh } from "../../lib/utils/query";
 import { timeSince } from "../../lib/utils/time";
 
+// TOOO: split this file up into like 6 files
+
 type NotificationGroup = {
   reason: AppBskyNotificationListNotifications.Notification["reason"];
   subject: AppBskyNotificationListNotifications.Notification["reasonSubject"];
@@ -53,13 +55,38 @@ export default function NotificationsPage() {
           });
         });
       }
-      // refetch the count and post queries so they update
+      // refetch the post queries so they update
       // TODO: this doesn't seem to work!
       queryClient.invalidateQueries({
         queryKey: ["notifications", "post"],
         exact: false,
       });
-      return notifs.data;
+
+      const grouped: NotificationGroup[] = [];
+      for (const notif of notifs.data.notifications) {
+        const prior = grouped.find(
+          (x) => x.reason === notif.reason && x.subject === notif.reasonSubject,
+        );
+        if (prior) {
+          prior.actors.push(notif.author);
+        } else {
+          let subject = notif.reasonSubject;
+          if (["reply", "quote", "mention"].includes(notif.reason)) {
+            subject = notif.uri;
+          }
+          grouped.push({
+            reason: notif.reason,
+            subject,
+            actors: [notif.author],
+            isRead: notif.isRead,
+            indexedAt: notif.indexedAt,
+          });
+        }
+      }
+      return {
+        cursor: notifs.data.cursor,
+        notifications: grouped,
+      };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
@@ -68,41 +95,15 @@ export default function NotificationsPage() {
 
   const { refreshing, handleRefresh } = useUserRefresh(notifications.refetch);
 
+  const ref = useTabPressScrollRef(notifications.refetch);
+
   const data = useMemo(() => {
     if (!notifications.data) return [];
     const notifs = notifications.data.pages.flatMap(
       (page) => page.notifications,
     );
-
-    const grouped: NotificationGroup[] = [];
-    for (const notif of notifs) {
-      const previous = grouped[grouped.length - 1];
-      if (
-        previous &&
-        previous.reason === notif.reason &&
-        previous.subject === notif.reasonSubject
-      ) {
-        previous.actors.push(notif.author);
-      } else {
-        let subject = notif.reasonSubject;
-        if (["reply", "quote", "mention"].includes(notif.reason)) {
-          subject = notif.uri;
-        }
-        grouped.push({
-          reason: notif.reason,
-          subject,
-          actors: [notif.author],
-          isRead: notif.isRead,
-          indexedAt: notif.indexedAt,
-        });
-      }
-    }
-    return grouped;
+    return notifs;
   }, [notifications.data]);
-
-  const ref = useTabPressScrollRef(() => {
-    notifications.refetch();
-  });
 
   switch (notifications.status) {
     case "loading":
