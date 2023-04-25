@@ -10,6 +10,7 @@ import {
 } from "@atproto/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { AgentProvider } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
@@ -20,6 +21,8 @@ export default function RootLayout() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
+
+  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -109,7 +112,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <AgentProvider value={agent}>
-          <StatusBar style="dark" />
+          <StatusBar style="auto" />
           {loading && <SplashScreen />}
           <Stack
             screenOptions={{
@@ -117,11 +120,11 @@ export default function RootLayout() {
               headerBackTitle: "",
               fullScreenGestureEnabled: true,
               headerStyle: {
-                backgroundColor: "#fff",
+                backgroundColor: colorScheme === "light" ? "#fff" : "#000",
               },
             }}
           />
-          <StatusBar />
+          <StatusBar style="auto" />
         </AgentProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
