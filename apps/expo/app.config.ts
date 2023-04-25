@@ -38,9 +38,6 @@ const defineConfig = (): ExpoConfig => ({
       backgroundColor: "#888888",
     },
   },
-  androidStatusBar: {
-    barStyle: "dark-content",
-  },
   // extra: {
   //   eas: {
   //     projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",

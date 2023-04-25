@@ -109,16 +109,16 @@ export default function NotificationsPage() {
   switch (notifications.status) {
     case "loading":
       return (
-        <View className="flex-1 items-center justify-center">
+        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
           <Stack.Screen options={{ headerShown: true }} />
           <ActivityIndicator />
         </View>
       );
     case "error":
       return (
-        <View className="flex-1 items-center justify-center p-4">
+        <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="text-center text-lg">
+          <Text className="text-center text-lg text-neutral-500 dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button

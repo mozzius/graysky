@@ -135,7 +135,7 @@ export default function Timeline() {
       return (
         <>
           {header}
-          <View className="flex-1 items-center justify-center">
+          <View className="flex-1 items-center justify-center bg-white dark:bg-black">
             <ActivityIndicator />
           </View>
         </>
@@ -145,7 +145,7 @@ export default function Timeline() {
       return (
         <>
           {header}
-          <View className="flex-1 items-center justify-center p-4">
+          <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
             <Text className="text-center text-lg">
               {(timeline.error as Error).message || "An error occurred"}
             </Text>
@@ -182,7 +182,7 @@ export default function Timeline() {
             estimatedItemSize={91}
             ListFooterComponent={
               timeline.isFetching ? (
-                <View className="w-full items-center py-4">
+                <View className="w-full items-center bg-white py-4 dark:bg-black">
                   <ActivityIndicator />
                 </View>
               ) : null
