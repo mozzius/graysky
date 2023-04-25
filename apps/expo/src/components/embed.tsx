@@ -84,14 +84,23 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               content.external.thumb && "border-t border-neutral-300",
             )}
           >
-            <Text className="text-base font-semibold" numberOfLines={2}>
+            <Text
+              className="text-base font-semibold text-neutral-500 dark:text-neutral-50"
+              numberOfLines={2}
+            >
               {content.external.title || content.external.uri}
             </Text>
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            <Text
+              className="text-sm text-neutral-400 dark:text-neutral-100"
+              numberOfLines={1}
+            >
               {content.external.uri}
             </Text>
             {content.external.description && (
-              <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
+              <Text
+                className="mt-1 text-sm leading-5 text-neutral-500 dark:text-neutral-50"
+                numberOfLines={2}
+              >
                 {content.external.description}
               </Text>
             )}
