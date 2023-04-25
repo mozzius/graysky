@@ -2,6 +2,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { Heart, MessageSquare, Repeat, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useLike, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
@@ -27,10 +28,14 @@ export const Post = ({ post, hasParent }: Props) => {
 
   assert(AppBskyFeedPost.validateRecord(post.record));
 
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   return (
     <View
       className={cx(
-        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3",
+        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:bg-black",
         hasParent && "border-t",
       )}
     >
@@ -43,8 +48,8 @@ export const Post = ({ post, hasParent }: Props) => {
               className="h-12 w-12 rounded-full"
             />
           ) : (
-            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-              <User size={32} color="#1C1C1E" />
+            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
+              <User size={32} color={buttonColor} />
             </View>
           )}
           <View className="ml-3 flex-1 justify-center">
@@ -56,12 +61,12 @@ export const Post = ({ post, hasParent }: Props) => {
                 {post.author.displayName}
               </Text>
               {/* get age of post - e.g. 5m */}
-              <Text className="text-base text-neutral-500">
+              <Text className="text-base text-neutral-500 dark:text-neutral-50">
                 {" "}
                 · {timeSince(new Date(post.indexedAt))}
               </Text>
             </View>
-            <Text className="text-base leading-5 text-neutral-500">
+            <Text className="text-base leading-5 text-neutral-500 dark:text-neutral-50">
               @{post.author.handle}
             </Text>
           </View>
@@ -82,7 +87,7 @@ export const Post = ({ post, hasParent }: Props) => {
       {/* actions */}
       <View className="mt-4 flex-row justify-between">
         <TouchableOpacity className="flex-row items-center gap-2">
-          <MessageSquare size={16} color="#1C1C1E" />
+          <MessageSquare size={16} color={buttonColor} />
           <Text>{post.replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -91,10 +96,10 @@ export const Post = ({ post, hasParent }: Props) => {
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
           className="flex-row items-center gap-2"
         >
-          <Repeat size={16} color={reposted ? "#2563eb" : "#1C1C1E"} />
+          <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
           <Text
             style={{
-              color: reposted ? "#2563eb" : "#1C1C1E",
+              color: reposted ? "#2563eb" : buttonColor,
             }}
           >
             {repostCount}
@@ -109,11 +114,11 @@ export const Post = ({ post, hasParent }: Props) => {
           <Heart
             size={16}
             fill={liked ? "#dc2626" : "transparent"}
-            color={liked ? "#dc2626" : "#1C1C1E"}
+            color={liked ? "#dc2626" : buttonColor}
           />
           <Text
             style={{
-              color: liked ? "#dc2626" : "#1C1C1E",
+              color: liked ? "#dc2626" : buttonColor,
             }}
           >
             {likeCount}

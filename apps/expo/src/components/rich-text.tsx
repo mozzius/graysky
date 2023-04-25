@@ -58,7 +58,11 @@ export const RichText = ({ text, facets, size = "base" }: Props) => {
       } else {
         parts.push({
           text: segment.text,
-          component: segment.text,
+          component: (
+            <Text className="text-neutral-500 dark:text-neutral-50">
+              {segment.text}
+            </Text>
+          ),
         });
       }
     }

@@ -9,6 +9,7 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useLike, useRepost } from "../lib/hooks";
@@ -48,13 +49,17 @@ export const FeedPost = ({
 
   const displayInlineParent = inlineParent || !!item.reason;
 
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   return (
     <View
       className={cx(
-        "bg-white px-2 pt-2",
+        "bg-white px-2 pt-2 dark:bg-black",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200",
-        unread && "border-blue-200 bg-blue-50",
+        !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
+        unread && "border-blue-200 bg-blue-50 dark:bg-blue-950",
       )}
     >
       <Reason item={item} />
@@ -71,14 +76,16 @@ export const FeedPost = ({
                 />
               ) : (
                 <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                  <User size={32} color="#1C1C1E" />
+                  <User size={32} color={buttonColor} />
                 </View>
               )}
             </Pressable>
           </Link>
           <Link href={postHref} asChild>
             <Pressable className="w-full grow items-center">
-              {hasReply && <View className="w-1 grow bg-neutral-200" />}
+              {hasReply && (
+                <View className="w-1 grow bg-neutral-200 dark:bg-neutral-800" />
+              )}
             </Pressable>
           </Link>
         </View>
@@ -87,15 +94,15 @@ export const FeedPost = ({
           <Link href={profileHref} asChild>
             <Pressable className="flex-row items-center">
               <Text numberOfLines={1} className="max-w-[85%] text-base">
-                <Text className="font-semibold">
+                <Text className="font-semibold text-neutral-500 dark:text-neutral-50">
                   {item.post.author.displayName}
                 </Text>
-                <Text className="text-neutral-500">
+                <Text className="text-neutral-500 dark:text-neutral-50">
                   {` @${item.post.author.handle}`}
                 </Text>
               </Text>
               {/* get age of post - e.g. 5m */}
-              <Text className="text-base text-neutral-500">
+              <Text className="text-base text-neutral-500 dark:text-neutral-50">
                 {" · "}
                 {timeSince(new Date(item.post.indexedAt))}
               </Text>
@@ -112,7 +119,7 @@ export const FeedPost = ({
               >
                 <Pressable className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
-                  <Text className="ml-1 text-neutral-500">
+                  <Text className="ml-1 text-neutral-500 dark:text-neutral-50">
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}
@@ -140,7 +147,7 @@ export const FeedPost = ({
           {/* actions */}
           <View className="mt-2 flex-row justify-between">
             <TouchableOpacity className="flex-row items-center gap-2">
-              <MessageSquare size={16} color="#1C1C1E" />
+              <MessageSquare size={16} color={buttonColor} />
               <Text>{item.post.replyCount}</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -149,10 +156,10 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               className="flex-row items-center gap-2"
             >
-              <Repeat size={16} color={reposted ? "#2563eb" : "#1C1C1E"} />
+              <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
               <Text
                 style={{
-                  color: reposted ? "#2563eb" : "#1C1C1E",
+                  color: reposted ? "#2563eb" : buttonColor,
                 }}
               >
                 {repostCount}
@@ -167,11 +174,11 @@ export const FeedPost = ({
               <Heart
                 size={16}
                 fill={liked ? "#dc2626" : "transparent"}
-                color={liked ? "#dc2626" : "#1C1C1E"}
+                color={liked ? "#dc2626" : buttonColor}
               />
               <Text
                 style={{
-                  color: liked ? "#dc2626" : "#1C1C1E",
+                  color: liked ? "#dc2626" : buttonColor,
                 }}
               >
                 {likeCount}
@@ -186,14 +193,20 @@ export const FeedPost = ({
 };
 
 const Reason = ({ item }: Props) => {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
 
   return (
     <Link href={`/profile/${item.reason.by.handle}`} asChild>
       <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
-        <Repeat color="#1C1C1E" size={12} />
-        <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
+        <Repeat color={buttonColor} size={12} />
+        <Text
+          className="ml-2 flex-1 text-sm text-neutral-500 dark:text-neutral-50"
+          numberOfLines={1}
+        >
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
         </Text>
       </TouchableOpacity>
@@ -202,6 +215,9 @@ const Reason = ({ item }: Props) => {
 };
 
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const circleColor = colorScheme === "light" ? "#737373" : "#D4D4D4";
+
   const agent = useAuthedAgent();
   const { data, isLoading } = useQuery({
     queryKey: ["post", uri],
@@ -232,8 +248,8 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       asChild
     >
       <Pressable className="flex-row items-center">
-        <MessageCircle size={12} color="#737373" />
-        <Text className="ml-1 text-neutral-500">
+        <MessageCircle size={12} color={circleColor} />
+        <Text className="ml-1 text-neutral-500 dark:text-neutral-300">
           replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
       </Pressable>

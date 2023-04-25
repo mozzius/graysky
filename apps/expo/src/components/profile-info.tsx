@@ -44,7 +44,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <ChevronLeft size={24} color="white" />
         </TouchableOpacity>
       )}
-      <View className="relative border-b border-b-neutral-200 bg-white px-4 pb-4">
+      <View className="relative border-b border-b-neutral-200 bg-white px-4 pb-4 dark:bg-black">
         <View className="h-10 flex-row items-center justify-end">
           <View className="absolute -top-11 left-0 rounded-full border-4 border-white">
             <Image

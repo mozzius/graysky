@@ -18,6 +18,7 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
+import { useColorScheme } from "nativewind";
 
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
@@ -55,6 +56,7 @@ interface Props {
 
 export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
+
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
@@ -274,6 +276,10 @@ const PostEmbed = ({
 
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   return (
     <Link href={postHref} asChild>
       <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
@@ -284,11 +290,15 @@ const PostEmbed = ({
             className="mr-2 h-4 w-4 rounded-full"
           />
           <Text className="text-base" numberOfLines={1}>
-            <Text className="font-semibold">{author.displayName}</Text>
-            <Text className="text-neutral-500">{` @${author.handle}`}</Text>
+            <Text className="font-semibold text-neutral-500 dark:text-neutral-50">
+              {author.displayName}
+            </Text>
+            <Text className="text-neutral-500 dark:text-neutral-50">{` @${author.handle}`}</Text>
           </Text>
         </View>
-        {children}
+        <Text className="text-neutral-500 dark:text-neutral-50">
+          {children}
+        </Text>
       </TouchableOpacity>
     </Link>
   );

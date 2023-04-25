@@ -8,7 +8,7 @@ const defineConfig = (): ExpoConfig => ({
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
-  userInterfaceStyle: "light",
+  userInterfaceStyle: "dark",
   splash: {
     image: "./assets/icon.png",
     resizeMode: "cover",
@@ -35,11 +35,11 @@ const defineConfig = (): ExpoConfig => ({
       backgroundColor: "#888888",
     },
   },
-  extra: {
-    eas: {
-      projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
-    },
-  },
+  // extra: {
+  //   eas: {
+  //     projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
+  //   },
+  // },
   plugins: ["./expo-plugins/with-modify-gradle.js"],
 });
 
