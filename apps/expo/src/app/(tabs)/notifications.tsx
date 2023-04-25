@@ -245,7 +245,7 @@ const NotificationItem = ({
   const className = cx(
     "flex-row border-b p-2",
     unread
-      ? "border-blue-200 bg-blue-50"
+      ? "border-blue-200 bg-blue-50 dark:bg-blue-900"
       : "border-neutral-200 bg-white dark:bg-black",
   );
   const wrapper = (children: React.ReactNode) =>
@@ -286,12 +286,14 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="font-medium">
+        <Text className="font-medium text-neutral-500 dark:text-neutral-50">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        {" " + action}
-        <Text className="text-neutral-500">
+        <Text className="font-medium text-neutral-500 dark:text-neutral-50">
+          {" " + action}
+        </Text>
+        <Text className="text-neutral-500 dark:text-neutral-50">
           {" · " + timeSince(new Date(indexedAt))}
         </Text>
       </Text>
@@ -357,7 +359,7 @@ const PostNotification = ({
 
         return (
           <View className="mt-0.5">
-            <Text className="text-neutral-500">
+            <Text className="text-neutral-500 dark:text-neutral-50">
               <RichText
                 text={post.data.post.record.text}
                 facets={post.data.post.record.facets}
