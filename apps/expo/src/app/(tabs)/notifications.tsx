@@ -11,7 +11,7 @@ import {
   AppBskyEmbedImages,
   AppBskyFeedDefs,
   AppBskyFeedPost,
-  AppBskyNotificationListNotifications,
+  type AppBskyNotificationListNotifications,
 } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";

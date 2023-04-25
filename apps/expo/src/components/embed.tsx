@@ -285,6 +285,10 @@ const PostEmbed = ({
 
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   return (
     <Link href={postHref} asChild>
       <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
