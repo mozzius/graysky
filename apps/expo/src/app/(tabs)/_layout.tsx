@@ -1,11 +1,14 @@
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Search, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../../lib/agent";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
 
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
@@ -22,6 +25,9 @@ export default function AppLayout() {
         options={{
           headerShown: false,
           animation: "none",
+          // contentStyle: {
+          //   backgroundColor: "#000",
+          // },
         }}
       />
       <Tabs screenOptions={{ headerShown: false }}>
@@ -30,6 +36,9 @@ export default function AppLayout() {
           options={{
             title: "Skyline",
             tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
               return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;
             },
@@ -40,6 +49,9 @@ export default function AppLayout() {
           options={{
             title: "Search",
             tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
               return <Search color={focused ? "#505050" : "#9b9b9b"} />;
             },
@@ -55,6 +67,9 @@ export default function AppLayout() {
               backgroundColor: "#505050",
               fontSize: 12,
             },
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
               return <Bell color={focused ? "#505050" : "#9b9b9b"} />;
             },
@@ -65,6 +80,9 @@ export default function AppLayout() {
           options={{
             title: "Profile",
             tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
               return <User color={focused ? "#505050" : "#9b9b9b"} />;
             },

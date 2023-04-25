@@ -8,7 +8,7 @@ const defineConfig = (): ExpoConfig => ({
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
-  userInterfaceStyle: "dark",
+  userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/icon.png",
     resizeMode: "cover",
