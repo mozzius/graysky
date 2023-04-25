@@ -14,6 +14,7 @@
     "dev:both": "turbo dev --parallel",
     "dev": "cd apps/expo && pnpm dev",
     "dev:expo": "cd apps/expo && pnpm dev:expo",
+    "dev:next": "cd apps/nextjs && pnpm dev",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
