@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
 import { useMutation } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
@@ -15,6 +16,8 @@ interface Props {
 export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAuthedAgent();
   const router = useRouter();
+
+  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -46,7 +49,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       )}
       <View className="relative border-b border-b-neutral-200 bg-white px-4 pb-4 dark:bg-black">
         <View className="h-10 flex-row items-center justify-end">
-          <View className="absolute -top-11 left-0 rounded-full border-4 border-white">
+          <View className="absolute -top-11 left-0 rounded-full border-4 border-white dark:border-black">
             <Image
               source={{ uri: profile.avatar }}
               className="h-20 w-20 rounded-full"
@@ -61,31 +64,51 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             />
           )}
         </View>
-        <Text className="mt-1 text-2xl font-medium">{profile.displayName}</Text>
+        <Text className="mt-1 text-2xl font-medium text-neutral-500 dark:text-neutral-50">
+          {profile.displayName}
+        </Text>
         <Text>
           {profile.viewer?.followedBy && (
             <>
-              <Text className="bg-neutral-100 px-1 font-semibold">
-                {" Follows you "}
+              <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
+                <Text className="text-neutral-500 dark:text-neutral-50">
+                  {" Follows you "}
+                </Text>
               </Text>{" "}
             </>
           )}
-          <Text className="text-neutral-500">@{profile.handle}</Text>
+          <Text className="text-neutral-500 dark:text-neutral-50">
+            @{profile.handle}
+          </Text>
         </Text>
         <View className="mt-3 flex-row">
           <Text>
-            <Text className="font-bold">{profile.followersCount}</Text>{" "}
-            Followers
+            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+              {profile.followersCount}
+            </Text>{" "}
+            <Text className="text-neutral-500 dark:text-neutral-50">
+              Followers
+            </Text>
           </Text>
           <Text className="ml-4">
-            <Text className="font-bold">{profile.followsCount}</Text> Following
+            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+              {profile.followsCount}
+            </Text>{" "}
+            <Text className="text-neutral-500 dark:text-neutral-50">
+              Following
+            </Text>
           </Text>
           <Text className="ml-4">
-            <Text className="font-bold">{profile.postsCount ?? 0}</Text> Posts
+            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+              {profile.postsCount ?? 0}
+            </Text>{" "}
+            <Text className="text-neutral-500 dark:text-neutral-50">Posts</Text>
           </Text>
         </View>
         {profile.description && (
-          <Text className="mt-3">{profile.description}</Text>
+          <Text className="mt-3 text-neutral-500 dark:text-neutral-50">
+            {profile.description}
+          </Text>
         )}
       </View>
     </View>
