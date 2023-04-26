@@ -19,13 +19,30 @@ export default function Login() {
     mutationKey: ["login"],
     mutationFn: async () => {
       if (!appPwdRegex.test(password)) {
-        Alert.alert(
-          "Invalid App Password",
-          "Please enter a valid app password. You can create one by going to Settings > App Passwords.",
+        await new Promise((resolve, reject) =>
+          Alert.alert(
+            "Warning: Not an App Password",
+            "We recommend you use an App Password rather than your main password. You can create one by going to Settings > App Passwords.",
+            [
+              {
+                text: "Cancel",
+                onPress: reject,
+                style: "cancel",
+              },
+              {
+                text: "Continue",
+                onPress: resolve,
+              },
+            ],
+          ),
         );
-        return;
       }
-      await agent.login({ identifier, password });
+      await agent.login({
+        identifier: identifier.startsWith("@")
+          ? identifier.slice(1)
+          : identifier,
+        password,
+      });
     },
   });
 
