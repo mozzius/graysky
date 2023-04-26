@@ -47,6 +47,7 @@ export default function NotificationsPage() {
       const notifs = await agent.listNotifications({
         cursor: pageParam as string | undefined,
       });
+      if (!notifs.success) throw new Error("Failed to fetch notifications");
       // mark as read
       if (pageParam === undefined) {
         agent.updateSeenNotifications().then(() => {
@@ -117,12 +118,13 @@ export default function NotificationsPage() {
       return (
         <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="text-center text-xl">
+          <Text className="text-center text-lg">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button
             variant="outline"
             onPress={() => void notifications.refetch()}
+            className="mt-4"
           >
             Retry
           </Button>

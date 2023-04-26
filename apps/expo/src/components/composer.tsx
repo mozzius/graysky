@@ -33,7 +33,7 @@ export const Composer = forwardRef<ComposerRef, Props>(
     const bottomSheetRef = useRef<BottomSheet>(null);
     const agent = useAuthedAgent();
 
-    const snapPoints = useMemo(() => [100, "50%", "90%"], []);
+    const snapPoints = useMemo(() => [100, "60%"], []);
 
     const handleSheetChanges = useCallback((index: number) => {
       console.log("handleSheetChanges", index);
@@ -47,7 +47,7 @@ export const Composer = forwardRef<ComposerRef, Props>(
 
     const renderBackdrop = useCallback(
       (props: any) => (
-        <BottomSheetBackdrop {...props} pressBehavior={"collapse"} />
+        <BottomSheetBackdrop {...props} pressBehavior="collapse" />
       ),
       [],
     );

@@ -217,8 +217,15 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       throw new Error("invalid post");
     },
   });
-  if (isLoading) return <View className="h-[17px]" />;
-  if (!data) return null;
+  if (!data)
+    return (
+      <View className="flex-row items-center">
+        <MessageCircle size={12} color="#737373" />
+        <Text className="ml-1 text-neutral-500">
+          replying to{isLoading ? "..." : " unknown"}
+        </Text>
+      </View>
+    );
   return (
     <Link
       href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}

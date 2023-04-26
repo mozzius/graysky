@@ -1,10 +1,14 @@
 import { Pressable, View } from "react-native";
 import { Edit3 } from "lucide-react-native";
 
+import { useAuthedAgent } from "../lib/agent";
 import { Composer, useComposer } from "./composer";
 
 export const ComposeButton = () => {
   const ref = useComposer();
+  const agent = useAuthedAgent();
+
+  if (agent.session.handle !== "mozzius.dev") return null;
 
   return (
     <>

@@ -38,16 +38,19 @@ export default function Timeline() {
           const popular = await agent.app.bsky.unspecced.getPopular({
             cursor: pageParam as string | undefined,
           });
+          if (!popular.success) throw new Error("Failed to fetch feed");
           return popular.data;
         case "following":
           const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+          if (!following.success) throw new Error("Failed to fetch feed");
           return following.data;
         case "mutuals":
           const all = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+          if (!all.success) throw new Error("Failed to fetch feed");
           const actors = new Set<string>();
           for (const item of all.data.feed) {
             const actor = actorFromPost(item);
@@ -143,10 +146,14 @@ export default function Timeline() {
         <>
           {header}
           <View className="flex-1 items-center justify-center p-4">
-            <Text className="text-center text-xl">
+            <Text className="text-center text-lg">
               {(timeline.error as Error).message || "An error occurred"}
             </Text>
-            <Button variant="outline" onPress={() => void timeline.refetch()}>
+            <Button
+              variant="outline"
+              onPress={() => void timeline.refetch()}
+              className="mt-4"
+            >
               Retry
             </Button>
           </View>

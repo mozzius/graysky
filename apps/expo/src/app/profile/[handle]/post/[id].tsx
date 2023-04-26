@@ -37,6 +37,8 @@ export default function PostPage() {
     const uri = `at://${did}/app.bsky.feed.post/${id}`;
     const postThread = await agent.getPostThread({ uri });
 
+    if (!postThread.success) throw Error("Failed to fetch post thread");
+
     const thread = postThread.data.thread;
 
     if (!AppBskyFeedDefs.isThreadViewPost(thread))

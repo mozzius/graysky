@@ -7,6 +7,8 @@ import { Lock, User } from "lucide-react-native";
 
 import { useAgent } from "../../lib/agent";
 
+const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
+
 export default function Login() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +18,13 @@ export default function Login() {
   const login = useMutation({
     mutationKey: ["login"],
     mutationFn: async () => {
+      if (!appPwdRegex.test(password)) {
+        Alert.alert(
+          "Invalid App Password",
+          "Please enter a valid app password. You can create one by going to Settings > App Passwords.",
+        );
+        return;
+      }
       await agent.login({ identifier, password });
     },
   });
@@ -38,7 +47,7 @@ export default function Login() {
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
             className="mb-1 ml-2 flex-1 text-base"
-            placeholder="Password"
+            placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
@@ -48,8 +57,8 @@ export default function Login() {
           <Button
             onPress={() =>
               Alert.alert(
-                "Help",
-                "You need a bsky.social account in order to log in. If you don't have one, you'll need an invite code.",
+                "App Passwords",
+                "You should use an app password instead of your main password. You can create one by going to Settings > App Passwords.",
               )
             }
             title="Help"

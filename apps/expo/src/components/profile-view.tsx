@@ -37,6 +37,7 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
     const profile = await agent.getProfile({
       actor: handle,
     });
+    if (!profile.success) throw new Error("Profile not found");
     return profile.data;
   });
 
@@ -202,17 +203,23 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
           <Stack.Screen
             options={{
               headerShown: true,
-              headerTitle: "Profile not found",
+              headerTransparent: false,
+              headerTitle: "Error",
             }}
           />
-          <Text className="text-center text-xl">
+          <Text className="text-center text-lg">
             {(profile.error as Error).message || "An error occurred"}
           </Text>
         </View>
       );
     case "success":
       return (
-        <SafeAreaView className="flex-1" edges={["top"]}>
+        <>
+          <SafeAreaView
+            className="w-full bg-white dark:bg-black"
+            edges={["top"]}
+            mode="padding"
+          />
           <Stack.Screen
             options={{
               headerTransparent: true,
@@ -261,7 +268,7 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
             }
           />
           {children}
-        </SafeAreaView>
+        </>
       );
   }
 };
