@@ -6,6 +6,7 @@ import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Button } from "../../components/button";
+import { ComposeButton } from "../../components/compose-button";
 import { FeedPost } from "../../components/feed-post";
 import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
@@ -180,6 +181,7 @@ export default function Timeline() {
               ) : null
             }
           />
+          <ComposeButton />
         </>
       );
   }

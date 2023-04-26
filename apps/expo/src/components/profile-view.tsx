@@ -18,12 +18,12 @@ import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
 import { Tab, Tabs } from "./tabs";
 
-interface Props {
+interface Props extends React.PropsWithChildren {
   handle: string;
   header?: boolean;
 }
 
-export const ProfileView = ({ handle, header = true }: Props) => {
+export const ProfileView = ({ handle, children, header = true }: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
@@ -260,6 +260,7 @@ export const ProfileView = ({ handle, header = true }: Props) => {
               )
             }
           />
+          {children}
         </SafeAreaView>
       );
   }
