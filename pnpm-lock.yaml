@@ -1997,7 +1997,7 @@ packages:
       base64-js: 1.5.1
       xmlbuilder: 14.0.0
 
-  /@expo/prebuild-config@6.0.0:
+  /@expo/prebuild-config@6.0.0(expo-modules-autolinking@1.2.0):
     resolution: {integrity: sha512-UW0QKAoRelsalVMhAG1tmegwS+2tbefvUi6/0QiKPlMLg8GFDQ5ZnzsSmuljD0SzT5yGg8oSpKYhnrXJ6pRmIQ==}
     peerDependencies:
       expo-modules-autolinking: '>=0.8.1'
@@ -2008,6 +2008,7 @@ packages:
       '@expo/image-utils': 0.3.22
       '@expo/json-file': 8.2.37
       debug: 4.3.4
+      expo-modules-autolinking: 1.2.0
       fs-extra: 9.1.0
       resolve-from: 5.0.0
       semver: 7.3.2
@@ -2864,6 +2865,7 @@ packages:
       '@tanstack/query-core': 4.29.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
