@@ -7,7 +7,7 @@ export default function SearchPage() {
 
   return (
     <View className="flex-1 justify-center bg-white dark:bg-black">
-      <Text className="text-center text-xl text-neutral-500 dark:text-neutral-50">
+      <Text className="text-center text-xl dark:text-neutral-50">
         Coming soon
       </Text>
     </View>
