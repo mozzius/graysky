@@ -31,7 +31,12 @@ export default function AppLayout() {
             title: "Skyline",
             tabBarShowLabel: false,
             tabBarIcon({ focused }) {
-              return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Cloudy
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -41,7 +46,12 @@ export default function AppLayout() {
             title: "Search",
             tabBarShowLabel: false,
             tabBarIcon({ focused }) {
-              return <Search color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Search
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -56,7 +66,12 @@ export default function AppLayout() {
               fontSize: 12,
             },
             tabBarIcon({ focused }) {
-              return <Bell color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Bell
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -66,7 +81,12 @@ export default function AppLayout() {
             title: "Profile",
             tabBarShowLabel: false,
             tabBarIcon({ focused }) {
-              return <User color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <User
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />

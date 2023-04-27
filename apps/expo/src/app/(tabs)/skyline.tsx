@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -29,6 +30,7 @@ export default function Timeline() {
   );
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<any>>(null);
+  const headerHeight = useHeaderHeight();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", mode],
@@ -97,7 +99,8 @@ export default function Timeline() {
 
   const header = (
     <>
-      <Stack.Screen options={{ headerShown: true }} />
+      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
+      <View className="w-full bg-white" style={{ height: headerHeight }} />
       <Tabs>
         <Tab
           text="Following"
