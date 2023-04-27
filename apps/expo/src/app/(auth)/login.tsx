@@ -47,7 +47,7 @@ export default function Login() {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-white px-4">
+    <SafeAreaView className="flex-1 bg-white px-4 dark:bg-black">
       <Stack.Screen options={{ title: "Log in", headerBackTitle: "Back" }} />
       <View className="items-stretch gap-4">
         <View className="flex flex-row items-center rounded border border-neutral-300 px-3 py-2">

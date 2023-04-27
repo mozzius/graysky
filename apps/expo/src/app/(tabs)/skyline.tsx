@@ -36,22 +36,25 @@ export default function Timeline() {
     queryKey: ["timeline", mode],
     queryFn: async ({ pageParam }) => {
       switch (mode) {
-        case "popular":
+        case "popular": {
           const popular = await agent.app.bsky.unspecced.getPopular({
             cursor: pageParam as string | undefined,
           });
           if (!popular.success) throw new Error("Failed to fetch feed");
           return popular.data;
-        case "following":
+        }
+        case "following": {
           const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
           if (!following.success) throw new Error("Failed to fetch feed");
           return following.data;
-        case "mutuals":
+        }
+        case "mutuals": {
           const all = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+
           if (!all.success) throw new Error("Failed to fetch feed");
           const actors = new Set<string>();
           for (const item of all.data.feed) {
@@ -70,6 +73,7 @@ export default function Timeline() {
             }),
             cursor: all.data.cursor,
           };
+        }
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -138,7 +142,7 @@ export default function Timeline() {
       return (
         <>
           {header}
-          <View className="flex-1 items-center justify-center">
+          <View className="flex-1 items-center justify-center bg-white dark:bg-black">
             <ActivityIndicator />
           </View>
         </>
@@ -148,7 +152,7 @@ export default function Timeline() {
       return (
         <>
           {header}
-          <View className="flex-1 items-center justify-center p-4">
+          <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
             <Text className="text-center text-lg">
               {(timeline.error as Error).message || "An error occurred"}
             </Text>
@@ -185,7 +189,7 @@ export default function Timeline() {
             estimatedItemSize={91}
             ListFooterComponent={
               timeline.isFetching ? (
-                <View className="w-full items-center py-4">
+                <View className="w-full items-center bg-white py-4 dark:bg-black">
                   <ActivityIndicator />
                 </View>
               ) : null

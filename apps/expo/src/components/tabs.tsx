@@ -17,7 +17,7 @@ export const Tabs = ({ children, className, style }: TabsProps) => {
   return (
     <View
       className={cx(
-        "w-full flex-row border-b border-neutral-200 bg-white",
+        "w-full flex-row border-b border-neutral-200 bg-white dark:bg-black",
         className,
       )}
       style={style}
@@ -39,10 +39,12 @@ export const Tab = ({ active, onPress, text }: TabProps) => {
       onPress={onPress}
       className={cx(
         "ml-4 border-y-2 border-transparent py-3 text-xl",
-        active && "border-b-black",
+        active && "border-b-black dark:border-b-white",
       )}
     >
-      <Text className="font-medium">{text}</Text>
+      <Text className="font-medium text-neutral-500 dark:text-neutral-50">
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };

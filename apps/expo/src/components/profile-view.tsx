@@ -9,6 +9,7 @@ import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useTabPressScroll } from "../lib/hooks";
@@ -32,6 +33,9 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
   const { top } = useSafeAreaInsets();
 
   const tabOffset = headerHeight - top;
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
+  const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const profile = useQuery(["profile", handle], async () => {
     const profile = await agent.getProfile({
@@ -188,10 +192,16 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
   switch (profile.status) {
     case "loading":
       return (
-        <View className="flex-1 items-center justify-center">
+        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
           <Stack.Screen
             options={{
               headerShown: false,
+              // headerTitleStyle: {
+              //   color: textColor,
+              // },
+              // headerStyle: {
+              //   backgroundColor: backgroundColor,
+              // },
             }}
           />
           <ActivityIndicator />
@@ -199,15 +209,21 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
       );
     case "error":
       return (
-        <View className="flex-1 items-center justify-center p-4">
+        <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
           <Stack.Screen
             options={{
               headerShown: true,
               headerTransparent: false,
               headerTitle: "Error",
+              headerTitleStyle: {
+                color: textColor,
+              },
+              headerStyle: {
+                backgroundColor: backgroundColor,
+              },
             }}
           />
-          <Text className="text-center text-lg">
+          <Text className="text-center text-xl">
             {(profile.error as Error).message || "An error occurred"}
           </Text>
         </View>
@@ -228,6 +244,12 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
                 backgroundColor: "white",
               },
               headerShown: header && !atTop,
+              headerTitleStyle: {
+                color: textColor,
+              },
+              headerStyle: {
+                backgroundColor: backgroundColor,
+              },
             }}
           />
           <FlashList
