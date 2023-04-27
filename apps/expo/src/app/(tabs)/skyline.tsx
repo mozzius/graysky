@@ -34,22 +34,25 @@ export default function Timeline() {
     queryKey: ["timeline", mode],
     queryFn: async ({ pageParam }) => {
       switch (mode) {
-        case "popular":
+        case "popular": {
           const popular = await agent.app.bsky.unspecced.getPopular({
             cursor: pageParam as string | undefined,
           });
           if (!popular.success) throw new Error("Failed to fetch feed");
           return popular.data;
-        case "following":
+        }
+        case "following": {
           const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
           if (!following.success) throw new Error("Failed to fetch feed");
           return following.data;
-        case "mutuals":
+        }
+        case "mutuals": {
           const all = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+
           if (!all.success) throw new Error("Failed to fetch feed");
           const actors = new Set<string>();
           for (const item of all.data.feed) {
@@ -68,6 +71,7 @@ export default function Timeline() {
             }),
             cursor: all.data.cursor,
           };
+        }
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
