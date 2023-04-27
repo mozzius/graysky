@@ -41,7 +41,7 @@ export default function AppLayout() {
               backgroundColor: backgroundColor,
             },
             headerStyle: {
-              backgroundColor: backgroundColor,
+              backgroundColor: "backgroundColor",
             },
             tabBarIcon({ focused }) {
               return (

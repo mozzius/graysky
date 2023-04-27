@@ -85,7 +85,7 @@ export default function Timeline() {
     if (timeline.status !== "success") return [];
     const flattened = timeline.data.pages.flatMap((page) => page.feed);
     return flattened
-      .map((item, i, arr) =>
+      .map((item, _i, _arr) =>
         // if the preview item is replying to this one, skip
         // arr[i - 1]?.reply?.parent?.cid === item.cid
         //   ? [] :
