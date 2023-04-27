@@ -4,6 +4,7 @@ import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
