@@ -67,9 +67,7 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text className="text-neutral-500 dark:text-neutral-50">
-              {segment.text}
-            </Text>
+            <Text className="dark:text-neutral-50">{segment.text}</Text>
           ),
         });
       }

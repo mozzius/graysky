@@ -34,6 +34,7 @@ interface TabProps {
 }
 
 export const Tab = ({ active, onPress, text }: TabProps) => {
+  //TODO: fix dark mode
   return (
     <TouchableOpacity
       accessibilityRole="button"
