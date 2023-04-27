@@ -10,6 +10,28 @@ export default function AppLayout() {
   const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
+  const tabBarIconColors =
+    colorScheme === "light"
+      ? {
+          color: {
+            focused: "#505050",
+            unfocused: "#9b9b9b",
+          },
+          fill: {
+            focused: "#505050",
+            unfocused: undefined,
+          },
+        }
+      : {
+          color: {
+            focused: "#aaa",
+            unfocused: "#aaa",
+          },
+          fill: {
+            focused: "#aaa",
+            unfocused: undefined,
+          },
+        };
 
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
@@ -55,8 +77,16 @@ export default function AppLayout() {
             tabBarIcon({ focused }) {
               return (
                 <Cloudy
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
+                  color={
+                    focused
+                      ? tabBarIconColors.color.focused
+                      : tabBarIconColors.color.unfocused
+                  }
+                  fill={
+                    focused
+                      ? tabBarIconColors.fill.focused
+                      : tabBarIconColors.fill.unfocused
+                  }
                 />
               );
             },
@@ -69,8 +99,16 @@ export default function AppLayout() {
             tabBarIcon({ focused }) {
               return (
                 <Search
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
+                  color={
+                    focused
+                      ? tabBarIconColors.color.focused
+                      : tabBarIconColors.color.unfocused
+                  }
+                  fill={
+                    focused
+                      ? tabBarIconColors.fill.focused
+                      : tabBarIconColors.fill.unfocused
+                  }
                 />
               );
             },
@@ -88,8 +126,16 @@ export default function AppLayout() {
             tabBarIcon({ focused }) {
               return (
                 <Bell
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
+                  color={
+                    focused
+                      ? tabBarIconColors.color.focused
+                      : tabBarIconColors.color.unfocused
+                  }
+                  fill={
+                    focused
+                      ? tabBarIconColors.fill.focused
+                      : tabBarIconColors.fill.unfocused
+                  }
                 />
               );
             },
@@ -102,8 +148,16 @@ export default function AppLayout() {
             tabBarIcon({ focused }) {
               return (
                 <User
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
+                  color={
+                    focused
+                      ? tabBarIconColors.color.focused
+                      : tabBarIconColors.color.unfocused
+                  }
+                  fill={
+                    focused
+                      ? tabBarIconColors.fill.focused
+                      : tabBarIconColors.fill.unfocused
+                  }
                 />
               );
             },
