@@ -10,6 +10,12 @@ import {
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+  useTheme,
+} from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
@@ -107,13 +113,14 @@ export default function RootLayout() {
     }
   }, [did, segments, router, loading]);
 
+  const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <AgentProvider value={agent}>
-          <StatusBar style="auto" />
-          {loading && <SplashScreen />}
-          <ActionSheetProvider>
+    <ThemeProvider value={theme}>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <AgentProvider value={agent}>
+            <StatusBar style="auto" />
+            {loading && <SplashScreen />}
             <ComposerProvider>
               <Stack
                 screenOptions={{
@@ -126,9 +133,9 @@ export default function RootLayout() {
                 }}
               />
             </ComposerProvider>
-          </ActionSheetProvider>
-        </AgentProvider>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+          </AgentProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
