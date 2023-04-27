@@ -7,7 +7,7 @@ import { useAuthedAgent } from "../../lib/agent";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
@@ -26,9 +26,6 @@ export default function AppLayout() {
         options={{
           headerShown: false,
           animation: "none",
-          // contentStyle: {
-          //   backgroundColor: "#000",
-          // },
         }}
       />
       <Tabs screenOptions={{ headerShown: false }}>
