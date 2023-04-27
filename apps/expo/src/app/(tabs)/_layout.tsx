@@ -8,7 +8,6 @@ import { useAuthedAgent } from "../../lib/agent";
 export default function AppLayout() {
   const agent = useAuthedAgent();
   const { colorScheme } = useColorScheme();
-  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
   const tabBarIconColors =
     colorScheme === "light"
@@ -24,11 +23,11 @@ export default function AppLayout() {
         }
       : {
           color: {
-            focused: "#aaa",
-            unfocused: "#aaa",
+            focused: "#fff",
+            unfocused: "#fff",
           },
           fill: {
-            focused: "#aaa",
+            focused: "#fff",
             unfocused: undefined,
           },
         };
@@ -62,12 +61,12 @@ export default function AppLayout() {
           headerTitleStyle: {
             color: textColor,
           },
-          tabBarStyle: {
-            backgroundColor: backgroundColor,
-          },
-          headerStyle: {
-            backgroundColor: backgroundColor,
-          },
+          // tabBarStyle: {
+          //   backgroundColor: backgroundColor,
+          // },
+          // headerStyle: {
+          //   backgroundColor: backgroundColor,
+          // },
         }}
       >
         <Tabs.Screen

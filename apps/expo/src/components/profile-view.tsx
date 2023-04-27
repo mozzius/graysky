@@ -164,6 +164,7 @@ export const ProfileView = ({
     <Tabs
       style={{
         marginTop: offset ? tabOffset : 0,
+        borderBottomColor: "#262626",
       }}
     >
       <Tab
