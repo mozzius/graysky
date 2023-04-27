@@ -8,7 +8,12 @@ export const ComposeButton = () => {
   const ref = useComposer();
   const agent = useAuthedAgent();
 
-  if (agent.session.handle !== "mozzius.dev") return null;
+  // feature flags are my passion
+  if (
+    "mozzius.dev" !== agent.session.handle &&
+    "aliceisjustplaying.bsky.social" !== agent.session.handle
+  )
+    return null;
 
   return (
     <>
