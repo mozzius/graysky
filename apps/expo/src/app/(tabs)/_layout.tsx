@@ -53,7 +53,12 @@ export default function AppLayout() {
               backgroundColor: backgroundColor,
             },
             tabBarIcon({ focused }) {
-              return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Cloudy
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -72,7 +77,12 @@ export default function AppLayout() {
               backgroundColor: backgroundColor,
             },
             tabBarIcon({ focused }) {
-              return <Search color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Search
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -96,7 +106,12 @@ export default function AppLayout() {
               backgroundColor: backgroundColor,
             },
             tabBarIcon({ focused }) {
-              return <Bell color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <Bell
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
@@ -115,7 +130,12 @@ export default function AppLayout() {
               backgroundColor: backgroundColor,
             },
             tabBarIcon({ focused }) {
-              return <User color={focused ? "#505050" : "#9b9b9b"} />;
+              return (
+                <User
+                  color={focused ? "#505050" : "#9b9b9b"}
+                  fill={focused ? "#505050" : undefined}
+                />
+              );
             },
           }}
         />
