@@ -24,20 +24,22 @@ pnpm dev:expo
 
 Then just scan the QR code!
 
-## Near-term Roadmap
+## Roadmap to Feature Parity
 
 - [x] Notifications screen
 - [x] Image viewer
 - [x] Pull to refresh fix
+- [x] Haptics
 - [ ] Post composer
 - [ ] Reply/Quote composer
-- [ ] Search screen
+- [ ] Dark mode
+- [ ] Sidebar w/ logout button
 - [ ] Followers/Following screens
+- [ ] Settings screen
 - [ ] Context menu - post actions
 - [ ] Context menu - user actions
-- [ ] Settings screen
 - [ ] Image viewer: Pinch to zoom
-- [x] Haptics
-- [ ] More haptics!
+- [ ] Better haptics
+- [ ] Search screen
 - [ ] Push notifications
 - [ ] App Store???
