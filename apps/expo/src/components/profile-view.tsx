@@ -212,12 +212,6 @@ export const ProfileView = ({
           <Stack.Screen
             options={{
               headerShown: false,
-              // headerTitleStyle: {
-              //   color: textColor,
-              // },
-              // headerStyle: {
-              //   backgroundColor: backgroundColor,
-              // },
             }}
           />
           <ActivityIndicator />

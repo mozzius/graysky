@@ -65,16 +65,14 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             />
           )}
         </View>
-        <Text className="mt-1 text-2xl font-medium text-neutral-500 dark:text-neutral-50">
+        <Text className="mt-1 text-2xl font-medium dark:text-neutral-50">
           {profile.displayName}
         </Text>
         <Text>
           {profile.viewer?.followedBy && (
             <>
               <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
-                <Text className="text-neutral-500 dark:text-neutral-50">
-                  {" Follows you "}
-                </Text>
+                <Text className="dark:text-neutral-50">{" Follows you "}</Text>
               </Text>{" "}
             </>
           )}
@@ -84,26 +82,22 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         </Text>
         <View className="mt-3 flex-row">
           <Text>
-            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+            <Text className="font-bold dark:text-neutral-50">
               {profile.followersCount}
             </Text>{" "}
-            <Text className="text-neutral-500 dark:text-neutral-50">
-              Followers
-            </Text>
+            <Text className="dark:text-neutral-50">Followers</Text>
           </Text>
           <Text className="ml-4">
-            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+            <Text className="font-bold dark:text-neutral-50">
               {profile.followsCount}
             </Text>{" "}
-            <Text className="text-neutral-500 dark:text-neutral-50">
-              Following
-            </Text>
+            <Text className="dark:text-neutral-50">Following</Text>
           </Text>
           <Text className="ml-4">
-            <Text className="font-bold text-neutral-500 dark:text-neutral-50">
+            <Text className="font-bold dark:text-neutral-50">
               {profile.postsCount ?? 0}
             </Text>{" "}
-            <Text className="text-neutral-500 dark:text-neutral-50">Posts</Text>
+            <Text className="dark:text-neutral-50">Posts</Text>
           </Text>
         </View>
         {profile.description && (

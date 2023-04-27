@@ -118,7 +118,7 @@ export const FeedPost = ({
           <Link href={profileHref} asChild>
             <TouchableWithoutFeedback className="flex-row items-center">
               <Text numberOfLines={1} className="max-w-[85%] text-base">
-                <Text className="font-semibold text-neutral-500 dark:text-neutral-50">
+                <Text className="font-semibold dark:text-neutral-50">
                   {item.post.author.displayName}
                 </Text>
                 <Text className="text-neutral-500 dark:text-neutral-50">
@@ -250,7 +250,7 @@ const Reason = ({ item }: Props) => {
       <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color={buttonColor} size={12} />
         <Text
-          className="ml-2 flex-1 text-sm text-neutral-500 dark:text-neutral-50"
+          className="ml-2 flex-1 text-sm dark:text-neutral-50"
           numberOfLines={1}
         >
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
