@@ -2081,8 +2081,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: false
 
-  /@gorhom/bottom-sheet@4.0.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.7)(react@18.2.0):
-    resolution: {integrity: sha512-iG4ZY16co3KsVl6zPrfG6VJuGGv4ml+dDduK9EtudWxTnZMMkFQxc5shGvu2Hbv+N15EhwelyLqZmxFzGXYZqQ==}
+  /@gorhom/bottom-sheet@4.4.5(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-Z5Z20wshLUB8lIdtMKoJaRnjd64wBR/q8EeVPThrg+skrcBwBPHfUwZJ2srB0rEszA/01ejSJy/ixyd7Ra7vUA==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -2091,12 +2091,10 @@ packages:
     dependencies:
       '@gorhom/portal': 1.0.14(react-native@0.71.7)(react@18.2.0)
       invariant: 2.2.4
-      nanoid: 3.3.6
       react: 18.2.0
       react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
       react-native-gesture-handler: 2.9.0(react-native@0.71.7)(react@18.2.0)
       react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.7)(react@18.2.0)
-      react-native-redash: 16.3.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.7)(react@18.2.0)
     dev: false
 
   /@gorhom/portal@1.0.14(react-native@0.71.7)(react@18.2.0):
@@ -8898,23 +8896,6 @@ packages:
       string-hash-64: 1.0.3
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /react-native-redash@16.3.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.7)(react@18.2.0):
-    resolution: {integrity: sha512-dhmeYbQ/usGzxZSGZmzmRuIFF2LrtJUKqgseKgf9Jdj0JQ7VM20m/LqTg60+wjxeiyAh2D/vKsQ2U7rMkuoplQ==}
-    peerDependencies:
-      react: '*'
-      react-native: '*'
-      react-native-gesture-handler: '*'
-      react-native-reanimated: '>=2.0.0'
-    dependencies:
-      abs-svg-path: 0.1.1
-      normalize-svg-path: 1.1.0
-      parse-svg-path: 0.1.2
-      react: 18.2.0
-      react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
-      react-native-gesture-handler: 2.9.0(react-native@0.71.7)(react@18.2.0)
-      react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.7)(react@18.2.0)
     dev: false
 
   /react-native-redash@18.1.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.7)(react@18.2.0):
