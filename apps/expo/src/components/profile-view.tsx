@@ -240,9 +240,6 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
             options={{
               headerTransparent: true,
               headerTitle: "",
-              headerStyle: {
-                backgroundColor: "white",
-              },
               headerShown: header && !atTop,
               headerTitleStyle: {
                 color: textColor,
