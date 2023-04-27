@@ -36,22 +36,22 @@ export default function AppLayout() {
           //   position: "absolute",
           //   backgroundColor: "rgba(255, 255, 255, 0.95)",
           // },
+          // TODO: do we still need this?
+          headerTitleStyle: {
+            color: textColor,
+          },
+          tabBarStyle: {
+            backgroundColor: backgroundColor,
+          },
+          headerStyle: {
+            backgroundColor: backgroundColor,
+          },
         }}
       >
         <Tabs.Screen
           name="skyline"
           options={{
             title: "Skyline",
-            tabBarShowLabel: false,
-            headerTitleStyle: {
-              color: textColor,
-            },
-            tabBarStyle: {
-              backgroundColor: backgroundColor,
-            },
-            headerStyle: {
-              backgroundColor: backgroundColor,
-            },
             tabBarIcon({ focused }) {
               return (
                 <Cloudy
@@ -66,16 +66,6 @@ export default function AppLayout() {
           name="search"
           options={{
             title: "Search",
-            tabBarShowLabel: false,
-            headerTitleStyle: {
-              color: textColor,
-            },
-            tabBarStyle: {
-              backgroundColor: backgroundColor,
-            },
-            headerStyle: {
-              backgroundColor: backgroundColor,
-            },
             tabBarIcon({ focused }) {
               return (
                 <Search
@@ -90,20 +80,10 @@ export default function AppLayout() {
           name="notifications"
           options={{
             title: "Notifications",
-            tabBarShowLabel: false,
             tabBarBadge: notifications.data?.data?.count || undefined,
             tabBarBadgeStyle: {
               backgroundColor: "#262626",
               fontSize: 12,
-            },
-            headerTitleStyle: {
-              color: textColor,
-            },
-            tabBarStyle: {
-              backgroundColor: backgroundColor,
-            },
-            headerStyle: {
-              backgroundColor: backgroundColor,
             },
             tabBarIcon({ focused }) {
               return (
@@ -119,16 +99,6 @@ export default function AppLayout() {
           name="profile"
           options={{
             title: "Profile",
-            tabBarShowLabel: false,
-            headerTitleStyle: {
-              color: textColor,
-            },
-            tabBarStyle: {
-              backgroundColor: backgroundColor,
-            },
-            headerStyle: {
-              backgroundColor: backgroundColor,
-            },
             tabBarIcon({ focused }) {
               return (
                 <User
