@@ -122,7 +122,7 @@ const NotificationsPage = () => {
       return (
         <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="mb-4 text-center text-lg dark:text-neutral-50">
+          <Text className="text-center text-lg dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button
@@ -303,14 +303,14 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="font-medium text-neutral-500 dark:text-neutral-50">
+        <Text className="font-medium dark:text-neutral-50">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        <Text className="font-medium text-neutral-500 dark:text-neutral-50">
+        <Text className="text-neutral-500 dark:text-neutral-50">
           {" " + action}
         </Text>
-        <Text className="text-neutral-500 dark:text-neutral-50">
+        <Text className="dark:text-neutral-50">
           {" · " + timeSince(new Date(indexedAt))}
         </Text>
       </Text>
