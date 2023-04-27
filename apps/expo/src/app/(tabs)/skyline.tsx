@@ -4,7 +4,6 @@ import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -33,22 +32,25 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
     queryKey: ["timeline", mode],
     queryFn: async ({ pageParam }) => {
       switch (mode) {
-        case "popular":
+        case "popular": {
           const popular = await agent.app.bsky.unspecced.getPopular({
             cursor: pageParam as string | undefined,
           });
           if (!popular.success) throw new Error("Failed to fetch feed");
           return popular.data;
-        case "following":
+        }
+        case "following": {
           const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
           if (!following.success) throw new Error("Failed to fetch feed");
           return following.data;
-        case "mutuals":
+        }
+        case "mutuals": {
           const all = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+
           if (!all.success) throw new Error("Failed to fetch feed");
           const actors = new Set<string>();
           for (const item of all.data.feed) {
@@ -84,6 +86,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
             }),
             cursor: all.data.cursor,
           };
+        }
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -227,7 +230,7 @@ const Feed = ({ mode }: Props) => {
             estimatedItemSize={91}
             ListFooterComponent={
               timeline.isFetching ? (
-                <View className="w-full items-center py-4">
+                <View className="w-full items-center bg-white py-4 dark:bg-black">
                   <ActivityIndicator />
                 </View>
               ) : null

@@ -10,6 +10,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useTabPressScroll } from "../lib/hooks";
@@ -43,6 +44,9 @@ export const ProfileView = ({
   const { top } = useSafeAreaInsets();
 
   const tabOffset = headerHeight - top;
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
+  const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const profile = useQuery({
     queryKey: ["profile", handle],
@@ -204,10 +208,16 @@ export const ProfileView = ({
   switch (profile.status) {
     case "loading":
       return (
-        <View className="flex-1 items-center justify-center">
+        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
           <Stack.Screen
             options={{
               headerShown: false,
+              // headerTitleStyle: {
+              //   color: textColor,
+              // },
+              // headerStyle: {
+              //   backgroundColor: backgroundColor,
+              // },
             }}
           />
           <ActivityIndicator />
@@ -215,15 +225,21 @@ export const ProfileView = ({
       );
     case "error":
       return (
-        <View className="flex-1 items-center justify-center p-4">
+        <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
           <Stack.Screen
             options={{
               headerShown: true,
               headerTransparent: false,
               headerTitle: "Error",
+              headerTitleStyle: {
+                color: textColor,
+              },
+              headerStyle: {
+                backgroundColor: backgroundColor,
+              },
             }}
           />
-          <Text className="text-center text-lg">
+          <Text className="text-center text-xl">
             {(profile.error as Error).message || "An error occurred"}
           </Text>
         </View>

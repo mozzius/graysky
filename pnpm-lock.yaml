@@ -9,7 +9,7 @@ importers:
         version: link:packages/config/eslint
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^3.7.2
-        version: 3.7.2(prettier@2.8.7)
+        version: 3.7.2(prettier@2.8.8)
       '@manypkg/cli':
         specifier: ^0.20.0
         version: 0.20.0
@@ -20,17 +20,17 @@ importers:
         specifier: ^8.39.0
         version: 8.39.0
       prettier:
-        specifier: ^2.8.7
-        version: 2.8.7
+        specifier: ^2.8.8
+        version: 2.8.8
       prettier-plugin-tailwindcss:
         specifier: ^0.2.7
-        version: 0.2.7(@ianvs/prettier-plugin-sort-imports@3.7.2)(prettier@2.8.7)
+        version: 0.2.7(@ianvs/prettier-plugin-sort-imports@3.7.2)(prettier@2.8.8)
       turbo:
         specifier: ^1.9.3
         version: 1.9.3
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^4.9.4
+        version: 4.9.4
 
   apps/expo:
     dependencies:
@@ -55,9 +55,14 @@ importers:
       '@react-navigation/elements':
         specifier: ^1.3.17
         version: 1.3.17(@react-navigation/native@6.1.6)(react-native-safe-area-context@4.5.0)(react-native@0.71.7)(react@18.2.0)
+<<<<<<< HEAD
       '@react-navigation/native':
         specifier: ^6.1.6
         version: 6.1.6(react-native@0.71.7)(react@18.2.0)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 1.3.17(react-native-safe-area-context@4.5.0)(react-native@0.71.7)(react@18.2.0)
+=======
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       '@shopify/flash-list':
         specifier: 1.4.0
         version: 1.4.0(@babel/runtime@7.21.0)(react-native@0.71.7)(react@18.2.0)
@@ -105,13 +110,28 @@ importers:
         version: 1.2.0
       expo-router:
         specifier: ^1.5.3
+<<<<<<< HEAD
         version: 1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.15)(metro@0.76.3)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-status-bar@1.4.4)(expo@48.0.11)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)
+=======
+        version: 1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.11)(metro@0.76.3)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       expo-splash-screen:
         specifier: ~0.18.2
+<<<<<<< HEAD
         version: 0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.15)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 0.18.2(expo@48.0.11)
+=======
+        version: 0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.11)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       expo-status-bar:
         specifier: ~1.4.4
         version: 1.4.4
+      expo-system-ui:
+        specifier: ~2.2.1
+        version: 2.2.1(expo@48.0.11)
       expo-updates:
         specifier: ^0.16.4
         version: 0.16.4(expo@48.0.15)
@@ -122,11 +142,19 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       lucide-react-native:
+<<<<<<< HEAD
         specifier: ^0.187.0
         version: 0.187.0(prop-types@15.7.2)(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0)
       metro:
         specifier: ~0.76.3
         version: 0.76.3
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        specifier: ^0.172.0
+        version: 0.172.0(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0)
+=======
+        specifier: ^0.172.0
+        version: 0.172.0(prop-types@15.8.1)(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       nativewind:
         specifier: ^2.0.11
         version: 2.0.11(react@18.2.0)(tailwindcss@3.3.2)
@@ -203,6 +231,9 @@ importers:
       '@types/react':
         specifier: ~18.0.27
         version: 18.0.38
+      '@types/react-native':
+        specifier: ^0.71.6
+        version: 0.71.6
       '@types/webpack-env':
         specifier: ^1.18.0
         version: 1.18.0
@@ -229,7 +260,13 @@ importers:
         version: link:../../packages/config/tailwind
       '@tanstack/react-query':
         specifier: ^4.29.3
+<<<<<<< HEAD
         version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 4.29.3(react-dom@18.2.0)(react-native@0.71.6)(react@18.2.0)
+=======
+        version: 4.29.3(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       '@trpc/client':
         specifier: ^10.21.1
         version: 10.21.1(@trpc/server@10.21.1)
@@ -286,8 +323,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1(postcss@8.4.23)
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^4.9.4
+        version: 4.9.4
 
   packages/api:
     dependencies:
@@ -308,11 +345,18 @@ importers:
         specifier: ^0.1.0
         version: link:../config/eslint
       eslint:
+<<<<<<< HEAD
         specifier: ^8.38.0
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        specifier: ^8.38.0
+        version: 8.38.0
+=======
+        specifier: ^8.39.0
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
         version: 8.39.0
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^4.9.4
+        version: 4.9.4
 
   packages/config/eslint:
     dependencies:
@@ -321,13 +365,31 @@ importers:
         version: 8.37.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.57.1
+<<<<<<< HEAD
         version: 5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.38.0)(typescript@5.0.4)
+=======
+        version: 5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       '@typescript-eslint/parser':
         specifier: ^5.57.1
+<<<<<<< HEAD
         version: 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+        version: 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       eslint-config-next:
         specifier: ^13.3.0
+<<<<<<< HEAD
         version: 13.3.0(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        version: 13.3.0(eslint@8.38.0)(typescript@5.0.4)
+=======
+        version: 13.3.0(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       eslint-config-prettier:
         specifier: ^8.8.0
         version: 8.8.0(eslint@8.39.0)
@@ -339,11 +401,18 @@ importers:
         version: 7.32.2(eslint@8.39.0)
     devDependencies:
       eslint:
+<<<<<<< HEAD
         specifier: ^8.38.0
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+        specifier: ^8.38.0
+        version: 8.38.0
+=======
+        specifier: ^8.39.0
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
         version: 8.39.0
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^4.9.4
+        version: 4.9.4
 
   packages/config/tailwind:
     devDependencies:
@@ -2025,6 +2094,53 @@ packages:
       base64-js: 1.5.1
       xmlbuilder: 14.0.0
 
+<<<<<<< HEAD
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@expo/prebuild-config@6.0.0(expo-modules-autolinking@1.2.0):
+    resolution: {integrity: sha512-UW0QKAoRelsalVMhAG1tmegwS+2tbefvUi6/0QiKPlMLg8GFDQ5ZnzsSmuljD0SzT5yGg8oSpKYhnrXJ6pRmIQ==}
+    peerDependencies:
+      expo-modules-autolinking: '>=0.8.1'
+    dependencies:
+      '@expo/config': 8.0.2
+      '@expo/config-plugins': 6.0.1
+      '@expo/config-types': 48.0.0
+      '@expo/image-utils': 0.3.22
+      '@expo/json-file': 8.2.37
+      debug: 4.3.4
+      expo-modules-autolinking: 1.2.0
+      fs-extra: 9.1.0
+      resolve-from: 5.0.0
+      semver: 7.3.2
+      xml2js: 0.4.23
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
+  /@expo/prebuild-config@6.0.1:
+=======
+  /@expo/prebuild-config@6.0.0(expo-modules-autolinking@1.2.0):
+    resolution: {integrity: sha512-UW0QKAoRelsalVMhAG1tmegwS+2tbefvUi6/0QiKPlMLg8GFDQ5ZnzsSmuljD0SzT5yGg8oSpKYhnrXJ6pRmIQ==}
+    peerDependencies:
+      expo-modules-autolinking: '>=0.8.1'
+    dependencies:
+      '@expo/config': 8.0.2
+      '@expo/config-plugins': 6.0.1
+      '@expo/config-types': 48.0.0
+      '@expo/image-utils': 0.3.22
+      '@expo/json-file': 8.2.37
+      debug: 4.3.4
+      expo-modules-autolinking: 1.2.0
+      fs-extra: 9.1.0
+      resolve-from: 5.0.0
+      semver: 7.3.2
+      xml2js: 0.4.23
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
   /@expo/prebuild-config@6.0.1(expo-modules-autolinking@1.2.0):
     resolution: {integrity: sha512-WK3FDht1tdXZGCvtG5s7HSwzhsc7Tyu2DdqV9jVUsLtGD42oqUepk13mEWlU9LOTBgLsoEueKjoSK4EXOXFctw==}
     peerDependencies:
@@ -2161,7 +2277,7 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@ianvs/prettier-plugin-sort-imports@3.7.2(prettier@2.8.7):
+  /@ianvs/prettier-plugin-sort-imports@3.7.2(prettier@2.8.8):
     resolution: {integrity: sha512-bVckKToJM8XV2wTOG1VpeXrSmfAG49esVrikbxeFbY51RJdNke9AdMANJtGuACB59uo+pGlz0wBdWFrRzWyO1A==}
     peerDependencies:
       '@vue/compiler-sfc': '>=3.0.0'
@@ -2178,7 +2294,7 @@ packages:
       javascript-natural-sort: 0.7.1
       lodash.clone: 4.5.0
       lodash.isequal: 4.5.0
-      prettier: 2.8.7
+      prettier: 2.8.8
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2867,6 +2983,7 @@ packages:
     resolution: {integrity: sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==}
     dev: false
 
+<<<<<<< HEAD
   /@tanstack/query-core@4.29.5:
     resolution: {integrity: sha512-xXIiyQ/4r9KfaJ3k6kejqcaqFXXBTzN2aOJ5H1J6aTJE9hl/nbgAdfF6oiIu0CD5xowejJEJ6bBg8TO7BN4NuQ==}
     dev: false
@@ -2891,6 +3008,32 @@ packages:
 
   /@tanstack/react-query@4.29.5(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0):
     resolution: {integrity: sha512-F87cibC3s3eG0Q90g2O+hqntpCrudKFnR8P24qkH9uccEhXErnJxBC/AAI4cJRV2bfMO8IeGZQYf3WyYgmSg0w==}
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@tanstack/react-query@4.29.3(react-dom@18.2.0)(react-native@0.71.6)(react@18.2.0):
+    resolution: {integrity: sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.29.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.71.6(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
+  /@tanstack/react-query@4.29.3(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==}
+=======
+  /@tanstack/react-query@4.29.3(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==}
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2935,7 +3078,13 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
+<<<<<<< HEAD
       '@tanstack/react-query': 4.29.3(react-dom@18.2.0)(react@18.2.0)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@tanstack/react-query': 4.29.3(react-dom@18.2.0)(react-native@0.71.6)(react@18.2.0)
+=======
+      '@tanstack/react-query': 4.29.3(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       '@trpc/client': 10.21.1(@trpc/server@10.21.1)
       '@trpc/react-query': 10.21.1(@tanstack/react-query@4.29.3)(@trpc/client@10.21.1)(@trpc/server@10.21.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server': 10.21.1
@@ -2961,6 +3110,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+<<<<<<< HEAD
   /@trpc/react-query@10.21.2(@tanstack/react-query@4.29.5)(@trpc/client@10.21.2)(@trpc/server@10.21.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-INuxZ27t4p/deqMQmEc+a8ipvNOkdKV2scd5ZUleQL8LgE/lw4+R5bsJopMJFHuJtwMCOOADb1+7DLaQK/NwRQ==}
     peerDependencies:
@@ -2977,6 +3127,13 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@trpc/server@10.20.0:
+    resolution: {integrity: sha512-pbrdgw2mO8lWygyZjGLbOq/EoWFWEJvLaxp8JmGsivMIh/IZR5mksPJdywAGQ4TBrbcqssKhuoJ/8OE9mhaveg==}
+    dev: false
+
+=======
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
   /@trpc/server@10.21.1:
     resolution: {integrity: sha512-4E4upTD2/Aq0Dm9HW4nbKSoIlqbV/ajRqNl1MCFBd9FjTv47qq2ncmAWMbb0AIVh2UV87PJlTjpPNNecRm6g9Q==}
     dev: false
@@ -3090,6 +3247,12 @@ packages:
       '@types/react': 18.0.38
     dev: true
 
+  /@types/react-native@0.71.6:
+    resolution: {integrity: sha512-eCqEZ+GhW9L9o6yVoPqCCAq8Sbd6liaKlh6WviD0X7O035NEe7VQ+q9KXYL+mhyZrLI5sbX7f3G973gG6fuiyQ==}
+    dependencies:
+      '@types/react': 18.0.38
+    dev: true
+
   /@types/react@18.0.38:
     resolution: {integrity: sha512-ExsidLLSzYj4cvaQjGnQCk4HFfVT9+EZ9XZsQ8Hsrcn8QNgXtpZ3m9vSIC2MWtx7jHictK6wYhQgGh6ic58oOw==}
     dependencies:
@@ -3144,7 +3307,13 @@ packages:
       '@types/yargs-parser': 21.0.0
     dev: false
 
+<<<<<<< HEAD
   /@typescript-eslint/eslint-plugin@5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.39.0)(typescript@5.0.4):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@typescript-eslint/eslint-plugin@5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.38.0)(typescript@5.0.4):
+=======
+  /@typescript-eslint/eslint-plugin@5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.39.0)(typescript@4.9.4):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-1MeobQkQ9tztuleT3v72XmY0XuKXVXusAhryoLuU5YZ+mXoYKZP9SQ7Flulh1NX4DTjpGTc2b/eMu4u7M7dhnQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3156,23 +3325,52 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.5.0
+<<<<<<< HEAD
       '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/parser': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+      '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       '@typescript-eslint/scope-manager': 5.57.1
+<<<<<<< HEAD
       '@typescript-eslint/type-utils': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
       '@typescript-eslint/utils': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/type-utils': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+      '@typescript-eslint/utils': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+      '@typescript-eslint/type-utils': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+      '@typescript-eslint/utils': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       debug: 4.3.4
       eslint: 8.39.0
       grapheme-splitter: 1.0.4
       ignore: 5.2.4
       natural-compare-lite: 1.4.0
       semver: 7.5.0
+<<<<<<< HEAD
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      semver: 7.3.8
+      tsutils: 3.21.0(typescript@5.0.4)
+      typescript: 5.0.4
+=======
+      tsutils: 3.21.0(typescript@4.9.4)
+      typescript: 4.9.4
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - supports-color
     dev: false
 
+<<<<<<< HEAD
   /@typescript-eslint/parser@5.57.1(eslint@8.39.0)(typescript@5.0.4):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@typescript-eslint/parser@5.57.1(eslint@8.38.0)(typescript@5.0.4):
+=======
+  /@typescript-eslint/parser@5.57.1(eslint@8.39.0)(typescript@4.9.4):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-hlA0BLeVSA/wBPKdPGxoVr9Pp6GutGoY380FEhbVi0Ph4WNe8kLvqIRx76RSQt1lynZKfrXKs0/XeEk4zZycuA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3184,10 +3382,17 @@ packages:
     dependencies:
       '@typescript-eslint/scope-manager': 5.57.1
       '@typescript-eslint/types': 5.57.1
-      '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
+      '@typescript-eslint/typescript-estree': 5.57.1(typescript@4.9.4)
       debug: 4.3.4
       eslint: 8.39.0
+<<<<<<< HEAD
       typescript: 5.0.4
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      eslint: 8.38.0
+      typescript: 5.0.4
+=======
+      typescript: 4.9.4
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -3200,7 +3405,13 @@ packages:
       '@typescript-eslint/visitor-keys': 5.57.1
     dev: false
 
+<<<<<<< HEAD
   /@typescript-eslint/type-utils@5.57.1(eslint@8.39.0)(typescript@5.0.4):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@typescript-eslint/type-utils@5.57.1(eslint@8.38.0)(typescript@5.0.4):
+=======
+  /@typescript-eslint/type-utils@5.57.1(eslint@8.39.0)(typescript@4.9.4):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-/RIPQyx60Pt6ga86hKXesXkJ2WOS4UemFrmmq/7eOyiYjYv/MUSHPlkhU6k9T9W1ytnTJueqASW+wOmW4KrViw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3210,12 +3421,29 @@ packages:
       typescript:
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
       '@typescript-eslint/utils': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
+      '@typescript-eslint/utils': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+      '@typescript-eslint/typescript-estree': 5.57.1(typescript@4.9.4)
+      '@typescript-eslint/utils': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       debug: 4.3.4
       eslint: 8.39.0
+<<<<<<< HEAD
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      eslint: 8.38.0
+      tsutils: 3.21.0(typescript@5.0.4)
+      typescript: 5.0.4
+=======
+      tsutils: 3.21.0(typescript@4.9.4)
+      typescript: 4.9.4
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -3225,7 +3453,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
-  /@typescript-eslint/typescript-estree@5.57.1(typescript@5.0.4):
+  /@typescript-eslint/typescript-estree@5.57.1(typescript@4.9.4):
     resolution: {integrity: sha512-A2MZqD8gNT0qHKbk2wRspg7cHbCDCk2tcqt6ScCFLr5Ru8cn+TCfM786DjPhqwseiS+PrYwcXht5ztpEQ6TFTw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3240,13 +3468,28 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.0
+<<<<<<< HEAD
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      semver: 7.3.8
+      tsutils: 3.21.0(typescript@5.0.4)
+      typescript: 5.0.4
+=======
+      tsutils: 3.21.0(typescript@4.9.4)
+      typescript: 4.9.4
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - supports-color
     dev: false
 
+<<<<<<< HEAD
   /@typescript-eslint/utils@5.57.1(eslint@8.39.0)(typescript@5.0.4):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /@typescript-eslint/utils@5.57.1(eslint@8.38.0)(typescript@5.0.4):
+=======
+  /@typescript-eslint/utils@5.57.1(eslint@8.39.0)(typescript@4.9.4):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-kN6vzzf9NkEtawECqze6v99LtmDiUJCVpvieTFA1uL7/jDghiJGubGZ5csicYHU1Xoqb3oH/R5cN5df6W41Nfg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3257,7 +3500,14 @@ packages:
       '@types/semver': 7.3.13
       '@typescript-eslint/scope-manager': 5.57.1
       '@typescript-eslint/types': 5.57.1
+<<<<<<< HEAD
       '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
+      eslint: 8.38.0
+=======
+      '@typescript-eslint/typescript-estree': 5.57.1(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       eslint: 8.39.0
       eslint-scope: 5.1.1
       semver: 7.5.0
@@ -3854,7 +4104,14 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001481
+<<<<<<< HEAD
       electron-to-chromium: 1.4.377
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      caniuse-lite: 1.0.30001470
+      electron-to-chromium: 1.4.340
+=======
+      electron-to-chromium: 1.4.374
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
 
@@ -4697,8 +4954,16 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
+<<<<<<< HEAD
   /electron-to-chromium@1.4.377:
     resolution: {integrity: sha512-H3BYG6DW5Z+l0xcfXaicJGxrpA4kMlCxnN71+iNX+dBLkRMOdVJqFJiAmbNZZKA1zISpRg17JR03qGifXNsJtw==}
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /electron-to-chromium@1.4.340:
+    resolution: {integrity: sha512-zx8hqumOqltKsv/MF50yvdAlPF9S/4PXbyfzJS6ZGhbddGkRegdwImmfSVqCkEziYzrIGZ/TlrzBND4FysfkDg==}
+=======
+  /electron-to-chromium@1.4.374:
+    resolution: {integrity: sha512-dNP9tQNTrjgVlSXMqGaj0BdrCS+9pcUvy5/emB6x8kh0YwCoDZ0Z4ce1+7aod+KhybHUd5o5LgKrc5al4kVmzQ==}
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -4866,7 +5131,13 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
+<<<<<<< HEAD
   /eslint-config-next@13.3.0(eslint@8.39.0)(typescript@5.0.4):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /eslint-config-next@13.3.0(eslint@8.38.0)(typescript@5.0.4):
+=======
+  /eslint-config-next@13.3.0(eslint@8.39.0)(typescript@4.9.4):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-6YEwmFBX0VjBd3ODGW9df0Is0FLaRFdMN8eAahQG9CN6LjQ28J8AFr19ngxqMSg7Qv6Uca/3VeeBosJh1bzu0w==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
@@ -4877,7 +5148,14 @@ packages:
     dependencies:
       '@next/eslint-plugin-next': 13.3.0
       '@rushstack/eslint-patch': 1.2.0
+<<<<<<< HEAD
       '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/parser': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+      eslint: 8.38.0
+=======
+      '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       eslint: 8.39.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.57.1)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.39.0)
@@ -4885,7 +5163,18 @@ packages:
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.39.0)
       eslint-plugin-react: 7.32.2(eslint@8.39.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.39.0)
+<<<<<<< HEAD
       typescript: 5.0.4
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.27.5)(eslint@8.38.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.1)(eslint-import-resolver-typescript@3.5.3)(eslint@8.38.0)
+      eslint-plugin-jsx-a11y: 6.7.1(eslint@8.38.0)
+      eslint-plugin-react: 7.32.2(eslint@8.38.0)
+      eslint-plugin-react-hooks: 4.6.0(eslint@8.38.0)
+      typescript: 5.0.4
+=======
+      typescript: 4.9.4
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
@@ -4964,7 +5253,13 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/parser': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+      '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       debug: 3.2.7
       eslint: 8.39.0
       eslint-import-resolver-node: 0.3.7
@@ -4983,7 +5278,13 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@5.0.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@typescript-eslint/parser': 5.57.1(eslint@8.38.0)(typescript@5.0.4)
+=======
+      '@typescript-eslint/parser': 5.57.1(eslint@8.39.0)(typescript@4.9.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -5361,7 +5662,13 @@ packages:
       invariant: 2.2.4
     dev: false
 
+<<<<<<< HEAD
   /expo-router@1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.15)(metro@0.76.3)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /expo-router@1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-status-bar@1.4.4)(expo@48.0.11)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0):
+=======
+  /expo-router@1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.11)(metro@0.76.3)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-rZEoRpXjXpfcx549/MI7YRitaBGFOHpIGLO+cb18ecsShl3PzGPIDaBGMnTo0m1h7ip0sAIQg1EFrSAtM4LXLA==}
     peerDependencies:
       '@react-navigation/drawer': ^6.5.8
@@ -5386,10 +5693,22 @@ packages:
       '@react-navigation/bottom-tabs': 6.5.7(@react-navigation/native@6.1.6)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)
       '@react-navigation/native': 6.1.6(react-native@0.71.7)(react@18.2.0)
       '@react-navigation/native-stack': 6.9.12(@react-navigation/native@6.1.6)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)
+<<<<<<< HEAD
       expo: 48.0.15(@babel/core@7.21.4)
       expo-constants: 14.2.1(expo@48.0.15)
       expo-linking: 4.0.1(expo@48.0.15)
       expo-splash-screen: 0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.15)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-constants: 14.2.1(expo@48.0.11)
+      expo-linking: 4.0.1(expo@48.0.11)
+      expo-splash-screen: 0.18.2(expo@48.0.11)
+=======
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-constants: 14.2.1(expo@48.0.11)
+      expo-linking: 4.0.1(expo@48.0.11)
+      expo-splash-screen: 0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.11)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       expo-status-bar: 1.4.4
       metro: 0.76.3
       query-string: 7.1.3
@@ -5408,14 +5727,27 @@ packages:
       - supports-color
     dev: false
 
+<<<<<<< HEAD
   /expo-splash-screen@0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.15):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /expo-splash-screen@0.18.2(expo@48.0.11):
+=======
+  /expo-splash-screen@0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.11):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-fsiKmyn/lbJtV6Uor6wSvl21fScOidFzmB/HHShQJJOu2TBN/vqMvhPu/r0bF5NVk8Wi64r98hiWY1EEsbW03w==}
     peerDependencies:
       expo: '*'
     dependencies:
       '@expo/configure-splash-screen': 0.6.0
       '@expo/prebuild-config': 6.0.1(expo-modules-autolinking@1.2.0)
+<<<<<<< HEAD
       expo: 48.0.15(@babel/core@7.21.4)
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      '@expo/prebuild-config': 6.0.1
+      expo: 48.0.11(@babel/core@7.21.4)
+=======
+      expo: 48.0.11(@babel/core@7.21.4)
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - encoding
       - expo-modules-autolinking
@@ -5430,7 +5762,25 @@ packages:
     resolution: {integrity: sha512-oV6yNGsJxQt7S9HYZTr+4L0I/yRwOF38USJ81I1KiN3GQI4C2z7P5OosyREA2VL9O+kUZVCCpNYsBLSa3/5bAQ==}
     dev: false
 
+<<<<<<< HEAD
   /expo-updates-interface@0.9.1(expo@48.0.15):
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /expo-updates-interface@0.9.1(expo@48.0.11):
+=======
+  /expo-system-ui@2.2.1(expo@48.0.11):
+    resolution: {integrity: sha512-a//8woMYFz5k4lSm8Mt84kueuQRv4TEU1ESwZQl0cEZcKlxw5e4t4Z/68KGVzCLWOMUFoCN67BgFwxpwHBbrMw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@react-native/normalize-color': 2.1.0
+      debug: 4.3.4
+      expo: 48.0.11(@babel/core@7.21.4)
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /expo-updates-interface@0.9.1(expo@48.0.11):
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     resolution: {integrity: sha512-wk88LLhseQ7LJvxdN7BTKiryyqALxnrvr+lyHK3/prg76Yy0EGi2Q/oE/rtFyyZ1JmQDRbO/5pdX0EE6QqVQXQ==}
     peerDependencies:
       expo: '*'
@@ -7038,15 +7388,28 @@ packages:
     dependencies:
       yallist: 4.0.0
 
+<<<<<<< HEAD
   /lucide-react-native@0.187.0(prop-types@15.7.2)(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0):
     resolution: {integrity: sha512-DWFRRecu3bAmXCHtuv59w53HJhz8/8eGmFCNQTPe4P7ExAEgzz5LpDa38TiV1ZuCxaPxjBU1hBRF+zkAZyZYzw==}
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /lucide-react-native@0.172.0(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-M5J2Eyx+PhfJZaiJwPNgOGQhBlMAR9/WL9hqB7cISSVXzqqXBDiiYpBaoYEbwn95g/Fluwp174hE+41mFkBM1w==}
+=======
+  /lucide-react-native@0.172.0(prop-types@15.8.1)(react-native-svg@13.4.0)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-M5J2Eyx+PhfJZaiJwPNgOGQhBlMAR9/WL9hqB7cISSVXzqqXBDiiYpBaoYEbwn95g/Fluwp174hE+41mFkBM1w==}
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     peerDependencies:
       prop-types: ^15.7.2
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
       react-native-svg: ^12.0.0 || ^13.0.0
     dependencies:
+<<<<<<< HEAD
       prop-types: 15.7.2
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+=======
+      prop-types: 15.8.1
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
       react: 18.2.0
       react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
       react-native-svg: 13.4.0(react-native@0.71.7)(react@18.2.0)
@@ -7304,7 +7667,12 @@ packages:
       debug: 2.6.9
       node-fetch: 2.6.9
       ws: 7.5.9
+<<<<<<< HEAD
       yargs: 17.7.2
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+=======
+      yargs: 17.7.1
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -7721,6 +8089,65 @@ packages:
       throat: 5.0.0
       ws: 7.5.9
       yargs: 17.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /metro@0.76.3:
+    resolution: {integrity: sha512-nuL9anuExAVKLd8/KdwqF3iQ0eLg7R3OXIiUZvyok2cZral0dh6ZvWGxDJcKXPgGXU6gE3z+PV2PhPuED2La8w==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      '@babel/code-frame': 7.21.4
+      '@babel/core': 7.21.4
+      '@babel/generator': 7.21.4
+      '@babel/parser': 7.21.4
+      '@babel/template': 7.20.7
+      '@babel/traverse': 7.21.4
+      '@babel/types': 7.21.4
+      accepts: 1.3.8
+      async: 3.2.4
+      chalk: 4.1.2
+      ci-info: 2.0.0
+      connect: 3.7.0
+      debug: 2.6.9
+      denodeify: 1.2.1
+      error-stack-parser: 2.1.4
+      graceful-fs: 4.2.11
+      hermes-parser: 0.8.0
+      image-size: 0.6.3
+      invariant: 2.2.4
+      jest-worker: 27.5.1
+      lodash.throttle: 4.1.1
+      metro-babel-transformer: 0.76.3
+      metro-cache: 0.76.3
+      metro-cache-key: 0.76.3
+      metro-config: 0.76.3
+      metro-core: 0.76.3
+      metro-file-map: 0.76.3
+      metro-inspector-proxy: 0.76.3
+      metro-minify-terser: 0.76.3
+      metro-minify-uglify: 0.76.3
+      metro-react-native-babel-preset: 0.76.3(@babel/core@7.21.4)
+      metro-resolver: 0.76.3
+      metro-runtime: 0.76.3
+      metro-source-map: 0.76.3
+      metro-symbolicate: 0.76.3
+      metro-transform-plugins: 0.76.3
+      metro-transform-worker: 0.76.3
+      mime-types: 2.1.35
+      node-fetch: 2.6.9
+      nullthrows: 1.1.1
+      rimraf: 3.0.2
+      serialize-error: 2.1.0
+      source-map: 0.5.7
+      strip-ansi: 6.0.1
+      throat: 5.0.0
+      ws: 7.5.9
+      yargs: 17.7.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -8577,7 +9004,22 @@ packages:
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.2
+<<<<<<< HEAD
     dev: true
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+      resolve: 1.22.1
+
+  /postcss-js@4.0.1(postcss@8.4.21):
+    resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
+    engines: {node: ^12 || ^14 || >= 16}
+    peerDependencies:
+      postcss: ^8.4.21
+    dependencies:
+      camelcase-css: 2.0.1
+      postcss: 8.4.21
+    dev: true
+=======
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
 
   /postcss-import@15.1.0(postcss@8.4.23):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -8644,6 +9086,7 @@ packages:
 
   /postcss-nested@6.0.0(postcss@8.4.23):
     resolution: {integrity: sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==}
+<<<<<<< HEAD
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
@@ -8654,6 +9097,21 @@ packages:
 
   /postcss-nested@6.0.1(postcss@8.4.23):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /postcss-nested@6.0.0(postcss@8.4.21):
+    resolution: {integrity: sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.2.14
+    dependencies:
+      postcss: 8.4.21
+      postcss-selector-parser: 6.0.11
+    dev: true
+
+  /postcss-nested@6.0.0(postcss@8.4.23):
+    resolution: {integrity: sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==}
+=======
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
@@ -8697,7 +9155,7 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /prettier-plugin-tailwindcss@0.2.7(@ianvs/prettier-plugin-sort-imports@3.7.2)(prettier@2.8.7):
+  /prettier-plugin-tailwindcss@0.2.7(@ianvs/prettier-plugin-sort-imports@3.7.2)(prettier@2.8.8):
     resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -8749,12 +9207,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      '@ianvs/prettier-plugin-sort-imports': 3.7.2(prettier@2.8.7)
-      prettier: 2.8.7
+      '@ianvs/prettier-plugin-sort-imports': 3.7.2(prettier@2.8.8)
+      prettier: 2.8.8
     dev: false
 
-  /prettier@2.8.7:
-    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+  /prettier@2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: false
@@ -10384,14 +10842,14 @@ packages:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: false
 
-  /tsutils@3.21.0(typescript@5.0.4):
+  /tsutils@3.21.0(typescript@4.9.4):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 5.0.4
+      typescript: 4.9.4
     dev: false
 
   /turbo-darwin-64@1.9.3:
@@ -10520,12 +10978,19 @@ packages:
   /typescript@4.9.4:
     resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
     engines: {node: '>=4.2.0'}
+<<<<<<< HEAD
     hasBin: true
     dev: true
 
   /typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
+||||||| parent of a5b4cd2 (Dark Mode (WIP))
+  /typescript@5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
+    engines: {node: '>=12.20'}
+=======
+>>>>>>> a5b4cd2 (Dark Mode (WIP))
     hasBin: true
 
   /ua-parser-js@0.7.35:

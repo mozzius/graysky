@@ -8,7 +8,7 @@ const defineConfig = (): ExpoConfig => ({
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
-  userInterfaceStyle: "light",
+  userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/icon.png",
     resizeMode: "cover",
@@ -27,6 +27,9 @@ const defineConfig = (): ExpoConfig => ({
     bundleIdentifier: "dev.mozzius.graysky",
     config: {
       usesNonExemptEncryption: false,
+    },
+    infoPlist: {
+      UIViewControllerBasedStatusBarAppearance: true,
     },
   },
   android: {

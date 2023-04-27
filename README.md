@@ -24,7 +24,7 @@ pnpm dev:expo
 
 Then just scan the QR code!
 
-## Roadmap to Feature Parity
+## Near-term Roadmap
 
 - [x] Notifications screen
 - [x] Image viewer
@@ -39,9 +39,10 @@ Then just scan the QR code!
 - [ ] Followers/Following screens
 - [ ] Settings screen
 - [ ] Context menu - user actions
+- [ ] Settings screen
 - [ ] Image viewer: Pinch to zoom
-- [ ] Better haptics
-- [ ] Search screen
+- [x] Haptics
+- [ ] More haptics!
 - [ ] Push notifications
 - [ ] App Store???
 

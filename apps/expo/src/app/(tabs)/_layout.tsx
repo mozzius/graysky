@@ -1,11 +1,15 @@
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Search, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../../lib/agent";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
+  const { colorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
+  const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
@@ -39,13 +43,17 @@ export default function AppLayout() {
           options={{
             title: "Skyline",
             tabBarShowLabel: false,
+            headerTitleStyle: {
+              color: textColor,
+            },
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
-              return (
-                <Cloudy
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
-                />
-              );
+              return <Cloudy color={focused ? "#505050" : "#9b9b9b"} />;
             },
           }}
         />
@@ -54,13 +62,17 @@ export default function AppLayout() {
           options={{
             title: "Search",
             tabBarShowLabel: false,
+            headerTitleStyle: {
+              color: textColor,
+            },
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
-              return (
-                <Search
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
-                />
-              );
+              return <Search color={focused ? "#505050" : "#9b9b9b"} />;
             },
           }}
         />
@@ -74,13 +86,17 @@ export default function AppLayout() {
               backgroundColor: "#262626",
               fontSize: 12,
             },
+            headerTitleStyle: {
+              color: textColor,
+            },
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
-              return (
-                <Bell
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
-                />
-              );
+              return <Bell color={focused ? "#505050" : "#9b9b9b"} />;
             },
           }}
         />
@@ -89,13 +105,17 @@ export default function AppLayout() {
           options={{
             title: "Profile",
             tabBarShowLabel: false,
+            headerTitleStyle: {
+              color: textColor,
+            },
+            tabBarStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
             tabBarIcon({ focused }) {
-              return (
-                <User
-                  color={focused ? "#505050" : "#9b9b9b"}
-                  fill={focused ? "#505050" : undefined}
-                />
-              );
+              return <User color={focused ? "#505050" : "#9b9b9b"} />;
             },
           }}
         />

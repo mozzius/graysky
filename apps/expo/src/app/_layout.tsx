@@ -11,6 +11,7 @@ import {
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { ComposerProvider } from "../components/composer";
 import { AgentProvider } from "../lib/agent";
@@ -22,6 +23,8 @@ export default function RootLayout() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
+
+  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -108,7 +111,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <AgentProvider value={agent}>
-          <StatusBar style="dark" />
+          <StatusBar style="auto" />
           {loading && <SplashScreen />}
           <ActionSheetProvider>
             <ComposerProvider>
@@ -118,7 +121,7 @@ export default function RootLayout() {
                   // headerBackTitle: "",
                   fullScreenGestureEnabled: true,
                   headerStyle: {
-                    backgroundColor: "#fff",
+                    backgroundColor: colorScheme === "light" ? "#fff" : "#000",
                   },
                 }}
               />

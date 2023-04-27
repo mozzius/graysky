@@ -14,6 +14,7 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
+import { useColorScheme } from "nativewind";
 
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
@@ -51,6 +52,7 @@ interface Props {
 
 export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
+
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
@@ -79,14 +81,23 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               content.external.thumb && "border-t border-neutral-300",
             )}
           >
-            <Text className="text-base font-semibold" numberOfLines={2}>
+            <Text
+              className="text-base font-semibold text-neutral-500 dark:text-neutral-50"
+              numberOfLines={2}
+            >
               {content.external.title || content.external.uri}
             </Text>
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            <Text
+              className="text-sm text-neutral-400 dark:text-neutral-100"
+              numberOfLines={1}
+            >
               {content.external.uri}
             </Text>
             {content.external.description && (
-              <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
+              <Text
+                className="mt-1 text-sm leading-5 text-neutral-500 dark:text-neutral-50"
+                numberOfLines={2}
+              >
                 {content.external.description}
               </Text>
             )}
@@ -281,11 +292,15 @@ export const PostEmbed = ({
             className="mr-2 h-4 w-4 rounded-full"
           />
           <Text className="text-base" numberOfLines={1}>
-            <Text className="font-semibold">{author.displayName}</Text>
-            <Text className="text-neutral-500">{` @${author.handle}`}</Text>
+            <Text className="font-semibold text-neutral-500 dark:text-neutral-50">
+              {author.displayName}
+            </Text>
+            <Text className="text-neutral-500 dark:text-neutral-50">{` @${author.handle}`}</Text>
           </Text>
         </View>
-        {children}
+        <Text className="text-neutral-500 dark:text-neutral-50">
+          {children}
+        </Text>
       </TouchableOpacity>
     </Link>
   );

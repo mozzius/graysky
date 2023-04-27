@@ -7,7 +7,6 @@ import {
   useImperativeHandle,
   useMemo,
   useRef,
-  useState,
 } from "react";
 import {
   Alert,
@@ -34,8 +33,6 @@ import {
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetTextInput,
-  BottomSheetView,
-  useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Camera, ImagePlus, Loader2, Send } from "lucide-react-native";
