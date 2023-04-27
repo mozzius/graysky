@@ -239,7 +239,7 @@ export const ProfileView = ({
               },
             }}
           />
-          <Text className="text-center text-xl">
+          <Text className="text-center text-lg">
             {(profile.error as Error).message || "An error occurred"}
           </Text>
         </View>
