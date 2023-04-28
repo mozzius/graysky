@@ -152,7 +152,7 @@ export const FeedPost = ({
               </Link>
             ) : (
               !!item.post.record.reply && (
-                <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
+                <ReplyParentAuthor uri={item.post.record.reply!.parent.uri} />
               )
             ))}
           {/* text content */}
