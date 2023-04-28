@@ -169,6 +169,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
+      onClose={() => Keyboard.dismiss()}
     >
       <BottomSheetView
         style={[contentContainerStyle]}
