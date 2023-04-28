@@ -8,6 +8,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Button } from "../../components/button";
 import { ComposeButton } from "../../components/compose-button";
+import { ComposerProvider } from "../../components/composer";
 import { FeedPost } from "../../components/feed-post";
 import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
@@ -24,13 +25,8 @@ const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   }
 };
 
-export default function Timeline() {
-  const [mode, setMode] = useState<"popular" | "following" | "mutuals">(
-    "following",
-  );
+const useTimeline = (mode: "popular" | "following" | "mutuals") => {
   const agent = useAuthedAgent();
-  const ref = useRef<FlashList<any>>(null);
-  const headerHeight = useHeaderHeight();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", mode],
@@ -75,8 +71,6 @@ export default function Timeline() {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
-
   const data = useMemo(() => {
     if (timeline.status !== "success") return [];
     const flattened = timeline.data.pages.flatMap((page) => page.feed);
@@ -94,6 +88,20 @@ export default function Timeline() {
       )
       .flat();
   }, [timeline]);
+
+  return { timeline, data };
+};
+
+const TimelinePage = () => {
+  const [mode, setMode] = useState<"popular" | "following" | "mutuals">(
+    "following",
+  );
+  const ref = useRef<FlashList<any>>(null);
+  const headerHeight = useHeaderHeight();
+
+  const { timeline, data } = useTimeline(mode);
+
+  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
 
   useTabPressScroll(ref);
 
@@ -195,4 +203,12 @@ export default function Timeline() {
         </>
       );
   }
+};
+
+export default function Page() {
+  return (
+    <ComposerProvider>
+      <TimelinePage />
+    </ComposerProvider>
+  );
 }

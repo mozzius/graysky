@@ -5,6 +5,7 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
+import { ComposerProvider } from "../../../../components/composer";
 import { FeedPost } from "../../../../components/feed-post";
 import { Post } from "../../../../components/post";
 import { useAuthedAgent } from "../../../../lib/agent";
@@ -160,7 +161,11 @@ export default function PostPage() {
             getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item, index }) =>
               item.primary ? (
-                <Post post={item.post} hasParent={item.hasParent} />
+                <Post
+                  post={item.post}
+                  hasParent={item.hasParent}
+                  root={thread.data.posts[0]!.post}
+                />
               ) : (
                 <FeedPost
                   item={{ post: item.post }}

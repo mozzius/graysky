@@ -7,17 +7,20 @@ import { useLike, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
+import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
+  root: AppBskyFeedDefs.PostView;
 }
 
-export const Post = ({ post, hasParent }: Props) => {
+export const Post = ({ post, hasParent, root }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post);
   const { reposted, repostCount, toggleRepost } = useRepost(post);
+  const composer = useComposer();
 
   const profileHref = `/profile/${post.author.handle}`;
 
@@ -81,7 +84,15 @@ export const Post = ({ post, hasParent }: Props) => {
       )}
       {/* actions */}
       <View className="mt-4 flex-row justify-between">
-        <TouchableOpacity className="flex-row items-center gap-2">
+        <TouchableOpacity
+          onPress={() =>
+            composer.open({
+              parent: post,
+              root,
+            })
+          }
+          className="flex-row items-center gap-2"
+        >
           <MessageSquare size={16} color="#1C1C1E" />
           <Text>{post.replyCount}</Text>
         </TouchableOpacity>

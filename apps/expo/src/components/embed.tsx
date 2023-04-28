@@ -262,7 +262,7 @@ const ImageEmbed = ({
   }
 };
 
-const PostEmbed = ({
+export const PostEmbed = ({
   author,
   uri,
   children,

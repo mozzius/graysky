@@ -14,6 +14,7 @@ import { useAuthedAgent } from "../lib/agent";
 import { useTabPressScroll } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { useUserRefresh } from "../lib/utils/query";
+import { ComposeButton } from "./compose-button";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
 import { Tab, Tabs } from "./tabs";
@@ -21,9 +22,15 @@ import { Tab, Tabs } from "./tabs";
 interface Props extends React.PropsWithChildren {
   handle: string;
   header?: boolean;
+  composer?: boolean;
 }
 
-export const ProfileView = ({ handle, children, header = true }: Props) => {
+export const ProfileView = ({
+  handle,
+  children,
+  header = true,
+  composer,
+}: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
@@ -112,7 +119,9 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
+  const { refreshing, handleRefresh } = useUserRefresh(() =>
+    Promise.all([timeline.refetch(), profile.refetch()]),
+  );
 
   const data = useMemo(() => {
     if (timeline.status !== "success") return [];
@@ -270,6 +279,7 @@ export const ProfileView = ({ handle, children, header = true }: Props) => {
             }
           />
           {children}
+          {composer && <ComposeButton />}
         </>
       );
   }

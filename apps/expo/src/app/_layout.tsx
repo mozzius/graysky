@@ -11,6 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClientProvider } from "@tanstack/react-query";
 
+import { ComposerProvider } from "../components/composer";
 import { AgentProvider } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
@@ -111,17 +112,18 @@ export default function RootLayout() {
         <AgentProvider value={agent}>
           <StatusBar style="dark" />
           {loading && <SplashScreen />}
-          <Stack
-            screenOptions={{
-              headerShown: true,
-              headerBackTitle: "",
-              fullScreenGestureEnabled: true,
-              headerStyle: {
-                backgroundColor: "#fff",
-              },
-            }}
-          />
-          <StatusBar />
+          <ComposerProvider>
+            <Stack
+              screenOptions={{
+                headerShown: true,
+                // headerBackTitle: "",
+                fullScreenGestureEnabled: true,
+                headerStyle: {
+                  backgroundColor: "#fff",
+                },
+              }}
+            />
+          </ComposerProvider>
         </AgentProvider>
       </SafeAreaProvider>
     </QueryClientProvider>

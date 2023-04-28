@@ -15,6 +15,7 @@ import { useLike, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
+import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
 
@@ -35,6 +36,7 @@ export const FeedPost = ({
 }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
+  const composer = useComposer();
 
   const profileHref = `/profile/${item.post.author.handle}`;
 
@@ -139,7 +141,16 @@ export const FeedPost = ({
           )}
           {/* actions */}
           <View className="mt-2 flex-row justify-between">
-            <TouchableOpacity className="flex-row items-center gap-2">
+            <TouchableOpacity
+              onPress={() =>
+                composer.open({
+                  parent: item.post,
+                  root: item.reply?.root ?? item.post,
+                })
+              }
+              className="flex-row items-center gap-2"
+              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+            >
               <MessageSquare size={16} color="#1C1C1E" />
               <Text>{item.post.replyCount}</Text>
             </TouchableOpacity>
