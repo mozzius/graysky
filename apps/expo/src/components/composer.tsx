@@ -46,7 +46,7 @@ import { Avatar } from "./avatar";
 import { PostEmbed } from "./embed";
 import { RichText } from "./rich-text";
 
-const MAX_LENGTH = 10;
+const MAX_LENGTH = 300;
 
 interface ComposerRef {
   open: (reply?: AppBskyFeedDefs.ReplyRef) => void;
