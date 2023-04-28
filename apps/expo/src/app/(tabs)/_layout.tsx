@@ -62,7 +62,7 @@ export default function AppLayout() {
             tabBarShowLabel: false,
             tabBarBadge: notifications.data?.data?.count || undefined,
             tabBarBadgeStyle: {
-              backgroundColor: "#505050",
+              backgroundColor: "#262626",
               fontSize: 12,
             },
             tabBarIcon({ focused }) {

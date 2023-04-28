@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
 import {
   AppBskyEmbedImages,
@@ -13,11 +14,13 @@ import {
   AppBskyFeedPost,
   AppBskyNotificationListNotifications,
 } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 
 import { Button } from "../../components/button";
+import { ComposerProvider } from "../../components/composer";
 import { Embed } from "../../components/embed";
 import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
@@ -39,8 +42,10 @@ type NotificationGroup = {
   indexedAt: string;
 };
 
-export default function NotificationsPage() {
+const NotificationsPage = () => {
   const agent = useAuthedAgent();
+  const headerHeight = useHeaderHeight();
+
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list"],
     queryFn: async ({ pageParam }) => {
@@ -133,7 +138,13 @@ export default function NotificationsPage() {
     case "success":
       return (
         <>
-          <Stack.Screen options={{ headerShown: true }} />
+          <Stack.Screen
+            options={{ headerShown: true, headerTransparent: true }}
+          />
+          <View
+            className="w-full border-b border-neutral-200 bg-white"
+            style={{ height: headerHeight }}
+          />
           <FlashList
             ref={ref}
             data={data}
@@ -154,6 +165,14 @@ export default function NotificationsPage() {
         </>
       );
   }
+};
+
+export default function Page() {
+  return (
+    <ComposerProvider>
+      <NotificationsPage />
+    </ComposerProvider>
+  );
 }
 
 const Notification = ({

@@ -1,7 +1,7 @@
 import { Image } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 
-import { useAuthedAgent } from "../lib/agent";
+import { useAgent, useAuthedAgent } from "../lib/agent";
 import { cx } from "../lib/utils/cx";
 
 interface Props {
@@ -9,11 +9,12 @@ interface Props {
 }
 
 export const Avatar = ({ className }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const profile = useQuery({
-    queryKey: ["profile", agent.session.did],
+    queryKey: ["profile", agent.session?.did],
     queryFn: async () => {
+      if (!agent.session) return null;
       const profile = await agent.getProfile({
         actor: agent.session.did,
       });
