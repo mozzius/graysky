@@ -16,8 +16,7 @@ export const useAuthedAgent = () => {
   const router = useRouter();
   const agent = useContext(agentContext);
   if (!agent) throw new Error("No agent found in context");
-  // if (!agent.hasSession) router.replace("/login");
-  if (!agent.session) router.replace("/login");
+  if (!agent.hasSession) router.replace("/login");
   return agent as BskyAgent & { session: AtpSessionData };
 };
 
