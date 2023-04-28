@@ -164,15 +164,15 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       keyboardBlurBehavior="restore"
       onChange={handleSheetChanges}
       enablePanDownToClose={text.length === 0 && !send.isLoading}
-      style={[bottomSheetStyle]}
-      topInset={top + 50}
+      style={bottomSheetStyle}
+      topInset={top + 10}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
       onClose={() => Keyboard.dismiss()}
     >
       <BottomSheetView
-        style={[contentContainerStyle]}
+        style={contentContainerStyle}
         onLayout={handleContentLayout}
         key={replyingTo?.parent?.cid ?? "none"}
       >
@@ -215,6 +215,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                 onChangeText={setText}
                 editable={!send.isLoading}
                 selectTextOnFocus={false}
+                textAlignVertical="top"
               />
             </View>
           </View>
