@@ -20,6 +20,7 @@
     },
     "production": {
       "autoIncrement": true,
+      "node": "18.16.0",
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
