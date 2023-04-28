@@ -134,7 +134,7 @@ export const FeedPost = ({
           </Link>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
-            (item.reply ? (
+            (!!item.reply ? (
               <Link
                 href={`/profile/${
                   item.reply.parent.author.handle
