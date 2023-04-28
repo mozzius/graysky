@@ -67,6 +67,7 @@ export const FeedPost = ({
             <Pressable>
               {item.post.author.avatar ? (
                 <Image
+                  key={item.post.author.avatar}
                   source={{ uri: item.post.author.avatar }}
                   alt={item.post.author.handle}
                   className="h-12 w-12 rounded-full"
