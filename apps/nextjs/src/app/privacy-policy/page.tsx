@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Graysky | Privacy Policy",
+  description: "Privacy Policy",
+};
+
 export default function Page() {
   return (
     <div className="container mx-auto p-4">
