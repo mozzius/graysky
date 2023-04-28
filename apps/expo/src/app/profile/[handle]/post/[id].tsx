@@ -5,7 +5,6 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
-import { ComposerProvider } from "../../../../components/composer";
 import { FeedPost } from "../../../../components/feed-post";
 import { Post } from "../../../../components/post";
 import { useAuthedAgent } from "../../../../lib/agent";
@@ -26,6 +25,7 @@ export default function PostPage() {
     handle: string;
   };
   const agent = useAuthedAgent();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
   const hasScrolled = useRef(false);
 
@@ -126,7 +126,7 @@ export default function PostPage() {
         });
       }, 500);
     }
-  }, [thread.isSuccess]);
+  }, [thread.isSuccess, thread.data?.index]);
 
   useTabPressScroll(ref);
 
@@ -155,7 +155,7 @@ export default function PostPage() {
             ref={ref}
             data={thread.data.posts}
             estimatedItemSize={91}
-            onRefresh={handleRefresh}
+            onRefresh={() => void handleRefresh()}
             refreshing={refreshing}
             ListFooterComponent={<View className="h-20" />}
             getItemType={(item) => (item.primary ? "big" : "small")}

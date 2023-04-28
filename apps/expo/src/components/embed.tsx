@@ -73,6 +73,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           {content.external.thumb && (
             <Image
               source={{ uri: content.external.thumb }}
+              alt={content.external.title || content.external.uri}
               className="h-32 w-full object-cover"
             />
           )}

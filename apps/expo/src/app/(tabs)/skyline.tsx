@@ -75,7 +75,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
     if (timeline.status !== "success") return [];
     const flattened = timeline.data.pages.flatMap((page) => page.feed);
     return flattened
-      .map((item, i, arr) =>
+      .map((item) =>
         // if the preview item is replying to this one, skip
         // arr[i - 1]?.reply?.parent?.cid === item.cid
         //   ? [] :
@@ -96,6 +96,7 @@ const TimelinePage = () => {
   const [mode, setMode] = useState<"popular" | "following" | "mutuals">(
     "following",
   );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
   const headerHeight = useHeaderHeight();
 
@@ -188,7 +189,7 @@ const TimelinePage = () => {
             )}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={handleRefresh}
+            onRefresh={() => void handleRefresh()}
             refreshing={refreshing}
             estimatedItemSize={91}
             ListFooterComponent={

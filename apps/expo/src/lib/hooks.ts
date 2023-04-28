@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { useEffect, useRef, useState } from "react";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "expo-router";
@@ -24,7 +25,7 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
   const toggleLike = useMutation({
     mutationKey: ["like", post.uri],
     mutationFn: async () => {
-      Haptics.selectionAsync();
+      void Haptics.impactAsync();
       if (!likeUri) {
         try {
           setLiked(true);
@@ -72,7 +73,7 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
   const toggleRepost = useMutation({
     mutationKey: ["repost", post.uri],
     mutationFn: async () => {
-      Haptics.selectionAsync();
+      void Haptics.impactAsync();
       if (!repostUri) {
         try {
           setReposted(true);
@@ -105,6 +106,7 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
 };
 
 export const useTabPressScroll = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: React.RefObject<FlashList<any>>,
   callback = () => {},
 ) => {
@@ -123,10 +125,11 @@ export const useTabPressScroll = (
     });
 
     return unsub;
-  }, [callback]);
+  }, [callback, navigation, ref]);
 };
 
 export const useTabPressScrollRef = (callback = () => {}) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
 
   useTabPressScroll(ref, callback);

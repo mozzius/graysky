@@ -1,7 +1,7 @@
 import { Image } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 
-import { useAgent, useAuthedAgent } from "../lib/agent";
+import { useAgent } from "../lib/agent";
 import { cx } from "../lib/utils/cx";
 
 interface Props {
@@ -25,6 +25,7 @@ export const Avatar = ({ className }: Props) => {
   return (
     <Image
       source={{ uri: profile.data?.avatar }}
+      alt={profile.data?.displayName}
       className={cx(
         "h-12 w-12 rounded-full bg-neutral-200 object-cover",
         className,

@@ -11,7 +11,7 @@ export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
         return;
       }
 
-      refetch();
+      void refetch();
     }, [refetch]),
   );
 }
@@ -21,6 +21,6 @@ export function useUserRefresh<T>(refetch: () => Promise<T>) {
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
     return refetch().finally(() => setRefreshing(false));
-  }, []);
+  }, [refetch]);
   return { refreshing, handleRefresh };
 }

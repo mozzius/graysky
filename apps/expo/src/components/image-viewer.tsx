@@ -1,20 +1,17 @@
 import { Dimensions, Image, StyleSheet } from "react-native";
 import {
   PanGestureHandler,
-  PanGestureHandlerGestureEvent,
+  type PanGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
 import Animated, {
-  Extrapolate,
-  interpolate,
   runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
-  withDecay,
   withSpring,
 } from "react-native-reanimated";
 import { snapPoint } from "react-native-redash";
-import { AppBskyEmbedImages } from "@atproto/api";
+import { type AppBskyEmbedImages } from "@atproto/api";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -100,6 +97,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
             >
               <Image
                 source={{ uri: image.fullsize }}
+                alt={image.alt}
                 className="flex-1"
                 resizeMode="contain"
               />

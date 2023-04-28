@@ -26,9 +26,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
-  AppBskyFeedDefs,
   AppBskyFeedPost,
   RichText as RichTextHelper,
+  type AppBskyFeedDefs,
 } from "@atproto/api";
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -132,16 +132,17 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     },
   }));
 
-  useEffect(() => {});
-
-  const handleSheetChanges = useCallback((index: number) => {
-    setIsCollapsed(index < 1);
-    if (index === 0 && !send.isLoading) {
-      bottomSheetRef.current?.close();
-      setReplyingTo(undefined);
-      setText("");
-    }
-  }, []);
+  const handleSheetChanges = useCallback(
+    (index: number) => {
+      setIsCollapsed(index < 1);
+      if (index === 0 && !send.isLoading) {
+        bottomSheetRef.current?.close();
+        setReplyingTo(undefined);
+        setText("");
+      }
+    },
+    [send.isLoading],
+  );
 
   const {
     animatedHandleHeight,
@@ -151,6 +152,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   } = useBottomSheetDynamicSnapPoints([100, "CONTENT_HEIGHT"]);
 
   const renderBackdrop = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: any) => <BottomSheetBackdrop {...props} pressBehavior="close" />,
     [],
   );
@@ -252,6 +254,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     </BottomSheet>
   );
 });
+Composer.displayName = "Composer";
 
 const { bottomSheetStyle, contentContainerStyle, textInputStyle } =
   StyleSheet.create({
@@ -266,7 +269,6 @@ const { bottomSheetStyle, contentContainerStyle, textInputStyle } =
   });
 
 const Spinner = ({ show }: { show: boolean }) => {
-  if (!show) return null;
   const spin = useSharedValue(0);
 
   useEffect(() => {
@@ -274,13 +276,15 @@ const Spinner = ({ show }: { show: boolean }) => {
       withTiming(360, { duration: 500, easing: Easing.linear }),
       -1,
     );
-  }, []);
+  }, [spin]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ rotate: `${spin.value}deg` }],
     };
   });
+
+  if (!show) return null;
 
   return (
     <Animated.View

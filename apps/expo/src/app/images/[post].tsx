@@ -1,8 +1,5 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { AppBskyEmbedImages, AppBskyFeedDefs } from "@atproto/api";

@@ -63,7 +63,7 @@ export const RichText = ({ text, facets, size = "base" }: Props) => {
       }
     }
     return parts;
-  }, [text, facets]);
+  }, [text, facets, router]);
 
   if (!segments) return null;
 

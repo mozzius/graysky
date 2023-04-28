@@ -6,13 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
 import {
   AppBskyEmbedImages,
   AppBskyFeedDefs,
   AppBskyFeedPost,
-  AppBskyNotificationListNotifications,
+  type AppBskyNotificationListNotifications,
 } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
@@ -55,15 +54,14 @@ const NotificationsPage = () => {
       if (!notifs.success) throw new Error("Failed to fetch notifications");
       // mark as read
       if (pageParam === undefined) {
-        agent.updateSeenNotifications().then(() => {
+        void agent.updateSeenNotifications().then(() => {
           queryClient.invalidateQueries({
             queryKey: ["notifications", "unread"],
           });
         });
       }
       // refetch the post queries so they update
-      // TODO: this doesn't seem to work!
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: ["notifications", "post"],
         exact: false,
       });
@@ -152,7 +150,7 @@ const NotificationsPage = () => {
             estimatedItemSize={105}
             onEndReachedThreshold={0.5}
             onEndReached={() => void notifications.fetchNextPage()}
-            onRefresh={handleRefresh}
+            onRefresh={() => void handleRefresh()}
             refreshing={refreshing}
             ListFooterComponent={
               notifications.isFetching ? (

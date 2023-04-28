@@ -34,6 +34,7 @@ export const ProfileView = ({
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
   const headerHeight = useHeaderHeight();
   const { top } = useSafeAreaInsets();
@@ -256,7 +257,7 @@ export const ProfileView = ({
             stickyHeaderIndices={atTop ? [] : [0]}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={handleRefresh}
+            onRefresh={() => void handleRefresh()}
             refreshing={refreshing}
             estimatedItemSize={91}
             onScroll={(evt) => {
