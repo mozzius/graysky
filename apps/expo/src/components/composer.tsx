@@ -29,6 +29,7 @@ import {
   AppBskyFeedPost,
   RichText as RichTextHelper,
   type AppBskyFeedDefs,
+  type BskyAgent,
 } from "@atproto/api";
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -36,7 +37,7 @@ import BottomSheet, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Camera, ImagePlus, Loader2, Send } from "lucide-react-native";
 
 import { useAgent } from "../lib/agent";
@@ -44,6 +45,8 @@ import { cx } from "../lib/utils/cx";
 import { Avatar } from "./avatar";
 import { PostEmbed } from "./embed";
 import { RichText } from "./rich-text";
+
+const MAX_LENGTH = 10;
 
 interface ComposerRef {
   open: (reply?: AppBskyFeedDefs.ReplyRef) => void;
@@ -83,6 +86,12 @@ export const useComposer = () => {
   return ctx;
 };
 
+const generateRichText = async (text: string, agent: BskyAgent) => {
+  const rt = new RichTextHelper({ text });
+  await rt.detectFacets(agent);
+  return rt;
+};
+
 export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const { top } = useSafeAreaInsets();
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -98,8 +107,14 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const send = useMutation({
     mutationKey: ["send"],
     mutationFn: async () => {
-      const rt = new RichTextHelper({ text });
-      await rt.detectFacets(agent);
+      const rt = await generateRichText(text, agent);
+      if (rt.graphemeLength > MAX_LENGTH) {
+        Alert.alert(
+          "Your post is too long",
+          "There is a character limit of 300 characters",
+        );
+        throw new Error("Too long");
+      }
       await agent.post({
         text: rt.text,
         facets: rt.facets,
@@ -117,6 +132,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       }, 1000);
     },
   });
+
+  const rt = useQuery({
+    queryKey: ["rt", text],
+    queryFn: async () => {
+      return await generateRichText(text, agent);
+    },
+    keepPreviousData: true,
+  });
+
+  const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
 
   useImperativeHandle(ref, () => ({
     open: (reply?: AppBskyFeedDefs.ReplyRef) => {
@@ -136,10 +161,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
 
   const handleSheetChanges = (index: number) => {
     setIsCollapsed(index < 1);
+
     if (index === 0 && !send.isLoading) {
-      bottomSheetRef.current?.close();
-      setReplyingTo(undefined);
-      setText("");
+      if (send.isError) {
+        bottomSheetRef.current?.expand();
+        send.reset();
+      } else {
+        bottomSheetRef.current?.close();
+        setReplyingTo(undefined);
+        setText("");
+      }
     }
   };
 
@@ -240,9 +271,12 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             <Camera size={24} color="#888888" />
           </TouchableOpacity>
           <View className="flex-1" />
+          <Text className={cx("text-sm", tooLong && "text-red-500")}>
+            {rt.data?.graphemeLength} / {MAX_LENGTH}
+          </Text>
           <TouchableOpacity
             disabled={isEmpty || send.isLoading}
-            className="ml-2 flex-row items-center rounded-full bg-neutral-800 px-3 py-2"
+            className="ml-3 flex-row items-center rounded-full bg-neutral-800 px-3 py-2"
             onPress={() => send.mutate()}
           >
             <Text className="mr-2 text-white">Post</Text>

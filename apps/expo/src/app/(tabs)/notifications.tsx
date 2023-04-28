@@ -55,7 +55,7 @@ const NotificationsPage = () => {
       // mark as read
       if (pageParam === undefined) {
         void agent.updateSeenNotifications().then(() => {
-          queryClient.invalidateQueries({
+          return queryClient.invalidateQueries({
             queryKey: ["notifications", "unread"],
           });
         });
@@ -99,6 +99,7 @@ const NotificationsPage = () => {
 
   const { refreshing, handleRefresh } = useUserRefresh(notifications.refetch);
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const ref = useTabPressScrollRef(notifications.refetch);
 
   const data = useMemo(() => {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useRef } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";

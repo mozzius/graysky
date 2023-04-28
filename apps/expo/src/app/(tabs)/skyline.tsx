@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack } from "expo-router";
