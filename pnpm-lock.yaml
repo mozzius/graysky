@@ -88,6 +88,9 @@ importers:
       expo-linking:
         specifier: ~4.0.1
         version: 4.0.1(expo@48.0.15)
+      expo-modules-autolinking:
+        specifier: '>=0.8.1'
+        version: 1.2.0
       expo-router:
         specifier: ^1.5.3
         version: 1.5.3(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.15)(metro@0.76.3)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.7)(react@18.2.0)

@@ -15,6 +15,7 @@
   "dependencies": {
     "@atproto/api": "^0.2.10",
     "@expo/metro-config": "^0.7.1",
+    "expo-modules-autolinking": ">=0.8.1",
     "@gorhom/bottom-sheet": "^4.4.5",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/netinfo": "9.3.7",
