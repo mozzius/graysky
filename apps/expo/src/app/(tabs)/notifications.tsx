@@ -11,7 +11,7 @@ import {
   AppBskyEmbedImages,
   AppBskyFeedDefs,
   AppBskyFeedPost,
-  type AppBskyNotificationListNotifications,
+  AppBskyNotificationListNotifications,
 } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
