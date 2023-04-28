@@ -30,6 +30,7 @@ const defineConfig = (): ExpoConfig => ({
     },
   },
   android: {
+    package: "dev.mozzius.graysky",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#888888",
