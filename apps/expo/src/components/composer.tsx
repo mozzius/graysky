@@ -111,8 +111,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       setTimeout(() => bottomSheetRef.current?.collapse(), 100);
     },
     onSuccess: () => {
-      bottomSheetRef.current?.close();
-      setText("");
+      setText("Sent!");
+      setTimeout(() => {
+        bottomSheetRef.current?.close();
+      }, 1000);
     },
   });
 
@@ -132,17 +134,14 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     },
   }));
 
-  const handleSheetChanges = useCallback(
-    (index: number) => {
-      setIsCollapsed(index < 1);
-      if (index === 0 && !send.isLoading) {
-        bottomSheetRef.current?.close();
-        setReplyingTo(undefined);
-        setText("");
-      }
-    },
-    [send.isLoading],
-  );
+  const handleSheetChanges = (index: number) => {
+    setIsCollapsed(index < 1);
+    if (index === 0 && !send.isLoading) {
+      bottomSheetRef.current?.close();
+      setReplyingTo(undefined);
+      setText("");
+    }
+  };
 
   const {
     animatedHandleHeight,
