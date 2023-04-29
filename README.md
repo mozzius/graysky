@@ -30,13 +30,14 @@ Then just scan the QR code!
 - [x] Image viewer
 - [x] Pull to refresh fix
 - [x] Haptics
-- [ ] Post composer
+- [x] Post composer
+- [x] Context menu - post actions
+- [x] Block/Unblock user
 - [ ] Reply/Quote composer
 - [ ] Dark mode
 - [ ] Sidebar w/ logout button
 - [ ] Followers/Following screens
 - [ ] Settings screen
-- [ ] Context menu - post actions
 - [ ] Context menu - user actions
 - [ ] Image viewer: Pinch to zoom
 - [ ] Better haptics
