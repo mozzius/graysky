@@ -33,7 +33,7 @@ Then just scan the QR code!
 - [x] Post composer
 - [x] Context menu - post actions
 - [x] Block/Unblock user
-- [ ] Reply/Quote composer
+- [ ] Quote post
 - [ ] Dark mode
 - [ ] Sidebar w/ logout button
 - [ ] Followers/Following screens
