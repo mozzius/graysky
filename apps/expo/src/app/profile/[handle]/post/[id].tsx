@@ -31,87 +31,90 @@ export default function PostPage() {
   const ref = useRef<FlashList<any>>(null);
   const hasScrolled = useRef(false);
 
-  const thread = useQuery(["profile", handle, "post", id], async () => {
-    let did = handle;
-    if (!did.startsWith("did:")) {
-      const { data } = await agent.resolveHandle({ handle });
-      did = data.did;
-    }
-    const uri = `at://${did}/app.bsky.feed.post/${id}`;
-    const postThread = await agent.getPostThread({ uri });
+  const thread = useQuery({
+    queryKey: ["profile", handle, "post", id],
+    queryFn: async () => {
+      let did = handle;
+      if (!did.startsWith("did:")) {
+        const { data } = await agent.resolveHandle({ handle });
+        did = data.did;
+      }
+      const uri = `at://${did}/app.bsky.feed.post/${id}`;
+      const postThread = await agent.getPostThread({ uri });
 
-    if (!postThread.success) throw Error("Failed to fetch post thread");
+      if (!postThread.success) throw Error("Failed to fetch post thread");
 
-    const thread = postThread.data.thread;
+      const thread = postThread.data.thread;
 
-    if (!AppBskyFeedDefs.isThreadViewPost(thread))
-      throw Error("Post not found");
-    assert(AppBskyFeedDefs.validateThreadViewPost(thread));
+      if (!AppBskyFeedDefs.isThreadViewPost(thread))
+        throw Error("Post not found");
+      assert(AppBskyFeedDefs.validateThreadViewPost(thread));
 
-    const posts: Posts[] = [];
+      const posts: Posts[] = [];
 
-    // see if has parents
-    const ancestors: Posts[] = [];
+      // see if has parents
+      const ancestors: Posts[] = [];
 
-    let ancestor = thread;
-    while (ancestor.parent) {
-      if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) break;
-      assert(AppBskyFeedDefs.validateThreadViewPost(ancestor.parent));
+      let ancestor = thread;
+      while (ancestor.parent) {
+        if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) break;
+        assert(AppBskyFeedDefs.validateThreadViewPost(ancestor.parent));
 
-      ancestors.push({
-        post: ancestor.parent.post,
-        primary: false,
-        hasParent: false,
-        hasReply: true,
-      });
-
-      ancestor = ancestor.parent;
-    }
-
-    const index = ancestors.length;
-    ancestors.reverse();
-    posts.push(...ancestors);
-
-    posts.push({
-      post: thread.post,
-      primary: true,
-      hasParent: !!thread.parent,
-      hasReply: false,
-    });
-
-    if (thread.replies) {
-      for (const reply of thread.replies) {
-        if (!AppBskyFeedDefs.isThreadViewPost(reply)) continue;
-        assert(AppBskyFeedDefs.validateThreadViewPost(reply));
-
-        posts.push({
-          post: reply.post,
+        ancestors.push({
+          post: ancestor.parent.post,
           primary: false,
           hasParent: false,
-          hasReply: !!reply.replies?.[0],
+          hasReply: true,
         });
 
-        if (reply.replies && reply.replies[0]) {
-          let child;
-          child = reply.replies[0];
-          while (child) {
-            if (!AppBskyFeedDefs.isThreadViewPost(child)) break;
-            assert(AppBskyFeedDefs.validateThreadViewPost(child));
+        ancestor = ancestor.parent;
+      }
 
-            posts.push({
-              post: child.post,
-              primary: false,
-              hasParent: false,
-              hasReply: !!child.replies?.[0],
-            });
+      const index = ancestors.length;
+      ancestors.reverse();
+      posts.push(...ancestors);
 
-            child = child.replies?.[0];
+      posts.push({
+        post: thread.post,
+        primary: true,
+        hasParent: !!thread.parent,
+        hasReply: false,
+      });
+
+      if (thread.replies) {
+        for (const reply of thread.replies) {
+          if (!AppBskyFeedDefs.isThreadViewPost(reply)) continue;
+          assert(AppBskyFeedDefs.validateThreadViewPost(reply));
+
+          posts.push({
+            post: reply.post,
+            primary: false,
+            hasParent: false,
+            hasReply: !!reply.replies?.[0],
+          });
+
+          if (reply.replies && reply.replies[0]) {
+            let child;
+            child = reply.replies[0];
+            while (child) {
+              if (!AppBskyFeedDefs.isThreadViewPost(child)) break;
+              assert(AppBskyFeedDefs.validateThreadViewPost(child));
+
+              posts.push({
+                post: child.post,
+                primary: false,
+                hasParent: false,
+                hasReply: !!child.replies?.[0],
+              });
+
+              child = child.replies?.[0];
+            }
           }
         }
       }
-    }
 
-    return { posts, index };
+      return { posts, index };
+    },
   });
 
   const { refreshing, handleRefresh } = useUserRefresh(thread.refetch);

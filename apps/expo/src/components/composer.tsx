@@ -146,6 +146,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
 
   useImperativeHandle(ref, () => ({
     open: (reply?: AppBskyFeedDefs.ReplyRef) => {
+      send.reset();
       // TODO: overwrite warning
       setReplyingTo(reply);
       setText("");
@@ -226,6 +227,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   <RichText
                     text={replyingTo.parent.record.text}
                     facets={replyingTo.parent.record.facets}
+                    numberOfLines={3}
                   />
                 ) : (
                   <Text>📷</Text>

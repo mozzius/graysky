@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -9,11 +9,14 @@ import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useTabPressScroll } from "../lib/hooks";
+import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
 import { useUserRefresh } from "../lib/utils/query";
+import { Button } from "./button";
 import { ComposeButton } from "./compose-button";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
@@ -41,12 +44,15 @@ export const ProfileView = ({
 
   const tabOffset = headerHeight - top;
 
-  const profile = useQuery(["profile", handle], async () => {
-    const profile = await agent.getProfile({
-      actor: handle,
-    });
-    if (!profile.success) throw new Error("Profile not found");
-    return profile.data;
+  const profile = useQuery({
+    queryKey: ["profile", handle],
+    queryFn: async () => {
+      const profile = await agent.getProfile({
+        actor: handle,
+      });
+      if (!profile.success) throw new Error("Profile not found");
+      return profile.data;
+    },
   });
 
   const timeline = useInfiniteQuery({
@@ -223,23 +229,57 @@ export const ProfileView = ({
         </View>
       );
     case "success":
-      return (
-        <>
-          <SafeAreaView
-            className="w-full bg-white dark:bg-black"
-            edges={["top"]}
-            mode="padding"
-          />
-          <Stack.Screen
-            options={{
-              headerTransparent: true,
-              headerTitle: "",
-              headerStyle: {
-                backgroundColor: "white",
-              },
-              headerShown: header && !atTop,
-            }}
-          />
+      const info = <ProfileInfo profile={profile.data} backButton={header} />;
+      let content = null;
+      if (profile.data.viewer?.blocking) {
+        content = (
+          <>
+            {info}
+            <View className="flex-1 flex-col items-center justify-center p-4">
+              <XOctagon size={50} color="#888888" />
+              <Text className="my-8 text-center text-lg">
+                You have blocked this user
+              </Text>
+              <Button
+                variant="outline"
+                onPress={async () => {
+                  await agent.app.bsky.graph.block.delete({
+                    repo: agent.session.did,
+                    rkey: profile.data.viewer!.blocking!.split("/").pop(),
+                  }),
+                    await queryClient.refetchQueries(["profile", handle]);
+                  Alert.alert("Unblocked", "This user has been unblocked");
+                }}
+              >
+                Unblock
+              </Button>
+            </View>
+          </>
+        );
+      } else if (profile.data.viewer?.muted) {
+        content = (
+          <>
+            {info}
+            <View className="flex-1 items-center justify-center p-4">
+              <Text className="text-center text-lg">
+                You have muted this user
+              </Text>
+            </View>
+          </>
+        );
+      } else if (profile.data.viewer?.blockedBy) {
+        content = (
+          <>
+            {info}
+            <View className="flex-1 items-center justify-center p-4">
+              <Text className="text-center text-lg">
+                You have been blocked by this user
+              </Text>
+            </View>
+          </>
+        );
+      } else {
+        content = (
           <FlashList
             ref={ref}
             data={[null, ...data]}
@@ -264,9 +304,7 @@ export const ProfileView = ({
               const { contentOffset } = evt.nativeEvent;
               setAtTop(contentOffset.y <= 30);
             }}
-            ListHeaderComponent={
-              <ProfileInfo profile={profile.data} backButton={header} />
-            }
+            ListHeaderComponent={info}
             ListFooterComponent={
               timeline.isFetching ? (
                 <View className="w-full items-center py-8">
@@ -279,8 +317,32 @@ export const ProfileView = ({
               )
             }
           />
-          {children}
-          {composer && <ComposeButton />}
+        );
+        {
+          children;
+        }
+        {
+          composer && <ComposeButton />;
+        }
+      }
+      return (
+        <>
+          <SafeAreaView
+            className="w-full bg-white dark:bg-black"
+            edges={["top"]}
+            mode="padding"
+          />
+          <Stack.Screen
+            options={{
+              headerTransparent: true,
+              headerTitle: "",
+              headerStyle: {
+                backgroundColor: "white",
+              },
+              headerShown: header && !atTop,
+            }}
+          />
+          {content}
         </>
       );
   }

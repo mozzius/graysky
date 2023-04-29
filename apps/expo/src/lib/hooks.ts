@@ -192,27 +192,90 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             });
             break;
           case `Mute @${post.author.handle}`:
-            await agent.mute(post.author.did);
             Alert.alert(
-              "Muted",
-              `You will no longer see posts from @${post.author.handle}.`,
+              "Mute",
+              `Are you sure you want to mute @${post.author.handle}?`,
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Mute",
+                  style: "destructive",
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onPress: async () => {
+                    await agent.mute(post.author.did);
+                    Alert.alert(
+                      "Muted",
+                      `You will no longer see posts from @${post.author.handle}.`,
+                    );
+                  },
+                },
+              ],
             );
             break;
           case `Block @${post.author.handle}`:
-            // to do - see if this works
-            await agent.app.bsky.graph.block.create(
-              { repo: agent.session.did },
-              {
-                createdAt: new Date().toISOString(),
-                subject: post.author.did,
-              },
+            Alert.alert(
+              "Block",
+              `Are you sure you want to block @${post.author.handle}?`,
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Block",
+                  style: "destructive",
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onPress: async () => {
+                    await agent.app.bsky.graph.block.create(
+                      { repo: agent.session.did },
+                      {
+                        createdAt: new Date().toISOString(),
+                        subject: post.author.did,
+                      },
+                    );
+                    await Promise.all([
+                      queryClient.invalidateQueries(
+                        ["profile", post.author.did],
+                        { exact: true },
+                      ),
+                      queryClient.invalidateQueries(
+                        ["profile", post.author.handle],
+                        { exact: true },
+                      ),
+                    ]);
+                    Alert.alert(
+                      "Blocked",
+                      `@${post.author.handle} has been blocked.`,
+                    );
+                  },
+                },
+              ],
             );
-            Alert.alert("Blocked", `@${post.author.handle} has been blocked.`);
             break;
           case "Delete post":
-            await agent.deletePost(post.uri);
-            Alert.alert("Deleted", "Your post has been deleted.");
-            await queryClient.invalidateQueries();
+            Alert.alert(
+              "Delete",
+              "Are you sure you want to delete this post?",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Delete",
+                  style: "destructive",
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onPress: async () => {
+                    await agent.deletePost(post.uri);
+                    Alert.alert("Deleted", "Your post has been deleted.");
+                    await queryClient.invalidateQueries();
+                  },
+                },
+              ],
+            );
             break;
           case "Report post":
             // prettier-ignore

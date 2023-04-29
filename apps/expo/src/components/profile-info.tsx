@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
+import { RichTextWithoutFacets } from "./rich-text";
 
 interface Props {
   profile: ProfileViewDetailed;
@@ -85,7 +86,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           </Text>
         </View>
         {profile.description && (
-          <Text className="mt-3">{profile.description}</Text>
+          <View className="mt-3">
+            <RichTextWithoutFacets text={profile.description} />
+          </View>
         )}
       </View>
     </View>

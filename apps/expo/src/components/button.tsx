@@ -1,11 +1,15 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  type GestureResponderEvent,
+} from "react-native";
 import { useRouter } from "expo-router";
 
 import { cx } from "../lib/utils/cx";
 
 interface ButtonProps extends React.PropsWithChildren {
-  onPress: () => void;
+  onPress: (evt: GestureResponderEvent) => void | Promise<void>;
   variant?: "white" | "black" | "outline";
   className?: string;
 }
@@ -19,7 +23,7 @@ export const Button = ({
   const isChildAString = typeof children === "string";
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={(evt) => void onPress(evt)}
       className={cx(
         "items-center justify-center rounded-sm px-4 py-2",
         {
