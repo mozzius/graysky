@@ -8,6 +8,7 @@ import {
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClientProvider } from "@tanstack/react-query";
 
@@ -33,7 +34,6 @@ export default function RootLayout() {
         // store the session-data for reuse
         switch (evt) {
           case "create":
-            console.log("session created");
             if (!sess) throw new Error("should be unreachable");
             void AsyncStorage.setItem("session", JSON.stringify(sess));
             setSession(sess);
@@ -47,13 +47,11 @@ export default function RootLayout() {
             );
             break;
           case "update":
-            console.log("session updated");
             if (!sess) throw new Error("should be unreachable");
             void AsyncStorage.setItem("session", JSON.stringify(sess));
             setSession(sess);
             break;
           case "expired":
-            console.log("session expired");
             void AsyncStorage.removeItem("session");
             setSession(null);
             break;
@@ -112,18 +110,20 @@ export default function RootLayout() {
         <AgentProvider value={agent}>
           <StatusBar style="dark" />
           {loading && <SplashScreen />}
-          <ComposerProvider>
-            <Stack
-              screenOptions={{
-                headerShown: true,
-                // headerBackTitle: "",
-                fullScreenGestureEnabled: true,
-                headerStyle: {
-                  backgroundColor: "#fff",
-                },
-              }}
-            />
-          </ComposerProvider>
+          <ActionSheetProvider>
+            <ComposerProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: true,
+                  // headerBackTitle: "",
+                  fullScreenGestureEnabled: true,
+                  headerStyle: {
+                    backgroundColor: "#fff",
+                  },
+                }}
+              />
+            </ComposerProvider>
+          </ActionSheetProvider>
         </AgentProvider>
       </SafeAreaProvider>
     </QueryClientProvider>

@@ -128,6 +128,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     onSuccess: () => {
       setText("Sent!");
       setTimeout(() => {
+        setText("");
         bottomSheetRef.current?.close();
       }, 1000);
     },
@@ -154,19 +155,17 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     },
     close: () => {
       bottomSheetRef.current?.close();
-      setReplyingTo(undefined);
-      setText("");
     },
   }));
 
   const handleSheetChanges = (index: number) => {
     setIsCollapsed(index < 1);
 
-    if (index === 0 && !send.isLoading) {
+    if (index === 0) {
       if (send.isError) {
         bottomSheetRef.current?.expand();
         send.reset();
-      } else {
+      } else if (send.isIdle) {
         bottomSheetRef.current?.close();
         setReplyingTo(undefined);
         setText("");
@@ -197,7 +196,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       onChange={handleSheetChanges}
       enablePanDownToClose={text.length === 0 && !send.isLoading}
       style={bottomSheetStyle}
-      topInset={top + 10}
+      topInset={top + 25}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
@@ -208,7 +207,12 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         onLayout={handleContentLayout}
         key={replyingTo?.parent?.cid ?? "none"}
       >
-        <View className={cx(isCollapsed && "flex-col-reverse")}>
+        <View
+          className={cx(
+            (isCollapsed || send.isLoading || send.isSuccess) &&
+              "flex-col-reverse",
+          )}
+        >
           {replyingTo && AppBskyFeedPost.isRecord(replyingTo.parent.record) && (
             <View
               className={cx("relative px-4 pb-2", isCollapsed && "opacity-0")}
@@ -239,13 +243,18 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             <View className="relative flex-1 px-2 pt-1">
               <BottomSheetTextInput
                 placeholder={
-                  send.isLoading ? "Sending..." : "What's on your mind?"
+                  !!replyingTo
+                    ? `Replying to ${
+                        replyingTo.parent.author.displayName ??
+                        `@${replyingTo.parent.author.handle}`
+                      }`
+                    : "What's on your mind?"
                 }
                 style={[textInputStyle, send.isLoading && { opacity: 0.5 }]}
                 multiline
                 value={text}
-                onChangeText={setText}
-                editable={!send.isLoading}
+                onChangeText={(text) => send.isIdle && setText(text)}
+                editable={send.isIdle}
                 selectTextOnFocus={false}
                 textAlignVertical="top"
               />

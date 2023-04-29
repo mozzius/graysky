@@ -1,17 +1,19 @@
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useQuery } from "@tanstack/react-query";
 import {
   Heart,
   MessageCircle,
   MessageSquare,
+  MoreHorizontal,
   Repeat,
   User,
 } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
-import { useLike, useRepost } from "../lib/hooks";
+import { useLike, usePostViewOptions, useRepost } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
@@ -36,7 +38,25 @@ export const FeedPost = ({
 }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
+  const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
+
+  const handleRepost = () => {
+    const options = ["Repost", "Quote", "Cancel"];
+    showActionSheetWithOptions({ options, cancelButtonIndex: 2 }, (index) => {
+      if (index === undefined) return;
+      switch (options[index]) {
+        case "Repost":
+          toggleRepost.mutate();
+          break;
+        case "Quote":
+          composer.open();
+          break;
+      }
+    });
+  };
+
+  const handleMore = usePostViewOptions(item.post);
 
   const profileHref = `/profile/${item.post.author.handle}`;
 
@@ -141,7 +161,7 @@ export const FeedPost = ({
             <Embed uri={item.post.uri} content={item.post.embed} />
           )}
           {/* actions */}
-          <View className="mt-2 flex-row justify-between">
+          <View className="mt-2 flex-row justify-between pr-6">
             <TouchableOpacity
               onPress={() =>
                 composer.open({
@@ -157,7 +177,7 @@ export const FeedPost = ({
             </TouchableOpacity>
             <TouchableOpacity
               disabled={toggleRepost.isLoading}
-              onPress={() => toggleRepost.mutate()}
+              onPress={handleRepost}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               className="flex-row items-center gap-2"
             >
@@ -189,7 +209,12 @@ export const FeedPost = ({
                 {likeCount}
               </Text>
             </TouchableOpacity>
-            <View className="w-8" />
+            <TouchableOpacity
+              onPress={handleMore}
+              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+            >
+              <MoreHorizontal size={16} color="#1C1C1E" />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

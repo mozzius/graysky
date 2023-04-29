@@ -13,8 +13,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@atproto/api": "^0.2.10",
+    "@atproto/api": "^0.2.11",
     "@expo/metro-config": "^0.7.1",
+    "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "^4.4.5",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/netinfo": "9.3.7",
@@ -27,6 +28,7 @@
     "@trpc/server": "^10.21.2",
     "clsx": "^1.2.1",
     "expo": "^48.0.15",
+    "expo-clipboard": "^4.1.2",
     "expo-constants": "~14.2.1",
     "expo-file-system": "^15.2.2",
     "expo-haptics": "^12.2.1",
