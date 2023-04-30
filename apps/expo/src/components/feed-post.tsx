@@ -42,18 +42,21 @@ export const FeedPost = ({
   const composer = useComposer();
 
   const handleRepost = () => {
-    const options = ["Repost", "Quote", "Cancel"];
-    showActionSheetWithOptions({ options, cancelButtonIndex: 2 }, (index) => {
-      if (index === undefined) return;
-      switch (options[index]) {
-        case "Repost":
-          toggleRepost.mutate();
-          break;
-        case "Quote":
-          composer.open();
-          break;
-      }
-    });
+    const options = [reposted ? "Unrepost" : "Repost", "Quote", "Cancel"];
+    showActionSheetWithOptions(
+      { options, cancelButtonIndex: options.length - 1 },
+      (index) => {
+        if (index === undefined) return;
+        switch (options[index]) {
+          case "Repost":
+            toggleRepost.mutate();
+            break;
+          case "Quote":
+            composer.open();
+            break;
+        }
+      },
+    );
   };
 
   const handleMore = usePostViewOptions(item.post);

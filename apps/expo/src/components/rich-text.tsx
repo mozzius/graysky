@@ -101,7 +101,7 @@ export const RichTextWithoutFacets = ({
     queryFn: async () => {
       const rt = new RichTextHelper({ text });
       await rt.detectFacets(agent);
-      return rt.facets;
+      return rt.facets ?? [];
     },
   });
 
