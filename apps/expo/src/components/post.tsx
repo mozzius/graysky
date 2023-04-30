@@ -1,4 +1,5 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { getLocales } from "expo-localization";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import {
@@ -135,7 +136,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
           </Text>
         </TouchableOpacity>
         <Text className="text-sm text-neutral-400">
-          {new Intl.DateTimeFormat("en-GB", {
+          {new Intl.DateTimeFormat(getLocales()[0]!.languageTag, {
             timeStyle: "short",
             dateStyle: "short",
           })

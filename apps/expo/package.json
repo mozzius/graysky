@@ -33,6 +33,7 @@
     "expo-file-system": "^15.2.2",
     "expo-haptics": "^12.2.1",
     "expo-linking": "~4.0.1",
+    "expo-localization": "~14.1.1",
     "expo-modules-autolinking": ">=0.8.1",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
