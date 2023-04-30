@@ -13,6 +13,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type FlashList } from "@shopify/flash-list";
 import { useMutation } from "@tanstack/react-query";
 
+import { useComposer } from "../components/composer";
 import { useAuthedAgent } from "./agent";
 import { locale } from "./locale";
 import { queryClient } from "./query-client";
@@ -318,4 +319,32 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   };
 
   return handleMore;
+};
+
+export const useHandleRepost = (
+  post: AppBskyFeedDefs.PostView,
+  reposted: boolean,
+  toggleRepost: () => void,
+) => {
+  const { showActionSheetWithOptions } = useActionSheet();
+  const composer = useComposer();
+
+  return () => {
+    const options = [reposted ? "Unrepost" : "Repost", "Quote", "Cancel"];
+    showActionSheetWithOptions(
+      { options, cancelButtonIndex: options.length - 1 },
+      (index) => {
+        if (index === undefined) return;
+        switch (options[index]) {
+          case "Repost":
+          case "Unrepost":
+            toggleRepost();
+            break;
+          case "Quote":
+            composer.quote(post);
+            break;
+        }
+      },
+    );
+  };
 };

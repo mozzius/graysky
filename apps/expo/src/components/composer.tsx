@@ -50,6 +50,7 @@ const MAX_LENGTH = 300;
 
 interface ComposerRef {
   open: (reply?: AppBskyFeedDefs.ReplyRef) => void;
+  quote: (post: AppBskyFeedDefs.PostView) => void;
   close: () => void;
 }
 
@@ -58,14 +59,11 @@ export const ComposerContext = createContext<ComposerRef | null>(null);
 export const ComposerProvider = ({ children }: React.PropsWithChildren) => {
   const ref = useRef<ComposerRef>(null);
 
-  const value = useMemo(
+  const value = useMemo<ComposerRef>(
     () => ({
-      open: (reply?: AppBskyFeedDefs.ReplyRef) => {
-        ref.current?.open(reply);
-      },
-      close: () => {
-        ref.current?.close();
-      },
+      open: (reply) => ref.current?.open(reply),
+      quote: (post) => ref.current?.quote(post),
+      close: () => ref.current?.close(),
     }),
     [],
   );
@@ -96,7 +94,15 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const { top } = useSafeAreaInsets();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [text, setText] = useState("");
-  const [replyingTo, setReplyingTo] = useState<AppBskyFeedDefs.ReplyRef>();
+  const [context, setContext] = useState<
+    AppBskyFeedDefs.ReplyRef | AppBskyFeedDefs.PostView
+  >();
+
+  // JANK: `AppBskyFeedDefs.isReplyRef` should be able to do this!!!
+  const postView =
+    context && "parent" in context
+      ? (context.parent as AppBskyFeedDefs.PostView)
+      : context;
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const agent = useAgent();
@@ -115,11 +121,27 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         );
         throw new Error("Too long");
       }
-      await agent.post({
-        text: rt.text,
-        facets: rt.facets,
-        reply: replyingTo,
-      });
+      // JANK: see above!
+      if (context && !("parent" in context)) {
+        const embed = {
+          $type: "app.bsky.embed.record",
+          record: {
+            cid: context.cid,
+            uri: context.uri,
+          },
+        };
+        await agent.post({
+          text: rt.text,
+          facets: rt.facets,
+          embed,
+        });
+      } else {
+        await agent.post({
+          text: rt.text,
+          facets: rt.facets,
+          reply: context as AppBskyFeedDefs.ReplyRef | undefined,
+        });
+      }
     },
     onMutate: () => {
       Keyboard.dismiss();
@@ -145,10 +167,19 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
 
   useImperativeHandle(ref, () => ({
-    open: (reply?: AppBskyFeedDefs.ReplyRef) => {
+    open: (reply) => {
       send.reset();
       // TODO: overwrite warning
-      setReplyingTo(reply);
+      setContext(reply);
+      setText("");
+      bottomSheetRef.current?.snapToIndex(1);
+      // remove delay
+      setIsCollapsed(false);
+    },
+    quote: (post) => {
+      send.reset();
+      // TODO: overwrite warning
+      setContext(post);
       setText("");
       bottomSheetRef.current?.snapToIndex(1);
       // remove delay
@@ -168,7 +199,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         send.reset();
       } else if (send.isIdle) {
         bottomSheetRef.current?.close();
-        setReplyingTo(undefined);
+        setContext(undefined);
         setText("");
       }
     }
@@ -206,7 +237,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       <BottomSheetView
         style={contentContainerStyle}
         onLayout={handleContentLayout}
-        key={replyingTo?.parent?.cid ?? "none"}
+        key={postView?.cid ?? "none"}
       >
         <View
           className={cx(
@@ -214,19 +245,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               "flex-col-reverse",
           )}
         >
-          {replyingTo && AppBskyFeedPost.isRecord(replyingTo.parent.record) && (
+          {postView && AppBskyFeedPost.isRecord(postView.record) && (
             <View
               className={cx("relative px-4 pb-2", isCollapsed && "opacity-0")}
             >
               <View className="absolute bottom-0 left-0 right-0 top-0 z-10" />
-              <PostEmbed
-                author={replyingTo.parent.author}
-                uri={replyingTo.parent.uri}
-              >
-                {replyingTo.parent.record.text ? (
+              <PostEmbed author={postView.author} uri={postView.uri}>
+                {postView.record.text ? (
                   <RichText
-                    text={replyingTo.parent.record.text}
-                    facets={replyingTo.parent.record.facets}
+                    text={postView.record.text}
+                    facets={postView.record.facets}
                     numberOfLines={3}
                   />
                 ) : (
@@ -245,10 +273,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             <View className="relative flex-1 px-2 pt-1">
               <BottomSheetTextInput
                 placeholder={
-                  !!replyingTo
+                  !!postView
                     ? `Replying to ${
-                        replyingTo.parent.author.displayName ??
-                        `@${replyingTo.parent.author.handle}`
+                        postView.author.displayName ??
+                        `@${postView.author.handle}`
                       }`
                     : "What's on your mind?"
                 }

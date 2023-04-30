@@ -9,7 +9,12 @@ import {
   User,
 } from "lucide-react-native";
 
-import { useLike, usePostViewOptions, useRepost } from "../lib/hooks";
+import {
+  useHandleRepost,
+  useLike,
+  usePostViewOptions,
+  useRepost,
+} from "../lib/hooks";
 import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
@@ -26,6 +31,7 @@ interface Props {
 export const Post = ({ post, hasParent, root }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post);
   const { reposted, repostCount, toggleRepost } = useRepost(post);
+  const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
   const composer = useComposer();
 
@@ -104,7 +110,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
         <TouchableOpacity
           className="flex-row items-center gap-2 p-1"
           disabled={toggleRepost.isLoading}
-          onPress={() => toggleRepost.mutate()}
+          onPress={handleRepost}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
           <Repeat size={18} color={reposted ? "#2563eb" : "#1C1C1E"} />

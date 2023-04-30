@@ -1,7 +1,6 @@
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useQuery } from "@tanstack/react-query";
 import {
   Heart,
@@ -13,7 +12,12 @@ import {
 } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
-import { useLike, usePostViewOptions, useRepost } from "../lib/hooks";
+import {
+  useHandleRepost,
+  useLike,
+  usePostViewOptions,
+  useRepost,
+} from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
@@ -38,27 +42,12 @@ export const FeedPost = ({
 }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
-  const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
-
-  const handleRepost = () => {
-    const options = [reposted ? "Unrepost" : "Repost", "Quote", "Cancel"];
-    showActionSheetWithOptions(
-      { options, cancelButtonIndex: options.length - 1 },
-      (index) => {
-        if (index === undefined) return;
-        switch (options[index]) {
-          case "Repost":
-            toggleRepost.mutate();
-            break;
-          case "Quote":
-            composer.open();
-            break;
-        }
-      },
-    );
-  };
-
+  const handleRepost = useHandleRepost(
+    item.post,
+    reposted,
+    toggleRepost.mutate,
+  );
   const handleMore = usePostViewOptions(item.post);
 
   const profileHref = `/profile/${item.post.author.handle}`;

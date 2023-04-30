@@ -122,13 +122,12 @@ const NotificationsPage = () => {
       return (
         <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="text-center text-lg">
+          <Text className="mb-4 text-center text-lg">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button
             variant="outline"
             onPress={() => void notifications.refetch()}
-            className="mt-4"
           >
             Retry
           </Button>

@@ -55,13 +55,30 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
             const actor = actorFromPost(item);
             actors.add(actor);
           }
-          const profiles = await agent.getProfiles({ actors: [...actors] });
+          // split actors into chunks of 25
+          // API can only do 25 actors at a time
+          const chunks = Array.from(actors).reduce<string[][]>(
+            (acc, actor) => {
+              if (acc[acc.length - 1]!.length === 25) {
+                acc.push([actor]);
+              } else {
+                acc[acc.length - 1]!.push(actor);
+              }
+              return acc;
+            },
+            [[]],
+          );
+          // fetch profiles for each chunk
+          // const profiles = await agent.getProfiles({ actors: [...actors] });
+          const profiles = await Promise.all(
+            chunks.map((chunk) => agent.getProfiles({ actors: chunk })),
+          );
           return {
             feed: all.data.feed.filter((item) => {
               const actor = actorFromPost(item);
-              const profile = profiles.data.profiles.find(
-                (profile) => profile.did === actor,
-              );
+              const profile = profiles
+                .flatMap((x) => x.data.profiles)
+                .find((profile) => profile.did === actor);
               if (!profile) return false;
               return profile.viewer?.following && profile.viewer?.followedBy;
             }),
@@ -159,7 +176,7 @@ const TimelinePage = () => {
         <>
           {header}
           <View className="flex-1 items-center justify-center p-4">
-            <Text className="text-center text-lg">
+            <Text className="mb-4 text-center text-lg">
               {(timeline.error as Error).message || "An error occurred"}
             </Text>
             <Button
