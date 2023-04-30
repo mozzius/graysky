@@ -1,5 +1,4 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { getLocales } from "expo-localization";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import {
@@ -11,6 +10,7 @@ import {
 } from "lucide-react-native";
 
 import { useLike, usePostViewOptions, useRepost } from "../lib/hooks";
+import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
@@ -136,7 +136,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
           </Text>
         </TouchableOpacity>
         <Text className="text-sm text-neutral-400">
-          {new Intl.DateTimeFormat(getLocales()[0]!.languageTag, {
+          {new Intl.DateTimeFormat(locale.languageTag, {
             timeStyle: "short",
             dateStyle: "short",
           })

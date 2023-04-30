@@ -14,6 +14,7 @@ import { type FlashList } from "@shopify/flash-list";
 import { useMutation } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "./agent";
+import { locale } from "./locale";
 import { queryClient } from "./query-client";
 import { assert } from "./utils/assert";
 
@@ -171,9 +172,9 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             if (!AppBskyFeedPost.isRecord(post.record)) return;
             assert(AppBskyFeedPost.validateRecord(post.record));
             await Linking.openURL(
-              `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(
-                post.record.text,
-              )}`,
+              `https://translate.google.com/?sl=auto&tl=${
+                locale.languageCode
+              }&text=${encodeURIComponent(post.record.text)}`,
             );
             break;
           case "Copy post text":
