@@ -24,6 +24,10 @@
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleRelease",
+        "buildType": "apk"
       }
     }
   },
