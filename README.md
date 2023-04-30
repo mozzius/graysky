@@ -44,3 +44,18 @@ Then just scan the QR code!
 - [ ] Search screen
 - [ ] Push notifications
 - [ ] App Store???
+
+## Android local APK builds
+
+* Install Android Studio, and the Android SDK
+* Install Oracle Java 11 JDK
+* Make Gradle faster in `~/.gradle/gradle.properties`:
+```
+org.gradle.jvmargs=-Xmx20g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+org.gradle.parallel=true
+org.gradle.configureondemand=true
+org.gradle.daemon=false
+```
+* [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
+* Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
+* Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
