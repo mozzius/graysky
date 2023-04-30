@@ -42,7 +42,7 @@ const defineConfig = (): ExpoConfig => ({
       projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
     },
   },
-  plugins: ["./expo-plugins/with-modify-gradle.js"],
+  plugins: ["./expo-plugins/with-modify-gradle.js", "expo-build-properties"],
 });
 
 export default defineConfig;

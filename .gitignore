@@ -45,5 +45,6 @@ yarn-error.log*
 
 *.ipa
 *.apk
+*.apk.idsig
 
 *.jks

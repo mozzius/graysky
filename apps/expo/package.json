@@ -28,6 +28,7 @@
     "@trpc/server": "^10.21.2",
     "clsx": "^1.2.1",
     "expo": "^48.0.15",
+    "expo-build-properties": "~0.6.0",
     "expo-clipboard": "^4.1.2",
     "expo-constants": "~14.2.1",
     "expo-file-system": "^15.2.2",
