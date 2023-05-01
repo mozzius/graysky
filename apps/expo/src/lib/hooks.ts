@@ -165,11 +165,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Cancel",
           ];
     showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex: options.length - 1,
-        title: "What is the issue with this post?",
-      },
+      { options, cancelButtonIndex: options.length - 1 },
       async (index) => {
         if (index === undefined) return;
         switch (options[index]) {
@@ -297,6 +293,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
           ] as const;
             showActionSheetWithOptions(
               {
+                title: "What is the issue with this post?",
                 options: reportOptions.map((x) => x.label),
                 cancelButtonIndex: reportOptions.length - 1,
               },

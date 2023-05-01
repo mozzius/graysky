@@ -334,14 +334,14 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         </View>
         <View
           className={cx(
-            "flex-row items-center border-t border-neutral-100 px-3 py-2",
+            "flex-row items-center border-t border-neutral-100 px-3 py-2 dark:border-neutral-600",
             send.isLoading && "opacity-0",
           )}
         >
           <TouchableOpacity
             accessibilityLabel="Add image"
             accessibilityRole="button"
-            className="rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-900 dark:bg-neutral-950"
+            className="rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-600 dark:bg-neutral-800"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <ImagePlus size={24} color="#888888" />
@@ -349,7 +349,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <TouchableOpacity
             accessibilityLabel="Use camera"
             accessibilityRole="button"
-            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-900 dark:bg-neutral-950"
+            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-600 dark:bg-neutral-800"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <Camera size={24} color="#888888" />

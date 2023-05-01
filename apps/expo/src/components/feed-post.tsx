@@ -237,7 +237,7 @@ export const FeedPost = ({
               onPress={handleMore}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
-              <MoreHorizontal size={16} color="#1C1C1E" />
+              <MoreHorizontal size={16} color={buttonColor} />
             </TouchableOpacity>
           </View>
         </View>

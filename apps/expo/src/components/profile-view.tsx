@@ -162,12 +162,7 @@ export const ProfileView = ({
   useTabPressScroll(ref);
 
   const tabs = (offset: boolean) => (
-    <Tabs
-      style={{
-        marginTop: offset ? tabOffset : 0,
-        borderBottomColor: "#262626",
-      }}
-    >
+    <Tabs style={{ marginTop: offset ? tabOffset : 0 }}>
       <Tab
         text="Posts"
         active={mode === "posts"}

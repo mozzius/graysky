@@ -18,7 +18,7 @@ export const Tabs = ({ children, className, style }: TabsProps) => {
   return (
     <View
       className={cx(
-        "w-full flex-row border-b border-neutral-200 bg-white dark:bg-black",
+        "w-full flex-row border-b border-neutral-300 bg-white dark:border-neutral-500 dark:bg-black",
         className,
       )}
       style={style}

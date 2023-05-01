@@ -304,7 +304,7 @@ export const PostEmbed = ({
             <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
           </Text>
         </View>
-        <Text className="dark:text-neutral-50">{children}</Text>
+        {children}
       </TouchableOpacity>
     </Link>
   );
