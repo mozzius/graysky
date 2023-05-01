@@ -129,7 +129,7 @@ export default function AppLayout() {
       renderNavigationView={renderDrawerContent}
       drawerType="slide"
       drawerWidth={Dimensions.get("window").width * 0.8}
-      drawerBackgroundColor={colorScheme === "light" ? "#FFF" : "#2c2c2c"}
+      drawerBackgroundColor={colorScheme === "light" ? "#FFF" : "#1C1C1C"}
       hideStatusBar
     >
       <Stack.Screen
