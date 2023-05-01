@@ -1,4 +1,8 @@
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
@@ -76,7 +80,7 @@ export const FeedPost = ({
         {/* left col */}
         <View className="flex flex-col items-center px-2">
           <Link href={profileHref} asChild accessibilityElementsHidden={true} importantForAccessibility="no-hide-descendants">
-            <Pressable>
+            <TouchableWithoutFeedback>
               {item.post.author.avatar ? (
                 <Image
                   key={item.post.author.avatar}
@@ -89,18 +93,18 @@ export const FeedPost = ({
                   <User size={32} color="#1C1C1E" />
                 </View>
               )}
-            </Pressable>
+            </TouchableWithoutFeedback>
           </Link>
           <Link href={postHref} asChild>
-            <Pressable className="w-full grow items-center">
+            <TouchableWithoutFeedback className="w-full grow items-center">
               {hasReply && <View className="w-1 grow bg-neutral-200" />}
-            </Pressable>
+            </TouchableWithoutFeedback>
           </Link>
         </View>
         {/* right col */}
         <View className="flex-1 pb-2.5 pl-1 pr-2">
           <Link href={profileHref} asChild>
-            <Pressable className="flex-row items-center">
+            <TouchableWithoutFeedback className="flex-row items-center">
               <Text numberOfLines={1} className="max-w-[85%] text-base">
                 <Text className="font-semibold">
                   {item.post.author.displayName}
@@ -114,7 +118,7 @@ export const FeedPost = ({
                 {" · "}
                 {timeSince(new Date(item.post.indexedAt))}
               </Text>
-            </Pressable>
+            </TouchableWithoutFeedback>
           </Link>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
@@ -125,14 +129,14 @@ export const FeedPost = ({
                 }/post/${item.reply.parent.uri.split("/").pop()}`}
                 asChild
               >
-                <Pressable className="flex-row items-center">
+                <TouchableWithoutFeedback className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
                   <Text className="ml-1 text-neutral-500">
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}
                   </Text>
-                </Pressable>
+                </TouchableWithoutFeedback>
               </Link>
             ) : (
               !!item.post.record.reply && (
@@ -141,12 +145,12 @@ export const FeedPost = ({
             ))}
           {/* text content */}
           <Link href={postHref} asChild>
-            <Pressable className="my-0.5">
+            <TouchableWithoutFeedback className="my-0.5">
               <RichText
                 text={item.post.record.text}
                 facets={item.post.record.facets}
               />
-            </Pressable>
+            </TouchableWithoutFeedback>
           </Link>
           {/* embeds */}
           {item.post.embed && (
@@ -268,12 +272,12 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
       asChild
     >
-      <Pressable className="flex-row items-center">
+      <TouchableWithoutFeedback className="flex-row items-center">
         <MessageCircle size={12} color="#737373" />
         <Text className="ml-1 text-neutral-500">
           replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
-      </Pressable>
+      </TouchableWithoutFeedback>
     </Link>
   );
 };

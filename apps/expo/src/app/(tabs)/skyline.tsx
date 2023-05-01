@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { ActivityIndicator, Dimensions, Text, View } from "react-native";
+import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -11,7 +12,6 @@ import { Button } from "../../components/button";
 import { ComposeButton } from "../../components/compose-button";
 import { ComposerProvider } from "../../components/composer";
 import { FeedPost } from "../../components/feed-post";
-import { Tab, Tabs } from "../../components/tabs";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { assert } from "../../lib/utils/assert";
@@ -110,90 +110,105 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
   return { timeline, data };
 };
 
+const routes = [
+  { key: "following", title: "Following" },
+  { key: "popular", title: "What's Hot" },
+  { key: "mutuals", title: "Mutuals" },
+];
+
 const TimelinePage = () => {
-  const [mode, setMode] = useState<"popular" | "following" | "mutuals">(
-    "following",
-  );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
+  const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
+  const renderTabBar = useCallback(
+    (props: TabBarProps<(typeof routes)[number]>) => (
+      <TabBar
+        {...props}
+        gap={16}
+        style={{ backgroundColor: "white", paddingHorizontal: 16 }}
+        indicatorStyle={{ backgroundColor: "black", marginHorizontal: 16 }}
+        tabStyle={{
+          width: "auto",
+          margin: 0,
+          paddingVertical: 0,
+          paddingHorizontal: 8,
+        }}
+        labelStyle={{
+          textTransform: "none",
+          margin: 0,
+        }}
+        activeColor="black"
+        inactiveColor="gray"
+        getLabelText={({ route }) => route.title}
+      />
+    ),
+    [],
+  );
+
+  return (
+    <>
+      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
+      <View className="w-full bg-white" style={{ height: headerHeight }} />
+      <TabView
+        lazy
+        renderTabBar={renderTabBar}
+        navigationState={{
+          index,
+          routes,
+        }}
+        renderScene={({ route }) => (
+          <Feed mode={route.key as "following" | "popular" | "mutuals"} />
+        )}
+        onIndexChange={setIndex}
+        initialLayout={{
+          height: 0,
+          width: Dimensions.get("window").width,
+        }}
+      />
+    </>
+  );
+};
+
+interface Props {
+  mode: "popular" | "following" | "mutuals";
+}
+
+const Feed = ({ mode }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ref = useRef<FlashList<any>>(null);
   const { timeline, data } = useTimeline(mode);
 
   const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
 
   useTabPressScroll(ref);
 
-  const header = (
-    <>
-      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
-      <View className="w-full bg-white" style={{ height: headerHeight }} />
-      <Tabs>
-        <Tab
-          text="Following"
-          active={mode === "following"}
-          onPress={() =>
-            mode === "following"
-              ? ref.current?.scrollToIndex({ index: 0, animated: true })
-              : setMode("following")
-          }
-        />
-        <Tab
-          text="What's Hot"
-          active={mode === "popular"}
-          onPress={() =>
-            mode === "popular"
-              ? ref.current?.scrollToIndex({ index: 0, animated: true })
-              : setMode("popular")
-          }
-        />
-        <Tab
-          text="Mutuals"
-          active={mode === "mutuals"}
-          onPress={() =>
-            mode === "mutuals"
-              ? ref.current?.scrollToIndex({ index: 0, animated: true })
-              : setMode("mutuals")
-          }
-        />
-      </Tabs>
-    </>
-  );
-
   switch (timeline.status) {
     case "loading":
       return (
-        <>
-          {header}
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator />
-          </View>
-        </>
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator />
+        </View>
       );
 
     case "error":
       return (
-        <>
-          {header}
-          <View className="flex-1 items-center justify-center p-4">
-            <Text className="mb-4 text-center text-lg">
-              {(timeline.error as Error).message || "An error occurred"}
-            </Text>
-            <Button
-              variant="outline"
-              onPress={() => void timeline.refetch()}
-              className="mt-4"
-            >
-              Retry
-            </Button>
-          </View>
-        </>
+        <View className="flex-1 items-center justify-center p-4">
+          <Text className="mb-4 text-center text-lg">
+            {(timeline.error as Error).message || "An error occurred"}
+          </Text>
+          <Button
+            variant="outline"
+            onPress={() => void timeline.refetch()}
+            className="mt-4"
+          >
+            Retry
+          </Button>
+        </View>
       );
 
     case "success":
       return (
         <>
-          {header}
           <FlashList
             ref={ref}
             data={data}
