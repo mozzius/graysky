@@ -35,7 +35,7 @@
     "expo-haptics": "^12.2.1",
     "expo-linking": "~4.0.1",
     "expo-localization": "~14.1.1",
-    "expo-modules-autolinking": ">=0.8.1",
+    "expo-modules-autolinking": "^1.2.0",
     "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
