@@ -36,6 +36,7 @@ interface TabProps {
 export const Tab = ({ active, onPress, text }: TabProps) => {
   return (
     <TouchableOpacity
+      accessibilityRole="button"
       onPress={onPress}
       className={cx(
         "ml-4 border-y-2 border-transparent py-3 text-xl",

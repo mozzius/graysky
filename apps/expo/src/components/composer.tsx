@@ -298,12 +298,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           )}
         >
           <TouchableOpacity
+            accessibilityLabel="Add image"
+            accessibilityRole="button"
             className="rounded border border-neutral-100 bg-neutral-50 p-1"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <ImagePlus size={24} color="#888888" />
           </TouchableOpacity>
           <TouchableOpacity
+            accessibilityLabel="Use camera"
+            accessibilityRole="button"
             className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1"
             onPress={() => Alert.alert("not yet implemented")}
           >
