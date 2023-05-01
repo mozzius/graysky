@@ -54,7 +54,8 @@ export default function ImageModal() {
 
   return (
     <View className="relative flex-1 bg-black">
-      <StatusBar style="auto" />
+      {/* background is always black, so status bar should always be light */}
+      <StatusBar style="light" />
       <Stack.Screen
         options={{
           animation: "fade",
