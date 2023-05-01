@@ -39,6 +39,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Camera, ImagePlus, Loader2, Send } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../lib/agent";
 import { cx } from "../lib/utils/cx";
@@ -99,10 +100,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   >();
 
   // JANK: `AppBskyFeedDefs.isReplyRef` should be able to do this!!!
-  const postView =
-    context && "parent" in context
-      ? (context.parent as AppBskyFeedDefs.PostView)
-      : context;
+  const isReply = context && "parent" in context;
+  const postView = isReply
+    ? (context.parent as AppBskyFeedDefs.PostView)
+    : context;
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const agent = useAgent();
@@ -212,6 +213,38 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     handleContentLayout,
   } = useBottomSheetDynamicSnapPoints([100, "CONTENT_HEIGHT"]);
 
+  const { colorScheme } = useColorScheme();
+
+  const {
+    contentContainerStyle,
+    textInputStyle,
+    handleStyle,
+    handleIndicatorStyle,
+  } = useMemo(
+    () =>
+      StyleSheet.create({
+        contentContainerStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "black",
+        },
+        textInputStyle: {
+          padding: 0,
+          fontSize: 20,
+          lineHeight: 28,
+          height: 150,
+          color: colorScheme === "light" ? undefined : "white",
+        },
+        handleStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "black",
+          borderTopStartRadius: 15,
+          borderTopEndRadius: 15,
+        },
+        handleIndicatorStyle: {
+          backgroundColor: colorScheme === "light" ? "black" : "white",
+        },
+      }),
+    [colorScheme],
+  );
+
   const renderBackdrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: any) => <BottomSheetBackdrop {...props} pressBehavior="close" />,
@@ -227,12 +260,13 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       keyboardBlurBehavior="restore"
       onChange={handleSheetChanges}
       enablePanDownToClose={text.length === 0 && !send.isLoading}
-      style={bottomSheetStyle}
       topInset={top + 25}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
       onClose={() => Keyboard.dismiss()}
+      handleStyle={handleStyle}
+      handleIndicatorStyle={handleIndicatorStyle}
     >
       <BottomSheetView
         style={contentContainerStyle}
@@ -273,8 +307,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             <View className="relative flex-1 px-2 pt-1">
               <BottomSheetTextInput
                 placeholder={
-                  !!postView
-                    ? `Replying to ${
+                  postView
+                    ? `${isReply ? "Replying to" : "Quoting"} ${
                         postView.author.displayName ??
                         `@${postView.author.handle}`
                       }`
@@ -287,20 +321,21 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                 editable={send.isIdle}
                 selectTextOnFocus={false}
                 textAlignVertical="top"
+                placeholderTextColor={colorScheme === "light" ? "#aaa" : "#555"}
               />
             </View>
           </View>
         </View>
         <View
           className={cx(
-            "flex-row items-center border-t border-neutral-100 px-3 py-2",
+            "flex-row items-center border-t border-neutral-100 px-3 py-2 dark:border-neutral-600",
             send.isLoading && "opacity-0",
           )}
         >
           <TouchableOpacity
             accessibilityLabel="Add image"
             accessibilityRole="button"
-            className="rounded border border-neutral-100 bg-neutral-50 p-1"
+            className="rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-600 dark:bg-neutral-800"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <ImagePlus size={24} color="#888888" />
@@ -308,7 +343,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <TouchableOpacity
             accessibilityLabel="Use camera"
             accessibilityRole="button"
-            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1"
+            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-600 dark:bg-neutral-800"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <Camera size={24} color="#888888" />
@@ -319,11 +354,14 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           </Text>
           <TouchableOpacity
             disabled={isEmpty || send.isLoading}
-            className="ml-3 flex-row items-center rounded-full bg-neutral-800 px-3 py-2"
+            className="ml-3 flex-row items-center rounded-full bg-neutral-800 px-3 py-2 dark:bg-neutral-200"
             onPress={() => send.mutate()}
           >
-            <Text className="mr-2 text-white">Post</Text>
-            <Send size={12} color="white" />
+            <Text className="mr-2 text-white dark:text-black">Post</Text>
+            <Send
+              size={12}
+              color={colorScheme === "light" ? "white" : "black"}
+            />
           </TouchableOpacity>
         </View>
       </BottomSheetView>
@@ -331,18 +369,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   );
 });
 Composer.displayName = "Composer";
-
-const { bottomSheetStyle, contentContainerStyle, textInputStyle } =
-  StyleSheet.create({
-    bottomSheetStyle: {},
-    contentContainerStyle: {},
-    textInputStyle: {
-      padding: 0,
-      fontSize: 20,
-      lineHeight: 28,
-      height: 150,
-    },
-  });
 
 const Spinner = ({ show }: { show: boolean }) => {
   const spin = useSharedValue(0);

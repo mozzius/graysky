@@ -8,6 +8,7 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import {
   useHandleRepost,
@@ -34,6 +35,8 @@ export const Post = ({ post, hasParent, root }: Props) => {
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
   const composer = useComposer();
+  const { colorScheme } = useColorScheme();
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   const profileHref = `/profile/${post.author.handle}`;
 
@@ -46,7 +49,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
   return (
     <View
       className={cx(
-        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3",
+        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:border-neutral-500 dark:bg-black",
         hasParent && "border-t",
       )}
     >
@@ -59,24 +62,24 @@ export const Post = ({ post, hasParent, root }: Props) => {
               className="h-12 w-12 rounded-full"
             />
           ) : (
-            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-              <User size={32} color="#1C1C1E" />
+            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
+              <User size={32} color={buttonColor} />
             </View>
           )}
           <View className="justify ml-3 flex-1 flex-row items-center">
             <View className="flex-1">
               <Text
                 numberOfLines={1}
-                className="max-w-[85%] text-base font-semibold"
+                className="max-w-[85%] text-base font-semibold dark:text-neutral-50"
               >
                 {post.author.displayName}
               </Text>
-              <Text className="text-base leading-5 text-neutral-500">
+              <Text className="text-base leading-5 text-neutral-500 dark:text-neutral-400">
                 @{post.author.handle}
               </Text>
             </View>
             <TouchableOpacity onPress={handleMore}>
-              <MoreVertical size={18} color="#1C1C1E" />
+              <MoreVertical size={18} color={buttonColor} />
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -104,7 +107,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
             })
           }
         >
-          <MessageSquare size={18} color="#1C1C1E" />
+          <MessageSquare size={18} color={buttonColor} />
           <Text>{post.replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -113,10 +116,10 @@ export const Post = ({ post, hasParent, root }: Props) => {
           onPress={handleRepost}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
-          <Repeat size={18} color={reposted ? "#2563eb" : "#1C1C1E"} />
+          <Repeat size={18} color={reposted ? "#2563eb" : buttonColor} />
           <Text
             style={{
-              color: reposted ? "#2563eb" : "#1C1C1E",
+              color: reposted ? "#2563eb" : buttonColor,
             }}
           >
             {repostCount}
@@ -131,11 +134,11 @@ export const Post = ({ post, hasParent, root }: Props) => {
           <Heart
             size={18}
             fill={liked ? "#dc2626" : "transparent"}
-            color={liked ? "#dc2626" : "#1C1C1E"}
+            color={liked ? "#dc2626" : buttonColor}
           />
           <Text
             style={{
-              color: liked ? "#dc2626" : "#1C1C1E",
+              color: liked ? "#dc2626" : buttonColor,
             }}
           >
             {likeCount}
