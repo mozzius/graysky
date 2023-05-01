@@ -35,7 +35,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       <Image
         source={{ uri: profile.banner }}
         className="h-32 w-full"
-        alt="banner image"
+        alt=""
       />
       {backButton && (
         <TouchableOpacity
@@ -51,7 +51,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             <Image
               source={{ uri: profile.avatar }}
               className="h-20 w-20 rounded-full"
-              alt="avatar image"
+              alt=""
             />
           </View>
           {agent.session?.handle !== profile.handle && (

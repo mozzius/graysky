@@ -75,7 +75,7 @@ export const FeedPost = ({
       <View className="flex-1 flex-row">
         {/* left col */}
         <View className="flex flex-col items-center px-2">
-          <Link href={profileHref} asChild>
+          <Link href={profileHref} asChild accessibilityElementsHidden={true} importantForAccessibility="no-hide-descendants">
             <Pressable>
               {item.post.author.avatar ? (
                 <Image
@@ -155,6 +155,8 @@ export const FeedPost = ({
           {/* actions */}
           <View className="mt-2 flex-row justify-between pr-6">
             <TouchableOpacity
+              accessibilityLabel="Reply"
+              accessibilityRole="button"
               onPress={() =>
                 composer.open({
                   parent: item.post,
@@ -168,6 +170,8 @@ export const FeedPost = ({
               <Text>{item.post.replyCount}</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessibilityLabel="Repost"
+              accessibilityRole="button"
               disabled={toggleRepost.isLoading}
               onPress={handleRepost}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
@@ -183,6 +187,8 @@ export const FeedPost = ({
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessibilityLabel="Like"
+              accessibilityRole="button"
               disabled={toggleLike.isLoading}
               onPress={() => toggleLike.mutate()}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
@@ -202,6 +208,8 @@ export const FeedPost = ({
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessibilityLabel="More options"
+              accessibilityRole="button"
               onPress={handleMore}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
