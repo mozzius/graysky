@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Alert, Text, View } from "react-native";
 import {

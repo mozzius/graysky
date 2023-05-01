@@ -129,13 +129,20 @@ const TimelinePage = () => {
   const backgroundColor = colorScheme === "light" ? "white" : "black";
   const indicatorStyle = colorScheme === "light" ? "black" : "white";
   const activeColor = colorScheme === "light" ? "black" : "white";
+  const borderColor =
+    colorScheme === "light" ? "transparent" : "rgb(229,229,229)";
 
   const renderTabBar = useCallback(
     (props: TabBarProps<(typeof routes)[number]>) => (
       <TabBar
         {...props}
         gap={16}
-        style={{ backgroundColor: backgroundColor, paddingHorizontal: 16 }}
+        style={{
+          backgroundColor: backgroundColor,
+          paddingHorizontal: 16,
+          borderBottomColor: borderColor,
+          borderBottomWidth: 1,
+        }}
         indicatorStyle={{
           backgroundColor: indicatorStyle,
           marginHorizontal: 16,
@@ -155,7 +162,7 @@ const TimelinePage = () => {
         getLabelText={({ route }) => route.title}
       />
     ),
-    [],
+    [activeColor, backgroundColor, indicatorStyle, borderColor],
   );
 
   return (
