@@ -70,6 +70,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
         >
           {content.external.thumb && (
             <Image
+              key={content.external.thumb}
               source={{ uri: content.external.thumb }}
               alt={content.external.title || content.external.uri}
               className="h-32 w-full object-cover"
@@ -190,6 +191,7 @@ const ImageEmbed = ({
         <Link href={href} asChild>
           <TouchableWithoutFeedback>
             <Image
+              key={image.thumb}
               source={{ uri: image.thumb }}
               alt={image.alt}
               className="mt-1.5 w-full rounded"
@@ -210,6 +212,7 @@ const ImageEmbed = ({
             <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
               <TouchableWithoutFeedback className="w-[49%]">
                 <Image
+                  key={image.thumb}
                   source={{ uri: image.thumb }}
                   alt={image.alt}
                   className="aspect-square"
@@ -226,6 +229,7 @@ const ImageEmbed = ({
             <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
               <TouchableWithoutFeedback className="w-[32%]">
                 <Image
+                  key={image.thumb}
                   source={{ uri: image.thumb }}
                   alt={image.alt}
                   className="aspect-square"
@@ -287,6 +291,7 @@ export const PostEmbed = ({
       <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
         <View className="flex flex-row items-center overflow-hidden">
           <Image
+            key={author.avatar}
             source={{ uri: author.avatar }}
             alt={author.displayName}
             className="mr-2 h-4 w-4 rounded-full"

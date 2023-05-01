@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -55,6 +55,9 @@ export const FeedPost = ({
   );
   const handleMore = usePostViewOptions(item.post);
 
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+
   const profileHref = `/profile/${item.post.author.handle}`;
 
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
@@ -66,10 +69,6 @@ export const FeedPost = ({
   assert(AppBskyFeedPost.validateRecord(item.post.record));
 
   const displayInlineParent = inlineParent || !!item.reason;
-
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   return (
     <View
@@ -106,11 +105,14 @@ export const FeedPost = ({
             </TouchableWithoutFeedback>
           </Link>
           <Link href={postHref} asChild>
-            <TouchableWithoutFeedback className="w-full grow items-center">
-              {hasReply && (
-                <View className="w-1 grow bg-neutral-200 dark:bg-neutral-800" />
-              )}
-            </TouchableWithoutFeedback>
+            <TouchableOpacity className="w-full grow items-center px-5">
+              <View
+                className={cx(
+                  "w-0.5 grow",
+                  hasReply && "bg-neutral-200 dark:bg-neutral-800",
+                )}
+              />
+            </TouchableOpacity>
           </Link>
         </View>
         {/* right col */}
@@ -253,7 +255,7 @@ const Reason = ({ item }: Props) => {
 
   return (
     <Link href={`/profile/${item.reason.by.handle}`} asChild>
-      <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
+      <Pressable className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color={buttonColor} size={12} />
         <Text
           className="ml-2 flex-1 text-sm dark:text-neutral-50"
@@ -261,7 +263,7 @@ const Reason = ({ item }: Props) => {
         >
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </Link>
   );
 };

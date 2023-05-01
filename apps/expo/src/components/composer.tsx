@@ -100,10 +100,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   >();
 
   // JANK: `AppBskyFeedDefs.isReplyRef` should be able to do this!!!
-  const postView =
-    context && "parent" in context
-      ? (context.parent as AppBskyFeedDefs.PostView)
-      : context;
+  const isReply = context && "parent" in context;
+  const postView = isReply
+    ? (context.parent as AppBskyFeedDefs.PostView)
+    : context;
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const agent = useAgent();
@@ -309,7 +309,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               <BottomSheetTextInput
                 placeholder={
                   postView
-                    ? `Replying to ${
+                    ? `${isReply ? "Replying to" : "Quoting"} ${
                         postView.author.displayName ??
                         `@${postView.author.handle}`
                       }`
