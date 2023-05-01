@@ -75,7 +75,7 @@ export const FeedPost = ({
       className={cx(
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200 dark:border-neutral-300",
+        !hasReply && "border-b border-neutral-200 dark:border-neutral-500",
         unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >
@@ -123,12 +123,12 @@ export const FeedPost = ({
                 <Text className="font-semibold dark:text-neutral-50">
                   {item.post.author.displayName}
                 </Text>
-                <Text className="text-neutral-500 dark:text-neutral-50">
+                <Text className="text-neutral-500 dark:text-neutral-400">
                   {` @${item.post.author.handle}`}
                 </Text>
               </Text>
               {/* get age of post - e.g. 5m */}
-              <Text className="text-base text-neutral-500 dark:text-neutral-50">
+              <Text className="text-base text-neutral-500 dark:text-neutral-400">
                 {" · "}
                 {timeSince(new Date(item.post.indexedAt))}
               </Text>
@@ -145,7 +145,7 @@ export const FeedPost = ({
               >
                 <TouchableWithoutFeedback className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
-                  <Text className="ml-1 text-neutral-500 dark:text-neutral-50">
+                  <Text className="ml-1 text-neutral-500 dark:text-neutral-400">
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}
@@ -303,7 +303,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     >
       <TouchableWithoutFeedback className="flex-row items-center">
         <MessageCircle size={12} color={circleColor} />
-        <Text className="ml-1 text-neutral-500 dark:text-neutral-300">
+        <Text className="ml-1 text-neutral-500 dark:text-neutral-400">
           replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
       </TouchableWithoutFeedback>

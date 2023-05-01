@@ -66,7 +66,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       return (
         <TouchableOpacity
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="my-1.5 overflow-hidden rounded border border-neutral-300"
+          className="my-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-500"
         >
           {content.external.thumb && (
             <Image
@@ -79,7 +79,8 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           <View
             className={cx(
               "w-full p-2",
-              content.external.thumb && "border-t border-neutral-300",
+              content.external.thumb &&
+                "border-t border-neutral-300 dark:border-neutral-500",
             )}
           >
             <Text
@@ -288,7 +289,7 @@ export const PostEmbed = ({
 
   return (
     <Link href={postHref} asChild>
-      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
+      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
         <View className="flex flex-row items-center overflow-hidden">
           <Image
             key={author.avatar}
@@ -300,7 +301,7 @@ export const PostEmbed = ({
             <Text className="font-semibold dark:text-neutral-50">
               {author.displayName}
             </Text>
-            <Text className="text-neutral-500 dark:text-neutral-50">{` @${author.handle}`}</Text>
+            <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
           </Text>
         </View>
         <Text className="dark:text-neutral-50">{children}</Text>

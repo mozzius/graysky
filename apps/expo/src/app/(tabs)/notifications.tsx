@@ -140,7 +140,7 @@ const NotificationsPage = () => {
             options={{ headerShown: true, headerTransparent: true }}
           />
           <View
-            className="w-full border-b border-neutral-200 bg-white dark:bg-black"
+            className="w-full border-b border-neutral-200 bg-white dark:border-neutral-500 dark:bg-black"
             style={{ height: headerHeight }}
           />
           <FlashList
@@ -262,8 +262,8 @@ const NotificationItem = ({
   const className = cx(
     "flex-row border-b p-2  text-black dark:text-white",
     unread
-      ? "border-blue-200 bg-blue-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-300"
-      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-300",
+      ? "border-blue-200 bg-blue-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-500"
+      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-500",
   );
   const wrapper = (children: React.ReactNode) =>
     href ? (
@@ -307,7 +307,7 @@ const ProfileList = ({
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        <Text className="text-neutral-500 dark:text-neutral-50">
+        <Text className="text-neutral-500 dark:text-neutral-400">
           {" " + action}
         </Text>
         <Text className="dark:text-neutral-50">
@@ -376,7 +376,7 @@ const PostNotification = ({
 
         return (
           <View className="mt-0.5">
-            <Text className="text-neutral-500 dark:text-neutral-50">
+            <Text className="text-neutral-500 dark:text-neutral-400">
               <RichText
                 text={post.data.post.record.text}
                 facets={post.data.post.record.facets}

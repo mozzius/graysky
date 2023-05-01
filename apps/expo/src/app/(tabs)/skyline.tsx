@@ -130,7 +130,7 @@ const TimelinePage = () => {
   const indicatorStyle = colorScheme === "light" ? "black" : "white";
   const activeColor = colorScheme === "light" ? "black" : "white";
   const borderColor =
-    colorScheme === "light" ? "transparent" : "rgb(229,229,229)";
+    colorScheme === "light" ? "transparent" : "rgb(115,115,115)";
 
   const renderTabBar = useCallback(
     (props: TabBarProps<(typeof routes)[number]>) => (

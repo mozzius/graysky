@@ -74,7 +74,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </Text>{" "}
             </>
           )}
-          <Text className="text-neutral-500 dark:text-neutral-50">
+          <Text className="text-neutral-500 dark:text-neutral-400">
             @{profile.handle}
           </Text>
         </Text>

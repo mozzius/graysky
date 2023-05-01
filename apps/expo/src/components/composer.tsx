@@ -222,27 +222,32 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     textInputStyle,
     handleStyle,
     handleIndicatorStyle,
-  } = StyleSheet.create({
-    bottomSheetStyle: {},
-    backgroundStyle: {
-      backgroundColor: colorScheme === "light" ? "white" : "black",
-    },
-    contentContainerStyle: {
-      backgroundColor: colorScheme === "light" ? "white" : "black",
-    },
-    textInputStyle: {
-      padding: 0,
-      fontSize: 20,
-      lineHeight: 28,
-      height: 150,
-    },
-    handleStyle: {
-      backgroundColor: colorScheme === "light" ? "white" : "black",
-    },
-    handleIndicatorStyle: {
-      backgroundColor: colorScheme === "light" ? "black" : "white",
-    },
-  });
+  } = useMemo(
+    () =>
+      StyleSheet.create({
+        bottomSheetStyle: {},
+        backgroundStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "black",
+        },
+        contentContainerStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "black",
+        },
+        textInputStyle: {
+          padding: 0,
+          fontSize: 20,
+          lineHeight: 28,
+          height: 150,
+          color: colorScheme === "light" ? undefined : "white",
+        },
+        handleStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "black",
+        },
+        handleIndicatorStyle: {
+          backgroundColor: colorScheme === "light" ? "black" : "white",
+        },
+      }),
+    [colorScheme],
+  );
 
   const renderBackdrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

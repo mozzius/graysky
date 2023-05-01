@@ -285,6 +285,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             break;
           case "Report post":
             // prettier-ignore
+            // eslint-disable-next-line no-case-declarations
             const reportOptions = [
             { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
             { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },

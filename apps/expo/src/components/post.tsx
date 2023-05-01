@@ -74,7 +74,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
               >
                 {post.author.displayName}
               </Text>
-              <Text className="text-base leading-5 text-neutral-500 dark:text-neutral-50">
+              <Text className="text-base leading-5 text-neutral-500 dark:text-neutral-400">
                 @{post.author.handle}
               </Text>
             </View>
