@@ -231,7 +231,7 @@ const Feed = ({ mode }: Props) => {
             estimatedItemSize={91}
             ListFooterComponent={
               timeline.isFetching ? (
-                <View className="w-full items-center bg-white py-4 dark:bg-black">
+                <View className="w-full items-center py-4">
                   <ActivityIndicator />
                 </View>
               ) : null

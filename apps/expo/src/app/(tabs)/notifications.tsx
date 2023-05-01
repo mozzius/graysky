@@ -262,7 +262,7 @@ const NotificationItem = ({
   const className = cx(
     "flex-row border-b p-2",
     unread
-      ? "border-blue-200 bg-blue-50 dark:bg-blue-900 border-neutral-200 dark:border-neutral-800"
+      ? "border-blue-200 bg-blue-50 border-neutral-200 dark:border-neutral-800"
       : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-800",
   );
   const wrapper = (children: React.ReactNode) =>
