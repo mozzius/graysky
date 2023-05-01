@@ -216,8 +216,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const { colorScheme } = useColorScheme();
 
   const {
-    bottomSheetStyle,
-    backgroundStyle,
     contentContainerStyle,
     textInputStyle,
     handleStyle,
@@ -225,10 +223,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   } = useMemo(
     () =>
       StyleSheet.create({
-        bottomSheetStyle: {},
-        backgroundStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "black",
-        },
         contentContainerStyle: {
           backgroundColor: colorScheme === "light" ? "white" : "black",
         },
@@ -241,6 +235,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         },
         handleStyle: {
           backgroundColor: colorScheme === "light" ? "white" : "black",
+          borderTopStartRadius: 15,
+          borderTopEndRadius: 15,
         },
         handleIndicatorStyle: {
           backgroundColor: colorScheme === "light" ? "black" : "white",
@@ -264,15 +260,13 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       keyboardBlurBehavior="restore"
       onChange={handleSheetChanges}
       enablePanDownToClose={text.length === 0 && !send.isLoading}
-      style={bottomSheetStyle}
       topInset={top + 25}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
       onClose={() => Keyboard.dismiss()}
-      handleIndicatorStyle={handleIndicatorStyle}
       handleStyle={handleStyle}
-      backgroundStyle={backgroundStyle}
+      handleIndicatorStyle={handleIndicatorStyle}
     >
       <BottomSheetView
         style={contentContainerStyle}
