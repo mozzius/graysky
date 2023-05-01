@@ -138,7 +138,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           {media && <Embed uri={uri} content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             <Text
-              className="mt-1 text-base leading-5"
+              className="mt-1 text-base leading-5 dark:text-neutral-50"
               numberOfLines={truncate ? 4 : undefined}
             >
               {record.value.text}
