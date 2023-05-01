@@ -74,10 +74,10 @@ export const FeedPost = ({
   return (
     <View
       className={cx(
-        "bg-white px-2 pt-2 dark:bg-black",
+        "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
-        unread && "border-blue-200 bg-blue-50 dark:bg-blue-950",
+        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >
       <Reason item={item} />

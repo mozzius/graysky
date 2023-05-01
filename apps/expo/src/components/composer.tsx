@@ -217,12 +217,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
 
   const {
     bottomSheetStyle,
+    backgroundStyle,
     contentContainerStyle,
     textInputStyle,
     handleStyle,
     handleIndicatorStyle,
   } = StyleSheet.create({
     bottomSheetStyle: {},
+    backgroundStyle: {
+      backgroundColor: colorScheme === "light" ? "white" : "black",
+    },
     contentContainerStyle: {
       backgroundColor: colorScheme === "light" ? "white" : "black",
     },
@@ -263,6 +267,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       onClose={() => Keyboard.dismiss()}
       handleIndicatorStyle={handleIndicatorStyle}
       handleStyle={handleStyle}
+      backgroundStyle={backgroundStyle}
     >
       <BottomSheetView
         style={contentContainerStyle}
@@ -317,7 +322,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                 editable={send.isIdle}
                 selectTextOnFocus={false}
                 textAlignVertical="top"
-                placeholderTextColor={"white"}
+                placeholderTextColor={colorScheme === "light" ? "#aaa" : "#555"}
               />
             </View>
           </View>
@@ -331,7 +336,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <TouchableOpacity
             accessibilityLabel="Add image"
             accessibilityRole="button"
-            className="rounded border border-neutral-100 bg-neutral-50 p-1 dark:bg-neutral-950"
+            className="rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-900 dark:bg-neutral-950"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <ImagePlus size={24} color="#888888" />
@@ -339,7 +344,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <TouchableOpacity
             accessibilityLabel="Use camera"
             accessibilityRole="button"
-            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1 dark:bg-neutral-950"
+            className="ml-2 rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-900 dark:bg-neutral-950"
             onPress={() => Alert.alert("not yet implemented")}
           >
             <Camera size={24} color="#888888" />
@@ -353,8 +358,11 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             className="ml-3 flex-row items-center rounded-full bg-neutral-800 px-3 py-2 dark:bg-neutral-200"
             onPress={() => send.mutate()}
           >
-            <Text className="mr-2 text-white">Post</Text>
-            <Send size={12} color="white" />
+            <Text className="mr-2 text-white dark:text-black">Post</Text>
+            <Send
+              size={12}
+              color={colorScheme === "light" ? "white" : "black"}
+            />
           </TouchableOpacity>
         </View>
       </BottomSheetView>

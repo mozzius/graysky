@@ -27,7 +27,7 @@ export const Avatar = ({ className }: Props) => {
       source={{ uri: profile.data?.avatar }}
       alt={profile.data?.displayName}
       className={cx(
-        "h-12 w-12 rounded-full bg-neutral-200 object-cover",
+        "h-12 w-12 rounded-full bg-neutral-200 object-cover dark:bg-neutral-800",
         className,
       )}
     />
