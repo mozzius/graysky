@@ -8,6 +8,7 @@ import {
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
@@ -119,18 +120,21 @@ export default function RootLayout() {
           <AgentProvider value={agent}>
             <StatusBar style="auto" />
             {loading && <SplashScreen />}
-            <ComposerProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: true,
-                  // headerBackTitle: "",
-                  fullScreenGestureEnabled: true,
-                  headerStyle: {
-                    backgroundColor: colorScheme === "light" ? "#fff" : "#000",
-                  },
-                }}
-              />
-            </ComposerProvider>
+            <ActionSheetProvider>
+              <ComposerProvider>
+                <Stack
+                  screenOptions={{
+                    headerShown: true,
+                    // headerBackTitle: "",
+                    fullScreenGestureEnabled: true,
+                    headerStyle: {
+                      backgroundColor:
+                        colorScheme === "light" ? "#fff" : "#000",
+                    },
+                  }}
+                />
+              </ComposerProvider>
+            </ActionSheetProvider>
           </AgentProvider>
         </SafeAreaProvider>
       </QueryClientProvider>
