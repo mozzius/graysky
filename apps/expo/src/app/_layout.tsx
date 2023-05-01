@@ -126,7 +126,7 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <AgentProvider value={agent}>
-            <StatusBar style="auto" />
+            <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
             {loading && <SplashScreen />}
             <LogOutProvider value={logOut}>
               <ActionSheetProvider>
