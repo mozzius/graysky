@@ -1,3 +1,4 @@
+import { type ColorValue } from "react-native";
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Search, User } from "lucide-react-native";
@@ -31,7 +32,8 @@ export default function AppLayout() {
             unfocused: undefined,
           },
         };
-
+  const tabBarBadgeColor: ColorValue =
+    colorScheme === "light" ? "#262626" : "#FFF";
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
@@ -113,7 +115,7 @@ export default function AppLayout() {
             title: "Notifications",
             tabBarBadge: notifications.data?.data?.count || undefined,
             tabBarBadgeStyle: {
-              backgroundColor: "#262626",
+              backgroundColor: tabBarBadgeColor,
               fontSize: 12,
             },
             tabBarIcon({ focused }) {

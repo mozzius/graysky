@@ -113,14 +113,14 @@ const NotificationsPage = () => {
   switch (notifications.status) {
     case "loading":
       return (
-        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
+        <View className="flex-1 items-center justify-center">
           <Stack.Screen options={{ headerShown: true }} />
           <ActivityIndicator />
         </View>
       );
     case "error":
       return (
-        <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
+        <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen options={{ headerShown: true }} />
           <Text className="text-center text-lg dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
@@ -140,7 +140,7 @@ const NotificationsPage = () => {
             options={{ headerShown: true, headerTransparent: true }}
           />
           <View
-            className="w-full border-b border-neutral-200 bg-white"
+            className="w-full border-b border-neutral-200 bg-white dark:bg-black"
             style={{ height: headerHeight }}
           />
           <FlashList
