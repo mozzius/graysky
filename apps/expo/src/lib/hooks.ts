@@ -165,7 +165,11 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Cancel",
           ];
     showActionSheetWithOptions(
-      { options, cancelButtonIndex: options.length - 1 },
+      {
+        options,
+        cancelButtonIndex: options.length - 1,
+        title: "What is the issue with this post?",
+      },
       async (index) => {
         if (index === undefined) return;
         switch (options[index]) {

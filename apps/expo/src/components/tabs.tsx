@@ -42,7 +42,14 @@ export const Tab = ({ active, onPress, text }: TabProps) => {
         active && "border-b-black",
       )}
     >
-      <Text className="font-medium">{text}</Text>
+      <Text
+        className={cx(
+          "px-2 text-sm",
+          active ? "text-black" : "text-neutral-600",
+        )}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
