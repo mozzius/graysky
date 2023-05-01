@@ -134,7 +134,7 @@ export const FeedPost = ({
           </Link>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
-            (!!item.reply ? (
+            (item.reply ? (
               <Link
                 href={`/profile/${
                   item.reply.parent.author.handle
@@ -152,7 +152,7 @@ export const FeedPost = ({
               </Link>
             ) : (
               !!item.post.record.reply && (
-                <ReplyParentAuthor uri={item.post.record.reply!.parent.uri} />
+                <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
               )
             ))}
           {/* text content */}
@@ -182,7 +182,7 @@ export const FeedPost = ({
               className="flex-row items-center gap-2"
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
-              <MessageSquare size={16} color="#1C1C1E" />
+              <MessageSquare size={16} color={buttonColor} />
               <Text>{item.post.replyCount}</Text>
             </TouchableOpacity>
             <TouchableOpacity

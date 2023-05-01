@@ -109,7 +109,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
             })
           }
         >
-          <MessageSquare size={18} color="#1C1C1E" />
+          <MessageSquare size={18} color={buttonColor} />
           <Text>{post.replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -118,7 +118,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
           onPress={handleRepost}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
-          <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
+          <Repeat size={18} color={reposted ? "#2563eb" : buttonColor} />
           <Text
             style={{
               color: reposted ? "#2563eb" : buttonColor,

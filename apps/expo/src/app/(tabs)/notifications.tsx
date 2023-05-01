@@ -122,7 +122,7 @@ const NotificationsPage = () => {
       return (
         <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="text-center text-lg dark:text-neutral-50">
+          <Text className="mb-4 text-center text-lg dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button
