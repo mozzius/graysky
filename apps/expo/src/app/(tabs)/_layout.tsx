@@ -61,12 +61,6 @@ export default function AppLayout() {
           headerTitleStyle: {
             color: textColor,
           },
-          // tabBarStyle: {
-          //   backgroundColor: backgroundColor,
-          // },
-          // headerStyle: {
-          //   backgroundColor: backgroundColor,
-          // },
         }}
       >
         <Tabs.Screen
