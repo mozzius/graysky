@@ -51,10 +51,11 @@ Then just scan the QR code!
 * Install Oracle Java 11 JDK
 * Make Gradle faster in `~/.gradle/gradle.properties`:
 ```
-org.gradle.jvmargs=-Xmx20g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+org.gradle.jvmargs=-Xmx20g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=2g
 org.gradle.parallel=true
 org.gradle.configureondemand=true
 org.gradle.daemon=false
+org.gradle.caching=true
 ```
 * [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
 * Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
