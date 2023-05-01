@@ -50,20 +50,20 @@ export default function Login() {
     <SafeAreaView className="flex-1 bg-white px-4">
       <Stack.Screen options={{ title: "Log in", headerBackTitle: "Back" }} />
       <View className="items-stretch gap-4">
-        <View className="flex flex-row items-center rounded border border-neutral-300 px-3 py-2">
+        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3">
           <User size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="mb-1 ml-2 flex-1 text-base"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="Username or email address"
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
           />
         </View>
-        <View className="flex flex-row items-center rounded border border-neutral-300 px-3 py-2">
+        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3">
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="mb-1 ml-2 flex-1 text-base"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
@@ -81,13 +81,12 @@ export default function Login() {
             title="Help"
           />
           <View />
-          {identifier && password && (
-            <Button
-              disabled={login.isLoading}
-              onPress={() => login.mutate()}
-              title="Log in"
-            />
-          )}
+
+          <Button
+            disabled={login.isLoading || !identifier || !password}
+            onPress={() => login.mutate()}
+            title="Log in"
+          />
         </View>
       </View>
     </SafeAreaView>
