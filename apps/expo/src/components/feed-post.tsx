@@ -76,7 +76,7 @@ export const FeedPost = ({
       className={cx(
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
+        !hasReply && "border-b border-neutral-200 dark:border-neutral-300",
         unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >
@@ -183,7 +183,13 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
-              <Text>{item.post.replyCount}</Text>
+              <Text
+                style={{
+                  color: reposted ? "#2563eb" : buttonColor,
+                }}
+              >
+                {item.post.replyCount}
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               accessibilityLabel="Repost"
