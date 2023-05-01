@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
@@ -14,6 +14,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 import { ComposerProvider } from "../components/composer";
 import { AgentProvider } from "../lib/agent";
+import { LogOutProvider } from "../lib/log-out-context";
 import { queryClient } from "../lib/query-client";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
@@ -22,6 +23,7 @@ export default function RootLayout() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
+  const [invalidator, setInvalidator] = useState(0);
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -58,7 +60,8 @@ export default function RootLayout() {
         }
       },
     });
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invalidator]);
 
   useEffect(() => {
     AsyncStorage.getItem("session")
@@ -104,26 +107,34 @@ export default function RootLayout() {
     }
   }, [did, segments, router, loading]);
 
+  const logOut = useCallback(async () => {
+    await AsyncStorage.removeItem("session");
+    setSession(null);
+    setInvalidator((i) => i + 1);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <AgentProvider value={agent}>
           <StatusBar style="dark" />
           {loading && <SplashScreen />}
-          <ActionSheetProvider>
-            <ComposerProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: true,
-                  // headerBackTitle: "",
-                  fullScreenGestureEnabled: true,
-                  headerStyle: {
-                    backgroundColor: "#fff",
-                  },
-                }}
-              />
-            </ComposerProvider>
-          </ActionSheetProvider>
+          <LogOutProvider value={logOut}>
+            <ActionSheetProvider>
+              <ComposerProvider>
+                <Stack
+                  screenOptions={{
+                    headerShown: true,
+                    // headerBackTitle: "",
+                    fullScreenGestureEnabled: true,
+                    headerStyle: {
+                      backgroundColor: "#fff",
+                    },
+                  }}
+                />
+              </ComposerProvider>
+            </ActionSheetProvider>
+          </LogOutProvider>
         </AgentProvider>
       </SafeAreaProvider>
     </QueryClientProvider>

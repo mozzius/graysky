@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -79,7 +79,12 @@ export const FeedPost = ({
       <View className="flex-1 flex-row">
         {/* left col */}
         <View className="flex flex-col items-center px-2">
-          <Link href={profileHref} asChild accessibilityElementsHidden={true} importantForAccessibility="no-hide-descendants">
+          <Link
+            href={profileHref}
+            asChild
+            accessibilityElementsHidden={true}
+            importantForAccessibility="no-hide-descendants"
+          >
             <TouchableWithoutFeedback>
               {item.post.author.avatar ? (
                 <Image
@@ -96,9 +101,11 @@ export const FeedPost = ({
             </TouchableWithoutFeedback>
           </Link>
           <Link href={postHref} asChild>
-            <TouchableWithoutFeedback className="w-full grow items-center">
-              {hasReply && <View className="w-1 grow bg-neutral-200" />}
-            </TouchableWithoutFeedback>
+            <TouchableOpacity className="w-full grow items-center px-5">
+              <View
+                className={cx("w-0.5 grow", hasReply && "bg-neutral-200")}
+              />
+            </TouchableOpacity>
           </Link>
         </View>
         {/* right col */}
@@ -232,12 +239,12 @@ const Reason = ({ item }: Props) => {
 
   return (
     <Link href={`/profile/${item.reason.by.handle}`} asChild>
-      <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
+      <Pressable className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color="#1C1C1E" size={12} />
         <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </Link>
   );
 };
