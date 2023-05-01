@@ -30,17 +30,19 @@ const ActorDetailsInner = () => {
       <Image
         source={{ uri: self.avatar }}
         alt={self.displayName}
-        className="h-16 w-16 rounded-full bg-neutral-200 object-cover"
+        className="h-16 w-16 rounded-full bg-neutral-200 object-cover dark:bg-neutral-800"
       />
       <View className="mt-2 flex">
-        <Text className="text-2xl font-semibold">{self.displayName}</Text>
-        <Text className="mt-px text-base text-neutral-500">{`@${self.handle}`}</Text>
+        <Text className="text-2xl font-semibold dark:text-white">
+          {self.displayName}
+        </Text>
+        <Text className="mt-px text-base text-neutral-500 dark:text-neutral-400">{`@${self.handle}`}</Text>
       </View>
       <View className="mt-3 flex-row">
-        <Text>
+        <Text className="dark:text-white">
           <Text className="font-bold">{self.followersCount}</Text> Followers
         </Text>
-        <Text className="ml-4">
+        <Text className="ml-4 dark:text-white">
           <Text className="font-bold">{self.followsCount}</Text> Following
         </Text>
       </View>

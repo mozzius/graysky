@@ -55,7 +55,7 @@ export const FeedPost = ({
   );
   const handleMore = usePostViewOptions(item.post);
 
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   const profileHref = `/profile/${item.post.author.handle}`;
@@ -247,7 +247,7 @@ export const FeedPost = ({
 };
 
 const Reason = ({ item }: Props) => {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;

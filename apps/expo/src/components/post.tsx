@@ -35,6 +35,8 @@ export const Post = ({ post, hasParent, root }: Props) => {
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
   const composer = useComposer();
+  const { colorScheme } = useColorScheme();
+  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   const profileHref = `/profile/${post.author.handle}`;
 
@@ -43,10 +45,6 @@ export const Post = ({ post, hasParent, root }: Props) => {
   }
 
   assert(AppBskyFeedPost.validateRecord(post.record));
-
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
   return (
     <View

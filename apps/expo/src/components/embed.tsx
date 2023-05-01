@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, Linking, Text, View } from "react-native";
 import {
@@ -14,7 +15,6 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
-import { useColorScheme } from "nativewind";
 
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";

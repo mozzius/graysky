@@ -30,7 +30,7 @@ export default function RootLayout() {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
   const [invalidator, setInvalidator] = useState(0);
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes

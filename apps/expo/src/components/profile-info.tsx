@@ -3,7 +3,6 @@ import { useRouter } from "expo-router";
 import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
 import { useMutation } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
@@ -17,8 +16,6 @@ interface Props {
 export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAuthedAgent();
   const router = useRouter();
-
-  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -35,11 +32,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   return (
     <View className="relative">
-      <Image
-        source={{ uri: profile.banner }}
-        className="h-32 w-full"
-        alt=""
-      />
+      <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
       {backButton && (
         <TouchableOpacity
           onPress={() => router.back()}

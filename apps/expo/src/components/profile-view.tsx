@@ -44,7 +44,7 @@ export const ProfileView = ({
   const { top } = useSafeAreaInsets();
 
   const tabOffset = headerHeight - top;
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
