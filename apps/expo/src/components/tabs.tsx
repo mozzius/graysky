@@ -35,7 +35,6 @@ interface TabProps {
 }
 
 export const Tab = ({ active, onPress, text }: TabProps) => {
-  //TODO: fix dark mode
   const { colorScheme } = useColorScheme();
   const textStyle =
     colorScheme === "light"

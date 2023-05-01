@@ -7,6 +7,7 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { Button } from "../../components/button";
 import { ComposeButton } from "../../components/compose-button";
@@ -124,13 +125,21 @@ const TimelinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
+  const { colorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "white" : "black";
+  const indicatorStyle = colorScheme === "light" ? "black" : "white";
+  const activeColor = colorScheme === "light" ? "black" : "white";
+
   const renderTabBar = useCallback(
     (props: TabBarProps<(typeof routes)[number]>) => (
       <TabBar
         {...props}
         gap={16}
-        style={{ backgroundColor: "white", paddingHorizontal: 16 }}
-        indicatorStyle={{ backgroundColor: "black", marginHorizontal: 16 }}
+        style={{ backgroundColor: backgroundColor, paddingHorizontal: 16 }}
+        indicatorStyle={{
+          backgroundColor: indicatorStyle,
+          marginHorizontal: 16,
+        }}
         tabStyle={{
           width: "auto",
           margin: 0,
@@ -141,7 +150,7 @@ const TimelinePage = () => {
           textTransform: "none",
           margin: 0,
         }}
-        activeColor="black"
+        activeColor={activeColor}
         inactiveColor="gray"
         getLabelText={({ route }) => route.title}
       />
@@ -152,7 +161,10 @@ const TimelinePage = () => {
   return (
     <>
       <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
-      <View className="w-full bg-white" style={{ height: headerHeight }} />
+      <View
+        className="w-full bg-white dark:bg-black"
+        style={{ height: headerHeight }}
+      />
       <TabView
         lazy
         renderTabBar={renderTabBar}

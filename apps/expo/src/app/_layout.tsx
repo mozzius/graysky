@@ -8,13 +8,11 @@ import {
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
-import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
-  useTheme,
 } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";

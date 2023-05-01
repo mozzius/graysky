@@ -54,12 +54,12 @@ export default function AppLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarShowLabel: false,
           // Would be nice - need to fix composer
           // tabBarStyle: {
           //   position: "absolute",
           //   backgroundColor: "rgba(255, 255, 255, 0.95)",
           // },
-          // TODO: do we still need this?
           headerTitleStyle: {
             color: textColor,
           },
