@@ -22,7 +22,7 @@ import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
 import { Tab, Tabs } from "./tabs";
 
-interface Props extends React.PropsWithChildren {
+interface Props {
   handle: string;
   header?: boolean;
   composer?: boolean;
@@ -30,7 +30,7 @@ interface Props extends React.PropsWithChildren {
 
 export const ProfileView = ({
   handle,
-  children,
+
   header = true,
   composer,
 }: Props) => {
@@ -318,12 +318,6 @@ export const ProfileView = ({
             }
           />
         );
-        {
-          children;
-        }
-        {
-          composer && <ComposeButton />;
-        }
       }
       return (
         <>
@@ -343,6 +337,7 @@ export const ProfileView = ({
             }}
           />
           {content}
+          {composer && <ComposeButton />}
         </>
       );
   }

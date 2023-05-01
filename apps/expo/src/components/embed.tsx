@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
+import { Image, ImageBackground, Linking, Text, View } from "react-native";
 import {
-  Image,
-  ImageBackground,
-  Linking,
-  Pressable,
-  Text,
   TouchableOpacity,
-  View,
-} from "react-native";
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Link } from "expo-router";
 import {
   AppBskyEmbedExternal,
@@ -181,7 +177,7 @@ const ImageEmbed = ({
       const image = content.images[0]!;
       return (
         <Link href={href} asChild>
-          <Pressable>
+          <TouchableWithoutFeedback>
             <Image
               source={{ uri: image.thumb }}
               alt={image.alt}
@@ -193,7 +189,7 @@ const ImageEmbed = ({
                     : Math.max(aspectRatio, 0.5),
               }}
             />
-          </Pressable>
+          </TouchableWithoutFeedback>
         </Link>
       );
     case 2:
@@ -201,13 +197,13 @@ const ImageEmbed = ({
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image, i) => (
             <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <Pressable className="w-[49%]">
+              <TouchableWithoutFeedback className="w-[49%]">
                 <Image
                   source={{ uri: image.thumb }}
                   alt={image.alt}
                   className="aspect-square"
                 />
-              </Pressable>
+              </TouchableWithoutFeedback>
             </Link>
           ))}
         </View>
@@ -217,13 +213,13 @@ const ImageEmbed = ({
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image, i) => (
             <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <Pressable className="w-[32%]">
+              <TouchableWithoutFeedback className="w-[32%]">
                 <Image
                   source={{ uri: image.thumb }}
                   alt={image.alt}
                   className="aspect-square"
                 />
-              </Pressable>
+              </TouchableWithoutFeedback>
             </Link>
           ))}
         </View>
@@ -233,18 +229,18 @@ const ImageEmbed = ({
         <View className="my-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.slice(0, 2).map((image, i) => (
             <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <Pressable className="w-[32%]">
+              <TouchableWithoutFeedback className="w-[32%]">
                 <Image
                   key={image.fullsize}
                   source={{ uri: image.thumb }}
                   alt={image.alt}
                   className="aspect-square"
                 />
-              </Pressable>
+              </TouchableWithoutFeedback>
             </Link>
           ))}
           <Link href={href} asChild>
-            <Pressable className="aspect-square w-[32%]">
+            <TouchableWithoutFeedback className="aspect-square w-[32%]">
               <ImageBackground
                 source={{ uri: content.images[2]!.thumb }}
                 alt={content.images[2]!.alt}
@@ -256,7 +252,7 @@ const ImageEmbed = ({
                   </Text>
                 </View>
               </ImageBackground>
-            </Pressable>
+            </TouchableWithoutFeedback>
           </Link>
         </View>
       );

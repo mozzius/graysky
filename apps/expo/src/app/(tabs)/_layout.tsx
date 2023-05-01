@@ -12,8 +12,8 @@ export default function AppLayout() {
     queryFn: async () => {
       return await agent.countUnreadNotifications();
     },
-    // refetch every 30 seconds
-    refetchInterval: 1000 * 30,
+    // refetch every 15 seconds
+    refetchInterval: 1000 * 15,
   });
 
   return (
@@ -24,7 +24,16 @@ export default function AppLayout() {
           animation: "none",
         }}
       />
-      <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          // Would be nice - need to fix composer
+          // tabBarStyle: {
+          //   position: "absolute",
+          //   backgroundColor: "rgba(255, 255, 255, 0.95)",
+          // },
+        }}
+      >
         <Tabs.Screen
           name="skyline"
           options={{

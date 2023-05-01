@@ -145,6 +145,9 @@ importers:
       react-native-gesture-handler:
         specifier: ~2.9.0
         version: 2.9.0(react-native@0.71.7)(react@18.2.0)
+      react-native-pager-view:
+        specifier: 6.1.2
+        version: 6.1.2(react-native@0.71.7)(react@18.2.0)
       react-native-reanimated:
         specifier: ~2.14.4
         version: 2.14.4(@babel/core@7.21.4)(react-native@0.71.7)(react@18.2.0)
@@ -160,6 +163,9 @@ importers:
       react-native-svg:
         specifier: 13.4.0
         version: 13.4.0(react-native@0.71.7)(react@18.2.0)
+      react-native-tab-view:
+        specifier: ^3.5.1
+        version: 3.5.1(react-native-pager-view@6.1.2)(react-native@0.71.7)(react@18.2.0)
       react-native-url-polyfill:
         specifier: ^1.3.0
         version: 1.3.0(react-native@0.71.7)
@@ -9013,6 +9019,16 @@ packages:
     resolution: {integrity: sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA==}
     dev: false
 
+  /react-native-pager-view@6.1.2(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-qs2KSFc+7N7B+UZ6SG2sTvCkppagm5fVyRclv1KFKc7lDtrhXLzN59tXJw575LDP/dRJoXsNwqUAhZJdws6ABQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+    dev: false
+
   /react-native-reanimated@2.14.4(@babel/core@7.21.4)(react-native@0.71.7)(react@18.2.0):
     resolution: {integrity: sha512-DquSbl7P8j4SAmc+kRdd75Ianm8G+IYQ9T4AQ6lrpLVeDkhZmjWI0wkutKWnp6L7c5XNVUrFDUf69dwETLCItQ==}
     peerDependencies:
@@ -9083,6 +9099,19 @@ packages:
       css-tree: 1.1.3
       react: 18.2.0
       react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+    dev: false
+
+  /react-native-tab-view@3.5.1(react-native-pager-view@6.1.2)(react-native@0.71.7)(react@18.2.0):
+    resolution: {integrity: sha512-qdrS5t+AEhfuKQyuCXkwHu4IVppkuTvzWWlkSZKrPaSkjjIa32xrsGxt1UW9YDdro2w4AMw5hKn1hFmg/5mvzA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-pager-view: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.71.7(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      react-native-pager-view: 6.1.2(react-native@0.71.7)(react@18.2.0)
+      use-latest-callback: 0.1.6(react@18.2.0)
     dev: false
 
   /react-native-url-polyfill@1.3.0(react-native@0.71.7):
