@@ -15,7 +15,7 @@ export const EmailInput = () => {
     if (res.ok) {
       setEmail("");
     } else {
-      throw new Error(await res.text());
+      throw new Error("Could not save email");
     }
   });
 
@@ -42,31 +42,44 @@ export const EmailInput = () => {
             disabled={!email}
             className="cursor-pointer rounded-sm border border-neutral-400 px-4 text-white transition hover:border-white hover:bg-white hover:text-black"
           >
-            Join Waitlist
+            Submit
           </button>
         </form>
       );
     case "loading":
-      return (
-        <div className="grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
-          <p className="text-center text-transparent text-white">
-            Thanks for joining the waitlist. We'll be in touch.
-          </p>
-        </div>
-      );
     case "success":
       return (
         <div className="grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
-          <p className="text-center text-white">
-            Thanks for joining the waitlist. We'll be in touch.
+          <p
+            className={`text-center ${
+              send.isSuccess ? "text-white" : "text-transparent"
+            }`}
+          >
+            Thanks for registering your interest - we&apos;ll be in touch. Check
+            out{" "}
+            <a
+              className="underline"
+              href="https://staging.bsky.app/profile/graysky.app"
+            >
+              @graysky.app
+            </a>{" "}
+            for info on how to join the early beta.
           </p>
         </div>
       );
     case "error":
       return (
-        <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-400 text-white backdrop-blur backdrop-brightness-50">
+        <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
           <p className="text-center text-white">
-            Error: {(send.error as Error)?.message ?? "Something went wrong"}
+            Error: {(send.error as Error)?.message ?? "Something went wrong"}.
+            Please could you let{" "}
+            <a
+              className="underline"
+              href="https://staging.bsky.app/profile/mozzius.dev"
+            >
+              @mozzius.dev
+            </a>{" "}
+            know?
           </p>
         </div>
       );
