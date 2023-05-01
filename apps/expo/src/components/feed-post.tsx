@@ -185,13 +185,7 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
-              <Text
-                style={{
-                  color: reposted ? "#2563eb" : buttonColor,
-                }}
-              >
-                {item.post.replyCount}
-              </Text>
+              <Text style={{ color: buttonColor }}>{item.post.replyCount}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               accessibilityLabel="Repost"
