@@ -9,6 +9,8 @@ export const ComposeButton = () => {
   const { colorScheme } = useColorScheme();
   return (
     <Pressable
+      accessibilityLabel="Compose post"
+      accessibilityRole="button"
       onPress={() => open()}
       className="absolute bottom-6 right-4 h-14 w-14 items-center justify-center rounded-full bg-neutral-800 dark:bg-white"
     >

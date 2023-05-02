@@ -299,7 +299,11 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           )}
           <View className="flex-row px-2 pb-8 pt-2">
             <View className="shrink-0 px-2">
-              <View className="relative overflow-hidden rounded-full">
+              <View
+                className="relative overflow-hidden rounded-full"
+                accessibilityElementsHidden={true}
+                importantForAccessibility="no-hide-descendants"
+              >
                 <Avatar />
                 <Spinner show={send.isLoading} />
               </View>
@@ -353,6 +357,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             {rt.data?.graphemeLength} / {MAX_LENGTH}
           </Text>
           <TouchableOpacity
+            accessibilityRole="button"
             disabled={isEmpty || send.isLoading}
             className="ml-3 flex-row items-center rounded-full bg-neutral-800 px-3 py-2 dark:bg-neutral-200"
             onPress={() => send.mutate()}

@@ -64,6 +64,8 @@ export default function ImageModal() {
         }}
       />
       <TouchableOpacity
+        accessibilityLabel="Back"
+        accessibilityRole="button"
         onPress={() => router.back()}
         className="absolute right-5 z-10 h-10 w-10 items-center justify-center rounded-full bg-black/40"
         style={{ top: top + 10 }}
