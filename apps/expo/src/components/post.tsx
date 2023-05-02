@@ -81,17 +81,14 @@ export const Post = ({ post, hasParent, root }: Props) => {
                 @{postAuthorHandle}
               </Text>
             </View>
-            <TouchableOpacity onPress={handleMore}>
+            <TouchableOpacity
+              accessibilityLabel="More options"
+              accessibilityRole="button"
+              onPress={handleMore}
+            >
               <MoreVertical size={18} color={buttonColor} />
             </TouchableOpacity>
           </Link>
-          <TouchableOpacity
-            accessibilityLabel="More options"
-            accessibilityRole="button"
-            onPress={handleMore}
-          >
-            <MoreVertical size={18} color="#1C1C1E" />
-          </TouchableOpacity>
         </View>
       </View>
       {/* text content */}
