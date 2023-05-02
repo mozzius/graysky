@@ -69,7 +69,11 @@ export const Post = ({ post, hasParent, root }: Props) => {
           </View>
         )}
         <View className="justify ml-3 flex-1 flex-row items-center">
-          <Link href={profileHref} asChild accessibilityHint="Opens profile">
+          <Link
+            href={profileHref}
+            className="flex-1"
+            accessibilityHint="Opens profile"
+          >
             <View className="flex-1">
               <Text
                 numberOfLines={1}
@@ -81,14 +85,15 @@ export const Post = ({ post, hasParent, root }: Props) => {
                 @{postAuthorHandle}
               </Text>
             </View>
-            <TouchableOpacity
-              accessibilityLabel="More options"
-              accessibilityRole="button"
-              onPress={handleMore}
-            >
-              <MoreVertical size={18} color={buttonColor} />
-            </TouchableOpacity>
           </Link>
+          <TouchableOpacity
+            accessibilityLabel="More options"
+            accessibilityRole="button"
+            onPress={handleMore}
+            className="p-2"
+          >
+            <MoreVertical size={18} color={buttonColor} />
+          </TouchableOpacity>
         </View>
       </View>
       {/* text content */}
