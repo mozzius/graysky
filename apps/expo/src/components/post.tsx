@@ -77,11 +77,14 @@ export const Post = ({ post, hasParent, root }: Props) => {
             <View className="flex-1">
               <Text
                 numberOfLines={1}
-                className="max-w-[85%] text-base font-semibold dark:text-neutral-50"
+                className="text-base font-semibold dark:text-neutral-50"
               >
                 {postAuthorDisplayName}
               </Text>
-              <Text className="text-base leading-5 text-neutral-500 dark:text-neutral-400">
+              <Text
+                numberOfLines={1}
+                className="text-base leading-5 text-neutral-500 dark:text-neutral-400"
+              >
                 @{postAuthorHandle}
               </Text>
             </View>
