@@ -315,15 +315,14 @@ const ProfileList = ({
           </Link>
         ))}
       </View>
-      <View
-        className="mt-2 text-base"
-        style={{ flexDirection: "row", flexWrap: "wrap" }}
-      >
+      <View className="mt-2 flex-row flex-wrap text-base">
         <Text className="font-medium dark:text-neutral-50">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        <Text className="text-neutral-500 dark:text-neutral-400">{" " + action}</Text>
+        <Text className="text-neutral-500 dark:text-neutral-400">
+          {" " + action}
+        </Text>
         <Text
           className="dark:text-neutral-50"
           accessibilityLabel={timeSinceNotif.accessible}

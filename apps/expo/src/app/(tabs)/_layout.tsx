@@ -210,7 +210,6 @@ export default function AppLayout() {
             title: `Notifications${
               notifications.data?.data?.count || undefined ? ", new items" : ""
             }`,
-            title: "Notifications",
             tabBarBadge: notifications.data?.data?.count || undefined,
             tabBarBadgeStyle: {
               backgroundColor: tabBarBadgeColor,

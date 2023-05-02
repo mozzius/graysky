@@ -92,38 +92,35 @@ export const FeedPost = ({
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-        <View>
-          <Link
-            href={profileHref}
-            asChild
-          >
-            <TouchableWithoutFeedback>
-              {item.post.author.avatar ? (
-                <Image
-                  key={item.post.author.avatar}
-                  source={{ uri: item.post.author.avatar }}
-                  alt={postAuthorHandle}
-                  className="h-12 w-12 rounded-full"
-                />
-              ) : (
-                <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                  <User size={32} color={buttonColor} />
-                </View>
-              )}
-            </TouchableWithoutFeedback>
-          </Link>
+          <View>
+            <Link href={profileHref} asChild>
+              <TouchableWithoutFeedback>
+                {item.post.author.avatar ? (
+                  <Image
+                    key={item.post.author.avatar}
+                    source={{ uri: item.post.author.avatar }}
+                    alt={postAuthorHandle}
+                    className="h-12 w-12 rounded-full"
+                  />
+                ) : (
+                  <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+                    <User size={32} color={buttonColor} />
+                  </View>
+                )}
+              </TouchableWithoutFeedback>
+            </Link>
           </View>
           <View>
-          <Link href={postHref} asChild>
-            <TouchableWithoutFeedback className="w-full grow items-center px-5">
-              <View
-                className={cx(
-                  "w-0.5 grow",
-                  hasReply && "bg-neutral-200 dark:bg-neutral-800",
-                )}
-              />
-            </TouchableWithoutFeedback>
-          </Link>
+            <Link href={postHref} asChild>
+              <TouchableWithoutFeedback className="w-full grow items-center px-5">
+                <View
+                  className={cx(
+                    "w-0.5 grow",
+                    hasReply && "bg-neutral-200 dark:bg-neutral-800",
+                  )}
+                />
+              </TouchableWithoutFeedback>
+            </Link>
           </View>
         </View>
         {/* right col */}
@@ -139,21 +136,26 @@ export const FeedPost = ({
               accessibilityHint="Opens profile"
               asChild
             >
-              <Text numberOfLines={1} className="max-w-[85%] text-base">
-                <Text className="font-semibold dark:text-neutral-50">
-                  {postAuthorDisplayName}
+              <View className="flex-row flex-wrap">
+                <Text numberOfLines={1} className="max-w-[85%] text-base">
+                  <Text className="font-semibold dark:text-neutral-50">
+                    {postAuthorDisplayName}
+                  </Text>
+                  <Text className="text-neutral-500 dark:text-neutral-400">
+                    {` @${postAuthorHandle}`}
+                  </Text>
                 </Text>
-                <Text className="text-neutral-500 dark:text-neutral-400">
-                  {` @${postAuthorHandle}`}
+                {/* get age of post - e.g. 5m */}
+                <Text
+                  className="text-base text-neutral-500 dark:text-neutral-400"
+                  accessibilityLabel={timeSincePost.accessible}
+                >
+                  {" · "}
+                  {timeSincePost.visible}
                 </Text>
-              </Text>
-              {/* get age of post - e.g. 5m */}
-              <Text className="text-base text-neutral-500 dark:text-neutral-400" accessibilityLabel={timeSincePost.accessible}>
-                {" · "}
-                {timeSincePost.visible}
-              </Text>
-            </View>
-          </Link>
+              </View>
+            </Link>
+          </View>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
             (item.reply ? (
@@ -275,7 +277,11 @@ const Reason = ({ item }: Props) => {
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
 
   return (
-    <Link href={`/profile/${item.reason.by.handle}`} asChild accessibilityHint="Opens profile">
+    <Link
+      href={`/profile/${item.reason.by.handle}`}
+      asChild
+      accessibilityHint="Opens profile"
+    >
       <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color={buttonColor} size={12} />
         <Text
