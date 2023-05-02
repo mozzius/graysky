@@ -267,7 +267,7 @@ const NotificationItem = ({
   );
   const wrapper = (children: React.ReactNode) =>
     href ? (
-      <Link href={href} asChild>
+      <Link href={href} asChild accessibilityHint="Opens post">
         <TouchableOpacity className={className}>{children}</TouchableOpacity>
       </Link>
     ) : (
@@ -287,22 +287,35 @@ const ProfileList = ({
   indexedAt,
 }: Pick<NotificationGroup, "actors" | "indexedAt"> & { action: string }) => {
   if (!actors[0]) return null;
+  const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
     <View>
       <View className="flex-row">
-        {actors.map((actor) => (
-          <Link href={`/profile/${actor.handle}`} asChild key={actor.did}>
+        {actors.map((actor, index) => (
+          <Link
+            href={`/profile/${actor.handle}`}
+            asChild
+            key={actor.did}
+            accessibilityHint="Opens profile"
+          >
             <TouchableOpacity className="mr-2 rounded-full">
               <Image
                 className="h-8 w-8 rounded-full bg-neutral-200"
                 source={{ uri: actor.avatar }}
-                alt={actor.displayName}
+                alt={
+                  // TODO: find a better way to handle this
+                  action === "started following you"
+                    ? `${index === 0 ? "New follower: " : ""}${
+                        actor.displayName
+                      } @${actor.handle}`
+                    : ""
+                }
               />
             </TouchableOpacity>
           </Link>
         ))}
       </View>
-      <Text className="mt-2 text-base">
+      <View className="mt-2 flex-row flex-wrap text-base">
         <Text className="font-medium dark:text-neutral-50">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
@@ -310,10 +323,14 @@ const ProfileList = ({
         <Text className="text-neutral-500 dark:text-neutral-400">
           {" " + action}
         </Text>
-        <Text className="dark:text-neutral-50">
-          {" · " + timeSince(new Date(indexedAt))}
+        <Text
+          className="dark:text-neutral-50"
+          accessibilityLabel={timeSinceNotif.accessible}
+        >
+          {" · "}
+          {timeSinceNotif.visible}
         </Text>
-      </Text>
+      </View>
     </View>
   );
 };

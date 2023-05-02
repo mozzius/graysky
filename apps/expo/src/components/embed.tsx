@@ -190,7 +190,7 @@ const ImageEmbed = ({
       const image = content.images[0]!;
       return (
         <Link href={href} asChild>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback accessibilityRole="image">
             <Image
               key={image.thumb}
               source={{ uri: image.thumb }}
@@ -215,7 +215,7 @@ const ImageEmbed = ({
               key={image.fullsize}
             >
               <Link href={`${href}?initial=${i}`} asChild>
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback accessibilityRole="image">
                   <Image
                     key={image.thumb}
                     source={{ uri: image.thumb }}
@@ -233,7 +233,7 @@ const ImageEmbed = ({
         <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded">
           <View className="w-1/2 pr-0.5">
             <Link href={`${href}?initial=0`} asChild>
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback accessibilityRole="image">
                 <Image
                   key={content.images[0]!.thumb}
                   source={{ uri: content.images[0]!.thumb }}
@@ -312,7 +312,7 @@ export const PostEmbed = ({
 
   return (
     <Link href={postHref} asChild>
-      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
+      <TouchableOpacity accessibilityHint="Opens embedded post" className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
         <View className="flex flex-row items-center overflow-hidden">
           <Image
             key={author.avatar}

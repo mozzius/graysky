@@ -35,6 +35,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
       {backButton && (
         <TouchableOpacity
+          accessibilityLabel="Back"
+          accessibilityRole="button"
           onPress={() => router.back()}
           className="absolute left-4 top-4 items-center justify-center rounded-full bg-black/60 p-2"
         >

@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -47,6 +47,7 @@ export const FeedPost = ({
 }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(item.post);
   const { reposted, repostCount, toggleRepost } = useRepost(item.post);
+  const replyCount = item.post.replyCount;
   const composer = useComposer();
   const handleRepost = useHandleRepost(
     item.post,
@@ -55,11 +56,13 @@ export const FeedPost = ({
   );
   const handleMore = usePostViewOptions(item.post);
 
+  const postAuthorDisplayName = item.post.author.displayName;
+  const postAuthorHandle = item.post.author.handle;
+
   const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
-  const profileHref = `/profile/${item.post.author.handle}`;
-
+  const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
@@ -69,6 +72,8 @@ export const FeedPost = ({
   assert(AppBskyFeedPost.validateRecord(item.post.record));
 
   const displayInlineParent = inlineParent || !!item.reason;
+
+  const timeSincePost = timeSince(new Date(item.post.indexedAt));
 
   return (
     <View
@@ -82,58 +87,75 @@ export const FeedPost = ({
       <Reason item={item} />
       <View className="flex-1 flex-row">
         {/* left col */}
-        <View className="flex flex-col items-center px-2">
-          <Link
-            href={profileHref}
-            asChild
-            accessibilityElementsHidden={true}
-            importantForAccessibility="no-hide-descendants"
-          >
-            <TouchableWithoutFeedback>
-              {item.post.author.avatar ? (
-                <Image
-                  key={item.post.author.avatar}
-                  source={{ uri: item.post.author.avatar }}
-                  alt={item.post.author.handle}
-                  className="h-12 w-12 rounded-full"
-                />
-              ) : (
-                <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                  <User size={32} color={buttonColor} />
-                </View>
-              )}
-            </TouchableWithoutFeedback>
-          </Link>
-          <Link href={postHref} asChild>
-            <TouchableOpacity className="w-full grow items-center px-5">
-              <View
-                className={cx(
-                  "w-0.5 grow",
-                  hasReply && "bg-neutral-200 dark:bg-neutral-800",
+        <View
+          className="flex flex-col items-center px-2"
+          accessibilityElementsHidden={true}
+          importantForAccessibility="no-hide-descendants"
+        >
+          <View>
+            <Link href={profileHref} asChild>
+              <TouchableWithoutFeedback>
+                {item.post.author.avatar ? (
+                  <Image
+                    key={item.post.author.avatar}
+                    source={{ uri: item.post.author.avatar }}
+                    alt={postAuthorHandle}
+                    className="h-12 w-12 rounded-full"
+                  />
+                ) : (
+                  <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+                    <User size={32} color={buttonColor} />
+                  </View>
                 )}
-              />
-            </TouchableOpacity>
-          </Link>
+              </TouchableWithoutFeedback>
+            </Link>
+          </View>
+          <View>
+            <Link href={postHref} asChild>
+              <TouchableWithoutFeedback className="w-full grow items-center px-5">
+                <View
+                  className={cx(
+                    "w-0.5 grow",
+                    hasReply && "bg-neutral-200 dark:bg-neutral-800",
+                  )}
+                />
+              </TouchableWithoutFeedback>
+            </Link>
+          </View>
         </View>
         {/* right col */}
         <View className="flex-1 pb-2.5 pl-1 pr-2">
-          <Link href={profileHref} asChild>
-            <TouchableWithoutFeedback className="flex-row items-center">
-              <Text numberOfLines={1} className="max-w-[85%] text-base">
-                <Text className="font-semibold dark:text-neutral-50">
-                  {item.post.author.displayName}
+          <View className="flex-row items-center">
+            <Link
+              href={profileHref}
+              accessibilityLabel={
+                isReply
+                  ? `Reply by ${postAuthorDisplayName} @${postAuthorHandle}`
+                  : `${postAuthorDisplayName} @${postAuthorHandle}`
+              }
+              accessibilityHint="Opens profile"
+              asChild
+            >
+              <View className="flex-row flex-wrap">
+                <Text numberOfLines={1} className="max-w-[85%] text-base">
+                  <Text className="font-semibold dark:text-neutral-50">
+                    {postAuthorDisplayName}
+                  </Text>
+                  <Text className="text-neutral-500 dark:text-neutral-400">
+                    {` @${postAuthorHandle}`}
+                  </Text>
                 </Text>
-                <Text className="text-neutral-500 dark:text-neutral-400">
-                  {` @${item.post.author.handle}`}
+                {/* get age of post - e.g. 5m */}
+                <Text
+                  className="text-base text-neutral-500 dark:text-neutral-400"
+                  accessibilityLabel={timeSincePost.accessible}
+                >
+                  {" · "}
+                  {timeSincePost.visible}
                 </Text>
-              </Text>
-              {/* get age of post - e.g. 5m */}
-              <Text className="text-base text-neutral-500 dark:text-neutral-400">
-                {" · "}
-                {timeSince(new Date(item.post.indexedAt))}
-              </Text>
-            </TouchableWithoutFeedback>
-          </Link>
+              </View>
+            </Link>
+          </View>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
             (item.reply ? (
@@ -142,6 +164,7 @@ export const FeedPost = ({
                   item.reply.parent.author.handle
                 }/post/${item.reply.parent.uri.split("/").pop()}`}
                 asChild
+                accessibilityHint="Opens parent post"
               >
                 <TouchableWithoutFeedback className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
@@ -158,7 +181,7 @@ export const FeedPost = ({
               )
             ))}
           {/* text content */}
-          <Link href={postHref} asChild>
+          <Link href={postHref} asChild accessibilityHint="Opens post details">
             <TouchableWithoutFeedback className="my-0.5">
               <RichText
                 text={item.post.record.text}
@@ -173,7 +196,9 @@ export const FeedPost = ({
           {/* actions */}
           <View className="mt-2 flex-row justify-between pr-6">
             <TouchableOpacity
-              accessibilityLabel="Reply"
+              accessibilityLabel={`Reply, ${replyCount} repl${
+                replyCount !== 1 ? "ies" : "y"
+              }`}
               accessibilityRole="button"
               onPress={() =>
                 composer.open({
@@ -185,10 +210,12 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
-              <Text style={{ color: buttonColor }}>{item.post.replyCount}</Text>
+              <Text style={{ color: buttonColor }}>{replyCount}</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              accessibilityLabel="Repost"
+              accessibilityLabel={`Repost, ${repostCount} repost${
+                repostCount !== 1 ? "s" : ""
+              }`}
               accessibilityRole="button"
               disabled={toggleRepost.isLoading}
               onPress={handleRepost}
@@ -205,7 +232,9 @@ export const FeedPost = ({
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              accessibilityLabel="Like"
+              accessibilityLabel={`Like, ${likeCount} like${
+                likeCount !== 1 ? "s" : ""
+              }`}
               accessibilityRole="button"
               disabled={toggleLike.isLoading}
               onPress={() => toggleLike.mutate()}
@@ -248,8 +277,12 @@ const Reason = ({ item }: Props) => {
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
 
   return (
-    <Link href={`/profile/${item.reason.by.handle}`} asChild>
-      <Pressable className="mb-1 ml-12 flex-1 flex-row items-center">
+    <Link
+      href={`/profile/${item.reason.by.handle}`}
+      asChild
+      accessibilityHint="Opens profile"
+    >
+      <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
         <Repeat color={buttonColor} size={12} />
         <Text
           className="ml-2 flex-1 text-sm dark:text-neutral-50"
@@ -257,7 +290,7 @@ const Reason = ({ item }: Props) => {
         >
           Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </Link>
   );
 };
@@ -294,6 +327,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     <Link
       href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
       asChild
+      accessibilityHint="Opens parent post"
     >
       <TouchableWithoutFeedback className="flex-row items-center">
         <MessageCircle size={12} color={circleColor} />
