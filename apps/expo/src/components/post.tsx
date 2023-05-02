@@ -73,6 +73,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
             href={profileHref}
             className="flex-1"
             accessibilityHint="Opens profile"
+            accessibilityLabel={`${postAuthorDisplayName} @${postAuthorHandle}`}
           >
             <View className="flex-1">
               <Text
