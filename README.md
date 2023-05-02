@@ -47,9 +47,10 @@ Then just scan the QR code!
 
 ## Android local APK builds
 
-* Install Android Studio, and the Android SDK
-* Install Oracle Java 11 JDK
-* Make Gradle faster in `~/.gradle/gradle.properties`:
+- Install Android Studio, and the Android SDK
+- Install Oracle Java 11 JDK
+- Make Gradle faster in `~/.gradle/gradle.properties`:
+
 ```
 org.gradle.jvmargs=-Xmx20g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=2g
 org.gradle.parallel=true
@@ -57,6 +58,17 @@ org.gradle.configureondemand=true
 org.gradle.daemon=false
 org.gradle.caching=true
 ```
-* [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
-* Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
-* Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
+
+- [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
+- Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
+- Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
+
+## iOS local IPA builds
+
+> This is fish shell format, but you can probably figure out how to translate it to bash.
+
+```
+set SHORT_SHA (git rev-parse --short HEAD)
+eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait; and say "Build finished"
+eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted to TestFlight"
+```

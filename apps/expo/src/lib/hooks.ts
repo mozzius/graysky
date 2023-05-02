@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { useEffect, useRef, useState } from "react";
 import { Alert, Linking, Share } from "react-native";
@@ -184,11 +185,30 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             await Clipboard.setStringAsync(post.record.text);
             break;
           case "Share post":
-            await Share.share({
-              message: `https://psky.app/profile/${
-                post.author.handle
-              }/post/${post.uri.split("/").pop()}`
-            });
+            const shareOptions = [
+              "Share bsky.app link",
+              "Share external (psky.app) link",
+              "Cancel",
+            ];
+            showActionSheetWithOptions(
+              {
+                options: shareOptions,
+                cancelButtonIndex: shareOptions.length - 1,
+              },
+              async (index) => {
+                if (index === undefined) return;
+                const reason = shareOptions[index];
+                if (!reason || reason === "Cancel") return;
+
+                await Share.share({
+                  message: `https://${
+                    reason.includes("psky") ? "p" : "b"
+                  }sky.app/profile/${post.author.handle}/post/${post.uri
+                    .split("/")
+                    .pop()}`,
+                });
+              },
+            );
             break;
           case `Mute @${post.author.handle}`:
             Alert.alert(
@@ -278,16 +298,15 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             break;
           case "Report post":
             // prettier-ignore
-            // eslint-disable-next-line no-case-declarations
             const reportOptions = [
-            { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
-            { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },
-            { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
-            { label: "Unwanted Sexual Content", value: ComAtprotoModerationDefs.REASONSEXUAL },
-            { label: "Rude", value: ComAtprotoModerationDefs.REASONRUDE },
-            { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
-            { label: "Cancel", value: "Cancel" },
-          ] as const;
+              { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
+              { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },
+              { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
+              { label: "Unwanted Sexual Content", value: ComAtprotoModerationDefs.REASONSEXUAL },
+              { label: "Rude", value: ComAtprotoModerationDefs.REASONRUDE },
+              { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
+              { label: "Cancel", value: "Cancel" },
+            ] as const;
             showActionSheetWithOptions(
               {
                 title: "What is the issue with this post?",
