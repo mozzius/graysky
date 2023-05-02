@@ -27,9 +27,9 @@ export const Button = ({
       className={cx(
         "items-center justify-center rounded-sm px-4 py-2",
         {
-          black: "bg-black",
-          white: "bg-white",
-          outline: "border border-black",
+          black: "bg-black dark:bg-white",
+          white: "bg-white dark:bg-black",
+          outline: "border border-black dark:border-white",
         }[variant],
         className,
       )}
@@ -39,9 +39,9 @@ export const Button = ({
           className={cx(
             "text-base",
             {
-              black: "text-white",
-              white: "text-black",
-              outline: "text-black",
+              black: "text-white dark:text-black",
+              white: "text-black dark:text-white",
+              outline: "text-black dark:text-white",
             }[variant],
           )}
         >

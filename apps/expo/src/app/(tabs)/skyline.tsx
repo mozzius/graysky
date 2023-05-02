@@ -7,6 +7,7 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { Button } from "../../components/button";
 import { ComposeButton } from "../../components/compose-button";
@@ -33,22 +34,25 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
     queryKey: ["timeline", mode],
     queryFn: async ({ pageParam }) => {
       switch (mode) {
-        case "popular":
+        case "popular": {
           const popular = await agent.app.bsky.unspecced.getPopular({
             cursor: pageParam as string | undefined,
           });
           if (!popular.success) throw new Error("Failed to fetch feed");
           return popular.data;
-        case "following":
+        }
+        case "following": {
           const following = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
           if (!following.success) throw new Error("Failed to fetch feed");
           return following.data;
-        case "mutuals":
+        }
+        case "mutuals": {
           const all = await agent.getTimeline({
             cursor: pageParam as string | undefined,
           });
+
           if (!all.success) throw new Error("Failed to fetch feed");
           const actors = new Set<string>();
           for (const item of all.data.feed) {
@@ -84,6 +88,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
             }),
             cursor: all.data.cursor,
           };
+        }
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -120,13 +125,28 @@ const TimelinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
+  const { colorScheme } = useColorScheme();
+  const backgroundColor = colorScheme === "light" ? "white" : "black";
+  const indicatorStyle = colorScheme === "light" ? "black" : "white";
+  const activeColor = colorScheme === "light" ? "black" : "white";
+  const borderColor =
+    colorScheme === "light" ? "transparent" : "rgb(115,115,115)";
+
   const renderTabBar = useCallback(
     (props: TabBarProps<(typeof routes)[number]>) => (
       <TabBar
         {...props}
         gap={16}
-        style={{ backgroundColor: "white", paddingHorizontal: 16 }}
-        indicatorStyle={{ backgroundColor: "black", marginHorizontal: 16 }}
+        style={{
+          backgroundColor: backgroundColor,
+          paddingHorizontal: 16,
+          borderBottomColor: borderColor,
+          borderBottomWidth: 1,
+        }}
+        indicatorStyle={{
+          backgroundColor: indicatorStyle,
+          marginHorizontal: 16,
+        }}
         tabStyle={{
           width: "auto",
           margin: 0,
@@ -137,18 +157,21 @@ const TimelinePage = () => {
           textTransform: "none",
           margin: 0,
         }}
-        activeColor="black"
+        activeColor={activeColor}
         inactiveColor="gray"
         getLabelText={({ route }) => route.title}
       />
     ),
-    [],
+    [activeColor, backgroundColor, indicatorStyle, borderColor],
   );
 
   return (
     <>
       <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
-      <View className="w-full bg-white" style={{ height: headerHeight }} />
+      <View
+        className="w-full bg-white dark:bg-black"
+        style={{ height: headerHeight }}
+      />
       <TabView
         lazy
         renderTabBar={renderTabBar}

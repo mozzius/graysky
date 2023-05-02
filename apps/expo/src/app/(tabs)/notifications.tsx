@@ -122,7 +122,7 @@ const NotificationsPage = () => {
       return (
         <View className="flex-1 items-center justify-center p-4">
           <Stack.Screen options={{ headerShown: true }} />
-          <Text className="mb-4 text-center text-lg">
+          <Text className="mb-4 text-center text-lg dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
           <Button
@@ -140,7 +140,7 @@ const NotificationsPage = () => {
             options={{ headerShown: true, headerTransparent: true }}
           />
           <View
-            className="w-full border-b border-neutral-200 bg-white"
+            className="w-full border-b border-neutral-200 bg-white dark:border-neutral-500 dark:bg-black"
             style={{ height: headerHeight }}
           />
           <FlashList
@@ -260,8 +260,10 @@ const NotificationItem = ({
   href?: string;
 }) => {
   const className = cx(
-    "flex-row border-b p-2",
-    unread ? "border-blue-200 bg-blue-50" : "border-neutral-200 bg-white",
+    "flex-row border-b p-2  text-black dark:text-white",
+    unread
+      ? "border-blue-200 bg-blue-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-500"
+      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-500",
   );
   const wrapper = (children: React.ReactNode) =>
     href ? (
@@ -317,13 +319,13 @@ const ProfileList = ({
         className="mt-2 text-base"
         style={{ flexDirection: "row", flexWrap: "wrap" }}
       >
-        <Text className="font-medium">
+        <Text className="font-medium dark:text-neutral-50">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length > 1 && ` and ${actors.length - 1} others`}
         </Text>
-        <Text>{" " + action}</Text>
+        <Text className="text-neutral-500 dark:text-neutral-400">{" " + action}</Text>
         <Text
-          className="text-neutral-500"
+          className="dark:text-neutral-50"
           accessibilityLabel={timeSinceNotif.accessible}
         >
           {" · "}
@@ -392,7 +394,7 @@ const PostNotification = ({
 
         return (
           <View className="mt-0.5">
-            <Text className="text-neutral-500">
+            <Text className="text-neutral-500 dark:text-neutral-400">
               <RichText
                 text={post.data.post.record.text}
                 facets={post.data.post.record.facets}

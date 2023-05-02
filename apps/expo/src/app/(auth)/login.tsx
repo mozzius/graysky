@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../../lib/agent";
 
@@ -46,28 +47,36 @@ export default function Login() {
     },
   });
 
+  const { colorScheme } = useColorScheme();
+
   return (
-    <SafeAreaView className="flex-1 bg-white px-4">
+    <SafeAreaView className="flex-1 bg-white px-4 dark:bg-black">
       <Stack.Screen options={{ title: "Log in", headerBackTitle: "Back" }} />
       <View className="items-stretch gap-4">
-        <View className="flex flex-row items-center rounded border border-neutral-300 px-3 py-2">
+        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <User size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="mb-1 ml-2 flex-1 text-base"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:text-white dark:placeholder-neutral-400"
             placeholder="Username or email address"
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
+            placeholderTextColor={
+              colorScheme === "dark" ? "rgb(62,62,62)" : undefined
+            }
           />
         </View>
-        <View className="flex flex-row items-center rounded border border-neutral-300 px-3 py-2">
+        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="mb-1 ml-2 flex-1 text-base"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:text-white dark:placeholder-neutral-400"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
+            placeholderTextColor={
+              colorScheme === "dark" ? "rgb(62,62,62)" : undefined
+            }
           />
         </View>
         <View className="flex-row justify-between">
@@ -81,13 +90,12 @@ export default function Login() {
             title="Help"
           />
           <View />
-          {identifier && password && (
-            <Button
-              disabled={login.isLoading}
-              onPress={() => login.mutate()}
-              title="Log in"
-            />
-          )}
+
+          <Button
+            disabled={login.isLoading || !identifier || !password}
+            onPress={() => login.mutate()}
+            title="Log in"
+          />
         </View>
       </View>
     </SafeAreaView>

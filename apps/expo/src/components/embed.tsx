@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, Linking, Text, View } from "react-native";
 import {
@@ -51,6 +52,7 @@ interface Props {
 
 export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
+
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
@@ -64,7 +66,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       return (
         <TouchableOpacity
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="my-1.5 overflow-hidden rounded border border-neutral-300"
+          className="my-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-500"
         >
           {content.external.thumb && (
             <Image
@@ -77,17 +79,27 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           <View
             className={cx(
               "w-full p-2",
-              content.external.thumb && "border-t border-neutral-300",
+              content.external.thumb &&
+                "border-t border-neutral-300 dark:border-neutral-500",
             )}
           >
-            <Text className="text-base font-semibold" numberOfLines={2}>
+            <Text
+              className="text-base font-semibold dark:text-neutral-50"
+              numberOfLines={2}
+            >
               {content.external.title || content.external.uri}
             </Text>
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            <Text
+              className="text-sm text-neutral-400 dark:text-neutral-100"
+              numberOfLines={1}
+            >
               {content.external.uri}
             </Text>
             {content.external.description && (
-              <Text className="mt-1 text-sm leading-5" numberOfLines={2}>
+              <Text
+                className="mt-1 text-sm leading-5 dark:text-neutral-50"
+                numberOfLines={2}
+              >
                 {content.external.description}
               </Text>
             )}
@@ -126,7 +138,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           {media && <Embed uri={uri} content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             <Text
-              className="mt-1 text-base leading-5"
+              className="mt-1 text-base leading-5 dark:text-neutral-50"
               numberOfLines={truncate ? 4 : undefined}
             >
               {record.value.text}
@@ -287,7 +299,7 @@ export const PostEmbed = ({
 
   return (
     <Link href={postHref} asChild accessibilityHint="Opens embedded post">
-      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
+      <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
         <View className="flex flex-row items-center overflow-hidden">
           <Image
             key={author.avatar}
@@ -296,8 +308,10 @@ export const PostEmbed = ({
             className="mr-2 h-4 w-4 rounded-full"
           />
           <Text className="text-base" numberOfLines={1}>
-            <Text className="font-semibold">{author.displayName}</Text>
-            <Text className="text-neutral-500">{` @${author.handle}`}</Text>
+            <Text className="font-semibold dark:text-neutral-50">
+              {author.displayName}
+            </Text>
+            <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
           </Text>
         </View>
         {children}

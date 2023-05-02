@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@graysky/eslint-config": "^0.1.0",
-    "eslint": "^8.38.0",
-    "typescript": "^5.0.4"
+    "eslint": "^8.39.0",
+    "typescript": "^4.9.4"
   }
 }
