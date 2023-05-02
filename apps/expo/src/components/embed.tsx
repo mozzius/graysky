@@ -212,7 +212,7 @@ const ImageEmbed = ({
           {content.images.map((image, i) => (
             <View
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
-              key={image.fullsize}
+              key={image.thumb}
             >
               <Link href={`${href}?initial=${i}`} asChild>
                 <TouchableWithoutFeedback accessibilityRole="image">

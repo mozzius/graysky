@@ -137,7 +137,7 @@ export const FeedPost = ({
               asChild
             >
               <View className="flex-row flex-wrap">
-                <Text numberOfLines={1} className="max-w-[85%] text-base">
+                <Text numberOfLines={1} className="max-w-[87.5%] text-base">
                   <Text className="font-semibold dark:text-neutral-50">
                     {postAuthorDisplayName}
                   </Text>
