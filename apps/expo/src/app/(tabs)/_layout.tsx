@@ -67,7 +67,9 @@ export default function AppLayout() {
         <Tabs.Screen
           name="notifications"
           options={{
-            title: "Notifications",
+            title: `Notifications${
+              notifications.data?.data?.count || undefined ? ", new items" : ""
+            }`,
             tabBarShowLabel: false,
             tabBarBadge: notifications.data?.data?.count || undefined,
             tabBarBadgeStyle: {

@@ -31,11 +31,14 @@ interface Props {
 export const Post = ({ post, hasParent, root }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post);
   const { reposted, repostCount, toggleRepost } = useRepost(post);
+  const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
   const composer = useComposer();
 
-  const profileHref = `/profile/${post.author.handle}`;
+  const postAuthorDisplayName = post.author.displayName;
+  const postAuthorHandle = post.author.handle;
+  const profileHref = `/profile/${postAuthorHandle}`;
 
   if (!AppBskyFeedPost.isRecord(post.record)) {
     return null;
@@ -50,37 +53,41 @@ export const Post = ({ post, hasParent, root }: Props) => {
         hasParent && "border-t",
       )}
     >
-      <Link href={profileHref} asChild>
-        <TouchableOpacity className="mb-2 flex-row">
-          {post.author.avatar ? (
-            <Image
-              source={{ uri: post.author.avatar }}
-              alt={post.author.handle}
-              className="h-12 w-12 rounded-full"
-            />
-          ) : (
-            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-              <User size={32} color="#1C1C1E" />
-            </View>
-          )}
-          <View className="justify ml-3 flex-1 flex-row items-center">
-            <View className="flex-1">
+      <View className="mb-2 flex-row">
+        {post.author.avatar ? (
+          <Image
+            source={{ uri: post.author.avatar }}
+            alt=""
+            className="h-12 w-12 rounded-full"
+          />
+        ) : (
+          <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+            <User size={32} color="#1C1C1E" />
+          </View>
+        )}
+        <View className="justify ml-3 flex-1 flex-row items-center">
+          <Link href={profileHref} asChild accessibilityHint="Opens profile">
+            <TouchableOpacity className="flex-1">
               <Text
                 numberOfLines={1}
                 className="max-w-[85%] text-base font-semibold"
               >
-                {post.author.displayName}
+                {postAuthorDisplayName}
               </Text>
               <Text className="text-base leading-5 text-neutral-500">
-                @{post.author.handle}
+                @{postAuthorHandle}
               </Text>
-            </View>
-            <TouchableOpacity onPress={handleMore}>
-              <MoreVertical size={18} color="#1C1C1E" />
             </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </Link>
+          </Link>
+          <TouchableOpacity
+            accessibilityLabel="More options"
+            accessibilityRole="button"
+            onPress={handleMore}
+          >
+            <MoreVertical size={18} color="#1C1C1E" />
+          </TouchableOpacity>
+        </View>
+      </View>
       {/* text content */}
       {post.record.text && (
         <RichText
@@ -96,6 +103,10 @@ export const Post = ({ post, hasParent, root }: Props) => {
       {/* actions */}
       <View className="mt-4 flex-row items-center justify-between">
         <TouchableOpacity
+          accessibilityLabel={`Reply, ${replyCount} repl${
+            replyCount !== 1 ? "ies" : "y"
+          }`}
+          accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
           onPress={() =>
             composer.open({
@@ -105,9 +116,13 @@ export const Post = ({ post, hasParent, root }: Props) => {
           }
         >
           <MessageSquare size={18} color="#1C1C1E" />
-          <Text>{post.replyCount}</Text>
+          <Text>{replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityLabel={`Repost, ${repostCount} repost${
+            repostCount !== 1 ? "s" : ""
+          }`}
+          accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
           disabled={toggleRepost.isLoading}
           onPress={handleRepost}
@@ -123,6 +138,10 @@ export const Post = ({ post, hasParent, root }: Props) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityLabel={`Like, ${likeCount} like${
+            likeCount !== 1 ? "s" : ""
+          }`}
+          accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
           disabled={toggleLike.isLoading}
           onPress={() => toggleLike.mutate()}

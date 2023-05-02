@@ -177,7 +177,7 @@ const ImageEmbed = ({
     case 1:
       const image = content.images[0]!;
       return (
-        <Link href={href} asChild>
+        <Link href={href} asChild accessibilityRole="image">
           <TouchableWithoutFeedback>
             <Image
               key={image.thumb}
@@ -198,7 +198,12 @@ const ImageEmbed = ({
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image, i) => (
-            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
+            <Link
+              href={`${href}?initial=${i}`}
+              asChild
+              key={image.fullsize}
+              accessibilityRole="image"
+            >
               <TouchableWithoutFeedback className="w-[49%]">
                 <Image
                   key={image.thumb}
@@ -215,7 +220,12 @@ const ImageEmbed = ({
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image, i) => (
-            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
+            <Link
+              href={`${href}?initial=${i}`}
+              asChild
+              key={image.fullsize}
+              accessibilityRole="image"
+            >
               <TouchableWithoutFeedback className="w-[32%]">
                 <Image
                   key={image.thumb}
@@ -276,7 +286,7 @@ export const PostEmbed = ({
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
   return (
-    <Link href={postHref} asChild>
+    <Link href={postHref} asChild accessibilityHint="Opens embedded post">
       <TouchableOpacity className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1">
         <View className="flex flex-row items-center overflow-hidden">
           <Image

@@ -289,6 +289,7 @@ export const ProfileView = ({
               ) : (
                 <FeedPost
                   {...item}
+                  // TODO: investigate & fix error with isReply logic below
                   isReply={mode === "replies" && data[index]?.hasReply}
                   inlineParent={mode !== "replies"}
                 />
