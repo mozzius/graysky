@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
