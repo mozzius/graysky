@@ -187,10 +187,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             await Share.share({
               message: `https://psky.app/profile/${
                 post.author.handle
-              }/post/${post.uri.split("/").pop()}`,
-              url: `https://psky.app/profile/${
-                post.author.handle
-              }/post/${post.uri.split("/").pop()}`,
+              }/post/${post.uri.split("/").pop()}`
             });
             break;
           case `Mute @${post.author.handle}`:
