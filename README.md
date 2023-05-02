@@ -62,3 +62,13 @@ org.gradle.caching=true
 - [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
 - Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
 - Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
+
+## iOS local IPA builds
+
+> This is fish shell format, but you can probably figure out how to translate it to bash.
+
+```
+set SHORT_SHA (git rev-parse --short HEAD)
+eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait; and say "Build finished"
+eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted to TestFlight"
+```
