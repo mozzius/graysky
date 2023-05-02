@@ -56,20 +56,20 @@ export const Post = ({ post, hasParent, root }: Props) => {
         hasParent && "border-t",
       )}
     >
-        <View className="mb-2 flex-row">
-          {post.author.avatar ? (
-            <Image
-              source={{ uri: post.author.avatar }}
-              alt=""
-              className="h-12 w-12 rounded-full"
-            />
-          ) : (
-            <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
-              <User size={32} color={buttonColor} />
-            </View>
-          )}
-          <View className="justify ml-3 flex-1 flex-row items-center">
-            <Link href={profileHref} asChild accessibilityHint="Opens profile">
+      <View className="mb-2 flex-row">
+        {post.author.avatar ? (
+          <Image
+            source={{ uri: post.author.avatar }}
+            alt=""
+            className="h-12 w-12 rounded-full"
+          />
+        ) : (
+          <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
+            <User size={32} color={buttonColor} />
+          </View>
+        )}
+        <View className="justify ml-3 flex-1 flex-row items-center">
+          <Link href={profileHref} asChild accessibilityHint="Opens profile">
             <View className="flex-1">
               <Text
                 numberOfLines={1}
