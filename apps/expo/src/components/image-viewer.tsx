@@ -34,14 +34,18 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
     PanGestureHandlerGestureEvent,
     {
       startX: number;
+      lastY: number;
     }
   >({
     onStart: (_, ctx) => {
       ctx.startX = x.value;
+      ctx.lastY = 0;
     },
     onActive: (event, ctx) => {
       x.value = ctx.startX + event.translationX;
       y.value = event.translationY;
+
+      ctx.lastY = y.value;
     },
     onEnd: (event) => {
       const closestInitialIndex = Math.round(x.value / -width);

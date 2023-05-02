@@ -210,68 +210,91 @@ const ImageEmbed = ({
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
           {content.images.map((image, i) => (
-            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <TouchableWithoutFeedback className="w-[49%]">
-                <Image
-                  key={image.thumb}
-                  source={{ uri: image.thumb }}
-                  alt={image.alt}
-                  className="aspect-square"
-                />
-              </TouchableWithoutFeedback>
-            </Link>
+            <View
+              className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
+              key={image.fullsize}
+            >
+              <Link href={`${href}?initial=${i}`} asChild>
+                <TouchableWithoutFeedback>
+                  <Image
+                    key={image.thumb}
+                    source={{ uri: image.thumb }}
+                    alt={image.alt}
+                    className="aspect-square w-[49%]"
+                  />
+                </TouchableWithoutFeedback>
+              </Link>
+            </View>
           ))}
         </View>
       );
     case 3:
       return (
-        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
-          {content.images.map((image, i) => (
-            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <TouchableWithoutFeedback className="w-[32%]">
+        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded">
+          <View className="w-1/2 pr-0.5">
+            <Link href={`${href}?initial=0`} asChild>
+              <TouchableWithoutFeedback>
                 <Image
-                  key={image.thumb}
-                  source={{ uri: image.thumb }}
-                  alt={image.alt}
-                  className="aspect-square"
+                  key={content.images[0]!.thumb}
+                  source={{ uri: content.images[0]!.thumb }}
+                  alt={content.images[0]!.alt}
+                  className="h-full w-full object-cover"
                 />
               </TouchableWithoutFeedback>
             </Link>
+          </View>
+          <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
+            {content.images.slice(1).map((image, i) => (
+              <View
+                className={cx(
+                  "h-1/2 w-full",
+                  i % 2 === 0 ? "pb-0.5" : "pt-0.5",
+                )}
+                key={image.fullsize}
+              >
+                <Link href={`${href}?initial=${i + 1}`} asChild>
+                  <TouchableWithoutFeedback>
+                    <Image
+                      key={image.thumb}
+                      source={{ uri: image.thumb }}
+                      alt={image.alt}
+                      className="h-full w-full object-cover"
+                    />
+                  </TouchableWithoutFeedback>
+                </Link>
+              </View>
+            ))}
+          </View>
+        </View>
+      );
+    case 4:
+      return (
+        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded">
+          {content.images.map((image, i) => (
+            <View
+              key={image.fullsize}
+              className={cx(
+                "w-1/2",
+                i > 1 && "mt-1",
+                i % 2 === 0 ? "pr-0.5" : "pl-0.5",
+              )}
+            >
+              <Link href={`${href}?initial=${i}`} asChild>
+                <TouchableWithoutFeedback>
+                  <Image
+                    key={image.thumb}
+                    source={{ uri: image.thumb }}
+                    alt={image.alt}
+                    className="aspect-square"
+                  />
+                </TouchableWithoutFeedback>
+              </Link>
+            </View>
           ))}
         </View>
       );
     default:
-      return (
-        <View className="my-1.5 flex flex-row justify-between overflow-hidden rounded">
-          {content.images.slice(0, 2).map((image, i) => (
-            <Link href={`${href}?initial=${i}`} asChild key={image.fullsize}>
-              <TouchableWithoutFeedback className="w-[32%]">
-                <Image
-                  key={image.fullsize}
-                  source={{ uri: image.thumb }}
-                  alt={image.alt}
-                  className="aspect-square"
-                />
-              </TouchableWithoutFeedback>
-            </Link>
-          ))}
-          <Link href={href} asChild>
-            <TouchableWithoutFeedback className="aspect-square w-[32%]">
-              <ImageBackground
-                source={{ uri: content.images[2]!.thumb }}
-                alt={content.images[2]!.alt}
-                resizeMode="cover"
-              >
-                <View className="h-full w-full items-center justify-center bg-black/60 p-1">
-                  <Text className="text-center text-base font-bold text-white">
-                    +{content.images.length - 2}
-                  </Text>
-                </View>
-              </ImageBackground>
-            </TouchableWithoutFeedback>
-          </Link>
-        </View>
-      );
+      throw Error("Unsupported number of images");
   }
 };
 
