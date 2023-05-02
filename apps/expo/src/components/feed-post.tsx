@@ -110,7 +110,7 @@ export const FeedPost = ({
               </TouchableWithoutFeedback>
             </Link>
           </View>
-          <View>
+          <View className="flex-1">
             <Link href={postHref} asChild>
               <TouchableWithoutFeedback className="w-full grow items-center px-5">
                 <View
@@ -137,7 +137,7 @@ export const FeedPost = ({
               asChild
             >
               <View className="flex-row flex-wrap">
-                <Text numberOfLines={1} className="max-w-[87.5%] text-base">
+                <Text numberOfLines={1} className="max-w-[85%] text-base">
                   <Text className="font-semibold dark:text-neutral-50">
                     {postAuthorDisplayName}
                   </Text>
@@ -282,14 +282,16 @@ const Reason = ({ item }: Props) => {
       asChild
       accessibilityHint="Opens profile"
     >
-      <TouchableOpacity className="mb-1 ml-12 flex-1 flex-row items-center">
-        <Repeat color={buttonColor} size={12} />
-        <Text
-          className="ml-2 flex-1 text-sm dark:text-neutral-50"
-          numberOfLines={1}
-        >
-          Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
-        </Text>
+      <TouchableOpacity>
+        <View className="mb-1 ml-12 flex-1 flex-row items-center">
+          <Repeat color={buttonColor} size={12} />
+          <Text
+            className="ml-2 flex-1 text-sm dark:text-neutral-50"
+            numberOfLines={1}
+          >
+            Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
+          </Text>
+        </View>
       </TouchableOpacity>
     </Link>
   );
