@@ -27,6 +27,13 @@ export const RichText = ({
     const parts = [];
     for (const segment of rt.segments()) {
       if (segment.isLink()) {
+        let textToShow;
+        try {
+          const url = new URL(segment.text);
+          textToShow = url.hostname;
+        } catch (e) {
+          textToShow = segment.text;
+        }
         parts.push({
           text: segment.text,
           component: (
@@ -44,7 +51,7 @@ export const RichText = ({
                 }
               }}
             >
-              {segment.text}
+              {textToShow}
             </Text>
           ),
         });
