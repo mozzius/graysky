@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { useEffect, useState } from "react";
-import { Image, ImageBackground, Linking, Text, View } from "react-native";
+import { Image, Linking, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -253,7 +253,7 @@ const ImageEmbed = ({
                 key={image.fullsize}
               >
                 <Link href={`${href}?initial=${i + 1}`} asChild>
-                  <TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback accessibilityRole="image">
                     <Image
                       key={image.thumb}
                       source={{ uri: image.thumb }}
@@ -280,7 +280,7 @@ const ImageEmbed = ({
               )}
             >
               <Link href={`${href}?initial=${i}`} asChild>
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback accessibilityRole="image">
                   <Image
                     key={image.thumb}
                     source={{ uri: image.thumb }}
@@ -312,7 +312,10 @@ export const PostEmbed = ({
 
   return (
     <Link href={postHref} asChild>
-      <TouchableOpacity accessibilityHint="Opens embedded post" className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
+      <TouchableOpacity
+        accessibilityHint="Opens embedded post"
+        className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500"
+      >
         <View className="flex flex-row items-center overflow-hidden">
           <Image
             key={author.avatar}
