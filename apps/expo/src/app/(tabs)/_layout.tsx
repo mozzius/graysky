@@ -1,7 +1,7 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useState } from "react";
 import { Alert, Dimensions, Text, View, type ColorValue } from "react-native";
+import { Drawer } from "react-native-drawer-layout";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import DrawerLayout from "react-native-gesture-handler/DrawerLayout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Stack, Tabs } from "expo-router";
@@ -25,7 +25,7 @@ import { useLogOut } from "../../lib/log-out-context";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
-  const drawerRef = useRef<DrawerLayout>(null!);
+  const [open, setOpen] = useState(false);
   const logOut = useLogOut();
 
   const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -124,13 +124,17 @@ export default function AppLayout() {
   );
 
   return (
-    <DrawerLayout
-      ref={drawerRef}
-      renderNavigationView={renderDrawerContent}
+    <Drawer
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderDrawerContent={renderDrawerContent}
       drawerType="slide"
-      drawerWidth={Dimensions.get("window").width * 0.8}
-      drawerBackgroundColor={colorScheme === "light" ? "#FFF" : "#1C1C1C"}
-      hideStatusBar
+      statusBarAnimation="slide"
+      drawerStyle={{
+        width: Dimensions.get("window").width * 0.8,
+        backgroundColor: colorScheme === "light" ? "#FFF" : "#1C1C1C",
+      }}
     >
       <Stack.Screen
         options={{
@@ -173,10 +177,7 @@ export default function AppLayout() {
               );
             },
             headerLeft: () => (
-              <TouchableOpacity
-                className="ml-6"
-                onPress={() => drawerRef.current.openDrawer()}
-              >
+              <TouchableOpacity className="ml-6" onPress={() => setOpen(true)}>
                 <Avatar size="small" />
               </TouchableOpacity>
             ),
@@ -256,6 +257,6 @@ export default function AppLayout() {
           }}
         />
       </Tabs>
-    </DrawerLayout>
+    </Drawer>
   );
 }
