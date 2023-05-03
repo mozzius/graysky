@@ -80,7 +80,7 @@ export const FeedPost = ({
       className={cx(
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200 dark:border-neutral-500",
+        !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
         unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >

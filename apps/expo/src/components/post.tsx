@@ -52,7 +52,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
   return (
     <View
       className={cx(
-        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:border-neutral-500 dark:bg-black",
+        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:border-neutral-600 dark:bg-black",
         hasParent && "border-t",
       )}
     >
