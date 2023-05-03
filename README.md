@@ -2,8 +2,6 @@
 
 Graysky is a Bluesky client written in React Native. 🚧 WIP 🚧
 
-> I've only tested this on iOS, your mileage may vary on Android.
-
 ## Getting Started
 
 You'll need pnpm, and some sort of simulator or device to run the app on.
@@ -33,15 +31,17 @@ Then just scan the QR code!
 - [x] Post composer
 - [x] Context menu - post actions
 - [x] Block/Unblock user
-- [ ] Quote post
-- [ ] Dark mode
-- [ ] Sidebar w/ logout button
+- [x] Quote post
+- [x] Dark mode
+- [x] Sidebar w/ logout button
 - [ ] Followers/Following screens
 - [ ] Settings screen
 - [ ] Context menu - user actions
 - [ ] Image viewer: Pinch to zoom
 - [ ] Better haptics
 - [ ] Search screen
+- [ ] Invites screen
+- [ ] Create account flow
 - [ ] Push notifications
 - [ ] App Store???
 
