@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
@@ -242,7 +243,6 @@ const Feed = ({ mode }: Props) => {
                 inlineParent={!data[index - 1]?.hasReply}
               />
             )}
-            keyExtractor={(item: (typeof data)[number]) => item.item.post.cid}
             onEndReachedThreshold={0.5}
             onEndReached={() => void timeline.fetchNextPage()}
             onRefresh={() => void handleRefresh()}
