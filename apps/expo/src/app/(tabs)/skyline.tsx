@@ -247,7 +247,7 @@ const Feed = ({ mode }: Props) => {
             onEndReached={() => void timeline.fetchNextPage()}
             onRefresh={() => void handleRefresh()}
             refreshing={refreshing}
-            estimatedItemSize={91}
+            estimatedItemSize={180}
             ListFooterComponent={
               timeline.isFetching ? (
                 <View className="w-full items-center py-4">

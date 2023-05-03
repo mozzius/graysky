@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
@@ -29,7 +29,6 @@ export default function PostPage() {
   const agent = useAuthedAgent();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
-  const hasScrolled = useRef(false);
 
   const thread = useQuery({
     queryKey: ["profile", handle, "post", id],
@@ -119,20 +118,6 @@ export default function PostPage() {
 
   const { refreshing, handleRefresh } = useUserRefresh(thread.refetch);
 
-  // hacky but needed until https://github.com/Shopify/flash-list/issues/671 is fixed
-  useEffect(() => {
-    if (thread.isSuccess && !hasScrolled.current) {
-      const index = thread.data.index;
-      hasScrolled.current = true;
-      setTimeout(() => {
-        ref.current?.scrollToIndex({
-          animated: true,
-          index,
-        });
-      }, 500);
-    }
-  }, [thread.isSuccess, thread.data?.index]);
-
   useTabPressScroll(ref);
 
   switch (thread.status) {
@@ -159,8 +144,9 @@ export default function PostPage() {
           <FlashList
             ref={ref}
             data={thread.data.posts}
-            estimatedItemSize={91}
+            estimatedItemSize={150}
             onRefresh={() => void handleRefresh()}
+            initialScrollIndex={thread.data.index}
             refreshing={refreshing}
             ListFooterComponent={<View className="h-20" />}
             getItemType={(item) => (item.primary ? "big" : "small")}
