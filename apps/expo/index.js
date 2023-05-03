@@ -1,7 +1,15 @@
 import "react-native-gesture-handler";
 import "./src/lib/utils/polyfills/platform-polyfills";
+import { Platform, StatusBar } from "react-native";
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";
+
+StatusBar.setBarStyle("dark-content");
+
+if (Platform.OS === "android") {
+  StatusBar.setTranslucent(true);
+  StatusBar.setBackgroundColor("transparent");
+}
 
 // Must be exported or Fast Refresh won't update the context
 export function App() {
