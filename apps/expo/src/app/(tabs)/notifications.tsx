@@ -155,6 +155,7 @@ const NotificationsPage = () => {
                 </View>
               ) : null
             }
+            extraData={notifications.dataUpdatedAt}
           />
         </>
       );

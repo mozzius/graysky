@@ -26,8 +26,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         await agent.follow(profile.did);
       }
     },
-    onSettled: () =>
-      void queryClient.invalidateQueries(["profile", profile.handle]),
+    onSettled: () => {
+      void queryClient.invalidateQueries(["profile", profile.handle]);
+      void queryClient.invalidateQueries(["network"]);
+    },
   });
 
   return (

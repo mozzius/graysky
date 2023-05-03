@@ -324,6 +324,7 @@ export const ProfileView = ({
                 </View>
               )
             }
+            extraData={timeline.dataUpdatedAt}
           />
         );
       }

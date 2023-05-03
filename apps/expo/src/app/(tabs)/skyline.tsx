@@ -255,6 +255,7 @@ const Feed = ({ mode }: Props) => {
                 </View>
               ) : null
             }
+            extraData={timeline.dataUpdatedAt}
           />
           <ComposeButton />
         </>
