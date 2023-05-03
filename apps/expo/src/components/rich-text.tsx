@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from "react";
-import { Linking, Text } from "react-native";
+import { Alert, Linking, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
@@ -31,6 +31,15 @@ export const RichText = ({
         try {
           const url = new URL(segment.text);
           textToShow = url.hostname;
+          if (url.pathname.length > 15) {
+            textToShow += url.pathname.slice(0, 12) + "...";
+          } else {
+            textToShow += url.pathname;
+          }
+          // trim trailing /
+          if (textToShow.endsWith("/")) {
+            textToShow = textToShow.slice(0, -1);
+          }
         } catch (e) {
           textToShow = segment.text;
         }
@@ -48,6 +57,28 @@ export const RichText = ({
                   router.push(path);
                 } else {
                   void Linking.openURL(url);
+                  // check link is not deceptive
+                  // TODO: test
+                  // const realHost = new URL(url).hostname;
+                  // const statedHost = new URL(segment.text).hostname;
+                  // if (realHost === statedHost) {
+                  //   void Linking.openURL(url);
+                  // } else {
+                  //   Alert.alert(
+                  //     "Deceptive link",
+                  //     `This link does not match the stated URL in the text. This will take you to ${realHost}`,
+                  //     [
+                  //       {
+                  //         text: "Cancel",
+                  //         style: "cancel",
+                  //       },
+                  //       {
+                  //         text: "Open anyway",
+                  //         onPress: () => void Linking.openURL(url),
+                  //       },
+                  //     ],
+                  //   );
+                  // }
                 }
               }}
             >

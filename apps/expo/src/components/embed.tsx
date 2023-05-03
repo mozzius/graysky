@@ -144,7 +144,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               {record.value.text}
             </Text>
             {/* in what case will there be more than one? in what order do we show them? */}
-            {record.embeds && (
+            {record.embeds && record.embeds.length > 0 && (
               <Embed
                 uri={record.uri}
                 content={record.embeds[0]}
@@ -220,7 +220,7 @@ const ImageEmbed = ({
                     key={image.thumb}
                     source={{ uri: image.thumb }}
                     alt={image.alt}
-                    className="aspect-square w-[49%]"
+                    className="aspect-square"
                   />
                 </TouchableWithoutFeedback>
               </Link>
@@ -311,27 +311,26 @@ export const PostEmbed = ({
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
   return (
-    <Link href={postHref} asChild>
-      <TouchableOpacity
-        accessibilityHint="Opens embedded post"
-        className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500"
-      >
-        <View className="flex flex-row items-center overflow-hidden">
-          <Image
-            key={author.avatar}
-            source={{ uri: author.avatar }}
-            alt={author.displayName}
-            className="mr-2 h-4 w-4 rounded-full"
-          />
-          <Text className="text-base" numberOfLines={1}>
-            <Text className="font-semibold dark:text-neutral-50">
-              {author.displayName}
+    <View className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-500">
+      <Link href={postHref} asChild>
+        <TouchableOpacity accessibilityHint="Opens embedded post">
+          <View className="flex flex-row items-center overflow-hidden">
+            <Image
+              key={author.avatar}
+              source={{ uri: author.avatar }}
+              alt={author.displayName}
+              className="mr-2 h-4 w-4 rounded-full"
+            />
+            <Text className="text-base" numberOfLines={1}>
+              <Text className="font-semibold dark:text-neutral-50">
+                {author.displayName}
+              </Text>
+              <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
             </Text>
-            <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
-          </Text>
-        </View>
-        {children}
-      </TouchableOpacity>
-    </Link>
+          </View>
+          {children}
+        </TouchableOpacity>
+      </Link>
+    </View>
   );
 };

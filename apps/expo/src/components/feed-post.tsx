@@ -277,23 +277,25 @@ const Reason = ({ item }: Props) => {
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
 
   return (
-    <Link
-      href={`/profile/${item.reason.by.handle}`}
-      asChild
-      accessibilityHint="Opens profile"
-    >
-      <TouchableOpacity>
-        <View className="mb-1 ml-12 flex-1 flex-row items-center">
-          <Repeat color={buttonColor} size={12} />
-          <Text
-            className="ml-2 flex-1 text-sm dark:text-neutral-50"
-            numberOfLines={1}
-          >
-            Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </Link>
+    <View className="mb-1 ml-12 flex-1">
+      <Link
+        href={`/profile/${item.reason.by.handle}`}
+        asChild
+        accessibilityHint="Opens profile"
+      >
+        <TouchableOpacity>
+          <View className="flex-1 flex-row items-center">
+            <Repeat color={buttonColor} size={12} />
+            <Text
+              className="ml-2 flex-1 text-sm dark:text-neutral-50"
+              numberOfLines={1}
+            >
+              Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </Link>
+    </View>
   );
 };
 
