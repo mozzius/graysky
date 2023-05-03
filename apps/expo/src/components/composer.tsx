@@ -1,6 +1,7 @@
 import {
   createContext,
   forwardRef,
+  memo,
   useCallback,
   useContext,
   useEffect,
@@ -72,7 +73,7 @@ export const ComposerProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <ComposerContext.Provider value={value}>
       {children}
-      <Composer ref={ref} />
+      <MemoizedComposer ref={ref} />
     </ComposerContext.Provider>
   );
 };
@@ -374,6 +375,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   );
 });
 Composer.displayName = "Composer";
+
+const MemoizedComposer = memo(Composer);
 
 const Spinner = ({ show }: { show: boolean }) => {
   const spin = useSharedValue(0);

@@ -114,14 +114,12 @@ const NotificationsPage = () => {
     case "loading":
       return (
         <View className="flex-1 items-center justify-center">
-          <Stack.Screen options={{ headerShown: true }} />
           <ActivityIndicator />
         </View>
       );
     case "error":
       return (
         <View className="flex-1 items-center justify-center p-4">
-          <Stack.Screen options={{ headerShown: true }} />
           <Text className="mb-4 text-center text-lg dark:text-neutral-50">
             {(notifications.error as Error).message || "An error occurred"}
           </Text>
@@ -136,9 +134,7 @@ const NotificationsPage = () => {
     case "success":
       return (
         <>
-          <Stack.Screen
-            options={{ headerShown: true, headerTransparent: true }}
-          />
+          <Stack.Screen options={{ headerTransparent: true }} />
           <View
             className="w-full border-b border-neutral-200 bg-white dark:border-neutral-500 dark:bg-black"
             style={{ height: headerHeight }}
@@ -168,6 +164,7 @@ const NotificationsPage = () => {
 export default function Page() {
   return (
     <ComposerProvider>
+      <Stack.Screen options={{ headerShown: true, title: "Notifications" }} />
       <NotificationsPage />
     </ComposerProvider>
   );
