@@ -130,13 +130,13 @@ export const FeedPost = ({
               href={profileHref}
               accessibilityLabel={
                 isReply
-                  ? `Reply by ${postAuthorDisplayName} @${postAuthorHandle}`
-                  : `${postAuthorDisplayName} @${postAuthorHandle}`
+                  ? `Reply by ${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
+                  : `${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
               }
               accessibilityHint="Opens profile"
               asChild
             >
-              <View className="flex-row flex-wrap">
+              <TouchableWithoutFeedback className="flex-row flex-wrap">
                 <Text numberOfLines={1} className="max-w-[85%] text-base">
                   <Text className="font-semibold dark:text-neutral-50">
                     {postAuthorDisplayName}
@@ -146,14 +146,11 @@ export const FeedPost = ({
                   </Text>
                 </Text>
                 {/* get age of post - e.g. 5m */}
-                <Text
-                  className="text-base text-neutral-500 dark:text-neutral-400"
-                  accessibilityLabel={timeSincePost.accessible}
-                >
+                <Text className="text-base text-neutral-500 dark:text-neutral-400">
                   {" · "}
                   {timeSincePost.visible}
                 </Text>
-              </View>
+              </TouchableWithoutFeedback>
             </Link>
           </View>
           {/* inline "replying to so-and-so" */}
