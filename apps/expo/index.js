@@ -4,6 +4,8 @@ import { Platform, StatusBar } from "react-native";
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";
 
+// https://github.com/expo/expo/issues/3874
+
 StatusBar.setBarStyle("dark-content");
 
 if (Platform.OS === "android") {
