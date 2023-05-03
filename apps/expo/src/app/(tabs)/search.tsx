@@ -14,6 +14,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../../lib/agent";
 import { queryClient } from "../../lib/query-client";
@@ -35,24 +36,30 @@ export default function SearchPage() {
     return unsub;
   }, [navigation]);
 
+  const { colorScheme } = useColorScheme();
+
   return (
     <>
       <SafeAreaView
         edges={["left", "top", "right"]}
-        className="dark:bg-dark border-b border-neutral-200 bg-white p-4"
+        mode="padding"
+        className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-600 dark:bg-black"
       >
         <View className="relative">
           <Search
             className="absolute left-4 top-2.5 z-10"
             size={24}
-            color="#b9b9b9"
+            color={colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"}
           />
           <TextInput
             ref={ref}
             value={search}
             onChangeText={setSearch}
             placeholder="Search"
-            className="rounded-full bg-neutral-100 py-3 pl-12 pr-2 text-base leading-5"
+            placeholderTextColor={
+              colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"
+            }
+            className="rounded-full bg-neutral-100 py-3 pl-12 pr-2 text-base leading-5 dark:bg-neutral-800 dark:text-neutral-50"
           />
         </View>
       </SafeAreaView>
@@ -189,7 +196,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
   return (
     <Link href={href} asChild>
       <TouchableWithoutFeedback>
-        <View className="mx-4 mt-4 rounded bg-white p-4 shadow-sm">
+        <View className="mx-4 mt-4 rounded bg-white p-4 shadow-sm dark:bg-neutral-900">
           <View className="flex-row items-center">
             <Image
               key={item.avatar}
@@ -220,7 +227,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                   }
                 }}
                 className={cx(
-                  "shrink-0 rounded-full px-4 py-1",
+                  "shrink-0 rounded-full border border-white px-4 py-1",
                   follow.isIdle ? "bg-black" : "bg-neutral-100",
                 )}
               >
