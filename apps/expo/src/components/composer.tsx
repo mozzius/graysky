@@ -43,6 +43,7 @@ import { Camera, ImagePlus, Loader2, Send } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../lib/agent";
+import { queryClient } from "../lib/query-client";
 import { cx } from "../lib/utils/cx";
 import { Avatar } from "./avatar";
 import { PostEmbed } from "./embed";
@@ -143,6 +144,13 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           facets: rt.facets,
           reply: context as AppBskyFeedDefs.ReplyRef | undefined,
         });
+        if (isReply && postView) {
+          void queryClient.invalidateQueries([
+            "profile",
+            postView.author.handle,
+            "post",
+          ]);
+        }
       }
     },
     onMutate: () => {

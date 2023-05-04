@@ -26,6 +26,7 @@ export default function PostPage() {
     id: string;
     handle: string;
   };
+
   const agent = useAuthedAgent();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
