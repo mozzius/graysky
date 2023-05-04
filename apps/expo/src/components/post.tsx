@@ -57,25 +57,29 @@ export const Post = ({ post, hasParent, root }: Props) => {
       )}
     >
       <View className="mb-2 flex-row">
-        {post.author.avatar ? (
-          <Image
-            source={{ uri: post.author.avatar }}
-            alt=""
-            className="h-12 w-12 rounded-full"
-          />
-        ) : (
-          <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
-            <User size={32} color={buttonColor} />
-          </View>
-        )}
+        <Link href={profileHref} asChild>
+          <TouchableOpacity>
+            {post.author.avatar ? (
+              <Image
+                source={{ uri: post.author.avatar }}
+                alt=""
+                className="h-12 w-12 rounded-full"
+              />
+            ) : (
+              <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
+                <User size={32} color={buttonColor} />
+              </View>
+            )}
+          </TouchableOpacity>
+        </Link>
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
-            className="flex-1"
             accessibilityHint="Opens profile"
             accessibilityLabel={`${postAuthorDisplayName} @${postAuthorHandle}`}
+            asChild
           >
-            <View className="flex-1">
+            <TouchableOpacity className="flex-1">
               <Text
                 numberOfLines={1}
                 className="text-base font-semibold dark:text-neutral-50"
@@ -88,7 +92,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
               >
                 @{postAuthorHandle}
               </Text>
-            </View>
+            </TouchableOpacity>
           </Link>
           <TouchableOpacity
             accessibilityLabel="More options"
