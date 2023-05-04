@@ -38,11 +38,11 @@ const ActorDetailsInner = () => {
         </Text>
         <Text className="mt-px text-base text-neutral-500 dark:text-neutral-400">{`@${self.handle}`}</Text>
       </View>
-      <View className="mt-3 flex-row">
-        <Text className="dark:text-white">
+      <View className="mt-3 flex-row flex-wrap">
+        <Text className="mr-4 dark:text-white">
           <Text className="font-bold">{self.followersCount}</Text> Followers
         </Text>
-        <Text className="ml-4 dark:text-white">
+        <Text className="dark:text-white">
           <Text className="font-bold">{self.followsCount}</Text> Following
         </Text>
       </View>

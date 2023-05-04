@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Alert, Dimensions, Text, View, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,6 +20,10 @@ import { useColorScheme } from "nativewind";
 
 import { ActorDetails } from "../../components/actor-details";
 import { Avatar } from "../../components/avatar";
+import {
+  InviteCodes,
+  type InviteCodesRef,
+} from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
 import { useLogOut } from "../../lib/log-out-context";
 
@@ -27,6 +31,7 @@ export default function AppLayout() {
   const agent = useAuthedAgent();
   const [open, setOpen] = useState(false);
   const logOut = useLogOut();
+  const inviteRef = useRef<InviteCodesRef>(null);
 
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
@@ -73,7 +78,7 @@ export default function AppLayout() {
             accessibilityRole="button"
             accessibilityLabel="Invite codes"
             className="mt-2 w-full flex-row items-center py-2"
-            onPress={() => Alert.alert("Not yet implemented")}
+            onPress={() => inviteRef.current?.open()}
           >
             <Ticket color={textColor} />
             <Text className="ml-6 text-base font-medium dark:text-white">
@@ -124,139 +129,147 @@ export default function AppLayout() {
   );
 
   return (
-    <Drawer
-      open={open}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
-      renderDrawerContent={renderDrawerContent}
-      drawerType="slide"
-      statusBarAnimation="slide"
-      drawerStyle={{
-        width: Dimensions.get("window").width * 0.8,
-        backgroundColor: colorScheme === "light" ? "#FFF" : "#1C1C1C",
-      }}
-    >
-      <Stack.Screen
-        options={{
-          headerShown: false,
-          animation: "none",
-        }}
-      />
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          // Would be nice - need to fix composer
-          // tabBarStyle: {
-          //   position: "absolute",
-          //   backgroundColor: "rgba(255, 255, 255, 0.95)",
-          // },
-          headerTitleStyle: {
-            color: textColor,
-          },
+    <>
+      <Drawer
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderDrawerContent={renderDrawerContent}
+        drawerType="slide"
+        statusBarAnimation="slide"
+        drawerStyle={{
+          width: Dimensions.get("window").width * 0.8,
+          backgroundColor: colorScheme === "light" ? "#FFF" : "#1C1C1C",
         }}
       >
-        <Tabs.Screen
-          name="skyline"
+        <Stack.Screen
           options={{
-            title: "Skyline",
-            tabBarIcon({ focused }) {
-              return (
-                <Cloudy
-                  color={
-                    focused
-                      ? tabBarIconColors.color.focused
-                      : tabBarIconColors.color.unfocused
-                  }
-                  fill={
-                    focused
-                      ? tabBarIconColors.fill.focused
-                      : tabBarIconColors.fill.unfocused
-                  }
-                />
-              );
-            },
-            headerLeft: () => (
-              <TouchableOpacity className="ml-6" onPress={() => setOpen(true)}>
-                <Avatar size="small" />
-              </TouchableOpacity>
-            ),
+            headerShown: false,
+            animation: "none",
           }}
         />
-        <Tabs.Screen
-          name="search"
-          options={{
-            title: "Search",
-            tabBarIcon({ focused }) {
-              return (
-                <Search
-                  color={
-                    focused
-                      ? tabBarIconColors.color.focused
-                      : tabBarIconColors.color.unfocused
-                  }
-                  fill={
-                    focused
-                      ? tabBarIconColors.fill.focused
-                      : tabBarIconColors.fill.unfocused
-                  }
-                />
-              );
+        <Tabs
+          screenOptions={{
+            headerShown: false,
+            tabBarShowLabel: false,
+            // Would be nice - need to fix composer
+            // tabBarStyle: {
+            //   position: "absolute",
+            //   backgroundColor: "rgba(255, 255, 255, 0.95)",
+            // },
+            headerTitleStyle: {
+              color: textColor,
             },
           }}
-        />
-        <Tabs.Screen
-          name="notifications"
-          options={{
-            title: `Notifications${
-              notifications.data?.data?.count || undefined ? ", new items" : ""
-            }`,
-            tabBarBadge: notifications.data?.data?.count || undefined,
-            tabBarBadgeStyle: {
-              backgroundColor: tabBarBadgeColor,
-              fontSize: 12,
-            },
-            tabBarIcon({ focused }) {
-              return (
-                <Bell
-                  color={
-                    focused
-                      ? tabBarIconColors.color.focused
-                      : tabBarIconColors.color.unfocused
-                  }
-                  fill={
-                    focused
-                      ? tabBarIconColors.fill.focused
-                      : tabBarIconColors.fill.unfocused
-                  }
-                />
-              );
-            },
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            tabBarIcon({ focused }) {
-              return (
-                <User
-                  color={
-                    focused
-                      ? tabBarIconColors.color.focused
-                      : tabBarIconColors.color.unfocused
-                  }
-                  fill={
-                    focused
-                      ? tabBarIconColors.fill.focused
-                      : tabBarIconColors.fill.unfocused
-                  }
-                />
-              );
-            },
-          }}
-        />
-      </Tabs>
-    </Drawer>
+        >
+          <Tabs.Screen
+            name="skyline"
+            options={{
+              title: "Skyline",
+              tabBarIcon({ focused }) {
+                return (
+                  <Cloudy
+                    color={
+                      focused
+                        ? tabBarIconColors.color.focused
+                        : tabBarIconColors.color.unfocused
+                    }
+                    fill={
+                      focused
+                        ? tabBarIconColors.fill.focused
+                        : tabBarIconColors.fill.unfocused
+                    }
+                  />
+                );
+              },
+              headerLeft: () => (
+                <TouchableOpacity
+                  className="ml-6"
+                  onPress={() => setOpen(true)}
+                >
+                  <Avatar size="small" />
+                </TouchableOpacity>
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="search"
+            options={{
+              title: "Search",
+              tabBarIcon({ focused }) {
+                return (
+                  <Search
+                    color={
+                      focused
+                        ? tabBarIconColors.color.focused
+                        : tabBarIconColors.color.unfocused
+                    }
+                    fill={
+                      focused
+                        ? tabBarIconColors.fill.focused
+                        : tabBarIconColors.fill.unfocused
+                    }
+                  />
+                );
+              },
+            }}
+          />
+          <Tabs.Screen
+            name="notifications"
+            options={{
+              title: `Notifications${
+                notifications.data?.data?.count || undefined
+                  ? ", new items"
+                  : ""
+              }`,
+              tabBarBadge: notifications.data?.data?.count || undefined,
+              tabBarBadgeStyle: {
+                backgroundColor: tabBarBadgeColor,
+                fontSize: 12,
+              },
+              tabBarIcon({ focused }) {
+                return (
+                  <Bell
+                    color={
+                      focused
+                        ? tabBarIconColors.color.focused
+                        : tabBarIconColors.color.unfocused
+                    }
+                    fill={
+                      focused
+                        ? tabBarIconColors.fill.focused
+                        : tabBarIconColors.fill.unfocused
+                    }
+                  />
+                );
+              },
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: "Profile",
+              tabBarIcon({ focused }) {
+                return (
+                  <User
+                    color={
+                      focused
+                        ? tabBarIconColors.color.focused
+                        : tabBarIconColors.color.unfocused
+                    }
+                    fill={
+                      focused
+                        ? tabBarIconColors.fill.focused
+                        : tabBarIconColors.fill.unfocused
+                    }
+                  />
+                );
+              },
+            }}
+          />
+        </Tabs>
+      </Drawer>
+      <InviteCodes ref={inviteRef} />
+    </>
   );
 }
