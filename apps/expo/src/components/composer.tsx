@@ -290,7 +290,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   <RichText
                     text={postView.record.text}
                     facets={postView.record.facets}
-                    numberOfLines={3}
+                    numberOfLines={2}
                   />
                 ) : (
                   <Text>📷</Text>
@@ -321,13 +321,20 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                 }
                 style={[textInputStyle, send.isLoading && { opacity: 0.5 }]}
                 multiline
-                value={text}
                 onChangeText={(text) => send.isIdle && setText(text)}
                 editable={send.isIdle}
                 selectTextOnFocus={false}
                 textAlignVertical="top"
                 placeholderTextColor={colorScheme === "light" ? "#aaa" : "#555"}
-              />
+              >
+                <RichText
+                  size="xl"
+                  text={rt.data?.text ?? text}
+                  facets={rt.data?.facets}
+                  truncate={false}
+                  disableLinks
+                />
+              </BottomSheetTextInput>
             </View>
           </View>
         </View>
