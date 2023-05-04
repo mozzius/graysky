@@ -34,14 +34,16 @@ Then just scan the QR code!
 - [x] Quote post
 - [x] Dark mode
 - [x] Sidebar w/ logout button
+- [x] Search screen
+- [x] Invites screen
 - [ ] Followers/Following screens
+- [ ] Likes list
 - [ ] Settings screen
 - [ ] Context menu - user actions
 - [ ] Image viewer: Pinch to zoom
 - [ ] Better haptics
-- [ ] Search screen
-- [ ] Invites screen
 - [ ] Create account flow
+- [ ] Edit profile screen
 - [ ] Push notifications
 - [ ] App Store???
 
