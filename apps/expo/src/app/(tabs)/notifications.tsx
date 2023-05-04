@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -52,14 +52,6 @@ const NotificationsPage = () => {
         cursor: pageParam as string | undefined,
       });
       if (!notifs.success) throw new Error("Failed to fetch notifications");
-      // mark as read
-      if (pageParam === undefined) {
-        void agent.updateSeenNotifications().then(() => {
-          return queryClient.invalidateQueries({
-            queryKey: ["notifications", "unread"],
-          });
-        });
-      }
       // refetch the post queries so they update
       void queryClient.invalidateQueries({
         queryKey: ["notifications", "post"],
@@ -95,9 +87,32 @@ const NotificationsPage = () => {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
+  const hasData = !!notifications.data;
+
+  useEffect(() => {
+    if (!hasData) return;
+    const timeout = setTimeout(() => {
+      void agent.updateSeenNotifications().then(() =>
+        queryClient.invalidateQueries({
+          queryKey: ["notifications", "unread"],
+        }),
+      );
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [agent, hasData, notifications.dataUpdatedAt]);
+
   useRefreshOnFocus(notifications.refetch);
 
-  const { refreshing, handleRefresh } = useUserRefresh(notifications.refetch);
+  const { refreshing, handleRefresh } = useUserRefresh(() =>
+    notifications
+      .refetch()
+      .then(() => agent.updateSeenNotifications())
+      .then(() =>
+        queryClient.invalidateQueries({
+          queryKey: ["notifications", "unread"],
+        }),
+      ),
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const ref = useTabPressScrollRef(notifications.refetch);

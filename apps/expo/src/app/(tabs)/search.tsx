@@ -12,13 +12,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useNavigation, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { Search } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../../lib/agent";
+import { useTabPressScroll } from "../../lib/hooks";
 import { queryClient } from "../../lib/query-client";
 import { cx } from "../../lib/utils/cx";
+import { useUserRefresh } from "../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -71,6 +73,8 @@ interface Props {
   search: string;
 }
 const SearchResults = ({ search }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ref = useRef<FlashList<any>>(null);
   const agent = useAuthedAgent();
 
   const searchResults = useInfiniteQuery({
@@ -87,6 +91,10 @@ const SearchResults = ({ search }: Props) => {
     getNextPageParam: (lastPage) => lastPage.cursor,
     keepPreviousData: true,
   });
+
+  const { refreshing, handleRefresh } = useUserRefresh(searchResults.refetch);
+
+  useTabPressScroll(ref);
 
   const data = useMemo(() => {
     if (!searchResults.data) return [];
@@ -112,8 +120,11 @@ const SearchResults = ({ search }: Props) => {
       return (
         <View className="flex-1 dark:bg-black">
           <FlashList
+            ref={ref}
             data={data}
             estimatedItemSize={173}
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
             renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
               <SuggestionCard item={item} />
             )}
@@ -125,15 +136,24 @@ const SearchResults = ({ search }: Props) => {
 };
 
 const Suggestions = () => {
+  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
   const agent = useAuthedAgent();
-  const suggestions = useQuery({
+
+  const suggestions = useInfiniteQuery({
     queryKey: ["network"],
-    queryFn: async () => {
-      const { data, success } = await agent.getSuggestions();
-      if (!success) throw new Error("Failed to get suggestions");
-      return data;
+    queryFn: async ({ pageParam }) => {
+      const result = await agent.getSuggestions({
+        cursor: pageParam as string | undefined,
+      });
+      if (!result.success) throw new Error("Failed to get suggestions");
+      return result;
     },
+    getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
+
+  const { refreshing, handleRefresh } = useUserRefresh(suggestions.refetch);
+
+  useTabPressScroll(ref);
 
   switch (suggestions.status) {
     case "loading":
@@ -154,8 +174,10 @@ const Suggestions = () => {
       return (
         <View className="flex-1 dark:bg-black">
           <FlashList
-            data={suggestions.data.actors}
+            data={suggestions.data.pages.flatMap((page) => page.data.actors)}
             estimatedItemSize={173}
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
             renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
               <SuggestionCard item={item} />
             )}
@@ -164,6 +186,7 @@ const Suggestions = () => {
                 In your network
               </Text>
             }
+            onEndReached={() => void suggestions.fetchNextPage()}
           />
         </View>
       );

@@ -35,11 +35,11 @@ export default function AppLayout() {
     colorScheme === "light"
       ? {
           color: {
-            focused: "#505050",
+            focused: "#1C1C1C",
             unfocused: "#9b9b9b",
           },
           fill: {
-            focused: "#505050",
+            focused: "#1C1C1C",
             unfocused: undefined,
           },
         }

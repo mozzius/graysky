@@ -340,7 +340,7 @@ export const ProfileView = ({
               headerTransparent: true,
               headerTitle: "",
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: backgroundColor,
               },
               headerShown: header && !atTop,
             }}
