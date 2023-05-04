@@ -6,11 +6,13 @@ import * as Clipboard from "expo-clipboard";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
 import { Copy, CopyCheck } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
+import { useBottomSheetStyles } from "../lib/bottom-sheet";
 import { cx } from "../lib/utils/cx";
 import { useUserRefresh } from "../lib/utils/query";
 
@@ -21,16 +23,8 @@ export interface InviteCodesRef {
 export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { top } = useSafeAreaInsets();
-  const agent = useAuthedAgent();
 
-  const codes = useQuery({
-    queryKey: ["invite-codes"],
-    queryFn: async () => {
-      return await agent.com.atproto.server.getAccountInviteCodes({
-        includeUsed: true,
-      });
-    },
-  });
+  const codes = useInviteCodes();
 
   useImperativeHandle(ref, () => ({
     open: () => {
@@ -47,6 +41,9 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
 
   const { refreshing, handleRefresh } = useUserRefresh(codes.refetch);
 
+  const { handleStyle, handleIndicatorStyle, contentContainerStyle } =
+    useBottomSheetStyles();
+
   return (
     <BottomSheet
       index={-1}
@@ -55,36 +52,45 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
       snapPoints={[1, "60%", Dimensions.get("window").height - top - 10]}
       backdropComponent={BottomSheetBackdrop}
       onChange={handleSheetChanges}
+      handleIndicatorStyle={handleIndicatorStyle}
+      handleStyle={handleStyle}
     >
-      <Text className="mt-2 text-center text-xl font-medium">Invite Codes</Text>
-      {codes.data ? (
-        <View className="mt-4 flex-1 px-4">
-          <BottomSheetFlatList
-            data={codes.data.data.codes}
-            renderItem={({ item }) => (
-              <CodeRow
-                code={item.code}
-                used={!!item.forAccount || item.disabled}
-              />
-            )}
-            keyExtractor={(item) => item.code}
-            ItemSeparatorComponent={() => <View className="h-px bg-gray-200" />}
-            ListEmptyComponent={() => (
-              <View className="flex-1 items-center justify-center">
-                <Text className="text-center text-gray-500">
-                  No invite codes yet :(
-                </Text>
-              </View>
-            )}
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-          />
-        </View>
-      ) : (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator />
-        </View>
-      )}
+      <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
+        <Text className="mt-2 text-center text-xl font-medium dark:text-neutral-50">
+          Invite Codes
+        </Text>
+        {codes.data ? (
+          <View className="mt-4 flex-1 px-4 dark:bg-black">
+            <BottomSheetFlatList
+              style={contentContainerStyle}
+              data={codes.data.data.codes}
+              renderItem={({ item }) => (
+                <CodeRow
+                  code={item.code}
+                  used={!!item.forAccount || item.disabled}
+                />
+              )}
+              keyExtractor={(item) => item.code}
+              ItemSeparatorComponent={() => (
+                <View className="h-px bg-gray-200" />
+              )}
+              ListEmptyComponent={() => (
+                <View className="flex-1 items-center justify-center">
+                  <Text className="text-center text-gray-500">
+                    No invite codes yet :(
+                  </Text>
+                </View>
+              )}
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+            />
+          </View>
+        ) : (
+          <View className="flex-1 items-center justify-center">
+            <ActivityIndicator />
+          </View>
+        )}
+      </BottomSheetView>
     </BottomSheet>
   );
 });
@@ -102,7 +108,10 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
       className="flex-row items-center justify-between py-2"
     >
       <Text
-        className={cx("text-base", used && "text-neutral-400 line-through")}
+        className={cx(
+          "text-base dark:text-neutral-50",
+          used && "text-neutral-400 line-through",
+        )}
       >
         {code}
       </Text>
@@ -114,3 +123,16 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
     </TouchableOpacity>
   );
 }
+
+export const useInviteCodes = () => {
+  const agent = useAuthedAgent();
+
+  return useQuery({
+    queryKey: ["invite-codes"],
+    queryFn: async () => {
+      return await agent.com.atproto.server.getAccountInviteCodes({
+        includeUsed: true,
+      });
+    },
+  });
+};

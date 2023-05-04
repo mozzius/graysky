@@ -10,14 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  Alert,
-  Keyboard,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Keyboard, Text, TouchableOpacity, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -26,6 +19,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Haptics from "expo-haptics";
 import {
   AppBskyFeedPost,
   RichText as RichTextHelper,
@@ -43,6 +37,7 @@ import { Camera, ImagePlus, Loader2, Send } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../lib/agent";
+import { useBottomSheetStyles } from "../lib/bottom-sheet";
 import { queryClient } from "../lib/query-client";
 import { cx } from "../lib/utils/cx";
 import { Avatar } from "./avatar";
@@ -154,8 +149,13 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       }
     },
     onMutate: () => {
+      void Haptics.impactAsync();
       Keyboard.dismiss();
       setTimeout(() => bottomSheetRef.current?.collapse(), 100);
+    },
+    onError: () => {
+      setTimeout(() => bottomSheetRef.current?.expand(), 150);
+      send.reset();
     },
     onSuccess: () => {
       setText("Sent!");
@@ -229,30 +229,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     textInputStyle,
     handleStyle,
     handleIndicatorStyle,
-  } = useMemo(
-    () =>
-      StyleSheet.create({
-        contentContainerStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "black",
-        },
-        textInputStyle: {
-          padding: 0,
-          fontSize: 20,
-          lineHeight: 28,
-          height: 150,
-          color: colorScheme === "light" ? undefined : "white",
-        },
-        handleStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "black",
-          borderTopStartRadius: 15,
-          borderTopEndRadius: 15,
-        },
-        handleIndicatorStyle: {
-          backgroundColor: colorScheme === "light" ? "black" : "white",
-        },
-      }),
-    [colorScheme],
-  );
+  } = useBottomSheetStyles();
 
   const renderBackdrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
