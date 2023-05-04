@@ -114,11 +114,6 @@ const SearchResults = ({ search }: Props) => {
           <FlashList
             data={data}
             estimatedItemSize={173}
-            ListHeaderComponent={
-              <Text className="mt-4 px-4 text-lg font-bold">
-                In your network
-              </Text>
-            }
             renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
               <SuggestionCard item={item} />
             )}
@@ -164,6 +159,11 @@ const Suggestions = () => {
             renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
               <SuggestionCard item={item} />
             )}
+            ListHeaderComponent={
+              <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
+                In your network
+              </Text>
+            }
           />
         </View>
       );
