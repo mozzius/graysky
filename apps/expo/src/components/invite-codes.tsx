@@ -12,6 +12,7 @@ import { Copy, CopyCheck } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
 import { cx } from "../lib/utils/cx";
+import { useUserRefresh } from "../lib/utils/query";
 
 export interface InviteCodesRef {
   open: () => void;
@@ -44,6 +45,8 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
     }
   };
 
+  const { refreshing, handleRefresh } = useUserRefresh(codes.refetch);
+
   return (
     <BottomSheet
       index={-1}
@@ -66,6 +69,15 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
             )}
             keyExtractor={(item) => item.code}
             ItemSeparatorComponent={() => <View className="h-px bg-gray-200" />}
+            ListEmptyComponent={() => (
+              <View className="flex-1 items-center justify-center">
+                <Text className="text-center text-gray-500">
+                  No invite codes yet :(
+                </Text>
+              </View>
+            )}
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
           />
         </View>
       ) : (
@@ -90,10 +102,7 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
       className="flex-row items-center justify-between py-2"
     >
       <Text
-        className={cx(
-          "font-mono text-base",
-          used && "text-neutral-400 line-through",
-        )}
+        className={cx("text-base", used && "text-neutral-400 line-through")}
       >
         {code}
       </Text>
