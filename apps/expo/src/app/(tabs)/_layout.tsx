@@ -22,6 +22,7 @@ import { ActorDetails } from "../../components/actor-details";
 import { Avatar } from "../../components/avatar";
 import {
   InviteCodes,
+  useInviteCodes,
   type InviteCodesRef,
 } from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
@@ -32,6 +33,12 @@ export default function AppLayout() {
   const [open, setOpen] = useState(false);
   const logOut = useLogOut();
   const inviteRef = useRef<InviteCodesRef>(null);
+  const codes = useInviteCodes();
+
+  const numCodes = (codes.data?.data?.codes ?? []).reduce(
+    (acc, code) => (!code.forAccount ? acc + 1 : acc),
+    0,
+  );
 
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
@@ -82,7 +89,7 @@ export default function AppLayout() {
           >
             <Ticket color={textColor} />
             <Text className="ml-6 text-base font-medium dark:text-white">
-              Invite codes
+              Invite codes{numCodes > 0 && ` (${numCodes})`}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -125,7 +132,7 @@ export default function AppLayout() {
         </Text>
       </SafeAreaView>
     ),
-    [logOut, toggleColorScheme, textColor],
+    [logOut, toggleColorScheme, textColor, numCodes],
   );
 
   return (
