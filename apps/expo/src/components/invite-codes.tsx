@@ -60,19 +60,21 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
           Invite Codes
         </Text>
         {codes.data ? (
-          <View className="mt-4 flex-1 px-4 dark:bg-black">
+          <View className="mt-4 flex-1 dark:bg-black">
             <BottomSheetFlatList
               style={contentContainerStyle}
-              data={codes.data.data.codes}
+              data={codes.data.data.codes.sort((x) =>
+                x.uses.length >= x.available ? 1 : -1,
+              )}
               renderItem={({ item }) => (
                 <CodeRow
                   code={item.code}
-                  used={!!item.forAccount || item.disabled}
+                  used={item.uses.length >= item.available}
                 />
               )}
               keyExtractor={(item) => item.code}
               ItemSeparatorComponent={() => (
-                <View className="h-px bg-gray-200" />
+                <View className="mx-8 h-px bg-gray-200" />
               )}
               ListEmptyComponent={() => (
                 <View className="flex-1 items-center justify-center">
@@ -105,7 +107,7 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
       }}
-      className="flex-row items-center justify-between py-2"
+      className="flex-row items-center justify-between px-8 py-2"
     >
       <Text
         className={cx(
