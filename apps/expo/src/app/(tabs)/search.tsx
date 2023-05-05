@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   Image,
+  Keyboard,
   Text,
   TextInput,
   TouchableOpacity,
@@ -13,9 +13,10 @@ import { Link, useNavigation, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { Search } from "lucide-react-native";
+import { Search, X } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
+import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { queryClient } from "../../lib/query-client";
@@ -52,6 +53,7 @@ export default function SearchPage() {
             className="absolute left-4 top-2.5 z-10"
             size={24}
             color={colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"}
+            pointerEvents="none"
           />
           <TextInput
             ref={ref}
@@ -59,10 +61,24 @@ export default function SearchPage() {
             onChangeText={setSearch}
             placeholder="Search"
             placeholderTextColor={
-              colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"
+              colorScheme === "light" ? "#e0e0e0" : "#6b6b6b"
             }
-            className="rounded-full bg-neutral-100 py-3 pl-12 pr-2 text-base leading-5 dark:bg-neutral-800 dark:text-neutral-50"
+            className="rounded-full bg-neutral-100 px-12 py-3 pr-2 text-base leading-5 dark:bg-neutral-800 dark:text-neutral-50"
           />
+          {search.length > 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                setSearch("");
+                Keyboard.dismiss();
+              }}
+              className="absolute right-4 top-2.5 z-10"
+            >
+              <X
+                size={24}
+                color={colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </SafeAreaView>
       {search ? <SearchResults search={search} /> : <Suggestions />}
@@ -101,38 +117,25 @@ const SearchResults = ({ search }: Props) => {
     return searchResults.data.pages.flatMap((page) => page.actors);
   }, [searchResults.data]);
 
-  switch (searchResults.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator />
-        </View>
-      );
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="mb-4 text-center text-lg">
-            {(searchResults.error as Error).message || "An error occurred"}
-          </Text>
-        </View>
-      );
-    case "success":
-      return (
-        <View className="flex-1 dark:bg-black">
-          <FlashList
-            ref={ref}
-            data={data}
-            estimatedItemSize={173}
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-            renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
-              <SuggestionCard item={item} />
-            )}
-            onEndReached={() => void searchResults.fetchNextPage()}
-          />
-        </View>
-      );
+  if (searchResults.data) {
+    return (
+      <View className="flex-1 dark:bg-black">
+        <FlashList
+          ref={ref}
+          data={data}
+          estimatedItemSize={173}
+          refreshing={refreshing}
+          onRefresh={() => void handleRefresh()}
+          renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
+            <SuggestionCard item={item} />
+          )}
+          onEndReached={() => void searchResults.fetchNextPage()}
+        />
+      </View>
+    );
   }
+
+  return <QueryWithoutData query={searchResults} />;
 };
 
 const Suggestions = () => {
@@ -155,42 +158,29 @@ const Suggestions = () => {
 
   useTabPressScroll(ref);
 
-  switch (suggestions.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator />
-        </View>
-      );
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="mb-4 text-center text-lg">
-            {(suggestions.error as Error).message || "An error occurred"}
-          </Text>
-        </View>
-      );
-    case "success":
-      return (
-        <View className="flex-1 dark:bg-black">
-          <FlashList
-            data={suggestions.data.pages.flatMap((page) => page.data.actors)}
-            estimatedItemSize={173}
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-            renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
-              <SuggestionCard item={item} />
-            )}
-            ListHeaderComponent={
-              <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
-                In your network
-              </Text>
-            }
-            onEndReached={() => void suggestions.fetchNextPage()}
-          />
-        </View>
-      );
+  if (suggestions.data) {
+    return (
+      <View className="flex-1 dark:bg-black">
+        <FlashList
+          data={suggestions.data.pages.flatMap((page) => page.data.actors)}
+          estimatedItemSize={173}
+          refreshing={refreshing}
+          onRefresh={() => void handleRefresh()}
+          renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
+            <SuggestionCard item={item} />
+          )}
+          ListHeaderComponent={
+            <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
+              In your network
+            </Text>
+          }
+          onEndReached={() => void suggestions.fetchNextPage()}
+        />
+      </View>
+    );
   }
+
+  return <QueryWithoutData query={suggestions} />;
 };
 
 interface SuggestionCardProps {

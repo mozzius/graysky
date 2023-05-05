@@ -125,56 +125,54 @@ const NotificationsPage = () => {
     return notifs;
   }, [notifications.data]);
 
-  switch (notifications.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator />
-        </View>
-      );
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="mb-4 text-center text-lg dark:text-neutral-50">
-            {(notifications.error as Error).message || "An error occurred"}
-          </Text>
-          <Button
-            variant="outline"
-            onPress={() => void notifications.refetch()}
-          >
-            Retry
-          </Button>
-        </View>
-      );
-    case "success":
-      return (
-        <>
-          <Stack.Screen options={{ headerTransparent: true }} />
-          <View
-            className="w-full border-b border-neutral-200 bg-white dark:border-neutral-600 dark:bg-black"
-            style={{ height: headerHeight }}
-          />
-          <FlashList
-            ref={ref}
-            data={data}
-            renderItem={({ item }) => <Notification {...item} />}
-            estimatedItemSize={105}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => void notifications.fetchNextPage()}
-            onRefresh={() => void handleRefresh()}
-            refreshing={refreshing}
-            ListFooterComponent={
-              notifications.isFetching ? (
-                <View className="w-full items-center py-4">
-                  <ActivityIndicator />
-                </View>
-              ) : null
-            }
-            extraData={notifications.dataUpdatedAt}
-          />
-        </>
-      );
+  if (notifications.data) {
+    return (
+      <>
+        <Stack.Screen options={{ headerTransparent: true }} />
+        <View
+          className="w-full border-b border-neutral-200 bg-white dark:border-neutral-600 dark:bg-black"
+          style={{ height: headerHeight }}
+        />
+        <FlashList
+          ref={ref}
+          data={data}
+          renderItem={({ item }) => <Notification {...item} />}
+          estimatedItemSize={105}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => void notifications.fetchNextPage()}
+          onRefresh={() => void handleRefresh()}
+          refreshing={refreshing}
+          ListFooterComponent={
+            notifications.isFetching ? (
+              <View className="w-full items-center py-4">
+                <ActivityIndicator />
+              </View>
+            ) : null
+          }
+          extraData={notifications.dataUpdatedAt}
+        />
+      </>
+    );
   }
+
+  if (notifications.error) {
+    return (
+      <View className="flex-1 items-center justify-center p-4">
+        <Text className="mb-4 text-center text-lg dark:text-neutral-50">
+          {(notifications.error as Error).message || "An error occurred"}
+        </Text>
+        <Button variant="outline" onPress={() => void notifications.refetch()}>
+          Retry
+        </Button>
+      </View>
+    );
+  }
+
+  return (
+    <View className="flex-1 items-center justify-center">
+      <ActivityIndicator />
+    </View>
+  );
 };
 
 export default function Page() {
@@ -388,44 +386,45 @@ const PostNotification = ({
     },
   });
 
-  switch (post.status) {
-    case "loading":
-      if (inline) return <View className="h-10" />;
+  if (post.data) {
+    if (inline) {
+      if (!AppBskyFeedPost.isRecord(post.data.post.record)) return null;
+      assert(AppBskyFeedPost.validateRecord(post.data.post.record));
+
       return (
-        <NotificationItem unread={unread}>
-          <View className="h-32" />
-        </NotificationItem>
-      );
-    case "error":
-      console.warn(post.error);
-      return null;
-    case "success":
-      if (inline) {
-        if (!AppBskyFeedPost.isRecord(post.data.post.record)) return null;
-        assert(AppBskyFeedPost.validateRecord(post.data.post.record));
-
-        return (
-          <View className="mt-0.5">
-            <Text className="text-neutral-500 dark:text-neutral-400">
-              <RichText
-                text={post.data.post.record.text}
-                facets={post.data.post.record.facets}
-                size="sm"
+        <View className="mt-0.5">
+          <Text className="text-neutral-500 dark:text-neutral-400">
+            <RichText
+              text={post.data.post.record.text}
+              facets={post.data.post.record.facets}
+              size="sm"
+            />
+          </Text>
+          {post.data.post.embed &&
+            AppBskyEmbedImages.isView(post.data.post.embed) && (
+              <Embed
+                uri={post.data.post.uri}
+                content={post.data.post.embed}
+                truncate
+                depth={1}
               />
-            </Text>
-            {post.data.post.embed &&
-              AppBskyEmbedImages.isView(post.data.post.embed) && (
-                <Embed
-                  uri={post.data.post.uri}
-                  content={post.data.post.embed}
-                  truncate
-                  depth={1}
-                />
-              )}
-          </View>
-        );
-      }
+            )}
+        </View>
+      );
+    }
 
-      return <FeedPost item={post.data} inlineParent unread={unread} />;
+    return <FeedPost item={post.data} inlineParent unread={unread} />;
   }
+
+  if (post.error) {
+    console.warn(post.error);
+    return null;
+  }
+
+  if (inline) return <View className="h-10" />;
+  return (
+    <NotificationItem unread={unread}>
+      <View className="h-32" />
+    </NotificationItem>
+  );
 };

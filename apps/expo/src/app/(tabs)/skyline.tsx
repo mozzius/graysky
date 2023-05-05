@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, Text, View } from "react-native";
+import { ActivityIndicator, Dimensions, View } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
@@ -9,10 +9,10 @@ import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
-import { Button } from "../../components/button";
 import { ComposeButton } from "../../components/compose-button";
 import { ComposerProvider } from "../../components/composer";
 import { FeedPost } from "../../components/feed-post";
+import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { assert } from "../../lib/utils/assert";
@@ -95,7 +95,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
   });
 
   const data = useMemo(() => {
-    if (timeline.status !== "success") return [];
+    if (!timeline.data) return [];
     const flattened = timeline.data.pages.flatMap((page) => page.feed);
     return flattened
       .map((item) =>
@@ -205,62 +205,40 @@ const Feed = ({ mode }: Props) => {
 
   useTabPressScroll(ref);
 
-  switch (timeline.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator />
-        </View>
-      );
-
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="mb-4 text-center text-lg">
-            {(timeline.error as Error).message || "An error occurred"}
-          </Text>
-          <Button
-            variant="outline"
-            onPress={() => void timeline.refetch()}
-            className="mt-4"
-          >
-            Retry
-          </Button>
-        </View>
-      );
-
-    case "success":
-      return (
-        <>
-          <FlashList
-            ref={ref}
-            data={data}
-            renderItem={({ item: { hasReply, item }, index }) => (
-              <FeedPost
-                item={item}
-                hasReply={hasReply}
-                isReply={data[index - 1]?.hasReply}
-                inlineParent={!data[index - 1]?.hasReply}
-              />
-            )}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={() => void handleRefresh()}
-            refreshing={refreshing}
-            estimatedItemSize={180}
-            ListFooterComponent={
-              timeline.isFetching ? (
-                <View className="w-full items-center py-4">
-                  <ActivityIndicator />
-                </View>
-              ) : null
-            }
-            extraData={timeline.dataUpdatedAt}
-          />
-          <ComposeButton />
-        </>
-      );
+  if (timeline.data) {
+    return (
+      <>
+        <FlashList
+          ref={ref}
+          data={data}
+          renderItem={({ item: { hasReply, item }, index }) => (
+            <FeedPost
+              item={item}
+              hasReply={hasReply}
+              isReply={data[index - 1]?.hasReply}
+              inlineParent={!data[index - 1]?.hasReply}
+            />
+          )}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => void timeline.fetchNextPage()}
+          onRefresh={() => void handleRefresh()}
+          refreshing={refreshing}
+          estimatedItemSize={180}
+          ListFooterComponent={
+            timeline.isFetching ? (
+              <View className="w-full items-center py-4">
+                <ActivityIndicator />
+              </View>
+            ) : null
+          }
+          extraData={timeline.dataUpdatedAt}
+        />
+        <ComposeButton />
+      </>
+    );
   }
+
+  return <QueryWithoutData query={timeline} />;
 };
 
 export default function Page() {

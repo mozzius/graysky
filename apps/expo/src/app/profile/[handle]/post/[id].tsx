@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useRef } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FeedPost } from "../../../../components/feed-post";
 import { Post } from "../../../../components/post";
+import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../lib/agent";
 import { useTabPressScroll } from "../../../../lib/hooks";
 import { assert } from "../../../../lib/utils/assert";
@@ -121,53 +122,38 @@ export default function PostPage() {
 
   useTabPressScroll(ref);
 
-  switch (thread.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center">
-          <Stack.Screen options={{ headerTitle: "Post" }} />
-          <ActivityIndicator />
-        </View>
-      );
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Stack.Screen options={{ headerTitle: "Post" }} />
-          <Text className="text-center text-xl">
-            {(thread.error as Error).message || "An error occurred"}
-          </Text>
-        </View>
-      );
-    case "success":
-      return (
-        <>
-          <Stack.Screen options={{ headerTitle: "Post" }} />
-          <FlashList
-            ref={ref}
-            data={thread.data.posts}
-            estimatedItemSize={150}
-            onRefresh={() => void handleRefresh()}
-            initialScrollIndex={thread.data.index}
-            refreshing={refreshing}
-            ListFooterComponent={<View className="h-20" />}
-            getItemType={(item) => (item.primary ? "big" : "small")}
-            renderItem={({ item, index }) =>
-              item.primary ? (
-                <Post
-                  post={item.post}
-                  hasParent={item.hasParent}
-                  root={thread.data.posts[0]!.post}
-                />
-              ) : (
-                <FeedPost
-                  item={{ post: item.post }}
-                  hasReply={item.hasReply}
-                  isReply={thread.data.posts[index - 1]?.hasReply}
-                />
-              )
-            }
-          />
-        </>
-      );
-  }
+  return (
+    <>
+      <Stack.Screen options={{ headerTitle: "Post" }} />
+      {thread.data ? (
+        <FlashList
+          ref={ref}
+          data={thread.data.posts}
+          estimatedItemSize={150}
+          onRefresh={() => void handleRefresh()}
+          initialScrollIndex={thread.data.index}
+          refreshing={refreshing}
+          ListFooterComponent={<View className="h-20" />}
+          getItemType={(item) => (item.primary ? "big" : "small")}
+          renderItem={({ item, index }) =>
+            item.primary ? (
+              <Post
+                post={item.post}
+                hasParent={item.hasParent}
+                root={thread.data.posts[0]!.post}
+              />
+            ) : (
+              <FeedPost
+                item={{ post: item.post }}
+                hasReply={item.hasReply}
+                isReply={thread.data.posts[index - 1]?.hasReply}
+              />
+            )
+          }
+        />
+      ) : (
+        <QueryWithoutData query={thread} />
+      )}
+    </>
+  );
 }

@@ -22,6 +22,7 @@ import { Button } from "./button";
 import { ComposeButton } from "./compose-button";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
+import { QueryWithoutData } from "./query-without-data";
 import { Tab, Tabs } from "./tabs";
 
 interface Props {
@@ -47,7 +48,6 @@ export const ProfileView = ({
   const tabOffset = headerHeight - top;
   const { colorScheme } = useColorScheme();
   const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
-  const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const profile = useQuery({
     queryKey: ["profile", handle],
@@ -136,7 +136,7 @@ export const ProfileView = ({
   );
 
   const data = useMemo(() => {
-    if (timeline.status !== "success") return [];
+    if (!timeline.data) return [];
     const flat = timeline.data.pages.flatMap((page) => page.feed);
     return flat
       .map((item) => {
@@ -202,152 +202,126 @@ export const ProfileView = ({
     </Tabs>
   );
 
-  switch (profile.status) {
-    case "loading":
-      return (
-        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
-          <Stack.Screen
-            options={{
-              headerShown: false,
-            }}
-          />
-          <ActivityIndicator />
-        </View>
-      );
-    case "error":
-      return (
-        <View className="flex-1 items-center justify-center bg-white p-4 dark:bg-black">
-          <Stack.Screen
-            options={{
-              headerShown: true,
-              headerTransparent: false,
-              headerTitle: "Error",
-              headerTitleStyle: {
-                color: textColor,
-              },
-              headerStyle: {
-                backgroundColor: backgroundColor,
-              },
-            }}
-          />
-          <Text className="text-center text-lg">
-            {(profile.error as Error).message || "An error occurred"}
-          </Text>
-        </View>
-      );
-    case "success":
-      const info = <ProfileInfo profile={profile.data} backButton={header} />;
-      let content = null;
-      if (profile.data.viewer?.blocking) {
-        content = (
-          <>
-            {info}
-            <View className="flex-1 flex-col items-center justify-center p-4">
-              <XOctagon size={50} color="#888888" />
-              <Text className="my-8 text-center text-lg">
-                You have blocked this user
-              </Text>
-              <Button
-                variant="outline"
-                onPress={async () => {
-                  await agent.app.bsky.graph.block.delete({
-                    repo: agent.session.did,
-                    rkey: profile.data.viewer!.blocking!.split("/").pop(),
-                  }),
-                    await queryClient.refetchQueries(["profile", handle]);
-                  Alert.alert("Unblocked", "This user has been unblocked");
-                }}
-              >
-                Unblock
-              </Button>
-            </View>
-          </>
-        );
-      } else if (profile.data.viewer?.muted) {
-        content = (
-          <>
-            {info}
-            <View className="flex-1 items-center justify-center p-4">
-              <Text className="text-center text-lg">
-                You have muted this user
-              </Text>
-            </View>
-          </>
-        );
-      } else if (profile.data.viewer?.blockedBy) {
-        content = (
-          <>
-            {info}
-            <View className="flex-1 items-center justify-center p-4">
-              <Text className="text-center text-lg">
-                You have been blocked by this user
-              </Text>
-            </View>
-          </>
-        );
-      } else {
-        content = (
-          <FlashList
-            ref={ref}
-            data={[null, ...data]}
-            renderItem={({ item, index, target }) =>
-              item === null ? (
-                tabs(target === "StickyHeader" && header)
-              ) : (
-                <FeedPost
-                  {...item}
-                  // TODO: investigate & fix error with isReply logic below
-                  isReply={mode === "replies" && data[index]?.hasReply}
-                  inlineParent={mode !== "replies"}
-                />
-              )
-            }
-            stickyHeaderIndices={atTop ? [] : [0]}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => void timeline.fetchNextPage()}
-            onRefresh={() => void handleRefresh()}
-            refreshing={refreshing}
-            estimatedItemSize={91}
-            onScroll={(evt) => {
-              const { contentOffset } = evt.nativeEvent;
-              setAtTop(contentOffset.y <= 30);
-            }}
-            ListHeaderComponent={info}
-            ListFooterComponent={
-              timeline.isFetching ? (
-                <View className="w-full items-center py-8">
-                  <ActivityIndicator />
-                </View>
-              ) : (
-                <View className="py-16">
-                  <Text className="text-center">That&apos;s everything!</Text>
-                </View>
-              )
-            }
-            extraData={timeline.dataUpdatedAt}
-          />
-        );
-      }
-      return (
+  if (profile.data) {
+    const info = <ProfileInfo profile={profile.data} backButton={header} />;
+    let content = null;
+    if (profile.data.viewer?.blocking) {
+      content = (
         <>
-          <SafeAreaView
-            className="w-full bg-white dark:bg-black"
-            edges={["top"]}
-            mode="padding"
-          />
-          <Stack.Screen
-            options={{
-              headerTransparent: true,
-              headerTitle: "",
-              headerStyle: {
-                backgroundColor: backgroundColor,
-              },
-              headerShown: header && !atTop,
-            }}
-          />
-          {content}
-          {composer && <ComposeButton />}
+          {info}
+          <View className="flex-1 flex-col items-center justify-center p-4">
+            <XOctagon size={50} color="#888888" />
+            <Text className="my-8 text-center text-lg">
+              You have blocked this user
+            </Text>
+            <Button
+              variant="outline"
+              onPress={async () => {
+                await agent.app.bsky.graph.block.delete({
+                  repo: agent.session.did,
+                  rkey: profile.data.viewer!.blocking!.split("/").pop(),
+                }),
+                  await queryClient.refetchQueries(["profile", handle]);
+                Alert.alert("Unblocked", "This user has been unblocked");
+              }}
+            >
+              Unblock
+            </Button>
+          </View>
         </>
       );
+    } else if (profile.data.viewer?.muted) {
+      content = (
+        <>
+          {info}
+          <View className="flex-1 items-center justify-center p-4">
+            <Text className="text-center text-lg">
+              You have muted this user
+            </Text>
+          </View>
+        </>
+      );
+    } else if (profile.data.viewer?.blockedBy) {
+      content = (
+        <>
+          {info}
+          <View className="flex-1 items-center justify-center p-4">
+            <Text className="text-center text-lg">
+              You have been blocked by this user
+            </Text>
+          </View>
+        </>
+      );
+    } else {
+      content = (
+        <FlashList
+          ref={ref}
+          data={[null, ...data]}
+          renderItem={({ item, index, target }) =>
+            item === null ? (
+              tabs(target === "StickyHeader" && header)
+            ) : (
+              <FeedPost
+                {...item}
+                // TODO: investigate & fix error with isReply logic below
+                isReply={mode === "replies" && data[index]?.hasReply}
+                inlineParent={mode !== "replies"}
+              />
+            )
+          }
+          stickyHeaderIndices={atTop ? [] : [0]}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => void timeline.fetchNextPage()}
+          onRefresh={() => void handleRefresh()}
+          refreshing={refreshing}
+          estimatedItemSize={91}
+          onScroll={(evt) => {
+            const { contentOffset } = evt.nativeEvent;
+            setAtTop(contentOffset.y <= 30);
+          }}
+          ListHeaderComponent={info}
+          ListFooterComponent={
+            timeline.isFetching ? (
+              <View className="w-full items-center py-8">
+                <ActivityIndicator />
+              </View>
+            ) : (
+              <View className="py-16">
+                <Text className="text-center">That&apos;s everything!</Text>
+              </View>
+            )
+          }
+          extraData={timeline.dataUpdatedAt}
+        />
+      );
+    }
+    return (
+      <>
+        <SafeAreaView
+          className="w-full bg-white dark:bg-black"
+          edges={["top"]}
+          mode="padding"
+        />
+        <Stack.Screen
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerShown: header && !atTop,
+          }}
+        />
+        {content}
+        {composer && <ComposeButton />}
+      </>
+    );
   }
+
+  return (
+    <>
+      <Stack.Screen options={{ headerShown: true }} />
+      <QueryWithoutData query={profile} />
+    </>
+  );
 };
