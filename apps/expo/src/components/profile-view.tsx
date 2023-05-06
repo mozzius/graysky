@@ -320,7 +320,7 @@ export const ProfileView = ({
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: true }} />
+      <Stack.Screen options={{ headerShown: false }} />
       <QueryWithoutData query={profile} />
     </>
   );

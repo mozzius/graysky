@@ -105,7 +105,6 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
       onPress={() => {
         void Clipboard.setStringAsync(code);
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
       }}
       className="flex-row items-center justify-between px-8 py-2"
     >

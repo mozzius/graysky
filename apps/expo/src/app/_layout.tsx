@@ -141,7 +141,16 @@ export default function RootLayout() {
                           colorScheme === "light" ? "#fff" : "#000",
                       },
                     }}
-                  />
+                  >
+                    <Stack.Screen
+                      name="settings/index"
+                      options={{
+                        headerTitle: "Settings",
+                        presentation: "modal",
+                        headerBackVisible: true,
+                      }}
+                    />
+                  </Stack>
                 </ComposerProvider>
               </ActionSheetProvider>
             </LogOutProvider>

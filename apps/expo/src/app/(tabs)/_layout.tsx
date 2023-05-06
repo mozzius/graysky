@@ -1,46 +1,25 @@
 import { useCallback, useRef, useState } from "react";
-import { Alert, Dimensions, Text, View, type ColorValue } from "react-native";
+import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Constants from "expo-constants";
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Bell,
-  Cloudy,
-  LogOut,
-  Palette,
-  Search,
-  Settings2,
-  Ticket,
-  User,
-} from "lucide-react-native";
+import { Bell, Cloudy, Search, User } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { ActorDetails } from "../../components/actor-details";
 import { Avatar } from "../../components/avatar";
+import { DrawerContent } from "../../components/drawer-content";
 import {
   InviteCodes,
-  useInviteCodes,
   type InviteCodesRef,
 } from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
-import { useLogOut } from "../../lib/log-out-context";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
   const [open, setOpen] = useState(false);
-  const logOut = useLogOut();
   const inviteRef = useRef<InviteCodesRef>(null);
-  const codes = useInviteCodes();
-
-  const numCodes = (codes.data?.data?.codes ?? []).reduce(
-    (acc, code) => (!code.forAccount ? acc + 1 : acc),
-    0,
-  );
-
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const tabBarIconColors =
@@ -78,61 +57,12 @@ export default function AppLayout() {
 
   const renderDrawerContent = useCallback(
     () => (
-      <SafeAreaView className="h-full p-8">
-        <ActorDetails />
-        <View className="mt-8 border-t border-neutral-300 pt-4">
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel="Invite codes"
-            className="mt-2 w-full flex-row items-center py-2"
-            onPress={() => inviteRef.current?.open()}
-          >
-            <Ticket color={textColor} />
-            <Text className="ml-6 text-base font-medium dark:text-white">
-              Invite codes{numCodes > 0 && ` (${numCodes})`}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel="Settings"
-            className="mt-2 w-full flex-row items-center py-2"
-            onPress={() => toggleColorScheme()}
-          >
-            <Palette color={textColor} />
-            <Text className="ml-6 text-base font-medium dark:text-white">
-              Toggle theme
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel="Settings"
-            className="mt-2 w-full flex-row items-center py-2"
-            onPress={() => Alert.alert("Not yet implemented")}
-          >
-            <Settings2 color={textColor} />
-            <Text className="ml-6 text-base font-medium dark:text-white">
-              Settings
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View className="grow" />
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel="Sign out"
-          className="w-full flex-row items-center py-2"
-          onPress={() => void logOut()}
-        >
-          <LogOut color={textColor} />
-          <Text className="ml-6 text-base font-medium dark:text-white">
-            Sign out
-          </Text>
-        </TouchableOpacity>
-        <Text className="mt-4 text-neutral-400">
-          Version {Constants.expoConfig?.version ?? "unknown"}
-        </Text>
-      </SafeAreaView>
+      <DrawerContent
+        openInviteCodes={() => inviteRef.current?.open()}
+        textColor={textColor}
+      />
     ),
-    [logOut, toggleColorScheme, textColor, numCodes],
+    [textColor],
   );
 
   return (
@@ -148,6 +78,7 @@ export default function AppLayout() {
           width: Dimensions.get("window").width * 0.8,
           backgroundColor: colorScheme === "light" ? "#FFF" : "#1C1C1C",
         }}
+        swipeEdgeWidth={Dimensions.get("window").width * 0.1}
       >
         <Stack.Screen
           options={{

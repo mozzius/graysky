@@ -167,7 +167,6 @@ const TimelinePage = () => {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
       <View
         className="w-full bg-white dark:bg-black"
         style={{ height: headerHeight }}
@@ -244,6 +243,7 @@ const Feed = ({ mode }: Props) => {
 export default function Page() {
   return (
     <ComposerProvider>
+      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
       <TimelinePage />
     </ComposerProvider>
   );
