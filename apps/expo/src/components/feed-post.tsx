@@ -165,7 +165,10 @@ export const FeedPost = ({
               >
                 <TouchableWithoutFeedback className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
-                  <Text className="ml-1 text-neutral-500 dark:text-neutral-400">
+                  <Text
+                    className="ml-1 text-neutral-500 dark:text-neutral-400"
+                    numberOfLines={1}
+                  >
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}

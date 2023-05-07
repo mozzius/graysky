@@ -13,6 +13,7 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type FlashList } from "@shopify/flash-list";
 import { useMutation } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
 import { useAuthedAgent } from "./agent";
@@ -151,6 +152,7 @@ export const useTabPressScrollRef = (callback = () => {}) => {
 
 export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const { showActionSheetWithOptions } = useActionSheet();
+  const { colorScheme } = useColorScheme();
   const agent = useAuthedAgent();
   const handleMore = () => {
     const options =
@@ -166,7 +168,11 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Cancel",
           ];
     showActionSheetWithOptions(
-      { options, cancelButtonIndex: options.length - 1 },
+      {
+        options,
+        cancelButtonIndex: options.length - 1,
+        userInterfaceStyle: colorScheme,
+      },
       async (index) => {
         if (index === undefined) return;
         switch (options[index]) {
@@ -194,6 +200,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
               {
                 options: shareOptions,
                 cancelButtonIndex: shareOptions.length - 1,
+                userInterfaceStyle: colorScheme,
               },
               async (index) => {
                 if (index === undefined) return;
@@ -312,6 +319,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                 title: "What is the issue with this post?",
                 options: reportOptions.map((x) => x.label),
                 cancelButtonIndex: reportOptions.length - 1,
+                userInterfaceStyle: colorScheme,
               },
               async (index) => {
                 if (index === undefined) return;
@@ -346,11 +354,16 @@ export const useHandleRepost = (
 ) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
+  const { colorScheme } = useColorScheme();
 
   return () => {
     const options = [reposted ? "Unrepost" : "Repost", "Quote", "Cancel"];
     showActionSheetWithOptions(
-      { options, cancelButtonIndex: options.length - 1 },
+      {
+        options,
+        cancelButtonIndex: options.length - 1,
+        userInterfaceStyle: colorScheme,
+      },
       (index) => {
         if (index === undefined) return;
         switch (options[index]) {
