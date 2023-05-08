@@ -506,7 +506,9 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               <View className="relative flex-1 px-2 pt-1">
                 <BottomSheetTextInput
                   placeholder={
-                    postView
+                    send.isLoading
+                      ? "Sending..."
+                      : postView
                       ? `${isReply ? "Replying to" : "Quoting"} ${
                           postView.author.displayName ??
                           `@${postView.author.handle}`
