@@ -135,7 +135,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const send = useMutation({
     mutationKey: ["send"],
     mutationFn: async () => {
-      setShowImages(false);
       if (!agent.hasSession) throw new Error("Not logged in");
       const rt = await generateRichText(text, agent);
       if (rt.graphemeLength > MAX_LENGTH) {
@@ -163,6 +162,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           return uploaded.data.blob;
         }),
       );
+      let reply: AppBskyFeedDefs.ReplyRef | undefined;
       let embed: AppBskyFeedPost.Record["embed"] | undefined;
       // JANK: see above!
       if (context && !("parent" in context)) {
@@ -197,6 +197,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           } satisfies AppBskyEmbedRecord.Main;
         }
       } else {
+        reply = context as AppBskyFeedDefs.ReplyRef | undefined;
         if (images.length > 0) {
           // images, no record
           embed = {
@@ -212,7 +213,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       await agent.post({
         text: rt.text,
         facets: rt.facets,
-        reply: context as AppBskyFeedDefs.ReplyRef | undefined,
+        reply,
         embed,
       });
       if (isReply && postView) {
@@ -226,10 +227,23 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     onMutate: () => {
       void Haptics.impactAsync();
       Keyboard.dismiss();
+      setShowImages(false);
       setTimeout(() => bottomSheetRef.current?.collapse(), 100);
     },
-    onError: () => {
-      setTimeout(() => bottomSheetRef.current?.expand(), 150);
+    onError: (error) => {
+      setTimeout(() => {
+        bottomSheetRef.current?.expand();
+        setIsCollapsed(false);
+      }, 150);
+      Alert.alert(
+        "Failed to send post",
+        `Please try again${
+          error instanceof Error
+            ? `
+            ${error.message}`
+            : ""
+        }}`,
+      );
       send.reset();
     },
     onSuccess: () => {
