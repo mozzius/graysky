@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system";
 import { jsonToLex, stringifyLex } from "@atproto/api";
 
 const GET_TIMEOUT = 15e3; // 15s

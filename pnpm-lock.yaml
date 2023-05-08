@@ -94,6 +94,12 @@ importers:
       expo-haptics:
         specifier: ^12.2.1
         version: 12.2.1(expo@48.0.15)
+      expo-image-manipulator:
+        specifier: ^11.1.1
+        version: 11.1.1(expo@48.0.15)
+      expo-image-picker:
+        specifier: ~14.1.1
+        version: 14.1.1(expo@48.0.15)
       expo-linking:
         specifier: ~4.0.1
         version: 4.0.1(expo@48.0.15)
@@ -5262,6 +5268,32 @@ packages:
       expo: '*'
     dependencies:
       expo: 48.0.15(@babel/core@7.21.4)
+    dev: false
+
+  /expo-image-loader@4.1.1(expo@48.0.15):
+    resolution: {integrity: sha512-ciEHVokU0f6w0eTxdRxLCio6tskMsjxWIoV92+/ZD37qePUJYMfEphPhu1sruyvMBNR8/j5iyOvPFVGTfO8oxA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.15(@babel/core@7.21.4)
+    dev: false
+
+  /expo-image-manipulator@11.1.1(expo@48.0.15):
+    resolution: {integrity: sha512-W9LfJK/IL7EhhkkC1JQnEX/1S9B09rcGasJiQjXc2s1bEsrQnqXvXEv7shUW8b/L8rE+ynf+XvvDE+YIDL7oFg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.15(@babel/core@7.21.4)
+      expo-image-loader: 4.1.1(expo@48.0.15)
+    dev: false
+
+  /expo-image-picker@14.1.1(expo@48.0.15):
+    resolution: {integrity: sha512-SvWtnkLW7jp5Ntvk3lVcRQmhFYja8psmiR7O6P/+7S6f4llt3vaFwb4I3+pUXqJxxpi7BHc2+95qOLf0SFOIag==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.15(@babel/core@7.21.4)
+      expo-image-loader: 4.1.1(expo@48.0.15)
     dev: false
 
   /expo-json-utils@0.5.1:

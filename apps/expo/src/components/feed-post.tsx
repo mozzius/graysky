@@ -165,7 +165,10 @@ export const FeedPost = ({
               >
                 <TouchableWithoutFeedback className="flex-row items-center">
                   <MessageCircle size={12} color="#737373" />
-                  <Text className="ml-1 text-neutral-500 dark:text-neutral-400">
+                  <Text
+                    className="ml-1 text-neutral-500 dark:text-neutral-400"
+                    numberOfLines={1}
+                  >
                     replying to{" "}
                     {item.reply.parent.author.displayName ??
                       `@${item.reply.parent.author.handle}`}
@@ -178,14 +181,20 @@ export const FeedPost = ({
               )
             ))}
           {/* text content */}
-          <Link href={postHref} asChild accessibilityHint="Opens post details">
-            <TouchableWithoutFeedback className="my-0.5">
-              <RichText
-                text={item.post.record.text}
-                facets={item.post.record.facets}
-              />
-            </TouchableWithoutFeedback>
-          </Link>
+          {item.post.record.text && (
+            <Link
+              href={postHref}
+              asChild
+              accessibilityHint="Opens post details"
+            >
+              <TouchableWithoutFeedback className="my-0.5">
+                <RichText
+                  text={item.post.record.text}
+                  facets={item.post.record.facets}
+                />
+              </TouchableWithoutFeedback>
+            </Link>
+          )}
           {/* embeds */}
           {item.post.embed && (
             <Embed uri={item.post.uri} content={item.post.embed} />
