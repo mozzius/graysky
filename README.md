@@ -36,6 +36,7 @@ Then just scan the QR code!
 - [x] Sidebar w/ logout button
 - [x] Search screen
 - [x] Invites screen
+- [x] Upload images
 - [ ] Followers/Following screens
 - [ ] Likes list
 - [ ] Settings screen
