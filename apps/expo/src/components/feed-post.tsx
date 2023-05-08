@@ -181,14 +181,20 @@ export const FeedPost = ({
               )
             ))}
           {/* text content */}
-          <Link href={postHref} asChild accessibilityHint="Opens post details">
-            <TouchableWithoutFeedback className="my-0.5">
-              <RichText
-                text={item.post.record.text}
-                facets={item.post.record.facets}
-              />
-            </TouchableWithoutFeedback>
-          </Link>
+          {item.post.record.text && (
+            <Link
+              href={postHref}
+              asChild
+              accessibilityHint="Opens post details"
+            >
+              <TouchableWithoutFeedback className="my-0.5">
+                <RichText
+                  text={item.post.record.text}
+                  facets={item.post.record.facets}
+                />
+              </TouchableWithoutFeedback>
+            </Link>
+          )}
           {/* embeds */}
           {item.post.embed && (
             <Embed uri={item.post.uri} content={item.post.embed} />

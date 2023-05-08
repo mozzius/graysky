@@ -28,7 +28,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as FileSystem from "expo-file-system";
 import * as Haptics from "expo-haptics";
+import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import {
   AppBskyFeedPost,
@@ -128,13 +130,13 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const agent = useAgent();
 
-  // include images when added
-  const isEmpty = text.trim().length === 0;
+  const isEmpty = text.trim().length === 0 && images.length === 0;
 
   const send = useMutation({
     mutationKey: ["send"],
     mutationFn: async () => {
       setShowImages(false);
+      if (!agent.hasSession) throw new Error("Not logged in");
       const rt = await generateRichText(text, agent);
       if (rt.graphemeLength > MAX_LENGTH) {
         Alert.alert(
@@ -145,11 +147,18 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       }
       const uploadedImages = await Promise.all(
         images.map(async (img) => {
-          if (!img.base64) throw new Error("No base64");
-          const blob = Uint8Array.from(atob(img.base64), (c) =>
-            c.charCodeAt(0),
-          );
-          const uploaded = await agent.uploadBlob(blob);
+          let uri = img.uri;
+          let size = img.fileSize ?? 0;
+          // compress if > 1mb
+          while (size > 1_000_000) {
+            uri = await ImageManipulator.manipulateAsync(img.uri, [], {
+              compress: 0.5,
+            }).then((x) => x.uri);
+            size = await FileSystem.getInfoAsync(uri, {
+              size: true, // @ts-expect-error size is not in the type
+            }).then((x) => x.size as number);
+          }
+          const uploaded = await agent.uploadBlob(uri);
           if (!uploaded.success) throw new Error("Failed to upload image");
           return uploaded.data.blob;
         }),
@@ -322,7 +331,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               allowsMultipleSelection: true,
               selectionLimit: 4 - images.length,
               exif: false,
-              base64: true,
               quality: 0.7,
             }).then((result) => {
               if (!result.canceled) {
@@ -340,7 +348,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               allowsMultipleSelection: true,
               selectionLimit: 4 - images.length,
               exif: false,
-              base64: true,
               quality: 0.7,
             }).then((result) => {
               if (!result.canceled) {
@@ -367,7 +374,9 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
       onChange={handleSheetChanges}
-      enablePanDownToClose={text.length === 0 && !send.isLoading}
+      enablePanDownToClose={
+        text.length === 0 && images.length === 0 && !send.isLoading
+      }
       topInset={top + 25}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}

@@ -393,13 +393,15 @@ const PostNotification = ({
 
       return (
         <View className="mt-0.5">
-          <Text className="text-neutral-500 dark:text-neutral-400">
-            <RichText
-              text={post.data.post.record.text}
-              facets={post.data.post.record.facets}
-              size="sm"
-            />
-          </Text>
+          {post.data.post.record.text && (
+            <Text className="text-neutral-500 dark:text-neutral-400">
+              <RichText
+                text={post.data.post.record.text}
+                facets={post.data.post.record.facets}
+                size="sm"
+              />
+            </Text>
+          )}
           {post.data.post.embed &&
             AppBskyEmbedImages.isView(post.data.post.embed) && (
               <Embed
