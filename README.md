@@ -37,6 +37,7 @@ Then just scan the QR code!
 - [x] Search screen
 - [x] Invites screen
 - [x] Upload images
+- [ ] Moderation settings
 - [ ] Followers/Following screens
 - [ ] Likes list
 - [ ] Settings screen
@@ -75,3 +76,16 @@ set SHORT_SHA (git rev-parse --short HEAD)
 eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait; and say "Build finished"
 eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted to TestFlight"
 ```
+
+# Contributors
+
+Graysky is primarily developed by [@mozzius.dev](https://staging.bsky.app/profile/mozzius.dev). If you'd like to show your support for the project, you can [sponsor me](https://github.com/sponsors/mozzius).
+However, I'm not the only one who's contributed to this project. I'd like to especially thank [@alice.bsky.sh](https://staging.bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, and thank [@holden.bsky.social](https://staging.bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements.
+
+## All Contributors
+
+My eternal thanks to the following people for their contributions to Graysky:
+
+- [@alice.bsky.sh](https://staging.bsky.app/profile/alice.bsky.sh)
+- [@holden.bsky.social](https://staging.bsky.app/profile/holden.bsky.social)
+- [@matthewstanciu.com](https://staging.bsky.app/profile/matthewstanciu.com)
