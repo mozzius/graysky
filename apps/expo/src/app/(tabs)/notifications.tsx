@@ -136,7 +136,12 @@ const NotificationsPage = () => {
         <FlashList
           ref={ref}
           data={data}
-          renderItem={({ item }) => <Notification {...item} />}
+          renderItem={({ item }) => (
+            <Notification
+              {...item}
+              dataUpdatedAt={notifications.dataUpdatedAt}
+            />
+          )}
           estimatedItemSize={105}
           onEndReachedThreshold={0.5}
           onEndReached={() => void notifications.fetchNextPage()}
@@ -190,7 +195,8 @@ const Notification = ({
   actors,
   isRead,
   indexedAt,
-}: NotificationGroup) => {
+  dataUpdatedAt,
+}: NotificationGroup & { dataUpdatedAt: number }) => {
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
     const [did, _, id] = subject.slice("at://".length).split("/");
@@ -211,7 +217,12 @@ const Notification = ({
             indexedAt={indexedAt}
           />
           {subject && (
-            <PostNotification uri={subject} unread={!isRead} inline />
+            <PostNotification
+              uri={subject}
+              unread={!isRead}
+              inline
+              dataUpdatedAt={dataUpdatedAt}
+            />
           )}
         </NotificationItem>
       );
@@ -228,7 +239,12 @@ const Notification = ({
             indexedAt={indexedAt}
           />
           {subject && (
-            <PostNotification uri={subject} unread={!isRead} inline />
+            <PostNotification
+              uri={subject}
+              unread={!isRead}
+              inline
+              dataUpdatedAt={dataUpdatedAt}
+            />
           )}
         </NotificationItem>
       );
@@ -252,7 +268,13 @@ const Notification = ({
     case "quote":
     case "mention":
       if (!subject) return null;
-      return <PostNotification uri={subject} unread={!isRead} />;
+      return (
+        <PostNotification
+          uri={subject}
+          unread={!isRead}
+          dataUpdatedAt={dataUpdatedAt}
+        />
+      );
     default:
       console.warn("Unknown notification reason", reason);
       return null;
@@ -350,10 +372,12 @@ const PostNotification = ({
   uri,
   unread,
   inline,
+  dataUpdatedAt,
 }: {
   uri: string;
   unread: boolean;
   inline?: boolean;
+  dataUpdatedAt: number;
 }) => {
   const agent = useAuthedAgent();
 
@@ -415,7 +439,14 @@ const PostNotification = ({
       );
     }
 
-    return <FeedPost item={post.data} inlineParent unread={unread} />;
+    return (
+      <FeedPost
+        item={post.data}
+        inlineParent
+        unread={unread}
+        dataUpdatedAt={dataUpdatedAt}
+      />
+    );
   }
 
   if (post.error) {

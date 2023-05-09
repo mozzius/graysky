@@ -266,6 +266,7 @@ export const ProfileView = ({
                 // TODO: investigate & fix error with isReply logic below
                 isReply={mode === "replies" && data[index]?.hasReply}
                 inlineParent={mode !== "replies"}
+                dataUpdatedAt={timeline.dataUpdatedAt}
               />
             )
           }

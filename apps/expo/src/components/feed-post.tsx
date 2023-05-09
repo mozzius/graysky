@@ -1,4 +1,5 @@
-import { Image, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Button, Image, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -36,6 +37,7 @@ interface Props {
   hasReply?: boolean;
   unread?: boolean;
   inlineParent?: boolean;
+  dataUpdatedAt: number;
 }
 
 export const FeedPost = ({
@@ -44,9 +46,17 @@ export const FeedPost = ({
   hasReply = false,
   unread,
   inlineParent,
+  dataUpdatedAt,
 }: Props) => {
-  const { liked, likeCount, toggleLike } = useLike(item.post);
-  const { reposted, repostCount, toggleRepost } = useRepost(item.post);
+  const startHidden = Boolean(
+    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked,
+  );
+  const [hidden, setHidden] = useState(startHidden);
+  const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
+  const { reposted, repostCount, toggleRepost } = useRepost(
+    item.post,
+    dataUpdatedAt,
+  );
   const replyCount = item.post.replyCount;
   const composer = useComposer();
   const handleRepost = useHandleRepost(
@@ -65,6 +75,10 @@ export const FeedPost = ({
   const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
+  useEffect(() => {
+    setHidden(startHidden);
+  }, [item.post.cid, startHidden]);
+
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
   }
@@ -74,6 +88,29 @@ export const FeedPost = ({
   const displayInlineParent = inlineParent || !!item.reason;
 
   const timeSincePost = timeSince(new Date(item.post.indexedAt));
+
+  if (hidden) {
+    return (
+      <View
+        className={cx(
+          "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
+          isReply && !item.reason && "pt-0",
+          !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
+          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+        )}
+      >
+        <View className="flex-1 pb-2.5 pl-1 pr-2">
+          <View className="flex-row justify-between rounded-sm border border-neutral-300 bg-neutral-100 p-1 dark:border-neutral-700 dark:bg-neutral-900">
+            <Text className="dark:text-neutral-50">
+              This post is from someone you have{" "}
+              {item.post.author.viewer?.blocking ? "blocked" : "muted"}.
+            </Text>
+            <Button title="Show" onPress={() => setHidden(false)} />
+          </View>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -275,7 +312,7 @@ export const FeedPost = ({
   );
 };
 
-const Reason = ({ item }: Props) => {
+const Reason = ({ item }: Pick<Props, "item">) => {
   const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 

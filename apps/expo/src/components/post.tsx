@@ -27,11 +27,15 @@ interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
   root: AppBskyFeedDefs.PostView;
+  dataUpdatedAt: number;
 }
 
-export const Post = ({ post, hasParent, root }: Props) => {
-  const { liked, likeCount, toggleLike } = useLike(post);
-  const { reposted, repostCount, toggleRepost } = useRepost(post);
+export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
+  const { liked, likeCount, toggleLike } = useLike(post, dataUpdatedAt);
+  const { reposted, repostCount, toggleRepost } = useRepost(
+    post,
+    dataUpdatedAt,
+  );
   const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);

@@ -66,7 +66,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       return (
         <TouchableOpacity
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="my-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
+          className="mt-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
         >
           {content.external.thumb && (
             <Image

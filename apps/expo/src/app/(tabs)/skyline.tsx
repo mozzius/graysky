@@ -102,12 +102,25 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
         // if the preview item is replying to this one, skip
         // arr[i - 1]?.reply?.parent?.cid === item.cid
         //   ? [] :
-        item.reply && !item.reason
-          ? [
-              { item: { post: item.reply.parent }, hasReply: true },
-              { item, hasReply: false },
-            ]
-          : [{ item, hasReply: false }],
+        {
+          if (item.reply && !item.reason) {
+            if (item.reply.parent.author.viewer?.blocking) {
+              return [];
+            } else if (
+              item.reply.parent.author.viewer?.blockedBy ||
+              item.reply.parent.author.viewer?.muted
+            ) {
+              return [{ item, hasReply: false }];
+            } else {
+              return [
+                { item: { post: item.reply.parent }, hasReply: true },
+                { item, hasReply: false },
+              ];
+            }
+          } else {
+            return [{ item, hasReply: false }];
+          }
+        },
       )
       .flat();
   }, [timeline]);
@@ -216,6 +229,7 @@ const Feed = ({ mode }: Props) => {
               hasReply={hasReply}
               isReply={data[index - 1]?.hasReply}
               inlineParent={!data[index - 1]?.hasReply}
+              dataUpdatedAt={timeline.dataUpdatedAt}
             />
           )}
           onEndReachedThreshold={0.5}
