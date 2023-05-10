@@ -100,8 +100,8 @@ export const FeedPost = ({
         )}
       >
         <View className="flex-1 pb-2.5 pl-1 pr-2">
-          <View className="flex-row justify-between rounded-sm border border-neutral-300 bg-neutral-100 p-1 dark:border-neutral-700 dark:bg-neutral-900">
-            <Text className="dark:text-neutral-50">
+          <View className="flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+            <Text className="my-1 max-w-[75%] font-semibold dark:text-neutral-50">
               This post is from someone you have{" "}
               {item.post.author.viewer?.blocking ? "blocked" : "muted"}.
             </Text>

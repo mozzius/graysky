@@ -102,6 +102,25 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             <RichTextWithoutFacets text={profile.description} />
           </View>
         )}
+        {profile.viewer?.muted && (
+          <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+            <Text className="font-semibold dark:text-neutral-50">
+              You have muted this user
+            </Text>
+            <Button
+              title="Unmute"
+              onPress={() => {
+                void agent.unmute(profile.did).then(() => {
+                  void queryClient.invalidateQueries([
+                    "profile",
+                    profile.handle,
+                  ]);
+                  void queryClient.invalidateQueries(["profile", profile.did]);
+                });
+              }}
+            />
+          </View>
+        )}
       </View>
     </View>
   );

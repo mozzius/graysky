@@ -15,6 +15,7 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
+import { StyledComponent } from "nativewind";
 
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
@@ -125,8 +126,15 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
 
     if (record !== null) {
       // record can either be ViewRecord or ViewNotFound
-      if (!AppBskyEmbedRecord.isViewRecord(record))
-        throw new Error("Not found");
+      if (!AppBskyEmbedRecord.isViewRecord(record)) {
+        if (AppBskyEmbedRecord.isViewNotFound(record)) {
+          throw new Error("Post not found");
+        } else if (AppBskyEmbedRecord.isViewBlocked(record)) {
+          throw new Error("This post is from a blocked user");
+        } else {
+          throw new Error("An error occurred");
+        }
+      }
       assert(AppBskyEmbedRecord.validateViewRecord(record));
 
       if (!AppBskyFeedPost.isRecord(record.value))
@@ -162,8 +170,10 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
-      <View className="my-1.5 rounded bg-neutral-100 p-2">
-        <Text className="text-center">{(err as Error).message}</Text>
+      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
+        <Text className="text-center font-semibold">
+          {(err as Error).message}
+        </Text>
       </View>
     );
   }
