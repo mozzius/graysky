@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, Image, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
+  Text,
+  View,
+} from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -15,7 +21,7 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
+import { StyledComponent, useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import {
@@ -224,12 +230,19 @@ export const FeedPost = ({
               asChild
               accessibilityHint="Opens post details"
             >
-              <TouchableWithoutFeedback className="my-0.5">
-                <RichText
-                  text={item.post.record.text}
-                  facets={item.post.record.facets}
-                />
-              </TouchableWithoutFeedback>
+              {/* bug - can't press links that are children of a gesture handler component */}
+              {item.post.record.facets?.length ? (
+                <RNTouchableWithoutFeedback className="my-0.5">
+                  <RichText
+                    text={item.post.record.text}
+                    facets={item.post.record.facets}
+                  />
+                </RNTouchableWithoutFeedback>
+              ) : (
+                <TouchableWithoutFeedback className="my-0.5">
+                  <RichText text={item.post.record.text} />
+                </TouchableWithoutFeedback>
+              )}
             </Link>
           )}
           {/* embeds */}

@@ -65,7 +65,8 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
     if (AppBskyEmbedExternal.isView(content)) {
       assert(AppBskyEmbedExternal.validateView(content));
       return (
-        <TouchableOpacity
+        <StyledComponent
+          component={TouchableOpacity}
           onPress={() => void Linking.openURL(content.external.uri)}
           className="mt-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
         >
@@ -105,7 +106,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               </Text>
             )}
           </View>
-        </TouchableOpacity>
+        </StyledComponent>
       );
     }
 
@@ -325,7 +326,7 @@ export const PostEmbed = ({
   return (
     <View className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-600">
       <Link href={postHref} asChild>
-        <TouchableOpacity accessibilityHint="Opens embedded post">
+        <TouchableWithoutFeedback accessibilityHint="Opens embedded post">
           <View className="flex flex-row items-center overflow-hidden">
             <Image
               key={author.avatar}
@@ -341,7 +342,7 @@ export const PostEmbed = ({
             </Text>
           </View>
           {children}
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </Link>
     </View>
   );

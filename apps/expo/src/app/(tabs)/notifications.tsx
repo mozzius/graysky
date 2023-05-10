@@ -1,11 +1,9 @@
 import { useEffect, useMemo } from "react";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import {
-  ActivityIndicator,
-  Image,
-  Text,
   TouchableOpacity,
-  View,
-} from "react-native";
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Link, Stack } from "expo-router";
 import {
   AppBskyEmbedImages,
@@ -17,6 +15,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
+import { StyledComponent } from "nativewind";
 
 import { Button } from "../../components/button";
 import { ComposerProvider } from "../../components/composer";
@@ -301,7 +300,12 @@ const NotificationItem = ({
   const wrapper = (children: React.ReactNode) =>
     href ? (
       <Link href={href} asChild accessibilityHint="Opens post">
-        <TouchableOpacity className={className}>{children}</TouchableOpacity>
+        <StyledComponent
+          component={TouchableWithoutFeedback}
+          className={className}
+        >
+          {children}
+        </StyledComponent>
       </Link>
     ) : (
       <View className={className}>{children}</View>
@@ -331,7 +335,10 @@ const ProfileList = ({
             key={actor.did}
             accessibilityHint="Opens profile"
           >
-            <TouchableOpacity className="mr-2 rounded-full">
+            <StyledComponent
+              component={TouchableOpacity}
+              className="mr-2 rounded-full"
+            >
               <Image
                 className="h-8 w-8 rounded-full bg-neutral-200"
                 source={{ uri: actor.avatar }}
@@ -344,7 +351,7 @@ const ProfileList = ({
                     : ""
                 }
               />
-            </TouchableOpacity>
+            </StyledComponent>
           </Link>
         ))}
       </View>
