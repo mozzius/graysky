@@ -21,7 +21,7 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
-import { StyledComponent, useColorScheme } from "nativewind";
+import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import {
