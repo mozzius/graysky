@@ -143,7 +143,7 @@ export const FeedPost = ({
                     key={item.post.author.avatar}
                     source={{ uri: item.post.author.avatar }}
                     alt={postAuthorHandle}
-                    className="h-12 w-12 rounded-full"
+                    className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
                   />
                 ) : (
                   <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">

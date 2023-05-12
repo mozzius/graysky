@@ -214,7 +214,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             <Image
               key={item.avatar}
               source={{ uri: item.avatar }}
-              className="mr-4 h-10 w-10 rounded-full bg-neutral-200"
+              className="mr-4 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
               alt={item.displayName}
             />
             <View className="flex-1 justify-center">

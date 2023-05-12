@@ -1,8 +1,10 @@
 import { Image, Text, View } from "react-native";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { useAgent } from "../lib/agent";
+import { useLists } from "./lists/context";
 
 export const ActorDetails = () => (
   <ErrorBoundary fallback={<></>}>
@@ -12,6 +14,7 @@ export const ActorDetails = () => (
 
 const ActorDetailsInner = () => {
   const agent = useAgent();
+  const { openFollows, openFollowers } = useLists();
 
   const { data: self } = useQuery({
     queryKey: ["profile", agent.session?.did],
@@ -39,12 +42,16 @@ const ActorDetailsInner = () => {
         <Text className="mt-px text-base text-neutral-500 dark:text-neutral-400">{`@${self.handle}`}</Text>
       </View>
       <View className="mt-3 flex-row flex-wrap">
-        <Text className="mr-4 dark:text-white">
-          <Text className="font-bold">{self.followersCount}</Text> Followers
-        </Text>
-        <Text className="dark:text-white">
-          <Text className="font-bold">{self.followsCount}</Text> Following
-        </Text>
+        <TouchableOpacity onPress={() => openFollowers(self.did)}>
+          <Text className="mr-4 dark:text-white">
+            <Text className="font-bold">{self.followersCount}</Text> Followers
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => openFollows(self.did)}>
+          <Text className="dark:text-white">
+            <Text className="font-bold">{self.followsCount}</Text> Following
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

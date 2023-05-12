@@ -63,9 +63,7 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
           <View className="mt-4 flex-1 dark:bg-black">
             <BottomSheetFlatList
               style={contentContainerStyle}
-              data={codes.data.data.codes.sort((x) =>
-                x.uses.length >= x.available ? 1 : -1,
-              )}
+              data={[...codes.data.unused, ...codes.data.used]}
               renderItem={({ item }) => (
                 <CodeRow
                   code={item.code}
@@ -98,7 +96,7 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
 });
 InviteCodes.displayName = "InviteCodes";
 
-function CodeRow({ code, used }: { code: string; used: boolean }) {
+const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
   const [copied, setCopied] = useState(false);
   return (
     <TouchableOpacity
@@ -123,7 +121,7 @@ function CodeRow({ code, used }: { code: string; used: boolean }) {
       )}
     </TouchableOpacity>
   );
-}
+};
 
 export const useInviteCodes = () => {
   const agent = useAuthedAgent();
@@ -131,9 +129,14 @@ export const useInviteCodes = () => {
   return useQuery({
     queryKey: ["invite-codes"],
     queryFn: async () => {
-      return await agent.com.atproto.server.getAccountInviteCodes({
+      const codes = await agent.com.atproto.server.getAccountInviteCodes({
         includeUsed: true,
       });
+      if (!codes.success) throw new Error("Could not get invite codes");
+      return {
+        used: codes.data.codes.filter((x) => x.uses.length >= x.available),
+        unused: codes.data.codes.filter((x) => x.uses.length < x.available),
+      };
     },
   });
 };

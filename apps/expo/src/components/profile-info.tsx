@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
+import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAuthedAgent();
   const router = useRouter();
+  const { openFollows, openFollowers } = useLists();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -50,7 +52,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <View className="absolute -top-11 left-0 rounded-full border-4 border-white bg-white dark:border-black dark:bg-black">
             <Image
               source={{ uri: profile.avatar }}
-              className="h-20 w-20 rounded-full"
+              className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
               alt=""
             />
           </View>
@@ -78,23 +80,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           </Text>
         </Text>
         <View className="mt-3 flex-row">
-          <Text>
-            <Text className="font-bold dark:text-neutral-50">
-              {profile.followersCount}
-            </Text>{" "}
-            <Text className="dark:text-neutral-50">Followers</Text>
-          </Text>
-          <Text className="ml-4">
-            <Text className="font-bold dark:text-neutral-50">
-              {profile.followsCount}
-            </Text>{" "}
-            <Text className="dark:text-neutral-50">Following</Text>
-          </Text>
-          <Text className="ml-4">
-            <Text className="font-bold dark:text-neutral-50">
-              {profile.postsCount ?? 0}
-            </Text>{" "}
-            <Text className="dark:text-neutral-50">Posts</Text>
+          <TouchableOpacity onPress={() => openFollowers(profile.did)}>
+            <Text className="dark:text-neutral-50">
+              <Text className="font-bold">{profile.followersCount}</Text>{" "}
+              Followers
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => openFollows(profile.did)}>
+            <Text className="ml-4 dark:text-neutral-50">
+              <Text className="font-bold">{profile.followsCount}</Text>{" "}
+              Following
+            </Text>
+          </TouchableOpacity>
+          <Text className="ml-4 dark:text-neutral-50">
+            <Text className="font-bold">{profile.postsCount ?? 0}</Text> Posts
           </Text>
         </View>
         {profile.description && (

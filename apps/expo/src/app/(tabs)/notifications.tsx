@@ -340,7 +340,7 @@ const ProfileList = ({
               className="mr-2 rounded-full"
             >
               <Image
-                className="h-8 w-8 rounded-full bg-neutral-200"
+                className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 source={{ uri: actor.avatar }}
                 alt={
                   // TODO: find a better way to handle this

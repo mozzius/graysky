@@ -332,7 +332,7 @@ export const PostEmbed = ({
               key={author.avatar}
               source={{ uri: author.avatar }}
               alt={author.displayName}
-              className="mr-2 h-4 w-4 rounded-full"
+              className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="text-base" numberOfLines={1}>
               <Text className="font-semibold dark:text-neutral-50">

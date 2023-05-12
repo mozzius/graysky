@@ -19,6 +19,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
 import { ComposerProvider } from "../components/composer";
+import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
 import { LogOutProvider } from "../lib/log-out-context";
 import { queryClient } from "../lib/query-client";
@@ -130,27 +131,29 @@ export default function RootLayout() {
             {loading && <SplashScreen />}
             <LogOutProvider value={logOut}>
               <ActionSheetProvider>
-                <ComposerProvider>
-                  <Stack
-                    screenOptions={{
-                      headerShown: true,
-                      fullScreenGestureEnabled: true,
-                      headerStyle: {
-                        backgroundColor:
-                          colorScheme === "light" ? "#fff" : "#000",
-                      },
-                    }}
-                  >
-                    <Stack.Screen
-                      name="settings/index"
-                      options={{
-                        headerTitle: "Settings",
-                        presentation: "modal",
-                        headerBackVisible: true,
+                <ListProvider>
+                  <ComposerProvider>
+                    <Stack
+                      screenOptions={{
+                        headerShown: true,
+                        fullScreenGestureEnabled: true,
+                        headerStyle: {
+                          backgroundColor:
+                            colorScheme === "light" ? "#fff" : "#000",
+                        },
                       }}
-                    />
-                  </Stack>
-                </ComposerProvider>
+                    >
+                      <Stack.Screen
+                        name="settings/index"
+                        options={{
+                          headerTitle: "Settings",
+                          presentation: "modal",
+                          headerBackVisible: true,
+                        }}
+                      />
+                    </Stack>
+                  </ComposerProvider>
+                </ListProvider>
               </ActionSheetProvider>
             </LogOutProvider>
           </AgentProvider>
