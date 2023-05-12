@@ -15,6 +15,7 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
+import { StyledComponent } from "nativewind";
 
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
@@ -64,9 +65,10 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
     if (AppBskyEmbedExternal.isView(content)) {
       assert(AppBskyEmbedExternal.validateView(content));
       return (
-        <TouchableOpacity
+        <StyledComponent
+          component={TouchableOpacity}
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="my-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
+          className="mt-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
         >
           {content.external.thumb && (
             <Image
@@ -104,7 +106,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               </Text>
             )}
           </View>
-        </TouchableOpacity>
+        </StyledComponent>
       );
     }
 
@@ -125,8 +127,15 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
 
     if (record !== null) {
       // record can either be ViewRecord or ViewNotFound
-      if (!AppBskyEmbedRecord.isViewRecord(record))
-        throw new Error("Not found");
+      if (!AppBskyEmbedRecord.isViewRecord(record)) {
+        if (AppBskyEmbedRecord.isViewNotFound(record)) {
+          throw new Error("Post not found");
+        } else if (AppBskyEmbedRecord.isViewBlocked(record)) {
+          throw new Error("This post is from a blocked user");
+        } else {
+          throw new Error("An error occurred");
+        }
+      }
       assert(AppBskyEmbedRecord.validateViewRecord(record));
 
       if (!AppBskyFeedPost.isRecord(record.value))
@@ -162,8 +171,10 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
-      <View className="my-1.5 rounded bg-neutral-100 p-2">
-        <Text className="text-center">{(err as Error).message}</Text>
+      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
+        <Text className="text-center font-semibold">
+          {(err as Error).message}
+        </Text>
       </View>
     );
   }
@@ -315,13 +326,13 @@ export const PostEmbed = ({
   return (
     <View className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-600">
       <Link href={postHref} asChild>
-        <TouchableOpacity accessibilityHint="Opens embedded post">
+        <TouchableWithoutFeedback accessibilityHint="Opens embedded post">
           <View className="flex flex-row items-center overflow-hidden">
             <Image
               key={author.avatar}
               source={{ uri: author.avatar }}
               alt={author.displayName}
-              className="mr-2 h-4 w-4 rounded-full"
+              className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="text-base" numberOfLines={1}>
               <Text className="font-semibold dark:text-neutral-50">
@@ -331,7 +342,7 @@ export const PostEmbed = ({
             </Text>
           </View>
           {children}
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </Link>
     </View>
   );

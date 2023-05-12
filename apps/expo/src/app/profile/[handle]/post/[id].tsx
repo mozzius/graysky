@@ -141,12 +141,14 @@ export default function PostPage() {
                 post={item.post}
                 hasParent={item.hasParent}
                 root={thread.data.posts[0]!.post}
+                dataUpdatedAt={thread.dataUpdatedAt}
               />
             ) : (
               <FeedPost
                 item={{ post: item.post }}
                 hasReply={item.hasReply}
                 isReply={thread.data.posts[index - 1]?.hasReply}
+                dataUpdatedAt={thread.dataUpdatedAt}
               />
             )
           }

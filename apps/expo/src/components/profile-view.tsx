@@ -230,17 +230,6 @@ export const ProfileView = ({
           </View>
         </>
       );
-    } else if (profile.data.viewer?.muted) {
-      content = (
-        <>
-          {info}
-          <View className="flex-1 items-center justify-center p-4">
-            <Text className="text-center text-lg">
-              You have muted this user
-            </Text>
-          </View>
-        </>
-      );
     } else if (profile.data.viewer?.blockedBy) {
       content = (
         <>
@@ -266,6 +255,7 @@ export const ProfileView = ({
                 // TODO: investigate & fix error with isReply logic below
                 isReply={mode === "replies" && data[index]?.hasReply}
                 inlineParent={mode !== "replies"}
+                dataUpdatedAt={timeline.dataUpdatedAt}
               />
             )
           }

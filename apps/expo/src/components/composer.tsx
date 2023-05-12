@@ -237,12 +237,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       }, 150);
       Alert.alert(
         "Failed to send post",
-        `Please try again${
-          error instanceof Error
-            ? `
-            ${error.message}`
-            : ""
-        }}`,
+        `Please try again${error instanceof Error ? `\n${error.message}` : ""}`,
       );
       send.reset();
     },

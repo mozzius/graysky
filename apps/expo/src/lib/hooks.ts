@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { useEffect, useRef, useState } from "react";
-import { Alert, Linking, Share } from "react-native";
+import { Alert, Share } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
-import { useNavigation } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
@@ -16,24 +16,21 @@ import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
+import { useLists } from "../components/lists/context";
 import { useAuthedAgent } from "./agent";
-import { locale } from "./locale";
 import { queryClient } from "./query-client";
 import { assert } from "./utils/assert";
 
-export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
+export const useLike = (
+  post: AppBskyFeedDefs.FeedViewPost["post"],
+  updated: number,
+) => {
   const agent = useAuthedAgent();
   const cid = useRef(post.cid);
+  const lastUpdate = useRef(updated);
 
   const [liked, setLiked] = useState(!!post.viewer?.like);
   const [likeUri, setLikeUri] = useState(post.viewer?.like);
-
-  // reset like/repost state if cid changes
-  if (post.cid !== cid.current) {
-    cid.current = post.cid;
-    setLiked(!!post.viewer?.like);
-    setLikeUri(post.viewer?.like);
-  }
 
   const toggleLike = useMutation({
     mutationKey: ["like", post.uri],
@@ -61,6 +58,15 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
     },
   });
 
+  // reset like/repost state if cid or timestamp changes
+  if (post.cid !== cid.current || updated !== lastUpdate.current) {
+    cid.current = post.cid;
+    lastUpdate.current = updated;
+    setLiked(!!post.viewer?.like);
+    setLikeUri(post.viewer?.like);
+    toggleLike.reset();
+  }
+
   return {
     liked,
     likeCount:
@@ -69,19 +75,16 @@ export const useLike = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
   };
 };
 
-export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
+export const useRepost = (
+  post: AppBskyFeedDefs.FeedViewPost["post"],
+  updated: number,
+) => {
   const agent = useAuthedAgent();
   const cid = useRef(post.cid);
+  const lastUpdate = useRef(updated);
 
   const [reposted, setReposted] = useState(!!post.viewer?.repost);
   const [repostUri, setRepostUri] = useState(post.viewer?.repost);
-
-  // reset like/repost state if cid changes
-  if (post.cid !== cid.current) {
-    cid.current = post.cid;
-    setReposted(!!post.viewer?.repost);
-    setRepostUri(post.viewer?.repost);
-  }
 
   const toggleRepost = useMutation({
     mutationKey: ["repost", post.uri],
@@ -108,6 +111,15 @@ export const useRepost = (post: AppBskyFeedDefs.FeedViewPost["post"]) => {
       }
     },
   });
+
+  // reset like/repost state if cid or timestamp changes
+  if (post.cid !== cid.current || updated !== lastUpdate.current) {
+    cid.current = post.cid;
+    lastUpdate.current = updated;
+    setReposted(!!post.viewer?.repost);
+    setRepostUri(post.viewer?.repost);
+    toggleRepost.reset();
+  }
 
   return {
     reposted,
@@ -154,6 +166,9 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
   const agent = useAuthedAgent();
+  const { openLikes } = useLists();
+  const router = useRouter();
+
   const handleMore = () => {
     const options =
       post.author.handle === agent.session.handle
@@ -162,11 +177,12 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Translate",
             "Copy post text",
             "Share post",
-            `Mute @${post.author.handle}`,
-            `Block @${post.author.handle}`,
+            "See likes",
+            post.author.viewer?.muted ? "" : `Mute @${post.author.handle}`,
+            post.author.viewer?.blocking ? "" : `Block @${post.author.handle}`,
             "Report post",
             "Cancel",
-          ];
+          ].filter(Boolean);
     showActionSheetWithOptions(
       {
         options,
@@ -179,10 +195,8 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
           case "Translate":
             if (!AppBskyFeedPost.isRecord(post.record)) return;
             assert(AppBskyFeedPost.validateRecord(post.record));
-            await Linking.openURL(
-              `https://translate.google.com/?sl=auto&tl=${
-                locale.languageCode
-              }&text=${encodeURIComponent(post.record.text)}`,
+            router.push(
+              `/translate?text=${encodeURIComponent(post.record.text)}`,
             );
             break;
           case "Copy post text":
@@ -216,6 +230,9 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                 });
               },
             );
+            break;
+          case "See likes":
+            openLikes(post.uri);
             break;
           case `Mute @${post.author.handle}`:
             Alert.alert(

@@ -1,11 +1,9 @@
 import { useEffect, useMemo } from "react";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import {
-  ActivityIndicator,
-  Image,
-  Text,
   TouchableOpacity,
-  View,
-} from "react-native";
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Link, Stack } from "expo-router";
 import {
   AppBskyEmbedImages,
@@ -17,6 +15,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
+import { StyledComponent } from "nativewind";
 
 import { Button } from "../../components/button";
 import { ComposerProvider } from "../../components/composer";
@@ -136,7 +135,12 @@ const NotificationsPage = () => {
         <FlashList
           ref={ref}
           data={data}
-          renderItem={({ item }) => <Notification {...item} />}
+          renderItem={({ item }) => (
+            <Notification
+              {...item}
+              dataUpdatedAt={notifications.dataUpdatedAt}
+            />
+          )}
           estimatedItemSize={105}
           onEndReachedThreshold={0.5}
           onEndReached={() => void notifications.fetchNextPage()}
@@ -190,7 +194,8 @@ const Notification = ({
   actors,
   isRead,
   indexedAt,
-}: NotificationGroup) => {
+  dataUpdatedAt,
+}: NotificationGroup & { dataUpdatedAt: number }) => {
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
     const [did, _, id] = subject.slice("at://".length).split("/");
@@ -211,7 +216,12 @@ const Notification = ({
             indexedAt={indexedAt}
           />
           {subject && (
-            <PostNotification uri={subject} unread={!isRead} inline />
+            <PostNotification
+              uri={subject}
+              unread={!isRead}
+              inline
+              dataUpdatedAt={dataUpdatedAt}
+            />
           )}
         </NotificationItem>
       );
@@ -228,7 +238,12 @@ const Notification = ({
             indexedAt={indexedAt}
           />
           {subject && (
-            <PostNotification uri={subject} unread={!isRead} inline />
+            <PostNotification
+              uri={subject}
+              unread={!isRead}
+              inline
+              dataUpdatedAt={dataUpdatedAt}
+            />
           )}
         </NotificationItem>
       );
@@ -252,7 +267,13 @@ const Notification = ({
     case "quote":
     case "mention":
       if (!subject) return null;
-      return <PostNotification uri={subject} unread={!isRead} />;
+      return (
+        <PostNotification
+          uri={subject}
+          unread={!isRead}
+          dataUpdatedAt={dataUpdatedAt}
+        />
+      );
     default:
       console.warn("Unknown notification reason", reason);
       return null;
@@ -279,7 +300,12 @@ const NotificationItem = ({
   const wrapper = (children: React.ReactNode) =>
     href ? (
       <Link href={href} asChild accessibilityHint="Opens post">
-        <TouchableOpacity className={className}>{children}</TouchableOpacity>
+        <StyledComponent
+          component={TouchableWithoutFeedback}
+          className={className}
+        >
+          {children}
+        </StyledComponent>
       </Link>
     ) : (
       <View className={className}>{children}</View>
@@ -309,9 +335,12 @@ const ProfileList = ({
             key={actor.did}
             accessibilityHint="Opens profile"
           >
-            <TouchableOpacity className="mr-2 rounded-full">
+            <StyledComponent
+              component={TouchableOpacity}
+              className="mr-2 rounded-full"
+            >
               <Image
-                className="h-8 w-8 rounded-full bg-neutral-200"
+                className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 source={{ uri: actor.avatar }}
                 alt={
                   // TODO: find a better way to handle this
@@ -322,7 +351,7 @@ const ProfileList = ({
                     : ""
                 }
               />
-            </TouchableOpacity>
+            </StyledComponent>
           </Link>
         ))}
       </View>
@@ -350,10 +379,12 @@ const PostNotification = ({
   uri,
   unread,
   inline,
+  dataUpdatedAt,
 }: {
   uri: string;
   unread: boolean;
   inline?: boolean;
+  dataUpdatedAt: number;
 }) => {
   const agent = useAuthedAgent();
 
@@ -415,7 +446,14 @@ const PostNotification = ({
       );
     }
 
-    return <FeedPost item={post.data} inlineParent unread={unread} />;
+    return (
+      <FeedPost
+        item={post.data}
+        inlineParent
+        unread={unread}
+        dataUpdatedAt={dataUpdatedAt}
+      />
+    );
   }
 
   if (post.error) {

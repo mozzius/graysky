@@ -27,11 +27,15 @@ interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
   root: AppBskyFeedDefs.PostView;
+  dataUpdatedAt: number;
 }
 
-export const Post = ({ post, hasParent, root }: Props) => {
-  const { liked, likeCount, toggleLike } = useLike(post);
-  const { reposted, repostCount, toggleRepost } = useRepost(post);
+export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
+  const { liked, likeCount, toggleLike } = useLike(post, dataUpdatedAt);
+  const { reposted, repostCount, toggleRepost } = useRepost(
+    post,
+    dataUpdatedAt,
+  );
   const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
@@ -63,7 +67,7 @@ export const Post = ({ post, hasParent, root }: Props) => {
               <Image
                 source={{ uri: post.author.avatar }}
                 alt=""
-                className="h-12 w-12 rounded-full"
+                className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
               />
             ) : (
               <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">

@@ -1,4 +1,11 @@
-import { Image, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Image,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
+  Text,
+  View,
+} from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -36,6 +43,7 @@ interface Props {
   hasReply?: boolean;
   unread?: boolean;
   inlineParent?: boolean;
+  dataUpdatedAt: number;
 }
 
 export const FeedPost = ({
@@ -44,9 +52,17 @@ export const FeedPost = ({
   hasReply = false,
   unread,
   inlineParent,
+  dataUpdatedAt,
 }: Props) => {
-  const { liked, likeCount, toggleLike } = useLike(item.post);
-  const { reposted, repostCount, toggleRepost } = useRepost(item.post);
+  const startHidden = Boolean(
+    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked,
+  );
+  const [hidden, setHidden] = useState(startHidden);
+  const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
+  const { reposted, repostCount, toggleRepost } = useRepost(
+    item.post,
+    dataUpdatedAt,
+  );
   const replyCount = item.post.replyCount;
   const composer = useComposer();
   const handleRepost = useHandleRepost(
@@ -65,6 +81,10 @@ export const FeedPost = ({
   const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
+  useEffect(() => {
+    setHidden(startHidden);
+  }, [item.post.cid, startHidden]);
+
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
   }
@@ -74,6 +94,29 @@ export const FeedPost = ({
   const displayInlineParent = inlineParent || !!item.reason;
 
   const timeSincePost = timeSince(new Date(item.post.indexedAt));
+
+  if (hidden) {
+    return (
+      <View
+        className={cx(
+          "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
+          isReply && !item.reason && "pt-0",
+          !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
+          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+        )}
+      >
+        <View className="flex-1 pb-2.5 pl-1 pr-2">
+          <View className="flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+            <Text className="my-1 max-w-[75%] font-semibold dark:text-neutral-50">
+              This post is from someone you have{" "}
+              {item.post.author.viewer?.blocking ? "blocked" : "muted"}.
+            </Text>
+            <Button title="Show" onPress={() => setHidden(false)} />
+          </View>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -100,7 +143,7 @@ export const FeedPost = ({
                     key={item.post.author.avatar}
                     source={{ uri: item.post.author.avatar }}
                     alt={postAuthorHandle}
-                    className="h-12 w-12 rounded-full"
+                    className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
                   />
                 ) : (
                   <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
@@ -187,12 +230,19 @@ export const FeedPost = ({
               asChild
               accessibilityHint="Opens post details"
             >
-              <TouchableWithoutFeedback className="my-0.5">
-                <RichText
-                  text={item.post.record.text}
-                  facets={item.post.record.facets}
-                />
-              </TouchableWithoutFeedback>
+              {/* bug - can't press links that are children of a gesture handler component */}
+              {item.post.record.facets?.length ? (
+                <RNTouchableWithoutFeedback className="my-0.5">
+                  <RichText
+                    text={item.post.record.text}
+                    facets={item.post.record.facets}
+                  />
+                </RNTouchableWithoutFeedback>
+              ) : (
+                <TouchableWithoutFeedback className="my-0.5">
+                  <RichText text={item.post.record.text} />
+                </TouchableWithoutFeedback>
+              )}
             </Link>
           )}
           {/* embeds */}
@@ -200,7 +250,7 @@ export const FeedPost = ({
             <Embed uri={item.post.uri} content={item.post.embed} />
           )}
           {/* actions */}
-          <View className="mt-2 flex-row justify-between pr-6">
+          <View className="mt-2.5 flex-row justify-between pr-6">
             <TouchableOpacity
               accessibilityLabel={`Reply, ${replyCount} repl${
                 replyCount !== 1 ? "ies" : "y"
@@ -275,7 +325,7 @@ export const FeedPost = ({
   );
 };
 
-const Reason = ({ item }: Props) => {
+const Reason = ({ item }: Pick<Props, "item">) => {
   const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
 
