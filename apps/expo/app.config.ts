@@ -34,6 +34,7 @@ const defineConfig = (): ExpoConfig => ({
   },
   android: {
     package: "dev.mozzius.graysky",
+    versionCode: 7,
     softwareKeyboardLayoutMode: "pan",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
