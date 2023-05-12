@@ -16,6 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
+import { useLists } from "../components/lists/context";
 import { useAuthedAgent } from "./agent";
 import { locale } from "./locale";
 import { queryClient } from "./query-client";
@@ -166,6 +167,8 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
   const agent = useAuthedAgent();
+  const { openLikes } = useLists();
+
   const handleMore = () => {
     const options =
       post.author.handle === agent.session.handle
@@ -174,6 +177,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Translate",
             "Copy post text",
             "Share post",
+            "See likes",
             `Mute @${post.author.handle}`,
             `Block @${post.author.handle}`,
             "Report post",
@@ -228,6 +232,9 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                 });
               },
             );
+            break;
+          case "See likes":
+            openLikes(post.uri);
             break;
           case `Mute @${post.author.handle}`:
             Alert.alert(
