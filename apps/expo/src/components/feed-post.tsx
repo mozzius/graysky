@@ -250,7 +250,7 @@ export const FeedPost = ({
             <Embed uri={item.post.uri} content={item.post.embed} />
           )}
           {/* actions */}
-          <View className="mt-2 flex-row justify-between pr-6">
+          <View className="mt-2.5 flex-row justify-between pr-6">
             <TouchableOpacity
               accessibilityLabel={`Reply, ${replyCount} repl${
                 replyCount !== 1 ? "ies" : "y"

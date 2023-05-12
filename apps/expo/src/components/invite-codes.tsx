@@ -72,8 +72,9 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
               )}
               keyExtractor={(item) => item.code}
               ItemSeparatorComponent={() => (
-                <View className="mx-8 h-px bg-gray-200" />
+                <View className="mx-8 h-px bg-neutral-200 dark:bg-neutral-600" />
               )}
+              ListFooterComponent={() => <View className="h-10" />}
               ListEmptyComponent={() => (
                 <View className="flex-1 items-center justify-center">
                   <Text className="text-center text-gray-500">
