@@ -151,6 +151,13 @@ export default function RootLayout() {
                           headerBackVisible: true,
                         }}
                       />
+                      <Stack.Screen
+                        name="translate"
+                        options={{
+                          headerTitle: "Translate",
+                          presentation: "modal",
+                        }}
+                      />
                     </Stack>
                   </ComposerProvider>
                 </ListProvider>

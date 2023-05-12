@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { useEffect, useRef, useState } from "react";
-import { Alert, Linking, Share } from "react-native";
+import { Alert, Share } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
-import { useNavigation } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
@@ -18,7 +18,6 @@ import { useColorScheme } from "nativewind";
 import { useComposer } from "../components/composer";
 import { useLists } from "../components/lists/context";
 import { useAuthedAgent } from "./agent";
-import { locale } from "./locale";
 import { queryClient } from "./query-client";
 import { assert } from "./utils/assert";
 
@@ -168,6 +167,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const { colorScheme } = useColorScheme();
   const agent = useAuthedAgent();
   const { openLikes } = useLists();
+  const router = useRouter();
 
   const handleMore = () => {
     const options =
@@ -178,11 +178,11 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Copy post text",
             "Share post",
             "See likes",
-            `Mute @${post.author.handle}`,
-            `Block @${post.author.handle}`,
+            post.author.viewer?.muted ? "" : `Mute @${post.author.handle}`,
+            post.author.viewer?.blocking ? "" : `Block @${post.author.handle}`,
             "Report post",
             "Cancel",
-          ];
+          ].filter(Boolean);
     showActionSheetWithOptions(
       {
         options,
@@ -195,10 +195,8 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
           case "Translate":
             if (!AppBskyFeedPost.isRecord(post.record)) return;
             assert(AppBskyFeedPost.validateRecord(post.record));
-            await Linking.openURL(
-              `https://translate.google.com/?sl=auto&tl=${
-                locale.languageCode
-              }&text=${encodeURIComponent(post.record.text)}`,
+            router.push(
+              `/translate?text=${encodeURIComponent(post.record.text)}`,
             );
             break;
           case "Copy post text":
