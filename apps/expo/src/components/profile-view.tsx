@@ -1,17 +1,4 @@
 /* eslint-disable no-case-declarations */
-import { useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Alert, Text, View } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import { Stack } from "expo-router";
-import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { XOctagon } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useTabPressScroll } from "../lib/hooks";
@@ -19,24 +6,30 @@ import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
 import { useUserRefresh } from "../lib/utils/query";
 import { Button } from "./button";
-import { ComposeButton } from "./compose-button";
 import { FeedPost } from "./feed-post";
 import { ProfileInfo } from "./profile-info";
 import { QueryWithoutData } from "./query-without-data";
 import { Tab, Tabs } from "./tabs";
+import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { FlashList } from "@shopify/flash-list";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Stack } from "expo-router";
+import { XOctagon } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import { useMemo, useRef, useState } from "react";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 interface Props {
   handle: string;
   header?: boolean;
-  composer?: boolean;
 }
 
-export const ProfileView = ({
-  handle,
-
-  header = true,
-  composer,
-}: Props) => {
+export const ProfileView = ({ handle, header = true }: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
@@ -97,7 +90,7 @@ export const ProfileView = ({
 
               if (!AppBskyFeedDefs.isThreadViewPost(post.data.thread)) {
                 assert(
-                  AppBskyFeedDefs.validateThreadViewPost(post.data.thread),
+                  AppBskyFeedDefs.validateThreadViewPost(post.data.thread)
                 );
                 console.warn(`Missing post: ${record.value.subject.uri}`);
                 return null;
@@ -114,15 +107,15 @@ export const ProfileView = ({
                         parent: post.data.thread.parent.post,
                         // not technically correct but we don't use this field
                         root: post.data.thread.parent.post,
-                      },
+                      } as AppBskyFeedDefs.ReplyRef,
                     }
                   : {}),
               } satisfies AppBskyFeedDefs.FeedViewPost;
-            }),
+            })
           );
           return {
             feed: likes.filter((like): like is AppBskyFeedDefs.FeedViewPost =>
-              Boolean(like),
+              Boolean(like)
             ),
             cursor: data.cursor,
           };
@@ -132,7 +125,7 @@ export const ProfileView = ({
   });
 
   const { refreshing, handleRefresh } = useUserRefresh(() =>
-    Promise.all([timeline.refetch(), profile.refetch()]),
+    Promise.all([timeline.refetch(), profile.refetch()])
   );
 
   const data = useMemo(() => {
@@ -303,7 +296,6 @@ export const ProfileView = ({
           }}
         />
         {content}
-        {composer && <ComposeButton />}
       </>
     );
   }

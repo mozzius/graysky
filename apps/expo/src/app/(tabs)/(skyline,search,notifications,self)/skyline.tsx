@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useCallback, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, View } from "react-native";
-import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
-import { Stack } from "expo-router";
-import { AppBskyFeedDefs } from "@atproto/api";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
 
 import { ComposeButton } from "../../../components/compose-button";
-import { ComposerProvider } from "../../../components/composer";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
 import { assert } from "../../../lib/utils/assert";
 import { useUserRefresh } from "../../../lib/utils/query";
+import { AppBskyFeedDefs } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { FlashList } from "@shopify/flash-list";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Stack } from "expo-router";
+import { useColorScheme } from "nativewind";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { ActivityIndicator, Dimensions, View } from "react-native";
+import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
@@ -70,12 +69,12 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
               }
               return acc;
             },
-            [[]],
+            [[]]
           );
           // fetch profiles for each chunk
           // const profiles = await agent.getProfiles({ actors: [...actors] });
           const profiles = await Promise.all(
-            chunks.map((chunk) => agent.getProfiles({ actors: chunk })),
+            chunks.map((chunk) => agent.getProfiles({ actors: chunk }))
           );
           return {
             feed: all.data.feed.filter((item) => {
@@ -120,7 +119,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
           } else {
             return [{ item, hasReply: false }];
           }
-        },
+        }
       )
       .flat();
   }, [timeline]);
@@ -175,7 +174,7 @@ const TimelinePage = () => {
         getLabelText={({ route }) => route.title}
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor],
+    [activeColor, backgroundColor, indicatorStyle, borderColor]
   );
 
   return (
@@ -220,35 +219,32 @@ const Feed = ({ mode }: Props) => {
 
   if (timeline.data) {
     return (
-      <>
-        <FlashList
-          ref={ref}
-          data={data}
-          renderItem={({ item: { hasReply, item }, index }) => (
-            <FeedPost
-              item={item}
-              hasReply={hasReply}
-              isReply={data[index - 1]?.hasReply}
-              inlineParent={!data[index - 1]?.hasReply}
-              dataUpdatedAt={timeline.dataUpdatedAt}
-            />
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => void timeline.fetchNextPage()}
-          onRefresh={() => void handleRefresh()}
-          refreshing={refreshing}
-          estimatedItemSize={180}
-          ListFooterComponent={
-            timeline.isFetching ? (
-              <View className="w-full items-center py-4">
-                <ActivityIndicator />
-              </View>
-            ) : null
-          }
-          extraData={timeline.dataUpdatedAt}
-        />
-        <ComposeButton />
-      </>
+      <FlashList
+        ref={ref}
+        data={data}
+        renderItem={({ item: { hasReply, item }, index }) => (
+          <FeedPost
+            item={item}
+            hasReply={hasReply}
+            isReply={data[index - 1]?.hasReply}
+            inlineParent={!data[index - 1]?.hasReply}
+            dataUpdatedAt={timeline.dataUpdatedAt}
+          />
+        )}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => void timeline.fetchNextPage()}
+        onRefresh={() => void handleRefresh()}
+        refreshing={refreshing}
+        estimatedItemSize={180}
+        ListFooterComponent={
+          timeline.isFetching ? (
+            <View className="w-full items-center py-4">
+              <ActivityIndicator />
+            </View>
+          ) : null
+        }
+        extraData={timeline.dataUpdatedAt}
+      />
     );
   }
 
@@ -257,9 +253,10 @@ const Feed = ({ mode }: Props) => {
 
 export default function Page() {
   return (
-    <ComposerProvider>
-      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
+    <>
+      <Stack.Screen options={{ headerTransparent: true }} />
       <TimelinePage />
-    </ComposerProvider>
+      <ComposeButton />
+    </>
   );
 }

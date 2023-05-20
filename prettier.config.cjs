@@ -38,5 +38,3 @@ const config = {
   importOrderMergeDuplicateImports: true,
   importOrderCombineTypeAndValueImports: true,
 };
-
-module.exports = config;

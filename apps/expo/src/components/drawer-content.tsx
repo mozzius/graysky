@@ -1,33 +1,39 @@
-import { Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useLogOut } from "../lib/log-out-context";
+import { ActorDetails } from "./actor-details";
+import { useInviteCodes } from "./invite-codes";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-
-import { useLogOut } from "../lib/log-out-context";
-import { ActorDetails } from "./actor-details";
-import { useInviteCodes } from "./invite-codes";
+import { createContext, useContext } from "react";
+import { Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   openInviteCodes: () => void;
-
   textColor: string;
 }
 
-export const DrawerContent = ({
-  openInviteCodes,
+const DrawerContext = createContext<(() => void) | null>(null);
 
-  textColor,
-}: Props) => {
+export const DrawerProvider = DrawerContext.Provider;
+
+export const useDrawer = () => {
+  const openDrawer = useContext(DrawerContext);
+  if (!openDrawer)
+    throw new Error("useDrawer must be used within a DrawerProvider");
+  return openDrawer;
+};
+
+export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
   const logOut = useLogOut();
   const { toggleColorScheme } = useColorScheme();
   const codes = useInviteCodes();
 
-  const numCodes = (codes.data?.data?.codes ?? []).reduce(
-    (acc, code) => (!code.forAccount ? acc + 1 : acc),
-    0,
+  const numCodes = (codes.data?.unused ?? []).reduce(
+    (acc, code) => (acc += code.available),
+    0
   );
 
   return (
