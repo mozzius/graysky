@@ -1,28 +1,3 @@
-import { useEffect, useState } from "react";
-import {
-  Button,
-  Image,
-  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
-  Text,
-  View,
-} from "react-native";
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import { Link } from "expo-router";
-import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
-import {
-  Heart,
-  MessageCircle,
-  MessageSquare,
-  MoreHorizontal,
-  Repeat,
-  User,
-} from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-
 import { useAuthedAgent } from "../lib/agent";
 import {
   useHandleRepost,
@@ -36,6 +11,30 @@ import { timeSince } from "../lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
+import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useQuery } from "@tanstack/react-query";
+import { Link, useRouter } from "expo-router";
+import {
+  Heart,
+  MessageCircle,
+  MessageSquare,
+  MoreHorizontal,
+  Repeat,
+  User,
+} from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Image,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
+  Text,
+  View,
+} from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
@@ -55,22 +54,23 @@ export const FeedPost = ({
   dataUpdatedAt,
 }: Props) => {
   const startHidden = Boolean(
-    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked,
+    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked
   );
   const [hidden, setHidden] = useState(startHidden);
   const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
   const { reposted, repostCount, toggleRepost } = useRepost(
     item.post,
-    dataUpdatedAt,
+    dataUpdatedAt
   );
   const replyCount = item.post.replyCount;
   const composer = useComposer();
   const handleRepost = useHandleRepost(
     item.post,
     reposted,
-    toggleRepost.mutate,
+    toggleRepost.mutate
   );
   const handleMore = usePostViewOptions(item.post);
+  const router = useRouter();
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
@@ -102,7 +102,7 @@ export const FeedPost = ({
           "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
           isReply && !item.reason && "pt-0",
           !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800"
         )}
       >
         <View className="flex-1 pb-2.5 pl-1 pr-2">
@@ -124,7 +124,7 @@ export const FeedPost = ({
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800"
       )}
     >
       <Reason item={item} />
@@ -159,7 +159,7 @@ export const FeedPost = ({
                 <View
                   className={cx(
                     "w-0.5 grow",
-                    hasReply && "bg-neutral-200 dark:bg-neutral-800",
+                    hasReply && "bg-neutral-200 dark:bg-neutral-800"
                   )}
                 />
               </TouchableWithoutFeedback>
@@ -198,53 +198,57 @@ export const FeedPost = ({
           </View>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
-            (item.reply ? (
-              <Link
-                href={`/profile/${
-                  item.reply.parent.author.handle
-                }/post/${item.reply.parent.uri.split("/").pop()}`}
-                asChild
-                accessibilityHint="Opens parent post"
-              >
-                <TouchableWithoutFeedback className="flex-row items-center">
-                  <MessageCircle size={12} color="#737373" />
-                  <Text
-                    className="ml-1 text-neutral-500 dark:text-neutral-400"
-                    numberOfLines={1}
+            (item.reply
+              ? AppBskyFeedDefs.isPostView(item.reply.parent) &&
+                AppBskyFeedDefs.validateFeedViewPost(item.reply.parent)
+                  .success && (
+                  <Link
+                    href={`/profile/${
+                      item.reply.parent.author.handle
+                    }/post/${item.reply.parent.uri.split("/").pop()}`}
+                    asChild
+                    accessibilityHint="Opens parent post"
                   >
-                    replying to{" "}
-                    {item.reply.parent.author.displayName ??
-                      `@${item.reply.parent.author.handle}`}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </Link>
-            ) : (
-              !!item.post.record.reply && (
-                <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
-              )
-            ))}
+                    <TouchableWithoutFeedback className="flex-row items-center">
+                      <MessageCircle size={12} color="#737373" />
+                      <Text
+                        className="ml-1 text-neutral-500 dark:text-neutral-400"
+                        numberOfLines={1}
+                      >
+                        replying to{" "}
+                        {item.reply.parent.author.displayName ??
+                          `@${item.reply.parent.author.handle}`}
+                      </Text>
+                    </TouchableWithoutFeedback>
+                  </Link>
+                )
+              : !!item.post.record.reply && (
+                  <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
+                ))}
           {/* text content */}
-          {item.post.record.text && (
-            <Link
-              href={postHref}
-              asChild
-              accessibilityHint="Opens post details"
-            >
-              {/* bug - can't press links that are children of a gesture handler component */}
-              {item.post.record.facets?.length ? (
-                <RNTouchableWithoutFeedback className="my-0.5">
+          {item.post.record.text &&
+            /* bug - can't press links that are children of a gesture handler component */
+            (item.post.record.facets?.length ? (
+              <RNTouchableWithoutFeedback
+                className="my-0.5"
+                accessibilityHint="Opens post details"
+                onPress={() => router.push(postHref)}
+              >
+                <View>
                   <RichText
                     text={item.post.record.text}
                     facets={item.post.record.facets}
                   />
-                </RNTouchableWithoutFeedback>
-              ) : (
-                <TouchableWithoutFeedback className="my-0.5">
-                  <RichText text={item.post.record.text} />
-                </TouchableWithoutFeedback>
-              )}
-            </Link>
-          )}
+                </View>
+              </RNTouchableWithoutFeedback>
+            ) : (
+              <TouchableWithoutFeedback
+                className="my-0.5"
+                onPress={() => router.push(postHref)}
+              >
+                <RichText text={item.post.record.text} />
+              </TouchableWithoutFeedback>
+            ))}
           {/* embeds */}
           {item.post.embed && (
             <Embed uri={item.post.uri} content={item.post.embed} />
@@ -262,7 +266,7 @@ export const FeedPost = ({
                   root: item.reply?.root ?? item.post,
                 })
               }
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
@@ -276,7 +280,7 @@ export const FeedPost = ({
               disabled={toggleRepost.isLoading}
               onPress={handleRepost}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
             >
               <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
               <Text
@@ -295,7 +299,7 @@ export const FeedPost = ({
               disabled={toggleLike.isLoading}
               onPress={() => toggleLike.mutate()}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
             >
               <Heart
                 size={16}

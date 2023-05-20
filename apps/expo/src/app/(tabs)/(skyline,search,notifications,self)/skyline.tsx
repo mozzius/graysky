@@ -1,22 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useCallback, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, View } from "react-native";
-import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
-import { Stack } from "expo-router";
+
+import { Avatar } from "../../../components/avatar";
+import { ComposeButton } from "../../../components/compose-button";
+import { useDrawer } from "../../../components/drawer-content";
+import { FeedPost } from "../../../components/feed-post";
+import { QueryWithoutData } from "../../../components/query-without-data";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScroll } from "../../../lib/hooks";
+import { assert } from "../../../lib/utils/assert";
+import { useUserRefresh } from "../../../lib/utils/query";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
-
-import { ComposeButton } from "../../components/compose-button";
-import { ComposerProvider } from "../../components/composer";
-import { FeedPost } from "../../components/feed-post";
-import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
-import { useTabPressScroll } from "../../lib/hooks";
-import { assert } from "../../lib/utils/assert";
-import { useUserRefresh } from "../../lib/utils/query";
+import { useCallback, useMemo, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Dimensions,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
@@ -70,12 +76,12 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
               }
               return acc;
             },
-            [[]],
+            [[]]
           );
           // fetch profiles for each chunk
           // const profiles = await agent.getProfiles({ actors: [...actors] });
           const profiles = await Promise.all(
-            chunks.map((chunk) => agent.getProfiles({ actors: chunk })),
+            chunks.map((chunk) => agent.getProfiles({ actors: chunk }))
           );
           return {
             feed: all.data.feed.filter((item) => {
@@ -104,23 +110,23 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
         //   ? [] :
         {
           if (item.reply && !item.reason) {
-            if (item.reply.parent.author.viewer?.blocking) {
+            if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
               return [];
             } else if (
-              item.reply.parent.author.viewer?.blockedBy ||
-              item.reply.parent.author.viewer?.muted
+              AppBskyFeedDefs.isPostView(item.reply.parent) &&
+              AppBskyFeedDefs.validatePostView(item.reply.parent).success
             ) {
-              return [{ item, hasReply: false }];
-            } else {
               return [
                 { item: { post: item.reply.parent }, hasReply: true },
                 { item, hasReply: false },
               ];
+            } else {
+              return [{ item, hasReply: false }];
             }
           } else {
             return [{ item, hasReply: false }];
           }
-        },
+        }
       )
       .flat();
   }, [timeline]);
@@ -134,7 +140,7 @@ const routes = [
   { key: "mutuals", title: "Mutuals" },
 ];
 
-const TimelinePage = () => {
+const SkylinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
@@ -175,7 +181,7 @@ const TimelinePage = () => {
         getLabelText={({ route }) => route.title}
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor],
+    [activeColor, backgroundColor, indicatorStyle, borderColor]
   );
 
   return (
@@ -186,6 +192,7 @@ const TimelinePage = () => {
       />
       <TabView
         lazy
+        key={colorScheme}
         renderTabBar={renderTabBar}
         navigationState={{
           index,
@@ -219,35 +226,32 @@ const Feed = ({ mode }: Props) => {
 
   if (timeline.data) {
     return (
-      <>
-        <FlashList
-          ref={ref}
-          data={data}
-          renderItem={({ item: { hasReply, item }, index }) => (
-            <FeedPost
-              item={item}
-              hasReply={hasReply}
-              isReply={data[index - 1]?.hasReply}
-              inlineParent={!data[index - 1]?.hasReply}
-              dataUpdatedAt={timeline.dataUpdatedAt}
-            />
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => void timeline.fetchNextPage()}
-          onRefresh={() => void handleRefresh()}
-          refreshing={refreshing}
-          estimatedItemSize={180}
-          ListFooterComponent={
-            timeline.isFetching ? (
-              <View className="w-full items-center py-4">
-                <ActivityIndicator />
-              </View>
-            ) : null
-          }
-          extraData={timeline.dataUpdatedAt}
-        />
-        <ComposeButton />
-      </>
+      <FlashList
+        ref={ref}
+        data={data}
+        renderItem={({ item: { hasReply, item }, index }) => (
+          <FeedPost
+            item={item}
+            hasReply={hasReply}
+            isReply={data[index - 1]?.hasReply}
+            inlineParent={!data[index - 1]?.hasReply}
+            dataUpdatedAt={timeline.dataUpdatedAt}
+          />
+        )}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => void timeline.fetchNextPage()}
+        onRefresh={() => void handleRefresh()}
+        refreshing={refreshing}
+        estimatedItemSize={180}
+        ListFooterComponent={
+          timeline.isFetching ? (
+            <View className="w-full items-center py-4">
+              <ActivityIndicator />
+            </View>
+          ) : null
+        }
+        extraData={timeline.dataUpdatedAt}
+      />
     );
   }
 
@@ -255,10 +259,22 @@ const Feed = ({ mode }: Props) => {
 };
 
 export default function Page() {
+  const openDrawer = useDrawer();
   return (
-    <ComposerProvider>
-      <Stack.Screen options={{ headerShown: true, headerTransparent: true }} />
-      <TimelinePage />
-    </ComposerProvider>
+    <>
+      <Stack.Screen
+        options={{
+          title: "Skyline",
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={openDrawer}>
+              <Avatar size="small" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <SkylinePage />
+      <ComposeButton />
+    </>
   );
 }

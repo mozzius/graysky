@@ -1,3 +1,16 @@
+import { ComposeButton } from "../../../components/compose-button";
+import { QueryWithoutData } from "../../../components/query-without-data";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScroll } from "../../../lib/hooks";
+import { queryClient } from "../../../lib/query-client";
+import { cx } from "../../../lib/utils/cx";
+import { useUserRefresh } from "../../../lib/utils/query";
+import { type AppBskyActorDefs } from "@atproto/api";
+import { FlashList } from "@shopify/flash-list";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { Link, Stack, useNavigation, useRouter } from "expo-router";
+import { Search, X } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Image,
@@ -9,19 +22,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, useNavigation, useRouter } from "expo-router";
-import { type AppBskyActorDefs } from "@atproto/api";
-import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { Search, X } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-
-import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
-import { useTabPressScroll } from "../../lib/hooks";
-import { queryClient } from "../../lib/query-client";
-import { cx } from "../../lib/utils/cx";
-import { useUserRefresh } from "../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -30,7 +30,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
-    const unsub = navigation.addListener("tabPress", () => {
+    const unsub = navigation.getParent()?.addListener("tabPress", () => {
       if (navigation.isFocused()) {
         ref.current.focus();
       }
@@ -48,6 +48,8 @@ export default function SearchPage() {
         mode="padding"
         className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-600 dark:bg-black"
       >
+        <Stack.Screen options={{ headerShown: false }} />
+
         <View className="relative">
           <Search
             className="absolute left-4 top-2.5 z-10"
@@ -61,7 +63,7 @@ export default function SearchPage() {
             onChangeText={setSearch}
             placeholder="Search"
             placeholderTextColor={
-              colorScheme === "light" ? "#e0e0e0" : "#6b6b6b"
+              colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"
             }
             className="rounded-full bg-neutral-100 px-12 py-3 pr-2 text-base leading-5 dark:bg-neutral-800 dark:text-neutral-50"
           />
@@ -82,6 +84,7 @@ export default function SearchPage() {
         </View>
       </SafeAreaView>
       {search ? <SearchResults search={search} /> : <Suggestions />}
+      <ComposeButton />
     </>
   );
 }
@@ -241,7 +244,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 }}
                 className={cx(
                   "shrink-0 rounded-full border border-white px-4 py-1",
-                  follow.isIdle ? "bg-black" : "bg-neutral-100",
+                  follow.isIdle ? "bg-black" : "bg-neutral-100"
                 )}
               >
                 <Text className={cx("text-sm", follow.isIdle && "text-white")}>

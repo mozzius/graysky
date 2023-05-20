@@ -1,10 +1,17 @@
-import { useEffect, useMemo } from "react";
-import { ActivityIndicator, Image, Text, View } from "react-native";
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import { Link, Stack } from "expo-router";
+import { Avatar } from "../../../components/avatar";
+import { Button } from "../../../components/button";
+import { ComposeButton } from "../../../components/compose-button";
+import { useDrawer } from "../../../components/drawer-content";
+import { Embed } from "../../../components/embed";
+import { FeedPost } from "../../../components/feed-post";
+import { RichText } from "../../../components/rich-text";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScrollRef } from "../../../lib/hooks";
+import { queryClient } from "../../../lib/query-client";
+import { assert } from "../../../lib/utils/assert";
+import { cx } from "../../../lib/utils/cx";
+import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
+import { timeSince } from "../../../lib/utils/time";
 import {
   AppBskyEmbedImages,
   AppBskyFeedDefs,
@@ -14,21 +21,15 @@ import {
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Link, Stack } from "expo-router";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
-
-import { Button } from "../../components/button";
-import { ComposerProvider } from "../../components/composer";
-import { Embed } from "../../components/embed";
-import { FeedPost } from "../../components/feed-post";
-import { RichText } from "../../components/rich-text";
-import { useAuthedAgent } from "../../lib/agent";
-import { useTabPressScrollRef } from "../../lib/hooks";
-import { queryClient } from "../../lib/query-client";
-import { assert } from "../../lib/utils/assert";
-import { cx } from "../../lib/utils/cx";
-import { useRefreshOnFocus, useUserRefresh } from "../../lib/utils/query";
-import { timeSince } from "../../lib/utils/time";
+import { useEffect, useMemo } from "react";
+import { ActivityIndicator, Image, Text, View } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 
 // TOOO: split this file up into like 6 files
 
@@ -60,7 +61,7 @@ const NotificationsPage = () => {
       const grouped: NotificationGroup[] = [];
       for (const notif of notifs.data.notifications) {
         const prior = grouped.find(
-          (x) => x.reason === notif.reason && x.subject === notif.reasonSubject,
+          (x) => x.reason === notif.reason && x.subject === notif.reasonSubject
         );
         if (prior) {
           prior.actors.push(notif.author);
@@ -94,7 +95,7 @@ const NotificationsPage = () => {
       void agent.updateSeenNotifications().then(() =>
         queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
-        }),
+        })
       );
     }, 3000);
     return () => clearTimeout(timeout);
@@ -109,8 +110,8 @@ const NotificationsPage = () => {
       .then(() =>
         queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
-        }),
-      ),
+        })
+      )
   );
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -119,7 +120,7 @@ const NotificationsPage = () => {
   const data = useMemo(() => {
     if (!notifications.data) return [];
     const notifs = notifications.data.pages.flatMap(
-      (page) => page.notifications,
+      (page) => page.notifications
     );
     return notifs;
   }, [notifications.data]);
@@ -180,11 +181,22 @@ const NotificationsPage = () => {
 };
 
 export default function Page() {
+  const openDrawer = useDrawer();
   return (
-    <ComposerProvider>
-      <Stack.Screen options={{ headerShown: true, title: "Notifications" }} />
+    <>
+      <Stack.Screen
+        options={{
+          title: "Notifications",
+          headerLeft: () => (
+            <TouchableOpacity onPress={openDrawer}>
+              <Avatar size="small" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <NotificationsPage />
-    </ComposerProvider>
+      <ComposeButton />
+    </>
   );
 }
 
@@ -295,7 +307,7 @@ const NotificationItem = ({
     "flex-row border-b p-2  text-black dark:text-white",
     unread
       ? "border-blue-200 bg-blue-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-600"
-      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-600",
+      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-600"
   );
   const wrapper = (children: React.ReactNode) =>
     href ? (
@@ -314,7 +326,7 @@ const NotificationItem = ({
     <>
       <View className="w-16 shrink-0 items-end px-2">{left}</View>
       <View className="flex-1 px-2">{children}</View>
-    </>,
+    </>
   );
 };
 

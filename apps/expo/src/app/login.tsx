@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Alert, Button, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { useAgent } from "../../lib/agent";
+import { useAgent } from "../lib/agent";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 
@@ -51,7 +50,6 @@ export default function Login() {
 
   return (
     <SafeAreaView className="flex-1 bg-white px-4 dark:bg-black">
-      <Stack.Screen options={{ title: "Log in", headerBackTitle: "Back" }} />
       <View className="items-stretch gap-4">
         <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <User size={18} color="rgb(163 163 163)" />
