@@ -8,7 +8,7 @@ import { useUserRefresh } from "../../../lib/utils/query";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { Search, X } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -21,6 +21,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -42,7 +43,13 @@ export default function SearchPage() {
 
   return (
     <>
-      <View className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-600 dark:bg-black">
+      <SafeAreaView
+        edges={["left", "top", "right"]}
+        mode="padding"
+        className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-600 dark:bg-black"
+      >
+        <Stack.Screen options={{ headerShown: false }} />
+
         <View className="relative">
           <Search
             className="absolute left-4 top-2.5 z-10"
@@ -75,7 +82,7 @@ export default function SearchPage() {
             </TouchableOpacity>
           )}
         </View>
-      </View>
+      </SafeAreaView>
       {search ? <SearchResults search={search} /> : <Suggestions />}
       <ComposeButton />
     </>

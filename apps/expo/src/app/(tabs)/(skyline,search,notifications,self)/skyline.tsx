@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
+import { useDrawer } from "../../../components/drawer-content";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
@@ -14,7 +16,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
@@ -252,9 +259,20 @@ const Feed = ({ mode }: Props) => {
 };
 
 export default function Page() {
+  const openDrawer = useDrawer();
   return (
     <>
-      <Stack.Screen options={{ headerTransparent: true }} />
+      <Stack.Screen
+        options={{
+          title: "Skyline",
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={openDrawer}>
+              <Avatar size="small" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <SkylinePage />
       <ComposeButton />
     </>

@@ -1,5 +1,7 @@
+import { Avatar } from "../../../components/avatar";
 import { Button } from "../../../components/button";
 import { ComposeButton } from "../../../components/compose-button";
+import { useDrawer } from "../../../components/drawer-content";
 import { Embed } from "../../../components/embed";
 import { FeedPost } from "../../../components/feed-post";
 import { RichText } from "../../../components/rich-text";
@@ -179,8 +181,19 @@ const NotificationsPage = () => {
 };
 
 export default function Page() {
+  const openDrawer = useDrawer();
   return (
     <>
+      <Stack.Screen
+        options={{
+          title: "Notifications",
+          headerLeft: () => (
+            <TouchableOpacity onPress={openDrawer}>
+              <Avatar size="small" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <NotificationsPage />
       <ComposeButton />
     </>
