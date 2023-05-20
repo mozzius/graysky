@@ -104,18 +104,18 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
         //   ? [] :
         {
           if (item.reply && !item.reason) {
-            if (item.reply.parent.author.viewer?.blocking) {
+            if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
               return [];
             } else if (
-              item.reply.parent.author.viewer?.blockedBy ||
-              item.reply.parent.author.viewer?.muted
+              AppBskyFeedDefs.isPostView(item.reply.parent) &&
+              AppBskyFeedDefs.validatePostView(item.reply.parent).success
             ) {
-              return [{ item, hasReply: false }];
-            } else {
               return [
                 { item: { post: item.reply.parent }, hasReply: true },
                 { item, hasReply: false },
               ];
+            } else {
+              return [{ item, hasReply: false }];
             }
           } else {
             return [{ item, hasReply: false }];
@@ -186,6 +186,7 @@ const TimelinePage = () => {
       />
       <TabView
         lazy
+        key={colorScheme}
         renderTabBar={renderTabBar}
         navigationState={{
           index,

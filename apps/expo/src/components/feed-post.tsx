@@ -198,31 +198,33 @@ export const FeedPost = ({
           </View>
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
-            (item.reply ? (
-              <Link
-                href={`/profile/${
-                  item.reply.parent.author.handle
-                }/post/${item.reply.parent.uri.split("/").pop()}`}
-                asChild
-                accessibilityHint="Opens parent post"
-              >
-                <TouchableWithoutFeedback className="flex-row items-center">
-                  <MessageCircle size={12} color="#737373" />
-                  <Text
-                    className="ml-1 text-neutral-500 dark:text-neutral-400"
-                    numberOfLines={1}
+            (item.reply
+              ? AppBskyFeedDefs.isPostView(item.reply.parent) &&
+                AppBskyFeedDefs.validateFeedViewPost(item.reply.parent)
+                  .success && (
+                  <Link
+                    href={`/profile/${
+                      item.reply.parent.author.handle
+                    }/post/${item.reply.parent.uri.split("/").pop()}`}
+                    asChild
+                    accessibilityHint="Opens parent post"
                   >
-                    replying to{" "}
-                    {item.reply.parent.author.displayName ??
-                      `@${item.reply.parent.author.handle}`}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </Link>
-            ) : (
-              !!item.post.record.reply && (
-                <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
-              )
-            ))}
+                    <TouchableWithoutFeedback className="flex-row items-center">
+                      <MessageCircle size={12} color="#737373" />
+                      <Text
+                        className="ml-1 text-neutral-500 dark:text-neutral-400"
+                        numberOfLines={1}
+                      >
+                        replying to{" "}
+                        {item.reply.parent.author.displayName ??
+                          `@${item.reply.parent.author.handle}`}
+                      </Text>
+                    </TouchableWithoutFeedback>
+                  </Link>
+                )
+              : !!item.post.record.reply && (
+                  <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
+                ))}
           {/* text content */}
           {item.post.record.text && (
             <Link

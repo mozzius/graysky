@@ -121,6 +121,7 @@ export default function RootLayout() {
     setInvalidator((i) => i + 1);
   }, []);
 
+  console.log("colorScheme", colorScheme);
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
   return (
     <ThemeProvider value={theme}>
