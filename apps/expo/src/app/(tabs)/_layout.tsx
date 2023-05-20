@@ -1,16 +1,17 @@
+import { useCallback, useRef, useState } from "react";
+import { Dimensions, type ColorValue } from "react-native";
+import { Drawer } from "react-native-drawer-layout";
+import { Stack, Tabs } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
+import { Bell, Cloudy, Search, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
 import {
   InviteCodes,
   type InviteCodesRef,
 } from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
-import { useQuery } from "@tanstack/react-query";
-import { Stack, Tabs } from "expo-router";
-import { Bell, Cloudy, Search, User } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-import { useCallback, useRef, useState } from "react";
-import { Dimensions, type ColorValue } from "react-native";
-import { Drawer } from "react-native-drawer-layout";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
@@ -59,7 +60,7 @@ export default function AppLayout() {
         textColor={textColor}
       />
     ),
-    [textColor]
+    [textColor],
   );
 
   const openDrawer = useCallback(() => setOpen(true), []);

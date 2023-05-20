@@ -1,11 +1,11 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { useComposer } from "../components/composer";
-import { useLists } from "../components/lists/context";
-import { useAuthedAgent } from "./agent";
-import { queryClient } from "./query-client";
-import { assert } from "./utils/assert";
+import { useEffect, useRef, useState } from "react";
+import { Alert, Share } from "react-native";
+import * as Clipboard from "expo-clipboard";
+import * as Haptics from "expo-haptics";
+import { useNavigation, useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
@@ -14,16 +14,17 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type FlashList } from "@shopify/flash-list";
 import { useMutation } from "@tanstack/react-query";
-import * as Clipboard from "expo-clipboard";
-import * as Haptics from "expo-haptics";
-import { useNavigation, useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { useEffect, useRef, useState } from "react";
-import { Alert, Share } from "react-native";
+
+import { useComposer } from "../components/composer";
+import { useLists } from "../components/lists/context";
+import { useAuthedAgent } from "./agent";
+import { queryClient } from "./query-client";
+import { assert } from "./utils/assert";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
-  updated: number
+  updated: number,
 ) => {
   const agent = useAuthedAgent();
   const cid = useRef(post.cid);
@@ -77,7 +78,7 @@ export const useLike = (
 
 export const useRepost = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
-  updated: number
+  updated: number,
 ) => {
   const agent = useAuthedAgent();
   const cid = useRef(post.cid);
@@ -133,7 +134,7 @@ export const useRepost = (
 export const useTabPressScroll = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: React.RefObject<FlashList<any>>,
-  callback = () => {}
+  callback = () => {},
 ) => {
   const navigation = useNavigation();
 
@@ -196,7 +197,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             if (!AppBskyFeedPost.isRecord(post.record)) return;
             assert(AppBskyFeedPost.validateRecord(post.record));
             router.push(
-              `/translate?text=${encodeURIComponent(post.record.text)}`
+              `/translate?text=${encodeURIComponent(post.record.text)}`,
             );
             break;
           case "Copy post text":
@@ -228,7 +229,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                     .split("/")
                     .pop()}`,
                 });
-              }
+              },
             );
             break;
           case "See likes":
@@ -251,11 +252,11 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                     await agent.mute(post.author.did);
                     Alert.alert(
                       "Muted",
-                      `You will no longer see posts from @${post.author.handle}.`
+                      `You will no longer see posts from @${post.author.handle}.`,
                     );
                   },
                 },
-              ]
+              ],
             );
             break;
           case `Block @${post.author.handle}`:
@@ -277,25 +278,25 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                       {
                         createdAt: new Date().toISOString(),
                         subject: post.author.did,
-                      }
+                      },
                     );
                     await Promise.all([
                       queryClient.invalidateQueries(
                         ["profile", post.author.did],
-                        { exact: true }
+                        { exact: true },
                       ),
                       queryClient.invalidateQueries(
                         ["profile", post.author.handle],
-                        { exact: true }
+                        { exact: true },
                       ),
                     ]);
                     Alert.alert(
                       "Blocked",
-                      `@${post.author.handle} has been blocked.`
+                      `@${post.author.handle} has been blocked.`,
                     );
                   },
                 },
-              ]
+              ],
             );
             break;
           case "Delete post":
@@ -317,7 +318,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                     await queryClient.invalidateQueries();
                   },
                 },
-              ]
+              ],
             );
             break;
           case "Report post":
@@ -351,13 +352,13 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
                 });
                 Alert.alert(
                   "Report submitted",
-                  "Thank you for making the skyline a safer place."
+                  "Thank you for making the skyline a safer place.",
                 );
-              }
+              },
             );
             break;
         }
-      }
+      },
     );
   };
 
@@ -367,7 +368,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
 export const useHandleRepost = (
   post: AppBskyFeedDefs.PostView,
   reposted: boolean,
-  toggleRepost: () => void
+  toggleRepost: () => void,
 ) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
@@ -392,7 +393,7 @@ export const useHandleRepost = (
             composer.quote(post);
             break;
         }
-      }
+      },
     );
   };
 };

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 export const EmailInput = () => {
   const [email, setEmail] = useState("");

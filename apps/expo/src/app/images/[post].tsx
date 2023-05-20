@@ -1,13 +1,14 @@
+import { TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { AppBskyEmbedImages, AppBskyFeedDefs } from "@atproto/api";
+import { useQuery } from "@tanstack/react-query";
+import { X } from "lucide-react-native";
+
 import { ImageViewer } from "../../components/image-viewer";
 import { useAuthedAgent } from "../../lib/agent";
 import { assert } from "../../lib/utils/assert";
-import { AppBskyEmbedImages, AppBskyFeedDefs } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { X } from "lucide-react-native";
-import { TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function ImageModal() {
   const agent = useAuthedAgent();

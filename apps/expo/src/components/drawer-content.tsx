@@ -1,14 +1,15 @@
-import { useLogOut } from "../lib/log-out-context";
-import { ActorDetails } from "./actor-details";
-import { useInviteCodes } from "./invite-codes";
-import Constants from "expo-constants";
-import { Link } from "expo-router";
-import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { createContext, useContext } from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Constants from "expo-constants";
+import { Link } from "expo-router";
+import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+
+import { useLogOut } from "../lib/log-out-context";
+import { ActorDetails } from "./actor-details";
+import { useInviteCodes } from "./invite-codes";
 
 interface Props {
   openInviteCodes: () => void;
@@ -33,7 +34,7 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
 
   const numCodes = (codes.data?.unused ?? []).reduce(
     (acc, code) => (acc += code.available),
-    0
+    0,
   );
 
   return (

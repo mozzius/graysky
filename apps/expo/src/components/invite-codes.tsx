@@ -1,19 +1,20 @@
-import { useAuthedAgent } from "../lib/agent";
-import { useBottomSheetStyles } from "../lib/bottom-sheet";
-import { cx } from "../lib/utils/cx";
-import { useUserRefresh } from "../lib/utils/query";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { ActivityIndicator, Dimensions, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Clipboard from "expo-clipboard";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
-import * as Clipboard from "expo-clipboard";
 import { Copy, CopyCheck } from "lucide-react-native";
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { useAuthedAgent } from "../lib/agent";
+import { useBottomSheetStyles } from "../lib/bottom-sheet";
+import { cx } from "../lib/utils/cx";
+import { useUserRefresh } from "../lib/utils/query";
 
 export interface InviteCodesRef {
   open: () => void;
@@ -109,7 +110,7 @@ const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
       <Text
         className={cx(
           "text-base dark:text-neutral-50",
-          used && "text-neutral-400 line-through"
+          used && "text-neutral-400 line-through",
         )}
       >
         {code}

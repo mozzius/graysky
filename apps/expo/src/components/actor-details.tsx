@@ -1,9 +1,10 @@
-import { useAgent } from "../lib/agent";
-import { useLists } from "./lists/context";
+import { Image, Text, View } from "react-native";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import { Image, Text, View } from "react-native";
+
+import { useAgent } from "../lib/agent";
+import { useLists } from "./lists/context";
 
 export const ActorDetails = () => (
   <ErrorBoundary fallback={<></>}>

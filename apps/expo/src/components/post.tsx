@@ -1,3 +1,15 @@
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router";
+import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import {
+  Heart,
+  MessageSquare,
+  MoreVertical,
+  Repeat,
+  User,
+} from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+
 import {
   useHandleRepost,
   useLike,
@@ -10,17 +22,6 @@ import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
-import { Link } from "expo-router";
-import {
-  Heart,
-  MessageSquare,
-  MoreVertical,
-  Repeat,
-  User,
-} from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
@@ -33,7 +34,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post, dataUpdatedAt);
   const { reposted, repostCount, toggleRepost } = useRepost(
     post,
-    dataUpdatedAt
+    dataUpdatedAt,
   );
   const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
@@ -56,7 +57,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
     <View
       className={cx(
         "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:border-neutral-600 dark:bg-black",
-        hasParent && "border-t"
+        hasParent && "border-t",
       )}
     >
       <View className="mb-2 flex-row">

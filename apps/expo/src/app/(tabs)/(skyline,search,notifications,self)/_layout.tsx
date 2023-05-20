@@ -1,5 +1,6 @@
-import { ComposerProvider } from "../../../components/composer";
 import { Stack } from "expo-router";
+
+import { ComposerProvider } from "../../../components/composer";
 
 export default function SubStack() {
   return (

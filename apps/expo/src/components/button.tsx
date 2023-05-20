@@ -1,11 +1,12 @@
-import { cx } from "../lib/utils/cx";
-import { useRouter } from "expo-router";
 import React from "react";
 import {
   Text,
   TouchableOpacity,
   type GestureResponderEvent,
 } from "react-native";
+import { useRouter } from "expo-router";
+
+import { cx } from "../lib/utils/cx";
 
 interface ButtonProps extends React.PropsWithChildren {
   onPress: (evt: GestureResponderEvent) => void | Promise<void>;
@@ -30,7 +31,7 @@ export const Button = ({
           white: "bg-white dark:bg-black",
           outline: "border border-black dark:border-white",
         }[variant],
-        className
+        className,
       )}
     >
       {isChildAString ? (
@@ -41,7 +42,7 @@ export const Button = ({
               black: "text-white dark:text-black",
               white: "text-black dark:text-white",
               outline: "text-black dark:text-white",
-            }[variant]
+            }[variant],
           )}
         >
           {children}

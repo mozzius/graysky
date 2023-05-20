@@ -1,8 +1,9 @@
-import { useAgent } from "../lib/agent";
-import { cx } from "../lib/utils/cx";
+import { Image, View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import { Image, View } from "react-native";
+
+import { useAgent } from "../lib/agent";
+import { cx } from "../lib/utils/cx";
 
 interface Props {
   size?: "large" | "medium" | "small";
@@ -20,7 +21,7 @@ export const Avatar = ({ className, size }: Props) => (
             "h-10 w-10": size === "medium",
             "h-12 w-12": size === "large",
           },
-          className
+          className,
         )}
       />
     }
@@ -54,7 +55,7 @@ const AvatarInner = ({ className, size = "large" }: Props) => {
           "h-10 w-10": size === "medium",
           "h-12 w-12": size === "large",
         },
-        className
+        className,
       )}
     />
   );

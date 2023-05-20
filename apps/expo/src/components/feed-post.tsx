@@ -1,3 +1,28 @@
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Image,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
+  Text,
+  View,
+} from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import { Link, useRouter } from "expo-router";
+import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Heart,
+  MessageCircle,
+  MessageSquare,
+  MoreHorizontal,
+  Repeat,
+  User,
+} from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+
 import { useAuthedAgent } from "../lib/agent";
 import {
   useHandleRepost,
@@ -11,30 +36,6 @@ import { timeSince } from "../lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
-import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
-import { Link, useRouter } from "expo-router";
-import {
-  Heart,
-  MessageCircle,
-  MessageSquare,
-  MoreHorizontal,
-  Repeat,
-  User,
-} from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-import { useEffect, useState } from "react";
-import {
-  Button,
-  Image,
-  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
-  Text,
-  View,
-} from "react-native";
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
 
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
@@ -54,20 +55,20 @@ export const FeedPost = ({
   dataUpdatedAt,
 }: Props) => {
   const startHidden = Boolean(
-    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked
+    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked,
   );
   const [hidden, setHidden] = useState(startHidden);
   const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
   const { reposted, repostCount, toggleRepost } = useRepost(
     item.post,
-    dataUpdatedAt
+    dataUpdatedAt,
   );
   const replyCount = item.post.replyCount;
   const composer = useComposer();
   const handleRepost = useHandleRepost(
     item.post,
     reposted,
-    toggleRepost.mutate
+    toggleRepost.mutate,
   );
   const handleMore = usePostViewOptions(item.post);
   const router = useRouter();
@@ -102,7 +103,7 @@ export const FeedPost = ({
           "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
           isReply && !item.reason && "pt-0",
           !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800"
+          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
         )}
       >
         <View className="flex-1 pb-2.5 pl-1 pr-2">
@@ -124,7 +125,7 @@ export const FeedPost = ({
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800"
+        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >
       <Reason item={item} />
@@ -159,7 +160,7 @@ export const FeedPost = ({
                 <View
                   className={cx(
                     "w-0.5 grow",
-                    hasReply && "bg-neutral-200 dark:bg-neutral-800"
+                    hasReply && "bg-neutral-200 dark:bg-neutral-800",
                   )}
                 />
               </TouchableWithoutFeedback>

@@ -1,11 +1,12 @@
-import { Button } from "./button";
+import { ActivityIndicator, Text, View } from "react-native";
 import {
   type InfiniteQueryObserverLoadingErrorResult,
   type InfiniteQueryObserverLoadingResult,
   type QueryObserverLoadingErrorResult,
   type QueryObserverLoadingResult,
 } from "@tanstack/react-query";
-import { ActivityIndicator, Text, View } from "react-native";
+
+import { Button } from "./button";
 
 interface Props {
   query:

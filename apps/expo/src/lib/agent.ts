@@ -1,6 +1,6 @@
-import { type AtpSessionData, type BskyAgent } from "@atproto/api";
-import { useRouter } from "expo-router";
 import { createContext, useContext } from "react";
+import { useRouter } from "expo-router";
+import { type AtpSessionData, type BskyAgent } from "@atproto/api";
 
 const agentContext = createContext<BskyAgent | null>(null);
 

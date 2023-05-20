@@ -1,5 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { useCallback, useMemo, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Dimensions,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
+import { Stack } from "expo-router";
+import { AppBskyFeedDefs } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { FlashList } from "@shopify/flash-list";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
+
 import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
 import { useDrawer } from "../../../components/drawer-content";
@@ -9,20 +24,6 @@ import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
 import { assert } from "../../../lib/utils/assert";
 import { useUserRefresh } from "../../../lib/utils/query";
-import { AppBskyFeedDefs } from "@atproto/api";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Stack } from "expo-router";
-import { useColorScheme } from "nativewind";
-import { useCallback, useMemo, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
@@ -76,12 +77,12 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
               }
               return acc;
             },
-            [[]]
+            [[]],
           );
           // fetch profiles for each chunk
           // const profiles = await agent.getProfiles({ actors: [...actors] });
           const profiles = await Promise.all(
-            chunks.map((chunk) => agent.getProfiles({ actors: chunk }))
+            chunks.map((chunk) => agent.getProfiles({ actors: chunk })),
           );
           return {
             feed: all.data.feed.filter((item) => {
@@ -126,7 +127,7 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
           } else {
             return [{ item, hasReply: false }];
           }
-        }
+        },
       )
       .flat();
   }, [timeline]);
@@ -181,7 +182,7 @@ const SkylinePage = () => {
         getLabelText={({ route }) => route.title}
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor]
+    [activeColor, backgroundColor, indicatorStyle, borderColor],
   );
 
   return (

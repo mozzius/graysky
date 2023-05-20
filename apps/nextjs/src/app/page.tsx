@@ -1,6 +1,7 @@
-import { EmailInput } from "./email-input";
 import Image from "next/image";
+
 import background from "~/assets/graysky.png";
+import { EmailInput } from "./email-input";
 
 export default function LandingPage() {
   return (

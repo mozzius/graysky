@@ -1,4 +1,3 @@
-import { type AppBskyEmbedImages } from "@atproto/api";
 import { Dimensions, Image, StyleSheet } from "react-native";
 import {
   PanGestureHandler,
@@ -12,6 +11,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { snapPoint } from "react-native-redash";
+import { type AppBskyEmbedImages } from "@atproto/api";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -61,7 +61,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
         {
           damping: 20,
           mass: 0.5,
-        }
+        },
       );
       const yDest = snapPoint(y.value, event.velocityY, snapPointsY);
       y.value = withSpring(yDest, {

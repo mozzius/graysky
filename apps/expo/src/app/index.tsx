@@ -1,6 +1,3 @@
-import { LinkButton } from "../components/button";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
   Text,
@@ -8,6 +5,10 @@ import {
   type ImageSourcePropType,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+
+import { LinkButton } from "../components/button";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const background = require("../../assets/graysky.png") as ImageSourcePropType;

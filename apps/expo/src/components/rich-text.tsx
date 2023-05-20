@@ -1,10 +1,11 @@
-import { useAgent } from "../lib/agent";
-import { cx } from "../lib/utils/cx";
-import { RichText as RichTextHelper, type Facet } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
 import { Fragment, useMemo } from "react";
 import { Linking, Text } from "react-native";
+import { useRouter } from "expo-router";
+import { RichText as RichTextHelper, type Facet } from "@atproto/api";
+import { useQuery } from "@tanstack/react-query";
+
+import { useAgent } from "../lib/agent";
+import { cx } from "../lib/utils/cx";
 
 interface Props {
   text: string;

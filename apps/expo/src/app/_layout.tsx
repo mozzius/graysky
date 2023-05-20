@@ -1,8 +1,8 @@
-import { ListProvider } from "../components/lists/context";
-import { AgentProvider } from "../lib/agent";
-import { LogOutProvider } from "../lib/log-out-context";
-import { queryClient } from "../lib/query-client";
-import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Alert } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import {
   BskyAgent,
   type AtpSessionData,
@@ -16,12 +16,13 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import { ListProvider } from "../components/lists/context";
+import { AgentProvider } from "../lib/agent";
+import { LogOutProvider } from "../lib/log-out-context";
+import { queryClient } from "../lib/query-client";
+import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,7 +54,7 @@ export default function RootLayout() {
             setSession(null);
             Alert.alert(
               "Could not log you in",
-              "Please check your details and try again"
+              "Please check your details and try again",
             );
             break;
           case "update":

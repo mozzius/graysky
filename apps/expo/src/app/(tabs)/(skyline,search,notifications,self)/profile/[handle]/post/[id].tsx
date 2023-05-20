@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { useRef } from "react";
+import { Text, TouchableNativeFeedback, View } from "react-native";
+import { Stack, useLocalSearchParams } from "expo-router";
+import { AppBskyFeedDefs } from "@atproto/api";
+import { FlashList } from "@shopify/flash-list";
+import { useQuery } from "@tanstack/react-query";
+
 import { Avatar } from "../../../../../../components/avatar";
 import { useComposer } from "../../../../../../components/composer";
 import { FeedPost } from "../../../../../../components/feed-post";
@@ -10,12 +17,6 @@ import { useAuthedAgent } from "../../../../../../lib/agent";
 import { useTabPressScroll } from "../../../../../../lib/hooks";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
-import { AppBskyFeedDefs } from "@atproto/api";
-import { FlashList } from "@shopify/flash-list";
-import { useQuery } from "@tanstack/react-query";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { useRef } from "react";
-import { Text, TouchableNativeFeedback, View } from "react-native";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;
@@ -166,10 +167,10 @@ export default function PostPage() {
               })
             }
           >
-            <View className="bg-white items-center px-4 w-full py-2 flex-row dark:bg-black border-t border-neutral-100 dark:border-neutral-700">
+            <View className="w-full flex-row items-center border-t border-neutral-100 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-black">
               <Avatar size="medium" />
               <Text
-                className="text-lg ml-2 text-neutral-400 flex-1"
+                className="ml-2 flex-1 text-lg text-neutral-400"
                 numberOfLines={1}
               >
                 Reply to{" "}

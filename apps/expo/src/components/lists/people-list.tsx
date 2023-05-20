@@ -1,5 +1,8 @@
-import { useBottomSheetStyles } from "../../lib/bottom-sheet";
-import { useUserRefresh } from "../../lib/utils/query";
+import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import { ActivityIndicator, Dimensions, Image, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -7,11 +10,9 @@ import BottomSheet, {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
-import { ActivityIndicator, Dimensions, Image, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { useBottomSheetStyles } from "../../lib/bottom-sheet";
+import { useUserRefresh } from "../../lib/utils/query";
 
 type PeopleListResponse = {
   people: AppBskyActorDefs.ProfileView[];
@@ -109,7 +110,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         </BottomSheetView>
       </BottomSheet>
     );
-  }
+  },
 );
 PeopleList.displayName = "PeopleList";
 

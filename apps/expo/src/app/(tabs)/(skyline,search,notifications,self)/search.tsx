@@ -1,16 +1,3 @@
-import { ComposeButton } from "../../../components/compose-button";
-import { QueryWithoutData } from "../../../components/query-without-data";
-import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
-import { queryClient } from "../../../lib/query-client";
-import { cx } from "../../../lib/utils/cx";
-import { useUserRefresh } from "../../../lib/utils/query";
-import { type AppBskyActorDefs } from "@atproto/api";
-import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { Link, Stack, useNavigation, useRouter } from "expo-router";
-import { Search, X } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Image,
@@ -22,6 +9,20 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Link, Stack, useNavigation, useRouter } from "expo-router";
+import { type AppBskyActorDefs } from "@atproto/api";
+import { FlashList } from "@shopify/flash-list";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { Search, X } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+
+import { ComposeButton } from "../../../components/compose-button";
+import { QueryWithoutData } from "../../../components/query-without-data";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScroll } from "../../../lib/hooks";
+import { queryClient } from "../../../lib/query-client";
+import { cx } from "../../../lib/utils/cx";
+import { useUserRefresh } from "../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -244,7 +245,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 }}
                 className={cx(
                   "shrink-0 rounded-full border border-white px-4 py-1",
-                  follow.isIdle ? "bg-black" : "bg-neutral-100"
+                  follow.isIdle ? "bg-black" : "bg-neutral-100",
                 )}
               >
                 <Text className={cx("text-sm", follow.isIdle && "text-white")}>

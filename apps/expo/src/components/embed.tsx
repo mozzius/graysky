@@ -1,8 +1,12 @@
 /* eslint-disable no-case-declarations */
 
-import { queryClient } from "../lib/query-client";
-import { assert } from "../lib/utils/assert";
-import { cx } from "../lib/utils/cx";
+import { useEffect, useState } from "react";
+import { Image, Linking, Text, View } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import { Link } from "expo-router";
 import {
   AppBskyEmbedExternal,
   AppBskyEmbedImages,
@@ -12,14 +16,11 @@ import {
   type AppBskyActorDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
-import { Link } from "expo-router";
 import { StyledComponent } from "nativewind";
-import { useEffect, useState } from "react";
-import { Image, Linking, Text, View } from "react-native";
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+
+import { queryClient } from "../lib/query-client";
+import { assert } from "../lib/utils/assert";
+import { cx } from "../lib/utils/cx";
 
 function useImageAspectRatio(imageUrl: string) {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -82,7 +83,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             className={cx(
               "w-full p-2",
               content.external.thumb &&
-                "border-t border-neutral-300 dark:border-neutral-600"
+                "border-t border-neutral-300 dark:border-neutral-600",
             )}
           >
             <Text
@@ -261,7 +262,7 @@ const ImageEmbed = ({
               <View
                 className={cx(
                   "h-1/2 w-full",
-                  i % 2 === 0 ? "pb-0.5" : "pt-0.5"
+                  i % 2 === 0 ? "pb-0.5" : "pt-0.5",
                 )}
                 key={image.fullsize}
               >
@@ -289,7 +290,7 @@ const ImageEmbed = ({
               className={cx(
                 "w-1/2",
                 i > 1 && "mt-1",
-                i % 2 === 0 ? "pr-0.5" : "pl-0.5"
+                i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
             >
               <Link href={`${href}?initial=${i}`} asChild>
