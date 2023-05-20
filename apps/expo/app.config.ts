@@ -4,7 +4,7 @@ const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
-  version: "0.0.5",
+  version: "0.0.6",
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
