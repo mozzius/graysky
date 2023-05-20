@@ -1,8 +1,7 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
-
 import { useAgent } from "../../lib/agent";
 import { PeopleList, type PeopleListRef } from "./people-list";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 const useLikes = (post?: string) => {
   const agent = useAgent();

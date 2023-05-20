@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { Alert, Button, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useAgent } from "../lib/agent";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-
-import { useAgent } from "../lib/agent";
+import { useState } from "react";
+import { Alert, Button, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 
@@ -33,8 +32,8 @@ export default function Login() {
                 text: "Continue",
                 onPress: resolve,
               },
-            ],
-          ),
+            ]
+          )
         );
       }
       await agent.login({
@@ -82,7 +81,7 @@ export default function Login() {
             onPress={() =>
               Alert.alert(
                 "App Passwords",
-                "You should use an app password instead of your main password. You can create one by going to Settings > App Passwords.",
+                "You should use an app password instead of your main password. You can create one by going to Settings > App Passwords."
               )
             }
             title="Help"

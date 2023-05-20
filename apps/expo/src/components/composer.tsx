@@ -1,3 +1,40 @@
+import { useAgent } from "../lib/agent";
+import { useBottomSheetStyles } from "../lib/bottom-sheet";
+import { queryClient } from "../lib/query-client";
+import { cx } from "../lib/utils/cx";
+import { Avatar } from "./avatar";
+import { PostEmbed } from "./embed";
+import { RichText } from "./rich-text";
+import {
+  AppBskyFeedPost,
+  RichText as RichTextHelper,
+  type AppBskyEmbedImages,
+  type AppBskyEmbedRecord,
+  type AppBskyEmbedRecordWithMedia,
+  type AppBskyFeedDefs,
+  type BskyAgent,
+} from "@atproto/api";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetTextInput,
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from "@gorhom/bottom-sheet";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import * as FileSystem from "expo-file-system";
+import * as Haptics from "expo-haptics";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as ImagePicker from "expo-image-picker";
+import {
+  ChevronDown,
+  ImagePlus,
+  Loader2,
+  Plus,
+  Send,
+  X,
+} from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import {
   createContext,
   forwardRef,
@@ -28,49 +65,17 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as FileSystem from "expo-file-system";
-import * as Haptics from "expo-haptics";
-import * as ImageManipulator from "expo-image-manipulator";
-import * as ImagePicker from "expo-image-picker";
-import {
-  AppBskyFeedPost,
-  RichText as RichTextHelper,
-  type AppBskyEmbedImages,
-  type AppBskyEmbedRecord,
-  type AppBskyEmbedRecordWithMedia,
-  type AppBskyFeedDefs,
-  type BskyAgent,
-} from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetTextInput,
-  BottomSheetView,
-  useBottomSheetDynamicSnapPoints,
-} from "@gorhom/bottom-sheet";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  ChevronDown,
-  ImagePlus,
-  Loader2,
-  Plus,
-  Send,
-  X,
-} from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
-import { useAgent } from "../lib/agent";
-import { useBottomSheetStyles } from "../lib/bottom-sheet";
-import { queryClient } from "../lib/query-client";
-import { cx } from "../lib/utils/cx";
-import { Avatar } from "./avatar";
-import { PostEmbed } from "./embed";
-import { RichText } from "./rich-text";
-
+// text
 const MAX_LENGTH = 300;
 
+// images
+const MAX_IMAGES = 4;
+const MAX_SIZE = 1_000_000;
+const MAX_DIMENSION = 2048;
+
 interface ComposerRef {
-  open: (reply?: AppBskyFeedDefs.ReplyRef) => void;
+  open: (reply?: AppBskyFeedPost.ReplyRef) => void;
   quote: (post: AppBskyFeedDefs.PostView) => void;
   close: () => void;
 }
@@ -86,7 +91,7 @@ export const ComposerProvider = ({ children }: React.PropsWithChildren) => {
       quote: (post) => ref.current?.quote(post),
       close: () => ref.current?.close(),
     }),
-    [],
+    []
   );
 
   return (
@@ -118,7 +123,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [showImages, setShowImages] = useState(false);
   const [context, setContext] = useState<
-    AppBskyFeedDefs.ReplyRef | AppBskyFeedDefs.PostView
+    AppBskyFeedPost.ReplyRef | AppBskyFeedDefs.PostView
   >();
 
   // JANK: `AppBskyFeedDefs.isReplyRef` should be able to do this!!!
@@ -140,29 +145,66 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       if (rt.graphemeLength > MAX_LENGTH) {
         Alert.alert(
           "Your post is too long",
-          "There is a character limit of 300 characters",
+          "There is a character limit of 300 characters"
         );
         throw new Error("Too long");
       }
       const uploadedImages = await Promise.all(
         images.map(async (img) => {
           let uri = img.uri;
-          let size = img.fileSize ?? 0;
-          // compress if > 1mb
-          while (size > 1_000_000) {
-            uri = await ImageManipulator.manipulateAsync(img.uri, [], {
-              compress: 0.5,
-            }).then((x) => x.uri);
-            size = await FileSystem.getInfoAsync(uri, {
-              size: true, // @ts-expect-error size is not in the type
-            }).then((x) => x.size as number);
+          const size = img.fileSize ?? MAX_SIZE + 1;
+          let targetWidth,
+            targetHeight = MAX_DIMENSION;
+
+          const needsResize =
+            img.width > MAX_DIMENSION || img.height > MAX_DIMENSION;
+
+          if (img.width > img.height) {
+            targetHeight = img.height * (MAX_DIMENSION / img.width);
+          } else {
+            targetWidth = img.width * (MAX_DIMENSION / img.height);
           }
+
+          // compress if > 1mb
+
+          if (size > MAX_SIZE) {
+            // compress iteratively, reducing quality each time
+            for (let i = 0; i < 9; i++) {
+              const quality = 100 - i * 10;
+
+              try {
+                const compressed = await ImageManipulator.manipulateAsync(
+                  img.uri,
+                  needsResize
+                    ? [{ resize: { width: targetWidth, height: targetHeight } }]
+                    : [],
+                  {
+                    compress: quality / 100,
+                  }
+                ).then((x) => x.uri);
+                const compressedSize = await FileSystem.getInfoAsync(
+                  compressed,
+                  {
+                    size: true,
+                  } // @ts-expect-error size is not in the type
+                ).then((x) => x.size as number);
+
+                if (compressedSize < MAX_SIZE) {
+                  uri = compressed;
+                  break;
+                }
+              } catch (err) {
+                throw new Error(`Failed to resize: ${err}`);
+              }
+            }
+          }
+
           const uploaded = await agent.uploadBlob(uri);
           if (!uploaded.success) throw new Error("Failed to upload image");
           return uploaded.data.blob;
-        }),
+        })
       );
-      let reply: AppBskyFeedDefs.ReplyRef | undefined;
+      let reply: AppBskyFeedPost.ReplyRef | undefined;
       let embed: AppBskyFeedPost.Record["embed"] | undefined;
       // JANK: see above!
       if (context && !("parent" in context)) {
@@ -197,7 +239,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           } satisfies AppBskyEmbedRecord.Main;
         }
       } else {
-        reply = context as AppBskyFeedDefs.ReplyRef | undefined;
+        reply = context as AppBskyFeedPost.ReplyRef | undefined;
         if (images.length > 0) {
           // images, no record
           embed = {
@@ -237,7 +279,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       }, 150);
       Alert.alert(
         "Failed to send post",
-        `Please try again${error instanceof Error ? `\n${error.message}` : ""}`,
+        `Please try again${error instanceof Error ? `\n${error.message}` : ""}`
       );
       send.reset();
     },
@@ -320,7 +362,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   } = useBottomSheetStyles();
 
   const handleAddImage = () => {
-    if (images.length >= 4) return;
+    if (images.length >= MAX_IMAGES) return;
     const options = ["Take Photo", "Choose from Library", "Cancel"];
     showActionSheetWithOptions(
       {
@@ -338,7 +380,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             void ImagePicker.launchCameraAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
               allowsMultipleSelection: true,
-              selectionLimit: 4 - images.length,
+              selectionLimit: MAX_IMAGES - images.length,
               exif: false,
               quality: 0.7,
             }).then((result) => {
@@ -355,7 +397,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             void ImagePicker.launchImageLibraryAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
               allowsMultipleSelection: true,
-              selectionLimit: 4 - images.length,
+              selectionLimit: MAX_IMAGES - images.length,
               exif: false,
               quality: 0.7,
             }).then((result) => {
@@ -365,14 +407,14 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               }
             });
         }
-      },
+      }
     );
   };
 
   const renderBackdrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: any) => <BottomSheetBackdrop {...props} pressBehavior="close" />,
-    [],
+    []
   );
 
   return (
@@ -402,7 +444,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         <View
           className={cx(
             (isCollapsed || send.isLoading || send.isSuccess) &&
-              "flex-col-reverse",
+              "flex-col-reverse"
           )}
         >
           {postView && AppBskyFeedPost.isRecord(postView.record) && (
@@ -430,7 +472,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   "absolute z-10 h-full w-full flex-wrap border-neutral-100 bg-white pt-2 dark:border-neutral-600 dark:bg-black",
                   postView &&
                     AppBskyFeedPost.isRecord(postView.record) &&
-                    "border-t",
+                    "border-t"
                 )}
               >
                 <TouchableOpacity
@@ -472,7 +514,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                       </TouchableWithoutFeedback>
                     </View>
                   ))}
-                  {images.length < 4 && (
+                  {images.length < MAX_IMAGES && (
                     <TouchableOpacity onPress={handleAddImage}>
                       <View className="h-36 w-36 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
                         <Plus
@@ -535,7 +577,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         <View
           className={cx(
             "flex-row items-center border-t border-neutral-100 px-3 py-2 dark:border-neutral-600",
-            send.isLoading && "opacity-0",
+            send.isLoading && "opacity-0"
           )}
         >
           <TouchableOpacity
@@ -587,7 +629,7 @@ const Spinner = ({ show }: { show: boolean }) => {
   useEffect(() => {
     spin.value = withRepeat(
       withTiming(360, { duration: 500, easing: Easing.linear }),
-      -1,
+      -1
     );
   }, [spin]);
 
@@ -618,14 +660,14 @@ const getGalleryPermission = async () => {
       if (!granted) {
         Alert.alert(
           "Permission required",
-          "Please enable photo gallery access in your settings",
+          "Please enable photo gallery access in your settings"
         );
         return false;
       }
     } else {
       Alert.alert(
         "Permission required",
-        "Please enable photo gallery access in your settings",
+        "Please enable photo gallery access in your settings"
       );
       return false;
     }
@@ -641,14 +683,14 @@ const getCameraPermission = async () => {
       if (!granted) {
         Alert.alert(
           "Permission required",
-          "Please enable camera access in your settings",
+          "Please enable camera access in your settings"
         );
         return false;
       }
     } else {
       Alert.alert(
         "Permission required",
-        "Please enable camera access in your settings",
+        "Please enable camera access in your settings"
       );
       return false;
     }

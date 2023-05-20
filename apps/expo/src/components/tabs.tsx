@@ -1,3 +1,5 @@
+import { cx } from "../lib/utils/cx";
+import { useColorScheme } from "nativewind";
 import {
   Text,
   TouchableOpacity,
@@ -5,9 +7,6 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
-import { useColorScheme } from "nativewind";
-
-import { cx } from "../lib/utils/cx";
 
 interface TabsProps extends React.PropsWithChildren {
   className?: string;
@@ -19,7 +18,7 @@ export const Tabs = ({ children, className, style }: TabsProps) => {
     <View
       className={cx(
         "w-full flex-row border-b border-neutral-300 bg-white dark:border-neutral-600 dark:bg-black",
-        className,
+        className
       )}
       style={style}
     >
@@ -53,13 +52,13 @@ export const Tab = ({ active, onPress, text }: TabProps) => {
       onPress={onPress}
       className={cx(
         "ml-4 border-y-2 border-transparent py-3 text-xl",
-        active && "border-b-black dark:border-b-white",
+        active && "border-b-black dark:border-b-white"
       )}
     >
       <Text
         className={cx(
           "px-2 text-sm",
-          active ? textStyle.active : textStyle.inactive,
+          active ? textStyle.active : textStyle.inactive
         )}
       >
         {text}

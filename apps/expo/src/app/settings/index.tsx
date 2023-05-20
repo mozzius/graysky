@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 
 export default function SettingsPage() {
   return (

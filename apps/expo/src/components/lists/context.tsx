@@ -1,8 +1,7 @@
-import { createContext, useContext, useMemo, useRef } from "react";
-
 import { FollowersList, type FollowersListRef } from "./followers-list";
 import { FollowsList, type FollowsListRef } from "./follows-list";
 import { LikesList, type LikesListRef } from "./likes-list";
+import { createContext, useContext, useMemo, useRef } from "react";
 
 const ListContext = createContext<{
   openFollowers: (actor: string) => void;
@@ -25,7 +24,7 @@ export const ListProvider = ({ children }: Props) => {
       openFollows: (actor: string) => followsRef.current?.open(actor),
       openLikes: (post: string) => likesRef.current?.open(post),
     }),
-    [],
+    []
   );
 
   return (

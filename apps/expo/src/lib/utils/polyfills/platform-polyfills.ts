@@ -25,7 +25,7 @@ globalThis.atob = (str: string): string => {
   str = String(str).replace(/[\t\n\f\r ]+/g, "");
   if (!b64re.test(str)) {
     throw new TypeError(
-      "Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.",
+      "Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded."
     );
   }
 
@@ -51,7 +51,7 @@ globalThis.atob = (str: string): string => {
         : String.fromCharCode(
             (bitmap >> 16) & 255,
             (bitmap >> 8) & 255,
-            bitmap & 255,
+            bitmap & 255
           );
   }
   return result;

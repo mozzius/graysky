@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import * as FileSystem from "expo-file-system";
+
 import { jsonToLex, stringifyLex } from "@atproto/api";
+import * as FileSystem from "expo-file-system";
 
 const GET_TIMEOUT = 15e3; // 15s
 const POST_TIMEOUT = 60e3; // 60s
@@ -16,7 +17,7 @@ export async function fetchHandler(
   reqUri: string,
   reqMethod: string,
   reqHeaders: Record<string, string>,
-  reqBody: any,
+  reqBody: any
 ): Promise<FetchHandlerResponse> {
   const reqMimeType = reqHeaders["Content-Type"] || reqHeaders["content-type"];
   if (reqMimeType && reqMimeType.startsWith("application/json")) {
@@ -31,7 +32,7 @@ export async function fetchHandler(
       // we get around that by renaming the file ext to .bin
       // see https://github.com/facebook/react-native/issues/27099
       // -prf
-      const newPath = reqBody.replace(/\.jpe?g$/, ".bin");
+      const newPath = reqBody.replace(/\.(jpe?g)$/, ".bin");
       await FileSystem.moveAsync({ from: reqBody, to: newPath });
       reqBody = newPath;
     }
@@ -44,7 +45,7 @@ export async function fetchHandler(
   const controller = new AbortController();
   const to = setTimeout(
     () => controller.abort(),
-    reqMethod === "post" ? POST_TIMEOUT : GET_TIMEOUT,
+    reqMethod === "post" ? POST_TIMEOUT : GET_TIMEOUT
   );
 
   const res = await fetch(reqUri, {

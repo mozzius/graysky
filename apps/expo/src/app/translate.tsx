@@ -1,10 +1,9 @@
-import { Button } from "react-native";
-import WebView from "react-native-webview";
+import { locale } from "../lib/locale";
 import { Stack, useNavigation, useRouter, useSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyledComponent } from "nativewind";
-
-import { locale } from "../lib/locale";
+import { Button } from "react-native";
+import WebView from "react-native-webview";
 
 export default function Translate() {
   const { text } = useSearchParams() as { text: string };

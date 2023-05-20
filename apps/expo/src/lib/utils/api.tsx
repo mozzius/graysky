@@ -1,11 +1,10 @@
-import React from "react";
-import Constants from "expo-constants";
+import { type AppRouter } from "@graysky/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
+import Constants from "expo-constants";
+import React from "react";
 import superjson from "superjson";
-
-import { type AppRouter } from "@graysky/api";
 
 /**
  * A set of typesafe hooks for consuming your API.
@@ -30,7 +29,7 @@ const getBaseUrl = () => {
   if (!localhost) {
     // return "https://your-production-url.com";
     throw new Error(
-      "Failed to get localhost. Please point to your production server.",
+      "Failed to get localhost. Please point to your production server."
     );
   }
   return `http://${localhost}:3000`;
@@ -52,7 +51,7 @@ export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
-    }),
+    })
   );
 
   return (

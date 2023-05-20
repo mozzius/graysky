@@ -1,13 +1,12 @@
-import { Button, Image, Text, TouchableOpacity, View } from "react-native";
-import { useRouter } from "expo-router";
-import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
-import { useMutation } from "@tanstack/react-query";
-import { ChevronLeft } from "lucide-react-native";
-
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
 import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
+import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
+import { ChevronLeft } from "lucide-react-native";
+import { Button, Image, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   profile: ProfileViewDetailed;

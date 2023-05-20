@@ -1,8 +1,7 @@
-import { Pressable } from "react-native";
+import { useComposer } from "./composer";
 import { Edit3 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-
-import { useComposer } from "./composer";
+import { Pressable } from "react-native";
 
 export const ComposeButton = () => {
   const { open } = useComposer();

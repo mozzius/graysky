@@ -1,6 +1,6 @@
+import { useColorScheme } from "nativewind";
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
-import { useColorScheme } from "nativewind";
 
 export const useBottomSheetStyles = () => {
   const { colorScheme } = useColorScheme();
@@ -27,6 +27,6 @@ export const useBottomSheetStyles = () => {
           backgroundColor: colorScheme === "light" ? "black" : "white",
         },
       }),
-    [colorScheme],
+    [colorScheme]
   );
 };
