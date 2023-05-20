@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useRef } from "react";
-import { View } from "react-native";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { AppBskyFeedDefs } from "@atproto/api";
-import { FlashList } from "@shopify/flash-list";
-import { useQuery } from "@tanstack/react-query";
 
+import { Avatar } from "../../../../../../components/avatar";
+import { useComposer } from "../../../../../../components/composer";
 import { FeedPost } from "../../../../../../components/feed-post";
 import { Post } from "../../../../../../components/post";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
@@ -14,6 +10,12 @@ import { useAuthedAgent } from "../../../../../../lib/agent";
 import { useTabPressScroll } from "../../../../../../lib/hooks";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
+import { AppBskyFeedDefs } from "@atproto/api";
+import { FlashList } from "@shopify/flash-list";
+import { useQuery } from "@tanstack/react-query";
+import { Stack, useLocalSearchParams } from "expo-router";
+import { useRef } from "react";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;
@@ -114,7 +116,7 @@ export default function PostPage() {
         }
       }
 
-      return { posts, index };
+      return { posts, index, main: thread.post };
     },
   });
 
@@ -122,37 +124,61 @@ export default function PostPage() {
 
   useTabPressScroll(ref);
 
+  const composer = useComposer();
+
   return (
     <>
       <Stack.Screen options={{ headerTitle: "Post" }} />
       {thread.data ? (
-        <FlashList
-          ref={ref}
-          data={thread.data.posts}
-          estimatedItemSize={150}
-          onRefresh={() => void handleRefresh()}
-          initialScrollIndex={thread.data.index}
-          refreshing={refreshing}
-          ListFooterComponent={<View className="h-20" />}
-          getItemType={(item) => (item.primary ? "big" : "small")}
-          renderItem={({ item, index }) =>
-            item.primary ? (
-              <Post
-                post={item.post}
-                hasParent={item.hasParent}
-                root={thread.data.posts[0]!.post}
-                dataUpdatedAt={thread.dataUpdatedAt}
-              />
-            ) : (
-              <FeedPost
-                item={{ post: item.post }}
-                hasReply={item.hasReply}
-                isReply={thread.data.posts[index - 1]?.hasReply}
-                dataUpdatedAt={thread.dataUpdatedAt}
-              />
-            )
-          }
-        />
+        <>
+          <FlashList
+            ref={ref}
+            data={thread.data.posts}
+            estimatedItemSize={150}
+            onRefresh={() => void handleRefresh()}
+            initialScrollIndex={thread.data.index}
+            refreshing={refreshing}
+            ListFooterComponent={<View className="h-20" />}
+            getItemType={(item) => (item.primary ? "big" : "small")}
+            renderItem={({ item, index }) =>
+              item.primary ? (
+                <Post
+                  post={item.post}
+                  hasParent={item.hasParent}
+                  root={thread.data.posts[0]!.post}
+                  dataUpdatedAt={thread.dataUpdatedAt}
+                />
+              ) : (
+                <FeedPost
+                  item={{ post: item.post }}
+                  hasReply={item.hasReply}
+                  isReply={thread.data.posts[index - 1]?.hasReply}
+                  dataUpdatedAt={thread.dataUpdatedAt}
+                />
+              )
+            }
+          />
+          <TouchableNativeFeedback
+            onPress={() =>
+              composer.open({
+                parent: thread.data.main,
+                root: thread.data.posts[0]!.post,
+              })
+            }
+          >
+            <View className="bg-white items-center px-4 w-full py-2 flex-row dark:bg-black border-t border-neutral-100 dark:border-neutral-700">
+              <Avatar size="medium" />
+              <Text
+                className="text-lg ml-2 text-neutral-400 flex-1"
+                numberOfLines={1}
+              >
+                Reply to{" "}
+                {thread.data.main.author.displayName ??
+                  `@${thread.data.main.author.handle}`}
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+        </>
       ) : (
         <QueryWithoutData query={thread} />
       )}

@@ -234,10 +234,12 @@ export const FeedPost = ({
                 accessibilityHint="Opens post details"
                 onPress={() => router.push(postHref)}
               >
-                <RichText
-                  text={item.post.record.text}
-                  facets={item.post.record.facets}
-                />
+                <View>
+                  <RichText
+                    text={item.post.record.text}
+                    facets={item.post.record.facets}
+                  />
+                </View>
               </RNTouchableWithoutFeedback>
             ) : (
               <TouchableWithoutFeedback

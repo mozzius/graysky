@@ -133,7 +133,7 @@ const routes = [
   { key: "mutuals", title: "Mutuals" },
 ];
 
-const TimelinePage = () => {
+const SkylinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
@@ -255,7 +255,7 @@ export default function Page() {
   return (
     <>
       <Stack.Screen options={{ headerTransparent: true }} />
-      <TimelinePage />
+      <SkylinePage />
       <ComposeButton />
     </>
   );
