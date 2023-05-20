@@ -7,13 +7,13 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
-import { FeedPost } from "../../../../components/feed-post";
-import { Post } from "../../../../components/post";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../lib/agent";
-import { useTabPressScroll } from "../../../../lib/hooks";
-import { assert } from "../../../../lib/utils/assert";
-import { useUserRefresh } from "../../../../lib/utils/query";
+import { FeedPost } from "../../../../../../components/feed-post";
+import { Post } from "../../../../../../components/post";
+import { QueryWithoutData } from "../../../../../../components/query-without-data";
+import { useAuthedAgent } from "../../../../../../lib/agent";
+import { useTabPressScroll } from "../../../../../../lib/hooks";
+import { assert } from "../../../../../../lib/utils/assert";
+import { useUserRefresh } from "../../../../../../lib/utils/query";
 
 type Posts = {
   post: AppBskyFeedDefs.PostView;

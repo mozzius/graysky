@@ -9,14 +9,14 @@ import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
-import { ComposeButton } from "../../components/compose-button";
-import { ComposerProvider } from "../../components/composer";
-import { FeedPost } from "../../components/feed-post";
-import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
-import { useTabPressScroll } from "../../lib/hooks";
-import { assert } from "../../lib/utils/assert";
-import { useUserRefresh } from "../../lib/utils/query";
+import { ComposeButton } from "../../../components/compose-button";
+import { ComposerProvider } from "../../../components/composer";
+import { FeedPost } from "../../../components/feed-post";
+import { QueryWithoutData } from "../../../components/query-without-data";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScroll } from "../../../lib/hooks";
+import { assert } from "../../../lib/utils/assert";
+import { useUserRefresh } from "../../../lib/utils/query";
 
 const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
   if (AppBskyFeedDefs.isReasonRepost(item.reason)) {

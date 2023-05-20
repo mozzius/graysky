@@ -264,7 +264,7 @@ export const FeedPost = ({
                   root: item.reply?.root ?? item.post,
                 })
               }
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
@@ -278,7 +278,7 @@ export const FeedPost = ({
               disabled={toggleRepost.isLoading}
               onPress={handleRepost}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
             >
               <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
               <Text
@@ -297,7 +297,7 @@ export const FeedPost = ({
               disabled={toggleLike.isLoading}
               onPress={() => toggleLike.mutate()}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2"
+              className="flex-row items-center gap-2 tabular-nums"
             >
               <Heart
                 size={16}

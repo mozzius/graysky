@@ -17,18 +17,18 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
-import { Button } from "../../components/button";
-import { ComposerProvider } from "../../components/composer";
-import { Embed } from "../../components/embed";
-import { FeedPost } from "../../components/feed-post";
-import { RichText } from "../../components/rich-text";
-import { useAuthedAgent } from "../../lib/agent";
-import { useTabPressScrollRef } from "../../lib/hooks";
-import { queryClient } from "../../lib/query-client";
-import { assert } from "../../lib/utils/assert";
-import { cx } from "../../lib/utils/cx";
-import { useRefreshOnFocus, useUserRefresh } from "../../lib/utils/query";
-import { timeSince } from "../../lib/utils/time";
+import { Button } from "../../../components/button";
+import { ComposerProvider } from "../../../components/composer";
+import { Embed } from "../../../components/embed";
+import { FeedPost } from "../../../components/feed-post";
+import { RichText } from "../../../components/rich-text";
+import { useAuthedAgent } from "../../../lib/agent";
+import { useTabPressScrollRef } from "../../../lib/hooks";
+import { queryClient } from "../../../lib/query-client";
+import { assert } from "../../../lib/utils/assert";
+import { cx } from "../../../lib/utils/cx";
+import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
+import { timeSince } from "../../../lib/utils/time";
 
 // TOOO: split this file up into like 6 files
 

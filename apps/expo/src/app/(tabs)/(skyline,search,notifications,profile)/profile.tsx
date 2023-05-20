@@ -1,6 +1,6 @@
-import { ComposerProvider } from "../../components/composer";
-import { ProfileView } from "../../components/profile-view";
-import { useAuthedAgent } from "../../lib/agent";
+import { ComposerProvider } from "../../../components/composer";
+import { ProfileView } from "../../../components/profile-view";
+import { useAuthedAgent } from "../../../lib/agent";
 
 export default function ProfilePage() {
   const agent = useAuthedAgent();
