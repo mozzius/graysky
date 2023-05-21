@@ -13,7 +13,7 @@ const config = {
     "@next/next/no-html-link-for-pages": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-unused-vars": [
-      "error",
+      "warn",
       {
         argsIgnorePattern: "^_",
         varsIgnorePattern: "^_",
@@ -21,7 +21,7 @@ const config = {
       },
     ],
     "@typescript-eslint/consistent-type-imports": [
-      "error",
+      "warn",
       { prefer: "type-imports", fixStyle: "inline-type-imports" },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",

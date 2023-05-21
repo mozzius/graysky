@@ -152,8 +152,36 @@ export default function RootLayout() {
                       name="settings/index"
                       options={{
                         headerTitle: "Settings",
-                        presentation: "modal",
-                        headerBackVisible: true,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings/account/index"
+                      options={{
+                        headerTitle: "Account Settings",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings/account/edit-bio"
+                      options={{
+                        headerTitle: "Edit Bio",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings/account/change-handle"
+                      options={{
+                        headerTitle: "Change Handle",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings/content-moderation"
+                      options={{
+                        headerTitle: "Content Moderation",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings/app"
+                      options={{
+                        headerTitle: "App Settings",
                       }}
                     />
                     <Stack.Screen
