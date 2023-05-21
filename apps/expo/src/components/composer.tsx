@@ -14,6 +14,7 @@ import {
   Alert,
   Image,
   Keyboard,
+  Platform,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -169,6 +170,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           // compress if > 1mb
 
           if (size > MAX_SIZE) {
+            // let animation complete
+            await new Promise((resolve) => setTimeout(resolve, 500));
             // compress iteratively, reducing quality each time
             for (let i = 0; i < 9; i++) {
               const quality = 100 - i * 10;
@@ -356,14 +359,22 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const { showActionSheetWithOptions } = useActionSheet();
 
   const {
+    backgroundStyle,
     contentContainerStyle,
     textInputStyle,
     handleStyle,
     handleIndicatorStyle,
   } = useBottomSheetStyles();
 
-  const handleAddImage = () => {
+  const handleAddImage = async () => {
     if (images.length >= MAX_IMAGES) return;
+
+    // hackfix - android crashes if keyboard is open
+    if (Platform.OS === "android") {
+      Keyboard.dismiss();
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
+
     const options = ["Take Photo", "Choose from Library", "Cancel"];
     showActionSheetWithOptions(
       {
@@ -422,6 +433,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     <BottomSheet
       ref={bottomSheetRef}
       index={-1}
+      backgroundStyle={backgroundStyle}
       backdropComponent={renderBackdrop}
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
@@ -516,7 +528,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                     </View>
                   ))}
                   {images.length < MAX_IMAGES && (
-                    <TouchableOpacity onPress={handleAddImage}>
+                    <TouchableOpacity onPress={() => void handleAddImage()}>
                       <View className="h-36 w-36 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
                         <Plus
                           color={colorScheme === "light" ? "black" : "white"}
@@ -577,7 +589,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
         </View>
         <View
           className={cx(
-            "flex-row items-center border-t border-neutral-100 px-3 py-2 dark:border-neutral-600",
+            "flex-row items-center border-t border-neutral-100 px-3 py-2 dark:border-y dark:border-neutral-800",
             send.isLoading && "opacity-0",
           )}
         >
@@ -586,12 +598,12 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             accessibilityRole="button"
             className="flex-row items-center rounded border border-neutral-100 bg-neutral-50 p-1 dark:border-neutral-600 dark:bg-neutral-800"
             onPress={() => {
-              if (images.length === 0) handleAddImage();
+              if (images.length === 0) void handleAddImage();
               else setShowImages((s) => !s);
             }}
           >
             <ImagePlus size={24} color="#888888" />
-            <Text className="ml-2 text-base font-medium text-neutral-500">
+            <Text className="ml-2 text-base font-medium text-neutral-500 dark:text-neutral-400">
               {images.length > 0
                 ? `${images.length} image${
                     images.length !== 1 ? "s" : ""
@@ -600,7 +612,12 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             </Text>
           </TouchableOpacity>
           <View className="flex-1" />
-          <Text className={cx("text-sm", tooLong && "text-red-500")}>
+          <Text
+            className={cx(
+              "text-sm dark:text-neutral-50",
+              tooLong && "text-red-500",
+            )}
+          >
             {rt.data?.graphemeLength} / {MAX_LENGTH}
           </Text>
           <TouchableOpacity

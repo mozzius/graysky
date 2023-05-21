@@ -12,7 +12,8 @@ import BottomSheet, {
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "../../lib/bottom-sheet";
-import { useUserRefresh } from "../../lib/utils/query";
+
+// import { useUserRefresh } from "../../lib/utils/query";
 
 type PeopleListResponse = {
   people: AppBskyActorDefs.ProfileView[];
@@ -47,10 +48,14 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       }
     };
 
-    const { refreshing, handleRefresh } = useUserRefresh(data.refetch);
+    // const { refreshing, handleRefresh } = useUserRefresh(data.refetch);
 
-    const { handleStyle, handleIndicatorStyle, contentContainerStyle } =
-      useBottomSheetStyles();
+    const {
+      backgroundStyle,
+      handleStyle,
+      handleIndicatorStyle,
+      contentContainerStyle,
+    } = useBottomSheetStyles();
 
     const people = useMemo(() => {
       if (!data.data) return [];
@@ -67,6 +72,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         onChange={handleSheetChanges}
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
+        backgroundStyle={backgroundStyle}
         onClose={onClose}
       >
         <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
@@ -96,8 +102,8 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                     </Text>
                   </View>
                 )}
-                refreshing={refreshing}
-                onRefresh={() => void handleRefresh()}
+                // refreshing={refreshing}
+                // onRefresh={() => void handleRefresh()}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => void data.fetchNextPage()}
               />

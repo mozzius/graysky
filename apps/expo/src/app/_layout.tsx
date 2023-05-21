@@ -147,47 +147,50 @@ export default function RootLayout() {
                       },
                     }}
                   >
-                    <Stack.Screen name="login" options={{ title: "Log in" }} />
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{ title: "Log in" }}
+                    />
                     <Stack.Screen
                       name="settings/index"
                       options={{
-                        headerTitle: "Settings",
+                        title: "Settings",
                       }}
                     />
                     <Stack.Screen
                       name="settings/account/index"
                       options={{
-                        headerTitle: "Account Settings",
+                        title: "Account Settings",
                       }}
                     />
                     <Stack.Screen
                       name="settings/account/edit-bio"
                       options={{
-                        headerTitle: "Edit Bio",
+                        title: "Edit Bio",
                       }}
                     />
                     <Stack.Screen
                       name="settings/account/change-handle"
                       options={{
-                        headerTitle: "Change Handle",
+                        title: "Change Handle",
                       }}
                     />
                     <Stack.Screen
                       name="settings/content-moderation"
                       options={{
-                        headerTitle: "Content Moderation",
+                        title: "Content Moderation",
                       }}
                     />
                     <Stack.Screen
                       name="settings/app"
                       options={{
-                        headerTitle: "App Settings",
+                        title: "App Settings",
                       }}
                     />
                     <Stack.Screen
                       name="translate"
                       options={{
-                        headerTitle: "Translate",
+                        title: "Translate",
                         presentation: "modal",
                       }}
                     />

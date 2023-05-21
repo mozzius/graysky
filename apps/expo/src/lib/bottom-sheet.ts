@@ -8,8 +8,11 @@ export const useBottomSheetStyles = () => {
   return useMemo(
     () =>
       StyleSheet.create({
+        backgroundStyle: {
+          backgroundColor: colorScheme === "light" ? "white" : "#121212",
+        },
         contentContainerStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "black",
+          backgroundColor: colorScheme === "light" ? "white" : "#121212",
         },
         textInputStyle: {
           padding: 0,
@@ -19,7 +22,7 @@ export const useBottomSheetStyles = () => {
           color: colorScheme === "light" ? undefined : "white",
         },
         handleStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "black",
+          backgroundColor: colorScheme === "light" ? "white" : "#121212",
           borderTopStartRadius: 15,
           borderTopEndRadius: 15,
         },

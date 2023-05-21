@@ -305,10 +305,10 @@ const NotificationItem = ({
   href?: string;
 }) => {
   const className = cx(
-    "flex-row border-b p-2  text-black dark:text-white",
+    "flex-row border-b p-2 text-black dark:text-white",
     unread
       ? "border-blue-200 bg-blue-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-600"
-      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-600",
+      : "border-neutral-200 bg-white dark:bg-black dark:border-neutral-800",
   );
   const wrapper = (children: React.ReactNode) =>
     href ? (

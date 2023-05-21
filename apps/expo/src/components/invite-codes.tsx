@@ -14,7 +14,8 @@ import { Copy, CopyCheck } from "lucide-react-native";
 import { useAuthedAgent } from "../lib/agent";
 import { useBottomSheetStyles } from "../lib/bottom-sheet";
 import { cx } from "../lib/utils/cx";
-import { useUserRefresh } from "../lib/utils/query";
+
+// import { useUserRefresh } from "../lib/utils/query";
 
 export interface InviteCodesRef {
   open: () => void;
@@ -39,10 +40,14 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
     }
   };
 
-  const { refreshing, handleRefresh } = useUserRefresh(codes.refetch);
+  // const { refreshing, handleRefresh } = useUserRefresh(codes.refetch);
 
-  const { handleStyle, handleIndicatorStyle, contentContainerStyle } =
-    useBottomSheetStyles();
+  const {
+    backgroundStyle,
+    handleStyle,
+    handleIndicatorStyle,
+    contentContainerStyle,
+  } = useBottomSheetStyles();
 
   return (
     <BottomSheet
@@ -54,6 +59,7 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
       onChange={handleSheetChanges}
       handleIndicatorStyle={handleIndicatorStyle}
       handleStyle={handleStyle}
+      backgroundStyle={backgroundStyle}
     >
       <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
         <Text className="mt-2 text-center text-xl font-medium dark:text-neutral-50">
@@ -82,8 +88,8 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
                   </Text>
                 </View>
               )}
-              refreshing={refreshing}
-              onRefresh={() => void handleRefresh()}
+              // refreshing={refreshing}
+              // onRefresh={() => void handleRefresh()}
             />
           </View>
         ) : (

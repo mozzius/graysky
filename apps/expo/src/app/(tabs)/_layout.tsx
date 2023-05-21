@@ -76,7 +76,7 @@ export default function AppLayout() {
         statusBarAnimation="slide"
         drawerStyle={{
           width: Dimensions.get("window").width * 0.8,
-          backgroundColor: colorScheme === "light" ? "#FFF" : "#1C1C1C",
+          backgroundColor: colorScheme === "light" ? "#FFF" : "#121212",
         }}
         swipeEdgeWidth={Dimensions.get("window").width * 0.1}
       >

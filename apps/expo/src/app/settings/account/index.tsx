@@ -1,7 +1,6 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useQuery } from "@tanstack/react-query";
 import { AtSign, User } from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
@@ -26,7 +25,7 @@ export default function AccountSettings() {
   return (
     <View className="flex-1 dark:border-t dark:border-neutral-700">
       <StatusBar style="light" />
-      <View className="mx-4 my-4 rounded-sm flex-row items-center bg-white p-4 py-4 text-center text-2xl font-bold dark:bg-black">
+      <View className="mx-4 my-4 flex-row items-center rounded-sm bg-white p-4 py-4 text-center text-2xl font-bold dark:bg-black">
         <Avatar size="large" />
         <View className="ml-4">
           <Text className="text-base font-bold dark:text-neutral-50">
