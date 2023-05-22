@@ -103,7 +103,7 @@ export const FeedPost = ({
           "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
           isReply && !item.reason && "pt-0",
           !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-          unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+          unread && "border-blue-200 bg-blue-50 dark:border-neutral-800",
         )}
       >
         <View className="flex-1 pb-2.5 pl-1 pr-2">
@@ -124,7 +124,7 @@ export const FeedPost = ({
       className={cx(
         "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
+        !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
         unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
       )}
     >
@@ -264,7 +264,11 @@ export const FeedPost = ({
               onPress={() =>
                 composer.open({
                   parent: item.post,
-                  root: item.reply?.root ?? item.post,
+                  root:
+                    item.reply?.root &&
+                    AppBskyFeedDefs.isPostView(item.reply.root)
+                      ? item.reply.root
+                      : item.post,
                 })
               }
               className="flex-row items-center gap-2 tabular-nums"

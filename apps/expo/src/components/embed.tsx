@@ -69,7 +69,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
         <StyledComponent
           component={TouchableOpacity}
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="mt-1.5 overflow-hidden rounded border border-neutral-300 dark:border-neutral-600"
+          className="mt-1.5 overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-800"
         >
           {content.external.thumb && (
             <Image
@@ -83,7 +83,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             className={cx(
               "w-full p-2",
               content.external.thumb &&
-                "border-t border-neutral-300 dark:border-neutral-600",
+                "border-t border-neutral-300 dark:border-neutral-800",
             )}
           >
             <Text
@@ -98,7 +98,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             >
               {content.external.uri}
             </Text>
-            {content.external.description && (
+            {content.external.description && depth === 0 && (
               <Text
                 className="mt-1 text-sm leading-5 dark:text-neutral-50"
                 numberOfLines={2}
@@ -209,7 +209,7 @@ const ImageEmbed = ({
               key={image.thumb}
               source={{ uri: image.thumb }}
               alt={image.alt}
-              className="mt-1.5 w-full rounded"
+              className="mt-1.5 w-full rounded-lg"
               style={{
                 aspectRatio:
                   depth > 0
@@ -222,7 +222,7 @@ const ImageEmbed = ({
       );
     case 2:
       return (
-        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded">
+        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
@@ -244,7 +244,7 @@ const ImageEmbed = ({
       );
     case 3:
       return (
-        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded">
+        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
             <Link href={`${href}?initial=0`} asChild>
               <TouchableWithoutFeedback accessibilityRole="image">
@@ -283,7 +283,7 @@ const ImageEmbed = ({
       );
     case 4:
       return (
-        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded">
+        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
               key={image.fullsize}
@@ -325,7 +325,7 @@ export const PostEmbed = ({
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
   return (
-    <View className="mt-1.5 flex-1 rounded border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-600">
+    <View className="mt-1.5 flex-1 rounded-lg border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-800">
       <Link href={postHref} asChild>
         <TouchableWithoutFeedback accessibilityHint="Opens embedded post">
           <View className="flex flex-row items-center overflow-hidden">

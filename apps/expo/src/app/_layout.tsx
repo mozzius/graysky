@@ -155,6 +155,7 @@ export default function RootLayout() {
                       name="settings/index"
                       options={{
                         title: "Settings",
+                        animation: "slide_from_bottom",
                       }}
                     />
                     <Stack.Screen

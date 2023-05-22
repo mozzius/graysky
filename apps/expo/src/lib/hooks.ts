@@ -173,7 +173,14 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const handleMore = () => {
     const options =
       post.author.handle === agent.session.handle
-        ? ["Translate", "Copy post text", "Share post", "Delete post", "Cancel"]
+        ? [
+            "Translate",
+            "Copy post text",
+            "Share post",
+            "See likes",
+            "Delete post",
+            "Cancel",
+          ]
         : [
             "Translate",
             "Copy post text",
