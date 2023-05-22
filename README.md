@@ -37,11 +37,12 @@ Then just scan the QR code!
 - [x] Search screen
 - [x] Invites screen
 - [x] Upload images
+- [x] Followers/Following screens
+- [x] Likes list
+- [x] Context menu - user actions
 - [ ] Moderation settings
-- [ ] Followers/Following screens
-- [ ] Likes list
+- [ ] Custom feeds
 - [ ] Settings screen
-- [ ] Context menu - user actions
 - [ ] Image viewer: Pinch to zoom
 - [ ] Better haptics
 - [ ] Create account flow
