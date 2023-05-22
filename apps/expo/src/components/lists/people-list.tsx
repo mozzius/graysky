@@ -12,8 +12,7 @@ import BottomSheet, {
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "../../lib/bottom-sheet";
-
-// import { useUserRefresh } from "../../lib/utils/query";
+import { useUserRefresh } from "../../lib/utils/query";
 
 type PeopleListResponse = {
   people: AppBskyActorDefs.ProfileView[];
@@ -48,7 +47,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       }
     };
 
-    // const { refreshing, handleRefresh } = useUserRefresh(data.refetch);
+    const { refreshing, handleRefresh } = useUserRefresh(data.refetch);
 
     const {
       backgroundStyle,
@@ -102,8 +101,8 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                     </Text>
                   </View>
                 )}
-                // refreshing={refreshing}
-                // onRefresh={() => void handleRefresh()}
+                refreshing={refreshing}
+                onRefresh={() => void handleRefresh()}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => void data.fetchNextPage()}
               />
@@ -141,9 +140,9 @@ const PersonRow = ({
         className="mr-4 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
         alt={person.displayName}
       />
-      <View>
+      <View className="flex-1">
         {person.displayName && (
-          <Text className="text-base dark:text-neutral-50">
+          <Text className="text-base leading-5 dark:text-neutral-50">
             {person.displayName}
           </Text>
         )}

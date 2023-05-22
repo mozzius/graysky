@@ -25,19 +25,18 @@ export default function AccountSettings() {
   return (
     <View className="flex-1 dark:border-t dark:border-neutral-700">
       <StatusBar style="light" />
-      <View className="mx-4 my-4 flex-row items-center rounded-sm bg-white p-4 py-4 text-center text-2xl font-bold dark:bg-black">
-        <Avatar size="large" />
-        <View className="ml-4">
-          <Text className="text-base font-bold dark:text-neutral-50">
-            @{agent?.session?.handle}
-          </Text>
-          <Text className="text-base dark:text-neutral-50">
-            {agent?.session?.email}
-          </Text>
-        </View>
-      </View>
-
       <ScrollView className="flex-1">
+        <View className="w-full border-b border-neutral-200 p-4 dark:border-neutral-700">
+          <View className="flex-row items-center rounded-sm border border-neutral-200 bg-white p-4 text-center text-2xl font-bold dark:border-neutral-700 dark:bg-black">
+            <Avatar size="large" />
+            <View className="ml-4">
+              <Text className="text-xs dark:text-neutral-50">Email:</Text>
+              <Text className="text-base font-medium dark:text-neutral-50">
+                {agent?.session?.email}
+              </Text>
+            </View>
+          </View>
+        </View>
         {options.map((option) => {
           return (
             <Link asChild href={option.href} key={option.title}>
