@@ -1,11 +1,25 @@
-import { Button, Image, Text, TouchableOpacity, View } from "react-native";
+/* eslint-disable no-case-declarations */
+import {
+  Alert,
+  Button,
+  Image,
+  Share,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
+import { ComAtprotoModerationDefs } from "@atproto/api";
 import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
-import { ChevronLeft } from "lucide-react-native";
+import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
+import { blockAccount, muteAccount } from "../lib/account-actions";
 import { useAuthedAgent } from "../lib/agent";
 import { queryClient } from "../lib/query-client";
+import { cx } from "../lib/utils/cx";
 import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
 
@@ -18,6 +32,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAuthedAgent();
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { colorScheme } = useColorScheme();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -29,7 +45,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       }
     },
     onSettled: () => {
-      void queryClient.invalidateQueries(["profile", profile.handle]);
+      void queryClient.invalidateQueries(["profile"]);
       void queryClient.invalidateQueries(["network"]);
     },
   });
@@ -49,19 +65,155 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       )}
       <View className="relative border-b border-neutral-300 bg-white px-4 pb-4 dark:border-neutral-600 dark:bg-black">
         <View className="h-10 flex-row items-center justify-end">
-          <View className="absolute -top-11 left-0 rounded-full border-4 border-white bg-white dark:border-black dark:bg-black">
+          <View className="absolute -top-11 left-0 rounded-full border-2 border-white bg-white dark:border-black dark:bg-black">
             <Image
               source={{ uri: profile.avatar }}
               className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
               alt=""
             />
           </View>
-          {agent.session?.handle !== profile.handle && (
-            <Button
-              disabled={toggleFollow.isLoading}
-              onPress={() => toggleFollow.mutate()}
-              title={profile.viewer?.following ? "Following" : "Follow"}
-            />
+          {agent.session?.handle !== profile.handle ? (
+            <View className="flex-row justify-end">
+              <TouchableOpacity
+                disabled={toggleFollow.isLoading}
+                onPress={() => toggleFollow.mutate()}
+                className={cx(
+                  "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
+                  profile.viewer?.following
+                    ? "bg-neutral-200 dark:bg-neutral-700"
+                    : "bg-black dark:bg-white",
+                  toggleFollow.isLoading && "opacity-50",
+                )}
+              >
+                {profile.viewer?.following ? (
+                  <>
+                    <Check size={18} className="mr-1 text-neutral-600" />
+                    <Text className="font-medium text-neutral-600 dark:text-neutral-300">
+                      Following
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Plus
+                      size={18}
+                      className="mr-1 text-white dark:text-black"
+                    />
+                    <Text className="font-medium text-white dark:text-black">
+                      Follow
+                    </Text>
+                  </>
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
+                onPress={() => {
+                  const options = [
+                    "Share",
+                    "Mute Account",
+                    "Block Account",
+                    "Report Account",
+                    "Cancel",
+                  ];
+                  showActionSheetWithOptions(
+                    {
+                      options,
+                      cancelButtonIndex: options.length - 1,
+                      userInterfaceStyle: colorScheme,
+                    },
+                    (index) => {
+                      if (index === undefined) return;
+                      const option = options[index];
+                      switch (option) {
+                        case "Share":
+                          void Share.share({
+                            message: `https://bsky.app/profile/${profile.handle}`,
+                          });
+                          break;
+                        case "Mute Account":
+                          muteAccount(agent, profile.handle, profile.did);
+                          break;
+                        case "Block Account":
+                          blockAccount(agent, profile.handle, profile.did);
+
+                          break;
+                        case "Report Account":
+                          // prettier-ignore
+                          const reportOptions = [
+                            { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
+                            { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },
+                            { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
+                            { label: "Unwanted Sexual Content", value: ComAtprotoModerationDefs.REASONSEXUAL },
+                            { label: "Rude", value: ComAtprotoModerationDefs.REASONRUDE },
+                            { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
+                            { label: "Cancel", value: "Cancel" },
+                          ] as const;
+                          showActionSheetWithOptions(
+                            {
+                              title: "What is the issue with this account?",
+                              options: reportOptions.map((x) => x.label),
+                              cancelButtonIndex: reportOptions.length - 1,
+                              userInterfaceStyle: colorScheme,
+                            },
+                            async (index) => {
+                              if (index === undefined) return;
+                              const reason = reportOptions[index]!.value;
+                              if (reason === "Cancel") return;
+                              await agent.createModerationReport({
+                                reasonType: reason,
+                                subject: {
+                                  did: profile.did,
+                                },
+                              });
+                              Alert.alert(
+                                "Report submitted",
+                                "Thank you for making the skyline a safer place.",
+                              );
+                            },
+                          );
+                          break;
+                      }
+                    },
+                  );
+                }}
+              >
+                <MoreHorizontal
+                  size={18}
+                  className="text-neutral-600 dark:text-neutral-300"
+                />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
+              onPress={() => {
+                const options = ["Edit Profile", "Share", "Cancel"];
+                showActionSheetWithOptions(
+                  {
+                    options,
+                    cancelButtonIndex: options.length - 1,
+                  },
+                  (index) => {
+                    if (index === undefined) return;
+                    const option = options[index];
+                    switch (option) {
+                      case "Edit Profile":
+                        router.push("/settings/account/edit-bio");
+                        break;
+                      case "Share":
+                        void Share.share({
+                          message: `https://bsky.app/profile/${profile.handle}`,
+                        });
+                        break;
+                    }
+                  },
+                );
+              }}
+            >
+              <MoreHorizontal
+                size={18}
+                className="text-neutral-600 dark:text-neutral-300"
+              />
+            </TouchableOpacity>
           )}
         </View>
         <Text className="mt-1 text-2xl font-medium dark:text-neutral-50">

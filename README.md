@@ -79,14 +79,14 @@ eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted t
 
 # Contributors
 
-Graysky is primarily developed by [@mozzius.dev](https://staging.bsky.app/profile/mozzius.dev). If you'd like to show your support for the project, you can [sponsor me](https://github.com/sponsors/mozzius).
+Graysky is primarily developed by [@mozzius.dev](https://bsky.app/profile/mozzius.dev). If you'd like to show your support for the project, you can [sponsor me](https://github.com/sponsors/mozzius).
 
-However, I'm not the only one who's contributed to this project. I'd like to especially thank [@alice.bsky.sh](https://staging.bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, and thank [@holden.bsky.social](https://staging.bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements.
+However, I'm not the only one who's contributed to this project. I'd like to especially thank [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, and thank [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements.
 
 ## All Contributors
 
 My eternal thanks to the following people for their contributions to Graysky:
 
-- [@alice.bsky.sh](https://staging.bsky.app/profile/alice.bsky.sh)
-- [@holden.bsky.social](https://staging.bsky.app/profile/holden.bsky.social)
-- [@matthewstanciu.com](https://staging.bsky.app/profile/matthewstanciu.com)
+- [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh)
+- [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social)
+- [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com)

@@ -167,7 +167,7 @@ export default function RootLayout() {
                     <Stack.Screen
                       name="settings/account/edit-bio"
                       options={{
-                        title: "Edit Bio",
+                        title: "Edit Profile",
                       }}
                     />
                     <Stack.Screen

@@ -181,8 +181,8 @@ export const FeedPost = ({
               accessibilityHint="Opens profile"
               asChild
             >
-              <TouchableWithoutFeedback className="flex-row flex-wrap">
-                <Text numberOfLines={1} className="max-w-[85%] text-base">
+              <TouchableWithoutFeedback className="flex-row">
+                <Text numberOfLines={1} className="max-w-full pr-16 text-base">
                   <Text className="font-semibold dark:text-neutral-50">
                     {postAuthorDisplayName}
                   </Text>
@@ -191,9 +191,8 @@ export const FeedPost = ({
                   </Text>
                 </Text>
                 {/* get age of post - e.g. 5m */}
-                <Text className="text-base text-neutral-500 dark:text-neutral-400">
-                  {" · "}
-                  {timeSincePost.visible}
+                <Text className="relative -left-16 ml-1 text-base text-neutral-500 dark:text-neutral-400">
+                  {" · " + timeSincePost.visible}
                 </Text>
               </TouchableWithoutFeedback>
             </Link>

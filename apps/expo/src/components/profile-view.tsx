@@ -205,7 +205,7 @@ export const ProfileView = ({ handle, header = true }: Props) => {
           {info}
           <View className="flex-1 flex-col items-center justify-center p-4">
             <XOctagon size={50} color="#888888" />
-            <Text className="my-8 text-center text-lg">
+            <Text className="my-4 text-center text-lg">
               You have blocked this user
             </Text>
             <Button

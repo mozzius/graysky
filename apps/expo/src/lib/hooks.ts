@@ -18,6 +18,7 @@ import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
 import { useLists } from "../components/lists/context";
+import { blockAccount, muteAccount } from "./account-actions";
 import { useAuthedAgent } from "./agent";
 import { queryClient } from "./query-client";
 import { assert } from "./utils/assert";
@@ -243,68 +244,10 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             openLikes(post.uri);
             break;
           case `Mute @${post.author.handle}`:
-            Alert.alert(
-              "Mute",
-              `Are you sure you want to mute @${post.author.handle}?`,
-              [
-                {
-                  text: "Cancel",
-                  style: "cancel",
-                },
-                {
-                  text: "Mute",
-                  style: "destructive",
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onPress: async () => {
-                    await agent.mute(post.author.did);
-                    Alert.alert(
-                      "Muted",
-                      `You will no longer see posts from @${post.author.handle}.`,
-                    );
-                  },
-                },
-              ],
-            );
+            muteAccount(agent, post.author.handle, post.author.did);
             break;
           case `Block @${post.author.handle}`:
-            Alert.alert(
-              "Block",
-              `Are you sure you want to block @${post.author.handle}?`,
-              [
-                {
-                  text: "Cancel",
-                  style: "cancel",
-                },
-                {
-                  text: "Block",
-                  style: "destructive",
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onPress: async () => {
-                    await agent.app.bsky.graph.block.create(
-                      { repo: agent.session.did },
-                      {
-                        createdAt: new Date().toISOString(),
-                        subject: post.author.did,
-                      },
-                    );
-                    await Promise.all([
-                      queryClient.invalidateQueries(
-                        ["profile", post.author.did],
-                        { exact: true },
-                      ),
-                      queryClient.invalidateQueries(
-                        ["profile", post.author.handle],
-                        { exact: true },
-                      ),
-                    ]);
-                    Alert.alert(
-                      "Blocked",
-                      `@${post.author.handle} has been blocked.`,
-                    );
-                  },
-                },
-              ],
-            );
+            blockAccount(agent, post.author.handle, post.author.did);
             break;
           case "Delete post":
             Alert.alert(

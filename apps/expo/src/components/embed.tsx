@@ -87,20 +87,20 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             )}
           >
             <Text
-              className="text-base font-semibold dark:text-neutral-50"
+              className="text-base font-semibold leading-5 dark:text-neutral-50"
               numberOfLines={2}
             >
               {content.external.title || content.external.uri}
             </Text>
             <Text
-              className="text-sm text-neutral-400 dark:text-neutral-100"
+              className="mt-0.5 text-sm leading-5 text-neutral-400 dark:text-neutral-100"
               numberOfLines={1}
             >
               {content.external.uri}
             </Text>
             {content.external.description && depth === 0 && (
               <Text
-                className="mt-1 text-sm leading-5 dark:text-neutral-50"
+                className="mt-0.5 text-sm leading-5 dark:text-neutral-50"
                 numberOfLines={2}
               >
                 {content.external.description}
