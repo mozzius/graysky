@@ -48,7 +48,7 @@ export const PostNotification = ({
                 parent: data.thread.parent.post,
                 // not technically correct but we don't use this field
                 root: data.thread.parent.post,
-              },
+              } satisfies AppBskyFeedDefs.ReplyRef,
             }
           : {}),
       } satisfies AppBskyFeedDefs.FeedViewPost;

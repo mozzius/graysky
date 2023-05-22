@@ -22,6 +22,7 @@ import {
   User,
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
+import { z } from "zod";
 
 import { useAuthedAgent } from "../lib/agent";
 import {
@@ -200,29 +201,44 @@ export const FeedPost = ({
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
             (item.reply
-              ? AppBskyFeedDefs.isPostView(item.reply.parent) &&
-                AppBskyFeedDefs.validateFeedViewPost(item.reply.parent)
-                  .success && (
-                  <Link
-                    href={`/profile/${
-                      item.reply.parent.author.handle
-                    }/post/${item.reply.parent.uri.split("/").pop()}`}
-                    asChild
-                    accessibilityHint="Opens parent post"
-                  >
-                    <TouchableWithoutFeedback className="flex-row items-center">
-                      <MessageCircle size={12} color="#737373" />
-                      <Text
-                        className="ml-1 text-neutral-500 dark:text-neutral-400"
-                        numberOfLines={1}
+              ? (() => {
+                  // use zod to parse the parent post
+                  // since all we want is author + uri
+                  // don't actually care what specific kind of post it is
+                  const parse = z
+                    .object({
+                      author: z.object({
+                        handle: z.string(),
+                        displayName: z.string().optional(),
+                      }),
+                      uri: z.string(),
+                    })
+                    .safeParse(item.reply.parent);
+
+                  if (parse.success) {
+                    return (
+                      <Link
+                        href={`/profile/${
+                          parse.data.author.handle
+                        }/post/${parse.data.uri.split("/").pop()}`}
+                        asChild
+                        accessibilityHint="Opens parent post"
                       >
-                        replying to{" "}
-                        {item.reply.parent.author.displayName ??
-                          `@${item.reply.parent.author.handle}`}
-                      </Text>
-                    </TouchableWithoutFeedback>
-                  </Link>
-                )
+                        <TouchableWithoutFeedback className="flex-row items-center">
+                          <MessageCircle size={12} color="#737373" />
+                          <Text
+                            className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+                            numberOfLines={1}
+                          >
+                            replying to{" "}
+                            {parse.data.author.displayName ??
+                              `@${parse.data.author.handle}`}
+                          </Text>
+                        </TouchableWithoutFeedback>
+                      </Link>
+                    );
+                  } else return null;
+                })()
               : !!item.post.record.reply && (
                   <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
                 ))}
@@ -387,7 +403,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     return (
       <View className="flex-row items-center">
         <MessageCircle size={12} color={circleColor} />
-        <Text className="ml-1 text-neutral-500">
+        <Text className="ml-1 text-neutral-500" numberOfLines={1}>
           replying to{isLoading ? "..." : " unknown"}
         </Text>
       </View>
@@ -400,7 +416,10 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     >
       <TouchableWithoutFeedback className="flex-row items-center">
         <MessageCircle size={12} color={circleColor} />
-        <Text className="ml-1 text-neutral-500 dark:text-neutral-400">
+        <Text
+          className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+          numberOfLines={1}
+        >
           replying to {data.author.displayName ?? `@${data.author.handle}`}
         </Text>
       </TouchableWithoutFeedback>

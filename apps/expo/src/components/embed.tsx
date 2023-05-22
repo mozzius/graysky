@@ -76,7 +76,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               key={content.external.thumb}
               source={{ uri: content.external.thumb }}
               alt={content.external.title || content.external.uri}
-              className="h-32 w-full object-cover"
+              className="aspect-[2/1] w-full object-cover"
             />
           )}
           <View
