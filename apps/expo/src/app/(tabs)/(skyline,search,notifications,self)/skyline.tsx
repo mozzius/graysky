@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
+  useColorScheme as useNativeColorScheme,
 } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Stack } from "expo-router";
@@ -146,6 +147,9 @@ const SkylinePage = () => {
   const headerHeight = useHeaderHeight();
 
   const { colorScheme } = useColorScheme();
+  // trigger rerender on theme change
+  useNativeColorScheme();
+
   const backgroundColor = colorScheme === "light" ? "white" : "black";
   const indicatorStyle = colorScheme === "light" ? "black" : "white";
   const activeColor = colorScheme === "light" ? "black" : "white";
@@ -156,6 +160,7 @@ const SkylinePage = () => {
     (props: TabBarProps<(typeof routes)[number]>) => (
       <TabBar
         {...props}
+        key={colorScheme}
         gap={16}
         style={{
           backgroundColor: backgroundColor,
@@ -182,7 +187,7 @@ const SkylinePage = () => {
         getLabelText={({ route }) => route.title}
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor],
+    [activeColor, backgroundColor, indicatorStyle, borderColor, colorScheme],
   );
 
   return (

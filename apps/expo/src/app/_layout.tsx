@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert } from "react-native";
+import { Alert, useColorScheme as useNativeColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -128,6 +128,11 @@ export default function RootLayout() {
   }, [loading]);
 
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
+
+  // trigger rerender when system dark mode changes
+
+  useNativeColorScheme();
+
   return (
     <ThemeProvider value={theme}>
       <QueryClientProvider client={queryClient}>
