@@ -70,7 +70,15 @@ org.gradle.caching=true
 
 ## iOS local IPA builds
 
-> This is fish shell format, but you can probably figure out how to translate it to bash.
+### ZSH/Bash
+
+```
+SHORT_SHA=$(git rev-parse --short HEAD)
+eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait && say "Build finished"
+eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait && say "Submitted to TestFlight"
+```
+
+### Fish shell
 
 ```
 set SHORT_SHA (git rev-parse --short HEAD)
