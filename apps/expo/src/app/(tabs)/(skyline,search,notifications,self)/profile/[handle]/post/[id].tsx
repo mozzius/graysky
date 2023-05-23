@@ -18,7 +18,7 @@ import { useTabPressScroll } from "../../../../../../lib/hooks";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
-type Posts = {
+export type Posts = {
   post: AppBskyFeedDefs.PostView;
   primary: boolean;
   hasParent: boolean;

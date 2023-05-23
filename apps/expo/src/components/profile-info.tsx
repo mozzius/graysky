@@ -1,4 +1,6 @@
 /* eslint-disable no-case-declarations */
+
+import { useEffect } from "react";
 import {
   Alert,
   Button,
@@ -8,9 +10,12 @@ import {
   View,
 } from "react-native";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
-import { ComAtprotoModerationDefs } from "@atproto/api";
-import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
+import { Link, useRouter } from "expo-router";
+import {
+  ComAtprotoModerationDefs,
+  type AppBskyActorDefs,
+  type AppBskyEmbedImages,
+} from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
@@ -24,7 +29,7 @@ import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
 
 interface Props {
-  profile: ProfileViewDetailed;
+  profile: AppBskyActorDefs.ProfileViewDetailed;
   backButton?: boolean;
 }
 
@@ -50,6 +55,21 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
   });
 
+  useEffect(() => {
+    if (profile.avatar) {
+      queryClient.setQueryData(
+        ["images", profile.did],
+        [
+          {
+            alt: profile.displayName ?? `@${profile.handle}`,
+            fullsize: profile.avatar,
+            thumb: profile.avatar,
+          } satisfies AppBskyEmbedImages.ViewImage,
+        ],
+      );
+    }
+  }, [profile]);
+
   return (
     <View className="relative">
       <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
@@ -65,13 +85,15 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       )}
       <View className="relative border-b border-neutral-300 bg-white px-4 pb-4 dark:border-neutral-600 dark:bg-black">
         <View className="h-10 flex-row items-center justify-end">
-          <View className="absolute -top-11 left-0 rounded-full border-2 border-white bg-white dark:border-black dark:bg-black">
-            <Image
-              source={{ uri: profile.avatar }}
-              className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
-              alt=""
-            />
-          </View>
+          <Link asChild href={`/images/${profile.did}`}>
+            <TouchableOpacity className="absolute -top-11 left-0 rounded-full border-2 border-white bg-white dark:border-black dark:bg-black">
+              <Image
+                source={{ uri: profile.avatar }}
+                className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
+                alt=""
+              />
+            </TouchableOpacity>
+          </Link>
           {agent.session?.handle !== profile.handle ? (
             <View className="flex-row justify-end">
               <TouchableOpacity

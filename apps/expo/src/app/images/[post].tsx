@@ -18,27 +18,44 @@ export default function ImageModal() {
     initial?: string;
   };
 
-  const uri = decodeURIComponent(post);
+  const source = decodeURIComponent(post);
 
   const images = useQuery({
-    queryKey: ["images", uri],
+    queryKey: ["images", source],
     queryFn: async () => {
-      const record = await agent.getPostThread({
-        uri,
-        depth: 0,
-      });
+      if (source.startsWith("did:")) {
+        // profile avatar
+        const profile = await agent.getProfile({
+          actor: source,
+        });
 
-      if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {
-        throw new Error("Invalid thread post");
+        if (!profile.data.avatar) throw new Error("No avatar");
+        return [
+          {
+            alt: profile.data.displayName ?? `@${profile.data.handle}`,
+            fullsize: profile.data.avatar,
+            thumb: profile.data.avatar,
+          } satisfies AppBskyEmbedImages.ViewImage,
+        ];
+      } else {
+        // post embeds
+        const record = await agent.getPostThread({
+          uri: source,
+          depth: 0,
+        });
+
+        if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {
+          throw new Error("Invalid thread post");
+        }
+        assert(AppBskyFeedDefs.validateThreadViewPost(record.data.thread));
+
+        if (!AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
+          throw new Error("Invalid embed");
+        }
+        assert(AppBskyEmbedImages.validateView(record.data.thread.post.embed));
+
+        return record.data.thread.post.embed.images;
       }
-      assert(AppBskyFeedDefs.validateThreadViewPost(record.data.thread));
-
-      if (!AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
-        throw new Error("Invalid embed");
-      }
-      assert(AppBskyEmbedImages.validateView(record.data.thread.post.embed));
-
-      return record.data.thread.post.embed.images;
     },
     retry: false,
     refetchOnMount: false,
@@ -72,11 +89,13 @@ export default function ImageModal() {
       >
         <X color="#ffffff" />
       </TouchableOpacity>
-      <ImageViewer
-        images={images.data ?? []}
-        onClose={() => router.back()}
-        initialIndex={Number(initial) || 0}
-      />
+      {images.data && (
+        <ImageViewer
+          images={images.data}
+          onClose={() => router.back()}
+          initialIndex={Number(initial) || 0}
+        />
+      )}
     </View>
   );
 }

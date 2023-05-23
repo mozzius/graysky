@@ -24,6 +24,7 @@ import {
 import { useColorScheme } from "nativewind";
 import { z } from "zod";
 
+// import { type Posts } from "../app/(tabs)/(skyline,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAuthedAgent } from "../lib/agent";
 import {
   useHandleRepost,
@@ -86,6 +87,26 @@ export const FeedPost = ({
   useEffect(() => {
     setHidden(startHidden);
   }, [item.post.cid, startHidden]);
+
+  // IDEA: precache main post of thread
+  // useEffect(() => {
+  //   queryClient.setQueryData(postHref.split("/"), {
+  //     posts: [
+  //       {
+  //         hasParent: false,
+  //         hasReply: false,
+  //         post: item.post,
+  //         primary: true,
+  //       },
+  //     ],
+  //     index: 0,
+  //     main: item.post,
+  //   } satisfies {
+  //     posts: Posts[];
+  //     index: number;
+  //     main: AppBskyFeedDefs.PostView;
+  //   });
+  // }, [item.post, postHref]);
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
