@@ -95,8 +95,8 @@ importers:
         specifier: ^12.2.1
         version: 12.2.1(expo@48.0.17)
       expo-image:
-        specifier: ^1.2.3
-        version: 1.2.3(expo@48.0.17)
+        specifier: ^1.0.1
+        version: 1.0.1(expo@48.0.17)
       expo-image-manipulator:
         specifier: ^11.1.1
         version: 11.1.1(expo@48.0.17)
@@ -5538,8 +5538,8 @@ packages:
       expo-image-loader: 4.1.1(expo@48.0.17)
     dev: false
 
-  /expo-image@1.2.3(expo@48.0.17):
-    resolution: {integrity: sha512-+Mnx6rcneWSUGfHkUDV3cQ3R4lVwoIDFs/tcXVqnlxyNJdNxpW2cge9pS2Hpj3UDoZVhZPLR8LHS8E9wEaC0NA==}
+  /expo-image@1.0.1(expo@48.0.17):
+    resolution: {integrity: sha512-h3xDHaw3ZWzOKar1eFXY4CsFgDstw6fo5Tzv6BXXs+Zte5betPMb567f8zCNnhpkr7UCo5CN7Cg92o+lqzdvRA==}
     peerDependencies:
       expo: '*'
     dependencies:
