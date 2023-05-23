@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Image,
   Keyboard,
   Text,
   TextInput,
@@ -9,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -216,7 +216,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
         <View className="mx-4 mt-4 rounded bg-white p-4 shadow-sm dark:bg-neutral-900">
           <View className="flex-row items-center">
             <Image
-              key={item.avatar}
+              recyclingKey={item.did}
               source={{ uri: item.avatar }}
               className="mr-4 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
               alt={item.displayName}

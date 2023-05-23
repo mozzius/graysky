@@ -1,19 +1,10 @@
-import { Dimensions, Image, StyleSheet } from "react-native";
-import {
-  PanGestureHandler,
-  type PanGestureHandlerGestureEvent,
-} from "react-native-gesture-handler";
-import Animated, {
-  runOnJS,
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
-import { snapPoint } from "react-native-redash";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text } from "react-native";
+import Gallery from "react-native-awesome-gallery";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 import { type AppBskyEmbedImages } from "@atproto/api";
-
-const { width, height } = Dimensions.get("screen");
 
 interface Props {
   images: AppBskyEmbedImages.ViewImage[];
@@ -22,104 +13,49 @@ interface Props {
 }
 
 export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
-  const snapPointsX = images.map((_, i) => i * -width);
-  const snapPointsY = [height * 1.5, 0, -height * 1.5];
+  const [infoVisible, setInfoVisible] = useState(false);
+  const [index, setIndex] = useState(initialIndex);
+  const [mounted, setMounted] = useState(false);
+  const { bottom } = useSafeAreaInsets();
 
-  const x = useSharedValue(initialIndex * -width);
-  const y = useSharedValue(0);
-
-  const delayedClose = () => setTimeout(() => onClose(), 200);
-
-  const gestureHandler = useAnimatedGestureHandler<
-    PanGestureHandlerGestureEvent,
-    {
-      startX: number;
-      lastY: number;
-    }
-  >({
-    onStart: (_, ctx) => {
-      ctx.startX = x.value;
-      ctx.lastY = 0;
-    },
-    onActive: (event, ctx) => {
-      x.value = ctx.startX + event.translationX;
-      y.value = event.translationY;
-
-      ctx.lastY = y.value;
-    },
-    onEnd: (event) => {
-      const closestInitialIndex = Math.round(x.value / -width);
-      const snapPointsEitherSide = snapPointsX.filter((_, i) => {
-        return (
-          i === closestInitialIndex ||
-          i === closestInitialIndex + 1 ||
-          i === closestInitialIndex - 1
-        );
-      });
-      x.value = withSpring(
-        snapPoint(x.value, event.velocityX, snapPointsEitherSide),
-        {
-          damping: 20,
-          mass: 0.5,
-        },
-      );
-      const yDest = snapPoint(y.value, event.velocityY, snapPointsY);
-      y.value = withSpring(yDest, {
-        damping: 20,
-        mass: 2,
-      });
-      if (yDest !== 0) {
-        runOnJS(delayedClose)();
-      }
-    },
-  });
-
-  const animatedContainerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: x.value }],
-    };
-  });
-
-  const animatedImageStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateY: y.value },
-        { scale: 1 - Math.abs(y.value) / height },
-      ],
-      opacity: 1 - Math.abs(y.value) / height,
-    };
-  });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <PanGestureHandler onGestureEvent={gestureHandler}>
-      <Animated.View style={[styles.container, animatedContainerStyle]}>
-        {images.map((image, i) => {
-          return (
-            <Animated.View
-              key={`${image.fullsize}-${i}`}
-              style={[styles.image, animatedImageStyle]}
-            >
-              <Image
-                source={{ uri: image.fullsize }}
-                alt={image.alt}
-                className="flex-1"
-                resizeMode="contain"
-              />
-            </Animated.View>
-          );
-        })}
-      </Animated.View>
-    </PanGestureHandler>
+    <>
+      <Gallery
+        data={images}
+        initialIndex={initialIndex}
+        keyExtractor={(item) => item.fullsize}
+        onIndexChange={(index) => setIndex(index)}
+        renderItem={({ item, setImageDimensions }) => (
+          <Image
+            source={item.fullsize}
+            contentFit="contain"
+            alt={item.alt}
+            style={StyleSheet.absoluteFillObject}
+            onLoad={({ source: { width, height } }) =>
+              setImageDimensions({
+                width,
+                height,
+              })
+            }
+          />
+        )}
+        onSwipeToClose={onClose}
+        onTap={() => setInfoVisible((v) => !v)}
+      />
+      {infoVisible && (
+        <Animated.View
+          entering={mounted ? FadeInDown.duration(250) : undefined}
+          exiting={FadeOutDown.duration(250)}
+          className="absolute bottom-0 z-10 w-full rounded-tl-2xl rounded-tr-2xl bg-black/70 px-6 pt-6"
+          style={{ paddingBottom: bottom + 8 }}
+        >
+          <Text className="text-base text-white">{images[index]?.alt}</Text>
+        </Animated.View>
+      )}
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  image: {
-    width,
-    height,
-  },
-});

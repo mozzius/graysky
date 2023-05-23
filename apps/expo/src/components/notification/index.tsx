@@ -1,5 +1,6 @@
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
@@ -123,6 +124,7 @@ const ProfileList = ({
               className="mr-2 rounded-full"
             >
               <Image
+                recyclingKey={actor.did}
                 className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 source={{ uri: actor.avatar }}
                 alt={

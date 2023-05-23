@@ -12,7 +12,6 @@ import {
 } from "react";
 import {
   Alert,
-  Image,
   Keyboard,
   Platform,
   Text,
@@ -31,6 +30,7 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as FileSystem from "expo-file-system";
 import * as Haptics from "expo-haptics";
+import { Image } from "expo-image";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import {
@@ -482,7 +482,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
             {showImages && images.length > 0 && (
               <View
                 className={cx(
-                  "absolute z-10 h-full w-full flex-wrap border-neutral-100 bg-white pt-2 dark:border-neutral-600 dark:bg-black",
+                  "absolute z-10 h-full w-full flex-wrap border-neutral-100 bg-white pt-2 dark:border-neutral-600 dark:bg-[#121212]",
                   postView &&
                     AppBskyFeedPost.isRecord(postView.record) &&
                     "border-t",
@@ -508,6 +508,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                       className={cx("relative", i !== 3 && "mr-2")}
                     >
                       <Image
+                        cachePolicy="memory"
                         source={{ uri: image.uri }}
                         alt={`image ${i}}`}
                         className="h-36 w-36 rounded"

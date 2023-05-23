@@ -94,6 +94,9 @@ importers:
       expo-haptics:
         specifier: ^12.2.1
         version: 12.2.1(expo@48.0.17)
+      expo-image:
+        specifier: ^1.2.3
+        version: 1.2.3(expo@48.0.17)
       expo-image-manipulator:
         specifier: ^11.1.1
         version: 11.1.1(expo@48.0.17)
@@ -154,6 +157,9 @@ importers:
       react-native:
         specifier: 0.71.8
         version: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      react-native-awesome-gallery:
+        specifier: ^0.3.5
+        version: 0.3.5(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
       react-native-drawer-layout:
         specifier: ^3.2.0
         version: 3.2.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
@@ -5532,6 +5538,14 @@ packages:
       expo-image-loader: 4.1.1(expo@48.0.17)
     dev: false
 
+  /expo-image@1.2.3(expo@48.0.17):
+    resolution: {integrity: sha512-+Mnx6rcneWSUGfHkUDV3cQ3R4lVwoIDFs/tcXVqnlxyNJdNxpW2cge9pS2Hpj3UDoZVhZPLR8LHS8E9wEaC0NA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.17(@babel/core@7.21.4)
+    dev: false
+
   /expo-json-utils@0.5.1:
     resolution: {integrity: sha512-Y5boshyf40vPjwxNnOIfacZPNkOymecZRQ1k+TSXlq6gnw5XRsnM5hnP0VLVYhdv8x+9CX6E1fDsDUNvsK38Dg==}
     dev: false
@@ -9224,6 +9238,21 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
+  /react-native-awesome-gallery@0.3.5(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-oMY0to9mLYyUK7F4ibx5S/GUiB83m3hqpM8THlGulCGr6QcVfX6ZJklNHYYaWCziBIavjXY6Igyq39WrrQOhhw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-gesture-handler: ^2.0.0
+      react-native-reanimated: ^2.0.0
+    dependencies:
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      react-native-gesture-handler: 2.9.0(react-native@0.71.8)(react@18.2.0)
+      react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.8)(react@18.2.0)
+      react-native-redash: 16.3.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
+    dev: false
+
   /react-native-codegen@0.71.5(@babel/preset-env@7.21.4):
     resolution: {integrity: sha512-rfsuc0zkuUuMjFnrT55I1mDZ+pBRp2zAiRwxck3m6qeGJBGK5OV5JH66eDQ4aa+3m0of316CqrJDRzVlYufzIg==}
     dependencies:
@@ -9310,6 +9339,23 @@ packages:
       string-hash-64: 1.0.3
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /react-native-redash@16.3.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-dhmeYbQ/usGzxZSGZmzmRuIFF2LrtJUKqgseKgf9Jdj0JQ7VM20m/LqTg60+wjxeiyAh2D/vKsQ2U7rMkuoplQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-gesture-handler: '*'
+      react-native-reanimated: '>=2.0.0'
+    dependencies:
+      abs-svg-path: 0.1.1
+      normalize-svg-path: 1.1.0
+      parse-svg-path: 0.1.2
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      react-native-gesture-handler: 2.9.0(react-native@0.71.8)(react@18.2.0)
+      react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.8)(react@18.2.0)
     dev: false
 
   /react-native-redash@18.1.0(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):

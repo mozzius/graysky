@@ -1,7 +1,8 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
-import { ActivityIndicator, Dimensions, Image, Text, View } from "react-native";
+import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import BottomSheet, {

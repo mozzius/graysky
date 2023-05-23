@@ -2,12 +2,12 @@
 import {
   Alert,
   Button,
-  Image,
   Share,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { ComAtprotoModerationDefs } from "@atproto/api";
 import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs";

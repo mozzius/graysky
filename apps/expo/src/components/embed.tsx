@@ -1,11 +1,12 @@
 /* eslint-disable no-case-declarations */
 
-import { useEffect, useState } from "react";
-import { Image, Linking, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Linking, Text, View } from "react-native";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
   AppBskyEmbedExternal,
@@ -21,29 +22,6 @@ import { StyledComponent } from "nativewind";
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
 import { cx } from "../lib/utils/cx";
-
-function useImageAspectRatio(imageUrl: string) {
-  const [aspectRatio, setAspectRatio] = useState(1);
-
-  useEffect(() => {
-    if (!imageUrl) {
-      return;
-    }
-
-    let isValid = true;
-    Image.getSize(imageUrl, (width, height) => {
-      if (isValid) {
-        setAspectRatio(width / height);
-      }
-    });
-
-    return () => {
-      isValid = false;
-    };
-  }, [imageUrl]);
-
-  return aspectRatio;
-}
 
 interface Props {
   uri: string;
@@ -184,13 +162,12 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
 const ImageEmbed = ({
   uri,
   content,
-  depth,
-}: {
+}: // depth,
+{
   uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
 }) => {
-  const aspectRatio = useImageAspectRatio(content.images[0]!.thumb);
   const href = `/images/${encodeURIComponent(uri)}`;
 
   useEffect(() => {
@@ -211,10 +188,7 @@ const ImageEmbed = ({
               alt={image.alt}
               className="mt-1.5 w-full rounded-lg"
               style={{
-                aspectRatio:
-                  depth > 0
-                    ? Math.max(aspectRatio, 1.5)
-                    : Math.max(aspectRatio, 0.5),
+                aspectRatio: 1,
               }}
             />
           </TouchableWithoutFeedback>

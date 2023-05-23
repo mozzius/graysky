@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Button,
-  Image,
   TouchableWithoutFeedback as RNTouchableWithoutFeedback,
   Text,
   View,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
@@ -142,7 +142,7 @@ export const FeedPost = ({
               <TouchableWithoutFeedback>
                 {item.post.author.avatar ? (
                   <Image
-                    key={item.post.author.avatar}
+                    recyclingKey={item.post.author.did}
                     source={{ uri: item.post.author.avatar }}
                     alt={postAuthorHandle}
                     className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
