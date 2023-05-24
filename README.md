@@ -40,11 +40,10 @@ Then just scan the QR code!
 - [x] Followers/Following screens
 - [x] Likes list
 - [x] Context menu - user actions
+- [x] Image viewer: Pinch to zoom
 - [ ] Moderation settings
 - [ ] Custom feeds
 - [ ] Settings screen
-- [ ] Image viewer: Pinch to zoom
-- [ ] Better haptics
 - [ ] Create account flow
 - [ ] Edit profile screen
 - [ ] Push notifications
