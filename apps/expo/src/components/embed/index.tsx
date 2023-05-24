@@ -19,25 +19,39 @@ import {
 } from "@atproto/api";
 import { StyledComponent } from "nativewind";
 
-import { queryClient } from "../lib/query-client";
-import { assert } from "../lib/utils/assert";
-import { cx } from "../lib/utils/cx";
+import { assert } from "../../lib/utils/assert";
+import { cx } from "../../lib/utils/cx";
+import { ImageEmbed } from "./image";
 
 interface Props {
   uri: string;
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
   depth?: number;
+  className?: string;
 }
 
-export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
+export const Embed = ({
+  uri,
+  content,
+  truncate = true,
+  depth = 0,
+  className,
+}: Props) => {
   if (!content) return null;
 
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return <ImageEmbed uri={uri} content={content} depth={depth} />;
+      return (
+        <ImageEmbed
+          className={className}
+          uri={uri}
+          content={content}
+          depth={depth}
+        />
+      );
     }
 
     // Case 2: External link
@@ -47,7 +61,10 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
         <StyledComponent
           component={TouchableOpacity}
           onPress={() => void Linking.openURL(content.external.uri)}
-          className="mt-1.5 overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-800"
+          className={cx(
+            "mt-1.5 overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-800",
+            className,
+          )}
         >
           {content.external.thumb && (
             <Image
@@ -124,7 +141,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
-        <>
+        <View className={className}>
           {media && <Embed uri={uri} content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
@@ -144,7 +161,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               />
             )}
           </PostEmbed>
-        </>
+        </View>
       );
     }
 
@@ -152,139 +169,17 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
-      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
+      <View
+        className={cx(
+          "my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950",
+          className,
+        )}
+      >
         <Text className="text-center font-semibold">
           {(err as Error).message}
         </Text>
       </View>
     );
-  }
-};
-
-const ImageEmbed = ({
-  uri,
-  content,
-}: // depth,
-{
-  uri: string;
-  content: AppBskyEmbedImages.View;
-  depth: number;
-}) => {
-  const href = `/images/${encodeURIComponent(uri)}`;
-
-  useEffect(() => {
-    queryClient.setQueryData(["images", uri], content.images);
-  }, [content.images, uri]);
-
-  switch (content.images.length) {
-    case 0:
-      return null;
-    case 1:
-      const image = content.images[0]!;
-      return (
-        <Link href={href} asChild>
-          <TouchableWithoutFeedback accessibilityRole="image">
-            <Image
-              key={image.thumb}
-              source={{ uri: image.thumb }}
-              alt={image.alt}
-              className="mt-1.5 w-full rounded-lg"
-              style={{
-                aspectRatio: 1,
-              }}
-            />
-          </TouchableWithoutFeedback>
-        </Link>
-      );
-    case 2:
-      return (
-        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg">
-          {content.images.map((image, i) => (
-            <View
-              className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
-              key={image.thumb}
-            >
-              <Link href={`${href}?initial=${i}`} asChild>
-                <TouchableWithoutFeedback accessibilityRole="image">
-                  <Image
-                    key={image.thumb}
-                    source={{ uri: image.thumb }}
-                    alt={image.alt}
-                    className="aspect-square"
-                  />
-                </TouchableWithoutFeedback>
-              </Link>
-            </View>
-          ))}
-        </View>
-      );
-    case 3:
-      return (
-        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
-          <View className="w-1/2 pr-0.5">
-            <Link href={`${href}?initial=0`} asChild>
-              <TouchableWithoutFeedback accessibilityRole="image">
-                <Image
-                  key={content.images[0]!.thumb}
-                  source={{ uri: content.images[0]!.thumb }}
-                  alt={content.images[0]!.alt}
-                  className="h-full w-full object-cover"
-                />
-              </TouchableWithoutFeedback>
-            </Link>
-          </View>
-          <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
-            {content.images.slice(1).map((image, i) => (
-              <View
-                className={cx(
-                  "h-1/2 w-full",
-                  i % 2 === 0 ? "pb-0.5" : "pt-0.5",
-                )}
-                key={image.fullsize}
-              >
-                <Link href={`${href}?initial=${i + 1}`} asChild>
-                  <TouchableWithoutFeedback accessibilityRole="image">
-                    <Image
-                      key={image.thumb}
-                      source={{ uri: image.thumb }}
-                      alt={image.alt}
-                      className="h-full w-full object-cover"
-                    />
-                  </TouchableWithoutFeedback>
-                </Link>
-              </View>
-            ))}
-          </View>
-        </View>
-      );
-    case 4:
-      return (
-        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg">
-          {content.images.map((image, i) => (
-            <View
-              key={image.fullsize}
-              className={cx(
-                "w-1/2",
-                i > 1 && "mt-1",
-                i % 2 === 0 ? "pr-0.5" : "pl-0.5",
-              )}
-            >
-              <Link href={`${href}?initial=${i}`} asChild>
-                <TouchableWithoutFeedback accessibilityRole="image">
-                  <Image
-                    key={image.thumb}
-                    source={{ uri: image.thumb }}
-                    alt={image.alt}
-                    className="aspect-square"
-                  />
-                </TouchableWithoutFeedback>
-              </Link>
-            </View>
-          ))}
-        </View>
-      );
-    default:
-      throw Error("Unsupported number of images");
   }
 };
 
