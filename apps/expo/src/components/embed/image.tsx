@@ -42,7 +42,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
               className={cx("mt-1.5 w-full rounded-lg", className)}
               style={{ aspectRatio }}
               onLoad={({ source: { width, height } }) =>
-                setAspectRatio(Math.min(depth === 0 ? 0.66 : 1, width / height))
+                setAspectRatio(Math.max(depth === 0 ? 0.66 : 2, width / height))
               }
             />
           </TouchableWithoutFeedback>
