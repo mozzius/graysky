@@ -4,7 +4,6 @@ import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Search, User } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
 import {
@@ -12,6 +11,7 @@ import {
   type InviteCodesRef,
 } from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
+import { useColorScheme } from "../../lib/hooks";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();

@@ -19,10 +19,10 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
 import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
 import { useAuthedAgent } from "../lib/agent";
+import { useColorScheme } from "../lib/hooks";
 import { queryClient } from "../lib/query-client";
 import { cx } from "../lib/utils/cx";
 import { useLists } from "./lists/context";
@@ -213,6 +213,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   {
                     options,
                     cancelButtonIndex: options.length - 1,
+                    userInterfaceStyle: colorScheme,
                   },
                   (index) => {
                     if (index === undefined) return;

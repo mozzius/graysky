@@ -12,10 +12,9 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useAuthedAgent } from "../lib/agent";
-import { useTabPressScroll } from "../lib/hooks";
+import { useColorScheme, useTabPressScroll } from "../lib/hooks";
 import { queryClient } from "../lib/query-client";
 import { assert } from "../lib/utils/assert";
 import { useUserRefresh } from "../lib/utils/query";

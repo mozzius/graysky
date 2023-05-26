@@ -58,10 +58,10 @@ import {
   Send,
   X,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../lib/agent";
 import { useBottomSheetStyles } from "../lib/bottom-sheet";
+import { useColorScheme } from "../lib/hooks";
 import { queryClient } from "../lib/query-client";
 import { cx } from "../lib/utils/cx";
 import { Avatar } from "./avatar";

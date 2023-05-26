@@ -6,7 +6,6 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
-  useColorScheme as useNativeColorScheme,
 } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Link, Stack } from "expo-router";
@@ -15,7 +14,6 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { SlidersHorizontal } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
@@ -23,7 +21,11 @@ import { useDrawer } from "../../../components/drawer-content";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
-import { useBookmarks, useTabPressScroll } from "../../../lib/hooks";
+import {
+  useBookmarks,
+  useColorScheme,
+  useTabPressScroll,
+} from "../../../lib/hooks";
 import { useUserRefresh } from "../../../lib/utils/query";
 
 const useTimeline = (algorithm: string) => {
@@ -115,8 +117,6 @@ const SkylinePage = () => {
   }, [bookmarks.data]);
 
   const { colorScheme } = useColorScheme();
-  // trigger rerender on theme change
-  useNativeColorScheme();
 
   const backgroundColor = colorScheme === "light" ? "white" : "black";
   const indicatorStyle = colorScheme === "light" ? "black" : "white";

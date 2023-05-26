@@ -3,9 +3,9 @@ import { Alert, Button, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../../lib/agent";
+import { useColorScheme } from "../../lib/hooks";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 

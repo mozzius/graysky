@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { useEffect, useRef, useState } from "react";
-import { Alert, Share } from "react-native";
+import { Alert, Share, useColorScheme as useRNColorScheme } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useNavigation, useRouter } from "expo-router";
@@ -15,7 +15,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { type FlashList } from "@shopify/flash-list";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
+import { useColorScheme as useNWColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
 import { useLists } from "../components/lists/context";
@@ -362,3 +362,13 @@ export const useBookmarks = () =>
       return JSON.parse(bookmarks) as AppBskyFeedDefs.GeneratorView[];
     },
   });
+
+export const useColorScheme = () => {
+  // fix for nativewind bug
+  // trigger rerender when system dark mode changes
+  useRNColorScheme();
+  // consider using this patch instead:
+  // https://github.com/mmazzarolo/breathly-app/blob/master/patches/nativewind%2B2.0.11.patch
+
+  return useNWColorScheme();
+};

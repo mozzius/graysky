@@ -41,8 +41,8 @@ Then just scan the QR code!
 - [x] Likes list
 - [x] Context menu - user actions
 - [x] Image viewer: Pinch to zoom
+- [x] Custom feeds
 - [ ] Moderation settings
-- [ ] Custom feeds
 - [ ] Settings screen
 - [ ] Create account flow
 - [ ] Edit profile screen

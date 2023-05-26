@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Alert,
-  Text,
-  TouchableOpacity,
-  useColorScheme as useNativeColorScheme,
-} from "react-native";
+import { Alert, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   SplashScreen,
@@ -27,10 +22,10 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
+import { useColorScheme } from "../lib/hooks";
 import { LogOutProvider } from "../lib/log-out-context";
 import { queryClient } from "../lib/query-client";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
@@ -139,12 +134,6 @@ export default function RootLayout() {
   }, [loading]);
 
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
-
-  // fix for nativewind bug
-  // trigger rerender when system dark mode changes
-  useNativeColorScheme();
-  // consider using this patch instead:
-  // https://github.com/mmazzarolo/breathly-app/blob/master/patches/nativewind%2B2.0.11.patch
 
   const navigation = useNavigation();
 

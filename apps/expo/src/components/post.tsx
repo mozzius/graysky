@@ -9,9 +9,9 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import {
+  useColorScheme,
   useHandleRepost,
   useLike,
   usePostViewOptions,

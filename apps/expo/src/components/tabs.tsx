@@ -5,7 +5,6 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
-import { useColorScheme } from "nativewind";
 
 import { cx } from "../lib/utils/cx";
 
@@ -35,17 +34,10 @@ interface TabProps {
 }
 
 export const Tab = ({ active, onPress, text }: TabProps) => {
-  const { colorScheme } = useColorScheme();
-  const textStyle =
-    colorScheme === "light"
-      ? {
-          active: "text-black",
-          inactive: "text-neutral-600",
-        }
-      : {
-          active: "text-white",
-          inactive: "text-neutral-400",
-        };
+  const textStyle = {
+    active: "text-black dark:text-white",
+    inactive: "text-neutral-600 dark:text-neutral-400",
+  };
 
   return (
     <TouchableOpacity

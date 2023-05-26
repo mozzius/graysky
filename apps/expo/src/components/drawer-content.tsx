@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
+import { useColorScheme } from "../lib/hooks";
 import { useLogOut } from "../lib/log-out-context";
 import { ActorDetails } from "./actor-details";
 import { useInviteCodes } from "./invite-codes";

@@ -1,12 +1,10 @@
-import { useColorScheme as useNativeColorScheme } from "react-native";
 import { Stack } from "expo-router";
-import { useColorScheme } from "nativewind";
 
 import { ComposerProvider } from "../../../components/composer";
+import { useColorScheme } from "../../../lib/hooks";
 
 export default function SubStack() {
   const { colorScheme } = useColorScheme();
-  useNativeColorScheme();
 
   return (
     <ComposerProvider>

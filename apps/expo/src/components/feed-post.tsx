@@ -22,12 +22,12 @@ import {
   Repeat,
   User,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { z } from "zod";
 
 // import { type Posts } from "../app/(tabs)/(skyline,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAuthedAgent } from "../lib/agent";
 import {
+  useColorScheme,
   useHandleRepost,
   useLike,
   usePostViewOptions,

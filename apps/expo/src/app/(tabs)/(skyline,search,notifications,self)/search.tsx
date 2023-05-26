@@ -14,12 +14,11 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { Search, X } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { ComposeButton } from "../../../components/compose-button";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
+import { useColorScheme, useTabPressScroll } from "../../../lib/hooks";
 import { queryClient } from "../../../lib/query-client";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
