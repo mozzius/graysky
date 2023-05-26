@@ -39,16 +39,17 @@ const useTimeline = (algorithm: string) => {
         if (!following.success) throw new Error("Failed to fetch feed");
         return following.data;
       } else {
-        const generator = await agent.app.bsky.feed.getFeedGenerator({
-          feed: algorithm,
-        });
-        if (!generator.success)
-          throw new Error("Failed to fetch feed generator");
-        if (!generator.data.isOnline || !generator.data.isValid) {
-          throw new Error(
-            "This custom feed is not online or may be experiencing issues",
-          );
-        }
+        // const generator = await agent.app.bsky.feed.getFeedGenerator({
+        //   feed: algorithm,
+        // });
+        // if (!generator.success)
+        //   throw new Error("Failed to fetch feed generator");
+        // console.log(generator.data);
+        // if (!generator.data.isOnline || !generator.data.isValid) {
+        //   throw new Error(
+        //     "This custom feed is not online or may be experiencing issues",
+        //   );
+        // }
         const feed = await agent.app.bsky.feed.getFeed({
           feed: algorithm,
           cursor: pageParam as string | undefined,
