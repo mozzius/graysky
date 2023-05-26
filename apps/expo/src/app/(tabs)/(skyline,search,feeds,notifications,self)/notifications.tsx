@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import { type AppBskyNotificationListNotifications } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Avatar } from "../../../components/avatar";
 import { Button } from "../../../components/button";
@@ -14,7 +14,6 @@ import { useDrawer } from "../../../components/drawer-content";
 import { Notification } from "../../../components/notification";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
-import { queryClient } from "../../../lib/query-client";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 
 export type NotificationGroup = {
@@ -28,6 +27,7 @@ export type NotificationGroup = {
 const NotificationsPage = () => {
   const agent = useAuthedAgent();
   const headerHeight = useHeaderHeight();
+  const queryClient = useQueryClient();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list"],
@@ -178,7 +178,9 @@ export default function Page() {
           ),
         }}
       />
-      <NotificationsPage />
+      <View className="flex-1 border-neutral-800 dark:border-t">
+        <NotificationsPage />
+      </View>
       <ComposeButton />
     </>
   );

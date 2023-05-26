@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
 
-import { useColorScheme } from "../lib/hooks";
+import { useColorScheme } from "../lib/utils/color-scheme";
 
 export const useBottomSheetStyles = () => {
   const { colorScheme } = useColorScheme();

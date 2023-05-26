@@ -12,14 +12,18 @@ import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Search, X } from "lucide-react-native";
 
 import { ComposeButton } from "../../../components/compose-button";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
-import { useColorScheme, useTabPressScroll } from "../../../lib/hooks";
-import { queryClient } from "../../../lib/query-client";
+import { useTabPressScroll } from "../../../lib/hooks";
+import { useColorScheme } from "../../../lib/utils/color-scheme";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 
@@ -46,7 +50,7 @@ export default function SearchPage() {
       <SafeAreaView
         edges={["left", "top", "right"]}
         mode="padding"
-        className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-600 dark:bg-black"
+        className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black"
       >
         <Stack.Screen options={{ headerShown: false }} />
 
@@ -194,6 +198,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
   const agent = useAuthedAgent();
   const router = useRouter();
   const ref = useRef(item.did);
+  const queryClient = useQueryClient();
 
   const href = `/profile/${item.handle}`;
 

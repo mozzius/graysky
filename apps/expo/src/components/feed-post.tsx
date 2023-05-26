@@ -27,13 +27,13 @@ import { z } from "zod";
 // import { type Posts } from "../app/(tabs)/(skyline,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAuthedAgent } from "../lib/agent";
 import {
-  useColorScheme,
   useHandleRepost,
   useLike,
   usePostViewOptions,
   useRepost,
 } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
 import { useComposer } from "./composer";

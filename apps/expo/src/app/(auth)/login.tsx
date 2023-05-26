@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 
 import { useAgent } from "../../lib/agent";
-import { useColorScheme } from "../../lib/hooks";
+import { useColorScheme } from "../../lib/utils/color-scheme";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 

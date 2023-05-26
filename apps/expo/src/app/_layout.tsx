@@ -25,7 +25,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
-import { useColorScheme } from "../lib/hooks";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { LogOutProvider } from "../lib/log-out-context";
 import { queryClient } from "../lib/query-client";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
@@ -222,7 +222,7 @@ export default function RootLayout() {
                     <Stack.Screen
                       name="algorithms"
                       options={{
-                        title: "Feeds",
+                        title: "My Feeds",
                         presentation: "modal",
                         headerRight: () => (
                           <TouchableOpacity

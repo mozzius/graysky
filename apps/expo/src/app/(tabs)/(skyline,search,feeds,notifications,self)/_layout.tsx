@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 
 import { ComposerProvider } from "../../../components/composer";
-import { useColorScheme } from "../../../lib/hooks";
+import { useColorScheme } from "../../../lib/utils/color-scheme";
 
 export default function SubStack() {
   const { colorScheme } = useColorScheme();

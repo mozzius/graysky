@@ -11,7 +11,6 @@ import {
 } from "lucide-react-native";
 
 import {
-  useColorScheme,
   useHandleRepost,
   useLike,
   usePostViewOptions,
@@ -23,6 +22,7 @@ import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
+import { useColorScheme } from "../lib/utils/color-scheme";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;

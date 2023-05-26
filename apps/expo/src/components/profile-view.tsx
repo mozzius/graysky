@@ -10,13 +10,17 @@ import { Stack } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
-import { useColorScheme, useTabPressScroll } from "../lib/hooks";
-import { queryClient } from "../lib/query-client";
+import { useTabPressScroll } from "../lib/hooks";
 import { assert } from "../lib/utils/assert";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { useUserRefresh } from "../lib/utils/query";
 import { Button } from "./button";
 import { FeedPost } from "./feed-post";
@@ -37,6 +41,7 @@ export const ProfileView = ({ handle, header = true }: Props) => {
   const ref = useRef<FlashList<any>>(null);
   const headerHeight = useHeaderHeight();
   const { top } = useSafeAreaInsets();
+  const queryClient = useQueryClient();
 
   const tabOffset = headerHeight - top;
   const { colorScheme } = useColorScheme();

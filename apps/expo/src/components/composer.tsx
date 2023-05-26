@@ -49,7 +49,7 @@ import BottomSheet, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ChevronDown,
   ImagePlus,
@@ -61,8 +61,7 @@ import {
 
 import { useAgent } from "../lib/agent";
 import { useBottomSheetStyles } from "../lib/bottom-sheet";
-import { useColorScheme } from "../lib/hooks";
-import { queryClient } from "../lib/query-client";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { Avatar } from "./avatar";
 import { PostEmbed } from "./embed";
@@ -124,6 +123,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   const [text, setText] = useState("");
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [showImages, setShowImages] = useState(false);
+  const queryClient = useQueryClient();
   const [context, setContext] = useState<
     AppBskyFeedPost.ReplyRef | AppBskyFeedDefs.PostView
   >();

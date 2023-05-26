@@ -21,11 +21,8 @@ import { useDrawer } from "../../../components/drawer-content";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
-import {
-  useBookmarks,
-  useColorScheme,
-  useTabPressScroll,
-} from "../../../lib/hooks";
+import { useSavedFeeds, useTabPressScroll } from "../../../lib/hooks";
+import { useColorScheme } from "../../../lib/utils/color-scheme";
 import { useUserRefresh } from "../../../lib/utils/query";
 
 const useTimeline = (algorithm: string) => {
@@ -101,20 +98,20 @@ const SkylinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
 
-  const bookmarks = useBookmarks();
+  const savedFeeds = useSavedFeeds({ pinned: true });
 
   const routes = useMemo(() => {
     const routes = [{ key: "following", title: "Following" }];
-    if (bookmarks.data) {
+    if (savedFeeds.data) {
       routes.push(
-        ...bookmarks.data.map((bookmark) => ({
-          key: bookmark.uri,
-          title: bookmark.displayName,
+        ...savedFeeds.data.feeds.map((feed) => ({
+          key: feed.uri,
+          title: feed.displayName,
         })),
       );
     }
     return routes;
-  }, [bookmarks.data]);
+  }, [savedFeeds.data]);
 
   const { colorScheme } = useColorScheme();
 
@@ -128,7 +125,6 @@ const SkylinePage = () => {
     (props: TabBarProps<(typeof routes)[number]>) => (
       <TabBar
         {...props}
-        key={colorScheme}
         gap={16}
         style={{
           backgroundColor: backgroundColor,
@@ -159,6 +155,10 @@ const SkylinePage = () => {
     [activeColor, backgroundColor, indicatorStyle, borderColor, colorScheme],
   );
 
+  if (index >= routes.length) {
+    setIndex(0);
+  }
+
   return (
     <>
       <View
@@ -173,9 +173,7 @@ const SkylinePage = () => {
           index,
           routes,
         }}
-        renderScene={({ route }) => (
-          <Feed mode={route.key as "following" | "popular" | "mutuals"} />
-        )}
+        renderScene={({ route }) => <Feed mode={route.key} />}
         onIndexChange={setIndex}
         initialLayout={{
           height: 0,
@@ -187,7 +185,7 @@ const SkylinePage = () => {
 };
 
 interface Props {
-  mode: "popular" | "following" | "mutuals";
+  mode: string;
 }
 
 const Feed = ({ mode }: Props) => {

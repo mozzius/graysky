@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
 
-import { useColorScheme } from "../lib/hooks";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { useLogOut } from "../lib/log-out-context";
 import { ActorDetails } from "./actor-details";
 import { useInviteCodes } from "./invite-codes";

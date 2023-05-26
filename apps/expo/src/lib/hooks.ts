@@ -2,27 +2,26 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { useEffect, useRef, useState } from "react";
-import { Alert, Share, useColorScheme as useRNColorScheme } from "react-native";
+import { Alert, Share } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useNavigation, useRouter } from "expo-router";
 import {
+  AppBskyActorDefs,
+  AppBskyFeedDefs,
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
-  type AppBskyFeedDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { type FlashList } from "@shopify/flash-list";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useColorScheme as useNWColorScheme } from "nativewind";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useComposer } from "../components/composer";
 import { useLists } from "../components/lists/context";
 import { blockAccount, muteAccount } from "./account-actions";
 import { useAuthedAgent } from "./agent";
-import { queryClient } from "./query-client";
 import { assert } from "./utils/assert";
+import { useColorScheme } from "./utils/color-scheme";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
@@ -171,6 +170,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const agent = useAuthedAgent();
   const { openLikes, openReposts } = useLists();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleMore = () => {
     const options =
@@ -353,22 +353,43 @@ export const useHandleRepost = (
   };
 };
 
-export const useBookmarks = () =>
-  useQuery({
-    queryKey: ["bookmarks"],
+export const useSavedFeeds = (
+  { pinned }: { pinned: boolean } = { pinned: false },
+) => {
+  const agent = useAuthedAgent();
+
+  return useQuery({
+    queryKey: ["feeds", "saved", { pinned }],
     queryFn: async () => {
-      const bookmarks = await AsyncStorage.getItem("bookmarks");
-      if (!bookmarks) return [];
-      return JSON.parse(bookmarks) as AppBskyFeedDefs.GeneratorView[];
+      const prefs = await agent.app.bsky.actor.getPreferences();
+      if (!prefs.success) throw new Error("Could not fetch feeds");
+      const feeds = prefs.data.preferences.find(
+        (pref) =>
+          AppBskyActorDefs.isSavedFeedsPref(pref) &&
+          AppBskyActorDefs.validateSavedFeedsPref(pref).success,
+      ) as AppBskyActorDefs.SavedFeedsPref | undefined;
+      if (!feeds)
+        return {
+          feeds: [],
+          pinned: [],
+          saved: [],
+          preferences: prefs.data.preferences,
+        };
+      const generators = await agent.app.bsky.feed.getFeedGenerators({
+        feeds: pinned ? feeds.pinned : feeds.saved,
+      });
+      if (!generators.success) {
+        throw new Error("Could not fetch feed generators");
+      }
+      return {
+        feeds: feeds.saved.map((uri) => ({
+          ...generators.data.feeds.find((gen) => gen.uri === uri)!,
+          pinned: feeds.pinned.includes(uri),
+        })),
+        pinned: feeds.pinned,
+        saved: feeds.saved,
+        preferences: prefs.data.preferences,
+      };
     },
   });
-
-export const useColorScheme = () => {
-  // fix for nativewind bug
-  // trigger rerender when system dark mode changes
-  useRNColorScheme();
-  // consider using this patch instead:
-  // https://github.com/mmazzarolo/breathly-app/blob/master/patches/nativewind%2B2.0.11.patch
-
-  return useNWColorScheme();
 };

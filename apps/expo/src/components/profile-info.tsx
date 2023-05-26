@@ -17,13 +17,12 @@ import {
   type AppBskyEmbedImages,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
 import { useAuthedAgent } from "../lib/agent";
-import { useColorScheme } from "../lib/hooks";
-import { queryClient } from "../lib/query-client";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
@@ -39,6 +38,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
+  const queryClient = useQueryClient();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],

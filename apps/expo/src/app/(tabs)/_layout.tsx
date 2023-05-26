@@ -3,7 +3,7 @@ import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Cloudy, Search, User } from "lucide-react-native";
+import { Bell, Cloudy, Rss, Search, User } from "lucide-react-native";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
 import {
@@ -11,7 +11,7 @@ import {
   type InviteCodesRef,
 } from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
-import { useColorScheme } from "../../lib/hooks";
+import { useColorScheme } from "../../lib/utils/color-scheme";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
@@ -129,6 +129,28 @@ export default function AppLayout() {
               tabBarIcon({ focused }) {
                 return (
                   <Search
+                    color={
+                      focused
+                        ? tabBarIconColors.color.focused
+                        : tabBarIconColors.color.unfocused
+                    }
+                    fill={
+                      focused
+                        ? tabBarIconColors.fill.focused
+                        : tabBarIconColors.fill.unfocused
+                    }
+                  />
+                );
+              },
+            }}
+          />
+          <Tabs.Screen
+            name="(feeds)"
+            options={{
+              title: "Feeds",
+              tabBarIcon({ focused }) {
+                return (
+                  <Rss
                     color={
                       focused
                         ? tabBarIconColors.color.focused
