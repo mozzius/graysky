@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { ChevronRight, type LucideIcon } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { cx } from "../lib/utils/cx";
 
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export const SettingsRow = ({ children, className, icon, chevron }: Props) => {
-  const { colorScheme } = useColorScheme();
-  const color = colorScheme === "light" ? "#000" : "#FFF";
   const Icon = icon;
   return (
     <View
@@ -23,9 +20,11 @@ export const SettingsRow = ({ children, className, icon, chevron }: Props) => {
         className,
       )}
     >
-      {Icon && <Icon size={24} color={color} />}
+      {Icon && <Icon size={24} className="text-black dark:text-white" />}
       <View className="mx-4 flex-1">{children}</View>
-      {chevron && <ChevronRight size={24} color={color} />}
+      {chevron && (
+        <ChevronRight size={24} className="text-black dark:text-white" />
+      )}
     </View>
   );
 };

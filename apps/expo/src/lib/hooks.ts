@@ -12,8 +12,9 @@ import {
   type AppBskyFeedDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { type FlashList } from "@shopify/flash-list";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../components/composer";
@@ -168,7 +169,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
   const agent = useAuthedAgent();
-  const { openLikes } = useLists();
+  const { openLikes, openReposts } = useLists();
   const router = useRouter();
 
   const handleMore = () => {
@@ -187,6 +188,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             "Copy post text",
             "Share post",
             "See likes",
+            "See reposts",
             post.author.viewer?.muted ? "" : `Mute @${post.author.handle}`,
             post.author.viewer?.blocking ? "" : `Block @${post.author.handle}`,
             "Report post",
@@ -242,6 +244,9 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             break;
           case "See likes":
             openLikes(post.uri);
+            break;
+          case "See reposts":
+            openReposts(post.uri);
             break;
           case `Mute @${post.author.handle}`:
             muteAccount(agent, post.author.handle, post.author.did);
@@ -347,3 +352,13 @@ export const useHandleRepost = (
     );
   };
 };
+
+export const useBookmarks = () =>
+  useQuery({
+    queryKey: ["bookmarks"],
+    queryFn: async () => {
+      const bookmarks = await AsyncStorage.getItem("bookmarks");
+      if (!bookmarks) return [];
+      return JSON.parse(bookmarks) as AppBskyFeedDefs.GeneratorView[];
+    },
+  });

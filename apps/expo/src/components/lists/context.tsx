@@ -3,11 +3,13 @@ import { createContext, useContext, useMemo, useRef } from "react";
 import { FollowersList, type FollowersListRef } from "./followers-list";
 import { FollowsList, type FollowsListRef } from "./follows-list";
 import { LikesList, type LikesListRef } from "./likes-list";
+import { RepostsList, type RepostsListRef } from "./reposts-list";
 
 const ListContext = createContext<{
   openFollowers: (actor: string) => void;
   openFollows: (actor: string) => void;
   openLikes: (post: string) => void;
+  openReposts: (post: string) => void;
 } | null>(null);
 
 interface Props {
@@ -18,12 +20,14 @@ export const ListProvider = ({ children }: Props) => {
   const followersRef = useRef<FollowersListRef>(null);
   const followsRef = useRef<FollowsListRef>(null);
   const likesRef = useRef<LikesListRef>(null);
+  const repostsRef = useRef<RepostsListRef>(null);
 
   const value = useMemo(
     () => ({
       openFollowers: (actor: string) => followersRef.current?.open(actor),
       openFollows: (actor: string) => followsRef.current?.open(actor),
       openLikes: (post: string) => likesRef.current?.open(post),
+      openReposts: (post: string) => repostsRef.current?.open(post),
     }),
     [],
   );
@@ -34,6 +38,7 @@ export const ListProvider = ({ children }: Props) => {
       <FollowersList ref={followersRef} />
       <FollowsList ref={followsRef} />
       <LikesList ref={likesRef} />
+      <RepostsList ref={repostsRef} />
     </ListContext.Provider>
   );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Button,
+  I18nManager,
   TouchableWithoutFeedback as RNTouchableWithoutFeedback,
   Text,
   View,
@@ -202,8 +203,16 @@ export const FeedPost = ({
               accessibilityHint="Opens profile"
               asChild
             >
-              <TouchableWithoutFeedback className="flex-row">
-                <Text numberOfLines={1} className="max-w-full pr-16 text-base">
+              <TouchableWithoutFeedback
+                className={I18nManager.isRTL ? "flex-row-reverse" : "flex-row"}
+              >
+                <Text
+                  numberOfLines={1}
+                  className={cx(
+                    "max-w-full text-base",
+                    I18nManager.isRTL ? "pl-20" : "pr-20",
+                  )}
+                >
                   <Text className="font-semibold dark:text-neutral-50">
                     {postAuthorDisplayName}
                   </Text>
@@ -212,8 +221,15 @@ export const FeedPost = ({
                   </Text>
                 </Text>
                 {/* get age of post - e.g. 5m */}
-                <Text className="relative -left-16 ml-1 text-base text-neutral-500 dark:text-neutral-400">
-                  {" · " + timeSincePost.visible}
+                <Text
+                  className={cx(
+                    "relative ml-1 text-base text-neutral-500 dark:text-neutral-400",
+                    I18nManager.isRTL ? "-right-20" : "-left-20",
+                  )}
+                >
+                  {!I18nManager.isRTL && " · "}
+                  {timeSincePost.visible}
+                  {I18nManager.isRTL && " · "}
                 </Text>
               </TouchableWithoutFeedback>
             </Link>

@@ -9,11 +9,12 @@ import {
   useColorScheme as useNativeColorScheme,
 } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { SlidersHorizontal } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { Avatar } from "../../../components/avatar";
@@ -22,81 +23,38 @@ import { useDrawer } from "../../../components/drawer-content";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
-import { assert } from "../../../lib/utils/assert";
+import { useBookmarks, useTabPressScroll } from "../../../lib/hooks";
 import { useUserRefresh } from "../../../lib/utils/query";
 
-const actorFromPost = (item: AppBskyFeedDefs.FeedViewPost) => {
-  if (AppBskyFeedDefs.isReasonRepost(item.reason)) {
-    assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
-    return item.reason.by.did;
-  } else {
-    return item.post.author.did;
-  }
-};
-
-const useTimeline = (mode: "popular" | "following" | "mutuals") => {
+const useTimeline = (algorithm: string) => {
   const agent = useAuthedAgent();
 
   const timeline = useInfiniteQuery({
-    queryKey: ["timeline", mode],
+    queryKey: ["timeline", algorithm],
     queryFn: async ({ pageParam }) => {
-      switch (mode) {
-        case "popular": {
-          const popular = await agent.app.bsky.unspecced.getPopular({
-            cursor: pageParam as string | undefined,
-          });
-          if (!popular.success) throw new Error("Failed to fetch feed");
-          return popular.data;
-        }
-        case "following": {
-          const following = await agent.getTimeline({
-            cursor: pageParam as string | undefined,
-          });
-          if (!following.success) throw new Error("Failed to fetch feed");
-          return following.data;
-        }
-        case "mutuals": {
-          const all = await agent.getTimeline({
-            cursor: pageParam as string | undefined,
-          });
-
-          if (!all.success) throw new Error("Failed to fetch feed");
-          const actors = new Set<string>();
-          for (const item of all.data.feed) {
-            const actor = actorFromPost(item);
-            actors.add(actor);
-          }
-          // split actors into chunks of 25
-          // API can only do 25 actors at a time
-          const chunks = Array.from(actors).reduce<string[][]>(
-            (acc, actor) => {
-              if (acc[acc.length - 1]!.length === 25) {
-                acc.push([actor]);
-              } else {
-                acc[acc.length - 1]!.push(actor);
-              }
-              return acc;
-            },
-            [[]],
+      if (algorithm === "following") {
+        const following = await agent.getTimeline({
+          cursor: pageParam as string | undefined,
+        });
+        if (!following.success) throw new Error("Failed to fetch feed");
+        return following.data;
+      } else {
+        const generator = await agent.app.bsky.feed.getFeedGenerator({
+          feed: algorithm,
+        });
+        if (!generator.success)
+          throw new Error("Failed to fetch feed generator");
+        if (!generator.data.isOnline || !generator.data.isValid) {
+          throw new Error(
+            "This custom feed is not online or may be experiencing issues",
           );
-          // fetch profiles for each chunk
-          // const profiles = await agent.getProfiles({ actors: [...actors] });
-          const profiles = await Promise.all(
-            chunks.map((chunk) => agent.getProfiles({ actors: chunk })),
-          );
-          return {
-            feed: all.data.feed.filter((item) => {
-              const actor = actorFromPost(item);
-              const profile = profiles
-                .flatMap((x) => x.data.profiles)
-                .find((profile) => profile.did === actor);
-              if (!profile) return false;
-              return profile.viewer?.following && profile.viewer?.followedBy;
-            }),
-            cursor: all.data.cursor,
-          };
         }
+        const feed = await agent.app.bsky.feed.getFeed({
+          feed: algorithm,
+          cursor: pageParam as string | undefined,
+        });
+        if (!feed.success) throw new Error("Failed to fetch feed");
+        return feed.data;
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -136,15 +94,24 @@ const useTimeline = (mode: "popular" | "following" | "mutuals") => {
   return { timeline, data };
 };
 
-const routes = [
-  { key: "following", title: "Following" },
-  { key: "popular", title: "What's Hot" },
-  { key: "mutuals", title: "Mutuals" },
-];
-
 const SkylinePage = () => {
   const [index, setIndex] = useState(0);
   const headerHeight = useHeaderHeight();
+
+  const bookmarks = useBookmarks();
+
+  const routes = useMemo(() => {
+    const routes = [{ key: "following", title: "Following" }];
+    if (bookmarks.data) {
+      routes.push(
+        ...bookmarks.data.map((bookmark) => ({
+          key: bookmark.uri,
+          title: bookmark.displayName,
+        })),
+      );
+    }
+    return routes;
+  }, [bookmarks.data]);
 
   const { colorScheme } = useColorScheme();
   // trigger rerender on theme change
@@ -185,6 +152,7 @@ const SkylinePage = () => {
         activeColor={activeColor}
         inactiveColor="gray"
         getLabelText={({ route }) => route.title}
+        scrollEnabled
       />
     ),
     [activeColor, backgroundColor, indicatorStyle, borderColor, colorScheme],
@@ -276,6 +244,16 @@ export default function Page() {
             <TouchableOpacity onPress={openDrawer}>
               <Avatar size="small" />
             </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <Link href="/algorithms" asChild>
+              <TouchableOpacity>
+                <SlidersHorizontal
+                  size={24}
+                  className="text-black dark:text-white"
+                />
+              </TouchableOpacity>
+            </Link>
           ),
         }}
       />

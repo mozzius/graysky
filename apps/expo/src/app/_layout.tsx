@@ -1,7 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, useColorScheme as useNativeColorScheme } from "react-native";
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  useColorScheme as useNativeColorScheme,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import {
+  SplashScreen,
+  Stack,
+  useNavigation,
+  useRouter,
+  useSegments,
+} from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   BskyAgent,
@@ -135,6 +146,8 @@ export default function RootLayout() {
   // consider using this patch instead:
   // https://github.com/mmazzarolo/breathly-app/blob/master/patches/nativewind%2B2.0.11.patch
 
+  const navigation = useNavigation();
+
   return (
     <ThemeProvider value={theme}>
       <QueryClientProvider client={queryClient}>
@@ -200,6 +213,43 @@ export default function RootLayout() {
                       options={{
                         title: "Translate",
                         presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              if (navigation.canGoBack()) {
+                                router.push("../");
+                              } else {
+                                router.push("/skyline");
+                              }
+                            }}
+                          >
+                            <Text className="text-base font-bold dark:text-neutral-50">
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="algorithms"
+                      options={{
+                        title: "Feeds",
+                        presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              if (navigation.canGoBack()) {
+                                router.push("../");
+                              } else {
+                                router.push("/skyline");
+                              }
+                            }}
+                          >
+                            <Text className="text-base font-bold dark:text-neutral-50">
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
                       }}
                     />
                   </Stack>
