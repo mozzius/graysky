@@ -1,9 +1,13 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
+import { set } from "react-native-reanimated";
 import { Stack, Tabs } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Rss, Search, User } from "lucide-react-native";
+import { ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
+import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
 import {
@@ -17,7 +21,7 @@ export default function AppLayout() {
   const agent = useAuthedAgent();
   const [open, setOpen] = useState(false);
   const inviteRef = useRef<InviteCodesRef>(null);
-  const { colorScheme } = useColorScheme();
+  const { colorScheme, setColorScheme } = useColorScheme();
   const textColor = colorScheme === "light" ? "#000" : "#FFF";
 
   const tabBarIconColors =
@@ -62,6 +66,20 @@ export default function AppLayout() {
     ),
     [textColor],
   );
+
+  useEffect(() => {
+    AsyncStorage.getItem("color-scheme").then((value) => {
+      const scheme = z.enum(["light", "dark", "system"]).safeParse(value);
+      if (scheme.success) {
+        setColorScheme(scheme.data);
+      } else {
+        AsyncStorage.setItem(
+          "color-scheme",
+          "system" satisfies ColorSchemeSystem,
+        );
+      }
+    });
+  }, []);
 
   const openDrawer = useCallback(() => setOpen(true), []);
 

@@ -1,27 +1,22 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import { useEffect, useRef, useState } from "react";
 import { Alert, Share } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useNavigation, useRouter } from "expo-router";
 import {
-  AppBskyActorDefs,
   AppBskyFeedDefs,
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { type FlashList } from "@shopify/flash-list";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useComposer } from "../components/composer";
-import { useLists } from "../components/lists/context";
-import { blockAccount, muteAccount } from "./account-actions";
-import { useAuthedAgent } from "./agent";
-import { assert } from "./utils/assert";
-import { useColorScheme } from "./utils/color-scheme";
+import { useComposer } from "../../components/composer";
+import { useLists } from "../../components/lists/context";
+import { blockAccount, muteAccount } from "../account-actions";
+import { useAuthedAgent } from "../agent";
+import { assert } from "../utils/assert";
+import { useColorScheme } from "../utils/color-scheme";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
@@ -130,38 +125,6 @@ export const useRepost = (
       (reposted && repostUri !== post.viewer?.repost ? 1 : 0),
     toggleRepost,
   };
-};
-
-export const useTabPressScroll = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ref: React.RefObject<FlashList<any>>,
-  callback = () => {},
-) => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    // @ts-expect-error doesn't know what kind of navigator it is
-    const unsub = navigation.getParent()?.addListener("tabPress", () => {
-      if (navigation.isFocused()) {
-        ref.current?.scrollToOffset({
-          offset: 0,
-          animated: true,
-        });
-        callback();
-      }
-    });
-
-    return unsub;
-  }, [callback, navigation, ref]);
-};
-
-export const useTabPressScrollRef = (callback = () => {}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
-
-  useTabPressScroll(ref, callback);
-
-  return ref;
 };
 
 export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
@@ -351,45 +314,4 @@ export const useHandleRepost = (
       },
     );
   };
-};
-
-export const useSavedFeeds = (
-  { pinned }: { pinned: boolean } = { pinned: false },
-) => {
-  const agent = useAuthedAgent();
-
-  return useQuery({
-    queryKey: ["feeds", "saved", { pinned }],
-    queryFn: async () => {
-      const prefs = await agent.app.bsky.actor.getPreferences();
-      if (!prefs.success) throw new Error("Could not fetch feeds");
-      const feeds = prefs.data.preferences.find(
-        (pref) =>
-          AppBskyActorDefs.isSavedFeedsPref(pref) &&
-          AppBskyActorDefs.validateSavedFeedsPref(pref).success,
-      ) as AppBskyActorDefs.SavedFeedsPref | undefined;
-      if (!feeds)
-        return {
-          feeds: [],
-          pinned: [],
-          saved: [],
-          preferences: prefs.data.preferences,
-        };
-      const generators = await agent.app.bsky.feed.getFeedGenerators({
-        feeds: pinned ? feeds.pinned : feeds.saved,
-      });
-      if (!generators.success) {
-        throw new Error("Could not fetch feed generators");
-      }
-      return {
-        feeds: feeds.saved.map((uri) => ({
-          ...generators.data.feeds.find((gen) => gen.uri === uri)!,
-          pinned: feeds.pinned.includes(uri),
-        })),
-        pinned: feeds.pinned,
-        saved: feeds.saved,
-        preferences: prefs.data.preferences,
-      };
-    },
-  });
 };

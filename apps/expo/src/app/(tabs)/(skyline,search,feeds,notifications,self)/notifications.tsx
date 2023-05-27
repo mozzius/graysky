@@ -12,6 +12,7 @@ import { Button } from "../../../components/button";
 import { ComposeButton } from "../../../components/compose-button";
 import { useDrawer } from "../../../components/drawer-content";
 import { Notification } from "../../../components/notification";
+import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
@@ -111,57 +112,30 @@ const NotificationsPage = () => {
 
   if (notifications.data) {
     return (
-      <>
-        <Stack.Screen options={{ headerTransparent: true }} />
-        <View
-          className="w-full border-b border-neutral-200 bg-white dark:border-neutral-600 dark:bg-black"
-          style={{ height: headerHeight }}
-        />
-        <FlashList
-          ref={ref}
-          data={data}
-          renderItem={({ item }) => (
-            <Notification
-              {...item}
-              dataUpdatedAt={notifications.dataUpdatedAt}
-            />
-          )}
-          estimatedItemSize={105}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => void notifications.fetchNextPage()}
-          onRefresh={() => void handleRefresh()}
-          refreshing={refreshing}
-          ListFooterComponent={
-            notifications.isFetching ? (
-              <View className="w-full items-center py-4">
-                <ActivityIndicator />
-              </View>
-            ) : null
-          }
-          extraData={notifications.dataUpdatedAt}
-        />
-      </>
+      <FlashList
+        ref={ref}
+        data={data}
+        renderItem={({ item }) => (
+          <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
+        )}
+        estimatedItemSize={105}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => void notifications.fetchNextPage()}
+        onRefresh={() => void handleRefresh()}
+        refreshing={refreshing}
+        ListFooterComponent={
+          notifications.isFetching ? (
+            <View className="w-full items-center py-4">
+              <ActivityIndicator />
+            </View>
+          ) : null
+        }
+        extraData={notifications.dataUpdatedAt}
+      />
     );
   }
 
-  if (notifications.error) {
-    return (
-      <View className="flex-1 items-center justify-center p-4">
-        <Text className="mb-4 text-center text-lg dark:text-neutral-50">
-          {(notifications.error as Error).message || "An error occurred"}
-        </Text>
-        <Button variant="outline" onPress={() => void notifications.refetch()}>
-          Retry
-        </Button>
-      </View>
-    );
-  }
-
-  return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator />
-    </View>
-  );
+  return <QueryWithoutData query={notifications} />;
 };
 
 export default function Page() {
@@ -178,9 +152,7 @@ export default function Page() {
           ),
         }}
       />
-      <View className="flex-1 border-neutral-800 dark:border-t">
-        <NotificationsPage />
-      </View>
+      <NotificationsPage />
       <ComposeButton />
     </>
   );

@@ -4,10 +4,13 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
+import { ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { useLogOut } from "../lib/log-out-context";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";
 import { useInviteCodes } from "./invite-codes";
 
@@ -29,8 +32,39 @@ export const useDrawer = () => {
 
 export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
   const logOut = useLogOut();
-  const { toggleColorScheme } = useColorScheme();
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const { showActionSheetWithOptions } = useActionSheet();
   const codes = useInviteCodes();
+
+  const changeTheme = () => {
+    const options = ["Light", "Dark", "System", "Cancel"];
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex: options.length - 1,
+        userInterfaceStyle: colorScheme,
+      },
+      async (index) => {
+        if (index === undefined) return;
+        const selected = options[index];
+        let colorScheme: ColorSchemeSystem | null = null;
+        switch (selected) {
+          case "Light":
+            colorScheme = "light";
+            break;
+          case "Dark":
+            colorScheme = "dark";
+            break;
+          case "System":
+            colorScheme = "system";
+            break;
+        }
+        if (!colorScheme) return;
+        await AsyncStorage.setItem("color-scheme", colorScheme);
+        setColorScheme(colorScheme);
+      },
+    );
+  };
 
   const numCodes = (codes.data?.unused ?? []).reduce(
     (acc, code) => (acc += code.available),
@@ -54,13 +88,13 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityRole="button"
-          accessibilityLabel="Toggle theme"
+          accessibilityLabel="Change theme"
           className="mt-2 w-full flex-row items-center py-2"
-          onPress={() => toggleColorScheme()}
+          onPress={() => changeTheme()}
         >
           <Palette color={textColor} />
           <Text className="ml-6 text-base font-medium dark:text-white">
-            Toggle theme
+            Change theme
           </Text>
         </TouchableOpacity>
         <Link href="/settings" asChild>

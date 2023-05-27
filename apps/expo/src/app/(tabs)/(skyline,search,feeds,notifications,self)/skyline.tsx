@@ -20,79 +20,10 @@ import { ComposeButton } from "../../../components/compose-button";
 import { useDrawer } from "../../../components/drawer-content";
 import { FeedPost } from "../../../components/feed-post";
 import { QueryWithoutData } from "../../../components/query-without-data";
-import { useAuthedAgent } from "../../../lib/agent";
 import { useSavedFeeds, useTabPressScroll } from "../../../lib/hooks";
+import { useTimeline } from "../../../lib/hooks/feeds";
 import { useColorScheme } from "../../../lib/utils/color-scheme";
 import { useUserRefresh } from "../../../lib/utils/query";
-
-const useTimeline = (algorithm: string) => {
-  const agent = useAuthedAgent();
-
-  const timeline = useInfiniteQuery({
-    queryKey: ["timeline", algorithm],
-    queryFn: async ({ pageParam }) => {
-      if (algorithm === "following") {
-        const following = await agent.getTimeline({
-          cursor: pageParam as string | undefined,
-        });
-        if (!following.success) throw new Error("Failed to fetch feed");
-        return following.data;
-      } else {
-        // const generator = await agent.app.bsky.feed.getFeedGenerator({
-        //   feed: algorithm,
-        // });
-        // if (!generator.success)
-        //   throw new Error("Failed to fetch feed generator");
-        // console.log(generator.data);
-        // if (!generator.data.isOnline || !generator.data.isValid) {
-        //   throw new Error(
-        //     "This custom feed is not online or may be experiencing issues",
-        //   );
-        // }
-        const feed = await agent.app.bsky.feed.getFeed({
-          feed: algorithm,
-          cursor: pageParam as string | undefined,
-        });
-        if (!feed.success) throw new Error("Failed to fetch feed");
-        return feed.data;
-      }
-    },
-    getNextPageParam: (lastPage) => lastPage.cursor,
-  });
-
-  const data = useMemo(() => {
-    if (!timeline.data) return [];
-    const flattened = timeline.data.pages.flatMap((page) => page.feed);
-    return flattened
-      .map((item) =>
-        // if the preview item is replying to this one, skip
-        // arr[i - 1]?.reply?.parent?.cid === item.cid
-        //   ? [] :
-        {
-          if (item.reply && !item.reason) {
-            if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
-              return [];
-            } else if (
-              AppBskyFeedDefs.isPostView(item.reply.parent) &&
-              AppBskyFeedDefs.validatePostView(item.reply.parent).success
-            ) {
-              return [
-                { item: { post: item.reply.parent }, hasReply: true },
-                { item, hasReply: false },
-              ];
-            } else {
-              return [{ item, hasReply: false }];
-            }
-          } else {
-            return [{ item, hasReply: false }];
-          }
-        },
-      )
-      .flat();
-  }, [timeline]);
-
-  return { timeline, data };
-};
 
 const SkylinePage = () => {
   const [index, setIndex] = useState(0);
