@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
 
-import { useEffect } from "react";
 import { Linking, Text, View } from "react-native";
 import {
   TouchableOpacity,
@@ -13,9 +12,9 @@ import {
   AppBskyEmbedImages,
   AppBskyEmbedRecord,
   AppBskyEmbedRecordWithMedia,
+  AppBskyFeedDefs,
   AppBskyFeedPost,
   type AppBskyActorDefs,
-  type AppBskyFeedDefs,
 } from "@atproto/api";
 import { StyledComponent } from "nativewind";
 
@@ -126,7 +125,36 @@ export const Embed = ({
     if (record !== null) {
       // record can either be ViewRecord or ViewNotFound
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
-        if (AppBskyEmbedRecord.isViewNotFound(record)) {
+        if (AppBskyFeedDefs.isGeneratorView(record)) {
+          const href = `/profile/${record.creator.did}/generator/${record.uri
+            .split("/")
+            .pop()}`;
+          return (
+            <Link href={href} asChild>
+              <TouchableOpacity>
+                <View
+                  className={cx(
+                    "mt-1.5 flex-row items-center rounded-lg border border-neutral-200 p-2 dark:border-neutral-700",
+                    className,
+                  )}
+                >
+                  <Image
+                    source={{ uri: record.avatar }}
+                    className="h-14 w-14 rounded"
+                  />
+                  <View className="ml-2">
+                    <Text className="text-lg font-medium">
+                      {record.displayName}
+                    </Text>
+                    <Text className="text-base leading-5 text-neutral-400">
+                      By @{record.creator.handle}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </Link>
+          );
+        } else if (AppBskyEmbedRecord.isViewNotFound(record)) {
           throw new Error("Post not found");
         } else if (AppBskyEmbedRecord.isViewBlocked(record)) {
           throw new Error("This post is from a blocked user");
