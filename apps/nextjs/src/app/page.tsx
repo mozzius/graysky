@@ -3,7 +3,14 @@ import Image from "next/image";
 import background from "~/assets/graysky.png";
 import { EmailInput } from "./email-input";
 
-export default function LandingPage() {
+export default function LandingPage({
+  searchParams,
+}: {
+  searchParams: {
+    error?: boolean;
+    success?: boolean;
+  };
+}) {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center gap-16">
       <Image
@@ -20,7 +27,7 @@ export default function LandingPage() {
           a bluesky client
         </p>
       </div>
-      <EmailInput />
+      <EmailInput {...searchParams} />
     </main>
   );
 }

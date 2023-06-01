@@ -14,6 +14,7 @@ const config = {
   typescript: { ignoreBuildErrors: !!process.env.CI },
   experimental: {
     appDir: true,
+    serverActions: true,
   },
 };
 

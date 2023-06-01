@@ -1,87 +1,92 @@
-"use client";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { env } from "~/env.mjs";
 
-export const EmailInput = () => {
-  const [email, setEmail] = useState("");
+export const EmailInput = ({
+  error,
+  success,
+}: {
+  error?: boolean;
+  success?: boolean;
+}) => {
+  async function signUp(formData: FormData) {
+    "use server";
 
-  const send = useMutation(async () => {
-    const res = await fetch("/waitlist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    if (res.ok) {
-      setEmail("");
-    } else {
-      throw new Error("Could not save email");
+    const emailField = formData.get("email");
+    const email = z.string().email().parse(emailField);
+    const firstName = formData.get("firstName");
+
+    const res = await fetch(
+      `https://api.convertkit.com/v3/forms/${env.CK_FORM_ID}/subscribe`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: env.CK_API_KEY,
+          email,
+          first_name: firstName,
+        }),
+      },
+    );
+
+    if (!res.ok) {
+      return redirect("/?error=true");
     }
-  });
 
-  switch (send.status) {
-    case "idle":
-      return (
-        <form
-          className="flex max-w-[90%] gap-1 rounded border border-neutral-400 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            send.mutate();
-          }}
-        >
-          <input
-            className="flex-1 rounded-sm border border-neutral-400 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
-            type="email"
-            value={email}
-            onChange={(evt) => setEmail(evt.target.value)}
-            placeholder="Enter your email"
-            required
-          />
-          <button
-            type="submit"
-            disabled={!email}
-            className="cursor-pointer rounded-sm border border-neutral-400 px-4 text-white transition hover:border-white hover:bg-white hover:text-black"
-          >
-            Submit
-          </button>
-        </form>
-      );
-    case "loading":
-    case "success":
-      return (
-        <div className="grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
-          <p
-            className={`text-center ${
-              send.isSuccess ? "text-white" : "text-transparent"
-            }`}
-          >
-            Thanks for registering your interest - we&apos;ll be in touch. Check
-            out{" "}
-            <a
-              className="underline"
-              href="https://bsky.app/profile/graysky.app"
-            >
-              @graysky.app
-            </a>{" "}
-            for info on how to join the early beta.
-          </p>
-        </div>
-      );
-    case "error":
-      return (
-        <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-400 px-8 text-white backdrop-blur backdrop-brightness-50">
-          <p className="text-center text-white">
-            Error: {(send.error as Error)?.message ?? "Something went wrong"}.
-            Please could you let{" "}
-            <a
-              className="underline"
-              href="https://bsky.app/profile/mozzius.dev"
-            >
-              @mozzius.dev
-            </a>{" "}
-            know?
-          </p>
-        </div>
-      );
+    redirect("/?success=true");
   }
+
+  if (error) {
+    return (
+      <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
+        <p className="text-center text-white">
+          Something went wrong. Please could you let{" "}
+          <a className="underline" href="https://bsky.app/profile/mozzius.dev">
+            @mozzius.dev
+          </a>{" "}
+          know?
+        </p>
+      </div>
+    );
+  }
+
+  if (success) {
+    return (
+      <div className="grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
+        <p className="text-center text-white">
+          Thanks for registering your interest - we&apos;ll be in touch. Check
+          out{" "}
+          <a className="underline" href="https://bsky.app/profile/graysky.app">
+            @graysky.app
+          </a>{" "}
+          for info on how to join the early beta.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      className="flex max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
+      // @ts-expect-error not working for some reason
+      action={signUp}
+    >
+      <input
+        className="flex-1 rounded-sm border border-neutral-600 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+      />
+      <button
+        type="submit"
+        className="cursor-pointer rounded-sm border border-neutral-600 px-4 text-white transition hover:border-white hover:bg-white hover:text-black"
+      >
+        Submit
+      </button>
+    </form>
+  );
 };

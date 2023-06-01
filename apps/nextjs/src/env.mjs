@@ -6,6 +6,8 @@ import { z } from "zod";
  */
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
+  CK_API_KEY: z.string().min(1),
+  CK_FORM_ID: z.string().min(1),
 });
 
 /**
@@ -24,6 +26,8 @@ const client = z.object({
  */
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  CK_API_KEY: process.env.CK_API_KEY,
+  CK_FORM_ID: process.env.CK_FORM_ID,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
