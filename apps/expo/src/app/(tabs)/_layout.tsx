@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { set } from "react-native-reanimated";
 import { Stack, Tabs } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Rss, Search, User } from "lucide-react-native";
-import { ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
+import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
@@ -68,18 +67,18 @@ export default function AppLayout() {
   );
 
   useEffect(() => {
-    AsyncStorage.getItem("color-scheme").then((value) => {
+    void AsyncStorage.getItem("color-scheme").then((value) => {
       const scheme = z.enum(["light", "dark", "system"]).safeParse(value);
       if (scheme.success) {
         setColorScheme(scheme.data);
       } else {
-        AsyncStorage.setItem(
+        void AsyncStorage.setItem(
           "color-scheme",
           "system" satisfies ColorSchemeSystem,
         );
       }
     });
-  }, []);
+  }, [setColorScheme]);
 
   const openDrawer = useCallback(() => setOpen(true), []);
 

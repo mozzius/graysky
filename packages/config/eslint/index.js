@@ -25,6 +25,7 @@ const config = {
       { prefer: "type-imports", fixStyle: "inline-type-imports" },
     ],
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-empty-function": "off",
   },
   ignorePatterns: [
     "**/*.config.js",
@@ -32,6 +33,7 @@ const config = {
     "packages/config/**",
     "apps/expo/dist/**",
   ],
+  ignorePatterns: ["**/*.config.js", "**/*.config.cjs", "packages/config/**"],
   reportUnusedDisableDirectives: true,
 };
 

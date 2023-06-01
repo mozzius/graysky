@@ -54,6 +54,7 @@ export const GeneratorRow = ({
         </TouchableWithoutFeedback>
       )}
       <Image
+        alt="feed"
         source={{ uri: image }}
         className="h-9 w-9 rounded border border-neutral-200 dark:border-neutral-700"
       />

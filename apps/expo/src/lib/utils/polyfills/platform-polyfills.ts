@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import "fast-text-encoding";
 import "react-native-url-polyfill/auto";
 import Graphemer from "graphemer";
@@ -17,7 +15,7 @@ Copyright (c) 2014 MaxArt2501
 const b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 // Regular expression to check formal correctness of base64 encoded strings
 const b64re =
-  /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
+  /^(?:[A-Za-z\d+/]{4})*?(?:[A-Za-z\d+/]{2}(?:==)?|[A-Za-z\d+/]{3}=?)?$/;
 
 globalThis.atob = (str: string): string => {
   // atob can work with strings with whitespaces, even inside the encoded part,

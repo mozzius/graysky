@@ -376,6 +376,9 @@ importers:
       eslint-plugin-react:
         specifier: 7.32.2
         version: 7.32.2(eslint@8.41.0)
+      js-sdsl:
+        specifier: ~4.4.0
+        version: 4.4.0
     devDependencies:
       eslint:
         specifier: ^8.39.0
@@ -7099,6 +7102,10 @@ packages:
 
   /join-component@1.1.0:
     resolution: {integrity: sha512-bF7vcQxbODoGK1imE2P9GS9aw4zD0Sd+Hni68IMZLj7zRnquH7dXUmMw9hDI5S/Jzt7q+IyTXN0rSg2GI0IKhQ==}
+    dev: false
+
+  /js-sdsl@4.4.0:
+    resolution: {integrity: sha512-FfVSdx6pJ41Oa+CF7RDaFmTnCaFhua+SNYQX74riGOpl96x+2jQCqEfQ2bnXu/5DPCqlRuiqyvTJM0Qjz26IVg==}
     dev: false
 
   /js-tokens@4.0.0:

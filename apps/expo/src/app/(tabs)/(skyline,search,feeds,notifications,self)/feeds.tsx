@@ -1,11 +1,4 @@
-import {
-  Alert,
-  ScrollView,
-  SectionList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react-native";

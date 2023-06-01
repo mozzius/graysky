@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -8,21 +8,19 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import { AppBskyFeedGetFeedGenerator } from "@atproto/api";
-import { FlashList } from "@shopify/flash-list";
 import {
-  DefinedUseQueryResult,
-  UseQueryResult,
-  useQuery,
-} from "@tanstack/react-query";
-import { Check, Heart, Plus, Radio } from "lucide-react-native";
+  type AppBskyFeedDefs,
+  type AppBskyFeedGetFeedGenerator,
+} from "@atproto/api";
+import { FlashList } from "@shopify/flash-list";
+import { useQuery, type DefinedUseQueryResult } from "@tanstack/react-query";
+import { Radio } from "lucide-react-native";
 
 import { FeedPost } from "../../../../../../components/feed-post";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../../../lib/hooks";
 import { useTimeline } from "../../../../../../lib/hooks/feeds";
-import { cx } from "../../../../../../lib/utils/cx";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
 const Feed = () => {
@@ -50,14 +48,14 @@ const Feed = () => {
 
   const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
 
-  const ref = useTabPressScrollRef(timeline.refetch);
+  const ref = useTabPressScrollRef(() => void timeline.refetch());
 
   if (!info.data) return <QueryWithoutData query={info} />;
 
   if (timeline.data) {
     return (
       <Wrapper info={info} isScrolled={isScrolled}>
-        <FlashList
+        <FlashList<{ item: AppBskyFeedDefs.FeedViewPost; hasReply: boolean }>
           ref={ref}
           data={data}
           onScroll={(e) => setIsScrolled(e.nativeEvent.contentOffset.y > 50)}
@@ -81,6 +79,7 @@ const Feed = () => {
                 <Image
                   source={{ uri: info.data.view.avatar }}
                   className="h-16 w-16 rounded"
+                  alt={info.data.view.displayName}
                 />
                 <View className="px-4">
                   <Text className="text-2xl font-medium dark:text-white">
@@ -103,7 +102,7 @@ const Feed = () => {
                   {info.data.view.description}
                 </Text>
               )}
-              <View className="mt-4 flex-row items-center">
+              {/* <View className="mt-4 flex-row items-center">
                 <TouchableOpacity className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 py-2 dark:border-neutral-700">
                   {false ? (
                     <>
@@ -141,7 +140,7 @@ const Feed = () => {
                     {info.data.view.likeCount}
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           )}
           ListFooterComponent={

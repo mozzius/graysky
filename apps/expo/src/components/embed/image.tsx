@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
-import { AppBskyEmbedImages } from "@atproto/api";
+import { type AppBskyEmbedImages } from "@atproto/api";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { cx } from "../../lib/utils/cx";
@@ -24,7 +24,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
 
   useEffect(() => {
     queryClient.setQueryData(["images", uri], content.images);
-  }, [content.images, uri]);
+  }, [content.images, uri, queryClient]);
 
   useEffect(() => () => setAspectRatio(1), [uri]);
 

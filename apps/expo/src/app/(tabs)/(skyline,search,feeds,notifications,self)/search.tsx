@@ -1,15 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
-  Keyboard,
   Text,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { Link, Stack, useNavigation, useRouter } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import {
@@ -17,7 +14,6 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Search, X } from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
@@ -25,7 +21,6 @@ import { useDrawer } from "../../../components/drawer-content";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
-import { useColorScheme } from "../../../lib/utils/color-scheme";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 
@@ -127,8 +122,6 @@ const Suggestions = () => {
 
   const { refreshing, handleRefresh } = useUserRefresh(suggestions.refetch);
 
-  
-
   useTabPressScroll(ref);
 
   if (suggestions.data) {
@@ -224,9 +217,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             )}
           </View>
           {item.description && (
-            <Text className="mt-4 dark:text-white">
-              {item.description}
-            </Text>
+            <Text className="mt-4 dark:text-white">{item.description}</Text>
           )}
         </View>
       </TouchableWithoutFeedback>

@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Alert, Share } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
-import { useNavigation, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import {
-  AppBskyFeedDefs,
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
+  type AppBskyFeedDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

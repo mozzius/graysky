@@ -68,7 +68,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         ],
       );
     }
-  }, [profile]);
+  }, [profile, queryClient]);
 
   return (
     <View className="relative">

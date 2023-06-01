@@ -1,9 +1,9 @@
 import { Alert } from "react-native";
 import { type BskyAgent } from "@atproto/api";
-import { useQueryClient } from "@tanstack/react-query";
+
+import { queryClient } from "./query-client";
 
 export const muteAccount = (agent: BskyAgent, handle: string, did: string) => {
-  const queryClient = useQueryClient();
   Alert.alert("Mute", `Are you sure you want to mute @${handle}?`, [
     {
       text: "Cancel",
@@ -23,7 +23,6 @@ export const muteAccount = (agent: BskyAgent, handle: string, did: string) => {
 };
 
 export const blockAccount = (agent: BskyAgent, handle: string, did: string) => {
-  const queryClient = useQueryClient();
   Alert.alert("Block", `Are you sure you want to block @${handle}?`, [
     {
       text: "Cancel",

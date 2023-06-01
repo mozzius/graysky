@@ -81,7 +81,7 @@ const SkylinePage = () => {
         scrollEnabled
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor, colorScheme],
+    [activeColor, backgroundColor, indicatorStyle, borderColor],
   );
 
   if (index >= routes.length) {

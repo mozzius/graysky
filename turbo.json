@@ -28,6 +28,8 @@
     "NODE_ENV",
     "SKIP_ENV_VALIDATION",
     "VERCEL",
-    "VERCEL_URL"
+    "VERCEL_URL",
+    "CK_API_KEY",
+    "CK_FORM_ID"
   ]
 }

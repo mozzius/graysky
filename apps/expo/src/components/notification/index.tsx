@@ -1,4 +1,4 @@
-import { Text, TouchableNativeFeedback, View } from "react-native";
+import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "expo-image";
 import { Link } from "expo-router";

@@ -1,14 +1,12 @@
 import { useEffect, useMemo } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { type AppBskyNotificationListNotifications } from "@atproto/api";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Avatar } from "../../../components/avatar";
-import { Button } from "../../../components/button";
 import { ComposeButton } from "../../../components/compose-button";
 import { useDrawer } from "../../../components/drawer-content";
 import { Notification } from "../../../components/notification";
@@ -27,7 +25,7 @@ export type NotificationGroup = {
 
 const NotificationsPage = () => {
   const agent = useAuthedAgent();
-  const headerHeight = useHeaderHeight();
+
   const queryClient = useQueryClient();
 
   const notifications = useInfiniteQuery({
@@ -84,7 +82,7 @@ const NotificationsPage = () => {
       );
     }, 3000);
     return () => clearTimeout(timeout);
-  }, [agent, hasData, notifications.dataUpdatedAt]);
+  }, [agent, hasData, notifications.dataUpdatedAt, queryClient]);
 
   useRefreshOnFocus(notifications.refetch);
 

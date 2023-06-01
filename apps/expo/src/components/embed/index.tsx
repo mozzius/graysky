@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-
 import { Linking, Text, View } from "react-native";
 import {
   TouchableOpacity,
@@ -139,6 +137,7 @@ export const Embed = ({
                   )}
                 >
                   <Image
+                    alt={record.displayName}
                     source={{ uri: record.avatar }}
                     className="h-14 w-14 rounded"
                   />
