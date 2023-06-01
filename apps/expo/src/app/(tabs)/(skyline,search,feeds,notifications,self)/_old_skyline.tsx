@@ -9,10 +9,8 @@ import {
 } from "react-native";
 import { TabBar, TabView, type TabBarProps } from "react-native-tab-view";
 import { Link, Stack } from "expo-router";
-import { AppBskyFeedDefs } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { SlidersHorizontal } from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
@@ -83,7 +81,7 @@ const SkylinePage = () => {
         scrollEnabled
       />
     ),
-    [activeColor, backgroundColor, indicatorStyle, borderColor, colorScheme],
+    [activeColor, backgroundColor, indicatorStyle, borderColor],
   );
 
   if (index >= routes.length) {

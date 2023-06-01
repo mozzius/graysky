@@ -202,7 +202,7 @@ const Wrapper = ({
                     },
                     {
                       text: "Retry",
-                      onPress: () => info.refetch(),
+                      onPress: () => void info.refetch(),
                     },
                   ],
                 )

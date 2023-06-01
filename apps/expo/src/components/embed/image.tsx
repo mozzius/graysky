@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";

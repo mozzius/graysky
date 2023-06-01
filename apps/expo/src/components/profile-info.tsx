@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-
 import { useEffect } from "react";
 import {
   Alert,

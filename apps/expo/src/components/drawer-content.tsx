@@ -7,7 +7,7 @@ import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
-import { ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
+import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useLogOut } from "../lib/log-out-context";
 import { useColorScheme } from "../lib/utils/color-scheme";
