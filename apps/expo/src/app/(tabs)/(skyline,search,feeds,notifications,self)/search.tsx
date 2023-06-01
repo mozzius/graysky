@@ -19,7 +19,9 @@ import {
 } from "@tanstack/react-query";
 import { Search, X } from "lucide-react-native";
 
+import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
+import { useDrawer } from "../../../components/drawer-content";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
@@ -29,64 +31,25 @@ import { useUserRefresh } from "../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
-  const ref = useRef<TextInput>(null!);
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    // @ts-expect-error doesn't know what kind of navigator it is
-    const unsub = navigation.getParent()?.addListener("tabPress", () => {
-      if (navigation.isFocused()) {
-        ref.current.focus();
-      }
-    });
-
-    return unsub;
-  }, [navigation]);
-
-  const { colorScheme } = useColorScheme();
+  const openDrawer = useDrawer();
 
   return (
     <>
-      <SafeAreaView
-        edges={["left", "top", "right"]}
-        mode="padding"
-        className="border-b border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black"
-      >
-        <Stack.Screen options={{ headerShown: false }} />
-
-        <View className="relative">
-          <Search
-            className="absolute left-4 top-2.5 z-10"
-            size={24}
-            color={colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"}
-            pointerEvents="none"
-          />
-          <TextInput
-            ref={ref}
-            value={search}
-            onChangeText={setSearch}
-            placeholder="Search"
-            placeholderTextColor={
-              colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"
-            }
-            className="rounded-full bg-neutral-100 px-12 py-3 pr-2 text-base leading-5 dark:bg-neutral-800 dark:text-neutral-50"
-          />
-          {search.length > 0 && (
-            <TouchableOpacity
-              onPress={() => {
-                setSearch("");
-                Keyboard.dismiss();
-              }}
-              className="absolute right-4 top-2.5 z-10"
-            >
-              <X
-                size={24}
-                color={colorScheme === "light" ? "#b9b9b9" : "#6b6b6b"}
-              />
+      <Stack.Screen
+        options={{
+          title: "Search",
+          headerLeft: () => (
+            <TouchableOpacity onPress={openDrawer}>
+              <Avatar size="small" />
             </TouchableOpacity>
-          )}
-        </View>
-      </SafeAreaView>
+          ),
+          headerSearchBarOptions: {
+            placeholder: "Search",
+            onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+          },
+        }}
+      />
       {search ? <SearchResults search={search} /> : <Suggestions />}
       <ComposeButton />
     </>
@@ -128,6 +91,7 @@ const SearchResults = ({ search }: Props) => {
     return (
       <View className="flex-1 dark:bg-black">
         <FlashList
+          contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}
           estimatedItemSize={173}
@@ -163,27 +127,28 @@ const Suggestions = () => {
 
   const { refreshing, handleRefresh } = useUserRefresh(suggestions.refetch);
 
+  
+
   useTabPressScroll(ref);
 
   if (suggestions.data) {
     return (
-      <View className="flex-1 dark:bg-black">
-        <FlashList
-          data={suggestions.data.pages.flatMap((page) => page.data.actors)}
-          estimatedItemSize={173}
-          refreshing={refreshing}
-          onRefresh={() => void handleRefresh()}
-          renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
-            <SuggestionCard item={item} />
-          )}
-          ListHeaderComponent={
-            <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
-              In your network
-            </Text>
-          }
-          onEndReached={() => void suggestions.fetchNextPage()}
-        />
-      </View>
+      <FlashList
+        data={suggestions.data.pages.flatMap((page) => page.data.actors)}
+        estimatedItemSize={173}
+        refreshing={refreshing}
+        onRefresh={() => void handleRefresh()}
+        renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
+          <SuggestionCard item={item} />
+        )}
+        ListHeaderComponent={
+          <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
+            In your network
+          </Text>
+        }
+        onEndReached={() => void suggestions.fetchNextPage()}
+        contentInsetAdjustmentBehavior="automatic"
+      />
     );
   }
 
