@@ -97,7 +97,7 @@ export default function AlgorithmsModal() {
                   togglePinned.mutate(item.uri);
                 }}
               >
-                <Text className="text-base dark:text-neutral-50">
+                <Text className="text-base dark:text-white">
                   {item.displayName}
                 </Text>
                 <Text className="text-neutral-400">

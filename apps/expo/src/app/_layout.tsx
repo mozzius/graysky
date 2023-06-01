@@ -25,12 +25,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { LogOutProvider } from "../lib/log-out-context";
 import { queryClient } from "../lib/query-client";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
-
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const segments = useSegments();
@@ -128,14 +126,13 @@ export default function RootLayout() {
     setInvalidator((i) => i + 1);
   }, []);
 
-  useEffect(() => {
-    if (loading) return;
-    SplashScreen.hideAsync();
-  }, [loading]);
-
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <ThemeProvider value={theme}>
@@ -212,7 +209,7 @@ export default function RootLayout() {
                               }
                             }}
                           >
-                            <Text className="text-base font-bold dark:text-neutral-50">
+                            <Text className="text-base font-bold dark:text-white">
                               Done
                             </Text>
                           </TouchableOpacity>
@@ -234,7 +231,7 @@ export default function RootLayout() {
                               }
                             }}
                           >
-                            <Text className="text-base font-bold dark:text-neutral-50">
+                            <Text className="text-base font-bold dark:text-white">
                               Done
                             </Text>
                           </TouchableOpacity>

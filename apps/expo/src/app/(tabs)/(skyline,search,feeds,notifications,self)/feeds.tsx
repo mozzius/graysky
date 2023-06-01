@@ -36,12 +36,12 @@ const FeedsPage = () => {
       <ScrollView>
         <View className="p-4">
           <View className="flex-row items-center justify-between">
-            <Text className="text-base font-bold dark:text-neutral-50">
+            <Text className="text-base font-bold dark:text-white">
               Saved Feeds
             </Text>
             <Link href="/algorithms" asChild>
               <TouchableOpacity>
-                <Text className="text-base font-bold dark:text-neutral-50">
+                <Text className="text-base font-bold dark:text-white">
                   Edit
                 </Text>
               </TouchableOpacity>
@@ -61,7 +61,7 @@ const FeedsPage = () => {
                       border={!isLast}
                       image={feed.avatar}
                     >
-                      <Text className="text-base dark:text-neutral-50">
+                      <Text className="text-base dark:text-white">
                         {feed.displayName}
                       </Text>
                       <Text className="text-neutral-400">

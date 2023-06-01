@@ -35,7 +35,7 @@ export default function SettingsPage() {
             <Link asChild href={option.href} key={option.title}>
               <TouchableOpacity>
                 <SettingsRow icon={option.icon} chevron>
-                  <Text className="text-base dark:text-neutral-50">
+                  <Text className="text-base dark:text-white">
                     {option.title}
                   </Text>
                 </SettingsRow>

@@ -492,7 +492,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   onPress={() => setShowImages(false)}
                   className="mb-2 w-full flex-row items-center justify-between px-4"
                 >
-                  <Text className="text-base font-semibold dark:text-neutral-50">
+                  <Text className="text-base font-semibold dark:text-white">
                     Attached images
                   </Text>
                   <ChevronDown color="#888888" />
@@ -534,7 +534,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                         <Plus
                           color={colorScheme === "light" ? "black" : "white"}
                         />
-                        <Text className="mt-2 text-center dark:text-neutral-50">
+                        <Text className="mt-2 text-center dark:text-white">
                           Add image
                         </Text>
                       </View>
@@ -615,7 +615,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <View className="flex-1" />
           <Text
             className={cx(
-              "text-sm dark:text-neutral-50",
+              "text-sm dark:text-white",
               tooLong && "text-red-500",
             )}
           >

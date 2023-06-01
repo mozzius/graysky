@@ -30,8 +30,8 @@ export default function AccountSettings() {
           <View className="flex-row items-center rounded-sm border border-neutral-200 bg-white p-4 text-center text-2xl font-bold dark:border-neutral-700 dark:bg-black">
             <Avatar size="large" />
             <View className="ml-4">
-              <Text className="text-xs dark:text-neutral-50">Email:</Text>
-              <Text className="text-base font-medium dark:text-neutral-50">
+              <Text className="text-xs dark:text-white">Email:</Text>
+              <Text className="text-base font-medium dark:text-white">
                 {agent?.session?.email}
               </Text>
             </View>
@@ -42,7 +42,7 @@ export default function AccountSettings() {
             <Link asChild href={option.href} key={option.title}>
               <TouchableOpacity>
                 <SettingsRow icon={option.icon} chevron>
-                  <Text className="text-base dark:text-neutral-50">
+                  <Text className="text-base dark:text-white">
                     {option.title}
                   </Text>
                 </SettingsRow>

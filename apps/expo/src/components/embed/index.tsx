@@ -87,7 +87,7 @@ export const Embed = ({
               {new URL(content.external.uri).hostname}
             </Text>
             <Text
-              className="mt-0.5 text-base font-semibold leading-5 dark:text-neutral-50"
+              className="mt-0.5 text-base font-semibold leading-5 dark:text-white"
               numberOfLines={2}
             >
               {content.external.title || content.external.uri}
@@ -96,7 +96,7 @@ export const Embed = ({
               depth === 0 &&
               !content.external.thumb && (
                 <Text
-                  className="mt-0.5 text-sm leading-5 dark:text-neutral-50"
+                  className="mt-0.5 text-sm leading-5 dark:text-white"
                   numberOfLines={2}
                 >
                   {content.external.description}
@@ -174,7 +174,7 @@ export const Embed = ({
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
               <Text
-                className="mt-1 text-base leading-5 dark:text-neutral-50"
+                className="mt-1 text-base leading-5 dark:text-white"
                 numberOfLines={truncate ? 4 : undefined}
               >
                 {record.value.text}
@@ -235,7 +235,7 @@ export const PostEmbed = ({
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="text-base" numberOfLines={1}>
-              <Text className="font-semibold dark:text-neutral-50">
+              <Text className="font-semibold dark:text-white">
                 {author.displayName}
               </Text>
               <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>

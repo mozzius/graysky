@@ -6,10 +6,10 @@ import { LikesList, type LikesListRef } from "./likes-list";
 import { RepostsList, type RepostsListRef } from "./reposts-list";
 
 const ListContext = createContext<{
-  openFollowers: (actor: string) => void;
-  openFollows: (actor: string) => void;
-  openLikes: (post: string) => void;
-  openReposts: (post: string) => void;
+  openFollowers: (actor: string, limit?: number) => void;
+  openFollows: (actor: string, limit?: number) => void;
+  openLikes: (post: string, limit?: number) => void;
+  openReposts: (post: string, limit?: number) => void;
 } | null>(null);
 
 interface Props {
@@ -24,10 +24,14 @@ export const ListProvider = ({ children }: Props) => {
 
   const value = useMemo(
     () => ({
-      openFollowers: (actor: string) => followersRef.current?.open(actor),
-      openFollows: (actor: string) => followsRef.current?.open(actor),
-      openLikes: (post: string) => likesRef.current?.open(post),
-      openReposts: (post: string) => repostsRef.current?.open(post),
+      openFollowers: (actor: string, limit?: number) =>
+        followersRef.current?.open(actor, limit),
+      openFollows: (actor: string, limit?: number) =>
+        followsRef.current?.open(actor, limit),
+      openLikes: (post: string, limit?: number) =>
+        likesRef.current?.open(post, limit),
+      openReposts: (post: string, limit?: number) =>
+        repostsRef.current?.open(post, limit),
     }),
     [],
   );

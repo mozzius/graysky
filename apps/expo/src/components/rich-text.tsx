@@ -112,7 +112,7 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text className="dark:text-neutral-50">{segment.text}</Text>
+            <Text className="dark:text-white">{segment.text}</Text>
           ),
         });
       }
@@ -124,7 +124,7 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text className="dark:text-neutral-50">
+          <Text className="dark:text-white">
             {text.slice(reconstructed.length)}
           </Text>
         ),

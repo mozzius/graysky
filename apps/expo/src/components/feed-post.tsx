@@ -131,7 +131,7 @@ export const FeedPost = ({
       >
         <View className="flex-1 pb-2.5 pl-1 pr-2">
           <View className="flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-            <Text className="my-1 max-w-[75%] font-semibold dark:text-neutral-50">
+            <Text className="my-1 max-w-[75%] font-semibold dark:text-white">
               This post is from someone you have{" "}
               {item.post.author.viewer?.blocking ? "blocked" : "muted"}.
             </Text>
@@ -213,7 +213,7 @@ export const FeedPost = ({
                     I18nManager.isRTL ? "pl-20" : "pr-20",
                   )}
                 >
-                  <Text className="font-semibold dark:text-neutral-50">
+                  <Text className="font-semibold dark:text-white">
                     {postAuthorDisplayName}
                   </Text>
                   <Text className="text-neutral-500 dark:text-neutral-400">
@@ -404,7 +404,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
           <View className="flex-1 flex-row items-center">
             <Repeat color={buttonColor} size={12} />
             <Text
-              className="ml-2 flex-1 text-sm dark:text-neutral-50"
+              className="ml-2 flex-1 text-sm dark:text-white"
               numberOfLines={1}
             >
               Reposted by {item.reason.by.displayName ?? item.reason.by.handle}

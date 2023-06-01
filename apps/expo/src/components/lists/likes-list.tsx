@@ -27,17 +27,19 @@ const useLikes = (post?: string) => {
 };
 
 export interface LikesListRef {
-  open: (post: string) => void;
+  open: (post: string, limit?: number) => void;
 }
 
 export const LikesList = forwardRef<LikesListRef>((_, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [post, setPost] = useState<string | undefined>();
+  const [limit, setLimit] = useState<number | undefined>();
   const followers = useLikes(post);
 
   useImperativeHandle(ref, () => ({
-    open: (post) => {
+    open: (post, limit) => {
       setPost(post);
+      setLimit(limit);
       listRef.current?.open();
     },
   }));
@@ -48,6 +50,7 @@ export const LikesList = forwardRef<LikesListRef>((_, ref) => {
       ref={listRef}
       data={followers}
       onClose={() => setPost(undefined)}
+      limit={limit}
     />
   );
 });

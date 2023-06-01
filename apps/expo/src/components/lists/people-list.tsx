@@ -1,4 +1,10 @@
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -28,16 +34,19 @@ interface Props {
   title: string;
   data: UseInfiniteQueryResult<PeopleListResponse, unknown>;
   onClose: () => void;
+  limit?: number;
 }
 
 export const PeopleList = forwardRef<PeopleListRef, Props>(
-  ({ title, data, onClose }, ref) => {
+  ({ title, data, onClose, limit }, ref) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const { top } = useSafeAreaInsets();
+    const [showAll, setShowAll] = useState(false);
 
     useImperativeHandle(ref, () => ({
       open: () => {
         void data.refetch();
+        setShowAll(false);
         bottomSheetRef.current?.snapToIndex(1);
       },
     }));
@@ -76,14 +85,14 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         onClose={onClose}
       >
         <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
-          <Text className="mt-2 text-center text-xl font-medium dark:text-neutral-50">
+          <Text className="mt-2 text-center text-xl font-medium dark:text-white">
             {title}
           </Text>
           {data.data ? (
             <View className="mt-4 flex-1 dark:bg-black">
               <BottomSheetFlatList
                 style={contentContainerStyle}
-                data={people}
+                data={people.slice(0, showAll ? undefined : limit)}
                 renderItem={({ item }) => (
                   <PersonRow
                     person={item}
@@ -94,7 +103,19 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                 ItemSeparatorComponent={() => (
                   <View className="mx-4 h-px bg-neutral-200 dark:bg-neutral-600" />
                 )}
-                ListFooterComponent={() => <View className="h-10" />}
+                ListFooterComponent={() => (
+                  <View className="h-24 w-full items-center justify-center px-4">
+                    {limit && !showAll && people.length > limit && (
+                      <TouchableOpacity onPress={() => setShowAll(true)}>
+                        <Text className="text-center text-neutral-500 dark:bg-neutral-600">
+                          {data.hasNextPage
+                            ? "Show all"
+                            : `Show ${people.length - limit} more`}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                )}
                 ListEmptyComponent={() => (
                   <View className="flex-1 items-center justify-center">
                     <Text className="text-center text-neutral-500 dark:bg-neutral-600">
@@ -105,7 +126,10 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                 refreshing={refreshing}
                 onRefresh={() => void handleRefresh()}
                 onEndReachedThreshold={0.5}
-                onEndReached={() => void data.fetchNextPage()}
+                onEndReached={() =>
+                  void (!limit || showAll || people.length < limit) &&
+                  data.fetchNextPage()
+                }
               />
             </View>
           ) : (
@@ -143,7 +167,7 @@ const PersonRow = ({
       />
       <View className="flex-1">
         {person.displayName && (
-          <Text className="text-base leading-5 dark:text-neutral-50">
+          <Text className="text-base leading-5 dark:text-white">
             {person.displayName}
           </Text>
         )}

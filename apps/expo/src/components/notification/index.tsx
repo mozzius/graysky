@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
@@ -6,7 +6,9 @@ import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
 import type { NotificationGroup } from "../../app/(tabs)/(skyline,search,feeds,notifications,self)/notifications";
+import { useAuthedAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
+import { useLists } from "../lists/context";
 import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 
@@ -18,6 +20,9 @@ export const Notification = ({
   indexedAt,
   dataUpdatedAt,
 }: NotificationGroup & { dataUpdatedAt: number }) => {
+  const { openLikes, openFollowers, openReposts } = useLists();
+  const agent = useAuthedAgent();
+
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
     const [did, _, id] = subject.slice("at://".length).split("/");
@@ -27,63 +32,85 @@ export const Notification = ({
   switch (reason) {
     case "like":
       return (
-        <NotificationItem
-          href={href}
-          unread={!isRead}
-          left={<Heart size={24} fill="#dc2626" color="#dc2626" />}
+        <TouchableOpacity
+          onPress={() => subject && openLikes(subject, actors.length)}
         >
-          <ProfileList
-            actors={actors}
-            action="liked your post"
-            indexedAt={indexedAt}
-          />
-          {subject && (
-            <PostNotification
-              uri={subject}
-              unread={!isRead}
-              inline
-              dataUpdatedAt={dataUpdatedAt}
+          <NotificationItem
+            unread={!isRead}
+            left={<Heart size={24} fill="#dc2626" color="#dc2626" />}
+          >
+            <ProfileList
+              actors={actors}
+              action="liked your post"
+              indexedAt={indexedAt}
             />
-          )}
-        </NotificationItem>
+            {subject && href && (
+              <Link href={href} asChild>
+                <TouchableOpacity>
+                  <PostNotification
+                    uri={subject}
+                    unread={!isRead}
+                    inline
+                    dataUpdatedAt={dataUpdatedAt}
+                  />
+                </TouchableOpacity>
+              </Link>
+            )}
+          </NotificationItem>
+        </TouchableOpacity>
       );
     case "repost":
       return (
-        <NotificationItem
-          href={href}
-          unread={!isRead}
-          left={<Repeat size={24} color="#2563eb" />}
+        <TouchableOpacity
+          onPress={() => subject && openReposts(subject, actors.length)}
         >
-          <ProfileList
-            actors={actors}
-            action="reposted your post"
-            indexedAt={indexedAt}
-          />
-          {subject && (
-            <PostNotification
-              uri={subject}
-              unread={!isRead}
-              inline
-              dataUpdatedAt={dataUpdatedAt}
+          <NotificationItem
+            href={href}
+            unread={!isRead}
+            left={<Repeat size={24} color="#2563eb" />}
+          >
+            <ProfileList
+              actors={actors}
+              action="reposted your post"
+              indexedAt={indexedAt}
             />
-          )}
-        </NotificationItem>
+            {subject && href && (
+              <Link href={href} asChild>
+                <TouchableOpacity>
+                  <PostNotification
+                    uri={subject}
+                    unread={!isRead}
+                    inline
+                    dataUpdatedAt={dataUpdatedAt}
+                  />
+                </TouchableOpacity>
+              </Link>
+            )}
+          </NotificationItem>
+        </TouchableOpacity>
       );
     case "follow":
       return (
-        <NotificationItem
-          href={
-            actors.length === 1 ? `/profile/${actors[0]!.handle}` : undefined
+        <TouchableOpacity
+          onPress={() =>
+            actors.length !== 1 &&
+            openFollowers(agent.session.did, actors.length)
           }
-          unread={!isRead}
-          left={<UserPlus size={24} color="#2563eb" />}
         >
-          <ProfileList
-            actors={actors}
-            action="started following you"
-            indexedAt={indexedAt}
-          />
-        </NotificationItem>
+          <NotificationItem
+            href={
+              actors.length === 1 ? `/profile/${actors[0]!.handle}` : undefined
+            }
+            unread={!isRead}
+            left={<UserPlus size={24} color="#2563eb" />}
+          >
+            <ProfileList
+              actors={actors}
+              action="started following you"
+              indexedAt={indexedAt}
+            />
+          </NotificationItem>
+        </TouchableOpacity>
       );
     case "reply":
     case "quote":
@@ -141,7 +168,7 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="text-base font-medium dark:text-neutral-50">
+        <Text className="text-base font-medium dark:text-white">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&

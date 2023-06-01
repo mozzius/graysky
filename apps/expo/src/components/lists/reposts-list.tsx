@@ -27,17 +27,19 @@ const useReposts = (post?: string) => {
 };
 
 export interface RepostsListRef {
-  open: (post: string) => void;
+  open: (post: string, limit?: number) => void;
 }
 
 export const RepostsList = forwardRef<RepostsListRef>((_, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [post, setPost] = useState<string | undefined>();
+  const [limit, setLimit] = useState<number | undefined>();
   const reposters = useReposts(post);
 
   useImperativeHandle(ref, () => ({
-    open: (post) => {
+    open: (post, limit) => {
       setPost(post);
+      setLimit(limit);
       listRef.current?.open();
     },
   }));
@@ -48,6 +50,7 @@ export const RepostsList = forwardRef<RepostsListRef>((_, ref) => {
       ref={listRef}
       data={reposters}
       onClose={() => setPost(undefined)}
+      limit={limit}
     />
   );
 });

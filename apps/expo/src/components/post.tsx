@@ -87,7 +87,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             <TouchableOpacity className="flex-1">
               <Text
                 numberOfLines={1}
-                className="text-base font-semibold dark:text-neutral-50"
+                className="text-base font-semibold dark:text-white"
               >
                 {postAuthorDisplayName}
               </Text>

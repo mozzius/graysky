@@ -62,7 +62,7 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
       backgroundStyle={backgroundStyle}
     >
       <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
-        <Text className="mt-2 text-center text-xl font-medium dark:text-neutral-50">
+        <Text className="mt-2 text-center text-xl font-medium dark:text-white">
           Invite Codes
         </Text>
         {codes.data ? (
@@ -115,7 +115,7 @@ const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
     >
       <Text
         className={cx(
-          "text-base dark:text-neutral-50",
+          "text-base dark:text-white",
           used && "text-neutral-400 line-through",
         )}
       >

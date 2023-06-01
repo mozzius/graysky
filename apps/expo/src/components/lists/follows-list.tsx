@@ -28,17 +28,19 @@ const useFollows = (actor?: string) => {
 };
 
 export interface FollowsListRef {
-  open: (actor: string) => void;
+  open: (actor: string, limit?: number) => void;
 }
 
 export const FollowsList = forwardRef<FollowsListRef>((_, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [actor, setActor] = useState<string | undefined>();
+  const [limit, setLimit] = useState<number | undefined>();
   const followers = useFollows(actor);
 
   useImperativeHandle(ref, () => ({
-    open: (actor) => {
+    open: (actor, limit) => {
       setActor(actor);
+      setLimit(limit);
       listRef.current?.open();
     },
   }));
@@ -49,6 +51,7 @@ export const FollowsList = forwardRef<FollowsListRef>((_, ref) => {
       ref={listRef}
       data={followers}
       onClose={() => setActor(undefined)}
+      limit={limit}
     />
   );
 });

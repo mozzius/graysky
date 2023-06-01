@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -8,15 +8,21 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useQuery } from "@tanstack/react-query";
-import { Heart, Plus, Radio } from "lucide-react-native";
+import {
+  DefinedUseQueryResult,
+  UseQueryResult,
+  useQuery,
+} from "@tanstack/react-query";
+import { Check, Heart, Plus, Radio } from "lucide-react-native";
 
 import { FeedPost } from "../../../../../../components/feed-post";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../../../lib/hooks";
 import { useTimeline } from "../../../../../../lib/hooks/feeds";
+import { cx } from "../../../../../../lib/utils/cx";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
 const Feed = () => {
@@ -25,6 +31,7 @@ const Feed = () => {
     handle: string;
     generator: string;
   };
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const generator = `at://${handle}/app.bsky.feed.generator/${genId}`;
 
@@ -47,54 +54,13 @@ const Feed = () => {
 
   if (!info.data) return <QueryWithoutData query={info} />;
 
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <>
-      <Stack.Screen
-        options={{
-          title: info.data.view.displayName,
-          headerRight: () =>
-            info.data.isOnline && info.data.isValid ? (
-              <TouchableOpacity
-                onPress={() => Alert.alert("Feed Info", "This feed is online")}
-              >
-                <Radio size={24} className="text-green-600" />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() =>
-                  Alert.alert(
-                    "Feed Info",
-                    `This feed is ${
-                      info.data.isOnline ? "not valid" : "offline"
-                    }`,
-                    [
-                      {
-                        text: "Cancel",
-                        style: "cancel",
-                      },
-                      {
-                        text: "Retry",
-                        onPress: () => info.refetch(),
-                      },
-                    ],
-                  )
-                }
-              >
-                <Radio size={24} className="text-red-600" />
-              </TouchableOpacity>
-            ),
-        }}
-      />
-      {children}
-    </>
-  );
-
   if (timeline.data) {
     return (
-      <Wrapper>
+      <Wrapper info={info} isScrolled={isScrolled}>
         <FlashList
           ref={ref}
           data={data}
+          onScroll={(e) => setIsScrolled(e.nativeEvent.contentOffset.y > 50)}
           renderItem={({ item: { hasReply, item }, index }) => (
             <FeedPost
               item={item}
@@ -117,7 +83,7 @@ const Feed = () => {
                   className="h-16 w-16 rounded"
                 />
                 <View className="px-4">
-                  <Text className="text-2xl font-medium">
+                  <Text className="text-2xl font-medium dark:text-white">
                     {info.data.view.displayName}
                   </Text>
                   <Link
@@ -133,18 +99,36 @@ const Feed = () => {
                 </View>
               </View>
               {info.data.view.description && (
-                <Text className="mt-4 text-base">
+                <Text className="mt-4 text-base dark:text-white">
                   {info.data.view.description}
                 </Text>
               )}
               <View className="mt-4 flex-row items-center">
-                <TouchableOpacity className="flex-1 flex-row items-center justify-center rounded border border-neutral-400 py-2">
-                  <Plus className="h-6 w-6 text-black" />
-                  <Text className="ml-2 text-base">Subscribe</Text>
+                <TouchableOpacity className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 py-2 dark:border-neutral-700">
+                  {false ? (
+                    <>
+                      <Plus className="h-6 w-6 text-black dark:text-white" />
+                      <Text className="ml-2 text-base dark:text-white">
+                        Save
+                      </Text>
+                    </>
+                  ) : (
+                    <>
+                      <Check className="h-6 w-6 text-black dark:text-white" />
+                      <Text className="ml-2 text-base dark:text-white">
+                        Saved
+                      </Text>
+                    </>
+                  )}
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={async () => {}}
-                  className="ml-2 shrink-0 flex-row items-center rounded border border-red-200 bg-red-100 px-3 py-2"
+                  className={cx(
+                    "ml-2 shrink-0 flex-row items-center rounded border px-3 py-2",
+                    info.data.view.viewer?.like
+                      ? "border-red-200 bg-red-100"
+                      : "border-neutral-300 dark:border-neutral-700",
+                  )}
                 >
                   <Heart
                     className="h-8 w-8"
@@ -153,7 +137,7 @@ const Feed = () => {
                       info.data.view.viewer?.like ? "#dc2626" : "transparent"
                     }
                   />
-                  <Text className="ml-2 text-base">
+                  <Text className="ml-2 text-base dark:text-white">
                     {info.data.view.likeCount}
                   </Text>
                 </TouchableOpacity>
@@ -178,11 +162,61 @@ const Feed = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper info={info} isScrolled={isScrolled}>
       <QueryWithoutData query={timeline} />
     </Wrapper>
   );
 };
+
+const Wrapper = ({
+  info,
+  isScrolled,
+  children,
+}: {
+  info: DefinedUseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
+  isScrolled: boolean;
+  children: React.ReactNode;
+}) => (
+  <>
+    <Stack.Screen
+      options={{
+        title: isScrolled ? info.data.view.displayName : "",
+        headerRight: () =>
+          info.data.isOnline && info.data.isValid ? (
+            <TouchableOpacity
+              onPress={() => Alert.alert("Feed Info", "This feed is online")}
+            >
+              <Radio size={24} className="text-green-600" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Feed Info",
+                  `This feed is ${
+                    info.data.isOnline ? "not valid" : "offline"
+                  }`,
+                  [
+                    {
+                      text: "Cancel",
+                      style: "cancel",
+                    },
+                    {
+                      text: "Retry",
+                      onPress: () => info.refetch(),
+                    },
+                  ],
+                )
+              }
+            >
+              <Radio size={24} className="text-red-600" />
+            </TouchableOpacity>
+          ),
+      }}
+    />
+    {children}
+  </>
+);
 
 export default function FeedPage() {
   return (

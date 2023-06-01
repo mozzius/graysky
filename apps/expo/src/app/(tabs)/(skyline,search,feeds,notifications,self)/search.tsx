@@ -192,7 +192,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             />
             <View className="flex-1 justify-center">
               {item.displayName && (
-                <Text className="text-base font-semibold dark:text-neutral-50">
+                <Text className="text-base font-semibold dark:text-white">
                   {item.displayName}
                 </Text>
               )}
@@ -224,7 +224,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             )}
           </View>
           {item.description && (
-            <Text className="mt-4 dark:text-neutral-50">
+            <Text className="mt-4 dark:text-white">
               {item.description}
             </Text>
           )}
