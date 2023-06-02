@@ -15,6 +15,7 @@ import {
   type AppBskyEmbedImages,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
 
@@ -68,6 +69,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     }
   }, [profile, queryClient]);
 
+  const theme = useTheme();
+
   return (
     <View className="relative">
       <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
@@ -81,7 +84,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <ChevronLeft size={24} color="white" />
         </TouchableOpacity>
       )}
-      <View className="relative bg-white px-4 pb-1 dark:bg-[#121212]">
+      <View
+        style={{ backgroundColor: theme.colors.card }}
+        className="relative px-4 pb-1"
+      >
         <View className="h-10 flex-row items-center justify-end">
           <Link asChild href={`/images/${profile.did}`}>
             <TouchableOpacity className="absolute -top-11 left-0 rounded-full border-2 border-white bg-white dark:border-black dark:bg-black">

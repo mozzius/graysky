@@ -7,6 +7,7 @@ import {
 import { Stack } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedLike } from "@atproto/api";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import {
   useInfiniteQuery,
@@ -18,7 +19,6 @@ import { XOctagon } from "lucide-react-native";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { assert } from "../../lib/utils/assert";
-import { useColorScheme } from "../../lib/utils/color-scheme";
 import { useUserRefresh } from "../../lib/utils/query";
 import { Button } from "../button";
 import { FeedPost } from "../feed-post";
@@ -40,10 +40,9 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
   const headerHeight = useHeaderHeight();
   const { top } = useSafeAreaInsets();
   const queryClient = useQueryClient();
+  const theme = useTheme();
 
   const tabOffset = headerHeight - top;
-  const { colorScheme } = useColorScheme();
-  const backgroundColor = colorScheme === "light" ? "#FFF" : "#000";
 
   const profile = useQuery({
     queryKey: ["profile", handle],
@@ -284,7 +283,8 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
     return (
       <>
         <SafeAreaView
-          className="w-full bg-white dark:bg-[#121212]"
+          className="w-full"
+          style={{ backgroundColor: theme.colors.card }}
           edges={["top"]}
           mode="padding"
         />
@@ -293,7 +293,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
             headerTransparent: true,
             headerTitle: "",
             headerStyle: {
-              backgroundColor: backgroundColor,
+              backgroundColor: theme.colors.card,
             },
             headerShown: header && !atTop,
           }}

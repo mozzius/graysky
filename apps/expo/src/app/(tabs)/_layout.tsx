@@ -3,6 +3,7 @@ import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, Search, User } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
@@ -81,7 +82,7 @@ export default function AppLayout() {
   }, [setColorScheme]);
 
   const openDrawer = useCallback(() => setOpen(true), []);
-
+  const theme = useTheme();
   const segments = useSegments();
 
   const iconProps = (focused: boolean) => ({
@@ -111,7 +112,7 @@ export default function AppLayout() {
         statusBarAnimation="slide"
         drawerStyle={{
           width: Dimensions.get("window").width * 0.8,
-          backgroundColor: colorScheme === "light" ? "#FFF" : "#121212",
+          backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={Dimensions.get("window").width * 0.1}
         swipeEnabled={segments.length === 3}

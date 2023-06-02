@@ -1,19 +1,21 @@
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
+import { useTheme } from "@react-navigation/native";
 
 import { useColorScheme } from "../lib/utils/color-scheme";
 
 export const useBottomSheetStyles = () => {
   const { colorScheme } = useColorScheme();
+  const theme = useTheme();
 
   return useMemo(
     () =>
       StyleSheet.create({
         backgroundStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "#121212",
+          backgroundColor: theme.colors.card,
         },
         contentContainerStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "#121212",
+          backgroundColor: theme.colors.card,
         },
         textInputStyle: {
           padding: 0,
@@ -23,7 +25,7 @@ export const useBottomSheetStyles = () => {
           color: colorScheme === "light" ? undefined : "white",
         },
         handleStyle: {
-          backgroundColor: colorScheme === "light" ? "white" : "#121212",
+          backgroundColor: theme.colors.card,
           borderTopStartRadius: 15,
           borderTopEndRadius: 15,
         },
@@ -31,6 +33,6 @@ export const useBottomSheetStyles = () => {
           backgroundColor: colorScheme === "light" ? "black" : "white",
         },
       }),
-    [colorScheme],
+    [colorScheme, theme],
   );
 };

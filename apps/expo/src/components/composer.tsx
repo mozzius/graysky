@@ -49,6 +49,7 @@ import BottomSheet, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ChevronDown,
@@ -429,6 +430,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
     [],
   );
 
+  const theme = useTheme();
+
   return (
     <BottomSheet
       ref={bottomSheetRef}
@@ -481,8 +484,9 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           <View className="relative">
             {showImages && images.length > 0 && (
               <View
+                style={{ backgroundColor: theme.colors.card }}
                 className={cx(
-                  "absolute z-10 h-full w-full flex-wrap border-neutral-100 bg-white pt-2 dark:border-neutral-600 dark:bg-[#121212]",
+                  "absolute z-10 h-full w-full flex-wrap border-neutral-100 pt-2 dark:border-neutral-600",
                   postView &&
                     AppBskyFeedPost.isRecord(postView.record) &&
                     "border-t",
@@ -614,10 +618,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           </TouchableOpacity>
           <View className="flex-1" />
           <Text
-            className={cx(
-              "text-sm dark:text-white",
-              tooLong && "text-red-500",
-            )}
+            className={cx("text-sm dark:text-white", tooLong && "text-red-500")}
           >
             {rt.data?.graphemeLength} / {MAX_LENGTH}
           </Text>
