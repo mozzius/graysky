@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -60,60 +60,58 @@ export default function AlgorithmsModal() {
 
   if (savedFeeds.data) {
     return (
-      <View className="flex-1 border-neutral-700 dark:border-t">
-        <DraggableFlatList
-          keyExtractor={(item) => item.uri}
-          data={savedFeeds.data.feeds}
-          onDragEnd={({ data }) => {
-            queryClient.setQueryData(
-              ["feeds", "saved", { pinned: false }],
-              (old) => ({
-                ...(old as typeof savedFeeds.data),
-                feeds: data,
-              }),
-            );
-            reorder.mutate(data.map((d) => d.uri));
-          }}
-          renderItem={({ item, drag, isActive }) => {
-            return (
-              <GeneratorRow
-                drag={drag}
-                isDragging={isActive}
-                image={item.avatar}
-                icon="pin"
-                pinned={item.pinned}
-                togglePinned={() => {
-                  queryClient.setQueryData(
-                    ["feeds", "saved", { pinned: false }],
-                    (old) =>
-                      produce(old as typeof savedFeeds.data, (draft) => {
-                        for (const feed of draft.feeds) {
-                          if (feed.uri === item.uri) {
-                            feed.pinned = !feed.pinned;
-                          }
+      <DraggableFlatList
+        keyExtractor={(item) => item.uri}
+        data={savedFeeds.data.feeds}
+        onDragEnd={({ data }) => {
+          queryClient.setQueryData(
+            ["feeds", "saved", { pinned: false }],
+            (old) => ({
+              ...(old as typeof savedFeeds.data),
+              feeds: data,
+            }),
+          );
+          reorder.mutate(data.map((d) => d.uri));
+        }}
+        renderItem={({ item, drag, isActive }) => {
+          return (
+            <GeneratorRow
+              drag={drag}
+              isDragging={isActive}
+              image={item.avatar}
+              icon="pin"
+              pinned={item.pinned}
+              togglePinned={() => {
+                queryClient.setQueryData(
+                  ["feeds", "saved", { pinned: false }],
+                  (old) =>
+                    produce(old as typeof savedFeeds.data, (draft) => {
+                      for (const feed of draft.feeds) {
+                        if (feed.uri === item.uri) {
+                          feed.pinned = !feed.pinned;
                         }
-                      }),
-                  );
-                  togglePinned.mutate(item.uri);
-                }}
-              >
-                <Text className="text-base dark:text-white">
-                  {item.displayName}
-                </Text>
-                <Text className="text-neutral-400">
-                  By @{item.creator.handle}
-                </Text>
-              </GeneratorRow>
-            );
-          }}
-          ListFooterComponent={() => (
-            <Text className="p-4 text-center text-neutral-400">
-              Pin your saved feeds here to see them in the Skyline tab. You can
-              save additional feeds in the Feeds tab.
-            </Text>
-          )}
-        />
-      </View>
+                      }
+                    }),
+                );
+                togglePinned.mutate(item.uri);
+              }}
+            >
+              <Text className="text-base dark:text-white">
+                {item.displayName}
+              </Text>
+              <Text className="text-neutral-400">
+                By @{item.creator.handle}
+              </Text>
+            </GeneratorRow>
+          );
+        }}
+        ListFooterComponent={() => (
+          <Text className="p-4 text-center text-neutral-400">
+            Pin your saved feeds here to see them in the Skyline tab. You can
+            save additional feeds in the Feeds tab.
+          </Text>
+        )}
+      />
     );
   }
 

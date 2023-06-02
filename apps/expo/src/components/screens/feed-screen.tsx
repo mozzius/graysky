@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { Image } from "expo-image";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, Stack } from "expo-router";
 import {
   type AppBskyFeedDefs,
   type AppBskyFeedGetFeedGenerator,
@@ -16,28 +16,44 @@ import { FlashList } from "@shopify/flash-list";
 import { useQuery, type DefinedUseQueryResult } from "@tanstack/react-query";
 import { Radio } from "lucide-react-native";
 
-import { FeedPost } from "../../../../../../components/feed-post";
-import { QueryWithoutData } from "../../../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../../../lib/agent";
-import { useTabPressScrollRef } from "../../../../../../lib/hooks";
-import { useTimeline } from "../../../../../../lib/hooks/feeds";
-import { useUserRefresh } from "../../../../../../lib/utils/query";
+import { useAuthedAgent } from "../../lib/agent";
+import { useTabPressScrollRef } from "../../lib/hooks";
+import { useTimeline } from "../../lib/hooks/feeds";
+import { useUserRefresh } from "../../lib/utils/query";
+import { FeedPost } from "../feed-post";
+import { QueryWithoutData } from "../query-without-data";
 
-const Feed = () => {
+interface Props {
+  feed: string;
+  showFeedInfo?: boolean;
+}
+
+export const FeedScreen = ({ feed, showFeedInfo }: Props) => {
   const agent = useAuthedAgent();
-  const { handle, generator: genId } = useLocalSearchParams() as {
-    handle: string;
-    generator: string;
-  };
+  const [generator] = useState(feed);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const generator = `at://${handle}/app.bsky.feed.generator/${genId}`;
 
   const { timeline, data } = useTimeline(generator);
 
   const info = useQuery({
     queryKey: ["generator", generator],
     queryFn: async () => {
+      console.log(generator);
+      if (generator === "following") {
+        return {
+          view: {
+            displayName: "Following",
+            uri: "",
+            cid: "",
+            creator: {
+              ...agent.session,
+            },
+            indexedAt: "",
+          },
+          isOnline: true,
+          isValid: true,
+        } satisfies AppBskyFeedGetFeedGenerator.OutputSchema;
+      }
       const gen = await agent.app.bsky.feed.getFeedGenerator({
         feed: generator,
       });
@@ -54,7 +70,7 @@ const Feed = () => {
 
   if (timeline.data) {
     return (
-      <Wrapper info={info} isScrolled={isScrolled}>
+      <Wrapper info={info} isScrolled={isScrolled} showFeedInfo={showFeedInfo}>
         <FlashList<{ item: AppBskyFeedDefs.FeedViewPost; hasReply: boolean }>
           ref={ref}
           data={data}
@@ -73,36 +89,37 @@ const Feed = () => {
           onRefresh={() => void handleRefresh()}
           refreshing={refreshing}
           estimatedItemSize={91}
-          ListHeaderComponent={() => (
-            <View className="w-full border-b border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-black">
-              <View className="w-full flex-row items-center">
-                <Image
-                  source={{ uri: info.data.view.avatar }}
-                  className="h-16 w-16 rounded"
-                  alt={info.data.view.displayName}
-                />
-                <View className="px-4">
-                  <Text className="text-2xl font-medium dark:text-white">
-                    {info.data.view.displayName}
-                  </Text>
-                  <Link
-                    asChild
-                    href={`/profile/${info.data.view.creator.handle}`}
-                  >
-                    <TouchableOpacity>
-                      <Text className="text-base text-neutral-400">
-                        By @{info.data.view.creator.handle}
-                      </Text>
-                    </TouchableOpacity>
-                  </Link>
+          ListHeaderComponent={() =>
+            showFeedInfo ? (
+              <View className="w-full border-b border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-black">
+                <View className="w-full flex-row items-center">
+                  <Image
+                    source={{ uri: info.data.view.avatar }}
+                    className="h-16 w-16 rounded"
+                    alt={info.data.view.displayName}
+                  />
+                  <View className="px-4">
+                    <Text className="text-2xl font-medium dark:text-white">
+                      {info.data.view.displayName}
+                    </Text>
+                    <Link
+                      asChild
+                      href={`/profile/${info.data.view.creator.handle}`}
+                    >
+                      <TouchableOpacity>
+                        <Text className="text-base text-neutral-400">
+                          By @{info.data.view.creator.handle}
+                        </Text>
+                      </TouchableOpacity>
+                    </Link>
+                  </View>
                 </View>
-              </View>
-              {info.data.view.description && (
-                <Text className="mt-4 text-base dark:text-white">
-                  {info.data.view.description}
-                </Text>
-              )}
-              {/* <View className="mt-4 flex-row items-center">
+                {info.data.view.description && (
+                  <Text className="mt-4 text-base dark:text-white">
+                    {info.data.view.description}
+                  </Text>
+                )}
+                {/* <View className="mt-4 flex-row items-center">
                 <TouchableOpacity className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 py-2 dark:border-neutral-700">
                   {false ? (
                     <>
@@ -141,8 +158,9 @@ const Feed = () => {
                   </Text>
                 </TouchableOpacity>
               </View> */}
-            </View>
-          )}
+              </View>
+            ) : null
+          }
           ListFooterComponent={
             timeline.isFetching ? (
               <View className="w-full items-center py-8">
@@ -171,15 +189,17 @@ const Wrapper = ({
   info,
   isScrolled,
   children,
+  showFeedInfo,
 }: {
   info: DefinedUseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
   isScrolled: boolean;
   children: React.ReactNode;
+  showFeedInfo?: boolean;
 }) => (
   <>
     <Stack.Screen
       options={{
-        title: isScrolled ? info.data.view.displayName : "",
+        title: !showFeedInfo || isScrolled ? info.data.view.displayName : "",
         headerRight: () =>
           info.data.isOnline && info.data.isValid ? (
             <TouchableOpacity
@@ -216,12 +236,3 @@ const Wrapper = ({
     {children}
   </>
 );
-
-export default function FeedPage() {
-  return (
-    <>
-      <Stack.Screen options={{ title: "Feed" }} />
-      <Feed />
-    </>
-  );
-}

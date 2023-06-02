@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, type ColorValue } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { Stack, Tabs } from "expo-router";
+import { Stack, Tabs, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Cloudy, Rss, Search, User } from "lucide-react-native";
+import { Bell, Cloudy, Search, User } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import { z } from "zod";
 
@@ -82,8 +82,26 @@ export default function AppLayout() {
 
   const openDrawer = useCallback(() => setOpen(true), []);
 
+  const segments = useSegments();
+
+  const iconProps = (focused: boolean) => ({
+    color: focused
+      ? tabBarIconColors.color.focused
+      : tabBarIconColors.color.unfocused,
+    fill: focused
+      ? tabBarIconColors.fill.focused
+      : tabBarIconColors.fill.unfocused,
+  });
+
   return (
     <DrawerProvider value={openDrawer}>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+          animation: "none",
+          gestureEnabled: false,
+        }}
+      />
       <Drawer
         open={open}
         onOpen={() => setOpen(true)}
@@ -96,13 +114,8 @@ export default function AppLayout() {
           backgroundColor: colorScheme === "light" ? "#FFF" : "#121212",
         }}
         swipeEdgeWidth={Dimensions.get("window").width * 0.1}
+        swipeEnabled={segments.length === 3}
       >
-        <Stack.Screen
-          options={{
-            headerShown: false,
-            animation: "none",
-          }}
-        />
         <Tabs
           screenOptions={{
             headerShown: false,
@@ -112,30 +125,14 @@ export default function AppLayout() {
             //   position: "absolute",
             //   backgroundColor: "rgba(255, 255, 255, 0.95)",
             // },
-            headerTitleStyle: {
-              color: textColor,
-            },
           }}
         >
           <Tabs.Screen
-            name="(skyline)"
+            name="(feeds)"
             options={{
-              title: "Skyline",
+              title: "Feeds",
               tabBarIcon({ focused }) {
-                return (
-                  <Cloudy
-                    color={
-                      focused
-                        ? tabBarIconColors.color.focused
-                        : tabBarIconColors.color.unfocused
-                    }
-                    fill={
-                      focused
-                        ? tabBarIconColors.fill.focused
-                        : tabBarIconColors.fill.unfocused
-                    }
-                  />
-                );
+                return <Cloudy {...iconProps(focused)} />;
               },
             }}
           />
@@ -144,42 +141,7 @@ export default function AppLayout() {
             options={{
               title: "Search",
               tabBarIcon({ focused }) {
-                return (
-                  <Search
-                    color={
-                      focused
-                        ? tabBarIconColors.color.focused
-                        : tabBarIconColors.color.unfocused
-                    }
-                    fill={
-                      focused
-                        ? tabBarIconColors.fill.focused
-                        : tabBarIconColors.fill.unfocused
-                    }
-                  />
-                );
-              },
-            }}
-          />
-          <Tabs.Screen
-            name="(feeds)"
-            options={{
-              title: "Feeds",
-              tabBarIcon({ focused }) {
-                return (
-                  <Rss
-                    color={
-                      focused
-                        ? tabBarIconColors.color.focused
-                        : tabBarIconColors.color.unfocused
-                    }
-                    fill={
-                      focused
-                        ? tabBarIconColors.fill.focused
-                        : tabBarIconColors.fill.unfocused
-                    }
-                  />
-                );
+                return <Search {...iconProps(focused)} />;
               },
             }}
           />
@@ -197,20 +159,7 @@ export default function AppLayout() {
                 fontSize: 12,
               },
               tabBarIcon({ focused }) {
-                return (
-                  <Bell
-                    color={
-                      focused
-                        ? tabBarIconColors.color.focused
-                        : tabBarIconColors.color.unfocused
-                    }
-                    fill={
-                      focused
-                        ? tabBarIconColors.fill.focused
-                        : tabBarIconColors.fill.unfocused
-                    }
-                  />
-                );
+                return <Bell {...iconProps(focused)} />;
               },
             }}
           />
@@ -219,20 +168,7 @@ export default function AppLayout() {
             options={{
               title: "Profile",
               tabBarIcon({ focused }) {
-                return (
-                  <User
-                    color={
-                      focused
-                        ? tabBarIconColors.color.focused
-                        : tabBarIconColors.color.unfocused
-                    }
-                    fill={
-                      focused
-                        ? tabBarIconColors.fill.focused
-                        : tabBarIconColors.fill.unfocused
-                    }
-                  />
-                );
+                return <User {...iconProps(focused)} />;
               },
             }}
           />

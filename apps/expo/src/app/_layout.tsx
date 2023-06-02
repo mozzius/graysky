@@ -116,7 +116,7 @@ export default function RootLayout() {
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
       // Redirect away from the sign-in page.
-      router.replace("/skyline");
+      router.replace("/feeds/following");
     }
   }, [did, segments, router, loading]);
 
@@ -147,10 +147,10 @@ export default function RootLayout() {
                     screenOptions={{
                       headerShown: true,
                       fullScreenGestureEnabled: true,
-                      headerStyle: {
-                        backgroundColor:
-                          colorScheme === "light" ? "#fff" : "#000",
-                      },
+                      // headerStyle: {
+                      //   backgroundColor:
+                      //     colorScheme === "light" ? "#fff" : "#000",
+                      // },
                     }}
                   >
                     <Stack.Screen
@@ -205,7 +205,7 @@ export default function RootLayout() {
                               if (navigation.canGoBack()) {
                                 router.push("../");
                               } else {
-                                router.push("/skyline");
+                                router.push("/feeds/following");
                               }
                             }}
                           >
@@ -227,7 +227,7 @@ export default function RootLayout() {
                               if (navigation.canGoBack()) {
                                 router.push("../");
                               } else {
-                                router.push("/skyline");
+                                router.push("/feeds/following");
                               }
                             }}
                           >

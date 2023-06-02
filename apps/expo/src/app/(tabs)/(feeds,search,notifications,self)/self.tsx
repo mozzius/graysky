@@ -1,5 +1,5 @@
 import { ComposeButton } from "../../../components/compose-button";
-import { ProfileView } from "../../../components/profile-view";
+import { ProfileScreen } from "../../../components/screens/profile-screen";
 import { useAuthedAgent } from "../../../lib/agent";
 
 export default function ProfilePage() {
@@ -7,7 +7,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <ProfileView handle={agent.session.handle} header={false} />
+      <ProfileScreen handle={agent.session.handle} header={false} />
       <ComposeButton />
     </>
   );

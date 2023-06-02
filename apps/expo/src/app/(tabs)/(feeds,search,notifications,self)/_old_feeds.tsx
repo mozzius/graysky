@@ -96,9 +96,7 @@ export default function Page() {
           ),
         }}
       />
-      <View className="flex-1 border-neutral-800 dark:border-t">
-        <FeedsPage />
-      </View>
+      <FeedsPage />
     </>
   );
 }

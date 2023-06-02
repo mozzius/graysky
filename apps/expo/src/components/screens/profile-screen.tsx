@@ -15,23 +15,23 @@ import {
 } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
 
-import { useAuthedAgent } from "../lib/agent";
-import { useTabPressScroll } from "../lib/hooks";
-import { assert } from "../lib/utils/assert";
-import { useColorScheme } from "../lib/utils/color-scheme";
-import { useUserRefresh } from "../lib/utils/query";
-import { Button } from "./button";
-import { FeedPost } from "./feed-post";
-import { ProfileInfo } from "./profile-info";
-import { QueryWithoutData } from "./query-without-data";
-import { Tab, Tabs } from "./tabs";
+import { useAuthedAgent } from "../../lib/agent";
+import { useTabPressScroll } from "../../lib/hooks";
+import { assert } from "../../lib/utils/assert";
+import { useColorScheme } from "../../lib/utils/color-scheme";
+import { useUserRefresh } from "../../lib/utils/query";
+import { Button } from "../button";
+import { FeedPost } from "../feed-post";
+import { ProfileInfo } from "../profile-info";
+import { QueryWithoutData } from "../query-without-data";
+import { Tab, Tabs } from "../tabs";
 
 interface Props {
   handle: string;
   header?: boolean;
 }
 
-export const ProfileView = ({ handle, header = true }: Props) => {
+export const ProfileScreen = ({ handle, header = true }: Props) => {
   const [mode, setMode] = useState<"posts" | "replies" | "likes">("posts");
   const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
@@ -284,7 +284,7 @@ export const ProfileView = ({ handle, header = true }: Props) => {
     return (
       <>
         <SafeAreaView
-          className="w-full bg-white dark:bg-black"
+          className="w-full bg-white dark:bg-[#121212]"
           edges={["top"]}
           mode="padding"
         />

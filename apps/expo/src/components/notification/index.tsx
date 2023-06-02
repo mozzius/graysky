@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
-import type { NotificationGroup } from "../../app/(tabs)/(skyline,search,feeds,notifications,self)/notifications";
+import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAuthedAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
 import { useLists } from "../lists/context";

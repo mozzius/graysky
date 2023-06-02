@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Ban, Smartphone, User } from "lucide-react-native";
@@ -24,7 +24,7 @@ const options = [
 ];
 export default function SettingsPage() {
   return (
-    <View className="flex-1 dark:border-t dark:border-neutral-700">
+    <>
       <StatusBar style="light" />
       <Text className="p-4 py-4 text-center text-2xl font-bold">
         WIP - not all of these work
@@ -44,6 +44,6 @@ export default function SettingsPage() {
           );
         })}
       </ScrollView>
-    </View>
+    </>
   );
 }
