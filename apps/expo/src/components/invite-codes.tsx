@@ -9,7 +9,7 @@ import BottomSheet, {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
-import { Copy, CopyCheck } from "lucide-react-native";
+import { Check, Copy } from "lucide-react-native";
 
 import { useAuthedAgent } from "../lib/agent";
 import { useBottomSheetStyles } from "../lib/bottom-sheet";
@@ -39,8 +39,6 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
       bottomSheetRef.current?.close();
     }
   };
-
-  // const { refreshing, handleRefresh } = useUserRefresh(codes.refetch);
 
   const {
     backgroundStyle,
@@ -122,7 +120,7 @@ const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
         {code}
       </Text>
       {copied ? (
-        <CopyCheck size={16} color="#888888" />
+        <Check size={16} color="#888888" />
       ) : (
         !used && <Copy size={16} color="#888888" />
       )}

@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
+  RefreshControl,
   Text,
   TouchableOpacity,
   View,
@@ -65,7 +66,9 @@ export const FeedScreen = ({ feed }: Props) => {
     },
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    timeline.refetch,
+  );
 
   const ref = useTabPressScrollRef(() => void timeline.refetch());
 
@@ -93,10 +96,15 @@ export const FeedScreen = ({ feed }: Props) => {
               dataUpdatedAt={timeline.dataUpdatedAt}
             />
           )}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.6}
           onEndReached={() => void timeline.fetchNextPage()}
-          onRefresh={() => void handleRefresh()}
-          refreshing={refreshing}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={tintColor}
+            />
+          }
           estimatedItemSize={91}
           contentInsetAdjustmentBehavior="automatic"
           ListHeaderComponent={

@@ -4,6 +4,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
+  RefreshControl,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -122,7 +123,9 @@ const Feed = ({ mode }: Props) => {
   const ref = useRef<FlashList<any>>(null);
   const { timeline, data } = useTimeline(mode);
 
-  const { refreshing, handleRefresh } = useUserRefresh(timeline.refetch);
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    timeline.refetch,
+  );
 
   useTabPressScroll(ref);
 
@@ -142,8 +145,13 @@ const Feed = ({ mode }: Props) => {
         )}
         onEndReachedThreshold={0.5}
         onEndReached={() => void timeline.fetchNextPage()}
-        onRefresh={() => void handleRefresh()}
-        refreshing={refreshing}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+            tintColor={tintColor}
+          />
+        }
         estimatedItemSize={180}
         ListFooterComponent={
           timeline.isFetching ? (

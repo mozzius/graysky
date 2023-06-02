@@ -5,7 +5,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { ActivityIndicator, Dimensions, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  RefreshControl,
+  Text,
+  View,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
@@ -57,7 +63,9 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       }
     };
 
-    const { refreshing, handleRefresh } = useUserRefresh(data.refetch);
+    const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+      data.refetch,
+    );
 
     const {
       backgroundStyle,
@@ -123,8 +131,13 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                     </Text>
                   </View>
                 )}
-                refreshing={refreshing}
-                onRefresh={() => void handleRefresh()}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={() => void handleRefresh()}
+                    tintColor={tintColor}
+                  />
+                }
                 onEndReachedThreshold={0.5}
                 onEndReached={() =>
                   void (!limit || showAll || people.length < limit) &&

@@ -1,10 +1,10 @@
-import { useEffect, useMemo } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { useCallback, useEffect, useMemo } from "react";
+import { ActivityIndicator, RefreshControl, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { type AppBskyNotificationListNotifications } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
@@ -13,6 +13,7 @@ import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
+import { queryClient } from "../../../lib/query-client";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 
 export type NotificationGroup = {
@@ -25,8 +26,6 @@ export type NotificationGroup = {
 
 const NotificationsPage = () => {
   const agent = useAuthedAgent();
-
-  const queryClient = useQueryClient();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list"],
@@ -82,19 +81,23 @@ const NotificationsPage = () => {
       );
     }, 3000);
     return () => clearTimeout(timeout);
-  }, [agent, hasData, notifications.dataUpdatedAt, queryClient]);
+  }, [agent, hasData, notifications.dataUpdatedAt]);
 
   useRefreshOnFocus(notifications.refetch);
 
-  const { refreshing, handleRefresh } = useUserRefresh(() =>
-    notifications
-      .refetch()
-      .then(() => agent.updateSeenNotifications())
-      .then(() =>
-        queryClient.invalidateQueries({
-          queryKey: ["notifications", "unread"],
-        }),
-      ),
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    useCallback(
+      () =>
+        notifications
+          .refetch()
+          .then(() => agent.updateSeenNotifications())
+          .then(() =>
+            queryClient.invalidateQueries({
+              queryKey: ["notifications", "unread"],
+            }),
+          ),
+      [agent, notifications],
+    ),
   );
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -117,10 +120,15 @@ const NotificationsPage = () => {
           <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
         )}
         estimatedItemSize={105}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.6}
         onEndReached={() => void notifications.fetchNextPage()}
-        onRefresh={() => void handleRefresh()}
-        refreshing={refreshing}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+            tintColor={tintColor}
+          />
+        }
         ListFooterComponent={
           notifications.isFetching ? (
             <View className="w-full items-center py-4">

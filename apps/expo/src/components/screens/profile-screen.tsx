@@ -1,5 +1,11 @@
 import { useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Alert, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  RefreshControl,
+  Text,
+  View,
+} from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -126,7 +132,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(() =>
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(() =>
     Promise.all([timeline.refetch(), profile.refetch()]),
   );
 
@@ -255,10 +261,15 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
             )
           }
           stickyHeaderIndices={atTop ? [] : [0]}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.6}
           onEndReached={() => void timeline.fetchNextPage()}
-          onRefresh={() => void handleRefresh()}
-          refreshing={refreshing}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={tintColor}
+            />
+          }
           estimatedItemSize={91}
           onScroll={(evt) => {
             const { contentOffset } = evt.nativeEvent;

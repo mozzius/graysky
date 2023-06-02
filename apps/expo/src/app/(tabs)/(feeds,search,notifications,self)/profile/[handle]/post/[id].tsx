@@ -2,7 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { useRef } from "react";
-import { Text, TouchableNativeFeedback, View } from "react-native";
+import {
+  RefreshControl,
+  Text,
+  TouchableNativeFeedback,
+  View,
+} from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -121,7 +126,9 @@ export default function PostPage() {
     },
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(thread.refetch);
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    thread.refetch,
+  );
 
   useTabPressScroll(ref);
 
@@ -136,9 +143,14 @@ export default function PostPage() {
             ref={ref}
             data={thread.data.posts}
             estimatedItemSize={150}
-            onRefresh={() => void handleRefresh()}
             initialScrollIndex={thread.data.index}
-            refreshing={refreshing}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => void handleRefresh()}
+                tintColor={tintColor}
+              />
+            }
             ListFooterComponent={<View className="h-20" />}
             getItemType={(item) => (item.primary ? "big" : "small")}
             renderItem={({ item, index }) =>

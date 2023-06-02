@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
+  RefreshControl,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -73,7 +74,9 @@ const SearchResults = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(searchResults.refetch);
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    searchResults.refetch,
+  );
 
   useTabPressScroll(ref);
 
@@ -90,8 +93,13 @@ const SearchResults = ({ search }: Props) => {
           ref={ref}
           data={data}
           estimatedItemSize={173}
-          refreshing={refreshing}
-          onRefresh={() => void handleRefresh()}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={tintColor}
+            />
+          }
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
           )}
@@ -120,7 +128,9 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  const { refreshing, handleRefresh } = useUserRefresh(suggestions.refetch);
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    suggestions.refetch,
+  );
 
   useTabPressScroll(ref);
 
@@ -129,8 +139,13 @@ const Suggestions = () => {
       <FlashList
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
-        refreshing={refreshing}
-        onRefresh={() => void handleRefresh()}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+            tintColor={tintColor}
+          />
+        }
         renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
           <SuggestionCard item={item} />
         )}

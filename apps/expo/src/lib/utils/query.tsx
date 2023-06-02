@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useTheme } from "@react-navigation/native";
 
 export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
   const firstTimeRef = useRef(true);
@@ -18,9 +18,27 @@ export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
 
 export function useUserRefresh<T>(refetch: () => Promise<T>) {
   const [refreshing, setRefreshing] = useState(false);
+  const theme = useTheme();
+
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
     return refetch().finally(() => setRefreshing(false));
   }, [refetch]);
-  return { refreshing, handleRefresh };
+
+  // this doesn't work for some reason
+  // const RefreshControlComponent = () => {
+  //   return (
+  //     <RefreshControl
+  //       refreshing={refreshing}
+  //       onRefresh={() => void handleRefresh()}
+  //       tintColor={theme.colors.text}
+  //     />
+  //   );
+  // };
+
+  return {
+    refreshing,
+    handleRefresh,
+    tintColor: theme.dark ? theme.colors.text : theme.colors.border,
+  };
 }
