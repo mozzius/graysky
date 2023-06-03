@@ -4,20 +4,29 @@ import {
   NestableDraggableFlatList,
   NestableScrollContainer,
 } from "react-native-draggable-flatlist";
-import { Image } from "expo-image";
 import { Link, Stack } from "expo-router";
-import { type AppBskyFeedDefs } from "@atproto/api";
-import { ChevronRight, Cloud, Star } from "lucide-react-native";
+import { useTheme } from "@react-navigation/native";
+import { ChevronRight, Cloud, Compass } from "lucide-react-native";
 
-import { Avatar } from "../../../../components/avatar";
 import { ComposeButton } from "../../../../components/compose-button";
-import { useDrawer } from "../../../../components/drawer-content";
+import { DraggableFeedRow } from "../../../../components/feed-row";
+import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useSavedFeeds } from "../../../../lib/hooks";
+import {
+  useReorderFeeds,
+  useToggleFeedPref,
+} from "../../../../lib/hooks/feeds";
 import { cx } from "../../../../lib/utils/cx";
 
-const FeedsPage = () => {
+interface Props {
+  editing: boolean;
+}
+const FeedsPage = ({ editing }: Props) => {
   const savedFeeds = useSavedFeeds();
+
+  const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
+  const { pinned, reorder } = useReorderFeeds(savedFeeds);
 
   if (savedFeeds.data) {
     return (
@@ -42,18 +51,59 @@ const FeedsPage = () => {
         </Link>
         <SectionHeader title="Favourites" />
         <NestableDraggableFlatList
-          data={savedFeeds.data.feeds.filter((feed) => feed.pinned)}
+          data={pinned
+            .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+            .filter(Boolean)}
           keyExtractor={(item) => item.uri}
-          renderItem={({ item }) => <DraggableFeedRow feed={item} />}
-          ItemSeparatorComponent={() => <ItemSeparator iconWidth="w-6" />}
+          onDragEnd={({ data }) => {
+            reorder.mutate(data.map((item) => item.uri));
+          }}
+          renderItem={({ item, drag }) => (
+            <DraggableFeedRow
+              feed={item}
+              onPressStar={() => {
+                toggleFeed.mutate({ pin: item.uri });
+              }}
+              drag={editing ? drag : undefined}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <ItemSeparator iconWidth="w-6" className="pr-4" />
+          )}
         />
         <SectionHeader title="All feeds" />
         <NestableDraggableFlatList
-          data={savedFeeds.data.feeds.filter((feed) => !feed.pinned)}
+          data={savedFeeds.data.feeds
+            .filter((feed) => !feed.pinned)
+            .sort((a, b) => a.displayName.localeCompare(b.displayName))}
           keyExtractor={(item) => item.uri}
-          renderItem={({ item }) => <DraggableFeedRow feed={item} />}
-          ItemSeparatorComponent={() => <ItemSeparator iconWidth="w-6" />}
+          renderItem={({ item }) => (
+            <DraggableFeedRow
+              feed={item}
+              onPressStar={() => {
+                toggleFeed.mutate({ pin: item.uri });
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <ItemSeparator iconWidth="w-6" className="pr-4" />
+          )}
         />
+        <View className="p-6">
+          <Link href="/feeds/discover" asChild>
+            <TouchableHighlight className="overflow-hidden rounded-lg">
+              <View className="flex-row items-center justify-between bg-white p-4 dark:bg-neutral-900">
+                <View className="flex-row items-center">
+                  <Compass size={20} className="text-blue-500" />
+                  <Text className="ml-3 text-base dark:text-white">
+                    Discover more feeds
+                  </Text>
+                </View>
+                <ChevronRight size={20} className="text-neutral-400" />
+              </View>
+            </TouchableHighlight>
+          </Link>
+        </View>
       </NestableScrollContainer>
     );
   }
@@ -62,80 +112,43 @@ const FeedsPage = () => {
 };
 
 export default function Page() {
-  const openDrawer = useDrawer();
+  // const openDrawer = useDrawer();
   const [editing, setEditing] = useState(false);
+  const theme = useTheme();
   return (
     <>
       <Stack.Screen
         options={{
           title: "Feeds",
           headerLargeTitle: true,
-          headerLeft: () => (
-            <TouchableOpacity onPress={openDrawer}>
-              <Avatar size="small" />
-            </TouchableOpacity>
-          ),
+          headerBackTitle: "Feeds",
+          // headerLeft: () => (
+          //   <TouchableOpacity onPress={openDrawer}>
+          //     <Avatar size="small" />
+          //   </TouchableOpacity>
+          // ),
           headerRight: () => (
             <TouchableOpacity onPress={() => setEditing((e) => !e)}>
-              <Text className="dark:text-white text-base font-medium">
+              <Text
+                style={{ color: theme.colors.primary }}
+                className={cx("text-lg", editing && "font-bold")}
+              >
                 {editing ? "Done" : "Edit"}
               </Text>
             </TouchableOpacity>
           ),
         }}
       />
-      <FeedsPage />
+      <FeedsPage editing={editing} />
       <ComposeButton />
     </>
   );
 }
 
 const SectionHeader = ({ title }: { title: string }) => (
-  <View className="px-4 py-1 w-full dark:bg-neutral-900">
+  <View className="w-full px-4 py-1 dark:bg-neutral-900">
     <Text className="font-medium text-neutral-600 dark:text-neutral-400">
       {title.toLocaleUpperCase()}
     </Text>
   </View>
 );
-
-const ItemSeparator = ({ iconWidth }: { iconWidth?: string }) => (
-  <View className="flex-row bg-white px-4 dark:bg-black">
-    {iconWidth && <View className={cx(iconWidth, "mr-3 shrink-0")} />}
-    <View className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800" />
-  </View>
-);
-
-const DraggableFeedRow = ({
-  feed,
-}: {
-  feed: AppBskyFeedDefs.GeneratorView & { pinned: boolean };
-}) => {
-  const href = `/profile/${feed.creator.did}/generator/${feed.uri
-    .split("/")
-    .pop()}`;
-  return (
-    <Link href={href} asChild>
-      <TouchableHighlight>
-        <View className="flex-row items-center bg-white px-4 py-3 dark:bg-black">
-          <Image
-            source={{ uri: feed.avatar }}
-            alt={feed.displayName}
-            className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
-          />
-          <View className="flex-1 px-3">
-            <Text className="text-base dark:text-white">
-              {feed.displayName}
-            </Text>
-          </View>
-          <TouchableOpacity onPress={() => {}}>
-            <Star
-              size={24}
-              className={feed.pinned ? "text-blue-500" : "text-neutral-200"}
-              fill="currentColor"
-            />
-          </TouchableOpacity>
-        </View>
-      </TouchableHighlight>
-    </Link>
-  );
-};

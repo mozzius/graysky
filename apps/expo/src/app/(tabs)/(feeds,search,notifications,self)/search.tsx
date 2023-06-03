@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  RefreshControl,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -23,7 +22,6 @@ import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
 import { cx } from "../../../lib/utils/cx";
-import { useUserRefresh } from "../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -74,10 +72,6 @@ const SearchResults = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    searchResults.refetch,
-  );
-
   useTabPressScroll(ref);
 
   const data = useMemo(() => {
@@ -93,13 +87,6 @@ const SearchResults = ({ search }: Props) => {
           ref={ref}
           data={data}
           estimatedItemSize={173}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => void handleRefresh()}
-              tintColor={tintColor}
-            />
-          }
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
           )}
@@ -128,10 +115,6 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    suggestions.refetch,
-  );
-
   useTabPressScroll(ref);
 
   if (suggestions.data) {
@@ -139,13 +122,6 @@ const Suggestions = () => {
       <FlashList
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-            tintColor={tintColor}
-          />
-        }
         renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
           <SuggestionCard item={item} />
         )}

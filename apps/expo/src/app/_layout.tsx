@@ -139,7 +139,6 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <AgentProvider value={agent}>
-            <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
             <LogOutProvider value={logOut}>
               <ActionSheetProvider>
                 <ListProvider>
@@ -147,10 +146,6 @@ export default function RootLayout() {
                     screenOptions={{
                       headerShown: true,
                       fullScreenGestureEnabled: true,
-                      // headerStyle: {
-                      //   backgroundColor:
-                      //     colorScheme === "light" ? "#fff" : "#000",
-                      // },
                     }}
                   >
                     <Stack.Screen
@@ -216,28 +211,6 @@ export default function RootLayout() {
                         ),
                       }}
                     />
-                    <Stack.Screen
-                      name="algorithms"
-                      options={{
-                        title: "My Feeds",
-                        presentation: "modal",
-                        headerRight: () => (
-                          <TouchableOpacity
-                            onPress={() => {
-                              if (navigation.canGoBack()) {
-                                router.push("../");
-                              } else {
-                                router.push("/feeds/following");
-                              }
-                            }}
-                          >
-                            <Text className="text-base font-bold dark:text-white">
-                              Done
-                            </Text>
-                          </TouchableOpacity>
-                        ),
-                      }}
-                    />
                   </Stack>
                 </ListProvider>
               </ActionSheetProvider>
@@ -245,6 +218,7 @@ export default function RootLayout() {
           </AgentProvider>
         </SafeAreaProvider>
       </QueryClientProvider>
+      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>
   );
 }
