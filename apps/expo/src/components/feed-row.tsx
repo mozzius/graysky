@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 import { ShadowDecorator } from "react-native-draggable-flatlist";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -35,7 +34,7 @@ export const FeedRow = ({ feed, children }: Props) => {
             alt={feed.displayName}
             className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
           />
-          <View className="flex-1 flex-row items-center px-3">
+          <View className="mx-3 flex-1 flex-row items-center">
             <Text className="text-base dark:text-white" numberOfLines={1}>
               {feed.displayName}
             </Text>
@@ -78,12 +77,7 @@ export const DraggableFeedRow = ({
                 {feed.displayName}
               </Text>
             </View>
-            <TouchableOpacity
-              onPress={() => {
-                void Haptics.selectionAsync();
-                onPressStar();
-              }}
-            >
+            <TouchableOpacity onPress={() => onPressStar()}>
               <Star
                 size={20}
                 className={

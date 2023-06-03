@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
-import { Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
@@ -16,7 +15,6 @@ import { useInviteCodes } from "./invite-codes";
 
 interface Props {
   openInviteCodes: () => void;
-  textColor: string;
 }
 
 const DrawerContext = createContext<(() => void) | null>(null);
@@ -30,7 +28,7 @@ export const useDrawer = () => {
   return openDrawer;
 };
 
-export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
+export const DrawerContent = ({ openInviteCodes }: Props) => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
@@ -81,7 +79,7 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={openInviteCodes}
         >
-          <Ticket color={textColor} />
+          <Ticket className="text-black dark:text-white" />
           <Text className="ml-6 text-base font-medium dark:text-white">
             Invite codes{numCodes > 0 && ` (${numCodes})`}
           </Text>
@@ -92,7 +90,7 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
-          <Palette color={textColor} />
+          <Palette className="text-black dark:text-white" />
           <Text className="ml-6 text-base font-medium dark:text-white">
             Change theme
           </Text>
@@ -103,7 +101,7 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
             accessibilityLabel="Settings"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Settings2 color={textColor} />
+            <Settings2 className="text-black dark:text-white" />
             <Text className="ml-6 text-base font-medium dark:text-white">
               Settings
             </Text>
@@ -117,7 +115,7 @@ export const DrawerContent = ({ openInviteCodes, textColor }: Props) => {
         className="w-full flex-row items-center py-2"
         onPress={() => void logOut()}
       >
-        <LogOut color={textColor} />
+        <LogOut className="text-black dark:text-white" />
         <Text className="ml-6 text-base font-medium dark:text-white">
           Sign out
         </Text>

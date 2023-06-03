@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
+import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
@@ -18,6 +19,7 @@ import { Check, ChevronRight, Heart, Plus, Star, X } from "lucide-react-native";
 import { FeedRow } from "../../../../../../components/feed-row";
 import { ItemSeparator } from "../../../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
+import { RichTextWithoutFacets } from "../../../../../../components/rich-text";
 import { FeedScreen } from "../../../../../../components/screens/feed-screen";
 import { useAuthedAgent } from "../../../../../../lib/agent";
 import {
@@ -59,7 +61,7 @@ export default function FeedPage() {
         width: Dimensions.get("window").width * 0.9,
         backgroundColor: theme.colors.background,
       }}
-      swipeEdgeWidth={Dimensions.get("window").width}
+      swipeEdgeWidth={Dimensions.get("window").width * 0.1}
     >
       <FeedScreen feed={feed} />
       <Stack.Screen
@@ -106,6 +108,7 @@ const FeedInfo = ({
 
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
   const toggleLike = useMutation({
+    onMutate: () => void Haptics.impactAsync(),
     mutationFn: async () => {
       if (info.view.viewer?.like) {
         await agent.deleteLike(info.view.viewer.like);
@@ -163,7 +166,7 @@ const FeedInfo = ({
           </View>
           {info.view.description && (
             <Text className="mt-4 text-base dark:text-white">
-              {info.view.description}
+              <RichTextWithoutFacets text={info.view.description} />
             </Text>
           )}
           <View
@@ -250,10 +253,7 @@ const FeedInfo = ({
             <Text className="mb-1 ml-8 mr-4 text-sm uppercase text-neutral-500">
               Creator
             </Text>
-            <Link
-              href={`/profile/${info.view.creator.handle}?tab=feeds`}
-              asChild
-            >
+            <Link href={`/profile/${info.view.creator.handle}`} asChild>
               <TouchableHighlight className="mx-4 overflow-hidden rounded-lg">
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -285,55 +285,61 @@ const FeedInfo = ({
                 </View>
               </TouchableHighlight>
             </Link>
-            <Text
-              className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
-              numberOfLines={1}
-            >
-              More from {info.view.creator.displayName}
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="mx-4 overflow-hidden rounded-lg"
-            >
-              {creator.data.feeds
-                .filter((f) => f.uri !== info.view.uri)
-                .slice(0, 5)
-                .map((feed) => (
-                  <Fragment key={feed.uri}>
-                    <FeedRow feed={feed}>
-                      {savedFeeds.data?.saved.some((f) => f === feed.uri) && (
-                        <Check
-                          className="ml-2"
-                          size={20}
-                          color={theme.colors.primary}
-                        />
-                      )}
-                    </FeedRow>
-                    <ItemSeparator iconWidth="w-6" />
-                  </Fragment>
-                ))}
-              <Link
-                href={`/profile/${info.view.creator.handle}?tab=feeds`}
-                asChild
-              >
-                <TouchableHighlight>
-                  <View
-                    style={{ backgroundColor: theme.colors.card }}
-                    className="flex-row items-center px-4 py-3"
+            {creator.data.feeds.length > 1 && (
+              <>
+                <Text
+                  className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
+                  numberOfLines={1}
+                >
+                  More from {info.view.creator.displayName}
+                </Text>
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="mx-4 overflow-hidden rounded-lg"
+                >
+                  {creator.data.feeds
+                    .filter((f) => f.uri !== info.view.uri)
+                    .slice(0, 5)
+                    .map((feed) => (
+                      <Fragment key={feed.uri}>
+                        <FeedRow feed={feed}>
+                          {savedFeeds.data?.saved.some(
+                            (f) => f === feed.uri,
+                          ) && (
+                            <Check
+                              className="ml-2"
+                              size={20}
+                              color={theme.colors.primary}
+                            />
+                          )}
+                        </FeedRow>
+                        <ItemSeparator iconWidth="w-6" />
+                      </Fragment>
+                    ))}
+                  <Link
+                    href={`/profile/${info.view.creator.handle}?tab=feeds`}
+                    asChild
                   >
-                    <View className="ml-6 flex-1 flex-row items-center px-3">
-                      <Text className="text-base dark:text-white">
-                        View all feeds
-                      </Text>
-                    </View>
-                    <ChevronRight
-                      size={20}
-                      className="text-neutral-400 dark:text-neutral-200"
-                    />
-                  </View>
-                </TouchableHighlight>
-              </Link>
-            </View>
+                    <TouchableHighlight>
+                      <View
+                        style={{ backgroundColor: theme.colors.card }}
+                        className="flex-row items-center px-4 py-3"
+                      >
+                        <View className="ml-6 flex-1 flex-row items-center px-3">
+                          <Text className="text-base dark:text-white">
+                            View all feeds
+                          </Text>
+                        </View>
+                        <ChevronRight
+                          size={20}
+                          className="text-neutral-400 dark:text-neutral-200"
+                        />
+                      </View>
+                    </TouchableHighlight>
+                  </Link>
+                </View>
+              </>
+            )}
           </View>
         ) : (
           <QueryWithoutData query={creator} />

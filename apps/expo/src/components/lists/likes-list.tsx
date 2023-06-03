@@ -17,12 +17,14 @@ const useLikes = (post?: string) => {
         cursor: pageParam as string | undefined,
       });
       if (!followers.success) throw new Error("Could not fetch follows");
+
       return {
         people: followers.data.likes.map((like) => like.actor),
         cursor: followers.data.cursor,
       };
     },
     enabled: !!post,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };
 
@@ -34,7 +36,8 @@ export const LikesList = forwardRef<LikesListRef>((_, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [post, setPost] = useState<string | undefined>();
   const [limit, setLimit] = useState<number | undefined>();
-  const followers = useLikes(post);
+
+  const likes = useLikes(post);
 
   useImperativeHandle(ref, () => ({
     open: (post, limit) => {
@@ -44,14 +47,6 @@ export const LikesList = forwardRef<LikesListRef>((_, ref) => {
     },
   }));
 
-  return (
-    <PeopleList
-      title="Likes"
-      ref={listRef}
-      data={followers}
-      onClose={() => setPost(undefined)}
-      limit={limit}
-    />
-  );
+  return <PeopleList title="Likes" ref={listRef} data={likes} limit={limit} />;
 });
 LikesList.displayName = "LikesList";

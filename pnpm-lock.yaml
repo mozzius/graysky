@@ -44,8 +44,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(react@18.2.0)
       '@gorhom/bottom-sheet':
-        specifier: ^4.4.6
-        version: 4.4.6(@types/react@18.0.27)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
+        specifier: 4.4.5
+        version: 4.4.5(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
       '@react-native-async-storage/async-storage':
         specifier: 1.17.11
         version: 1.17.11(react-native@0.71.8)
@@ -79,6 +79,9 @@ importers:
       expo:
         specifier: ^48.0.19
         version: 48.0.19(@babel/core@7.21.4)
+      expo-blur:
+        specifier: ^12.2.2
+        version: 12.2.2(expo@48.0.19)
       expo-build-properties:
         specifier: ~0.6.0
         version: 0.6.0(expo@48.0.19)
@@ -2204,23 +2207,15 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: false
 
-  /@gorhom/bottom-sheet@4.4.6(@types/react@18.0.27)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):
-    resolution: {integrity: sha512-okqJPtFQjfqPZdh6wGDzQKkMevG1IfplQeoWY0VqOFCp3E0p7WHNeW41voK7KXXCVTQaGXibPfd9GNGjXgFNyg==}
+  /@gorhom/bottom-sheet@4.4.5(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-Z5Z20wshLUB8lIdtMKoJaRnjd64wBR/q8EeVPThrg+skrcBwBPHfUwZJ2srB0rEszA/01ejSJy/ixyd7Ra7vUA==}
     peerDependencies:
-      '@types/react': '*'
-      '@types/react-native': '*'
       react: '*'
       react-native: '*'
       react-native-gesture-handler: '>=1.10.1'
       react-native-reanimated: '>=2.2.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-native':
-        optional: true
     dependencies:
       '@gorhom/portal': 1.0.14(react-native@0.71.8)(react@18.2.0)
-      '@types/react': 18.0.27
       invariant: 2.2.4
       react: 18.2.0
       react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
@@ -5480,6 +5475,14 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-blur@12.2.2(expo@48.0.19):
+    resolution: {integrity: sha512-SvGbEZbB0VFNGqCW7FcqzWOEb3lrRgBnQKGrsKo49KwhMyHTYjYVYWnmrk9l8Tr7lIaNnd55QD6dPAzcXjZYMg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.19(@babel/core@7.21.4)
     dev: false
 
   /expo-build-properties@0.6.0(expo@48.0.19):

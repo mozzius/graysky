@@ -1,7 +1,5 @@
-import { View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
-import { StyledComponent } from "nativewind";
 
 import { cx } from "../../lib/utils/cx";
 
@@ -25,12 +23,9 @@ export const NotificationItem = ({
   const wrapper = (children: React.ReactNode) =>
     href ? (
       <Link href={href} asChild accessibilityHint="Opens post">
-        <StyledComponent
-          component={TouchableWithoutFeedback}
-          className={className}
-        >
+        <TouchableWithoutFeedback className={className}>
           {children}
-        </StyledComponent>
+        </TouchableWithoutFeedback>
       </Link>
     ) : (
       <View className={className}>{children}</View>

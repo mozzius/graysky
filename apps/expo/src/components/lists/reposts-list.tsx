@@ -23,6 +23,7 @@ const useReposts = (post?: string) => {
       };
     },
     enabled: !!post,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };
 
@@ -49,7 +50,6 @@ export const RepostsList = forwardRef<RepostsListRef>((_, ref) => {
       title="Reposted by"
       ref={listRef}
       data={reposters}
-      onClose={() => setPost(undefined)}
       limit={limit}
     />
   );

@@ -14,12 +14,12 @@ import {
   Alert,
   Keyboard,
   Platform,
+  ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import Animated, {
   Easing,
   useAnimatedStyle,

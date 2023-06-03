@@ -50,7 +50,6 @@ export const FollowersList = forwardRef<FollowersListRef>((_, ref) => {
       title="Followers"
       ref={listRef}
       data={followers}
-      onClose={() => setActor(undefined)}
       limit={limit}
     />
   );

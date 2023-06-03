@@ -1,6 +1,18 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
 import BottomSheet, {
@@ -21,7 +33,7 @@ export interface InviteCodesRef {
   open: () => void;
 }
 
-export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
+const InviteCodesSheet = forwardRef<InviteCodesRef>((_, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { top } = useSafeAreaInsets();
 
@@ -34,11 +46,11 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
     },
   }));
 
-  const handleSheetChanges = (index: number) => {
+  const handleSheetChanges = useCallback((index: number) => {
     if (index === 0) {
       bottomSheetRef.current?.close();
     }
-  };
+  }, []);
 
   const {
     backgroundStyle,
@@ -99,7 +111,9 @@ export const InviteCodes = forwardRef<InviteCodesRef>((_, ref) => {
     </BottomSheet>
   );
 });
-InviteCodes.displayName = "InviteCodes";
+InviteCodesSheet.displayName = "InviteCodes";
+
+export const InviteCodes = memo(InviteCodesSheet);
 
 const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
   const [copied, setCopied] = useState(false);

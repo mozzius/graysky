@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 import { ChevronRight, type LucideIcon } from "lucide-react-native";
 
 import { cx } from "../lib/utils/cx";
@@ -6,25 +7,27 @@ import { cx } from "../lib/utils/cx";
 interface Props {
   icon?: LucideIcon;
   children?: React.ReactNode;
-  className?: string;
   chevron?: boolean;
+  action?: React.ReactNode;
 }
 
-export const SettingsRow = ({ children, className, icon, chevron }: Props) => {
+export const SettingsRow = ({ children, icon, chevron, action }: Props) => {
   const Icon = icon;
+  const theme = useTheme();
   return (
     <View
-      className={cx(
-        (className =
-          "w-full flex-row items-center border-b border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-black"),
-        className,
-      )}
+      style={{ backgroundColor: theme.colors.card }}
+      className="flex-row items-center px-4 py-3"
     >
-      {Icon && <Icon size={24} className="text-black dark:text-white" />}
-      <View className="mx-4 flex-1">{children}</View>
+      {Icon && <Icon size={24} color={theme.colors.primary} />}
+      <View className={cx("mr-3 flex-1", icon && "ml-3")}>{children}</View>
       {chevron && (
-        <ChevronRight size={24} className="text-black dark:text-white" />
+        <ChevronRight
+          size={20}
+          className="text-neutral-400 dark:text-neutral-200"
+        />
       )}
+      {action}
     </View>
   );
 };

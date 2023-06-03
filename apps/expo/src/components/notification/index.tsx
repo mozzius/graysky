@@ -1,5 +1,4 @@
-import { Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";

@@ -1,6 +1,5 @@
 import { Fragment } from "react";
-import { View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -41,7 +40,7 @@ const RecommendedFeeds = () => {
 
   if (recommended.data) {
     return (
-      <ScrollView className="flex-1 px-8">
+      <ScrollView className="flex-1 px-6">
         <View
           style={{ backgroundColor: theme.colors.card }}
           className="my-8 overflow-hidden rounded-lg"

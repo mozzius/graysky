@@ -1,8 +1,10 @@
-import { Linking, Text, View } from "react-native";
 import {
+  Linking,
+  Text,
+  TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+  View,
+} from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
@@ -65,7 +67,7 @@ export const Embed = ({
         >
           {content.external.thumb && (
             <Image
-              key={content.external.thumb}
+              recyclingKey={content.external.thumb}
               source={{ uri: content.external.thumb }}
               alt={content.external.title || content.external.uri}
               className="aspect-[2/1] w-full object-cover"
@@ -139,7 +141,7 @@ export const Embed = ({
                   <Image
                     alt={record.displayName}
                     source={{ uri: record.avatar }}
-                    className="h-14 w-14 rounded"
+                    className="h-14 w-14 rounded bg-blue-500"
                   />
                   <View className="ml-2">
                     <Text className="text-lg font-medium">
@@ -223,12 +225,15 @@ export const PostEmbed = ({
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
 
   return (
-    <View className="mt-1.5 flex-1 rounded-lg border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-800">
-      <Link href={postHref} asChild>
-        <TouchableWithoutFeedback accessibilityHint="Opens embedded post">
+    <Link href={postHref} asChild>
+      <TouchableHighlight
+        accessibilityHint="Opens embedded post"
+        className="mt-1.5 flex-1 rounded-lg"
+      >
+        <View className="flex-1 rounded-lg border border-neutral-300 bg-white px-2 pb-2 pt-1 dark:border-neutral-800 dark:bg-black">
           <View className="flex flex-row items-center overflow-hidden">
             <Image
-              key={author.avatar}
+              recyclingKey={author.avatar}
               source={{ uri: author.avatar }}
               alt={author.displayName}
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
@@ -241,8 +246,8 @@ export const PostEmbed = ({
             </Text>
           </View>
           {children}
-        </TouchableWithoutFeedback>
-      </Link>
-    </View>
+        </View>
+      </TouchableHighlight>
+    </Link>
   );
 };

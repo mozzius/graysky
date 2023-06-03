@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
-  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
   Text,
-  View,
-} from "react-native";
-import {
   TouchableOpacity,
   TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+  View,
+} from "react-native";
 import { Image } from "expo-image";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -24,7 +21,6 @@ import {
 } from "lucide-react-native";
 import { z } from "zod";
 
-// import { type Posts } from "../app/(tabs)/(skyline,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAuthedAgent } from "../lib/agent";
 import {
   useHandleRepost,
@@ -74,7 +70,6 @@ export const FeedPost = ({
     toggleRepost.mutate,
   );
   const handleMore = usePostViewOptions(item.post);
-  const router = useRouter();
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
@@ -161,7 +156,7 @@ export const FeedPost = ({
         >
           <View>
             <Link href={profileHref} asChild>
-              <TouchableWithoutFeedback>
+              <TouchableOpacity>
                 {item.post.author.avatar ? (
                   <Image
                     recyclingKey={item.post.author.did}
@@ -174,7 +169,7 @@ export const FeedPost = ({
                     <User size={32} color={buttonColor} />
                   </View>
                 )}
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </Link>
           </View>
           <View className="flex-1">
@@ -203,34 +198,38 @@ export const FeedPost = ({
               accessibilityHint="Opens profile"
               asChild
             >
-              <TouchableWithoutFeedback
-                className={I18nManager.isRTL ? "flex-row-reverse" : "flex-row"}
-              >
-                <Text
-                  numberOfLines={1}
-                  className={cx(
-                    "max-w-full text-base",
-                    I18nManager.isRTL ? "pl-20" : "pr-20",
-                  )}
+              <TouchableWithoutFeedback>
+                <View
+                  className={
+                    I18nManager.isRTL ? "flex-row-reverse" : "flex-row"
+                  }
                 >
-                  <Text className="font-semibold dark:text-white">
-                    {postAuthorDisplayName}
+                  <Text
+                    numberOfLines={1}
+                    className={cx(
+                      "max-w-full text-base",
+                      I18nManager.isRTL ? "pl-16" : "pr-16",
+                    )}
+                  >
+                    <Text className="font-semibold dark:text-white">
+                      {postAuthorDisplayName}
+                    </Text>
+                    <Text className="text-neutral-500 dark:text-neutral-400">
+                      {` @${postAuthorHandle}`}
+                    </Text>
                   </Text>
-                  <Text className="text-neutral-500 dark:text-neutral-400">
-                    {` @${postAuthorHandle}`}
+                  {/* get age of post - e.g. 5m */}
+                  <Text
+                    className={cx(
+                      "relative ml-1 text-base text-neutral-500 dark:text-neutral-400",
+                      I18nManager.isRTL ? "-right-16" : "-left-16",
+                    )}
+                  >
+                    {!I18nManager.isRTL && " · "}
+                    {timeSincePost.visible}
+                    {I18nManager.isRTL && " · "}
                   </Text>
-                </Text>
-                {/* get age of post - e.g. 5m */}
-                <Text
-                  className={cx(
-                    "relative ml-1 text-base text-neutral-500 dark:text-neutral-400",
-                    I18nManager.isRTL ? "-right-20" : "-left-20",
-                  )}
-                >
-                  {!I18nManager.isRTL && " · "}
-                  {timeSincePost.visible}
-                  {I18nManager.isRTL && " · "}
-                </Text>
+                </View>
               </TouchableWithoutFeedback>
             </Link>
           </View>
@@ -260,16 +259,18 @@ export const FeedPost = ({
                         asChild
                         accessibilityHint="Opens parent post"
                       >
-                        <TouchableWithoutFeedback className="flex-row items-center">
-                          <MessageCircle size={12} color="#737373" />
-                          <Text
-                            className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
-                            numberOfLines={1}
-                          >
-                            replying to{" "}
-                            {parse.data.author.displayName ??
-                              `@${parse.data.author.handle}`}
-                          </Text>
+                        <TouchableWithoutFeedback>
+                          <View className="flex-row items-center">
+                            <MessageCircle size={12} color="#737373" />
+                            <Text
+                              className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+                              numberOfLines={1}
+                            >
+                              replying to{" "}
+                              {parse.data.author.displayName ??
+                                `@${parse.data.author.handle}`}
+                            </Text>
+                          </View>
                         </TouchableWithoutFeedback>
                       </Link>
                     );
@@ -279,13 +280,11 @@ export const FeedPost = ({
                   <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
                 ))}
           {/* text content */}
-          {item.post.record.text &&
-            /* bug - can't press links that are children of a gesture handler component */
-            (item.post.record.facets?.length ? (
-              <RNTouchableWithoutFeedback
+          {item.post.record.text && (
+            <Link href={postHref} asChild>
+              <TouchableWithoutFeedback
                 className="my-0.5"
                 accessibilityHint="Opens post details"
-                onPress={() => router.push(postHref)}
               >
                 <View>
                   <RichText
@@ -293,15 +292,9 @@ export const FeedPost = ({
                     facets={item.post.record.facets}
                   />
                 </View>
-              </RNTouchableWithoutFeedback>
-            ) : (
-              <TouchableWithoutFeedback
-                className="my-0.5"
-                onPress={() => router.push(postHref)}
-              >
-                <RichText text={item.post.record.text} />
               </TouchableWithoutFeedback>
-            ))}
+            </Link>
+          )}
           {/* embeds */}
           {item.post.embed && (
             <Embed uri={item.post.uri} content={item.post.embed} />
@@ -400,7 +393,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
         asChild
         accessibilityHint="Opens profile"
       >
-        <TouchableOpacity>
+        <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
             <Repeat color={buttonColor} size={12} />
             <Text
@@ -410,7 +403,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
               Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </Link>
     </View>
   );
@@ -450,14 +443,16 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       asChild
       accessibilityHint="Opens parent post"
     >
-      <TouchableWithoutFeedback className="flex-row items-center">
-        <MessageCircle size={12} color={circleColor} />
-        <Text
-          className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
-          numberOfLines={1}
-        >
-          replying to {data.author.displayName ?? `@${data.author.handle}`}
-        </Text>
+      <TouchableWithoutFeedback>
+        <View className="flex-row items-center">
+          <MessageCircle size={12} color={circleColor} />
+          <Text
+            className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+            numberOfLines={1}
+          >
+            replying to {data.author.displayName ?? `@${data.author.handle}`}
+          </Text>
+        </View>
       </TouchableWithoutFeedback>
     </Link>
   );

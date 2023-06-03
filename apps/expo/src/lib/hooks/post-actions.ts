@@ -30,9 +30,9 @@ export const useLike = (
   const [likeUri, setLikeUri] = useState(post.viewer?.like);
 
   const toggleLike = useMutation({
+    onMutate: () => void Haptics.impactAsync(),
     mutationKey: ["like", post.uri],
     mutationFn: async () => {
-      void Haptics.impactAsync();
       if (!likeUri) {
         try {
           setLiked(true);
@@ -84,9 +84,9 @@ export const useRepost = (
   const [repostUri, setRepostUri] = useState(post.viewer?.repost);
 
   const toggleRepost = useMutation({
+    onMutate: () => void Haptics.impactAsync(),
     mutationKey: ["repost", post.uri],
     mutationFn: async () => {
-      void Haptics.impactAsync();
       if (!repostUri) {
         try {
           setReposted(true);
@@ -136,6 +136,7 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
   const queryClient = useQueryClient();
 
   const handleMore = () => {
+    void Haptics.impactAsync();
     const options =
       post.author.handle === agent.session.handle
         ? [
@@ -179,31 +180,11 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             await Clipboard.setStringAsync(post.record.text);
             break;
           case "Share post":
-            const shareOptions = [
-              "Share bsky.app link",
-              "Share external (psky.app) link",
-              "Cancel",
-            ];
-            showActionSheetWithOptions(
-              {
-                options: shareOptions,
-                cancelButtonIndex: shareOptions.length - 1,
-                userInterfaceStyle: colorScheme,
-              },
-              async (index) => {
-                if (index === undefined) return;
-                const reason = shareOptions[index];
-                if (!reason || reason === "Cancel") return;
-
-                await Share.share({
-                  message: `https://${
-                    reason.includes("psky") ? "p" : "b"
-                  }sky.app/profile/${post.author.handle}/post/${post.uri
-                    .split("/")
-                    .pop()}`,
-                });
-              },
-            );
+            await Share.share({
+              message: `https://bsky.app/profile/${
+                post.author.handle
+              }/post/${post.uri.split("/").pop()}`,
+            });
             break;
           case "See likes":
             openLikes(post.uri);

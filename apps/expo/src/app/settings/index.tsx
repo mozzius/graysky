@@ -1,9 +1,7 @@
-import { ScrollView, Text, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Text } from "react-native";
 import { Ban, Smartphone, User } from "lucide-react-native";
 
-import { SettingsRow } from "../../components/settings-row";
+import { SettingsList } from "./_layout";
 
 const options = [
   {
@@ -12,8 +10,8 @@ const options = [
     icon: User,
   },
   {
-    title: "Content Moderation",
-    href: "/settings/content-moderation",
+    title: "Moderation",
+    href: "/settings/moderation",
     icon: Ban,
   },
   {
@@ -25,25 +23,10 @@ const options = [
 export default function SettingsPage() {
   return (
     <>
-      <StatusBar style="light" />
-      <Text className="p-4 py-4 text-center text-2xl font-bold">
-        WIP - not all of these work
+      <Text className="p-4 pt-4 text-center text-2xl font-bold dark:text-white">
+        WIP - not much to see here yet
       </Text>
-      <ScrollView className="flex-1">
-        {options.map((option) => {
-          return (
-            <Link asChild href={option.href} key={option.title}>
-              <TouchableOpacity>
-                <SettingsRow icon={option.icon} chevron>
-                  <Text className="text-base dark:text-white">
-                    {option.title}
-                  </Text>
-                </SettingsRow>
-              </TouchableOpacity>
-            </Link>
-          );
-        })}
-      </ScrollView>
+      <SettingsList options={options} />
     </>
   );
 }

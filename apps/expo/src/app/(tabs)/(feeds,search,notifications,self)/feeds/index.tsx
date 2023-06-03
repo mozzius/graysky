@@ -68,7 +68,7 @@ const FeedsPage = ({ editing }: Props) => {
             />
           )}
           ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" className="pr-4" />
+            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
           )}
         />
         <SectionHeader title="All feeds" />
@@ -86,10 +86,10 @@ const FeedsPage = ({ editing }: Props) => {
             />
           )}
           ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" className="pr-4" />
+            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
           )}
         />
-        <View className="p-6">
+        <View className="mb-20 p-6">
           <Link href="/feeds/discover" asChild>
             <TouchableHighlight className="overflow-hidden rounded-lg">
               <View className="flex-row items-center justify-between bg-white p-4 dark:bg-neutral-900">
@@ -123,7 +123,7 @@ export default function Page() {
           headerLargeTitle: true,
           headerBackTitle: "Feeds",
           // headerLeft: () => (
-          //   <TouchableOpacity onPress={openDrawer}>
+          //   <TouchableOpacity onPress={openDrawer} className="mr-3">
           //     <Avatar size="small" />
           //   </TouchableOpacity>
           // ),
@@ -131,7 +131,7 @@ export default function Page() {
             <TouchableOpacity onPress={() => setEditing((e) => !e)}>
               <Text
                 style={{ color: theme.colors.primary }}
-                className={cx("text-lg", editing && "font-bold")}
+                className={cx("text-lg", editing && "font-medium")}
               >
                 {editing ? "Done" : "Edit"}
               </Text>

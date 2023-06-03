@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { ActivityIndicator, RefreshControl, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Stack } from "expo-router";
 import { type AppBskyNotificationListNotifications } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -152,7 +156,7 @@ export default function Page() {
         options={{
           title: "Notifications",
           headerLeft: () => (
-            <TouchableOpacity onPress={openDrawer}>
+            <TouchableOpacity onPress={openDrawer} className="mr-3">
               <Avatar size="small" />
             </TouchableOpacity>
           ),

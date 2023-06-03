@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TouchableWithoutFeedback, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
@@ -58,7 +57,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
           {content.images.map((image, i) => (
             <View
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
-              key={image.thumb}
+              key={image.fullsize}
             >
               <Link href={`${href}?initial=${i}`} asChild>
                 <TouchableWithoutFeedback accessibilityRole="image">

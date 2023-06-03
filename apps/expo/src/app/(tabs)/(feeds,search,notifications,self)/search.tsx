@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
+  Platform,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -33,11 +34,13 @@ export default function SearchPage() {
       <Stack.Screen
         options={{
           title: "Search",
-          headerLeft: () => (
-            <TouchableOpacity onPress={openDrawer}>
-              <Avatar size="small" />
-            </TouchableOpacity>
-          ),
+          headerLeft: Platform.select({
+            ios: () => (
+              <TouchableOpacity onPress={openDrawer} className="mr-3">
+                <Avatar size="small" />
+              </TouchableOpacity>
+            ),
+          }),
           headerSearchBarOptions: {
             placeholder: "Search",
             onChangeText: (evt) => setSearch(evt.nativeEvent.text),
@@ -53,8 +56,7 @@ interface Props {
   search: string;
 }
 const SearchResults = ({ search }: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
+  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
   const agent = useAuthedAgent();
 
   const searchResults = useInfiniteQuery({
@@ -82,10 +84,11 @@ const SearchResults = ({ search }: Props) => {
   if (searchResults.data) {
     return (
       <View className="flex-1 dark:bg-black">
-        <FlashList
+        <FlashList<AppBskyActorDefs.ProfileView>
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}
+          keyExtractor={(item) => item.did}
           estimatedItemSize={173}
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
@@ -119,12 +122,11 @@ const Suggestions = () => {
 
   if (suggestions.data) {
     return (
-      <FlashList
+      <FlashList<AppBskyActorDefs.ProfileView>
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
-        renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
-          <SuggestionCard item={item} />
-        )}
+        keyExtractor={(item) => item.did}
+        renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
             In your network

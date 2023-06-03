@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions, type ColorValue } from "react-native";
+import { Dimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -21,33 +21,8 @@ export default function AppLayout() {
   const agent = useAuthedAgent();
   const [open, setOpen] = useState(false);
   const inviteRef = useRef<InviteCodesRef>(null);
-  const { colorScheme, setColorScheme } = useColorScheme();
-  const textColor = colorScheme === "light" ? "#000" : "#FFF";
+  const { setColorScheme } = useColorScheme();
 
-  const tabBarIconColors =
-    colorScheme === "light"
-      ? {
-          color: {
-            focused: "#1C1C1C",
-            unfocused: "#9b9b9b",
-          },
-          fill: {
-            focused: "#1C1C1C",
-            unfocused: undefined,
-          },
-        }
-      : {
-          color: {
-            focused: "#fff",
-            unfocused: "#fff",
-          },
-          fill: {
-            focused: "#fff",
-            unfocused: undefined,
-          },
-        };
-  const tabBarBadgeColor: ColorValue =
-    colorScheme === "light" ? "#262626" : "#FFF";
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
@@ -58,13 +33,8 @@ export default function AppLayout() {
   });
 
   const renderDrawerContent = useCallback(
-    () => (
-      <DrawerContent
-        openInviteCodes={() => inviteRef.current?.open()}
-        textColor={textColor}
-      />
-    ),
-    [textColor],
+    () => <DrawerContent openInviteCodes={() => inviteRef.current?.open()} />,
+    [],
   );
 
   useEffect(() => {
@@ -84,15 +54,6 @@ export default function AppLayout() {
   const openDrawer = useCallback(() => setOpen(true), []);
   const theme = useTheme();
   const segments = useSegments();
-
-  const iconProps = (focused: boolean) => ({
-    color: focused
-      ? tabBarIconColors.color.focused
-      : tabBarIconColors.color.unfocused,
-    fill: focused
-      ? tabBarIconColors.fill.focused
-      : tabBarIconColors.fill.unfocused,
-  });
 
   return (
     <DrawerProvider value={openDrawer}>
@@ -114,13 +75,12 @@ export default function AppLayout() {
           width: Dimensions.get("window").width * 0.8,
           backgroundColor: theme.colors.card,
         }}
-        swipeEdgeWidth={Dimensions.get("window").width * 0.1}
+        swipeEdgeWidth={Dimensions.get("window").width}
         swipeEnabled={segments.length === 3}
       >
         <Tabs
           screenOptions={{
             headerShown: false,
-            tabBarShowLabel: false,
             // Would be nice - need to fix composer
             // tabBarStyle: {
             //   position: "absolute",
@@ -132,8 +92,8 @@ export default function AppLayout() {
             name="(feeds)"
             options={{
               title: "Feeds",
-              tabBarIcon({ focused }) {
-                return <Cloudy {...iconProps(focused)} />;
+              tabBarIcon({ color }) {
+                return <Cloudy color={color} />;
               },
             }}
           />
@@ -141,8 +101,8 @@ export default function AppLayout() {
             name="(search)"
             options={{
               title: "Search",
-              tabBarIcon({ focused }) {
-                return <Search {...iconProps(focused)} />;
+              tabBarIcon({ color }) {
+                return <Search color={color} />;
               },
             }}
           />
@@ -156,11 +116,10 @@ export default function AppLayout() {
               }`,
               tabBarBadge: notifications.data?.data?.count || undefined,
               tabBarBadgeStyle: {
-                backgroundColor: tabBarBadgeColor,
-                fontSize: 12,
+                backgroundColor: theme.colors.primary,
               },
-              tabBarIcon({ focused }) {
-                return <Bell {...iconProps(focused)} />;
+              tabBarIcon({ color }) {
+                return <Bell color={color} />;
               },
             }}
           />
@@ -168,8 +127,8 @@ export default function AppLayout() {
             name="(self)"
             options={{
               title: "Profile",
-              tabBarIcon({ focused }) {
-                return <User {...iconProps(focused)} />;
+              tabBarIcon({ color }) {
+                return <User color={color} />;
               },
             }}
           />

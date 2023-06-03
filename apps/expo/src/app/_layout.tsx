@@ -153,40 +153,10 @@ export default function RootLayout() {
                       options={{ title: "Log in" }}
                     />
                     <Stack.Screen
-                      name="settings/index"
+                      name="settings"
                       options={{
-                        title: "Settings",
-                        animation: "slide_from_bottom",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings/account/index"
-                      options={{
-                        title: "Account Settings",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings/account/edit-bio"
-                      options={{
-                        title: "Edit Profile",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings/account/change-handle"
-                      options={{
-                        title: "Change Handle",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings/content-moderation"
-                      options={{
-                        title: "Content Moderation",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings/app"
-                      options={{
-                        title: "App Settings",
+                        headerShown: false,
+                        presentation: "modal",
                       }}
                     />
                     <Stack.Screen
@@ -200,11 +170,14 @@ export default function RootLayout() {
                               if (navigation.canGoBack()) {
                                 router.push("../");
                               } else {
-                                router.push("/feeds/following");
+                                router.push("/feeds");
                               }
                             }}
                           >
-                            <Text className="text-base font-bold dark:text-white">
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="font-medium text-lg"
+                            >
                               Done
                             </Text>
                           </TouchableOpacity>

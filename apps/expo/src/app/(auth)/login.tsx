@@ -48,7 +48,7 @@ export default function Login() {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View className="flex-1 bg-white px-4 dark:bg-black">
+    <View className="flex-1 bg-white p-4 dark:bg-black">
       <View className="items-stretch gap-4">
         <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <User size={18} color="rgb(163 163 163)" />
@@ -61,6 +61,12 @@ export default function Login() {
             placeholderTextColor={
               colorScheme === "dark" ? "rgb(62,62,62)" : undefined
             }
+            onBlur={() => {
+              let fixed = identifier;
+              if (identifier.startsWith("@")) fixed = identifier.slice(1);
+              if (!identifier.includes(".")) fixed = `${fixed}.bsky.social`;
+              setIdentifier(fixed);
+            }}
           />
         </View>
         <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">

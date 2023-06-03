@@ -97,7 +97,6 @@ const SkylinePage = () => {
       />
       <TabView
         lazy
-        key={colorScheme}
         renderTabBar={renderTabBar}
         navigationState={{
           index,
@@ -177,7 +176,7 @@ export default function Page() {
           title: "Skyline",
           headerTransparent: true,
           headerLeft: () => (
-            <TouchableOpacity onPress={openDrawer}>
+            <TouchableOpacity onPress={openDrawer} className="mr-3">
               <Avatar size="small" />
             </TouchableOpacity>
           ),

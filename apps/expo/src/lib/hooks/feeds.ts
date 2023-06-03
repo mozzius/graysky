@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import * as Haptics from "expo-haptics";
 import {
   AppBskyActorDefs,
   AppBskyFeedDefs,
@@ -87,6 +88,7 @@ export const useToggleFeedPref = (
   const agent = useAuthedAgent();
 
   return useMutation({
+    onMutate: () => void Haptics.impactAsync(),
     mutationFn: async ({ save, pin }: { save?: string; pin?: string }) => {
       if (!preferences) return;
       if (!save && !pin) throw new Error("Must provide save or pin");
@@ -128,7 +130,7 @@ export const useReorderFeeds = (
   const agent = useAuthedAgent();
   const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
 
-  const stringified = (savedFeeds.data?.pinned ?? []).sort().toString();
+  const stringified = (savedFeeds.data?.pinned ?? []).toString();
 
   useEffect(() => {
     if (savedFeeds.data?.pinned) setPinned(savedFeeds.data.pinned);

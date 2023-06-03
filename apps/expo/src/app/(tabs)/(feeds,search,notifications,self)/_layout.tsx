@@ -7,11 +7,7 @@ export default function SubStack() {
     <ComposerProvider>
       <Stack
         screenOptions={{
-          headerShown: true,
           fullScreenGestureEnabled: true,
-          // headerStyle: {
-          //   backgroundColor: colorScheme === "light" ? "#fff" : "#000",
-          // },
         }}
       />
     </ComposerProvider>

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import { useRef } from "react";
 import {
   RefreshControl,
@@ -37,8 +34,7 @@ export default function PostPage() {
   };
 
   const agent = useAuthedAgent();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
+  const ref = useRef<FlashList<Posts>>(null);
 
   const thread = useQuery({
     queryKey: ["profile", handle, "post", id],
@@ -139,9 +135,10 @@ export default function PostPage() {
       <Stack.Screen options={{ headerTitle: "Post" }} />
       {thread.data ? (
         <>
-          <FlashList
+          <FlashList<Posts>
             ref={ref}
             data={thread.data.posts}
+            keyExtractor={(item) => item.post.uri}
             estimatedItemSize={150}
             initialScrollIndex={thread.data.index}
             refreshControl={

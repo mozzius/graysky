@@ -1,18 +1,5 @@
-import {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  RefreshControl,
-  Text,
-  View,
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -20,12 +7,14 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
-  BottomSheetView,
+  TouchableHighlight,
 } from "@gorhom/bottom-sheet";
+import { useTheme } from "@react-navigation/native";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "../../lib/bottom-sheet";
-import { useUserRefresh } from "../../lib/utils/query";
+import { ItemSeparator } from "../item-separator";
+import { QueryWithoutData } from "../query-without-data";
 
 type PeopleListResponse = {
   people: AppBskyActorDefs.ProfileView[];
@@ -39,12 +28,12 @@ export interface PeopleListRef {
 interface Props {
   title: string;
   data: UseInfiniteQueryResult<PeopleListResponse, unknown>;
-  onClose: () => void;
+
   limit?: number;
 }
 
 export const PeopleList = forwardRef<PeopleListRef, Props>(
-  ({ title, data, onClose, limit }, ref) => {
+  ({ title, data, limit }, ref) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const { top } = useSafeAreaInsets();
     const [showAll, setShowAll] = useState(false);
@@ -63,10 +52,6 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       }
     };
 
-    const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-      data.refetch,
-    );
-
     const {
       backgroundStyle,
       handleStyle,
@@ -74,10 +59,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       contentContainerStyle,
     } = useBottomSheetStyles();
 
-    const people = useMemo(() => {
-      if (!data.data) return [];
-      return data.data.pages.flatMap((x) => x.people);
-    }, [data.data]);
+    const people = data.data?.pages.flatMap((x) => x.people) ?? [];
 
     return (
       <BottomSheet
@@ -90,67 +72,58 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
-        onClose={onClose}
       >
-        <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
-          <Text className="mt-2 text-center text-xl font-medium dark:text-white">
-            {title}
-          </Text>
-          {data.data ? (
-            <View className="mt-4 flex-1 dark:bg-black">
-              <BottomSheetFlatList
-                style={contentContainerStyle}
-                data={people.slice(0, showAll ? undefined : limit)}
-                renderItem={({ item }) => (
-                  <PersonRow
-                    person={item}
-                    onPress={() => bottomSheetRef.current?.close()}
-                  />
-                )}
-                keyExtractor={(item) => item.did}
-                ItemSeparatorComponent={() => (
-                  <View className="mx-4 h-px bg-neutral-200 dark:bg-neutral-600" />
-                )}
-                ListFooterComponent={() => (
-                  <View className="h-24 w-full items-center justify-center px-4">
-                    {limit && !showAll && people.length > limit && (
-                      <TouchableOpacity onPress={() => setShowAll(true)}>
-                        <Text className="text-center text-neutral-500 dark:bg-neutral-600">
-                          {data.hasNextPage
-                            ? "Show all"
-                            : `Show ${people.length - limit} more`}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                )}
-                ListEmptyComponent={() => (
-                  <View className="flex-1 items-center justify-center">
-                    <Text className="text-center text-neutral-500 dark:bg-neutral-600">
-                      There&apos;s nothing here...
-                    </Text>
-                  </View>
-                )}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={() => void handleRefresh()}
-                    tintColor={tintColor}
-                  />
+        <Text className="mt-2 text-center text-xl font-medium dark:text-white">
+          {title}
+        </Text>
+        {data.data ? (
+          <View className="mt-4 flex-1 dark:bg-black">
+            <BottomSheetFlatList
+              style={contentContainerStyle}
+              data={people.slice(0, showAll ? undefined : limit)}
+              renderItem={({ item }) => (
+                <PersonRow
+                  person={item}
+                  onPress={() => bottomSheetRef.current?.close()}
+                />
+              )}
+              keyExtractor={(item) => item.did}
+              ItemSeparatorComponent={() => (
+                <ItemSeparator iconWidth="w-10" containerClassName="pr-4" />
+              )}
+              ListFooterComponent={() => (
+                <View className="h-24 w-full items-center justify-center px-4">
+                  {limit && !showAll && people.length > limit && (
+                    <TouchableOpacity onPress={() => setShowAll(true)}>
+                      <Text className="text-center text-neutral-500 dark:bg-neutral-600">
+                        {data.hasNextPage
+                          ? "Show all"
+                          : `Show ${people.length - limit} more`}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
+              ListEmptyComponent={
+                <View className="flex-1 items-center justify-center">
+                  <Text className="text-center text-neutral-500 dark:bg-neutral-600">
+                    There&apos;s nothing here...
+                  </Text>
+                </View>
+              }
+              onEndReachedThreshold={0.6}
+              onEndReached={() => {
+                if (!limit || showAll || people.length < limit) {
+                  void data.fetchNextPage();
                 }
-                onEndReachedThreshold={0.5}
-                onEndReached={() =>
-                  void (!limit || showAll || people.length < limit) &&
-                  data.fetchNextPage()
-                }
-              />
-            </View>
-          ) : (
-            <View className="flex-1 items-center justify-center">
-              <ActivityIndicator />
-            </View>
-          )}
-        </BottomSheetView>
+              }}
+            />
+          </View>
+        ) : (
+          <View className="h-1/2 w-full">
+            <QueryWithoutData query={data} />
+          </View>
+        )}
       </BottomSheet>
     );
   },
@@ -165,29 +138,34 @@ const PersonRow = ({
   onPress: () => void;
 }) => {
   const router = useRouter();
+  const theme = useTheme();
   return (
-    <TouchableOpacity
-      className="flex-row items-center px-4 py-2"
+    <TouchableHighlight
       onPress={() => {
         router.push(`/profile/${person.handle}`);
         onPress();
       }}
     >
-      <Image
-        source={{ uri: person.avatar }}
-        className="mr-4 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
-        alt={person.displayName}
-      />
-      <View className="flex-1">
-        {person.displayName && (
-          <Text className="text-base leading-5 dark:text-white">
-            {person.displayName}
+      <View
+        style={{ backgroundColor: theme.colors.card }}
+        className="flex-row items-center px-4 py-2"
+      >
+        <Image
+          source={{ uri: person.avatar }}
+          className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
+          alt={person.displayName}
+        />
+        <View className="flex-1">
+          {person.displayName && (
+            <Text className="text-base leading-5 dark:text-white">
+              {person.displayName}
+            </Text>
+          )}
+          <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+            @{person.handle}
           </Text>
-        )}
-        <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-          @{person.handle}
-        </Text>
+        </View>
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };

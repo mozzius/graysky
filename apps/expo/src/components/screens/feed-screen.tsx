@@ -42,6 +42,7 @@ export const FeedScreen = ({ feed }: Props) => {
         <FlashList<{ item: AppBskyFeedDefs.FeedViewPost; hasReply: boolean }>
           ref={ref}
           data={data}
+          keyExtractor={(item) => item.item.post.uri}
           renderItem={({ item: { hasReply, item }, index }) => (
             <FeedPost
               item={item}
