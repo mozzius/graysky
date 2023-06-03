@@ -10,10 +10,7 @@ import {
 import { Drawer } from "react-native-drawer-layout";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import {
-  AppBskyActorDefs,
-  type AppBskyFeedGetFeedGenerator,
-} from "@atproto/api";
+import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, ChevronRight, Heart, Plus, Star, X } from "lucide-react-native";
@@ -84,7 +81,13 @@ export default function FeedPage() {
           ),
         }}
       />
-      {open && <Stack.Screen options={{ headerTitle: "" }} />}
+      <Stack.Screen
+        options={{
+          headerTitleStyle: {
+            color: open ? theme.colors.card : theme.colors.text,
+          },
+        }}
+      />
     </Drawer>
   );
 }
@@ -122,7 +125,7 @@ const FeedInfo = ({
       if (!profile.success) throw new Error("Profile not found");
       const feeds = await agent.app.bsky.feed.getActorFeeds({
         actor: info.view.creator.handle,
-        limit: 5,
+        limit: 6,
       });
       if (!feeds.success) throw new Error("Could not get feeds");
       return {
@@ -193,26 +196,28 @@ const FeedInfo = ({
                 )}
               </View>
             </TouchableHighlight>
-            <TouchableHighlight
-              onPress={() => toggleSave.mutate({ pin: info.view.uri })}
-              className={cx(
-                "ml-2 rounded",
-                toggleSave.isLoading && "opacity-50",
-              )}
-              disabled={toggleSave.isLoading}
-            >
-              <View className="items-center justify-center rounded border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-black">
-                <Star
-                  className={cx(
-                    "h-8 w-8",
-                    isPinned
-                      ? "text-yellow-400 dark:text-yellow-500"
-                      : "text-neutral-400",
-                  )}
-                  fill="currentColor"
-                />
-              </View>
-            </TouchableHighlight>
+            {isSaved && (
+              <TouchableHighlight
+                onPress={() => toggleSave.mutate({ pin: info.view.uri })}
+                className={cx(
+                  "ml-2 rounded",
+                  toggleSave.isLoading && "opacity-50",
+                )}
+                disabled={toggleSave.isLoading}
+              >
+                <View className="items-center justify-center rounded border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-black">
+                  <Star
+                    className={cx(
+                      "h-8 w-8",
+                      isPinned
+                        ? "text-yellow-400 dark:text-yellow-500"
+                        : "text-neutral-400",
+                    )}
+                    fill="currentColor"
+                  />
+                </View>
+              </TouchableHighlight>
+            )}
             <TouchableHighlight
               onPress={() => toggleLike.mutate()}
               className={cx(
@@ -241,8 +246,8 @@ const FeedInfo = ({
           </View>
         </View>
         {creator.data ? (
-          <View className="my-6 w-full">
-            <Text className="mb-2 ml-8 mr-4 text-sm uppercase text-neutral-500">
+          <View className="my-4 w-full">
+            <Text className="mb-1 ml-8 mr-4 text-sm uppercase text-neutral-500">
               Creator
             </Text>
             <Link
@@ -260,10 +265,16 @@ const FeedInfo = ({
                     alt={info.view.creator.displayName}
                   />
                   <View className="flex-1 justify-center px-3">
-                    <Text className="text-base dark:text-white">
+                    <Text
+                      className="text-base dark:text-white"
+                      numberOfLines={2}
+                    >
                       {info.view.creator.displayName}
                     </Text>
-                    <Text className="text-sm text-neutral-400">
+                    <Text
+                      className="text-sm text-neutral-400"
+                      numberOfLines={1}
+                    >
                       @{info.view.creator.handle}
                     </Text>
                   </View>
@@ -274,27 +285,33 @@ const FeedInfo = ({
                 </View>
               </TouchableHighlight>
             </Link>
-            <Text className="mb-2 mt-6 ml-8 mr-4 text-sm uppercase text-neutral-500">
-              More from @{info.view.creator.handle}
+            <Text
+              className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
+              numberOfLines={1}
+            >
+              More from {info.view.creator.displayName}
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
               className="mx-4 overflow-hidden rounded-lg"
             >
-              {creator.data.feeds.map((feed) => (
-                <Fragment key={feed.uri}>
-                  <FeedRow feed={feed}>
-                    {savedFeeds.data?.saved.some((f) => f === feed.uri) && (
-                      <Check
-                        className="ml-2"
-                        size={20}
-                        color={theme.colors.primary}
-                      />
-                    )}
-                  </FeedRow>
-                  <ItemSeparator iconWidth="w-6" />
-                </Fragment>
-              ))}
+              {creator.data.feeds
+                .filter((f) => f.uri !== info.view.uri)
+                .slice(0, 5)
+                .map((feed) => (
+                  <Fragment key={feed.uri}>
+                    <FeedRow feed={feed}>
+                      {savedFeeds.data?.saved.some((f) => f === feed.uri) && (
+                        <Check
+                          className="ml-2"
+                          size={20}
+                          color={theme.colors.primary}
+                        />
+                      )}
+                    </FeedRow>
+                    <ItemSeparator iconWidth="w-6" />
+                  </Fragment>
+                ))}
               <Link
                 href={`/profile/${info.view.creator.handle}?tab=feeds`}
                 asChild

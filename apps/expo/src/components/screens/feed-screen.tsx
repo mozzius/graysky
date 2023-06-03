@@ -99,7 +99,7 @@ const Wrapper = ({
     <>
       <Stack.Screen
         options={{
-          headerTitle: info.data.view.displayName,
+          title: info.data.view.displayName,
           headerBackTitle:
             info.data.view.displayName === "Following" ? "Feeds" : undefined,
           //   headerRight: () =>

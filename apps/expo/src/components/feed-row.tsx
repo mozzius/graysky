@@ -36,7 +36,7 @@ export const FeedRow = ({ feed, children }: Props) => {
             className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
           />
           <View className="flex-1 flex-row items-center px-3">
-            <Text className="text-base dark:text-white">
+            <Text className="text-base dark:text-white" numberOfLines={1}>
               {feed.displayName}
             </Text>
             {children}
