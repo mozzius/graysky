@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Platform, Switch, Text, TouchableOpacity } from "react-native";
+import { Platform, Switch, Text, TouchableOpacity, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -176,7 +176,16 @@ export default function ModerationSettings() {
             };
           }),
         ]}
-      />
+      >
+        {Platform.OS === "ios" && (
+          <View className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
+            <Text className="dark:text-white">
+              Note: Adult content settings cannot be changed on iOS. Please use
+              the web app instead.
+            </Text>
+          </View>
+        )}
+      </SettingsList>
     );
   }
 
