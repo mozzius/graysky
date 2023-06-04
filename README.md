@@ -49,14 +49,17 @@ Then just scan the QR code!
   - [ ] Account settings
     - [ ] Edit profile
     - [ ] Change handle
-  - [ ] App settings
-    - [ ] Notification grouping
-    - [ ] About & credits
+  - [x] App settings
+    - [x] Notification grouping
+  - [x] About & credits
+- [ ] App Store???
+
+## Future (no promises)
+
 - [ ] Push notifications
 - [ ] Composer rewrite
   - [ ] Embeds in composer
   - [ ] Drafts
-- [ ] App Store???
 
 ## Android local APK builds
 
