@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  Platform,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -16,9 +15,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
-import { useDrawer } from "../../../components/drawer-content";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
@@ -27,20 +24,10 @@ import { cx } from "../../../lib/utils/cx";
 export default function SearchPage() {
   const [search, setSearch] = useState("");
 
-  const openDrawer = useDrawer();
-
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Search",
-          headerLeft: Platform.select({
-            ios: () => (
-              <TouchableOpacity onPress={openDrawer} className="mr-3">
-                <Avatar size="small" />
-              </TouchableOpacity>
-            ),
-          }),
           headerSearchBarOptions: {
             placeholder: "Search",
             onChangeText: (evt) => setSearch(evt.nativeEvent.text),

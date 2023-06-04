@@ -1,22 +1,15 @@
 import { useCallback, useEffect, useMemo } from "react";
-import {
-  ActivityIndicator,
-  RefreshControl,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Stack } from "expo-router";
+import { ActivityIndicator, RefreshControl, View } from "react-native";
 import { type AppBskyNotificationListNotifications } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { Avatar } from "../../../components/avatar";
 import { ComposeButton } from "../../../components/compose-button";
-import { useDrawer } from "../../../components/drawer-content";
 import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
+import { useAppPreferences } from "../../../lib/hooks/preferences";
 import { queryClient } from "../../../lib/query-client";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 
@@ -28,11 +21,15 @@ export type NotificationGroup = {
   indexedAt: string;
 };
 
-const NotificationsPage = () => {
+interface Props {
+  groupNotifications: boolean;
+}
+
+const NotificationsPage = ({ groupNotifications }: Props) => {
   const agent = useAuthedAgent();
 
   const notifications = useInfiniteQuery({
-    queryKey: ["notifications", "list"],
+    queryKey: ["notifications", "list", groupNotifications],
     queryFn: async ({ pageParam }) => {
       const notifs = await agent.listNotifications({
         cursor: pageParam as string | undefined,
@@ -45,13 +42,31 @@ const NotificationsPage = () => {
       });
 
       const grouped: NotificationGroup[] = [];
-      for (const notif of notifs.data.notifications) {
-        const prior = grouped.find(
-          (x) => x.reason === notif.reason && x.subject === notif.reasonSubject,
-        );
-        if (prior) {
-          prior.actors.push(notif.author);
-        } else {
+
+      if (groupNotifications) {
+        for (const notif of notifs.data.notifications) {
+          const prior = grouped.find(
+            (x) =>
+              x.reason === notif.reason && x.subject === notif.reasonSubject,
+          );
+          if (prior) {
+            prior.actors.push(notif.author);
+          } else {
+            let subject = notif.reasonSubject;
+            if (["reply", "quote", "mention"].includes(notif.reason)) {
+              subject = notif.uri;
+            }
+            grouped.push({
+              reason: notif.reason,
+              subject,
+              actors: [notif.author],
+              isRead: notif.isRead,
+              indexedAt: notif.indexedAt,
+            });
+          }
+        }
+      } else {
+        for (const notif of notifs.data.notifications) {
           let subject = notif.reasonSubject;
           if (["reply", "quote", "mention"].includes(notif.reason)) {
             subject = notif.uri;
@@ -65,6 +80,7 @@ const NotificationsPage = () => {
           });
         }
       }
+
       return {
         cursor: notifs.data.cursor,
         notifications: grouped,
@@ -149,21 +165,18 @@ const NotificationsPage = () => {
 };
 
 export default function Page() {
-  const openDrawer = useDrawer();
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          title: "Notifications",
-          headerLeft: () => (
-            <TouchableOpacity onPress={openDrawer} className="mr-3">
-              <Avatar size="small" />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-      <NotificationsPage />
-      <ComposeButton />
-    </>
-  );
+  const { appPrefs } = useAppPreferences();
+
+  if (appPrefs.data) {
+    return (
+      <>
+        <NotificationsPage
+          groupNotifications={appPrefs.data.groupNotifications}
+        />
+        <ComposeButton />
+      </>
+    );
+  }
+
+  return <QueryWithoutData query={appPrefs} />;
 }

@@ -1,7 +1,9 @@
 import { useCallback } from "react";
 import { Platform } from "react-native";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 
 import { useAuthedAgent } from "../agent";
 
@@ -144,4 +146,48 @@ export const useContentFilter = () => {
     preferences,
     contentFilter,
   };
+};
+
+const appPrefsSchema = z.object({
+  groupNotifications: z.boolean(),
+});
+
+type AppPrefs = z.infer<typeof appPrefsSchema>;
+
+const defaultAppPrefs: AppPrefs = {
+  groupNotifications: true,
+};
+
+export const useAppPreferences = () => {
+  const queryClient = useQueryClient();
+
+  const appPrefs = useQuery({
+    queryKey: ["app-prefs"],
+    queryFn: async () => {
+      const parsed = appPrefsSchema.safeParse(
+        JSON.parse((await AsyncStorage.getItem("app-preferences")) ?? "{}"),
+      );
+      if (parsed.success) {
+        return parsed.data;
+      } else {
+        await AsyncStorage.setItem(
+          "app-preferences",
+          JSON.stringify(defaultAppPrefs),
+        );
+        return defaultAppPrefs;
+      }
+    },
+  });
+
+  const setAppPrefs = useMutation({
+    mutationFn: async (prefs: Partial<AppPrefs>) => {
+      if (!appPrefs.data) return;
+      const newPrefs = { ...appPrefs.data, ...prefs };
+      queryClient.setQueryData(["app-prefs"], newPrefs);
+      await AsyncStorage.setItem("app-preferences", JSON.stringify(newPrefs));
+    },
+    onSettled: () => appPrefs.refetch(),
+  });
+
+  return { appPrefs, setAppPrefs };
 };

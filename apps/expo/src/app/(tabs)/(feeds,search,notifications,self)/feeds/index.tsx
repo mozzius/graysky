@@ -8,7 +8,9 @@ import { Link, Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { ChevronRight, Cloud, Compass } from "lucide-react-native";
 
+import { Avatar } from "../../../../components/avatar";
 import { ComposeButton } from "../../../../components/compose-button";
+import { useDrawer } from "../../../../components/drawer-content";
 import { DraggableFeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
@@ -114,21 +116,18 @@ const FeedsPage = ({ editing }: Props) => {
 };
 
 export default function Page() {
-  // const openDrawer = useDrawer();
+  const openDrawer = useDrawer();
   const [editing, setEditing] = useState(false);
   const theme = useTheme();
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Feeds",
-          headerLargeTitle: true,
-          headerBackTitle: "Feeds",
-          // headerLeft: () => (
-          //   <TouchableOpacity onPress={openDrawer} className="mr-3">
-          //     <Avatar size="small" />
-          //   </TouchableOpacity>
-          // ),
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
+              <Avatar size="small" />
+            </TouchableOpacity>
+          ),
           headerRight: () => (
             <TouchableOpacity onPress={() => setEditing((e) => !e)}>
               <Text

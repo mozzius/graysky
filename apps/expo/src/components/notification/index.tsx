@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
@@ -21,6 +21,7 @@ export const Notification = ({
 }: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
+  const router = useRouter();
 
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
@@ -88,28 +89,24 @@ export const Notification = ({
         </TouchableOpacity>
       );
     case "follow":
-      const item = (
-        <NotificationItem
-          href={
-            actors.length === 1 ? `/profile/${actors[0]!.handle}` : undefined
-          }
-          unread={!isRead}
-          left={<UserPlus size={24} color="#2563eb" />}
-        >
-          <ProfileList
-            actors={actors}
-            action="started following you"
-            indexedAt={indexedAt}
-          />
-        </NotificationItem>
-      );
-      return actors.length === 1 ? (
-        item
-      ) : (
+      return (
         <TouchableOpacity
-          onPress={() => openFollowers(agent.session.did, actors.length)}
+          onPress={() =>
+            actors.length === 1
+              ? router.push(`/profile/${actors[0]!.handle}`)
+              : openFollowers(agent.session.did, actors.length)
+          }
         >
-          {item}
+          <NotificationItem
+            unread={!isRead}
+            left={<UserPlus size={24} color="#2563eb" />}
+          >
+            <ProfileList
+              actors={actors}
+              action="started following you"
+              indexedAt={indexedAt}
+            />
+          </NotificationItem>
         </TouchableOpacity>
       );
     case "reply":
@@ -138,7 +135,7 @@ const ProfileList = ({
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
     <View>
-      <View className="flex-row">
+      <View className="flex-row overflow-hidden flex-wrap h-8">
         {actors.map((actor, index) => (
           <Link
             href={`/profile/${actor.handle}`}

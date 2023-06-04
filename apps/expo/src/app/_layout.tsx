@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Text, TouchableOpacity } from "react-native";
+import { Alert, Platform, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   SplashScreen,
@@ -116,7 +116,13 @@ export default function RootLayout() {
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
       // Redirect away from the sign-in page.
-      router.replace("/feeds/following");
+      // HACK - NEED /feeds IN THE HISTORY FOR THE BACK TITLE TO BE SET
+      if (Platform.OS === "ios") {
+        router.replace("/feeds");
+        setTimeout(() => router.push("/feeds/following"));
+      } else {
+        router.replace("/feeds/following");
+      }
     }
   }, [did, segments, router, loading]);
 

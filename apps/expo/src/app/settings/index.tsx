@@ -1,5 +1,6 @@
-import { Text } from "react-native";
-import { Ban, Smartphone, User } from "lucide-react-native";
+import { View } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { AtSign, Ban, Smartphone, User } from "lucide-react-native";
 
 import { SettingsList } from "./_layout";
 
@@ -19,14 +20,18 @@ const options = [
     href: "/settings/app",
     icon: Smartphone,
   },
+
+  {
+    title: "About Graysky",
+    href: "/settings/about",
+    icon: AtSign,
+  },
 ];
 export default function SettingsPage() {
+  const headerHeight = useHeaderHeight();
   return (
-    <>
-      <Text className="p-4 pt-4 text-center text-2xl font-bold dark:text-white">
-        WIP - not much to see here yet
-      </Text>
+    <View style={{ paddingTop: headerHeight + 16 }} className="flex-1">
       <SettingsList options={options} />
-    </>
+    </View>
   );
 }

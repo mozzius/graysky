@@ -17,7 +17,7 @@ interface Props {
   openInviteCodes: () => void;
 }
 
-const DrawerContext = createContext<(() => void) | null>(null);
+const DrawerContext = createContext<((open?: boolean) => void) | null>(null);
 
 export const DrawerProvider = DrawerContext.Provider;
 
@@ -33,6 +33,7 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
   const codes = useInviteCodes();
+  const setOpenDrawer = useDrawer();
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -95,7 +96,7 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
             Change theme
           </Text>
         </TouchableOpacity>
-        <Link href="/settings" asChild>
+        <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
             accessibilityLabel="Settings"

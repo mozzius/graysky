@@ -51,7 +51,7 @@ export default function AppLayout() {
     });
   }, [setColorScheme]);
 
-  const openDrawer = useCallback(() => setOpen(true), []);
+  const openDrawer = useCallback((open = true) => setOpen(open), []);
   const theme = useTheme();
   const segments = useSegments();
 

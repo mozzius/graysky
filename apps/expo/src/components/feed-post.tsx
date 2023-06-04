@@ -149,36 +149,34 @@ export const FeedPost = ({
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-          <View>
-            <Link href={profileHref} asChild>
-              <TouchableOpacity>
-                {item.post.author.avatar ? (
-                  <Image
-                    recyclingKey={item.post.author.did}
-                    source={{ uri: item.post.author.avatar }}
-                    alt={postAuthorHandle}
-                    className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
-                  />
-                ) : (
-                  <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                    <User size={32} color={buttonColor} />
-                  </View>
-                )}
-              </TouchableOpacity>
-            </Link>
-          </View>
-          <View className="flex-1">
-            <Link href={postHref} asChild>
-              <TouchableWithoutFeedback className="w-full grow items-center px-5">
+          <Link href={profileHref} asChild>
+            <TouchableOpacity>
+              {item.post.author.avatar ? (
+                <Image
+                  recyclingKey={item.post.author.did}
+                  source={{ uri: item.post.author.avatar }}
+                  alt={postAuthorHandle}
+                  className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
+                />
+              ) : (
+                <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+                  <User size={32} color={buttonColor} />
+                </View>
+              )}
+            </TouchableOpacity>
+          </Link>
+          <Link href={postHref} asChild>
+            <TouchableWithoutFeedback>
+              <View className="w-12 flex-1 items-center">
                 <View
                   className={cx(
                     "w-0.5 grow",
                     hasReply && "bg-neutral-200 dark:bg-neutral-800",
                   )}
                 />
-              </TouchableWithoutFeedback>
-            </Link>
-          </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Link>
         </View>
         {/* right col */}
         <View className="flex-1 pb-2.5 pl-1 pr-2">

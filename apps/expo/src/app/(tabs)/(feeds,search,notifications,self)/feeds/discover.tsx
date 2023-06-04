@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { ScrollView, View } from "react-native";
-import { Stack } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +10,7 @@ import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../lib/agent";
 
-const RecommendedFeeds = () => {
+export default function DiscoveryPage() {
   const agent = useAuthedAgent();
   const theme = useTheme();
 
@@ -65,17 +64,4 @@ const RecommendedFeeds = () => {
   }
 
   return <QueryWithoutData query={recommended} />;
-};
-
-export default function DiscoveryPage() {
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          headerTitle: "Discover feeds",
-        }}
-      />
-      <RecommendedFeeds />
-    </>
-  );
 }
