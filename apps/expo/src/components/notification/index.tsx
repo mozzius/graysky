@@ -88,26 +88,28 @@ export const Notification = ({
         </TouchableOpacity>
       );
     case "follow":
-      return (
-        <TouchableOpacity
-          onPress={() =>
-            actors.length !== 1 &&
-            openFollowers(agent.session.did, actors.length)
+      const item = (
+        <NotificationItem
+          href={
+            actors.length === 1 ? `/profile/${actors[0]!.handle}` : undefined
           }
+          unread={!isRead}
+          left={<UserPlus size={24} color="#2563eb" />}
         >
-          <NotificationItem
-            href={
-              actors.length === 1 ? `/profile/${actors[0]!.handle}` : undefined
-            }
-            unread={!isRead}
-            left={<UserPlus size={24} color="#2563eb" />}
-          >
-            <ProfileList
-              actors={actors}
-              action="started following you"
-              indexedAt={indexedAt}
-            />
-          </NotificationItem>
+          <ProfileList
+            actors={actors}
+            action="started following you"
+            indexedAt={indexedAt}
+          />
+        </NotificationItem>
+      );
+      return actors.length === 1 ? (
+        item
+      ) : (
+        <TouchableOpacity
+          onPress={() => openFollowers(agent.session.did, actors.length)}
+        >
+          {item}
         </TouchableOpacity>
       );
     case "reply":
