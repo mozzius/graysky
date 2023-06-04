@@ -64,7 +64,6 @@ export const Notification = ({
           onPress={() => subject && openReposts(subject, actors.length)}
         >
           <NotificationItem
-            href={href}
             unread={!isRead}
             left={<Repeat size={24} color="#2563eb" />}
           >
