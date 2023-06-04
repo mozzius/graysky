@@ -60,7 +60,7 @@ export const Embed = ({
           onPress={() => void Linking.openURL(content.external.uri)}
           className={cx("mt-1.5 rounded-lg", className)}
         >
-          <View className="rounded-lg border border-neutral-300 dark:border-neutral-800">
+          <View className="rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
             {content.external.thumb && (
               <Image
                 recyclingKey={content.external.thumb}
@@ -83,7 +83,7 @@ export const Embed = ({
                 {new URL(content.external.uri).hostname}
               </Text>
               <Text
-                className="mt-0.5 text-base font-semibold leading-5 dark:text-white"
+                className="mt-0.5 text-base leading-5 dark:text-white"
                 numberOfLines={2}
               >
                 {content.external.title || content.external.uri}
@@ -128,10 +128,10 @@ export const Embed = ({
             .pop()}`;
           return (
             <Link href={href} asChild>
-              <TouchableOpacity>
+              <TouchableHighlight className="rounded-lg mt-1.5">
                 <View
                   className={cx(
-                    "mt-1.5 flex-row items-center rounded-lg border border-neutral-200 p-2 dark:border-neutral-700",
+                    "flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black",
                     className,
                   )}
                 >
@@ -149,7 +149,7 @@ export const Embed = ({
                     </Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </TouchableHighlight>
             </Link>
           );
         } else if (AppBskyEmbedRecord.isViewNotFound(record)) {
