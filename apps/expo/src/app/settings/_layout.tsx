@@ -131,11 +131,13 @@ export const SettingsList = ({ children, options }: Props) => {
             <Fragment key={option.title}>
               {option.href ? (
                 <Link asChild href={option.href}>
-                  <TouchableHighlight>{row}</TouchableHighlight>
+                  <TouchableHighlight>
+                    <View>{row}</View>
+                  </TouchableHighlight>
                 </Link>
               ) : option.onPress ? (
                 <TouchableHighlight onPress={option.onPress}>
-                  {row}
+                  <View>{row}</View>
                 </TouchableHighlight>
               ) : (
                 row

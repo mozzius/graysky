@@ -58,6 +58,7 @@ const FeedsPage = ({ editing }: Props) => {
           onDragEnd={({ data }) => {
             reorder.mutate(data.map((item) => item.uri));
           }}
+          className="bg-white dark:bg-black"
           renderItem={({ item, drag }) => (
             <DraggableFeedRow
               feed={item}
@@ -77,6 +78,7 @@ const FeedsPage = ({ editing }: Props) => {
             .filter((feed) => !feed.pinned)
             .sort((a, b) => a.displayName.localeCompare(b.displayName))}
           keyExtractor={(item) => item.uri}
+          className="bg-white dark:bg-black"
           renderItem={({ item }) => (
             <DraggableFeedRow
               feed={item}

@@ -42,11 +42,20 @@ Then just scan the QR code!
 - [x] Context menu - user actions
 - [x] Image viewer: Pinch to zoom
 - [x] Custom feeds
-- [ ] Moderation settings
-- [ ] Settings screen
-- [ ] Create account flow
-- [ ] Edit profile screen
+- [ ] Settings screens
+  - [ ] Moderation settings
+    - [x] Content filtering
+    - [ ] Review blocked/muted users
+  - [ ] Account settings
+    - [ ] Edit profile
+    - [ ] Change handle
+  - [ ] App settings
+    - [ ] Notification grouping
+    - [ ] About & credits
 - [ ] Push notifications
+- [ ] Composer rewrite
+  - [ ] Embeds in composer
+  - [ ] Drafts
 - [ ] App Store???
 
 ## Android local APK builds

@@ -176,7 +176,7 @@ export default function RootLayout() {
                           >
                             <Text
                               style={{ color: theme.colors.primary }}
-                              className="font-medium text-lg"
+                              className="text-lg font-medium"
                             >
                               Done
                             </Text>

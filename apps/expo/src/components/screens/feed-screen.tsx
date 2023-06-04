@@ -9,6 +9,7 @@ import { type DefinedUseQueryResult } from "@tanstack/react-query";
 
 import { useTabPressScrollRef } from "../../lib/hooks";
 import { useFeedInfo, useTimeline } from "../../lib/hooks/feeds";
+import { type FilterResult } from "../../lib/hooks/preferences";
 import { useUserRefresh } from "../../lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { QueryWithoutData } from "../query-without-data";
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export const FeedScreen = ({ feed }: Props) => {
-  const { timeline, data } = useTimeline(feed);
+  const { timeline, data, preferences } = useTimeline(feed);
   const info = useFeedInfo(feed);
 
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
@@ -36,15 +37,26 @@ export const FeedScreen = ({ feed }: Props) => {
       </>
     );
 
+  if (!preferences.data)
+    return (
+      <Wrapper info={info}>
+        <QueryWithoutData query={preferences} />
+      </Wrapper>
+    );
+
   if (timeline.data) {
     return (
       <Wrapper info={info}>
-        <FlashList<{ item: AppBskyFeedDefs.FeedViewPost; hasReply: boolean }>
+        <FlashList<{
+          item: AppBskyFeedDefs.FeedViewPost;
+          hasReply: boolean;
+          filter: FilterResult;
+        }>
           ref={ref}
           data={data}
-          keyExtractor={(item) => item.item.post.uri}
-          renderItem={({ item: { hasReply, item }, index }) => (
+          renderItem={({ item: { hasReply, item, filter }, index }) => (
             <FeedPost
+              filter={filter}
               item={item}
               hasReply={hasReply}
               isReply={data[index - 1]?.hasReply}

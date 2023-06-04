@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { AppBskyFeedDefs } from "@atproto/api";
+import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
@@ -17,6 +17,10 @@ import { Post } from "../../../../../../components/post";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../../../lib/agent";
 import { useTabPressScroll } from "../../../../../../lib/hooks";
+import {
+  useContentFilter,
+  type FilterResult,
+} from "../../../../../../lib/hooks/preferences";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
@@ -25,9 +29,14 @@ export type Posts = {
   primary: boolean;
   hasParent: boolean;
   hasReply: boolean;
+  filter: FilterResult;
 };
 
-export default function PostPage() {
+interface Props {
+  contentFilter: (labels?: ComAtprotoLabelDefs.Label[]) => FilterResult;
+}
+
+const PostThread = ({ contentFilter }: Props) => {
   const { handle, id } = useLocalSearchParams() as {
     id: string;
     handle: string;
@@ -65,12 +74,17 @@ export default function PostPage() {
         if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) break;
         assert(AppBskyFeedDefs.validateThreadViewPost(ancestor.parent));
 
-        ancestors.push({
-          post: ancestor.parent.post,
-          primary: false,
-          hasParent: false,
-          hasReply: true,
-        });
+        const filter = contentFilter(ancestor.parent.post.labels);
+
+        if (filter?.visibility !== "hide") {
+          ancestors.push({
+            post: ancestor.parent.post,
+            primary: false,
+            hasParent: false,
+            hasReply: true,
+            filter,
+          });
+        }
 
         ancestor = ancestor.parent;
       }
@@ -79,24 +93,33 @@ export default function PostPage() {
       ancestors.reverse();
       posts.push(...ancestors);
 
-      posts.push({
-        post: thread.post,
-        primary: true,
-        hasParent: !!thread.parent,
-        hasReply: false,
-      });
+      const filter = contentFilter(thread.post.labels);
+      if (filter?.visibility !== "hide") {
+        posts.push({
+          post: thread.post,
+          primary: true,
+          hasParent: !!thread.parent,
+          hasReply: false,
+          filter,
+        });
+      }
 
       if (thread.replies) {
         for (const reply of thread.replies) {
           if (!AppBskyFeedDefs.isThreadViewPost(reply)) continue;
           assert(AppBskyFeedDefs.validateThreadViewPost(reply));
 
-          posts.push({
-            post: reply.post,
-            primary: false,
-            hasParent: false,
-            hasReply: !!reply.replies?.[0],
-          });
+          const filter = contentFilter(reply.post.labels);
+
+          if (filter?.visibility !== "hide") {
+            posts.push({
+              post: reply.post,
+              primary: false,
+              hasParent: false,
+              hasReply: !!reply.replies?.[0],
+              filter,
+            });
+          }
 
           if (reply.replies && reply.replies[0]) {
             let child;
@@ -105,12 +128,17 @@ export default function PostPage() {
               if (!AppBskyFeedDefs.isThreadViewPost(child)) break;
               assert(AppBskyFeedDefs.validateThreadViewPost(child));
 
-              posts.push({
-                post: child.post,
-                primary: false,
-                hasParent: false,
-                hasReply: !!child.replies?.[0],
-              });
+              const replyFilter = contentFilter(child.post.labels);
+
+              if (replyFilter?.visibility !== "hide") {
+                posts.push({
+                  post: child.post,
+                  primary: false,
+                  hasParent: false,
+                  hasReply: !!child.replies?.[0],
+                  filter: replyFilter,
+                });
+              }
 
               child = child.replies?.[0];
             }
@@ -129,69 +157,84 @@ export default function PostPage() {
   useTabPressScroll(ref);
 
   const composer = useComposer();
+  if (thread.data) {
+    return (
+      <>
+        <FlashList<Posts>
+          ref={ref}
+          data={thread.data.posts}
+          estimatedItemSize={150}
+          initialScrollIndex={thread.data.index}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={tintColor}
+            />
+          }
+          ListFooterComponent={<View className="h-20" />}
+          getItemType={(item) => (item.primary ? "big" : "small")}
+          renderItem={({ item, index }) =>
+            item.primary ? (
+              <Post
+                post={item.post}
+                hasParent={item.hasParent}
+                root={thread.data.posts[0]!.post}
+                dataUpdatedAt={thread.dataUpdatedAt}
+              />
+            ) : (
+              <FeedPost
+                filter={item.filter}
+                item={{ post: item.post }}
+                hasReply={item.hasReply}
+                isReply={thread.data.posts[index - 1]?.hasReply}
+                dataUpdatedAt={thread.dataUpdatedAt}
+              />
+            )
+          }
+        />
+        <TouchableNativeFeedback
+          onPress={() =>
+            composer.open({
+              parent: thread.data.main,
+              root: thread.data.posts[0]!.post,
+            })
+          }
+        >
+          <View className="w-full flex-row items-center border-t border-neutral-100 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-black">
+            <Avatar size="medium" />
+            <Text
+              className="ml-2 flex-1 text-lg text-neutral-400"
+              numberOfLines={1}
+            >
+              Reply to{" "}
+              {thread.data.main.author.displayName ??
+                `@${thread.data.main.author.handle}`}
+            </Text>
+          </View>
+        </TouchableNativeFeedback>
+      </>
+    );
+  }
+  return <QueryWithoutData query={thread} />;
+};
+
+export default function PostPage() {
+  const { preferences, contentFilter } = useContentFilter();
+
+  if (preferences.data) {
+    return (
+      <>
+        <Stack.Screen options={{ headerTitle: "Post" }} />
+        <PostThread contentFilter={contentFilter} />
+      </>
+    );
+  }
 
   return (
     <>
       <Stack.Screen options={{ headerTitle: "Post" }} />
-      {thread.data ? (
-        <>
-          <FlashList<Posts>
-            ref={ref}
-            data={thread.data.posts}
-            keyExtractor={(item) => item.post.uri}
-            estimatedItemSize={150}
-            initialScrollIndex={thread.data.index}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={() => void handleRefresh()}
-                tintColor={tintColor}
-              />
-            }
-            ListFooterComponent={<View className="h-20" />}
-            getItemType={(item) => (item.primary ? "big" : "small")}
-            renderItem={({ item, index }) =>
-              item.primary ? (
-                <Post
-                  post={item.post}
-                  hasParent={item.hasParent}
-                  root={thread.data.posts[0]!.post}
-                  dataUpdatedAt={thread.dataUpdatedAt}
-                />
-              ) : (
-                <FeedPost
-                  item={{ post: item.post }}
-                  hasReply={item.hasReply}
-                  isReply={thread.data.posts[index - 1]?.hasReply}
-                  dataUpdatedAt={thread.dataUpdatedAt}
-                />
-              )
-            }
-          />
-          <TouchableNativeFeedback
-            onPress={() =>
-              composer.open({
-                parent: thread.data.main,
-                root: thread.data.posts[0]!.post,
-              })
-            }
-          >
-            <View className="w-full flex-row items-center border-t border-neutral-100 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-black">
-              <Avatar size="medium" />
-              <Text
-                className="ml-2 flex-1 text-lg text-neutral-400"
-                numberOfLines={1}
-              >
-                Reply to{" "}
-                {thread.data.main.author.displayName ??
-                  `@${thread.data.main.author.handle}`}
-              </Text>
-            </View>
-          </TouchableNativeFeedback>
-        </>
-      ) : (
-        <QueryWithoutData query={thread} />
-      )}
+      <QueryWithoutData query={preferences} />;
     </>
   );
 }

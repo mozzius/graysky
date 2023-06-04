@@ -27,7 +27,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
       <Gallery
         data={images}
         initialIndex={initialIndex}
-        keyExtractor={(item) => item.fullsize}
+        keyExtractor={(_, i) => i}
         onIndexChange={(index) => setIndex(index)}
         renderItem={({ item, setImageDimensions }) => (
           <Image

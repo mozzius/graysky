@@ -26,6 +26,7 @@ import { ChevronRight, XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
+import { useContentFilter } from "../../lib/hooks/preferences";
 import { assert } from "../../lib/utils/assert";
 import { useUserRefresh } from "../../lib/utils/query";
 import { Button } from "../button";
@@ -56,6 +57,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
   const { top } = useSafeAreaInsets();
   const queryClient = useQueryClient();
   const theme = useTheme();
+  const { preferences, contentFilter } = useContentFilter();
 
   const tabOffset = headerHeight - top;
 
@@ -176,24 +178,39 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
     const flat = timeline.data.pages.flatMap((page) => page.feed);
     return flat
       .map((item) => {
+        const filter = contentFilter(item.post.labels);
+        if (filter?.visibility === "hide") return [];
         switch (mode) {
           case "posts":
             return item.reply && !item.reason
               ? []
-              : [{ item, hasReply: false }];
+              : [{ item, hasReply: false, filter }];
           case "replies":
-            return item.reply && !item.reason && AppBskyFeedDefs.isPostView(item.reply.parent)
-              ? [
-                  { item: { post: item.reply.parent }, hasReply: true },
-                  { item, hasReply: false },
-                ]
-              : [{ item, hasReply: false }];
+            if (
+              item.reply &&
+              !item.reason &&
+              AppBskyFeedDefs.isPostView(item.reply.parent)
+            ) {
+              const parentFilter = contentFilter(item.reply.parent.labels);
+              if (parentFilter?.visibility === "hide")
+                return [{ item, hasReply: false, filter }];
+              return [
+                {
+                  item: { post: item.reply.parent },
+                  hasReply: true,
+                  filter: parentFilter,
+                },
+                { item, hasReply: false, filter },
+              ];
+            } else {
+              return [{ item, hasReply: false, filter }];
+            }
           case "likes":
-            return [{ item, hasReply: false }];
+            return [{ item, hasReply: false, filter }];
         }
       })
       .flat();
-  }, [timeline, mode]);
+  }, [timeline, mode, contentFilter]);
 
   const feedsData = useMemo(() => {
     if (!feeds.data) return [];
@@ -260,7 +277,9 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
   if (profile.data) {
     const info = <ProfileInfo profile={profile.data} backButton={header} />;
     let content = null;
-    if (profile.data.viewer?.blocking) {
+    if (!preferences.data) {
+      content = <QueryWithoutData query={preferences} />;
+    } else if (profile.data.viewer?.blocking) {
       content = (
         <>
           {info}
@@ -444,7 +463,9 @@ const Feed = ({
             className="h-10 w-10 rounded bg-blue-500"
           />
           <View className="flex-1 px-3">
-            <Text className="text-base font-medium">{displayName}</Text>
+            <Text className="text-base font-medium dark:text-white">
+              {displayName}
+            </Text>
             {description && (
               <Text className="text-sm text-neutral-400" numberOfLines={1}>
                 {description}

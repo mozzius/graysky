@@ -10,6 +10,7 @@ import { produce } from "immer";
 
 import { useAuthedAgent } from "../agent";
 import { queryClient } from "../query-client";
+import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
   { pinned }: { pinned: boolean } = { pinned: false },
@@ -161,6 +162,7 @@ export const useReorderFeeds = (
 
 export const useTimeline = (algorithm: string) => {
   const agent = useAuthedAgent();
+  const { contentFilter, preferences } = useContentFilter();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", algorithm],
@@ -172,17 +174,6 @@ export const useTimeline = (algorithm: string) => {
         if (!following.success) throw new Error("Failed to fetch feed");
         return following.data;
       } else {
-        // const generator = await agent.app.bsky.feed.getFeedGenerator({
-        //   feed: algorithm,
-        // });
-        // if (!generator.success)
-        //   throw new Error("Failed to fetch feed generator");
-        // console.log(generator.data);
-        // if (!generator.data.isOnline || !generator.data.isValid) {
-        //   throw new Error(
-        //     "This custom feed is not online or may be experiencing issues",
-        //   );
-        // }
         const feed = await agent.app.bsky.feed.getFeed({
           feed: algorithm,
           cursor: pageParam as string | undefined,
@@ -198,32 +189,37 @@ export const useTimeline = (algorithm: string) => {
     if (!timeline.data) return [];
     const flattened = timeline.data.pages.flatMap((page) => page.feed);
     return flattened
-      .map((item) =>
-        // if the preview item is replying to this one, skip
-        // arr[i - 1]?.reply?.parent?.cid === item.cid
-        //   ? [] :
-        {
-          if (item.reply && !item.reason) {
-            if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
-              return [];
-            } else if (
-              AppBskyFeedDefs.isPostView(item.reply.parent) &&
-              AppBskyFeedDefs.validatePostView(item.reply.parent).success
-            ) {
-              return [
-                { item: { post: item.reply.parent }, hasReply: true },
-                { item, hasReply: false },
-              ];
-            } else {
-              return [{ item, hasReply: false }];
-            }
-          } else {
-            return [{ item, hasReply: false }];
-          }
-        },
-      )
-      .flat();
-  }, [timeline]);
+      .map((item) => {
+        const filter = contentFilter(item.post.labels);
 
-  return { timeline, data };
+        if (filter?.visibility === "hide") return [];
+
+        if (item.reply && !item.reason) {
+          if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
+            return [];
+          } else if (
+            AppBskyFeedDefs.isPostView(item.reply.parent) &&
+            AppBskyFeedDefs.validatePostView(item.reply.parent).success
+          ) {
+            const parentFilter = contentFilter(item.reply.parent.labels);
+            if (parentFilter?.visibility === "hide") return [];
+            return [
+              {
+                item: { post: item.reply.parent },
+                hasReply: true,
+                filter: parentFilter,
+              },
+              { item, hasReply: false, filter },
+            ];
+          } else {
+            return [{ item, hasReply: false, filter }];
+          }
+        } else {
+          return [{ item, hasReply: false, filter }];
+        }
+      })
+      .flat();
+  }, [timeline, contentFilter]);
+
+  return { timeline, data, preferences, contentFilter };
 };

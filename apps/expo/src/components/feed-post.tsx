@@ -28,6 +28,7 @@ import {
   usePostViewOptions,
   useRepost,
 } from "../lib/hooks";
+import { type FilterResult } from "../lib/hooks/preferences";
 import { assert } from "../lib/utils/assert";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
@@ -43,6 +44,7 @@ interface Props {
   unread?: boolean;
   inlineParent?: boolean;
   dataUpdatedAt: number;
+  filter: FilterResult;
 }
 
 export const FeedPost = ({
@@ -52,9 +54,12 @@ export const FeedPost = ({
   unread,
   inlineParent,
   dataUpdatedAt,
+  filter,
 }: Props) => {
   const startHidden = Boolean(
-    item.post.author.viewer?.blocking || !!item.post.author.viewer?.blocked,
+    !!item.post.author.viewer?.blocking ||
+      !!item.post.author.viewer?.blocked ||
+      !!filter,
   );
   const [hidden, setHidden] = useState(startHidden);
   const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
@@ -114,28 +119,18 @@ export const FeedPost = ({
 
   const timeSincePost = timeSince(new Date(item.post.indexedAt));
 
-  if (hidden) {
-    return (
-      <View
-        className={cx(
-          "bg-white p-2 pl-16 text-black dark:bg-black dark:text-white",
-          isReply && !item.reason && "pt-0",
-          !hasReply && "border-b border-neutral-200 dark:border-neutral-600",
-          unread && "border-blue-200 bg-blue-50 dark:border-neutral-800",
-        )}
-      >
-        <View className="flex-1 pb-2.5 pl-1 pr-2">
-          <View className="flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-            <Text className="my-1 max-w-[75%] font-semibold dark:text-white">
-              This post is from someone you have{" "}
-              {item.post.author.viewer?.blocking ? "blocked" : "muted"}.
-            </Text>
-            <Button title="Show" onPress={() => setHidden(false)} />
-          </View>
-        </View>
-      </View>
-    );
-  }
+  const hiddenContent = (
+    <View className="my-2 flex-row items-center justify-between rounded border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+      <Text className="my-1 max-w-[75%] font-semibold dark:text-white">
+        {filter
+          ? filter.message
+          : `This post is from someone you have ${
+              item.post.author.viewer?.blocking ? "blocked" : "muted"
+            }.`}
+      </Text>
+      <Button title="Show" onPress={() => setHidden(false)} />
+    </View>
+  );
 
   return (
     <View
@@ -279,26 +274,34 @@ export const FeedPost = ({
               : !!item.post.record.reply && (
                   <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
                 ))}
-          {/* text content */}
-          {item.post.record.text && (
-            <Link href={postHref} asChild>
-              <TouchableWithoutFeedback
-                className="my-0.5"
-                accessibilityHint="Opens post details"
-              >
-                <View>
-                  <RichText
-                    text={item.post.record.text}
-                    facets={item.post.record.facets}
-                  />
-                </View>
-              </TouchableWithoutFeedback>
-            </Link>
+          {hidden ? (
+            hiddenContent
+          ) : (
+            <>
+              {/* text content */}
+              {item.post.record.text && (
+                <Link href={postHref} asChild>
+                  <TouchableWithoutFeedback
+                    className="my-0.5"
+                    accessibilityHint="Opens post details"
+                  >
+                    <View>
+                      <RichText
+                        text={item.post.record.text}
+                        facets={item.post.record.facets}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
+                </Link>
+              )}
+              {/* embeds */}
+              {item.post.embed && (
+                <Embed uri={item.post.uri} content={item.post.embed} />
+              )}
+            </>
           )}
-          {/* embeds */}
-          {item.post.embed && (
-            <Embed uri={item.post.uri} content={item.post.embed} />
-          )}
+          {/* display labels for debug */}
+          {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
           <View className="mt-2.5 flex-row justify-between pr-6">
             <TouchableOpacity

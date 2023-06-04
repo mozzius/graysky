@@ -88,7 +88,6 @@ const SearchResults = ({ search }: Props) => {
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}
-          keyExtractor={(item) => item.did}
           estimatedItemSize={173}
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
@@ -125,7 +124,6 @@ const Suggestions = () => {
       <FlashList<AppBskyActorDefs.ProfileView>
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
-        keyExtractor={(item) => item.did}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <Text className="mt-4 px-4 text-lg font-bold dark:text-white">

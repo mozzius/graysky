@@ -7,6 +7,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "../../lib/agent";
+import { useContentFilter } from "../../lib/hooks/preferences";
 import { assert } from "../../lib/utils/assert";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
@@ -25,6 +26,7 @@ export const PostNotification = ({
   dataUpdatedAt: number;
 }) => {
   const agent = useAuthedAgent();
+  const { preferences, contentFilter } = useContentFilter();
 
   const post = useQuery({
     queryKey: ["notifications", "post", uri],
@@ -55,8 +57,14 @@ export const PostNotification = ({
     },
   });
 
-  if (post.data) {
+  if (post.data && preferences.data) {
+    const filter = contentFilter(post.data.post?.labels);
+
+    if (filter?.visibility === "hide") return null;
+
     if (inline) {
+      if (filter) return null;
+
       if (!AppBskyFeedPost.isRecord(post.data.post.record)) return null;
       assert(AppBskyFeedPost.validateRecord(post.data.post.record));
 
@@ -86,6 +94,7 @@ export const PostNotification = ({
 
     return (
       <FeedPost
+        filter={filter}
         item={post.data}
         inlineParent
         unread={unread}

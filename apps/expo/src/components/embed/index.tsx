@@ -16,7 +16,6 @@ import {
   AppBskyFeedPost,
   type AppBskyActorDefs,
 } from "@atproto/api";
-import { StyledComponent } from "nativewind";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -57,53 +56,51 @@ export const Embed = ({
     if (AppBskyEmbedExternal.isView(content)) {
       assert(AppBskyEmbedExternal.validateView(content));
       return (
-        <StyledComponent
-          component={TouchableOpacity}
+        <TouchableHighlight
           onPress={() => void Linking.openURL(content.external.uri)}
-          className={cx(
-            "mt-1.5 overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-800",
-            className,
-          )}
+          className={cx("mt-1.5 rounded-lg", className)}
         >
-          {content.external.thumb && (
-            <Image
-              recyclingKey={content.external.thumb}
-              source={{ uri: content.external.thumb }}
-              alt={content.external.title || content.external.uri}
-              className="aspect-[2/1] w-full object-cover"
-            />
-          )}
-          <View
-            className={cx(
-              "w-full p-2",
-              content.external.thumb &&
-                "border-t border-neutral-300 dark:border-neutral-800",
+          <View className="rounded-lg border border-neutral-300 dark:border-neutral-800">
+            {content.external.thumb && (
+              <Image
+                recyclingKey={content.external.thumb}
+                source={{ uri: content.external.thumb }}
+                alt={content.external.title || content.external.uri}
+                className="aspect-[2/1] w-full object-cover"
+              />
             )}
-          >
-            <Text
-              className="text-sm leading-5 text-neutral-400 dark:text-neutral-100"
-              numberOfLines={1}
-            >
-              {new URL(content.external.uri).hostname}
-            </Text>
-            <Text
-              className="mt-0.5 text-base font-semibold leading-5 dark:text-white"
-              numberOfLines={2}
-            >
-              {content.external.title || content.external.uri}
-            </Text>
-            {content.external.description &&
-              depth === 0 &&
-              !content.external.thumb && (
-                <Text
-                  className="mt-0.5 text-sm leading-5 dark:text-white"
-                  numberOfLines={2}
-                >
-                  {content.external.description}
-                </Text>
+            <View
+              className={cx(
+                "w-full p-2",
+                content.external.thumb &&
+                  "border-t border-neutral-300 dark:border-neutral-800",
               )}
+            >
+              <Text
+                className="text-sm leading-5 text-neutral-400 dark:text-neutral-100"
+                numberOfLines={1}
+              >
+                {new URL(content.external.uri).hostname}
+              </Text>
+              <Text
+                className="mt-0.5 text-base font-semibold leading-5 dark:text-white"
+                numberOfLines={2}
+              >
+                {content.external.title || content.external.uri}
+              </Text>
+              {content.external.description &&
+                depth === 0 &&
+                !content.external.thumb && (
+                  <Text
+                    className="mt-0.5 text-sm leading-5 dark:text-white"
+                    numberOfLines={2}
+                  >
+                    {content.external.description}
+                  </Text>
+                )}
+            </View>
           </View>
-        </StyledComponent>
+        </TouchableHighlight>
       );
     }
 
