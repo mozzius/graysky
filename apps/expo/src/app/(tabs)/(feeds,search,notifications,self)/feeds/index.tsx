@@ -6,7 +6,7 @@ import {
 } from "react-native-draggable-flatlist";
 import { Link, Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { ChevronRight, Cloud, Compass } from "lucide-react-native";
+import { ChevronRight, Cloud, Compass, Plus } from "lucide-react-native";
 
 import { Avatar } from "../../../../components/avatar";
 import { ComposeButton } from "../../../../components/compose-button";
@@ -129,14 +129,23 @@ export default function Page() {
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity onPress={() => setEditing((e) => !e)}>
-              <Text
-                style={{ color: theme.colors.primary }}
-                className={cx("text-lg", editing && "font-medium")}
-              >
-                {editing ? "Done" : "Edit"}
-              </Text>
-            </TouchableOpacity>
+            <View className="flex-row items-center">
+              <TouchableOpacity onPress={() => setEditing((e) => !e)}>
+                <Text
+                  style={{ color: theme.colors.primary }}
+                  className={cx("text-lg", editing && "font-medium")}
+                >
+                  {editing ? "Done" : "Edit"}
+                </Text>
+              </TouchableOpacity>
+              {!editing && (
+                <Link href="/feeds/discover" asChild>
+                  <TouchableOpacity className="ml-4">
+                    <Plus size={24} color={theme.colors.primary} />
+                  </TouchableOpacity>
+                </Link>
+              )}
+            </View>
           ),
         }}
       />
