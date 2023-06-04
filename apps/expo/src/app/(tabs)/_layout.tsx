@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -72,11 +72,11 @@ export default function AppLayout() {
         drawerType="slide"
         statusBarAnimation="slide"
         drawerStyle={{
-          width: Dimensions.get("window").width * 0.8,
+          width: Math.min(Dimensions.get("window").width * 0.8, 350),
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={Dimensions.get("window").width}
-        swipeEnabled={segments.length === 3}
+        swipeEnabled={Platform.OS === "ios" ? segments.length === 3 : true}
       >
         <Tabs
           screenOptions={{

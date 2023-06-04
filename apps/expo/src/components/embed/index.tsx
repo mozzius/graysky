@@ -1,10 +1,4 @@
-import {
-  Linking,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Linking, Text, TouchableHighlight, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
@@ -128,7 +122,7 @@ export const Embed = ({
             .pop()}`;
           return (
             <Link href={href} asChild>
-              <TouchableHighlight className="rounded-lg mt-1.5">
+              <TouchableHighlight className="mt-1.5 rounded-lg">
                 <View
                   className={cx(
                     "flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black",
