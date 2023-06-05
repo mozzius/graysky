@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import "./src/lib/utils/polyfills/platform-polyfills";
+
 // import { Platform, StatusBar } from "react-native";
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";

@@ -11,6 +11,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@graysky/db": "^0.1.0",
     "@trpc/client": "^10.28.2",
     "@trpc/server": "^10.28.2",
     "superjson": "1.12.3",

@@ -18,11 +18,11 @@ import {
 } from "../lib/hooks";
 import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
-import { useColorScheme } from "../lib/utils/color-scheme";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;

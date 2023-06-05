@@ -11,6 +11,8 @@ const connection = connect({
 
 export const db = drizzle(connection, { schema });
 
+export { schema };
+
 // const result = await db.query.bookmarks.findFirst({
 //   where: eq(schema.bookmarks.userDid, "123"),
 // });

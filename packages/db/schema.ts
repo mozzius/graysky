@@ -22,8 +22,8 @@ export const bookmarks = mysqlTable(
   "bookmarks",
   {
     id: serial("id").primaryKey(),
-    userDid: text("user_did"),
-    postUri: text("post_uri"),
+    userDid: text("user_did").notNull(),
+    postUri: text("post_uri").notNull(),
     createdAt: timestamp("created_at"),
   },
   (table) => ({

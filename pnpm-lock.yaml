@@ -333,6 +333,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@graysky/db':
+        specifier: ^0.1.0
+        version: link:../db
       '@trpc/client':
         specifier: ^10.28.2
         version: 10.28.2(@trpc/server@10.28.2)

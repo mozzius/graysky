@@ -111,9 +111,7 @@ export const RichText = ({
       } else {
         parts.push({
           text: segment.text,
-          component: (
-            <Text className="dark:text-white">{segment.text}</Text>
-          ),
+          component: <Text className="dark:text-white">{segment.text}</Text>,
         });
       }
     }

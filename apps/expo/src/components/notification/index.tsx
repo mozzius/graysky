@@ -135,7 +135,7 @@ const ProfileList = ({
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
     <View>
-      <View className="flex-row overflow-hidden flex-wrap h-8">
+      <View className="h-8 flex-row flex-wrap overflow-hidden">
         {actors.map((actor, index) => (
           <Link
             href={`/profile/${actor.handle}`}
