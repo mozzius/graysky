@@ -1,0 +1,23 @@
+{
+  "name": "@graysky/db",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./index.ts",
+    "./enums": "./enums.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "db:push": "pnpm with-env drizzle-kit push:mysql",
+    "with-env": "dotenv -e ../../.env -e ../../.env.local --"
+  },
+  "dependencies": {
+    "@planetscale/database": "^1.7.0",
+    "drizzle-orm": "^0.26.5"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.2.1",
+    "drizzle-kit": "^0.18.1",
+    "typescript": "^5.1.3"
+  }
+}
