@@ -12,6 +12,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -83,7 +84,12 @@ export const DraggableFeedRow = ({
   }, [editing, editingValue]);
 
   const star = (
-    <TouchableOpacity onPress={() => onPressStar()}>
+    <TouchableOpacity
+      onPress={() => {
+        void Haptics.impactAsync();
+        onPressStar();
+      }}
+    >
       <Star
         size={20}
         className={
@@ -133,8 +139,9 @@ export const DraggableFeedRow = ({
                 style={deleteStyle}
                 className="absolute right-full"
               >
-                <TouchableWithoutFeedback
+                <TouchableOpacity
                   onPress={() => {
+                    void Haptics.impactAsync();
                     showActionSheetWithOptions(
                       {
                         title: "Unsave this feed?",
@@ -157,7 +164,7 @@ export const DraggableFeedRow = ({
                       className="text-white dark:text-black"
                     />
                   </View>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               </Animated.View>
               <Image
                 source={{ uri: feed.avatar }}
