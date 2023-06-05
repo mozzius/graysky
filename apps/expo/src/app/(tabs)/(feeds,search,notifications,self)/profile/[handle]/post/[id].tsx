@@ -154,7 +154,7 @@ const PostThread = ({ contentFilter }: Props) => {
     thread.refetch,
   );
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
 
   const composer = useComposer();
   if (thread.data) {
@@ -162,6 +162,7 @@ const PostThread = ({ contentFilter }: Props) => {
       <>
         <FlashList<Posts>
           ref={ref}
+          onScroll={onScroll}
           data={thread.data.posts}
           estimatedItemSize={150}
           initialScrollIndex={thread.data.index}

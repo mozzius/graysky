@@ -61,7 +61,7 @@ const SearchResults = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
 
   const data = useMemo(() => {
     if (!searchResults.data) return [];
@@ -75,6 +75,7 @@ const SearchResults = ({ search }: Props) => {
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}
+          onScroll={onScroll}
           estimatedItemSize={173}
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
@@ -104,11 +105,13 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
 
   if (suggestions.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
+        ref={ref}
+        onScroll={onScroll}
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}

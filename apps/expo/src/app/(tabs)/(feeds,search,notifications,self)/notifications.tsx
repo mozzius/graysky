@@ -120,8 +120,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     ),
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const ref = useTabPressScrollRef(notifications.refetch);
+  const [ref, onScroll] = useTabPressScrollRef(notifications.refetch);
 
   const data = useMemo(() => {
     if (!notifications.data) return [];
@@ -135,6 +134,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     return (
       <FlashList
         ref={ref}
+        onScroll={onScroll}
         data={data}
         renderItem={({ item }) => (
           <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
