@@ -30,6 +30,10 @@ const FeedsPage = ({ editing }: Props) => {
   const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
   const { pinned, reorder } = useReorderFeeds(savedFeeds);
 
+  const handleUnsave = (feed: string) => () => {
+    toggleFeed.mutate({ save: feed });
+  };
+
   if (savedFeeds.data) {
     return (
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
@@ -67,7 +71,9 @@ const FeedsPage = ({ editing }: Props) => {
               onPressStar={() => {
                 toggleFeed.mutate({ pin: item.uri });
               }}
-              drag={editing ? drag : undefined}
+              drag={drag}
+              editing={editing}
+              onUnsave={handleUnsave(item.uri)}
             />
           )}
           ItemSeparatorComponent={() => (
@@ -87,6 +93,8 @@ const FeedsPage = ({ editing }: Props) => {
               onPressStar={() => {
                 toggleFeed.mutate({ pin: item.uri });
               }}
+              editing={editing}
+              onUnsave={handleUnsave(item.uri)}
             />
           )}
           ItemSeparatorComponent={() => (

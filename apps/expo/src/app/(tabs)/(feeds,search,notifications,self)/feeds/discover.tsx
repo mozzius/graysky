@@ -1,8 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { Stack } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import fuzzySort from "fuzzysort";
 import { Check } from "lucide-react-native";
 
 import { FeedRow } from "../../../../components/feed-row";
@@ -13,6 +15,7 @@ import { useAuthedAgent } from "../../../../lib/agent";
 export default function DiscoveryPage() {
   const agent = useAuthedAgent();
   const theme = useTheme();
+  const [search, setSearch] = useState("");
 
   const saved = useQuery({
     queryKey: ["feeds", "saved", "plain"],
@@ -37,14 +40,37 @@ export default function DiscoveryPage() {
     },
   });
 
+  const sorted = useMemo(() => {
+    if (!recommended.data) return [];
+
+    if (!search) return recommended.data;
+
+    const results = fuzzySort.go(search, recommended.data, {
+      key: "displayName",
+    });
+
+    return results.map((result) => result.obj);
+  }, [recommended.data, search]);
+
   if (recommended.data) {
     return (
-      <ScrollView className="flex-1 px-6">
+      <ScrollView
+        className="flex-1 px-6"
+        contentInsetAdjustmentBehavior="automatic"
+      >
+        <Stack.Screen
+          options={{
+            headerSearchBarOptions: {
+              placeholder: "Search feeds",
+              onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+            },
+          }}
+        />
         <View
           style={{ backgroundColor: theme.colors.card }}
           className="my-8 overflow-hidden rounded-lg"
         >
-          {recommended.data.map((feed, i, arr) => (
+          {sorted.map((feed, i, arr) => (
             <Fragment key={feed.uri}>
               <FeedRow feed={feed}>
                 {saved.data?.some((f) => f === feed.uri) && (
