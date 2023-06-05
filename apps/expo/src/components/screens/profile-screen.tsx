@@ -217,7 +217,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
     return feeds.data.pages.flatMap((page) => page.feeds);
   }, [feeds]);
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
 
   const tabs = (offset: boolean) => (
     <Tabs style={{ marginTop: offset ? tabOffset : 0 }}>
@@ -351,6 +351,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
               }
               estimatedItemSize={91}
               onScroll={(evt) => {
+                onScroll(evt);
                 const { contentOffset } = evt.nativeEvent;
                 setAtTop(contentOffset.y <= 30);
               }}
@@ -394,6 +395,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
               }
               estimatedItemSize={91}
               onScroll={(evt) => {
+                onScroll(evt);
                 const { contentOffset } = evt.nativeEvent;
                 setAtTop(contentOffset.y <= 30);
               }}
