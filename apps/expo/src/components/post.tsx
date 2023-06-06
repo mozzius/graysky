@@ -18,11 +18,11 @@ import {
 } from "../lib/hooks";
 import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
+import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { RichText } from "./rich-text";
-import { useColorScheme } from "../lib/utils/color-scheme";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
@@ -137,7 +137,9 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           }
         >
           <MessageSquare size={18} color={buttonColor} />
-          <Text>{replyCount}</Text>
+          <Text style={{ color: buttonColor }} className="tabular-nums">
+            {replyCount}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel={`Repost, ${repostCount} repost${
@@ -154,6 +156,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             style={{
               color: reposted ? "#2563eb" : buttonColor,
             }}
+            className="tabular-nums"
           >
             {repostCount}
           </Text>
@@ -177,6 +180,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             style={{
               color: liked ? "#dc2626" : buttonColor,
             }}
+            className="tabular-nums"
           >
             {likeCount}
           </Text>

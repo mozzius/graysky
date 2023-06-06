@@ -321,7 +321,9 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
               <MessageSquare size={16} color={buttonColor} />
-              <Text style={{ color: buttonColor }}>{replyCount}</Text>
+              <Text style={{ color: buttonColor }} className="tabular-nums">
+                {replyCount}
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               accessibilityLabel={`Repost, ${repostCount} repost${
@@ -338,6 +340,7 @@ export const FeedPost = ({
                 style={{
                   color: reposted ? "#2563eb" : buttonColor,
                 }}
+                className="tabular-nums"
               >
                 {repostCount}
               </Text>
@@ -361,6 +364,7 @@ export const FeedPost = ({
                 style={{
                   color: liked ? "#dc2626" : buttonColor,
                 }}
+                className="tabular-nums"
               >
                 {likeCount}
               </Text>

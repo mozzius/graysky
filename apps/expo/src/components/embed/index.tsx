@@ -130,15 +130,16 @@ export const Embed = ({
                   )}
                 >
                   <Image
+                    recyclingKey={record.avatar}
                     alt={record.displayName}
                     source={{ uri: record.avatar }}
                     className="h-14 w-14 rounded bg-blue-500"
                   />
-                  <View className="ml-2">
-                    <Text className="text-lg font-medium">
+                  <View className="ml-2 flex-1">
+                    <Text className="text-lg font-medium dark:text-white">
                       {record.displayName}
                     </Text>
-                    <Text className="text-base leading-5 text-neutral-400">
+                    <Text className="text-base text-neutral-400">
                       By @{record.creator.handle}
                     </Text>
                   </View>

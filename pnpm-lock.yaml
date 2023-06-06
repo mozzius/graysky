@@ -178,6 +178,9 @@ importers:
       react-native-gesture-handler:
         specifier: ~2.9.0
         version: 2.9.0(react-native@0.71.8)(react@18.2.0)
+      react-native-hold-menu:
+        specifier: ^0.1.6
+        version: 0.1.6(expo-blur@12.2.2)(expo-haptics@12.2.1)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
       react-native-ios-context-menu:
         specifier: ^1.15.3
         version: 1.15.3(react-native@0.71.8)(react@18.2.0)
@@ -9900,6 +9903,27 @@ packages:
 
   /react-native-gradle-plugin@0.71.18:
     resolution: {integrity: sha512-7F6bD7B8Xsn3JllxcwHhFcsl9aHIig47+3eN4IHFNqfLhZr++3ElDrcqfMzugM+niWbaMi7bJ0kAkAL8eCpdWg==}
+    dev: false
+
+  /react-native-hold-menu@0.1.6(expo-blur@12.2.2)(expo-haptics@12.2.1)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-yNR5Lg3FcsCNaJidL3xGXXRuHIR0oi6k6x152fs1U2Fzd/NqhdxCgglmyj0Nt3cHKmnVmpLtJjqaE8yQZ9ncjg==}
+    peerDependencies:
+      expo-blur: ^11.1.0
+      expo-haptics: ^11.2.0
+      react: '*'
+      react-native: '*'
+      react-native-gesture-handler: '>=1.8.0'
+      react-native-reanimated: '>=2.1.0'
+    dependencies:
+      '@gorhom/portal': 1.0.14(react-native@0.71.8)(react@18.2.0)
+      expo-blur: 12.2.2(expo@48.0.19)
+      expo-haptics: 12.2.1(expo@48.0.19)
+      lodash.isequal: 4.5.0
+      nanoid: 3.3.6
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+      react-native-gesture-handler: 2.9.0(react-native@0.71.8)(react@18.2.0)
+      react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.8)(react@18.2.0)
     dev: false
 
   /react-native-ios-context-menu@1.15.3(react-native@0.71.8)(react@18.2.0):

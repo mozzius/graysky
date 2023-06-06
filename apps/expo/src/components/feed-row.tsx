@@ -18,14 +18,23 @@ import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
-import { ChevronRight, Equal, MinusCircle, Star } from "lucide-react-native";
+import {
+  ChevronRight,
+  Equal,
+  Heart,
+  MinusCircle,
+  Star,
+} from "lucide-react-native";
+
+import { cx } from "../lib/utils/cx";
 
 interface Props {
   feed: AppBskyFeedDefs.GeneratorView;
   children?: React.ReactNode;
+  large?: boolean;
 }
 
-export const FeedRow = ({ feed, children }: Props) => {
+export const FeedRow = ({ feed, children, large }: Props) => {
   const theme = useTheme();
   const href = `/profile/${feed.creator.did}/generator/${feed.uri
     .split("/")
@@ -40,12 +49,30 @@ export const FeedRow = ({ feed, children }: Props) => {
           <Image
             source={{ uri: feed.avatar }}
             alt={feed.displayName}
-            className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
+            className={cx(
+              "shrink-0 items-center justify-center rounded bg-blue-500",
+              large ? "h-10 w-10" : "h-6 w-6",
+            )}
           />
           <View className="mx-3 flex-1 flex-row items-center">
-            <Text className="text-base dark:text-white" numberOfLines={1}>
-              {feed.displayName}
-            </Text>
+            <View>
+              <Text className="text-base dark:text-white" numberOfLines={1}>
+                {feed.displayName}
+              </Text>
+              {large && (
+                <Text className="text-sm text-neutral-400" numberOfLines={1}>
+                  <Heart
+                    fill="currentColor"
+                    className={
+                      feed.viewer?.like ? "text-red-500" : "text-neutral-400"
+                    }
+                    size={12}
+                  />{" "}
+                  <Text className="tabular-nums">{feed.likeCount ?? 0}</Text> •
+                  @{feed.creator.handle}
+                </Text>
+              )}
+            </View>
             {children}
           </View>
           <ChevronRight

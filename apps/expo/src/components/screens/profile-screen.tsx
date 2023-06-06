@@ -22,7 +22,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { ChevronRight, XOctagon } from "lucide-react-native";
+import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
@@ -427,7 +427,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
         <Stack.Screen
           options={{
             headerTransparent: true,
-            headerTitle: "",
+            headerTitle: profile.data.displayName,
             headerStyle: {
               backgroundColor: theme.colors.card,
             },
@@ -453,6 +453,8 @@ const Feed = ({
   creator,
   uri,
   description,
+  likeCount,
+  viewer,
 }: AppBskyFeedDefs.GeneratorView) => {
   const href = `/profile/${creator.did}/generator/${uri.split("/").pop()}`;
   return (
@@ -468,11 +470,15 @@ const Feed = ({
             <Text className="text-base font-medium dark:text-white">
               {displayName}
             </Text>
-            {description && (
-              <Text className="text-sm text-neutral-400" numberOfLines={1}>
-                {description}
-              </Text>
-            )}
+            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+              <Heart
+                fill="currentColor"
+                className={viewer?.like ? "text-red-500" : "text-neutral-400"}
+                size={12}
+              />{" "}
+              <Text className="tabular-nums">{likeCount ?? 0}</Text>
+              {description && ` • ${description}`}
+            </Text>
           </View>
           <ChevronRight
             size={20}

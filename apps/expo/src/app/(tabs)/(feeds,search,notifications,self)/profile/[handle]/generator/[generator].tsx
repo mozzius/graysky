@@ -186,14 +186,20 @@ const FeedInfo = ({
               <View className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 bg-white py-2 dark:border-neutral-700 dark:bg-black">
                 {isSaved ? (
                   <>
-                    <Check className="h-6 w-6 text-black dark:text-white" />
+                    <Check
+                      className="h-6 w-6 text-black dark:text-white"
+                      size={16}
+                    />
                     <Text className="ml-2 text-base dark:text-white">
                       Saved
                     </Text>
                   </>
                 ) : (
                   <>
-                    <Plus className="h-6 w-6 text-black dark:text-white" />
+                    <Plus
+                      className="h-6 w-6 text-black dark:text-white"
+                      size={16}
+                    />
                     <Text className="ml-2 text-base dark:text-white">Save</Text>
                   </>
                 )}
@@ -232,7 +238,7 @@ const FeedInfo = ({
                 className={cx(
                   "flex-row items-center rounded border px-3 py-2",
                   info.view.viewer?.like
-                    ? "border-red-200 bg-red-100"
+                    ? "border-red-200 bg-red-100 dark:border-red-800 dark:bg-red-950"
                     : "border-neutral-300 bg-white dark:border-neutral-700 dark:bg-black",
                 )}
               >
@@ -241,7 +247,7 @@ const FeedInfo = ({
                   color={"#dc2626"}
                   fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
                 />
-                <Text className="ml-2 text-base dark:text-white">
+                <Text className="ml-2 text-base tabular-nums dark:text-white">
                   {info.view.likeCount}
                 </Text>
               </View>

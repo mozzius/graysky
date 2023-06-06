@@ -72,7 +72,7 @@ export default function DiscoveryPage() {
         >
           {sorted.map((feed, i, arr) => (
             <Fragment key={feed.uri}>
-              <FeedRow feed={feed}>
+              <FeedRow feed={feed} large>
                 {saved.data?.some((f) => f === feed.uri) && (
                   <Check
                     className="ml-2"
@@ -81,7 +81,7 @@ export default function DiscoveryPage() {
                   />
                 )}
               </FeedRow>
-              {i !== arr.length - 1 && <ItemSeparator iconWidth="w-6" />}
+              {i !== arr.length - 1 && <ItemSeparator iconWidth="w-10" />}
             </Fragment>
           ))}
         </View>
