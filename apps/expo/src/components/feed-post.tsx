@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { HoldItem } from "react-native-hold-menu";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
@@ -131,6 +132,18 @@ export const FeedPost = ({
       <Button title="Show" onPress={() => setHidden(false)} />
     </View>
   );
+
+  const MenuItems = [
+    { text: "Actions", icon: "home", isTitle: true, onPress: () => {} },
+    { text: "Action 1", icon: "edit", onPress: () => {} },
+    {
+      text: "Action 2",
+      icon: "map-pin",
+      withSeparator: true,
+      onPress: () => {},
+    },
+    { text: "Action 3", icon: "trash", isDestructive: true, onPress: () => {} },
+  ];
 
   return (
     <View
@@ -369,14 +382,16 @@ export const FeedPost = ({
                 {likeCount}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              accessibilityLabel="More options"
-              accessibilityRole="button"
-              onPress={handleMore}
-              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-            >
-              <MoreHorizontal size={16} color={buttonColor} />
-            </TouchableOpacity>
+            <HoldItem activateOn="tap" items={MenuItems} disableMove>
+              <TouchableOpacity
+                accessibilityLabel="More options"
+                accessibilityRole="button"
+                // onPress={handleMore}
+                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+              >
+                <MoreHorizontal size={16} color={buttonColor} />
+              </TouchableOpacity>
+            </HoldItem>
           </View>
         </View>
       </View>
