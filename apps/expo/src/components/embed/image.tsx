@@ -11,10 +11,9 @@ interface Props {
   uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
-  className?: string;
 }
 
-export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
+export const ImageEmbed = ({ uri, content, depth }: Props) => {
   const href = `/images/${encodeURIComponent(uri)}`;
   const [aspectRatio, setAspectRatio] = useState(1);
   const queryClient = useQueryClient();
@@ -37,7 +36,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
               recyclingKey={uri}
               source={{ uri: image.thumb }}
               alt={image.alt}
-              className={cx("mt-1.5 w-full rounded-lg", className)}
+              className="mt-1.5 w-full rounded-lg"
               style={{ aspectRatio }}
               onLoad={({ source: { width, height } }) =>
                 setAspectRatio(Math.max(depth === 0 ? 0.66 : 2, width / height))
@@ -48,12 +47,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
       );
     case 2:
       return (
-        <View
-          className={cx(
-            "mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg",
-            className,
-          )}
-        >
+        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
@@ -75,12 +69,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
       );
     case 3:
       return (
-        <View
-          className={cx(
-            "mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg",
-            className,
-          )}
-        >
+        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
             <Link href={`${href}?initial=0`} asChild>
               <TouchableWithoutFeedback accessibilityRole="image">
@@ -119,12 +108,7 @@ export const ImageEmbed = ({ uri, content, depth, className }: Props) => {
       );
     case 4:
       return (
-        <View
-          className={cx(
-            "mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg",
-            className,
-          )}
-        >
+        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
               key={image.fullsize}

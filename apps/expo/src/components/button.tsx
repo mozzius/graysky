@@ -11,13 +11,11 @@ import { cx } from "../lib/utils/cx";
 interface ButtonProps extends React.PropsWithChildren {
   onPress: (evt: GestureResponderEvent) => void | Promise<void>;
   variant?: "white" | "black" | "outline";
-  className?: string;
 }
 
 export const Button = ({
   onPress,
   variant = "black",
-  className,
   children,
 }: ButtonProps) => {
   const isChildAString = typeof children === "string";
@@ -31,7 +29,6 @@ export const Button = ({
           white: "bg-white dark:bg-black",
           outline: "border border-black dark:border-white",
         }[variant],
-        className,
       )}
     >
       {isChildAString ? (

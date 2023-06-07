@@ -11,14 +11,21 @@ import { HoldItem } from "react-native-hold-menu";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
+  Ban,
   Heart,
+  Megaphone,
+  MegaphoneOff,
   MessageCircle,
   MessageSquare,
   MoreHorizontal,
   Repeat,
   User,
+  UserCircle,
+  UserMinus,
+  UserPlus,
 } from "lucide-react-native";
 import { z } from "zod";
 
@@ -80,8 +87,8 @@ export const FeedPost = ({
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
 
-  const { colorScheme } = useColorScheme();
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+  const theme = useTheme();
+  const buttonColor = theme.dark ? "#FFF" : "#1C1C1E";
 
   const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
@@ -134,16 +141,43 @@ export const FeedPost = ({
   );
 
   const MenuItems = [
-    { text: "Actions", icon: "home", isTitle: true, onPress: () => {} },
-    { text: "Action 1", icon: "edit", onPress: () => {} },
     {
-      text: "Action 2",
-      icon: "map-pin",
-      withSeparator: true,
-      onPress: () => {},
+      text: `@${item.post.author.handle}`,
+      isTitle: true,
     },
-    { text: "Action 3", icon: "trash", isDestructive: true, onPress: () => {} },
-  ];
+    {
+      text: "View Profile",
+      onPress: () => {},
+      icon: () => <UserCircle size={18} color={theme.colors.text} />,
+    },
+    item.post.author.viewer?.following
+      ? {
+          text: `Unfollow`,
+          onPress: () => {},
+          icon: () => <UserMinus size={18} color={theme.colors.text} />,
+        }
+      : {
+          text: `Follow`,
+          onPress: () => {},
+          icon: () => <UserPlus size={18} color={theme.colors.text} />,
+        },
+    item.post.author.viewer?.muted
+      ? {
+          text: `Unmute`,
+          onPress: () => {},
+          icon: () => <Megaphone size={18} color={theme.colors.text} />,
+        }
+      : {
+          text: `Mute`,
+          onPress: () => {},
+          icon: () => <MegaphoneOff size={18} color={theme.colors.text} />,
+        },
+    {
+      text: `Block`,
+      onPress: () => {},
+      icon: () => <Ban size={18} color={theme.colors.text} />,
+    },
+  ].filter(Boolean);
 
   return (
     <View
@@ -162,22 +196,24 @@ export const FeedPost = ({
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-          <Link href={profileHref} asChild>
-            <TouchableOpacity>
-              {item.post.author.avatar ? (
-                <Image
-                  recyclingKey={item.post.author.did}
-                  source={{ uri: item.post.author.avatar }}
-                  alt={postAuthorHandle}
-                  className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
-                />
-              ) : (
-                <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                  <User size={32} color={buttonColor} />
-                </View>
-              )}
-            </TouchableOpacity>
-          </Link>
+          <HoldItem items={MenuItems}>
+            <Link href={profileHref} asChild>
+              <TouchableOpacity>
+                {item.post.author.avatar ? (
+                  <Image
+                    recyclingKey={item.post.author.did}
+                    source={{ uri: item.post.author.avatar }}
+                    alt={postAuthorHandle}
+                    className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
+                  />
+                ) : (
+                  <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+                    <User size={32} color={buttonColor} />
+                  </View>
+                )}
+              </TouchableOpacity>
+            </Link>
+          </HoldItem>
           <Link href={postHref} asChild>
             <TouchableWithoutFeedback>
               <View className="w-12 flex-1 items-center">
@@ -382,16 +418,14 @@ export const FeedPost = ({
                 {likeCount}
               </Text>
             </TouchableOpacity>
-            <HoldItem activateOn="tap" items={MenuItems} disableMove>
-              <TouchableOpacity
-                accessibilityLabel="More options"
-                accessibilityRole="button"
-                // onPress={handleMore}
-                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              >
-                <MoreHorizontal size={16} color={buttonColor} />
-              </TouchableOpacity>
-            </HoldItem>
+            <TouchableOpacity
+              accessibilityLabel="More options"
+              accessibilityRole="button"
+              onPress={handleMore}
+              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+            >
+              <MoreHorizontal size={16} color={buttonColor} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

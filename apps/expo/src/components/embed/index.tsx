@@ -20,30 +20,16 @@ interface Props {
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
   depth?: number;
-  className?: string;
 }
 
-export const Embed = ({
-  uri,
-  content,
-  truncate = true,
-  depth = 0,
-  className,
-}: Props) => {
+export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   if (!content) return null;
 
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return (
-        <ImageEmbed
-          className={className}
-          uri={uri}
-          content={content}
-          depth={depth}
-        />
-      );
+      return <ImageEmbed uri={uri} content={content} depth={depth} />;
     }
 
     // Case 2: External link
@@ -52,7 +38,7 @@ export const Embed = ({
       return (
         <TouchableHighlight
           onPress={() => void Linking.openURL(content.external.uri)}
-          className={cx("mt-1.5 rounded-lg", className)}
+          className={cx("mt-1.5 rounded-lg")}
         >
           <View className="rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
             {content.external.thumb && (
@@ -123,12 +109,7 @@ export const Embed = ({
           return (
             <Link href={href} asChild>
               <TouchableHighlight className="mt-1.5 rounded-lg">
-                <View
-                  className={cx(
-                    "flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black",
-                    className,
-                  )}
-                >
+                <View className="flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
                   <Image
                     recyclingKey={record.avatar}
                     alt={record.displayName}
@@ -162,7 +143,7 @@ export const Embed = ({
       assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
-        <View className={className}>
+        <View>
           {media && <Embed uri={uri} content={media} depth={depth + 1} />}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
@@ -190,12 +171,7 @@ export const Embed = ({
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
-      <View
-        className={cx(
-          "my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950",
-          className,
-        )}
-      >
+      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
         <Text className="text-center font-semibold">
           {(err as Error).message}
         </Text>
