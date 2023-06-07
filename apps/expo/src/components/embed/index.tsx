@@ -210,9 +210,11 @@ export const PostEmbed = ({
   author,
   uri,
   children,
+  transparent,
 }: React.PropsWithChildren<{
   author: AppBskyActorDefs.ProfileViewBasic;
   uri: string;
+  transparent?: boolean;
 }>) => {
   const theme = useTheme();
   const profileHref = `/profile/${author.handle}`;
@@ -225,7 +227,12 @@ export const PostEmbed = ({
         accessibilityHint="Opens embedded post"
         className="mt-1.5 flex-1 rounded-lg"
       >
-        <View className="flex-1 rounded-lg border border-neutral-300 bg-white px-2 pb-2 pt-1 dark:border-neutral-800 dark:bg-black">
+        <View
+          className={cx(
+            "flex-1 rounded-lg border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-800",
+            !transparent && "bg-white dark:bg-black",
+          )}
+        >
           <View className="flex flex-row items-center overflow-hidden">
             <Image
               recyclingKey={author.avatar}
