@@ -115,7 +115,7 @@ export default function ModerationSettings() {
                 return {
                   title: label,
                   action: (
-                    <Text className="text-base font-medium capitalize text-neutral-400">
+                    <Text className="text-base font-medium capitalize text-neutral-400 dark:text-neutral-300">
                       {adultContentEnabled ? visibility : "Hide"}
                     </Text>
                   ),
@@ -153,7 +153,7 @@ export default function ModerationSettings() {
                       style={{
                         color: theme.colors.primary,
                       }}
-                      className="text-base font-medium capitalize dark:text-white"
+                      className="text-base font-medium capitalize"
                     >
                       {visibility}
                     </Text>
@@ -166,7 +166,7 @@ export default function ModerationSettings() {
       >
         {Platform.OS === "ios" && (
           <View className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
-            <Text className="dark:text-white">
+            <Text style={{ color: theme.colors.text }}>
               Note: Adult content settings cannot be changed on iOS. Please use
               the web app instead.
             </Text>

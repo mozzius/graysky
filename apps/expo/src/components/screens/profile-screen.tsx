@@ -456,6 +456,7 @@ const Feed = ({
   likeCount,
   viewer,
 }: AppBskyFeedDefs.GeneratorView) => {
+  const theme = useTheme();
   const href = `/profile/${creator.did}/generator/${uri.split("/").pop()}`;
   return (
     <Link href={href} asChild>
@@ -467,13 +468,23 @@ const Feed = ({
             className="h-10 w-10 rounded bg-blue-500"
           />
           <View className="flex-1 px-3">
-            <Text className="text-base font-medium dark:text-white">
+            <Text
+              style={{ color: theme.colors.text }}
+              className="text-base font-medium"
+            >
               {displayName}
             </Text>
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            <Text
+              className="text-sm text-neutral-500 dark:text-neutral-400"
+              numberOfLines={1}
+            >
               <Heart
                 fill="currentColor"
-                className={viewer?.like ? "text-red-500" : "text-neutral-400"}
+                className={
+                  viewer?.like
+                    ? "text-red-500"
+                    : "text-neutral-500 dark:text-neutral-400"
+                }
                 size={12}
               />{" "}
               <Text className="tabular-nums">{likeCount ?? 0}</Text>

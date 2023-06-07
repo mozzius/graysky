@@ -5,6 +5,7 @@ import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "@react-navigation/native";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
@@ -34,6 +35,7 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
+  const theme = useTheme();
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -80,8 +82,11 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={openInviteCodes}
         >
-          <Ticket className="text-black dark:text-white" />
-          <Text className="ml-6 text-base font-medium dark:text-white">
+          <Ticket style={{ color: theme.colors.text }} />
+          <Text
+            style={{ color: theme.colors.text }}
+            className="ml-6 text-base font-medium"
+          >
             Invite codes{numCodes > 0 && ` (${numCodes})`}
           </Text>
         </TouchableOpacity>
@@ -91,8 +96,11 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
-          <Palette className="text-black dark:text-white" />
-          <Text className="ml-6 text-base font-medium dark:text-white">
+          <Palette style={{ color: theme.colors.text }} />
+          <Text
+            style={{ color: theme.colors.text }}
+            className="ml-6 text-base font-medium"
+          >
             Change theme
           </Text>
         </TouchableOpacity>
@@ -102,8 +110,11 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
             accessibilityLabel="Settings"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Settings2 className="text-black dark:text-white" />
-            <Text className="ml-6 text-base font-medium dark:text-white">
+            <Settings2 style={{ color: theme.colors.text }} />
+            <Text
+              style={{ color: theme.colors.text }}
+              className="ml-6 text-base font-medium"
+            >
               Settings
             </Text>
           </TouchableOpacity>
@@ -116,12 +127,15 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
         className="w-full flex-row items-center py-2"
         onPress={() => void logOut()}
       >
-        <LogOut className="text-black dark:text-white" />
-        <Text className="ml-6 text-base font-medium dark:text-white">
+        <LogOut style={{ color: theme.colors.text }} />
+        <Text
+          style={{ color: theme.colors.text }}
+          className="ml-6 text-base font-medium"
+        >
           Sign out
         </Text>
       </TouchableOpacity>
-      <Text className="mt-4 text-neutral-400">
+      <Text className="mt-4 text-neutral-500 dark:text-neutral-400">
         Version {Constants.expoConfig?.version ?? "unknown"}
       </Text>
     </SafeAreaView>

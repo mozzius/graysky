@@ -10,6 +10,7 @@ import {
   AppBskyFeedPost,
   type AppBskyActorDefs,
 } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -23,6 +24,8 @@ interface Props {
 }
 
 export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
+  const theme = useTheme();
+
   if (!content) return null;
 
   try {
@@ -63,7 +66,8 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
                 {new URL(content.external.uri).hostname}
               </Text>
               <Text
-                className="mt-0.5 text-base leading-5 dark:text-white"
+                style={{ color: theme.colors.text }}
+                className="mt-0.5 text-base leading-5"
                 numberOfLines={2}
               >
                 {content.external.title || content.external.uri}
@@ -72,7 +76,8 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
                 depth === 0 &&
                 !content.external.thumb && (
                   <Text
-                    className="mt-0.5 text-sm leading-5 dark:text-white"
+                    style={{ color: theme.colors.text }}
+                    className="mt-0.5 text-sm leading-5"
                     numberOfLines={2}
                   >
                     {content.external.description}
@@ -117,10 +122,13 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
                     className="h-14 w-14 rounded bg-blue-500"
                   />
                   <View className="ml-2 flex-1">
-                    <Text className="text-lg font-medium dark:text-white">
+                    <Text
+                      style={{ color: theme.colors.text }}
+                      className="text-lg font-medium"
+                    >
                       {record.displayName}
                     </Text>
-                    <Text className="text-base text-neutral-400">
+                    <Text className="text-base text-neutral-400 dark:text-neutral-500">
                       By @{record.creator.handle}
                     </Text>
                   </View>
@@ -144,11 +152,12 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
 
       return (
         <View>
-          {media && <Embed uri={uri} content={media} depth={depth + 1} />}
+          {media && <Embed uri={uri} content={media} depth={depth} />}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
               <Text
-                className="mt-1 text-base leading-5 dark:text-white"
+                style={{ color: theme.colors.text }}
+                className="mt-1 text-base leading-5"
                 numberOfLines={truncate ? 4 : undefined}
               >
                 {record.value.text}
@@ -188,6 +197,7 @@ export const PostEmbed = ({
   author: AppBskyActorDefs.ProfileViewBasic;
   uri: string;
 }>) => {
+  const theme = useTheme();
   const profileHref = `/profile/${author.handle}`;
 
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
@@ -207,7 +217,10 @@ export const PostEmbed = ({
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="text-base" numberOfLines={1}>
-              <Text className="font-semibold dark:text-white">
+              <Text
+                style={{ color: theme.colors.text }}
+                className="font-semibold"
+              >
                 {author.displayName}
               </Text>
               <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>

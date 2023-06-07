@@ -496,7 +496,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   onPress={() => setShowImages(false)}
                   className="mb-2 w-full flex-row items-center justify-between px-4"
                 >
-                  <Text className="text-base font-semibold dark:text-white">
+                  <Text
+                    style={{ color: theme.colors.text }}
+                    className="text-base font-semibold"
+                  >
                     Attached images
                   </Text>
                   <ChevronDown color="#888888" />
@@ -538,7 +541,10 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                         <Plus
                           color={colorScheme === "light" ? "black" : "white"}
                         />
-                        <Text className="mt-2 text-center dark:text-white">
+                        <Text
+                          style={{ color: theme.colors.text }}
+                          className="mt-2 text-center"
+                        >
                           Add image
                         </Text>
                       </View>
@@ -618,7 +624,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           </TouchableOpacity>
           <View className="flex-1" />
           <Text
-            className={cx("text-sm dark:text-white", tooLong && "text-red-500")}
+            style={{ color: !tooLong ? theme.colors.text : undefined }}
+            className={cx("text-sm", tooLong && "text-red-500")}
           >
             {rt.data?.graphemeLength} / {MAX_LENGTH}
           </Text>

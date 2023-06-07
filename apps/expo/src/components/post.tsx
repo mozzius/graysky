@@ -1,13 +1,12 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import {
   Heart,
   MessageSquare,
   MoreVertical,
   Repeat,
-  User,
 } from "lucide-react-native";
 
 import {
@@ -22,6 +21,7 @@ import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
+import { PostAvatar } from "./post-avatar";
 import { RichText } from "./rich-text";
 
 interface Props {
@@ -40,6 +40,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const handleMore = usePostViewOptions(post);
+  const theme = useTheme();
   const composer = useComposer();
   const { colorScheme } = useColorScheme();
   const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
@@ -62,21 +63,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
       )}
     >
       <View className="mb-2 flex-row">
-        <Link href={profileHref} asChild>
-          <TouchableOpacity>
-            {post.author.avatar ? (
-              <Image
-                source={{ uri: post.author.avatar }}
-                alt=""
-                className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
-              />
-            ) : (
-              <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900">
-                <User size={32} color={buttonColor} />
-              </View>
-            )}
-          </TouchableOpacity>
-        </Link>
+        <PostAvatar profile={post.author} />
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
@@ -86,8 +73,9 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           >
             <TouchableOpacity className="flex-1">
               <Text
+                style={{ color: theme.colors.text }}
                 numberOfLines={1}
-                className="text-base font-semibold dark:text-white"
+                className="text-base font-semibold"
               >
                 {postAuthorDisplayName}
               </Text>
@@ -185,7 +173,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             {likeCount}
           </Text>
         </TouchableOpacity>
-        <Text className="text-sm text-neutral-400">
+        <Text className="text-sm text-neutral-500 dark:text-neutral-400">
           {new Intl.DateTimeFormat(locale.languageTag, {
             timeStyle: "short",
             dateStyle: "short",

@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
@@ -131,11 +132,12 @@ const ProfileList = ({
   action,
   indexedAt,
 }: Pick<NotificationGroup, "actors" | "indexedAt"> & { action: string }) => {
+  const theme = useTheme();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
     <View>
-      <View className="flex-row overflow-hidden flex-wrap h-8">
+      <View className="h-8 flex-row flex-wrap overflow-hidden">
         {actors.map((actor, index) => (
           <Link
             href={`/profile/${actor.handle}`}
@@ -165,7 +167,10 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="text-base font-medium dark:text-white">
+        <Text
+          style={{ color: theme.colors.text }}
+          className="text-base font-medium"
+        >
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&

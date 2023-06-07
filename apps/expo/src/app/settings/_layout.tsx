@@ -130,7 +130,9 @@ const SettingsListInner = ({ children, options }: ListProps) => {
             chevron={!!option.href || !!option.onPress}
             action={option.action}
           >
-            <Text className="text-base dark:text-white">{option.title}</Text>
+            <Text style={{ color: theme.colors.text }} className="text-base">
+              {option.title}
+            </Text>
           </SettingsRow>
         );
         return (

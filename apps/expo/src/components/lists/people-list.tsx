@@ -37,6 +37,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
     const bottomSheetRef = useRef<BottomSheet>(null);
     const { top } = useSafeAreaInsets();
     const [showAll, setShowAll] = useState(false);
+    const theme = useTheme();
 
     useImperativeHandle(ref, () => ({
       open: () => {
@@ -73,7 +74,10 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
       >
-        <Text className="mt-2 text-center text-xl font-medium dark:text-white">
+        <Text
+          style={{ color: theme.colors.text }}
+          className="mt-2 text-center text-xl font-medium"
+        >
           {title}
         </Text>
         {data.data ? (
@@ -157,7 +161,10 @@ const PersonRow = ({
         />
         <View className="flex-1">
           {person.displayName && (
-            <Text className="text-base leading-5 dark:text-white">
+            <Text
+              style={{ color: theme.colors.text }}
+              className="text-base leading-5"
+            >
               {person.displayName}
             </Text>
           )}
