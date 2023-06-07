@@ -421,6 +421,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       const thread = await agent.getPostThread({
         uri,
         depth: 0,
+        parentHeight: 0,
       });
       if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
         assert(AppBskyFeedDefs.validateThreadViewPost(thread.data.thread));

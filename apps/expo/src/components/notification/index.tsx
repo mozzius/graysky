@@ -19,6 +19,7 @@ export const Notification = ({
   isRead,
   indexedAt,
   dataUpdatedAt,
+  item,
 }: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
@@ -45,11 +46,11 @@ export const Notification = ({
               action="liked your post"
               indexedAt={indexedAt}
             />
-            {subject && href && (
+            {subject && item && href && (
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    uri={subject}
+                    item={item}
                     unread={!isRead}
                     inline
                     dataUpdatedAt={dataUpdatedAt}
@@ -74,11 +75,11 @@ export const Notification = ({
               action="reposted your post"
               indexedAt={indexedAt}
             />
-            {subject && href && (
+            {subject && item && href && (
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    uri={subject}
+                    item={item}
                     unread={!isRead}
                     inline
                     dataUpdatedAt={dataUpdatedAt}
@@ -113,10 +114,10 @@ export const Notification = ({
     case "reply":
     case "quote":
     case "mention":
-      if (!subject) return null;
+      if (!subject || !item) return null;
       return (
         <PostNotification
-          uri={subject}
+          item={item}
           unread={!isRead}
           dataUpdatedAt={dataUpdatedAt}
         />

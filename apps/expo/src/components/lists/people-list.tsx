@@ -99,7 +99,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                 <View className="h-24 w-full items-center justify-center px-4">
                   {limit && !showAll && people.length > limit && (
                     <TouchableOpacity onPress={() => setShowAll(true)}>
-                      <Text className="text-center text-neutral-500 dark:bg-neutral-600">
+                      <Text className="text-center text-neutral-500 dark:text-neutral-400">
                         {data.hasNextPage
                           ? "Show all"
                           : `Show ${people.length - limit} more`}
@@ -110,7 +110,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
               )}
               ListEmptyComponent={
                 <View className="flex-1 items-center justify-center">
-                  <Text className="text-center text-neutral-500 dark:bg-neutral-600">
+                  <Text className="text-center text-neutral-500 dark:text-neutral-400">
                     There&apos;s nothing here...
                   </Text>
                 </View>
