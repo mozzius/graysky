@@ -11,6 +11,7 @@ import {
   type AppBskyActorDefs,
 } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
+import { Heart } from "lucide-react-native";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -111,6 +112,10 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           const href = `/profile/${record.creator.did}/generator/${record.uri
             .split("/")
             .pop()}`;
+          // TODO: add hold menu
+          // - open feed
+          // - save to my feeds
+          // - like feed
           return (
             <Link href={href} asChild>
               <TouchableHighlight className="mt-1.5 rounded-lg">
@@ -128,8 +133,20 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
                     >
                       {record.displayName}
                     </Text>
-                    <Text className="text-base text-neutral-400 dark:text-neutral-500">
-                      By @{record.creator.handle}
+                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <Heart
+                        fill="currentColor"
+                        className={
+                          record.viewer?.like
+                            ? "text-red-500"
+                            : "text-neutral-500 dark:text-neutral-400"
+                        }
+                        size={12}
+                      />{" "}
+                      <Text className="tabular-nums">
+                        {record.likeCount ?? 0}
+                      </Text>{" "}
+                      • @{record.creator.handle}
                     </Text>
                   </View>
                 </View>

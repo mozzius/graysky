@@ -9,7 +9,6 @@ import {
   Ban,
   Megaphone,
   MegaphoneOff,
-  User2,
   UserCircle,
   UserMinus,
   UserPlus,
@@ -96,7 +95,7 @@ export const PostAvatar = ({ profile }: Props) => {
             />
           ) : (
             <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-              <User2 size={32} color={theme.colors.text} />
+              <UserCircle size={32} color={theme.colors.text} />
             </View>
           )}
         </TouchableOpacity>
