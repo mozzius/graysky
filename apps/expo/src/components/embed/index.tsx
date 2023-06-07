@@ -44,7 +44,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           onPress={() => void Linking.openURL(content.external.uri)}
           className={cx("mt-1.5 rounded-lg")}
         >
-          <View className="rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
+          <View className="overflow-hidden rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
             {content.external.thumb && (
               <Image
                 recyclingKey={content.external.thumb}
