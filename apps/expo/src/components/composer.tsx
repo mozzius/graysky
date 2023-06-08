@@ -468,7 +468,11 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               className={cx("relative px-4 pb-2", isCollapsed && "opacity-0")}
             >
               <View className="absolute bottom-0 left-0 right-0 top-0 z-10" />
-              <PostEmbed author={postView.author} uri={postView.uri}>
+              <PostEmbed
+                author={postView.author}
+                uri={postView.uri}
+                transparent
+              >
                 {postView.record.text ? (
                   <RichText
                     text={postView.record.text}
@@ -493,10 +497,16 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                 )}
               >
                 <TouchableOpacity
-                  onPress={() => setShowImages(false)}
+                  onPress={() => {
+                    void Haptics.impactAsync();
+                    setShowImages(false);
+                  }}
                   className="mb-2 w-full flex-row items-center justify-between px-4"
                 >
-                  <Text className="text-base font-semibold dark:text-white">
+                  <Text
+                    style={{ color: theme.colors.text }}
+                    className="text-base font-semibold"
+                  >
                     Attached images
                   </Text>
                   <ChevronDown color="#888888" />
@@ -519,6 +529,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                       />
                       <TouchableWithoutFeedback
                         onPress={() => {
+                          void Haptics.impactAsync();
                           setImages((prev) => {
                             const next = prev.filter((_, index) => index !== i);
                             setShowImages(next.length > 0);
@@ -533,12 +544,20 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                     </View>
                   ))}
                   {images.length < MAX_IMAGES && (
-                    <TouchableOpacity onPress={() => void handleAddImage()}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        void Haptics.impactAsync();
+                        void handleAddImage();
+                      }}
+                    >
                       <View className="h-36 w-36 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
                         <Plus
                           color={colorScheme === "light" ? "black" : "white"}
                         />
-                        <Text className="mt-2 text-center dark:text-white">
+                        <Text
+                          style={{ color: theme.colors.text }}
+                          className="mt-2 text-center"
+                        >
                           Add image
                         </Text>
                       </View>
@@ -618,7 +637,8 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
           </TouchableOpacity>
           <View className="flex-1" />
           <Text
-            className={cx("text-sm dark:text-white", tooLong && "text-red-500")}
+            style={{ color: !tooLong ? theme.colors.text : undefined }}
+            className={cx("text-sm", tooLong && "text-red-500")}
           >
             {rt.data?.graphemeLength} / {MAX_LENGTH}
           </Text>

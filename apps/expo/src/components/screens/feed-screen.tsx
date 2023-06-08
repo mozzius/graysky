@@ -27,7 +27,7 @@ export const FeedScreen = ({ feed }: Props) => {
     timeline.refetch,
   );
 
-  const ref = useTabPressScrollRef(() => void timeline.refetch());
+  const [ref, onScroll] = useTabPressScrollRef(timeline.refetch);
 
   if (!info.data)
     return (
@@ -53,6 +53,7 @@ export const FeedScreen = ({ feed }: Props) => {
           filter: FilterResult;
         }>
           ref={ref}
+          onScroll={onScroll}
           data={data}
           renderItem={({ item: { hasReply, item, filter }, index }) => (
             <FeedPost

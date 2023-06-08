@@ -2,6 +2,7 @@ import { Fragment, useMemo } from "react";
 import { Linking, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "../lib/agent";
@@ -25,6 +26,7 @@ export const RichText = ({
   disableLinks,
 }: Props) => {
   const router = useRouter();
+  const theme = useTheme();
 
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
@@ -111,7 +113,9 @@ export const RichText = ({
       } else {
         parts.push({
           text: segment.text,
-          component: <Text className="dark:text-white">{segment.text}</Text>,
+          component: (
+            <Text style={{ color: theme.colors.text }}>{segment.text}</Text>
+          ),
         });
       }
     }
@@ -122,14 +126,14 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text className="dark:text-white">
+          <Text style={{ color: theme.colors.text }}>
             {text.slice(reconstructed.length)}
           </Text>
         ),
       });
     }
     return parts;
-  }, [text, facets, router, disableLinks, truncate]);
+  }, [text, facets, router, disableLinks, truncate, theme.colors.text]);
 
   if (!segments) return null;
 

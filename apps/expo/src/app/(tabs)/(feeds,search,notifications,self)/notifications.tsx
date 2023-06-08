@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
-import { type AppBskyNotificationListNotifications } from "@atproto/api";
+import {
+  type AppBskyFeedDefs,
+  type AppBskyNotificationListNotifications,
+} from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -16,6 +19,7 @@ import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 export type NotificationGroup = {
   reason: AppBskyNotificationListNotifications.Notification["reason"];
   subject: AppBskyNotificationListNotifications.Notification["reasonSubject"];
+  item?: AppBskyFeedDefs.ThreadViewPost;
   actors: AppBskyNotificationListNotifications.Notification["author"][];
   isRead: boolean;
   indexedAt: string;
@@ -42,6 +46,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       });
 
       const grouped: NotificationGroup[] = [];
+      const subjects = new Set<string>();
 
       if (groupNotifications) {
         for (const notif of notifs.data.notifications) {
@@ -49,13 +54,20 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
             (x) =>
               x.reason === notif.reason && x.subject === notif.reasonSubject,
           );
+
           if (prior) {
             prior.actors.push(notif.author);
           } else {
             let subject = notif.reasonSubject;
+
             if (["reply", "quote", "mention"].includes(notif.reason)) {
               subject = notif.uri;
             }
+
+            if (subject) {
+              subjects.add(subject);
+            }
+
             grouped.push({
               reason: notif.reason,
               subject,
@@ -68,9 +80,15 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       } else {
         for (const notif of notifs.data.notifications) {
           let subject = notif.reasonSubject;
+
           if (["reply", "quote", "mention"].includes(notif.reason)) {
             subject = notif.uri;
           }
+
+          if (subject) {
+            subjects.add(subject);
+          }
+
           grouped.push({
             reason: notif.reason,
             subject,
@@ -81,9 +99,43 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
         }
       }
 
+      // split subjects into chunks of 25
+      const subjectChunks = Array.from(subjects).reduce<string[][]>(
+        (acc, subject) => {
+          if (acc[acc.length - 1]!.length === 25) {
+            acc.push([subject]);
+          } else {
+            acc[acc.length - 1]!.push(subject);
+          }
+          return acc;
+        },
+        [[]],
+      );
+
+      const contextPosts = await Promise.all(
+        subjectChunks.map((chunk) =>
+          agent.getPosts({
+            uris: chunk,
+          }),
+        ),
+      ).then((x) => x.flatMap((x) => x.data.posts));
+
+      const notifications = grouped.map((group) => {
+        if (group.subject) {
+          const post = contextPosts.find((x) => x.uri === group.subject);
+          if (post) {
+            return {
+              ...group,
+              item: { post },
+            };
+          }
+        }
+        return group;
+      }) satisfies NotificationGroup[];
+
       return {
         cursor: notifs.data.cursor,
-        notifications: grouped,
+        notifications,
       };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -120,8 +172,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     ),
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const ref = useTabPressScrollRef(notifications.refetch);
+  const [ref, onScroll] = useTabPressScrollRef(notifications.refetch);
 
   const data = useMemo(() => {
     if (!notifications.data) return [];
@@ -135,6 +186,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     return (
       <FlashList
         ref={ref}
+        onScroll={onScroll}
         data={data}
         renderItem={({ item }) => (
           <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />

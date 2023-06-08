@@ -25,10 +25,16 @@ interface Props {
   editing: boolean;
 }
 const FeedsPage = ({ editing }: Props) => {
+  const theme = useTheme();
+
   const savedFeeds = useSavedFeeds();
 
   const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
   const { pinned, reorder } = useReorderFeeds(savedFeeds);
+
+  const handleUnsave = (feed: string) => () => {
+    toggleFeed.mutate({ save: feed });
+  };
 
   if (savedFeeds.data) {
     return (
@@ -40,7 +46,10 @@ const FeedsPage = ({ editing }: Props) => {
                 <Cloud size={32} color="white" />
               </View>
               <View className="flex-1 px-3">
-                <Text className="text-lg leading-5 dark:text-white">
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-lg leading-5"
+                >
                   Following
                 </Text>
                 <Text className="text-sm text-neutral-500">
@@ -67,7 +76,9 @@ const FeedsPage = ({ editing }: Props) => {
               onPressStar={() => {
                 toggleFeed.mutate({ pin: item.uri });
               }}
-              drag={editing ? drag : undefined}
+              drag={drag}
+              editing={editing}
+              onUnsave={handleUnsave(item.uri)}
             />
           )}
           ItemSeparatorComponent={() => (
@@ -87,6 +98,8 @@ const FeedsPage = ({ editing }: Props) => {
               onPressStar={() => {
                 toggleFeed.mutate({ pin: item.uri });
               }}
+              editing={editing}
+              onUnsave={handleUnsave(item.uri)}
             />
           )}
           ItemSeparatorComponent={() => (
@@ -99,7 +112,10 @@ const FeedsPage = ({ editing }: Props) => {
               <View className="flex-row items-center justify-between bg-white p-4 dark:bg-neutral-900">
                 <View className="flex-row items-center">
                   <Compass size={20} className="text-blue-500" />
-                  <Text className="ml-3 text-base dark:text-white">
+                  <Text
+                    style={{ color: theme.colors.text }}
+                    className="ml-3 text-base"
+                  >
                     Discover more feeds
                   </Text>
                 </View>

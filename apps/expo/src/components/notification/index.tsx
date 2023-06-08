@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
@@ -18,6 +19,7 @@ export const Notification = ({
   isRead,
   indexedAt,
   dataUpdatedAt,
+  item,
 }: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
@@ -44,11 +46,11 @@ export const Notification = ({
               action="liked your post"
               indexedAt={indexedAt}
             />
-            {subject && href && (
+            {subject && item && href && (
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    uri={subject}
+                    item={item}
                     unread={!isRead}
                     inline
                     dataUpdatedAt={dataUpdatedAt}
@@ -73,11 +75,11 @@ export const Notification = ({
               action="reposted your post"
               indexedAt={indexedAt}
             />
-            {subject && href && (
+            {subject && item && href && (
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    uri={subject}
+                    item={item}
                     unread={!isRead}
                     inline
                     dataUpdatedAt={dataUpdatedAt}
@@ -112,10 +114,10 @@ export const Notification = ({
     case "reply":
     case "quote":
     case "mention":
-      if (!subject) return null;
+      if (!subject || !item) return null;
       return (
         <PostNotification
-          uri={subject}
+          item={item}
           unread={!isRead}
           dataUpdatedAt={dataUpdatedAt}
         />
@@ -131,6 +133,7 @@ const ProfileList = ({
   action,
   indexedAt,
 }: Pick<NotificationGroup, "actors" | "indexedAt"> & { action: string }) => {
+  const theme = useTheme();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
@@ -165,7 +168,10 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="text-base font-medium dark:text-white">
+        <Text
+          style={{ color: theme.colors.text }}
+          className="text-base font-medium"
+        >
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&

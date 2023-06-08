@@ -1,35 +1,54 @@
-import { useEffect, useRef } from "react";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useEffect, useRef } from "react";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+} from "react-native";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
 
 export const useTabPressScroll = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: React.RefObject<FlashList<any>>,
-  callback = () => {},
+  callback: () => unknown = () => {},
 ) => {
   const navigation = useNavigation();
+  const atTopRef = useRef(true);
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
-    const unsub = navigation.getParent()?.addListener("tabPress", () => {
+    const unsub = navigation.getParent()?.addListener("tabPress", (evt) => {
       if (navigation.isFocused()) {
-        ref.current?.scrollToOffset({
-          offset: 0,
-          animated: true,
-        });
-        callback();
+        if (atTopRef.current) {
+          callback();
+        } else {
+          // @ts-expect-error this is just wrong for some reason
+          evt.preventDefault();
+          ref.current?.scrollToOffset({
+            offset: 0,
+            animated: true,
+          });
+        }
       }
     });
 
     return unsub;
   }, [callback, navigation, ref]);
+
+  return useCallback((evt: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset } = evt.nativeEvent;
+    if (contentOffset.y === 0) {
+      atTopRef.current = true;
+    } else if (atTopRef.current) {
+      atTopRef.current = false;
+    }
+  }, []);
 };
 
-export const useTabPressScrollRef = (callback = () => {}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useTabPressScrollRef = (callback: () => unknown = () => {}) => {
   const ref = useRef<FlashList<any>>(null);
 
-  useTabPressScroll(ref, callback);
+  const onScroll = useTabPressScroll(ref, callback);
 
-  return ref;
+  return [ref, onScroll] as const;
 };

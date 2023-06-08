@@ -152,7 +152,10 @@ const FeedInfo = ({
               alt={info.view.displayName}
             />
             <View className="px-4">
-              <Text className="text-xl font-medium dark:text-white">
+              <Text
+                style={{ color: theme.colors.text }}
+                className="text-xl font-medium"
+              >
                 {info.view.displayName}
               </Text>
               <Link asChild href={`/profile/${info.view.creator.handle}`}>
@@ -165,7 +168,10 @@ const FeedInfo = ({
             </View>
           </View>
           {info.view.description && (
-            <Text className="mt-4 text-base dark:text-white">
+            <Text
+              style={{ color: theme.colors.text }}
+              className="mt-4 text-base"
+            >
               <RichTextWithoutFacets text={info.view.description} />
             </Text>
           )}
@@ -186,15 +192,31 @@ const FeedInfo = ({
               <View className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 bg-white py-2 dark:border-neutral-700 dark:bg-black">
                 {isSaved ? (
                   <>
-                    <Check className="h-6 w-6 text-black dark:text-white" />
-                    <Text className="ml-2 text-base dark:text-white">
+                    <Check
+                      style={{ color: theme.colors.text }}
+                      className="h-6 w-6"
+                      size={16}
+                    />
+                    <Text
+                      style={{ color: theme.colors.text }}
+                      className="ml-2 text-base"
+                    >
                       Saved
                     </Text>
                   </>
                 ) : (
                   <>
-                    <Plus className="h-6 w-6 text-black dark:text-white" />
-                    <Text className="ml-2 text-base dark:text-white">Save</Text>
+                    <Plus
+                      style={{ color: theme.colors.text }}
+                      className="h-6 w-6"
+                      size={16}
+                    />
+                    <Text
+                      style={{ color: theme.colors.text }}
+                      className="ml-2 text-base"
+                    >
+                      Save
+                    </Text>
                   </>
                 )}
               </View>
@@ -232,7 +254,7 @@ const FeedInfo = ({
                 className={cx(
                   "flex-row items-center rounded border px-3 py-2",
                   info.view.viewer?.like
-                    ? "border-red-200 bg-red-100"
+                    ? "border-red-200 bg-red-100 dark:border-red-800 dark:bg-red-950"
                     : "border-neutral-300 bg-white dark:border-neutral-700 dark:bg-black",
                 )}
               >
@@ -241,7 +263,10 @@ const FeedInfo = ({
                   color={"#dc2626"}
                   fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
                 />
-                <Text className="ml-2 text-base dark:text-white">
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="ml-2 text-base tabular-nums"
+                >
                   {info.view.likeCount}
                 </Text>
               </View>
@@ -266,13 +291,14 @@ const FeedInfo = ({
                   />
                   <View className="flex-1 justify-center px-3">
                     <Text
-                      className="text-base dark:text-white"
+                      style={{ color: theme.colors.text }}
+                      className="text-base"
                       numberOfLines={2}
                     >
                       {info.view.creator.displayName}
                     </Text>
                     <Text
-                      className="text-sm text-neutral-400"
+                      className="text-sm text-neutral-500 dark:text-neutral-400"
                       numberOfLines={1}
                     >
                       @{info.view.creator.handle}
@@ -326,7 +352,10 @@ const FeedInfo = ({
                         className="flex-row items-center px-4 py-3"
                       >
                         <View className="ml-6 flex-1 flex-row items-center px-3">
-                          <Text className="text-base dark:text-white">
+                          <Text
+                            style={{ color: theme.colors.text }}
+                            className="text-base"
+                          >
                             View all feeds
                           </Text>
                         </View>

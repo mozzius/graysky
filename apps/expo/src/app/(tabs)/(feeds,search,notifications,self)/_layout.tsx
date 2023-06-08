@@ -41,6 +41,7 @@ export default function SubStack({
               name="feeds/discover"
               options={{
                 title: "Discover Feeds",
+                headerSearchBarOptions: {},
               }}
             />
 
@@ -64,6 +65,7 @@ export default function SubStack({
                 headerLeft: Platform.select({
                   ios: headerLeft,
                 }),
+                headerSearchBarOptions: {},
               }}
             />
           </Stack>

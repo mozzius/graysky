@@ -160,26 +160,26 @@ export const useReorderFeeds = (
   return { pinned, reorder };
 };
 
-export const useTimeline = (algorithm: string) => {
+export const useTimeline = (feed: string) => {
   const agent = useAuthedAgent();
   const { contentFilter, preferences } = useContentFilter();
 
   const timeline = useInfiniteQuery({
-    queryKey: ["timeline", algorithm],
+    queryKey: ["timeline", feed],
     queryFn: async ({ pageParam }) => {
-      if (algorithm === "following") {
-        const following = await agent.getTimeline({
+      if (feed === "following") {
+        const timeline = await agent.getTimeline({
           cursor: pageParam as string | undefined,
         });
-        if (!following.success) throw new Error("Failed to fetch feed");
-        return following.data;
+        if (!timeline.success) throw new Error("Failed to fetch feed");
+        return timeline.data;
       } else {
-        const feed = await agent.app.bsky.feed.getFeed({
-          feed: algorithm,
+        const timeline = await agent.app.bsky.feed.getFeed({
+          feed,
           cursor: pageParam as string | undefined,
         });
-        if (!feed.success) throw new Error("Failed to fetch feed");
-        return feed.data;
+        if (!timeline.success) throw new Error("Failed to fetch feed");
+        return timeline.data;
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,

@@ -8,6 +8,7 @@ import {
 import { Image } from "expo-image";
 import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import {
   useInfiniteQuery,
@@ -61,7 +62,7 @@ const SearchResults = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
 
   const data = useMemo(() => {
     if (!searchResults.data) return [];
@@ -75,6 +76,7 @@ const SearchResults = ({ search }: Props) => {
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}
+          onScroll={onScroll}
           estimatedItemSize={173}
           renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
             <SuggestionCard item={item} />
@@ -104,16 +106,22 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  useTabPressScroll(ref);
+  const onScroll = useTabPressScroll(ref);
+  const theme = useTheme();
 
   if (suggestions.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
+        ref={ref}
+        onScroll={onScroll}
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
-          <Text className="mt-4 px-4 text-lg font-bold dark:text-white">
+          <Text
+            style={{ color: theme.colors.text }}
+            className="mt-4 px-4 text-lg font-bold"
+          >
             In your network
           </Text>
         }
@@ -135,6 +143,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
   const router = useRouter();
   const ref = useRef(item.did);
   const queryClient = useQueryClient();
+  const theme = useTheme();
 
   const href = `/profile/${item.handle}`;
 
@@ -163,7 +172,10 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             />
             <View className="flex-1 justify-center">
               {item.displayName && (
-                <Text className="text-base font-semibold dark:text-white">
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base font-semibold"
+                >
                   {item.displayName}
                 </Text>
               )}
@@ -195,7 +207,9 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             )}
           </View>
           {item.description && (
-            <Text className="mt-4 dark:text-white">{item.description}</Text>
+            <Text style={{ color: theme.colors.text }} className="mt-4">
+              {item.description}
+            </Text>
           )}
         </View>
       </TouchableWithoutFeedback>
