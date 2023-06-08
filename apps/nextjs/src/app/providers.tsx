@@ -1,5 +1,3 @@
 "use client";
 
-export const Providers = ({ children }: React.PropsWithChildren) => ({
-  children,
-});
+export const Providers = ({ children }: React.PropsWithChildren) => children;
