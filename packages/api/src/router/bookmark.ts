@@ -10,13 +10,21 @@ export const bookmarkRouter = createTRPCRouter({
         post: z.string(),
       }),
     )
-    .mutation(async ({ input, ctx: { db, schema } }) => {
-      await db.insert(schema.users).values({
-        did: input.user,
-      });
-      await db.insert(schema.bookmarks).values({
-        postUri: input.post,
-        userDid: input.user,
+    .mutation(async ({ input, ctx: { db } }) => {
+      await db.bookmark.create({
+        data: {
+          uri: input.post,
+          actor: {
+            connectOrCreate: {
+              where: {
+                did: input.user,
+              },
+              create: {
+                did: input.user,
+              },
+            },
+          },
+        },
       });
     }),
 });
