@@ -5,11 +5,15 @@ import {
   AppBskyFeedDefs,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { produce } from "immer";
 
 import { useAuthedAgent } from "../agent";
-import { queryClient } from "../query-client";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
@@ -87,6 +91,7 @@ export const useToggleFeedPref = (
   preferences?: AppBskyActorDefs.Preferences,
 ) => {
   const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
 
   return useMutation({
     onMutate: () => void Haptics.impactAsync(),
@@ -129,6 +134,7 @@ export const useReorderFeeds = (
   savedFeeds: ReturnType<typeof useSavedFeeds>,
 ) => {
   const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
   const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
 
   const stringified = (savedFeeds.data?.pinned ?? []).toString();

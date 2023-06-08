@@ -1,9 +1,13 @@
 import { Alert } from "react-native";
 import { type BskyAgent } from "@atproto/api";
+import { QueryClient } from "@tanstack/react-query";
 
-import { queryClient } from "./query-client";
-
-export const muteAccount = (agent: BskyAgent, handle: string, did: string) => {
+export const muteAccount = (
+  agent: BskyAgent,
+  handle: string,
+  did: string,
+  queryClient?: QueryClient,
+) => {
   Alert.alert("Mute", `Are you sure you want to mute @${handle}?`, [
     {
       text: "Cancel",
@@ -15,14 +19,19 @@ export const muteAccount = (agent: BskyAgent, handle: string, did: string) => {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onPress: async () => {
         await agent.mute(did);
-        await queryClient.invalidateQueries(["profile"]);
+        if (queryClient) await queryClient.invalidateQueries(["profile"]);
         Alert.alert("Muted", `You will no longer see posts from @${handle}.`);
       },
     },
   ]);
 };
 
-export const blockAccount = (agent: BskyAgent, handle: string, did: string) => {
+export const blockAccount = (
+  agent: BskyAgent,
+  handle: string,
+  did: string,
+  queryClient?: QueryClient,
+) => {
   Alert.alert("Block", `Are you sure you want to block @${handle}?`, [
     {
       text: "Cancel",
@@ -40,7 +49,7 @@ export const blockAccount = (agent: BskyAgent, handle: string, did: string) => {
             subject: did,
           },
         );
-        await queryClient.invalidateQueries(["profile"]);
+        if (queryClient) await queryClient.invalidateQueries(["profile"]);
         Alert.alert("Blocked", `@${handle} has been blocked.`);
       },
     },

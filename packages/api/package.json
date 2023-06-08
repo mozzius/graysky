@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@graysky/db": "^0.1.0",
-    "@trpc/client": "^10.28.2",
-    "@trpc/server": "^10.28.2",
+    "@trpc/client": "^10.29.1",
+    "@trpc/server": "^10.29.1",
     "superjson": "1.12.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@graysky/eslint-config": "^0.1.0",
-    "eslint": "^8.39.0",
+    "eslint": "^8.42.0",
     "typescript": "^5.1.3"
   }
 }

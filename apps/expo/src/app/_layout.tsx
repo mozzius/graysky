@@ -25,22 +25,23 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
 import { LogOutProvider } from "../lib/log-out-context";
-import { queryClient } from "../lib/query-client";
+import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
-export default function RootLayout() {
+const App = () => {
   const segments = useSegments();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
+  const queryClient = useQueryClient();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -147,67 +148,73 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <AgentProvider value={agent}>
-            <LogOutProvider value={logOut}>
-              <HoldMenuProvider
-                theme={colorScheme}
-                safeAreaInsets={safeAreaInsets}
-              >
-                <ActionSheetProvider>
-                  <ListProvider>
-                    <Stack
-                      screenOptions={{
-                        headerShown: true,
-                        fullScreenGestureEnabled: true,
+      <SafeAreaProvider>
+        <AgentProvider value={agent}>
+          <LogOutProvider value={logOut}>
+            <HoldMenuProvider
+              theme={colorScheme}
+              safeAreaInsets={safeAreaInsets}
+            >
+              <ActionSheetProvider>
+                <ListProvider>
+                  <Stack
+                    screenOptions={{
+                      headerShown: true,
+                      fullScreenGestureEnabled: true,
+                    }}
+                  >
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{ title: "Log in" }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
                       }}
-                    >
-                      <Stack.Screen
-                        name="(auth)/login"
-                        options={{ title: "Log in" }}
-                      />
-                      <Stack.Screen
-                        name="settings"
-                        options={{
-                          headerShown: false,
-                          presentation: "modal",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="translate"
-                        options={{
-                          title: "Translate",
-                          presentation: "modal",
-                          headerRight: () => (
-                            <TouchableOpacity
-                              onPress={() => {
-                                if (navigation.canGoBack()) {
-                                  router.push("../");
-                                } else {
-                                  router.push("/feeds");
-                                }
-                              }}
+                    />
+                    <Stack.Screen
+                      name="translate"
+                      options={{
+                        title: "Translate",
+                        presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              if (navigation.canGoBack()) {
+                                router.push("../");
+                              } else {
+                                router.push("/feeds");
+                              }
+                            }}
+                          >
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg font-medium"
                             >
-                              <Text
-                                style={{ color: theme.colors.primary }}
-                                className="text-lg font-medium"
-                              >
-                                Done
-                              </Text>
-                            </TouchableOpacity>
-                          ),
-                        }}
-                      />
-                    </Stack>
-                  </ListProvider>
-                </ActionSheetProvider>
-              </HoldMenuProvider>
-            </LogOutProvider>
-          </AgentProvider>
-        </SafeAreaProvider>
-      </QueryClientProvider>
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                  </Stack>
+                </ListProvider>
+              </ActionSheetProvider>
+            </HoldMenuProvider>
+          </LogOutProvider>
+        </AgentProvider>
+      </SafeAreaProvider>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>
+  );
+};
+
+export default function RootLayout() {
+  return (
+    <TRPCProvider>
+      <App />
+    </TRPCProvider>
   );
 }
