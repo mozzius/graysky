@@ -15,11 +15,13 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
+import * as Haptics from "expo-haptics";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Copy } from "lucide-react-native";
 
@@ -36,6 +38,7 @@ export interface InviteCodesRef {
 const InviteCodesSheet = forwardRef<InviteCodesRef>((_, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { top } = useSafeAreaInsets();
+  const theme = useTheme();
 
   const codes = useInviteCodes();
 
@@ -72,7 +75,10 @@ const InviteCodesSheet = forwardRef<InviteCodesRef>((_, ref) => {
       backgroundStyle={backgroundStyle}
     >
       <BottomSheetView style={[{ flex: 1 }, contentContainerStyle]}>
-        <Text className="mt-2 text-center text-xl font-medium dark:text-white">
+        <Text
+          style={{ color: theme.colors.text }}
+          className="mt-2 text-center text-xl font-medium"
+        >
           Invite Codes
         </Text>
         {codes.data ? (
@@ -117,19 +123,20 @@ export const InviteCodes = memo(InviteCodesSheet);
 
 const CodeRow = ({ code, used }: { code: string; used: boolean }) => {
   const [copied, setCopied] = useState(false);
+  const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={() => {
+        void Haptics.impactAsync();
         void Clipboard.setStringAsync(code);
         setCopied(true);
       }}
       className="flex-row items-center justify-between px-8 py-2"
     >
       <Text
-        className={cx(
-          "text-base dark:text-white",
-          used && "text-neutral-400 line-through",
-        )}
+        style={{ color: !used ? theme.colors.text : undefined }}
+        className={cx("text-base", used && "text-neutral-400 line-through")}
       >
         {code}
       </Text>

@@ -7,9 +7,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
   Heart,
@@ -17,7 +17,6 @@ import {
   MessageSquare,
   MoreHorizontal,
   Repeat,
-  User,
 } from "lucide-react-native";
 import { z } from "zod";
 
@@ -35,6 +34,7 @@ import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
+import { PostAvatar } from "./post-avatar";
 import { RichText } from "./rich-text";
 
 interface Props {
@@ -79,8 +79,7 @@ export const FeedPost = ({
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
 
-  const { colorScheme } = useColorScheme();
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+  const theme = useTheme();
 
   const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
@@ -121,7 +120,10 @@ export const FeedPost = ({
 
   const hiddenContent = (
     <View className="my-2 flex-row items-center justify-between rounded border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-      <Text className="my-1 max-w-[75%] font-semibold dark:text-white">
+      <Text
+        style={{ color: theme.colors.text }}
+        className="my-1 max-w-[75%] font-semibold"
+      >
         {filter
           ? filter.message
           : `This post is from someone you have ${
@@ -135,7 +137,7 @@ export const FeedPost = ({
   return (
     <View
       className={cx(
-        "bg-white px-2 pt-2 text-black dark:bg-black dark:text-white",
+        "bg-white px-2 pt-2 dark:bg-black",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
         unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
@@ -149,22 +151,7 @@ export const FeedPost = ({
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-          <Link href={profileHref} asChild>
-            <TouchableOpacity>
-              {item.post.author.avatar ? (
-                <Image
-                  recyclingKey={item.post.author.did}
-                  source={{ uri: item.post.author.avatar }}
-                  alt={postAuthorHandle}
-                  className="h-12 w-12 rounded-full bg-neutral-200 dark:bg-neutral-800"
-                />
-              ) : (
-                <View className="h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
-                  <User size={32} color={buttonColor} />
-                </View>
-              )}
-            </TouchableOpacity>
-          </Link>
+          <PostAvatar profile={item.post.author} />
           <Link href={postHref} asChild>
             <TouchableWithoutFeedback>
               <View className="w-12 flex-1 items-center">
@@ -204,7 +191,10 @@ export const FeedPost = ({
                       I18nManager.isRTL ? "pl-16" : "pr-16",
                     )}
                   >
-                    <Text className="font-semibold dark:text-white">
+                    <Text
+                      className="font-semibold"
+                      style={{ color: theme.colors.text }}
+                    >
                       {postAuthorDisplayName}
                     </Text>
                     <Text className="text-neutral-500 dark:text-neutral-400">
@@ -320,8 +310,11 @@ export const FeedPost = ({
               className="flex-row items-center gap-2 tabular-nums"
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
-              <MessageSquare size={16} color={buttonColor} />
-              <Text style={{ color: buttonColor }} className="tabular-nums">
+              <MessageSquare size={16} color={theme.colors.text} />
+              <Text
+                style={{ color: theme.colors.text }}
+                className="tabular-nums"
+              >
                 {replyCount}
               </Text>
             </TouchableOpacity>
@@ -335,10 +328,13 @@ export const FeedPost = ({
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               className="flex-row items-center gap-2 tabular-nums"
             >
-              <Repeat size={16} color={reposted ? "#2563eb" : buttonColor} />
+              <Repeat
+                size={16}
+                color={reposted ? "#2563eb" : theme.colors.text}
+              />
               <Text
                 style={{
-                  color: reposted ? "#2563eb" : buttonColor,
+                  color: reposted ? "#2563eb" : theme.colors.text,
                 }}
                 className="tabular-nums"
               >
@@ -358,11 +354,11 @@ export const FeedPost = ({
               <Heart
                 size={16}
                 fill={liked ? "#dc2626" : "transparent"}
-                color={liked ? "#dc2626" : buttonColor}
+                color={liked ? "#dc2626" : theme.colors.text}
               />
               <Text
                 style={{
-                  color: liked ? "#dc2626" : buttonColor,
+                  color: liked ? "#dc2626" : theme.colors.text,
                 }}
                 className="tabular-nums"
               >
@@ -375,7 +371,7 @@ export const FeedPost = ({
               onPress={handleMore}
               hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
             >
-              <MoreHorizontal size={16} color={buttonColor} />
+              <MoreHorizontal size={16} color={theme.colors.text} />
             </TouchableOpacity>
           </View>
         </View>
@@ -385,8 +381,7 @@ export const FeedPost = ({
 };
 
 const Reason = ({ item }: Pick<Props, "item">) => {
-  const { colorScheme } = useColorScheme();
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+  const theme = useTheme();
 
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
@@ -400,9 +395,10 @@ const Reason = ({ item }: Pick<Props, "item">) => {
       >
         <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
-            <Repeat color={buttonColor} size={12} />
+            <Repeat color={theme.colors.text} size={12} />
             <Text
-              className="ml-2 flex-1 text-sm dark:text-white"
+              style={{ color: theme.colors.text }}
+              className="ml-2 flex-1 text-sm"
               numberOfLines={1}
             >
               Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
@@ -425,6 +421,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       const thread = await agent.getPostThread({
         uri,
         depth: 0,
+        parentHeight: 0,
       });
       if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
         assert(AppBskyFeedDefs.validateThreadViewPost(thread.data.thread));

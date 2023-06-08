@@ -10,18 +10,14 @@ import { useTheme } from "@react-navigation/native";
 import { cx } from "../lib/utils/cx";
 
 interface TabsProps extends React.PropsWithChildren {
-  className?: string;
   style?: StyleProp<ViewStyle>;
 }
 
-export const Tabs = ({ children, className, style }: TabsProps) => {
+export const Tabs = ({ children, style }: TabsProps) => {
   const theme = useTheme();
   return (
     <View
-      className={cx(
-        "w-full flex-row border-b border-neutral-300 dark:border-neutral-800",
-        className,
-      )}
+      className="w-full flex-row border-b border-neutral-300 dark:border-neutral-800"
       style={[{ backgroundColor: theme.colors.card }, style]}
     >
       {children}

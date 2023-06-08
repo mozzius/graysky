@@ -14,7 +14,7 @@ export const NotificationItem = ({
   return (
     <View
       className={cx(
-        "flex-row border-b p-2 text-black dark:text-white",
+        "flex-row border-b p-2",
         unread
           ? "border-blue-200 bg-blue-50 dark:border-neutral-600 dark:bg-neutral-800"
           : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black",

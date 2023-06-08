@@ -10,6 +10,8 @@ import {
   AppBskyFeedPost,
   type AppBskyActorDefs,
 } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
+import { Heart } from "lucide-react-native";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -20,30 +22,18 @@ interface Props {
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
   depth?: number;
-  className?: string;
 }
 
-export const Embed = ({
-  uri,
-  content,
-  truncate = true,
-  depth = 0,
-  className,
-}: Props) => {
+export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
+  const theme = useTheme();
+
   if (!content) return null;
 
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return (
-        <ImageEmbed
-          className={className}
-          uri={uri}
-          content={content}
-          depth={depth}
-        />
-      );
+      return <ImageEmbed uri={uri} content={content} depth={depth} />;
     }
 
     // Case 2: External link
@@ -52,9 +42,9 @@ export const Embed = ({
       return (
         <TouchableHighlight
           onPress={() => void Linking.openURL(content.external.uri)}
-          className={cx("mt-1.5 rounded-lg", className)}
+          className={cx("mt-1.5 rounded-lg")}
         >
-          <View className="rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
+          <View className="overflow-hidden rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
             {content.external.thumb && (
               <Image
                 recyclingKey={content.external.thumb}
@@ -77,7 +67,8 @@ export const Embed = ({
                 {new URL(content.external.uri).hostname}
               </Text>
               <Text
-                className="mt-0.5 text-base leading-5 dark:text-white"
+                style={{ color: theme.colors.text }}
+                className="mt-0.5 text-base leading-5"
                 numberOfLines={2}
               >
                 {content.external.title || content.external.uri}
@@ -86,7 +77,8 @@ export const Embed = ({
                 depth === 0 &&
                 !content.external.thumb && (
                   <Text
-                    className="mt-0.5 text-sm leading-5 dark:text-white"
+                    style={{ color: theme.colors.text }}
+                    className="mt-0.5 text-sm leading-5"
                     numberOfLines={2}
                   >
                     {content.external.description}
@@ -120,15 +112,14 @@ export const Embed = ({
           const href = `/profile/${record.creator.did}/generator/${record.uri
             .split("/")
             .pop()}`;
+          // TODO: add hold menu
+          // - open feed
+          // - save to my feeds
+          // - like feed
           return (
             <Link href={href} asChild>
               <TouchableHighlight className="mt-1.5 rounded-lg">
-                <View
-                  className={cx(
-                    "flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black",
-                    className,
-                  )}
-                >
+                <View className="flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
                   <Image
                     recyclingKey={record.avatar}
                     alt={record.displayName}
@@ -136,11 +127,26 @@ export const Embed = ({
                     className="h-14 w-14 rounded bg-blue-500"
                   />
                   <View className="ml-2 flex-1">
-                    <Text className="text-lg font-medium dark:text-white">
+                    <Text
+                      style={{ color: theme.colors.text }}
+                      className="text-lg font-medium"
+                    >
                       {record.displayName}
                     </Text>
-                    <Text className="text-base text-neutral-400">
-                      By @{record.creator.handle}
+                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <Heart
+                        fill="currentColor"
+                        className={
+                          record.viewer?.like
+                            ? "text-red-500"
+                            : "text-neutral-500 dark:text-neutral-400"
+                        }
+                        size={12}
+                      />{" "}
+                      <Text className="tabular-nums">
+                        {record.likeCount ?? 0}
+                      </Text>{" "}
+                      • @{record.creator.handle}
                     </Text>
                   </View>
                 </View>
@@ -162,12 +168,13 @@ export const Embed = ({
       assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
-        <View className={className}>
-          {media && <Embed uri={uri} content={media} depth={depth + 1} />}
+        <View>
+          {media && <Embed uri={uri} content={media} depth={depth} />}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
               <Text
-                className="mt-1 text-base leading-5 dark:text-white"
+                style={{ color: theme.colors.text }}
+                className="mt-1 text-base leading-5"
                 numberOfLines={truncate ? 4 : undefined}
               >
                 {record.value.text}
@@ -190,12 +197,7 @@ export const Embed = ({
   } catch (err) {
     console.error("Error rendering embed", content, err);
     return (
-      <View
-        className={cx(
-          "my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950",
-          className,
-        )}
-      >
+      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
         <Text className="text-center font-semibold">
           {(err as Error).message}
         </Text>
@@ -208,10 +210,13 @@ export const PostEmbed = ({
   author,
   uri,
   children,
+  transparent,
 }: React.PropsWithChildren<{
   author: AppBskyActorDefs.ProfileViewBasic;
   uri: string;
+  transparent?: boolean;
 }>) => {
+  const theme = useTheme();
   const profileHref = `/profile/${author.handle}`;
 
   const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
@@ -222,7 +227,12 @@ export const PostEmbed = ({
         accessibilityHint="Opens embedded post"
         className="mt-1.5 flex-1 rounded-lg"
       >
-        <View className="flex-1 rounded-lg border border-neutral-300 bg-white px-2 pb-2 pt-1 dark:border-neutral-800 dark:bg-black">
+        <View
+          className={cx(
+            "flex-1 rounded-lg border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-800",
+            !transparent && "bg-white dark:bg-black",
+          )}
+        >
           <View className="flex flex-row items-center overflow-hidden">
             <Image
               recyclingKey={author.avatar}
@@ -231,7 +241,10 @@ export const PostEmbed = ({
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="text-base" numberOfLines={1}>
-              <Text className="font-semibold dark:text-white">
+              <Text
+                style={{ color: theme.colors.text }}
+                className="font-semibold"
+              >
                 {author.displayName}
               </Text>
               <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>

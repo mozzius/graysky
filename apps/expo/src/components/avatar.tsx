@@ -8,30 +8,25 @@ import { cx } from "../lib/utils/cx";
 
 interface Props {
   size?: "large" | "medium" | "small";
-  className?: string;
 }
 
-export const Avatar = ({ className, size }: Props) => (
+export const Avatar = ({ size }: Props) => (
   <ErrorBoundary
     fallback={
       <View
-        className={cx(
-          "rounded-full bg-neutral-200 object-cover",
-          {
-            "h-7 w-7": size === "small",
-            "h-10 w-10": size === "medium",
-            "h-12 w-12": size === "large",
-          },
-          className,
-        )}
+        className={cx("rounded-full bg-neutral-200 object-cover", {
+          "h-7 w-7": size === "small",
+          "h-10 w-10": size === "medium",
+          "h-12 w-12": size === "large",
+        })}
       />
     }
   >
-    <AvatarInner size={size} className={className} />
+    <AvatarInner size={size} />
   </ErrorBoundary>
 );
 
-const AvatarInner = ({ className, size = "large" }: Props) => {
+const AvatarInner = ({ size = "large" }: Props) => {
   const agent = useAgent();
 
   const profile = useQuery({
@@ -56,7 +51,6 @@ const AvatarInner = ({ className, size = "large" }: Props) => {
           "h-10 w-10": size === "medium",
           "h-12 w-12": size === "large",
         },
-        className,
       )}
     />
   );

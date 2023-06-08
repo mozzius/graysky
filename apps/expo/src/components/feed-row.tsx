@@ -56,15 +56,24 @@ export const FeedRow = ({ feed, children, large }: Props) => {
           />
           <View className="mx-3 flex-1 flex-row items-center">
             <View>
-              <Text className="text-base dark:text-white" numberOfLines={1}>
+              <Text
+                style={{ color: theme.colors.text }}
+                className="text-base"
+                numberOfLines={1}
+              >
                 {feed.displayName}
               </Text>
               {large && (
-                <Text className="text-sm text-neutral-400" numberOfLines={1}>
+                <Text
+                  className="text-sm text-neutral-500 dark:text-neutral-400"
+                  numberOfLines={1}
+                >
                   <Heart
                     fill="currentColor"
                     className={
-                      feed.viewer?.like ? "text-red-500" : "text-neutral-400"
+                      feed.viewer?.like
+                        ? "text-red-500"
+                        : "text-neutral-500 dark:text-neutral-400"
                     }
                     size={12}
                   />{" "}
@@ -103,6 +112,7 @@ export const DraggableFeedRow = ({
     .pop()}`;
 
   const { showActionSheetWithOptions } = useActionSheet();
+  const theme = useTheme();
 
   const editingValue = useSharedValue(editing ? 1 : 0);
 
@@ -199,7 +209,10 @@ export const DraggableFeedRow = ({
                 className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
               />
               <View className="flex-1 px-3">
-                <Text className="text-base dark:text-white">
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base"
+                >
                   {feed.displayName}
                 </Text>
               </View>
@@ -216,7 +229,7 @@ export const DraggableFeedRow = ({
                 >
                   <TouchableWithoutFeedback onPressIn={drag}>
                     <View className="ml-1 px-2 py-0.5">
-                      <Equal size={20} className="text-black dark:text-white" />
+                      <Equal size={20} color={theme.colors.text} />
                     </View>
                   </TouchableWithoutFeedback>
                 </Animated.View>

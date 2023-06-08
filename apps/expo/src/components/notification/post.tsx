@@ -1,12 +1,10 @@
 import { Text, View } from "react-native";
 import {
   AppBskyEmbedImages,
-  AppBskyFeedDefs,
   AppBskyFeedPost,
+  type AppBskyFeedDefs,
 } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
 
-import { useAuthedAgent } from "../../lib/agent";
 import { useContentFilter } from "../../lib/hooks/preferences";
 import { assert } from "../../lib/utils/assert";
 import { Embed } from "../embed";
@@ -15,79 +13,48 @@ import { RichText } from "../rich-text";
 import { NotificationItem } from "./item";
 
 export const PostNotification = ({
-  uri,
+  item,
   unread,
   inline,
   dataUpdatedAt,
 }: {
-  uri: string;
+  item: AppBskyFeedDefs.ThreadViewPost;
   unread: boolean;
   inline?: boolean;
   dataUpdatedAt: number;
 }) => {
-  const agent = useAuthedAgent();
   const { preferences, contentFilter } = useContentFilter();
 
-  const post = useQuery({
-    queryKey: ["notifications", "post", uri],
-    queryFn: async () => {
-      const { data } = await agent.getPostThread({
-        uri: uri,
-        depth: 0,
-      });
-
-      if (!AppBskyFeedDefs.isThreadViewPost(data.thread))
-        throw Error("Post not found");
-      assert(AppBskyFeedDefs.validateThreadViewPost(data.thread));
-
-      // convert thread view post to feed view post
-      return {
-        post: data.thread.post,
-        ...(AppBskyFeedDefs.isThreadViewPost(data.thread.parent) &&
-        AppBskyFeedDefs.validateThreadViewPost(data.thread.parent).success
-          ? {
-              reply: {
-                parent: data.thread.parent.post,
-                // not technically correct but we don't use this field
-                root: data.thread.parent.post,
-              } satisfies AppBskyFeedDefs.ReplyRef,
-            }
-          : {}),
-      } satisfies AppBskyFeedDefs.FeedViewPost;
-    },
-  });
-
-  if (post.data && preferences.data) {
-    const filter = contentFilter(post.data.post?.labels);
+  if (preferences.data) {
+    const filter = contentFilter(item.post?.labels);
 
     if (filter?.visibility === "hide") return null;
 
     if (inline) {
       if (filter) return null;
 
-      if (!AppBskyFeedPost.isRecord(post.data.post.record)) return null;
-      assert(AppBskyFeedPost.validateRecord(post.data.post.record));
+      if (!AppBskyFeedPost.isRecord(item.post.record)) return null;
+      assert(AppBskyFeedPost.validateRecord(item.post.record));
 
       return (
         <View className="mt-0.5">
-          {post.data.post.record.text && (
+          {item.post.record.text && (
             <Text className="text-neutral-500 dark:text-neutral-400">
               <RichText
-                text={post.data.post.record.text}
-                facets={post.data.post.record.facets}
+                text={item.post.record.text}
+                facets={item.post.record.facets}
                 size="sm"
               />
             </Text>
           )}
-          {post.data.post.embed &&
-            AppBskyEmbedImages.isView(post.data.post.embed) && (
-              <Embed
-                uri={post.data.post.uri}
-                content={post.data.post.embed}
-                truncate
-                depth={1}
-              />
-            )}
+          {item.post.embed && AppBskyEmbedImages.isView(item.post.embed) && (
+            <Embed
+              uri={item.post.uri}
+              content={item.post.embed}
+              truncate
+              depth={1}
+            />
+          )}
         </View>
       );
     }
@@ -95,17 +62,12 @@ export const PostNotification = ({
     return (
       <FeedPost
         filter={filter}
-        item={post.data}
+        item={item}
         inlineParent
         unread={unread}
         dataUpdatedAt={dataUpdatedAt}
       />
     );
-  }
-
-  if (post.error) {
-    console.warn(post.error);
-    return null;
   }
 
   if (inline) return <View className="h-10" />;

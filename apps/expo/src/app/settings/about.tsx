@@ -2,6 +2,7 @@ import { Linking, Text, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { AtSign, Github, Heart, Mail, Send, Wrench } from "lucide-react-native";
 
 import { SettingsListGroups } from "./_layout";
@@ -76,6 +77,8 @@ const groups = [
 ];
 
 export default function AboutPage() {
+  const theme = useTheme();
+
   return (
     <SettingsListGroups groups={groups}>
       <View className="mb-4 flex-row items-center justify-center">
@@ -85,7 +88,12 @@ export default function AboutPage() {
           className="h-20 w-20 rounded-xl"
         />
         <View className="ml-6">
-          <Text className="text-lg font-medium dark:text-white">Graysky</Text>
+          <Text
+            style={{ color: theme.colors.text }}
+            className="text-lg font-medium"
+          >
+            Graysky
+          </Text>
           <Link href="/profile/mozzius.dev" asChild>
             <TouchableOpacity>
               <Text className="text-base text-neutral-600 dark:text-neutral-400">

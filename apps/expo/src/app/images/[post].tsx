@@ -42,6 +42,7 @@ export default function ImageModal() {
         const record = await agent.getPostThread({
           uri: source,
           depth: 0,
+          parentHeight: 0,
         });
 
         if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {

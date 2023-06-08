@@ -27,7 +27,6 @@ import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { useContentFilter } from "../../lib/hooks/preferences";
-import { assert } from "../../lib/utils/assert";
 import { useUserRefresh } from "../../lib/utils/query";
 import { Button } from "../button";
 import { FeedPost } from "../feed-post";
@@ -102,60 +101,40 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
           // https://github.com/handlerug/bluesky-liked-posts
           const list = await agent.app.bsky.feed.like.list({
             repo: handle,
-
             cursor: pageParam as string | undefined,
           });
 
+          // split subjects into chunks of 25
+          const subjectChunks = list.records
+            .filter((record) =>
+              record.value.subject.uri.includes("app.bsky.feed.post"),
+            )
+            .reduce<string[][]>(
+              (acc, record) => {
+                if (acc[acc.length - 1]!.length === 25) {
+                  acc.push([record.value.subject.uri]);
+                } else {
+                  acc[acc.length - 1]!.push(record.value.subject.uri);
+                }
+                return acc;
+              },
+              [[]],
+            );
+
           const likes = await Promise.all(
-            list.records
-              .filter((record) =>
-                record.value.subject.uri.includes("app.bsky.feed.post"),
-              )
-              .map(async (record) => {
-                const post = await agent.getPostThread({
-                  uri: record.value.subject.uri,
-                  depth: 0,
-                });
-
-                if (!post.success) {
-                  console.warn(
-                    "Failed to fetch post",
-                    record.value.subject.uri,
-                  );
-                  return null;
-                }
-
-                if (!AppBskyFeedDefs.isThreadViewPost(post.data.thread)) {
-                  assert(
-                    AppBskyFeedDefs.validateThreadViewPost(post.data.thread),
-                  );
-                  return null;
-                }
-
-                // convert thread view post to feed view post
-                return {
-                  post: post.data.thread.post,
-                  ...(AppBskyFeedDefs.isThreadViewPost(
-                    post.data.thread.parent,
-                  ) &&
-                  AppBskyFeedDefs.validateThreadViewPost(
-                    post.data.thread.parent,
-                  ).success
-                    ? {
-                        reply: {
-                          parent: post.data.thread.parent.post,
-                          // not technically correct but we don't use this field
-                          root: post.data.thread.parent.post,
-                        } as AppBskyFeedDefs.ReplyRef,
-                      }
-                    : {}),
-                } satisfies AppBskyFeedDefs.FeedViewPost;
+            subjectChunks.map((chunk) =>
+              agent.getPosts({
+                uris: chunk,
               }),
-          );
-          return {
-            feed: likes.filter((like): like is AppBskyFeedDefs.FeedViewPost =>
-              Boolean(like),
             ),
+          ).then((x) =>
+            x
+              .flatMap((x) => x.data.posts)
+              .map((post) => ({ post, reply: undefined, reason: undefined })),
+          );
+
+          return {
+            feed: likes,
             cursor: list.cursor,
           };
         case "feeds":
@@ -456,6 +435,7 @@ const Feed = ({
   likeCount,
   viewer,
 }: AppBskyFeedDefs.GeneratorView) => {
+  const theme = useTheme();
   const href = `/profile/${creator.did}/generator/${uri.split("/").pop()}`;
   return (
     <Link href={href} asChild>
@@ -467,13 +447,23 @@ const Feed = ({
             className="h-10 w-10 rounded bg-blue-500"
           />
           <View className="flex-1 px-3">
-            <Text className="text-base font-medium dark:text-white">
+            <Text
+              style={{ color: theme.colors.text }}
+              className="text-base font-medium"
+            >
               {displayName}
             </Text>
-            <Text className="text-sm text-neutral-400" numberOfLines={1}>
+            <Text
+              className="text-sm text-neutral-500 dark:text-neutral-400"
+              numberOfLines={1}
+            >
               <Heart
                 fill="currentColor"
-                className={viewer?.like ? "text-red-500" : "text-neutral-400"}
+                className={
+                  viewer?.like
+                    ? "text-red-500"
+                    : "text-neutral-500 dark:text-neutral-400"
+                }
                 size={12}
               />{" "}
               <Text className="tabular-nums">{likeCount ?? 0}</Text>

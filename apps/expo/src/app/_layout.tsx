@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Platform, Text, TouchableOpacity } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { HoldMenuProvider } from "react-native-hold-menu";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import {
   SplashScreen,
   Stack,
@@ -135,6 +139,7 @@ export default function RootLayout() {
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
+  const safeAreaInsets = useSafeAreaInsets();
 
   if (loading) {
     return <SplashScreen />;
@@ -146,53 +151,58 @@ export default function RootLayout() {
         <SafeAreaProvider>
           <AgentProvider value={agent}>
             <LogOutProvider value={logOut}>
-              <ActionSheetProvider>
-                <ListProvider>
-                  <Stack
-                    screenOptions={{
-                      headerShown: true,
-                      fullScreenGestureEnabled: true,
-                    }}
-                  >
-                    <Stack.Screen
-                      name="(auth)/login"
-                      options={{ title: "Log in" }}
-                    />
-                    <Stack.Screen
-                      name="settings"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
+              <HoldMenuProvider
+                theme={colorScheme}
+                safeAreaInsets={safeAreaInsets}
+              >
+                <ActionSheetProvider>
+                  <ListProvider>
+                    <Stack
+                      screenOptions={{
+                        headerShown: true,
+                        fullScreenGestureEnabled: true,
                       }}
-                    />
-                    <Stack.Screen
-                      name="translate"
-                      options={{
-                        title: "Translate",
-                        presentation: "modal",
-                        headerRight: () => (
-                          <TouchableOpacity
-                            onPress={() => {
-                              if (navigation.canGoBack()) {
-                                router.push("../");
-                              } else {
-                                router.push("/feeds");
-                              }
-                            }}
-                          >
-                            <Text
-                              style={{ color: theme.colors.primary }}
-                              className="text-lg font-medium"
+                    >
+                      <Stack.Screen
+                        name="(auth)/login"
+                        options={{ title: "Log in" }}
+                      />
+                      <Stack.Screen
+                        name="settings"
+                        options={{
+                          headerShown: false,
+                          presentation: "modal",
+                        }}
+                      />
+                      <Stack.Screen
+                        name="translate"
+                        options={{
+                          title: "Translate",
+                          presentation: "modal",
+                          headerRight: () => (
+                            <TouchableOpacity
+                              onPress={() => {
+                                if (navigation.canGoBack()) {
+                                  router.push("../");
+                                } else {
+                                  router.push("/feeds");
+                                }
+                              }}
                             >
-                              Done
-                            </Text>
-                          </TouchableOpacity>
-                        ),
-                      }}
-                    />
-                  </Stack>
-                </ListProvider>
-              </ActionSheetProvider>
+                              <Text
+                                style={{ color: theme.colors.primary }}
+                                className="text-lg font-medium"
+                              >
+                                Done
+                              </Text>
+                            </TouchableOpacity>
+                          ),
+                        }}
+                      />
+                    </Stack>
+                  </ListProvider>
+                </ActionSheetProvider>
+              </HoldMenuProvider>
             </LogOutProvider>
           </AgentProvider>
         </SafeAreaProvider>

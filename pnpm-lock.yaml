@@ -112,12 +112,18 @@ importers:
       expo-localization:
         specifier: ~14.1.1
         version: 14.1.1(expo@48.0.19)
+      expo-media-library:
+        specifier: ^15.2.3
+        version: 15.2.3(expo@48.0.19)
       expo-modules-autolinking:
         specifier: ^1.2.0
         version: 1.2.0
       expo-router:
         specifier: ^1.7.2
         version: 1.7.2(@types/react@18.0.27)(expo-constants@14.2.1)(expo-linking@4.0.1)(expo-modules-autolinking@1.2.0)(expo-status-bar@1.4.4)(expo@48.0.19)(metro@0.76.5)(react-dom@18.2.0)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native-safe-area-context@4.5.0)(react-native-screens@3.20.0)(react-native@0.71.8)(react@18.2.0)
+      expo-sharing:
+        specifier: ^11.2.2
+        version: 11.2.2(expo@48.0.19)
       expo-splash-screen:
         specifier: ~0.18.2
         version: 0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.19)
@@ -6025,6 +6031,14 @@ packages:
       expo-json-utils: 0.5.1
     dev: false
 
+  /expo-media-library@15.2.3(expo@48.0.19):
+    resolution: {integrity: sha512-Oz8b8Xsvfj7YcutUBtI84NUIqSnt7iCM5HZ5DyKoWKKiDK/+aUuj3RXNQELG8jUw6pQPgEwgbZ1+J8SdH/y9jw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.19(@babel/core@7.21.4)
+    dev: false
+
   /expo-modules-autolinking@1.2.0:
     resolution: {integrity: sha512-QOPh/iXykNDCAzUual1imSrn2aDakzCGUp2QmxVREr0llajXygroUWlT9sQXh1zKzbNp+a+i/xK375ZeBFiNJA==}
     hasBin: true
@@ -6094,6 +6108,14 @@ packages:
       - react-dom
       - react-native
       - supports-color
+    dev: false
+
+  /expo-sharing@11.2.2(expo@48.0.19):
+    resolution: {integrity: sha512-4Lhm1eS/CFIzX+JPuxMUTWBt9rv/WdvJvpQ9y+71bL/9w9dhvsdt9tv0SsNZATz4hk0tbrYD8ZEUsgiHiT1KkQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.19(@babel/core@7.21.4)
     dev: false
 
   /expo-splash-screen@0.18.2(expo-modules-autolinking@1.2.0)(expo@48.0.19):

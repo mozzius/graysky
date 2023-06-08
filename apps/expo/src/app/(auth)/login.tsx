@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, TextInput, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 
@@ -45,7 +46,7 @@ export default function Login() {
     },
   });
 
-  const { colorScheme } = useColorScheme();
+  const theme = useTheme();
 
   return (
     <View className="flex-1 bg-white p-4 dark:bg-black">
@@ -53,14 +54,13 @@ export default function Login() {
         <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <User size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:text-white dark:placeholder-neutral-400"
+            style={{ color: theme.colors.text }}
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:placeholder-neutral-400"
             placeholder="Username or email address"
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
-            placeholderTextColor={
-              colorScheme === "dark" ? "rgb(62,62,62)" : undefined
-            }
+            placeholderTextColor={theme.dark ? "rgb(62,62,62)" : undefined}
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
@@ -72,14 +72,13 @@ export default function Login() {
         <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
-            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:text-white dark:placeholder-neutral-400"
+            style={{ color: theme.colors.text }}
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:placeholder-neutral-400"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholderTextColor={
-              colorScheme === "dark" ? "rgb(62,62,62)" : undefined
-            }
+            placeholderTextColor={theme.dark ? "rgb(62,62,62)" : undefined}
           />
         </View>
         <View className="flex-row justify-between">
