@@ -72,12 +72,14 @@ export const PostAvatar = ({ profile }: Props) => {
         }
       : {
           text: `Mute`,
-          onPress: () => muteAccount(agent, profile.handle, profile.did),
+          onPress: () =>
+            muteAccount(agent, profile.handle, profile.did, queryClient),
           icon: () => <MegaphoneOff size={18} color={theme.colors.text} />,
         },
     {
       text: `Block`,
-      onPress: () => blockAccount(agent, profile.handle, profile.did),
+      onPress: () =>
+        blockAccount(agent, profile.handle, profile.did, queryClient),
       icon: () => <Ban size={18} color={theme.colors.text} />,
     },
   ].filter(Boolean);
