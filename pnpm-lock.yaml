@@ -287,6 +287,9 @@ importers:
       '@trpc/server':
         specifier: ^10.29.1
         version: 10.29.1
+      '@vercel/kv':
+        specifier: ^0.2.1
+        version: 0.2.1
       next:
         specifier: ^13.4.4
         version: 13.4.4(@babel/core@7.22.1)(react-dom@18.2.0)(react@18.2.0)
@@ -4002,6 +4005,14 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: false
 
+  /@upstash/redis@1.20.6:
+    resolution: {integrity: sha512-q1izaYEUsq/WiXNOjf4oOjFZe8fIeBSZN8d5cEyOD4nem+zxc4jccieorQQrNlEahKPE1ZYLzVEkMODRUfch2g==}
+    dependencies:
+      isomorphic-fetch: 3.0.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@urql/core@2.3.6(graphql@15.8.0):
     resolution: {integrity: sha512-PUxhtBh7/8167HJK6WqBv6Z0piuiaZHQGYbhwpNL9aIQmLROPEdaUYkY4wh45wPQXcTpnd11l0q3Pw+TI11pdw==}
     peerDependencies:
@@ -4020,6 +4031,15 @@ packages:
       '@urql/core': 2.3.6(graphql@15.8.0)
       graphql: 15.8.0
       wonka: 4.0.15
+    dev: false
+
+  /@vercel/kv@0.2.1:
+    resolution: {integrity: sha512-0O1CVh0maG/bduAE6DPKUTfGSnORgrcS5xBYZCb62sOU7PrVZrXhaPbUSBE4q5PXS5DC+cpN6FY2RWNlslUaWQ==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@upstash/redis': 1.20.6
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@xmldom/xmldom@0.7.11:
@@ -7727,6 +7747,15 @@ packages:
   /isobject@3.0.1:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /isomorphic-fetch@3.0.0:
+    resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
+    dependencies:
+      node-fetch: 2.6.11
+      whatwg-fetch: 3.6.2
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /jest-environment-node@29.5.0:

@@ -43,6 +43,9 @@
     "CK_API_KEY",
     "CK_FORM_ID",
     "DATABASE_URL",
-    "TRANSLATION_KEY"
+    "TRANSLATION_KEY",
+    "KV_REST_API_URL",
+    "KV_REST_API_TOKEN",
+    "API_URL"
   ]
 }

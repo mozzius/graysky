@@ -3,6 +3,7 @@ import * as Haptics from "expo-haptics";
 import {
   AppBskyActorDefs,
   AppBskyFeedDefs,
+  AppBskyFeedPost,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
 import {
@@ -173,20 +174,57 @@ export const useTimeline = (feed: string) => {
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],
     queryFn: async ({ pageParam }) => {
+      let cursor;
+      let posts = [];
       if (feed === "following") {
         const timeline = await agent.getTimeline({
           cursor: pageParam as string | undefined,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
-        return timeline.data;
+        ({ cursor, feed: posts } = timeline.data);
       } else {
         const timeline = await agent.app.bsky.feed.getFeed({
           feed,
           cursor: pageParam as string | undefined,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
-        return timeline.data;
+        ({ cursor, feed: posts } = timeline.data);
       }
+
+      const res = await fetch(`${process.env.API_URL}/api/translate/detect`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          posts.map((post) => ({
+            uri: post.post.uri,
+            text: AppBskyFeedPost.isRecord(post.post.record)
+              ? post.post.record.text
+              : "",
+          })),
+        ),
+      });
+
+      if (!res.ok) {
+        return {
+          cursor,
+          feed: posts.map((post) => ({
+            ...post,
+            language: null,
+          })),
+        };
+      }
+
+      const languages: Record<string, string | null> = await res.json();
+
+      return {
+        cursor,
+        feed: posts.map((post) => ({
+          ...post,
+          language: languages[post.post.uri] ?? null,
+        })),
+      };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
