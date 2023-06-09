@@ -282,6 +282,7 @@ export const FeedPost = ({
                   </TouchableWithoutFeedback>
                 </Link>
               )}
+              <Text>{item.post.language ?? "unknown"}</Text>
               {/* embeds */}
               {item.post.embed && (
                 <Embed uri={item.post.uri} content={item.post.embed} />

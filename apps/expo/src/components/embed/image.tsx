@@ -137,11 +137,11 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 source={{ uri: image.thumb }}
                 alt={image.alt}
                 className="mt-1.5 w-full shrink-0 rounded-lg"
-                style={{ aspectRatio }}
+                style={{
+                  aspectRatio: Math.max(depth === 0 ? 0.66 : 2, aspectRatio),
+                }}
                 onLoad={({ source: { width, height } }) =>
-                  setAspectRatio(
-                    Math.max(depth === 0 ? 0.66 : 2, width / height),
-                  )
+                  setAspectRatio(width / height)
                 }
               />
             </TouchableWithoutFeedback>

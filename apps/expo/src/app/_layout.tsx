@@ -41,7 +41,7 @@ const App = () => {
   const [session, setSession] = useState<AtpSessionData | null>(null);
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -99,10 +99,10 @@ const App = () => {
 
   const did = session?.did;
 
-  // invalidate all queries when the session changes
-  useEffect(() => {
-    void queryClient.invalidateQueries();
-  }, [did]);
+  // // invalidate all queries when the session changes
+  // useEffect(() => {
+  //   void queryClient.invalidateQueries();
+  // }, [did]);
 
   // redirect depending on login state
   useEffect(() => {
@@ -120,14 +120,7 @@ const App = () => {
       // Redirect to the sign-in page.
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
-      // Redirect away from the sign-in page.
-      // HACK - NEED /feeds IN THE HISTORY FOR THE BACK TITLE TO BE SET
-      if (Platform.OS === "ios") {
-        router.replace("/feeds");
-        setTimeout(() => router.push("/feeds/following"));
-      } else {
-        router.replace("/feeds/following");
-      }
+      router.replace("/feeds");
     }
   }, [did, segments, router, loading]);
 

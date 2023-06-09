@@ -1,15 +1,15 @@
 import { ActivityIndicator, RefreshControl, Text, View } from "react-native";
 import { Stack } from "expo-router";
-import {
-  type AppBskyFeedDefs,
-  type AppBskyFeedGetFeedGenerator,
-} from "@atproto/api";
+import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { type DefinedUseQueryResult } from "@tanstack/react-query";
 
 import { useTabPressScrollRef } from "../../lib/hooks";
-import { useFeedInfo, useTimeline } from "../../lib/hooks/feeds";
-import { type FilterResult } from "../../lib/hooks/preferences";
+import {
+  useFeedInfo,
+  useTimeline,
+  type TimelineItem,
+} from "../../lib/hooks/feeds";
 import { useUserRefresh } from "../../lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { QueryWithoutData } from "../query-without-data";
@@ -47,11 +47,7 @@ export const FeedScreen = ({ feed }: Props) => {
   if (timeline.data) {
     return (
       <Wrapper info={info}>
-        <FlashList<{
-          item: AppBskyFeedDefs.FeedViewPost;
-          hasReply: boolean;
-          filter: FilterResult;
-        }>
+        <FlashList<TimelineItem>
           ref={ref}
           onScroll={onScroll}
           data={data}

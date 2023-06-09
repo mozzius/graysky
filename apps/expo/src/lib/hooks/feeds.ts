@@ -15,6 +15,7 @@ import {
 import { produce } from "immer";
 
 import { useAuthedAgent } from "../agent";
+import { api, getBaseUrl } from "../utils/api";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
@@ -167,9 +168,18 @@ export const useReorderFeeds = (
   return { pinned, reorder };
 };
 
+declare module "@atproto/api" {
+  namespace AppBskyFeedDefs {
+    interface PostView {
+      language?: string;
+    }
+  }
+}
+
 export const useTimeline = (feed: string) => {
   const agent = useAuthedAgent();
   const { contentFilter, preferences } = useContentFilter();
+  const detect = api.translate.detect.useMutation();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],
@@ -191,40 +201,58 @@ export const useTimeline = (feed: string) => {
         ({ cursor, feed: posts } = timeline.data);
       }
 
-      const res = await fetch(`${process.env.API_URL}/api/translate/detect`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          posts.map((post) => ({
-            uri: post.post.uri,
-            text: AppBskyFeedPost.isRecord(post.post.record)
-              ? post.post.record.text
-              : "",
-          })),
-        ),
-      });
+      try {
+        const toBeDetected: { uri: string; text: string }[] = [];
 
-      if (!res.ok) {
+        for (const post of posts) {
+          if (
+            AppBskyFeedPost.isRecord(post.post.record) &&
+            post.post.record.text
+          ) {
+            toBeDetected.push({
+              uri: post.post.uri,
+              text: post.post.record.text,
+            });
+          }
+          if (
+            post.reply &&
+            AppBskyFeedDefs.isPostView(post.reply?.parent) &&
+            AppBskyFeedPost.isRecord(post.reply.parent.record) &&
+            post.reply.parent.record.text
+          ) {
+            toBeDetected.push({
+              uri: post.reply.parent.uri,
+              text: post.reply.parent.record.text,
+            });
+          }
+        }
+
+        const languages = await detect.mutateAsync(toBeDetected);
+
         return {
           cursor,
-          feed: posts.map((post) => ({
-            ...post,
-            language: null,
-          })),
+          feed: posts.map((post) =>
+            produce(post, (draft) => {
+              if (languages[draft.post.uri]) {
+                draft.post.language = languages[draft.post.uri];
+              }
+              if (
+                draft.reply &&
+                AppBskyFeedDefs.isPostView(draft.reply.parent) &&
+                languages[draft.reply.parent.uri]
+              ) {
+                draft.reply.parent.language = languages[draft.reply.parent.uri];
+              }
+            }),
+          ),
+        };
+      } catch (err) {
+        console.error(err);
+        return {
+          cursor,
+          feed: posts,
         };
       }
-
-      const languages: Record<string, string | null> = await res.json();
-
-      return {
-        cursor,
-        feed: posts.map((post) => ({
-          ...post,
-          language: languages[post.post.uri] ?? null,
-        })),
-      };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
@@ -267,3 +295,5 @@ export const useTimeline = (feed: string) => {
 
   return { timeline, data, preferences, contentFilter };
 };
+
+export type TimelineItem = ReturnType<typeof useTimeline>["data"][number];
