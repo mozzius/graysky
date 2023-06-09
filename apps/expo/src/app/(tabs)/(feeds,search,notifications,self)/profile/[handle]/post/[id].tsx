@@ -6,9 +6,14 @@ import {
   View,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import {
+  AppBskyFeedDefs,
+  AppBskyFeedPost,
+  type ComAtprotoLabelDefs,
+} from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
+import { produce } from "immer";
 
 import { Avatar } from "../../../../../../components/avatar";
 import { useComposer } from "../../../../../../components/composer";
@@ -21,6 +26,7 @@ import {
   useContentFilter,
   type FilterResult,
 } from "../../../../../../lib/hooks/preferences";
+import { api } from "../../../../../../lib/utils/api";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
@@ -44,6 +50,7 @@ const PostThread = ({ contentFilter }: Props) => {
 
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<Posts>>(null);
+  const detect = api.translate.detect.useMutation();
 
   const thread = useQuery({
     queryKey: ["profile", handle, "post", id],
@@ -146,7 +153,42 @@ const PostThread = ({ contentFilter }: Props) => {
         }
       }
 
-      return { posts, index, main: thread.post };
+      try {
+        const toBeDetected: { uri: string; text: string }[] = [];
+
+        for (const post of posts) {
+          if (
+            AppBskyFeedPost.isRecord(post.post.record) &&
+            post.post.record.text
+          ) {
+            toBeDetected.push({
+              uri: post.post.uri,
+              text: post.post.record.text,
+            });
+          }
+        }
+
+        const languages = await detect.mutateAsync(toBeDetected);
+
+        return {
+          posts: posts.map((post) =>
+            produce(post, (draft) => {
+              if (languages[draft.post.uri]) {
+                draft.post.language = languages[draft.post.uri];
+              }
+            }),
+          ),
+          index,
+          main: produce(thread.post, (draft) => {
+            if (languages[draft.uri]) {
+              draft.language = languages[draft.uri];
+            }
+          }),
+        };
+      } catch (err) {
+        console.error(err);
+        return { posts, index, main: thread.post };
+      }
     },
   });
 

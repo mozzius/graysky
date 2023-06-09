@@ -23,6 +23,7 @@ import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { RichText } from "./rich-text";
+import { Translation } from "./translation";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
@@ -99,11 +100,18 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
       </View>
       {/* text content */}
       {post.record.text && (
-        <RichText
-          text={post.record.text}
-          facets={post.record.facets}
-          size="lg"
-        />
+        <>
+          <RichText
+            text={post.record.text}
+            facets={post.record.facets}
+            size="lg"
+          />
+          {post.language && post.language !== locale.languageCode && (
+            <View className="mt-2">
+              <Translation uri={post.uri} text={post.record.text} />
+            </View>
+          )}
+        </>
       )}
       {/* embeds */}
       {post.embed && (

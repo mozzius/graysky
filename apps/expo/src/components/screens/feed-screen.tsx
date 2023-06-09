@@ -110,40 +110,6 @@ const Wrapper = ({
       <Stack.Screen
         options={{
           title: info.data.view.displayName,
-          headerBackTitle:
-            info.data.view.displayName === "Following" ? "Feeds" : undefined,
-          //   headerRight: () =>
-          //     info.data.view.displayName !== "Following" &&
-          //     (info.data.isOnline && info.data.isValid ? (
-          //       <TouchableOpacity
-          //         onPress={() => Alert.alert("Feed Info", "This feed is online")}
-          //       >
-          //         <Radio size={24} className="text-green-600" />
-          //       </TouchableOpacity>
-          //     ) : (
-          //       <TouchableOpacity
-          //         onPress={() =>
-          //           Alert.alert(
-          //             "Feed Info",
-          //             `This feed is ${
-          //               info.data.isOnline ? "not valid" : "offline"
-          //             }`,
-          //             [
-          //               {
-          //                 text: "Cancel",
-          //                 style: "cancel",
-          //               },
-          //               {
-          //                 text: "Retry",
-          //                 onPress: () => void info.refetch(),
-          //               },
-          //             ],
-          //           )
-          //         }
-          //       >
-          //         <Radio size={24} className="text-red-600" />
-          //       </TouchableOpacity>
-          //     )),
         }}
       />
       {children}

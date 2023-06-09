@@ -15,7 +15,8 @@ import {
 import { produce } from "immer";
 
 import { useAuthedAgent } from "../agent";
-import { api, getBaseUrl } from "../utils/api";
+import { api } from "../utils/api";
+import { addDetectedLanguages } from "../utils/detect-languages";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
@@ -200,59 +201,7 @@ export const useTimeline = (feed: string) => {
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       }
-
-      try {
-        const toBeDetected: { uri: string; text: string }[] = [];
-
-        for (const post of posts) {
-          if (
-            AppBskyFeedPost.isRecord(post.post.record) &&
-            post.post.record.text
-          ) {
-            toBeDetected.push({
-              uri: post.post.uri,
-              text: post.post.record.text,
-            });
-          }
-          if (
-            post.reply &&
-            AppBskyFeedDefs.isPostView(post.reply?.parent) &&
-            AppBskyFeedPost.isRecord(post.reply.parent.record) &&
-            post.reply.parent.record.text
-          ) {
-            toBeDetected.push({
-              uri: post.reply.parent.uri,
-              text: post.reply.parent.record.text,
-            });
-          }
-        }
-
-        const languages = await detect.mutateAsync(toBeDetected);
-
-        return {
-          cursor,
-          feed: posts.map((post) =>
-            produce(post, (draft) => {
-              if (languages[draft.post.uri]) {
-                draft.post.language = languages[draft.post.uri];
-              }
-              if (
-                draft.reply &&
-                AppBskyFeedDefs.isPostView(draft.reply.parent) &&
-                languages[draft.reply.parent.uri]
-              ) {
-                draft.reply.parent.language = languages[draft.reply.parent.uri];
-              }
-            }),
-          ),
-        };
-      } catch (err) {
-        console.error(err);
-        return {
-          cursor,
-          feed: posts,
-        };
-      }
+      return addDetectedLanguages(posts, cursor, detect);
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });

@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Actor {
-    id  Int    @id @default(autoincrement())
+    id  String @id @default(cuid())
     did String @unique
 
     bookmarks Bookmark[]
@@ -22,7 +22,7 @@ model Actor {
 }
 
 model Bookmark {
-    id  Int    @id @default(autoincrement())
+    id  String @id @default(cuid())
     uri String
 
     actorDid String
@@ -33,4 +33,31 @@ model Bookmark {
 
     @@index([uri])
     @@index([actorDid])
+}
+
+model TranslatablePost {
+    id       String @id @default(cuid())
+    uri      String @unique
+    language String
+
+    translation PostTranslation[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([uri])
+}
+
+model PostTranslation {
+    id       String @id @default(cuid())
+    language String
+    text     String @db.Text
+
+    postUri String
+    post    TranslatablePost @relation(fields: [postUri], references: [uri], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([postUri])
 }

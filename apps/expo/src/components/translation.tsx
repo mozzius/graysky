@@ -6,6 +6,7 @@ import { AlertTriangle, Languages, Sparkles } from "lucide-react-native";
 
 import { locale } from "../lib/locale";
 import { api } from "../lib/utils/api";
+import { RichTextWithoutFacets } from "./rich-text";
 
 interface Props {
   text: string;
@@ -59,7 +60,7 @@ export const Translation = ({ text, uri }: Props) => {
                 className="mr-1 text-neutral-500 dark:text-neutral-200"
               />
               <Text className="text-sm text-neutral-500 dark:text-neutral-200">
-                {translate.data.language}
+                <RichTextWithoutFacets text={translate.data.language} />
               </Text>
             </View>
             <Image

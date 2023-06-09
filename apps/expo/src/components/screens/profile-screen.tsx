@@ -27,6 +27,8 @@ import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { useContentFilter } from "../../lib/hooks/preferences";
+import { api } from "../../lib/utils/api";
+import { addDetectedLanguages } from "../../lib/utils/detect-languages";
 import { useUserRefresh } from "../../lib/utils/query";
 import { Button } from "../button";
 import { FeedPost } from "../feed-post";
@@ -57,6 +59,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const { preferences, contentFilter } = useContentFilter();
+  const detect = api.translate.detect.useMutation();
 
   const tabOffset = headerHeight - top;
 
@@ -87,6 +90,9 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
   const timeline = useInfiniteQuery({
     queryKey: ["profile", handle, "feed", mode],
     queryFn: async ({ pageParam }) => {
+      let cursor;
+      let posts = [];
+
       switch (mode) {
         case "posts":
         case "replies":
@@ -94,7 +100,8 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
             actor: handle,
             cursor: pageParam as string | undefined,
           });
-          return feed.data;
+          ({ cursor, feed: posts } = feed.data);
+          break;
 
         case "likes":
           // all credit to @handlerug.me for this one
@@ -133,15 +140,17 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
               .map((post) => ({ post, reply: undefined, reason: undefined })),
           );
 
-          return {
-            feed: likes,
-            cursor: list.cursor,
-          };
+          posts = likes;
+          cursor = list.cursor;
+          break;
+
         case "feeds":
           console.error("ERROR: UNREACHABLE CODE REACHED");
           console.log("mode", mode);
           throw new Error("unreachable");
       }
+
+      return addDetectedLanguages(posts, cursor, detect);
     },
     enabled: mode !== "feeds",
     getNextPageParam: (lastPage) => lastPage.cursor,
