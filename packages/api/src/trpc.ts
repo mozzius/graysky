@@ -7,9 +7,11 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { initTRPC } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import superjson from "superjson";
 import { ZodError } from "zod";
+
+import { db } from "@graysky/db";
 
 /**
  * 1. CONTEXT
@@ -31,8 +33,11 @@ type CreateContextOptions = Record<string, never>;
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-  return {};
+const createInnerTRPCContext = (opts: CreateContextOptions) => {
+  return {
+    session: opts.session,
+    db,
+  };
 };
 
 /**
@@ -40,11 +45,7 @@ const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-  // const { req, res } = opts;
-
-  // Get the session from the server using the unstable_getServerSession wrapper function
-
+export const createTRPCContext = async (_opts: FetchCreateContextFnOptions) => {
   return createInnerTRPCContext({});
 };
 

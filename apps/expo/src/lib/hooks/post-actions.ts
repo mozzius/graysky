@@ -193,10 +193,20 @@ export const usePostViewOptions = (post: AppBskyFeedDefs.PostView) => {
             openReposts(post.uri);
             break;
           case `Mute @${post.author.handle}`:
-            muteAccount(agent, post.author.handle, post.author.did);
+            muteAccount(
+              agent,
+              post.author.handle,
+              post.author.did,
+              queryClient,
+            );
             break;
           case `Block @${post.author.handle}`:
-            blockAccount(agent, post.author.handle, post.author.did);
+            blockAccount(
+              agent,
+              post.author.handle,
+              post.author.did,
+              queryClient,
+            );
             break;
           case "Delete post":
             Alert.alert(

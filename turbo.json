@@ -2,8 +2,12 @@
   "$schema": "https://turborepo.org/schema.json",
   "globalDependencies": ["**/.env"],
   "pipeline": {
+    "db:generate": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
     "db:push": {
-      "inputs": ["schema.ts"],
+      "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
     "dev": {
@@ -11,8 +15,8 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", ".expo/**", "dist/**"]
+      "dependsOn": ["^build", "^db:generate"],
+      "outputs": [".next/**", ".expo/**"]
     },
     "lint": {
       "dependsOn": ["build"]
@@ -25,7 +29,7 @@
       "cache": false
     },
     "type-check": {
-      "dependsOn": ["build"],
+      "dependsOn": ["^db:generate"],
       "cache": false
     }
   },
@@ -39,8 +43,10 @@
     "CK_API_KEY",
     "CK_FORM_ID",
     "DATABASE_URL",
-    "DATABASE_HOST",
-    "DATABASE_USERNAME",
-    "DATABASE_PASSWORD"
+    "TRANSLATION_PROJECT_ID",
+    "TRANSLATION_KEY",
+    "KV_REST_API_URL",
+    "KV_REST_API_TOKEN",
+    "API_URL"
   ]
 }

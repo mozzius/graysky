@@ -156,10 +156,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           });
                           break;
                         case "Mute Account":
-                          muteAccount(agent, profile.handle, profile.did);
+                          muteAccount(
+                            agent,
+                            profile.handle,
+                            profile.did,
+                            queryClient,
+                          );
                           break;
                         case "Block Account":
-                          blockAccount(agent, profile.handle, profile.did);
+                          blockAccount(
+                            agent,
+                            profile.handle,
+                            profile.did,
+                            queryClient,
+                          );
 
                           break;
                         case "Report Account":

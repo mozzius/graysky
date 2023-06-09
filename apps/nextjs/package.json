@@ -16,10 +16,11 @@
     "@graysky/api": "^0.1.0",
     "@graysky/tailwind-config": "^0.1.0",
     "@tanstack/react-query": "^4.29.12",
-    "@trpc/client": "^10.28.2",
-    "@trpc/next": "^10.28.2",
-    "@trpc/react-query": "^10.28.2",
-    "@trpc/server": "^10.28.2",
+    "@trpc/client": "^10.29.1",
+    "@trpc/next": "^10.29.1",
+    "@trpc/react-query": "^10.29.1",
+    "@trpc/server": "^10.29.1",
+    "@vercel/kv": "^0.2.1",
     "next": "^13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -29,13 +30,13 @@
   "devDependencies": {
     "@graysky/eslint-config": "^0.1.0",
     "@types/node": "^20.2.5",
-    "@types/react": "^18.2.8",
+    "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
     "autoprefixer": "^10.4.14",
     "dotenv-cli": "^7.2.1",
-    "eslint": "^8.41.0",
+    "eslint": "^8.42.0",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }

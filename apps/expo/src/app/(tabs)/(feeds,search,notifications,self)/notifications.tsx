@@ -5,7 +5,7 @@ import {
   type AppBskyNotificationListNotifications,
 } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { ComposeButton } from "../../../components/compose-button";
 import { Notification } from "../../../components/notification";
@@ -13,7 +13,6 @@ import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
 import { useAppPreferences } from "../../../lib/hooks/preferences";
-import { queryClient } from "../../../lib/query-client";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 
 export type NotificationGroup = {
@@ -31,6 +30,7 @@ interface Props {
 
 const NotificationsPage = ({ groupNotifications }: Props) => {
   const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],

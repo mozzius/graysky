@@ -25,22 +25,23 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
 import { LogOutProvider } from "../lib/log-out-context";
-import { queryClient } from "../lib/query-client";
+import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
-export default function RootLayout() {
+const App = () => {
   const segments = useSegments();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<AtpSessionData | null>(null);
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
+  // const queryClient = useQueryClient();
 
   // need to implement this
   // https://expo.github.io/router/docs/features/routing#shared-routes
@@ -98,10 +99,10 @@ export default function RootLayout() {
 
   const did = session?.did;
 
-  // invalidate all queries when the session changes
-  useEffect(() => {
-    void queryClient.invalidateQueries();
-  }, [did]);
+  // // invalidate all queries when the session changes
+  // useEffect(() => {
+  //   void queryClient.invalidateQueries();
+  // }, [did]);
 
   // redirect depending on login state
   useEffect(() => {
@@ -119,14 +120,7 @@ export default function RootLayout() {
       // Redirect to the sign-in page.
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
-      // Redirect away from the sign-in page.
-      // HACK - NEED /feeds IN THE HISTORY FOR THE BACK TITLE TO BE SET
-      if (Platform.OS === "ios") {
-        router.replace("/feeds");
-        setTimeout(() => router.push("/feeds/following"));
-      } else {
-        router.replace("/feeds/following");
-      }
+      router.replace("/feeds");
     }
   }, [did, segments, router, loading]);
 
@@ -147,67 +141,73 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <AgentProvider value={agent}>
-            <LogOutProvider value={logOut}>
-              <HoldMenuProvider
-                theme={colorScheme}
-                safeAreaInsets={safeAreaInsets}
-              >
-                <ActionSheetProvider>
-                  <ListProvider>
-                    <Stack
-                      screenOptions={{
-                        headerShown: true,
-                        fullScreenGestureEnabled: true,
+      <SafeAreaProvider>
+        <AgentProvider value={agent}>
+          <LogOutProvider value={logOut}>
+            <HoldMenuProvider
+              theme={colorScheme}
+              safeAreaInsets={safeAreaInsets}
+            >
+              <ActionSheetProvider>
+                <ListProvider>
+                  <Stack
+                    screenOptions={{
+                      headerShown: true,
+                      fullScreenGestureEnabled: true,
+                    }}
+                  >
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{ title: "Log in" }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
                       }}
-                    >
-                      <Stack.Screen
-                        name="(auth)/login"
-                        options={{ title: "Log in" }}
-                      />
-                      <Stack.Screen
-                        name="settings"
-                        options={{
-                          headerShown: false,
-                          presentation: "modal",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="translate"
-                        options={{
-                          title: "Translate",
-                          presentation: "modal",
-                          headerRight: () => (
-                            <TouchableOpacity
-                              onPress={() => {
-                                if (navigation.canGoBack()) {
-                                  router.push("../");
-                                } else {
-                                  router.push("/feeds");
-                                }
-                              }}
+                    />
+                    <Stack.Screen
+                      name="translate"
+                      options={{
+                        title: "Translate",
+                        presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              if (navigation.canGoBack()) {
+                                router.push("../");
+                              } else {
+                                router.push("/feeds");
+                              }
+                            }}
+                          >
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg font-medium"
                             >
-                              <Text
-                                style={{ color: theme.colors.primary }}
-                                className="text-lg font-medium"
-                              >
-                                Done
-                              </Text>
-                            </TouchableOpacity>
-                          ),
-                        }}
-                      />
-                    </Stack>
-                  </ListProvider>
-                </ActionSheetProvider>
-              </HoldMenuProvider>
-            </LogOutProvider>
-          </AgentProvider>
-        </SafeAreaProvider>
-      </QueryClientProvider>
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                  </Stack>
+                </ListProvider>
+              </ActionSheetProvider>
+            </HoldMenuProvider>
+          </LogOutProvider>
+        </AgentProvider>
+      </SafeAreaProvider>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>
+  );
+};
+
+export default function RootLayout() {
+  return (
+    <TRPCProvider>
+      <App />
+    </TRPCProvider>
   );
 }

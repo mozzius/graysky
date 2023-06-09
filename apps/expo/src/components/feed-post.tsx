@@ -28,6 +28,7 @@ import {
   useRepost,
 } from "../lib/hooks";
 import { type FilterResult } from "../lib/hooks/preferences";
+import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
@@ -36,6 +37,7 @@ import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { RichText } from "./rich-text";
+import { Translation } from "./translation";
 
 interface Props {
   item: AppBskyFeedDefs.FeedViewPost;
@@ -268,19 +270,28 @@ export const FeedPost = ({
             <>
               {/* text content */}
               {item.post.record.text && (
-                <Link href={postHref} asChild>
-                  <TouchableWithoutFeedback
-                    className="my-0.5"
-                    accessibilityHint="Opens post details"
-                  >
-                    <View>
-                      <RichText
+                <>
+                  <Link href={postHref} asChild>
+                    <TouchableWithoutFeedback
+                      className="my-0.5"
+                      accessibilityHint="Opens post details"
+                    >
+                      <View>
+                        <RichText
+                          text={item.post.record.text}
+                          facets={item.post.record.facets}
+                        />
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Link>
+                  {item.post.language &&
+                    item.post.language !== locale.languageCode && (
+                      <Translation
+                        uri={item.post.uri}
                         text={item.post.record.text}
-                        facets={item.post.record.facets}
                       />
-                    </View>
-                  </TouchableWithoutFeedback>
-                </Link>
+                    )}
+                </>
               )}
               {/* embeds */}
               {item.post.embed && (

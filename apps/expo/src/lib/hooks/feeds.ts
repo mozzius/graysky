@@ -3,13 +3,19 @@ import * as Haptics from "expo-haptics";
 import {
   AppBskyActorDefs,
   AppBskyFeedDefs,
+  AppBskyFeedPost,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { produce } from "immer";
 
 import { useAuthedAgent } from "../agent";
-import { queryClient } from "../query-client";
+import { api, getBaseUrl } from "../utils/api";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
@@ -87,6 +93,7 @@ export const useToggleFeedPref = (
   preferences?: AppBskyActorDefs.Preferences,
 ) => {
   const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
 
   return useMutation({
     onMutate: () => void Haptics.impactAsync(),
@@ -129,6 +136,7 @@ export const useReorderFeeds = (
   savedFeeds: ReturnType<typeof useSavedFeeds>,
 ) => {
   const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
   const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
 
   const stringified = (savedFeeds.data?.pinned ?? []).toString();
@@ -160,26 +168,90 @@ export const useReorderFeeds = (
   return { pinned, reorder };
 };
 
+declare module "@atproto/api" {
+  namespace AppBskyFeedDefs {
+    interface PostView {
+      language?: string;
+    }
+  }
+}
+
 export const useTimeline = (feed: string) => {
   const agent = useAuthedAgent();
   const { contentFilter, preferences } = useContentFilter();
+  const detect = api.translate.detect.useMutation();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],
     queryFn: async ({ pageParam }) => {
+      let cursor;
+      let posts = [];
       if (feed === "following") {
         const timeline = await agent.getTimeline({
           cursor: pageParam as string | undefined,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
-        return timeline.data;
+        ({ cursor, feed: posts } = timeline.data);
       } else {
         const timeline = await agent.app.bsky.feed.getFeed({
           feed,
           cursor: pageParam as string | undefined,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
-        return timeline.data;
+        ({ cursor, feed: posts } = timeline.data);
+      }
+
+      try {
+        const toBeDetected: { uri: string; text: string }[] = [];
+
+        for (const post of posts) {
+          if (
+            AppBskyFeedPost.isRecord(post.post.record) &&
+            post.post.record.text
+          ) {
+            toBeDetected.push({
+              uri: post.post.uri,
+              text: post.post.record.text,
+            });
+          }
+          if (
+            post.reply &&
+            AppBskyFeedDefs.isPostView(post.reply?.parent) &&
+            AppBskyFeedPost.isRecord(post.reply.parent.record) &&
+            post.reply.parent.record.text
+          ) {
+            toBeDetected.push({
+              uri: post.reply.parent.uri,
+              text: post.reply.parent.record.text,
+            });
+          }
+        }
+
+        const languages = await detect.mutateAsync(toBeDetected);
+
+        return {
+          cursor,
+          feed: posts.map((post) =>
+            produce(post, (draft) => {
+              if (languages[draft.post.uri]) {
+                draft.post.language = languages[draft.post.uri];
+              }
+              if (
+                draft.reply &&
+                AppBskyFeedDefs.isPostView(draft.reply.parent) &&
+                languages[draft.reply.parent.uri]
+              ) {
+                draft.reply.parent.language = languages[draft.reply.parent.uri];
+              }
+            }),
+          ),
+        };
+      } catch (err) {
+        console.error(err);
+        return {
+          cursor,
+          feed: posts,
+        };
       }
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -223,3 +295,5 @@ export const useTimeline = (feed: string) => {
 
   return { timeline, data, preferences, contentFilter };
 };
+
+export type TimelineItem = ReturnType<typeof useTimeline>["data"][number];

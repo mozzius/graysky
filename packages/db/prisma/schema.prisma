@@ -1,0 +1,36 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+model Actor {
+    id  Int    @id @default(autoincrement())
+    did String @unique
+
+    bookmarks Bookmark[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([did])
+}
+
+model Bookmark {
+    id  Int    @id @default(autoincrement())
+    uri String
+
+    actorDid String
+    actor    Actor  @relation(fields: [actorDid], references: [did], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([uri])
+    @@index([actorDid])
+}
