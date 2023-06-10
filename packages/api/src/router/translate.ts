@@ -45,8 +45,6 @@ export const translateRouter = createTRPCRouter({
         },
       );
 
-      console.log(res.ok ? "ok" : "not ok");
-
       if (!res.ok) {
         console.log(res.status, res.statusText);
         console.log((await res.json()).error.message);
