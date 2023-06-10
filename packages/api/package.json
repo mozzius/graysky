@@ -14,6 +14,7 @@
     "@graysky/db": "^0.1.0",
     "@trpc/client": "^10.29.1",
     "@trpc/server": "^10.29.1",
+    "@vercel/kv": "^0.2.1",
     "encoding": "^0.1.13",
     "google-auth-library": "^8.8.0",
     "superjson": "1.12.3",

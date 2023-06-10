@@ -3,7 +3,6 @@ import * as Haptics from "expo-haptics";
 import {
   AppBskyActorDefs,
   AppBskyFeedDefs,
-  AppBskyFeedPost,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
 import {
@@ -170,6 +169,7 @@ export const useReorderFeeds = (
 };
 
 declare module "@atproto/api" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace AppBskyFeedDefs {
     interface PostView {
       language?: string;

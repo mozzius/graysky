@@ -1,7 +1,10 @@
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { produce } from "immer";
+import { z } from "zod";
 
-import { api } from "./api";
+import { type api } from "./api";
+
+const isEmoji = (text: string) => z.string().emoji().safeParse(text).success;
 
 export const addDetectedLanguages = async (
   feed: AppBskyFeedDefs.FeedViewPost[],
@@ -12,7 +15,11 @@ export const addDetectedLanguages = async (
     const toBeDetected: { uri: string; text: string }[] = [];
 
     for (const post of feed) {
-      if (AppBskyFeedPost.isRecord(post.post.record) && post.post.record.text) {
+      if (
+        AppBskyFeedPost.isRecord(post.post.record) &&
+        post.post.record.text &&
+        !isEmoji(post.post.record.text)
+      ) {
         toBeDetected.push({
           uri: post.post.uri,
           text: post.post.record.text,
@@ -22,7 +29,8 @@ export const addDetectedLanguages = async (
         post.reply &&
         AppBskyFeedDefs.isPostView(post.reply?.parent) &&
         AppBskyFeedPost.isRecord(post.reply.parent.record) &&
-        post.reply.parent.record.text
+        post.reply.parent.record.text &&
+        !isEmoji(post.reply.parent.record.text)
       ) {
         toBeDetected.push({
           uri: post.reply.parent.uri,
@@ -30,6 +38,8 @@ export const addDetectedLanguages = async (
         });
       }
     }
+
+    if (toBeDetected.length === 0) return { cursor, feed };
 
     const languages = await detect.mutateAsync(toBeDetected);
 

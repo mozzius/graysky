@@ -289,7 +289,7 @@ importers:
         version: 10.29.1
       '@vercel/kv':
         specifier: ^0.2.1
-        version: 0.2.1
+        version: 0.2.1(encoding@0.1.13)
       next:
         specifier: ^13.4.4
         version: 13.4.4(@babel/core@7.22.1)(react-dom@18.2.0)(react@18.2.0)
@@ -348,6 +348,9 @@ importers:
       '@trpc/server':
         specifier: ^10.29.1
         version: 10.29.1
+      '@vercel/kv':
+        specifier: ^0.2.1
+        version: 0.2.1(encoding@0.1.13)
       encoding:
         specifier: ^0.1.13
         version: 0.1.13
@@ -4030,10 +4033,10 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: false
 
-  /@upstash/redis@1.20.6:
+  /@upstash/redis@1.20.6(encoding@0.1.13):
     resolution: {integrity: sha512-q1izaYEUsq/WiXNOjf4oOjFZe8fIeBSZN8d5cEyOD4nem+zxc4jccieorQQrNlEahKPE1ZYLzVEkMODRUfch2g==}
     dependencies:
-      isomorphic-fetch: 3.0.0
+      isomorphic-fetch: 3.0.0(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -4058,11 +4061,11 @@ packages:
       wonka: 4.0.15
     dev: false
 
-  /@vercel/kv@0.2.1:
+  /@vercel/kv@0.2.1(encoding@0.1.13):
     resolution: {integrity: sha512-0O1CVh0maG/bduAE6DPKUTfGSnORgrcS5xBYZCb62sOU7PrVZrXhaPbUSBE4q5PXS5DC+cpN6FY2RWNlslUaWQ==}
     engines: {node: '>=14.6'}
     dependencies:
-      '@upstash/redis': 1.20.6
+      '@upstash/redis': 1.20.6(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -7868,7 +7871,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /isomorphic-fetch@3.0.0:
+  /isomorphic-fetch@3.0.0(encoding@0.1.13):
     resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
     dependencies:
       node-fetch: 2.6.11(encoding@0.1.13)
