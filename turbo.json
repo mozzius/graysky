@@ -10,6 +10,11 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db:studio": {
+      "persistent": true,
+      "cache": false,
+      "dependsOn": ["^db:generate"]
+    },
     "dev": {
       "persistent": true,
       "cache": false

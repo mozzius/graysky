@@ -56,14 +56,18 @@ export const translateRouter = createTRPCRouter({
       } = await res.json();
 
       const existingDectections = Object.fromEntries(
-        cached.map((detected) => [detected.uri, detected.language]),
+        cached
+          .map((detected) => [detected.uri, detected.language])
+          .filter(([_, language]) => language !== "und"),
       );
 
       const newDectections = Object.fromEntries(
-        needsDetecting.map((post, index) => [
-          post.uri,
-          detections[index]?.[0]?.language as string | undefined,
-        ]),
+        needsDetecting
+          .map((post, index) => [
+            post.uri,
+            detections[index]?.[0]?.language as string | undefined,
+          ])
+          .filter(([_, language]) => language !== "und"),
       );
 
       await db.translatablePost.createMany({
