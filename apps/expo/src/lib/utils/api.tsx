@@ -24,7 +24,11 @@ export { type RouterInputs, type RouterOutputs } from "@graysky/api";
  * setting the baseUrl to your production API URL.
  */
 export const getBaseUrl = () => {
-  return process.env.API_URL ?? "http://localhost:3000";
+  if (__DEV__) {
+    return "http://localhost:3000";
+  } else {
+    return "https://graysky.app";
+  }
 };
 
 /**
