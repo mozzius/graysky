@@ -1,5 +1,6 @@
-import { Platform, TouchableOpacity } from "react-native";
-import { Stack } from "expo-router";
+import { Platform, Text, TouchableOpacity } from "react-native";
+import { Stack, useNavigation, useRouter } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "../../../components/avatar";
 import { ComposerProvider } from "../../../components/composer";
@@ -17,6 +18,9 @@ export default function SubStack({
   segment: "(feeds)" | "(search)" | "(notifications)" | "(self)";
 }) {
   const openDrawer = useDrawer();
+  const navigation = useNavigation();
+  const router = useRouter();
+  const theme = useTheme();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
@@ -42,6 +46,25 @@ export default function SubStack({
               options={{
                 title: "Discover Feeds",
                 headerSearchBarOptions: {},
+                presentation: "modal",
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (navigation.canGoBack()) {
+                        router.push("../");
+                      } else {
+                        router.push("/feeds");
+                      }
+                    }}
+                  >
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="text-lg font-medium"
+                    >
+                      Done
+                    </Text>
+                  </TouchableOpacity>
+                ),
               }}
             />
 

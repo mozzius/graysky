@@ -109,7 +109,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       // record can either be ViewRecord or ViewNotFound
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
         if (AppBskyFeedDefs.isGeneratorView(record)) {
-          const href = `/profile/${record.creator.did}/generator/${record.uri
+          const href = `/profile/${record.creator.did}/feed/${record.uri
             .split("/")
             .pop()}`;
           // TODO: add hold menu

@@ -1,6 +1,8 @@
 import { Fragment, useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { Stack } from "expo-router";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Stack, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -52,12 +54,15 @@ export default function DiscoveryPage() {
     return results.map((result) => result.obj);
   }, [recommended.data, search]);
 
+  const router = useRouter();
+
   if (recommended.data) {
     return (
       <ScrollView
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
+        <StatusBar style="light" />
         <Stack.Screen
           options={{
             headerSearchBarOptions: {

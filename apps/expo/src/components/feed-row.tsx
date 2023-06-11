@@ -14,7 +14,7 @@ import Animated, {
 } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { Link, useNavigation, useRouter } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -35,62 +35,66 @@ interface Props {
 }
 
 export const FeedRow = ({ feed, children, large }: Props) => {
+  const router = useRouter();
   const theme = useTheme();
-  const href = `/profile/${feed.creator.did}/generator/${feed.uri
-    .split("/")
-    .pop()}`;
+  const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
+  const navigation = useNavigation();
   return (
-    <Link href={href} asChild>
-      <TouchableHighlight>
-        <View
-          style={{ backgroundColor: theme.colors.card }}
-          className="flex-row items-center px-4 py-3"
-        >
-          <Image
-            source={{ uri: feed.avatar }}
-            alt={feed.displayName}
-            className={cx(
-              "shrink-0 items-center justify-center rounded bg-blue-500",
-              large ? "h-10 w-10" : "h-6 w-6",
-            )}
-          />
-          <View className="mx-3 flex-1 flex-row items-center">
-            <View>
+    <TouchableHighlight
+      onPress={() => {
+        if (navigation.getState().routes.at(-1)?.name === "feeds/discover")
+          router.push("../");
+        router.push(href);
+      }}
+    >
+      <View
+        style={{ backgroundColor: theme.colors.card }}
+        className="flex-row items-center px-4 py-3"
+      >
+        <Image
+          source={{ uri: feed.avatar }}
+          alt={feed.displayName}
+          className={cx(
+            "shrink-0 items-center justify-center rounded bg-blue-500",
+            large ? "h-10 w-10" : "h-6 w-6",
+          )}
+        />
+        <View className="mx-3 flex-1 flex-row items-center">
+          <View>
+            <Text
+              style={{ color: theme.colors.text }}
+              className="text-base"
+              numberOfLines={1}
+            >
+              {feed.displayName}
+            </Text>
+            {large && (
               <Text
-                style={{ color: theme.colors.text }}
-                className="text-base"
+                className="text-sm text-neutral-500 dark:text-neutral-400"
                 numberOfLines={1}
               >
-                {feed.displayName}
+                <Heart
+                  fill="currentColor"
+                  className={
+                    feed.viewer?.like
+                      ? "text-red-500"
+                      : "text-neutral-500 dark:text-neutral-400"
+                  }
+                  size={12}
+                />{" "}
+                <Text className="tabular-nums">{feed.likeCount ?? 0}</Text> • @
+                {feed.creator.handle}
               </Text>
-              {large && (
-                <Text
-                  className="text-sm text-neutral-500 dark:text-neutral-400"
-                  numberOfLines={1}
-                >
-                  <Heart
-                    fill="currentColor"
-                    className={
-                      feed.viewer?.like
-                        ? "text-red-500"
-                        : "text-neutral-500 dark:text-neutral-400"
-                    }
-                    size={12}
-                  />{" "}
-                  <Text className="tabular-nums">{feed.likeCount ?? 0}</Text> •
-                  @{feed.creator.handle}
-                </Text>
-              )}
-            </View>
-            {children}
+            )}
           </View>
-          <ChevronRight
-            size={20}
-            className="text-neutral-400 dark:text-neutral-200"
-          />
+          {children}
         </View>
-      </TouchableHighlight>
-    </Link>
+        <ChevronRight
+          size={20}
+          className="text-neutral-400 dark:text-neutral-200"
+        />
+      </View>
+    </TouchableHighlight>
   );
 };
 
@@ -107,9 +111,7 @@ export const DraggableFeedRow = ({
   editing: boolean;
   onUnsave: () => void;
 }) => {
-  const href = `/profile/${feed.creator.did}/generator/${feed.uri
-    .split("/")
-    .pop()}`;
+  const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
 
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();

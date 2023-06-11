@@ -53,11 +53,11 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
     };
   };
 
-  const holdItems = (uri: string) => {
+  const holdItems = () => {
     const items = [
       {
         text: "Copy Image",
-        onPress: async () => {
+        onPress: async (uri: string) => {
           try {
             const download = await downloadImage(uri);
             const base64 = await FileSystem.readAsStringAsync(download.uri, {
@@ -76,7 +76,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       },
       {
         text: "Save Image",
-        onPress: async () => {
+        onPress: async (uri: string) => {
           if (!(await MediaLibrary.requestPermissionsAsync()).granted) {
             Alert.alert(
               "Error",
@@ -101,7 +101,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
     if (canShare) {
       items.push({
         text: "Share via...",
-        onPress: async () => {
+        onPress: async (uri: string) => {
           try {
             const res = await downloadImage(uri);
             await Sharing.shareAsync(res.uri, {
@@ -129,7 +129,14 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
     case 1:
       const image = content.images[0]!;
       return (
-        <HoldItem items={holdItems(image.fullsize)}>
+        <HoldItem
+          items={holdItems()}
+          actionParams={{
+            "Save Image": [image.fullsize],
+            "Copy Image": [image.fullsize],
+            "Share via...": [image.fullsize],
+          }}
+        >
           <Link href={href} asChild>
             <TouchableWithoutFeedback accessibilityRole="image">
               <Image
@@ -156,18 +163,16 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
               key={image.fullsize}
             >
-              <HoldItem items={holdItems(image.fullsize)}>
-                <Link href={`${href}?initial=${i}`} asChild>
-                  <TouchableWithoutFeedback accessibilityRole="image">
-                    <Image
-                      recyclingKey={uri}
-                      source={{ uri: image.thumb }}
-                      alt={image.alt}
-                      className="aspect-square"
-                    />
-                  </TouchableWithoutFeedback>
-                </Link>
-              </HoldItem>
+              <Link href={`${href}?initial=${i}`} asChild>
+                <TouchableWithoutFeedback accessibilityRole="image">
+                  <Image
+                    recyclingKey={uri}
+                    source={{ uri: image.thumb }}
+                    alt={image.alt}
+                    className="aspect-square"
+                  />
+                </TouchableWithoutFeedback>
+              </Link>
             </View>
           ))}
         </View>
@@ -176,18 +181,16 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       return (
         <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
-            <HoldItem items={holdItems(content.images[0]!.fullsize)}>
-              <Link href={`${href}?initial=0`} asChild>
-                <TouchableWithoutFeedback accessibilityRole="image">
-                  <Image
-                    recyclingKey={uri}
-                    source={{ uri: content.images[0]!.thumb }}
-                    alt={content.images[0]!.alt}
-                    className="h-full w-full object-cover"
-                  />
-                </TouchableWithoutFeedback>
-              </Link>
-            </HoldItem>
+            <Link href={`${href}?initial=0`} asChild>
+              <TouchableWithoutFeedback accessibilityRole="image">
+                <Image
+                  recyclingKey={uri}
+                  source={{ uri: content.images[0]!.thumb }}
+                  alt={content.images[0]!.alt}
+                  className="h-full w-full object-cover"
+                />
+              </TouchableWithoutFeedback>
+            </Link>
           </View>
           <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
             {content.images.slice(1).map((image, i) => (
@@ -198,18 +201,16 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 )}
                 key={image.fullsize}
               >
-                <HoldItem items={holdItems(image.fullsize)}>
-                  <Link href={`${href}?initial=${i + 1}`} asChild>
-                    <TouchableWithoutFeedback accessibilityRole="image">
-                      <Image
-                        recyclingKey={uri}
-                        source={{ uri: image.thumb }}
-                        alt={image.alt}
-                        className="h-full w-full object-cover"
-                      />
-                    </TouchableWithoutFeedback>
-                  </Link>
-                </HoldItem>
+                <Link href={`${href}?initial=${i + 1}`} asChild>
+                  <TouchableWithoutFeedback accessibilityRole="image">
+                    <Image
+                      recyclingKey={uri}
+                      source={{ uri: image.thumb }}
+                      alt={image.alt}
+                      className="h-full w-full object-cover"
+                    />
+                  </TouchableWithoutFeedback>
+                </Link>
               </View>
             ))}
           </View>
@@ -227,18 +228,16 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
             >
-              <HoldItem items={holdItems(image.fullsize)}>
-                <Link href={`${href}?initial=${i}`} asChild>
-                  <TouchableWithoutFeedback accessibilityRole="image">
-                    <Image
-                      recyclingKey={uri}
-                      source={{ uri: image.thumb }}
-                      alt={image.alt}
-                      className="aspect-square"
-                    />
-                  </TouchableWithoutFeedback>
-                </Link>
-              </HoldItem>
+              <Link href={`${href}?initial=${i}`} asChild>
+                <TouchableWithoutFeedback accessibilityRole="image">
+                  <Image
+                    recyclingKey={uri}
+                    source={{ uri: image.thumb }}
+                    alt={image.alt}
+                    className="aspect-square"
+                  />
+                </TouchableWithoutFeedback>
+              </Link>
             </View>
           ))}
         </View>

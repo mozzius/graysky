@@ -192,6 +192,15 @@ const App = () => {
                         ),
                       }}
                     />
+                    <Stack.Screen
+                      name="images/[post]"
+                      options={{
+                        headerShown: false,
+                        animation: "fade",
+                        fullScreenGestureEnabled: false,
+                        customAnimationOnGesture: true,
+                      }}
+                    />
                   </Stack>
                 </ListProvider>
               </ActionSheetProvider>

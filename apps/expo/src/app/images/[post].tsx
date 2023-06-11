@@ -74,13 +74,6 @@ export default function ImageModal() {
     <View className="relative flex-1 bg-black">
       {/* background is always black, so status bar should always be light */}
       <StatusBar style="light" />
-      <Stack.Screen
-        options={{
-          animation: "fade",
-          fullScreenGestureEnabled: false,
-          headerShown: false,
-        }}
-      />
       <TouchableOpacity
         accessibilityLabel="Back"
         accessibilityRole="button"
@@ -88,7 +81,7 @@ export default function ImageModal() {
         className="absolute right-5 z-10 h-10 w-10 items-center justify-center rounded-full bg-black/40"
         style={{ top: top + 10 }}
       >
-        <X color="#ffffff" />
+        <X color="white" />
       </TouchableOpacity>
       {images.data && (
         <ImageViewer

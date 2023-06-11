@@ -445,7 +445,7 @@ const Feed = ({
   viewer,
 }: AppBskyFeedDefs.GeneratorView) => {
   const theme = useTheme();
-  const href = `/profile/${creator.did}/generator/${uri.split("/").pop()}`;
+  const href = `/profile/${creator.did}/feed/${uri.split("/").pop()}`;
   return (
     <Link href={href} asChild>
       <TouchableOpacity>
