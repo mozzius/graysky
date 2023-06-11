@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
@@ -43,8 +44,13 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const handleMore = usePostViewOptions(post);
   const theme = useTheme();
   const composer = useComposer();
-  const { colorScheme } = useColorScheme();
-  const buttonColor = colorScheme === "light" ? "#1C1C1E" : "#FFF";
+  const [rerenderer, rerender] = useState(0);
+
+  const buttonColor = theme.dark ? "#FFF" : "#1C1C1E";
+
+  const onChangeStatus = useCallback(() => {
+    rerender((prev) => prev + 1);
+  }, []);
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -107,15 +113,24 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             size="lg"
           />
           {post.language && post.language !== locale.languageCode && (
-            <View className="mt-2">
-              <Translation uri={post.uri} text={post.record.text} />
+            <View className="mt-1">
+              <Translation
+                uri={post.uri}
+                text={post.record.text}
+                onChangeStatus={onChangeStatus}
+              />
             </View>
           )}
         </>
       )}
       {/* embeds */}
       {post.embed && (
-        <Embed uri={post.uri} content={post.embed} truncate={false} />
+        <Embed
+          uri={post.uri}
+          content={post.embed}
+          truncate={false}
+          key={rerenderer}
+        />
       )}
       {/* actions */}
       <View className="mt-4 flex-row items-center justify-between">

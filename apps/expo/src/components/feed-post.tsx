@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
@@ -77,6 +77,7 @@ export const FeedPost = ({
     toggleRepost.mutate,
   );
   const handleMore = usePostViewOptions(item.post);
+  const [rerenderer, rerender] = useState(0);
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
@@ -89,6 +90,10 @@ export const FeedPost = ({
   useEffect(() => {
     setHidden(startHidden);
   }, [item.post.cid, startHidden]);
+
+  const onChangeStatus = useCallback(() => {
+    rerender((prev) => prev + 1);
+  }, []);
 
   // IDEA: precache main post of thread
   // useEffect(() => {
@@ -289,13 +294,18 @@ export const FeedPost = ({
                       <Translation
                         uri={item.post.uri}
                         text={item.post.record.text}
+                        onChangeStatus={onChangeStatus}
                       />
                     )}
                 </>
               )}
               {/* embeds */}
               {item.post.embed && (
-                <Embed uri={item.post.uri} content={item.post.embed} />
+                <Embed
+                  uri={item.post.uri}
+                  content={item.post.embed}
+                  key={rerenderer}
+                />
               )}
             </>
           )}

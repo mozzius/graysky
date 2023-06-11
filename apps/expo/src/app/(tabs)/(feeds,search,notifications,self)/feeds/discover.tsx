@@ -55,7 +55,7 @@ export default function DiscoveryPage() {
   if (recommended.data) {
     return (
       <ScrollView
-        className="flex-1 px-6"
+        className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
         <Stack.Screen
@@ -68,7 +68,7 @@ export default function DiscoveryPage() {
         />
         <View
           style={{ backgroundColor: theme.colors.card }}
-          className="my-8 overflow-hidden rounded-lg"
+          className="my-4 overflow-hidden rounded-lg"
         >
           {sorted.map((feed, i, arr) => (
             <Fragment key={feed.uri}>

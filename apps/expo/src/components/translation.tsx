@@ -12,9 +12,10 @@ import { RichTextWithoutFacets } from "./rich-text";
 interface Props {
   text: string;
   uri: string;
+  onChangeStatus: () => void;
 }
 
-export const Translation = ({ text, uri }: Props) => {
+export const Translation = ({ text, uri, onChangeStatus }: Props) => {
   const translate = api.translate.post.useMutation();
   const theme = useTheme();
 
@@ -22,6 +23,12 @@ export const Translation = ({ text, uri }: Props) => {
     translate.reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
+
+  useEffect(() => {
+    if (translate.status !== "idle") {
+      onChangeStatus();
+    }
+  }, [translate.status, onChangeStatus]);
 
   switch (translate.status) {
     case "idle":
