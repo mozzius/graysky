@@ -193,7 +193,7 @@ export const translateRouter = createTRPCRouter({
         .map((post) => {
           const detected = lande(post.text);
           if (!detected[0]) return undefined;
-          if (detected[0][1] < 0.5) return undefined;
+          if (detected[0][1] < 0.85) return undefined;
           return [post.uri, iso639_3toIso639_2(detected[0][0])];
         })
         .filter(Boolean) as [string, string][];
@@ -239,21 +239,24 @@ export const translateRouter = createTRPCRouter({
         type: "language",
       });
 
-      const cached = await db.postTranslation.findFirst({
+      const cached = await db.translatablePost.findFirst({
         where: {
-          postUri: post.uri,
-          language: post.target,
+          uri: post.uri,
         },
         include: {
-          post: true,
+          translation: {
+            where: {
+              language: post.target,
+            },
+          },
         },
       });
 
-      if (cached) {
+      if (cached && cached.translation[0]) {
         return {
-          text: cached.text,
-          language: langNames.of(cached.post.language),
-          languageCode: cached.post.language,
+          text: cached.translation[0].text,
+          language: langNames.of(cached.language),
+          languageCode: cached.language,
         };
       }
 
@@ -299,6 +302,17 @@ export const translateRouter = createTRPCRouter({
           },
         },
       });
+
+      if (cached?.language !== parsed.detectedSourceLanguage) {
+        await db.translatablePost.update({
+          where: {
+            uri: post.uri,
+          },
+          data: {
+            language: parsed.detectedSourceLanguage,
+          },
+        });
+      }
 
       return {
         text: parsed.translatedText,
