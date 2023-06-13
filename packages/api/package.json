@@ -17,6 +17,7 @@
     "@vercel/kv": "^0.2.1",
     "encoding": "^0.1.13",
     "google-auth-library": "^8.8.0",
+    "lande": "^1.0.10",
     "superjson": "1.12.3",
     "zod": "^3.21.4"
   },

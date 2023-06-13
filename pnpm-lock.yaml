@@ -357,6 +357,9 @@ importers:
       google-auth-library:
         specifier: ^8.8.0
         version: 8.8.0(encoding@0.1.13)
+      lande:
+        specifier: ^1.0.10
+        version: 1.0.10
       superjson:
         specifier: 1.12.3
         version: 1.12.3
@@ -8217,6 +8220,12 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /lande@1.0.10:
+    resolution: {integrity: sha512-yT52DQh+UV2pEp08jOYrA4drDv0DbjpiRyZYgl25ak9G2cVR2AimzrqkYQWrD9a7Ud+qkAcaiDDoNH9DXfHPmw==}
+    dependencies:
+      toygrad: 2.6.0
+    dev: false
+
   /language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
     dev: false
@@ -11766,6 +11775,10 @@ packages:
   /toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
+    dev: false
+
+  /toygrad@2.6.0:
+    resolution: {integrity: sha512-g4zBmlSbvzOE5FOILxYkAybTSxijKLkj1WoNqVGnbMcWDyj4wWQ+eYSr3ik7XOpIgMq/7eBcPRTJX3DM2E0YMg==}
     dev: false
 
   /tr46@0.0.3:
