@@ -1,13 +1,10 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Image } from "expo-image";
-import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
-  TouchableHighlight,
 } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
@@ -15,6 +12,7 @@ import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 import { useBottomSheetStyles } from "../../lib/bottom-sheet";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
+import { PersonRow } from "./person-row";
 
 type PeopleListResponse = {
   people: AppBskyActorDefs.ProfileView[];
@@ -87,6 +85,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
               data={people.slice(0, showAll ? undefined : limit)}
               renderItem={({ item }) => (
                 <PersonRow
+                  bottomSheet
                   person={item}
                   onPress={() => bottomSheetRef.current?.close()}
                 />
@@ -133,46 +132,3 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
   },
 );
 PeopleList.displayName = "PeopleList";
-
-const PersonRow = ({
-  person,
-  onPress,
-}: {
-  person: AppBskyActorDefs.ProfileView;
-  onPress: () => void;
-}) => {
-  const router = useRouter();
-  const theme = useTheme();
-  return (
-    <TouchableHighlight
-      onPress={() => {
-        router.push(`/profile/${person.handle}`);
-        onPress();
-      }}
-    >
-      <View
-        style={{ backgroundColor: theme.colors.card }}
-        className="flex-row items-center px-4 py-2"
-      >
-        <Image
-          source={{ uri: person.avatar }}
-          className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
-          alt={person.displayName}
-        />
-        <View className="flex-1">
-          {person.displayName && (
-            <Text
-              style={{ color: theme.colors.text }}
-              className="text-base leading-5"
-            >
-              {person.displayName}
-            </Text>
-          )}
-          <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-            @{person.handle}
-          </Text>
-        </View>
-      </View>
-    </TouchableHighlight>
-  );
-};

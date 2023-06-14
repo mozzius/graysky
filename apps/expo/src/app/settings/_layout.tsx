@@ -88,6 +88,18 @@ export default function SettingsLayout() {
           }}
         />
         <Stack.Screen
+          name="blocks"
+          options={{
+            title: "Blocked Users",
+          }}
+        />
+        <Stack.Screen
+          name="mutes"
+          options={{
+            title: "Muted Users",
+          }}
+        />
+        <Stack.Screen
           name="app"
           options={{
             title: "App Settings",
@@ -179,8 +191,8 @@ interface GroupProps {
 
 export const SettingsListGroups = ({ groups, children }: GroupProps) => {
   return (
-    <ScrollView className="flex-1 px-6">
-      <View className="mb-4 mt-8">{children}</View>
+    <ScrollView className="flex-1 px-4">
+      <View className="mt-4">{children}</View>
       {groups.map(({ title, ...list }, i, arr) => (
         <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
           {title && (

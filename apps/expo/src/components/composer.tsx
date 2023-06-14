@@ -591,7 +591,9 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
                   }
                   style={[textInputStyle, send.isLoading && { opacity: 0.5 }]}
                   multiline
-                  onChangeText={(text) => send.isIdle && setText(text)}
+                  onChange={(evt) =>
+                    send.isIdle && setText(evt.nativeEvent.text)
+                  }
                   editable={send.isIdle}
                   selectTextOnFocus={false}
                   textAlignVertical="top"
