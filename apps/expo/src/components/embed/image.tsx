@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Alert, TouchableWithoutFeedback, View } from "react-native";
-import { HoldItem } from "react-native-hold-menu";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system";
 import { Image } from "expo-image";
@@ -13,6 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CopyPlus, Download, Upload } from "lucide-react-native";
 
 import { cx } from "../../lib/utils/cx";
+import { HoldMenu } from "../hold-menu";
 
 interface Props {
   uri: string;
@@ -129,7 +129,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
     case 1:
       const image = content.images[0]!;
       return (
-        <HoldItem
+        <HoldMenu
           items={holdItems()}
           actionParams={{
             "Save Image": [image.fullsize],
@@ -153,7 +153,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
               />
             </TouchableWithoutFeedback>
           </Link>
-        </HoldItem>
+        </HoldMenu>
       );
     case 2:
       return (

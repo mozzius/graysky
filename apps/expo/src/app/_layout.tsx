@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Platform, Text, TouchableOpacity } from "react-native";
 import { HoldMenuProvider } from "react-native-hold-menu";
+import { type HoldMenuProviderProps } from "react-native-hold-menu/lib/typescript/components/provider";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -41,10 +42,7 @@ const App = () => {
   const [session, setSession] = useState<AtpSessionData | null>(null);
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
-  // const queryClient = useQueryClient();
-
-  // need to implement this
-  // https://expo.github.io/router/docs/features/routing#shared-routes
+  const queryClient = useQueryClient();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -99,10 +97,10 @@ const App = () => {
 
   const did = session?.did;
 
-  // // invalidate all queries when the session changes
-  // useEffect(() => {
-  //   void queryClient.invalidateQueries();
-  // }, [did]);
+  // invalidate all queries when the session changes
+  useEffect(() => {
+    void queryClient.invalidateQueries();
+  }, [did]);
 
   // redirect depending on login state
   useEffect(() => {
@@ -134,6 +132,12 @@ const App = () => {
 
   const navigation = useNavigation();
   const safeAreaInsets = useSafeAreaInsets();
+
+  // disable hold menu provider on Android
+  const HoldProvider =
+    Platform.OS === "ios"
+      ? HoldMenuProvider
+      : ({ children }: HoldMenuProviderProps) => <>{children}</>;
 
   if (loading) {
     return <SplashScreen />;
