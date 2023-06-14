@@ -1,17 +1,20 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { View } from "lucide-react-native";
 
 import { ItemSeparator } from "./item-separator";
 import { PersonRow } from "./lists/person-row";
 
 interface Props {
   profiles: AppBskyActorDefs.ProfileView[];
+  emptyText?: string;
 }
 
-export const ProfileList = ({ profiles }: Props) => {
+export const ProfileList = ({
+  profiles,
+  emptyText = "No profiles found",
+}: Props) => {
   const theme = useTheme();
 
   return (
@@ -26,12 +29,12 @@ export const ProfileList = ({ profiles }: Props) => {
         />
       )}
       ListEmptyComponent={() => (
-        <View className="py-8">
+        <View className="py-12">
           <Text
             className="text-center text-base"
             style={{ color: theme.colors.text }}
           >
-            You haven't blocked anyone
+            {emptyText}
           </Text>
         </View>
       )}

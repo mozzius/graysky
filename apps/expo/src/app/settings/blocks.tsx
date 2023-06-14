@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ProfileList } from "../../components/profile-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
+import { useRefreshOnFocus } from "../../lib/utils/query";
 
 export default function BlockedUsers() {
   const agent = useAuthedAgent();
@@ -20,13 +21,17 @@ export default function BlockedUsers() {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
+  useRefreshOnFocus(blocks.refetch);
+
   const data = useMemo(() => {
     if (!blocks.data) return [];
     return blocks.data.pages.flatMap((x) => x.blocks);
   }, [blocks.data]);
 
   if (blocks.data) {
-    return <ProfileList profiles={data} />;
+    return (
+      <ProfileList profiles={data} emptyText="You haven't blocked anyone" />
+    );
   }
 
   return <QueryWithoutData query={blocks} />;

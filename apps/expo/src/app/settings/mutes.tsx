@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ProfileList } from "../../components/profile-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
+import { useRefreshOnFocus } from "../../lib/utils/query";
 
 export default function MutedUsers() {
   const agent = useAuthedAgent();
@@ -20,13 +21,15 @@ export default function MutedUsers() {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
+  useRefreshOnFocus(mutes.refetch);
+
   const data = useMemo(() => {
     if (!mutes.data) return [];
     return mutes.data.pages.flatMap((x) => x.mutes);
   }, [mutes.data]);
 
   if (mutes.data) {
-    return <ProfileList profiles={data} />;
+    return <ProfileList profiles={data} emptyText="You haven't muted anyone" />;
   }
 
   return <QueryWithoutData query={mutes} />;
