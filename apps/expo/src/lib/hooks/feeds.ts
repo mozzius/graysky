@@ -33,7 +33,7 @@ export const useSavedFeeds = (
           AppBskyActorDefs.isSavedFeedsPref(pref) &&
           AppBskyActorDefs.validateSavedFeedsPref(pref).success,
       ) as AppBskyActorDefs.SavedFeedsPref | undefined;
-      if (!feeds)
+      if (!feeds || feeds.saved.length === 0)
         return {
           feeds: [],
           pinned: [],
