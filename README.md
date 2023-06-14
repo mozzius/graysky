@@ -43,9 +43,9 @@ Then just scan the QR code!
 - [x] Image viewer: Pinch to zoom
 - [x] Custom feeds
 - [ ] Settings screens
-  - [ ] Moderation settings
+  - [x] Moderation settings
     - [x] Content filtering
-    - [ ] Review blocked/muted users
+    - [x] Review blocked/muted users
   - [ ] Account settings
     - [ ] Edit profile
     - [ ] Change handle
