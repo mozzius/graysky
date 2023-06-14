@@ -139,7 +139,7 @@ const SettingsListInner = ({ children, options }: ListProps) => {
         const row = (
           <SettingsRow
             icon={option.icon}
-            chevron={!!option.href || !!option.onPress}
+            chevron={(!!option.href || !!option.onPress) && !option.action}
             action={option.action}
           >
             <Text style={{ color: theme.colors.text }} className="text-base">

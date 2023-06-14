@@ -24,7 +24,7 @@ export const ComposeButton = () => {
 
   return (
     <StyledHoldItem
-      containerStyles="absolute bottom-6 right-4"
+      containerStyles="absolute bottom-6 right-4 rounded-full"
       bottom
       items={[
         {

@@ -172,6 +172,13 @@ const App = () => {
                       }}
                     />
                     <Stack.Screen
+                      name="codes"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
                       name="translate"
                       options={{
                         title: "Translate",

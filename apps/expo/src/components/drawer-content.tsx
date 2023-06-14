@@ -9,14 +9,10 @@ import { useTheme } from "@react-navigation/native";
 import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
+import { useInviteCodes } from "../app/codes/_layout";
 import { useLogOut } from "../lib/log-out-context";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";
-import { useInviteCodes } from "./invite-codes";
-
-interface Props {
-  openInviteCodes: () => void;
-}
 
 const DrawerContext = createContext<((open?: boolean) => void) | null>(null);
 
@@ -29,7 +25,7 @@ export const useDrawer = () => {
   return openDrawer;
 };
 
-export const DrawerContent = ({ openInviteCodes }: Props) => {
+export const DrawerContent = () => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
@@ -76,20 +72,21 @@ export const DrawerContent = ({ openInviteCodes }: Props) => {
     <SafeAreaView className="h-full p-8">
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel="Invite codes"
-          className="mt-2 w-full flex-row items-center py-2"
-          onPress={openInviteCodes}
-        >
-          <Ticket style={{ color: theme.colors.text }} />
-          <Text
-            style={{ color: theme.colors.text }}
-            className="ml-6 text-base font-medium"
+        <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
+          <TouchableOpacity
+            accessibilityRole="link"
+            accessibilityLabel="Invite codes"
+            className="mt-2 w-full flex-row items-center py-2"
           >
-            Invite codes{numCodes > 0 && ` (${numCodes})`}
-          </Text>
-        </TouchableOpacity>
+            <Ticket style={{ color: theme.colors.text }} />
+            <Text
+              style={{ color: theme.colors.text }}
+              className="ml-6 text-base font-medium"
+            >
+              Invite codes{numCodes > 0 && ` (${numCodes})`}
+            </Text>
+          </TouchableOpacity>
+        </Link>
         <TouchableOpacity
           accessibilityRole="button"
           accessibilityLabel="Change theme"

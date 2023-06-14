@@ -10,17 +10,12 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
-import {
-  InviteCodes,
-  type InviteCodesRef,
-} from "../../components/invite-codes";
 import { useAuthedAgent } from "../../lib/agent";
 import { useColorScheme } from "../../lib/utils/color-scheme";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
   const [open, setOpen] = useState(false);
-  const inviteRef = useRef<InviteCodesRef>(null);
   const { setColorScheme } = useColorScheme();
 
   const notifications = useQuery({
@@ -32,10 +27,7 @@ export default function AppLayout() {
     refetchInterval: 1000 * 15,
   });
 
-  const renderDrawerContent = useCallback(
-    () => <DrawerContent openInviteCodes={() => inviteRef.current?.open()} />,
-    [],
-  );
+  const renderDrawerContent = useCallback(() => <DrawerContent />, []);
 
   useEffect(() => {
     void AsyncStorage.getItem("color-scheme").then((value) => {
@@ -136,7 +128,6 @@ export default function AppLayout() {
           />
         </Tabs>
       </Drawer>
-      <InviteCodes ref={inviteRef} />
     </DrawerProvider>
   );
 }

@@ -150,12 +150,14 @@ export const useContentFilter = () => {
 
 const appPrefsSchema = z.object({
   groupNotifications: z.boolean(),
+  copiedCodes: z.array(z.string()),
 });
 
 type AppPrefs = z.infer<typeof appPrefsSchema>;
 
 const defaultAppPrefs: AppPrefs = {
   groupNotifications: true,
+  copiedCodes: [],
 };
 
 export const useAppPreferences = () => {
@@ -164,11 +166,18 @@ export const useAppPreferences = () => {
   const appPrefs = useQuery({
     queryKey: ["app-prefs"],
     queryFn: async () => {
-      const parsed = appPrefsSchema.safeParse(
-        JSON.parse((await AsyncStorage.getItem("app-preferences")) ?? "{}"),
-      );
+      const parsed = appPrefsSchema
+        .partial()
+        .safeParse(
+          JSON.parse((await AsyncStorage.getItem("app-preferences")) ?? "{}"),
+        );
       if (parsed.success) {
-        return parsed.data;
+        // Merge with default prefs
+        // catches any new prefs added in the default
+        return {
+          ...defaultAppPrefs,
+          ...parsed.data,
+        };
       } else {
         await AsyncStorage.setItem(
           "app-preferences",

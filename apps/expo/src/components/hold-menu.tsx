@@ -29,36 +29,39 @@ export const HoldMenu = ({
       </HoldItem>
     );
   } else {
-    const onActive = () => {
-      const options = [...items.map((item) => item.text), "Cancel"];
-      showActionSheetWithOptions(
-        {
-          options,
-          cancelButtonIndex: options.length - 1,
-          userInterfaceStyle: theme.dark ? "dark" : "light",
-        },
-        (index) => {
-          if (!index) return;
-          if (index < items.length) {
-            const item = items[index];
-            if (!item?.onPress) return;
-            if (actionParams) {
-              item.onPress(actionParams[item.text]);
-            } else {
-              item.onPress();
-            }
-          }
-        },
-      );
-    };
-    return (
-      <Pressable
-        onPress={activateOn === "tap" ? onActive : undefined}
-        onLongPress={activateOn === "hold" ? onActive : undefined}
-        style={containerStyles}
-      >
-        {children}
-      </Pressable>
-    );
+    return null;
+    // const onActive = () => {
+    //   console.log("onActive");
+    //   const options = [...items.map((item) => item.text), "Cancel"];
+    //   showActionSheetWithOptions(
+    //     {
+    //       options,
+    //       cancelButtonIndex: options.length - 1,
+    //       userInterfaceStyle: theme.dark ? "dark" : "light",
+    //     },
+    //     (index) => {
+    //       if (!index) return;
+    //       if (index < items.length) {
+    //         const item = items[index];
+    //         if (!item?.onPress) return;
+    //         if (actionParams) {
+    //           item.onPress(actionParams[item.text]);
+    //         } else {
+    //           item.onPress();
+    //         }
+    //       }
+    //     },
+    //   );
+    // };
+    // return (
+    //   <Pressable
+    //     onPress={activateOn === "tap" ? onActive : undefined}
+    //     onLongPress={() => onActive()}
+    //     // onLongPress={activateOn !== "tap" ? onActive : undefined}
+    //     style={containerStyles}
+    //   >
+    //     {children}
+    //   </Pressable>
+    // );
   }
 };
