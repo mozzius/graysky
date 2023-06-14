@@ -310,6 +310,7 @@ export const FeedPost = ({
             </>
           )}
           {/* display labels for debug */}
+          {/* <Text>{item.post.language}</Text> */}
           {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
           <View className="mt-2.5 flex-row justify-between pr-6">

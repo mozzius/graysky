@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
+import * as Haptics from "expo-haptics";
 import {
   type AppBskyFeedDefs,
   type AppBskyNotificationListNotifications,
@@ -31,6 +32,7 @@ interface Props {
 const NotificationsPage = ({ groupNotifications }: Props) => {
   const agent = useAuthedAgent();
   const queryClient = useQueryClient();
+  const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],
@@ -172,7 +174,14 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     ),
   );
 
-  const [ref, onScroll] = useTabPressScrollRef(notifications.refetch);
+  const [ref, onScroll] = useTabPressScrollRef(
+    useCallback(async () => {
+      setNonScrollRefreshing(true);
+      void Haptics.impactAsync();
+      await notifications.refetch();
+      setNonScrollRefreshing(false);
+    }, []),
+  );
 
   const data = useMemo(() => {
     if (!notifications.data) return [];
@@ -191,6 +200,13 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
         renderItem={({ item }) => (
           <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
         )}
+        ListHeaderComponent={
+          nonScrollRefreshing ? (
+            <View className="h-16 w-full items-center justify-center">
+              <ActivityIndicator size="small" />
+            </View>
+          ) : null
+        }
         estimatedItemSize={105}
         onEndReachedThreshold={0.6}
         onEndReached={() => void notifications.fetchNextPage()}
