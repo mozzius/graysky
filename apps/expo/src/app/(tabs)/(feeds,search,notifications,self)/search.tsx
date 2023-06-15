@@ -22,17 +22,22 @@ import { PersonRow } from "../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
+import { useTabPress } from "../../../lib/hooks/tab-press-scroll";
 import { cx } from "../../../lib/utils/cx";
+import { useRefreshOnFocus } from "../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
+
+  // focus search bar somehow :/
+  useTabPress();
 
   return (
     <>
       <Stack.Screen
         options={{
           headerSearchBarOptions: {
-            placeholder: "Search",
+            placeholder: "Search users",
             onChangeText: (evt) => setSearch(evt.nativeEvent.text),
           },
         }}
@@ -93,7 +98,6 @@ const SearchResults = ({ search }: Props) => {
 };
 
 const Suggestions = () => {
-  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
   const agent = useAuthedAgent();
 
   const suggestions = useInfiniteQuery({
@@ -108,14 +112,13 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  const onScroll = useTabPressScroll(ref);
+  useRefreshOnFocus(suggestions.refetch);
+
   const theme = useTheme();
 
   if (suggestions.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
-        ref={ref}
-        onScroll={onScroll}
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}

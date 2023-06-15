@@ -52,3 +52,18 @@ export const useTabPressScrollRef = (callback: () => unknown = () => {}) => {
 
   return [ref, onScroll] as const;
 };
+
+export const useTabPress = (callback: () => unknown = () => {}) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // @ts-expect-error doesn't know what kind of navigator it is
+    const unsub = navigation.getParent()?.addListener("tabPress", (evt) => {
+      if (navigation.isFocused()) {
+        callback();
+      }
+    });
+
+    return unsub;
+  }, [callback, navigation]);
+};
