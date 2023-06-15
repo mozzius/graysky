@@ -22,7 +22,7 @@ export const useBottomSheetStyles = () => {
           fontSize: 20,
           lineHeight: 28,
           height: 150,
-          color: colorScheme === "light" ? undefined : "white",
+          color: theme.colors.text,
         },
         handleStyle: {
           backgroundColor: theme.colors.card,
@@ -30,7 +30,7 @@ export const useBottomSheetStyles = () => {
           borderTopEndRadius: 15,
         },
         handleIndicatorStyle: {
-          backgroundColor: colorScheme === "light" ? "black" : "white",
+          backgroundColor: theme.colors.text,
         },
       }),
     [colorScheme, theme],

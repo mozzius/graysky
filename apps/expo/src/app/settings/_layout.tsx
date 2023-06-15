@@ -120,7 +120,7 @@ export default function SettingsLayout() {
 }
 
 interface ListProps {
-  options: {
+  options?: {
     title: string;
     icon?: LucideIcon;
     href?: string;
@@ -130,7 +130,7 @@ interface ListProps {
   children?: React.ReactNode;
 }
 
-const SettingsListInner = ({ children, options }: ListProps) => {
+const SettingsListInner = ({ children, options = [] }: ListProps) => {
   const theme = useTheme();
   return (
     <View

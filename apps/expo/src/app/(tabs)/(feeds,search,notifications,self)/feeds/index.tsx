@@ -112,7 +112,10 @@ const FeedsPage = ({ editing }: Props) => {
         <View className="mb-20 p-6">
           <Link href="/feeds/discover" asChild>
             <TouchableHighlight className="overflow-hidden rounded-lg">
-              <View className="flex-row items-center justify-between bg-white p-4 dark:bg-neutral-900">
+              <View
+                className="flex-row items-center justify-between p-4"
+                style={{ backgroundColor: theme.colors.card }}
+              >
                 <View className="flex-row items-center">
                   <Compass size={20} className="text-blue-500" />
                   <Text

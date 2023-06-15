@@ -164,7 +164,10 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
   return (
     <Link href={href} asChild>
       <TouchableWithoutFeedback>
-        <View className="mx-4 mt-4 rounded bg-white p-4 shadow-sm dark:bg-neutral-900">
+        <View
+          className="mx-4 mt-4 rounded p-4 shadow-sm"
+          style={{ backgroundColor: theme.colors.card }}
+        >
           <View className="flex-row items-center">
             <Image
               recyclingKey={item.did}

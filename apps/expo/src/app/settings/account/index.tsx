@@ -1,43 +1,79 @@
 import { Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { AtSign, User } from "lucide-react-native";
+import { useQuery } from "@tanstack/react-query";
+import { AtSign, Mail, User } from "lucide-react-native";
 
-import { SettingsList } from "../_layout";
+import { SettingsListGroups } from "../_layout";
 import { Avatar } from "../../../components/avatar";
 import { useAuthedAgent } from "../../../lib/agent";
 
-const options = [
-  {
-    title: "Edit Profile",
-    href: "/settings/account/edit-bio",
-    icon: User,
-  },
-  {
-    title: "Change Handle",
-    href: "/settings/account/change-handle",
-    icon: AtSign,
-  },
-];
+export const useSelf = () => {
+  const agent = useAuthedAgent();
+
+  return useQuery({
+    queryKey: ["self"],
+    queryFn: async () => {
+      const self = await agent.app.bsky.actor.getProfile({
+        actor: agent.session.did,
+      });
+      if (!self.success) throw new Error("Could not fetch self");
+      return self.data;
+    },
+  });
+};
 
 export default function AccountSettings() {
   const agent = useAuthedAgent();
   const theme = useTheme();
+
+  const self = useSelf();
+
   return (
-    <SettingsList options={options}>
-      <View className="flex-row items-center border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
-        <Avatar size="large" />
-        <View className="ml-4">
-          <Text style={{ color: theme.colors.text }} className="text-xs">
-            Email:
-          </Text>
-          <Text
-            style={{ color: theme.colors.text }}
-            className="text-base font-medium"
-          >
-            {agent?.session?.email}
-          </Text>
-        </View>
-      </View>
-    </SettingsList>
+    <SettingsListGroups
+      groups={[
+        {
+          children: (
+            <View className="flex-row items-center px-4 py-3">
+              <Avatar size="large" />
+              <View className="ml-4">
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base font-medium"
+                >
+                  {self.data?.displayName}
+                </Text>
+                <Text style={{ color: theme.colors.text }} className="text-sm">
+                  @{self.data?.handle ?? agent?.session?.handle}
+                </Text>
+              </View>
+            </View>
+          ),
+        },
+        {
+          options: [
+            {
+              title: "Edit Profile",
+              href: "/settings/account/edit-bio",
+              icon: User,
+            },
+            {
+              title: "Change Handle",
+              href: "/settings/account/change-handle",
+              icon: AtSign,
+            },
+          ],
+        },
+        {
+          options: [
+            {
+              icon: Mail,
+              title:
+                agent?.session?.email ??
+                "Your email is hidden when logged in with an App Password",
+            },
+          ],
+        },
+      ]}
+    />
   );
 }

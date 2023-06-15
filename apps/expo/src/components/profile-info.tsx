@@ -119,7 +119,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               >
                 {profile.viewer?.following ? (
                   <>
-                    <Check size={18} className="mr-1 text-neutral-600" />
+                    <Check
+                      size={18}
+                      className="mr-1 text-neutral-600 dark:text-neutral-300"
+                    />
                     <Text className="font-medium text-neutral-600 dark:text-neutral-300">
                       Following
                     </Text>
