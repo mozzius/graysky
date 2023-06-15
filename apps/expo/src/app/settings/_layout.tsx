@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import {
   Link,
   Stack,
@@ -45,14 +46,16 @@ export default function SettingsLayout() {
           headerRight: canGoBack
             ? undefined
             : () => (
-                <TouchableOpacity onPress={() => router.push("../")}>
-                  <Text
-                    style={{ color: theme.colors.primary }}
-                    className="text-lg font-medium"
-                  >
-                    Done
-                  </Text>
-                </TouchableOpacity>
+                <Animated.View entering={FadeIn}>
+                  <TouchableOpacity onPress={() => router.push("../")}>
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="text-lg font-medium"
+                    >
+                      Done
+                    </Text>
+                  </TouchableOpacity>
+                </Animated.View>
               ),
         }}
       >

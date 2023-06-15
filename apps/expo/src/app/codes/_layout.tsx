@@ -1,18 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
-import {
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import {
-  Link,
-  Stack,
-  useNavigation,
-  usePathname,
-  useRouter,
-} from "expo-router";
+import { useEffect, useState } from "react";
+import { Text, TouchableOpacity } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
+import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -45,14 +34,16 @@ export default function SettingsLayout() {
           headerRight: canGoBack
             ? undefined
             : () => (
-                <TouchableOpacity onPress={() => router.push("../")}>
-                  <Text
-                    style={{ color: theme.colors.primary }}
-                    className="text-lg font-medium"
-                  >
-                    Done
-                  </Text>
-                </TouchableOpacity>
+                <Animated.View entering={FadeIn}>
+                  <TouchableOpacity onPress={() => router.push("../")}>
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="text-lg font-medium"
+                    >
+                      Done
+                    </Text>
+                  </TouchableOpacity>
+                </Animated.View>
               ),
         }}
       >

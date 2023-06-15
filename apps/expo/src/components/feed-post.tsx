@@ -152,12 +152,16 @@ export const FeedPost = ({
       style={{
         backgroundColor: unread
           ? theme.dark
-            ? "rgb(38,38,38)"
-            : "rgb(191,219,254)"
+            ? "rgb(11,20,50)"
+            : "rgb(239,246,255)"
           : theme.dark
           ? "black"
           : "white",
-        borderBottomColor: unread ? "rgb(191,219,254)" : theme.colors.border,
+        borderBottomColor: unread
+          ? theme.dark
+            ? "rgb(46,67,136)"
+            : "rgb(191,219,254)"
+          : theme.colors.border,
       }}
     >
       <Reason item={item} />

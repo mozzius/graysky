@@ -81,7 +81,7 @@ export default function AboutPage() {
 
   return (
     <SettingsListGroups groups={groups}>
-      <View className="mb-4 flex-row items-center justify-center">
+      <View className="mb-4 flex-row items-center justify-center py-4">
         <Image
           alt="graysky"
           source={appIcon}
