@@ -177,10 +177,25 @@ export default function Page() {
   );
 }
 
-const SectionHeader = ({ title }: { title: string }) => (
-  <View className="w-full px-4 py-1 dark:bg-neutral-900">
-    <Text className="font-medium text-neutral-600 dark:text-neutral-400">
-      {title.toLocaleUpperCase()}
-    </Text>
-  </View>
-);
+const SectionHeader = ({ title }: { title: string }) => {
+  const theme = useTheme();
+  return (
+    <View
+      className="w-full px-4 py-1 dark:bg-neutral-900"
+      style={{
+        backgroundColor: theme.dark
+          ? theme.colors.card
+          : theme.colors.background,
+      }}
+    >
+      <Text
+        className="font-medium"
+        style={{
+          color: theme.dark ? "rgb(163,163,163)" : "rgb(82,82,82)",
+        }}
+      >
+        {title.toLocaleUpperCase()}
+      </Text>
+    </View>
+  );
+};
