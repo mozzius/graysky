@@ -449,7 +449,10 @@ const Feed = ({
   return (
     <Link href={href} asChild>
       <TouchableOpacity>
-        <View className="flex-row items-center border-b border-neutral-200 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-black">
+        <View
+          className="flex-row items-center border-b border-neutral-200 px-4 py-2 dark:border-neutral-700"
+          style={{ backgroundColor: theme.dark ? "black" : "white" }}
+        >
           <Image
             alt={displayName}
             source={{ uri: avatar }}

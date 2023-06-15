@@ -17,8 +17,14 @@ export const Tabs = ({ children, style }: TabsProps) => {
   const theme = useTheme();
   return (
     <View
-      className="w-full flex-row border-b border-neutral-300 dark:border-neutral-800"
-      style={[{ backgroundColor: theme.colors.card }, style]}
+      className="w-full flex-row border-b"
+      style={[
+        {
+          backgroundColor: theme.colors.card,
+          borderColor: theme.colors.border,
+        },
+        style,
+      ]}
     >
       {children}
     </View>

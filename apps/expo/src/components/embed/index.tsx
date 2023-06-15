@@ -44,7 +44,13 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           onPress={() => void Linking.openURL(content.external.uri)}
           className={cx("mt-1.5 rounded-lg")}
         >
-          <View className="overflow-hidden rounded-lg border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black">
+          <View
+            className="overflow-hidden rounded-lg border"
+            style={{
+              backgroundColor: theme.dark ? "black" : "white",
+              borderColor: theme.colors.border,
+            }}
+          >
             {content.external.thumb && (
               <Image
                 recyclingKey={content.external.thumb}
@@ -54,11 +60,8 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
               />
             )}
             <View
-              className={cx(
-                "w-full p-2",
-                content.external.thumb &&
-                  "border-t border-neutral-300 dark:border-neutral-800",
-              )}
+              className={cx("w-full p-2", content.external.thumb && "border-t")}
+              style={{ borderTopColor: theme.colors.border }}
             >
               <Text
                 className="text-sm leading-5 text-neutral-400 dark:text-neutral-100"
@@ -119,7 +122,13 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           return (
             <Link href={href} asChild>
               <TouchableHighlight className="mt-1.5 rounded-lg">
-                <View className="flex-row items-center rounded-lg border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
+                <View
+                  className="flex-row items-center rounded-lg border p-2"
+                  style={{
+                    backgroundColor: theme.dark ? "black" : "white",
+                    borderColor: theme.colors.border,
+                  }}
+                >
                   <Image
                     recyclingKey={record.avatar}
                     alt={record.displayName}
@@ -228,10 +237,15 @@ export const PostEmbed = ({
         className="mt-1.5 flex-1 rounded-lg"
       >
         <View
-          className={cx(
-            "flex-1 rounded-lg border border-neutral-300 px-2 pb-2 pt-1 dark:border-neutral-800",
-            !transparent && "bg-white dark:bg-black",
-          )}
+          className={cx("flex-1 rounded-lg border px-2 pb-2 pt-1")}
+          style={{
+            backgroundColor: transparent
+              ? "transparent"
+              : theme.dark
+              ? "black"
+              : "white",
+            borderColor: theme.colors.border,
+          }}
         >
           <View className="flex flex-row items-center overflow-hidden">
             <Image
@@ -240,7 +254,7 @@ export const PostEmbed = ({
               alt={author.displayName}
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
-            <Text className="text-base" numberOfLines={1}>
+            <Text className="flex-1 text-base" numberOfLines={1}>
               <Text
                 style={{ color: theme.colors.text }}
                 className="font-semibold"

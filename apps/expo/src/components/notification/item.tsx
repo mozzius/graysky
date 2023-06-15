@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 
 import { cx } from "../../lib/utils/cx";
 
@@ -11,14 +12,20 @@ export const NotificationItem = ({
   children: React.ReactNode;
   unread: boolean;
 }) => {
+  const theme = useTheme();
   return (
     <View
-      className={cx(
-        "flex-row border-b p-2",
-        unread
-          ? "border-blue-200 bg-blue-50 dark:border-neutral-600 dark:bg-neutral-800"
-          : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black",
-      )}
+      className="flex-row border-b p-2"
+      style={{
+        backgroundColor: unread
+          ? theme.dark
+            ? "rgb(38,38,38)"
+            : "rgb(191,219,254)"
+          : theme.dark
+          ? "black"
+          : "white",
+        borderBottomColor: unread ? "rgb(191,219,254)" : theme.colors.border,
+      }}
     >
       <View className="w-16 shrink-0 grow-0 items-end px-2">{left}</View>
       <View className="flex-1 pl-1 pr-2">{children}</View>

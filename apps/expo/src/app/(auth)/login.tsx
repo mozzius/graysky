@@ -49,18 +49,21 @@ export default function Login() {
   const theme = useTheme();
 
   return (
-    <View className="flex-1 bg-white p-4 dark:bg-black">
+    <View
+      className="flex-1 p-4"
+      style={{ backgroundColor: theme.dark ? "black" : "white" }}
+    >
       <View className="items-stretch gap-4">
-        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
+        <View className="flex flex-row items-center rounded border border-neutral-300 pl-3 dark:border-neutral-600">
           <User size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
-            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:placeholder-neutral-400"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="Username or email address"
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
-            placeholderTextColor={theme.dark ? "rgb(62,62,62)" : undefined}
+            placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
@@ -69,16 +72,16 @@ export default function Login() {
             }}
           />
         </View>
-        <View className="flex flex-row items-center rounded border border-neutral-300 bg-neutral-50 pl-3 dark:border-neutral-600 dark:bg-black">
+        <View className="flex flex-row items-center rounded border border-neutral-300 pl-3 dark:border-neutral-600">
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
-            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5 dark:placeholder-neutral-400"
+            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholderTextColor={theme.dark ? "rgb(62,62,62)" : undefined}
+            placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
           />
         </View>
         <View className="flex-row justify-between">

@@ -39,7 +39,10 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
             translate.mutate({ text, uri, target: locale.languageCode })
           }
         >
-          <View className="flex-row items-center bg-white dark:bg-black">
+          <View
+            className="flex-row items-center"
+            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          >
             <Sparkles className="mr-2" size={18} color={theme.colors.primary} />
             <Text
               style={{ color: theme.colors.primary }}
@@ -93,7 +96,10 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
             translate.mutate({ text, uri, target: locale.languageCode })
           }
         >
-          <View className="flex-row items-center bg-white dark:bg-black">
+          <View
+            className="flex-row items-center"
+            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          >
             <AlertTriangle
               className="mr-2"
               size={18}

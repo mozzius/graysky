@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import {
   RefreshControl,
+  StyleSheet,
   Text,
   TouchableNativeFeedback,
   View,
@@ -11,6 +12,7 @@ import {
   AppBskyFeedPost,
   type ComAtprotoLabelDefs,
 } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 import { produce } from "immer";
@@ -51,6 +53,7 @@ const PostThread = ({ contentFilter }: Props) => {
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<Posts>>(null);
   const detect = api.translate.detect.useMutation();
+  const theme = useTheme();
 
   const thread = useQuery({
     queryKey: ["profile", handle, "post", id],
@@ -244,10 +247,17 @@ const PostThread = ({ contentFilter }: Props) => {
             })
           }
         >
-          <View className="w-full flex-row items-center border-t border-neutral-100 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-black">
+          <View
+            className="w-full flex-row items-center px-4 py-2"
+            style={{
+              backgroundColor: theme.colors.card,
+              borderColor: theme.colors.border,
+              borderTopWidth: StyleSheet.hairlineWidth,
+            }}
+          >
             <Avatar size="medium" />
             <Text
-              className="ml-2 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
+              className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
               numberOfLines={1}
             >
               Reply to{" "}

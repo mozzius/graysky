@@ -17,6 +17,8 @@ import {
 } from "@tanstack/react-query";
 
 import { ComposeButton } from "../../../components/compose-button";
+import { ItemSeparator } from "../../../components/item-separator";
+import { PersonRow } from "../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
 import { useTabPressScroll } from "../../../lib/hooks";
@@ -46,6 +48,7 @@ interface Props {
 const SearchResults = ({ search }: Props) => {
   const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
   const agent = useAuthedAgent();
+  const theme = useTheme();
 
   const searchResults = useInfiniteQuery({
     queryKey: ["search", search],
@@ -71,19 +74,18 @@ const SearchResults = ({ search }: Props) => {
 
   if (searchResults.data) {
     return (
-      <View className="flex-1 dark:bg-black">
-        <FlashList<AppBskyActorDefs.ProfileView>
-          contentInsetAdjustmentBehavior="automatic"
-          ref={ref}
-          data={data}
-          onScroll={onScroll}
-          estimatedItemSize={173}
-          renderItem={({ item }: { item: AppBskyActorDefs.ProfileView }) => (
-            <SuggestionCard item={item} />
-          )}
-          onEndReached={() => void searchResults.fetchNextPage()}
-        />
-      </View>
+      <FlashList<AppBskyActorDefs.ProfileView>
+        contentInsetAdjustmentBehavior="automatic"
+        ref={ref}
+        data={data}
+        onScroll={onScroll}
+        estimatedItemSize={173}
+        renderItem={({ item }) => <PersonRow person={item} />}
+        ItemSeparatorComponent={() => (
+          <ItemSeparator iconWidth="w-10" backgroundColor={theme.colors.card} />
+        )}
+        onEndReached={() => void searchResults.fetchNextPage()}
+      />
     );
   }
 

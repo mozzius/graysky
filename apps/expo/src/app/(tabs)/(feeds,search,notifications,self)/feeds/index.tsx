@@ -41,7 +41,10 @@ const FeedsPage = ({ editing }: Props) => {
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <Link href="/feeds/following" asChild>
           <TouchableHighlight>
-            <View className="flex-row items-center bg-white p-4 dark:bg-black">
+            <View
+              className="flex-row items-center p-4"
+              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+            >
               <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
                 <Cloud size={32} color="white" />
               </View>
@@ -69,7 +72,7 @@ const FeedsPage = ({ editing }: Props) => {
           onDragEnd={({ data }) => {
             reorder.mutate(data.map((item) => item.uri));
           }}
-          className="bg-white dark:bg-black"
+          style={{ backgroundColor: theme.dark ? "black" : "white" }}
           renderItem={({ item, drag }) => (
             <DraggableFeedRow
               feed={item}
@@ -91,7 +94,7 @@ const FeedsPage = ({ editing }: Props) => {
             .filter((feed) => !feed.pinned)
             .sort((a, b) => a.displayName.localeCompare(b.displayName))}
           keyExtractor={(item) => item.uri}
-          className="bg-white dark:bg-black"
+          style={{ backgroundColor: theme.dark ? "black" : "white" }}
           renderItem={({ item }) => (
             <DraggableFeedRow
               feed={item}

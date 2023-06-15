@@ -25,7 +25,8 @@ export const ProfileList = ({
       ItemSeparatorComponent={() => (
         <ItemSeparator
           iconWidth="w-10"
-          containerClassName="pr-4 bg-white dark:bg-black"
+          containerClassName="pr-4"
+          backgroundColor={theme.colors.card}
         />
       )}
       ListEmptyComponent={() => (

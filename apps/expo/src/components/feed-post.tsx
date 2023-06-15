@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
+  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -144,11 +145,20 @@ export const FeedPost = ({
   return (
     <View
       className={cx(
-        "bg-white px-2 pt-2 dark:bg-black",
+        "px-2 pt-2",
         isReply && !item.reason && "pt-0",
-        !hasReply && "border-b border-neutral-200 dark:border-neutral-800",
-        unread && "border-blue-200 bg-blue-50 dark:bg-neutral-800",
+        !hasReply && "border-b",
       )}
+      style={{
+        backgroundColor: unread
+          ? theme.dark
+            ? "rgb(38,38,38)"
+            : "rgb(191,219,254)"
+          : theme.dark
+          ? "black"
+          : "white",
+        borderBottomColor: unread ? "rgb(191,219,254)" : theme.colors.border,
+      }}
     >
       <Reason item={item} />
       <View className="flex-1 flex-row">
@@ -163,10 +173,10 @@ export const FeedPost = ({
             <TouchableWithoutFeedback>
               <View className="w-12 flex-1 items-center">
                 <View
-                  className={cx(
-                    "w-0.5 grow",
-                    hasReply && "bg-neutral-200 dark:bg-neutral-800",
-                  )}
+                  className="w-0.5 grow"
+                  style={{
+                    backgroundColor: hasReply ? theme.colors.border : undefined,
+                  }}
                 />
               </View>
             </TouchableWithoutFeedback>

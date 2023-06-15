@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -64,10 +64,11 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
 
   return (
     <View
-      className={cx(
-        "border-b border-neutral-200 bg-white px-4 pb-4 pt-3 dark:border-neutral-600 dark:bg-black",
-        hasParent && "border-t",
-      )}
+      className={cx("border-b px-4 pb-4 pt-3", hasParent && "border-t")}
+      style={{
+        backgroundColor: theme.dark ? "black" : "white",
+        borderColor: theme.dark ? "rgb(38,38,38)" : "rgb(229,229,229)",
+      }}
     >
       <View className="mb-2 flex-row">
         <PostAvatar profile={post.author} />

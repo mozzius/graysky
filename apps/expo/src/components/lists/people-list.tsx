@@ -79,7 +79,10 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
           {title}
         </Text>
         {data.data ? (
-          <View className="mt-4 flex-1 dark:bg-black">
+          <View
+            className="mt-4 flex-1"
+            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          >
             <BottomSheetFlatList
               style={contentContainerStyle}
               data={people.slice(0, showAll ? undefined : limit)}

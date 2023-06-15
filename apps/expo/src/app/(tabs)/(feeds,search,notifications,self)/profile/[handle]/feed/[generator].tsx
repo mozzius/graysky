@@ -145,7 +145,13 @@ const FeedInfo = ({
 
     return (
       <ScrollView className="flex-1">
-        <View className="w-full border-b border-neutral-300 bg-white p-4 dark:border-b-0 dark:bg-black">
+        <View
+          className="w-full border-neutral-300 p-4"
+          style={{
+            backgroundColor: theme.dark ? "black" : "white",
+            borderBottomWidth: theme.dark ? 0 : 1,
+          }}
+        >
           <View className="w-full flex-row items-center">
             <Image
               source={{ uri: info.view.avatar }}
@@ -190,7 +196,10 @@ const FeedInfo = ({
               onPress={() => toggleSave.mutate({ save: info.view.uri })}
               disabled={toggleSave.isLoading}
             >
-              <View className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 bg-white py-2 dark:border-neutral-700 dark:bg-black">
+              <View
+                className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 py-2 dark:border-neutral-700"
+                style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              >
                 {isSaved ? (
                   <>
                     <Check
@@ -231,7 +240,10 @@ const FeedInfo = ({
                 )}
                 disabled={toggleSave.isLoading}
               >
-                <View className="items-center justify-center rounded border border-neutral-300 bg-white px-3 py-2 dark:border-neutral-700 dark:bg-black">
+                <View
+                  className="items-center justify-center rounded border border-neutral-300 px-3 py-2 dark:border-neutral-700"
+                  style={{ backgroundColor: theme.dark ? "black" : "white" }}
+                >
                   <Star
                     className={cx(
                       "h-8 w-8",
@@ -252,12 +264,23 @@ const FeedInfo = ({
               )}
             >
               <View
-                className={cx(
-                  "flex-row items-center rounded border px-3 py-2",
-                  info.view.viewer?.like
-                    ? "border-red-200 bg-red-100 dark:border-red-800 dark:bg-red-950"
-                    : "border-neutral-300 bg-white dark:border-neutral-700 dark:bg-black",
-                )}
+                className="flex-row items-center rounded border px-3 py-2"
+                style={{
+                  backgroundColor: info.view.viewer?.like
+                    ? theme.dark
+                      ? "rgb(69,10,10)"
+                      : "rgb(254,226,226)"
+                    : theme.dark
+                    ? "black"
+                    : "white",
+                  borderColor: info.view.viewer?.like
+                    ? theme.dark
+                      ? "rgb(153,27,27)"
+                      : "rgb(254,202,202)"
+                    : theme.dark
+                    ? "rgb(64,64,64)"
+                    : "rgb(212,212,212)",
+                }}
               >
                 <Heart
                   className="h-8 w-8"
