@@ -13,18 +13,19 @@ import { FlashList } from "@shopify/flash-list";
 import {
   useInfiniteQuery,
   useMutation,
+  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { ComposeButton } from "../../../components/compose-button";
-import { ItemSeparator } from "../../../components/item-separator";
-import { PersonRow } from "../../../components/lists/person-row";
-import { QueryWithoutData } from "../../../components/query-without-data";
-import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
-import { useTabPress } from "../../../lib/hooks/tab-press-scroll";
-import { cx } from "../../../lib/utils/cx";
-import { useRefreshOnFocus } from "../../../lib/utils/query";
+import { ComposeButton } from "../../../../components/compose-button";
+import { ItemSeparator } from "../../../../components/item-separator";
+import { PersonRow } from "../../../../components/lists/person-row";
+import { QueryWithoutData } from "../../../../components/query-without-data";
+import { useAuthedAgent } from "../../../../lib/agent";
+import { useTabPressScroll } from "../../../../lib/hooks";
+import { useTabPress } from "../../../../lib/hooks/tab-press-scroll";
+import { cx } from "../../../../lib/utils/cx";
+import { useRefreshOnFocus } from "../../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -55,13 +56,12 @@ const SearchResults = ({ search }: Props) => {
   const agent = useAuthedAgent();
   const theme = useTheme();
 
-  const searchResults = useInfiniteQuery({
-    queryKey: ["search", search],
-    queryFn: async ({ pageParam }) => {
+  const searchResults = useQuery({
+    queryKey: ["search", "people", search, 10],
+    queryFn: async () => {
       const { data, success } = await agent.searchActors({
         term: search,
-        cursor: pageParam as string | undefined,
-        limit: 15,
+        limit: 10,
       });
       if (!success) throw new Error("Failed to search");
       return data;
@@ -74,7 +74,7 @@ const SearchResults = ({ search }: Props) => {
 
   const data = useMemo(() => {
     if (!searchResults.data) return [];
-    return searchResults.data.pages.flatMap((page) => page.actors);
+    return searchResults.data.actors;
   }, [searchResults.data]);
 
   if (searchResults.data) {
@@ -89,7 +89,6 @@ const SearchResults = ({ search }: Props) => {
         ItemSeparatorComponent={() => (
           <ItemSeparator iconWidth="w-10" backgroundColor={theme.colors.card} />
         )}
-        onEndReached={() => void searchResults.fetchNextPage()}
       />
     );
   }

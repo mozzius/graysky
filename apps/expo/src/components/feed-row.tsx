@@ -170,8 +170,10 @@ export const DraggableFeedRow = ({
       <Link href={href} asChild>
         <TouchableHighlight>
           <View
-            className="flex-row items-center px-4 py-3"
-            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+            className={cx(
+              "flex-row items-center px-4 py-3",
+              theme.dark ? "bg-black" : "bg-white",
+            )}
           >
             <Animated.View
               style={leftContainerStyle}

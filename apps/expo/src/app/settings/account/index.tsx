@@ -3,8 +3,8 @@ import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { AtSign, Mail, User } from "lucide-react-native";
 
-import { SettingsListGroups } from "../_layout";
 import { Avatar } from "../../../components/avatar";
+import { GroupedList } from "../../../components/grouped-list";
 import { useAuthedAgent } from "../../../lib/agent";
 
 export const useSelf = () => {
@@ -29,7 +29,7 @@ export default function AccountSettings() {
   const self = useSelf();
 
   return (
-    <SettingsListGroups
+    <GroupedList
       groups={[
         {
           children: (

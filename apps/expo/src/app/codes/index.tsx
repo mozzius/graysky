@@ -6,9 +6,9 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 import { Check, Copy } from "lucide-react-native";
 
+import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAppPreferences } from "../../lib/hooks/preferences";
-import { SettingsListGroups } from "../settings/_layout";
 import { useInviteCodes } from "./_layout";
 
 export default function InviteCodesScreen() {
@@ -25,7 +25,7 @@ export default function InviteCodesScreen() {
   if (codes.data) {
     return (
       <View style={{ paddingTop: headerHeight + 16 }} className="flex-1">
-        <SettingsListGroups
+        <GroupedList
           groups={[
             {
               children:

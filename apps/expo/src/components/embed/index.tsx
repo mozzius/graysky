@@ -45,11 +45,11 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
           className={cx("mt-1.5 rounded-lg")}
         >
           <View
-            className="overflow-hidden rounded-lg border"
-            style={{
-              backgroundColor: theme.dark ? "black" : "white",
-              borderColor: theme.colors.border,
-            }}
+            className={cx(
+              "overflow-hidden rounded-lg border",
+              theme.dark ? "bg-black" : "bg-white",
+            )}
+            style={{ borderColor: theme.colors.border }}
           >
             {content.external.thumb && (
               <Image

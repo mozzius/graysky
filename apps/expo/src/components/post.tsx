@@ -46,8 +46,6 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const composer = useComposer();
   const [rerenderer, rerender] = useState(0);
 
-  const buttonColor = theme.dark ? "#FFF" : "#1C1C1E";
-
   const onChangeStatus = useCallback(() => {
     rerender((prev) => prev + 1);
   }, []);
@@ -64,11 +62,13 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
 
   return (
     <View
-      className={cx("border-b px-4 pb-4 pt-3", hasParent && "border-t")}
-      style={{
-        backgroundColor: theme.dark ? "black" : "white",
-        borderColor: theme.dark ? "rgb(38,38,38)" : "rgb(229,229,229)",
-      }}
+      className={cx(
+        "border-b px-4 pb-4 pt-3",
+        hasParent && "border-t",
+        theme.dark
+          ? "border-neutral-800 bg-black"
+          : "border-neutral-200 bg-white",
+      )}
     >
       <View className="mb-2 flex-row">
         <PostAvatar profile={post.author} />
@@ -101,7 +101,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             onPress={handleMore}
             className="p-2"
           >
-            <MoreVertical size={18} color={buttonColor} />
+            <MoreVertical size={18} color={theme.colors.text} />
           </TouchableOpacity>
         </View>
       </View>
@@ -148,8 +148,8 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             })
           }
         >
-          <MessageSquare size={18} color={buttonColor} />
-          <Text style={{ color: buttonColor }} className="tabular-nums">
+          <MessageSquare size={18} color={theme.colors.text} />
+          <Text style={{ color: theme.colors.text }} className="tabular-nums">
             {replyCount}
           </Text>
         </TouchableOpacity>
@@ -163,10 +163,10 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           onPress={handleRepost}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
-          <Repeat size={18} color={reposted ? "#2563eb" : buttonColor} />
+          <Repeat size={18} color={reposted ? "#2563eb" : theme.colors.text} />
           <Text
             style={{
-              color: reposted ? "#2563eb" : buttonColor,
+              color: reposted ? "#2563eb" : theme.colors.text,
             }}
             className="tabular-nums"
           >
@@ -186,11 +186,11 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           <Heart
             size={18}
             fill={liked ? "#dc2626" : "transparent"}
-            color={liked ? "#dc2626" : buttonColor}
+            color={liked ? "#dc2626" : theme.colors.text}
           />
           <Text
             style={{
-              color: liked ? "#dc2626" : buttonColor,
+              color: liked ? "#dc2626" : theme.colors.text,
             }}
             className="tabular-nums"
           >

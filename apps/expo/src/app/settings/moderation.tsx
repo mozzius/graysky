@@ -7,11 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import { produce } from "immer";
 import { Ban, MegaphoneOff } from "lucide-react-native";
 
+import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
 import { contentLabels, usePreferences } from "../../lib/hooks/preferences";
 import { useColorScheme } from "../../lib/utils/color-scheme";
-import { SettingsList, SettingsListGroups } from "./_layout";
 
 type Pref = "show" | "warn" | "hide";
 
@@ -87,7 +87,7 @@ export default function ModerationSettings() {
 
   if (preferences.data) {
     return (
-      <SettingsListGroups
+      <GroupedList
         groups={[
           {
             title: "Blocks & Mutes",

@@ -10,6 +10,7 @@ import { useTheme } from "@react-navigation/native";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "../../lib/bottom-sheet";
+import { cx } from "../../lib/utils/cx";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
 import { PersonRow } from "./person-row";
@@ -80,8 +81,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         </Text>
         {data.data ? (
           <View
-            className="mt-4 flex-1"
-            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+            className={cx("mt-4 flex-1", theme.dark ? "bg-black" : "bg-white")}
           >
             <BottomSheetFlatList
               style={contentContainerStyle}

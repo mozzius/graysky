@@ -28,6 +28,7 @@ import { useAuthedAgent } from "../../lib/agent";
 import { useTabPressScroll } from "../../lib/hooks";
 import { useContentFilter } from "../../lib/hooks/preferences";
 import { api } from "../../lib/utils/api";
+import { cx } from "../../lib/utils/cx";
 import { addDetectedLanguages } from "../../lib/utils/detect-languages";
 import { useUserRefresh } from "../../lib/utils/query";
 import { Button } from "../button";
@@ -450,8 +451,12 @@ const Feed = ({
     <Link href={href} asChild>
       <TouchableOpacity>
         <View
-          className="flex-row items-center border-b border-neutral-200 px-4 py-2 dark:border-neutral-700"
-          style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          className={cx(
+            "flex-row items-center border-b px-4 py-2",
+            theme.dark
+              ? "bg-black dark:border-neutral-700"
+              : "border-neutral-200 bg-white",
+          )}
         >
           <Image
             alt={displayName}

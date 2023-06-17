@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ProfileList } from "../../components/profile-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
-import { SettingsList } from "../settings/_layout";
 import { useInviteCodes } from "./_layout";
 
 interface Props {

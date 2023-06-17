@@ -39,6 +39,6 @@ export function useUserRefresh<T>(refetch: () => Promise<T>) {
   return {
     refreshing,
     handleRefresh,
-    tintColor: theme.dark ? theme.colors.text : theme.colors.border,
+    tintColor: theme.colors.text,
   };
 }

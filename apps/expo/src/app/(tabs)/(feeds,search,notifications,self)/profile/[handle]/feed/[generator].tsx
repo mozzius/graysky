@@ -146,11 +146,10 @@ const FeedInfo = ({
     return (
       <ScrollView className="flex-1">
         <View
-          className="w-full border-neutral-300 p-4"
-          style={{
-            backgroundColor: theme.dark ? "black" : "white",
-            borderBottomWidth: theme.dark ? 0 : 1,
-          }}
+          className={cx(
+            "w-full border-neutral-300 p-4",
+            theme.dark ? "bg-black" : "border-b bg-white",
+          )}
         >
           <View className="w-full flex-row items-center">
             <Image
@@ -197,8 +196,12 @@ const FeedInfo = ({
               disabled={toggleSave.isLoading}
             >
               <View
-                className="flex-1 flex-row items-center justify-center rounded border border-neutral-300 py-2 dark:border-neutral-700"
-                style={{ backgroundColor: theme.dark ? "black" : "white" }}
+                className={cx(
+                  "flex-1 flex-row items-center justify-center rounded border py-2",
+                  theme.dark
+                    ? "border-neutral-700 bg-black"
+                    : "border-neutral-300 bg-white",
+                )}
               >
                 {isSaved ? (
                   <>

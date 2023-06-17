@@ -1,25 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
-import {
-  ScrollView,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { Text, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import {
-  Link,
-  Stack,
-  useNavigation,
-  usePathname,
-  useRouter,
-} from "expo-router";
+import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
-import { type LucideIcon } from "lucide-react-native";
-
-import { ItemSeparator } from "../../components/item-separator";
-import { SettingsRow } from "../../components/settings-row";
 
 export default function SettingsLayout() {
   const theme = useTheme();
@@ -118,94 +102,3 @@ export default function SettingsLayout() {
     </>
   );
 }
-
-interface ListProps {
-  options?: {
-    title: string;
-    icon?: LucideIcon;
-    href?: string;
-    onPress?: () => void;
-    action?: React.ReactNode;
-  }[];
-  children?: React.ReactNode;
-}
-
-const SettingsListInner = ({ children, options = [] }: ListProps) => {
-  const theme = useTheme();
-  return (
-    <View
-      style={{ backgroundColor: theme.colors.card }}
-      className="overflow-hidden rounded-lg"
-    >
-      {children}
-      {options.map((option, i, arr) => {
-        const row = (
-          <SettingsRow
-            icon={option.icon}
-            chevron={(!!option.href || !!option.onPress) && !option.action}
-            action={option.action}
-          >
-            <Text style={{ color: theme.colors.text }} className="text-base">
-              {option.title}
-            </Text>
-          </SettingsRow>
-        );
-        return (
-          <Fragment key={option.title}>
-            {option.href ? (
-              <Link asChild href={option.href}>
-                <TouchableHighlight>
-                  <View>{row}</View>
-                </TouchableHighlight>
-              </Link>
-            ) : option.onPress ? (
-              <TouchableHighlight onPress={option.onPress}>
-                <View>{row}</View>
-              </TouchableHighlight>
-            ) : (
-              row
-            )}
-            {i !== arr.length - 1 && (
-              <ItemSeparator iconWidth={option.icon ? "w-6" : undefined} />
-            )}
-          </Fragment>
-        );
-      })}
-    </View>
-  );
-};
-
-export const SettingsList = (props: ListProps) => {
-  return (
-    <ScrollView className="flex-1 px-6">
-      <View className="my-8">
-        <SettingsListInner {...props} />
-      </View>
-    </ScrollView>
-  );
-};
-
-interface GroupProps {
-  groups: (ListProps & {
-    title?: string;
-  })[];
-  children?: React.ReactNode;
-}
-
-export const SettingsListGroups = ({ groups, children }: GroupProps) => {
-  return (
-    <ScrollView className="flex-1 px-4">
-      <View className="mt-4">{children}</View>
-      {groups.map(({ title, ...list }, i, arr) => (
-        <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
-          {title && (
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              {title}
-            </Text>
-          )}
-          <SettingsListInner {...list} />
-        </View>
-      ))}
-    </ScrollView>
-  );
-};

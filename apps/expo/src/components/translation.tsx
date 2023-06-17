@@ -7,6 +7,7 @@ import { AlertTriangle, Languages, Sparkles } from "lucide-react-native";
 
 import { locale } from "../lib/locale";
 import { api } from "../lib/utils/api";
+import { cx } from "../lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
 
 interface Props {
@@ -40,8 +41,10 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
           }
         >
           <View
-            className="flex-row items-center"
-            style={{ backgroundColor: theme.dark ? "black" : "white" }}
+            className={cx(
+              "flex-row items-center",
+              theme.dark ? "bg-black" : "bg-white",
+            )}
           >
             <Sparkles className="mr-2" size={18} color={theme.colors.primary} />
             <Text

@@ -91,11 +91,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         <View className="h-10 flex-row items-center justify-end">
           <Link asChild href={`/images/${profile.did}`}>
             <TouchableOpacity
-              className="absolute -top-11 left-0 rounded-full border-2"
-              style={{
-                backgroundColor: theme.dark ? "black" : "white",
-                borderColor: theme.colors.card,
-              }}
+              className={cx(
+                "absolute -top-11 left-0 rounded-full border-2",
+                theme.dark ? "bg-black" : "bg-white",
+              )}
+              style={{ borderColor: theme.colors.card }}
             >
               <Image
                 source={{ uri: profile.avatar }}

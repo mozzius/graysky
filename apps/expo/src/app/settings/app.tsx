@@ -1,7 +1,7 @@
 import { Switch } from "react-native";
 
+import { GroupedList } from "../../components/grouped-list";
 import { useAppPreferences } from "../../lib/hooks/preferences";
-import { SettingsList } from "./_layout";
 
 export default function AppSettings() {
   const { appPrefs, setAppPrefs } = useAppPreferences();
@@ -9,18 +9,22 @@ export default function AppSettings() {
   if (!appPrefs.data) return null;
 
   return (
-    <SettingsList
-      options={[
+    <GroupedList
+      groups={[
         {
-          title: "Group notifications",
-          action: (
-            <Switch
-              value={appPrefs.data.groupNotifications}
-              onValueChange={(value) =>
-                setAppPrefs.mutate({ groupNotifications: value })
-              }
-            />
-          ),
+          options: [
+            {
+              title: "Group notifications",
+              action: (
+                <Switch
+                  value={appPrefs.data.groupNotifications}
+                  onValueChange={(value) =>
+                    setAppPrefs.mutate({ groupNotifications: value })
+                  }
+                />
+              ),
+            },
+          ],
         },
       ]}
     />

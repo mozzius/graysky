@@ -6,6 +6,7 @@ import { Lock, User } from "lucide-react-native";
 
 import { useAgent } from "../../lib/agent";
 import { useColorScheme } from "../../lib/utils/color-scheme";
+import { cx } from "../../lib/utils/cx";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 
@@ -49,10 +50,7 @@ export default function Login() {
   const theme = useTheme();
 
   return (
-    <View
-      className="flex-1 p-4"
-      style={{ backgroundColor: theme.dark ? "black" : "white" }}
-    >
+    <View className={cx("flex-1 p-4", theme.dark ? "bg-black" : "bg-white")}>
       <View className="items-stretch gap-4">
         <View className="flex flex-row items-center rounded border border-neutral-300 pl-3 dark:border-neutral-600">
           <User size={18} color="rgb(163 163 163)" />

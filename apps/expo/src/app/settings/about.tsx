@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { AtSign, Github, Heart, Mail, Send, Wrench } from "lucide-react-native";
 
-import { SettingsListGroups } from "./_layout";
+import { GroupedList } from "../../components/grouped-list";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../assets/graysky.png") as ImageSource;
@@ -80,7 +80,7 @@ export default function AboutPage() {
   const theme = useTheme();
 
   return (
-    <SettingsListGroups groups={groups}>
+    <GroupedList groups={groups}>
       <View className="mb-4 flex-row items-center justify-center py-4">
         <Image
           alt="graysky"
@@ -103,6 +103,6 @@ export default function AboutPage() {
           </Link>
         </View>
       </View>
-    </SettingsListGroups>
+    </GroupedList>
   );
 }

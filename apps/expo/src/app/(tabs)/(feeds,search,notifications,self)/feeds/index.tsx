@@ -42,8 +42,10 @@ const FeedsPage = ({ editing }: Props) => {
         <Link href="/feeds/following" asChild>
           <TouchableHighlight>
             <View
-              className="flex-row items-center p-4"
-              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              className={cx(
+                "flex-row items-center p-4",
+                theme.dark ? "bg-black" : "bg-white",
+              )}
             >
               <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
                 <Cloud size={32} color="white" />
@@ -181,7 +183,7 @@ const SectionHeader = ({ title }: { title: string }) => {
   const theme = useTheme();
   return (
     <View
-      className="w-full px-4 py-1 dark:bg-neutral-900"
+      className="w-full px-4 py-1"
       style={{
         backgroundColor: theme.dark
           ? theme.colors.card
@@ -189,10 +191,10 @@ const SectionHeader = ({ title }: { title: string }) => {
       }}
     >
       <Text
-        className="font-medium"
-        style={{
-          color: theme.dark ? "rgb(163,163,163)" : "rgb(82,82,82)",
-        }}
+        className={cx(
+          "font-medium",
+          theme.dark ? "text-neutral-400" : "text-neutral-600",
+        )}
       >
         {title.toLocaleUpperCase()}
       </Text>
