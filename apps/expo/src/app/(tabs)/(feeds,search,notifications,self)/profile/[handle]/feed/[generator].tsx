@@ -20,7 +20,10 @@ import { ComposeButton } from "../../../../../../components/compose-button";
 import { FeedRow } from "../../../../../../components/feed-row";
 import { ItemSeparator } from "../../../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
-import { RichTextWithoutFacets } from "../../../../../../components/rich-text";
+import {
+  RichText,
+  RichTextWithoutFacets,
+} from "../../../../../../components/rich-text";
 import { FeedScreen } from "../../../../../../components/screens/feed-screen";
 import { useAuthedAgent } from "../../../../../../lib/agent";
 import {
@@ -178,7 +181,14 @@ const FeedInfo = ({
               style={{ color: theme.colors.text }}
               className="mt-4 text-base"
             >
-              <RichTextWithoutFacets text={info.view.description} />
+              {info.view.descriptionFacets ? (
+                <RichText
+                  text={info.view.description}
+                  facets={info.view.descriptionFacets}
+                />
+              ) : (
+                <RichTextWithoutFacets text={info.view.description} />
+              )}
             </Text>
           )}
           <View

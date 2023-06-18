@@ -82,12 +82,33 @@ export default function SubStack({
         <ComposerProvider>
           <Stack {...stackOptions}>
             <Stack.Screen
-              name="search"
+              name="search/index"
               options={{
                 title: "Search",
                 headerLeft: Platform.select({
                   ios: headerLeft,
                 }),
+                headerSearchBarOptions: {},
+              }}
+            />
+            <Stack.Screen
+              name="search/posts"
+              options={{
+                title: "Search Posts",
+                headerSearchBarOptions: {},
+              }}
+            />
+            <Stack.Screen
+              name="search/feeds"
+              options={{
+                title: "Search Feeds",
+                headerSearchBarOptions: {},
+              }}
+            />
+            <Stack.Screen
+              name="search/people"
+              options={{
+                title: "Search People",
                 headerSearchBarOptions: {},
               }}
             />

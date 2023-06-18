@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -16,8 +16,10 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { Search } from "lucide-react-native";
 
 import { ComposeButton } from "../../../../components/compose-button";
+import { GroupedList } from "../../../../components/grouped-list";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
@@ -29,6 +31,7 @@ import { useRefreshOnFocus } from "../../../../lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   // focus search bar somehow :/
   useTabPress();
@@ -38,12 +41,18 @@ export default function SearchPage() {
       <Stack.Screen
         options={{
           headerSearchBarOptions: {
-            placeholder: "Search users",
+            placeholder: "Search users, posts, feeds",
             onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+            onFocus: () => setIsSearching(true),
+            onBlur: () => setIsSearching(false),
           },
         }}
       />
-      {search ? <SearchResults search={search} /> : <Suggestions />}
+      {isSearching || search ? (
+        <SearchResults search={search} />
+      ) : (
+        <Suggestions />
+      )}
       <ComposeButton />
     </>
   );
@@ -52,16 +61,16 @@ interface Props {
   search: string;
 }
 const SearchResults = ({ search }: Props) => {
-  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
   const agent = useAuthedAgent();
-  const theme = useTheme();
+
+  const MAX_RESULTS = 6;
 
   const searchResults = useQuery({
-    queryKey: ["search", "people", search, 10],
+    queryKey: ["search", "people", search, MAX_RESULTS],
     queryFn: async () => {
       const { data, success } = await agent.searchActors({
         term: search,
-        limit: 10,
+        limit: MAX_RESULTS,
       });
       if (!success) throw new Error("Failed to search");
       return data;
@@ -70,8 +79,6 @@ const SearchResults = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  const onScroll = useTabPressScroll(ref);
-
   const data = useMemo(() => {
     if (!searchResults.data) return [];
     return searchResults.data.actors;
@@ -79,16 +86,53 @@ const SearchResults = ({ search }: Props) => {
 
   if (searchResults.data) {
     return (
-      <FlashList<AppBskyActorDefs.ProfileView>
+      <GroupedList
         contentInsetAdjustmentBehavior="automatic"
-        ref={ref}
-        data={data}
-        onScroll={onScroll}
-        estimatedItemSize={173}
-        renderItem={({ item }) => <PersonRow person={item} />}
-        ItemSeparatorComponent={() => (
-          <ItemSeparator iconWidth="w-10" backgroundColor={theme.colors.card} />
-        )}
+        groups={[
+          {
+            options: [
+              {
+                icon: Search,
+                title: "Search posts",
+                href: `/search/posts?q=${search}`,
+              },
+              {
+                icon: Search,
+                title: "Search feeds",
+                href: `/search/feeds?q=${search}`,
+              },
+              data.length === 0
+                ? {
+                    icon: Search,
+                    title: "Search users",
+                    href: `/search/people?q=${search}`,
+                  }
+                : [],
+            ].flat(),
+          },
+          data.length > 0
+            ? {
+                children: data.slice(0, 5).map((item, i) => (
+                  <Fragment key={item.did}>
+                    <PersonRow person={item} />
+                    {(i !== data.length - 1 || data.length === MAX_RESULTS) && (
+                      <ItemSeparator iconWidth="w-10" />
+                    )}
+                  </Fragment>
+                )),
+                options:
+                  data.length === MAX_RESULTS
+                    ? [
+                        {
+                          icon: Search,
+                          title: "All users",
+                          href: `/search/people?q=${search}`,
+                        },
+                      ]
+                    : [],
+              }
+            : [],
+        ].flat()}
       />
     );
   }
