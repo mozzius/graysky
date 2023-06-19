@@ -454,7 +454,7 @@ const Feed = ({
           className={cx(
             "flex-row items-center border-b px-4 py-2",
             theme.dark
-              ? "bg-black dark:border-neutral-700"
+              ? "border-neutral-700 bg-black"
               : "border-neutral-200 bg-white",
           )}
         >

@@ -115,8 +115,12 @@ const SearchResults = ({ search }: Props) => {
                 children: data.slice(0, 5).map((item, i) => (
                   <Fragment key={item.did}>
                     <PersonRow person={item} />
-                    {(i !== data.length - 1 || data.length === MAX_RESULTS) && (
+                    {i !== data.length - 2 ? (
                       <ItemSeparator iconWidth="w-10" />
+                    ) : (
+                      data.length === MAX_RESULTS && (
+                        <ItemSeparator containerClassName="pl-0" />
+                      )
                     )}
                   </Fragment>
                 )),
@@ -125,7 +129,7 @@ const SearchResults = ({ search }: Props) => {
                     ? [
                         {
                           icon: Search,
-                          title: "All users",
+                          title: "Search all users",
                           href: `/search/people?q=${search}`,
                         },
                       ]

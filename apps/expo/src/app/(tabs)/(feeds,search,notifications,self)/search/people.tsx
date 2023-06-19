@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { RefreshControl } from "react-native";
+import { RefreshControl, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -24,16 +24,17 @@ const PeopleSearch = ({ search }: Props) => {
   const theme = useTheme();
 
   const query = useInfiniteQuery({
-    queryKey: ["search", "people", search],
+    queryKey: ["search", "people", search, "all"],
     queryFn: async ({ pageParam }) => {
       const profile = await agent.searchActors({
         term: search,
-        cursor: pageParam,
+        cursor: pageParam as string | undefined,
       });
       if (!profile.success) throw new Error("Search failed");
       return profile.data;
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
+    keepPreviousData: true,
   });
 
   const [ref, onScroll] = useTabPressScrollRef(query.refetch);
@@ -42,7 +43,7 @@ const PeopleSearch = ({ search }: Props) => {
   const data = useMemo(() => {
     if (!query.data) return [];
     return query.data.pages.flatMap((page) => page.actors);
-  }, []);
+  }, [query.data]);
 
   if (query.data) {
     return (
@@ -51,7 +52,12 @@ const PeopleSearch = ({ search }: Props) => {
         ref={ref}
         onScroll={onScroll}
         data={data}
-        renderItem={({ item }) => <PersonRow person={item} />}
+        renderItem={({ item }) => (
+          <PersonRow
+            person={item}
+            backgroundColor={theme.dark ? "black" : "white"}
+          />
+        )}
         ItemSeparatorComponent={() => (
           <ItemSeparator
             iconWidth="w-10"
@@ -61,6 +67,15 @@ const PeopleSearch = ({ search }: Props) => {
         estimatedItemSize={56}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        onEndReachedThreshold={0.6}
+        onEndReached={() => void query.fetchNextPage()}
+        ListEmptyComponent={
+          <View className="flex-1 items-center justify-center py-8">
+            <Text className="text-center text-neutral-500 dark:text-neutral-400">
+              No users found - maybe try a different search term?
+            </Text>
+          </View>
         }
       />
     );

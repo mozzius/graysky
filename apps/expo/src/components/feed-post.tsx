@@ -127,7 +127,14 @@ export const FeedPost = ({
   const timeSincePost = timeSince(new Date(item.post.indexedAt));
 
   const hiddenContent = (
-    <View className="my-2 flex-row items-center justify-between rounded border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+    <View
+      className={cx(
+        "my-2 flex-row items-center justify-between rounded border px-2",
+        theme.dark
+          ? "border-neutral-700 bg-neutral-950"
+          : "border-neutral-300 bg-neutral-50",
+      )}
+    >
       <Text
         style={{ color: theme.colors.text }}
         className="my-1 max-w-[75%] font-semibold"
@@ -218,14 +225,19 @@ export const FeedPost = ({
                     >
                       {postAuthorDisplayName}
                     </Text>
-                    <Text className="text-neutral-500 dark:text-neutral-400">
+                    <Text
+                      className={
+                        theme.dark ? "text-neutral-400" : "text-neutral-500"
+                      }
+                    >
                       {` @${postAuthorHandle}`}
                     </Text>
                   </Text>
                   {/* get age of post - e.g. 5m */}
                   <Text
                     className={cx(
-                      "relative ml-1 text-base text-neutral-500 dark:text-neutral-400",
+                      "relative ml-1 text-base",
+                      theme.dark ? "text-neutral-400" : "text-neutral-500",
                       I18nManager.isRTL ? "-right-16" : "-left-16",
                     )}
                   >
@@ -267,7 +279,12 @@ export const FeedPost = ({
                           <View className="flex-row items-center">
                             <MessageCircle size={12} color="#737373" />
                             <Text
-                              className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+                              className={cx(
+                                "ml-1 flex-1",
+                                theme.dark
+                                  ? "text-neutral-400"
+                                  : "text-neutral-500",
+                              )}
                               numberOfLines={1}
                             >
                               replying to{" "}
@@ -447,8 +464,8 @@ const Reason = ({ item }: Pick<Props, "item">) => {
 };
 
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
-  const { colorScheme } = useColorScheme();
-  const circleColor = colorScheme === "light" ? "#737373" : "#D4D4D4";
+  const theme = useTheme();
+  const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
   const agent = useAuthedAgent();
   const { data, isLoading } = useQuery({
@@ -470,7 +487,13 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     return (
       <View className="flex-row items-center">
         <MessageCircle size={12} color={circleColor} />
-        <Text className="ml-1 text-neutral-500" numberOfLines={1}>
+        <Text
+          className={cx(
+            "ml-1 flex-1",
+            theme.dark ? "text-neutral-400" : "text-neutral-500",
+          )}
+          numberOfLines={1}
+        >
           replying to{isLoading ? "..." : " unknown"}
         </Text>
       </View>
@@ -485,7 +508,10 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
         <View className="flex-row items-center">
           <MessageCircle size={12} color={circleColor} />
           <Text
-            className="ml-1 flex-1 text-neutral-500 dark:text-neutral-400"
+            className={cx(
+              "ml-1 flex-1",
+              theme.dark ? "text-neutral-400" : "text-neutral-500",
+            )}
             numberOfLines={1}
           >
             replying to {data.author.displayName ?? `@${data.author.handle}`}

@@ -70,7 +70,10 @@ export const FeedRow = ({ feed, children, large }: Props) => {
             </Text>
             {large && (
               <Text
-                className="text-sm text-neutral-500 dark:text-neutral-400"
+                className={cx(
+                  "text-sm",
+                  theme.dark ? "text-neutral-400" : "text-neutral-500",
+                )}
                 numberOfLines={1}
               >
                 <Heart
@@ -78,7 +81,9 @@ export const FeedRow = ({ feed, children, large }: Props) => {
                   className={
                     feed.viewer?.like
                       ? "text-red-500"
-                      : "text-neutral-500 dark:text-neutral-400"
+                      : theme.dark
+                      ? "text-neutral-400"
+                      : "text-neutral-500"
                   }
                   size={12}
                 />{" "}
@@ -91,7 +96,7 @@ export const FeedRow = ({ feed, children, large }: Props) => {
         </View>
         <ChevronRight
           size={20}
-          className="text-neutral-400 dark:text-neutral-200"
+          className={theme.dark ? "text-neutral-200" : "text-neutral-400"}
         />
       </View>
     </TouchableHighlight>
@@ -133,8 +138,12 @@ export const DraggableFeedRow = ({
         size={20}
         className={
           feed.pinned
-            ? "text-yellow-400 dark:text-yellow-500"
-            : "text-neutral-200 dark:text-neutral-800"
+            ? theme.dark
+              ? "text-yellow-500"
+              : "text-yellow-400"
+            : theme.dark
+            ? "text-neutral-800"
+            : "text-neutral-200"
         }
         fill="currentColor"
       />
@@ -205,7 +214,7 @@ export const DraggableFeedRow = ({
                     <MinusCircle
                       size={24}
                       fill="red"
-                      className="text-white dark:text-black"
+                      color={theme.dark ? "black" : "white"}
                     />
                   </View>
                 </TouchableOpacity>

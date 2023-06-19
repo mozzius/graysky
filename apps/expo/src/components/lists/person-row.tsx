@@ -9,9 +9,15 @@ interface Props {
   person: AppBskyActorDefs.ProfileView;
   onPress?: () => void;
   bottomSheet?: boolean;
+  backgroundColor?: string;
 }
 
-export const PersonRow = ({ person, onPress, bottomSheet }: Props) => {
+export const PersonRow = ({
+  person,
+  onPress,
+  bottomSheet,
+  backgroundColor,
+}: Props) => {
   const router = useRouter();
   const theme = useTheme();
   const Touchable = bottomSheet
@@ -25,7 +31,7 @@ export const PersonRow = ({ person, onPress, bottomSheet }: Props) => {
       }}
     >
       <View
-        style={{ backgroundColor: theme.colors.card }}
+        style={{ backgroundColor: backgroundColor ?? theme.colors.card }}
         className="flex-row items-center px-4 py-2"
       >
         <Image

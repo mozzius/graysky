@@ -56,6 +56,7 @@ const PostsSearch = ({ search }: Props) => {
 
       return all;
     },
+    keepPreviousData: true,
   });
 
   const [ref, onScroll] = useTabPressScrollRef(query.refetch);
@@ -88,7 +89,7 @@ const PostsSearch = ({ search }: Props) => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         ListEmptyComponent={
-          <View className="flex-1 items-center justify-center">
+          <View className="flex-1 items-center justify-center p-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
               No posts found - maybe try a different search term?
             </Text>

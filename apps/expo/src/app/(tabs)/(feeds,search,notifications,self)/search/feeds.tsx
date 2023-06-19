@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RefreshControl } from "react-native";
+import { RefreshControl, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -34,6 +34,7 @@ const FeedSearch = ({ search }: Props) => {
         onScroll={onScroll}
         data={query.data.feeds}
         renderItem={({ item }) => <FeedRow feed={item} large />}
+        estimatedItemSize={82}
         ItemSeparatorComponent={() => (
           <ItemSeparator
             iconWidth="w-10"
@@ -42,6 +43,13 @@ const FeedSearch = ({ search }: Props) => {
         )}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        ListEmptyComponent={
+          <View className="flex-1 items-center justify-center py-8">
+            <Text className="text-center text-neutral-500 dark:text-neutral-400">
+              No feeds found - maybe try a different search term?
+            </Text>
+          </View>
         }
       />
     );

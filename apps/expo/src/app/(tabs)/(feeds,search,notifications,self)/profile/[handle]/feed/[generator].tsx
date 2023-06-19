@@ -277,23 +277,16 @@ const FeedInfo = ({
               )}
             >
               <View
-                className="flex-row items-center rounded border px-3 py-2"
-                style={{
-                  backgroundColor: info.view.viewer?.like
+                className={cx(
+                  "flex-row items-center rounded border px-3 py-2",
+                  info.view.viewer?.like
                     ? theme.dark
-                      ? "rgb(69,10,10)"
-                      : "rgb(254,226,226)"
+                      ? "border-red-800 bg-red-950"
+                      : "border-red-200 bg-red-100"
                     : theme.dark
-                    ? "black"
-                    : "white",
-                  borderColor: info.view.viewer?.like
-                    ? theme.dark
-                      ? "rgb(153,27,27)"
-                      : "rgb(254,202,202)"
-                    : theme.dark
-                    ? "rgb(64,64,64)"
-                    : "rgb(212,212,212)",
-                }}
+                    ? "border-neutral-700 bg-black"
+                    : "border-neutral-300 bg-white",
+                )}
               >
                 <Heart
                   className="h-8 w-8"
