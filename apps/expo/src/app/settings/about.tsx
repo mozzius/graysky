@@ -63,6 +63,11 @@ const groups = [
         href: "/profile/matthewstanciu.com",
         icon: AtSign,
       },
+      {
+        title: "jcsalterego.bsky.social",
+        href: "/profile/jcsalterego.bsky.social",
+        icon: AtSign,
+      },
     ],
   },
   {
