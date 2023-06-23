@@ -29,7 +29,7 @@ const defineConfig = (): ExpoConfig => ({
       usesNonExemptEncryption: false,
     },
     infoPlist: {
-      UIViewControllerBasedStatusBarAppearance: true,
+      UIViewControllerBasedStatusBarAppearance: false,
     },
   },
   android: {
