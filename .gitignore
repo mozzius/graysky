@@ -48,3 +48,5 @@ yarn-error.log*
 *.apk.idsig
 
 *.jks
+
+Graysky.app

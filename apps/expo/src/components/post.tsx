@@ -10,19 +10,14 @@ import {
   Repeat,
 } from "lucide-react-native";
 
-import {
-  useHandleRepost,
-  useLike,
-  usePostViewOptions,
-  useRepost,
-} from "../lib/hooks";
+import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
+import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
 import { Translation } from "./translation";
 
@@ -41,7 +36,6 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   );
   const replyCount = post.replyCount;
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
-  const handleMore = usePostViewOptions(post);
   const theme = useTheme();
   const composer = useComposer();
   const [rerenderer, rerender] = useState(0);
@@ -95,14 +89,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
               </Text>
             </TouchableOpacity>
           </Link>
-          <TouchableOpacity
-            accessibilityLabel="More options"
-            accessibilityRole="button"
-            onPress={handleMore}
-            className="p-2"
-          >
-            <MoreVertical size={18} color={theme.colors.text} />
-          </TouchableOpacity>
+          <PostContextMenu post={post} />
         </View>
       </View>
       {/* text content */}

@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Platform, Text, TouchableOpacity } from "react-native";
-import { HoldMenuProvider } from "react-native-hold-menu";
-import { type HoldMenuProviderProps } from "react-native-hold-menu/lib/typescript/components/provider";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -133,12 +131,6 @@ const App = () => {
   const navigation = useNavigation();
   const safeAreaInsets = useSafeAreaInsets();
 
-  // disable hold menu provider on Android
-  const HoldProvider =
-    Platform.OS === "ios"
-      ? HoldMenuProvider
-      : ({ children }: HoldMenuProviderProps) => <>{children}</>;
-
   if (loading) {
     return <SplashScreen />;
   }
@@ -148,74 +140,69 @@ const App = () => {
       <SafeAreaProvider>
         <AgentProvider value={agent}>
           <LogOutProvider value={logOut}>
-            <HoldMenuProvider
-              theme={colorScheme}
-              safeAreaInsets={safeAreaInsets}
-            >
-              <ActionSheetProvider>
-                <ListProvider>
-                  <Stack
-                    screenOptions={{
-                      headerShown: true,
-                      fullScreenGestureEnabled: true,
+            <ActionSheetProvider>
+              <ListProvider>
+                <Stack
+                  screenOptions={{
+                    headerShown: true,
+                    fullScreenGestureEnabled: true,
+                  }}
+                >
+                  <Stack.Screen
+                    name="(auth)/login"
+                    options={{ title: "Log in" }}
+                  />
+                  <Stack.Screen
+                    name="settings"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
                     }}
-                  >
-                    <Stack.Screen
-                      name="(auth)/login"
-                      options={{ title: "Log in" }}
-                    />
-                    <Stack.Screen
-                      name="settings"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="codes"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="translate"
-                      options={{
-                        title: "Translate",
-                        presentation: "modal",
-                        headerRight: () => (
-                          <TouchableOpacity
-                            onPress={() => {
-                              if (navigation.canGoBack()) {
-                                router.push("../");
-                              } else {
-                                router.push("/feeds");
-                              }
-                            }}
+                  />
+                  <Stack.Screen
+                    name="codes"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="translate"
+                    options={{
+                      title: "Translate",
+                      presentation: "modal",
+                      headerRight: () => (
+                        <TouchableOpacity
+                          onPress={() => {
+                            if (navigation.canGoBack()) {
+                              router.push("../");
+                            } else {
+                              router.push("/feeds");
+                            }
+                          }}
+                        >
+                          <Text
+                            style={{ color: theme.colors.primary }}
+                            className="text-lg font-medium"
                           >
-                            <Text
-                              style={{ color: theme.colors.primary }}
-                              className="text-lg font-medium"
-                            >
-                              Done
-                            </Text>
-                          </TouchableOpacity>
-                        ),
-                      }}
-                    />
-                    <Stack.Screen
-                      name="images/[post]"
-                      options={{
-                        headerShown: false,
-                        animation: "fade",
-                        fullScreenGestureEnabled: false,
-                        customAnimationOnGesture: true,
-                      }}
-                    />
-                  </Stack>
-                </ListProvider>
-              </ActionSheetProvider>
-            </HoldMenuProvider>
+                            Done
+                          </Text>
+                        </TouchableOpacity>
+                      ),
+                    }}
+                  />
+                  <Stack.Screen
+                    name="images/[post]"
+                    options={{
+                      headerShown: false,
+                      animation: "fade",
+                      fullScreenGestureEnabled: false,
+                      customAnimationOnGesture: true,
+                    }}
+                  />
+                </Stack>
+              </ListProvider>
+            </ActionSheetProvider>
           </LogOutProvider>
         </AgentProvider>
       </SafeAreaProvider>

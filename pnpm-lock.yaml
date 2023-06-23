@@ -190,6 +190,9 @@ importers:
       react-native-hold-menu:
         specifier: ^0.1.6
         version: 0.1.6(expo-blur@12.2.2)(expo-haptics@12.2.1)(react-native-gesture-handler@2.9.0)(react-native-reanimated@2.14.4)(react-native@0.71.8)(react@18.2.0)
+      react-native-ios-context-menu:
+        specifier: ^1.15.3
+        version: 1.15.3(react-native@0.71.8)(react@18.2.0)
       react-native-pager-view:
         specifier: 6.1.2
         version: 6.1.2(react-native@0.71.8)(react@18.2.0)
@@ -2471,6 +2474,10 @@ packages:
       react-native: '*'
     dependencies:
       react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
+    dev: false
+
+  /@dominicstop/ts-event-emitter@1.1.0:
+    resolution: {integrity: sha512-CcxmJIvUb1vsFheuGGVSQf4KdPZC44XolpUT34+vlal+LyQoBUOn31pjFET5M9ctOxEpt8xa0M3/2M7uUiAoJw==}
     dev: false
 
   /@egjs/hammerjs@2.0.17:
@@ -10495,6 +10502,17 @@ packages:
       react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
       react-native-gesture-handler: 2.9.0(react-native@0.71.8)(react@18.2.0)
       react-native-reanimated: 2.14.4(@babel/core@7.21.4)(react-native@0.71.8)(react@18.2.0)
+    dev: false
+
+  /react-native-ios-context-menu@1.15.3(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-UNkVl7ocvSpNaEpvBvE1aHOfDy/DFdZ5I+ElfnTXFsRxrVZmxLtST0b1q2wSWGWDmd2Ig2AYd7GRbYtcY222Ag==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@dominicstop/ts-event-emitter': 1.1.0
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.21.4)(@babel/preset-env@7.21.4)(react@18.2.0)
     dev: false
 
   /react-native-pager-view@6.1.2(react-native@0.71.8)(react@18.2.0):
