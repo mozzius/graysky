@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, View } from "react-native";
 import { ContextMenuView } from "react-native-ios-context-menu";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system";
-import { Image, type ImageLoadEventData, type ImageStyle } from "expo-image";
+import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { AppBskyEmbedImages } from "@atproto/api";
@@ -137,14 +137,18 @@ export const ImageWithContext = ({
   return (
     <ContextMenuView
       previewConfig={{
-        previewSize: "STRETCH",
+        // TODO: Get this working
+        // previewSize: "STRETCH",
+        previewSize: "INHERIT",
         previewType: "CUSTOM",
+        backgroundColor: "rgba(0,0,0,0.5)",
       }}
       renderPreview={() => (
         <Image
           source={{ uri: image.fullsize }}
           alt={image.alt}
           recyclingKey={image.fullsize}
+          style={{ aspectRatio }}
           className="w-full"
         />
       )}
