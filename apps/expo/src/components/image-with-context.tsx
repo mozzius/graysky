@@ -145,9 +145,9 @@ export const ImageWithContext = ({
       }}
       renderPreview={() => (
         <Image
-          source={{ uri: image.fullsize }}
+          source={{ uri: image.thumb }}
           alt={image.alt}
-          recyclingKey={image.fullsize}
+          recyclingKey={image.thumb}
           style={{ aspectRatio }}
           className="w-full"
         />
