@@ -27,6 +27,7 @@
     "@trpc/react-query": "^10.29.1",
     "@trpc/server": "^10.29.1",
     "clsx": "^1.2.1",
+    "dotenv": "^16.3.1",
     "expo": "^48.0.19",
     "expo-blur": "^12.2.2",
     "expo-build-properties": "~0.6.0",

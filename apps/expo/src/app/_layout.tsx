@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Platform, Text, TouchableOpacity } from "react-native";
+import { Alert, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   SplashScreen,
@@ -25,7 +25,10 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
-import { OfferingsProvider, useOfferingsQuery } from "../lib/hooks/offerings";
+import {
+  CustomerInfoProvider,
+  useCustomerInfoQuery,
+} from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
@@ -40,7 +43,7 @@ const App = () => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
-  const offerings = useOfferingsQuery();
+  const info = useCustomerInfoQuery();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -130,14 +133,14 @@ const App = () => {
 
   const navigation = useNavigation();
 
-  if (loading || !offerings.data) {
+  if (loading) {
     return <SplashScreen />;
   }
 
   return (
-    <OfferingsProvider offerings={offerings.data}>
-      <ThemeProvider value={theme}>
-        <SafeAreaProvider>
+    <ThemeProvider value={theme}>
+      <SafeAreaProvider>
+        <CustomerInfoProvider info={info.data}>
           <AgentProvider value={agent}>
             <LogOutProvider value={logOut}>
               <ActionSheetProvider>
@@ -205,10 +208,10 @@ const App = () => {
               </ActionSheetProvider>
             </LogOutProvider>
           </AgentProvider>
-        </SafeAreaProvider>
-        <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
-      </ThemeProvider>
-    </OfferingsProvider>
+        </CustomerInfoProvider>
+      </SafeAreaProvider>
+      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
+    </ThemeProvider>
   );
 };
 

@@ -1,4 +1,9 @@
 import type { ExpoConfig } from "@expo/config";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: "../../.env",
+});
 
 const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
@@ -43,6 +48,9 @@ const defineConfig = (): ExpoConfig => ({
   extra: {
     eas: {
       projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
+    },
+    revenueCat: {
+      ios: process.env.REVENUECAT_API_KEY_IOS,
     },
   },
   plugins: ["./expo-plugins/with-modify-gradle.js", "expo-build-properties"],

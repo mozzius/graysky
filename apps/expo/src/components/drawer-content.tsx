@@ -6,10 +6,11 @@ import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
-import { LogOut, Palette, Settings2, Ticket } from "lucide-react-native";
+import { LogOut, Palette, Settings2, Star, Ticket } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "../app/codes/_layout";
+import { useCustomerInfo } from "../lib/hooks/purchases";
 import { useLogOut } from "../lib/log-out-context";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";
@@ -101,6 +102,21 @@ export const DrawerContent = () => {
             Change theme
           </Text>
         </TouchableOpacity>
+        <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
+          <TouchableOpacity
+            accessibilityRole="link"
+            accessibilityLabel="Pro version"
+            className="mt-2 w-full flex-row items-center py-2"
+          >
+            <Star style={{ color: theme.colors.text }} />
+            <Text
+              style={{ color: theme.colors.text }}
+              className="ml-6 text-base font-medium"
+            >
+              Graysky Pro
+            </Text>
+          </TouchableOpacity>
+        </Link>
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
