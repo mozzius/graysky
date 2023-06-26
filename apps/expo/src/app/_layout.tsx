@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Platform, Text, TouchableOpacity } from "react-native";
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   SplashScreen,
   Stack,
@@ -28,6 +25,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
+import { OfferingsProvider, useOfferingsQuery } from "../lib/hooks/offerings";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
@@ -41,6 +39,8 @@ const App = () => {
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
+
+  const offerings = useOfferingsQuery();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -129,85 +129,86 @@ const App = () => {
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
-  const safeAreaInsets = useSafeAreaInsets();
 
-  if (loading) {
+  if (loading || !offerings.data) {
     return <SplashScreen />;
   }
 
   return (
-    <ThemeProvider value={theme}>
-      <SafeAreaProvider>
-        <AgentProvider value={agent}>
-          <LogOutProvider value={logOut}>
-            <ActionSheetProvider>
-              <ListProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: true,
-                    fullScreenGestureEnabled: true,
-                  }}
-                >
-                  <Stack.Screen
-                    name="(auth)/login"
-                    options={{ title: "Log in" }}
-                  />
-                  <Stack.Screen
-                    name="settings"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
+    <OfferingsProvider offerings={offerings.data}>
+      <ThemeProvider value={theme}>
+        <SafeAreaProvider>
+          <AgentProvider value={agent}>
+            <LogOutProvider value={logOut}>
+              <ActionSheetProvider>
+                <ListProvider>
+                  <Stack
+                    screenOptions={{
+                      headerShown: true,
+                      fullScreenGestureEnabled: true,
                     }}
-                  />
-                  <Stack.Screen
-                    name="codes"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                  <Stack.Screen
-                    name="translate"
-                    options={{
-                      title: "Translate",
-                      presentation: "modal",
-                      headerRight: () => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            if (navigation.canGoBack()) {
-                              router.push("../");
-                            } else {
-                              router.push("/feeds");
-                            }
-                          }}
-                        >
-                          <Text
-                            style={{ color: theme.colors.primary }}
-                            className="text-lg font-medium"
+                  >
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{ title: "Log in" }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="codes"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="translate"
+                      options={{
+                        title: "Translate",
+                        presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              if (navigation.canGoBack()) {
+                                router.push("../");
+                              } else {
+                                router.push("/feeds");
+                              }
+                            }}
                           >
-                            Done
-                          </Text>
-                        </TouchableOpacity>
-                      ),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="images/[post]"
-                    options={{
-                      headerShown: false,
-                      animation: "fade",
-                      fullScreenGestureEnabled: false,
-                      customAnimationOnGesture: true,
-                    }}
-                  />
-                </Stack>
-              </ListProvider>
-            </ActionSheetProvider>
-          </LogOutProvider>
-        </AgentProvider>
-      </SafeAreaProvider>
-      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
-    </ThemeProvider>
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg font-medium"
+                            >
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="images/[post]"
+                      options={{
+                        headerShown: false,
+                        animation: "fade",
+                        fullScreenGestureEnabled: false,
+                        customAnimationOnGesture: true,
+                      }}
+                    />
+                  </Stack>
+                </ListProvider>
+              </ActionSheetProvider>
+            </LogOutProvider>
+          </AgentProvider>
+        </SafeAreaProvider>
+        <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
+      </ThemeProvider>
+    </OfferingsProvider>
   );
 };
 
