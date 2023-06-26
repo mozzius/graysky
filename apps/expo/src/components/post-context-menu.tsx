@@ -209,7 +209,7 @@ const PostContextMenuButton = ({ post }: Props) => {
       accessibilityRole="button"
       hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
       menuConfig={{
-        menuTitle: "Post Options",
+        menuTitle: "",
         menuItems: options.map((x) => ({
           actionKey: x.key,
           actionTitle: x.label,

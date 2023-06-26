@@ -153,7 +153,7 @@ export const ImageWithContext = ({
         />
       )}
       menuConfig={{
-        menuTitle: image.alt ?? "Image has no alt text",
+        menuTitle: image.alt,
         menuItems: items.map((item) => ({
           actionKey: item.key,
           actionTitle: item.label,
