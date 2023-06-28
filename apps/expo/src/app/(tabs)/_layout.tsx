@@ -121,6 +121,7 @@ export default function AppLayout() {
             name="(self)"
             options={{
               title: "Profile",
+              headerShown: false,
               tabBarIcon({ color }) {
                 return <User color={color} />;
               },

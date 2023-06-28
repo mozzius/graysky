@@ -185,10 +185,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           // prettier-ignore
                           const reportOptions = [
                             { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
-                            { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },
                             { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
-                            { label: "Unwanted Sexual Content", value: ComAtprotoModerationDefs.REASONSEXUAL },
-                            { label: "Rude", value: ComAtprotoModerationDefs.REASONRUDE },
                             { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
                             { label: "Cancel", value: "Cancel" },
                           ] as const;
