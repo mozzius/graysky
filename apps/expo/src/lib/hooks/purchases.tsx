@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createContext, useContext, useEffect } from "react";
 import { Platform } from "react-native";
 import Purchases, { type CustomerInfo } from "react-native-purchases";
 import Constants from "expo-constants";
+import { Slot } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const configureRevenueCat = () => {
@@ -26,17 +29,15 @@ export const CustomerInfoProvider = ({
 
   useEffect(() => {
     const listener = () => {
-      queryClient.invalidateQueries(["purchases", "info"]);
+      void queryClient.invalidateQueries(["purchases", "info"]);
     };
     Purchases.addCustomerInfoUpdateListener(listener);
     return () => void Purchases.removeCustomerInfoUpdateListener(listener);
-  }, []);
+  }, [queryClient]);
 
-  return (
-    <CustomerInfo.Provider value={info ?? null}>
-      {children}
-    </CustomerInfo.Provider>
-  );
+  if (!info) return <Slot />;
+
+  return <CustomerInfo.Provider value={info}>{children}</CustomerInfo.Provider>;
 };
 
 export const useCustomerInfoQuery = () => {
@@ -51,12 +52,17 @@ export const useCustomerInfoQuery = () => {
 };
 
 export const useCustomerInfo = () => {
-  const offerings = useContext(CustomerInfo);
-  return offerings;
+  const info = useContext(CustomerInfo);
+  if (!info)
+    throw new Error(
+      "useCustomerInfo must be used within a CustomerInfoProvider",
+    );
+  return info;
 };
 
 export const useIsPro = () => {
   const info = useCustomerInfo();
-  if (!info) return false; // still loading
+  if (!info)
+    throw new Error("useIsPro must be used within a CustomerInfoProvider");
   return info.entitlements.active.pro?.isActive ?? false;
 };

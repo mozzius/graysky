@@ -68,6 +68,7 @@ export const useFeedInfo = (feed: string) => {
       if (feed === "following") {
         return {
           view: {
+            did: "",
             displayName: "Following",
             uri: "",
             cid: "",

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert } from "react-native";
 import { ContextMenuView } from "react-native-ios-context-menu";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system";
 import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
-import { AppBskyEmbedImages } from "@atproto/api";
+import { type AppBskyEmbedImages } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 
 interface Props {
@@ -168,7 +168,7 @@ export const ImageWithContext = ({
           (item) => item.key === evt.nativeEvent.actionKey,
         );
         if (!item) return;
-        item.action(image.fullsize);
+        void item.action(image.fullsize);
       }}
     >
       <Image

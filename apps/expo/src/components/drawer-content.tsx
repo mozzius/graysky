@@ -10,7 +10,6 @@ import { LogOut, Palette, Settings2, Star, Ticket } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "../app/codes/_layout";
-import { useCustomerInfo } from "../lib/hooks/purchases";
 import { useLogOut } from "../lib/log-out-context";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";

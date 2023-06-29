@@ -53,7 +53,12 @@ const defineConfig = (): ExpoConfig => ({
       ios: process.env.REVENUECAT_API_KEY_IOS,
     },
   },
-  plugins: ["./expo-plugins/with-modify-gradle.js", "expo-build-properties"],
+  plugins: [
+    "./expo-plugins/with-modify-gradle.js",
+    "expo-build-properties",
+    "expo-localization",
+    "expo-router",
+  ],
 });
 
 export default defineConfig;
