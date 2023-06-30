@@ -1,14 +1,9 @@
 import { useCallback, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import {
-  Heart,
-  MessageSquare,
-  MoreVertical,
-  Repeat,
-} from "lucide-react-native";
+import { Heart, MessageSquare, Repeat } from "lucide-react-native";
 
 import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { locale } from "../lib/locale";
@@ -118,6 +113,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           content={post.embed}
           truncate={false}
           key={rerenderer}
+          postIndex={Infinity}
         />
       )}
       {/* actions */}

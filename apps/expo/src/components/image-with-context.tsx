@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Alert } from "react-native";
 import { ContextMenuView } from "react-native-ios-context-menu";
+import Animated from "react-native-reanimated";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system";
 import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
   image: AppBskyEmbedImages.ViewImage;
@@ -15,6 +18,7 @@ interface Props {
   className?: string;
   style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
+  postKey?: string | number;
 }
 
 export const ImageWithContext = ({
@@ -23,6 +27,7 @@ export const ImageWithContext = ({
   className: _,
   useCappedAspectRatio,
   style,
+  postKey,
   ...props
 }: Props) => {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -134,6 +139,8 @@ export const ImageWithContext = ({
         ]
     : style;
 
+  const queryClient = useQueryClient();
+
   return (
     <ContextMenuView
       previewConfig={{
@@ -171,14 +178,19 @@ export const ImageWithContext = ({
         void item.action(image.fullsize);
       }}
     >
-      <Image
+      <AnimatedImage
+        sharedTransitionTag={image.fullsize + String(postKey ?? "")}
         source={{ uri: image.thumb }}
         alt={image.alt}
         recyclingKey={image.thumb}
         style={imageStyle}
-        onLoad={({ source: { width, height } }) =>
-          setAspectRatio(width / height)
-        }
+        onLoad={({ source: { width, height } }) => {
+          setAspectRatio(width / height);
+          queryClient.setQueryData(["image", image.fullsize, "size"], {
+            width,
+            height,
+          });
+        }}
         {...props}
       />
     </ContextMenuView>

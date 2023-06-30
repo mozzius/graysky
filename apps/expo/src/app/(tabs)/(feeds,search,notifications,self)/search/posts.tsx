@@ -10,8 +10,8 @@ import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import {
-  FilterResult,
   useContentFilter,
+  type FilterResult,
 } from "../../../../lib/hooks/preferences";
 import { useUserRefresh } from "../../../../lib/utils/query";
 import { searchPosts } from "../../../../lib/utils/search";
@@ -78,15 +78,19 @@ const PostsSearch = ({ search }: Props) => {
         ref={ref}
         onScroll={onScroll}
         data={data}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <FeedPost
             {...item}
             inlineParent
             dataUpdatedAt={query.dataUpdatedAt}
+            index={index}
           />
         )}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+          />
         }
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center p-8">

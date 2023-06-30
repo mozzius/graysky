@@ -37,11 +37,17 @@ export const useTabPressScroll = (
 
   return useCallback((evt: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset } = evt.nativeEvent;
+
     if (contentOffset.y === 0) {
       atTopRef.current = true;
     } else if (atTopRef.current) {
       atTopRef.current = false;
     }
+
+    // good place to hide header on scroll?
+    // navigation.setOptions({
+    //   headerShown: contentOffset.y <= 0 || velocity?.y < 0,
+    // });
   }, []);
 };
 

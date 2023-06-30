@@ -235,6 +235,7 @@ const PostThread = ({ contentFilter }: Props) => {
                 hasReply={item.hasReply}
                 isReply={thread.data.posts[index - 1]?.hasReply}
                 dataUpdatedAt={thread.dataUpdatedAt}
+                index={index}
               />
             )
           }

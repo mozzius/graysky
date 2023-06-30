@@ -204,12 +204,12 @@ export const translateRouter = createTRPCRouter({
         cached
           .map((detected) => [detected.uri, detected.language])
           .filter(([_, language]) => language !== "und"),
-      );
+      ) as Record<string, string>;
 
       await db.translatablePost.createMany({
         data: detections.map(([uri, language]) => ({
           uri,
-          language: language as string,
+          language: language,
         })),
         skipDuplicates: true,
       });

@@ -1,13 +1,13 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import {
-  AppBskyFeedDefs,
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
+  type AppBskyFeedDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -46,7 +46,7 @@ const PostContextMenuButton = ({ post }: Props) => {
   };
 
   const share = () => {
-    Share.share({
+    void Share.share({
       message: `https://bsky.app/profile/${post.author.handle}/post/${post.uri
         .split("/")
         .pop()}`,
@@ -152,7 +152,7 @@ const PostContextMenuButton = ({ post }: Props) => {
             ? []
             : {
                 key: "mute",
-                label: `Mute @${post.author.handle}`,
+                label: "Mute user",
                 action: () =>
                   muteAccount(
                     agent,
@@ -166,7 +166,7 @@ const PostContextMenuButton = ({ post }: Props) => {
             ? []
             : {
                 key: "block",
-                label: `Block @${post.author.handle}`,
+                label: "Block user",
                 action: () =>
                   blockAccount(
                     agent,

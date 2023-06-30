@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import {
@@ -25,6 +26,8 @@ import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { useLists } from "./lists/context";
 import { RichTextWithoutFacets } from "./rich-text";
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewDetailed;
@@ -97,10 +100,17 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               )}
               style={{ borderColor: theme.colors.card }}
             >
-              <Image
+              <AnimatedImage
+                sharedTransitionTag={profile.avatar}
                 source={{ uri: profile.avatar }}
                 className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""
+                onLoad={({ source: { width, height } }) => {
+                  queryClient.setQueryData(["image", profile.avatar, "size"], {
+                    width,
+                    height,
+                  });
+                }}
               />
             </TouchableOpacity>
           </Link>

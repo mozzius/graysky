@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
-  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -16,7 +15,6 @@ import {
   Heart,
   MessageCircle,
   MessageSquare,
-  MoreHorizontal,
   Repeat,
 } from "lucide-react-native";
 import { z } from "zod";
@@ -43,6 +41,7 @@ interface Props {
   inlineParent?: boolean;
   dataUpdatedAt: number;
   filter: FilterResult;
+  index: number;
 }
 
 export const FeedPost = ({
@@ -53,6 +52,7 @@ export const FeedPost = ({
   inlineParent,
   dataUpdatedAt,
   filter,
+  index,
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -324,6 +324,7 @@ export const FeedPost = ({
                   uri={item.post.uri}
                   content={item.post.embed}
                   key={rerenderer}
+                  postIndex={index}
                 />
               )}
             </>

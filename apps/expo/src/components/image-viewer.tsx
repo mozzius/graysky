@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text } from "react-native";
-import Gallery from "react-native-awesome-gallery";
+import { StyleSheet, Text, View } from "react-native";
+import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { type AppBskyEmbedImages } from "@atproto/api";
+import { useQueryClient } from "@tanstack/react-query";
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
   images: AppBskyEmbedImages.ViewImage[];
   initialIndex?: number;
+  postKey: string;
   onClose: () => void;
 }
 
-export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
+export const ImageViewer = ({
+  images,
+  initialIndex = 0,
+  postKey,
+  onClose,
+}: Props) => {
   const [infoVisible, setInfoVisible] = useState(false);
   const [index, setIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
@@ -29,19 +38,10 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
         initialIndex={initialIndex}
         keyExtractor={(_, i) => i}
         onIndexChange={(index) => setIndex(index)}
-        renderItem={({ item, setImageDimensions }) => (
-          <Image
-            source={item.fullsize}
-            contentFit="contain"
-            alt={item.alt}
-            style={StyleSheet.absoluteFillObject}
-            onLoad={({ source: { width, height } }) =>
-              setImageDimensions({
-                width,
-                height,
-              })
-            }
-          />
+        renderItem={(props) => (
+          <View style={StyleSheet.absoluteFill} className="justify-center">
+            <ImageWithFallback {...props} postKey={postKey} />
+          </View>
         )}
         onSwipeToClose={onClose}
         onTap={() => setInfoVisible((v) => !v)}
@@ -56,6 +56,50 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
           <Text className="text-base text-white">{images[index]?.alt}</Text>
         </Animated.View>
       )}
+    </>
+  );
+};
+
+const ImageWithFallback = ({
+  item,
+  setImageDimensions,
+  postKey,
+}: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { postKey: string }) => {
+  const queryClient = useQueryClient();
+
+  const size:
+    | {
+        width: number;
+        height: number;
+      }
+    | undefined = queryClient.getQueryData(["image", item.fullsize, "size"]);
+
+  if (!size) {
+    console.error("Image size not found in cache", item.fullsize);
+  }
+
+  return (
+    <>
+      <AnimatedImage
+        sharedTransitionTag={item.fullsize + postKey}
+        // placeholder={item.thumb}
+        // source={item.fullsize}
+        source={item.thumb}
+        alt={item.alt}
+        style={
+          size
+            ? {
+                aspectRatio: size.width / size.height,
+              }
+            : undefined
+        }
+        onLoad={({ source: { width, height } }) =>
+          setImageDimensions({
+            width,
+            height,
+          })
+        }
+      />
     </>
   );
 };

@@ -325,6 +325,7 @@ export const ProfileScreen = ({ handle, header = true }: Props) => {
                     }
                     inlineParent={mode !== "replies"}
                     dataUpdatedAt={timeline.dataUpdatedAt}
+                    index={index}
                   />
                 )
               }

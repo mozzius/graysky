@@ -1,11 +1,5 @@
-import { useEffect, useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { Image } from "expo-image";
+import { useEffect } from "react";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -18,19 +12,17 @@ interface Props {
   uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
+  postIndex: number;
 }
 
-export const ImageEmbed = ({ uri, content, depth }: Props) => {
-  const href = `/images/${encodeURIComponent(uri)}`;
-  const [aspectRatio, setAspectRatio] = useState(1);
+export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
+  const href = `/images/${encodeURIComponent(uri)}?key=${postIndex}`;
   const theme = useTheme();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     queryClient.setQueryData(["images", uri], content.images);
   }, [content.images, uri, queryClient]);
-
-  useEffect(() => () => setAspectRatio(1), [uri]);
 
   switch (content.images.length) {
     case 0:
@@ -48,6 +40,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
               }}
             >
               <ImageWithContext
+                postKey={postIndex}
                 image={image}
                 depth={depth}
                 className="w-full shrink-0"
@@ -65,9 +58,10 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
               key={image.fullsize}
             >
-              <Link href={`${href}?initial=${i}`} asChild>
+              <Link href={`${href}&initial=${i}`} asChild>
                 <TouchableWithoutFeedback accessibilityRole="image">
                   <ImageWithContext
+                    postKey={postIndex}
                     image={image}
                     depth={depth}
                     className="aspect-square"
@@ -82,9 +76,10 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       return (
         <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
-            <Link href={`${href}?initial=0`} asChild>
+            <Link href={`${href}&initial=0`} asChild>
               <TouchableWithoutFeedback accessibilityRole="image">
                 <ImageWithContext
+                  postKey={postIndex}
                   image={content.images[0]!}
                   depth={depth}
                   className="h-full w-full object-cover"
@@ -101,9 +96,10 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 )}
                 key={image.fullsize}
               >
-                <Link href={`${href}?initial=${i + 1}`} asChild>
+                <Link href={`${href}&initial=${i + 1}`} asChild>
                   <TouchableWithoutFeedback accessibilityRole="image">
                     <ImageWithContext
+                      postKey={postIndex}
                       image={image}
                       depth={depth}
                       className="h-full w-full object-cover"
@@ -127,9 +123,10 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
             >
-              <Link href={`${href}?initial=${i}`} asChild>
+              <Link href={`${href}&initial=${i}`} asChild>
                 <TouchableWithoutFeedback accessibilityRole="image">
                   <ImageWithContext
+                    postKey={postIndex}
                     image={image}
                     depth={depth}
                     className="aspect-square"

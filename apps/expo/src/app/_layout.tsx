@@ -209,8 +209,9 @@ const App = () => {
                     <Stack.Screen
                       name="images/[post]"
                       options={{
+                        presentation: "transparentModal",
                         headerShown: false,
-                        animation: "fade",
+                        animation: "none",
                         fullScreenGestureEnabled: false,
                         customAnimationOnGesture: true,
                       }}

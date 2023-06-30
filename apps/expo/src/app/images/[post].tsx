@@ -1,4 +1,5 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -17,9 +18,10 @@ import { assert } from "../../lib/utils/assert";
 export default function ImageModal() {
   const agent = useAuthedAgent();
   const router = useRouter();
-  const { post, initial } = useLocalSearchParams() as {
+  const { post, initial, key } = useLocalSearchParams() as {
     post: string;
     initial?: string;
+    key?: string;
   };
 
   const source = decodeURIComponent(post);
@@ -97,7 +99,11 @@ export default function ImageModal() {
   const { top } = useSafeAreaInsets();
 
   return (
-    <View className="relative flex-1 bg-black">
+    <Animated.View
+      className="relative flex-1 bg-black"
+      entering={FadeIn}
+      // exiting={FadeOut}
+    >
       {/* background is always black, so status bar should always be light */}
       <StatusBar style="light" />
       <TouchableOpacity
@@ -114,8 +120,9 @@ export default function ImageModal() {
           images={images.data}
           onClose={() => router.back()}
           initialIndex={Number(initial) || 0}
+          postKey={key ?? ""}
         />
       )}
-    </View>
+    </Animated.View>
   );
 }
