@@ -1,3 +1,4 @@
+import { ProfileFeeds } from "../../../../components/screens/profile/profile-feeds";
 import { useAuthedAgent } from "../../../../lib/agent";
 
 export default function FeedsTab() {
@@ -5,5 +6,5 @@ export default function FeedsTab() {
 
   if (!agent.session) return null;
 
-  return <ProfileFeed mode="feeds" handle={agent.session.handle} />;
+  return <ProfileFeeds handle={agent.session.handle} />;
 }

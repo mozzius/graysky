@@ -1,3 +1,4 @@
+import { ProfilePosts } from "../../../../components/screens/profile/profile-posts";
 import { useAuthedAgent } from "../../../../lib/agent";
 
 export default function LikesTab() {
@@ -5,5 +6,5 @@ export default function LikesTab() {
 
   if (!agent.session) return null;
 
-  return <ProfileFeed mode="likes" handle={agent.session.handle} />;
+  return <ProfilePosts mode="likes" handle={agent.session.handle} />;
 }

@@ -1,3 +1,4 @@
+import { ProfilePosts } from "../../../../components/screens/profile/profile-posts";
 import { useAuthedAgent } from "../../../../lib/agent";
 
 export default function MediaTab() {
@@ -5,5 +6,5 @@ export default function MediaTab() {
 
   if (!agent.session) return null;
 
-  return <ProfileFeed mode="media" handle={agent.session.handle} />;
+  return <ProfilePosts mode="media" handle={agent.session.handle} />;
 }

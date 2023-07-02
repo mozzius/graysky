@@ -46,7 +46,7 @@ export const useProfilePosts = (
   handle?: string,
 ) => {
   const agent = useAuthedAgent();
-  const { contentFilter } = useContentFilter();
+  const { preferences, contentFilter } = useContentFilter();
   const detect = api.translate.detect.useMutation();
 
   const actor = handle ?? agent.session.did;
@@ -157,5 +157,5 @@ export const useProfilePosts = (
       .flat();
   }, [timeline, mode, contentFilter]);
 
-  return { timeline, timelineData };
+  return { preferences, timeline, timelineData };
 };
