@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { FlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
@@ -18,17 +19,33 @@ import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
 
+// vendored react-merge-refs due to import issues
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mergeRefs<T = any>(
+  refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>,
+): React.RefCallback<T> {
+  return (value) => {
+    refs.forEach((ref) => {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref != null) {
+        (ref as React.MutableRefObject<T | null>).current = value;
+      }
+    });
+  };
+}
+
 interface Props {
   handle: string;
   mode: "posts" | "replies" | "likes" | "media";
 }
 
 export const ProfilePosts = ({ handle, mode }: Props) => {
-  const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
   const queryClient = useQueryClient();
+  const { ref: scrollRef, onScroll: _, ...props } = useScrollProps();
 
   const { preferences, timeline, timelineData } = useProfilePosts(mode, handle);
 
@@ -82,7 +99,8 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     } else {
       return (
         <FlashList<(typeof timelineData)[number]>
-          ref={ref}
+          {...props}
+          ref={mergeRefs([ref, scrollRef])}
           data={timelineData}
           renderItem={({ item, index }) => (
             <FeedPost
@@ -94,7 +112,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
               index={index}
             />
           )}
-          stickyHeaderIndices={atTop ? [] : [0]}
           onEndReachedThreshold={0.6}
           onEndReached={() => void timeline.fetchNextPage()}
           refreshControl={
@@ -105,11 +122,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             />
           }
           estimatedItemSize={91}
-          onScroll={(evt) => {
-            onScroll(evt);
-            const { contentOffset } = evt.nativeEvent;
-            setAtTop(contentOffset.y <= 30);
-          }}
+          onScroll={onScroll}
           ListFooterComponent={
             timeline.isFetching ? (
               <View className="w-full items-center py-8">
