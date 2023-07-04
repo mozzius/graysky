@@ -2,6 +2,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { TopTabs } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
 
+import { ComposeButton } from "../../../../../../components/compose-button";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import {
   useProfile,
@@ -20,11 +21,6 @@ export default function ProfileLayout() {
   if (profile.data) {
     return (
       <>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-          }}
-        />
         <TopTabs
           screenOptions={{
             tabBarScrollEnabled: true,
@@ -57,7 +53,7 @@ export default function ProfileLayout() {
             <ProfileInfo profile={profile.data} />
           </TopTabs.Header>
           <TopTabs.Screen
-            name="index"
+            name="posts"
             options={{
               title: "Posts",
             }}
@@ -88,9 +84,19 @@ export default function ProfileLayout() {
             }}
           />
         </TopTabs>
+        <ComposeButton />
       </>
     );
   }
 
-  return <QueryWithoutData query={profile} />;
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerTitle: "",
+        }}
+      />
+      <QueryWithoutData query={profile} />
+    </>
+  );
 }

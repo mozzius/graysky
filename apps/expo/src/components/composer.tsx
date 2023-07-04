@@ -413,6 +413,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
               selectionLimit: MAX_IMAGES - images.length,
               exif: false,
               quality: 0.7,
+              orderedSelection: true,
             }).then((result) => {
               if (!result.canceled) {
                 setImages((prev) => [...prev, ...result.assets]);
