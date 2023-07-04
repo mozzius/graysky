@@ -12,15 +12,24 @@ pnpm install
 
 > Weird side step - you need to go to `apps/expo/app.config.ts` and delete the `extra` field which has an expo project id in it. Sorry, I'll fix this later.
 
+Build the dev client using EAS:
+
+```bash
+eas build --platform ios --profile development-simulator --non-intera
+ctive --local --output="./graysky.zip"
+```
+
+Unzip the file, then install `Graysky.app` to your simulator.
+
+```bash
+eas build:run --path=Graysky.app
+```
+
 You can then start the expo server with:
 
 ```bash
-pnpm dev:expo
+pnpm dev
 ```
-
-(Note: this is just a shortcut for `expo start`)
-
-Then just scan the QR code!
 
 ## Roadmap to Feature Parity
 
