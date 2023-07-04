@@ -41,11 +41,6 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
         cursor: pageParam as string | undefined,
       });
       if (!notifs.success) throw new Error("Failed to fetch notifications");
-      // refetch the post queries so they update
-      void queryClient.invalidateQueries({
-        queryKey: ["notifications", "post"],
-        exact: false,
-      });
 
       const grouped: NotificationGroup[] = [];
       const subjects = new Set<string>();
@@ -155,7 +150,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       );
     }, 3000);
     return () => clearTimeout(timeout);
-  }, [agent, hasData, notifications.dataUpdatedAt]);
+  }, [queryClient, agent, hasData, notifications.dataUpdatedAt]);
 
   useRefreshOnFocus(notifications.refetch);
 
@@ -170,7 +165,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
               queryKey: ["notifications", "unread"],
             }),
           ),
-      [agent, notifications],
+      [queryClient, agent, notifications],
     ),
   );
 
@@ -180,7 +175,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       void Haptics.impactAsync();
       await notifications.refetch();
       setNonScrollRefreshing(false);
-    }, []),
+    }, [notifications]),
   );
 
   const data = useMemo(() => {
