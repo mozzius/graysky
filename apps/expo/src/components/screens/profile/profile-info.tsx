@@ -75,8 +75,13 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const theme = useTheme();
 
   return (
-    <View className="relative" pointerEvents="none">
-      <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
+    <View className="relative" pointerEvents="box-none">
+      <Image
+        source={{ uri: profile.banner }}
+        className="h-32 w-full"
+        alt=""
+        pointerEvents="none"
+      />
       {backButton && (
         <TouchableOpacity
           accessibilityLabel="Back"
@@ -90,8 +95,12 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       <View
         style={{ backgroundColor: theme.colors.card }}
         className="relative px-4 pb-1"
+        pointerEvents="box-none"
       >
-        <View className="h-10 flex-row items-center justify-end">
+        <View
+          className="h-10 flex-row items-center justify-end"
+          pointerEvents="box-none"
+        >
           <Link asChild href={`/images/${profile.did}`}>
             <TouchableOpacity
               className={cx(
@@ -115,7 +124,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             </TouchableOpacity>
           </Link>
           {agent.session?.handle !== profile.handle ? (
-            <View className="flex-row justify-end" pointerEvents="auto">
+            <View className="flex-row justify-end" pointerEvents="box-none">
               <TouchableOpacity
                 disabled={toggleFollow.isLoading}
                 onPress={() => toggleFollow.mutate()}
@@ -269,27 +278,29 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             </TouchableOpacity>
           )}
         </View>
-        <Text
-          style={{ color: theme.colors.text }}
-          className="mt-1 text-2xl font-medium"
-        >
-          {profile.displayName}
-        </Text>
-        <Text>
-          {profile.viewer?.followedBy && (
-            <>
-              <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
-                <Text style={{ color: theme.colors.text }}>
-                  {" Follows you "}
-                </Text>
-              </Text>{" "}
-            </>
-          )}
-          <Text className="text-neutral-500 dark:text-neutral-400">
-            @{profile.handle}
+        <View pointerEvents="none">
+          <Text
+            style={{ color: theme.colors.text }}
+            className="mt-1 text-2xl font-medium"
+          >
+            {profile.displayName}
           </Text>
-        </Text>
-        <View className="mt-3 flex-row">
+          <Text>
+            {profile.viewer?.followedBy && (
+              <>
+                <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
+                  <Text style={{ color: theme.colors.text }}>
+                    {" Follows you "}
+                  </Text>
+                </Text>{" "}
+              </>
+            )}
+            <Text className="text-neutral-500 dark:text-neutral-400">
+              @{profile.handle}
+            </Text>
+          </Text>
+        </View>
+        <View className="mt-3 flex-row" pointerEvents="box-none">
           <TouchableOpacity onPress={() => openFollowers(profile.did)}>
             <Text style={{ color: theme.colors.text }}>
               <Text className="font-bold">{profile.followersCount}</Text>{" "}
@@ -302,12 +313,14 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               Following
             </Text>
           </TouchableOpacity>
-          <Text style={{ color: theme.colors.text }} className="ml-4">
-            <Text className="font-bold">{profile.postsCount ?? 0}</Text> Posts
-          </Text>
+          <View pointerEvents="none">
+            <Text style={{ color: theme.colors.text }} className="ml-4">
+              <Text className="font-bold">{profile.postsCount ?? 0}</Text> Posts
+            </Text>
+          </View>
         </View>
         {profile.description && (
-          <View className="mt-3">
+          <View className="mt-3" pointerEvents="box-none">
             <RichTextWithoutFacets text={profile.description} />
           </View>
         )}

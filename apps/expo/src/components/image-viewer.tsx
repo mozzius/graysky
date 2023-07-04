@@ -74,10 +74,6 @@ const ImageWithFallback = ({
       }
     | undefined = queryClient.getQueryData(["image", item.fullsize, "size"]);
 
-  if (!size) {
-    console.error("Image size not found in cache", item.fullsize);
-  }
-
   return (
     <>
       <AnimatedImage
@@ -91,7 +87,7 @@ const ImageWithFallback = ({
             ? {
                 aspectRatio: size.width / size.height,
               }
-            : undefined
+            : { width: "100%" }
         }
         onLoad={({ source: { width, height } }) =>
           setImageDimensions({

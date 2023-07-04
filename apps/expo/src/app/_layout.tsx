@@ -103,6 +103,8 @@ const App = () => {
 
   const did = session?.did;
 
+  console.log(segments);
+
   // invalidate all queries when the session changes
   useEffect(() => {
     void queryClient.invalidateQueries();

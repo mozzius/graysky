@@ -10,6 +10,7 @@ import { LogOut, Palette, Settings2, Star, Ticket } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "../app/codes/_layout";
+import { useAuthedAgent } from "../lib/agent";
 import { useLogOut } from "../lib/log-out-context";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";
@@ -29,6 +30,7 @@ export const DrawerContent = () => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
+  const agent = useAuthedAgent();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
@@ -101,21 +103,23 @@ export const DrawerContent = () => {
             Change theme
           </Text>
         </TouchableOpacity>
-        <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
-          <TouchableOpacity
-            accessibilityRole="link"
-            accessibilityLabel="Pro version"
-            className="mt-2 w-full flex-row items-center py-2"
-          >
-            <Star style={{ color: theme.colors.text }} />
-            <Text
-              style={{ color: theme.colors.text }}
-              className="ml-6 text-base font-medium"
+        {agent?.session?.handle === "mozzius.dev" && (
+          <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
+            <TouchableOpacity
+              accessibilityRole="link"
+              accessibilityLabel="Pro version"
+              className="mt-2 w-full flex-row items-center py-2"
             >
-              Graysky Pro
-            </Text>
-          </TouchableOpacity>
-        </Link>
+              <Star style={{ color: theme.colors.text }} />
+              <Text
+                style={{ color: theme.colors.text }}
+                className="ml-6 text-base font-medium"
+              >
+                Graysky Pro
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        )}
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
