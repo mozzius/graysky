@@ -7,15 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  useCurrentTabScrollY,
-  useHeaderMeasurements,
-} from "react-native-collapsible-tab-view";
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import {
@@ -82,35 +74,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   const theme = useTheme();
 
-  const { top, height } = useHeaderMeasurements();
-  const scrollY = useCurrentTabScrollY();
-
-  const scrollYText = useDerivedValue(
-    () => `Scroll Y is: ${scrollY.value.toFixed(2)}`,
-  );
-
-  const stylez = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: interpolate(
-            top.value,
-            [0, -(height.value || 0 - 30)],
-            [0, (height.value || 0 - 30) / 2],
-          ),
-        },
-      ],
-    };
-  });
-
   return (
-    <View style={[styles.root]}>
-      <Animated.View style={[styles.container, stylez]}></Animated.View>
-    </View>
-  );
-
-  return (
-    <View className="relative" pointerEvents="box-none">
+    <View className="relative" pointerEvents="none">
       <Image source={{ uri: profile.banner }} className="h-32 w-full" alt="" />
       {backButton && (
         <TouchableOpacity
@@ -188,7 +153,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
                 onPress={() => {
                   const options = [
-                    "Share",
+                    "Share Profile",
                     "Mute Account",
                     "Block Account",
                     "Report Account",
@@ -204,7 +169,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       if (index === undefined) return;
                       const option = options[index];
                       switch (option) {
-                        case "Share":
+                        case "Share Profile":
                           void Share.share({
                             message: `https://bsky.app/profile/${profile.handle}`,
                           });
@@ -273,7 +238,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             <TouchableOpacity
               className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
               onPress={() => {
-                const options = ["Edit Profile", "Share", "Cancel"];
+                const options = ["Edit Profile", "Share Profile", "Cancel"];
                 showActionSheetWithOptions(
                   {
                     options,
@@ -287,7 +252,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       case "Edit Profile":
                         router.push("/settings/account/edit-bio");
                         break;
-                      case "Share":
+                      case "Share Profile":
                         void Share.share({
                           message: `https://bsky.app/profile/${profile.handle}`,
                         });
@@ -372,25 +337,3 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: "#2196f3",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-    height: 250,
-  },
-  container: {
-    height: MIN_HEADER_HEIGHT,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-  text: {
-    position: "absolute",
-    color: "white",
-    fontSize: 24,
-    textAlign: "center",
-  },
-});

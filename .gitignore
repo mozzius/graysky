@@ -50,3 +50,5 @@ yarn-error.log*
 *.jks
 
 Graysky.app
+
+*.zip

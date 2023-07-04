@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { useScrollProps } from "@bacons/expo-router-top-tabs";
-import { FlashList } from "@shopify/flash-list";
+import { AnimatedFlashList, type FlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
 
@@ -45,7 +45,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<FlashList<any>>(null);
   const queryClient = useQueryClient();
-  const { ref: scrollRef, onScroll: _, ...props } = useScrollProps();
+  const { ref: scrollRef, ...props } = useScrollProps();
 
   const { preferences, timeline, timelineData } = useProfilePosts(mode, handle);
 
@@ -98,7 +98,8 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
       );
     } else {
       return (
-        <FlashList<(typeof timelineData)[number]>
+        <AnimatedFlashList
+          onScroll={onScroll}
           {...props}
           ref={mergeRefs([ref, scrollRef])}
           data={timelineData}
@@ -106,7 +107,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             <FeedPost
               {...item}
               // TODO: investigate & fix error with isReply logic below
-              isReply={mode === "replies" && timelineData[index]?.hasReply}
+              isReply={mode === "replies" && timelineData[index - 1]?.hasReply}
               inlineParent={mode !== "replies"}
               dataUpdatedAt={timeline.dataUpdatedAt}
               index={index}
@@ -122,7 +123,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             />
           }
           estimatedItemSize={91}
-          onScroll={onScroll}
           ListFooterComponent={
             timeline.isFetching ? (
               <View className="w-full items-center py-8">

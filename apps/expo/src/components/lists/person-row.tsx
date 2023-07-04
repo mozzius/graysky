@@ -1,7 +1,7 @@
 import { Text, TouchableHighlight, View } from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { AppBskyActorDefs } from "@atproto/api";
+import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
 
@@ -34,11 +34,16 @@ export const PersonRow = ({
         style={{ backgroundColor: backgroundColor ?? theme.colors.card }}
         className="flex-row items-center px-4 py-2"
       >
-        <Image
-          source={{ uri: person.avatar }}
-          className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
-          alt={person.displayName}
-        />
+        <View className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800">
+          {person.avatar && (
+            <Image
+              recyclingKey={person.avatar}
+              source={{ uri: person.avatar }}
+              className="h-10 w-10 rounded-full"
+              alt={person.displayName}
+            />
+          )}
+        </View>
         <View className="flex-1">
           {person.displayName && (
             <Text

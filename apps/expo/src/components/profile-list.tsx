@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { AppBskyActorDefs } from "@atproto/api";
+import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 
@@ -29,6 +29,7 @@ export const ProfileList = ({
           backgroundColor={theme.colors.card}
         />
       )}
+      ListFooterComponent={<View className="h-20" />}
       ListEmptyComponent={() => (
         <View className="py-12">
           <Text

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useSegments } from "expo-router";
