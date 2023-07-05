@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Constants from "expo-constants";
 import {
   SplashScreen,
   Stack,
@@ -22,6 +23,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
+import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
@@ -34,6 +36,12 @@ import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
+
+Sentry.init({
+  dsn: Constants.expoConfig?.extra?.sentry as string,
+  enableInExpoDevelopment: true,
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+});
 
 configureRevenueCat();
 
@@ -102,8 +110,6 @@ const App = () => {
   }, [agent]);
 
   const did = session?.did;
-
-  console.log(segments);
 
   // invalidate all queries when the session changes
   useEffect(() => {

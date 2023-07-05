@@ -4,7 +4,8 @@ import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { produce } from "immer";
+// @ts-expect-error metro bull****
+import { produce } from "immer/dist/cjs";
 import { Ban, MegaphoneOff } from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";

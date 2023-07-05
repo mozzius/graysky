@@ -5,5 +5,5 @@
     "types": ["nativewind/types", "webpack-env"]
   },
   "include": ["expo-plugins", "src", "*.ts", "**/*.js", "index.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "metro.config.js"]
 }

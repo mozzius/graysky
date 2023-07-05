@@ -1,7 +1,6 @@
 import { Fragment, useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -34,7 +33,7 @@ export default function DiscoveryPage() {
   });
 
   const recommended = useQuery({
-    queryKey: ["feeds", "recommended"],
+    queryKey: ["feeds", "discover"],
     queryFn: async () => {
       const popular = await agent.app.bsky.unspecced.getPopularFeedGenerators();
       if (!popular.success) throw new Error("Failed to fetch popular feeds");
@@ -53,8 +52,6 @@ export default function DiscoveryPage() {
 
     return results.map((result) => result.obj);
   }, [recommended.data, search]);
-
-  const router = useRouter();
 
   if (recommended.data) {
     return (

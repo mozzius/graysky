@@ -11,7 +11,8 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { produce } from "immer";
+// @ts-expect-error metro bull****
+import { produce } from "immer/dist/cjs";
 
 import { useAuthedAgent } from "../agent";
 import { useContentFilter } from "./preferences";

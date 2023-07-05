@@ -52,11 +52,13 @@ const defineConfig = (): ExpoConfig => ({
     revenueCat: {
       ios: process.env.REVENUECAT_API_KEY_IOS,
     },
+    sentry: process.env.SENTRY_DSN,
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
     "expo-build-properties",
     "expo-localization",
+    "sentry-expo",
     "expo-router",
   ],
 });
