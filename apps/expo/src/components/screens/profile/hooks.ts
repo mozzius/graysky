@@ -4,8 +4,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAuthedAgent } from "../../../lib/agent";
 import { useContentFilter } from "../../../lib/hooks/preferences";
-import { api } from "../../../lib/utils/api";
-import { addDetectedLanguages } from "../../../lib/utils/detect-languages";
 
 export const useProfile = (handle?: string) => {
   const agent = useAuthedAgent();
@@ -47,7 +45,6 @@ export const useProfilePosts = (
 ) => {
   const agent = useAuthedAgent();
   const { preferences, contentFilter } = useContentFilter();
-  const detect = api.translate.detect.useMutation();
 
   const actor = handle ?? agent.session.did;
 
@@ -109,14 +106,14 @@ export const useProfilePosts = (
           break;
       }
 
-      return addDetectedLanguages(posts, cursor, detect);
+      return { posts, cursor };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   const timelineData = useMemo(() => {
     if (!timeline.data) return [];
-    const flat = timeline.data.pages.flatMap((page) => page.feed);
+    const flat = timeline.data.pages.flatMap((page) => page.posts);
     return flat
       .map((item) => {
         const filter = contentFilter(item.post.labels);

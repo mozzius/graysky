@@ -12,7 +12,7 @@ const defineConfig = (): ExpoConfig => ({
   version: "0.0.6",
   owner: "mozzius",
   orientation: "portrait",
-  icon: "./assets/icon.jpg",
+  icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/graysky.png",
@@ -41,7 +41,7 @@ const defineConfig = (): ExpoConfig => ({
     package: "dev.mozzius.graysky",
     softwareKeyboardLayoutMode: "pan",
     adaptiveIcon: {
-      foregroundImage: "./assets/icon.jpg",
+      foregroundImage: "./assets/icon.png",
       backgroundColor: "#888888",
     },
   },
