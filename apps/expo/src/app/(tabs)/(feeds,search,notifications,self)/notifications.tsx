@@ -8,7 +8,6 @@ import {
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ComposeButton } from "../../../components/compose-button";
 import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
@@ -236,12 +235,9 @@ export default function Page() {
 
   if (appPrefs.data) {
     return (
-      <>
-        <NotificationsPage
-          groupNotifications={appPrefs.data.groupNotifications}
-        />
-        <ComposeButton />
-      </>
+      <NotificationsPage
+        groupNotifications={appPrefs.data.groupNotifications}
+      />
     );
   }
 

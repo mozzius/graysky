@@ -16,7 +16,6 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, ChevronRight, Heart, Plus, Star, X } from "lucide-react-native";
 
-import { ComposeButton } from "../../../../../../components/compose-button";
 import { FeedRow } from "../../../../../../components/feed-row";
 import { ItemSeparator } from "../../../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
@@ -33,7 +32,7 @@ import {
 } from "../../../../../../lib/hooks/feeds";
 import { cx } from "../../../../../../lib/utils/cx";
 
-const Feed = () => {
+export default function FeedsPage() {
   const [open, setOpen] = useState(false);
   const { handle, generator } = useLocalSearchParams() as {
     handle: string;
@@ -96,7 +95,7 @@ const Feed = () => {
       />
     </Drawer>
   );
-};
+}
 
 const FeedInfo = ({
   feed,
@@ -409,12 +408,3 @@ const FeedInfo = ({
 
   return <QueryWithoutData query={savedFeeds} />;
 };
-
-export default function FeedPage() {
-  return (
-    <>
-      <Feed />
-      <ComposeButton />
-    </>
-  );
-}

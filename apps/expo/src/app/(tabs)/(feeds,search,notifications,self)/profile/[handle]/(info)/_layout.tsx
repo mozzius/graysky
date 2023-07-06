@@ -4,7 +4,6 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { TopTabs } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
 
-import { ComposeButton } from "../../../../../../components/compose-button";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import {
   useProfile,
@@ -74,7 +73,6 @@ export default function ProfileLayout() {
             }}
           />
         </TopTabs>
-        <ComposeButton />
       </>
     );
   }

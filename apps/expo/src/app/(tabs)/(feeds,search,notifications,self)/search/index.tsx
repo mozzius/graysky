@@ -18,7 +18,6 @@ import {
 } from "@tanstack/react-query";
 import { Search } from "lucide-react-native";
 
-import { ComposeButton } from "../../../../components/compose-button";
 import { GroupedList } from "../../../../components/grouped-list";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
@@ -51,7 +50,6 @@ export default function SearchPage() {
       ) : (
         <Suggestions />
       )}
-      <ComposeButton />
     </>
   );
 }

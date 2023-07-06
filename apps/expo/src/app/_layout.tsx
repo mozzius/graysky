@@ -230,6 +230,13 @@ const App = () => {
                       presentation: "modal",
                     }}
                   />
+                  <Stack.Screen
+                    name="composer"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
+                    }}
+                  />
                 </Stack>
               </ListProvider>
             </ActionSheetProvider>

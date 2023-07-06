@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { Stack, Tabs, useSegments } from "expo-router";
+import { Stack, Tabs, useRouter, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Cloudy, Search, User } from "lucide-react-native";
+import { Bell, Cloudy, PenBox, Search, User } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import { z } from "zod";
 
@@ -44,8 +44,10 @@ export default function AppLayout() {
   }, [setColorScheme]);
 
   const openDrawer = useCallback((open = true) => setOpen(open), []);
+
   const theme = useTheme();
   const segments = useSegments();
+  const router = useRouter();
 
   return (
     <DrawerProvider value={openDrawer}>
@@ -71,6 +73,15 @@ export default function AppLayout() {
         swipeEnabled={Platform.OS === "ios" ? segments.length === 3 : true}
       >
         <Tabs
+          screenListeners={{
+            tabPress: (evt) => {
+              console.log("tabPress", evt);
+              if (evt.target?.startsWith("null")) {
+                evt.preventDefault();
+                router.push("/composer");
+              }
+            },
+          }}
           screenOptions={{
             headerShown: false,
             // Would be nice - need to fix composer
@@ -95,6 +106,15 @@ export default function AppLayout() {
               title: "Search",
               tabBarIcon({ color }) {
                 return <Search color={color} />;
+              },
+            }}
+          />
+          <Tabs.Screen
+            name="null"
+            options={{
+              title: "Post",
+              tabBarIcon({ color }) {
+                return <PenBox color={color} />;
               },
             }}
           />
