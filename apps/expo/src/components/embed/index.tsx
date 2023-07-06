@@ -250,7 +250,7 @@ export const PostEmbed = ({
   const theme = useTheme();
   const profileHref = `/profile/${author.handle}`;
 
-  const postHref = `/${profileHref}/post/${uri.split("/").pop()}`;
+  const postHref = `${profileHref}/post/${uri.split("/").pop()}`;
 
   return (
     <Link href={postHref} asChild>

@@ -110,7 +110,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ borderColor: theme.colors.card }}
             >
               <AnimatedImage
-                sharedTransitionTag={profile.avatar}
+                // sharedTransitionTag={profile.avatar}
                 source={{ uri: profile.avatar }}
                 className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""

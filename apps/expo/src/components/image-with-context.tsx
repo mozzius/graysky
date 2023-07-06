@@ -179,7 +179,7 @@ export const ImageWithContext = ({
       }}
     >
       <AnimatedImage
-        sharedTransitionTag={image.fullsize + String(postKey ?? "")}
+        // sharedTransitionTag={image.fullsize + String(postKey ?? "")}
         source={{ uri: image.thumb }}
         alt={image.alt}
         recyclingKey={image.thumb}

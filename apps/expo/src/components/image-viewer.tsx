@@ -77,7 +77,7 @@ const ImageWithFallback = ({
   return (
     <>
       <AnimatedImage
-        sharedTransitionTag={item.fullsize + postKey}
+        // sharedTransitionTag={item.fullsize + postKey}
         // placeholder={item.thumb}
         // source={item.fullsize}
         source={item.thumb}
