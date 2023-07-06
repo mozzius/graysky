@@ -75,7 +75,6 @@ export default function AppLayout() {
         <Tabs
           screenListeners={{
             tabPress: (evt) => {
-              console.log("tabPress", evt);
               if (evt.target?.startsWith("null")) {
                 evt.preventDefault();
                 router.push("/composer");
