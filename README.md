@@ -11,6 +11,7 @@ pnpm install
 ```
 
 > Weird side step - you need to go to `apps/expo/app.config.ts` and delete the `extra` field which has an expo project id in it. Sorry, I'll fix this later.
+> You may also need to delete Sentry, or else provide your own key
 
 Build the dev client using EAS:
 
