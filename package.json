@@ -1,5 +1,5 @@
 {
-  "name": "create-t3-turbo",
+  "name": "graysky",
   "private": true,
   "engines": {
     "node": ">=v18.16.0"
@@ -13,8 +13,8 @@
     "db:push": "turbo db:push db:generate",
     "db:studio": "turbo db:studio",
     "dev:both": "turbo dev --parallel",
-    "dev": "cd apps/expo && pnpm dev",
-    "dev:expo": "cd apps/expo && pnpm dev:expo",
+    "dev": "pnpm dev:expo",
+    "dev:expo": "cd apps/expo && pnpm dev",
     "dev:next": "cd apps/nextjs && pnpm dev",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "turbo lint && manypkg check",
@@ -25,15 +25,20 @@
   "dependencies": {
     "@graysky/eslint-config": "^0.1.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
-    "@manypkg/cli": "^0.20.0",
+    "@manypkg/cli": "^0.21.0",
     "@types/prettier": "^2.7.3",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "turbo": "^1.10.2",
-    "typescript": "^4.9.4"
+    "turbo": "^1.10.6",
+    "typescript": "^5.1.6"
   },
   "overrides": {
     "@tanstack/react-query": "^4.29.12"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch"
+    }
   }
 }

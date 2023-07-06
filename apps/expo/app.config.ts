@@ -1,16 +1,21 @@
 import type { ExpoConfig } from "@expo/config";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: "../../.env",
+});
 
 const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
-  version: "0.0.6",
+  version: "0.0.7",
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
   splash: {
-    image: "./assets/icon.png",
+    image: "./assets/graysky.png",
     resizeMode: "cover",
     backgroundColor: "#888888",
   },
@@ -29,7 +34,7 @@ const defineConfig = (): ExpoConfig => ({
       usesNonExemptEncryption: false,
     },
     infoPlist: {
-      UIViewControllerBasedStatusBarAppearance: true,
+      UIViewControllerBasedStatusBarAppearance: false,
     },
   },
   android: {
@@ -44,8 +49,18 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
     },
+    revenueCat: {
+      ios: process.env.REVENUECAT_API_KEY_IOS,
+    },
+    sentry: process.env.SENTRY_DSN,
   },
-  plugins: ["./expo-plugins/with-modify-gradle.js", "expo-build-properties"],
+  plugins: [
+    "./expo-plugins/with-modify-gradle.js",
+    "expo-build-properties",
+    "expo-localization",
+    "sentry-expo",
+    "expo-router",
+  ],
 });
 
 export default defineConfig;

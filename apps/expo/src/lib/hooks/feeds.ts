@@ -11,11 +11,10 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { produce } from "immer";
+// @ts-expect-error metro bull****
+import { produce } from "immer/dist/cjs";
 
 import { useAuthedAgent } from "../agent";
-import { api } from "../utils/api";
-import { addDetectedLanguages } from "../utils/detect-languages";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
@@ -68,6 +67,7 @@ export const useFeedInfo = (feed: string) => {
       if (feed === "following") {
         return {
           view: {
+            did: "",
             displayName: "Following",
             uri: "",
             cid: "",
@@ -168,19 +168,9 @@ export const useReorderFeeds = (
   return { pinned, reorder };
 };
 
-declare module "@atproto/api" {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace AppBskyFeedDefs {
-    interface PostView {
-      language?: string;
-    }
-  }
-}
-
 export const useTimeline = (feed: string) => {
   const agent = useAuthedAgent();
   const { contentFilter, preferences } = useContentFilter();
-  const detect = api.translate.detect.useMutation();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],
@@ -201,14 +191,14 @@ export const useTimeline = (feed: string) => {
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       }
-      return addDetectedLanguages(posts, cursor, detect);
+      return { posts, cursor };
     },
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   const data = useMemo(() => {
     if (!timeline.data) return [];
-    const flattened = timeline.data.pages.flatMap((page) => page.feed);
+    const flattened = timeline.data.pages.flatMap((page) => page.posts);
     return flattened
       .map((item) => {
         const filter = contentFilter(item.post.labels);

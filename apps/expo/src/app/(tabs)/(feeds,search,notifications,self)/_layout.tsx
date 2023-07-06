@@ -137,6 +137,7 @@ export default function SubStack({
               name="self"
               options={{
                 headerShown: false,
+                headerBackTitle: "Profile",
               }}
             />
           </Stack>

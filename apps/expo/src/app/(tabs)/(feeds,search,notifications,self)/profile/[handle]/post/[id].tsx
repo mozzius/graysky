@@ -15,7 +15,6 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
-import { produce } from "immer";
 
 import { Avatar } from "../../../../../../components/avatar";
 import { useComposer } from "../../../../../../components/composer";
@@ -28,7 +27,6 @@ import {
   useContentFilter,
   type FilterResult,
 } from "../../../../../../lib/hooks/preferences";
-import { api } from "../../../../../../lib/utils/api";
 import { assert } from "../../../../../../lib/utils/assert";
 import { useUserRefresh } from "../../../../../../lib/utils/query";
 
@@ -52,7 +50,6 @@ const PostThread = ({ contentFilter }: Props) => {
 
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<Posts>>(null);
-  const detect = api.translate.detect.useMutation();
   const theme = useTheme();
 
   const thread = useQuery({
@@ -171,22 +168,10 @@ const PostThread = ({ contentFilter }: Props) => {
           }
         }
 
-        const languages = await detect.mutateAsync(toBeDetected);
-
         return {
-          posts: posts.map((post) =>
-            produce(post, (draft) => {
-              if (languages[draft.post.uri]) {
-                draft.post.language = languages[draft.post.uri];
-              }
-            }),
-          ),
+          posts,
           index,
-          main: produce(thread.post, (draft) => {
-            if (languages[draft.uri]) {
-              draft.language = languages[draft.uri];
-            }
-          }),
+          main: thread.post,
         };
       } catch (err) {
         console.error(err);
@@ -235,6 +220,7 @@ const PostThread = ({ contentFilter }: Props) => {
                 hasReply={item.hasReply}
                 isReply={thread.data.posts[index - 1]?.hasReply}
                 dataUpdatedAt={thread.dataUpdatedAt}
+                index={index}
               />
             )
           }

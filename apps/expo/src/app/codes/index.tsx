@@ -1,5 +1,4 @@
 import { Text, View } from "react-native";
-import { set } from "react-native-reanimated";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -35,7 +34,7 @@ export default function InviteCodesScreen() {
                       style={{ color: theme.colors.text }}
                       className="text-center text-base"
                     >
-                      You don't have any codes at the moment {":("}
+                      You don{"'"}t have any codes at the moment {":("}
                     </Text>
                   </View>
                 ) : (

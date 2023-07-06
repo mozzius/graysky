@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Platform, Text, TouchableOpacity } from "react-native";
-import { HoldMenuProvider } from "react-native-hold-menu";
-import { type HoldMenuProviderProps } from "react-native-hold-menu/lib/typescript/components/provider";
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { Alert, Text, TouchableOpacity } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Constants from "expo-constants";
 import {
   SplashScreen,
   Stack,
@@ -27,13 +23,29 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
+import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
+// import {
+//   configureRevenueCat,
+//   CustomerInfoProvider,
+//   useCustomerInfoQuery,
+// } from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
+
+Sentry.init({
+  dsn: Constants.expoConfig?.extra?.sentry as string,
+  enableInExpoDevelopment: true,
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+});
+
+// configureRevenueCat();
+
+SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   const segments = useSegments();
@@ -44,10 +56,12 @@ const App = () => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
+  // const info = useCustomerInfoQuery();
+
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
     return new BskyAgent({
-      service: "https://bsky.social/",
+      service: "https://bsky.social",
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
         // store the session-data for reuse
         switch (evt) {
@@ -100,7 +114,7 @@ const App = () => {
   // invalidate all queries when the session changes
   useEffect(() => {
     void queryClient.invalidateQueries();
-  }, [did]);
+  }, [did, queryClient]);
 
   // redirect depending on login state
   useEffect(() => {
@@ -116,8 +130,11 @@ const App = () => {
       !atRoot
     ) {
       // Redirect to the sign-in page.
+      if (segments.join("/") === "(auth)/login") return;
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
+      console.log("redirecting to feeds from:", segments);
+      if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       router.replace("/feeds");
     }
   }, [did, segments, router, loading]);
@@ -131,93 +148,95 @@ const App = () => {
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
-  const safeAreaInsets = useSafeAreaInsets();
 
-  // disable hold menu provider on Android
-  const HoldProvider =
-    Platform.OS === "ios"
-      ? HoldMenuProvider
-      : ({ children }: HoldMenuProviderProps) => <>{children}</>;
+  const isReady = !loading; // && !!info.data;
 
-  if (loading) {
-    return <SplashScreen />;
-  }
+  useEffect(() => {
+    if (isReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [isReady]);
 
   return (
     <ThemeProvider value={theme}>
       <SafeAreaProvider>
+        {/* <CustomerInfoProvider info={info.data}> */}
         <AgentProvider value={agent}>
           <LogOutProvider value={logOut}>
-            <HoldMenuProvider
-              theme={colorScheme}
-              safeAreaInsets={safeAreaInsets}
-            >
-              <ActionSheetProvider>
-                <ListProvider>
-                  <Stack
-                    screenOptions={{
-                      headerShown: true,
-                      fullScreenGestureEnabled: true,
+            <ActionSheetProvider>
+              <ListProvider>
+                <Stack
+                  screenOptions={{
+                    headerShown: true,
+                    fullScreenGestureEnabled: true,
+                  }}
+                >
+                  <Stack.Screen
+                    name="(auth)/login"
+                    options={{ title: "Log in" }}
+                  />
+                  <Stack.Screen
+                    name="settings"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
                     }}
-                  >
-                    <Stack.Screen
-                      name="(auth)/login"
-                      options={{ title: "Log in" }}
-                    />
-                    <Stack.Screen
-                      name="settings"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="codes"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="translate"
-                      options={{
-                        title: "Translate",
-                        presentation: "modal",
-                        headerRight: () => (
-                          <TouchableOpacity
-                            onPress={() => {
-                              if (navigation.canGoBack()) {
-                                router.push("../");
-                              } else {
-                                router.push("/feeds");
-                              }
-                            }}
+                  />
+                  <Stack.Screen
+                    name="codes"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="translate"
+                    options={{
+                      title: "Translate",
+                      presentation: "modal",
+                      headerRight: () => (
+                        <TouchableOpacity
+                          onPress={() => {
+                            if (navigation.canGoBack()) {
+                              router.push("../");
+                            } else {
+                              router.push("/feeds");
+                            }
+                          }}
+                        >
+                          <Text
+                            style={{ color: theme.colors.primary }}
+                            className="text-lg font-medium"
                           >
-                            <Text
-                              style={{ color: theme.colors.primary }}
-                              className="text-lg font-medium"
-                            >
-                              Done
-                            </Text>
-                          </TouchableOpacity>
-                        ),
-                      }}
-                    />
-                    <Stack.Screen
-                      name="images/[post]"
-                      options={{
-                        headerShown: false,
-                        animation: "fade",
-                        fullScreenGestureEnabled: false,
-                        customAnimationOnGesture: true,
-                      }}
-                    />
-                  </Stack>
-                </ListProvider>
-              </ActionSheetProvider>
-            </HoldMenuProvider>
+                            Done
+                          </Text>
+                        </TouchableOpacity>
+                      ),
+                    }}
+                  />
+                  <Stack.Screen
+                    name="images/[post]"
+                    options={{
+                      presentation: "transparentModal",
+                      headerShown: false,
+                      animation: "none",
+                      fullScreenGestureEnabled: false,
+                      customAnimationOnGesture: true,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="pro"
+                    options={{
+                      headerShown: false,
+                      presentation: "modal",
+                    }}
+                  />
+                </Stack>
+              </ListProvider>
+            </ActionSheetProvider>
           </LogOutProvider>
         </AgentProvider>
+        {/* </CustomerInfoProvider> */}
       </SafeAreaProvider>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>

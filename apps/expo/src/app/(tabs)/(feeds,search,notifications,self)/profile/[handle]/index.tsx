@@ -1,9 +1,7 @@
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams } from "expo-router";
 
-import { ProfileScreen } from "../../../../../components/screens/profile-screen";
-
-export default function ProfilePage() {
+export default function ProfileRedirect() {
   const { handle } = useLocalSearchParams() as { handle: string };
 
-  return <ProfileScreen handle={handle} />;
+  return <Redirect href={`/profile/${handle}/posts`} />;
 }

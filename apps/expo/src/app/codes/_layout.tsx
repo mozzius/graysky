@@ -5,9 +5,9 @@ import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { type LucideIcon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../../lib/agent";
+import { useRefreshOnFocus } from "../../lib/utils/query";
 
 export default function SettingsLayout() {
   const theme = useTheme();
@@ -68,17 +68,25 @@ export default function SettingsLayout() {
 export const useInviteCodes = () => {
   const agent = useAuthedAgent();
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["invite-codes"],
     queryFn: async () => {
       const codes = await agent.com.atproto.server.getAccountInviteCodes({
         includeUsed: true,
       });
       if (!codes.success) throw new Error("Could not get invite codes");
+      const all = codes.data.codes.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
       return {
-        used: codes.data.codes.filter((x) => x.uses.length >= x.available),
-        unused: codes.data.codes.filter((x) => x.uses.length < x.available),
+        used: all.filter((x) => x.uses.length >= x.available),
+        unused: all.filter((x) => x.uses.length < x.available),
       };
     },
   });
+
+  useRefreshOnFocus(query.refetch);
+
+  return query;
 };

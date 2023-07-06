@@ -13,10 +13,10 @@ export default function Translate() {
       <StatusBar style="light" />
       <StyledComponent
         component={WebView}
+        className="flex-1"
         source={{
           uri: `https://translate.google.com/?sl=auto&tl=${locale.languageCode}&text=${text}&op=translate`,
         }}
-        style={{ flex: 1 }}
       />
     </>
   );

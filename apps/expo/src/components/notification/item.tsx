@@ -19,7 +19,7 @@ export const NotificationItem = ({
         "flex-row border-b p-2",
         unread
           ? theme.dark
-            ? "border-blue-700 bg-slate-800"
+            ? "border-slate-600 bg-slate-800"
             : "border-blue-200 bg-blue-50"
           : theme.dark
           ? "bg-black"

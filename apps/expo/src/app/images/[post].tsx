@@ -1,8 +1,13 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { AppBskyEmbedImages, AppBskyFeedDefs } from "@atproto/api";
+import {
+  AppBskyEmbedImages,
+  AppBskyEmbedRecordWithMedia,
+  AppBskyFeedDefs,
+} from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react-native";
 
@@ -13,9 +18,10 @@ import { assert } from "../../lib/utils/assert";
 export default function ImageModal() {
   const agent = useAuthedAgent();
   const router = useRouter();
-  const { post, initial } = useLocalSearchParams() as {
+  const { post, initial, key } = useLocalSearchParams() as {
     post: string;
     initial?: string;
+    key?: string;
   };
 
   const source = decodeURIComponent(post);
@@ -50,12 +56,34 @@ export default function ImageModal() {
         }
         assert(AppBskyFeedDefs.validateThreadViewPost(record.data.thread));
 
-        if (!AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
-          throw new Error("Invalid embed");
-        }
-        assert(AppBskyEmbedImages.validateView(record.data.thread.post.embed));
+        if (AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
+          assert(
+            AppBskyEmbedImages.validateView(record.data.thread.post.embed),
+          );
 
-        return record.data.thread.post.embed.images;
+          return record.data.thread.post.embed.images;
+        } else if (
+          AppBskyEmbedRecordWithMedia.isView(record.data.thread.post.embed)
+        ) {
+          assert(
+            AppBskyEmbedRecordWithMedia.validateView(
+              record.data.thread.post.embed,
+            ),
+          );
+
+          if (
+            AppBskyEmbedImages.isView(record.data.thread.post.embed.media.embed)
+          ) {
+            assert(
+              AppBskyEmbedImages.validateView(
+                record.data.thread.post.embed.media.embed,
+              ),
+            );
+
+            return record.data.thread.post.embed.media.embed.images;
+          }
+        }
+        throw new Error("Invalid embed");
       }
     },
     retry: false,
@@ -71,7 +99,11 @@ export default function ImageModal() {
   const { top } = useSafeAreaInsets();
 
   return (
-    <View className="relative flex-1 bg-black">
+    <Animated.View
+      className="relative flex-1 bg-black"
+      entering={FadeIn}
+      // exiting={FadeOut}
+    >
       {/* background is always black, so status bar should always be light */}
       <StatusBar style="light" />
       <TouchableOpacity
@@ -88,8 +120,9 @@ export default function ImageModal() {
           images={images.data}
           onClose={() => router.back()}
           initialIndex={Number(initial) || 0}
+          postKey={key ?? ""}
         />
       )}
-    </View>
+    </Animated.View>
   );
 }

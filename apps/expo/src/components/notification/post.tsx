@@ -12,17 +12,21 @@ import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
 import { NotificationItem } from "./item";
 
+interface Props {
+  item: AppBskyFeedDefs.ThreadViewPost;
+  unread: boolean;
+  inline?: boolean;
+  dataUpdatedAt: number;
+  index: number;
+}
+
 export const PostNotification = ({
   item,
   unread,
   inline,
   dataUpdatedAt,
-}: {
-  item: AppBskyFeedDefs.ThreadViewPost;
-  unread: boolean;
-  inline?: boolean;
-  dataUpdatedAt: number;
-}) => {
+  index,
+}: Props) => {
   const { preferences, contentFilter } = useContentFilter();
 
   if (preferences.data) {
@@ -53,6 +57,7 @@ export const PostNotification = ({
               content={item.post.embed}
               truncate
               depth={1}
+              postIndex={index}
             />
           )}
         </View>
@@ -66,6 +71,7 @@ export const PostNotification = ({
         inlineParent
         unread={unread}
         dataUpdatedAt={dataUpdatedAt}
+        index={index}
       />
     );
   }

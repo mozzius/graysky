@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
-  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -16,27 +15,21 @@ import {
   Heart,
   MessageCircle,
   MessageSquare,
-  MoreHorizontal,
   Repeat,
 } from "lucide-react-native";
 import { z } from "zod";
 
 import { useAuthedAgent } from "../lib/agent";
-import {
-  useHandleRepost,
-  useLike,
-  usePostViewOptions,
-  useRepost,
-} from "../lib/hooks";
+import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { type FilterResult } from "../lib/hooks/preferences";
 import { locale } from "../lib/locale";
 import { assert } from "../lib/utils/assert";
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { cx } from "../lib/utils/cx";
 import { timeSince } from "../lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
+import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
 import { Translation } from "./translation";
 
@@ -48,6 +41,7 @@ interface Props {
   inlineParent?: boolean;
   dataUpdatedAt: number;
   filter: FilterResult;
+  index: number;
 }
 
 export const FeedPost = ({
@@ -58,6 +52,7 @@ export const FeedPost = ({
   inlineParent,
   dataUpdatedAt,
   filter,
+  index,
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -77,7 +72,6 @@ export const FeedPost = ({
     reposted,
     toggleRepost.mutate,
   );
-  const handleMore = usePostViewOptions(item.post);
   const [rerenderer, rerender] = useState(0);
 
   const postAuthorDisplayName = item.post.author.displayName;
@@ -155,21 +149,15 @@ export const FeedPost = ({
         "px-2 pt-2",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b",
-      )}
-      style={{
-        backgroundColor: unread
+        unread
           ? theme.dark
-            ? "rgb(11,20,50)"
-            : "rgb(239,246,255)"
+            ? "border-slate-600 bg-slate-800"
+            : "border-blue-200 bg-blue-50"
           : theme.dark
-          ? "black"
-          : "white",
-        borderBottomColor: unread
-          ? theme.dark
-            ? "rgb(46,67,136)"
-            : "rgb(191,219,254)"
-          : theme.colors.border,
-      }}
+          ? "bg-black"
+          : "bg-white",
+      )}
+      style={unread ? undefined : { borderBottomColor: theme.colors.border }}
     >
       <Reason item={item} />
       <View className="flex-1 flex-row">
@@ -336,6 +324,7 @@ export const FeedPost = ({
                   uri={item.post.uri}
                   content={item.post.embed}
                   key={rerenderer}
+                  postIndex={index}
                 />
               )}
             </>
@@ -418,14 +407,7 @@ export const FeedPost = ({
                 {likeCount}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              accessibilityLabel="More options"
-              accessibilityRole="button"
-              onPress={handleMore}
-              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-            >
-              <MoreHorizontal size={16} color={theme.colors.text} />
-            </TouchableOpacity>
+            <PostContextMenu post={item.post} />
           </View>
         </View>
       </View>

@@ -1,5 +1,4 @@
-import { ComAtprotoServerDefs } from "@atproto/api";
-import { InviteCode } from "@atproto/api/dist/client/types/com/atproto/server/defs";
+import { type ComAtprotoServerDefs } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "../../components/profile-list";
@@ -20,7 +19,7 @@ const Invitees = ({ people }: Props) => {
       // split into groups of 25
       const groups = people
         .sort(
-          (a, b) => new Date(a.usedAt).getTime() - new Date(b.usedAt).getTime(),
+          (a, b) => new Date(b.usedAt).getTime() - new Date(a.usedAt).getTime(),
         )
         .reduce<ComAtprotoServerDefs.InviteCodeUse[][]>(
           (acc, x) => {

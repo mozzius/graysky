@@ -20,11 +20,18 @@ import { ImageEmbed } from "./image";
 interface Props {
   uri: string;
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
+  postIndex: number;
   truncate?: boolean;
   depth?: number;
 }
 
-export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
+export const Embed = ({
+  uri,
+  content,
+  postIndex,
+  truncate = true,
+  depth = 0,
+}: Props) => {
   const theme = useTheme();
 
   if (!content) return null;
@@ -33,7 +40,14 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
       assert(AppBskyEmbedImages.validateView(content));
-      return <ImageEmbed uri={uri} content={content} depth={depth} />;
+      return (
+        <ImageEmbed
+          uri={uri}
+          content={content}
+          depth={depth}
+          postIndex={postIndex}
+        />
+      );
     }
 
     // Case 2: External link
@@ -178,7 +192,14 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
 
       return (
         <View>
-          {media && <Embed uri={uri} content={media} depth={depth} />}
+          {media && (
+            <Embed
+              uri={uri}
+              content={media}
+              depth={depth}
+              postIndex={postIndex}
+            />
+          )}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (
               <Text
@@ -195,6 +216,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
                 uri={record.uri}
                 content={record.embeds[0]}
                 depth={depth + 1}
+                postIndex={postIndex}
               />
             )}
           </PostEmbed>

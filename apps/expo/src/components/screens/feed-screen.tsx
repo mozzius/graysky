@@ -59,6 +59,7 @@ export const FeedScreen = ({ feed }: Props) => {
               isReply={data[index - 1]?.hasReply}
               inlineParent={!data[index - 1]?.hasReply}
               dataUpdatedAt={timeline.dataUpdatedAt}
+              index={index}
             />
           )}
           onEndReachedThreshold={0.6}
