@@ -184,7 +184,7 @@ const PostThread = ({ contentFilter }: Props) => {
     thread.refetch,
   );
 
-  const onScroll = useTabPressScroll(ref);
+  const onScroll = useTabPressScroll<Posts>(ref);
 
   const composer = useComposer();
   if (thread.data) {

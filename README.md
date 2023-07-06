@@ -16,11 +16,11 @@ pnpm install
 Build the dev client using EAS:
 
 ```bash
-eas build --platform ios --profile development-simulator --non-intera
-ctive --local --output="./graysky.zip"
+cd apps/expo
+pnpm build:dev-client
 ```
 
-Unzip the file, then install `Graysky.app` to your simulator.
+Unzip the `graysky.zip` file that appears, then install `Graysky.app` to your simulator.
 
 ```bash
 eas build:run --path=Graysky.app

@@ -169,7 +169,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
     ),
   );
 
-  const [ref, onScroll] = useTabPressScrollRef(
+  const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
       setNonScrollRefreshing(true);
       void Haptics.impactAsync();
@@ -188,12 +188,16 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
 
   if (notifications.data) {
     return (
-      <FlashList
+      <FlashList<NotificationGroup>
         ref={ref}
         onScroll={onScroll}
         data={data}
-        renderItem={({ item }) => (
-          <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
+        renderItem={({ item, index }) => (
+          <Notification
+            {...item}
+            index={index}
+            dataUpdatedAt={notifications.dataUpdatedAt}
+          />
         )}
         ListHeaderComponent={
           nonScrollRefreshing ? (

@@ -4,9 +4,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { useQuery } from "@tanstack/react-query";
 
-import { FeedPost } from "../../../../components/feed-post";
 import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
@@ -23,7 +21,9 @@ const FeedSearch = ({ search }: Props) => {
   const query = api.search.feed.useQuery(search, {
     keepPreviousData: true,
   });
-  const [ref, onScroll] = useTabPressScrollRef(query.refetch);
+  const [ref, onScroll] = useTabPressScrollRef<AppBskyFeedDefs.GeneratorView>(
+    query.refetch,
+  );
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
 
   if (query.data) {
@@ -42,7 +42,10 @@ const FeedSearch = ({ search }: Props) => {
           />
         )}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+          />
         }
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-8">

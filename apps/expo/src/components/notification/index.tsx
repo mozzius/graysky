@@ -5,7 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
-import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
+import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)";
 import { useAuthedAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
 import { useLists } from "../lists/context";
@@ -13,6 +13,7 @@ import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 
 export const Notification = ({
+  index,
   reason,
   subject,
   actors,
@@ -20,7 +21,7 @@ export const Notification = ({
   indexedAt,
   dataUpdatedAt,
   item,
-}: NotificationGroup & { dataUpdatedAt: number }) => {
+}: NotificationGroup & { dataUpdatedAt: number; index: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
   const router = useRouter();
@@ -50,6 +51,7 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
+                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -79,6 +81,7 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
+                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -117,6 +120,7 @@ export const Notification = ({
       if (!subject || !item) return null;
       return (
         <PostNotification
+          index={index}
           item={item}
           unread={!isRead}
           dataUpdatedAt={dataUpdatedAt}

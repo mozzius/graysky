@@ -1,19 +1,17 @@
 import { useMemo, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { AppBskyActorDefs } from "@atproto/api";
+import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { FeedPost } from "../../../../components/feed-post";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import { useUserRefresh } from "../../../../lib/utils/query";
-import { searchProfiles } from "../../../../lib/utils/search";
 
 interface Props {
   search: string;
@@ -37,7 +35,9 @@ const PeopleSearch = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  const [ref, onScroll] = useTabPressScrollRef(query.refetch);
+  const [ref, onScroll] = useTabPressScrollRef<AppBskyActorDefs.ProfileView>(
+    query.refetch,
+  );
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
 
   const data = useMemo(() => {
@@ -66,7 +66,10 @@ const PeopleSearch = ({ search }: Props) => {
         )}
         estimatedItemSize={56}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+          />
         }
         onEndReachedThreshold={0.6}
         onEndReached={() => void query.fetchNextPage()}

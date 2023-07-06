@@ -27,7 +27,7 @@ export const FeedScreen = ({ feed }: Props) => {
     timeline.refetch,
   );
 
-  const [ref, onScroll] = useTabPressScrollRef(timeline.refetch);
+  const [ref, onScroll] = useTabPressScrollRef<TimelineItem>(timeline.refetch);
 
   if (!info.data)
     return (

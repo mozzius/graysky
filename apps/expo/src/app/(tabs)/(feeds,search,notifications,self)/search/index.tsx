@@ -24,7 +24,6 @@ import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAuthedAgent } from "../../../../lib/agent";
-import { useTabPress } from "../../../../lib/hooks/tab-press-scroll";
 import { cx } from "../../../../lib/utils/cx";
 import { useRefreshOnFocus } from "../../../../lib/utils/query";
 
@@ -33,7 +32,7 @@ export default function SearchPage() {
   const [isSearching, setIsSearching] = useState(false);
 
   // focus search bar somehow :/
-  useTabPress();
+  // useTabPress();
 
   return (
     <>

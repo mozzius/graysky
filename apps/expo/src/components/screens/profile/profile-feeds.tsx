@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -13,18 +13,16 @@ import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
-import { AnimatedFlashList, type FlashList } from "@shopify/flash-list";
+import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfileFeeds } from "./hooks";
-import { mergeRefs } from "./profile-posts";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
@@ -34,15 +32,15 @@ interface Props {
 
 export const ProfileFeeds = ({ handle }: Props) => {
   const agent = useAuthedAgent();
-  const ref = useRef<FlashList<AppBskyFeedDefs.GeneratorView>>(null);
-  const { ref: scrollRef, ...props } = useScrollProps();
   const queryClient = useQueryClient();
 
-  const feeds = useProfileFeeds(handle);
+  const props = useScrollProps();
 
+  const feeds = useProfileFeeds(handle);
   const profile = useProfile(handle);
 
-  const onScroll = useTabPressScroll(ref);
+  // const ref = useAnimatedRef<Animated.ScrollView>();
+  // useAnimatedTabPressScroll(ref);
 
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
     feeds.refetch,
@@ -91,9 +89,10 @@ export const ProfileFeeds = ({ handle }: Props) => {
     } else {
       return (
         <AnimatedFlashList
-          onScroll={onScroll}
           {...props}
-          ref={mergeRefs([ref, scrollRef])}
+          // renderScrollComponent={(props) => (
+          //   <Animated.ScrollView ref={ref} {...props} />
+          // )}
           data={feedsData}
           renderItem={({ item }) => (
             <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />

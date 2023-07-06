@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -8,12 +7,11 @@ import {
   View,
 } from "react-native";
 import { useScrollProps } from "@bacons/expo-router-top-tabs";
-import { AnimatedFlashList, type FlashList } from "@shopify/flash-list";
+import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { XOctagon } from "lucide-react-native";
 
 import { useAuthedAgent } from "../../../lib/agent";
-import { useTabPressScroll } from "../../../lib/hooks";
 import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
 import { FeedPost } from "../../feed-post";
@@ -45,16 +43,16 @@ interface Props {
 
 export const ProfilePosts = ({ handle, mode }: Props) => {
   const agent = useAuthedAgent();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
   const queryClient = useQueryClient();
-  const { ref: scrollRef, ...props } = useScrollProps();
 
   const { preferences, timeline, timelineData } = useProfilePosts(mode, handle);
 
   const profile = useProfile(handle);
 
-  const onScroll = useTabPressScroll(ref);
+  const props = useScrollProps();
+
+  // const ref = useAnimatedRef<Animated.ScrollView>();
+  // useAnimatedTabPressScroll(ref);
 
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
     timeline.refetch,
@@ -102,9 +100,10 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     } else {
       return (
         <AnimatedFlashList
-          onScroll={onScroll}
           {...props}
-          ref={mergeRefs([ref, scrollRef])}
+          // renderScrollComponent={(props) => (
+          //   <Animated.ScrollView ref={ref} {...props} />
+          // )}
           data={timelineData}
           renderItem={({ item, index }) => (
             <FeedPost

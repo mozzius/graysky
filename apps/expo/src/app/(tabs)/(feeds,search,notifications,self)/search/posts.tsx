@@ -59,7 +59,10 @@ const PostsSearch = ({ search }: Props) => {
     keepPreviousData: true,
   });
 
-  const [ref, onScroll] = useTabPressScrollRef(query.refetch);
+  const [ref, onScroll] = useTabPressScrollRef<{
+    item: AppBskyFeedDefs.FeedViewPost;
+    filter: FilterResult;
+  }>(query.refetch);
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
 
   const data = useMemo(() => {

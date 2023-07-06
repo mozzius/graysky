@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useRef } from "react";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
+import type Animated from "react-native-reanimated";
+import {
+  useAnimatedReaction,
+  useScrollViewOffset,
+} from "react-native-reanimated";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
 
-export const useTabPressScroll = (
-  ref: React.RefObject<FlashList<any>>,
+export const useTabPressScroll = <T>(
+  ref: React.RefObject<FlashList<T>>,
   callback: () => unknown = () => {},
 ) => {
   const navigation = useNavigation();
@@ -51,8 +55,8 @@ export const useTabPressScroll = (
   }, []);
 };
 
-export const useTabPressScrollRef = (callback: () => unknown = () => {}) => {
-  const ref = useRef<FlashList<any>>(null);
+export const useTabPressScrollRef = <T>(callback: () => unknown = () => {}) => {
+  const ref = useRef<FlashList<T>>(null);
 
   const onScroll = useTabPressScroll(ref, callback);
 
@@ -64,7 +68,7 @@ export const useTabPress = (callback: () => unknown = () => {}) => {
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
-    const unsub = navigation.getParent()?.addListener("tabPress", (evt) => {
+    const unsub = navigation.getParent()?.addListener("tabPress", () => {
       if (navigation.isFocused()) {
         callback();
       }
@@ -72,4 +76,50 @@ export const useTabPress = (callback: () => unknown = () => {}) => {
 
     return unsub;
   }, [callback, navigation]);
+};
+
+export const useAnimatedTabPressScroll = (
+  ref: React.RefObject<Animated.ScrollView>,
+  callback: () => unknown = () => {},
+) => {
+  const navigation = useNavigation();
+  const atTopRef = useRef(true);
+
+  console.log("animated");
+
+  useEffect(() => {
+    const unsub = navigation
+      .getParent()
+      ?.getParent()
+      // @ts-expect-error doesn't know what kind of navigator it is
+      ?.addListener("tabPress", (evt) => {
+        if (navigation.isFocused()) {
+          console.log("atTop:", atTopRef.current);
+          if (atTopRef.current) {
+            callback();
+          } else {
+            // @ts-expect-error this is just wrong for some reason
+            evt.preventDefault();
+            ref.current?.scrollTo({
+              y: 0,
+              animated: true,
+            });
+          }
+        }
+      });
+
+    return unsub;
+  }, [callback, navigation, ref]);
+
+  const offset = useScrollViewOffset(ref);
+
+  useAnimatedReaction(
+    () => {
+      return offset.value;
+    },
+    (atTop) => {
+      console.log(atTop);
+      atTopRef.current = atTop <= 0;
+    },
+  );
 };

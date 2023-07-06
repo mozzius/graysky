@@ -133,7 +133,6 @@ const App = () => {
       if (segments.join("/") === "(auth)/login") return;
       router.replace("/login");
     } else if (did && (inAuthGroup || atRoot)) {
-      console.log("redirecting to feeds from:", segments);
       if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       router.replace("/feeds");
     }

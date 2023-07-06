@@ -10,6 +10,7 @@ import {
   useProfileFeeds,
 } from "../../../../components/screens/profile/hooks";
 import { ProfileInfo } from "../../../../components/screens/profile/profile-info";
+import { createTopTabsScreenOptions } from "../../../../lib/utils/top-tabs";
 
 export default function ProfileLayout() {
   const profile = useProfile();
@@ -27,32 +28,8 @@ export default function ProfileLayout() {
           className="w-full"
         />
         <TopTabs
-          screenOptions={{
-            tabBarScrollEnabled: true,
-            tabBarIndicatorContainerStyle: {
-              marginHorizontal: 16,
-            },
-            tabBarStyle: {
-              backgroundColor: theme.colors.card,
-              borderBottomColor: theme.colors.border,
-              borderBottomWidth: 1,
-              paddingHorizontal: 16,
-            },
-            tabBarItemStyle: {
-              width: "auto",
-            },
-            tabBarIndicatorStyle: {
-              backgroundColor: theme.colors.primary,
-              bottom: -1,
-              height: 2.5,
-            },
-            tabBarLabelStyle: {
-              textTransform: "none",
-            },
-          }}
-          options={{
-            lazy: true,
-          }}
+          screenOptions={createTopTabsScreenOptions(theme)}
+          options={{ lazy: true }}
         >
           <TopTabs.Header>
             <ProfileInfo profile={profile.data} />
