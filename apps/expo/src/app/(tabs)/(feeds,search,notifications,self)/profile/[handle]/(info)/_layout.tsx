@@ -1,3 +1,5 @@
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { TopTabs } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
@@ -15,12 +17,23 @@ export default function ProfileLayout() {
   const profile = useProfile(handle);
   const feeds = useProfileFeeds(handle);
   const theme = useTheme();
+  const { top } = useSafeAreaInsets();
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
 
   if (profile.data) {
     return (
       <>
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            headerTitle: profile.data.displayName ?? `@${profile.data.handle}`,
+          }}
+        />
+        <View
+          style={{ backgroundColor: theme.colors.card, height: top }}
+          className="w-full"
+        />
         <TopTabs
           screenOptions={{
             tabBarScrollEnabled: true,
@@ -50,7 +63,7 @@ export default function ProfileLayout() {
           }}
         >
           <TopTabs.Header>
-            <ProfileInfo profile={profile.data} />
+            <ProfileInfo profile={profile.data} backButton />
           </TopTabs.Header>
           <TopTabs.Screen
             name="posts"
@@ -94,6 +107,10 @@ export default function ProfileLayout() {
       <Stack.Screen
         options={{
           headerTitle: "",
+          headerTransparent: true,
+          headerStyle: {
+            backgroundColor: theme.colors.card,
+          },
         }}
       />
       <QueryWithoutData query={profile} />

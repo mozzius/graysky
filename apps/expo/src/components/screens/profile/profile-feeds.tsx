@@ -1,7 +1,8 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
+  LogBox,
   RefreshControl,
   Text,
   TouchableOpacity,
@@ -10,8 +11,9 @@ import {
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
+import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
-import { FlashList } from "@shopify/flash-list";
+import { AnimatedFlashList, type FlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 
@@ -22,16 +24,18 @@ import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfileFeeds } from "./hooks";
+import { mergeRefs } from "./profile-posts";
+
+LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
 interface Props {
   handle: string;
 }
 
 export const ProfileFeeds = ({ handle }: Props) => {
-  const [atTop, setAtTop] = useState(true);
   const agent = useAuthedAgent();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<FlashList<any>>(null);
+  const ref = useRef<FlashList<AppBskyFeedDefs.GeneratorView>>(null);
+  const { ref: scrollRef, ...props } = useScrollProps();
   const queryClient = useQueryClient();
 
   const feeds = useProfileFeeds(handle);
@@ -86,13 +90,14 @@ export const ProfileFeeds = ({ handle }: Props) => {
       );
     } else {
       return (
-        <FlashList<AppBskyFeedDefs.GeneratorView>
-          ref={ref}
+        <AnimatedFlashList
+          onScroll={onScroll}
+          {...props}
+          ref={mergeRefs([ref, scrollRef])}
           data={feedsData}
           renderItem={({ item }) => (
             <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />
           )}
-          stickyHeaderIndices={atTop ? [] : [0]}
           onEndReachedThreshold={0.6}
           onEndReached={() => void feeds.fetchNextPage()}
           refreshControl={
@@ -103,11 +108,6 @@ export const ProfileFeeds = ({ handle }: Props) => {
             />
           }
           estimatedItemSize={91}
-          onScroll={(evt) => {
-            onScroll(evt);
-            const { contentOffset } = evt.nativeEvent;
-            setAtTop(contentOffset.y <= 30);
-          }}
           ListFooterComponent={
             feeds.isFetching ? (
               <View className="w-full items-center py-8">

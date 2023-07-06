@@ -2,6 +2,7 @@ import { useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
+  LogBox,
   RefreshControl,
   Text,
   View,
@@ -18,6 +19,8 @@ import { Button } from "../../button";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
+
+LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
 // vendored react-merge-refs due to import issues
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
