@@ -207,6 +207,9 @@ importers:
       react-native-ios-context-menu:
         specifier: ^1.15.3
         version: 1.15.3(react-native@0.72.1)(react@18.2.0)
+      react-native-keyboard-controller:
+        specifier: ^1.5.7
+        version: 1.5.7(react-native-reanimated@3.3.0)(react-native@0.72.1)(react@18.2.0)
       react-native-pager-view:
         specifier: 6.2.0
         version: 6.2.0(react-native@0.72.1)(react@18.2.0)
@@ -10178,6 +10181,18 @@ packages:
       '@dominicstop/ts-event-emitter': 1.1.0
       react: 18.2.0
       react-native: 0.72.1(@babel/core@7.22.6)(@babel/preset-env@7.22.6)(react@18.2.0)
+    dev: false
+
+  /react-native-keyboard-controller@1.5.7(react-native-reanimated@3.3.0)(react-native@0.72.1)(react@18.2.0):
+    resolution: {integrity: sha512-HMEtE0UponKXET5huNcKBMWHASfQ/8yFTlNs8UT09IHK4xJPpufuJeK/nNXXJ0tM8ODVJozPIm2tX+HLkigdEg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-reanimated: '>=2.3.0'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.1(@babel/core@7.22.6)(@babel/preset-env@7.22.6)(react@18.2.0)
+      react-native-reanimated: 3.3.0(@babel/core@7.22.6)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.22.5)(@babel/plugin-transform-shorthand-properties@7.22.5)(@babel/plugin-transform-template-literals@7.22.5)(react-native@0.72.1)(react@18.2.0)
     dev: false
 
   /react-native-pager-view@6.0.1(react-native@0.72.1)(react@18.2.0):
