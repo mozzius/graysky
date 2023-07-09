@@ -107,6 +107,10 @@ eas build --platform ios --profile production --non-interactive --local --output
 eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted to TestFlight"
 ```
 
+# Sponsors
+
+Thank you to @thepriceisright for sponsoring my work on this project!
+
 # Contributors
 
 Graysky is primarily developed by [@mozzius.dev](https://bsky.app/profile/mozzius.dev). If you'd like to show your support for the project, you can [sponsor me](https://github.com/sponsors/mozzius).
