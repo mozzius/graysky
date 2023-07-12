@@ -72,14 +72,18 @@ const ImageWithFallback = ({
     queryKey: ["image", item.fullsize, "size"],
   });
 
-  console.log("ImageWithFallback", size.data);
-
   return (
     <>
       <AnimatedImage
         sharedTransitionTag={tag}
-        // placeholder={item.thumb}
-        // source={item.fullsize}
+        // doesn't load fullsize
+        // source={[item.thumb, item.fullsize]}
+        // weird postitioning
+        // placeholder={{
+        //   width: size.data?.width,
+        //   height: size.data?.height,
+        //   uri: item.thumb,
+        // }}
         source={item.thumb}
         alt={item.alt}
         style={
