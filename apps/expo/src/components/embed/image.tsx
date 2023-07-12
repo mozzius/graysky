@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+/* eslint-disable jsx-a11y/alt-text */
+import { useEffect, useId } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
@@ -12,11 +13,10 @@ interface Props {
   uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
-  postIndex: number;
 }
 
-export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
-  const href = `/images/${encodeURIComponent(uri)}?key=${postIndex}`;
+export const ImageEmbed = ({ uri, content, depth }: Props) => {
+  const href = `/images/${encodeURIComponent(uri)}`;
   const theme = useTheme();
   const queryClient = useQueryClient();
 
@@ -30,25 +30,21 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
     case 1:
       const image = content.images[0]!;
       return (
-        <Link href={href} asChild>
-          <TouchableWithoutFeedback accessibilityRole="image">
-            <View
-              className="mt-1.5 overflow-hidden rounded-lg"
-              style={{
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: theme.colors.border,
-              }}
-            >
-              <ImageWithContext
-                postKey={postIndex}
-                image={image}
-                depth={depth}
-                className="w-full shrink-0"
-                useCappedAspectRatio
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        </Link>
+        <View
+          className="mt-1.5 overflow-hidden rounded-lg"
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: theme.colors.border,
+          }}
+        >
+          <Image
+            href={href}
+            image={image}
+            depth={depth}
+            className="w-full shrink-0"
+            useCappedAspectRatio
+          />
+        </View>
       );
     case 2:
       return (
@@ -58,16 +54,13 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
               className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
               key={image.fullsize}
             >
-              <Link href={`${href}&initial=${i}`} asChild>
-                <TouchableWithoutFeedback accessibilityRole="image">
-                  <ImageWithContext
-                    postKey={postIndex}
-                    image={image}
-                    depth={depth}
-                    className="aspect-square"
-                  />
-                </TouchableWithoutFeedback>
-              </Link>
+              <Image
+                href={href}
+                index={i}
+                image={image}
+                depth={depth}
+                className="aspect-square"
+              />
             </View>
           ))}
         </View>
@@ -76,16 +69,12 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
       return (
         <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
-            <Link href={`${href}&initial=0`} asChild>
-              <TouchableWithoutFeedback accessibilityRole="image">
-                <ImageWithContext
-                  postKey={postIndex}
-                  image={content.images[0]!}
-                  depth={depth}
-                  className="h-full w-full object-cover"
-                />
-              </TouchableWithoutFeedback>
-            </Link>
+            <Image
+              href={href}
+              image={content.images[0]!}
+              depth={depth}
+              className="h-full w-full object-cover"
+            />
           </View>
           <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
             {content.images.slice(1).map((image, i) => (
@@ -96,16 +85,13 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
                 )}
                 key={image.fullsize}
               >
-                <Link href={`${href}&initial=${i + 1}`} asChild>
-                  <TouchableWithoutFeedback accessibilityRole="image">
-                    <ImageWithContext
-                      postKey={postIndex}
-                      image={image}
-                      depth={depth}
-                      className="h-full w-full object-cover"
-                    />
-                  </TouchableWithoutFeedback>
-                </Link>
+                <Image
+                  href={href}
+                  index={i + 1}
+                  image={image}
+                  depth={depth}
+                  className="h-full w-full object-cover"
+                />
               </View>
             ))}
           </View>
@@ -123,16 +109,13 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
                 i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
             >
-              <Link href={`${href}&initial=${i}`} asChild>
-                <TouchableWithoutFeedback accessibilityRole="image">
-                  <ImageWithContext
-                    postKey={postIndex}
-                    image={image}
-                    depth={depth}
-                    className="aspect-square"
-                  />
-                </TouchableWithoutFeedback>
-              </Link>
+              <Image
+                href={href}
+                index={i}
+                image={image}
+                depth={depth}
+                className="aspect-square"
+              />
             </View>
           ))}
         </View>
@@ -140,4 +123,37 @@ export const ImageEmbed = ({ uri, content, depth, postIndex }: Props) => {
     default:
       throw Error("Unsupported number of images");
   }
+};
+
+interface ImageProps {
+  image: AppBskyEmbedImages.ViewImage;
+  href: string;
+  depth: number;
+  index?: number;
+  className?: string;
+  useCappedAspectRatio?: boolean;
+}
+
+const Image = ({
+  image,
+  href,
+  depth,
+  index = 0,
+  className,
+  useCappedAspectRatio,
+}: ImageProps) => {
+  const tag = useId();
+  return (
+    <Link href={`${href}?initial=${index}&tag=${tag}`} asChild>
+      <TouchableWithoutFeedback accessibilityRole="image">
+        <ImageWithContext
+          tag={tag}
+          image={image}
+          depth={depth}
+          className={className}
+          useCappedAspectRatio={useCappedAspectRatio}
+        />
+      </TouchableWithoutFeedback>
+    </Link>
+  );
 };

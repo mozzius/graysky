@@ -4,28 +4,26 @@ import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
+import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
   images: AppBskyEmbedImages.ViewImage[];
   initialIndex?: number;
-  postKey: string;
   onClose: () => void;
 }
 
-export const ImageViewer = ({
-  images,
-  initialIndex = 0,
-  postKey,
-  onClose,
-}: Props) => {
+export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
   const [infoVisible, setInfoVisible] = useState(false);
   const [index, setIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
   const { bottom } = useSafeAreaInsets();
+  const { tag } = useLocalSearchParams<{
+    tag?: string;
+  }>();
 
   useEffect(() => {
     setMounted(true);
@@ -40,7 +38,7 @@ export const ImageViewer = ({
         onIndexChange={(index) => setIndex(index)}
         renderItem={(props) => (
           <View style={StyleSheet.absoluteFill} className="justify-center">
-            <ImageWithFallback {...props} postKey={postKey} />
+            <ImageWithFallback {...props} tag={tag} />
           </View>
         )}
         onSwipeToClose={onClose}
@@ -63,38 +61,44 @@ export const ImageViewer = ({
 const ImageWithFallback = ({
   item,
   setImageDimensions,
-  postKey,
-}: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { postKey: string }) => {
+  tag,
+}: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
 
-  const size:
-    | {
-        width: number;
-        height: number;
-      }
-    | undefined = queryClient.getQueryData(["image", item.fullsize, "size"]);
+  const size = useQuery<{
+    width: number;
+    height: number;
+  }>({
+    queryKey: ["image", item.fullsize, "size"],
+  });
+
+  console.log("ImageWithFallback", size.data);
 
   return (
     <>
       <AnimatedImage
-        sharedTransitionTag={item.fullsize + postKey}
+        sharedTransitionTag={tag}
         // placeholder={item.thumb}
         // source={item.fullsize}
         source={item.thumb}
         alt={item.alt}
         style={
-          size
+          size.data
             ? {
-                aspectRatio: size.width / size.height,
+                aspectRatio: size.data.width / size.data.height,
               }
             : { width: "100%" }
         }
-        onLoad={({ source: { width, height } }) =>
+        onLoad={({ source: { width, height } }) => {
           setImageDimensions({
             width,
             height,
-          })
-        }
+          });
+          queryClient.setQueryData(["image", item.fullsize, "size"], {
+            width,
+            height,
+          });
+        }}
       />
     </>
   );

@@ -17,7 +17,6 @@ interface Props {
   unread: boolean;
   inline?: boolean;
   dataUpdatedAt: number;
-  index: number;
 }
 
 export const PostNotification = ({
@@ -25,7 +24,6 @@ export const PostNotification = ({
   unread,
   inline,
   dataUpdatedAt,
-  index,
 }: Props) => {
   const { preferences, contentFilter } = useContentFilter();
 
@@ -57,7 +55,6 @@ export const PostNotification = ({
               content={item.post.embed}
               truncate
               depth={1}
-              postIndex={index}
             />
           )}
         </View>
@@ -71,7 +68,6 @@ export const PostNotification = ({
         inlineParent
         unread={unread}
         dataUpdatedAt={dataUpdatedAt}
-        index={index}
       />
     );
   }

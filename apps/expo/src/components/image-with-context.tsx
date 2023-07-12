@@ -18,7 +18,7 @@ interface Props {
   className?: string;
   style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
-  postKey?: string | number;
+  tag?: string;
 }
 
 export const ImageWithContext = ({
@@ -27,7 +27,7 @@ export const ImageWithContext = ({
   className: _,
   useCappedAspectRatio,
   style,
-  postKey,
+  tag,
   ...props
 }: Props) => {
   const [aspectRatio, setAspectRatio] = useState(1);
@@ -179,13 +179,14 @@ export const ImageWithContext = ({
       }}
     >
       <AnimatedImage
-        sharedTransitionTag={image.fullsize + String(postKey ?? "")}
+        sharedTransitionTag={tag}
         source={{ uri: image.thumb }}
         alt={image.alt}
         recyclingKey={image.thumb}
         style={imageStyle}
         onLoad={({ source: { width, height } }) => {
           setAspectRatio(width / height);
+          // I don't like this in the slightest
           queryClient.setQueryData(["image", image.fullsize, "size"], {
             width,
             height,

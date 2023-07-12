@@ -191,12 +191,8 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
         ref={ref}
         onScroll={onScroll}
         data={data}
-        renderItem={({ item, index }) => (
-          <Notification
-            {...item}
-            index={index}
-            dataUpdatedAt={notifications.dataUpdatedAt}
-          />
+        renderItem={({ item }) => (
+          <Notification {...item} dataUpdatedAt={notifications.dataUpdatedAt} />
         )}
         ListHeaderComponent={
           nonScrollRefreshing ? (

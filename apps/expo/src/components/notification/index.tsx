@@ -13,7 +13,6 @@ import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 
 export const Notification = ({
-  index,
   reason,
   subject,
   actors,
@@ -21,7 +20,7 @@ export const Notification = ({
   indexedAt,
   dataUpdatedAt,
   item,
-}: NotificationGroup & { dataUpdatedAt: number; index: number }) => {
+}: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
   const router = useRouter();
@@ -51,7 +50,6 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -81,7 +79,6 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -120,7 +117,6 @@ export const Notification = ({
       if (!subject || !item) return null;
       return (
         <PostNotification
-          index={index}
           item={item}
           unread={!isRead}
           dataUpdatedAt={dataUpdatedAt}

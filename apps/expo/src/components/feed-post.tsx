@@ -41,7 +41,6 @@ interface Props {
   inlineParent?: boolean;
   dataUpdatedAt: number;
   filter: FilterResult;
-  index: number;
 }
 
 export const FeedPost = ({
@@ -52,7 +51,6 @@ export const FeedPost = ({
   inlineParent,
   dataUpdatedAt,
   filter,
-  index,
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -324,7 +322,6 @@ export const FeedPost = ({
                   uri={item.post.uri}
                   content={item.post.embed}
                   key={rerenderer}
-                  postIndex={index}
                 />
               )}
             </>
