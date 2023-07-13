@@ -55,76 +55,72 @@ export const ProfileFeeds = ({ handle }: Props) => {
     return <QueryWithoutData query={profile} />;
   }
 
-  if (feeds.data) {
-    if (profile.data.viewer?.blocking) {
-      return (
-        <View className="flex-1 flex-col items-center justify-center p-4">
-          <XOctagon size={50} color="#888888" />
-          <Text className="my-4 text-center text-lg">
-            You have blocked this user
-          </Text>
-          <Button
-            variant="outline"
-            onPress={async () => {
-              await agent.app.bsky.graph.block.delete({
-                repo: agent.session.did,
-                rkey: profile.data.viewer!.blocking!.split("/").pop(),
-              }),
-                await queryClient.refetchQueries(["profile", handle]);
-              Alert.alert("Unblocked", "This user has been unblocked");
-            }}
-          >
-            Unblock
-          </Button>
-        </View>
-      );
-    } else if (profile.data.viewer?.blockedBy) {
-      return (
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="text-center text-lg">
-            You have been blocked by this user
-          </Text>
-        </View>
-      );
-    } else {
-      return (
-        <AnimatedFlashList
-          {...props}
-          // renderScrollComponent={(props) => (
-          //   <Animated.ScrollView ref={ref} {...props} />
-          // )}
-          data={feedsData}
-          renderItem={({ item }) => (
-            <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />
-          )}
-          onEndReachedThreshold={0.6}
-          onEndReached={() => void feeds.fetchNextPage()}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => void handleRefresh()}
-              tintColor={tintColor}
-            />
-          }
-          estimatedItemSize={91}
-          ListFooterComponent={
-            feeds.isFetching ? (
-              <View className="w-full items-center py-8">
-                <ActivityIndicator />
-              </View>
-            ) : (
-              <View className="py-16">
-                <Text className="text-center">That&apos;s everything!</Text>
-              </View>
-            )
-          }
-          extraData={feeds.dataUpdatedAt}
-        />
-      );
-    }
+  if (profile.data.viewer?.blocking) {
+    return (
+      <View className="flex-1 flex-col items-center justify-center p-4">
+        <XOctagon size={50} color="#888888" />
+        <Text className="my-4 text-center text-lg">
+          You have blocked this user
+        </Text>
+        <Button
+          variant="outline"
+          onPress={async () => {
+            await agent.app.bsky.graph.block.delete({
+              repo: agent.session.did,
+              rkey: profile.data.viewer!.blocking!.split("/").pop(),
+            }),
+              await queryClient.refetchQueries(["profile", handle]);
+            Alert.alert("Unblocked", "This user has been unblocked");
+          }}
+        >
+          Unblock
+        </Button>
+      </View>
+    );
+  } else if (profile.data.viewer?.blockedBy) {
+    return (
+      <View className="flex-1 items-center justify-center p-4">
+        <Text className="text-center text-lg">
+          You have been blocked by this user
+        </Text>
+      </View>
+    );
+  } else {
+    return (
+      <AnimatedFlashList
+        {...props}
+        // renderScrollComponent={(props) => (
+        //   <Animated.ScrollView ref={ref} {...props} />
+        // )}
+        data={feedsData}
+        renderItem={({ item }) => (
+          <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />
+        )}
+        onEndReachedThreshold={0.6}
+        onEndReached={() => void feeds.fetchNextPage()}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+            tintColor={tintColor}
+          />
+        }
+        estimatedItemSize={91}
+        ListFooterComponent={
+          feeds.isFetching ? (
+            <View className="w-full items-center py-8">
+              <ActivityIndicator />
+            </View>
+          ) : (
+            <View className="py-16">
+              <Text className="text-center">That&apos;s everything!</Text>
+            </View>
+          )
+        }
+        extraData={feeds.dataUpdatedAt}
+      />
+    );
   }
-
-  return <QueryWithoutData query={feeds} />;
 };
 
 const Feed = ({
