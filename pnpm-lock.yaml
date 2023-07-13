@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+patchedDependencies:
+  react-native-svg@13.9.0:
+    hash: ecipe4st4okn7y2jpmmjgu22me
+    path: patches/react-native-svg@13.9.0.patch
+
 importers:
 
   .:
@@ -222,7 +227,7 @@ importers:
         version: 3.22.1(react-native@0.72.3)(react@18.2.0)
       react-native-svg:
         specifier: 13.9.0
-        version: 13.9.0(react-native@0.72.3)(react@18.2.0)
+        version: 13.9.0(patch_hash=ecipe4st4okn7y2jpmmjgu22me)(react-native@0.72.3)(react@18.2.0)
       react-native-url-polyfill:
         specifier: ^1.3.0
         version: 1.3.0(react-native@0.72.3)
@@ -8091,7 +8096,7 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-native: 0.72.3(@babel/core@7.22.9)(@babel/preset-env@7.22.9)(react@18.2.0)
-      react-native-svg: 13.9.0(react-native@0.72.3)(react@18.2.0)
+      react-native-svg: 13.9.0(patch_hash=ecipe4st4okn7y2jpmmjgu22me)(react-native@0.72.3)(react@18.2.0)
     dev: false
 
   /make-dir@2.1.0:
@@ -10144,7 +10149,7 @@ packages:
       warn-once: 0.1.1
     dev: false
 
-  /react-native-svg@13.9.0(react-native@0.72.3)(react@18.2.0):
+  /react-native-svg@13.9.0(patch_hash=ecipe4st4okn7y2jpmmjgu22me)(react-native@0.72.3)(react@18.2.0):
     resolution: {integrity: sha512-Ey18POH0dA0ob/QiwCBVrxIiwflhYuw0P0hBlOHeY4J5cdbs8ngdKHeWC/Kt9+ryP6fNoEQ1PUgPYw2Bs/rp5Q==}
     peerDependencies:
       react: '*'
@@ -10155,6 +10160,7 @@ packages:
       react: 18.2.0
       react-native: 0.72.3(@babel/core@7.22.9)(@babel/preset-env@7.22.9)(react@18.2.0)
     dev: false
+    patched: true
 
   /react-native-tab-view@3.5.1(react-native-pager-view@6.2.0)(react-native@0.72.3)(react@18.2.0):
     resolution: {integrity: sha512-qdrS5t+AEhfuKQyuCXkwHu4IVppkuTvzWWlkSZKrPaSkjjIa32xrsGxt1UW9YDdro2w4AMw5hKn1hFmg/5mvzA==}
