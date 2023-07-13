@@ -27,18 +27,13 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
     "@manypkg/cli": "^0.21.0",
     "@types/prettier": "^2.7.3",
-    "eslint": "^8.43.0",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
-    "turbo": "^1.10.6",
+    "eslint": "^8.44.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.0",
+    "turbo": "^1.10.7",
     "typescript": "^5.1.6"
   },
   "overrides": {
     "@tanstack/react-query": "^4.29.12"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch"
-    }
   }
 }
