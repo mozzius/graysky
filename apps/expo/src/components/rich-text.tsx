@@ -146,8 +146,8 @@ export const RichText = ({
       className={cx({
         "text-sm": size === "sm",
         "text-base leading-[22px]": size === "base",
-        "text-lg leading-6": size === "lg",
-        "text-xl leading-7": size === "xl",
+        "text-lg leading-5": size === "lg",
+        "text-xl leading-6": size === "xl",
       })}
       numberOfLines={numberOfLines}
     >

@@ -67,7 +67,6 @@ export default function SubStack({
                 ),
               }}
             />
-
             <Stack.Screen
               name="feeds/following"
               options={{

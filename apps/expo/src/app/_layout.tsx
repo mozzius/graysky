@@ -131,7 +131,7 @@ const App = () => {
     ) {
       // Redirect to the sign-in page.
       if (segments.join("/") === "(auth)/login") return;
-      router.replace("/login");
+      router.replace("/");
     } else if (did && (inAuthGroup || atRoot)) {
       if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       router.replace("/feeds");
