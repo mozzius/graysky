@@ -54,7 +54,6 @@ export default function ComposerScreen() {
   useFocusEffect(
     useCallback(() => {
       setTimeout(() => {
-        console.log("FUCKUS");
         textRef.current?.focus();
       }, 100);
     }, []),
