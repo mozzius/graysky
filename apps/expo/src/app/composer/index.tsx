@@ -17,10 +17,8 @@ import Animated, {
   FadeOutDown,
   Layout,
 } from "react-native-reanimated";
-import * as FileSystem from "expo-file-system";
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
-import * as ImageManipulator from "expo-image-manipulator";
 import {
   Link,
   Stack,
@@ -29,42 +27,31 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import {
-  AppBskyEmbedImages,
-  RichText as RichTextHelper,
-  type BskyAgent,
-} from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Check, Paperclip, Plus, Send, X } from "lucide-react-native";
 
 import { Avatar } from "../../components/avatar";
 import { RichText } from "../../components/rich-text";
 import { useAuthedAgent } from "../../lib/agent";
-import { useImages } from "../../lib/hooks/composer";
-import { locale } from "../../lib/locale";
+import {
+  generateRichText,
+  MAX_IMAGES,
+  MAX_LENGTH,
+  useImages,
+  useQuote,
+  useReply,
+  useSendPost,
+} from "../../lib/hooks/composer";
 import { cx } from "../../lib/utils/cx";
-
-// text
-const MAX_LENGTH = 300;
-
-// images
-const MAX_IMAGES = 4;
-const MAX_SIZE = 1_000_000;
-const MAX_DIMENSION = 2048;
-
-const generateRichText = async (text: string, agent: BskyAgent) => {
-  const rt = new RichTextHelper({ text });
-  await rt.detectFacets(agent);
-  return rt;
-};
 
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAuthedAgent();
   const navigation = useNavigation();
-  const queryClient = useQueryClient();
-  const router = useRouter();
+
+  const reply = useReply();
+  const quote = useQuote();
 
   const [text, setText] = useState("");
   const { images, imagePicker, addAltText, removeImage } = useImages();
@@ -90,102 +77,11 @@ export default function ComposerScreen() {
   const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
 
   const isEmpty = text.trim().length === 0 && images.length === 0;
-
-  const send = useMutation({
-    mutationKey: ["send"],
-    mutationFn: async () => {
-      if (!agent.hasSession) throw new Error("Not logged in");
-      const rt = await generateRichText(text, agent);
-      if (rt.graphemeLength > MAX_LENGTH) {
-        Alert.alert(
-          "Your post is too long",
-          "There is a character limit of 300 characters",
-        );
-        throw new Error("Too long");
-      }
-      const uploadedImages = await Promise.all(
-        images.map(async (img) => {
-          let uri = img.asset.uri;
-          const size = img.asset.fileSize ?? MAX_SIZE + 1;
-          let targetWidth,
-            targetHeight = MAX_DIMENSION;
-
-          const needsResize =
-            img.asset.width > MAX_DIMENSION || img.asset.height > MAX_DIMENSION;
-
-          if (img.asset.width > img.asset.height) {
-            targetHeight = img.asset.height * (MAX_DIMENSION / img.asset.width);
-          } else {
-            targetWidth = img.asset.width * (MAX_DIMENSION / img.asset.height);
-          }
-
-          // compress if > 1mb
-
-          if (size > MAX_SIZE) {
-            // let animation complete
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            // compress iteratively, reducing quality each time
-            for (let i = 0; i < 9; i++) {
-              const quality = 100 - i * 10;
-
-              try {
-                const compressed = await ImageManipulator.manipulateAsync(
-                  img.asset.uri,
-                  needsResize
-                    ? [{ resize: { width: targetWidth, height: targetHeight } }]
-                    : [],
-                  {
-                    compress: quality / 100,
-                  },
-                ).then((x) => x.uri);
-                const compressedSize = await FileSystem.getInfoAsync(
-                  compressed,
-                  {
-                    size: true,
-                  }, // @ts-expect-error size is not in the type
-                ).then((x) => x.size as number);
-
-                if (compressedSize < MAX_SIZE) {
-                  uri = compressed;
-                  break;
-                }
-              } catch (err) {
-                throw new Error(`Failed to resize: ${err}`);
-              }
-            }
-          }
-
-          const uploaded = await agent.uploadBlob(uri);
-          if (!uploaded.success) throw new Error("Failed to upload image");
-          return {
-            image: uploaded.data.blob,
-            alt: img.alt,
-          } satisfies AppBskyEmbedImages.Image;
-        }),
-      );
-      throw new Error("Failed to upload image");
-
-      await agent.post({
-        text: rt.text,
-        facets: rt.facets,
-        embed:
-          uploadedImages.length > 0
-            ? {
-                $type: "app.bsky.embed.images",
-                images: uploadedImages,
-              }
-            : undefined,
-        // TODO: LANGUAGE SELECTOR
-        langs: [locale.languageCode],
-      });
-    },
-    onMutate: () => {
-      void Haptics.impactAsync();
-    },
-    onSuccess: () => {
-      void queryClient.invalidateQueries(["profile"]);
-      router.push("../");
-    },
+  const send = useSendPost({
+    text,
+    images,
+    reply: reply.ref,
+    record: quote.ref,
   });
 
   useEffect(() => {
