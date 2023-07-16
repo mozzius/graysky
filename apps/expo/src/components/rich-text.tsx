@@ -15,6 +15,7 @@ interface Props {
   numberOfLines?: number;
   truncate?: boolean;
   disableLinks?: boolean;
+  forcePointerEvents?: boolean;
 }
 
 export const RichText = ({
@@ -24,18 +25,26 @@ export const RichText = ({
   numberOfLines,
   truncate = true,
   disableLinks,
+  forcePointerEvents,
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
 
+  const className = cx({
+    "text-sm": size === "sm",
+    "text-base leading-[22px]": size === "base",
+    "text-lg leading-5": size === "lg",
+    "text-xl leading-6": size === "xl",
+  });
+
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
     const parts = [];
-    let Wrapper = disableLinks
-      ? Fragment
-      : (props: React.PropsWithChildren) => (
-          <View {...props} pointerEvents="auto" />
-        );
+    let Wrapper = forcePointerEvents
+      ? (props: React.PropsWithChildren) => (
+          <View {...props} pointerEvents="auto" className="translate-y-0.5" />
+        )
+      : Fragment;
     for (const segment of rt.segments()) {
       if (segment.isLink()) {
         let textToShow = segment.text;
@@ -61,7 +70,7 @@ export const RichText = ({
           component: (
             <Wrapper>
               <Text
-                className="text-blue-500"
+                className={cx("text-blue-500", className)}
                 onPress={(evt) => {
                   if (disableLinks) return;
                   evt.stopPropagation();
@@ -108,7 +117,7 @@ export const RichText = ({
           component: (
             <Wrapper>
               <Text
-                className="text-blue-500"
+                className={cx("text-blue-500", className)}
                 onPress={(evt) => {
                   evt.stopPropagation();
                   router.push(`/profile/${segment.mention!.did}`);
@@ -123,7 +132,9 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text style={{ color: theme.colors.text }}>{segment.text}</Text>
+            <Text style={{ color: theme.colors.text }} className={className}>
+              {segment.text}
+            </Text>
           ),
         });
       }
@@ -147,15 +158,7 @@ export const RichText = ({
   if (!segments) return null;
 
   return (
-    <Text
-      className={cx({
-        "text-sm": size === "sm",
-        "text-base leading-[22px]": size === "base",
-        "text-lg leading-5": size === "lg",
-        "text-xl leading-6": size === "xl",
-      })}
-      numberOfLines={numberOfLines}
-    >
+    <Text className={className} numberOfLines={numberOfLines}>
       {segments.map(({ text, component }, i) => (
         <Fragment key={`${i}+${text}`}>{component}</Fragment>
       ))}
