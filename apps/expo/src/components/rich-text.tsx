@@ -31,6 +31,11 @@ export const RichText = ({
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
     const parts = [];
+    let Wrapper = disableLinks
+      ? Fragment
+      : (props: React.PropsWithChildren) => (
+          <View {...props} pointerEvents="auto" />
+        );
     for (const segment of rt.segments()) {
       if (segment.isLink()) {
         let textToShow = segment.text;
@@ -54,7 +59,7 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <View pointerEvents="auto">
+            <Wrapper>
               <Text
                 className="text-blue-500"
                 onPress={(evt) => {
@@ -94,14 +99,14 @@ export const RichText = ({
               >
                 {textToShow}
               </Text>
-            </View>
+            </Wrapper>
           ),
         });
       } else if (segment.isMention()) {
         parts.push({
           text: segment.text,
           component: (
-            <View pointerEvents="auto">
+            <Wrapper>
               <Text
                 className="text-blue-500"
                 onPress={(evt) => {
@@ -111,7 +116,7 @@ export const RichText = ({
               >
                 {segment.text}
               </Text>
-            </View>
+            </Wrapper>
           ),
         });
       } else {
