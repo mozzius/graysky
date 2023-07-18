@@ -3,7 +3,6 @@ import { Stack, useNavigation, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "../../../components/avatar";
-import { ComposerProvider } from "../../../components/composer";
 import { useDrawer } from "../../../components/drawer-content";
 
 const stackOptions = {
@@ -31,116 +30,108 @@ export default function SubStack({
   switch (segment) {
     case "(feeds)":
       return (
-        <ComposerProvider>
-          <Stack {...stackOptions}>
-            <Stack.Screen
-              name="feeds/index"
-              options={{
-                title: "Feeds",
-                headerLargeTitle: true,
-                headerLeft,
-              }}
-            />
-            <Stack.Screen
-              name="feeds/discover"
-              options={{
-                title: "Discover Feeds",
-                headerSearchBarOptions: {},
-                presentation: "modal",
-                headerRight: () => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (navigation.canGoBack()) {
-                        router.push("../");
-                      } else {
-                        router.push("/feeds");
-                      }
-                    }}
+        <Stack {...stackOptions}>
+          <Stack.Screen
+            name="feeds/index"
+            options={{
+              title: "Feeds",
+              headerLargeTitle: true,
+              headerLeft,
+            }}
+          />
+          <Stack.Screen
+            name="feeds/discover"
+            options={{
+              title: "Discover Feeds",
+              headerSearchBarOptions: {},
+              presentation: "modal",
+              headerRight: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    if (navigation.canGoBack()) {
+                      router.push("../");
+                    } else {
+                      router.push("/feeds");
+                    }
+                  }}
+                >
+                  <Text
+                    style={{ color: theme.colors.primary }}
+                    className="text-lg font-medium"
                   >
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="text-lg font-medium"
-                    >
-                      Done
-                    </Text>
-                  </TouchableOpacity>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="feeds/following"
-              options={{
-                title: "Following",
-              }}
-            />
-          </Stack>
-        </ComposerProvider>
+                    Done
+                  </Text>
+                </TouchableOpacity>
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="feeds/following"
+            options={{
+              title: "Following",
+            }}
+          />
+        </Stack>
       );
     case "(search)":
       return (
-        <ComposerProvider>
-          <Stack {...stackOptions}>
-            <Stack.Screen
-              name="search/index"
-              options={{
-                title: "Search",
-                headerLeft: Platform.select({
-                  ios: headerLeft,
-                }),
-                headerSearchBarOptions: {},
-              }}
-            />
-            <Stack.Screen
-              name="search/posts"
-              options={{
-                title: "Search Posts",
-                headerSearchBarOptions: {},
-              }}
-            />
-            <Stack.Screen
-              name="search/feeds"
-              options={{
-                title: "Search Feeds",
-                headerSearchBarOptions: {},
-              }}
-            />
-            <Stack.Screen
-              name="search/people"
-              options={{
-                title: "Search People",
-                headerSearchBarOptions: {},
-              }}
-            />
-          </Stack>
-        </ComposerProvider>
+        <Stack {...stackOptions}>
+          <Stack.Screen
+            name="search/index"
+            options={{
+              title: "Search",
+              headerLeft: Platform.select({
+                ios: headerLeft,
+              }),
+              headerSearchBarOptions: {},
+            }}
+          />
+          <Stack.Screen
+            name="search/posts"
+            options={{
+              title: "Search Posts",
+              headerSearchBarOptions: {},
+            }}
+          />
+          <Stack.Screen
+            name="search/feeds"
+            options={{
+              title: "Search Feeds",
+              headerSearchBarOptions: {},
+            }}
+          />
+          <Stack.Screen
+            name="search/people"
+            options={{
+              title: "Search People",
+              headerSearchBarOptions: {},
+            }}
+          />
+        </Stack>
       );
     case "(notifications)":
       return (
-        <ComposerProvider>
-          <Stack {...stackOptions}>
-            <Stack.Screen
-              name="notifications"
-              options={{
-                title: "Notifications",
-                headerLeft,
-              }}
-            />
-          </Stack>
-        </ComposerProvider>
+        <Stack {...stackOptions}>
+          <Stack.Screen
+            name="notifications"
+            options={{
+              title: "Notifications",
+              headerLeft,
+            }}
+          />
+        </Stack>
       );
     case "(self)":
       return (
-        <ComposerProvider>
-          <Stack {...stackOptions}>
-            <Stack.Screen
-              name="self"
-              options={{
-                headerShown: false,
-                headerBackTitle: "Profile",
-              }}
-            />
-          </Stack>
-        </ComposerProvider>
+        <Stack {...stackOptions}>
+          <Stack.Screen
+            name="self"
+            options={{
+              headerShown: false,
+              headerBackTitle: "Profile",
+            }}
+          />
+        </Stack>
       );
   }
 }

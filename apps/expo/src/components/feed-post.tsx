@@ -10,7 +10,7 @@ import {
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Heart,
   MessageCircle,
@@ -19,6 +19,7 @@ import {
 } from "lucide-react-native";
 import { z } from "zod";
 
+import { Posts } from "../app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAuthedAgent } from "../lib/agent";
 import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { type FilterResult } from "../lib/hooks/preferences";
@@ -41,6 +42,10 @@ interface Props {
   inlineParent?: boolean;
   dataUpdatedAt: number;
   filter: FilterResult;
+  hideActions?: boolean;
+  hideEmbed?: boolean;
+  embedDepth?: number;
+  numberOfLines?: number;
 }
 
 export const FeedPost = ({
@@ -51,6 +56,10 @@ export const FeedPost = ({
   inlineParent,
   dataUpdatedAt,
   filter,
+  hideActions,
+  hideEmbed,
+  embedDepth,
+  numberOfLines,
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -76,6 +85,7 @@ export const FeedPost = ({
   const postAuthorHandle = item.post.author.handle;
 
   const theme = useTheme();
+  const queryClient = useQueryClient();
 
   const profileHref = `/profile/${postAuthorHandle}`;
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
@@ -88,25 +98,27 @@ export const FeedPost = ({
     rerender((prev) => prev + 1);
   }, []);
 
-  // IDEA: precache main post of thread
-  // useEffect(() => {
-  //   queryClient.setQueryData(postHref.split("/"), {
-  //     posts: [
-  //       {
-  //         hasParent: false,
-  //         hasReply: false,
-  //         post: item.post,
-  //         primary: true,
-  //       },
-  //     ],
-  //     index: 0,
-  //     main: item.post,
-  //   } satisfies {
-  //     posts: Posts[];
-  //     index: number;
-  //     main: AppBskyFeedDefs.PostView;
-  //   });
-  // }, [item.post, postHref]);
+  // IDEA: pre-fetch post data for the thread view
+  // PROBLEM: no spinner, sometimes overrides real data
+  useEffect(() => {
+    queryClient.setQueryData(postHref.slice(1).split("/"), {
+      posts: [
+        {
+          hasParent: false,
+          hasReply: false,
+          post: item.post,
+          primary: true,
+          filter,
+        },
+      ],
+      index: 0,
+      main: item.post,
+    } satisfies {
+      posts: Posts[];
+      index: number;
+      main: AppBskyFeedDefs.PostView;
+    });
+  }, [item.post, postHref]);
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
@@ -302,6 +314,7 @@ export const FeedPost = ({
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
+                          numberOfLines={numberOfLines}
                         />
                       </View>
                     </TouchableWithoutFeedback>
@@ -317,11 +330,12 @@ export const FeedPost = ({
                 </>
               )}
               {/* embeds */}
-              {item.post.embed && (
+              {item.post.embed && !hideEmbed && (
                 <Embed
                   uri={item.post.uri}
                   content={item.post.embed}
                   key={rerenderer}
+                  depth={embedDepth}
                 />
               )}
             </>
@@ -330,82 +344,84 @@ export const FeedPost = ({
           {/* <Text>{item.post.language}</Text> */}
           {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
-          <View className="mt-2.5 flex-row justify-between pr-6">
-            <TouchableOpacity
-              accessibilityLabel={`Reply, ${replyCount} repl${
-                replyCount !== 1 ? "ies" : "y"
-              }`}
-              accessibilityRole="button"
-              onPress={() =>
-                composer.open({
-                  parent: item.post,
-                  root:
-                    item.reply?.root &&
-                    AppBskyFeedDefs.isPostView(item.reply.root)
-                      ? item.reply.root
-                      : item.post,
-                })
-              }
-              className="flex-row items-center gap-2 tabular-nums"
-              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-            >
-              <MessageSquare size={16} color={theme.colors.text} />
-              <Text
-                style={{ color: theme.colors.text }}
-                className="tabular-nums"
+          {!hideActions && (
+            <View className="mt-2.5 flex-row justify-between pr-6">
+              <TouchableOpacity
+                accessibilityLabel={`Reply, ${replyCount} repl${
+                  replyCount !== 1 ? "ies" : "y"
+                }`}
+                accessibilityRole="button"
+                onPress={() =>
+                  composer.reply({
+                    parent: item.post,
+                    root:
+                      item.reply?.root &&
+                      AppBskyFeedDefs.isPostView(item.reply.root)
+                        ? item.reply.root
+                        : item.post,
+                  })
+                }
+                className="flex-row items-center gap-2 tabular-nums"
+                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               >
-                {replyCount}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              accessibilityLabel={`Repost, ${repostCount} repost${
-                repostCount !== 1 ? "s" : ""
-              }`}
-              accessibilityRole="button"
-              disabled={toggleRepost.isLoading}
-              onPress={handleRepost}
-              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2 tabular-nums"
-            >
-              <Repeat
-                size={16}
-                color={reposted ? "#2563eb" : theme.colors.text}
-              />
-              <Text
-                style={{
-                  color: reposted ? "#2563eb" : theme.colors.text,
-                }}
-                className="tabular-nums"
+                <MessageSquare size={16} color={theme.colors.text} />
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="tabular-nums"
+                >
+                  {replyCount}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                accessibilityLabel={`Repost, ${repostCount} repost${
+                  repostCount !== 1 ? "s" : ""
+                }`}
+                accessibilityRole="button"
+                disabled={toggleRepost.isLoading}
+                onPress={handleRepost}
+                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+                className="flex-row items-center gap-2 tabular-nums"
               >
-                {repostCount}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              accessibilityLabel={`Like, ${likeCount} like${
-                likeCount !== 1 ? "s" : ""
-              }`}
-              accessibilityRole="button"
-              disabled={toggleLike.isLoading}
-              onPress={() => toggleLike.mutate()}
-              hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              className="flex-row items-center gap-2 tabular-nums"
-            >
-              <Heart
-                size={16}
-                fill={liked ? "#dc2626" : "transparent"}
-                color={liked ? "#dc2626" : theme.colors.text}
-              />
-              <Text
-                style={{
-                  color: liked ? "#dc2626" : theme.colors.text,
-                }}
-                className="tabular-nums"
+                <Repeat
+                  size={16}
+                  color={reposted ? "#2563eb" : theme.colors.text}
+                />
+                <Text
+                  style={{
+                    color: reposted ? "#2563eb" : theme.colors.text,
+                  }}
+                  className="tabular-nums"
+                >
+                  {repostCount}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                accessibilityLabel={`Like, ${likeCount} like${
+                  likeCount !== 1 ? "s" : ""
+                }`}
+                accessibilityRole="button"
+                disabled={toggleLike.isLoading}
+                onPress={() => toggleLike.mutate()}
+                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+                className="flex-row items-center gap-2 tabular-nums"
               >
-                {likeCount}
-              </Text>
-            </TouchableOpacity>
-            <PostContextMenu post={item.post} />
-          </View>
+                <Heart
+                  size={16}
+                  fill={liked ? "#dc2626" : "transparent"}
+                  color={liked ? "#dc2626" : theme.colors.text}
+                />
+                <Text
+                  style={{
+                    color: liked ? "#dc2626" : theme.colors.text,
+                  }}
+                  className="tabular-nums"
+                >
+                  {likeCount}
+                </Text>
+              </TouchableOpacity>
+              <PostContextMenu post={item.post} />
+            </View>
+          )}
         </View>
       </View>
     </View>

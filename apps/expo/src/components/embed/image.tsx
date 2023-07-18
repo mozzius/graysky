@@ -50,10 +50,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       return (
         <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
-            <View
-              className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
-              key={image.fullsize}
-            >
+            <View className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}>
               <Image
                 href={href}
                 index={i}
@@ -73,7 +70,8 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
               href={href}
               image={content.images[0]!}
               depth={depth}
-              className="h-full w-full object-cover"
+              className="aspect-square"
+              // className="h-full w-full object-cover"
             />
           </View>
           <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
@@ -90,7 +88,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                   index={i + 1}
                   image={image}
                   depth={depth}
-                  className="h-full w-full object-cover"
+                  // className="h-full w-full object-cover"
                 />
               </View>
             ))}
@@ -102,7 +100,6 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
         <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
-              key={image.fullsize}
               className={cx(
                 "w-1/2",
                 i > 1 && "mt-1",

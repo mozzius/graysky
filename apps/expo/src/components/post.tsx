@@ -113,7 +113,6 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           content={post.embed}
           truncate={false}
           key={rerenderer}
-          postIndex={Infinity}
         />
       )}
       {/* actions */}
@@ -125,7 +124,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
           onPress={() =>
-            composer.open({
+            composer.reply({
               parent: post,
               root,
             })

@@ -25,13 +25,7 @@ interface Props {
   depth?: number;
 }
 
-export const Embed = ({
-  uri,
-  content,
-
-  truncate = true,
-  depth = 0,
-}: Props) => {
+export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
   const theme = useTheme();
 
   if (!content) return null;

@@ -27,11 +27,14 @@ import {
   useRouter,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { AppBskyEmbedRecord } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Paperclip, Plus, Send, X } from "lucide-react-native";
 
 import { Avatar } from "../../components/avatar";
+import { Embed } from "../../components/embed";
+import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
 import { useAuthedAgent } from "../../lib/agent";
 import {
@@ -43,12 +46,14 @@ import {
   useReply,
   useSendPost,
 } from "../../lib/hooks/composer";
+import { useContentFilter } from "../../lib/hooks/preferences";
 import { cx } from "../../lib/utils/cx";
 
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAuthedAgent();
   const navigation = useNavigation();
+  const { contentFilter } = useContentFilter();
 
   const reply = useReply();
   const quote = useQuote();
@@ -75,8 +80,8 @@ export default function ComposerScreen() {
   });
 
   const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
-
   const isEmpty = text.trim().length === 0 && images.length === 0;
+
   const send = useSendPost({
     text,
     images,
@@ -112,16 +117,30 @@ export default function ComposerScreen() {
       />
       {send.isError && (
         <View className="bg-red-500 px-4 py-3">
-          <Text className="text-xl font-medium text-white">
+          <Text className="text-lg font-medium leading-6 text-white">
             {send.error instanceof Error
               ? send.error.message
               : "An unknown error occurred"}
           </Text>
-          <Text className="text-white/90">Please try again</Text>
+          <Text className="my-1 text-white/90">Please try again</Text>
         </View>
       )}
-      <ScrollView>
-        <View className="w-full flex-row px-2 pt-4">
+      <ScrollView className="pt-4">
+        {reply.thread.data && (
+          <Animated.View layout={Layout} pointerEvents="none">
+            <FeedPost
+              item={reply.thread.data}
+              dataUpdatedAt={0}
+              filter={contentFilter(reply.thread.data.post.labels)}
+              hasReply
+              isReply
+              hideActions
+              hideEmbed
+              numberOfLines={3}
+            />
+          </Animated.View>
+        )}
+        <Animated.View className="w-full flex-row px-2" layout={Layout}>
           <View className="shrink-0 px-2">
             <Avatar />
           </View>
@@ -285,8 +304,31 @@ export default function ComposerScreen() {
                 )}
               </Animated.ScrollView>
             )}
+            {quote.thread.data && (
+              <Animated.View
+                layout={Layout}
+                entering={FadeInDown}
+                className="mt-4 w-full"
+                pointerEvents="none"
+              >
+                <Embed
+                  key={images.length + text}
+                  uri=""
+                  content={
+                    {
+                      $type: "app.bsky.embed.record#view",
+                      record: {
+                        $type: "app.bsky.embed.record#viewRecord",
+                        ...quote.thread.data.post,
+                        value: quote.thread.data.post.record,
+                      },
+                    } satisfies AppBskyEmbedRecord.View
+                  }
+                />
+              </Animated.View>
+            )}
           </View>
-        </View>
+        </Animated.View>
       </ScrollView>
       <StatusBar style="light" />
     </View>

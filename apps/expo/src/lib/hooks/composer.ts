@@ -48,7 +48,9 @@ export const useReply = () => {
     reply?: string;
   }>();
 
-  const ref = reply ? replyRefSchema.parse(JSON.parse(reply)) : undefined;
+  const ref = reply
+    ? replyRefSchema.parse(JSON.parse(decodeURIComponent(reply)))
+    : undefined;
 
   const thread = useContextualPost(ref?.parent.uri);
 
@@ -61,7 +63,10 @@ export const useQuote = () => {
   }>();
 
   const ref = quote
-    ? { record: strongRefSchema.parse(JSON.parse(quote)) }
+    ? {
+        $type: "app.bsky.embed.record",
+        record: strongRefSchema.parse(JSON.parse(decodeURIComponent(quote))),
+      }
     : undefined;
 
   const thread = useContextualPost(ref?.record.uri);
