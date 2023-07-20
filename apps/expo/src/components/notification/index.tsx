@@ -35,7 +35,11 @@ export const Notification = ({
     case "like":
       return (
         <TouchableOpacity
-          onPress={() => subject && openLikes(subject, actors.length)}
+          onPress={() =>
+            actors.length === 1 && href
+              ? router.push(href)
+              : subject && openLikes(subject, actors.length)
+          }
         >
           <NotificationItem
             unread={!isRead}
@@ -64,7 +68,11 @@ export const Notification = ({
     case "repost":
       return (
         <TouchableOpacity
-          onPress={() => subject && openReposts(subject, actors.length)}
+          onPress={() =>
+            actors.length === 1 && href
+              ? router.push(href)
+              : subject && openReposts(subject, actors.length)
+          }
         >
           <NotificationItem
             unread={!isRead}

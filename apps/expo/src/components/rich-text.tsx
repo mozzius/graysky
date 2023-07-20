@@ -47,7 +47,7 @@ export const RichText = ({
     const parts = [];
     let Wrapper = forcePointerEvents
       ? (props: React.PropsWithChildren) => (
-          <View {...props} pointerEvents="auto" className="translate-y-0.5" />
+          <View {...props} pointerEvents="auto" className="translate-y-[3px]" />
         )
       : Fragment;
     for (const segment of rt.segments()) {
@@ -75,7 +75,7 @@ export const RichText = ({
           component: (
             <Wrapper>
               <Text
-                className={cx("text-blue-500", className)}
+                className={cx("text-blue-500", classNames)}
                 onPress={(evt) => {
                   if (disableLinks) return;
                   evt.stopPropagation();

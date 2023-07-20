@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react"; // Layoutn is just an example and should be replaced by real animation. For Instance Layout
-
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -19,13 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
-import {
-  Link,
-  Stack,
-  useFocusEffect,
-  useNavigation,
-  useRouter,
-} from "expo-router";
+import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { AppBskyEmbedRecord } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -62,14 +55,6 @@ export default function ComposerScreen() {
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
   const textRef = useRef<TextInput>(null);
-
-  useFocusEffect(
-    useCallback(() => {
-      setTimeout(() => {
-        textRef.current?.focus();
-      }, 100);
-    }, []),
-  );
 
   const rt = useQuery({
     queryKey: ["rt", text],
@@ -125,7 +110,7 @@ export default function ComposerScreen() {
           <Text className="my-1 text-white/90">Please try again</Text>
         </View>
       )}
-      <ScrollView className="pt-4">
+      <KeyboardAwareScrollView className="pt-4">
         {reply.thread.data && (
           <Animated.View
             layout={Layout}
@@ -145,7 +130,7 @@ export default function ComposerScreen() {
             />
           </Animated.View>
         )}
-        <Animated.View className="w-full flex-row px-2" layout={Layout}>
+        <Animated.View className="w-full flex-row px-2 pb-6" layout={Layout}>
           <View className="shrink-0 px-2">
             <Avatar size="medium" />
           </View>
@@ -165,6 +150,7 @@ export default function ComposerScreen() {
                 placeholderTextColor={theme.dark ? "#555" : "#aaa"}
                 verticalAlign="middle"
                 textAlignVertical="center"
+                autoFocus
               >
                 <RichText
                   size="lg"
@@ -219,6 +205,7 @@ export default function ComposerScreen() {
                 className="mt-4 flex-1 pb-2"
                 entering={FadeInDown}
                 exiting={FadeOutDown}
+                layout={Layout}
               >
                 {images.map((image, i) => (
                   <Animated.View
@@ -333,7 +320,7 @@ export default function ComposerScreen() {
             )}
           </View>
         </Animated.View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <StatusBar style="light" />
     </View>
   );

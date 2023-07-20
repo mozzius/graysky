@@ -38,7 +38,10 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
         onIndexChange={(index) => setIndex(index)}
         renderItem={(props) => (
           <View style={StyleSheet.absoluteFill} className="justify-center">
-            <ImageWithFallback {...props} tag={tag} />
+            <ImageWithFallback
+              {...props}
+              tag={props.index === initialIndex ? tag : undefined}
+            />
           </View>
         )}
         onSwipeToClose={onClose}

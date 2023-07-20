@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useId } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { ImageStyle } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -65,13 +66,12 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
     case 3:
       return (
         <View className="mt-1.5 aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
-          <View className="w-1/2 pr-0.5">
+          <View className="pr-0.50 w-1/2">
             <Image
               href={href}
               image={content.images[0]!}
               depth={depth}
-              className="aspect-square"
-              // className="h-full w-full object-cover"
+              className="h-full w-full object-cover"
             />
           </View>
           <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
@@ -88,7 +88,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                   index={i + 1}
                   image={image}
                   depth={depth}
-                  // className="h-full w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </View>
             ))}
@@ -128,6 +128,7 @@ interface ImageProps {
   depth: number;
   index?: number;
   className?: string;
+  style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
 }
 
@@ -138,6 +139,7 @@ const Image = ({
   index = 0,
   className,
   useCappedAspectRatio,
+  style,
 }: ImageProps) => {
   const tag = useId();
   return (
@@ -148,6 +150,7 @@ const Image = ({
           image={image}
           depth={depth}
           className={className}
+          style={style}
           useCappedAspectRatio={useCappedAspectRatio}
         />
       </TouchableWithoutFeedback>

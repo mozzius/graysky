@@ -123,6 +123,9 @@ export const useSendPost = ({
     mutationKey: ["send"],
     mutationFn: async () => {
       if (!agent.hasSession) throw new Error("Not logged in");
+
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       const rt = await generateRichText(text, agent);
       if (rt.graphemeLength > MAX_LENGTH) {
         Alert.alert(

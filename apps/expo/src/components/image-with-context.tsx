@@ -123,6 +123,7 @@ export const ImageWithContext = ({
   }
 
   const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
+
   const imageStyle = useCappedAspectRatio
     ? Array.isArray(style)
       ? [
@@ -131,12 +132,10 @@ export const ImageWithContext = ({
           },
           ...style,
         ]
-      : [
-          {
-            aspectRatio: cappedAspectRatio,
-          },
-          style ?? {},
-        ]
+      : {
+          aspectRatio: cappedAspectRatio,
+          ...style,
+        }
     : style;
 
   const queryClient = useQueryClient();

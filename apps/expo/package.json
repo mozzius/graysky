@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.js",
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
@@ -73,6 +73,7 @@
     "react-native-drawer-layout": "^3.2.1",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-ios-context-menu": "^1.15.3",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-keyboard-controller": "^1.5.8",
     "react-native-pager-view": "6.2.0",
     "react-native-purchases": "^6.3.0",
