@@ -46,6 +46,7 @@ interface Props {
   hideEmbed?: boolean;
   embedDepth?: number;
   numberOfLines?: number;
+  avatarSize?: "normal" | "reduced";
 }
 
 export const FeedPost = ({
@@ -60,6 +61,7 @@ export const FeedPost = ({
   hideEmbed,
   embedDepth,
   numberOfLines,
+  avatarSize = "normal",
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -98,25 +100,29 @@ export const FeedPost = ({
     rerender((prev) => prev + 1);
   }, []);
 
-  // IDEA: pre-fetch post data for the thread view
-  // PROBLEM: no spinner, sometimes overrides real data
   useEffect(() => {
-    queryClient.setQueryData(postHref.slice(1).split("/"), {
-      posts: [
-        {
-          hasParent: false,
-          hasReply: false,
-          post: item.post,
-          primary: true,
-          filter,
-        },
-      ],
-      index: 0,
-      main: item.post,
-    } satisfies {
-      posts: Posts[];
-      index: number;
-      main: AppBskyFeedDefs.PostView;
+    queryClient.setQueryData(postHref.slice(1).split("/"), (old: unknown) => {
+      if (old) {
+        return old;
+      } else {
+        return {
+          posts: [
+            {
+              hasParent: false,
+              hasReply: false,
+              post: item.post,
+              primary: true,
+              filter,
+            },
+          ],
+          index: 0,
+          main: item.post,
+        } satisfies {
+          posts: Posts[];
+          index: number;
+          main: AppBskyFeedDefs.PostView;
+        };
+      }
     });
   }, [item.post, postHref]);
 
@@ -156,7 +162,7 @@ export const FeedPost = ({
   return (
     <View
       className={cx(
-        "px-2 pt-2",
+        "flex-1 px-2 pt-2",
         isReply && !item.reason && "pt-0",
         !hasReply && "border-b",
         unread
@@ -173,14 +179,19 @@ export const FeedPost = ({
       <View className="flex-1 flex-row">
         {/* left col */}
         <View
-          className="flex flex-col items-center px-2"
+          className="items-center px-2"
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-          <PostAvatar profile={item.post.author} />
+          <PostAvatar profile={item.post.author} avatarSize={avatarSize} />
           <Link href={postHref} asChild>
             <TouchableWithoutFeedback>
-              <View className="w-12 flex-1 items-center">
+              <View
+                className={cx("flex-1 items-center", {
+                  "w-10": avatarSize === "reduced",
+                  "w-12": avatarSize === "normal",
+                })}
+              >
                 <View
                   className="w-0.5 grow"
                   style={{
@@ -301,7 +312,7 @@ export const FeedPost = ({
           {hidden ? (
             hiddenContent
           ) : (
-            <>
+            <View className="flex-1">
               {/* text content */}
               {item.post.record.text && (
                 <>
@@ -338,7 +349,7 @@ export const FeedPost = ({
                   depth={embedDepth}
                 />
               )}
-            </>
+            </View>
           )}
           {/* display labels for debug */}
           {/* <Text>{item.post.language}</Text> */}

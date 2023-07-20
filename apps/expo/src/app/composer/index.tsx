@@ -127,7 +127,11 @@ export default function ComposerScreen() {
       )}
       <ScrollView className="pt-4">
         {reply.thread.data && (
-          <Animated.View layout={Layout} pointerEvents="none">
+          <Animated.View
+            layout={Layout}
+            pointerEvents="none"
+            className="flex-1"
+          >
             <FeedPost
               item={reply.thread.data}
               dataUpdatedAt={0}
@@ -137,15 +141,16 @@ export default function ComposerScreen() {
               hideActions
               hideEmbed
               numberOfLines={3}
+              avatarSize="reduced"
             />
           </Animated.View>
         )}
         <Animated.View className="w-full flex-row px-2" layout={Layout}>
           <View className="shrink-0 px-2">
-            <Avatar />
+            <Avatar size="medium" />
           </View>
-          <View className="flex flex-1 items-start px-2">
-            <View className="min-h-[48px] flex-1 flex-row items-center">
+          <View className="flex flex-1 items-start pl-1 pr-2">
+            <View className="min-h-[40px] flex-1 flex-row items-center">
               <TextInput
                 ref={textRef}
                 onChange={(evt) => {
@@ -155,7 +160,7 @@ export default function ComposerScreen() {
                   }
                 }}
                 multiline
-                className="relative -top-px w-full text-lg leading-5"
+                className="relative -top-[3px] w-full text-lg leading-6"
                 placeholder="What's on your mind?"
                 placeholderTextColor={theme.dark ? "#555" : "#aaa"}
                 verticalAlign="middle"
@@ -308,11 +313,10 @@ export default function ComposerScreen() {
               <Animated.View
                 layout={Layout}
                 entering={FadeInDown}
-                className="mt-4 w-full"
+                className="mt-4 w-full flex-1"
                 pointerEvents="none"
               >
                 <Embed
-                  key={images.length + text}
                   uri=""
                   content={
                     {
@@ -396,16 +400,16 @@ const CancelButton = ({
         menuConfig={{
           menuTitle: "",
           menuItems: [
-            {
-              actionKey: "save",
-              actionTitle: "Save to drafts",
-              icon: {
-                type: "IMAGE_SYSTEM",
-                imageValue: {
-                  systemName: "square.and.arrow.down",
-                },
-              },
-            },
+            // {
+            //   actionKey: "save",
+            //   actionTitle: "Save to drafts",
+            //   icon: {
+            //     type: "IMAGE_SYSTEM",
+            //     imageValue: {
+            //       systemName: "square.and.arrow.down",
+            //     },
+            //   },
+            // },
             {
               actionKey: "discard",
               actionTitle: "Discard post",

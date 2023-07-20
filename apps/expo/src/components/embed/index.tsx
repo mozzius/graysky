@@ -178,7 +178,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
-        <View>
+        <View className="flex-1">
           {media && <Embed uri={uri} content={media} depth={depth} />}
           <PostEmbed author={record.author} uri={record.uri}>
             {record.value.text && (

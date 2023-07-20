@@ -48,7 +48,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       );
     case 2:
       return (
-        <View className="mt-1.5 flex flex-row justify-between overflow-hidden rounded-lg">
+        <View className="mt-1.5 flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}>
               <Image
@@ -64,7 +64,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       );
     case 3:
       return (
-        <View className="mt-1.5 flex aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
+        <View className="mt-1.5 aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="w-1/2 pr-0.5">
             <Image
               href={href}
@@ -97,7 +97,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       );
     case 4:
       return (
-        <View className="mt-1.5 flex flex-row flex-wrap justify-between overflow-hidden rounded-lg">
+        <View className="mt-1.5 flex-row flex-wrap justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
               className={cx(

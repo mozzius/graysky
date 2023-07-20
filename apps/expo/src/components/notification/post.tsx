@@ -39,7 +39,7 @@ export const PostNotification = ({
       assert(AppBskyFeedPost.validateRecord(item.post.record));
 
       return (
-        <View className="mt-0.5">
+        <View className="mt-0.5 flex-1">
           {item.post.record.text && (
             <Text className="text-neutral-500 dark:text-neutral-400">
               <RichText

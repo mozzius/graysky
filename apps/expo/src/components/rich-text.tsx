@@ -16,6 +16,7 @@ interface Props {
   truncate?: boolean;
   disableLinks?: boolean;
   forcePointerEvents?: boolean;
+  className?: string;
 }
 
 export const RichText = ({
@@ -26,16 +27,20 @@ export const RichText = ({
   truncate = true,
   disableLinks,
   forcePointerEvents,
+  className,
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
 
-  const className = cx({
-    "text-sm": size === "sm",
-    "text-base leading-[22px]": size === "base",
-    "text-lg leading-6": size === "lg",
-    "text-xl leading-7": size === "xl",
-  });
+  const classNames = cx(
+    {
+      "text-sm": size === "sm",
+      "text-base leading-[22px]": size === "base",
+      "text-lg leading-6": size === "lg",
+      "text-xl leading-7": size === "xl",
+    },
+    className,
+  );
 
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
@@ -117,7 +122,7 @@ export const RichText = ({
           component: (
             <Wrapper>
               <Text
-                className={cx("text-blue-500", className)}
+                className={cx("text-blue-500", classNames)}
                 onPress={(evt) => {
                   evt.stopPropagation();
                   router.push(`/profile/${segment.mention!.did}`);
@@ -132,7 +137,7 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text style={{ color: theme.colors.text }} className={className}>
+            <Text style={{ color: theme.colors.text }} className={classNames}>
               {segment.text}
             </Text>
           ),
@@ -146,19 +151,27 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text style={{ color: theme.colors.text }}>
+          <Text style={{ color: theme.colors.text }} className={classNames}>
             {text.slice(reconstructed.length)}
           </Text>
         ),
       });
     }
     return parts;
-  }, [text, facets, router, disableLinks, truncate, theme.colors.text]);
+  }, [
+    text,
+    facets,
+    router,
+    disableLinks,
+    truncate,
+    theme.colors.text,
+    classNames,
+  ]);
 
   if (!segments) return null;
 
   return (
-    <Text className={className} numberOfLines={numberOfLines}>
+    <Text className={classNames} numberOfLines={numberOfLines}>
       {segments.map(({ text, component }, i) => (
         <Fragment key={`${i}+${text}`}>{component}</Fragment>
       ))}
