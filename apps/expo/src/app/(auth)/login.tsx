@@ -66,7 +66,7 @@ export default function Login() {
         <View
           className={cx(
             "flex-row items-center rounded pl-3",
-            !theme.dark && "border-neutral-300",
+            !theme.dark && "border-neutral-400",
           )}
           style={{
             borderWidth: StyleSheet.hairlineWidth,
@@ -94,7 +94,7 @@ export default function Login() {
         <View
           className={cx(
             "flex-row items-center rounded pl-3",
-            !theme.dark && "border-neutral-300",
+            !theme.dark && "border-neutral-400",
           )}
           style={{
             borderWidth: StyleSheet.hairlineWidth,
@@ -112,7 +112,7 @@ export default function Login() {
             placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
           />
         </View>
-        <View className="flex-row items-center justify-between pt-4">
+        <View className="flex-row items-center justify-between pt-1">
           <Button
             onPress={() =>
               Alert.alert(

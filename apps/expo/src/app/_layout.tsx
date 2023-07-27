@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Text, TouchableOpacity } from "react-native";
+import { Alert, Linking, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import {
@@ -23,6 +23,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
+import { ExternalLink } from "lucide-react-native";
 import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
@@ -195,6 +196,25 @@ const App = () => {
                             >
                               Cancel
                             </Text>
+                          </TouchableOpacity>
+                        ),
+                        headerRight: () => (
+                          <TouchableOpacity
+                            className="flex-row items-center gap-1"
+                            onPress={() =>
+                              Linking.openURL("https://bsky.app/register")
+                            }
+                          >
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg"
+                            >
+                              Register
+                            </Text>
+                            <ExternalLink
+                              size={16}
+                              color={theme.colors.primary}
+                            />
                           </TouchableOpacity>
                         ),
                       }}
