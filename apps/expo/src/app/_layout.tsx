@@ -27,11 +27,11 @@ import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
-// import {
-//   configureRevenueCat,
-//   CustomerInfoProvider,
-//   useCustomerInfoQuery,
-// } from "../lib/hooks/purchases";
+import {
+  configureRevenueCat,
+  CustomerInfoProvider,
+  useCustomerInfoQuery,
+} from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { useColorScheme } from "../lib/utils/color-scheme";
@@ -39,11 +39,10 @@ import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
-  enableInExpoDevelopment: true,
-  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  enableInExpoDevelopment: false,
 });
 
-// configureRevenueCat();
+configureRevenueCat();
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +55,7 @@ const App = () => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
-  // const info = useCustomerInfoQuery();
+  const info = useCustomerInfoQuery();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -71,7 +70,6 @@ const App = () => {
             setSession(sess);
             break;
           case "create-failed":
-            void AsyncStorage.removeItem("session");
             setSession(null);
             Alert.alert(
               "Could not log you in",
@@ -116,27 +114,27 @@ const App = () => {
     void queryClient.invalidateQueries();
   }, [did, queryClient]);
 
-  // redirect depending on login state
-  useEffect(() => {
-    // early return if we're still loading
-    if (loading) return;
-    const atRoot = segments.length === 0;
-    const inAuthGroup = segments[0] === "(auth)";
+  // // redirect depending on login state
+  // useEffect(() => {
+  //   // early return if we're still loading
+  //   if (loading) return;
+  //   const atRoot = segments.length === 0;
+  //   const inAuthGroup = segments[0] === "(auth)";
 
-    if (
-      // If the user is not signed in and the initial segment is not anything in the auth group.
-      !did &&
-      !inAuthGroup &&
-      !atRoot
-    ) {
-      // Redirect to the sign-in page.
-      if (segments.join("/") === "(auth)/login") return;
-      router.replace("/");
-    } else if (did && (inAuthGroup || atRoot)) {
-      if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
-      router.replace("/feeds");
-    }
-  }, [did, segments, router, loading]);
+  //   if (
+  //     // If the user is not signed in and the initial segment is not anything in the auth group.
+  //     !did &&
+  //     !inAuthGroup &&
+  //     !atRoot
+  //   ) {
+  //     // Redirect to the sign-in page.
+  //     if (segments.join("/") === "(auth)/login") return;
+  //     router.replace("/");
+  //   } else if (did && (inAuthGroup || atRoot)) {
+  //     if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
+  //     router.replace("/feeds");
+  //   }
+  // }, [did, segments, router, loading]);
 
   const logOut = useCallback(async () => {
     await AsyncStorage.removeItem("session");
@@ -156,93 +154,118 @@ const App = () => {
     }
   }, [isReady]);
 
+  function handleModalBack() {
+    if (navigation.canGoBack()) {
+      router.push("../");
+    } else {
+      router.push("/feeds");
+    }
+  }
+
   return (
     <ThemeProvider value={theme}>
       <SafeAreaProvider>
-        {/* <CustomerInfoProvider info={info.data}> */}
-        <AgentProvider value={agent}>
-          <LogOutProvider value={logOut}>
-            <ActionSheetProvider>
-              <ListProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: true,
-                    fullScreenGestureEnabled: true,
-                  }}
-                >
-                  <Stack.Screen
-                    name="(auth)/login"
-                    options={{ title: "Log in" }}
-                  />
-                  <Stack.Screen
-                    name="settings"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
+        <CustomerInfoProvider info={info.data}>
+          <AgentProvider value={agent}>
+            <LogOutProvider value={logOut}>
+              <ActionSheetProvider>
+                <ListProvider>
+                  <Stack
+                    screenOptions={{
+                      headerShown: true,
+                      fullScreenGestureEnabled: true,
                     }}
-                  />
-                  <Stack.Screen
-                    name="codes"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                  <Stack.Screen
-                    name="translate"
-                    options={{
-                      title: "Translate",
-                      presentation: "modal",
-                      headerRight: () => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            if (navigation.canGoBack()) {
-                              router.push("../");
-                            } else {
-                              router.push("/feeds");
-                            }
-                          }}
-                        >
-                          <Text
-                            style={{ color: theme.colors.primary }}
-                            className="text-lg font-medium"
-                          >
-                            Done
-                          </Text>
-                        </TouchableOpacity>
-                      ),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="images/[post]"
-                    options={{
-                      presentation: "transparentModal",
-                      headerShown: false,
-                      animation: "none",
-                      fullScreenGestureEnabled: false,
-                      customAnimationOnGesture: true,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="pro"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                  <Stack.Screen
-                    name="composer"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                </Stack>
-              </ListProvider>
-            </ActionSheetProvider>
-          </LogOutProvider>
-        </AgentProvider>
-        {/* </CustomerInfoProvider> */}
+                  >
+                    <Stack.Screen
+                      name="index"
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{
+                        title: "Log in",
+                        presentation: "formSheet",
+                        headerLeft: () => (
+                          <TouchableOpacity onPress={() => router.push("/")}>
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg"
+                            >
+                              Cancel
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="codes"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="translate"
+                      options={{
+                        title: "Translate",
+                        presentation: "modal",
+                        headerRight: () => (
+                          <TouchableOpacity onPress={handleModalBack}>
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg font-medium"
+                            >
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="images/[post]"
+                      options={{
+                        presentation: "transparentModal",
+                        headerShown: false,
+                        animation: "none",
+                        fullScreenGestureEnabled: false,
+                        customAnimationOnGesture: true,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="pro"
+                      options={{
+                        title: "",
+                        headerTransparent: true,
+                        presentation: "modal",
+                        headerLeft: () => (
+                          <TouchableOpacity onPress={handleModalBack}>
+                            <Text className="text-lg text-white">Cancel</Text>
+                          </TouchableOpacity>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="composer"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                  </Stack>
+                </ListProvider>
+              </ActionSheetProvider>
+            </LogOutProvider>
+          </AgentProvider>
+        </CustomerInfoProvider>
       </SafeAreaProvider>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>

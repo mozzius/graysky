@@ -1,11 +1,20 @@
 import { useState } from "react";
-import { Alert, Button, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 
 import { useAgent } from "../../lib/agent";
-import { useColorScheme } from "../../lib/utils/color-scheme";
 import { cx } from "../../lib/utils/cx";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
@@ -50,9 +59,20 @@ export default function Login() {
   const theme = useTheme();
 
   return (
-    <View className={cx("flex-1 p-4", theme.dark ? "bg-black" : "bg-white")}>
+    <View
+      className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
+    >
       <View className="items-stretch gap-4">
-        <View className="flex flex-row items-center rounded border border-neutral-300 pl-3 dark:border-neutral-600">
+        <View
+          className={cx(
+            "flex-row items-center rounded pl-3",
+            !theme.dark && "border-neutral-300",
+          )}
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            backgroundColor: theme.colors.card,
+          }}
+        >
           <User size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
@@ -61,16 +81,26 @@ export default function Login() {
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
-            placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
+            placeholderTextColor={theme.dark ? "rgb(163, 163, 163)" : undefined}
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
               if (!identifier.includes(".")) fixed = `${fixed}.bsky.social`;
               setIdentifier(fixed);
             }}
+            autoFocus
           />
         </View>
-        <View className="flex flex-row items-center rounded border border-neutral-300 pl-3 dark:border-neutral-600">
+        <View
+          className={cx(
+            "flex-row items-center rounded pl-3",
+            !theme.dark && "border-neutral-300",
+          )}
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            backgroundColor: theme.colors.card,
+          }}
+        >
           <Lock size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
@@ -82,7 +112,7 @@ export default function Login() {
             placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
           />
         </View>
-        <View className="flex-row justify-between">
+        <View className="flex-row items-center justify-between pt-4">
           <Button
             onPress={() =>
               Alert.alert(
@@ -92,15 +122,45 @@ export default function Login() {
             }
             title="Help"
           />
-          <View />
-
-          <Button
-            disabled={login.isLoading || !identifier || !password}
-            onPress={() => login.mutate()}
-            title="Log in"
-          />
+          {!login.isLoading ? (
+            <Button
+              disabled={!identifier || !password}
+              onPress={() => login.mutate()}
+              title="Log in"
+              className="font-medium"
+            />
+          ) : (
+            <ActivityIndicator className="px-2" />
+          )}
         </View>
       </View>
     </View>
   );
 }
+
+interface Props {
+  disabled?: boolean;
+  onPress?: () => void;
+  className?: string;
+  title: String;
+  style?: StyleProp<ViewStyle>;
+}
+
+const Button = ({ disabled, onPress, title, style }: Props) => {
+  const theme = useTheme();
+  return (
+    <TouchableOpacity onPress={onPress} disabled={disabled} hitSlop={8}>
+      <Text
+        className={cx("text-lg")}
+        style={[
+          {
+            color: disabled ? theme.colors.border : theme.colors.primary,
+          },
+          style,
+        ]}
+      >
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+};
