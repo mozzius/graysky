@@ -49,6 +49,8 @@ export default function AppLayout() {
   const segments = useSegments();
   const router = useRouter();
 
+  console.log("_layout");
+
   return (
     <DrawerProvider value={openDrawer}>
       <Stack.Screen

@@ -320,7 +320,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           </View>
         </View>
         {profile.description && (
-          <View className="mt-3" pointerEvents="none">
+          <View className="mt-3" pointerEvents="box-none">
             <RichTextWithoutFacets
               text={profile.description.trim()}
               forcePointerEvents

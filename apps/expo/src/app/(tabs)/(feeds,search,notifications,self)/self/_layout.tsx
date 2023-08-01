@@ -26,10 +26,7 @@ export default function ProfileLayout() {
           style={{ backgroundColor: theme.colors.card, height: top }}
           className="w-full"
         />
-        <TopTabs
-          screenOptions={createTopTabsScreenOptions(theme)}
-          options={{ lazy: true }}
-        >
+        <TopTabs screenOptions={createTopTabsScreenOptions(theme)}>
           <TopTabs.Header>
             <ProfileInfo profile={profile.data} />
           </TopTabs.Header>

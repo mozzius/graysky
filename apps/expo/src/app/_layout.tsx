@@ -115,27 +115,27 @@ const App = () => {
     void queryClient.invalidateQueries();
   }, [did, queryClient]);
 
-  // // redirect depending on login state
-  // useEffect(() => {
-  //   // early return if we're still loading
-  //   if (loading) return;
-  //   const atRoot = segments.length === 0;
-  //   const inAuthGroup = segments[0] === "(auth)";
+  // redirect depending on login state
+  useEffect(() => {
+    // early return if we're still loading
+    if (loading) return;
+    const atRoot = segments.length === 0;
+    const inAuthGroup = segments[0] === "(auth)";
 
-  //   if (
-  //     // If the user is not signed in and the initial segment is not anything in the auth group.
-  //     !did &&
-  //     !inAuthGroup &&
-  //     !atRoot
-  //   ) {
-  //     // Redirect to the sign-in page.
-  //     if (segments.join("/") === "(auth)/login") return;
-  //     router.replace("/");
-  //   } else if (did && (inAuthGroup || atRoot)) {
-  //     if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
-  //     router.replace("/feeds");
-  //   }
-  // }, [did, segments, router, loading]);
+    if (
+      // If the user is not signed in and the initial segment is not anything in the auth group.
+      !did &&
+      !inAuthGroup &&
+      !atRoot
+    ) {
+      // Redirect to the sign-in page.
+      if (segments.join("/") === "(auth)/login") return;
+      router.replace("/");
+    } else if (did && (inAuthGroup || atRoot)) {
+      if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
+      router.replace("/feeds");
+    }
+  }, [did, segments, router, loading]);
 
   const logOut = useCallback(async () => {
     await AsyncStorage.removeItem("session");
@@ -201,9 +201,7 @@ const App = () => {
                         headerRight: () => (
                           <TouchableOpacity
                             className="flex-row items-center gap-1"
-                            onPress={() =>
-                              Linking.openURL("https://bsky.app/register")
-                            }
+                            onPress={() => Linking.openURL("https://bsky.app")}
                           >
                             <Text
                               style={{ color: theme.colors.primary }}

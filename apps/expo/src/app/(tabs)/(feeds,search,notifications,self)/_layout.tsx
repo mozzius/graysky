@@ -83,6 +83,7 @@ export default function SubStack({
               headerLeft: Platform.select({
                 ios: headerLeft,
               }),
+              headerLargeTitle: true,
               headerSearchBarOptions: {},
             }}
           />
@@ -116,6 +117,7 @@ export default function SubStack({
             name="notifications"
             options={{
               title: "Notifications",
+              headerLargeTitle: true,
               headerLeft,
             }}
           />

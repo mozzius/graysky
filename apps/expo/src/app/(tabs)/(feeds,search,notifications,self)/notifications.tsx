@@ -176,6 +176,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       await notifications.refetch();
       setNonScrollRefreshing(false);
     }, [notifications]),
+    { largeHeader: true },
   );
 
   const data = useMemo(() => {
@@ -197,8 +198,10 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
           }}
         />
         <FlashList<NotificationGroup>
+          contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           onScroll={onScroll}
+          scrollToOverflowEnabled
           data={data}
           renderItem={({ item }) => (
             <Notification
