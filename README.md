@@ -58,19 +58,20 @@ pnpm dev
     - [x] Review blocked/muted users
   - [x] Account settings
     - [x] Edit profile
-    - [ ] Change handle
   - [x] App settings
     - [x] Notification grouping
   - [x] About & credits
-- [ ] App Store???
-
-## Future (no promises)
-
-- [ ] Push notifications
 - [x] Composer rewrite
   - [x] Mention autocomplete
   - [ ] Embeds in composer
   - [ ] Drafts
+- [ ] App Store???
+
+## Future (no promises)
+
+- [ ] Change handle
+- [ ] Push notifications
+- [ ] Multi-account support
 
 ## Android local APK builds
 
