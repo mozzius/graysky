@@ -56,8 +56,8 @@ pnpm dev
   - [x] Moderation settings
     - [x] Content filtering
     - [x] Review blocked/muted users
-  - [ ] Account settings
-    - [ ] Edit profile
+  - [x] Account settings
+    - [x] Edit profile
     - [ ] Change handle
   - [x] App settings
     - [x] Notification grouping
@@ -67,7 +67,8 @@ pnpm dev
 ## Future (no promises)
 
 - [ ] Push notifications
-- [ ] Composer rewrite
+- [x] Composer rewrite
+  - [x] Mention autocomplete
   - [ ] Embeds in composer
   - [ ] Drafts
 
