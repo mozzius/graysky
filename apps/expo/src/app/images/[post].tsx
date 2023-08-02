@@ -18,10 +18,9 @@ import { assert } from "../../lib/utils/assert";
 export default function ImageModal() {
   const agent = useAuthedAgent();
   const router = useRouter();
-  const { post, initial, key } = useLocalSearchParams() as {
+  const { post, initial } = useLocalSearchParams() as {
     post: string;
     initial?: string;
-    key?: string;
   };
 
   const source = decodeURIComponent(post);
@@ -120,7 +119,6 @@ export default function ImageModal() {
           images={images.data}
           onClose={() => router.back()}
           initialIndex={Number(initial) || 0}
-          postKey={key ?? ""}
         />
       )}
     </Animated.View>

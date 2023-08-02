@@ -4,7 +4,6 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { TopTabs } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
 
-import { ComposeButton } from "../../../../../../components/compose-button";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
 import {
   useProfile,
@@ -35,10 +34,7 @@ export default function ProfileLayout() {
           style={{ backgroundColor: theme.colors.card, height: top }}
           className="w-full"
         />
-        <TopTabs
-          screenOptions={createTopTabsScreenOptions(theme)}
-          options={{ lazy: true }}
-        >
+        <TopTabs screenOptions={createTopTabsScreenOptions(theme)}>
           <TopTabs.Header>
             <ProfileInfo profile={profile.data} backButton />
           </TopTabs.Header>
@@ -74,7 +70,6 @@ export default function ProfileLayout() {
             }}
           />
         </TopTabs>
-        <ComposeButton />
       </>
     );
   }

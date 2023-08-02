@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import {
+  ActivityIndicator,
   RefreshControl,
   StyleSheet,
   Text,
@@ -51,6 +52,7 @@ const PostThread = ({ contentFilter }: Props) => {
   const agent = useAuthedAgent();
   const ref = useRef<FlashList<Posts>>(null);
   const theme = useTheme();
+  const composer = useComposer();
 
   const thread = useQuery({
     queryKey: ["profile", handle, "post", id],
@@ -186,7 +188,6 @@ const PostThread = ({ contentFilter }: Props) => {
 
   const onScroll = useTabPressScroll<Posts>(ref);
 
-  const composer = useComposer();
   if (thread.data) {
     return (
       <>
@@ -195,7 +196,6 @@ const PostThread = ({ contentFilter }: Props) => {
           onScroll={onScroll}
           data={thread.data.posts}
           estimatedItemSize={150}
-          initialScrollIndex={thread.data.index}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -203,7 +203,15 @@ const PostThread = ({ contentFilter }: Props) => {
               tintColor={tintColor}
             />
           }
-          ListFooterComponent={<View className="h-20" />}
+          ListFooterComponent={
+            thread.isFetching && !refreshing ? (
+              <View className="w-full items-center py-4">
+                <ActivityIndicator size="small" />
+              </View>
+            ) : (
+              <View className="h-20" />
+            )
+          }
           getItemType={(item) => (item.primary ? "big" : "small")}
           renderItem={({ item, index }) =>
             item.primary ? (
@@ -220,14 +228,13 @@ const PostThread = ({ contentFilter }: Props) => {
                 hasReply={item.hasReply}
                 isReply={thread.data.posts[index - 1]?.hasReply}
                 dataUpdatedAt={thread.dataUpdatedAt}
-                index={index}
               />
             )
           }
         />
         <TouchableNativeFeedback
           onPress={() =>
-            composer.open({
+            composer.reply({
               parent: thread.data.main,
               root: thread.data.posts[0]!.post,
             })

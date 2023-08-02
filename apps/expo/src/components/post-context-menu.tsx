@@ -140,7 +140,7 @@ const PostContextMenuButton = ({ post }: Props) => {
       action: () => openReposts(post.uri),
       icon: "arrow.2.squarepath",
     },
-    post.author.handle === agent.session.handle
+    post.author.handle === agent.session?.handle
       ? {
           key: "delete",
           label: "Delete post",
@@ -205,7 +205,7 @@ const PostContextMenuButton = ({ post }: Props) => {
   return Platform.OS === "ios" ? (
     <ContextMenuButton
       isMenuPrimaryAction={true}
-      accessibilityLabel=""
+      accessibilityLabel="Post context menu"
       accessibilityRole="button"
       hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
       menuConfig={{

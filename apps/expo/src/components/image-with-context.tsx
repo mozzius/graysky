@@ -18,7 +18,7 @@ interface Props {
   className?: string;
   style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
-  postKey?: string | number;
+  tag?: string;
 }
 
 export const ImageWithContext = ({
@@ -27,10 +27,88 @@ export const ImageWithContext = ({
   className: _,
   useCappedAspectRatio,
   style,
-  postKey,
+  tag,
   ...props
 }: Props) => {
   const [aspectRatio, setAspectRatio] = useState(1);
+  const items = useImageOptions();
+
+  const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
+
+  const imageStyle = useCappedAspectRatio
+    ? Array.isArray(style)
+      ? [
+          {
+            aspectRatio: cappedAspectRatio,
+          },
+          ...style,
+        ]
+      : {
+          aspectRatio: cappedAspectRatio,
+          ...style,
+        }
+    : style;
+
+  const queryClient = useQueryClient();
+
+  return (
+    <ContextMenuView
+      previewConfig={{
+        // TODO: Get this working
+        // previewSize: "STRETCH",
+        previewSize: "INHERIT",
+        previewType: "CUSTOM",
+        backgroundColor: "rgba(0,0,0,0.5)",
+      }}
+      renderPreview={() => (
+        <Image
+          source={{ uri: image.thumb }}
+          alt={image.alt}
+          recyclingKey={image.thumb}
+          style={{ aspectRatio }}
+          className="w-full"
+        />
+      )}
+      menuConfig={{
+        menuTitle: image.alt,
+        menuItems: items.map((item) => ({
+          actionKey: item.key,
+          actionTitle: item.label,
+          icon: {
+            iconType: "SYSTEM",
+            iconValue: item.icon,
+          },
+        })),
+      }}
+      onPressMenuItem={(evt) => {
+        const item = items.find(
+          (item) => item.key === evt.nativeEvent.actionKey,
+        );
+        if (!item) return;
+        void item.action(image.fullsize);
+      }}
+    >
+      <AnimatedImage
+        sharedTransitionTag={tag}
+        source={{ uri: image.thumb }}
+        alt={image.alt}
+        recyclingKey={image.thumb}
+        style={imageStyle}
+        onLoad={({ source: { width, height } }) => {
+          setAspectRatio(width / height);
+          // I don't like this in the slightest
+          queryClient.setQueryData(["image", image.fullsize, "size"], {
+            width,
+            height,
+          });
+        }}
+        {...props}
+      />
+    </ContextMenuView>
+  );
+};
+
+export const useImageOptions = () => {
   const { data: canShare } = useQuery({
     queryKey: ["is-sharing-available"],
     queryFn: () => Sharing.isAvailableAsync(),
@@ -122,77 +200,5 @@ export const ImageWithContext = ({
     });
   }
 
-  const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
-  const imageStyle = useCappedAspectRatio
-    ? Array.isArray(style)
-      ? [
-          {
-            aspectRatio: cappedAspectRatio,
-          },
-          ...style,
-        ]
-      : [
-          {
-            aspectRatio: cappedAspectRatio,
-          },
-          style ?? {},
-        ]
-    : style;
-
-  const queryClient = useQueryClient();
-
-  return (
-    <ContextMenuView
-      previewConfig={{
-        // TODO: Get this working
-        // previewSize: "STRETCH",
-        previewSize: "INHERIT",
-        previewType: "CUSTOM",
-        backgroundColor: "rgba(0,0,0,0.5)",
-      }}
-      renderPreview={() => (
-        <Image
-          source={{ uri: image.thumb }}
-          alt={image.alt}
-          recyclingKey={image.thumb}
-          style={{ aspectRatio }}
-          className="w-full"
-        />
-      )}
-      menuConfig={{
-        menuTitle: image.alt,
-        menuItems: items.map((item) => ({
-          actionKey: item.key,
-          actionTitle: item.label,
-          icon: {
-            iconType: "SYSTEM",
-            iconValue: item.icon,
-          },
-        })),
-      }}
-      onPressMenuItem={(evt) => {
-        const item = items.find(
-          (item) => item.key === evt.nativeEvent.actionKey,
-        );
-        if (!item) return;
-        void item.action(image.fullsize);
-      }}
-    >
-      <AnimatedImage
-        // sharedTransitionTag={image.fullsize + String(postKey ?? "")}
-        source={{ uri: image.thumb }}
-        alt={image.alt}
-        recyclingKey={image.thumb}
-        style={imageStyle}
-        onLoad={({ source: { width, height } }) => {
-          setAspectRatio(width / height);
-          queryClient.setQueryData(["image", image.fullsize, "size"], {
-            width,
-            height,
-          });
-        }}
-        {...props}
-      />
-    </ContextMenuView>
-  );
+  return items;
 };

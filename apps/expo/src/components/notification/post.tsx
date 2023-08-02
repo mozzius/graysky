@@ -17,7 +17,6 @@ interface Props {
   unread: boolean;
   inline?: boolean;
   dataUpdatedAt: number;
-  index: number;
 }
 
 export const PostNotification = ({
@@ -25,7 +24,6 @@ export const PostNotification = ({
   unread,
   inline,
   dataUpdatedAt,
-  index,
 }: Props) => {
   const { preferences, contentFilter } = useContentFilter();
 
@@ -41,7 +39,7 @@ export const PostNotification = ({
       assert(AppBskyFeedPost.validateRecord(item.post.record));
 
       return (
-        <View className="mt-0.5">
+        <View className="mt-0.5 flex-1">
           {item.post.record.text && (
             <Text className="text-neutral-500 dark:text-neutral-400">
               <RichText
@@ -57,7 +55,6 @@ export const PostNotification = ({
               content={item.post.embed}
               truncate
               depth={1}
-              postIndex={index}
             />
           )}
         </View>
@@ -71,7 +68,6 @@ export const PostNotification = ({
         inlineParent
         unread={unread}
         dataUpdatedAt={dataUpdatedAt}
-        index={index}
       />
     );
   }

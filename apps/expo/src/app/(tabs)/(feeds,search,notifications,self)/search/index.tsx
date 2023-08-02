@@ -1,5 +1,6 @@
 import { Fragment, useMemo, useRef, useState } from "react";
 import {
+  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -18,11 +19,11 @@ import {
 } from "@tanstack/react-query";
 import { Search } from "lucide-react-native";
 
-import { ComposeButton } from "../../../../components/compose-button";
 import { GroupedList } from "../../../../components/grouped-list";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { RichTextWithoutFacets } from "../../../../components/rich-text";
 import { useAuthedAgent } from "../../../../lib/agent";
 import { cx } from "../../../../lib/utils/cx";
 import { useRefreshOnFocus } from "../../../../lib/utils/query";
@@ -51,7 +52,6 @@ export default function SearchPage() {
       ) : (
         <Suggestions />
       )}
-      <ComposeButton />
     </>
   );
 }
@@ -116,9 +116,7 @@ const SearchResults = ({ search }: Props) => {
                     {i !== data.length - 2 ? (
                       <ItemSeparator iconWidth="w-10" />
                     ) : (
-                      data.length === MAX_RESULTS && (
-                        <ItemSeparator containerClassName="pl-0" />
-                      )
+                      data.length === MAX_RESULTS && <ItemSeparator />
                     )}
                   </Fragment>
                 )),
@@ -177,6 +175,7 @@ const Suggestions = () => {
         }
         onEndReached={() => void suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
+        ListFooterComponent={<View className="h-4" />}
       />
     );
   }
@@ -213,8 +212,12 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
     <Link href={href} asChild>
       <TouchableWithoutFeedback>
         <View
-          className="mx-4 mt-4 rounded p-4 shadow-sm"
-          style={{ backgroundColor: theme.colors.card }}
+          className="mx-4 mt-4 rounded-lg p-4"
+          style={{
+            backgroundColor: theme.colors.card,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: theme.colors.border,
+          }}
         >
           <View className="flex-row items-center">
             <Image
@@ -260,9 +263,9 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             )}
           </View>
           {item.description && (
-            <Text style={{ color: theme.colors.text }} className="mt-4">
-              {item.description}
-            </Text>
+            <View className="mt-4">
+              <RichTextWithoutFacets text={item.description} size="sm" />
+            </View>
           )}
         </View>
       </TouchableWithoutFeedback>

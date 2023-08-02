@@ -69,10 +69,12 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
   );
 };
 
+export type Groups = (ListProps & {
+  title?: string;
+})[];
+
 interface GroupProps extends ScrollViewProps {
-  groups: (ListProps & {
-    title?: string;
-  })[];
+  groups: Groups;
   children?: React.ReactNode;
 }
 

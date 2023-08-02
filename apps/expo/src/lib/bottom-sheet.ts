@@ -2,10 +2,7 @@ import { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-import { useColorScheme } from "../lib/utils/color-scheme";
-
 export const useBottomSheetStyles = () => {
-  const { colorScheme } = useColorScheme();
   const theme = useTheme();
 
   return useMemo(
@@ -33,6 +30,6 @@ export const useBottomSheetStyles = () => {
           backgroundColor: theme.colors.text,
         },
       }),
-    [colorScheme, theme],
+    [theme],
   );
 };

@@ -10,11 +10,11 @@ interface Props {
   size?: "large" | "medium" | "small";
 }
 
-export const Avatar = ({ size }: Props) => (
+export const Avatar = ({ size = "large" }: Props) => (
   <ErrorBoundary
     fallback={
       <View
-        className={cx("rounded-full bg-neutral-200 object-cover", {
+        className={cx("rounded-full bg-neutral-200 dark:bg-neutral-800", {
           "h-7 w-7": size === "small",
           "h-10 w-10": size === "medium",
           "h-12 w-12": size === "large",
@@ -26,7 +26,7 @@ export const Avatar = ({ size }: Props) => (
   </ErrorBoundary>
 );
 
-const AvatarInner = ({ size = "large" }: Props) => {
+const AvatarInner = ({ size }: Props) => {
   const agent = useAgent();
 
   const profile = useQuery({

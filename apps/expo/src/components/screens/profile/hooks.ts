@@ -146,9 +146,9 @@ export const useProfilePosts = (
           case "likes":
             return [{ item, hasReply: false, filter }];
           case "media":
-            return !item.post.embed?.images
-              ? []
-              : [{ item, hasReply: false, filter }];
+            return item.post.embed?.images && !item.reason
+              ? [{ item, hasReply: false, filter }]
+              : [];
         }
       })
       .flat();

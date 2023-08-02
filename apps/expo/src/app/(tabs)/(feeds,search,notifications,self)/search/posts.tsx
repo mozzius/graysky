@@ -81,12 +81,11 @@ const PostsSearch = ({ search }: Props) => {
         ref={ref}
         onScroll={onScroll}
         data={data}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <FeedPost
             {...item}
             inlineParent
             dataUpdatedAt={query.dataUpdatedAt}
-            index={index}
           />
         )}
         refreshControl={

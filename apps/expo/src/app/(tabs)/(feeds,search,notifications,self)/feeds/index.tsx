@@ -9,7 +9,6 @@ import { useTheme } from "@react-navigation/native";
 import { ChevronRight, Cloud, Compass, Plus } from "lucide-react-native";
 
 import { Avatar } from "../../../../components/avatar";
-import { ComposeButton } from "../../../../components/compose-button";
 import { useDrawer } from "../../../../components/drawer-content";
 import { DraggableFeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
@@ -174,7 +173,6 @@ export default function Page() {
         }}
       />
       <FeedsPage editing={editing} />
-      <ComposeButton />
     </>
   );
 }
