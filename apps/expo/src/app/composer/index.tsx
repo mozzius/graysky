@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
@@ -21,7 +20,7 @@ import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { AppBskyEmbedRecord } from "@atproto/api";
+import { AppBskyEmbedRecord, RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Paperclip, Plus, Send, X } from "lucide-react-native";
@@ -32,7 +31,6 @@ import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
 import { useAuthedAgent } from "../../lib/agent";
 import {
-  generateRichText,
   MAX_IMAGES,
   MAX_LENGTH,
   useImages,
@@ -42,13 +40,26 @@ import {
 } from "../../lib/hooks/composer";
 import { useContentFilter } from "../../lib/hooks/preferences";
 import { cx } from "../../lib/utils/cx";
+import { getMentionAt, insertMentionAt } from "../../lib/utils/mention-suggest";
+
+interface Selection {
+  start: number;
+  end: number;
+}
 
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAuthedAgent();
+
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
+
+  const selectionRef = useRef<Selection>({
+    start: 0,
+    end: 0,
+  });
+  const textRef = useRef<TextInput>(null);
 
   const reply = useReply();
   const quote = useQuote();
@@ -56,17 +67,36 @@ export default function ComposerScreen() {
   const [text, setText] = useState("");
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
-  const textRef = useRef<TextInput>(null);
+  const rt = useMemo(() => {
+    const rt = new RichTextHelper({ text });
+    rt.detectFacetsWithoutResolution();
+    return rt;
+  }, [text]);
 
-  const rt = useQuery({
-    queryKey: ["rt", text],
+  const prefix = useMemo(() => {
+    return getMentionAt(text, selectionRef.current?.start || 0);
+  }, [text]);
+
+  const isSuggestionsOpen = !!prefix;
+
+  const suggestionsQuery = useQuery({
+    enabled: isSuggestionsOpen,
+    queryKey: ["suggestions", prefix?.value],
     queryFn: async () => {
-      return await generateRichText(text, agent);
+      if (!prefix || !prefix.value) return [];
+      const actors = await agent.searchActorsTypeahead({
+        term: prefix.value,
+        limit: 10,
+      });
+      if (!actors.success) throw new Error("Cannot fetch suggestions");
+      return actors.data.actors;
     },
     keepPreviousData: true,
   });
 
-  const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
+  const suggestions = suggestionsQuery.data ?? [];
+
+  const tooLong = (rt.graphemeLength ?? 0) > MAX_LENGTH;
   const isEmpty = text.trim().length === 0 && images.length === 0;
 
   const send = useSendPost({
@@ -98,7 +128,7 @@ export default function ComposerScreen() {
               disabled={
                 isEmpty ||
                 send.isLoading ||
-                (rt.data?.graphemeLength ?? 0) > MAX_LENGTH
+                (rt.graphemeLength ?? 0) > MAX_LENGTH
               }
               loading={send.isLoading}
             />
@@ -163,16 +193,70 @@ export default function ComposerScreen() {
                 verticalAlign="middle"
                 textAlignVertical="center"
                 autoFocus
+                onSelectionChange={(evt) => {
+                  selectionRef.current = evt.nativeEvent.selection;
+                }}
               >
                 <RichText
                   size="lg"
-                  text={rt.data?.text ?? text}
-                  facets={rt.data?.facets}
+                  text={rt.text}
+                  facets={rt.facets}
                   truncate={false}
                   disableLinks
                 />
               </TextInput>
             </View>
+            {/* AUTOSUGGESTIONS */}
+            {isSuggestionsOpen && (
+              <Animated.View
+                entering={FadeInDown}
+                exiting={FadeOut}
+                layout={Layout}
+                className="mt-2"
+              >
+                {suggestions.map((actor) => (
+                  <TouchableOpacity
+                    key={actor.did}
+                    onPress={() => {
+                      setText((text) =>
+                        insertMentionAt(
+                          text,
+                          selectionRef.current?.start || 0,
+                          actor.handle,
+                        ),
+                      );
+                    }}
+                  >
+                    <Animated.View
+                      entering={FadeIn}
+                      className="flex-row items-center p-1"
+                    >
+                      <Image
+                        className="mr-2 h-8 w-8 rounded-full"
+                        source={{ uri: actor.avatar }}
+                      />
+                      <View>
+                        {actor.displayName && (
+                          <Text
+                            className="text-base font-medium"
+                            numberOfLines={1}
+                          >
+                            {actor.displayName}
+                          </Text>
+                        )}
+                        <Text
+                          className="text-sm text-neutral-500"
+                          numberOfLines={1}
+                        >
+                          @{actor.handle}
+                        </Text>
+                      </View>
+                    </Animated.View>
+                  </TouchableOpacity>
+                ))}
+              </Animated.View>
+            )}
+            {/* BUTTONS AND STUFF */}
             <Animated.View
               className="w-full flex-row items-end justify-between"
               layout={Layout}
@@ -202,7 +286,7 @@ export default function ComposerScreen() {
                     : "Attach images"}
                 </Animated.Text>
               </TouchableOpacity>
-              {(rt.data?.graphemeLength ?? 0) > MAX_LENGTH * 0.66 && (
+              {(rt.graphemeLength ?? 0) > MAX_LENGTH * 0.66 && (
                 <Animated.Text
                   style={{
                     color: !tooLong
@@ -213,10 +297,11 @@ export default function ComposerScreen() {
                   exiting={FadeOut}
                   className="text-right font-medium"
                 >
-                  {rt.data?.graphemeLength} / {MAX_LENGTH}
+                  {rt.graphemeLength} / {MAX_LENGTH}
                 </Animated.Text>
               )}
             </Animated.View>
+            {/* IMAGES */}
             {images.length > 0 && (
               <Animated.ScrollView
                 horizontal
