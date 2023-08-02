@@ -37,12 +37,13 @@ export default function Pro() {
     mutationKey: ["subscribe"],
     mutationFn: async () => {
       if (!offerings.data) return;
-      // if (annual) {
-      //   if (!offerings.data.current?.annual) throw Error("No annual package")
-      //   Purchases.purchaseStoreProduct(offerings.data.current.annual.product.);
-      // } else {
-      //   Purchases.purchaseSubscriptionOption();
-      // }
+      if (annual) {
+        if (!offerings.data.current?.annual) throw Error("No annual package");
+        Purchases.purchasePackage(offerings.data.current.annual);
+      } else {
+        if (!offerings.data.current?.monthly) throw Error("No monthly package");
+        Purchases.purchasePackage(offerings.data.current.monthly);
+      }
     },
   });
 

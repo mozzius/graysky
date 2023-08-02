@@ -71,7 +71,8 @@ export const useOfferings = () => {
   return useQuery({
     queryKey: ["offerings"],
     queryFn: async () => {
-      return await Purchases.getOfferings();
+      const offerings = await Purchases.getOfferings();
+      return offerings;
     },
   });
 };

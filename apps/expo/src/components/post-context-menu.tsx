@@ -140,7 +140,7 @@ const PostContextMenuButton = ({ post }: Props) => {
       action: () => openReposts(post.uri),
       icon: "arrow.2.squarepath",
     },
-    post.author.handle === agent.session.handle
+    post.author.handle === agent.session?.handle
       ? {
           key: "delete",
           label: "Delete post",

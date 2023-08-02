@@ -242,6 +242,7 @@ export const DraggableFeedRow = ({
                 <Animated.View
                   style={handleStyle}
                   className="absolute left-full"
+                  pointerEvents={editing ? "auto" : "none"}
                 >
                   <TouchableWithoutFeedback onPressIn={drag}>
                     <View className="ml-1 px-2 py-0.5">
