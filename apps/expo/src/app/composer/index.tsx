@@ -93,7 +93,11 @@ export default function ComposerScreen() {
           headerRight: () => (
             <PostButton
               onPress={send.mutate}
-              disabled={isEmpty}
+              disabled={
+                isEmpty ||
+                send.isLoading ||
+                (rt.data?.graphemeLength ?? 0) > MAX_LENGTH
+              }
               loading={send.isLoading}
             />
           ),
@@ -161,7 +165,10 @@ export default function ComposerScreen() {
                 />
               </TextInput>
             </View>
-            <View className="w-full flex-row items-end justify-between">
+            <Animated.View
+              className="w-full flex-row items-end justify-between"
+              layout={Layout}
+            >
               <TouchableOpacity
                 className="mt-4 flex-row items-center"
                 hitSlop={8}
@@ -173,16 +180,19 @@ export default function ComposerScreen() {
                     theme.dark ? "text-neutral-400" : "text-neutral-500"
                   }
                 />
-                {images.length > 0 && (
-                  <Animated.Text
-                    className="ml-2"
-                    style={{ color: theme.colors.text }}
-                    entering={FadeIn}
-                    exiting={FadeOut}
-                  >
-                    {images.length} / {MAX_IMAGES} images
-                  </Animated.Text>
-                )}
+
+                <Animated.Text
+                  className={cx(
+                    "ml-2",
+                    theme.dark ? "text-neutral-400" : "text-neutral-500",
+                  )}
+                  entering={FadeIn}
+                  exiting={FadeOut}
+                >
+                  {images.length > 0
+                    ? `${images.length} / ${MAX_IMAGES} images`
+                    : "Attach images"}
+                </Animated.Text>
               </TouchableOpacity>
               {(rt.data?.graphemeLength ?? 0) > MAX_LENGTH * 0.66 && (
                 <Animated.Text
@@ -198,7 +208,7 @@ export default function ComposerScreen() {
                   {rt.data?.graphemeLength} / {MAX_LENGTH}
                 </Animated.Text>
               )}
-            </View>
+            </Animated.View>
             {images.length > 0 && (
               <Animated.ScrollView
                 horizontal
@@ -221,7 +231,13 @@ export default function ComposerScreen() {
                       cachePolicy="memory"
                       source={{ uri: image.asset.uri }}
                       alt={`image ${i}}`}
-                      className="h-36 w-36"
+                      className="h-44"
+                      style={{
+                        aspectRatio: Math.max(
+                          0.6,
+                          image.asset.width / image.asset.height,
+                        ),
+                      }}
                     />
                     <TouchableOpacity
                       className="absolute left-2 top-2 z-10"
@@ -282,7 +298,7 @@ export default function ComposerScreen() {
                         imagePicker.mutate();
                       }}
                     >
-                      <View className="h-36 w-36 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
+                      <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
                         <Plus color={theme.colors.text} />
                         <Text
                           style={{ color: theme.colors.text }}

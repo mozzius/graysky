@@ -45,11 +45,12 @@ export default function AppLayout() {
 
   const openDrawer = useCallback((open = true) => setOpen(open), []);
 
+  const onOpen = useCallback(() => setOpen(true), []);
+  const onClose = useCallback(() => setOpen(false), []);
+
   const theme = useTheme();
   const segments = useSegments();
   const router = useRouter();
-
-  console.log("_layout");
 
   return (
     <DrawerProvider value={openDrawer}>
@@ -62,8 +63,8 @@ export default function AppLayout() {
       />
       <Drawer
         open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
+        onOpen={onOpen}
+        onClose={onClose}
         renderDrawerContent={renderDrawerContent}
         drawerType="slide"
         statusBarAnimation="slide"

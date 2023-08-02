@@ -92,40 +92,40 @@ export default function Pro() {
               Graysky Pro
             </Animated.Text>
             {features.map((feature, index) => (
-              <FeatureItem {...feature} index={index} />
+              <FeatureItem key={feature.title} {...feature} index={index} />
             ))}
           </ScrollView>
-          {/* {offerings.data && ( */}
-          <View>
-            <View className="mb-4 flex-row items-center justify-between rounded-xl bg-black/70 p-4">
-              <Text className="text-base text-white">
-                Switch to annual plan (16.5% off)
-              </Text>
-              <Switch
-                value={annual}
-                onValueChange={(val) => setAnnual(val)}
-                trackColor={{
-                  false: theme.colors.card,
-                  true: theme.colors.primary,
-                }}
-              />
-            </View>
-            <TouchableOpacity
-              onPress={() => subscribe.mutate()}
-              disabled={subscribe.isLoading}
-            >
-              <View className="w-full rounded-xl bg-blue-500 py-4">
-                <Text className="text-center text-base font-medium text-white">
-                  Subscribe (
-                  {annual
-                    ? `${offerings.data?.current?.annual?.product?.priceString} / year`
-                    : `${offerings.data?.current?.monthly?.product?.priceString} / month`}
-                  )
+          {offerings.data && (
+            <View>
+              <View className="mb-4 flex-row items-center justify-between rounded-xl bg-black/70 p-4">
+                <Text className="text-base text-white">
+                  Switch to annual plan (16.5% off)
                 </Text>
+                <Switch
+                  value={annual}
+                  onValueChange={(val) => setAnnual(val)}
+                  trackColor={{
+                    false: theme.colors.card,
+                    true: theme.colors.primary,
+                  }}
+                />
               </View>
-            </TouchableOpacity>
-          </View>
-          {/* )} */}
+              <TouchableOpacity
+                onPress={() => subscribe.mutate()}
+                disabled={subscribe.isLoading}
+              >
+                <View className="w-full rounded-xl bg-blue-500 py-4">
+                  <Text className="text-center text-base font-medium text-white">
+                    Subscribe (
+                    {annual
+                      ? `${offerings.data.current?.annual?.product?.priceString} / year`
+                      : `${offerings.data.current?.monthly?.product?.priceString} / month`}
+                    )
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )}
         </SafeAreaView>
       </ImageBackground>
     </View>
