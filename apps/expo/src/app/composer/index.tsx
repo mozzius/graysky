@@ -146,7 +146,11 @@ export default function ComposerScreen() {
           <Text className="my-1 text-white/90">Please try again</Text>
         </View>
       )}
-      <KeyboardAwareScrollView className="pt-4" alwaysBounceVertical={!isEmpty}>
+      <KeyboardAwareScrollView
+        className="pt-4"
+        alwaysBounceVertical={!isEmpty}
+        keyboardShouldPersistTaps="handled"
+      >
         {reply.thread.data && (
           <TouchableOpacity
             onPress={() => setTruncateParent((t) => !t)}
@@ -207,55 +211,68 @@ export default function ComposerScreen() {
               </TextInput>
             </View>
             {/* AUTOSUGGESTIONS */}
-            {isSuggestionsOpen && (
-              <Animated.View
-                entering={FadeInDown}
-                exiting={FadeOut}
-                layout={Layout}
-                className="mt-2"
-              >
-                {suggestions.map((actor) => (
-                  <TouchableOpacity
-                    key={actor.did}
-                    onPress={() => {
-                      setText((text) =>
-                        insertMentionAt(
+            {isSuggestionsOpen &&
+              suggestions.length > 0 &&
+              !suggestions.some((s) => s.handle === prefix.value) && (
+                <Animated.View
+                  entering={FadeInDown}
+                  exiting={FadeOut}
+                  layout={Layout}
+                  className="mt-2"
+                >
+                  {suggestions.map((actor) => (
+                    <TouchableOpacity
+                      key={actor.did}
+                      onPress={() => {
+                        console.log(
                           text,
                           selectionRef.current?.start || 0,
                           actor.handle,
-                        ),
-                      );
-                    }}
-                  >
-                    <Animated.View
-                      entering={FadeIn}
-                      className="flex-row items-center p-1"
+                          insertMentionAt(
+                            text,
+                            selectionRef.current?.start || 0,
+                            actor.handle,
+                          ),
+                        );
+                        setText((text) =>
+                          insertMentionAt(
+                            text,
+                            selectionRef.current?.start || 0,
+                            actor.handle,
+                          ),
+                        );
+                      }}
                     >
-                      <Image
-                        className="mr-2 h-8 w-8 rounded-full"
-                        source={{ uri: actor.avatar }}
-                      />
-                      <View>
-                        {actor.displayName && (
+                      <Animated.View
+                        entering={FadeIn}
+                        className="flex-row items-center p-1"
+                      >
+                        <Image
+                          className="mr-2.5 h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-600"
+                          source={{ uri: actor.avatar }}
+                        />
+                        <View>
+                          {actor.displayName && (
+                            <Text
+                              className="text-base font-medium"
+                              style={{ color: theme.colors.text }}
+                              numberOfLines={1}
+                            >
+                              {actor.displayName}
+                            </Text>
+                          )}
                           <Text
-                            className="text-base font-medium"
+                            className="text-sm text-neutral-500"
                             numberOfLines={1}
                           >
-                            {actor.displayName}
+                            @{actor.handle}
                           </Text>
-                        )}
-                        <Text
-                          className="text-sm text-neutral-500"
-                          numberOfLines={1}
-                        >
-                          @{actor.handle}
-                        </Text>
-                      </View>
-                    </Animated.View>
-                  </TouchableOpacity>
-                ))}
-              </Animated.View>
-            )}
+                        </View>
+                      </Animated.View>
+                    </TouchableOpacity>
+                  ))}
+                </Animated.View>
+              )}
             {/* BUTTONS AND STUFF */}
             <Animated.View
               className="w-full flex-row items-end justify-between"

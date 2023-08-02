@@ -17,7 +17,7 @@ export function getMentionAt(
     const index = match.index + spaceOffset;
     if (
       cursorPos >= index &&
-      cursorPos < index + match[0].length - spaceOffset
+      cursorPos <= index + match[0].length - spaceOffset
     ) {
       return { value: match[2]!, index };
     }

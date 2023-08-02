@@ -116,9 +116,7 @@ const SearchResults = ({ search }: Props) => {
                     {i !== data.length - 2 ? (
                       <ItemSeparator iconWidth="w-10" />
                     ) : (
-                      data.length === MAX_RESULTS && (
-                        <ItemSeparator containerClassName="pl-0" />
-                      )
+                      data.length === MAX_RESULTS && <ItemSeparator />
                     )}
                   </Fragment>
                 )),
