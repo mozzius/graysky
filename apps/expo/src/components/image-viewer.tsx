@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
+import { ContextMenuButton } from "react-native-ios-context-menu";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { MoreHorizontal } from "lucide-react-native";
+
+import { useImageOptions } from "./image-with-context";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -25,12 +29,43 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
     tag?: string;
   }>();
 
+  const items = useImageOptions();
+
+  const { top } = useSafeAreaInsets();
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   return (
     <>
+      <ContextMenuButton
+        isMenuPrimaryAction={true}
+        menuConfig={{
+          menuTitle: "",
+          menuItems: items.map((item) => ({
+            actionKey: item.key,
+            actionTitle: item.label,
+            icon: {
+              iconType: "SYSTEM",
+              iconValue: item.icon,
+            },
+          })),
+        }}
+        onPressMenuItem={(evt) => {
+          const item = items.find(
+            (item) => item.key === evt.nativeEvent.actionKey,
+          );
+          if (!item) return;
+          void item.action(images[index]!.fullsize);
+        }}
+        className="absolute left-5 z-10 h-10 w-10"
+        style={{ top: top + 10 }}
+      >
+        <TouchableOpacity className="flex-1 items-center justify-center rounded-full bg-black/40">
+          <MoreHorizontal color="white" />
+        </TouchableOpacity>
+      </ContextMenuButton>
       <Gallery
         data={images}
         initialIndex={initialIndex}
@@ -68,12 +103,10 @@ const ImageWithFallback = ({
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
 
-  const size = useQuery<{
+  const size = queryClient.getQueryData<{
     width: number;
     height: number;
-  }>({
-    queryKey: ["image", item.fullsize, "size"],
-  });
+  }>(["image", item.fullsize, "size"]);
 
   return (
     <>
@@ -90,9 +123,9 @@ const ImageWithFallback = ({
         source={item.thumb}
         alt={item.alt}
         style={
-          size.data
+          size
             ? {
-                aspectRatio: size.data.width / size.data.height,
+                aspectRatio: size.width / size.height,
               }
             : { width: "100%" }
         }
