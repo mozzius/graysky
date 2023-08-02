@@ -1,7 +1,9 @@
 import { Fragment, useCallback, useState } from "react";
 import {
   Dimensions,
+  Platform,
   ScrollView,
+  Share as Sharing,
   Text,
   TouchableHighlight,
   TouchableOpacity,
@@ -14,9 +16,16 @@ import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronRight, Heart, Plus, Star, X } from "lucide-react-native";
+import {
+  Check,
+  ChevronRight,
+  Heart,
+  Plus,
+  Share,
+  Star,
+  X,
+} from "lucide-react-native";
 
-import { ComposeButton } from "../../../../../../components/compose-button";
 import { FeedRow } from "../../../../../../components/feed-row";
 import { ItemSeparator } from "../../../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
@@ -33,12 +42,12 @@ import {
 } from "../../../../../../lib/hooks/feeds";
 import { cx } from "../../../../../../lib/utils/cx";
 
-const Feed = () => {
+export default function FeedsPage() {
   const [open, setOpen] = useState(false);
-  const { handle, generator } = useLocalSearchParams() as {
+  const { handle, generator } = useLocalSearchParams<{
     handle: string;
     generator: string;
-  };
+  }>();
   const theme = useTheme();
 
   const feed = `at://${handle}/app.bsky.feed.generator/${generator}`;
@@ -52,11 +61,14 @@ const Feed = () => {
     }
   }, [feed, info]);
 
+  const onOpen = useCallback(() => setOpen(true), []);
+  const onClose = useCallback(() => setOpen(false), []);
+
   return (
     <Drawer
       open={open}
-      onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
+      onOpen={onOpen}
+      onClose={onClose}
       renderDrawerContent={renderDrawerContent}
       drawerType="front"
       statusBarAnimation="slide"
@@ -96,7 +108,7 @@ const Feed = () => {
       />
     </Drawer>
   );
-};
+}
 
 const FeedInfo = ({
   feed,
@@ -109,6 +121,10 @@ const FeedInfo = ({
   const savedFeeds = useSavedFeeds();
   const queryClient = useQueryClient();
   const theme = useTheme();
+  const { handle, generator } = useLocalSearchParams<{
+    handle: string;
+    generator: string;
+  }>();
 
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
   const toggleLike = useMutation({
@@ -254,7 +270,12 @@ const FeedInfo = ({
                 disabled={toggleSave.isLoading}
               >
                 <View
-                  className="items-center justify-center rounded border border-neutral-300 px-3 py-2 dark:border-neutral-700"
+                  className={cx(
+                    "items-center justify-center rounded border px-3 py-2",
+                    theme.dark
+                      ? "border-neutral-700 bg-black"
+                      : "border-neutral-300 bg-white",
+                  )}
                   style={{ backgroundColor: theme.dark ? "black" : "white" }}
                 >
                   <Star
@@ -373,7 +394,7 @@ const FeedInfo = ({
                       </Fragment>
                     ))}
                   <Link
-                    href={`/profile/${info.view.creator.handle}?tab=feeds`}
+                    href={`/profile/${info.view.creator.handle}/feeds`}
                     asChild
                   >
                     <TouchableHighlight>
@@ -399,6 +420,47 @@ const FeedInfo = ({
                 </View>
               </>
             )}
+
+            <Text
+              className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
+              numberOfLines={1}
+            >
+              Share
+            </Text>
+            <View
+              style={{ backgroundColor: theme.colors.card }}
+              className="mx-4 overflow-hidden rounded-lg"
+            >
+              <TouchableHighlight
+                onPress={() =>
+                  Sharing.share(
+                    Platform.select({
+                      ios: {
+                        url: `https://bsky.app/profile/${handle}/feed/${generator}`,
+                      },
+                      default: {
+                        message: `https://bsky.app/profile/${handle}/feed/${generator}`,
+                      },
+                    }),
+                  )
+                }
+              >
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-row items-center px-4 py-3"
+                >
+                  <Share color={theme.colors.text} size={18} className="mx-1" />
+                  <View className="mx-3 flex-1 flex-row items-center">
+                    <Text
+                      style={{ color: theme.colors.text }}
+                      className="text-base"
+                    >
+                      Share this feed
+                    </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
           </View>
         ) : (
           <QueryWithoutData query={creator} />
@@ -409,12 +471,3 @@ const FeedInfo = ({
 
   return <QueryWithoutData query={savedFeeds} />;
 };
-
-export default function FeedPage() {
-  return (
-    <>
-      <Feed />
-      <ComposeButton />
-    </>
-  );
-}

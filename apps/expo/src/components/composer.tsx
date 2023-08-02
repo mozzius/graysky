@@ -1,12 +1,8 @@
 import {
-  createContext,
-  forwardRef,
   memo,
   useCallback,
-  useContext,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -33,6 +29,7 @@ import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
   RichText as RichTextHelper,
@@ -76,40 +73,43 @@ const MAX_IMAGES = 4;
 const MAX_SIZE = 1_000_000;
 const MAX_DIMENSION = 2048;
 
-interface ComposerRef {
-  open: (reply?: AppBskyFeedPost.ReplyRef) => void;
-  quote: (post: AppBskyFeedDefs.PostView) => void;
-  close: () => void;
-}
-
-export const ComposerContext = createContext<ComposerRef | null>(null);
-
-export const ComposerProvider = ({ children }: React.PropsWithChildren) => {
-  const ref = useRef<ComposerRef>(null);
-
-  const value = useMemo<ComposerRef>(
-    () => ({
-      open: (reply) => ref.current?.open(reply),
-      quote: (post) => ref.current?.quote(post),
-      close: () => ref.current?.close(),
-    }),
-    [],
-  );
-
-  return (
-    <ComposerContext.Provider value={value}>
-      {children}
-      <MemoizedComposer ref={ref} />
-    </ComposerContext.Provider>
-  );
-};
-
 export const useComposer = () => {
-  const ctx = useContext(ComposerContext);
-  if (!ctx) {
-    throw new Error("useComposer must be used within a ComposerProvider");
-  }
-  return ctx;
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  return {
+    open: () => router.push("/composer"),
+    reply: (reply: {
+      parent: AppBskyFeedDefs.PostView;
+      root: AppBskyFeedDefs.PostView;
+    }) => {
+      queryClient.setQueryData(["context", reply.parent.uri], {
+        post: reply.parent,
+      } satisfies AppBskyFeedDefs.ThreadViewPost);
+      router.push(
+        `/composer?reply=${encodeURIComponent(
+          JSON.stringify({
+            parent: {
+              uri: reply.parent.uri,
+              cid: reply.parent.cid,
+            },
+            root: {
+              uri: reply.root.uri,
+              cid: reply.root.cid,
+            },
+          } satisfies AppBskyFeedPost.ReplyRef),
+        )}`,
+      );
+    },
+    quote: (post: AppBskyFeedDefs.PostView) =>
+      router.push(
+        `/composer?quote=${encodeURIComponent(
+          JSON.stringify({
+            uri: post.uri,
+            cid: post.cid,
+          }),
+        )}`,
+      ),
+  };
 };
 
 const generateRichText = async (text: string, agent: BskyAgent) => {
@@ -118,7 +118,7 @@ const generateRichText = async (text: string, agent: BskyAgent) => {
   return rt;
 };
 
-export const Composer = forwardRef<ComposerRef>((_, ref) => {
+export const Composer = () => {
   const { top } = useSafeAreaInsets();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [text, setText] = useState("");
@@ -306,32 +306,6 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
   });
 
   const tooLong = (rt.data?.graphemeLength ?? 0) > MAX_LENGTH;
-
-  useImperativeHandle(ref, () => ({
-    open: (reply) => {
-      send.reset();
-      // TODO: overwrite warning
-      setContext(reply);
-      setText("");
-      setImages([]);
-      bottomSheetRef.current?.snapToIndex(1);
-      // remove delay
-      setIsCollapsed(false);
-    },
-    quote: (post) => {
-      send.reset();
-      // TODO: overwrite warning
-      setContext(post);
-      setText("");
-      setImages([]);
-      bottomSheetRef.current?.snapToIndex(1);
-      // remove delay
-      setIsCollapsed(false);
-    },
-    close: () => {
-      bottomSheetRef.current?.close();
-    },
-  }));
 
   const handleSheetChanges = (index: number) => {
     setIsCollapsed(index < 1);
@@ -661,7 +635,7 @@ export const Composer = forwardRef<ComposerRef>((_, ref) => {
       </BottomSheetView>
     </BottomSheet>
   );
-});
+};
 Composer.displayName = "Composer";
 
 const MemoizedComposer = memo(Composer);

@@ -99,7 +99,7 @@ export default function AboutPage() {
           >
             Graysky
           </Text>
-          <Link href="/profile/mozzius.dev" asChild>
+          <Link href="/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep" asChild>
             <TouchableOpacity>
               <Text className="text-base text-neutral-600 dark:text-neutral-400">
                 by @mozzius.dev

@@ -5,7 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
-import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)";
+import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAuthedAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
 import { useLists } from "../lists/context";
@@ -13,7 +13,6 @@ import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 
 export const Notification = ({
-  index,
   reason,
   subject,
   actors,
@@ -21,7 +20,7 @@ export const Notification = ({
   indexedAt,
   dataUpdatedAt,
   item,
-}: NotificationGroup & { dataUpdatedAt: number; index: number }) => {
+}: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAuthedAgent();
   const router = useRouter();
@@ -36,7 +35,11 @@ export const Notification = ({
     case "like":
       return (
         <TouchableOpacity
-          onPress={() => subject && openLikes(subject, actors.length)}
+          onPress={() =>
+            actors.length === 1 && href
+              ? router.push(href)
+              : subject && openLikes(subject, actors.length)
+          }
         >
           <NotificationItem
             unread={!isRead}
@@ -51,7 +54,6 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -66,7 +68,11 @@ export const Notification = ({
     case "repost":
       return (
         <TouchableOpacity
-          onPress={() => subject && openReposts(subject, actors.length)}
+          onPress={() =>
+            actors.length === 1 && href
+              ? router.push(href)
+              : subject && openReposts(subject, actors.length)
+          }
         >
           <NotificationItem
             unread={!isRead}
@@ -81,7 +87,6 @@ export const Notification = ({
               <Link href={href} asChild>
                 <TouchableOpacity>
                   <PostNotification
-                    index={index}
                     item={item}
                     unread={!isRead}
                     inline
@@ -120,7 +125,6 @@ export const Notification = ({
       if (!subject || !item) return null;
       return (
         <PostNotification
-          index={index}
           item={item}
           unread={!isRead}
           dataUpdatedAt={dataUpdatedAt}

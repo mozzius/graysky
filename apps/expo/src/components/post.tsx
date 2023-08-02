@@ -108,13 +108,14 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
       )}
       {/* embeds */}
       {post.embed && (
-        <Embed
-          uri={post.uri}
-          content={post.embed}
-          truncate={false}
-          key={rerenderer}
-          postIndex={Infinity}
-        />
+        <View className="flex-1">
+          <Embed
+            uri={post.uri}
+            content={post.embed}
+            truncate={false}
+            key={rerenderer}
+          />
+        </View>
       )}
       {/* actions */}
       <View className="mt-4 flex-row items-center justify-between">
@@ -125,7 +126,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
           onPress={() =>
-            composer.open({
+            composer.reply({
               parent: post,
               root,
             })

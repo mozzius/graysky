@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Text, TouchableOpacity } from "react-native";
+import { Alert, Linking, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import {
@@ -23,6 +23,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
+import { ExternalLink } from "lucide-react-native";
 import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
@@ -39,8 +40,7 @@ import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
-  enableInExpoDevelopment: true,
-  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  enableInExpoDevelopment: false,
 });
 
 // configureRevenueCat();
@@ -71,7 +71,6 @@ const App = () => {
             setSession(sess);
             break;
           case "create-failed":
-            void AsyncStorage.removeItem("session");
             setSession(null);
             Alert.alert(
               "Could not log you in",
@@ -131,7 +130,7 @@ const App = () => {
     ) {
       // Redirect to the sign-in page.
       if (segments.join("/") === "(auth)/login") return;
-      router.replace("/login");
+      router.replace("/");
     } else if (did && (inAuthGroup || atRoot)) {
       if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       router.replace("/feeds");
@@ -156,6 +155,14 @@ const App = () => {
     }
   }, [isReady]);
 
+  function handleModalBack() {
+    if (navigation.canGoBack()) {
+      router.push("../");
+    } else {
+      router.push("/feeds");
+    }
+  }
+
   return (
     <ThemeProvider value={theme}>
       <SafeAreaProvider>
@@ -171,8 +178,44 @@ const App = () => {
                   }}
                 >
                   <Stack.Screen
+                    name="index"
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
                     name="(auth)/login"
-                    options={{ title: "Log in" }}
+                    options={{
+                      title: "Log in",
+                      presentation: "formSheet",
+                      headerLeft: () => (
+                        <TouchableOpacity onPress={() => router.push("/")}>
+                          <Text
+                            style={{ color: theme.colors.primary }}
+                            className="text-lg"
+                          >
+                            Cancel
+                          </Text>
+                        </TouchableOpacity>
+                      ),
+                      headerRight: () => (
+                        <TouchableOpacity
+                          className="flex-row items-center gap-1"
+                          onPress={() => Linking.openURL("https://bsky.app")}
+                        >
+                          <Text
+                            style={{ color: theme.colors.primary }}
+                            className="text-lg"
+                          >
+                            Register
+                          </Text>
+                          <ExternalLink
+                            size={16}
+                            color={theme.colors.primary}
+                          />
+                        </TouchableOpacity>
+                      ),
+                    }}
                   />
                   <Stack.Screen
                     name="settings"
@@ -194,15 +237,7 @@ const App = () => {
                       title: "Translate",
                       presentation: "modal",
                       headerRight: () => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            if (navigation.canGoBack()) {
-                              router.push("../");
-                            } else {
-                              router.push("/feeds");
-                            }
-                          }}
-                        >
+                        <TouchableOpacity onPress={handleModalBack}>
                           <Text
                             style={{ color: theme.colors.primary }}
                             className="text-lg font-medium"
@@ -225,6 +260,19 @@ const App = () => {
                   />
                   <Stack.Screen
                     name="pro"
+                    options={{
+                      title: "",
+                      headerTransparent: true,
+                      presentation: "modal",
+                      headerLeft: () => (
+                        <TouchableOpacity onPress={handleModalBack}>
+                          <Text className="text-lg text-white">Cancel</Text>
+                        </TouchableOpacity>
+                      ),
+                    }}
+                  />
+                  <Stack.Screen
+                    name="composer"
                     options={{
                       headerShown: false,
                       presentation: "modal",

@@ -110,7 +110,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ borderColor: theme.colors.card }}
             >
               <AnimatedImage
-                // sharedTransitionTag={profile.avatar}
+                sharedTransitionTag={profile.avatar}
                 source={{ uri: profile.avatar }}
                 className="h-20 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""
@@ -321,7 +321,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         </View>
         {profile.description && (
           <View className="mt-3" pointerEvents="box-none">
-            <RichTextWithoutFacets text={profile.description} />
+            <RichTextWithoutFacets
+              text={profile.description.trim()}
+              forcePointerEvents
+            />
           </View>
         )}
         {profile.viewer?.muted && (

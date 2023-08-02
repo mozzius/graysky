@@ -9,9 +9,10 @@ import { cx } from "../lib/utils/cx";
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewBasic;
+  avatarSize?: "normal" | "reduced";
 }
 
-export const PostAvatar = ({ profile }: Props) => {
+export const PostAvatar = ({ profile, avatarSize = "normal" }: Props) => {
   const theme = useTheme();
 
   const profileHref = `/profile/${profile.handle}`;
@@ -25,14 +26,22 @@ export const PostAvatar = ({ profile }: Props) => {
             source={{ uri: profile.avatar }}
             alt={`@${profile.handle}`}
             className={cx(
-              "h-12 w-12 rounded-full",
+              "shrink-0 rounded-full",
+              {
+                "h-10 w-10": avatarSize === "reduced",
+                "h-12 w-12": avatarSize === "normal",
+              },
               theme.dark ? theme.colors.card : "bg-neutral-200",
             )}
           />
         ) : (
           <View
             className={cx(
-              "h-12 w-12 items-center justify-center rounded-full",
+              "shrink-0 items-center justify-center rounded-full",
+              {
+                "h-10 w-10": avatarSize === "reduced",
+                "h-12 w-12": avatarSize === "normal",
+              },
               theme.dark ? theme.colors.card : "bg-neutral-200",
             )}
           >

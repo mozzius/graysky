@@ -33,6 +33,7 @@ const config = {
     "**/*.config.cjs",
     "packages/config/**",
     "apps/expo/dist/**",
+    "apps/expo/ios/**",
   ],
   reportUnusedDisableDirectives: true,
 };

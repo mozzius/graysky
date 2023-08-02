@@ -1,21 +1,11 @@
 import { useRef, useState } from "react";
-import { Alert, Share } from "react-native";
-import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
-import { useRouter } from "expo-router";
-import {
-  AppBskyFeedPost,
-  ComAtprotoModerationDefs,
-  type AppBskyFeedDefs,
-} from "@atproto/api";
+import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import { useComposer } from "../../components/composer";
-import { useLists } from "../../components/lists/context";
-import { blockAccount, muteAccount } from "../account-actions";
 import { useAuthedAgent } from "../agent";
-import { assert } from "../utils/assert";
 import { useColorScheme } from "../utils/color-scheme";
 
 export const useLike = (

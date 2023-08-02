@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from "react";
-import { Linking, Text } from "react-native";
+import { Linking, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -15,6 +15,8 @@ interface Props {
   numberOfLines?: number;
   truncate?: boolean;
   disableLinks?: boolean;
+  forcePointerEvents?: boolean;
+  className?: string;
 }
 
 export const RichText = ({
@@ -24,13 +26,30 @@ export const RichText = ({
   numberOfLines,
   truncate = true,
   disableLinks,
+  forcePointerEvents,
+  className,
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
 
+  const classNames = cx(
+    {
+      "text-sm": size === "sm",
+      "text-base leading-[22px]": size === "base",
+      "text-lg leading-6": size === "lg",
+      "text-xl leading-7": size === "xl",
+    },
+    className,
+  );
+
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
     const parts = [];
+    let Wrapper = forcePointerEvents
+      ? (props: React.PropsWithChildren) => (
+          <View {...props} pointerEvents="auto" className="translate-y-[3px]" />
+        )
+      : Fragment;
     for (const segment of rt.segments()) {
       if (segment.isLink()) {
         let textToShow = segment.text;
@@ -54,67 +73,73 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text
-              className="text-blue-500"
-              onPress={(evt) => {
-                if (disableLinks) return;
-                evt.stopPropagation();
-                const url = segment.link!.uri;
-                // TODO: better heuristic?
-                if (url.startsWith("https://bsky.app/profile")) {
-                  const path = url.slice("https://bsky.app".length);
-                  router.push(path);
-                } else {
-                  void Linking.openURL(url);
-                  // check link is not deceptive
-                  // TODO: test
-                  // const realHost = new URL(url).hostname;
-                  // const statedHost = new URL(segment.text).hostname;
-                  // if (realHost === statedHost) {
-                  //   void Linking.openURL(url);
-                  // } else {
-                  //   Alert.alert(
-                  //     "Deceptive link",
-                  //     `This link does not match the stated URL in the text. This will take you to ${realHost}`,
-                  //     [
-                  //       {
-                  //         text: "Cancel",
-                  //         style: "cancel",
-                  //       },
-                  //       {
-                  //         text: "Open anyway",
-                  //         onPress: () => void Linking.openURL(url),
-                  //       },
-                  //     ],
-                  //   );
-                  // }
-                }
-              }}
-            >
-              {textToShow}
-            </Text>
+            <Wrapper>
+              <Text
+                className={cx("text-blue-500", classNames)}
+                onPress={(evt) => {
+                  if (disableLinks) return;
+                  evt.stopPropagation();
+                  const url = segment.link!.uri;
+                  // TODO: better heuristic?
+                  if (url.startsWith("https://bsky.app/profile")) {
+                    const path = url.slice("https://bsky.app".length);
+                    router.push(path);
+                  } else {
+                    void Linking.openURL(url);
+                    // check link is not deceptive
+                    // TODO: test
+                    // const realHost = new URL(url).hostname;
+                    // const statedHost = new URL(segment.text).hostname;
+                    // if (realHost === statedHost) {
+                    //   void Linking.openURL(url);
+                    // } else {
+                    //   Alert.alert(
+                    //     "Deceptive link",
+                    //     `This link does not match the stated URL in the text. This will take you to ${realHost}`,
+                    //     [
+                    //       {
+                    //         text: "Cancel",
+                    //         style: "cancel",
+                    //       },
+                    //       {
+                    //         text: "Open anyway",
+                    //         onPress: () => void Linking.openURL(url),
+                    //       },
+                    //     ],
+                    //   );
+                    // }
+                  }
+                }}
+              >
+                {textToShow}
+              </Text>
+            </Wrapper>
           ),
         });
       } else if (segment.isMention()) {
         parts.push({
           text: segment.text,
           component: (
-            <Text
-              className="text-blue-500"
-              onPress={(evt) => {
-                evt.stopPropagation();
-                router.push(`/profile/${segment.mention!.did}`);
-              }}
-            >
-              {segment.text}
-            </Text>
+            <Wrapper>
+              <Text
+                className={cx("text-blue-500", classNames)}
+                onPress={(evt) => {
+                  evt.stopPropagation();
+                  router.push(`/profile/${segment.mention!.did}`);
+                }}
+              >
+                {segment.text}
+              </Text>
+            </Wrapper>
           ),
         });
       } else {
         parts.push({
           text: segment.text,
           component: (
-            <Text style={{ color: theme.colors.text }}>{segment.text}</Text>
+            <Text style={{ color: theme.colors.text }} className={classNames}>
+              {segment.text}
+            </Text>
           ),
         });
       }
@@ -126,27 +151,27 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text style={{ color: theme.colors.text }}>
+          <Text style={{ color: theme.colors.text }} className={classNames}>
             {text.slice(reconstructed.length)}
           </Text>
         ),
       });
     }
     return parts;
-  }, [text, facets, router, disableLinks, truncate, theme.colors.text]);
+  }, [
+    text,
+    facets,
+    router,
+    disableLinks,
+    truncate,
+    theme.colors.text,
+    classNames,
+  ]);
 
   if (!segments) return null;
 
   return (
-    <Text
-      className={cx({
-        "text-sm": size === "sm",
-        "text-base leading-[22px]": size === "base",
-        "text-lg leading-6": size === "lg",
-        "text-xl leading-7": size === "xl",
-      })}
-      numberOfLines={numberOfLines}
-    >
+    <Text className={classNames} numberOfLines={numberOfLines}>
       {segments.map(({ text, component }, i) => (
         <Fragment key={`${i}+${text}`}>{component}</Fragment>
       ))}

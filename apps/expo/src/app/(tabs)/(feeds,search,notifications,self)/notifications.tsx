@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
 import * as Haptics from "expo-haptics";
+import { Stack } from "expo-router";
 import {
   type AppBskyFeedDefs,
   type AppBskyNotificationListNotifications,
@@ -8,7 +9,6 @@ import {
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ComposeButton } from "../../../components/compose-button";
 import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAuthedAgent } from "../../../lib/agent";
@@ -176,6 +176,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
       await notifications.refetch();
       setNonScrollRefreshing(false);
     }, [notifications]),
+    { largeHeader: true },
   );
 
   const data = useMemo(() => {
@@ -188,43 +189,53 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
 
   if (notifications.data) {
     return (
-      <FlashList<NotificationGroup>
-        ref={ref}
-        onScroll={onScroll}
-        data={data}
-        renderItem={({ item, index }) => (
-          <Notification
-            {...item}
-            index={index}
-            dataUpdatedAt={notifications.dataUpdatedAt}
-          />
-        )}
-        ListHeaderComponent={
-          nonScrollRefreshing ? (
-            <View className="h-16 w-full items-center justify-center">
-              <ActivityIndicator size="small" />
-            </View>
-          ) : null
-        }
-        estimatedItemSize={105}
-        onEndReachedThreshold={0.6}
-        onEndReached={() => void notifications.fetchNextPage()}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-            tintColor={tintColor}
-          />
-        }
-        ListFooterComponent={
-          notifications.isFetching ? (
-            <View className="w-full items-center py-4">
-              <ActivityIndicator />
-            </View>
-          ) : null
-        }
-        extraData={notifications.dataUpdatedAt}
-      />
+      <>
+        <Stack.Screen
+          options={{
+            headerRight: nonScrollRefreshing
+              ? () => <ActivityIndicator size="small" />
+              : undefined,
+          }}
+        />
+        <FlashList<NotificationGroup>
+          contentInsetAdjustmentBehavior="automatic"
+          ref={ref}
+          onScroll={onScroll}
+          scrollToOverflowEnabled
+          data={data}
+          renderItem={({ item }) => (
+            <Notification
+              {...item}
+              dataUpdatedAt={notifications.dataUpdatedAt}
+            />
+          )}
+          // ListHeaderComponent={
+          //   nonScrollRefreshing ? (
+          //     <View className="h-16 w-full items-center justify-center">
+          //       <ActivityIndicator size="small" />
+          //     </View>
+          //   ) : null
+          // }
+          estimatedItemSize={105}
+          onEndReachedThreshold={0.6}
+          onEndReached={() => void notifications.fetchNextPage()}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={tintColor}
+            />
+          }
+          ListFooterComponent={
+            notifications.isFetching ? (
+              <View className="w-full items-center py-4">
+                <ActivityIndicator />
+              </View>
+            ) : null
+          }
+          extraData={notifications.dataUpdatedAt}
+        />
+      </>
     );
   }
 
@@ -236,12 +247,9 @@ export default function Page() {
 
   if (appPrefs.data) {
     return (
-      <>
-        <NotificationsPage
-          groupNotifications={appPrefs.data.groupNotifications}
-        />
-        <ComposeButton />
-      </>
+      <NotificationsPage
+        groupNotifications={appPrefs.data.groupNotifications}
+      />
     );
   }
 

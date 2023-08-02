@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useRef } from "react";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 import { FollowersList, type FollowersListRef } from "./followers-list";
 import { FollowsList, type FollowsListRef } from "./follows-list";
@@ -37,13 +38,15 @@ export const ListProvider = ({ children }: Props) => {
   );
 
   return (
-    <ListContext.Provider value={value}>
-      {children}
-      <FollowersList ref={followersRef} />
-      <FollowsList ref={followsRef} />
-      <LikesList ref={likesRef} />
-      <RepostsList ref={repostsRef} />
-    </ListContext.Provider>
+    <BottomSheetModalProvider>
+      <ListContext.Provider value={value}>
+        {children}
+        <FollowersList ref={followersRef} />
+        <FollowsList ref={followsRef} />
+        <LikesList ref={likesRef} />
+        <RepostsList ref={repostsRef} />
+      </ListContext.Provider>
+    </BottomSheetModalProvider>
   );
 };
 

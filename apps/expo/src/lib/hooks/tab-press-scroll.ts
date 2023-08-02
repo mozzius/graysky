@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useCallback, useEffect, useRef } from "react";
 import {
+  Platform,
+  StyleSheet,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
@@ -9,15 +11,29 @@ import {
   useAnimatedReaction,
   useScrollViewOffset,
 } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
+
+type Options = {
+  largeHeader?: boolean;
+};
 
 export const useTabPressScroll = <T>(
   ref: React.RefObject<FlashList<T>>,
   callback: () => unknown = () => {},
+  { largeHeader }: Options = {},
 ) => {
   const navigation = useNavigation();
   const atTopRef = useRef(true);
+
+  const { top } = useSafeAreaInsets();
+
+  // 14 pro needs to be 5px more :/
+  const targetOffset =
+    largeHeader && Platform.OS === "ios"
+      ? (top + 96 - StyleSheet.hairlineWidth) * -1
+      : 0;
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
@@ -29,7 +45,7 @@ export const useTabPressScroll = <T>(
           // @ts-expect-error this is just wrong for some reason
           evt.preventDefault();
           ref.current?.scrollToOffset({
-            offset: 0,
+            offset: targetOffset,
             animated: true,
           });
         }
@@ -37,28 +53,35 @@ export const useTabPressScroll = <T>(
     });
 
     return unsub;
-  }, [callback, navigation, ref]);
+  }, [callback, navigation, ref, targetOffset]);
 
-  return useCallback((evt: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const { contentOffset } = evt.nativeEvent;
+  return useCallback(
+    (evt: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { contentOffset } = evt.nativeEvent;
 
-    if (contentOffset.y === 0) {
-      atTopRef.current = true;
-    } else if (atTopRef.current) {
-      atTopRef.current = false;
-    }
+      if (contentOffset.y === targetOffset) {
+        atTopRef.current = true;
+      } else if (atTopRef.current) {
+        atTopRef.current = false;
+      }
 
-    // good place to hide header on scroll?
-    // navigation.setOptions({
-    //   headerShown: contentOffset.y <= 0 || velocity?.y < 0,
-    // });
-  }, []);
+      // good place to hide header on scroll?
+      // unfortunately is a bit jarring since it adjusts the height of the scroll view
+      // navigation.setOptions({
+      //   headerShown: contentOffset.y <= 0 || (velocity?.y ?? 0 )< 0,
+      // });
+    },
+    [targetOffset],
+  );
 };
 
-export const useTabPressScrollRef = <T>(callback: () => unknown = () => {}) => {
+export const useTabPressScrollRef = <T>(
+  callback: () => unknown = () => {},
+  options: Options = {},
+) => {
   const ref = useRef<FlashList<T>>(null);
 
-  const onScroll = useTabPressScroll(ref, callback);
+  const onScroll = useTabPressScroll(ref, callback, options);
 
   return [ref, onScroll] as const;
 };

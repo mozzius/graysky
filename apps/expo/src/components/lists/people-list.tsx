@@ -2,9 +2,10 @@ import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
-import BottomSheet, {
+import {
   BottomSheetBackdrop,
   BottomSheetFlatList,
+  BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
@@ -33,7 +34,7 @@ interface Props {
 
 export const PeopleList = forwardRef<PeopleListRef, Props>(
   ({ title, data, limit }, ref) => {
-    const bottomSheetRef = useRef<BottomSheet>(null);
+    const bottomSheetRef = useRef<BottomSheetModal>(null);
     const { top } = useSafeAreaInsets();
     const [showAll, setShowAll] = useState(false);
     const theme = useTheme();
@@ -42,15 +43,9 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       open: () => {
         void data.refetch();
         setShowAll(false);
-        bottomSheetRef.current?.snapToIndex(1);
+        bottomSheetRef.current?.present();
       },
     }));
-
-    const handleSheetChanges = (index: number) => {
-      if (index === 0) {
-        bottomSheetRef.current?.close();
-      }
-    };
 
     const {
       backgroundStyle,
@@ -62,16 +57,21 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
     const people = data.data?.pages.flatMap((x) => x.people) ?? [];
 
     return (
-      <BottomSheet
-        index={-1}
+      <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose
-        snapPoints={[1, "60%", Dimensions.get("window").height - top - 10]}
-        backdropComponent={BottomSheetBackdrop}
-        onChange={handleSheetChanges}
+        snapPoints={["60%", Dimensions.get("window").height - top - 10]}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop
+            {...props}
+            appearsOnIndex={0}
+            disappearsOnIndex={-1}
+          />
+        )}
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
+        detached
       >
         <Text
           style={{ color: theme.colors.text }}
@@ -130,7 +130,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
             <QueryWithoutData query={data} />
           </View>
         )}
-      </BottomSheet>
+      </BottomSheetModal>
     );
   },
 );
