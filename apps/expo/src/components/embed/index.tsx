@@ -20,12 +20,18 @@ import { ImageEmbed } from "./image";
 interface Props {
   uri: string;
   content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
-
   truncate?: boolean;
   depth?: number;
+  transparent?: boolean;
 }
 
-export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
+export const Embed = ({
+  uri,
+  content,
+  truncate = true,
+  depth = 0,
+  transparent = false,
+}: Props) => {
   const theme = useTheme();
 
   if (!content) return null;
@@ -49,6 +55,7 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
             className={cx(
               "overflow-hidden rounded-lg border",
               theme.dark ? "bg-black" : "bg-white",
+              transparent && "bg-transparent",
             )}
             style={{ borderColor: theme.colors.border }}
           >
@@ -180,7 +187,11 @@ export const Embed = ({ uri, content, truncate = true, depth = 0 }: Props) => {
       return (
         <View className="flex-1">
           {media && <Embed uri={uri} content={media} depth={depth} />}
-          <PostEmbed author={record.author} uri={record.uri}>
+          <PostEmbed
+            author={record.author}
+            uri={record.uri}
+            transparent={transparent}
+          >
             {record.value.text && (
               <Text
                 style={{ color: theme.colors.text }}

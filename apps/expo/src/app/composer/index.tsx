@@ -431,6 +431,7 @@ export default function ComposerScreen() {
               >
                 <Embed
                   uri=""
+                  transparent
                   content={
                     {
                       $type: "app.bsky.embed.record#view",
