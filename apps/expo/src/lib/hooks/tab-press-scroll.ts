@@ -29,9 +29,10 @@ export const useTabPressScroll = <T>(
 
   const { top } = useSafeAreaInsets();
 
+  // 14 pro needs to be 5px more :/
   const targetOffset =
     largeHeader && Platform.OS === "ios"
-      ? (top + 96 - 5 - StyleSheet.hairlineWidth) * -1
+      ? (top + 96 - StyleSheet.hairlineWidth) * -1
       : 0;
 
   useEffect(() => {
