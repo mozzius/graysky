@@ -126,7 +126,7 @@ export const useSendPost = ({
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
-      const rt = await generateRichText(text.trim(), agent);
+      const rt = await generateRichText(text, agent);
       if (rt.graphemeLength > MAX_LENGTH) {
         Alert.alert(
           "Your post is too long",
