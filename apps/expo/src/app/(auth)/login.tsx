@@ -14,6 +14,7 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { Lock, User } from "lucide-react-native";
 
+import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
 import { cx } from "../../lib/utils/cx";
 
@@ -113,7 +114,7 @@ export default function Login() {
           />
         </View>
         <View className="flex-row items-center justify-between pt-1">
-          <Button
+          <TextButton
             onPress={() =>
               Alert.alert(
                 "App Passwords",
@@ -123,7 +124,7 @@ export default function Login() {
             title="Help"
           />
           {!login.isLoading ? (
-            <Button
+            <TextButton
               disabled={!identifier || !password}
               onPress={() => login.mutate()}
               title="Log in"
@@ -137,30 +138,3 @@ export default function Login() {
     </View>
   );
 }
-
-interface Props {
-  disabled?: boolean;
-  onPress?: () => void;
-  className?: string;
-  title: String;
-  style?: StyleProp<ViewStyle>;
-}
-
-const Button = ({ disabled, onPress, title, style }: Props) => {
-  const theme = useTheme();
-  return (
-    <TouchableOpacity onPress={onPress} disabled={disabled} hitSlop={8}>
-      <Text
-        className={cx("text-lg")}
-        style={[
-          {
-            color: disabled ? theme.colors.border : theme.colors.primary,
-          },
-          style,
-        ]}
-      >
-        {title}
-      </Text>
-    </TouchableOpacity>
-  );
-};

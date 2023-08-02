@@ -270,7 +270,12 @@ const FeedInfo = ({
                 disabled={toggleSave.isLoading}
               >
                 <View
-                  className="items-center justify-center rounded border border-neutral-300 px-3 py-2 dark:border-neutral-700"
+                  className={cx(
+                    "items-center justify-center rounded border px-3 py-2",
+                    theme.dark
+                      ? "border-neutral-700 bg-black"
+                      : "border-neutral-300 bg-white",
+                  )}
                   style={{ backgroundColor: theme.dark ? "black" : "white" }}
                 >
                   <Star

@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
@@ -47,6 +48,7 @@ export default function ComposerScreen() {
   const agent = useAuthedAgent();
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
+  const [trucateParent, setTruncateParent] = useState(true);
 
   const reply = useReply();
   const quote = useQuote();
@@ -116,23 +118,29 @@ export default function ComposerScreen() {
       )}
       <KeyboardAwareScrollView className="pt-4" alwaysBounceVertical={!isEmpty}>
         {reply.thread.data && (
-          <Animated.View
-            layout={Layout}
-            pointerEvents="none"
+          <TouchableOpacity
+            onPress={() => setTruncateParent((t) => !t)}
             className="flex-1"
           >
-            <FeedPost
-              item={reply.thread.data}
-              dataUpdatedAt={0}
-              filter={contentFilter(reply.thread.data.post.labels)}
-              hasReply
-              isReply
-              hideActions
-              hideEmbed
-              numberOfLines={3}
-              avatarSize="reduced"
-            />
-          </Animated.View>
+            <Animated.View
+              layout={Layout}
+              pointerEvents="none"
+              className="flex-1"
+            >
+              <FeedPost
+                item={reply.thread.data}
+                dataUpdatedAt={0}
+                filter={contentFilter(reply.thread.data.post.labels)}
+                hasReply
+                isReply
+                hideActions
+                hideEmbed={trucateParent}
+                numberOfLines={trucateParent ? 3 : undefined}
+                avatarSize="reduced"
+                background="transparent"
+              />
+            </Animated.View>
+          </TouchableOpacity>
         )}
         <Animated.View className="w-full flex-row px-2 pb-6" layout={Layout}>
           <View className="shrink-0 px-2">

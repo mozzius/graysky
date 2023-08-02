@@ -1,16 +1,24 @@
-import { useEffect, useMemo, useState } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useSelf } from ".";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { RichText } from "../../../components/rich-text";
+import { TextButton } from "../../../components/text-button";
+import { useAuthedAgent } from "../../../lib/agent";
 
 export default function EditBio() {
   const theme = useTheme();
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
+  const agent = useAuthedAgent();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const self = useSelf();
 
@@ -24,11 +32,31 @@ export default function EditBio() {
   const rt = new RichTextHelper({ text: description ?? "" });
   rt.detectFacetsWithoutResolution();
 
+  const save = useMutation({
+    mutationKey: ["save-profile"],
+    mutationFn: async () => {
+      await agent.upsertProfile((old) => {
+        return {
+          ...old,
+          displayName: displayName ?? "",
+          description: description ?? "",
+        };
+      });
+    },
+    onSettled: () => {
+      router.push("../");
+      void queryClient.invalidateQueries(["self"]);
+      void queryClient.invalidateQueries(["profile"]);
+    },
+  });
+
+  // todo: save/discard buttons should be in the header and only show once editing has started
+
   if (self.data) {
     return (
-      <ScrollView className="flex-1 px-4">
-        <View className="my-4">
-          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+      <KeyboardAwareScrollView className="flex-1 px-4">
+        <View className="my-4 flex-1">
+          <Text className="mx-4 mb-1 mt-4 text-sm uppercase text-neutral-500">
             Display name
           </Text>
           <View
@@ -43,13 +71,13 @@ export default function EditBio() {
             />
           </View>
         </View>
-        <View className="mb-4">
-          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+        <View className="mb-4 flex-1">
+          <Text className="mx-4 mb-1 mt-4 text-sm uppercase text-neutral-500">
             Description
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
-            className="overflow-hidden rounded-lg"
+            className="flex-1 overflow-hidden rounded-lg"
           >
             <TextInput
               onChange={(evt) => setDescription(evt.nativeEvent.text)}
@@ -67,7 +95,19 @@ export default function EditBio() {
             </TextInput>
           </View>
         </View>
-      </ScrollView>
+        <View className="flex-row items-center justify-end pt-2">
+          {!save.isLoading ? (
+            <TextButton
+              // disabled={!identifier || !password}
+              onPress={() => save.mutate()}
+              title="Save"
+              className="font-medium"
+            />
+          ) : (
+            <ActivityIndicator className="px-2" />
+          )}
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 

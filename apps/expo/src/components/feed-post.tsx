@@ -47,6 +47,7 @@ interface Props {
   embedDepth?: number;
   numberOfLines?: number;
   avatarSize?: "normal" | "reduced";
+  background?: "transparent";
 }
 
 export const FeedPost = ({
@@ -62,6 +63,7 @@ export const FeedPost = ({
   embedDepth,
   numberOfLines,
   avatarSize = "normal",
+  background,
 }: Props) => {
   const startHidden = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -172,6 +174,7 @@ export const FeedPost = ({
           : theme.dark
           ? "bg-black"
           : "bg-white",
+        background === "transparent" && "bg-transparent",
       )}
       style={unread ? undefined : { borderBottomColor: theme.colors.border }}
     >
