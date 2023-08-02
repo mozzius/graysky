@@ -30,9 +30,9 @@ export const useTabPressScroll = <T>(
   const { top } = useSafeAreaInsets();
 
   const targetOffset =
-    largeHeader && Platform.OS === "ios" ? (top + 96) * -1 : 0;
-
-  console.info(targetOffset - StyleSheet.hairlineWidth);
+    largeHeader && Platform.OS === "ios"
+      ? (top + 96 - 5 - StyleSheet.hairlineWidth) * -1
+      : 0;
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is

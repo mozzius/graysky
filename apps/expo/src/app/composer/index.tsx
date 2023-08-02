@@ -114,7 +114,7 @@ export default function ComposerScreen() {
           <Text className="my-1 text-white/90">Please try again</Text>
         </View>
       )}
-      <KeyboardAwareScrollView className="pt-4">
+      <KeyboardAwareScrollView className="pt-4" alwaysBounceVertical={!isEmpty}>
         {reply.thread.data && (
           <Animated.View
             layout={Layout}
