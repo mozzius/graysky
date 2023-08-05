@@ -224,16 +224,6 @@ export default function ComposerScreen() {
                     <TouchableOpacity
                       key={actor.did}
                       onPress={() => {
-                        console.log(
-                          text,
-                          selectionRef.current?.start || 0,
-                          actor.handle,
-                          insertMentionAt(
-                            text,
-                            selectionRef.current?.start || 0,
-                            actor.handle,
-                          ),
-                        );
                         setText((text) =>
                           insertMentionAt(
                             text,

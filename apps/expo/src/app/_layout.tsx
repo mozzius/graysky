@@ -143,8 +143,6 @@ const App = () => {
     setInvalidator((i) => i + 1);
   }, []);
 
-  console.log(colorScheme);
-
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
