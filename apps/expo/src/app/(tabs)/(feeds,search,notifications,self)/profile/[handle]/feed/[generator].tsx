@@ -195,7 +195,7 @@ const FeedInfo = ({
           {info.view.description && (
             <Text
               style={{ color: theme.colors.text }}
-              className="mt-4 text-base"
+              className="mt-4 w-full text-base"
             >
               {info.view.descriptionFacets ? (
                 <RichText

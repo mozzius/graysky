@@ -333,7 +333,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ color: theme.colors.text }}
               className="font-semibold"
             >
-              You have muted this user
+              {profile.viewer.mutedByList
+                ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
+                : "You have muted this user"}
             </Text>
             <Button
               title="Unmute"

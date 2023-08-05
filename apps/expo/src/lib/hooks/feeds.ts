@@ -212,6 +212,7 @@ export const useTimeline = (feed: string) => {
             AppBskyFeedDefs.isPostView(item.reply.parent) &&
             AppBskyFeedDefs.validatePostView(item.reply.parent).success
           ) {
+            if (item.reply.parent.author.viewer?.muted) return [];
             const parentFilter = contentFilter(item.reply.parent.labels);
             if (parentFilter?.visibility === "hide") return [];
             return [

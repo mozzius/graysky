@@ -138,7 +138,7 @@ export const useHandleRepost = (
         if (index === undefined) return;
         switch (options[index]) {
           case "Repost":
-          case "Unrepost":
+          case "Undo Repost":
             toggleRepost();
             break;
           case "Quote":
