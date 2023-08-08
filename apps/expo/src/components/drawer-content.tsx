@@ -7,12 +7,12 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { LogOut, Palette, Settings2, Star, Ticket } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "../app/codes/_layout";
 import { useAuthedAgent } from "../lib/agent";
 import { useLogOut } from "../lib/log-out-context";
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { ActorDetails } from "./actor-details";
 
 const DrawerContext = createContext<((open?: boolean) => void) | null>(null);

@@ -24,6 +24,7 @@ import {
 } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "../components/lists/context";
@@ -35,7 +36,6 @@ import { AgentProvider } from "../lib/agent";
 // } from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
-import { useColorScheme } from "../lib/utils/color-scheme";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
 Sentry.init({

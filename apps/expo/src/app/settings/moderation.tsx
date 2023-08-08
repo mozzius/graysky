@@ -7,12 +7,12 @@ import { useMutation } from "@tanstack/react-query";
 // @ts-expect-error metro bull****
 import { produce } from "immer/dist/cjs";
 import { Ban, MegaphoneOff } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { useAuthedAgent } from "../../lib/agent";
 import { contentLabels, usePreferences } from "../../lib/hooks/preferences";
-import { useColorScheme } from "../../lib/utils/color-scheme";
 
 type Pref = "show" | "warn" | "hide";
 

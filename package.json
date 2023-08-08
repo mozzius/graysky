@@ -37,7 +37,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch"
+      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
+      "nativewind@2.0.11": "patches/nativewind@2.0.11.patch"
     }
   }
 }

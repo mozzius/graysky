@@ -3,10 +3,10 @@ import * as Haptics from "expo-haptics";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../../components/composer";
 import { useAuthedAgent } from "../agent";
-import { useColorScheme } from "../utils/color-scheme";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],

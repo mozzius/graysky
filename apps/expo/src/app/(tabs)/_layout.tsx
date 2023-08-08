@@ -6,12 +6,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Cloudy, PenBox, Search, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
 import { useAuthedAgent } from "../../lib/agent";
-import { useColorScheme } from "../../lib/utils/color-scheme";
 
 export default function AppLayout() {
   const agent = useAuthedAgent();
