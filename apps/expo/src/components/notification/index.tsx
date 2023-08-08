@@ -6,7 +6,7 @@ import { Heart, Repeat, UserPlus } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
 import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
 import { useLists } from "../lists/context";
 import { NotificationItem } from "./item";
@@ -22,7 +22,7 @@ export const Notification = ({
   item,
 }: NotificationGroup & { dataUpdatedAt: number }) => {
   const { openLikes, openFollowers, openReposts } = useLists();
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const router = useRouter();
 
   let href: string | undefined;
@@ -104,7 +104,7 @@ export const Notification = ({
           onPress={() =>
             actors.length === 1
               ? router.push(`/profile/${actors[0]!.handle}`)
-              : openFollowers(agent.session.did, actors.length)
+              : openFollowers(agent.session!.did, actors.length)
           }
         >
           <NotificationItem

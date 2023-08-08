@@ -12,11 +12,11 @@ import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react-native";
 
 import { ImageViewer } from "../../components/image-viewer";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { assert } from "../../lib/utils/assert";
 
 export default function ImageModal() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const router = useRouter();
   const { post, initial } = useLocalSearchParams() as {
     post: string;

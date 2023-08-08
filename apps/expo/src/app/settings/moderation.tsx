@@ -11,13 +11,13 @@ import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { contentLabels, usePreferences } from "../../lib/hooks/preferences";
 
 type Pref = "show" | "warn" | "hide";
 
 export default function ModerationSettings() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const theme = useTheme();
   const { colorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();

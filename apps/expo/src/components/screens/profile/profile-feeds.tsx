@@ -17,7 +17,7 @@ import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
 
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const ProfileFeeds = ({ handle }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
 
   const props = useScrollProps();
@@ -66,7 +66,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
           variant="outline"
           onPress={async () => {
             await agent.app.bsky.graph.block.delete({
-              repo: agent.session.did,
+              repo: agent.session!.did,
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
             }),
               await queryClient.refetchQueries(["profile", handle]);

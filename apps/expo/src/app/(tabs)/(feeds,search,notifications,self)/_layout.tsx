@@ -1,9 +1,16 @@
-import { Platform, Text, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Stack, useNavigation, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "../../../components/avatar";
 import { useDrawer } from "../../../components/drawer-content";
+import { useAgent } from "../../../lib/agent";
 
 const stackOptions = {
   screenOptions: {
@@ -20,12 +27,22 @@ export default function SubStack({
   const navigation = useNavigation();
   const router = useRouter();
   const theme = useTheme();
+  const agent = useAgent();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
       <Avatar size="small" />
     </TouchableOpacity>
   );
+
+  if (!agent.hasSession) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white dark:bg-black">
+        <ActivityIndicator size="large" />
+        <Text className="mt-4 text-center text-base">Connecting...</Text>
+      </View>
+    );
+  }
 
   switch (segment) {
     case "(feeds)":

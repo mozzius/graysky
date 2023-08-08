@@ -3,11 +3,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "../../components/profile-list";
 import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { useRefreshOnFocus } from "../../lib/utils/query";
 
 export default function MutedUsers() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const mutes = useInfiniteQuery({
     queryKey: ["mutes"],

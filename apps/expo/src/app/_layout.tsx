@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Linking, Text, TouchableOpacity } from "react-native";
+import { Linking, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import {
@@ -22,7 +22,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import * as Sentry from "sentry-expo";
@@ -50,41 +50,60 @@ SplashScreen.preventAutoHideAsync();
 const App = () => {
   const segments = useSegments();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState<AtpSessionData | null>(null);
+
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
   // const info = useCustomerInfoQuery();
 
+  const session = useQuery({
+    queryKey: ["session"],
+    queryFn: async () => {
+      const sess = await AsyncStorage.getItem("session");
+      if (!sess) return null;
+      return JSON.parse(sess) as AtpSessionData;
+    },
+  });
+
+  const saveSession = useMutation({
+    mutationFn: async (sess: AtpSessionData | null) => {
+      if (sess) {
+        await AsyncStorage.setItem("session", JSON.stringify(sess));
+      } else {
+        await AsyncStorage.removeItem("session");
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(["session"]);
+    },
+  });
+
+  const resumeSession = useMutation({
+    mutationFn: async (sess: AtpSessionData) => {
+      await agent.resumeSession(sess);
+    },
+    retry: true,
+  });
+
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
     return new BskyAgent({
       service: "https://bsky.social",
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
-        // store the session-data for reuse
         switch (evt) {
           case "create":
             if (!sess) throw new Error("should be unreachable");
-            void AsyncStorage.setItem("session", JSON.stringify(sess));
-            setSession(sess);
+            saveSession.mutate(sess);
             break;
           case "create-failed":
-            setSession(null);
-            Alert.alert(
-              "Could not log you in",
-              "Please check your details and try again",
-            );
             break;
           case "update":
             if (!sess) throw new Error("should be unreachable");
-            void AsyncStorage.setItem("session", JSON.stringify(sess));
-            setSession(sess);
+            saveSession.mutate(sess);
             break;
           case "expired":
-            void AsyncStorage.removeItem("session");
-            setSession(null);
+            saveSession.mutate(null);
             break;
         }
       },
@@ -93,67 +112,46 @@ const App = () => {
   }, [invalidator]);
 
   useEffect(() => {
-    AsyncStorage.getItem("session")
-      .then(async (sess) => {
-        if (sess) {
-          const session = JSON.parse(sess) as AtpSessionData;
-          await agent.resumeSession(session);
-          setSession(session);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [agent]);
-
-  const did = session?.did;
-
-  // invalidate all queries when the session changes
-  useEffect(() => {
-    void queryClient.invalidateQueries();
-  }, [did, queryClient]);
+    if (session.data && !agent.hasSession) {
+      resumeSession.mutate(session.data);
+    }
+  }, [session.data, agent]);
 
   // redirect depending on login state
   useEffect(() => {
-    // early return if we're still loading
-    if (loading) return;
+    if (typeof session.data === "undefined") return;
     const atRoot = segments.length === 0;
     const inAuthGroup = segments[0] === "(auth)";
 
     if (
       // If the user is not signed in and the initial segment is not anything in the auth group.
-      !did &&
+      !agent.hasSession &&
       !inAuthGroup &&
       !atRoot
     ) {
       // Redirect to the sign-in page.
       if (segments.join("/") === "(auth)/login") return;
       router.replace("/");
-    } else if (did && (inAuthGroup || atRoot)) {
+    } else if (agent.hasSession && (inAuthGroup || atRoot)) {
       if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       router.replace("/feeds");
     }
-  }, [did, segments, router, loading]);
+  }, [segments, router, session.data, agent.hasSession]);
 
   const logOut = useCallback(async () => {
     await AsyncStorage.removeItem("session");
-    setSession(null);
+    queryClient.clear();
     setInvalidator((i) => i + 1);
   }, []);
 
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   const navigation = useNavigation();
-
-  const isReady = !loading; // && !!info.data;
-
   useEffect(() => {
-    if (isReady) {
+    if (session.isFetched) {
       SplashScreen.hideAsync();
     }
-  }, [isReady]);
+  }, [session.isFetched]);
 
   function handleModalBack() {
     if (navigation.canGoBack()) {

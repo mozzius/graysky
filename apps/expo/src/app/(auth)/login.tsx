@@ -5,14 +5,12 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
-  type StyleProp,
-  type ViewStyle,
 } from "react-native";
+import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { Lock, User } from "lucide-react-native";
+import { AlertTriangle, Lock, User } from "lucide-react-native";
 
 import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
@@ -29,31 +27,18 @@ export default function Login() {
   const login = useMutation({
     mutationKey: ["login"],
     mutationFn: async () => {
-      if (!appPwdRegex.test(password)) {
-        await new Promise((resolve, reject) =>
-          Alert.alert(
-            "Warning: Not an App Password",
-            "We recommend you use an App Password rather than your main password. You can create one by going to Settings > App Passwords.",
-            [
-              {
-                text: "Cancel",
-                onPress: reject,
-                style: "cancel",
-              },
-              {
-                text: "Continue",
-                onPress: resolve,
-              },
-            ],
-          ),
-        );
-      }
-      await agent.login({
+      const res = await agent.login({
         identifier: identifier.startsWith("@")
           ? identifier.slice(1)
           : identifier,
         password,
       });
+      if (!res.success) {
+        Alert.alert(
+          "Could not log you in",
+          "Please check your details and try again",
+        );
+      }
     },
   });
 
@@ -113,12 +98,40 @@ export default function Login() {
             placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
           />
         </View>
-        <View className="flex-row items-center justify-between pt-1">
+        {password && !appPwdRegex.test(password) && (
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+            className="flex-row rounded border-yellow-500 bg-yellow-50 p-3 dark:bg-yellow-950"
+            style={{
+              borderWidth: StyleSheet.hairlineWidth,
+            }}
+          >
+            <AlertTriangle
+              size={18}
+              className="mt-0.5 text-yellow-800 dark:text-white"
+            />
+            <View className="ml-3 flex-1">
+              <Text className="text-base font-medium leading-5 text-yellow-800 dark:text-white">
+                Warning: Not an App Password
+              </Text>
+              <Text className="my-1" style={{ color: theme.colors.text }}>
+                You may want to use an App Password rather than your main
+                password. You can create one by going to Settings {">"} App
+                Passwords in the official app.
+              </Text>
+            </View>
+          </Animated.View>
+        )}
+        <Animated.View
+          className="flex-row items-center justify-between pt-1"
+          layout={Layout}
+        >
           <TextButton
             onPress={() =>
               Alert.alert(
-                "App Passwords",
-                "You should use an app password instead of your main password. You can create one by going to Settings > App Passwords.",
+                "Help",
+                "Log in using your Bluesky account details. If you don't already have an account, you'll need to create one at https://bsky.app - you'll need an invite code.",
               )
             }
             title="Help"
@@ -133,7 +146,7 @@ export default function Login() {
           ) : (
             <ActivityIndicator className="px-2" />
           )}
-        </View>
+        </Animated.View>
       </View>
     </View>
   );

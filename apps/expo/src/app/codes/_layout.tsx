@@ -6,7 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { useRefreshOnFocus } from "../../lib/utils/query";
 
 export default function SettingsLayout() {
@@ -66,7 +66,7 @@ export default function SettingsLayout() {
 }
 
 export const useInviteCodes = () => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const query = useQuery({
     queryKey: ["invite-codes"],

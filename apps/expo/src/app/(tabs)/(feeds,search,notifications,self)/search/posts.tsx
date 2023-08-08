@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FeedPost } from "../../../../components/feed-post";
 import { QueryWithoutData } from "../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../lib/agent";
+import { useAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import {
   useContentFilter,
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const PostsSearch = ({ search }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const { contentFilter } = useContentFilter();
 
   const query = useQuery({

@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { useAuthedAgent } from "../agent";
+import { useAgent } from "../agent";
 
 export const contentLabels = {
   nsfw: {
@@ -62,7 +62,7 @@ export const contentLabels = {
 export const adultContentLabels = ["nsfw", "nudity", "suggestive", "gore"];
 
 export const usePreferences = () => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   return useQuery({
     queryKey: ["preferences"],
     queryFn: async () => {

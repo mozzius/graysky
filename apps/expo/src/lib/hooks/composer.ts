@@ -19,7 +19,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { useAuthedAgent } from "../agent";
+import { useAgent } from "../agent";
 import { locale } from "../locale";
 
 export const MAX_IMAGES = 4;
@@ -75,7 +75,7 @@ export const useQuote = () => {
 };
 
 const useContextualPost = (uri?: string) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const thread = useQuery({
     queryKey: ["context", uri],
@@ -115,7 +115,7 @@ export const useSendPost = ({
   external?: AppBskyEmbedExternal.Main;
   record?: AppBskyEmbedRecord.Main;
 }) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
 

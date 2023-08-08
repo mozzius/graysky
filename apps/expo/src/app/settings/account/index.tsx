@@ -5,14 +5,15 @@ import { AtSign, Mail, User } from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
 import { GroupedList } from "../../../components/grouped-list";
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 
 export const useSelf = () => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   return useQuery({
     queryKey: ["self"],
     queryFn: async () => {
+      if (!agent.session) throw new Error("Not logged in");
       const self = await agent.app.bsky.actor.getProfile({
         actor: agent.session.did,
       });
@@ -23,7 +24,7 @@ export const useSelf = () => {
 };
 
 export default function AccountSettings() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const theme = useTheme();
 
   const self = useSelf();

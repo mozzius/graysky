@@ -22,7 +22,7 @@ import { useComposer } from "../../../../../../components/composer";
 import { FeedPost } from "../../../../../../components/feed-post";
 import { Post } from "../../../../../../components/post";
 import { QueryWithoutData } from "../../../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../../../lib/agent";
+import { useAgent } from "../../../../../../lib/agent";
 import { useTabPressScroll } from "../../../../../../lib/hooks";
 import {
   useContentFilter,
@@ -49,7 +49,7 @@ const PostThread = ({ contentFilter }: Props) => {
     handle: string;
   };
 
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const ref = useRef<FlashList<Posts>>(null);
   const theme = useTheme();
   const composer = useComposer();

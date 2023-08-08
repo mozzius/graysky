@@ -11,10 +11,10 @@ import { Check } from "lucide-react-native";
 import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../lib/agent";
+import { useAgent } from "../../../../lib/agent";
 
 export default function DiscoveryPage() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const theme = useTheme();
   const [search, setSearch] = useState("");
 

@@ -6,13 +6,13 @@ import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../../components/composer";
-import { useAuthedAgent } from "../agent";
+import { useAgent } from "../agent";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
   updated: number,
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const cid = useRef(post.cid);
   const lastUpdate = useRef(updated);
 
@@ -66,7 +66,7 @@ export const useRepost = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
   updated: number,
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const cid = useRef(post.cid);
   const lastUpdate = useRef(updated);
 

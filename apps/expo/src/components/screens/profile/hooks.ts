@@ -2,17 +2,18 @@ import { useMemo } from "react";
 import { AppBskyFeedDefs } from "@atproto/api";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 import { useContentFilter } from "../../../lib/hooks/preferences";
 
 export const useProfile = (handle?: string) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
-  const actor = handle ?? agent.session.did;
+  const actor = handle ?? agent.session?.did;
 
   return useQuery({
     queryKey: ["profile", actor],
     queryFn: async () => {
+      if (!actor) throw new Error("Not logged in");
       const profile = await agent.getProfile({ actor });
       if (!profile.success) throw new Error("Profile not found");
       return profile.data;
@@ -21,13 +22,14 @@ export const useProfile = (handle?: string) => {
 };
 
 export const useProfileFeeds = (handle?: string) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
-  const actor = handle ?? agent.session.did;
+  const actor = handle ?? agent.session?.did;
 
   return useInfiniteQuery({
     queryKey: ["profile", actor, "feeds"],
     queryFn: async ({ pageParam }) => {
+      if (!actor) throw new Error("Not logged in");
       const feeds = await agent.app.bsky.feed.getActorFeeds({
         actor,
         cursor: pageParam as string | undefined,
@@ -43,10 +45,10 @@ export const useProfilePosts = (
   mode: "posts" | "replies" | "likes" | "media",
   handle?: string,
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const { preferences, contentFilter } = useContentFilter();
 
-  const actor = handle ?? agent.session.did;
+  const actor = handle ?? agent.session?.did;
 
   const timeline = useInfiniteQuery({
     queryKey: ["profile", actor, "feed", mode],
@@ -58,6 +60,7 @@ export const useProfilePosts = (
         case "posts":
         case "replies":
         case "media":
+          if (!actor) throw new Error("Not logged in");
           const feed = await agent.getAuthorFeed({
             actor,
             cursor: pageParam as string | undefined,
@@ -67,6 +70,7 @@ export const useProfilePosts = (
         case "likes":
           // all credit to @handlerug.me for this one
           // https://github.com/handlerug/bluesky-liked-posts
+          if (!actor) throw new Error("Not logged in");
           const list = await agent.app.bsky.feed.like.list({
             repo: actor,
             cursor: pageParam as string | undefined,

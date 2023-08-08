@@ -9,7 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
-import { useAuthedAgent } from "../../../../lib/agent";
+import { useAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import { useUserRefresh } from "../../../../lib/utils/query";
 
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PeopleSearch = ({ search }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const theme = useTheme();
 
   const query = useInfiniteQuery({

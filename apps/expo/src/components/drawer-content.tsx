@@ -11,7 +11,7 @@ import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "../app/codes/_layout";
-import { useAuthedAgent } from "../lib/agent";
+import { useAgent } from "../lib/agent";
 import { useLogOut } from "../lib/log-out-context";
 import { ActorDetails } from "./actor-details";
 
@@ -30,7 +30,7 @@ export const DrawerContent = () => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();

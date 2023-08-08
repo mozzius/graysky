@@ -11,16 +11,17 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 
 export default function AppLayout() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const [open, setOpen] = useState(false);
   const { setColorScheme } = useColorScheme();
 
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
+      if (!agent.hasSession) return null;
       return await agent.countUnreadNotifications();
     },
     // refetch every 15 seconds
@@ -80,7 +81,9 @@ export default function AppLayout() {
             tabPress: (evt) => {
               if (evt.target?.startsWith("null")) {
                 evt.preventDefault();
-                router.push("/composer");
+                if (agent.hasSession) {
+                  router.push("/composer");
+                }
               }
             },
           }}

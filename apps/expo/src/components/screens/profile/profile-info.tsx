@@ -22,7 +22,7 @@ import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../../../lib/account-actions";
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 import { cx } from "../../../lib/utils/cx";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
@@ -35,7 +35,7 @@ interface Props {
 }
 
 export const ProfileInfo = ({ profile, backButton }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();

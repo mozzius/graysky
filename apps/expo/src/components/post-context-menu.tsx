@@ -16,7 +16,7 @@ import { MoreHorizontal } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
-import { useAuthedAgent } from "../lib/agent";
+import { useAgent } from "../lib/agent";
 import { assert } from "../lib/utils/assert";
 import { useLists } from "./lists/context";
 
@@ -27,7 +27,7 @@ interface Props {
 const PostContextMenuButton = ({ post }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const { openLikes, openReposts } = useLists();
   const router = useRouter();
   const queryClient = useQueryClient();

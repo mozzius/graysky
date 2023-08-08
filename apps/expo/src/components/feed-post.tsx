@@ -20,7 +20,7 @@ import {
 import { z } from "zod";
 
 import { Posts } from "../app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
-import { useAuthedAgent } from "../lib/agent";
+import { useAgent } from "../lib/agent";
 import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { type FilterResult } from "../lib/hooks/preferences";
 import { locale } from "../lib/locale";
@@ -476,7 +476,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const theme = useTheme();
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const { data, isLoading } = useQuery({
     queryKey: ["post", uri],
     queryFn: async () => {

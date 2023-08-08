@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "../../components/profile-list";
 import { QueryWithoutData } from "../../components/query-without-data";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import { useInviteCodes } from "./_layout";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Invitees = ({ people }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const profiles = useQuery({
     queryKey: ["invitees", people],

@@ -1,8 +1,8 @@
 import { ProfilePosts } from "../../../../components/screens/profile/profile-posts";
-import { useAuthedAgent } from "../../../../lib/agent";
+import { useAgent } from "../../../../lib/agent";
 
 export default function PostsTab() {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   if (!agent.session) return null;
 

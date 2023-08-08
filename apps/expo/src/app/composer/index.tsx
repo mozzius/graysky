@@ -29,7 +29,7 @@ import { Avatar } from "../../components/avatar";
 import { Embed } from "../../components/embed";
 import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
-import { useAuthedAgent } from "../../lib/agent";
+import { useAgent } from "../../lib/agent";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
@@ -49,7 +49,7 @@ interface Selection {
 
 export default function ComposerScreen() {
   const theme = useTheme();
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();

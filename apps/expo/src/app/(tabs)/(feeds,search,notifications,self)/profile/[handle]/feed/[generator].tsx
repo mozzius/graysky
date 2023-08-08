@@ -34,7 +34,7 @@ import {
   RichTextWithoutFacets,
 } from "../../../../../../components/rich-text";
 import { FeedScreen } from "../../../../../../components/screens/feed-screen";
-import { useAuthedAgent } from "../../../../../../lib/agent";
+import { useAgent } from "../../../../../../lib/agent";
 import {
   useFeedInfo,
   useSavedFeeds,
@@ -117,7 +117,7 @@ const FeedInfo = ({
   feed: string;
   info: AppBskyFeedGetFeedGenerator.OutputSchema;
 }) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const savedFeeds = useSavedFeeds();
   const queryClient = useQueryClient();
   const theme = useTheme();

@@ -14,13 +14,13 @@ import {
 // @ts-expect-error metro bull****
 import { produce } from "immer/dist/cjs";
 
-import { useAuthedAgent } from "../agent";
+import { useAgent } from "../agent";
 import { useContentFilter } from "./preferences";
 
 export const useSavedFeeds = (
   { pinned }: { pinned: boolean } = { pinned: false },
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   return useQuery({
     queryKey: ["feeds", "saved", { pinned }],
@@ -59,7 +59,7 @@ export const useSavedFeeds = (
 };
 
 export const useFeedInfo = (feed: string) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   return useQuery({
     queryKey: ["generator", feed],
@@ -72,7 +72,8 @@ export const useFeedInfo = (feed: string) => {
             uri: "",
             cid: "",
             creator: {
-              ...agent.session,
+              did: "",
+              handle: "",
             },
             indexedAt: "",
           },
@@ -92,7 +93,7 @@ export const useFeedInfo = (feed: string) => {
 export const useToggleFeedPref = (
   preferences?: AppBskyActorDefs.Preferences,
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -135,7 +136,7 @@ export const useToggleFeedPref = (
 export const useReorderFeeds = (
   savedFeeds: ReturnType<typeof useSavedFeeds>,
 ) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
   const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
 
@@ -169,7 +170,7 @@ export const useReorderFeeds = (
 };
 
 export const useTimeline = (feed: string) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const { contentFilter, preferences } = useContentFilter();
 
   const timeline = useInfiniteQuery({

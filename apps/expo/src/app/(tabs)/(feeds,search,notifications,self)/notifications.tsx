@@ -11,7 +11,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
 import { useAppPreferences } from "../../../lib/hooks/preferences";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
@@ -30,7 +30,7 @@ interface Props {
 }
 
 const NotificationsPage = ({ groupNotifications }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
   const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
 

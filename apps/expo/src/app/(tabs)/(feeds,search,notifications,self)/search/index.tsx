@@ -24,7 +24,7 @@ import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { RichTextWithoutFacets } from "../../../../components/rich-text";
-import { useAuthedAgent } from "../../../../lib/agent";
+import { useAgent } from "../../../../lib/agent";
 import { cx } from "../../../../lib/utils/cx";
 import { useRefreshOnFocus } from "../../../../lib/utils/query";
 
@@ -59,7 +59,7 @@ interface Props {
   search: string;
 }
 const SearchResults = ({ search }: Props) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const MAX_RESULTS = 6;
 
@@ -141,7 +141,7 @@ const SearchResults = ({ search }: Props) => {
 };
 
 const Suggestions = () => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
 
   const suggestions = useInfiniteQuery({
     queryKey: ["network"],
@@ -188,7 +188,7 @@ interface SuggestionCardProps {
 }
 
 const SuggestionCard = ({ item }: SuggestionCardProps) => {
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const router = useRouter();
   const ref = useRef(item.did);
   const queryClient = useQueryClient();

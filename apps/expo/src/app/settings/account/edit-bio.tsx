@@ -10,13 +10,13 @@ import { useSelf } from ".";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { RichText } from "../../../components/rich-text";
 import { TextButton } from "../../../components/text-button";
-import { useAuthedAgent } from "../../../lib/agent";
+import { useAgent } from "../../../lib/agent";
 
 export default function EditBio() {
   const theme = useTheme();
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
-  const agent = useAuthedAgent();
+  const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
 
