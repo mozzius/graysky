@@ -6,7 +6,7 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 // @ts-expect-error metro bull****
 import { produce } from "immer/dist/cjs";
-import { Ban, MegaphoneOff } from "lucide-react-native";
+import { BanIcon, MegaphoneOffIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "../../components/grouped-list";
@@ -96,12 +96,12 @@ export default function ModerationSettings() {
               {
                 title: "Blocked users",
                 href: "/settings/blocks",
-                icon: Ban,
+                icon: BanIcon,
               },
               {
                 title: "Muted users",
                 href: "/settings/mutes",
-                icon: MegaphoneOff,
+                icon: MegaphoneOffIcon,
               },
             ],
           },

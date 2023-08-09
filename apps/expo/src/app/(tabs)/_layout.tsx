@@ -5,7 +5,13 @@ import { Stack, Tabs, useRouter, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Cloudy, PenBox, Search, User } from "lucide-react-native";
+import {
+  BellIcon,
+  CloudyIcon,
+  PenBox,
+  SearchIcon,
+  UserIcon,
+} from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import { z } from "zod";
@@ -101,7 +107,7 @@ export default function AppLayout() {
             options={{
               title: "Feeds",
               tabBarIcon({ color }) {
-                return <Cloudy color={color} />;
+                return <CloudyIcon color={color} />;
               },
             }}
           />
@@ -110,7 +116,7 @@ export default function AppLayout() {
             options={{
               title: "Search",
               tabBarIcon({ color }) {
-                return <Search color={color} />;
+                return <SearchIcon color={color} />;
               },
             }}
           />
@@ -138,7 +144,7 @@ export default function AppLayout() {
                 backgroundColor: theme.colors.primary,
               },
               tabBarIcon({ color }) {
-                return <Bell color={color} />;
+                return <BellIcon color={color} />;
               },
             }}
           />
@@ -148,7 +154,7 @@ export default function AppLayout() {
               title: "Profile",
               headerShown: false,
               tabBarIcon({ color }) {
-                return <User color={color} />;
+                return <UserIcon color={color} />;
               },
             }}
           />

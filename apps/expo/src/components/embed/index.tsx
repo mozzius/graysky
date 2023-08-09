@@ -11,7 +11,7 @@ import {
   type AppBskyActorDefs,
 } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { Heart } from "lucide-react-native";
+import { HeartIcon, LinkIcon } from "lucide-react-native";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
@@ -71,15 +71,21 @@ export const Embed = ({
               className={cx("w-full p-2", content.external.thumb && "border-t")}
               style={{ borderTopColor: theme.colors.border }}
             >
-              <Text
-                className="text-sm leading-5 text-neutral-400 dark:text-neutral-100"
-                numberOfLines={1}
-              >
-                {new URL(content.external.uri).hostname}
-              </Text>
+              <View className="flex-1 flex-row items-center">
+                <LinkIcon
+                  size={12}
+                  className="mr-1 text-neutral-400 dark:text-neutral-100"
+                />
+                <Text
+                  className="text-sm leading-4 text-neutral-400 dark:text-neutral-100"
+                  numberOfLines={1}
+                >
+                  {new URL(content.external.uri).hostname}
+                </Text>
+              </View>
               <Text
                 style={{ color: theme.colors.text }}
-                className="mt-0.5 text-base leading-5"
+                className="mt-1 text-base leading-5"
                 numberOfLines={2}
               >
                 {content.external.title || content.external.uri}
@@ -151,7 +157,7 @@ export const Embed = ({
                       {record.displayName}
                     </Text>
                     <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-                      <Heart
+                      <HeartIcon
                         fill="currentColor"
                         className={
                           record.viewer?.like

@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { Heart, MessageSquare, Repeat } from "lucide-react-native";
+import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
 import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { locale } from "../lib/locale";
@@ -33,11 +33,6 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
   const theme = useTheme();
   const composer = useComposer();
-  const [rerenderer, rerender] = useState(0);
-
-  const onChangeStatus = useCallback(() => {
-    rerender((prev) => prev + 1);
-  }, []);
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -94,14 +89,11 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             text={post.record.text}
             facets={post.record.facets}
             size="lg"
+            selectable
           />
           {post.language && post.language !== locale.languageCode && (
             <View className="mt-1">
-              <Translation
-                uri={post.uri}
-                text={post.record.text}
-                onChangeStatus={onChangeStatus}
-              />
+              <Translation uri={post.uri} text={post.record.text} />
             </View>
           )}
         </>
@@ -109,12 +101,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
       {/* embeds */}
       {post.embed && (
         <View className="flex-1">
-          <Embed
-            uri={post.uri}
-            content={post.embed}
-            truncate={false}
-            key={rerenderer}
-          />
+          <Embed uri={post.uri} content={post.embed} truncate={false} />
         </View>
       )}
       {/* actions */}
@@ -132,7 +119,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             })
           }
         >
-          <MessageSquare size={18} color={theme.colors.text} />
+          <MessageSquareIcon size={18} color={theme.colors.text} />
           <Text style={{ color: theme.colors.text }} className="tabular-nums">
             {replyCount}
           </Text>
@@ -147,7 +134,10 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           onPress={handleRepost}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
-          <Repeat size={18} color={reposted ? "#2563eb" : theme.colors.text} />
+          <RepeatIcon
+            size={18}
+            color={reposted ? "#2563eb" : theme.colors.text}
+          />
           <Text
             style={{
               color: reposted ? "#2563eb" : theme.colors.text,
@@ -167,7 +157,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           onPress={() => toggleLike.mutate()}
           hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
         >
-          <Heart
+          <HeartIcon
             size={18}
             fill={liked ? "#dc2626" : "transparent"}
             color={liked ? "#dc2626" : theme.colors.text}

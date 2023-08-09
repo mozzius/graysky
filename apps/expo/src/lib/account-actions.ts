@@ -19,7 +19,7 @@ export const muteAccount = (
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onPress: async () => {
         await agent.mute(did);
-        if (queryClient) await queryClient.invalidateQueries(["profile"]);
+        if (queryClient) void queryClient.invalidateQueries(["profile"]);
         Alert.alert("Muted", `You will no longer see posts from @${handle}.`);
       },
     },
@@ -49,7 +49,7 @@ export const blockAccount = (
             subject: did,
           },
         );
-        if (queryClient) await queryClient.invalidateQueries(["profile"]);
+        if (queryClient) void queryClient.invalidateQueries(["profile"]);
         Alert.alert("Blocked", `@${handle} has been blocked.`);
       },
     },

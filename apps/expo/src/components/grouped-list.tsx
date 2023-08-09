@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { ChevronRight, type LucideIcon } from "lucide-react-native";
+import { ChevronRightIcon, type LucideIcon } from "lucide-react-native";
 
 import { cx } from "../lib/utils/cx";
 import { ItemSeparator } from "./item-separator";
@@ -114,7 +114,7 @@ export const Row = ({ children, icon, chevron, action }: RowProps) => {
       {Icon && <Icon size={24} color={theme.colors.primary} />}
       <View className={cx("mr-3 flex-1", icon && "ml-3")}>{children}</View>
       {chevron && (
-        <ChevronRight
+        <ChevronRightIcon
           size={20}
           className="text-neutral-400 dark:text-neutral-200"
         />

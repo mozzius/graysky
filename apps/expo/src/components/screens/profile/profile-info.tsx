@@ -18,7 +18,12 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronLeft, MoreHorizontal, Plus } from "lucide-react-native";
+import {
+  CheckIcon,
+  ChevronLeftIcon,
+  MoreHorizontalIcon,
+  PlusIcon,
+} from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../../../lib/account-actions";
@@ -89,7 +94,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           onPress={() => router.back()}
           className="absolute left-4 top-4 items-center justify-center rounded-full bg-black/60 p-2"
         >
-          <ChevronLeft size={24} color="white" />
+          <ChevronLeftIcon size={24} color="white" />
         </TouchableOpacity>
       )}
       <View
@@ -138,7 +143,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               >
                 {profile.viewer?.following ? (
                   <>
-                    <Check
+                    <CheckIcon
                       size={18}
                       className="mr-1 text-neutral-600 dark:text-neutral-300"
                     />
@@ -148,7 +153,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   </>
                 ) : (
                   <>
-                    <Plus
+                    <PlusIcon
                       size={18}
                       className="mr-1 text-white dark:text-black"
                     />
@@ -237,7 +242,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   );
                 }}
               >
-                <MoreHorizontal
+                <MoreHorizontalIcon
                   size={18}
                   className="text-neutral-600 dark:text-neutral-300"
                 />
@@ -271,7 +276,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 );
               }}
             >
-              <MoreHorizontal
+              <MoreHorizontalIcon
                 size={18}
                 className="text-neutral-600 dark:text-neutral-300"
               />

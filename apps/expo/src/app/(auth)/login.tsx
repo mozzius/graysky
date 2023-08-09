@@ -10,7 +10,7 @@ import {
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { AlertTriangle, Lock, User } from "lucide-react-native";
+import { AlertTriangleIcon, LockIcon, UserIcon } from "lucide-react-native";
 
 import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
@@ -59,7 +59,7 @@ export default function Login() {
             backgroundColor: theme.colors.card,
           }}
         >
-          <User size={18} color="rgb(163 163 163)" />
+          <UserIcon size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
             className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
@@ -71,7 +71,8 @@ export default function Login() {
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
-              if (!identifier.includes(".")) fixed = `${fixed}.bsky.social`;
+              if (!identifier.includes(".") && identifier.length > 0)
+                fixed = `${fixed}.bsky.social`;
               setIdentifier(fixed);
             }}
             autoFocus
@@ -87,7 +88,7 @@ export default function Login() {
             backgroundColor: theme.colors.card,
           }}
         >
-          <Lock size={18} color="rgb(163 163 163)" />
+          <LockIcon size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
             className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
@@ -107,7 +108,7 @@ export default function Login() {
               borderWidth: StyleSheet.hairlineWidth,
             }}
           >
-            <AlertTriangle
+            <AlertTriangleIcon
               size={18}
               className="mt-0.5 text-yellow-800 dark:text-white"
             />

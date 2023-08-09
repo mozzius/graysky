@@ -6,7 +6,12 @@ import {
 } from "react-native-draggable-flatlist";
 import { Link, Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { ChevronRight, Cloud, Compass, Plus } from "lucide-react-native";
+import {
+  ChevronRightIcon,
+  CloudIcon,
+  CompassIcon,
+  PlusIcon,
+} from "lucide-react-native";
 
 import { Avatar } from "../../../../components/avatar";
 import { useDrawer } from "../../../../components/drawer-content";
@@ -47,7 +52,7 @@ const FeedsPage = ({ editing }: Props) => {
               )}
             >
               <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
-                <Cloud size={32} color="white" />
+                <CloudIcon size={32} color="white" />
               </View>
               <View className="flex-1 px-3">
                 <Text
@@ -60,7 +65,7 @@ const FeedsPage = ({ editing }: Props) => {
                   Posts from people you follow
                 </Text>
               </View>
-              <ChevronRight size={20} className="text-neutral-400" />
+              <ChevronRightIcon size={20} className="text-neutral-400" />
             </View>
           </TouchableHighlight>
         </Link>
@@ -118,7 +123,7 @@ const FeedsPage = ({ editing }: Props) => {
                 style={{ backgroundColor: theme.colors.card }}
               >
                 <View className="flex-row items-center">
-                  <Compass size={20} className="text-blue-500" />
+                  <CompassIcon size={20} className="text-blue-500" />
                   <Text
                     style={{ color: theme.colors.text }}
                     className="ml-3 text-base"
@@ -126,7 +131,7 @@ const FeedsPage = ({ editing }: Props) => {
                     Discover more feeds
                   </Text>
                 </View>
-                <ChevronRight size={20} className="text-neutral-400" />
+                <ChevronRightIcon size={20} className="text-neutral-400" />
               </View>
             </TouchableHighlight>
           </Link>
@@ -164,7 +169,7 @@ export default function Page() {
               {!editing && (
                 <Link href="/feeds/discover" asChild>
                   <TouchableOpacity className="ml-4">
-                    <Plus size={24} color={theme.colors.primary} />
+                    <PlusIcon size={24} color={theme.colors.primary} />
                   </TouchableOpacity>
                 </Link>
               )}

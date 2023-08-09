@@ -12,7 +12,7 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
-import { MoreHorizontal } from "lucide-react-native";
+import { MoreHorizontalIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
@@ -117,12 +117,6 @@ const PostContextMenuButton = ({ post }: Props) => {
       icon: "character.bubble",
     },
     {
-      key: "copy",
-      label: "Copy post text",
-      action: () => copy(),
-      icon: "doc.on.doc",
-    },
-    {
       key: "share",
       label: "Share post",
       action: () => share(),
@@ -185,7 +179,7 @@ const PostContextMenuButton = ({ post }: Props) => {
         ],
   ].flat(2);
 
-  const icon = <MoreHorizontal size={16} color={theme.colors.text} />;
+  const icon = <MoreHorizontalIcon size={16} color={theme.colors.text} />;
 
   const showAsActionSheet = () => {
     void Haptics.impactAsync();

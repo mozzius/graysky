@@ -47,7 +47,7 @@ export default function ProfileLayout() {
           <TopTabs.Screen
             name="replies"
             options={{
-              title: "Posts & Replies",
+              title: "Replies",
             }}
           />
           <TopTabs.Screen

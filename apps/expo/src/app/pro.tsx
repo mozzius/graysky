@@ -15,11 +15,11 @@ import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import {
-  Bookmark,
-  Languages,
-  LineChart,
-  Users,
-  Vote,
+  BookmarkIcon,
+  LanguagesIcon,
+  LineChartIcon,
+  UsersIcon,
+  VoteIcon,
 } from "lucide-react-native";
 
 import { useOfferings } from "../lib/hooks/purchases";
@@ -52,31 +52,31 @@ export default function Pro() {
       colour: "rgb(239, 68, 68)",
       title: "Bookmarks",
       subtitle: "Save posts for later",
-      icon: <Bookmark className="text-white" />,
+      icon: <BookmarkIcon className="text-white" />,
     },
     {
       colour: "rgb(59, 130, 246)",
       title: "Inline Translations",
       subtitle: "Get translations in app",
-      icon: <Languages className="text-white" />,
+      icon: <LanguagesIcon className="text-white" />,
     },
     {
       colour: "rgb(192, 38, 211)",
       title: "Polls",
       subtitle: "Seamlessly integrated polling",
-      icon: <Vote className="text-white" />,
+      icon: <VoteIcon className="text-white" />,
     },
     {
       colour: "rgb(22, 163, 74)",
       title: "Multiple Accounts",
       subtitle: "Perform actions across accounts",
-      icon: <Users className="text-white" />,
+      icon: <UsersIcon className="text-white" />,
     },
     {
       colour: "rgb(202, 138, 4)",
       title: "Analytics (coming soon)",
       subtitle: "Stay tuned...",
-      icon: <LineChart className="text-white" />,
+      icon: <LineChartIcon className="text-white" />,
     },
   ] satisfies Omit<Props, "index">[];
 

@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { Heart, Repeat, UserPlus } from "lucide-react-native";
+import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
 import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
@@ -43,7 +43,7 @@ export const Notification = ({
         >
           <NotificationItem
             unread={!isRead}
-            left={<Heart size={24} fill="#dc2626" color="#dc2626" />}
+            left={<HeartIcon size={24} fill="#dc2626" color="#dc2626" />}
           >
             <ProfileList
               actors={actors}
@@ -76,7 +76,7 @@ export const Notification = ({
         >
           <NotificationItem
             unread={!isRead}
-            left={<Repeat size={24} color="#2563eb" />}
+            left={<RepeatIcon size={24} color="#2563eb" />}
           >
             <ProfileList
               actors={actors}
@@ -109,7 +109,7 @@ export const Notification = ({
         >
           <NotificationItem
             unread={!isRead}
-            left={<UserPlus size={24} color="#2563eb" />}
+            left={<UserPlusIcon size={24} color="#2563eb" />}
           >
             <ProfileList
               actors={actors}

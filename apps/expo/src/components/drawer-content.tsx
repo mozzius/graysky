@@ -6,7 +6,13 @@ import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
-import { LogOut, Palette, Settings2, Star, Ticket } from "lucide-react-native";
+import {
+  LogOutIcon,
+  PaletteIcon,
+  Settings2Icon,
+  StarIcon,
+  TicketIcon,
+} from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
@@ -80,7 +86,7 @@ export const DrawerContent = () => {
             accessibilityLabel="Invite codes"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Ticket style={{ color: theme.colors.text }} />
+            <TicketIcon style={{ color: theme.colors.text }} />
             <Text
               style={{ color: theme.colors.text }}
               className="ml-6 text-base font-medium"
@@ -95,7 +101,7 @@ export const DrawerContent = () => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
-          <Palette style={{ color: theme.colors.text }} />
+          <PaletteIcon style={{ color: theme.colors.text }} />
           <Text
             style={{ color: theme.colors.text }}
             className="ml-6 text-base font-medium"
@@ -110,7 +116,7 @@ export const DrawerContent = () => {
               accessibilityLabel="Pro version"
               className="mt-2 w-full flex-row items-center py-2"
             >
-              <Star style={{ color: theme.colors.text }} />
+              <StarIcon style={{ color: theme.colors.text }} />
               <Text
                 style={{ color: theme.colors.text }}
                 className="ml-6 text-base font-medium"
@@ -126,7 +132,7 @@ export const DrawerContent = () => {
             accessibilityLabel="Settings"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Settings2 style={{ color: theme.colors.text }} />
+            <Settings2Icon style={{ color: theme.colors.text }} />
             <Text
               style={{ color: theme.colors.text }}
               className="ml-6 text-base font-medium"
@@ -143,7 +149,7 @@ export const DrawerContent = () => {
         className="w-full flex-row items-center py-2"
         onPress={() => void logOut()}
       >
-        <LogOut style={{ color: theme.colors.text }} />
+        <LogOutIcon style={{ color: theme.colors.text }} />
         <Text
           style={{ color: theme.colors.text }}
           className="ml-6 text-base font-medium"

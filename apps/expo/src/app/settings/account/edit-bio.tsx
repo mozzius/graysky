@@ -68,6 +68,7 @@ export default function EditBio() {
               placeholder="Required"
               onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+              style={{ color: theme.colors.text }}
             />
           </View>
         </View>

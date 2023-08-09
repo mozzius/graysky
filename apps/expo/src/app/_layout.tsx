@@ -23,7 +23,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ExternalLink } from "lucide-react-native";
+import { ExternalLinkIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import * as Sentry from "sentry-expo";
 
@@ -207,7 +207,7 @@ const App = () => {
                           >
                             Register
                           </Text>
-                          <ExternalLink
+                          <ExternalLinkIcon
                             size={16}
                             color={theme.colors.primary}
                           />

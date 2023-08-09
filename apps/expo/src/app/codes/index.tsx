@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useTheme } from "@react-navigation/native";
-import { Check, Copy } from "lucide-react-native";
+import { CheckIcon, CopyIcon } from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
@@ -48,9 +48,9 @@ export default function InviteCodesScreen() {
                 });
               },
               action: appPrefs.data.copiedCodes.includes(code.code) ? (
-                <Check size={18} color={theme.colors.text} />
+                <CheckIcon size={18} color={theme.colors.text} />
               ) : (
-                <Copy size={18} color={theme.colors.text} />
+                <CopyIcon size={18} color={theme.colors.text} />
               ),
             })),
           },

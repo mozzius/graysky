@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 patchedDependencies:
   nativewind@2.0.11:
-    hash: qgc5q4ellc7jwvuzte7jpuqu6e
+    hash: 4qfpcgvukjl323s5mtctmu3ynu
     path: patches/nativewind@2.0.11.patch
   react-native-svg@13.9.0:
     hash: ecipe4st4okn7y2jpmmjgu22me
@@ -179,7 +179,7 @@ importers:
         version: 0.77.0
       nativewind:
         specifier: ^2.0.11
-        version: 2.0.11(patch_hash=qgc5q4ellc7jwvuzte7jpuqu6e)(react@18.2.0)(tailwindcss@3.3.2)
+        version: 2.0.11(patch_hash=4qfpcgvukjl323s5mtctmu3ynu)(react@18.2.0)(tailwindcss@3.3.2)
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -8780,7 +8780,7 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /nativewind@2.0.11(patch_hash=qgc5q4ellc7jwvuzte7jpuqu6e)(react@18.2.0)(tailwindcss@3.3.2):
+  /nativewind@2.0.11(patch_hash=4qfpcgvukjl323s5mtctmu3ynu)(react@18.2.0)(tailwindcss@3.3.2):
     resolution: {integrity: sha512-qCEXUwKW21RYJ33KRAJl3zXq2bCq82WoI564fI21D/TiqhfmstZOqPN53RF8qK1NDK6PGl56b2xaTxgObEePEg==}
     engines: {node: '>=14.18'}
     peerDependencies:

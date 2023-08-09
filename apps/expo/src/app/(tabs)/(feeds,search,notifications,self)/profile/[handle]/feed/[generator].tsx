@@ -17,13 +17,13 @@ import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  Check,
-  ChevronRight,
-  Heart,
-  Plus,
-  Share,
-  Star,
-  X,
+  CheckIcon,
+  ChevronRightIcon,
+  HeartIcon,
+  PlusIcon,
+  ShareIcon,
+  StarIcon,
+  XIcon,
 } from "lucide-react-native";
 
 import { FeedRow } from "../../../../../../components/feed-row";
@@ -86,7 +86,7 @@ export default function FeedsPage() {
             <TouchableOpacity onPress={() => setOpen((o) => !o)}>
               {open ? (
                 <View className="">
-                  <X color={theme.colors.primary} />
+                  <XIcon color={theme.colors.primary} />
                 </View>
               ) : (
                 <Image
@@ -231,7 +231,7 @@ const FeedInfo = ({
               >
                 {isSaved ? (
                   <>
-                    <Check
+                    <CheckIcon
                       style={{ color: theme.colors.text }}
                       className="h-6 w-6"
                       size={16}
@@ -245,7 +245,7 @@ const FeedInfo = ({
                   </>
                 ) : (
                   <>
-                    <Plus
+                    <PlusIcon
                       style={{ color: theme.colors.text }}
                       className="h-6 w-6"
                       size={16}
@@ -278,7 +278,7 @@ const FeedInfo = ({
                   )}
                   style={{ backgroundColor: theme.dark ? "black" : "white" }}
                 >
-                  <Star
+                  <StarIcon
                     className={cx(
                       "h-8 w-8",
                       isPinned
@@ -309,7 +309,7 @@ const FeedInfo = ({
                     : "border-neutral-300 bg-white",
                 )}
               >
-                <Heart
+                <HeartIcon
                   className="h-8 w-8"
                   color={"#dc2626"}
                   fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
@@ -355,7 +355,7 @@ const FeedInfo = ({
                       @{info.view.creator.handle}
                     </Text>
                   </View>
-                  <ChevronRight
+                  <ChevronRightIcon
                     size={20}
                     className="text-neutral-400 dark:text-neutral-200"
                   />
@@ -383,7 +383,7 @@ const FeedInfo = ({
                           {savedFeeds.data?.saved.some(
                             (f) => f === feed.uri,
                           ) && (
-                            <Check
+                            <CheckIcon
                               className="ml-2"
                               size={20}
                               color={theme.colors.primary}
@@ -410,7 +410,7 @@ const FeedInfo = ({
                             View all feeds
                           </Text>
                         </View>
-                        <ChevronRight
+                        <ChevronRightIcon
                           size={20}
                           className="text-neutral-400 dark:text-neutral-200"
                         />
@@ -449,7 +449,11 @@ const FeedInfo = ({
                   style={{ backgroundColor: theme.colors.card }}
                   className="flex-row items-center px-4 py-3"
                 >
-                  <Share color={theme.colors.text} size={18} className="mx-1" />
+                  <ShareIcon
+                    color={theme.colors.text}
+                    size={18}
+                    className="mx-1"
+                  />
                   <View className="mx-3 flex-1 flex-row items-center">
                     <Text
                       style={{ color: theme.colors.text }}

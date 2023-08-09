@@ -19,11 +19,11 @@ import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import {
-  ChevronRight,
-  Equal,
-  Heart,
-  MinusCircle,
-  Star,
+  ChevronRightIcon,
+  EqualIcon,
+  HeartIcon,
+  MinusCircleIcon,
+  StarIcon,
 } from "lucide-react-native";
 
 import { cx } from "../lib/utils/cx";
@@ -76,7 +76,7 @@ export const FeedRow = ({ feed, children, large }: Props) => {
                 )}
                 numberOfLines={1}
               >
-                <Heart
+                <HeartIcon
                   fill="currentColor"
                   className={
                     feed.viewer?.like
@@ -94,7 +94,7 @@ export const FeedRow = ({ feed, children, large }: Props) => {
           </View>
           {children}
         </View>
-        <ChevronRight
+        <ChevronRightIcon
           size={20}
           className={theme.dark ? "text-neutral-200" : "text-neutral-400"}
         />
@@ -134,7 +134,7 @@ export const DraggableFeedRow = ({
         onPressStar();
       }}
     >
-      <Star
+      <StarIcon
         size={20}
         className={
           feed.pinned
@@ -211,7 +211,7 @@ export const DraggableFeedRow = ({
                   }}
                 >
                   <View className="mr-1 px-2 py-0.5">
-                    <MinusCircle
+                    <MinusCircleIcon
                       size={24}
                       fill="red"
                       color={theme.dark ? "black" : "white"}
@@ -246,7 +246,7 @@ export const DraggableFeedRow = ({
                 >
                   <TouchableWithoutFeedback onPressIn={drag}>
                     <View className="ml-1 px-2 py-0.5">
-                      <Equal size={20} color={theme.colors.text} />
+                      <EqualIcon size={20} color={theme.colors.text} />
                     </View>
                   </TouchableWithoutFeedback>
                 </Animated.View>

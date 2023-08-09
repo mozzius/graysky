@@ -3,7 +3,14 @@ import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { AtSign, Github, Heart, Mail, Send, Wrench } from "lucide-react-native";
+import {
+  AtSignIcon,
+  GithubIcon,
+  HeartIcon,
+  MailIcon,
+  SendIcon,
+  WrenchIcon,
+} from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";
 
@@ -16,17 +23,17 @@ const groups = [
       {
         title: "Star us on GitHub!",
         onPress: () => Linking.openURL("https://github.com/mozzius/graysky"),
-        icon: Github,
+        icon: GithubIcon,
       },
       {
         title: "Sign up for project updates",
         onPress: () => Linking.openURL("https://graysky.app"),
-        icon: Mail,
+        icon: MailIcon,
       },
       {
         title: "Contact",
         onPress: () => Linking.openURL("mailto:hello@graysky.app"),
-        icon: Send,
+        icon: SendIcon,
       },
     ],
   },
@@ -36,12 +43,12 @@ const groups = [
       {
         title: "mozzius.dev",
         href: "/profile/mozzius.dev",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
       {
         title: "Sponsor my work",
         onPress: () => Linking.openURL("https://github.com/sponsors/mozzius"),
-        icon: Heart,
+        icon: HeartIcon,
       },
     ],
   },
@@ -51,22 +58,22 @@ const groups = [
       {
         title: "alice.bsky.sh",
         href: "/profile/alice.bsky.sh",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
       {
         title: "holden.bsky.social",
         href: "/profile/holden.bsky.social",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
       {
         title: "matthewstanciu.com",
         href: "/profile/matthewstanciu.com",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
       {
         title: "jcsalterego.bsky.social",
         href: "/profile/jcsalterego.bsky.social",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
     ],
   },
@@ -75,7 +82,7 @@ const groups = [
     options: [
       {
         title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
-        icon: Wrench,
+        icon: WrenchIcon,
       },
     ],
   },

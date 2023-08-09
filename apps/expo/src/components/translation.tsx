@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { useTheme } from "@react-navigation/native";
-import { AlertTriangle, Languages, Sparkles } from "lucide-react-native";
+import {
+  AlertTriangleIcon,
+  LanguagesIcon,
+  SparklesIcon,
+} from "lucide-react-native";
 
 import { locale } from "../lib/locale";
 import { api } from "../lib/utils/api";
@@ -13,10 +17,9 @@ import { RichTextWithoutFacets } from "./rich-text";
 interface Props {
   text: string;
   uri: string;
-  onChangeStatus: () => void;
 }
 
-export const Translation = ({ text, uri, onChangeStatus }: Props) => {
+export const Translation = ({ text, uri }: Props) => {
   const translate = api.translate.post.useMutation();
   const theme = useTheme();
 
@@ -24,12 +27,6 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
     translate.reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
-
-  useEffect(() => {
-    if (translate.status !== "idle") {
-      onChangeStatus();
-    }
-  }, [translate.status, onChangeStatus]);
 
   switch (translate.status) {
     case "idle":
@@ -46,7 +43,11 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
               theme.dark ? "bg-black" : "bg-white",
             )}
           >
-            <Sparkles className="mr-2" size={18} color={theme.colors.primary} />
+            <SparklesIcon
+              className="mr-2"
+              size={18}
+              color={theme.colors.primary}
+            />
             <Text
               style={{ color: theme.colors.primary }}
               className="text-base font-medium"
@@ -64,13 +65,13 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
       );
     case "success":
       return (
-        <View className="mt-1.5 rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 dark:border-blue-700 dark:bg-blue-950">
+        <View className="mt-1.5 flex-1 rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 dark:border-blue-700 dark:bg-blue-950">
           <Text style={{ color: theme.colors.text }} className="text-base">
             <RichTextWithoutFacets text={translate.data.text} />
           </Text>
           <View className="mt-1 flex-row items-center justify-between">
             <View className="flex-row items-center">
-              <Languages
+              <LanguagesIcon
                 size={14}
                 className="mr-1 text-neutral-500 dark:text-neutral-200"
               />
@@ -103,7 +104,7 @@ export const Translation = ({ text, uri, onChangeStatus }: Props) => {
             className="flex-row items-center"
             style={{ backgroundColor: theme.dark ? "black" : "white" }}
           >
-            <AlertTriangle
+            <AlertTriangleIcon
               className="mr-2"
               size={18}
               color={theme.colors.notification}

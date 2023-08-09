@@ -6,7 +6,7 @@ import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import fuzzySort from "fuzzysort";
-import { Check } from "lucide-react-native";
+import { CheckIcon } from "lucide-react-native";
 
 import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
@@ -76,7 +76,7 @@ export default function DiscoveryPage() {
             <Fragment key={feed.uri}>
               <FeedRow feed={feed} large>
                 {saved.data?.some((f) => f === feed.uri) && (
-                  <Check
+                  <CheckIcon
                     className="ml-2"
                     size={20}
                     color={theme.colors.primary}

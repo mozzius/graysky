@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { AtSign, Mail, User } from "lucide-react-native";
+import { AtSignIcon, MailIcon, UserIcon } from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
 import { GroupedList } from "../../../components/grouped-list";
@@ -55,19 +55,19 @@ export default function AccountSettings() {
             {
               title: "Edit Profile",
               href: "/settings/account/edit-bio",
-              icon: User,
+              icon: UserIcon,
             },
             {
               title: "Change Handle",
               href: "/settings/account/change-handle",
-              icon: AtSign,
+              icon: AtSignIcon,
             },
           ],
         },
         {
           options: [
             {
-              icon: Mail,
+              icon: MailIcon,
               title:
                 agent?.session?.email ??
                 "Your email is hidden when logged in with an App Password",

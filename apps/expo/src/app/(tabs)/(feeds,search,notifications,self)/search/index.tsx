@@ -17,7 +17,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { Search } from "lucide-react-native";
+import { SearchIcon } from "lucide-react-native";
 
 import { GroupedList } from "../../../../components/grouped-list";
 import { ItemSeparator } from "../../../../components/item-separator";
@@ -90,18 +90,18 @@ const SearchResults = ({ search }: Props) => {
           {
             options: [
               {
-                icon: Search,
+                icon: SearchIcon,
                 title: "Search posts",
                 href: `/search/posts?q=${search}`,
               },
               {
-                icon: Search,
+                icon: SearchIcon,
                 title: "Search feeds",
                 href: `/search/feeds?q=${search}`,
               },
               data.length === 0
                 ? {
-                    icon: Search,
+                    icon: SearchIcon,
                     title: "Search users",
                     href: `/search/people?q=${search}`,
                   }
@@ -124,7 +124,7 @@ const SearchResults = ({ search }: Props) => {
                   data.length === MAX_RESULTS
                     ? [
                         {
-                          icon: Search,
+                          icon: SearchIcon,
                           title: "Search all users",
                           href: `/search/people?q=${search}`,
                         },

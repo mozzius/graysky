@@ -9,7 +9,7 @@ import {
   AppBskyFeedDefs,
 } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
-import { X } from "lucide-react-native";
+import { XIcon } from "lucide-react-native";
 
 import { ImageViewer } from "../../components/image-viewer";
 import { useAgent } from "../../lib/agent";
@@ -112,7 +112,7 @@ export default function ImageModal() {
         className="absolute right-5 z-10 h-10 w-10 items-center justify-center rounded-full bg-black/40"
         style={{ top: top + 10 }}
       >
-        <X color="white" />
+        <XIcon color="white" />
       </TouchableOpacity>
       {images.data && (
         <ImageViewer

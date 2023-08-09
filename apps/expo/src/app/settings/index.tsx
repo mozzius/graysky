@@ -1,4 +1,9 @@
-import { AtSign, Ban, Smartphone, User } from "lucide-react-native";
+import {
+  AtSignIcon,
+  BanIcon,
+  SmartphoneIcon,
+  UserIcon,
+} from "lucide-react-native";
 
 import { GroupedList, Groups } from "../../components/grouped-list";
 
@@ -8,17 +13,17 @@ const groups = [
       {
         title: "Account",
         href: "/settings/account",
-        icon: User,
+        icon: UserIcon,
       },
       {
         title: "Moderation",
         href: "/settings/moderation",
-        icon: Ban,
+        icon: BanIcon,
       },
       {
         title: "App Settings",
         href: "/settings/app",
-        icon: Smartphone,
+        icon: SmartphoneIcon,
       },
     ],
   },
@@ -27,7 +32,7 @@ const groups = [
       {
         title: "About Graysky",
         href: "/settings/about",
-        icon: AtSign,
+        icon: AtSignIcon,
       },
     ],
   },

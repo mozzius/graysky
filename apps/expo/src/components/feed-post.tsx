@@ -12,10 +12,10 @@ import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  Heart,
-  MessageCircle,
-  MessageSquare,
-  Repeat,
+  HeartIcon,
+  MessageCircleIcon,
+  MessageSquareIcon,
+  RepeatIcon,
 } from "lucide-react-native";
 import { z } from "zod";
 
@@ -289,7 +289,7 @@ export const FeedPost = ({
                       >
                         <TouchableWithoutFeedback>
                           <View className="flex-row items-center">
-                            <MessageCircle size={12} color="#737373" />
+                            <MessageCircleIcon size={12} color="#737373" />
                             <Text
                               className={cx(
                                 "ml-1 flex-1",
@@ -338,7 +338,6 @@ export const FeedPost = ({
                       <Translation
                         uri={item.post.uri}
                         text={item.post.record.text}
-                        onChangeStatus={onChangeStatus}
                       />
                     )}
                 </>
@@ -378,7 +377,7 @@ export const FeedPost = ({
                 className="flex-row items-center gap-2 tabular-nums"
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               >
-                <MessageSquare size={16} color={theme.colors.text} />
+                <MessageSquareIcon size={16} color={theme.colors.text} />
                 <Text
                   style={{ color: theme.colors.text }}
                   className="tabular-nums"
@@ -396,7 +395,7 @@ export const FeedPost = ({
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
                 className="flex-row items-center gap-2 tabular-nums"
               >
-                <Repeat
+                <RepeatIcon
                   size={16}
                   color={reposted ? "#2563eb" : theme.colors.text}
                 />
@@ -419,7 +418,7 @@ export const FeedPost = ({
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
                 className="flex-row items-center gap-2 tabular-nums"
               >
-                <Heart
+                <HeartIcon
                   size={16}
                   fill={liked ? "#dc2626" : "transparent"}
                   color={liked ? "#dc2626" : theme.colors.text}
@@ -457,7 +456,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
       >
         <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
-            <Repeat color={theme.colors.text} size={12} />
+            <RepeatIcon color={theme.colors.text} size={12} />
             <Text
               style={{ color: theme.colors.text }}
               className="ml-2 flex-1 text-sm"
@@ -495,7 +494,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   if (!data)
     return (
       <View className="flex-row items-center">
-        <MessageCircle size={12} color={circleColor} />
+        <MessageCircleIcon size={12} color={circleColor} />
         <Text
           className={cx(
             "ml-1 flex-1",
@@ -515,7 +514,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
     >
       <TouchableWithoutFeedback>
         <View className="flex-row items-center">
-          <MessageCircle size={12} color={circleColor} />
+          <MessageCircleIcon size={12} color={circleColor} />
           <Text
             className={cx(
               "ml-1 flex-1",

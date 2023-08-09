@@ -17,6 +17,7 @@ interface Props {
   disableLinks?: boolean;
   forcePointerEvents?: boolean;
   className?: string;
+  selectable?: boolean;
 }
 
 export const RichText = ({
@@ -28,6 +29,7 @@ export const RichText = ({
   disableLinks,
   forcePointerEvents,
   className,
+  selectable,
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
@@ -171,7 +173,11 @@ export const RichText = ({
   if (!segments) return null;
 
   return (
-    <Text className={classNames} numberOfLines={numberOfLines}>
+    <Text
+      className={classNames}
+      numberOfLines={numberOfLines}
+      selectable={selectable}
+    >
       {segments.map(({ text, component }, i) => (
         <Fragment key={`${i}+${text}`}>{component}</Fragment>
       ))}

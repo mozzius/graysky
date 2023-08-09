@@ -15,7 +15,7 @@ import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
 import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
-import { ChevronRight, Heart, XOctagon } from "lucide-react-native";
+import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 
 import { useAgent } from "../../../lib/agent";
 import { cx } from "../../../lib/utils/cx";
@@ -58,7 +58,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
   if (profile.data.viewer?.blocking) {
     return (
       <View className="flex-1 flex-col items-center justify-center p-4">
-        <XOctagon size={50} color="#888888" />
+        <XOctagonIcon size={50} color="#888888" />
         <Text className="my-4 text-center text-lg">
           You have blocked this user
         </Text>
@@ -68,8 +68,8 @@ export const ProfileFeeds = ({ handle }: Props) => {
             await agent.app.bsky.graph.block.delete({
               repo: agent.session!.did,
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
-            }),
-              await queryClient.refetchQueries(["profile", handle]);
+            });
+            void queryClient.refetchQueries(["profile", handle]);
             Alert.alert("Unblocked", "This user has been unblocked");
           }}
         >
@@ -161,7 +161,7 @@ const Feed = ({
               className="text-sm text-neutral-500 dark:text-neutral-400"
               numberOfLines={1}
             >
-              <Heart
+              <HeartIcon
                 fill="currentColor"
                 className={
                   viewer?.like
@@ -174,7 +174,7 @@ const Feed = ({
               {description && ` • ${description}`}
             </Text>
           </View>
-          <ChevronRight
+          <ChevronRightIcon
             size={20}
             className="text-neutral-400 dark:text-neutral-200"
           />

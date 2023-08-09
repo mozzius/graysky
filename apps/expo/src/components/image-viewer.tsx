@@ -8,7 +8,7 @@ import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useQueryClient } from "@tanstack/react-query";
-import { MoreHorizontal } from "lucide-react-native";
+import { MoreHorizontalIcon } from "lucide-react-native";
 
 import { useImageOptions } from "./image-with-context";
 
@@ -63,7 +63,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
         style={{ top: top + 10 }}
       >
         <TouchableOpacity className="flex-1 items-center justify-center rounded-full bg-black/40">
-          <MoreHorizontal color="white" />
+          <MoreHorizontalIcon color="white" />
         </TouchableOpacity>
       </ContextMenuButton>
       <Gallery

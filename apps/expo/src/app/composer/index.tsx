@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
@@ -23,7 +24,13 @@ import { StatusBar } from "expo-status-bar";
 import { AppBskyEmbedRecord, RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { Check, Paperclip, Plus, Send, X } from "lucide-react-native";
+import {
+  CheckIcon,
+  PaperclipIcon,
+  PlusIcon,
+  SendIcon,
+  XIcon,
+} from "lucide-react-native";
 
 import { Avatar } from "../../components/avatar";
 import { Embed } from "../../components/embed";
@@ -273,7 +280,7 @@ export default function ComposerScreen() {
                 hitSlop={8}
                 onPress={() => imagePicker.mutate()}
               >
-                <Paperclip
+                <PaperclipIcon
                   size={18}
                   className={
                     theme.dark ? "text-neutral-400" : "text-neutral-500"
@@ -293,7 +300,7 @@ export default function ComposerScreen() {
                     : "Attach images"}
                 </Animated.Text>
               </TouchableOpacity>
-              {(rt.graphemeLength ?? 0) > MAX_LENGTH * 0.66 && (
+              {(rt.graphemeLength ?? 0) > 50 && (
                 <Animated.Text
                   style={{
                     color: !tooLong
@@ -302,7 +309,7 @@ export default function ComposerScreen() {
                   }}
                   entering={FadeIn}
                   exiting={FadeOut}
-                  className="text-right font-medium"
+                  className="text-right"
                 >
                   {rt.graphemeLength} / {MAX_LENGTH}
                 </Animated.Text>
@@ -358,9 +365,9 @@ export default function ComposerScreen() {
                     >
                       <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
                         {image.alt ? (
-                          <Check size={14} color="white" />
+                          <CheckIcon size={14} color="white" />
                         ) : (
-                          <Plus size={14} color="white" />
+                          <PlusIcon size={14} color="white" />
                         )}
                         <Text className="ml-1 text-xs font-bold uppercase text-white">
                           Alt
@@ -375,7 +382,7 @@ export default function ComposerScreen() {
                       }}
                     >
                       <View className="rounded-full bg-black/90 p-1">
-                        <X size={14} color="white" />
+                        <XIcon size={14} color="white" />
                       </View>
                     </TouchableOpacity>
                     {image.alt && (
@@ -399,7 +406,7 @@ export default function ComposerScreen() {
                       }}
                     >
                       <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
-                        <Plus color={theme.colors.text} />
+                        <PlusIcon color={theme.colors.text} />
                         <Text
                           style={{ color: theme.colors.text }}
                           className="mt-2 text-center"
@@ -456,7 +463,7 @@ const PostButton = ({
 
   return (
     <View className="flex-row items-center">
-      <TouchableOpacity disabled={disabled} onPress={onPress}>
+      <TouchableWithoutFeedback disabled={disabled} onPress={onPress}>
         <View
           className={cx(
             "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
@@ -465,7 +472,7 @@ const PostButton = ({
           style={{ backgroundColor: theme.colors.primary }}
         >
           <Text className="mr-2 text-base font-medium text-white">Post</Text>
-          <Send size={12} className="text-white" />
+          <SendIcon size={12} className="text-white" />
           {loading && (
             <Animated.View
               entering={FadeIn}
@@ -477,7 +484,7 @@ const PostButton = ({
             </Animated.View>
           )}
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

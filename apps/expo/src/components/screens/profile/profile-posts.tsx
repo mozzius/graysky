@@ -9,7 +9,7 @@ import {
 import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
-import { XOctagon } from "lucide-react-native";
+import { XOctagonIcon } from "lucide-react-native";
 
 import { useAgent } from "../../../lib/agent";
 import { useUserRefresh } from "../../../lib/utils/query";
@@ -69,7 +69,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
   if (profile.data.viewer?.blocking) {
     return (
       <View className="flex-1 flex-col items-center justify-center p-4">
-        <XOctagon size={50} color="#888888" />
+        <XOctagonIcon size={50} color="#888888" />
         <Text className="my-4 text-center text-lg">
           You have blocked this user
         </Text>
@@ -79,8 +79,8 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             await agent.app.bsky.graph.block.delete({
               repo: agent.session!.did,
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
-            }),
-              await queryClient.refetchQueries(["profile", handle]);
+            });
+            void queryClient.refetchQueries(["profile", handle]);
             Alert.alert("Unblocked", "This user has been unblocked");
           }}
         >
