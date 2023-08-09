@@ -2,12 +2,14 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { AlertTriangleIcon, LockIcon, UserIcon } from "lucide-react-native";
@@ -48,6 +50,9 @@ export default function Login() {
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
     >
+      {Platform.OS !== "ios" && (
+        <StatusBar style={theme.dark ? "light" : "dark"} />
+      )}
       <View className="items-stretch gap-4">
         <View
           className={cx(
