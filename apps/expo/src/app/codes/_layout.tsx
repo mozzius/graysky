@@ -31,7 +31,7 @@ export default function SettingsLayout() {
       <Stack
         screenOptions={{
           fullScreenGestureEnabled: true,
-          headerRight: canGoBack
+          headerRight: canGoBack || Platform.OS === "android"
             ? undefined
             : () => (
                 <Animated.View entering={FadeIn}>
