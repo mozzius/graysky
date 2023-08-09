@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Platform, Text, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -27,7 +27,7 @@ export default function SettingsLayout() {
 
   return (
     <>
-      <StatusBar style="light" />
+      {Platform.OS === "ios" && <StatusBar style="light" />}
       <Stack
         screenOptions={{
           fullScreenGestureEnabled: true,

@@ -62,24 +62,26 @@ export default function SubStack({
               title: "Discover Feeds",
               headerSearchBarOptions: {},
               presentation: "modal",
-              headerRight: () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    if (navigation.canGoBack()) {
-                      router.push("../");
-                    } else {
-                      router.push("/feeds");
-                    }
-                  }}
-                >
-                  <Text
-                    style={{ color: theme.colors.primary }}
-                    className="text-lg font-medium"
+              headerRight: Platform.select({
+                ios: () => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (navigation.canGoBack()) {
+                        router.push("../");
+                      } else {
+                        router.push("/feeds");
+                      }
+                    }}
                   >
-                    Done
-                  </Text>
-                </TouchableOpacity>
-              ),
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="text-lg font-medium"
+                    >
+                      Done
+                    </Text>
+                  </TouchableOpacity>
+                ),
+              }),
             }}
           />
           <Stack.Screen

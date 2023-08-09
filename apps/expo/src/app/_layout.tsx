@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Linking, Text, TouchableOpacity } from "react-native";
+import { Linking, Platform, Text, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import {
@@ -186,16 +186,18 @@ const App = () => {
                     options={{
                       title: "Log in",
                       presentation: "formSheet",
-                      headerLeft: () => (
-                        <TouchableOpacity onPress={() => router.push("/")}>
-                          <Text
-                            style={{ color: theme.colors.primary }}
-                            className="text-lg"
-                          >
-                            Cancel
-                          </Text>
-                        </TouchableOpacity>
-                      ),
+                      headerLeft: Platform.select({
+                        ios: () => (
+                          <TouchableOpacity onPress={() => router.push("/")}>
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg"
+                            >
+                              Cancel
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }),
                       headerRight: () => (
                         <TouchableOpacity
                           className="flex-row items-center gap-1"
@@ -262,11 +264,13 @@ const App = () => {
                       title: "",
                       headerTransparent: true,
                       presentation: "modal",
-                      headerLeft: () => (
-                        <TouchableOpacity onPress={handleModalBack}>
-                          <Text className="text-lg text-white">Cancel</Text>
-                        </TouchableOpacity>
-                      ),
+                      headerLeft: Platform.select({
+                        ios: () => (
+                          <TouchableOpacity onPress={handleModalBack}>
+                            <Text className="text-lg text-white">Cancel</Text>
+                          </TouchableOpacity>
+                        ),
+                      }),
                     }}
                   />
                   <Stack.Screen

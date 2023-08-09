@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Platform,
   ScrollView,
   Switch,
   Text,
@@ -82,7 +83,7 @@ export default function Pro() {
 
   return (
     <View className="flex-1 bg-[#3B4245]">
-      <StatusBar style="light" />
+      {Platform.OS === "ios" && <StatusBar style="light" />}
       <ImageBackground className="flex-1" source={background} blurRadius={4}>
         <SafeAreaView className="flex-1 items-stretch justify-between bg-black/40 p-4">
           <ScrollView>

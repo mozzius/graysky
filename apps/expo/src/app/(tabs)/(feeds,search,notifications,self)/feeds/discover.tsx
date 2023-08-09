@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Platform, ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { AppBskyActorDefs } from "@atproto/api";
@@ -59,7 +59,7 @@ export default function DiscoveryPage() {
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
-        <StatusBar style="light" />
+        {Platform.OS === "ios" && <StatusBar style="light" />}
         <Stack.Screen
           options={{
             headerSearchBarOptions: {

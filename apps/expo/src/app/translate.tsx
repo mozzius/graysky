@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import WebView from "react-native-webview";
 import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -10,7 +11,7 @@ export default function Translate() {
 
   return (
     <>
-      <StatusBar style="light" />
+      {Platform.OS === "ios" && <StatusBar style="light" />}
       <StyledComponent
         component={WebView}
         className="flex-1"

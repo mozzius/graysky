@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -121,14 +122,15 @@ export default function ComposerScreen() {
     <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
       <Stack.Screen
         options={{
-          headerLeft: () => (
-            <CancelButton
-              hasContent={!isEmpty}
-              onSave={() => Alert.alert("Not yet implemented")}
-              disabled={send.isLoading}
-            />
-          ),
-
+          headerLeft: Platform.select({
+            ios: () => (
+              <CancelButton
+                hasContent={!isEmpty}
+                onSave={() => Alert.alert("Not yet implemented")}
+                disabled={send.isLoading}
+              />
+            ),
+          }),
           headerRight: () => (
             <PostButton
               onPress={send.mutate}
