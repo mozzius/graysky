@@ -122,8 +122,8 @@ export default function Login() {
                 Warning: Not an App Password
               </Text>
               <Text className="my-1" style={{ color: theme.colors.text }}>
-                You may want to use an App Password rather than your main
-                password. You can create one by going to Settings {">"} App
+                You may want to consider using an App Password rather than your
+                main password. You can create one by going to Settings {">"} App
                 Passwords in the official app.
               </Text>
             </View>

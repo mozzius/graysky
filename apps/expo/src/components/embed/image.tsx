@@ -51,7 +51,10 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
       return (
         <View className="mt-1.5 flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
-            <View className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}>
+            <View
+              className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
+              key={image.fullsize}
+            >
               <Image
                 href={href}
                 index={i}
@@ -105,6 +108,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
                 i > 1 && "mt-1",
                 i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
+              key={image.fullsize}
             >
               <Image
                 href={href}

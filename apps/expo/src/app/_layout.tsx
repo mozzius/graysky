@@ -163,6 +163,7 @@ const App = () => {
 
   return (
     <ThemeProvider value={theme}>
+      <StatusBar style={theme.dark ? "light" : "dark"} />
       <SafeAreaProvider>
         {/* <CustomerInfoProvider info={info.data}> */}
         <AgentProvider value={agent}>
@@ -287,7 +288,6 @@ const App = () => {
         </AgentProvider>
         {/* </CustomerInfoProvider> */}
       </SafeAreaProvider>
-      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
     </ThemeProvider>
   );
 };
