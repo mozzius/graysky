@@ -10,7 +10,7 @@ import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "../../../components/avatar";
 import { useDrawer } from "../../../components/drawer-content";
-import { useAgent } from "../../../lib/agent";
+import { useOptionalAgent } from "../../../lib/agent";
 
 const stackOptions = {
   screenOptions: {
@@ -27,7 +27,8 @@ export default function SubStack({
   const navigation = useNavigation();
   const router = useRouter();
   const theme = useTheme();
-  const agent = useAgent();
+  // agent might not be available yet
+  const agent = useOptionalAgent();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
@@ -35,7 +36,7 @@ export default function SubStack({
     </TouchableOpacity>
   );
 
-  if (!agent.hasSession) {
+  if (!agent?.hasSession) {
     return (
       <View className="flex-1 items-center justify-center bg-white dark:bg-black">
         <ActivityIndicator size="large" />

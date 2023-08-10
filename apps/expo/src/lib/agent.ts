@@ -11,4 +11,9 @@ export const useAgent = () => {
   return agent;
 };
 
+export const useOptionalAgent = () => {
+  const agent = useContext(agentContext);
+  return agent;
+};
+
 export const AgentProvider = agentContext.Provider;
