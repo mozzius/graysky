@@ -22,6 +22,7 @@ import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import { AppBskyEmbedRecord, RichText as RichTextHelper } from "@atproto/api";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -121,15 +122,13 @@ export default function ComposerScreen() {
     <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
       <Stack.Screen
         options={{
-          headerLeft: Platform.select({
-            ios: () => (
-              <CancelButton
-                hasContent={!isEmpty}
-                onSave={() => Alert.alert("Not yet implemented")}
-                disabled={send.isLoading}
-              />
-            ),
-          }),
+          headerLeft: () => (
+            <CancelButton
+              hasContent={!isEmpty}
+              onSave={() => Alert.alert("Not yet implemented")}
+              disabled={send.isLoading}
+            />
+          ),
           headerRight: () => (
             <PostButton
               onPress={send.mutate}
@@ -500,57 +499,38 @@ const CancelButton = ({
 }) => {
   const theme = useTheme();
   const router = useRouter();
+  const { showActionSheetWithOptions } = useActionSheet();
 
   if (hasContent) {
     return (
-      <ContextMenuButton
-        isMenuPrimaryAction={true}
-        accessibilityLabel="Save or discard post"
-        accessibilityRole="button"
-        enableContextMenu={!disabled}
-        menuConfig={{
-          menuTitle: "",
-          menuItems: [
-            // {
-            //   actionKey: "save",
-            //   actionTitle: "Save to drafts",
-            //   icon: {
-            //     type: "IMAGE_SYSTEM",
-            //     imageValue: {
-            //       systemName: "square.and.arrow.down",
-            //     },
-            //   },
-            // },
-            {
-              actionKey: "discard",
-              actionTitle: "Discard post",
-              icon: {
-                type: "IMAGE_SYSTEM",
-                imageValue: {
-                  systemName: "trash",
-                },
+      <TouchableOpacity
+        disabled={disabled}
+        accessibilityLabel="Discard post"
+        onPress={async () => {
+          void Haptics.impactAsync();
+          const options = ["Discard", "Cancel"];
+          const selected = await new Promise((resolve) => {
+            showActionSheetWithOptions(
+              {
+                options,
+                cancelButtonIndex: options.length - 1,
+                destructiveButtonIndex: 0,
+                title: "Discard post?",
               },
-              menuAttributes: ["destructive"],
-            },
-          ],
-        }}
-        onPressMenuItem={(evt) => {
-          switch (evt.nativeEvent.actionKey) {
-            case "save":
-              onSave();
-              break;
-            case "discard":
+              (index) => resolve(options[index!]),
+            );
+          });
+          switch (selected) {
+            case "Discard":
               router.push("../");
               break;
           }
         }}
       >
-        <TouchableOpacity>
-          <Text style={{ color: theme.colors.primary }} className="text-lg">
-            Cancel
-          </Text>
-        </TouchableOpacity>
-      </ContextMenuButton>
+        <Text style={{ color: theme.colors.primary }} className="text-lg">
+          Cancel
+        </Text>
+      </TouchableOpacity>
     );
   }
 

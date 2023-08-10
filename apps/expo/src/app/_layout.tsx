@@ -237,16 +237,18 @@ const App = () => {
                     options={{
                       title: "Translate",
                       presentation: "modal",
-                      headerRight: () => (
-                        <TouchableOpacity onPress={handleModalBack}>
-                          <Text
-                            style={{ color: theme.colors.primary }}
-                            className="text-lg font-medium"
-                          >
-                            Done
-                          </Text>
-                        </TouchableOpacity>
-                      ),
+                      headerRight: Platform.select({
+                        ios: () => (
+                          <TouchableOpacity onPress={handleModalBack}>
+                            <Text
+                              style={{ color: theme.colors.primary }}
+                              className="text-lg font-medium"
+                            >
+                              Done
+                            </Text>
+                          </TouchableOpacity>
+                        ),
+                      }),
                     }}
                   />
                   <Stack.Screen
@@ -278,7 +280,14 @@ const App = () => {
                     name="composer"
                     options={{
                       headerShown: false,
-                      presentation: "modal",
+                      ...Platform.select({
+                        ios: {
+                          presentation: "formSheet",
+                        },
+                        android: {
+                          animation: "slide_from_bottom",
+                        },
+                      }),
                     }}
                   />
                 </Stack>
