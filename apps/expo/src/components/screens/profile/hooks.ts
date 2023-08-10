@@ -1,5 +1,8 @@
 import { useMemo } from "react";
+import { useWindowDimensions } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppBskyFeedDefs } from "@atproto/api";
+import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "../../../lib/agent";
@@ -159,4 +162,11 @@ export const useProfilePosts = (
   }, [timeline, mode, contentFilter]);
 
   return { preferences, timeline, timelineData };
+};
+
+export const useDefaultHeaderHeight = () => {
+  const layout = useWindowDimensions();
+  const { top } = useSafeAreaInsets();
+
+  return getDefaultHeaderHeight(layout, false, top);
 };

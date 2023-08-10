@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@atproto/api": "^0.4.3",
-    "@bacons/expo-router-top-tabs": "^0.1.0",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.4.7",
@@ -69,6 +68,7 @@
     "react-error-boundary": "^4.0.10",
     "react-native": "0.72.3",
     "react-native-awesome-gallery": "^0.3.5",
+    "react-native-collapsible-tab-view": "^6.2.0",
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-drawer-layout": "^3.2.1",
     "react-native-gesture-handler": "~2.12.1",

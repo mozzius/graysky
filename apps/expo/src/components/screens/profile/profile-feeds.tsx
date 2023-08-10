@@ -8,16 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Tabs } from "react-native-collapsible-tab-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
-import { useScrollProps } from "@bacons/expo-router-top-tabs";
 import { useTheme } from "@react-navigation/native";
 import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 
 import { useAgent } from "../../../lib/agent";
+import { useTabPressScrollRef } from "../../../lib/hooks";
 import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
@@ -34,13 +35,8 @@ export const ProfileFeeds = ({ handle }: Props) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
 
-  const props = useScrollProps();
-
   const feeds = useProfileFeeds(handle);
   const profile = useProfile(handle);
-
-  // const ref = useAnimatedRef<Animated.ScrollView>();
-  // useAnimatedTabPressScroll(ref);
 
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
     feeds.refetch,
@@ -50,6 +46,8 @@ export const ProfileFeeds = ({ handle }: Props) => {
     if (!feeds.data) return [];
     return feeds.data.pages.flatMap((page) => page.feeds);
   }, [feeds.data]);
+
+  const [ref, onScroll] = useTabPressScrollRef<(typeof feedsData)[number]>();
 
   if (!profile.data) {
     return <QueryWithoutData query={profile} />;
@@ -87,11 +85,9 @@ export const ProfileFeeds = ({ handle }: Props) => {
     );
   } else {
     return (
-      <AnimatedFlashList
-        {...props}
-        // renderScrollComponent={(props) => (
-        //   <Animated.ScrollView ref={ref} {...props} />
-        // )}
+      <Tabs.FlashList<(typeof feedsData)[number]>
+        ref={ref}
+        onScroll={onScroll}
         data={feedsData}
         renderItem={({ item }) => (
           <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />

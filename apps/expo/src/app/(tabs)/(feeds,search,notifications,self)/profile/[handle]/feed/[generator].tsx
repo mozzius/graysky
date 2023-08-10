@@ -394,7 +394,7 @@ const FeedInfo = ({
                       </Fragment>
                     ))}
                   <Link
-                    href={`/profile/${info.view.creator.handle}/feeds`}
+                    href={`/profile/${info.view.creator.handle}?tab=feeds`}
                     asChild
                   >
                     <TouchableHighlight>

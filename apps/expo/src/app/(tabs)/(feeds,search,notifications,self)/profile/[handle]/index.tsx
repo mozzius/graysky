@@ -1,7 +1,14 @@
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
+
+import { ProfileTabView } from "../../../../../components/screens/profile/profile-tab-view";
 
 export default function ProfileRedirect() {
-  const { handle } = useLocalSearchParams() as { handle: string };
+  const { handle, tab } = useLocalSearchParams<{
+    handle: string;
+    tab: string;
+  }>();
 
-  return <Redirect href={`/profile/${handle}/posts`} />;
+  if (!handle) return null;
+
+  return <ProfileTabView handle={handle} initial={tab} backButton />;
 }

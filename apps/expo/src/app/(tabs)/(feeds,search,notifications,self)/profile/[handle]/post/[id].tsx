@@ -13,6 +13,7 @@ import {
   AppBskyFeedPost,
   type ComAtprotoLabelDefs,
 } from "@atproto/api";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";

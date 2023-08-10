@@ -2,26 +2,26 @@ import { type Theme } from "@react-navigation/native";
 
 export function createTopTabsScreenOptions(theme: Theme) {
   return {
-    tabBarScrollEnabled: true,
-    tabBarIndicatorContainerStyle: {
+    indicatorContainerStyle: {
       marginHorizontal: 16,
     },
-    tabBarStyle: {
+    style: {
       backgroundColor: theme.colors.card,
       borderBottomColor: theme.colors.border,
       borderBottomWidth: 1,
       paddingHorizontal: 16,
     },
-    tabBarItemStyle: {
+    itemStyle: {
       width: "auto",
     },
-    tabBarIndicatorStyle: {
+    indicatorStyle: {
       backgroundColor: theme.colors.primary,
       bottom: -1,
       height: 2.5,
     },
-    tabBarLabelStyle: {
+    labelStyle: {
       textTransform: "none",
+      color: theme.colors.text,
     },
   } as const;
 }

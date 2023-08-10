@@ -21,7 +21,6 @@ import Animated, {
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { AppBskyEmbedRecord, RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -447,7 +446,6 @@ export default function ComposerScreen() {
           </View>
         </Animated.View>
       </KeyboardAwareScrollView>
-      <StatusBar style="light" />
     </View>
   );
 }

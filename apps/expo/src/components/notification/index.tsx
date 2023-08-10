@@ -52,7 +52,7 @@ export const Notification = ({
             />
             {subject && item && href && (
               <Link href={href} asChild>
-                <TouchableOpacity>
+                <TouchableOpacity className="flex-1">
                   <PostNotification
                     item={item}
                     unread={!isRead}
@@ -85,7 +85,7 @@ export const Notification = ({
             />
             {subject && item && href && (
               <Link href={href} asChild>
-                <TouchableOpacity>
+                <TouchableOpacity className="flex-1">
                   <PostNotification
                     item={item}
                     unread={!isRead}
