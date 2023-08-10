@@ -7,6 +7,9 @@ import { z } from "zod";
 
 import { useAgent } from "../agent";
 
+// TODO: Refactor to new Content Moderation API!
+// https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
+
 export const contentLabels = {
   nsfw: {
     label: "Explicit Sexual Images",
