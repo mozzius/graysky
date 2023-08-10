@@ -30,14 +30,10 @@ import * as Sentry from "sentry-expo";
 import { ListProvider } from "../components/lists/context";
 import { AgentProvider } from "../lib/agent";
 import {
+  configureRevenueCat,
   CustomerInfoProvider,
   useCustomerInfoQuery,
 } from "../lib/hooks/purchases";
-// import {
-//   configureRevenueCat,
-//   CustomerInfoProvider,
-//   useCustomerInfoQuery,
-// } from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
 import { TRPCProvider } from "../lib/utils/api";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
@@ -47,7 +43,7 @@ Sentry.init({
   enableInExpoDevelopment: false,
 });
 
-// configureRevenueCat();
+configureRevenueCat();
 
 SplashScreen.preventAutoHideAsync();
 
