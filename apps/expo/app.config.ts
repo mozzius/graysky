@@ -5,6 +5,8 @@ dotenv.config({
   path: "../../.env",
 });
 
+// todo: https://docs.expo.dev/build-reference/variables/#how-to-upload-a-secret-file-and-use-it-in-my-app-config
+
 const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
@@ -60,6 +62,22 @@ const defineConfig = (): ExpoConfig => ({
     "expo-localization",
     "sentry-expo",
     "expo-router",
+    [
+      "expo-media-library",
+      {
+        savePhotosPermission:
+          "This app accesses your photos to let you save images to your device.",
+      },
+    ],
+    [
+      "expo-image-picker",
+      {
+        photosPermission:
+          "This app accesses your photos to let you add images to your posts.",
+        cameraPermission:
+          "This app accesses your camera to let you add photos from your camera to your posts.",
+      },
+    ],
   ],
 });
 
