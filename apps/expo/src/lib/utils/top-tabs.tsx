@@ -23,5 +23,7 @@ export function createTopTabsScreenOptions(theme: Theme) {
       textTransform: "none",
       color: theme.colors.text,
     },
+    scrollEnabled: true,
+    keepActiveTabCentered: true,
   } as const;
 }

@@ -50,12 +50,11 @@ export const ProfileTabView = ({
           }}
         />
         <Tabs.Container
-          minHeaderHeight={headerHeight + 10}
+          minHeaderHeight={headerHeight}
           initialTabName={initial}
           renderTabBar={(props) => (
             <MaterialTabBar
               {...props}
-              scrollEnabled
               {...createTopTabsScreenOptions(theme)}
               activeColor={theme.colors.text}
               inactiveColor={theme.colors.text}
@@ -71,10 +70,10 @@ export const ProfileTabView = ({
             <ProfilePosts mode="replies" handle={handle} />
           </Tabs.Tab>
           <Tabs.Tab name="media" label="Media">
-            <ProfilePosts mode="posts" handle={handle} />
+            <ProfilePosts mode="media" handle={handle} />
           </Tabs.Tab>
           <Tabs.Tab name="likes" label="Likes">
-            <ProfilePosts mode="posts" handle={handle} />
+            <ProfilePosts mode="likes" handle={handle} />
           </Tabs.Tab>
           {numberOfFeeds === 0 ? null : (
             <Tabs.Tab name="feeds" label="Feeds">
@@ -92,9 +91,6 @@ export const ProfileTabView = ({
         options={{
           headerTitle: "",
           headerTransparent: true,
-          headerStyle: {
-            backgroundColor: theme.colors.card,
-          },
         }}
       />
       <QueryWithoutData query={profile} />

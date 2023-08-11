@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {
   Alert,
   Button,
+  Platform,
   Share,
   Text,
   TouchableOpacity,
@@ -13,8 +14,6 @@ import Animated, {
   interpolate,
   useAnimatedProps,
   useAnimatedStyle,
-  useDerivedValue,
-  withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
@@ -46,11 +45,11 @@ import { useDefaultHeaderHeight } from "./hooks";
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
 const INITIAL_HEADER_HEIGHT = 90;
-
-function clamp(value: number, lowerBound: number, upperBound: number) {
-  "worklet";
-  return Math.min(Math.max(lowerBound, value), upperBound);
-}
+const AVATAR_PLATFORM_ADJUST = Platform.select({
+  ios: 5,
+  android: 12,
+  default: 0,
+});
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -178,9 +177,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const animatedHeaderStyle = useAnimatedStyle(() => {
     return {
       height: interpolate(
-        headerMeasurements.top.value,
-        [0, -(headerMeasurements.height.value ?? 0)],
+        -headerMeasurements.top.value,
+        [0, 100],
         [INITIAL_HEADER_HEIGHT + top, headerHeight],
+        Extrapolation.CLAMP,
+      ),
+    };
+  });
+
+  const animatedOpacitysStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(
+        -headerMeasurements.top.value,
+        [0, 100],
+        [0, 1],
         Extrapolation.CLAMP,
       ),
     };
@@ -188,29 +198,27 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   const animatedImageStyle = useAnimatedStyle(() => {
     const size = interpolate(
-      headerMeasurements.top.value,
-      [0, -(headerMeasurements.height.value ?? 0)],
-      [80, 30],
+      -headerMeasurements.top.value,
+      [0, 100],
+      [80, 36],
       Extrapolation.CLAMP,
     );
     return {
       width: size,
       height: size,
+      bottom: interpolate(
+        -headerMeasurements.top.value,
+        [0, 100],
+        [-42, (headerHeight + top) / 2 - size / 2 + AVATAR_PLATFORM_ADJUST],
+        Extrapolation.CLAMP,
+      ),
       transform: [
-        {
-          translateY: interpolate(
-            headerMeasurements.top.value,
-            [0, -(headerMeasurements.height.value ?? 0)],
-            [0, -headerHeight - 25],
-            Extrapolation.CLAMP,
-          ),
-        },
         {
           translateX: backButton
             ? interpolate(
-                headerMeasurements.top.value,
-                [0, -(headerMeasurements.height.value ?? 0)],
-                [0, 70],
+                -headerMeasurements.top.value,
+                [0, 100],
+                [0, 45],
                 Extrapolation.CLAMP,
               )
             : 0,
@@ -222,8 +230,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const animatedProps = useAnimatedProps(() => {
     return {
       intensity: interpolate(
-        headerMeasurements.top.value,
-        [0, -(headerMeasurements.height.value ?? 0)],
+        -headerMeasurements.top.value,
+        [0, 100],
         [0, 100],
         Extrapolation.CLAMP,
       ),
@@ -253,11 +261,41 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             className="flex-1"
             pointerEvents="none"
           >
-            <AnimatedBlurView
-              animatedProps={animatedProps}
-              className="flex-1"
-              tint="dark"
-            />
+            {Platform.select({
+              ios: (
+                <AnimatedBlurView
+                  animatedProps={animatedProps}
+                  className="flex-1"
+                  tint="dark"
+                />
+              ),
+              android: (
+                <Animated.View
+                  className="flex-1 bg-black/90"
+                  style={animatedOpacitysStyle}
+                />
+              ),
+            })}
+            <Animated.View
+              className={cx(
+                "absolute top-1/2 -translate-y-1/2",
+                backButton ? "left-28" : "left-16",
+                Platform.OS === "android" && "-mt-2.5",
+              )}
+              style={animatedOpacitysStyle}
+            >
+              {profile.displayName && (
+                <Text
+                  className="text-sm font-bold text-white"
+                  numberOfLines={1}
+                >
+                  {profile.displayName}
+                </Text>
+              )}
+              <Text className="text-xs text-white" numberOfLines={1}>
+                @{profile.handle}
+              </Text>
+            </Animated.View>
           </ImageBackground>
         </Animated.View>
         {backButton && (
@@ -265,15 +303,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             accessibilityLabel="Back"
             accessibilityRole="button"
             onPress={() => router.back()}
-            className="absolute left-4 z-30 translate-y-0.5 items-center justify-center rounded-full bg-black/60 p-2"
+            className={cx(
+              "absolute left-4 z-30 items-center justify-center rounded-full p-1.5",
+              Platform.OS === "android"
+                ? "mt-2.5 bg-neutral-800"
+                : "bg-black/60",
+            )}
             style={{ top }}
           >
-            <ChevronLeftIcon size={24} color="white" />
+            <ChevronLeftIcon size={20} color="white" />
           </TouchableOpacity>
         )}
         <Animated.View
           style={animatedImageStyle}
-          className="absolute -bottom-[42px] left-4 z-40 origin-left rounded-full"
+          className="absolute left-4 z-40 origin-left rounded-full"
         >
           <Link asChild href={`/images/${profile.did}`}>
             <TouchableOpacity

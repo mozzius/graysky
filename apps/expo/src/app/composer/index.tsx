@@ -2,15 +2,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Keyboard,
   Platform,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { ContextMenuButton } from "react-native-ios-context-menu";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -67,7 +67,7 @@ export default function ComposerScreen() {
     start: 0,
     end: 0,
   });
-  const textRef = useRef<TextInput>(null);
+  const inputRef = useRef<TextInput>(null!);
 
   const reply = useReply();
   const quote = useQuote();
@@ -126,6 +126,9 @@ export default function ComposerScreen() {
             <CancelButton
               hasContent={!isEmpty}
               onSave={() => Alert.alert("Not yet implemented")}
+              onCancel={() => {
+                inputRef.current.focus();
+              }}
               disabled={send.isLoading}
             />
           ),
@@ -153,7 +156,7 @@ export default function ComposerScreen() {
           <Text className="my-1 text-white/90">Please try again</Text>
         </View>
       )}
-      <KeyboardAwareScrollView
+      <ScrollView
         className="pt-4"
         alwaysBounceVertical={!isEmpty}
         keyboardShouldPersistTaps="handled"
@@ -190,7 +193,7 @@ export default function ComposerScreen() {
           <View className="flex flex-1 items-start pl-1 pr-2">
             <View className="min-h-[40px] flex-1 flex-row items-center">
               <TextInput
-                ref={textRef}
+                ref={inputRef}
                 onChange={(evt) => {
                   setText(evt.nativeEvent.text);
                   if (send.isError) {
@@ -444,7 +447,7 @@ export default function ComposerScreen() {
             )}
           </View>
         </Animated.View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </View>
   );
 }
@@ -491,10 +494,12 @@ const PostButton = ({
 const CancelButton = ({
   hasContent,
   onSave,
+  onCancel,
   disabled,
 }: {
   hasContent: boolean;
   onSave: () => void;
+  onCancel: () => void;
   disabled?: boolean;
 }) => {
   const theme = useTheme();
@@ -508,6 +513,7 @@ const CancelButton = ({
         accessibilityLabel="Discard post"
         onPress={async () => {
           void Haptics.impactAsync();
+          if (Platform.OS === "android") Keyboard.dismiss();
           const options = ["Discard", "Cancel"];
           const selected = await new Promise((resolve) => {
             showActionSheetWithOptions(
@@ -523,6 +529,12 @@ const CancelButton = ({
           switch (selected) {
             case "Discard":
               router.push("../");
+              break;
+            case "Save to drafts":
+              onSave();
+              break;
+            default:
+              onCancel();
               break;
           }
         }}

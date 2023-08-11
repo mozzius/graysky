@@ -189,15 +189,11 @@ export const RichTextWithoutFacets = ({
   text,
   ...props
 }: Omit<Props, "facets">) => {
-  const agent = useAgent();
-  const { data } = useQuery({
-    queryKey: ["facets", text],
-    queryFn: async () => {
-      const rt = new RichTextHelper({ text });
-      await rt.detectFacets(agent);
-      return rt.facets ?? [];
-    },
-  });
+  const data = useMemo(() => {
+    const rt = new RichTextHelper({ text });
+    rt.detectFacetsWithoutResolution();
+    return rt.facets;
+  }, [text]);
 
   return <RichText text={text} facets={data} {...props} />;
 };

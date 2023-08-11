@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Text, TextInput, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -54,7 +59,7 @@ export default function EditBio() {
 
   if (self.data) {
     return (
-      <KeyboardAwareScrollView className="flex-1 px-4">
+      <ScrollView className="flex-1 px-4">
         <View className="my-4 flex-1">
           <Text className="mx-4 mb-1 mt-4 text-sm uppercase text-neutral-500">
             Display name
@@ -108,7 +113,7 @@ export default function EditBio() {
             <ActivityIndicator className="px-2" />
           )}
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     );
   }
 

@@ -285,7 +285,7 @@ const App = () => {
                           presentation: "formSheet",
                         },
                         android: {
-                          animation: "slide_from_bottom",
+                          animation: "fade_from_bottom",
                         },
                       }),
                     }}
