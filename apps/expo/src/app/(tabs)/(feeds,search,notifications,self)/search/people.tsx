@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
-import { SearchBarCommands } from "react-native-screens";
+import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";

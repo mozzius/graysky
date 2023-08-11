@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { SearchBarCommands } from "react-native-screens";
+import { type SearchBarCommands } from "react-native-screens";
 import { Image } from "expo-image";
 import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
@@ -39,7 +39,6 @@ export default function SearchPage() {
 
   useTabPress(() => {
     if (ref.current) {
-      console.log("Fuckus");
       ref.current.focus();
     }
   });

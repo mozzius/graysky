@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Stack, useFocusEffect } from "expo-router";
+import { setStatusBarStyle } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 
 import { createTopTabsScreenOptions } from "../../../lib/utils/top-tabs";
@@ -29,6 +29,15 @@ export const ProfileTabView = ({
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
 
+  useFocusEffect(
+    useCallback(() => {
+      setStatusBarStyle("light");
+      return () => {
+        setStatusBarStyle(theme.dark ? "light" : "dark");
+      };
+    }, [theme.dark]),
+  );
+
   const renderProfileInfo = useCallback(() => {
     if (profile.data) {
       return <ProfileInfo profile={profile.data} backButton={backButton} />;
@@ -39,7 +48,6 @@ export const ProfileTabView = ({
   if (profile.data) {
     return (
       <>
-        <StatusBar style="light" />
         <Stack.Screen
           options={{
             headerShown: false,

@@ -2,7 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 
 import { ProfileTabView } from "../../../../../components/screens/profile/profile-tab-view";
 
-export default function ProfileRedirect() {
+export default function ProfilePage() {
   const { handle, tab } = useLocalSearchParams<{
     handle: string;
     tab: string;

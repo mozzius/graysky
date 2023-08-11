@@ -97,10 +97,6 @@ export default function FeedsPage() {
               )}
             </TouchableOpacity>
           ),
-        }}
-      />
-      <Stack.Screen
-        options={{
           headerTitleStyle: {
             color: open ? theme.colors.card : theme.colors.text,
           },
@@ -433,7 +429,7 @@ const FeedInfo = ({
             >
               <TouchableHighlight
                 onPress={() =>
-                  Sharing.share(
+                  void Sharing.share(
                     Platform.select({
                       ios: {
                         url: `https://bsky.app/profile/${handle}/feed/${generator}`,
