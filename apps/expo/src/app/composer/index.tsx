@@ -73,6 +73,7 @@ export default function ComposerScreen() {
   const quote = useQuote();
 
   const [text, setText] = useState("");
+
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
   const rt = useMemo(() => {
@@ -157,7 +158,7 @@ export default function ComposerScreen() {
         </View>
       )}
       <ScrollView
-        className="pt-4"
+        className="py-4"
         alwaysBounceVertical={!isEmpty}
         keyboardShouldPersistTaps="handled"
       >
@@ -201,7 +202,7 @@ export default function ComposerScreen() {
                   }
                 }}
                 multiline
-                className="relative -top-[3px] w-full text-lg leading-6"
+                className="relative -top-[3px] w-full text-lg leading-6 text-white"
                 placeholder="What's on your mind?"
                 placeholderTextColor={theme.dark ? "#555" : "#aaa"}
                 verticalAlign="middle"
@@ -514,20 +515,19 @@ const CancelButton = ({
         onPress={async () => {
           void Haptics.impactAsync();
           if (Platform.OS === "android") Keyboard.dismiss();
-          const options = ["Discard", "Cancel"];
+          const options = ["Discard post", "Cancel"];
           const selected = await new Promise((resolve) => {
             showActionSheetWithOptions(
               {
                 options,
                 cancelButtonIndex: options.length - 1,
                 destructiveButtonIndex: 0,
-                title: "Discard post?",
               },
               (index) => resolve(options[index!]),
             );
           });
           switch (selected) {
-            case "Discard":
+            case "Discard post":
               router.push("../");
               break;
             case "Save to drafts":
