@@ -61,7 +61,6 @@ const App = ({ session, saveSession }: Props) => {
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
-    console.info("creating agent", invalidator);
     return new BskyAgent({
       service: "https://bsky.social",
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
@@ -84,6 +83,7 @@ const App = ({ session, saveSession }: Props) => {
         setAgentUpdate((prev) => prev + 1);
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invalidator, saveSession]);
 
   const resumeSession = useMutation({
