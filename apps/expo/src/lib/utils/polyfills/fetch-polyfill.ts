@@ -3,6 +3,7 @@
 
 import * as FileSystem from "expo-file-system";
 import { jsonToLex, stringifyLex } from "@atproto/api";
+import mime from "mime";
 
 const GET_TIMEOUT = 15e3; // 15s
 const POST_TIMEOUT = 60e3; // 60s
@@ -26,7 +27,9 @@ export async function fetchHandler(
     typeof reqBody === "string" &&
     (reqBody.startsWith("/") || reqBody.startsWith("file:"))
   ) {
-    if (reqBody.endsWith(".jpeg") || reqBody.endsWith(".jpg")) {
+    const name = reqBody.split("/").pop();
+    const type = mime.getType(name!);
+    if (type === "image/jpeg") {
       // HACK
       // React native has a bug that inflates the size of jpegs on upload
       // we get around that by renaming the file ext to .bin
