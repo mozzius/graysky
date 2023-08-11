@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -62,6 +63,7 @@ export default function AppLayout() {
 
   return (
     <DrawerProvider value={openDrawer}>
+      <StatusBar style={theme.dark ? "light" : "dark"} />
       <Stack.Screen
         options={{
           headerShown: false,

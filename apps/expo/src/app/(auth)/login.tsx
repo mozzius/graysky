@@ -50,9 +50,12 @@ export default function Login() {
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
     >
-      {Platform.OS !== "ios" && (
-        <StatusBar style={theme.dark ? "light" : "dark"} />
-      )}
+      <StatusBar
+        style={Platform.select({
+          ios: "light",
+          default: theme.dark ? "light" : "dark",
+        })}
+      />
       <View className="items-stretch gap-4">
         <View
           className={cx(

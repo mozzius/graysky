@@ -206,7 +206,8 @@ export default function ComposerScreen() {
                   }
                 }}
                 multiline
-                className="relative -top-[3px] w-full text-lg leading-6 text-white"
+                className="relative -top-[3px] w-full text-lg leading-6"
+                style={{ color: theme.colors.text }}
                 placeholder="What's on your mind?"
                 placeholderTextColor={theme.dark ? "#555" : "#aaa"}
                 verticalAlign="middle"
