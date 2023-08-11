@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
+import { SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -11,6 +12,7 @@ import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
+import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 import { useUserRefresh } from "../../../../lib/utils/query";
 
 interface Props {
@@ -91,16 +93,25 @@ export default function PeopleSearchScreen() {
   const { q } = useLocalSearchParams() as { q: string };
   const [search, setSearch] = useState(q || "");
 
+  const ref = useRef<SearchBarCommands>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (ref.current && q) ref.current.setText(q || "");
+    }, 50);
+  }, [q]);
+
+  const headerSearchBarOptions = useSearchBarOptions({
+    placeholder: "Search people",
+    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    hideWhenScrolling: false,
+    hideNavigationBar: false,
+    ref,
+  });
+
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            placeholder: "Search people",
-            onChangeText: (evt) => setSearch(evt.nativeEvent.text),
-          },
-        }}
-      />
+      <Stack.Screen options={{ headerSearchBarOptions }} />
       <PeopleSearch search={search} />
     </>
   );

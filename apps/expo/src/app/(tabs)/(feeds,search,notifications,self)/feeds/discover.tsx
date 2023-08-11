@@ -12,11 +12,16 @@ import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useAgent } from "../../../../lib/agent";
+import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 
 export default function DiscoveryPage() {
   const agent = useAgent();
   const theme = useTheme();
   const [search, setSearch] = useState("");
+  const headerSearchBarOptions = useSearchBarOptions({
+    placeholder: "Search feeds",
+    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+  });
 
   const saved = useQuery({
     queryKey: ["feeds", "saved", "plain"],
@@ -60,14 +65,7 @@ export default function DiscoveryPage() {
         contentInsetAdjustmentBehavior="automatic"
       >
         {Platform.OS === "ios" && <StatusBar style="light" />}
-        <Stack.Screen
-          options={{
-            headerSearchBarOptions: {
-              placeholder: "Search feeds",
-              onChangeText: (evt) => setSearch(evt.nativeEvent.text),
-            },
-          }}
-        />
+        <Stack.Screen options={{ headerSearchBarOptions }} />
         <View
           style={{ backgroundColor: theme.colors.card }}
           className="my-4 overflow-hidden rounded-lg"

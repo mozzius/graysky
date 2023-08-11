@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
+import { SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -9,6 +10,7 @@ import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
+import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 import { api } from "../../../../lib/utils/api";
 import { useUserRefresh } from "../../../../lib/utils/query";
 
@@ -65,16 +67,25 @@ export default function FeedSearchScreen() {
   const { q } = useLocalSearchParams() as { q: string };
   const [search, setSearch] = useState(q || "");
 
+  const ref = useRef<SearchBarCommands>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (ref.current && q) ref.current.setText(q || "");
+    }, 50);
+  }, [q]);
+
+  const headerSearchBarOptions = useSearchBarOptions({
+    placeholder: "Search feeds",
+    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    hideWhenScrolling: false,
+    hideNavigationBar: false,
+    ref,
+  });
+
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            placeholder: "Search feeds",
-            onChangeText: (evt) => setSearch(evt.nativeEvent.text),
-          },
-        }}
-      />
+      <Stack.Screen options={{ headerSearchBarOptions }} />
       <FeedSearch search={search} />
     </>
   );

@@ -32,18 +32,23 @@ export interface PostSearchItem {
 
 export async function searchProfiles(
   query: string,
+  signal?: AbortSignal,
 ): Promise<ProfileSearchItem[]> {
-  return await doFetch<ProfileSearchItem[]>(PROFILES_ENDPOINT, query);
+  return await doFetch<ProfileSearchItem[]>(PROFILES_ENDPOINT, query, signal);
 }
 
-export async function searchPosts(query: string): Promise<PostSearchItem[]> {
-  return await doFetch<PostSearchItem[]>(POSTS_ENDPOINT, query);
+export async function searchPosts(
+  query: string,
+  signal?: AbortSignal,
+): Promise<PostSearchItem[]> {
+  return await doFetch<PostSearchItem[]>(POSTS_ENDPOINT, query, signal);
 }
 
-async function doFetch<T>(endpoint: string, query: string): Promise<T> {
-  const controller = new AbortController();
-  const to = setTimeout(() => controller.abort(), 15e3);
-
+async function doFetch<T>(
+  endpoint: string,
+  query: string,
+  signal?: AbortSignal,
+): Promise<T> {
   const uri = new URL(endpoint);
   uri.searchParams.set("q", query);
 
@@ -52,7 +57,7 @@ async function doFetch<T>(endpoint: string, query: string): Promise<T> {
     headers: {
       accept: "application/json",
     },
-    signal: controller.signal,
+    signal,
   });
 
   const resHeaders: Record<string, string> = {};
@@ -61,7 +66,5 @@ async function doFetch<T>(endpoint: string, query: string): Promise<T> {
   });
   let resBody = await res.json();
 
-  clearTimeout(to);
-
-  return resBody as unknown as T;
+  return (resBody as unknown as T) ?? ([] as T);
 }

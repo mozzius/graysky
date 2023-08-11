@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { SearchBarCommands } from "react-native-screens";
 import { Image } from "expo-image";
 import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
@@ -25,6 +26,8 @@ import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { RichTextWithoutFacets } from "../../../../components/rich-text";
 import { useAgent } from "../../../../lib/agent";
+import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
+import { useTabPress } from "../../../../lib/hooks/tab-press-scroll";
 import { cx } from "../../../../lib/utils/cx";
 import { useRefreshOnFocus } from "../../../../lib/utils/query";
 
@@ -32,21 +35,28 @@ export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  // focus search bar somehow :/
-  // useTabPress();
+  const ref = useRef<SearchBarCommands>(null);
+
+  useTabPress(() => {
+    if (ref.current) {
+      console.log("Fuckus");
+      ref.current.focus();
+    }
+  });
+
+  const headerSearchBarOptions = useSearchBarOptions({
+    placeholder: "Search users, posts, feeds",
+    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    onFocus: () => setIsSearching(true),
+    onBlur: () => setIsSearching(false),
+    hideWhenScrolling: false,
+    autoFocus: true,
+    ref,
+  });
 
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            placeholder: "Search users, posts, feeds",
-            onChangeText: (evt) => setSearch(evt.nativeEvent.text),
-            onFocus: () => setIsSearching(true),
-            onBlur: () => setIsSearching(false),
-          },
-        }}
-      />
+      <Stack.Screen options={{ headerSearchBarOptions }} />
       {isSearching || search ? (
         <SearchResults search={search} />
       ) : (

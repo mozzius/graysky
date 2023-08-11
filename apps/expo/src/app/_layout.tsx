@@ -1,14 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Linking, Platform, Text, TouchableOpacity } from "react-native";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
-import {
-  SplashScreen,
-  Stack,
-  useNavigation,
-  useRouter,
-  useSegments,
-} from "expo-router";
+import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   BskyAgent,
@@ -146,7 +141,6 @@ const App = () => {
 
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
-  const navigation = useNavigation();
   useEffect(() => {
     if (session.isFetched) {
       SplashScreen.hideAsync();
@@ -154,149 +148,152 @@ const App = () => {
   }, [session.isFetched]);
 
   function handleModalBack() {
-    if (navigation.canGoBack()) {
-      router.push("../");
-    } else {
-      router.push("/feeds");
-    }
+    router.canGoBack() ? router.push("../") : router.push("/feeds");
   }
 
   return (
     <ThemeProvider value={theme}>
-      <StatusBar style={theme.dark ? "light" : "dark"} />
+      {Platform.OS === "android" && (
+        <StatusBar style={theme.dark ? "light" : "dark"} />
+      )}
       <SafeAreaProvider>
-        {/* <CustomerInfoProvider info={info.data}> */}
-        <AgentProvider value={agent}>
-          <LogOutProvider value={logOut}>
-            <ActionSheetProvider>
-              <ListProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: true,
-                    fullScreenGestureEnabled: true,
-                  }}
-                >
-                  <Stack.Screen
-                    name="index"
-                    options={{
-                      headerShown: false,
+        <KeyboardProvider>
+          {/* <CustomerInfoProvider info={info.data}> */}
+          <AgentProvider value={agent}>
+            <LogOutProvider value={logOut}>
+              <ActionSheetProvider>
+                <ListProvider>
+                  <Stack
+                    screenOptions={{
+                      headerShown: true,
+                      fullScreenGestureEnabled: true,
                     }}
-                  />
-                  <Stack.Screen
-                    name="(auth)/login"
-                    options={{
-                      title: "Log in",
-                      presentation: "formSheet",
-                      headerLeft: Platform.select({
-                        ios: () => (
-                          <TouchableOpacity onPress={() => router.push("/")}>
+                  >
+                    <Stack.Screen
+                      name="index"
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="(auth)/login"
+                      options={{
+                        title: "Log in",
+                        presentation: "formSheet",
+                        headerLeft: Platform.select({
+                          ios: () => (
+                            <TouchableOpacity onPress={() => router.push("/")}>
+                              <Text
+                                style={{ color: theme.colors.primary }}
+                                className="text-lg"
+                              >
+                                Cancel
+                              </Text>
+                            </TouchableOpacity>
+                          ),
+                        }),
+                        headerRight: () => (
+                          <TouchableOpacity
+                            className="flex-row items-center gap-1"
+                            onPress={() => Linking.openURL("https://bsky.app")}
+                          >
                             <Text
                               style={{ color: theme.colors.primary }}
                               className="text-lg"
                             >
-                              Cancel
+                              Register
                             </Text>
+                            <ExternalLinkIcon
+                              size={16}
+                              color={theme.colors.primary}
+                            />
                           </TouchableOpacity>
                         ),
-                      }),
-                      headerRight: () => (
-                        <TouchableOpacity
-                          className="flex-row items-center gap-1"
-                          onPress={() => Linking.openURL("https://bsky.app")}
-                        >
-                          <Text
-                            style={{ color: theme.colors.primary }}
-                            className="text-lg"
-                          >
-                            Register
-                          </Text>
-                          <ExternalLinkIcon
-                            size={16}
-                            color={theme.colors.primary}
-                          />
-                        </TouchableOpacity>
-                      ),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="settings"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                  <Stack.Screen
-                    name="codes"
-                    options={{
-                      headerShown: false,
-                      presentation: "modal",
-                    }}
-                  />
-                  <Stack.Screen
-                    name="translate"
-                    options={{
-                      title: "Translate",
-                      presentation: "modal",
-                      headerRight: Platform.select({
-                        ios: () => (
-                          <TouchableOpacity onPress={handleModalBack}>
-                            <Text
-                              style={{ color: theme.colors.primary }}
-                              className="text-lg font-medium"
-                            >
-                              Done
-                            </Text>
-                          </TouchableOpacity>
-                        ),
-                      }),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="images/[post]"
-                    options={{
-                      presentation: "transparentModal",
-                      headerShown: false,
-                      animation: "none",
-                      fullScreenGestureEnabled: false,
-                      customAnimationOnGesture: true,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="pro"
-                    options={{
-                      title: "",
-                      headerTransparent: true,
-                      presentation: "modal",
-                      headerLeft: Platform.select({
-                        ios: () => (
-                          <TouchableOpacity onPress={handleModalBack}>
-                            <Text className="text-lg text-white">Cancel</Text>
-                          </TouchableOpacity>
-                        ),
-                      }),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="composer"
-                    options={{
-                      headerShown: false,
-                      ...Platform.select({
-                        ios: {
-                          presentation: "formSheet",
-                        },
-                        android: {
-                          animation: "fade_from_bottom",
-                        },
-                      }),
-                    }}
-                  />
-                </Stack>
-              </ListProvider>
-            </ActionSheetProvider>
-          </LogOutProvider>
-        </AgentProvider>
-        {/* </CustomerInfoProvider> */}
+                      }}
+                    />
+                    <Stack.Screen
+                      name="settings"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="codes"
+                      options={{
+                        headerShown: false,
+                        presentation: "modal",
+                      }}
+                    />
+                    <Stack.Screen
+                      name="translate"
+                      options={{
+                        title: "Translate",
+                        presentation: "modal",
+                        headerRight: Platform.select({
+                          ios: () => (
+                            <TouchableOpacity onPress={handleModalBack}>
+                              <Text
+                                style={{ color: theme.colors.primary }}
+                                className="text-lg font-medium"
+                              >
+                                Done
+                              </Text>
+                            </TouchableOpacity>
+                          ),
+                        }),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="images/[post]"
+                      options={{
+                        presentation: "transparentModal",
+                        headerShown: false,
+                        animation: "none",
+                        fullScreenGestureEnabled: false,
+                        customAnimationOnGesture: true,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="pro"
+                      options={{
+                        title: "",
+                        headerTransparent: true,
+                        presentation: "modal",
+                        headerLeft: Platform.select({
+                          ios: () => (
+                            <TouchableOpacity onPress={handleModalBack}>
+                              <Text className="text-lg text-white">Cancel</Text>
+                            </TouchableOpacity>
+                          ),
+                        }),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="composer"
+                      options={{
+                        headerShown: false,
+                        ...Platform.select({
+                          ios: {
+                            presentation: "formSheet",
+                          },
+                          android: {
+                            animation: "fade_from_bottom",
+                          },
+                        }),
+                      }}
+                    />
+                  </Stack>
+                </ListProvider>
+              </ActionSheetProvider>
+            </LogOutProvider>
+          </AgentProvider>
+          {/* </CustomerInfoProvider> */}
+        </KeyboardProvider>
       </SafeAreaProvider>
+      {Platform.OS === "ios" && (
+        <StatusBar style={theme.dark ? "light" : "dark"} />
+      )}
     </ThemeProvider>
   );
 };

@@ -32,6 +32,7 @@ import {
   SendIcon,
   XIcon,
 } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { Avatar } from "../../components/avatar";
 import { Embed } from "../../components/embed";
@@ -350,34 +351,36 @@ export default function ComposerScreen() {
                         ),
                       }}
                     />
-                    <TouchableOpacity
-                      className="absolute left-2 top-2 z-10"
-                      onPress={() => {
-                        void Haptics.impactAsync();
-                        Alert.prompt(
-                          "Add a caption",
-                          undefined,
-                          (alt) => {
-                            if (alt !== null) {
-                              addAltText(i, alt);
-                            }
-                          },
-                          undefined,
-                          image.alt,
-                        );
-                      }}
-                    >
-                      <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
-                        {image.alt ? (
-                          <CheckIcon size={14} color="white" />
-                        ) : (
-                          <PlusIcon size={14} color="white" />
-                        )}
-                        <Text className="ml-1 text-xs font-bold uppercase text-white">
-                          Alt
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                    {Platform.OS === "ios" && (
+                      <TouchableOpacity
+                        className="absolute left-2 top-2 z-10"
+                        onPress={() => {
+                          void Haptics.impactAsync();
+                          Alert.prompt(
+                            "Add a caption",
+                            undefined,
+                            (alt) => {
+                              if (alt !== null) {
+                                addAltText(i, alt);
+                              }
+                            },
+                            undefined,
+                            image.alt,
+                          );
+                        }}
+                      >
+                        <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
+                          {image.alt ? (
+                            <CheckIcon size={14} color="white" />
+                          ) : (
+                            <PlusIcon size={14} color="white" />
+                          )}
+                          <Text className="ml-1 text-xs font-bold uppercase text-white">
+                            Alt
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
                     <TouchableOpacity
                       className="absolute right-2 top-2 z-10"
                       onPress={() => {
@@ -506,6 +509,7 @@ const CancelButton = ({
   const theme = useTheme();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
+  const { colorScheme } = useColorScheme();
 
   if (hasContent) {
     return (
@@ -522,13 +526,18 @@ const CancelButton = ({
                 options,
                 cancelButtonIndex: options.length - 1,
                 destructiveButtonIndex: 0,
+                userInterfaceStyle: colorScheme,
               },
               (index) => resolve(options[index!]),
             );
           });
           switch (selected) {
             case "Discard post":
-              router.push("../");
+              Platform.select({
+                ios: () => router.push("../"),
+                android: () =>
+                  router.canGoBack() ? router.back() : router.replace("/feeds"),
+              });
               break;
             case "Save to drafts":
               onSave();

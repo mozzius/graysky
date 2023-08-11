@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
+import { SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -13,6 +14,7 @@ import {
   useContentFilter,
   type FilterResult,
 } from "../../../../lib/hooks/preferences";
+import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 import { useUserRefresh } from "../../../../lib/utils/query";
 import { searchPosts } from "../../../../lib/utils/search";
 
@@ -26,8 +28,11 @@ const PostsSearch = ({ search }: Props) => {
 
   const query = useQuery({
     queryKey: ["search", "posts", search],
-    queryFn: async () => {
-      const posts = await searchPosts(search);
+    queryFn: async ({ signal }) => {
+      if (!search) return [];
+      const posts = await searchPosts(search, signal);
+
+      if (posts.length === 0) return [];
 
       // split into groups of 25
       const groups = posts.reduce<string[][]>(
@@ -113,16 +118,25 @@ export default function PostsSearchScreen() {
   const { q } = useLocalSearchParams() as { q: string };
   const [search, setSearch] = useState(q || "");
 
+  const ref = useRef<SearchBarCommands>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (ref.current && q) ref.current.setText(q || "");
+    }, 50);
+  }, [q]);
+
+  const headerSearchBarOptions = useSearchBarOptions({
+    placeholder: "Search posts",
+    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    hideWhenScrolling: false,
+    hideNavigationBar: false,
+    ref,
+  });
+
   return (
     <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            placeholder: "Search posts",
-            onChangeText: (evt) => setSearch(evt.nativeEvent.text),
-          },
-        }}
-      />
+      <Stack.Screen options={{ headerSearchBarOptions }} />
       <PostsSearch search={search} />
     </>
   );

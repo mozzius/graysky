@@ -31,13 +31,14 @@ export const QueryWithoutData = ({ query }: Props) => {
             An error occurred
           </Text>
           {query.error instanceof Error && (
-            <Text className="text-center text-lg">{query.error.message}</Text>
+            <Text className="text-lg">{query.error.message}</Text>
           )}
           <TouchableOpacity
             className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
             style={{
               backgroundColor: theme.colors.primary,
             }}
+            onPress={() => query.refetch()}
           >
             <RefreshCcwIcon size={20} className="text-white" />
             <Text className="ml-4 text-xl text-white">Retry</Text>

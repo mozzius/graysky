@@ -479,10 +479,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           </View>
           {profile.description && (
             <View className="mt-3" pointerEvents="box-none">
-              <RichTextWithoutFacets
-                text={profile.description.trim()}
-                forcePointerEvents
-              />
+              <RichTextWithoutFacets text={profile.description.trim()} />
             </View>
           )}
           {profile.viewer?.muted && (

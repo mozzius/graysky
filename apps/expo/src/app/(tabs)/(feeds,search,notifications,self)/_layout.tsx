@@ -1,11 +1,13 @@
 import {
   ActivityIndicator,
   Platform,
+  PlatformColor,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { Stack, useNavigation, useRouter } from "expo-router";
+import { type SearchBarProps } from "react-native-screens";
+import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "../../../components/avatar";
@@ -24,7 +26,6 @@ export default function SubStack({
   segment: "(feeds)" | "(search)" | "(notifications)" | "(self)";
 }) {
   const openDrawer = useDrawer();
-  const navigation = useNavigation();
   const router = useRouter();
   const theme = useTheme();
   // agent might not be available yet
@@ -61,17 +62,14 @@ export default function SubStack({
             name="feeds/discover"
             options={{
               title: "Discover Feeds",
-              headerSearchBarOptions: {},
               presentation: "modal",
               headerRight: Platform.select({
                 ios: () => (
                   <TouchableOpacity
                     onPress={() => {
-                      if (navigation.canGoBack()) {
-                        router.push("../");
-                      } else {
-                        router.push("/feeds");
-                      }
+                      router.canGoBack()
+                        ? router.push("../")
+                        : router.push("/feeds");
                     }}
                   >
                     <Text
@@ -104,28 +102,24 @@ export default function SubStack({
                 ios: headerLeft,
               }),
               headerLargeTitle: true,
-              headerSearchBarOptions: {},
             }}
           />
           <Stack.Screen
             name="search/posts"
             options={{
               title: "Search Posts",
-              headerSearchBarOptions: {},
             }}
           />
           <Stack.Screen
             name="search/feeds"
             options={{
               title: "Search Feeds",
-              headerSearchBarOptions: {},
             }}
           />
           <Stack.Screen
             name="search/people"
             options={{
               title: "Search People",
-              headerSearchBarOptions: {},
             }}
           />
         </Stack>

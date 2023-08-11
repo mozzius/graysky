@@ -191,7 +191,7 @@ export const FeedPost = ({
             <TouchableWithoutFeedback>
               <View
                 className={cx("flex-1 items-center", {
-                  "w-10": avatarSize === "reduced",
+                  "mt-2 w-10": avatarSize === "reduced",
                   "w-12": avatarSize === "normal",
                 })}
               >
