@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import { useFocusEffect, useTheme } from "@react-navigation/native";
+import { useFocusEffect } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 
 export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
   const firstTimeRef = useRef(true);

@@ -21,7 +21,10 @@ import Animated, {
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
-import { AppBskyEmbedRecord, RichText as RichTextHelper } from "@atproto/api";
+import {
+  RichText as RichTextHelper,
+  type AppBskyEmbedRecord,
+} from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -252,6 +255,7 @@ export default function ComposerScreen() {
                         <Image
                           className="mr-2.5 h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-600"
                           source={{ uri: actor.avatar }}
+                          alt={actor.displayName ?? `@${actor.handle}`}
                         />
                         <View>
                           {actor.displayName && (
@@ -511,42 +515,44 @@ const CancelButton = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
 
+  const handleCancel = async () => {
+    void Haptics.impactAsync();
+    if (Platform.OS === "android") Keyboard.dismiss();
+    const options = ["Discard post", "Cancel"];
+    const selected = await new Promise((resolve) => {
+      showActionSheetWithOptions(
+        {
+          options,
+          cancelButtonIndex: options.length - 1,
+          destructiveButtonIndex: 0,
+          userInterfaceStyle: colorScheme,
+        },
+        (index) => resolve(options[index!]),
+      );
+    });
+    switch (selected) {
+      case "Discard post":
+        Platform.select({
+          ios: () => router.push("../"),
+          default: () =>
+            router.canGoBack() ? router.back() : router.replace("/feeds"),
+        })();
+        break;
+      case "Save to drafts":
+        onSave();
+        break;
+      default:
+        onCancel();
+        break;
+    }
+  };
+
   if (hasContent) {
     return (
       <TouchableOpacity
         disabled={disabled}
         accessibilityLabel="Discard post"
-        onPress={async () => {
-          void Haptics.impactAsync();
-          if (Platform.OS === "android") Keyboard.dismiss();
-          const options = ["Discard post", "Cancel"];
-          const selected = await new Promise((resolve) => {
-            showActionSheetWithOptions(
-              {
-                options,
-                cancelButtonIndex: options.length - 1,
-                destructiveButtonIndex: 0,
-                userInterfaceStyle: colorScheme,
-              },
-              (index) => resolve(options[index!]),
-            );
-          });
-          switch (selected) {
-            case "Discard post":
-              Platform.select({
-                ios: () => router.push("../"),
-                android: () =>
-                  router.canGoBack() ? router.back() : router.replace("/feeds"),
-              });
-              break;
-            case "Save to drafts":
-              onSave();
-              break;
-            default:
-              onCancel();
-              break;
-          }
-        }}
+        onPress={() => void handleCancel()}
       >
         <Text style={{ color: theme.colors.primary }} className="text-lg">
           Cancel

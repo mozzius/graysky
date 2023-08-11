@@ -438,7 +438,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <View pointerEvents="none" className="mt-1">
             <Text
               style={{ color: theme.colors.text }}
-              className="mt-1 text-2xl font-medium"
+              className="text-2xl font-medium"
             >
               {profile.displayName}
             </Text>

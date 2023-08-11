@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-const LogOutContext = createContext<(() => Promise<void>) | null>(null);
+const LogOutContext = createContext<(() => void) | null>(null);
 
 export const LogOutProvider = LogOutContext.Provider;
 

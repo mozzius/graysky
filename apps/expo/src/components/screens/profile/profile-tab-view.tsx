@@ -1,10 +1,7 @@
 import { useCallback } from "react";
-import { useWindowDimensions } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 
 import { createTopTabsScreenOptions } from "../../../lib/utils/top-tabs";
@@ -37,7 +34,7 @@ export const ProfileTabView = ({
       return <ProfileInfo profile={profile.data} backButton={backButton} />;
     }
     return null;
-  }, [profile.data]);
+  }, [profile.data, backButton]);
 
   if (profile.data) {
     return (

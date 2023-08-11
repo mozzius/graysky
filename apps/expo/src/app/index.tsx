@@ -17,20 +17,20 @@ export default function LandingPage() {
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <View>
             <Animated.Text
-              entering={FadeIn.delay(750)}
+              entering={FadeIn}
               className="mt-10 text-center text-7xl font-medium text-white"
             >
               Graysky
             </Animated.Text>
             <Animated.Text
-              entering={FadeIn.delay(1000)}
+              entering={FadeIn.delay(250)}
               className="text-center text-xl font-medium text-white"
             >
               a bluesky client
             </Animated.Text>
           </View>
           <View className="relative">
-            <Animated.View entering={FadeIn.delay(1250)}>
+            <Animated.View entering={FadeIn.delay(1000)}>
               <LinkButton href="/login" variant="white">
                 Log in
               </LinkButton>

@@ -1,12 +1,10 @@
 import {
   ActivityIndicator,
   Platform,
-  PlatformColor,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { type SearchBarProps } from "react-native-screens";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 

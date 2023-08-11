@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Linking, Platform, Text, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -11,13 +11,12 @@ import {
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ExternalLinkIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import * as Sentry from "sentry-expo";
@@ -30,6 +29,7 @@ import { AgentProvider } from "../lib/agent";
 //   useCustomerInfoQuery,
 // } from "../lib/hooks/purchases";
 import { LogOutProvider } from "../lib/log-out-context";
+import { store } from "../lib/storage";
 import { TRPCProvider } from "../lib/utils/api";
 import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
 
@@ -42,7 +42,12 @@ Sentry.init({
 
 SplashScreen.preventAutoHideAsync();
 
-const App = () => {
+interface Props {
+  session: AtpSessionData | null;
+  saveSession: (sess: AtpSessionData | null) => void;
+}
+
+const App = ({ session, saveSession }: Props) => {
   const segments = useSegments();
   const router = useRouter();
 
@@ -52,69 +57,61 @@ const App = () => {
 
   // const info = useCustomerInfoQuery();
 
-  const session = useQuery({
-    queryKey: ["session"],
-    queryFn: async () => {
-      const sess = await AsyncStorage.getItem("session");
-      if (!sess) return null;
-      return JSON.parse(sess) as AtpSessionData;
-    },
-  });
-
-  const saveSession = useMutation({
-    mutationFn: async (sess: AtpSessionData | null) => {
-      if (sess) {
-        await AsyncStorage.setItem("session", JSON.stringify(sess));
-      } else {
-        await AsyncStorage.removeItem("session");
-      }
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(["session"]);
-    },
-  });
-
-  const resumeSession = useMutation({
-    mutationFn: async (sess: AtpSessionData) => {
-      await agent.resumeSession(sess);
-    },
-    retry: true,
-  });
+  const [agentUpdate, setAgentUpdate] = useState(0);
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
+    console.info("creating agent", invalidator);
     return new BskyAgent({
       service: "https://bsky.social",
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
         switch (evt) {
           case "create":
             if (!sess) throw new Error("should be unreachable");
-            saveSession.mutate(sess);
+            saveSession(sess);
             break;
           case "create-failed":
             break;
           case "update":
             if (!sess) throw new Error("should be unreachable");
-            saveSession.mutate(sess);
+            saveSession(sess);
             break;
           case "expired":
-            saveSession.mutate(null);
+            saveSession(null);
             break;
         }
+        // force a re-render of things that use the agent
+        setAgentUpdate((prev) => prev + 1);
       },
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [invalidator]);
+  }, [invalidator, saveSession]);
+
+  const resumeSession = useMutation({
+    mutationFn: async (sess: AtpSessionData) => {
+      await agent.resumeSession(sess);
+    },
+    retry: 3,
+    onError: () => router.replace("/"),
+  });
+
+  const tryResumeSession = !agent.hasSession && !!session;
+  const onceRef = useRef(false);
 
   useEffect(() => {
-    if (session.data && !agent.hasSession) {
-      resumeSession.mutate(session.data);
+    if (tryResumeSession && !resumeSession.isLoading) {
+      if (!onceRef.current) {
+        onceRef.current = true;
+        resumeSession.mutate(session);
+        setTimeout(() => {
+          router.replace("/feeds");
+        });
+      }
     }
-  }, [session.data, agent]);
+  }, [session, agent, tryResumeSession, resumeSession, router]);
 
   // redirect depending on login state
   useEffect(() => {
-    if (typeof session.data === "undefined") return;
+    if (resumeSession.isLoading) return;
     const atRoot = segments.length === 0;
     const inAuthGroup = segments[0] === "(auth)";
 
@@ -126,26 +123,26 @@ const App = () => {
     ) {
       // Redirect to the sign-in page.
       if (segments.join("/") === "(auth)/login") return;
+      console.log("redirecting to /");
       router.replace("/");
     } else if (agent.hasSession && (inAuthGroup || atRoot)) {
       if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
+      console.log("redirecting to /feeds");
       router.replace("/feeds");
     }
-  }, [segments, router, session.data, agent.hasSession]);
+  }, [segments, router, agent.hasSession, resumeSession.isLoading]);
 
-  const logOut = useCallback(async () => {
-    await AsyncStorage.removeItem("session");
+  const logOut = useCallback(() => {
+    saveSession(null);
     queryClient.clear();
     setInvalidator((i) => i + 1);
-  }, []);
+  }, [queryClient, saveSession]);
 
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   useEffect(() => {
-    if (session.isFetched) {
-      SplashScreen.hideAsync();
-    }
-  }, [session.isFetched]);
+    SplashScreen.hideAsync();
+  }, []);
 
   function handleModalBack() {
     router.canGoBack() ? router.push("../") : router.push("/feeds");
@@ -153,13 +150,11 @@ const App = () => {
 
   return (
     <ThemeProvider value={theme}>
-      {Platform.OS === "android" && (
-        <StatusBar style={theme.dark ? "light" : "dark"} />
-      )}
+      <StatusBar style={theme.dark ? "light" : "dark"} />
       <SafeAreaProvider>
         <KeyboardProvider>
           {/* <CustomerInfoProvider info={info.data}> */}
-          <AgentProvider value={agent}>
+          <AgentProvider agent={agent} update={agentUpdate}>
             <LogOutProvider value={logOut}>
               <ActionSheetProvider>
                 <ListProvider>
@@ -195,7 +190,9 @@ const App = () => {
                         headerRight: () => (
                           <TouchableOpacity
                             className="flex-row items-center gap-1"
-                            onPress={() => Linking.openURL("https://bsky.app")}
+                            onPress={() =>
+                              void Linking.openURL("https://bsky.app")
+                            }
                           >
                             <Text
                               style={{ color: theme.colors.primary }}
@@ -291,17 +288,31 @@ const App = () => {
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>
       </SafeAreaProvider>
-      {Platform.OS === "ios" && (
-        <StatusBar style={theme.dark ? "light" : "dark"} />
-      )}
     </ThemeProvider>
   );
 };
 
+const getSession = () => {
+  const raw = store.getString("session");
+  if (!raw) return null;
+  return JSON.parse(raw) as AtpSessionData;
+};
+
 export default function RootLayout() {
+  const [session, setSession] = useState(() => getSession());
+
+  const saveSession = useCallback((sess: AtpSessionData | null) => {
+    setSession(sess);
+    if (sess) {
+      store.set("session", JSON.stringify(sess));
+    } else {
+      store.delete("session");
+    }
+  }, []);
+
   return (
     <TRPCProvider>
-      <App />
+      <App session={session} saveSession={saveSession} />
     </TRPCProvider>
   );
 }
