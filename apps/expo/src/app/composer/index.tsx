@@ -23,6 +23,7 @@ import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import {
   RichText as RichTextHelper,
+  type AppBskyActorDefs,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
@@ -33,6 +34,7 @@ import {
   PaperclipIcon,
   PlusIcon,
   SendIcon,
+  UserIcon,
   XIcon,
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -230,55 +232,18 @@ export default function ComposerScreen() {
             {isSuggestionsOpen &&
               suggestions.length > 0 &&
               !suggestions.some((s) => s.handle === prefix.value) && (
-                <Animated.View
-                  entering={FadeInDown}
-                  exiting={FadeOut}
-                  layout={Layout}
-                  className="mt-2"
-                >
-                  {suggestions.map((actor) => (
-                    <TouchableOpacity
-                      key={actor.did}
-                      onPress={() => {
-                        setText((text) =>
-                          insertMentionAt(
-                            text,
-                            selectionRef.current?.start || 0,
-                            actor.handle,
-                          ),
-                        );
-                      }}
-                    >
-                      <Animated.View
-                        entering={FadeIn}
-                        className="flex-row items-center p-1"
-                      >
-                        <Image
-                          className="mr-2.5 h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-600"
-                          source={{ uri: actor.avatar }}
-                          alt={actor.displayName ?? `@${actor.handle}`}
-                        />
-                        <View>
-                          {actor.displayName && (
-                            <Text
-                              className="text-base font-medium"
-                              style={{ color: theme.colors.text }}
-                              numberOfLines={1}
-                            >
-                              {actor.displayName}
-                            </Text>
-                          )}
-                          <Text
-                            className="text-sm text-neutral-500"
-                            numberOfLines={1}
-                          >
-                            @{actor.handle}
-                          </Text>
-                        </View>
-                      </Animated.View>
-                    </TouchableOpacity>
-                  ))}
-                </Animated.View>
+                <SuggestionList
+                  suggestions={suggestions}
+                  onInsertHandle={(handle) =>
+                    setText((text) =>
+                      insertMentionAt(
+                        text,
+                        selectionRef.current?.start || 0,
+                        handle,
+                      ),
+                    )
+                  }
+                />
               )}
             {/* BUTTONS AND STUFF */}
             <Animated.View
@@ -570,5 +535,80 @@ const CancelButton = ({
         </Text>
       </TouchableOpacity>
     </Link>
+  );
+};
+
+const SuggestionList = ({
+  suggestions,
+  onInsertHandle,
+}: {
+  suggestions: AppBskyActorDefs.ProfileViewBasic[];
+  onInsertHandle: (handle: string) => void;
+}) => {
+  const theme = useTheme();
+  return (
+    <Animated.View
+      entering={FadeInDown}
+      exiting={FadeOut}
+      layout={Layout}
+      className="mt-2"
+    >
+      {suggestions.map((actor) => {
+        const { following, followedBy } = actor.viewer ?? {};
+
+        let text: string | null = null;
+
+        if (following && followedBy) {
+          text = "You are mutuals";
+        } else if (following) {
+          text = "You follow them";
+        } else if (followedBy) {
+          text = "Follows you";
+        }
+
+        return (
+          <TouchableOpacity
+            key={actor.did}
+            onPress={() => onInsertHandle(actor.handle)}
+          >
+            <Animated.View entering={FadeIn} className="flex-row p-1">
+              <Image
+                className="mr-2.5 mt-1.5 h-8 w-8 shrink-0 rounded-full bg-neutral-200 dark:bg-neutral-600"
+                source={{ uri: actor.avatar }}
+                alt={actor.displayName ?? `@${actor.handle}`}
+              />
+              <View>
+                {actor.displayName ? (
+                  <Text
+                    className="text-base font-medium"
+                    style={{ color: theme.colors.text }}
+                    numberOfLines={1}
+                  >
+                    {actor.displayName}
+                  </Text>
+                ) : (
+                  <View className="h-2.5" />
+                )}
+                <Text className="text-sm text-neutral-500" numberOfLines={1}>
+                  @{actor.handle}
+                </Text>
+                {text && (
+                  <View className="my-0.5 flex-row items-center">
+                    <UserIcon
+                      size={12}
+                      className="mr-0.5 mt-px text-neutral-500"
+                      strokeWidth={3}
+                    />
+                    <Text className="text-xs font-medium text-neutral-500">
+                      {text}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </Animated.View>
+          </TouchableOpacity>
+        );
+      })}
+    </Animated.View>
   );
 };

@@ -12,7 +12,7 @@ const background = require("../../assets/graysky.png") as ImageSourcePropType;
 export default function LandingPage() {
   return (
     <View className="flex-1 bg-[#3B4245]">
-      <StatusBar style="light" />
+      <StatusBar style="light" translucent backgroundColor="transparent" />
       <ImageBackground className="flex-1" source={background}>
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <View>

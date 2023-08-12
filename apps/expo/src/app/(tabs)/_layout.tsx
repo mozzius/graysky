@@ -63,7 +63,10 @@ export default function AppLayout() {
 
   return (
     <DrawerProvider value={openDrawer}>
-      <StatusBar style={theme.dark ? "light" : "dark"} />
+      <StatusBar
+        style={theme.dark ? "light" : "dark"}
+        backgroundColor={theme.colors.card}
+      />
       <Stack.Screen
         options={{
           headerShown: false,

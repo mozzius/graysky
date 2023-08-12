@@ -55,6 +55,7 @@ export default function Login() {
           ios: "light",
           default: theme.dark ? "light" : "dark",
         })}
+        backgroundColor={theme.colors.card}
       />
       <View className="items-stretch gap-4">
         <View

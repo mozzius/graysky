@@ -104,7 +104,7 @@ export default function ImageModal() {
       // exiting={FadeOut}
     >
       {/* background is always black, so status bar should always be light */}
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor="black" />
       <TouchableOpacity
         accessibilityLabel="Back"
         accessibilityRole="button"
