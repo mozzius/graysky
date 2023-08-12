@@ -4,7 +4,6 @@ import {
   Alert,
   Keyboard,
   Platform,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -17,6 +16,8 @@ import Animated, {
   FadeOut,
   FadeOutDown,
   Layout,
+  SlideInUp,
+  SlideOutUp,
 } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
@@ -154,19 +155,25 @@ export default function ComposerScreen() {
         }}
       />
       {send.isError && (
-        <View className="bg-red-500 px-4 py-3">
-          <Text className="text-lg font-medium leading-6 text-white">
+        <Animated.View
+          className="bg-red-500 px-4 py-3"
+          entering={SlideInUp}
+          exiting={SlideOutUp}
+          layout={Layout}
+        >
+          <Text className="text-base font-medium leading-5 text-white">
             {send.error instanceof Error
               ? send.error.message
               : "An unknown error occurred"}
           </Text>
-          <Text className="my-1 text-white/90">Please try again</Text>
-        </View>
+          <Text className="my-0.5 text-white/90">Please try again</Text>
+        </Animated.View>
       )}
-      <ScrollView
+      <Animated.ScrollView
         className="py-4"
         alwaysBounceVertical={!isEmpty}
         keyboardShouldPersistTaps="handled"
+        layout={Layout}
       >
         {reply.thread.data && (
           <TouchableOpacity
@@ -317,7 +324,7 @@ export default function ComposerScreen() {
                       style={{
                         aspectRatio: Math.max(
                           0.6,
-                          image.asset.width / image.asset.height,
+                          Math.min(image.asset.width / image.asset.height, 1.5),
                         ),
                       }}
                     />
@@ -421,7 +428,7 @@ export default function ComposerScreen() {
             )}
           </View>
         </Animated.View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 }
