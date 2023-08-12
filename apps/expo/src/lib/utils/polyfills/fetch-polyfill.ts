@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { Platform } from "react-native";
 import * as FileSystem from "expo-file-system";
 import { jsonToLex, stringifyLex } from "@atproto/api";
 import mime from "mime";
@@ -39,10 +40,19 @@ export async function fetchHandler(
       await FileSystem.moveAsync({ from: reqBody, to: newPath });
       reqBody = newPath;
     }
-    // NOTE
-    // React native treats bodies with {uri: string} as file uploads to pull from cache
-    // -prf
-    reqBody = { uri: reqBody };
+
+    await Platform.select({
+      default: async () => {
+        // React native treats bodies with {uri: string} as file uploads to pull from cache
+        reqBody = { uri: reqBody };
+        return Promise.resolve();
+      },
+      android: async () => {
+        // ...except for android, so fetch as a blob
+        const res = await fetch(reqBody as string);
+        reqBody = await res.blob();
+      },
+    })();
   }
 
   const controller = new AbortController();
