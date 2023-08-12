@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
@@ -19,7 +19,7 @@ import {
 } from "lucide-react-native";
 import { z } from "zod";
 
-import { Posts } from "../app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
+import { type Posts } from "../app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAgent } from "../lib/agent";
 import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
 import { type FilterResult } from "../lib/hooks/preferences";
@@ -83,7 +83,6 @@ export const FeedPost = ({
     reposted,
     toggleRepost.mutate,
   );
-  const [rerenderer, rerender] = useState(0);
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
@@ -97,10 +96,6 @@ export const FeedPost = ({
   useEffect(() => {
     setHidden(startHidden);
   }, [item.post.cid, startHidden]);
-
-  const onChangeStatus = useCallback(() => {
-    rerender((prev) => prev + 1);
-  }, []);
 
   useEffect(() => {
     queryClient.setQueryData(postHref.slice(1).split("/"), (old: unknown) => {
@@ -126,7 +121,7 @@ export const FeedPost = ({
         };
       }
     });
-  }, [item.post, postHref]);
+  }, [item.post, postHref, filter, queryClient]);
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
@@ -344,12 +339,13 @@ export const FeedPost = ({
               )}
               {/* embeds */}
               {item.post.embed && !hideEmbed && (
-                <Embed
-                  uri={item.post.uri}
-                  content={item.post.embed}
-                  key={rerenderer}
-                  depth={embedDepth}
-                />
+                <View className="flex-1">
+                  <Embed
+                    uri={item.post.uri}
+                    content={item.post.embed}
+                    depth={embedDepth}
+                  />
+                </View>
               )}
             </View>
           )}

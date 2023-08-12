@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
 import { ContextMenuButton } from "react-native-ios-context-menu";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 
 import { useImageOptions } from "./image-with-context";
 
@@ -29,8 +40,6 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
     tag?: string;
   }>();
 
-  const items = useImageOptions();
-
   const { top } = useSafeAreaInsets();
 
   useEffect(() => {
@@ -39,33 +48,15 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
 
   return (
     <>
-      <ContextMenuButton
-        isMenuPrimaryAction={true}
-        menuConfig={{
-          menuTitle: "",
-          menuItems: items.map((item) => ({
-            actionKey: item.key,
-            actionTitle: item.label,
-            icon: {
-              iconType: "SYSTEM",
-              iconValue: item.icon,
-            },
-          })),
-        }}
-        onPressMenuItem={(evt) => {
-          const item = items.find(
-            (item) => item.key === evt.nativeEvent.actionKey,
-          );
-          if (!item) return;
-          void item.action(images[index]!.fullsize);
-        }}
-        className="absolute left-5 z-10 h-10 w-10"
+      <ImageOptionsButton
+        image={images[index]!}
+        className="absolute left-5 z-10 h-10 w-10 flex-1"
         style={{ top: top + 10 }}
       >
-        <TouchableOpacity className="flex-1 items-center justify-center rounded-full bg-black/40">
+        <View className="flex-1 items-center justify-center rounded-full bg-black/40">
           <MoreHorizontalIcon color="white" />
-        </TouchableOpacity>
-      </ContextMenuButton>
+        </View>
+      </ImageOptionsButton>
       <Gallery
         data={images}
         initialIndex={initialIndex}
@@ -93,6 +84,72 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: Props) => {
         </Animated.View>
       )}
     </>
+  );
+};
+
+const ImageOptionsButton = ({
+  image,
+  children,
+  style,
+}: {
+  image: AppBskyEmbedImages.ViewImage;
+  style: StyleProp<ViewStyle>;
+  className?: string;
+  children: React.ReactNode;
+}) => {
+  const items = useImageOptions();
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { colorScheme } = useColorScheme();
+
+  return Platform.OS === "ios" ? (
+    <ContextMenuButton
+      isMenuPrimaryAction={true}
+      accessibilityLabel="Image options"
+      accessibilityRole="button"
+      menuConfig={{
+        menuTitle: "",
+        menuItems: items.map((item) => ({
+          actionKey: item.key,
+          actionTitle: item.label,
+          icon: {
+            iconType: "SYSTEM",
+            iconValue: item.icon,
+          },
+        })),
+      }}
+      onPressMenuItem={(evt) => {
+        const item = items.find(
+          (item) => item.key === evt.nativeEvent.actionKey,
+        );
+        if (!item) return;
+        void item.action(image.fullsize);
+      }}
+      style={style}
+    >
+      {children}
+    </ContextMenuButton>
+  ) : (
+    <TouchableOpacity
+      accessibilityLabel="Image options"
+      accessibilityRole="button"
+      onPress={() => {
+        void Haptics.impactAsync();
+        showActionSheetWithOptions(
+          {
+            options: [...items.map((x) => x.label), "Cancel"],
+            cancelButtonIndex: items.length,
+            userInterfaceStyle: colorScheme,
+          },
+          (index) => {
+            if (index === undefined) return;
+            void items[index]?.action(image.fullsize);
+          },
+        );
+      }}
+      style={style}
+    >
+      {children}
+    </TouchableOpacity>
   );
 };
 

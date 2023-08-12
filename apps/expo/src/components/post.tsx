@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
@@ -79,7 +78,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
               </Text>
             </TouchableOpacity>
           </Link>
-          <PostContextMenu post={post} />
+          <PostContextMenu post={post} showSeeLikes showSeeReposts />
         </View>
       </View>
       {/* text content */}

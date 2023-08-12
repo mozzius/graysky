@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
-import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import {
@@ -22,9 +21,15 @@ import { useLists } from "./lists/context";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
+  showSeeLikes?: boolean;
+  showSeeReposts?: boolean;
 }
 
-const PostContextMenuButton = ({ post }: Props) => {
+const PostContextMenuButton = ({
+  post,
+  showSeeLikes,
+  showSeeReposts,
+}: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
   const agent = useAgent();
@@ -37,12 +42,6 @@ const PostContextMenuButton = ({ post }: Props) => {
     if (!AppBskyFeedPost.isRecord(post.record)) return;
     assert(AppBskyFeedPost.validateRecord(post.record));
     router.push(`/translate?text=${encodeURIComponent(post.record.text)}`);
-  };
-
-  const copy = async () => {
-    if (!AppBskyFeedPost.isRecord(post.record)) return;
-    assert(AppBskyFeedPost.validateRecord(post.record));
-    await Clipboard.setStringAsync(post.record.text);
   };
 
   const share = () => {
@@ -122,18 +121,22 @@ const PostContextMenuButton = ({ post }: Props) => {
       action: () => share(),
       icon: "square.and.arrow.up",
     },
-    {
-      key: "likes",
-      label: "See likes",
-      action: () => openLikes(post.uri),
-      icon: "heart",
-    },
-    {
-      key: "reposts",
-      label: "See reposts",
-      action: () => openReposts(post.uri),
-      icon: "arrow.2.squarepath",
-    },
+    showSeeLikes
+      ? {
+          key: "likes",
+          label: "See likes",
+          action: () => openLikes(post.uri),
+          icon: "heart",
+        }
+      : [],
+    showSeeReposts
+      ? {
+          key: "reposts",
+          label: "See reposts",
+          action: () => openReposts(post.uri),
+          icon: "arrow.2.squarepath",
+        }
+      : [],
     post.author.handle === agent.session?.handle
       ? {
           key: "delete",
@@ -199,9 +202,9 @@ const PostContextMenuButton = ({ post }: Props) => {
   return Platform.OS === "ios" ? (
     <ContextMenuButton
       isMenuPrimaryAction={true}
-      accessibilityLabel="Post context menu"
+      accessibilityLabel="Post options"
       accessibilityRole="button"
-      hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
+      hitSlop={{ top: 10, bottom: 20, left: 10, right: 20 }}
       menuConfig={{
         menuTitle: "",
         menuItems: options.map((x) => ({
@@ -225,7 +228,7 @@ const PostContextMenuButton = ({ post }: Props) => {
     </ContextMenuButton>
   ) : (
     <TouchableOpacity
-      accessibilityLabel="More options"
+      accessibilityLabel="Post options"
       accessibilityRole="button"
       hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
       onPress={showAsActionSheet}

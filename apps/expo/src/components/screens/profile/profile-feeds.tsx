@@ -13,7 +13,6 @@ import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { AnimatedFlashList } from "@shopify/flash-list";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 

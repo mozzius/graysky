@@ -10,14 +10,14 @@ interface Props {
   disabled?: boolean;
   onPress?: () => void;
   className?: string;
-  title: String;
+  title: string;
   style?: StyleProp<ViewStyle>;
 }
 
 export const TextButton = ({ disabled, onPress, title, style }: Props) => {
   const theme = useTheme();
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled} hitSlop={8}>
+    <TouchableOpacity onPress={onPress} disabled={disabled} hitSlop={10}>
       <Text
         className="text-lg"
         style={[

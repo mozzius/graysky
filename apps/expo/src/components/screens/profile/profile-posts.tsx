@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { FlashList, Tabs } from "react-native-collapsible-tab-view";
+import { Tabs } from "react-native-collapsible-tab-view";
 import { useQueryClient } from "@tanstack/react-query";
 import { XOctagonIcon } from "lucide-react-native";
 

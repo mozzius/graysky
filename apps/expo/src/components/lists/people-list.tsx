@@ -1,5 +1,17 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import { Dimensions, Text, TouchableOpacity, View } from "react-native";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import {
+  BackHandler,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
@@ -46,6 +58,17 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         bottomSheetRef.current?.present();
       },
     }));
+
+    useEffect(() => {
+      function onBackButton() {
+        bottomSheetRef.current?.dismiss();
+        return true;
+      }
+      BackHandler.addEventListener("hardwareBackPress", onBackButton);
+      return () => {
+        BackHandler.removeEventListener("hardwareBackPress", onBackButton);
+      };
+    }, []);
 
     const {
       backgroundStyle,
