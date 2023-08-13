@@ -1,7 +1,13 @@
 import { Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { AtSignIcon, MailIcon, UserIcon } from "lucide-react-native";
+import {
+  AtSignIcon,
+  LockIcon,
+  MailIcon,
+  UserIcon,
+  UserX,
+} from "lucide-react-native";
 
 import { Avatar } from "../../../components/avatar";
 import { GroupedList } from "../../../components/grouped-list";
@@ -50,7 +56,16 @@ export default function AccountSettings() {
             </View>
           ),
         },
+        !!agent?.session?.email && {
+          options: [
+            {
+              icon: MailIcon,
+              title: agent.session.email,
+            },
+          ],
+        },
         {
+          title: "Profile Settings",
           options: [
             {
               title: "Edit Profile",
@@ -65,12 +80,18 @@ export default function AccountSettings() {
           ],
         },
         {
+          title: "Advanced Settings",
           options: [
             {
-              icon: MailIcon,
-              title:
-                agent?.session?.email ??
-                "Your email is hidden when logged in with an App Password",
+              title: "Change Password",
+              icon: LockIcon,
+              href: "/settings/account/change-password",
+            },
+            {
+              title: "Delete Account",
+              icon: UserX,
+              destructive: true,
+              href: "/settings/account/delete-account",
             },
           ],
         },

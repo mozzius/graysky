@@ -1,7 +1,6 @@
 import { Fragment, useMemo, useState } from "react";
-import { Platform, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +10,7 @@ import { CheckIcon } from "lucide-react-native";
 import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { StatusBar } from "../../../../components/status-bar";
 import { useAgent } from "../../../../lib/agent";
 import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 
@@ -64,7 +64,7 @@ export default function DiscoveryPage() {
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
-        {Platform.OS === "ios" && <StatusBar style="light" />}
+        <StatusBar modal />
         <Stack.Screen options={{ headerSearchBarOptions }} />
         <View
           style={{ backgroundColor: theme.colors.card }}

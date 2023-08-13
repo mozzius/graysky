@@ -1,27 +1,29 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Linking, Platform, Text, TouchableOpacity } from "react-native";
+import { Platform, Text, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import {
   BskyAgent,
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ExternalLinkIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
+import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import * as Sentry from "sentry-expo";
+import { z } from "zod";
 
 import { ListProvider } from "../components/lists/context";
+import { StatusBar } from "../components/status-bar";
 import { AgentProvider } from "../lib/agent";
 // import {
 //   configureRevenueCat,
@@ -138,6 +140,21 @@ const App = ({ session, saveSession }: Props) => {
     setInvalidator((i) => i + 1);
   }, [queryClient, saveSession]);
 
+  const { setColorScheme } = useColorScheme();
+
+  useEffect(() => {
+    void AsyncStorage.getItem("color-scheme").then((value) => {
+      const scheme = z.enum(["light", "dark", "system"]).safeParse(value);
+      if (scheme.success) {
+        setColorScheme(scheme.data);
+      } else {
+        void AsyncStorage.setItem(
+          "color-scheme",
+          "system" satisfies ColorSchemeSystem,
+        );
+      }
+    });
+  }, [setColorScheme]);
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   useEffect(() => {
@@ -150,7 +167,7 @@ const App = ({ session, saveSession }: Props) => {
 
   return (
     <ThemeProvider value={theme}>
-      <StatusBar style={theme.dark ? "light" : "dark"} />
+      <StatusBar />
       <SafeAreaProvider>
         <KeyboardProvider>
           {/* <CustomerInfoProvider info={info.data}> */}
@@ -171,41 +188,10 @@ const App = ({ session, saveSession }: Props) => {
                       }}
                     />
                     <Stack.Screen
-                      name="(auth)/login"
+                      name="(auth)"
                       options={{
-                        title: "Log in",
+                        headerShown: false,
                         presentation: "formSheet",
-                        headerLeft: Platform.select({
-                          ios: () => (
-                            <TouchableOpacity onPress={() => router.push("/")}>
-                              <Text
-                                style={{ color: theme.colors.primary }}
-                                className="text-lg"
-                              >
-                                Cancel
-                              </Text>
-                            </TouchableOpacity>
-                          ),
-                        }),
-                        headerRight: () => (
-                          <TouchableOpacity
-                            className="flex-row items-center gap-1"
-                            onPress={() =>
-                              void Linking.openURL("https://bsky.app")
-                            }
-                          >
-                            <Text
-                              style={{ color: theme.colors.primary }}
-                              className="text-lg"
-                            >
-                              Register
-                            </Text>
-                            <ExternalLinkIcon
-                              size={16}
-                              color={theme.colors.primary}
-                            />
-                          </TouchableOpacity>
-                        ),
                       }}
                     />
                     <Stack.Screen

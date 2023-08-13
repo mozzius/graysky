@@ -2,17 +2,18 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Platform,
+  Linking,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
-import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { AlertTriangleIcon, LockIcon, UserIcon } from "lucide-react-native";
+import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
+import { z } from "zod";
 
 import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
@@ -21,27 +22,27 @@ import { cx } from "../../lib/utils/cx";
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 
 export default function Login() {
+  const agent = useAgent();
+  const router = useRouter();
+
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-
-  const agent = useAgent();
 
   const login = useMutation({
     mutationKey: ["login"],
     mutationFn: async () => {
-      const res = await agent.login({
+      await agent.login({
         identifier: identifier.startsWith("@")
           ? identifier.slice(1)
           : identifier,
         password,
       });
-      if (!res.success) {
-        Alert.alert(
-          "Could not log you in",
-          "Please check your details and try again",
-        );
-      }
     },
+    onError: (err) =>
+      Alert.alert(
+        "Could not log you in",
+        err instanceof Error ? err.message : "Unknown error",
+      ),
   });
 
   const theme = useTheme();
@@ -50,13 +51,6 @@ export default function Login() {
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
     >
-      <StatusBar
-        style={Platform.select({
-          ios: "light",
-          default: theme.dark ? "light" : "dark",
-        })}
-        backgroundColor={theme.colors.card}
-      />
       <View className="items-stretch gap-4">
         <View
           className={cx(
@@ -76,7 +70,7 @@ export default function Login() {
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
-            placeholderTextColor={theme.dark ? "rgb(163, 163, 163)" : undefined}
+            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
@@ -100,35 +94,56 @@ export default function Login() {
           <LockIcon size={18} color="rgb(163 163 163)" />
           <TextInput
             style={{ color: theme.colors.text }}
-            className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
+            className="mx-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholderTextColor={theme.dark ? "rgb(163,163,163)" : undefined}
+            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+          />
+          <TextButton
+            onPress={() => {
+              if (z.string().email().safeParse(identifier).success) {
+                router.push("/reset-password?email=" + identifier);
+              } else {
+                router.push("/reset-password");
+              }
+            }}
+            title="Forgot?"
+            className="pr-3 text-sm"
           />
         </View>
         {password && !appPwdRegex.test(password) && (
           <Animated.View
             entering={FadeIn}
             exiting={FadeOut}
-            className="flex-row rounded border-yellow-500 bg-yellow-50 p-3 dark:bg-yellow-950"
+            className="flex-row rounded border-yellow-500 bg-yellow-50 p-3 pb-4 dark:bg-yellow-950"
             style={{
               borderWidth: StyleSheet.hairlineWidth,
             }}
           >
-            <AlertTriangleIcon
+            <ShieldAlertIcon
               size={18}
               className="mt-0.5 text-yellow-800 dark:text-white"
             />
             <View className="ml-3 flex-1">
               <Text className="text-base font-medium leading-5 text-yellow-800 dark:text-white">
-                Warning: Not an App Password
+                Note: Not an App Password
               </Text>
-              <Text className="my-1" style={{ color: theme.colors.text }}>
-                You may want to consider using an App Password rather than your
-                main password. You can create one by going to Settings {">"} App
-                Passwords in the official app.
+              <Text className="mt-1" style={{ color: theme.colors.text }}>
+                Consider using an App Password rather than your main password.
+                This helps keep your account secure.
+              </Text>
+              <Text
+                className="mt-2"
+                style={{ color: theme.colors.primary }}
+                onPress={() =>
+                  void Linking.openURL(
+                    "https://bsky.app/settings/app-passwords",
+                  )
+                }
+              >
+                Create one at bsky.app/settings
               </Text>
             </View>
           </Animated.View>
@@ -137,15 +152,7 @@ export default function Login() {
           className="flex-row items-center justify-between pt-1"
           layout={Layout}
         >
-          <TextButton
-            onPress={() =>
-              Alert.alert(
-                "Help",
-                "Log in using your Bluesky account details. If you don't already have an account, you'll need to create one at https://bsky.app - you'll need an invite code.",
-              )
-            }
-            title="Help"
-          />
+          <TextButton onPress={() => router.push("/sign-up")} title="Sign up" />
           {!login.isLoading ? (
             <TextButton
               disabled={!identifier || !password}

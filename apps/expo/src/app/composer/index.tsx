@@ -217,8 +217,12 @@ export default function ComposerScreen() {
                 multiline
                 className="relative -top-[3px] w-full text-lg leading-6"
                 style={{ color: theme.colors.text }}
-                placeholder="What's on your mind?"
-                placeholderTextColor={theme.dark ? "#555" : "#aaa"}
+                placeholder={
+                  reply.thread.data
+                    ? `Replying to @${reply.thread.data.post.author.handle}`
+                    : `What's on your mind?}`
+                }
+                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                 verticalAlign="middle"
                 textAlignVertical="center"
                 autoFocus

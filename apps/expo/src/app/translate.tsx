@@ -1,9 +1,7 @@
-import { Platform } from "react-native";
 import WebView from "react-native-webview";
 import { useLocalSearchParams } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { StyledComponent } from "nativewind";
 
+import { StatusBar } from "../components/status-bar";
 import { locale } from "../lib/locale";
 
 export default function Translate() {
@@ -11,9 +9,8 @@ export default function Translate() {
 
   return (
     <>
-      {Platform.OS === "ios" && <StatusBar style="light" />}
-      <StyledComponent
-        component={WebView}
+      <StatusBar modal />
+      <WebView
         className="flex-1"
         source={{
           uri: `https://translate.google.com/?sl=auto&tl=${locale.languageCode}&text=${text}&op=translate`,

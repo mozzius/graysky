@@ -31,7 +31,10 @@ export default function LandingPage() {
           </View>
           <View className="relative">
             <Animated.View entering={FadeIn.delay(1000)}>
-              <LinkButton href="/login" variant="white">
+              <LinkButton href="/sign-up" variant="white">
+                Create an account
+              </LinkButton>
+              <LinkButton href="/login" variant="black" className="mt-4">
                 Log in
               </LinkButton>
             </Animated.View>

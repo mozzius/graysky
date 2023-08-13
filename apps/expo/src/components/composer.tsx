@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import { type AppBskyFeedDefs, type AppBskyFeedPost } from "@atproto/api";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const useComposer = () => {

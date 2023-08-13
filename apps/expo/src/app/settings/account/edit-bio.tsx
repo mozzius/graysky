@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -59,9 +54,9 @@ export default function EditBio() {
 
   if (self.data) {
     return (
-      <ScrollView className="flex-1 px-4">
+      <KeyboardAwareScrollView className="flex-1 px-4">
         <View className="my-4 flex-1">
-          <Text className="mx-4 mb-1 mt-4 text-sm uppercase text-neutral-500">
+          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
             Display name
           </Text>
           <View
@@ -74,11 +69,12 @@ export default function EditBio() {
               onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
               style={{ color: theme.colors.text }}
+              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             />
           </View>
         </View>
         <View className="mb-4 flex-1">
-          <Text className="mx-4 mb-1 mt-4 text-sm uppercase text-neutral-500">
+          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
             Description
           </Text>
           <View
@@ -90,6 +86,7 @@ export default function EditBio() {
               placeholder="Optional"
               multiline
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             >
               <RichText
                 size="base"
@@ -113,7 +110,7 @@ export default function EditBio() {
             <ActivityIndicator className="px-2" />
           )}
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 

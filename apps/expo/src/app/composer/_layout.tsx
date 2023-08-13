@@ -1,11 +1,11 @@
-import { Platform } from "react-native";
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+
+import { StatusBar } from "../../components/status-bar";
 
 export default function ComposerLayout() {
   return (
     <>
-      {Platform.OS === "ios" && <StatusBar style="light" />}
+      <StatusBar modal />
       <Stack screenOptions={{ customAnimationOnGesture: true }}>
         <Stack.Screen name="index" options={{ title: "New Post" }} />
         <Stack.Screen name="drafts" options={{ title: "Drafts" }} />

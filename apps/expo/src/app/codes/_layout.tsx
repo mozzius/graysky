@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Platform, Text, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
+import { StatusBar } from "../../components/status-bar";
 import { useAgent } from "../../lib/agent";
 import { useRefreshOnFocus } from "../../lib/utils/query";
 
@@ -27,24 +27,25 @@ export default function SettingsLayout() {
 
   return (
     <>
-      {Platform.OS === "ios" && <StatusBar style="light" />}
+      <StatusBar modal />
       <Stack
         screenOptions={{
           fullScreenGestureEnabled: true,
-          headerRight: canGoBack || Platform.OS === "android"
-            ? undefined
-            : () => (
-                <Animated.View entering={FadeIn}>
-                  <TouchableOpacity onPress={() => router.push("../")}>
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="text-lg font-medium"
-                    >
-                      Done
-                    </Text>
-                  </TouchableOpacity>
-                </Animated.View>
-              ),
+          headerRight:
+            canGoBack || Platform.OS === "android"
+              ? undefined
+              : () => (
+                  <Animated.View entering={FadeIn}>
+                    <TouchableOpacity onPress={() => router.push("../")}>
+                      <Text
+                        style={{ color: theme.colors.primary }}
+                        className="text-lg font-medium"
+                      >
+                        Done
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
+                ),
         }}
       >
         <Stack.Screen

@@ -6,7 +6,7 @@ import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "../../components/status-bar";
 
-export default function SettingsLayout() {
+export default function AuthLayout() {
   const theme = useTheme();
   const router = useRouter();
   const [canGoBack, setCanGoBack] = useState(false);
@@ -17,7 +17,7 @@ export default function SettingsLayout() {
     // we want to do navigation.getState().routes.length > 1
     // however this is the layout so we need to go find the child route
     setCanGoBack(
-      (navigation.getState().routes.find((x) => x.name === "settings")?.state
+      (navigation.getState().routes.find((x) => x.name === "(auth)")?.state
         ?.routes.length ?? 1) > 1,
     );
   }, [pathname, navigation]);
@@ -26,9 +26,10 @@ export default function SettingsLayout() {
     <>
       <StatusBar modal />
       <Stack
+        initialRouteName="login"
         screenOptions={{
           fullScreenGestureEnabled: true,
-          headerRight:
+          headerLeft:
             canGoBack || Platform.OS === "android"
               ? undefined
               : () => (
@@ -36,9 +37,9 @@ export default function SettingsLayout() {
                     <TouchableOpacity onPress={() => router.push("../")}>
                       <Text
                         style={{ color: theme.colors.primary }}
-                        className="text-lg font-medium"
+                        className="text-lg"
                       >
-                        Done
+                        Cancel
                       </Text>
                     </TouchableOpacity>
                   </Animated.View>
@@ -46,70 +47,27 @@ export default function SettingsLayout() {
         }}
       >
         <Stack.Screen
-          name="index"
+          name="login"
           options={{
-            title: "Settings",
-            headerLargeTitle: true,
+            title: "Login",
           }}
         />
         <Stack.Screen
-          name="account/index"
+          name="sign-up"
           options={{
-            title: "Account Settings",
+            title: "Sign up",
           }}
         />
         <Stack.Screen
-          name="account/edit-bio"
+          name="reset-password"
           options={{
-            title: "Edit Profile",
+            title: "Reset Password",
           }}
         />
         <Stack.Screen
-          name="account/change-handle"
+          name="waitlist"
           options={{
-            title: "Change Handle",
-          }}
-        />
-        <Stack.Screen
-          name="account/change-password"
-          options={{
-            title: "Change Password",
-          }}
-        />
-        <Stack.Screen
-          name="account/delete-account"
-          options={{
-            title: "Delete Account",
-          }}
-        />
-        <Stack.Screen
-          name="moderation"
-          options={{
-            title: "Moderation",
-          }}
-        />
-        <Stack.Screen
-          name="blocks"
-          options={{
-            title: "Blocked Users",
-          }}
-        />
-        <Stack.Screen
-          name="mutes"
-          options={{
-            title: "Muted Users",
-          }}
-        />
-        <Stack.Screen
-          name="app"
-          options={{
-            title: "App Settings",
-          }}
-        />
-        <Stack.Screen
-          name="about"
-          options={{
-            title: "About",
+            title: "Join the Waitlist",
           }}
         />
       </Stack>

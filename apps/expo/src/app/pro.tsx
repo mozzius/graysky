@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Platform,
   ScrollView,
   Switch,
   Text,
@@ -12,7 +11,6 @@ import Purchases from "react-native-purchases";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
-import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -23,6 +21,7 @@ import {
   VoteIcon,
 } from "lucide-react-native";
 
+import { StatusBar } from "../components/status-bar";
 import { useOfferings } from "../lib/hooks/purchases";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -40,10 +39,10 @@ export default function Pro() {
       if (!offerings.data) return;
       if (annual) {
         if (!offerings.data.current?.annual) throw Error("No annual package");
-        Purchases.purchasePackage(offerings.data.current.annual);
+        await Purchases.purchasePackage(offerings.data.current.annual);
       } else {
         if (!offerings.data.current?.monthly) throw Error("No monthly package");
-        Purchases.purchasePackage(offerings.data.current.monthly);
+        await Purchases.purchasePackage(offerings.data.current.monthly);
       }
     },
   });
@@ -83,7 +82,7 @@ export default function Pro() {
 
   return (
     <View className="flex-1 bg-[#3B4245]">
-      {Platform.OS === "ios" && <StatusBar style="light" />}
+      <StatusBar modal />
       <ImageBackground className="flex-1" source={background} blurRadius={4}>
         <SafeAreaView className="flex-1 items-stretch justify-between bg-black/40 p-4">
           <ScrollView>

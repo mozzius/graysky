@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -13,18 +11,15 @@ import {
   SearchIcon,
   UserIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
-import { z } from "zod";
 
 import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
+import { StatusBar } from "../../components/status-bar";
 import { useOptionalAgent } from "../../lib/agent";
 
 export default function AppLayout() {
   // agent might not be available yet
   const agent = useOptionalAgent();
   const [open, setOpen] = useState(false);
-  const { setColorScheme } = useColorScheme();
 
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
@@ -38,20 +33,6 @@ export default function AppLayout() {
 
   const renderDrawerContent = useCallback(() => <DrawerContent />, []);
 
-  useEffect(() => {
-    void AsyncStorage.getItem("color-scheme").then((value) => {
-      const scheme = z.enum(["light", "dark", "system"]).safeParse(value);
-      if (scheme.success) {
-        setColorScheme(scheme.data);
-      } else {
-        void AsyncStorage.setItem(
-          "color-scheme",
-          "system" satisfies ColorSchemeSystem,
-        );
-      }
-    });
-  }, [setColorScheme]);
-
   const openDrawer = useCallback((open = true) => setOpen(open), []);
 
   const onOpen = useCallback(() => setOpen(true), []);
@@ -63,10 +44,7 @@ export default function AppLayout() {
 
   return (
     <DrawerProvider value={openDrawer}>
-      <StatusBar
-        style={theme.dark ? "light" : "dark"}
-        backgroundColor={theme.colors.card}
-      />
+      <StatusBar />
       <Stack.Screen
         options={{
           headerShown: false,

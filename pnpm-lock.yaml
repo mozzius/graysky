@@ -205,6 +205,9 @@ importers:
       react-native-collapsible-tab-view:
         specifier: ^6.2.1
         version: 6.2.1(@shopify/flash-list@1.4.3)(react-native-pager-view@6.2.0)(react-native-reanimated@3.3.0)(react-native@0.72.3)(react@18.2.0)
+      react-native-date-picker:
+        specifier: ^4.2.14
+        version: 4.2.14(react-native@0.72.3)(react@18.2.0)
       react-native-draggable-flatlist:
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.22.10)(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.3)
@@ -217,6 +220,9 @@ importers:
       react-native-ios-context-menu:
         specifier: ^1.15.3
         version: 1.15.3(react-native@0.72.3)(react@18.2.0)
+      react-native-keyboard-aware-scroll-view:
+        specifier: ^0.9.5
+        version: 0.9.5(react-native@0.72.3)
       react-native-keyboard-controller:
         specifier: ^1.5.8
         version: 1.5.8(react-native-reanimated@3.3.0)(react-native@0.72.3)(react@18.2.0)
@@ -9871,6 +9877,17 @@ packages:
       use-deep-compare: 1.1.0(react@18.2.0)
     dev: false
 
+  /react-native-date-picker@4.2.14(react-native@0.72.3)(react@18.2.0):
+    resolution: {integrity: sha512-rP0ycj3I+8x4pIUGjeh7pL+cMPntKccLGX/OXx790bsIM0Hcyg0ZL86kGnnZu9fEUhXlgdr3OK/jhQue5L6kSQ==}
+    peerDependencies:
+      react: '>= 17.0.1'
+      react-native: '>= 0.64.3'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.72.3(@babel/core@7.22.10)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
   /react-native-draggable-flatlist@4.0.1(@babel/core@7.22.10)(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.3):
     resolution: {integrity: sha512-ZO1QUTNx64KZfXGXeXcBfql67l38X7kBcJ3rxUVZzPHt5r035GnGzIC0F8rqSXp6zgnwgUYMfB6zQc5PKmPL9Q==}
     peerDependencies:
@@ -9925,6 +9942,24 @@ packages:
       '@dominicstop/ts-event-emitter': 1.1.0
       react: 18.2.0
       react-native: 0.72.3(@babel/core@7.22.10)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
+  /react-native-iphone-x-helper@1.3.1(react-native@0.72.3):
+    resolution: {integrity: sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==}
+    peerDependencies:
+      react-native: '>=0.42.0'
+    dependencies:
+      react-native: 0.72.3(@babel/core@7.22.10)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
+  /react-native-keyboard-aware-scroll-view@0.9.5(react-native@0.72.3):
+    resolution: {integrity: sha512-XwfRn+T/qBH9WjTWIBiJD2hPWg0yJvtaEw6RtPCa5/PYHabzBaWxYBOl0usXN/368BL1XktnZPh8C2lmTpOREA==}
+    peerDependencies:
+      react-native: '>=0.48.4'
+    dependencies:
+      prop-types: 15.8.1
+      react-native: 0.72.3(@babel/core@7.22.10)(@babel/preset-env@7.22.10)(react@18.2.0)
+      react-native-iphone-x-helper: 1.3.1(react-native@0.72.3)
     dev: false
 
   /react-native-keyboard-controller@1.5.8(react-native-reanimated@3.3.0)(react-native@0.72.3)(react@18.2.0):
