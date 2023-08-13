@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  ScrollView,
   Text,
   TextInput,
   TouchableHighlight,
@@ -126,8 +127,19 @@ export default function SignUp() {
   switch (stage) {
     case 1:
       return (
-        <KeyboardAwareScrollView className="flex-1 px-4">
-          <Stack.Screen options={{ headerTitle: "Sign up (1/3)" }} />
+        <ScrollView className="flex-1 px-4">
+          <Stack.Screen
+            options={{
+              headerRight: () => (
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base"
+                >
+                  1 of 3
+                </Text>
+              ),
+            }}
+          />
           <View className="mt-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
               Invite code
@@ -145,6 +157,7 @@ export default function SignUp() {
                 className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                 style={{ color: theme.colors.text }}
                 placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                autoFocus
               />
             </View>
           </View>
@@ -165,12 +178,23 @@ export default function SignUp() {
               className="font-medium"
             />
           </View>
-        </KeyboardAwareScrollView>
+        </ScrollView>
       );
     case 2:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
-          <Stack.Screen options={{ headerTitle: "Sign up (2/3)" }} />
+          <Stack.Screen
+            options={{
+              headerRight: () => (
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base"
+                >
+                  2 of 3
+                </Text>
+              ),
+            }}
+          />
           <View className="my-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
               Email
@@ -273,7 +297,18 @@ export default function SignUp() {
     case 3:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
-          <Stack.Screen options={{ headerTitle: "Sign up (3/3)" }} />
+          <Stack.Screen
+            options={{
+              headerRight: () => (
+                <Text
+                  style={{ color: theme.colors.text }}
+                  className="text-base"
+                >
+                  3 of 3
+                </Text>
+              ),
+            }}
+          />
           <View className="my-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
               Choose a handle

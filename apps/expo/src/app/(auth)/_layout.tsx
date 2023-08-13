@@ -26,7 +26,6 @@ export default function AuthLayout() {
     <>
       <StatusBar modal />
       <Stack
-        initialRouteName="login"
         screenOptions={{
           fullScreenGestureEnabled: true,
           headerLeft:
