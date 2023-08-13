@@ -113,7 +113,7 @@ const PostContextMenuButton = ({
       key: "translate",
       label: "Translate",
       action: () => translate(),
-      icon: "character.bubble",
+      icon: "character.book.closed",
     },
     {
       key: "share",
