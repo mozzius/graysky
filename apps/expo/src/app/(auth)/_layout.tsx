@@ -45,6 +45,7 @@ export default function AuthLayout() {
                 ),
         }}
       >
+        <Stack.Screen name="null" />
         <Stack.Screen
           name="login"
           options={{
