@@ -149,6 +149,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 await agent.createModerationReport({
                   reasonType: reason,
                   subject: {
+                    $type: "com.atproto.admin.defs#repoRef",
                     did: profile.did,
                   },
                 });

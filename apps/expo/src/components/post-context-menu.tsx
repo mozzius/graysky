@@ -96,6 +96,7 @@ const PostContextMenuButton = ({
         await agent.createModerationReport({
           reasonType: reason,
           subject: {
+            $type: "com.atproto.repo.strongRef",
             uri: post.uri,
             cid: post.cid,
           },
