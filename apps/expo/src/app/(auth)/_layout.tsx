@@ -45,19 +45,6 @@ export default function AuthLayout() {
                 ),
         }}
       >
-        <Stack.Screen name="null" />
-        <Stack.Screen
-          name="login"
-          options={{
-            title: "Login",
-          }}
-        />
-        <Stack.Screen
-          name="sign-up"
-          options={{
-            title: "Sign up",
-          }}
-        />
         <Stack.Screen
           name="reset-password"
           options={{
@@ -68,6 +55,18 @@ export default function AuthLayout() {
           name="waitlist"
           options={{
             title: "Join the Waitlist",
+          }}
+        />
+        <Stack.Screen
+          name="sign-up"
+          options={{
+            title: "Sign up",
+          }}
+        />
+        <Stack.Screen
+          name="login"
+          options={{
+            title: "Login",
           }}
         />
       </Stack>
