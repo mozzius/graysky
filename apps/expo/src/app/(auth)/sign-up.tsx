@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
-  Text,
   TextInput,
   TouchableHighlight,
   View,
@@ -17,6 +16,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
+import { Text } from "../../components/text";
 import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
 import { locale } from "../../lib/locale";
@@ -130,14 +130,7 @@ export default function SignUp() {
         <ScrollView className="flex-1 px-4">
           <Stack.Screen
             options={{
-              headerRight: () => (
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base"
-                >
-                  1 of 3
-                </Text>
-              ),
+              headerRight: () => <Text className="text-base">1 of 3</Text>,
             }}
           />
           <View className="mt-4 flex-1">
@@ -163,10 +156,7 @@ export default function SignUp() {
           </View>
           <Text className="mx-4 mt-3 text-sm text-neutral-500">
             Don{"'"}t have one?{" "}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() => router.push("/waitlist")}
-            >
+            <Text onPress={() => router.push("/waitlist")}>
               Join the waitlist.
             </Text>
           </Text>
@@ -185,14 +175,7 @@ export default function SignUp() {
         <KeyboardAwareScrollView className="flex-1 px-4">
           <Stack.Screen
             options={{
-              headerRight: () => (
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base"
-                >
-                  2 of 3
-                </Text>
-              ),
+              headerRight: () => <Text className="text-base">2 of 3</Text>,
             }}
           />
           <View className="my-4 flex-1">
@@ -299,14 +282,7 @@ export default function SignUp() {
         <KeyboardAwareScrollView className="flex-1 px-4">
           <Stack.Screen
             options={{
-              headerRight: () => (
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base"
-                >
-                  3 of 3
-                </Text>
-              ),
+              headerRight: () => <Text className="text-base">3 of 3</Text>,
             }}
           />
           <View className="my-4 flex-1">

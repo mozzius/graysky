@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -13,6 +13,7 @@ import { locale } from "../lib/locale";
 import { api } from "../lib/utils/api";
 import { cx } from "../lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
+import { Text } from "./text";
 
 interface Props {
   text: string;
@@ -48,12 +49,7 @@ export const Translation = ({ text, uri }: Props) => {
               size={18}
               color={theme.colors.primary}
             />
-            <Text
-              style={{ color: theme.colors.primary }}
-              className="text-base font-medium"
-            >
-              Translate post
-            </Text>
+            <Text className="text-base font-medium">Translate post</Text>
           </View>
         </TouchableOpacity>
       );
@@ -66,7 +62,7 @@ export const Translation = ({ text, uri }: Props) => {
     case "success":
       return (
         <View className="mt-1.5 flex-1 rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 dark:border-blue-700 dark:bg-blue-950">
-          <Text style={{ color: theme.colors.text }} className="text-base">
+          <Text className="text-base">
             <RichTextWithoutFacets text={translate.data.text} />
           </Text>
           <View className="mt-1 flex-row items-center justify-between">

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RefreshControl, Text, View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -9,6 +9,7 @@ import { FlashList } from "@shopify/flash-list";
 import { FeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { Text } from "../../../../components/text";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 import { api } from "../../../../lib/utils/api";

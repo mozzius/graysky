@@ -4,7 +4,6 @@ import {
   Alert,
   Keyboard,
   Platform,
-  Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -44,6 +43,7 @@ import { Avatar } from "../../components/avatar";
 import { Embed } from "../../components/embed";
 import { FeedPost } from "../../components/feed-post";
 import { RichText } from "../../components/rich-text";
+import { Text } from "../../components/text";
 import { useAgent } from "../../lib/agent";
 import {
   MAX_IMAGES,
@@ -395,12 +395,7 @@ export default function ComposerScreen() {
                     >
                       <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
                         <PlusIcon color={theme.colors.text} />
-                        <Text
-                          style={{ color: theme.colors.text }}
-                          className="mt-2 text-center"
-                        >
-                          Add image
-                        </Text>
+                        <Text className="mt-2 text-center">Add image</Text>
                       </View>
                     </TouchableOpacity>
                   </Animated.View>
@@ -556,7 +551,6 @@ const SuggestionList = ({
   suggestions: AppBskyActorDefs.ProfileViewBasic[];
   onInsertHandle: (handle: string) => void;
 }) => {
-  const theme = useTheme();
   return (
     <Animated.View
       entering={FadeInDown}
@@ -590,11 +584,7 @@ const SuggestionList = ({
               />
               <View>
                 {actor.displayName ? (
-                  <Text
-                    className="text-base font-medium"
-                    style={{ color: theme.colors.text }}
-                    numberOfLines={1}
-                  >
+                  <Text className="text-base font-medium" numberOfLines={1}>
                     {actor.displayName}
                   </Text>
                 ) : (

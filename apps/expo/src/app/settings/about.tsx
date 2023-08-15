@@ -1,8 +1,7 @@
-import { Linking, Text, TouchableOpacity, View } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
-import { useTheme } from "@react-navigation/native";
 import {
   AtSignIcon,
   GithubIcon,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";
+import { Text } from "../../components/text";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../assets/graysky.png") as ImageSource;
@@ -93,8 +93,6 @@ const groups = [
 ];
 
 export default function AboutPage() {
-  const theme = useTheme();
-
   return (
     <GroupedList groups={groups}>
       <View className="mb-4 flex-row items-center justify-center py-4">
@@ -104,12 +102,7 @@ export default function AboutPage() {
           className="h-20 w-20 rounded-xl"
         />
         <View className="ml-6">
-          <Text
-            style={{ color: theme.colors.text }}
-            className="text-lg font-medium"
-          >
-            Graysky
-          </Text>
+          <Text className="text-lg font-medium">Graysky</Text>
           <Link href="/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep" asChild>
             <TouchableOpacity>
               <Text className="text-base text-neutral-600 dark:text-neutral-400">

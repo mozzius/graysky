@@ -1,9 +1,11 @@
-import { Text, TouchableHighlight, View } from "react-native";
+import { TouchableHighlight, View } from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
+
+import { Text } from "../text";
 
 interface Props {
   person: AppBskyActorDefs.ProfileView;
@@ -46,12 +48,7 @@ export const PersonRow = ({
         </View>
         <View className="flex-1">
           {person.displayName && (
-            <Text
-              style={{ color: theme.colors.text }}
-              className="text-base leading-5"
-            >
-              {person.displayName}
-            </Text>
+            <Text className="text-base leading-5">{person.displayName}</Text>
           )}
           <Text className="text-sm text-neutral-500 dark:text-neutral-400">
             @{person.handle}

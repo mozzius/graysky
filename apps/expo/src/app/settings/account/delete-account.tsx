@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Alert,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
@@ -15,6 +14,7 @@ import { AlertTriangleIcon, CheckCircle2Icon } from "lucide-react-native";
 
 import { useSelf } from ".";
 import { Avatar } from "../../../components/avatar";
+import { Text } from "../../../components/text";
 import { TextButton } from "../../../components/text-button";
 import { useAgent } from "../../../lib/agent";
 import { useLogOut } from "../../../lib/log-out-context";
@@ -82,7 +82,7 @@ export default function DeleteAccount() {
                 <Text className="text-base font-medium leading-5 text-red-800 dark:text-white">
                   Warning: Account deletion is permanent
                 </Text>
-                <Text className="mt-1" style={{ color: theme.colors.text }}>
+                <Text className="mt-1">
                   Deleting your Bluesky account will permanently remove all of
                   your data, including your profile, posts, follows, and likes.
                   This action cannot be undone.
@@ -131,13 +131,10 @@ export default function DeleteAccount() {
             >
               <Avatar size="large" />
               <View className="ml-4">
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base font-medium"
-                >
+                <Text className="text-base font-medium">
                   {self.data?.displayName}
                 </Text>
-                <Text style={{ color: theme.colors.text }} className="text-sm">
+                <Text className="text-sm">
                   @{self.data?.handle ?? agent?.session?.handle}
                 </Text>
               </View>
@@ -206,10 +203,7 @@ export default function DeleteAccount() {
           className="flex-1 items-center justify-center"
         >
           <CheckCircle2Icon size={64} color={theme.colors.primary} />
-          <Text
-            className="mt-8 text-center text-lg font-medium"
-            style={{ color: theme.colors.text }}
-          >
+          <Text className="mt-8 text-center text-lg font-medium">
             Account deleted. Goodbye!
           </Text>
         </Animated.View>

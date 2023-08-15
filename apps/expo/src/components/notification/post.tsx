@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import {
   AppBskyEmbedImages,
   AppBskyFeedPost,
@@ -10,6 +10,7 @@ import { assert } from "../../lib/utils/assert";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
+import { Text } from "../text";
 import { NotificationItem } from "./item";
 
 interface Props {

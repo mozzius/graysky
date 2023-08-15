@@ -4,7 +4,6 @@ import {
   Button,
   Platform,
   Share,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -40,6 +39,7 @@ import { useAgent } from "../../../lib/agent";
 import { cx } from "../../../lib/utils/cx";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
+import { Text } from "../../text";
 import { useDefaultHeaderHeight } from "./hooks";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
@@ -437,19 +437,12 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             )}
           </View>
           <View pointerEvents="none" className="mt-1">
-            <Text
-              style={{ color: theme.colors.text }}
-              className="text-2xl font-medium"
-            >
-              {profile.displayName}
-            </Text>
+            <Text className="text-2xl font-medium">{profile.displayName}</Text>
             <Text>
               {profile.viewer?.followedBy && (
                 <>
                   <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
-                    <Text style={{ color: theme.colors.text }}>
-                      {" Follows you "}
-                    </Text>
+                    <Text>{" Follows you "}</Text>
                   </Text>{" "}
                 </>
               )}
@@ -460,19 +453,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           </View>
           <View className="mt-3 flex-row" pointerEvents="box-none">
             <TouchableOpacity onPress={() => openFollowers(profile.did)}>
-              <Text style={{ color: theme.colors.text }}>
+              <Text>
                 <Text className="font-bold">{profile.followersCount}</Text>{" "}
                 Followers
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => openFollows(profile.did)}>
-              <Text style={{ color: theme.colors.text }} className="ml-4">
+              <Text className="ml-4">
                 <Text className="font-bold">{profile.followsCount}</Text>{" "}
                 Following
               </Text>
             </TouchableOpacity>
             <View pointerEvents="none">
-              <Text style={{ color: theme.colors.text }} className="ml-4">
+              <Text className="ml-4">
                 <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
                 Posts
               </Text>
@@ -485,10 +478,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-              <Text
-                style={{ color: theme.colors.text }}
-                className="font-semibold"
-              >
+              <Text className="font-semibold">
                 {profile.viewer.mutedByList
                   ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
                   : "You have muted this user"}

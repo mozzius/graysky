@@ -4,7 +4,6 @@ import {
   Platform,
   ScrollView,
   Share as Sharing,
-  Text,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -34,6 +33,7 @@ import {
   RichTextWithoutFacets,
 } from "../../../../../../components/rich-text";
 import { FeedScreen } from "../../../../../../components/screens/feed-screen";
+import { Text } from "../../../../../../components/text";
 import { useAgent } from "../../../../../../lib/agent";
 import {
   useFeedInfo,
@@ -173,10 +173,7 @@ const FeedInfo = ({
               alt={info.view.displayName}
             />
             <View className="px-4">
-              <Text
-                style={{ color: theme.colors.text }}
-                className="text-xl font-medium"
-              >
+              <Text className="text-xl font-medium">
                 {info.view.displayName}
               </Text>
               <Link asChild href={`/profile/${info.view.creator.handle}`}>
@@ -189,10 +186,7 @@ const FeedInfo = ({
             </View>
           </View>
           {info.view.description && (
-            <Text
-              style={{ color: theme.colors.text }}
-              className="mt-4 w-full text-base"
-            >
+            <Text className="mt-4 w-full text-base">
               {info.view.descriptionFacets ? (
                 <RichText
                   text={info.view.description}
@@ -227,31 +221,13 @@ const FeedInfo = ({
               >
                 {isSaved ? (
                   <>
-                    <CheckIcon
-                      style={{ color: theme.colors.text }}
-                      className="h-6 w-6"
-                      size={16}
-                    />
-                    <Text
-                      style={{ color: theme.colors.text }}
-                      className="ml-2 text-base"
-                    >
-                      Saved
-                    </Text>
+                    <CheckIcon className="h-6 w-6" size={16} />
+                    <Text className="ml-2 text-base">Saved</Text>
                   </>
                 ) : (
                   <>
-                    <PlusIcon
-                      style={{ color: theme.colors.text }}
-                      className="h-6 w-6"
-                      size={16}
-                    />
-                    <Text
-                      style={{ color: theme.colors.text }}
-                      className="ml-2 text-base"
-                    >
-                      Save
-                    </Text>
+                    <PlusIcon className="h-6 w-6" size={16} />
+                    <Text className="ml-2 text-base">Save</Text>
                   </>
                 )}
               </View>
@@ -310,10 +286,7 @@ const FeedInfo = ({
                   color={"#dc2626"}
                   fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
                 />
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="ml-2 text-base tabular-nums"
-                >
+                <Text className="ml-2 text-base tabular-nums">
                   {info.view.likeCount}
                 </Text>
               </View>
@@ -337,11 +310,7 @@ const FeedInfo = ({
                     alt={info.view.creator.displayName}
                   />
                   <View className="flex-1 justify-center px-3">
-                    <Text
-                      style={{ color: theme.colors.text }}
-                      className="text-base"
-                      numberOfLines={2}
-                    >
+                    <Text className="text-base" numberOfLines={2}>
                       {info.view.creator.displayName}
                     </Text>
                     <Text
@@ -399,12 +368,7 @@ const FeedInfo = ({
                         className="flex-row items-center px-4 py-3"
                       >
                         <View className="ml-6 flex-1 flex-row items-center px-3">
-                          <Text
-                            style={{ color: theme.colors.text }}
-                            className="text-base"
-                          >
-                            View all feeds
-                          </Text>
+                          <Text className="text-base">View all feeds</Text>
                         </View>
                         <ChevronRightIcon
                           size={20}
@@ -451,12 +415,7 @@ const FeedInfo = ({
                     className="mx-1"
                   />
                   <View className="mx-3 flex-1 flex-row items-center">
-                    <Text
-                      style={{ color: theme.colors.text }}
-                      className="text-base"
-                    >
-                      Share this feed
-                    </Text>
+                    <Text className="text-base">Share this feed</Text>
                   </View>
                 </View>
               </TouchableHighlight>

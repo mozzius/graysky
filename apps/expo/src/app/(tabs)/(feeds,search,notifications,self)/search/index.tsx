@@ -1,7 +1,6 @@
 import { Fragment, useMemo, useRef, useState } from "react";
 import {
   StyleSheet,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -25,6 +24,7 @@ import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
 import { RichTextWithoutFacets } from "../../../../components/rich-text";
+import { Text } from "../../../../components/text";
 import { useAgent } from "../../../../lib/agent";
 import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
 import { useTabPress } from "../../../../lib/hooks/tab-press-scroll";
@@ -166,8 +166,6 @@ const Suggestions = () => {
 
   useRefreshOnFocus(suggestions.refetch);
 
-  const theme = useTheme();
-
   if (suggestions.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
@@ -175,12 +173,7 @@ const Suggestions = () => {
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
-          <Text
-            style={{ color: theme.colors.text }}
-            className="mt-4 px-4 text-lg font-bold"
-          >
-            In your network
-          </Text>
+          <Text className="mt-4 px-4 text-lg font-bold">In your network</Text>
         }
         onEndReached={() => void suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
@@ -237,10 +230,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             />
             <View className="flex-1 justify-center">
               {item.displayName && (
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base font-semibold"
-                >
+                <Text className="text-base font-semibold">
                   {item.displayName}
                 </Text>
               )}

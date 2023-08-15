@@ -5,13 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  BackHandler,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { BackHandler, Dimensions, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
@@ -26,6 +20,7 @@ import { useBottomSheetStyles } from "../../lib/bottom-sheet";
 import { cx } from "../../lib/utils/cx";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
+import { Text } from "../text";
 import { PersonRow } from "./person-row";
 
 type PeopleListResponse = {
@@ -96,12 +91,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         backgroundStyle={backgroundStyle}
         detached
       >
-        <Text
-          style={{ color: theme.colors.text }}
-          className="mt-2 text-center text-xl font-medium"
-        >
-          {title}
-        </Text>
+        <Text className="mt-2 text-center text-xl font-medium">{title}</Text>
         {data.data ? (
           <View
             className={cx("mt-4 flex-1", theme.dark ? "bg-black" : "bg-white")}

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RefreshControl, Text, View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FeedPost } from "../../../../components/feed-post";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { Text } from "../../../../components/text";
 import { useAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import {

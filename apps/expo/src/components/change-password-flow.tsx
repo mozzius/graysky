@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useTheme } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import { CheckCircle2Icon } from "lucide-react-native";
 import { z } from "zod";
 
 import { useAgent } from "../lib/agent";
+import { Text } from "./text";
 import { TextButton } from "./text-button";
 
 class PasswordError extends Error {
@@ -196,10 +197,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           className="flex-1 items-center justify-center"
         >
           <CheckCircle2Icon size={64} color={theme.colors.primary} />
-          <Text
-            className="mt-8 text-center text-lg font-medium"
-            style={{ color: theme.colors.text }}
-          >
+          <Text className="mt-8 text-center text-lg font-medium">
             Password changed successfully!
           </Text>
         </Animated.View>

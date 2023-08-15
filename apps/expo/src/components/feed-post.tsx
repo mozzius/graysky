@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Button,
   I18nManager,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -32,6 +31,7 @@ import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
+import { Text } from "./text";
 import { Translation } from "./translation";
 
 interface Props {
@@ -142,10 +142,7 @@ export const FeedPost = ({
           : "border-neutral-300 bg-neutral-50",
       )}
     >
-      <Text
-        style={{ color: theme.colors.text }}
-        className="my-1 max-w-[75%] font-semibold"
-      >
+      <Text className="my-1 max-w-[75%] font-semibold">
         {filter
           ? filter.message
           : `This post is from someone you have ${
@@ -226,10 +223,7 @@ export const FeedPost = ({
                       I18nManager.isRTL ? "pl-16" : "pr-16",
                     )}
                   >
-                    <Text
-                      className="font-semibold"
-                      style={{ color: theme.colors.text }}
-                    >
+                    <Text className="font-semibold">
                       {postAuthorDisplayName}
                     </Text>
                     <Text
@@ -374,12 +368,7 @@ export const FeedPost = ({
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               >
                 <MessageSquareIcon size={16} color={theme.colors.text} />
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="tabular-nums"
-                >
-                  {replyCount}
-                </Text>
+                <Text className="tabular-nums">{replyCount}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 accessibilityLabel={`Repost, ${repostCount} repost${
@@ -453,11 +442,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
         <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
             <RepeatIcon color={theme.colors.text} size={12} />
-            <Text
-              style={{ color: theme.colors.text }}
-              className="ml-2 flex-1 text-sm"
-              numberOfLines={1}
-            >
+            <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
               Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
             </Text>
           </View>

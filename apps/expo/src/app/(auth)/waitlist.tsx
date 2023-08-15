@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Linking,
+  TextInput,
+  View,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 
+import { Text } from "../../components/text";
 import { TextButton } from "../../components/text-button";
 
 const schema = z.discriminatedUnion("success", [
@@ -72,6 +79,19 @@ export default function Waitlist() {
         Bluesky uses invites to build a healthier community. If you don{"'"}t
         know anybody with an invite, you can sign up for the waitlist to be
         notified when it{"'"}s your turn to sign up.
+      </Text>
+      <Text className="mx-4 my-3 text-sm text-neutral-500">
+        If you{"'"}re a developer interested in building on the AT Protocol, you
+        might be able to skip the queue via the{" "}
+        <Text
+          style={{ color: theme.colors.primary }}
+          onPress={() =>
+            void Linking.openURL("https://atproto.com/blog/call-for-developers")
+          }
+        >
+          developer waitlist form
+        </Text>
+        .
       </Text>
       <View className="flex-row items-center justify-center pt-2">
         {submit.isLoading ? (

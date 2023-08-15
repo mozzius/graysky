@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelf } from ".";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { RichText } from "../../../components/rich-text";
+import { Text } from "../../../components/text";
 import { TextButton } from "../../../components/text-button";
 import { useAgent } from "../../../lib/agent";
 

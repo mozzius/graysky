@@ -1,10 +1,11 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 
 import { ItemSeparator } from "./item-separator";
 import { PersonRow } from "./lists/person-row";
+import { Text } from "./text";
 
 interface Props {
   profiles: AppBskyActorDefs.ProfileView[];
@@ -32,12 +33,7 @@ export const ProfileList = ({
       ListFooterComponent={<View className="h-20" />}
       ListEmptyComponent={() => (
         <View className="py-12">
-          <Text
-            className="text-center text-base"
-            style={{ color: theme.colors.text }}
-          >
-            {emptyText}
-          </Text>
+          <Text className="text-center text-base">{emptyText}</Text>
         </View>
       )}
     />

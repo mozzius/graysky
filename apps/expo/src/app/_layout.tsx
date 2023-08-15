@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, Text, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -24,6 +24,7 @@ import { z } from "zod";
 
 import { ListProvider } from "../components/lists/context";
 import { StatusBar } from "../components/status-bar";
+import { Text } from "../components/text";
 import { AgentProvider } from "../lib/agent";
 // import {
 //   configureRevenueCat,

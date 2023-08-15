@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notificat
 import { useAgent } from "../../lib/agent";
 import { timeSince } from "../../lib/utils/time";
 import { useLists } from "../lists/context";
+import { Text } from "../text";
 import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 
@@ -176,10 +177,7 @@ const ProfileList = ({
         ))}
       </View>
       <Text className="mt-2 text-base">
-        <Text
-          style={{ color: theme.colors.text }}
-          className="text-base font-medium"
-        >
+        <Text className="text-base font-medium">
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&

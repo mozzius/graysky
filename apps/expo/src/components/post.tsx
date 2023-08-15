@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -13,6 +13,7 @@ import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
+import { Text } from "./text";
 import { Translation } from "./translation";
 
 interface Props {
@@ -63,11 +64,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             asChild
           >
             <TouchableOpacity className="flex-1">
-              <Text
-                style={{ color: theme.colors.text }}
-                numberOfLines={1}
-                className="text-base font-semibold"
-              >
+              <Text numberOfLines={1} className="text-base font-semibold">
                 {postAuthorDisplayName}
               </Text>
               <Text
@@ -119,9 +116,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           }
         >
           <MessageSquareIcon size={18} color={theme.colors.text} />
-          <Text style={{ color: theme.colors.text }} className="tabular-nums">
-            {replyCount}
-          </Text>
+          <Text className="tabular-nums">{replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel={`Repost, ${repostCount} repost${

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Platform, Switch, Text, TouchableOpacity, View } from "react-native";
+import { Platform, Switch, TouchableOpacity, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -11,6 +11,7 @@ import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
+import { Text } from "../../components/text";
 import { useAgent } from "../../lib/agent";
 import { contentLabels, usePreferences } from "../../lib/hooks/preferences";
 
@@ -109,7 +110,7 @@ export default function ModerationSettings() {
             title: "Content filters",
             children: Platform.OS === "ios" && (
               <View className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
-                <Text style={{ color: theme.colors.text }}>
+                <Text>
                   Note: Adult content settings cannot be changed on iOS. Please
                   use the web app instead.
                 </Text>

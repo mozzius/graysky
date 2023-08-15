@@ -4,7 +4,6 @@ import {
   Alert,
   Linking,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
@@ -15,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
 import { z } from "zod";
 
+import { Text } from "../../components/text";
 import { TextButton } from "../../components/text-button";
 import { useAgent } from "../../lib/agent";
 import { cx } from "../../lib/utils/cx";
@@ -130,13 +130,12 @@ export default function Login() {
               <Text className="text-base font-medium leading-5 text-yellow-800 dark:text-white">
                 Note: Not an App Password
               </Text>
-              <Text className="mt-1" style={{ color: theme.colors.text }}>
+              <Text className="mt-1">
                 Consider using an App Password rather than your main password.
                 This helps keep your account secure.
               </Text>
               <Text
                 className="mt-2"
-                style={{ color: theme.colors.primary }}
                 onPress={() =>
                   void Linking.openURL(
                     "https://bsky.app/settings/app-passwords",

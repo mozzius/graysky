@@ -1,5 +1,4 @@
-import { Text, View } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
@@ -11,6 +10,7 @@ import {
 
 import { Avatar } from "../../../components/avatar";
 import { GroupedList } from "../../../components/grouped-list";
+import { Text } from "../../../components/text";
 import { useAgent } from "../../../lib/agent";
 
 export const useSelf = () => {
@@ -31,7 +31,6 @@ export const useSelf = () => {
 
 export default function AccountSettings() {
   const agent = useAgent();
-  const theme = useTheme();
 
   const self = useSelf();
 
@@ -43,13 +42,10 @@ export default function AccountSettings() {
             <View className="flex-row items-center px-4 py-3">
               <Avatar size="large" />
               <View className="ml-4">
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base font-medium"
-                >
+                <Text className="text-base font-medium">
                   {self.data?.displayName}
                 </Text>
-                <Text style={{ color: theme.colors.text }} className="text-sm">
+                <Text className="text-sm">
                   @{self.data?.handle ?? agent?.session?.handle}
                 </Text>
               </View>

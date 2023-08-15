@@ -1,12 +1,10 @@
 import { Fragment, useMemo } from "react";
-import { Linking, Platform, Text, View } from "react-native";
+import { Linking } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
-import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
 
-import { useAgent } from "../lib/agent";
 import { cx } from "../lib/utils/cx";
+import { Text } from "./text";
 
 interface Props {
   text: string;
@@ -30,7 +28,6 @@ export const RichText = ({
   selectable,
 }: Props) => {
   const router = useRouter();
-  const theme = useTheme();
 
   const classNames = cx(
     {
@@ -127,11 +124,7 @@ export const RichText = ({
       } else {
         parts.push({
           text: segment.text,
-          component: (
-            <Text style={{ color: theme.colors.text }} className={classNames}>
-              {segment.text}
-            </Text>
-          ),
+          component: <Text className={classNames}>{segment.text}</Text>,
         });
       }
     }
@@ -142,22 +135,12 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text style={{ color: theme.colors.text }} className={classNames}>
-            {text.slice(reconstructed.length)}
-          </Text>
+          <Text className={classNames}>{text.slice(reconstructed.length)}</Text>
         ),
       });
     }
     return parts;
-  }, [
-    text,
-    facets,
-    router,
-    disableLinks,
-    truncate,
-    theme.colors.text,
-    classNames,
-  ]);
+  }, [text, facets, router, disableLinks, truncate, classNames]);
 
   if (!segments) return null;
 

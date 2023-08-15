@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import {
-  Text,
   TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -27,6 +26,7 @@ import {
 } from "lucide-react-native";
 
 import { cx } from "../lib/utils/cx";
+import { Text } from "./text";
 
 interface Props {
   feed: AppBskyFeedDefs.GeneratorView;
@@ -61,11 +61,7 @@ export const FeedRow = ({ feed, children, large }: Props) => {
         />
         <View className="mx-3 flex-1 flex-row items-center">
           <View>
-            <Text
-              style={{ color: theme.colors.text }}
-              className="text-base"
-              numberOfLines={1}
-            >
+            <Text className="text-base" numberOfLines={1}>
               {feed.displayName}
             </Text>
             {large && (
@@ -225,12 +221,7 @@ export const DraggableFeedRow = ({
                 className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
               />
               <View className="flex-1 px-3">
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-base"
-                >
-                  {feed.displayName}
-                </Text>
+                <Text className="text-base">{feed.displayName}</Text>
               </View>
             </Animated.View>
             {drag ? (

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
@@ -20,6 +20,7 @@ import { useInviteCodes } from "../app/codes/_layout";
 import { useAgent } from "../lib/agent";
 import { useLogOut } from "../lib/log-out-context";
 import { ActorDetails } from "./actor-details";
+import { Text } from "./text";
 
 const DrawerContext = createContext<((open?: boolean) => void) | null>(null);
 
@@ -86,11 +87,8 @@ export const DrawerContent = () => {
             accessibilityLabel="Invite codes"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <TicketIcon style={{ color: theme.colors.text }} />
-            <Text
-              style={{ color: theme.colors.text }}
-              className="ml-6 text-base font-medium"
-            >
+            <TicketIcon color={theme.colors.text} />
+            <Text className="ml-6 text-base font-medium">
               Invite codes{numCodes > 0 && ` (${numCodes})`}
             </Text>
           </TouchableOpacity>
@@ -101,13 +99,8 @@ export const DrawerContent = () => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
-          <PaletteIcon style={{ color: theme.colors.text }} />
-          <Text
-            style={{ color: theme.colors.text }}
-            className="ml-6 text-base font-medium"
-          >
-            Change theme
-          </Text>
+          <PaletteIcon color={theme.colors.text} />
+          <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
         {agent?.session?.handle === "mozzius.dev" && (
           <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
@@ -116,13 +109,8 @@ export const DrawerContent = () => {
               accessibilityLabel="Pro version"
               className="mt-2 w-full flex-row items-center py-2"
             >
-              <StarIcon style={{ color: theme.colors.text }} />
-              <Text
-                style={{ color: theme.colors.text }}
-                className="ml-6 text-base font-medium"
-              >
-                Graysky Pro
-              </Text>
+              <StarIcon color={theme.colors.text} />
+              <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
             </TouchableOpacity>
           </Link>
         )}
@@ -132,13 +120,8 @@ export const DrawerContent = () => {
             accessibilityLabel="Settings"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Settings2Icon style={{ color: theme.colors.text }} />
-            <Text
-              style={{ color: theme.colors.text }}
-              className="ml-6 text-base font-medium"
-            >
-              Settings
-            </Text>
+            <Settings2Icon color={theme.colors.text} />
+            <Text className="ml-6 text-base font-medium">Settings</Text>
           </TouchableOpacity>
         </Link>
       </View>
@@ -149,13 +132,8 @@ export const DrawerContent = () => {
         className="w-full flex-row items-center py-2"
         onPress={() => void logOut()}
       >
-        <LogOutIcon style={{ color: theme.colors.text }} />
-        <Text
-          style={{ color: theme.colors.text }}
-          className="ml-6 text-base font-medium"
-        >
-          Sign out
-        </Text>
+        <LogOutIcon color={theme.colors.text} />
+        <Text className="ml-6 text-base font-medium">Sign out</Text>
       </TouchableOpacity>
       <Text className="mt-4 text-neutral-500 dark:text-neutral-400">
         Version {Constants.expoConfig?.version ?? "unknown"}

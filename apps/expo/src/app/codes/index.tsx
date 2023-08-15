@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useTheme } from "@react-navigation/native";
@@ -6,6 +6,7 @@ import { CheckIcon, CopyIcon } from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
+import { Text } from "../../components/text";
 import { useAppPreferences } from "../../lib/hooks/preferences";
 import { useInviteCodes } from "./_layout";
 
@@ -28,10 +29,7 @@ export default function InviteCodesScreen() {
             children:
               codes.data.unused.length === 0 ? (
                 <View className="flex-1 px-8 py-3">
-                  <Text
-                    style={{ color: theme.colors.text }}
-                    className="text-center text-base"
-                  >
+                  <Text className="text-center text-base">
                     You don{"'"}t have any codes at the moment {":("}
                   </Text>
                 </View>

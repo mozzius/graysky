@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import {
   NestableDraggableFlatList,
   NestableScrollContainer,
@@ -18,6 +18,7 @@ import { useDrawer } from "../../../../components/drawer-content";
 import { DraggableFeedRow } from "../../../../components/feed-row";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { Text } from "../../../../components/text";
 import { useSavedFeeds } from "../../../../lib/hooks";
 import {
   useReorderFeeds,
@@ -55,12 +56,7 @@ const FeedsPage = ({ editing }: Props) => {
                 <CloudIcon size={32} color="white" />
               </View>
               <View className="flex-1 px-3">
-                <Text
-                  style={{ color: theme.colors.text }}
-                  className="text-lg leading-5"
-                >
-                  Following
-                </Text>
+                <Text className="text-lg leading-5">Following</Text>
                 <Text className="text-sm text-neutral-500">
                   Posts from people you follow
                 </Text>
@@ -124,12 +120,7 @@ const FeedsPage = ({ editing }: Props) => {
               >
                 <View className="flex-row items-center">
                   <CompassIcon size={20} className="text-blue-500" />
-                  <Text
-                    style={{ color: theme.colors.text }}
-                    className="ml-3 text-base"
-                  >
-                    Discover more feeds
-                  </Text>
+                  <Text className="ml-3 text-base">Discover more feeds</Text>
                 </View>
                 <ChevronRightIcon size={20} className="text-neutral-400" />
               </View>

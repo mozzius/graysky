@@ -4,7 +4,6 @@ import {
   Alert,
   LogBox,
   RefreshControl,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -22,6 +21,7 @@ import { cx } from "../../../lib/utils/cx";
 import { useUserRefresh } from "../../../lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
+import { Text } from "../../text";
 import { useProfile, useProfileFeeds } from "./hooks";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
@@ -146,12 +146,7 @@ const Feed = ({
             className="h-10 w-10 rounded bg-blue-500"
           />
           <View className="flex-1 px-3">
-            <Text
-              style={{ color: theme.colors.text }}
-              className="text-base font-medium"
-            >
-              {displayName}
-            </Text>
+            <Text className="text-base font-medium">{displayName}</Text>
             <Text
               className="text-sm text-neutral-500 dark:text-neutral-400"
               numberOfLines={1}

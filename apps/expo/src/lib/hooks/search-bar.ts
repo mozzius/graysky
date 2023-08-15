@@ -1,5 +1,4 @@
-import { Platform } from "react-native";
-import { SearchBarProps } from "react-native-screens";
+import { type SearchBarProps } from "react-native-screens";
 import { useTheme } from "@react-navigation/native";
 
 export const useSearchBarOptions = (overrides: SearchBarProps) => {

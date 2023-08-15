@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Platform, Text, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useNavigation, usePathname, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "../../components/status-bar";
+import { Text } from "../../components/text";
 
 export default function SettingsLayout() {
   const theme = useTheme();

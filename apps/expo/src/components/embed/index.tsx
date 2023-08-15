@@ -1,4 +1,4 @@
-import { Linking, Text, TouchableHighlight, View } from "react-native";
+import { Linking, TouchableHighlight, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
@@ -15,6 +15,7 @@ import { HeartIcon, LinkIcon } from "lucide-react-native";
 
 import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
+import { Text } from "../text";
 import { ImageEmbed } from "./image";
 
 interface Props {
@@ -83,21 +84,13 @@ export const Embed = ({
                   {new URL(content.external.uri).hostname}
                 </Text>
               </View>
-              <Text
-                style={{ color: theme.colors.text }}
-                className="mt-1 text-base leading-5"
-                numberOfLines={2}
-              >
+              <Text className="mt-1 text-base leading-5" numberOfLines={2}>
                 {content.external.title || content.external.uri}
               </Text>
               {content.external.description &&
                 depth === 0 &&
                 !content.external.thumb && (
-                  <Text
-                    style={{ color: theme.colors.text }}
-                    className="mt-0.5 text-sm leading-5"
-                    numberOfLines={2}
-                  >
+                  <Text className="mt-0.5 text-sm leading-5" numberOfLines={2}>
                     {content.external.description}
                   </Text>
                 )}
@@ -150,10 +143,7 @@ export const Embed = ({
                     className="h-14 w-14 rounded bg-blue-500"
                   />
                   <View className="ml-2 flex-1">
-                    <Text
-                      style={{ color: theme.colors.text }}
-                      className="text-lg font-medium"
-                    >
+                    <Text className="text-lg font-medium">
                       {record.displayName}
                     </Text>
                     <Text className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -200,7 +190,6 @@ export const Embed = ({
           >
             {record.value.text && (
               <Text
-                style={{ color: theme.colors.text }}
                 className="mt-1 text-base leading-5"
                 numberOfLines={truncate ? 4 : undefined}
               >
@@ -273,12 +262,7 @@ export const PostEmbed = ({
               className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
             />
             <Text className="flex-1 text-base" numberOfLines={1}>
-              <Text
-                style={{ color: theme.colors.text }}
-                className="font-semibold"
-              >
-                {author.displayName}
-              </Text>
+              <Text className="font-semibold">{author.displayName}</Text>
               <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
             </Text>
           </View>

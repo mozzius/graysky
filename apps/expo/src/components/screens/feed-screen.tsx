@@ -1,4 +1,4 @@
-import { ActivityIndicator, RefreshControl, Text, View } from "react-native";
+import { ActivityIndicator, RefreshControl, View } from "react-native";
 import { Stack } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
@@ -13,6 +13,7 @@ import {
 import { useUserRefresh } from "../../lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { QueryWithoutData } from "../query-without-data";
+import { Text } from "../text";
 
 interface Props {
   feed: string;

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RefreshControl, Text, View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
@@ -10,6 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ItemSeparator } from "../../../../components/item-separator";
 import { PersonRow } from "../../../../components/lists/person-row";
 import { QueryWithoutData } from "../../../../components/query-without-data";
+import { Text } from "../../../../components/text";
 import { useAgent } from "../../../../lib/agent";
 import { useTabPressScrollRef } from "../../../../lib/hooks";
 import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
