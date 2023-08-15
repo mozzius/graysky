@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, TouchableOpacity } from "react-native";
+import { Alert, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -80,6 +80,10 @@ const App = ({ session, saveSession }: Props) => {
             break;
           case "expired":
             saveSession(null);
+            setTimeout(() => {
+              // should be a toast
+              Alert.alert("Sorry! Your session expired. Please log in again.");
+            });
             break;
         }
         // force a re-render of things that use the agent
@@ -94,6 +98,7 @@ const App = ({ session, saveSession }: Props) => {
       await agent.resumeSession(sess);
     },
     retry: 3,
+    // maybe alert -> retry here?
     onError: () => router.replace("/"),
   });
 
@@ -125,11 +130,9 @@ const App = ({ session, saveSession }: Props) => {
       !atRoot
     ) {
       // Redirect to the sign-in page.
-      if (segments.join("/") === "(auth)/login") return;
       console.log("redirecting to /");
       router.replace("/");
     } else if (agent.hasSession && (inAuthGroup || atRoot)) {
-      if (segments.join("/") === "(tabs)/(feeds)/feeds") return;
       console.log("redirecting to /feeds");
       router.replace("/feeds");
     }
@@ -156,6 +159,7 @@ const App = ({ session, saveSession }: Props) => {
       }
     });
   }, [setColorScheme]);
+
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   useEffect(() => {
@@ -217,12 +221,7 @@ const App = ({ session, saveSession }: Props) => {
                         headerRight: Platform.select({
                           ios: () => (
                             <TouchableOpacity onPress={handleModalBack}>
-                              <Text
-                                style={{ color: theme.colors.primary }}
-                                className="text-lg font-medium"
-                              >
-                                Done
-                              </Text>
+                              <Text className="text-lg font-medium">Done</Text>
                             </TouchableOpacity>
                           ),
                         }),
