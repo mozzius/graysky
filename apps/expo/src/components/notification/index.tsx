@@ -1,7 +1,6 @@
 import { TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
-import { useTheme } from "@react-navigation/native";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
@@ -142,7 +141,6 @@ const ProfileList = ({
   action,
   indexedAt,
 }: Pick<NotificationGroup, "actors" | "indexedAt"> & { action: string }) => {
-  const theme = useTheme();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
