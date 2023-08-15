@@ -163,7 +163,9 @@ const App = ({ session, saveSession }: Props) => {
   const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
 
   useEffect(() => {
-    SplashScreen.hideAsync();
+    setTimeout(() => {
+      SplashScreen.hideAsync();
+    }, 100);
   }, []);
 
   function handleModalBack() {
@@ -221,7 +223,12 @@ const App = ({ session, saveSession }: Props) => {
                         headerRight: Platform.select({
                           ios: () => (
                             <TouchableOpacity onPress={handleModalBack}>
-                              <Text className="text-lg font-medium">Done</Text>
+                              <Text
+                                style={{ color: theme.colors.primary }}
+                                className="text-lg font-medium"
+                              >
+                                Done
+                              </Text>
                             </TouchableOpacity>
                           ),
                         }),

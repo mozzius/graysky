@@ -21,9 +21,10 @@ import { cx } from "../../lib/utils/cx";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 
-export default function Login() {
+export default function SignIn() {
   const agent = useAgent();
   const router = useRouter();
+  const theme = useTheme();
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -44,8 +45,6 @@ export default function Login() {
         err instanceof Error ? err.message : "Unknown error",
       ),
   });
-
-  const theme = useTheme();
 
   return (
     <View

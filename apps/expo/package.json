@@ -12,9 +12,7 @@
     "build:android:dev-client": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
-    "type-check": "tsc --noEmit",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@atproto/api": "^0.6.3",

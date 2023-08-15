@@ -7,7 +7,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useTheme } from "@react-navigation/native";
 
 import { cx } from "../lib/utils/cx";
 
@@ -25,7 +24,6 @@ export const Button = ({
   style,
 }: ButtonProps) => {
   const isChildAString = typeof children === "string";
-  const theme = useTheme();
   return (
     <TouchableOpacity
       onPress={(evt) => void onPress(evt)}
@@ -46,7 +44,7 @@ export const Button = ({
             {
               black: "text-white",
               white: "text-black",
-              outline: theme.colors.text,
+              outline: "text-black dark:text-white",
             }[variant],
           )}
         >

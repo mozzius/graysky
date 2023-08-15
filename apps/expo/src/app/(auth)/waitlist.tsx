@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
@@ -54,7 +54,6 @@ export default function Waitlist() {
 
   return (
     <KeyboardAwareScrollView className="flex-1 px-4">
-      <Stack.Screen options={{ headerTitle: "Sign up (1/3)" }} />
       <View className="mt-4 flex-1">
         <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
           Email address
