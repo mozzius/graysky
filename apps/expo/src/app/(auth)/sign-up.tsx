@@ -156,7 +156,10 @@ export default function SignUp() {
           </View>
           <Text className="mx-4 mt-3 text-sm text-neutral-500">
             Don{"'"}t have one?{" "}
-            <Text onPress={() => router.push("/waitlist")}>
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() => router.push("/waitlist")}
+            >
               Join the waitlist.
             </Text>
           </Text>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { ContextMenuView } from "react-native-ios-context-menu";
 import Animated from "react-native-reanimated";
 import * as Clipboard from "expo-clipboard";
@@ -36,17 +36,10 @@ export const ImageWithContext = ({
   const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
 
   const imageStyle = useCappedAspectRatio
-    ? Array.isArray(style)
-      ? [
-          {
-            aspectRatio: cappedAspectRatio,
-          },
-          ...style,
-        ]
-      : {
-          aspectRatio: cappedAspectRatio,
-          ...style,
-        }
+    ? (StyleSheet.compose(
+        { aspectRatio: cappedAspectRatio },
+        style,
+      ) as ImageStyle)
     : style;
 
   const queryClient = useQueryClient();

@@ -75,12 +75,12 @@ export default function Waitlist() {
           />
         </View>
       </View>
-      <Text className="mx-4 my-3 text-sm text-neutral-500">
+      <Text className="mx-4 mt-3 text-sm text-neutral-500">
         Bluesky uses invites to build a healthier community. If you don{"'"}t
         know anybody with an invite, you can sign up for the waitlist to be
         notified when it{"'"}s your turn to sign up.
       </Text>
-      <Text className="mx-4 my-3 text-sm text-neutral-500">
+      <Text className="mx-4 mt-2 text-sm text-neutral-500">
         If you{"'"}re a developer interested in building on the AT Protocol, you
         might be able to skip the queue via the{" "}
         <Text
@@ -93,7 +93,7 @@ export default function Waitlist() {
         </Text>
         .
       </Text>
-      <View className="flex-row items-center justify-center pt-2">
+      <View className="mt-6 flex-row items-center justify-center">
         {submit.isLoading ? (
           <ActivityIndicator />
         ) : (
