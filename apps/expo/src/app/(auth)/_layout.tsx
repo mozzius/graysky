@@ -12,27 +12,26 @@ export default function AuthLayout() {
   const router = useRouter();
   const canGoBack = useCanGoBack("(auth)");
 
+  const headerLeft =
+    Platform.OS === "ios" && !canGoBack
+      ? () => (
+          <Animated.View entering={FadeIn}>
+            <TouchableOpacity onPress={() => router.push("../")}>
+              <Text style={{ color: theme.colors.primary }} className="text-lg">
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
+        )
+      : undefined;
+
   return (
     <>
       <StatusBar modal />
       <Stack
         screenOptions={{
           fullScreenGestureEnabled: true,
-          headerLeft:
-            canGoBack || Platform.OS === "android"
-              ? undefined
-              : () => (
-                  <Animated.View entering={FadeIn}>
-                    <TouchableOpacity onPress={() => router.push("../")}>
-                      <Text
-                        style={{ color: theme.colors.primary }}
-                        className="text-lg"
-                      >
-                        Cancel
-                      </Text>
-                    </TouchableOpacity>
-                  </Animated.View>
-                ),
+          headerLeft,
         }}
       >
         <Stack.Screen

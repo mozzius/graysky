@@ -12,18 +12,18 @@
   },
   "dependencies": {
     "@graysky/db": "^0.1.0",
-    "@trpc/client": "^10.36.0",
-    "@trpc/server": "^10.36.0",
+    "@trpc/client": "^10.37.1",
+    "@trpc/server": "^10.37.1",
     "@vercel/kv": "^0.2.2",
     "encoding": "^0.1.13",
     "google-auth-library": "^8.9.0",
     "lande": "^1.0.10",
     "superjson": "1.13.1",
-    "zod": "^3.21.4"
+    "zod": "^3.22.1"
   },
   "devDependencies": {
     "@graysky/eslint-config": "^0.1.0",
-    "eslint": "^8.46.0",
+    "eslint": "^8.47.0",
     "typescript": "^5.1.6"
   }
 }

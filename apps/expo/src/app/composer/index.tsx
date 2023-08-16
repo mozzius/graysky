@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  findNodeHandle,
   Keyboard,
   Platform,
   TextInput,
@@ -9,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -75,6 +77,7 @@ export default function ComposerScreen() {
     end: 0,
   });
   const inputRef = useRef<TextInput>(null!);
+  const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
 
   const reply = useReply();
   const quote = useQuote();
@@ -169,239 +172,257 @@ export default function ComposerScreen() {
           <Text className="my-0.5 text-white/90">Please try again</Text>
         </Animated.View>
       )}
-      <Animated.ScrollView
-        className="py-4"
-        alwaysBounceVertical={!isEmpty}
-        keyboardShouldPersistTaps="handled"
-        layout={Layout}
-      >
-        {reply.thread.data && (
-          <TouchableOpacity
-            onPress={() => setTruncateParent((t) => !t)}
-            className="flex-1"
-          >
-            <Animated.View
-              layout={Layout}
-              pointerEvents="none"
+      <Animated.View layout={Layout} className="flex-1">
+        <KeyboardAwareScrollView
+          ref={keyboardScrollViewRef}
+          className="py-4"
+          alwaysBounceVertical={!isEmpty}
+          keyboardShouldPersistTaps="handled"
+        >
+          {reply.thread.data && (
+            <TouchableOpacity
+              onPress={() => setTruncateParent((t) => !t)}
               className="flex-1"
             >
-              <FeedPost
-                item={reply.thread.data}
-                dataUpdatedAt={0}
-                filter={contentFilter(reply.thread.data.post.labels)}
-                hasReply
-                isReply
-                hideActions
-                hideEmbed={trucateParent}
-                numberOfLines={trucateParent ? 3 : undefined}
-                avatarSize="reduced"
-                background="transparent"
-              />
-            </Animated.View>
-          </TouchableOpacity>
-        )}
-        <Animated.View className="w-full flex-row px-2 pb-6" layout={Layout}>
-          <View className="shrink-0 px-2">
-            <Avatar size="medium" />
-          </View>
-          <View className="flex flex-1 items-start pl-1 pr-2">
-            <View className="min-h-[40px] flex-1 flex-row items-center">
-              <TextInput
-                ref={inputRef}
-                onChange={(evt) => {
-                  setText(evt.nativeEvent.text);
-                  if (send.isError) {
-                    send.reset();
-                  }
-                }}
-                multiline
-                className="relative -top-[3px] w-full text-lg leading-6"
-                style={{ color: theme.colors.text }}
-                placeholder={
-                  reply.thread.data
-                    ? `Replying to @${reply.thread.data.post.author.handle}`
-                    : `What's on your mind?}`
-                }
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                verticalAlign="middle"
-                textAlignVertical="center"
-                autoFocus
-                onSelectionChange={(evt) => {
-                  selectionRef.current = evt.nativeEvent.selection;
-                }}
+              <Animated.View
+                layout={Layout}
+                pointerEvents="none"
+                className="flex-1"
               >
-                <RichText
-                  size="lg"
-                  text={rt.text}
-                  facets={rt.facets}
-                  truncate={false}
-                  disableLinks
+                <FeedPost
+                  item={reply.thread.data}
+                  dataUpdatedAt={0}
+                  filter={contentFilter(reply.thread.data.post.labels)}
+                  hasReply
+                  isReply
+                  hideActions
+                  hideEmbed={trucateParent}
+                  numberOfLines={trucateParent ? 3 : undefined}
+                  avatarSize="reduced"
+                  background="transparent"
                 />
-              </TextInput>
+              </Animated.View>
+            </TouchableOpacity>
+          )}
+          <Animated.View className="w-full flex-row px-2 pb-6" layout={Layout}>
+            <View className="shrink-0 px-2">
+              <Avatar size="medium" />
             </View>
-            {/* AUTOSUGGESTIONS */}
-            {isSuggestionsOpen &&
-              suggestions.length > 0 &&
-              !suggestions.some((s) => s.handle === prefix.value) && (
-                <SuggestionList
-                  suggestions={suggestions}
-                  onInsertHandle={(handle) =>
-                    setText((text) =>
-                      insertMentionAt(
-                        text,
-                        selectionRef.current?.start || 0,
-                        handle,
-                      ),
-                    )
-                  }
-                />
-              )}
-            {/* BUTTONS AND STUFF */}
-            <Animated.View
-              className="w-full flex-row items-end justify-between"
-              layout={Layout}
-            >
-              <TouchableOpacity
-                className="mt-4 flex-row items-center"
-                hitSlop={8}
-                onPress={() => imagePicker.mutate()}
-              >
-                <PaperclipIcon
-                  size={18}
-                  className={
-                    theme.dark ? "text-neutral-400" : "text-neutral-500"
-                  }
-                />
-
-                <Animated.Text
-                  className={cx(
-                    "ml-2",
-                    theme.dark ? "text-neutral-400" : "text-neutral-500",
-                  )}
-                  entering={FadeIn}
-                  exiting={FadeOut}
-                >
-                  {images.length > 0
-                    ? `${images.length} / ${MAX_IMAGES} images`
-                    : "Attach images"}
-                </Animated.Text>
-              </TouchableOpacity>
-              {(rt.graphemeLength ?? 0) > 50 && (
-                <Animated.Text
-                  style={{
-                    color: !tooLong
-                      ? theme.colors.text
-                      : theme.colors.notification,
+            <View className="flex flex-1 items-start pl-1 pr-2">
+              <View className="min-h-[40px] flex-1 flex-row items-center">
+                <TextInput
+                  ref={inputRef}
+                  onChange={(evt) => {
+                    setText(evt.nativeEvent.text);
+                    if (send.isError) {
+                      send.reset();
+                    }
                   }}
-                  entering={FadeIn}
-                  exiting={FadeOut}
-                  className="text-right"
+                  multiline
+                  className="relative -top-[3px] w-full text-lg leading-6"
+                  style={{ color: theme.colors.text }}
+                  placeholder={
+                    reply.thread.data
+                      ? `Replying to @${reply.thread.data.post.author.handle}`
+                      : `What's on your mind?`
+                  }
+                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                  verticalAlign="middle"
+                  textAlignVertical="center"
+                  autoFocus
+                  onSelectionChange={(evt) => {
+                    selectionRef.current = evt.nativeEvent.selection;
+                  }}
+                  scrollEnabled={false}
+                  onContentSizeChange={(evt) => {
+                    if (keyboardScrollViewRef.current) {
+                      keyboardScrollViewRef.current.scrollToFocusedInput(
+                        findNodeHandle(evt.target) || {},
+                        75,
+                      );
+                    }
+                  }}
                 >
-                  {rt.graphemeLength} / {MAX_LENGTH}
-                </Animated.Text>
-              )}
-            </Animated.View>
-            {/* IMAGES */}
-            {images.length > 0 && (
-              <Animated.ScrollView
-                horizontal
-                className="mt-4 flex-1 pb-2"
-                entering={FadeInDown}
-                exiting={FadeOutDown}
+                  <RichText
+                    size="lg"
+                    text={rt.text}
+                    facets={rt.facets}
+                    truncate={false}
+                    disableLinks
+                  />
+                </TextInput>
+              </View>
+              {/* AUTOSUGGESTIONS */}
+              {isSuggestionsOpen &&
+                suggestions.length > 0 &&
+                !suggestions.some((s) => s.handle === prefix.value) && (
+                  <SuggestionList
+                    suggestions={suggestions}
+                    onInsertHandle={(handle) =>
+                      setText((text) =>
+                        insertMentionAt(
+                          text,
+                          selectionRef.current?.start || 0,
+                          handle,
+                        ),
+                      )
+                    }
+                  />
+                )}
+              {/* BUTTONS AND STUFF */}
+              <Animated.View
+                className="w-full flex-row items-end justify-between"
                 layout={Layout}
               >
-                {images.map((image, i) => (
-                  <Animated.View
-                    key={image.asset.uri}
+                <TouchableOpacity
+                  className="mt-4 flex-row items-center"
+                  hitSlop={8}
+                  onPress={() => imagePicker.mutate()}
+                >
+                  <PaperclipIcon
+                    size={18}
+                    className={
+                      theme.dark ? "text-neutral-400" : "text-neutral-500"
+                    }
+                  />
+
+                  <Animated.Text
                     className={cx(
-                      "relative overflow-hidden rounded-md",
-                      i !== 3 && "mr-2",
+                      "ml-2",
+                      theme.dark ? "text-neutral-400" : "text-neutral-500",
                     )}
-                    layout={Layout}
+                    entering={FadeIn}
                     exiting={FadeOut}
                   >
-                    <Image
-                      cachePolicy="memory"
-                      source={{ uri: image.asset.uri }}
-                      alt={`image ${i}}`}
-                      className="h-44"
-                      style={{
-                        aspectRatio: Math.max(
-                          0.6,
-                          Math.min(image.asset.width / image.asset.height, 1.5),
-                        ),
-                      }}
-                    />
-                    {Platform.OS === "ios" && (
-                      <TouchableOpacity
-                        className="absolute left-2 top-2 z-10"
-                        onPress={() => {
-                          void Haptics.impactAsync();
-                          Alert.prompt(
-                            "Add a caption",
-                            undefined,
-                            (alt) => {
-                              if (alt !== null) {
-                                addAltText(i, alt);
-                              }
-                            },
-                            undefined,
-                            image.alt,
-                          );
-                        }}
-                      >
-                        <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
-                          {image.alt ? (
-                            <CheckIcon size={14} color="white" />
-                          ) : (
-                            <PlusIcon size={14} color="white" />
-                          )}
-                          <Text className="ml-1 text-xs font-bold uppercase text-white">
-                            Alt
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                    )}
+                    {images.length > 0
+                      ? `${images.length} / ${MAX_IMAGES} images`
+                      : "Attach images"}
+                  </Animated.Text>
+                </TouchableOpacity>
+                {(rt.graphemeLength ?? 0) > 50 && (
+                  <Animated.Text
+                    style={{
+                      color: !tooLong
+                        ? theme.colors.text
+                        : theme.colors.notification,
+                    }}
+                    entering={FadeIn}
+                    exiting={FadeOut}
+                    className="text-right"
+                  >
+                    {rt.graphemeLength} / {MAX_LENGTH}
+                  </Animated.Text>
+                )}
+              </Animated.View>
+            </View>
+          </Animated.View>
+          <Animated.View />
+          {/* IMAGES */}
+          {images.length > 0 && (
+            <Animated.ScrollView
+              horizontal
+              className="mt-4 w-full flex-1 pb-2 pl-16"
+              entering={FadeInDown}
+              exiting={FadeOutDown}
+              layout={Layout}
+            >
+              {images.map((image, i) => (
+                <Animated.View
+                  key={image.asset.uri}
+                  className={cx(
+                    "relative overflow-hidden rounded-md",
+                    i !== 3 && "mr-2",
+                  )}
+                  layout={Layout}
+                  exiting={FadeOut}
+                >
+                  <Image
+                    cachePolicy="memory"
+                    source={{ uri: image.asset.uri }}
+                    alt={`image ${i}}`}
+                    className="h-44"
+                    style={{
+                      aspectRatio: Math.max(
+                        0.6,
+                        Math.min(image.asset.width / image.asset.height, 1.5),
+                      ),
+                    }}
+                  />
+                  {Platform.OS === "ios" && (
                     <TouchableOpacity
-                      className="absolute right-2 top-2 z-10"
+                      className="absolute left-2 top-2 z-10"
                       onPress={() => {
                         void Haptics.impactAsync();
-                        removeImage(i);
+                        Alert.prompt(
+                          "Add a caption",
+                          undefined,
+                          (alt) => {
+                            if (alt !== null) {
+                              addAltText(i, alt);
+                            }
+                          },
+                          undefined,
+                          image.alt,
+                        );
                       }}
                     >
-                      <View className="rounded-full bg-black/90 p-1">
-                        <XIcon size={14} color="white" />
-                      </View>
-                    </TouchableOpacity>
-                    {image.alt && (
-                      <View className="absolute bottom-0 left-0 right-0 z-10 bg-black/60 px-3 pb-2 pt-1">
-                        <Text
-                          numberOfLines={2}
-                          className="text-sm leading-[18px] text-white"
-                        >
-                          {image.alt}
+                      <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
+                        {image.alt ? (
+                          <CheckIcon size={14} color="white" />
+                        ) : (
+                          <PlusIcon size={14} color="white" />
+                        )}
+                        <Text className="ml-1 text-xs font-bold uppercase text-white">
+                          Alt
                         </Text>
                       </View>
-                    )}
-                  </Animated.View>
-                ))}
-                {images.length < MAX_IMAGES && (
-                  <Animated.View layout={Layout}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        void Haptics.impactAsync();
-                        imagePicker.mutate();
-                      }}
-                    >
-                      <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
-                        <PlusIcon color={theme.colors.text} />
-                        <Text className="mt-2 text-center">Add image</Text>
-                      </View>
                     </TouchableOpacity>
-                  </Animated.View>
-                )}
-              </Animated.ScrollView>
-            )}
+                  )}
+                  <TouchableOpacity
+                    className="absolute right-2 top-2 z-10"
+                    onPress={() => {
+                      void Haptics.impactAsync();
+                      removeImage(i);
+                    }}
+                  >
+                    <View className="rounded-full bg-black/90 p-1">
+                      <XIcon size={14} color="white" />
+                    </View>
+                  </TouchableOpacity>
+                  {image.alt && (
+                    <View className="absolute bottom-0 left-0 right-0 z-10 bg-black/60 px-3 pb-2 pt-1">
+                      <Text
+                        numberOfLines={2}
+                        className="text-sm leading-[18px] text-white"
+                      >
+                        {image.alt}
+                      </Text>
+                    </View>
+                  )}
+                </Animated.View>
+              ))}
+              {images.length < MAX_IMAGES && (
+                <Animated.View layout={Layout}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      void Haptics.impactAsync();
+                      imagePicker.mutate();
+                    }}
+                  >
+                    <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
+                      <PlusIcon color={theme.colors.text} />
+                      <Text className="mt-2 text-center">Add image</Text>
+                    </View>
+                  </TouchableOpacity>
+                </Animated.View>
+              )}
+            </Animated.ScrollView>
+          )}
+          <Animated.View
+            layout={Layout}
+            className="w-full flex-1 flex-row pl-16 pr-2"
+          >
+            {/* EMBED/QUOTE */}
             {quote.thread.data && (
               <Animated.View
                 layout={Layout}
@@ -425,9 +446,9 @@ export default function ComposerScreen() {
                 />
               </Animated.View>
             )}
-          </View>
-        </Animated.View>
-      </Animated.ScrollView>
+          </Animated.View>
+        </KeyboardAwareScrollView>
+      </Animated.View>
     </View>
   );
 }

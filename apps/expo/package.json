@@ -15,7 +15,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@atproto/api": "^0.6.3",
+    "@atproto/api": "^0.6.4",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.4.7",
@@ -27,9 +27,9 @@
     "@sentry/react-native": "5.5.0",
     "@shopify/flash-list": "1.4.3",
     "@tanstack/react-query": "^4.32.6",
-    "@trpc/client": "^10.36.0",
-    "@trpc/react-query": "^10.36.0",
-    "@trpc/server": "^10.36.0",
+    "@trpc/client": "^10.37.1",
+    "@trpc/react-query": "^10.37.1",
+    "@trpc/server": "^10.37.1",
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "expo": "49.0.7",
@@ -48,7 +48,7 @@
     "expo-linking": "~5.0.2",
     "expo-localization": "~14.3.0",
     "expo-media-library": "^15.4.1",
-    "expo-router": "2.0.0",
+    "expo-router": "2.0.2",
     "expo-sharing": "^11.5.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
@@ -58,7 +58,7 @@
     "fuzzysort": "^2.0.4",
     "graphemer": "^1.4.0",
     "immer": "^10.0.2",
-    "lucide-react-native": "^0.265.0",
+    "lucide-react-native": "^0.268.0",
     "metro": "~0.78.0",
     "mime": "^3.0.0",
     "nativewind": "^2.0.11",
@@ -88,7 +88,7 @@
     "sentry-expo": "~7.0.1",
     "superjson": "1.13.1",
     "tailwind-merge": "^1.14.0",
-    "zod": "^3.21.4"
+    "zod": "^3.22.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
