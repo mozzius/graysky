@@ -52,7 +52,7 @@ pnpm dev
 - [x] Context menu - user actions
 - [x] Image viewer: Pinch to zoom
 - [x] Custom feeds
-- [ ] Settings screens
+- [x] Settings screens
   - [x] Moderation settings
     - [x] Content filtering
     - [x] Review blocked/muted users
@@ -64,14 +64,15 @@ pnpm dev
 - [x] Composer rewrite
   - [x] Mention autocomplete
   - [ ] Embeds in composer
-  - [ ] Drafts
-- [ ] App Store???
+- [ ] App Store
 
 ## Future (no promises)
 
 - [ ] Change handle
-- [ ] Push notifications
+- [ ] Push notifications (waiting for official push notification API)
 - [ ] Multi-account support
+- [ ] Drafts
+- [ ] GIFs ;)
 
 ## Android local APK builds
 
