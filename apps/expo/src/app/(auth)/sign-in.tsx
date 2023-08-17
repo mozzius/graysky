@@ -80,6 +80,7 @@ export default function SignIn() {
               setIdentifier(fixed);
             }}
             autoFocus
+            keyboardAppearance={theme.dark ? "dark" : "light"}
           />
         </View>
         <View
@@ -101,6 +102,7 @@ export default function SignIn() {
             onChangeText={setPassword}
             secureTextEntry
             placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+            keyboardAppearance={theme.dark ? "dark" : "light"}
           />
           <TextButton
             onPress={() => {

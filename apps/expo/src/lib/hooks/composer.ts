@@ -6,17 +6,19 @@ import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-  AppBskyEmbedExternal,
-  AppBskyEmbedRecord,
-  AppBskyEmbedRecordWithMedia,
   AppBskyFeedDefs,
-  AppBskyFeedPost,
   RichText,
+  type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
+  type AppBskyEmbedRecord,
+  type AppBskyEmbedRecordWithMedia,
+  type AppBskyFeedPost,
   type BskyAgent,
+  AppBskyRichtextFacet,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
@@ -94,10 +96,28 @@ const useContextualPost = (uri?: string) => {
 
 export const useExternal = (rt: RichText) => {
   let uri: string | undefined;
-  for (const segment of rt.segments()) {
-    if (segment.isLink() && segment.link?.uri) {
-      uri = segment.link.uri;
-      break;
+  if (rt.facets) {
+    for (const facet of rt.facets) {
+      for (const feature of facet.features) {
+        if (AppBskyRichtextFacet.isLink(feature)) {
+          if (isUriImage(feature.uri)) {
+            const res = await downloadAndResize({
+              uri: feature.uri,
+              width: POST_IMG_MAX.width,
+              height: POST_IMG_MAX.height,
+              mode: 'contain',
+              maxSize: POST_IMG_MAX.size,
+              timeout: 15e3,
+            })
+
+            if (res !== undefined) {
+              onPhotoPasted(res.path)
+            }
+          } else {
+            set.add(feature.uri)
+          }
+        }
+      }
     }
   }
 };
@@ -212,6 +232,7 @@ export const useSendPost = ({
       void queryClient.invalidateQueries(["profile"]);
       router.push("../");
     },
+    onError: (err) => Sentry.Native.captureException(err),
   });
 };
 

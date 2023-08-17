@@ -88,6 +88,7 @@ export default function EditBio() {
               multiline
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
               placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+              keyboardAppearance={theme.dark ? "dark" : "light"}
             >
               <RichText
                 size="base"

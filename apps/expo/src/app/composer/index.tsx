@@ -24,6 +24,7 @@ import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import {
+  AppBskyRichtextFacet,
   RichText as RichTextHelper,
   type AppBskyActorDefs,
   type AppBskyEmbedRecord,
@@ -86,10 +87,21 @@ export default function ComposerScreen() {
 
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
-  const rt = useMemo(() => {
+  const { rt, uris } = useMemo(() => {
     const rt = new RichTextHelper({ text });
     rt.detectFacetsWithoutResolution();
-    return rt;
+
+    const uris = new Set<string>();
+
+    for (const facet of rt.facets ?? []) {
+      for (const feature of facet.features) {
+        if (AppBskyRichtextFacet.isLink(feature)) {
+          uris.add(feature.uri);
+        }
+      }
+    }
+
+    return { rt, uris: Array.from(uris) };
   }, [text]);
 
   const prefix = useMemo(() => {
@@ -242,6 +254,7 @@ export default function ComposerScreen() {
                       );
                     }
                   }}
+                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 >
                   <RichText
                     size="lg"

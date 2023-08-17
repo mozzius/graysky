@@ -72,6 +72,7 @@ export default function Waitlist() {
             style={{ color: theme.colors.text }}
             placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             autoFocus
+            keyboardAppearance={theme.dark ? "dark" : "light"}
           />
         </View>
       </View>

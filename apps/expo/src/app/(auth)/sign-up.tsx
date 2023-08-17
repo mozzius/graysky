@@ -151,6 +151,7 @@ export default function SignUp() {
                 style={{ color: theme.colors.text }}
                 placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                 autoFocus
+                keyboardAppearance={theme.dark ? "dark" : "light"}
               />
             </View>
           </View>
@@ -198,6 +199,7 @@ export default function SignUp() {
                 className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                 style={{ color: theme.colors.text }}
                 placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                keyboardAppearance={theme.dark ? "dark" : "light"}
               />
             </View>
           </View>
@@ -221,6 +223,7 @@ export default function SignUp() {
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                   style={{ color: theme.colors.text }}
                   placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -305,6 +308,7 @@ export default function SignUp() {
                 className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                 style={{ color: theme.colors.text }}
                 placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                keyboardAppearance={theme.dark ? "dark" : "light"}
               />
             </View>
             {handle && (
