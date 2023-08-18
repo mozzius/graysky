@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -71,7 +72,6 @@ export const EmailInput = ({
   return (
     <form
       className="flex max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
-      // @ts-expect-error not working for some reason
       action={signUp}
     >
       <input

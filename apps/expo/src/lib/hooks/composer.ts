@@ -7,6 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   AppBskyFeedDefs,
+  AppBskyRichtextFacet,
   RichText,
   type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
@@ -14,10 +15,14 @@ import {
   type AppBskyEmbedRecordWithMedia,
   type AppBskyFeedPost,
   type BskyAgent,
-  AppBskyRichtextFacet,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
@@ -92,34 +97,6 @@ const useContextualPost = (uri?: string) => {
   });
 
   return thread;
-};
-
-export const useExternal = (rt: RichText) => {
-  let uri: string | undefined;
-  if (rt.facets) {
-    for (const facet of rt.facets) {
-      for (const feature of facet.features) {
-        if (AppBskyRichtextFacet.isLink(feature)) {
-          if (isUriImage(feature.uri)) {
-            const res = await downloadAndResize({
-              uri: feature.uri,
-              width: POST_IMG_MAX.width,
-              height: POST_IMG_MAX.height,
-              mode: 'contain',
-              maxSize: POST_IMG_MAX.size,
-              timeout: 15e3,
-            })
-
-            if (res !== undefined) {
-              onPhotoPasted(res.path)
-            }
-          } else {
-            set.add(feature.uri)
-          }
-        }
-      }
-    }
-  }
 };
 
 export const useSendPost = ({
@@ -424,4 +401,172 @@ const compress = async ({
     }
   }
   return uri;
+};
+
+export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
+  const agent = useAgent();
+
+  const set = new Set<string>();
+
+  for (const facet of facets) {
+    for (const feature of facet.features) {
+      if (AppBskyRichtextFacet.isLink(feature)) {
+        set.add(feature.uri);
+      }
+    }
+  }
+
+  const urls = Array.from(set);
+
+  const queries = useQueries({
+    queries: urls.map((uri) => ({
+      queryKey: ["embed", uri],
+      queryFn: async (): Promise<{
+        view: AppBskyEmbedRecord.View | AppBskyEmbedExternal.View;
+        main: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.View; // thumb needs to be string, same otherwise
+      } | null> => {
+        // check if it's a url via zod
+        if (!z.string().trim().url().safeParse(uri).success) return null;
+
+        const url = new URL(uri.trim());
+
+        if (url.hostname === "bsky.app") {
+          const [_0, handle, type, rkey] = url.pathname
+            .split("/")
+            .filter(Boolean);
+
+          let did = handle;
+          if (did && !did.startsWith("did:")) {
+            const { data } = await agent.resolveHandle({ handle: did });
+            did = data.did;
+          }
+
+          switch (type) {
+            case "post": {
+              const data = await agent.getPostThread({
+                uri: `at://${did}/app.bsky.feed.post/${rkey}`,
+              });
+              if (!data.success) return null;
+
+              const thread = data.data.thread;
+
+              if (
+                AppBskyFeedDefs.isBlockedPost(thread) ||
+                AppBskyFeedDefs.isNotFoundPost(thread)
+              ) {
+                return null;
+              }
+
+              if (AppBskyFeedDefs.isThreadViewPost(thread)) {
+                return {
+                  view: {
+                    $type: "app.bsky.embed.record#view",
+                    record: {
+                      $type: "app.bsky.embed.record#viewRecord",
+                      author: thread.post.author,
+                      uri: thread.post.uri,
+                      cid: thread.post.cid,
+                      indexedAt: thread.post.indexedAt,
+                      labels: thread.post.labels,
+                      value: thread.post.record,
+                      embeds: thread.post.embed
+                        ? [thread.post.embed]
+                        : undefined,
+                    } satisfies AppBskyEmbedRecord.ViewRecord,
+                  } satisfies AppBskyEmbedRecord.View,
+                  main: {
+                    $type: "app.bsky.embed.record#main",
+                    record: {
+                      uri: thread.post.uri,
+                      cid: thread.post.cid,
+                    },
+                  } satisfies AppBskyEmbedRecord.Main,
+                };
+              }
+
+              return null;
+            }
+            case "feed": {
+              const generator = await agent.app.bsky.feed.getFeedGenerator({
+                feed: `at://${did}/app.bsky.feed.generator/${rkey}`,
+              });
+
+              if (!generator.success) return null;
+
+              return {
+                view: {
+                  $type: "app.bsky.embed.record#view",
+                  record: generator.data.view,
+                } satisfies AppBskyEmbedRecord.View,
+                main: {
+                  $type: "app.bsky.embed.record#main",
+                  record: {
+                    uri: generator.data.view.uri,
+                    cid: generator.data.view.cid,
+                  },
+                } satisfies AppBskyEmbedRecord.Main,
+              };
+            }
+            default:
+              return null;
+          }
+        } else {
+          // fetch external embed
+
+          const controller = new AbortController();
+          const to = setTimeout(() => controller.abort(), 5e3);
+
+          const response = await fetch(
+            `https://cardyb.bsky.app/v1/extract?url=${encodeURIComponent(
+              url.toString(),
+            )}`,
+            { signal: controller.signal },
+          );
+
+          const body = (await response.json()) as {
+            description?: string;
+            error?: string;
+            image?: string;
+            title?: string;
+          };
+          clearTimeout(to);
+
+          const { error, title = "", description = "", image } = body;
+
+          if (error) throw new Error(error);
+
+          return {
+            view: {
+              $type: "app.bsky.embed.external#view",
+              external: {
+                $type: "app.bsky.embed.external#viewExternal",
+                uri: url.toString(),
+                title,
+                description,
+                thumb: image,
+                url: uri,
+              } satisfies AppBskyEmbedExternal.ViewExternal,
+            } satisfies AppBskyEmbedExternal.View,
+            main: {
+              // faking the $type so that we can upload the thumbnail at post time
+              $type: "app.bsky.embed.external#main",
+              external: {
+                $type: "app.bsky.embed.external#external",
+                uri: url.toString(),
+                title,
+                description,
+                thumb: image,
+                url: uri,
+              } satisfies AppBskyEmbedExternal.ViewExternal,
+            } satisfies AppBskyEmbedExternal.View,
+          };
+        }
+      },
+    })),
+  });
+
+  return urls.map((uri, i) => ({
+    uri,
+    query: queries[i]!,
+  }));
 };

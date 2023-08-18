@@ -6,6 +6,7 @@ import {
   Keyboard,
   Platform,
   TextInput,
+  TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -24,7 +25,6 @@ import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import {
-  AppBskyRichtextFacet,
   RichText as RichTextHelper,
   type AppBskyActorDefs,
   type AppBskyEmbedRecord,
@@ -51,6 +51,7 @@ import { useAgent } from "../../lib/agent";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
+  useEmbeds,
   useImages,
   useQuote,
   useReply,
@@ -87,22 +88,23 @@ export default function ComposerScreen() {
 
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
-  const { rt, uris } = useMemo(() => {
+  const rt = useMemo(() => {
     const rt = new RichTextHelper({ text });
     rt.detectFacetsWithoutResolution();
-
-    const uris = new Set<string>();
-
-    for (const facet of rt.facets ?? []) {
-      for (const feature of facet.features) {
-        if (AppBskyRichtextFacet.isLink(feature)) {
-          uris.add(feature.uri);
-        }
-      }
-    }
-
-    return { rt, uris: Array.from(uris) };
+    return rt;
   }, [text]);
+
+  const embeds = useEmbeds(rt.facets);
+  const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
+
+  const activeEmbedQuery = embeds.find((e) => e.uri === activeEmbed);
+
+  if (
+    activeEmbed &&
+    (!activeEmbedQuery || activeEmbedQuery.query.data === null)
+  ) {
+    setActiveEmbed(null);
+  }
 
   const prefix = useMemo(() => {
     return getMentionAt(text, selectionRef.current?.start || 0);
@@ -216,7 +218,10 @@ export default function ComposerScreen() {
               </Animated.View>
             </TouchableOpacity>
           )}
-          <Animated.View className="w-full flex-row px-2 pb-6" layout={Layout}>
+          <Animated.View
+            className="w-full flex-1 flex-row px-2 pb-6"
+            layout={Layout}
+          >
             <View className="shrink-0 px-2">
               <Avatar size="medium" />
             </View>
@@ -357,7 +362,7 @@ export default function ComposerScreen() {
                     style={{
                       aspectRatio: Math.max(
                         0.6,
-                        Math.min(image.asset.width / image.asset.height, 1.5),
+                        Math.min(image.asset.width / image.asset.height, 1.2),
                       ),
                     }}
                   />
@@ -415,14 +420,20 @@ export default function ComposerScreen() {
                 </Animated.View>
               ))}
               {images.length < MAX_IMAGES && (
-                <Animated.View layout={Layout}>
+                <Animated.View layout={Layout} className="mr-20 flex-1">
                   <TouchableOpacity
                     onPress={() => {
                       void Haptics.impactAsync();
                       imagePicker.mutate();
                     }}
                   >
-                    <View className="h-44 w-32 items-center justify-center rounded border border-neutral-200 dark:border-neutral-500">
+                    <View
+                      className="h-44 w-32 items-center justify-center rounded border"
+                      style={{
+                        backgroundColor: theme.colors.card,
+                        borderColor: theme.colors.border,
+                      }}
+                    >
                       <PlusIcon color={theme.colors.text} />
                       <Text className="mt-2 text-center">Add image</Text>
                     </View>
@@ -436,27 +447,74 @@ export default function ComposerScreen() {
             className="w-full flex-1 flex-row pl-16 pr-2"
           >
             {/* EMBED/QUOTE */}
-            {quote.thread.data && (
+            {(!!quote.thread.data || embeds.length > 0) && (
               <Animated.View
                 layout={Layout}
                 entering={FadeInDown}
-                className="mt-4 w-full flex-1"
-                pointerEvents="none"
+                className="w-full flex-1"
               >
-                <Embed
-                  uri=""
-                  transparent
-                  content={
-                    {
-                      $type: "app.bsky.embed.record#view",
-                      record: {
-                        $type: "app.bsky.embed.record#viewRecord",
-                        ...quote.thread.data.post,
-                        value: quote.thread.data.post.record,
-                      },
-                    } satisfies AppBskyEmbedRecord.View
-                  }
-                />
+                {quote.thread.data ? (
+                  <View pointerEvents="none" className="w-full flex-1">
+                    <Embed
+                      uri=""
+                      transparent
+                      content={
+                        {
+                          $type: "app.bsky.embed.record#view",
+                          record: {
+                            $type: "app.bsky.embed.record#viewRecord",
+                            ...quote.thread.data.post,
+                            value: quote.thread.data.post.record,
+                          },
+                        } satisfies AppBskyEmbedRecord.View
+                      }
+                    />
+                  </View>
+                ) : activeEmbedQuery ? (
+                  <View className="relative flex-1">
+                    <TouchableOpacity
+                      onPress={() => setActiveEmbed(null)}
+                      className="absolute right-2 top-4 z-10 rounded-full"
+                    >
+                      <View className="rounded-full bg-black/90 p-1">
+                        <XIcon size={14} color="white" />
+                      </View>
+                    </TouchableOpacity>
+                    <LoadableEmbed
+                      uri={activeEmbedQuery.uri}
+                      query={activeEmbedQuery.query}
+                    />
+                  </View>
+                ) : (
+                  embeds
+                    .filter((x) => x.uri !== activeEmbed)
+                    .map((embed) => (
+                      <TouchableHighlight
+                        key={embed.uri}
+                        className="mb-2 rounded-lg"
+                        onPress={() => setActiveEmbed(embed.uri)}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: theme.colors.card,
+                            borderColor: theme.colors.border,
+                          }}
+                          className="rounded-lg border px-3 py-2"
+                        >
+                          <Text numberOfLines={1} className="text-base">
+                            Add embed for{" "}
+                            <Text
+                              style={{
+                                color: theme.colors.primary,
+                              }}
+                            >
+                              {embed.uri}
+                            </Text>
+                          </Text>
+                        </View>
+                      </TouchableHighlight>
+                    ))
+                )}
               </Animated.View>
             )}
           </Animated.View>
@@ -465,6 +523,41 @@ export default function ComposerScreen() {
     </View>
   );
 }
+
+const LoadableEmbed = ({
+  uri,
+  query,
+}: ReturnType<typeof useEmbeds>[number]) => {
+  const theme = useTheme();
+
+  if (!query) return null;
+
+  switch (query.status) {
+    case "loading":
+      return (
+        <View className="w-full flex-1 py-1">
+          <ActivityIndicator size="large" color={theme.colors.text} />
+        </View>
+      );
+    case "error":
+      return (
+        <View className="w-full flex-1">
+          <Text className="text-base font-medium text-red-500">
+            {query.error instanceof Error
+              ? query.error.message
+              : "An unknown error occurred"}
+          </Text>
+        </View>
+      );
+    case "success":
+      if (query.data === null) return null;
+      return (
+        <View className="w-full flex-1" pointerEvents="none">
+          <Embed uri={uri} transparent content={query.data.view} />
+        </View>
+      );
+  }
+};
 
 const PostButton = ({
   onPress,

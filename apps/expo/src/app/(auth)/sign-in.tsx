@@ -46,8 +46,6 @@ export default function SignIn() {
       ),
   });
 
-  return <Text>test</Text>;
-
   return (
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}

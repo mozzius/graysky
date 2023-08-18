@@ -53,7 +53,7 @@ export default function SignUp() {
     queryKey: ["resolve-handle", derivedHandle],
     queryFn: async (): Promise<"available" | "taken" | "invalid"> => {
       try {
-        await agent.com.atproto.identity.resolveHandle({
+        await agent.resolveHandle({
           handle: derivedHandle,
         });
         return "taken";

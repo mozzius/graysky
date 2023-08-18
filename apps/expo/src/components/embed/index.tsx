@@ -13,7 +13,6 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, LinkIcon } from "lucide-react-native";
 
-import { assert } from "../../lib/utils/assert";
 import { cx } from "../../lib/utils/cx";
 import { Text } from "../text";
 import { ImageEmbed } from "./image";
@@ -40,13 +39,11 @@ export const Embed = ({
   try {
     // Case 1: Image
     if (AppBskyEmbedImages.isView(content)) {
-      assert(AppBskyEmbedImages.validateView(content));
       return <ImageEmbed uri={uri} content={content} depth={depth} />;
     }
 
     // Case 2: External link
     if (AppBskyEmbedExternal.isView(content)) {
-      assert(AppBskyEmbedExternal.validateView(content));
       return (
         <TouchableHighlight
           onPress={() => void Linking.openURL(content.external.uri)}
@@ -105,18 +102,15 @@ export const Embed = ({
     let media: AppBskyEmbedRecordWithMedia.View["media"] | null = null;
 
     if (AppBskyEmbedRecord.isView(content)) {
-      assert(AppBskyEmbedRecord.validateView(content));
       record = content.record;
     }
 
     if (AppBskyEmbedRecordWithMedia.isView(content)) {
-      assert(AppBskyEmbedRecordWithMedia.validateView(content));
       record = content.record.record;
       media = content.media;
     }
 
     if (record !== null) {
-      // record can either be ViewRecord or ViewNotFound
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
         if (AppBskyFeedDefs.isGeneratorView(record)) {
           const href = `/profile/${record.creator.did}/feed/${record.uri
@@ -128,9 +122,9 @@ export const Embed = ({
           // - like feed
           return (
             <Link href={href} asChild>
-              <TouchableHighlight className="mt-1.5 rounded-lg">
+              <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
                 <View
-                  className="flex-row items-center rounded-lg border p-2"
+                  className="flex-1 flex-row items-center rounded-lg border p-2"
                   style={{
                     backgroundColor: theme.dark ? "black" : "white",
                     borderColor: theme.colors.border,
@@ -174,11 +168,9 @@ export const Embed = ({
           throw new Error("An error occurred");
         }
       }
-      assert(AppBskyEmbedRecord.validateViewRecord(record));
 
       if (!AppBskyFeedPost.isRecord(record.value))
         throw new Error("An error occurred");
-      assert(AppBskyFeedPost.validateRecord(record.value));
 
       return (
         <View className="flex-1">
