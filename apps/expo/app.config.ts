@@ -11,7 +11,7 @@ const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
-  version: "1.0.0",
+  version: "0.1.1",
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -37,6 +37,7 @@ const defineConfig = (): ExpoConfig => ({
     },
     infoPlist: {
       UIViewControllerBasedStatusBarAppearance: false,
+      CADisableMinimumFrameDurationOnPhone: true,
     },
   },
   android: {

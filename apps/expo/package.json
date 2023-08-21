@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "main": "index.js",
   "scripts": {
     "eas-build-pre-install": "npm install -g pnpm@8.6.12",

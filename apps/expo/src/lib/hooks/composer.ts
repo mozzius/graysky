@@ -14,6 +14,7 @@ import {
   type AppBskyEmbedRecord,
   type AppBskyEmbedRecordWithMedia,
   type AppBskyFeedPost,
+  type BlobRef,
   type BskyAgent,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
@@ -98,14 +99,14 @@ export const useSendPost = ({
   text,
   images,
   reply,
+  quote,
   external,
-  record,
 }: {
   text: string;
   images: ImageWithAlt[];
   reply?: AppBskyFeedPost.ReplyRef;
-  external?: AppBskyEmbedExternal.Main;
-  record?: AppBskyEmbedRecord.Main;
+  quote?: AppBskyEmbedRecord.Main;
+  external?: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.Main;
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -126,6 +127,7 @@ export const useSendPost = ({
         );
         throw new Error("Too long");
       }
+
       const uploadedImages = await Promise.all(
         images.map(async (img) => {
           let uri = img.asset.uri;
@@ -162,7 +164,7 @@ export const useSendPost = ({
         }),
       );
 
-      const imagesMain =
+      const media =
         uploadedImages.length > 0
           ? {
               $type: "app.bsky.embed.images",
@@ -170,29 +172,35 @@ export const useSendPost = ({
             }
           : undefined;
 
-      const media = imagesMain ?? external;
+      let mergedEmbed: AppBskyFeedPost.Record["embed"];
 
-      let embed: AppBskyFeedPost.Record["embed"];
+      // embed priorities
+      // 1. quote with media
+      // 2. quote
+      // 3. media
+      // 4. external
 
-      if (record) {
+      if (quote) {
         if (media) {
-          embed = {
+          mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
-            record,
+            record: quote,
             media,
           } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else {
-          embed = record;
+          mergedEmbed = quote;
         }
-      } else {
-        embed = media;
+      } else if (media) {
+        mergedEmbed = media;
+      } else if (external) {
+        mergedEmbed = external;
       }
 
       await agent.post({
         text: rt.text,
         facets: rt.facets,
         reply,
-        embed,
+        embed: mergedEmbed,
         // TODO: LANGUAGE SELECTOR
         langs: [locale.languageCode],
       });
@@ -365,17 +373,17 @@ const compress = async ({
 }: {
   uri: string;
   width?: number;
-
   height?: number;
   needsResize: boolean;
 }) => {
+  let current = uri;
   // compress iteratively, reducing quality each time
   for (let i = 0; i < 9; i++) {
     const quality = 100 - i * 10;
 
     try {
       const compressed = await ImageManipulator.manipulateAsync(
-        uri,
+        current,
         needsResize ? [{ resize: { width, height } }] : [],
         {
           compress: quality / 100,
@@ -390,6 +398,8 @@ const compress = async ({
 
       if (compressedSize < MAX_SIZE) {
         return compressed;
+      } else {
+        current = compressed;
       }
     } catch (err) {
       throw new Error(`Failed to resize: ${err}`);
@@ -398,7 +408,7 @@ const compress = async ({
   return uri;
 };
 
-export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
+export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
   const [selectedEmbed, selectEmbed] = useState<string | null>(null);
   const agent = useAgent();
 
@@ -419,7 +429,7 @@ export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
     queryKey: ["embed", selectedEmbed],
     queryFn: async (): Promise<{
       view: AppBskyEmbedRecord.View | AppBskyEmbedExternal.View;
-      main: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.View; // thumb needs to be string, same otherwise
+      main: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.Main;
     } | null> => {
       if (!selectedEmbed) return null;
 
@@ -429,11 +439,9 @@ export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
       const url = new URL(selectedEmbed.trim());
 
-      if (url.hostname === "bsky.app") {
-        const [_0, handle, type, rkey] = url.pathname
-          .split("/")
-          .filter(Boolean);
+      const [_0, handle, type, rkey] = url.pathname.split("/").filter(Boolean);
 
+      if (url.hostname === "bsky.app" && handle && type && rkey) {
         let did = handle;
         if (did && !did.startsWith("did:")) {
           const { data } = await agent.resolveHandle({ handle: did });
@@ -509,6 +517,7 @@ export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
         }
       } else {
         // fetch external embed
+        // uses the cardyb api (lol)
 
         const controller = new AbortController();
         const to = setTimeout(() => controller.abort(), 5e3);
@@ -530,6 +539,15 @@ export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
         const { error, title = "", description = "", image } = body;
 
+        let thumb: BlobRef | undefined;
+
+        if (image) {
+          // probably need to download first :/
+          const uploaded = await agent.uploadBlob(image);
+          if (!uploaded.success) throw new Error("Failed to upload image");
+          thumb = uploaded.data.blob;
+        }
+
         if (error) throw new Error(error);
 
         return {
@@ -545,29 +563,28 @@ export const useEmbeds = (facets: AppBskyRichtextFacet.Main[] = []) => {
             } satisfies AppBskyEmbedExternal.ViewExternal,
           } satisfies AppBskyEmbedExternal.View,
           main: {
-            // faking the $type so that we can upload the thumbnail at post time
             $type: "app.bsky.embed.external#main",
             external: {
               $type: "app.bsky.embed.external#external",
               uri: url.toString(),
               title,
               description,
-              thumb: image,
+              thumb,
               url: selectedEmbed,
-            } satisfies AppBskyEmbedExternal.ViewExternal,
-          } satisfies AppBskyEmbedExternal.View,
+            } satisfies AppBskyEmbedExternal.External,
+          } satisfies AppBskyEmbedExternal.Main,
         };
       }
     },
   });
 
   return {
-    potentialEmbeds: urls,
-    embed: {
+    potentialExternalEmbeds: urls,
+    external: {
       url: selectedEmbed,
       query: embed,
     },
-    selectEmbed,
-    hasEmbeds: urls.length > 0 || !!selectedEmbed,
+    selectExternal: selectEmbed,
+    hasExternal: urls.length > 0 || !!selectedEmbed,
   };
 };

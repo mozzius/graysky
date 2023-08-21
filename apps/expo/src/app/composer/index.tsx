@@ -51,7 +51,7 @@ import { useAgent } from "../../lib/agent";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
-  useEmbeds,
+  useExternal,
   useImages,
   useQuote,
   useReply,
@@ -94,9 +94,8 @@ export default function ComposerScreen() {
     return rt;
   }, [text]);
 
-  const { embed, selectEmbed, potentialEmbeds, hasEmbeds } = useEmbeds(
-    rt.facets,
-  );
+  const { external, selectExternal, potentialExternalEmbeds, hasExternal } =
+    useExternal(rt.facets);
 
   const prefix = useMemo(() => {
     return getMentionAt(text, selectionRef.current?.start || 0);
@@ -128,7 +127,8 @@ export default function ComposerScreen() {
     text,
     images,
     reply: reply.ref,
-    record: quote.ref,
+    quote: quote.ref,
+    external: external.query.data?.main,
   });
 
   useEffect(() => {
@@ -439,7 +439,7 @@ export default function ComposerScreen() {
             className="w-full flex-1 flex-row pl-16 pr-2"
           >
             {/* EMBED/QUOTE */}
-            {(!!quote.thread.data || hasEmbeds) && (
+            {(!!quote.thread.data || hasExternal) && (
               <Animated.View
                 layout={Layout}
                 entering={FadeInDown}
@@ -462,43 +462,49 @@ export default function ComposerScreen() {
                       }
                     />
                   </View>
-                ) : embed.url ? (
-                  <View className="relative flex-1">
-                    <TouchableOpacity
-                      onPress={() => selectEmbed(null)}
-                      className="absolute right-2 top-4 z-10 rounded-full"
-                    >
-                      <View className="rounded-full bg-black/90 p-1">
-                        <XIcon size={14} color="white" />
-                      </View>
-                    </TouchableOpacity>
-                    <LoadableEmbed url={embed.url} query={embed.query} />
-                  </View>
                 ) : (
-                  potentialEmbeds
-                    .filter((x) => x !== embed.url)
-                    .map((potential) => (
-                      <TouchableHighlight
-                        key={potential}
-                        className="mb-2 rounded-lg"
-                        onPress={() => selectEmbed(potential)}
+                  images.length === 0 &&
+                  (external.url ? (
+                    <View className="relative flex-1">
+                      <TouchableOpacity
+                        onPress={() => selectExternal(null)}
+                        className="absolute right-2 top-4 z-10 rounded-full"
                       >
-                        <View
-                          style={{
-                            backgroundColor: theme.colors.card,
-                            borderColor: theme.colors.border,
-                          }}
-                          className="rounded-lg border px-3 py-2"
-                        >
-                          <Text numberOfLines={1} className="text-base">
-                            Add embed for{" "}
-                            <Text style={{ color: theme.colors.primary }}>
-                              {potential}
-                            </Text>
-                          </Text>
+                        <View className="rounded-full bg-black/90 p-1">
+                          <XIcon size={14} color="white" />
                         </View>
-                      </TouchableHighlight>
-                    ))
+                      </TouchableOpacity>
+                      <LoadableEmbed
+                        url={external.url}
+                        query={external.query}
+                      />
+                    </View>
+                  ) : (
+                    potentialExternalEmbeds
+                      .filter((x) => x !== external.url)
+                      .map((potential) => (
+                        <TouchableHighlight
+                          key={potential}
+                          className="mb-2 rounded-lg"
+                          onPress={() => selectExternal(potential)}
+                        >
+                          <View
+                            style={{
+                              backgroundColor: theme.colors.card,
+                              borderColor: theme.colors.border,
+                            }}
+                            className="rounded-lg border px-3 py-2"
+                          >
+                            <Text numberOfLines={1} className="text-base">
+                              Add embed for{" "}
+                              <Text style={{ color: theme.colors.primary }}>
+                                {potential}
+                              </Text>
+                            </Text>
+                          </View>
+                        </TouchableHighlight>
+                      ))
+                  ))
                 )}
               </Animated.View>
             )}
@@ -512,7 +518,7 @@ export default function ComposerScreen() {
 const LoadableEmbed = ({
   url,
   query,
-}: ReturnType<typeof useEmbeds>["embed"]) => {
+}: ReturnType<typeof useExternal>["external"]) => {
   const theme = useTheme();
 
   if (!url) return null;
@@ -520,7 +526,7 @@ const LoadableEmbed = ({
   switch (query.status) {
     case "loading":
       return (
-        <View className="w-full flex-1 py-1">
+        <View className="w-full flex-1 py-3">
           <ActivityIndicator size="large" color={theme.colors.text} />
         </View>
       );
