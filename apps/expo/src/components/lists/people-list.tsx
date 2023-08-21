@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -54,16 +55,10 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       },
     }));
 
-    useEffect(() => {
-      function onBackButton() {
-        bottomSheetRef.current?.dismiss();
-        return true;
-      }
-      BackHandler.addEventListener("hardwareBackPress", onBackButton);
-      return () => {
-        BackHandler.removeEventListener("hardwareBackPress", onBackButton);
-      };
-    }, []);
+    const onPressBackButton = useCallback(
+      () => bottomSheetRef.current?.dismiss(),
+      [],
+    );
 
     const {
       backgroundStyle,
@@ -89,8 +84,10 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
+        enableDismissOnClose
         detached
       >
+        <BackButton dismiss={onPressBackButton} />
         <Text className="mt-2 text-center text-xl font-medium">{title}</Text>
         {data.data ? (
           <View
@@ -148,3 +145,20 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
   },
 );
 PeopleList.displayName = "PeopleList";
+
+const BackButton = ({ dismiss }: { dismiss: () => void }) => {
+  useEffect(() => {
+    console.log("back button override enabled");
+    function onBackButton() {
+      dismiss();
+      return true;
+    }
+    BackHandler.addEventListener("hardwareBackPress", onBackButton);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", onBackButton);
+      console.log("back button override disabled");
+    };
+  }, [dismiss]);
+
+  return null;
+};

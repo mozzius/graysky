@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
@@ -50,6 +50,9 @@ export default function SignIn() {
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
     >
+      {/* STUPID HACK */}
+      {/* I HATE THIS SO MUCH */}
+      <Stack.Screen options={{ headerRight: () => null }} />
       <View className="items-stretch gap-4">
         <View
           className={cx(
