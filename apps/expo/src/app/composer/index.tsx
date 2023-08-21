@@ -94,17 +94,9 @@ export default function ComposerScreen() {
     return rt;
   }, [text]);
 
-  const embeds = useEmbeds(rt.facets);
-  const [activeEmbed, setActiveEmbed] = useState<string | null>(null);
-
-  const activeEmbedQuery = embeds.find((e) => e.uri === activeEmbed);
-
-  if (
-    activeEmbed &&
-    (!activeEmbedQuery || activeEmbedQuery.query.data === null)
-  ) {
-    setActiveEmbed(null);
-  }
+  const { embed, selectEmbed, potentialEmbeds, hasEmbeds } = useEmbeds(
+    rt.facets,
+  );
 
   const prefix = useMemo(() => {
     return getMentionAt(text, selectionRef.current?.start || 0);
@@ -447,7 +439,7 @@ export default function ComposerScreen() {
             className="w-full flex-1 flex-row pl-16 pr-2"
           >
             {/* EMBED/QUOTE */}
-            {(!!quote.thread.data || embeds.length > 0) && (
+            {(!!quote.thread.data || hasEmbeds) && (
               <Animated.View
                 layout={Layout}
                 entering={FadeInDown}
@@ -470,29 +462,26 @@ export default function ComposerScreen() {
                       }
                     />
                   </View>
-                ) : activeEmbedQuery ? (
+                ) : embed.url ? (
                   <View className="relative flex-1">
                     <TouchableOpacity
-                      onPress={() => setActiveEmbed(null)}
+                      onPress={() => selectEmbed(null)}
                       className="absolute right-2 top-4 z-10 rounded-full"
                     >
                       <View className="rounded-full bg-black/90 p-1">
                         <XIcon size={14} color="white" />
                       </View>
                     </TouchableOpacity>
-                    <LoadableEmbed
-                      uri={activeEmbedQuery.uri}
-                      query={activeEmbedQuery.query}
-                    />
+                    <LoadableEmbed url={embed.url} query={embed.query} />
                   </View>
                 ) : (
-                  embeds
-                    .filter((x) => x.uri !== activeEmbed)
-                    .map((embed) => (
+                  potentialEmbeds
+                    .filter((x) => x !== embed.url)
+                    .map((potential) => (
                       <TouchableHighlight
-                        key={embed.uri}
+                        key={potential}
                         className="mb-2 rounded-lg"
-                        onPress={() => setActiveEmbed(embed.uri)}
+                        onPress={() => selectEmbed(potential)}
                       >
                         <View
                           style={{
@@ -503,12 +492,8 @@ export default function ComposerScreen() {
                         >
                           <Text numberOfLines={1} className="text-base">
                             Add embed for{" "}
-                            <Text
-                              style={{
-                                color: theme.colors.primary,
-                              }}
-                            >
-                              {embed.uri}
+                            <Text style={{ color: theme.colors.primary }}>
+                              {potential}
                             </Text>
                           </Text>
                         </View>
@@ -525,12 +510,12 @@ export default function ComposerScreen() {
 }
 
 const LoadableEmbed = ({
-  uri,
+  url,
   query,
-}: ReturnType<typeof useEmbeds>[number]) => {
+}: ReturnType<typeof useEmbeds>["embed"]) => {
   const theme = useTheme();
 
-  if (!query) return null;
+  if (!url) return null;
 
   switch (query.status) {
     case "loading":
@@ -553,7 +538,7 @@ const LoadableEmbed = ({
       if (query.data === null) return null;
       return (
         <View className="w-full flex-1" pointerEvents="none">
-          <Embed uri={uri} transparent content={query.data.view} />
+          <Embed uri={url} transparent content={query.data.view} />
         </View>
       );
   }
