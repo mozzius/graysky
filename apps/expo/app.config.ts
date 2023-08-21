@@ -57,7 +57,15 @@ const defineConfig = (): ExpoConfig => ({
     sentry: process.env.SENTRY_DSN,
   },
   hooks: {
-    postPublish: [{ file: "sentry-expo/upload-sourcemaps" }],
+    postPublish: [
+      {
+        file: "sentry-expo/upload-sourcemaps",
+        config: {
+          organization: "graysky",
+          project: "graysky",
+        },
+      },
+    ],
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
