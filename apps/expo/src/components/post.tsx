@@ -75,7 +75,12 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
               </Text>
             </TouchableOpacity>
           </Link>
-          <PostContextMenu post={post} showSeeLikes showSeeReposts />
+          <PostContextMenu
+            post={post}
+            showSeeLikes
+            showSeeReposts
+            showCopyText
+          />
         </View>
       </View>
       {/* text content */}

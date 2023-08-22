@@ -543,9 +543,9 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
         if (image) {
           // probably need to download first :/
-          const uploaded = await agent.uploadBlob(image);
-          if (!uploaded.success) throw new Error("Failed to upload image");
-          thumb = uploaded.data.blob;
+          // const uploaded = await agent.uploadBlob(image);
+          // if (!uploaded.success) throw new Error("Failed to upload image");
+          // thumb = uploaded.data.blob;
         }
 
         if (error) throw new Error(error);

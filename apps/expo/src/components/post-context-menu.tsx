@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
+import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import {
@@ -16,19 +17,20 @@ import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
 import { useAgent } from "../lib/agent";
-import { assert } from "../lib/utils/assert";
 import { useLists } from "./lists/context";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;
   showSeeLikes?: boolean;
   showSeeReposts?: boolean;
+  showCopyText?: boolean;
 }
 
 const PostContextMenuButton = ({
   post,
   showSeeLikes,
   showSeeReposts,
+  showCopyText,
 }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
@@ -40,7 +42,6 @@ const PostContextMenuButton = ({
 
   const translate = () => {
     if (!AppBskyFeedPost.isRecord(post.record)) return;
-    assert(AppBskyFeedPost.validateRecord(post.record));
     router.push(`/translate?text=${encodeURIComponent(post.record.text)}`);
   };
 
@@ -50,6 +51,11 @@ const PostContextMenuButton = ({
         .split("/")
         .pop()}`,
     });
+  };
+
+  const copy = async () => {
+    if (!AppBskyFeedPost.isRecord(post.record)) return;
+    await Clipboard.setStringAsync(post.record.text);
   };
 
   const delet = () => {
@@ -122,6 +128,14 @@ const PostContextMenuButton = ({
       action: () => share(),
       icon: "square.and.arrow.up",
     },
+    showCopyText
+      ? {
+          key: "copy",
+          label: "Copy post text",
+          action: () => copy(),
+          icon: "doc.on.doc",
+        }
+      : [],
     showSeeLikes
       ? {
           key: "likes",
