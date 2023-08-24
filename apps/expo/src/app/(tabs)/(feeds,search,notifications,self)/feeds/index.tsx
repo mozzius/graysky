@@ -26,6 +26,29 @@ import {
 } from "../../../../lib/hooks/feeds";
 import { cx } from "../../../../lib/utils/cx";
 
+const NoFeeds = () => {
+  const theme = useTheme();
+  return (
+    <View className="flex-1 items-center justify-center">
+      <View className="w-3/4 flex-col items-start">
+        <Text className="mb-2 text-2xl font-medium">Welcome to Bluesky!</Text>
+        <Text className="text-lg">
+          To get started, add some feeds to your home screen.
+        </Text>
+        <Link asChild href="/search">
+          <TouchableOpacity
+            className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
+            style={{ backgroundColor: theme.colors.primary }}
+          >
+            <CompassIcon size={20} className="text-white" />
+            <Text className="ml-4 text-xl text-white">Discover feeds</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>
+    </View>
+  );
+};
+
 interface Props {
   editing: boolean;
 }
@@ -65,68 +88,76 @@ const FeedsPage = ({ editing }: Props) => {
             </View>
           </TouchableHighlight>
         </Link>
-        <SectionHeader title="Favourites" />
-        <NestableDraggableFlatList
-          data={pinned
-            .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
-            .filter(Boolean)}
-          keyExtractor={(item) => item.uri}
-          onDragEnd={({ data }) => {
-            reorder.mutate(data.map((item) => item.uri));
-          }}
-          style={{ backgroundColor: theme.dark ? "black" : "white" }}
-          renderItem={({ item, drag }) => (
-            <DraggableFeedRow
-              feed={item}
-              onPressStar={() => {
-                toggleFeed.mutate({ pin: item.uri });
+        {savedFeeds.data.feeds.length > 0 ? (
+          <>
+            <SectionHeader title="Favourites" />
+            <NestableDraggableFlatList
+              data={pinned
+                .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+                .filter(Boolean)}
+              keyExtractor={(item) => item.uri}
+              onDragEnd={({ data }) => {
+                reorder.mutate(data.map((item) => item.uri));
               }}
-              drag={drag}
-              editing={editing}
-              onUnsave={handleUnsave(item.uri)}
+              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              renderItem={({ item, drag }) => (
+                <DraggableFeedRow
+                  feed={item}
+                  onPressStar={() => {
+                    toggleFeed.mutate({ pin: item.uri });
+                  }}
+                  drag={drag}
+                  editing={editing}
+                  onUnsave={handleUnsave(item.uri)}
+                />
+              )}
+              ItemSeparatorComponent={() => (
+                <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+              )}
             />
-          )}
-          ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
-          )}
-        />
-        <SectionHeader title="All feeds" />
-        <NestableDraggableFlatList
-          data={savedFeeds.data.feeds
-            .filter((feed) => !feed.pinned)
-            .sort((a, b) => a.displayName.localeCompare(b.displayName))}
-          keyExtractor={(item) => item.uri}
-          style={{ backgroundColor: theme.dark ? "black" : "white" }}
-          renderItem={({ item }) => (
-            <DraggableFeedRow
-              feed={item}
-              onPressStar={() => {
-                toggleFeed.mutate({ pin: item.uri });
-              }}
-              editing={editing}
-              onUnsave={handleUnsave(item.uri)}
+            <SectionHeader title="All feeds" />
+            <NestableDraggableFlatList
+              data={savedFeeds.data.feeds
+                .filter((feed) => !feed.pinned)
+                .sort((a, b) => a.displayName.localeCompare(b.displayName))}
+              keyExtractor={(item) => item.uri}
+              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              renderItem={({ item }) => (
+                <DraggableFeedRow
+                  feed={item}
+                  onPressStar={() => {
+                    toggleFeed.mutate({ pin: item.uri });
+                  }}
+                  editing={editing}
+                  onUnsave={handleUnsave(item.uri)}
+                />
+              )}
+              ItemSeparatorComponent={() => (
+                <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+              )}
             />
-          )}
-          ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
-          )}
-        />
-        <View className="mb-20 p-6">
-          <Link href="/feeds/discover" asChild>
-            <TouchableHighlight className="overflow-hidden rounded-lg">
-              <View
-                className="flex-row items-center justify-between p-4"
-                style={{ backgroundColor: theme.colors.card }}
-              >
-                <View className="flex-row items-center">
-                  <CompassIcon size={20} className="text-blue-500" />
-                  <Text className="ml-3 text-base">Discover more feeds</Text>
-                </View>
-                <ChevronRightIcon size={20} className="text-neutral-400" />
-              </View>
-            </TouchableHighlight>
-          </Link>
-        </View>
+            <View className="mb-20 p-6">
+              <Link href="/feeds/discover" asChild>
+                <TouchableHighlight className="overflow-hidden rounded-lg">
+                  <View
+                    className="flex-row items-center justify-between p-4"
+                    style={{ backgroundColor: theme.colors.card }}
+                  >
+                    <View className="flex-row items-center">
+                      <CompassIcon size={20} className="text-blue-500" />
+                      <Text className="ml-3 text-base">
+                        Discover more feeds
+                      </Text>
+                    </View>
+                    <ChevronRightIcon size={20} className="text-neutral-400" />
+                  </View>
+                </TouchableHighlight>
+              </Link>
+            </View>
+          </>
+        ) : (
+          <NoFeeds />
+        )}
       </NestableScrollContainer>
     );
   }

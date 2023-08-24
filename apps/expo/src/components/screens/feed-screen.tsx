@@ -1,8 +1,15 @@
-import { ActivityIndicator, RefreshControl, View } from "react-native";
-import { Stack } from "expo-router";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Link, Stack } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { type DefinedUseQueryResult } from "@tanstack/react-query";
+import { SearchIcon } from "lucide-react-native";
 
 import { useTabPressScrollRef } from "../../lib/hooks";
 import {
@@ -21,6 +28,7 @@ interface Props {
 }
 
 export const FeedScreen = ({ feed }: Props) => {
+  const theme = useTheme();
   const { timeline, data, preferences } = useTimeline(feed);
   const info = useFeedInfo(feed);
 
@@ -87,6 +95,29 @@ export const FeedScreen = ({ feed }: Props) => {
             )
           }
           extraData={timeline.dataUpdatedAt}
+          ListEmptyComponent={
+            <View className="flex-1 items-center justify-center">
+              <View className="w-3/4 flex-col items-start">
+                <Text className="mb-2 text-2xl font-medium">
+                  Looks like there&apos;s nothing here yet!
+                </Text>
+                <Text className="text-lg">
+                  Follow people, and their posts will show up here
+                </Text>
+                <Link asChild href="/search">
+                  <TouchableOpacity
+                    className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
+                    style={{ backgroundColor: theme.colors.primary }}
+                  >
+                    <SearchIcon size={20} className="text-white" />
+                    <Text className="ml-4 text-xl text-white">
+                      Find people to follow
+                    </Text>
+                  </TouchableOpacity>
+                </Link>
+              </View>
+            </View>
+          }
         />
       </Wrapper>
     );

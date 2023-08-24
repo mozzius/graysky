@@ -111,9 +111,11 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
 
       const contextPosts = await Promise.all(
         subjectChunks.map((chunk) =>
-          agent.getPosts({
-            uris: chunk,
-          }),
+          chunk.length > 0
+            ? agent.getPosts({
+                uris: chunk,
+              })
+            : Promise.resolve({ data: { posts: [] } }),
         ),
       ).then((x) => x.flatMap((x) => x.data.posts));
 
