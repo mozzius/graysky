@@ -192,6 +192,8 @@ const App = ({ session, saveSession }: Props) => {
                       name="index"
                       options={{
                         headerShown: false,
+                        gestureEnabled: false,
+                        
                       }}
                     />
                     <Stack.Screen
