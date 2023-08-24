@@ -45,6 +45,15 @@ export async function fetchHandler(
       default: async () => {
         // React native treats bodies with {uri: string} as file uploads to pull from cache
         reqBody = { uri: reqBody };
+        console.log(
+          "sending size",
+          await FileSystem.getInfoAsync(
+            reqBody.uri,
+            {
+              size: true,
+            }, // @ts-expect-error size is not in the type
+          ).then((x) => x.size as number),
+        );
         return Promise.resolve();
       },
       android: async () => {

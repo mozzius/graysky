@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { Alert, Keyboard, Platform } from "react-native";
-import * as FileSystem from "expo-file-system";
 import * as Haptics from "expo-haptics";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
@@ -28,7 +27,7 @@ import { locale } from "../locale";
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
 
-const MAX_SIZE = 1_000_000;
+const MAX_SIZE = 976_560;
 const MAX_DIMENSION = 2048;
 
 type ImageWithAlt = {
@@ -376,30 +375,30 @@ const compress = async ({
   height?: number;
   needsResize: boolean;
 }) => {
-  let current = uri;
+  const current = uri;
   // compress iteratively, reducing quality each time
-  for (let i = 0; i < 9; i++) {
-    const quality = 100 - i * 10;
-
+  for (let i = 10; i > 0; i--) {
     try {
+      // Float precision - not sure what's going on here
+      const factor = Math.round(i) / 10;
       const compressed = await ImageManipulator.manipulateAsync(
         current,
         needsResize ? [{ resize: { width, height } }] : [],
         {
-          compress: quality / 100,
+          compress: factor,
+          base64: true,
+          format: ImageManipulator.SaveFormat.JPEG,
         },
-      ).then((x) => x.uri);
-      const compressedSize = await FileSystem.getInfoAsync(
-        compressed,
-        {
-          size: true,
-        }, // @ts-expect-error size is not in the type
-      ).then((x) => x.size as number);
+      );
+
+      if (!compressed.base64) throw new Error("Failed to compress");
+
+      const compressedSize = Math.round((compressed.base64?.length * 3) / 4);
+
+      console.log("Compressed to ", compressedSize);
 
       if (compressedSize < MAX_SIZE) {
-        return compressed;
-      } else {
-        current = compressed;
+        return compressed.uri;
       }
     } catch (err) {
       throw new Error(`Failed to resize: ${err}`);
