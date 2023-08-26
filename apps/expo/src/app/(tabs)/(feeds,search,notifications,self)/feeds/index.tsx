@@ -30,7 +30,7 @@ const NoFeeds = () => {
   const theme = useTheme();
   return (
     <View className="flex-1 items-center justify-center">
-      <Stack.Screen options={{ headerRight: () => null }}/>
+      <Stack.Screen options={{ headerRight: () => null }} />
       <View className="w-3/4 flex-col items-start">
         <Text className="mb-4 text-4xl font-medium">Welcome to Bluesky!</Text>
         <Text className="text-lg">
@@ -67,7 +67,7 @@ const FeedsPage = ({ editing }: Props) => {
 
   if (savedFeeds.data) {
     if (savedFeeds.data.feeds.length === 0) {
-      return <NoFeeds />
+      return <NoFeeds />;
     }
 
     return (
@@ -139,7 +139,7 @@ const FeedsPage = ({ editing }: Props) => {
             <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
           )}
         />
-        <View className="mb-20 p-6">
+        <View className="p-6">
           <Link href="/feeds/discover" asChild>
             <TouchableHighlight className="overflow-hidden rounded-lg">
               <View
@@ -148,9 +148,7 @@ const FeedsPage = ({ editing }: Props) => {
               >
                 <View className="flex-row items-center">
                   <CompassIcon size={20} className="text-blue-500" />
-                  <Text className="ml-3 text-base">
-                    Discover more feeds
-                  </Text>
+                  <Text className="ml-3 text-base">Discover more feeds</Text>
                 </View>
                 <ChevronRightIcon size={20} className="text-neutral-400" />
               </View>

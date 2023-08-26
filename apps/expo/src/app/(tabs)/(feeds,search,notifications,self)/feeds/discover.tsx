@@ -21,6 +21,7 @@ export default function DiscoveryPage() {
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search feeds",
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    hideWhenScrolling: false,
   });
 
   const saved = useQuery({

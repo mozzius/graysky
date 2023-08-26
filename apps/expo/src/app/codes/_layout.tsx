@@ -43,6 +43,10 @@ export default function SettingsLayout() {
           options={{
             title: "Invite Codes",
             headerLargeTitle: true,
+            headerLargeTitleShadowVisible: false,
+            headerLargeStyle: {
+              backgroundColor: theme.colors.background,
+            },
           }}
         />
         <Stack.Screen

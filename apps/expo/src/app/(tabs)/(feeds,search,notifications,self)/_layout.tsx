@@ -79,6 +79,12 @@ export default function SubStack({
                   </TouchableOpacity>
                 ),
               }),
+              headerLargeTitle: true,
+              headerLargeTitleShadowVisible: false,
+              headerLargeStyle: {
+                backgroundColor: theme.colors.background,
+              },
+              headerSearchBarOptions: {},
             }}
           />
           <Stack.Screen

@@ -173,7 +173,7 @@ const Suggestions = () => {
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
-          <Text className="mt-4 px-4 text-lg font-bold">In your network</Text>
+          <Text className="mt-4 px-4 text-lg font-bold">Suggested follows</Text>
         }
         onEndReached={() => void suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
