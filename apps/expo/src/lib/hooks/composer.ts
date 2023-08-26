@@ -154,7 +154,9 @@ export const useSendPost = ({
             });
           }
 
-          const uploaded = await agent.uploadBlob(uri);
+          const uploaded = await agent.uploadBlob(uri, {
+            encoding: "image/jpeg",
+          });
           if (!uploaded.success) throw new Error("Failed to upload image");
           return {
             image: uploaded.data.blob,
@@ -404,7 +406,7 @@ const compress = async ({
       throw new Error(`Failed to resize: ${err}`);
     }
   }
-  return uri;
+  throw new Error("Failed to compress - image may be incompressable");
 };
 
 export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {

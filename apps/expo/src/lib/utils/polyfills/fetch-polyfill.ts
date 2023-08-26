@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-import { Platform } from "react-native";
 import * as FileSystem from "expo-file-system";
 import { jsonToLex, stringifyLex } from "@atproto/api";
-import mime from "mime";
 
 const GET_TIMEOUT = 15e3; // 15s
 const POST_TIMEOUT = 60e3; // 60s
@@ -12,13 +7,14 @@ const POST_TIMEOUT = 60e3; // 60s
 interface FetchHandlerResponse {
   status: number;
   headers: Record<string, string>;
-  body: ArrayBuffer | undefined;
+  body: unknown;
 }
 
 export async function fetchHandler(
   reqUri: string,
   reqMethod: string,
   reqHeaders: Record<string, string>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reqBody: any,
 ): Promise<FetchHandlerResponse> {
   const reqMimeType = reqHeaders["Content-Type"] || reqHeaders["content-type"];
@@ -28,40 +24,21 @@ export async function fetchHandler(
     typeof reqBody === "string" &&
     (reqBody.startsWith("/") || reqBody.startsWith("file:"))
   ) {
-    const name = reqBody.split("/").pop();
-    const type = mime.getType(name!);
-    if (type === "image/jpeg") {
+    if (reqBody.endsWith(".jpeg") || reqBody.endsWith(".jpg")) {
       // HACK
       // React native has a bug that inflates the size of jpegs on upload
       // we get around that by renaming the file ext to .bin
       // see https://github.com/facebook/react-native/issues/27099
       // -prf
-      const newPath = reqBody.replace(/\.(jpe?g)$/, ".bin");
+      const newPath = reqBody.replace(/\.jpe?g$/, ".bin");
       await FileSystem.moveAsync({ from: reqBody, to: newPath });
       reqBody = newPath;
     }
-
-    await Platform.select({
-      default: async () => {
-        // React native treats bodies with {uri: string} as file uploads to pull from cache
-        reqBody = { uri: reqBody };
-        console.log(
-          "sending size",
-          await FileSystem.getInfoAsync(
-            reqBody.uri,
-            {
-              size: true,
-            }, // @ts-expect-error size is not in the type
-          ).then((x) => x.size as number),
-        );
-        return Promise.resolve();
-      },
-      android: async () => {
-        // ...except for android, so fetch as a blob
-        const res = await fetch(reqBody as string);
-        reqBody = await res.blob();
-      },
-    })();
+    // NOTE
+    // React native treats bodies with {uri: string} as file uploads to pull from cache
+    // -prf
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    reqBody = { uri: reqBody };
   }
 
   const controller = new AbortController();
@@ -73,6 +50,7 @@ export async function fetchHandler(
   const res = await fetch(reqUri, {
     method: reqMethod,
     headers: reqHeaders,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     body: reqBody,
     signal: controller.signal,
   });
@@ -99,6 +77,6 @@ export async function fetchHandler(
   return {
     status: resStatus,
     headers: resHeaders,
-    body: resBody as any,
+    body: resBody,
   };
 }

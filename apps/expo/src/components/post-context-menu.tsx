@@ -115,7 +115,13 @@ const PostContextMenuButton = ({
     );
   };
 
-  const options = [
+  const options: {
+    key: string;
+    label: string;
+    action: () => void;
+    icon: string;
+    destructive?: boolean;
+  }[] = [
     {
       key: "translate",
       label: "Translate",
@@ -158,6 +164,7 @@ const PostContextMenuButton = ({
           label: "Delete post",
           action: () => delet(),
           icon: "trash",
+          destructive: true,
         }
       : [
           post.author.viewer?.muted
@@ -231,6 +238,7 @@ const PostContextMenuButton = ({
               systemName: x.icon,
             },
           },
+          menuOptions: x.destructive ? ["destructive"] : undefined,
         })),
       }}
       onPressMenuItem={(evt) => {
