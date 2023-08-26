@@ -2,7 +2,6 @@ import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
 import * as Clipboard from "expo-clipboard";
-import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
@@ -17,6 +16,7 @@ import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "../lib/account-actions";
 import { useAgent } from "../lib/agent";
+import { useHaptics } from "../lib/hooks/preferences";
 import { useLists } from "./lists/context";
 
 interface Props {
@@ -39,6 +39,7 @@ const PostContextMenuButton = ({
   const router = useRouter();
   const queryClient = useQueryClient();
   const theme = useTheme();
+  const haptics = useHaptics();
 
   const translate = () => {
     if (!AppBskyFeedPost.isRecord(post.record)) return;
@@ -207,7 +208,7 @@ const PostContextMenuButton = ({
   const icon = <MoreHorizontalIcon size={16} color={theme.colors.text} />;
 
   const showAsActionSheet = () => {
-    void Haptics.impactAsync();
+    haptics.impact();
     showActionSheetWithOptions(
       {
         options: [...options.map((x) => x.label), "Cancel"],

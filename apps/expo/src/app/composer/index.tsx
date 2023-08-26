@@ -21,7 +21,6 @@ import Animated, {
   SlideInUp,
   SlideOutUp,
 } from "react-native-reanimated";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import {
@@ -57,7 +56,7 @@ import {
   useReply,
   useSendPost,
 } from "../../lib/hooks/composer";
-import { useContentFilter } from "../../lib/hooks/preferences";
+import { useContentFilter, useHaptics } from "../../lib/hooks/preferences";
 import { cx } from "../../lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "../../lib/utils/mention-suggest";
 
@@ -83,6 +82,7 @@ export default function ComposerScreen() {
 
   const reply = useReply();
   const quote = useQuote();
+  const haptics = useHaptics();
 
   const [text, setText] = useState("");
 
@@ -362,7 +362,7 @@ export default function ComposerScreen() {
                     <TouchableOpacity
                       className="absolute left-2 top-2 z-10"
                       onPress={() => {
-                        void Haptics.impactAsync();
+                        haptics.impact();
                         Alert.prompt(
                           "Add a caption",
                           undefined,
@@ -391,7 +391,7 @@ export default function ComposerScreen() {
                   <TouchableOpacity
                     className="absolute right-2 top-2 z-10"
                     onPress={() => {
-                      void Haptics.impactAsync();
+                      haptics.impact();
                       removeImage(i);
                     }}
                   >
@@ -415,7 +415,7 @@ export default function ComposerScreen() {
                 <Animated.View layout={Layout} className="mr-20 flex-1">
                   <TouchableOpacity
                     onPress={() => {
-                      void Haptics.impactAsync();
+                      haptics.impact();
                       imagePicker.mutate();
                     }}
                   >
@@ -604,9 +604,10 @@ const CancelButton = ({
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
+  const haptics = useHaptics();
 
   const handleCancel = async () => {
-    void Haptics.impactAsync();
+    haptics.impact();
     if (Platform.OS === "android") Keyboard.dismiss();
     const options = ["Discard post", "Cancel"];
     const selected = await new Promise((resolve) => {
@@ -622,6 +623,7 @@ const CancelButton = ({
     });
     switch (selected) {
       case "Discard post":
+        haptics.impact();
         Platform.select({
           ios: () => router.push("../"),
           default: () =>

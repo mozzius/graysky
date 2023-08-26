@@ -1,18 +1,18 @@
 import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import * as Haptics from "expo-haptics";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon, CopyIcon } from "lucide-react-native";
 
 import { GroupedList } from "../../components/grouped-list";
 import { QueryWithoutData } from "../../components/query-without-data";
 import { Text } from "../../components/text";
-import { useAppPreferences } from "../../lib/hooks/preferences";
+import { useAppPreferences, useHaptics } from "../../lib/hooks/preferences";
 import { useInviteCodes } from "./_layout";
 
 export default function InviteCodesScreen() {
   const { appPrefs, setAppPrefs } = useAppPreferences();
   const theme = useTheme();
+  const haptics = useHaptics();
 
   const codes = useInviteCodes();
 
@@ -39,7 +39,7 @@ export default function InviteCodesScreen() {
             options: codes.data.unused.map((code) => ({
               title: code.code,
               onPress: () => {
-                void Haptics.impactAsync();
+                haptics.impact();
                 void Clipboard.setStringAsync(code.code);
                 setAppPrefs.mutate({
                   copiedCodes: [...appPrefs.data.copiedCodes, code.code],

@@ -1,5 +1,6 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Platform } from "react-native";
+import * as Haptics from "expo-haptics";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -152,8 +153,9 @@ export const useContentFilter = () => {
 };
 
 const appPrefsSchema = z.object({
-  groupNotifications: z.boolean(),
-  copiedCodes: z.array(z.string()),
+  groupNotifications: z.boolean().default(true),
+  copiedCodes: z.array(z.string()).default([]),
+  haptics: z.boolean().optional().default(true),
 });
 
 type AppPrefs = z.infer<typeof appPrefsSchema>;
@@ -161,6 +163,7 @@ type AppPrefs = z.infer<typeof appPrefsSchema>;
 const defaultAppPrefs: AppPrefs = {
   groupNotifications: true,
   copiedCodes: [],
+  haptics: true,
 };
 
 export const useAppPreferences = () => {
@@ -202,4 +205,30 @@ export const useAppPreferences = () => {
   });
 
   return { appPrefs, setAppPrefs };
+};
+
+export const useHaptics = () => {
+  const { appPrefs } = useAppPreferences();
+  const enabled = appPrefs.data?.haptics ?? true;
+
+  return useMemo(
+    () => ({
+      impact: (type?: Haptics.ImpactFeedbackStyle) => {
+        if (enabled) {
+          void Haptics.impactAsync(type);
+        }
+      },
+      notification: (type?: Haptics.NotificationFeedbackType) => {
+        if (enabled) {
+          void Haptics.notificationAsync(type);
+        }
+      },
+      selection: () => {
+        if (enabled) {
+          void Haptics.selectionAsync();
+        }
+      },
+    }),
+    [enabled],
+  );
 };

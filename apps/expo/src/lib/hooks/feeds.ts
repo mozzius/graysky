@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import * as Haptics from "expo-haptics";
 import {
   AppBskyActorDefs,
   AppBskyFeedDefs,
@@ -15,7 +14,7 @@ import {
 import { produce } from "immer/dist/cjs";
 
 import { useAgent } from "../agent";
-import { useContentFilter } from "./preferences";
+import { useContentFilter, useHaptics } from "./preferences";
 
 export const useSavedFeeds = (
   { pinned }: { pinned: boolean } = { pinned: false },
@@ -95,9 +94,10 @@ export const useToggleFeedPref = (
 ) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
+  const haptics = useHaptics();
 
   return useMutation({
-    onMutate: () => void Haptics.impactAsync(),
+    onMutate: () => haptics.impact(),
     mutationFn: async ({ save, pin }: { save?: string; pin?: string }) => {
       if (!preferences) return;
       if (!save && !pin) throw new Error("Must provide save or pin");

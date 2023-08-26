@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import * as Haptics from "expo-haptics";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
@@ -7,6 +6,7 @@ import { useColorScheme } from "nativewind";
 
 import { useComposer } from "../../components/composer";
 import { useAgent } from "../agent";
+import { useHaptics } from "./preferences";
 
 export const useLike = (
   post: AppBskyFeedDefs.FeedViewPost["post"],
@@ -15,12 +15,13 @@ export const useLike = (
   const agent = useAgent();
   const cid = useRef(post.cid);
   const lastUpdate = useRef(updated);
+  const haptics = useHaptics();
 
   const [liked, setLiked] = useState(!!post.viewer?.like);
   const [likeUri, setLikeUri] = useState(post.viewer?.like);
 
   const toggleLike = useMutation({
-    onMutate: () => void Haptics.impactAsync(),
+    onMutate: () => haptics.impact(),
     mutationKey: ["like", post.uri],
     mutationFn: async () => {
       if (!likeUri) {
@@ -69,12 +70,13 @@ export const useRepost = (
   const agent = useAgent();
   const cid = useRef(post.cid);
   const lastUpdate = useRef(updated);
+  const haptics = useHaptics();
 
   const [reposted, setReposted] = useState(!!post.viewer?.repost);
   const [repostUri, setRepostUri] = useState(post.viewer?.repost);
 
   const toggleRepost = useMutation({
-    onMutate: () => void Haptics.impactAsync(),
+    onMutate: () => haptics.impact(),
     mutationKey: ["repost", post.uri],
     mutationFn: async () => {
       if (!repostUri) {

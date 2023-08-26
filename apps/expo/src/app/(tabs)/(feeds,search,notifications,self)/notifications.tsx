@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
-import * as Haptics from "expo-haptics";
 import { Stack } from "expo-router";
 import {
   type AppBskyFeedDefs,
@@ -13,7 +12,7 @@ import { Notification } from "../../../components/notification";
 import { QueryWithoutData } from "../../../components/query-without-data";
 import { useAgent } from "../../../lib/agent";
 import { useTabPressScrollRef } from "../../../lib/hooks";
-import { useAppPreferences } from "../../../lib/hooks/preferences";
+import { useAppPreferences, useHaptics } from "../../../lib/hooks/preferences";
 import { useRefreshOnFocus, useUserRefresh } from "../../../lib/utils/query";
 
 export type NotificationGroup = {
@@ -33,6 +32,7 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
+  const haptics = useHaptics();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],
@@ -174,10 +174,10 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
   const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
       setNonScrollRefreshing(true);
-      void Haptics.impactAsync();
+      haptics.impact();
       await notifications.refetch();
       setNonScrollRefreshing(false);
-    }, [notifications]),
+    }, [notifications, haptics]),
     { largeHeader: true },
   );
 

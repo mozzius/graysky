@@ -11,7 +11,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, useNavigation, useRouter } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -25,6 +24,7 @@ import {
   StarIcon,
 } from "lucide-react-native";
 
+import { useHaptics } from "../lib/hooks/preferences";
 import { cx } from "../lib/utils/cx";
 import { Text } from "./text";
 
@@ -116,6 +116,7 @@ export const DraggableFeedRow = ({
 
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
+  const haptics = useHaptics();
 
   const editingValue = useSharedValue(editing ? 1 : 0);
 
@@ -126,7 +127,7 @@ export const DraggableFeedRow = ({
   const star = (
     <TouchableOpacity
       onPress={() => {
-        void Haptics.impactAsync();
+        haptics.impact();
         onPressStar();
       }}
     >
@@ -190,7 +191,7 @@ export const DraggableFeedRow = ({
               >
                 <TouchableOpacity
                   onPress={() => {
-                    void Haptics.impactAsync();
+                    haptics.impact();
                     showActionSheetWithOptions(
                       {
                         title: "Unsave this feed?",

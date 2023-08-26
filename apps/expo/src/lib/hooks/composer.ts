@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { Alert, Keyboard, Platform } from "react-native";
-import * as Haptics from "expo-haptics";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -23,6 +22,7 @@ import { z } from "zod";
 
 import { useAgent } from "../agent";
 import { locale } from "../locale";
+import { useHaptics } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -110,6 +110,7 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const haptics = useHaptics();
 
   return useMutation({
     mutationKey: ["send"],
@@ -206,9 +207,7 @@ export const useSendPost = ({
         langs: [locale.languageCode],
       });
     },
-    onMutate: () => {
-      void Haptics.impactAsync();
-    },
+    onMutate: () => haptics.impact(),
     onSuccess: () => {
       void queryClient.invalidateQueries(["profile"]);
       router.push("../");

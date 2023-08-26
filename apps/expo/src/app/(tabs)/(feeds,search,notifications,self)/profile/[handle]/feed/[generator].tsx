@@ -9,7 +9,6 @@ import {
   View,
 } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
@@ -40,6 +39,7 @@ import {
   useSavedFeeds,
   useToggleFeedPref,
 } from "../../../../../../lib/hooks/feeds";
+import { useHaptics } from "../../../../../../lib/hooks/preferences";
 import { cx } from "../../../../../../lib/utils/cx";
 
 export default function FeedsPage() {
@@ -121,10 +121,11 @@ const FeedInfo = ({
     handle: string;
     generator: string;
   }>();
+  const haptics = useHaptics();
 
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
   const toggleLike = useMutation({
-    onMutate: () => void Haptics.impactAsync(),
+    onMutate: () => haptics.impact(),
     mutationFn: async () => {
       if (info.view.viewer?.like) {
         await agent.deleteLike(info.view.viewer.like);

@@ -14,13 +14,22 @@ export default function AppSettings() {
         {
           options: [
             {
-              title: "Group notifications",
+              title: "Group notifications together",
               action: (
                 <Switch
                   value={appPrefs.data.groupNotifications}
-                  onValueChange={(value) =>
-                    setAppPrefs.mutate({ groupNotifications: value })
+                  onValueChange={(groupNotifications) =>
+                    setAppPrefs.mutate({ groupNotifications })
                   }
+                />
+              ),
+            },
+            {
+              title: "Enable haptics",
+              action: (
+                <Switch
+                  value={appPrefs.data.haptics}
+                  onValueChange={(haptics) => setAppPrefs.mutate({ haptics })}
                 />
               ),
             },

@@ -12,7 +12,6 @@ import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
 import { ContextMenuButton } from "react-native-ios-context-menu";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
@@ -21,6 +20,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
+import { useHaptics } from "../lib/hooks/preferences";
 import { useImageOptions } from "./image-with-context";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
@@ -100,6 +100,7 @@ const ImageOptionsButton = ({
   const items = useImageOptions();
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
+  const haptics = useHaptics();
 
   return Platform.OS === "ios" ? (
     <ContextMenuButton
@@ -133,7 +134,7 @@ const ImageOptionsButton = ({
       accessibilityLabel="Image options"
       accessibilityRole="button"
       onPress={() => {
-        void Haptics.impactAsync();
+        haptics.impact();
         showActionSheetWithOptions(
           {
             options: [...items.map((x) => x.label), "Cancel"],
