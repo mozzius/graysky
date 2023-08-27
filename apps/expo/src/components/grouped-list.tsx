@@ -111,7 +111,7 @@ export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
           return (
             <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
               {title && (
-                <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                <Text className="mx-4 mb-1.5 mt-4 text-xs uppercase text-neutral-500">
                   {title}
                 </Text>
               )}
