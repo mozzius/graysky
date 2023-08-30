@@ -1,9 +1,22 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@graysky/tsconfig/base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "jsx": "react-native",
-    "types": ["nativewind/types", "webpack-env"]
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "types": ["nativewind/types"]
   },
-  "include": ["expo-plugins", "src", "*.ts", "**/*.js", "index.js"],
-  "exclude": ["node_modules", "metro.config.js"]
+  "include": [
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "expo-plugins",
+    "*.ts",
+    "*.js",
+    "index.tsx",
+    "src"
+  ],
+  "exclude": ["node_modules"]
 }

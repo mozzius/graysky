@@ -15,8 +15,21 @@
     "@prisma/client": "^5.2.0"
   },
   "devDependencies": {
+    "@graysky/eslint-config": "^0.1.0",
+    "@graysky/prettier-config": "^0.1.0",
     "dotenv-cli": "^7.3.0",
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.2",
     "prisma": "^5.2.0",
-    "typescript": "^5.1.6"
-  }
+    "typescript": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@graysky/eslint-config/base"
+    ],
+    "rules": {
+      "@typescript-eslint/consistent-type-definitions": "off"
+    }
+  },
+  "prettier": "@graysky/prettier-config"
 }

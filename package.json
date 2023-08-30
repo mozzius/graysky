@@ -2,7 +2,7 @@
   "name": "graysky",
   "private": true,
   "engines": {
-    "node": ">=v18.16.0"
+    "node": ">=v18.17.1"
   },
   "packageManager": "pnpm@8.6.12",
   "scripts": {
@@ -41,5 +41,6 @@
       "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch"
     }
-  }
+  },
+  "prettier": "@graysky/prettier-config"
 }

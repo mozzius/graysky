@@ -3,6 +3,6 @@
   "compilerOptions": {
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
-  "include": ["*.ts", "prisma", "src"],
+  "include": ["."],
   "exclude": ["node_modules"]
 }
