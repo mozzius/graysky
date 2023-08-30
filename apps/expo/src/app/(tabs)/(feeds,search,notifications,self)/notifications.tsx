@@ -24,15 +24,12 @@ export type NotificationGroup = {
   indexedAt: string;
 };
 
-interface Props {
-  groupNotifications: boolean;
-}
-
-const NotificationsPage = ({ groupNotifications }: Props) => {
+export default function NotificationsPage() {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
   const haptics = useHaptics();
+  const [{ groupNotifications }] = useAppPreferences();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],
@@ -242,18 +239,4 @@ const NotificationsPage = ({ groupNotifications }: Props) => {
   }
 
   return <QueryWithoutData query={notifications} />;
-};
-
-export default function Page() {
-  const { appPrefs } = useAppPreferences();
-
-  if (appPrefs.data) {
-    return (
-      <NotificationsPage
-        groupNotifications={appPrefs.data.groupNotifications}
-      />
-    );
-  }
-
-  return <QueryWithoutData query={appPrefs} />;
 }

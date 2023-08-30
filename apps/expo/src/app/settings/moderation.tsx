@@ -4,8 +4,6 @@ import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-// @ts-expect-error metro bull****
-import { produce } from "immer/dist/cjs";
 import { BanIcon, MegaphoneOffIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
@@ -14,6 +12,7 @@ import { QueryWithoutData } from "../../components/query-without-data";
 import { Text } from "../../components/text";
 import { useAgent } from "../../lib/agent";
 import { contentLabels, usePreferences } from "../../lib/hooks/preferences";
+import { produce } from "../../lib/utils/produce";
 
 type Pref = "show" | "warn" | "hide";
 
