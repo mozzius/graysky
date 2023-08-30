@@ -63,7 +63,8 @@ pnpm dev
   - [x] About & credits
 - [x] Composer rewrite
   - [x] Mention autocomplete
-  - [ ] Embeds in composer
+  - [x] Embeds in composer
+    - [ ] Embed image upload
 - [ ] App Store
 
 ## Future (no promises)
