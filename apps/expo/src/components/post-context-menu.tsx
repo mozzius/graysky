@@ -47,11 +47,15 @@ const PostContextMenuButton = ({
   };
 
   const share = () => {
-    void Share.share({
-      message: `https://bsky.app/profile/${post.author.handle}/post/${post.uri
-        .split("/")
-        .pop()}`,
-    });
+    const url = `https://bsky.app/profile/${post.author.handle}/post/${post.uri
+      .split("/")
+      .pop()}`;
+    void Share.share(
+      Platform.select({
+        ios: { url },
+        default: { message: url },
+      }),
+    );
   };
 
   const copy = async () => {

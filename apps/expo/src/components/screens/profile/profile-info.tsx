@@ -116,9 +116,13 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         const option = options[index];
         switch (option) {
           case "Share Profile":
-            void Share.share({
-              message: `https://bsky.app/profile/${profile.handle}`,
-            });
+            const url = `https://bsky.app/profile/${profile.handle}`;
+            void Share.share(
+              Platform.select({
+                ios: { url },
+                default: { message: url },
+              }),
+            );
             break;
           case "Mute Account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
@@ -420,9 +424,13 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           router.push("/settings/account/edit-bio");
                           break;
                         case "Share Profile":
-                          void Share.share({
-                            message: `https://bsky.app/profile/${profile.handle}`,
-                          });
+                          const url = `https://bsky.app/profile/${profile.handle}`;
+                          void Share.share(
+                            Platform.select({
+                              ios: { url },
+                              default: { message: url },
+                            }),
+                          );
                           break;
                       }
                     },

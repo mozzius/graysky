@@ -390,18 +390,15 @@ const FeedInfo = ({
               className="mx-4 overflow-hidden rounded-lg"
             >
               <TouchableHighlight
-                onPress={() =>
+                onPress={() => {
+                  const url = `https://bsky.app/profile/${handle}/feed/${generator}`;
                   void Sharing.share(
                     Platform.select({
-                      ios: {
-                        url: `https://bsky.app/profile/${handle}/feed/${generator}`,
-                      },
-                      default: {
-                        message: `https://bsky.app/profile/${handle}/feed/${generator}`,
-                      },
+                      ios: { url },
+                      default: { message: url },
                     }),
-                  )
-                }
+                  );
+                }}
               >
                 <View
                   style={{ backgroundColor: theme.colors.card }}
