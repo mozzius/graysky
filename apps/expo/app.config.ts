@@ -68,6 +68,10 @@ const defineConfig = (): ExpoConfig => ({
       },
     ],
   },
+  experiments: {
+    tsconfigPaths: true,
+    typedRoutes: false, // too much string interpolation :(
+  },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
     "expo-build-properties",
