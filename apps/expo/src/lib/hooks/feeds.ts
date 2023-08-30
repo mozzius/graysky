@@ -141,7 +141,7 @@ export const useReorderFeeds = (
   const [saved, setSaved] = useState(savedFeeds.data?.saved ?? []);
 
   const stringifiedPinned = savedFeeds.data?.pinned
-    ? savedFeeds.data.feeds.join()
+    ? savedFeeds.data.pinned.join()
     : null;
   const stringifiedSaved = savedFeeds.data?.saved
     ? savedFeeds.data.saved.join()

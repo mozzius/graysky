@@ -148,7 +148,6 @@ PeopleList.displayName = "PeopleList";
 
 const BackButton = ({ dismiss }: { dismiss: () => void }) => {
   useEffect(() => {
-    console.log("back button override enabled");
     function onBackButton() {
       dismiss();
       return true;
@@ -156,7 +155,6 @@ const BackButton = ({ dismiss }: { dismiss: () => void }) => {
     BackHandler.addEventListener("hardwareBackPress", onBackButton);
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", onBackButton);
-      console.log("back button override disabled");
     };
   }, [dismiss]);
 

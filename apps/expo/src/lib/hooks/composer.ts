@@ -396,8 +396,6 @@ const compress = async ({
 
       const compressedSize = Math.round((compressed.base64?.length * 3) / 4);
 
-      console.log("Compressed to ", compressedSize);
-
       if (compressedSize < MAX_SIZE) {
         return compressed.uri;
       }
