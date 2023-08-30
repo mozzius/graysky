@@ -10,15 +10,11 @@ import { useAppPreferences, useHaptics } from "../../lib/hooks/preferences";
 import { useInviteCodes } from "./_layout";
 
 export default function InviteCodesScreen() {
-  const { appPrefs, setAppPrefs } = useAppPreferences();
+  const [appPrefs, setAppPrefs] = useAppPreferences();
   const theme = useTheme();
   const haptics = useHaptics();
 
   const codes = useInviteCodes();
-
-  if (!appPrefs.data) {
-    return <QueryWithoutData query={appPrefs} />;
-  }
 
   if (codes.data) {
     return (
@@ -41,11 +37,11 @@ export default function InviteCodesScreen() {
               onPress: () => {
                 haptics.impact();
                 void Clipboard.setStringAsync(code.code);
-                setAppPrefs.mutate({
-                  copiedCodes: [...appPrefs.data.copiedCodes, code.code],
+                setAppPrefs({
+                  copiedCodes: [...appPrefs.copiedCodes, code.code],
                 });
               },
-              action: appPrefs.data.copiedCodes.includes(code.code) ? (
+              action: appPrefs.copiedCodes.includes(code.code) ? (
                 <CheckIcon size={18} color={theme.colors.text} />
               ) : (
                 <CopyIcon size={18} color={theme.colors.text} />

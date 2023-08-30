@@ -1,12 +1,13 @@
 import { useCallback, useMemo } from "react";
 import { Platform } from "react-native";
+import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
+import { store } from "../storage";
 
 // TODO: Refactor to new Content Moderation API!
 // https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
@@ -156,79 +157,57 @@ const appPrefsSchema = z.object({
   groupNotifications: z.boolean().default(true),
   copiedCodes: z.array(z.string()).default([]),
   haptics: z.boolean().optional().default(true),
+  sortableFeeds: z.boolean().optional().default(false),
 });
 
-type AppPrefs = z.infer<typeof appPrefsSchema>;
-
-const defaultAppPrefs: AppPrefs = {
-  groupNotifications: true,
-  copiedCodes: [],
-  haptics: true,
-};
+export type AppPreferences = z.infer<typeof appPrefsSchema>;
 
 export const useAppPreferences = () => {
-  const queryClient = useQueryClient();
+  const [rawPrefs, setRawPrefs] = useMMKVObject<AppPreferences>(
+    "app-prefs",
+    store,
+  );
 
-  const appPrefs = useQuery({
-    queryKey: ["app-prefs"],
-    queryFn: async () => {
-      const parsed = appPrefsSchema
-        .partial()
-        .safeParse(
-          JSON.parse((await AsyncStorage.getItem("app-preferences")) ?? "{}"),
-        );
-      if (parsed.success) {
-        // Merge with default prefs
-        // catches any new prefs added in the default
-        return {
-          ...defaultAppPrefs,
-          ...parsed.data,
-        };
-      } else {
-        await AsyncStorage.setItem(
-          "app-preferences",
-          JSON.stringify(defaultAppPrefs),
-        );
-        return defaultAppPrefs;
-      }
+  const prefs = useMemo(() => {
+    try {
+      return appPrefsSchema.parse(rawPrefs ?? {});
+    } catch (err) {
+      console.warn(err);
+      return appPrefsSchema.parse({});
+    }
+  }, [rawPrefs]);
+
+  const setPrefs = useCallback(
+    (incoming: Partial<AppPreferences>) => {
+      setRawPrefs({ ...prefs, ...incoming });
     },
-  });
+    [prefs, setRawPrefs],
+  );
 
-  const setAppPrefs = useMutation({
-    mutationFn: async (prefs: Partial<AppPrefs>) => {
-      if (!appPrefs.data) return;
-      const newPrefs = { ...appPrefs.data, ...prefs };
-      queryClient.setQueryData(["app-prefs"], newPrefs);
-      await AsyncStorage.setItem("app-preferences", JSON.stringify(newPrefs));
-    },
-    onSettled: () => appPrefs.refetch(),
-  });
-
-  return { appPrefs, setAppPrefs };
+  return [prefs, setPrefs] as const;
 };
 
 export const useHaptics = () => {
-  const { appPrefs } = useAppPreferences();
-  const enabled = appPrefs.data?.haptics ?? true;
+  const [{ haptics }] = useAppPreferences();
 
   return useMemo(
     () => ({
       impact: (type?: Haptics.ImpactFeedbackStyle) => {
-        if (enabled) {
+        if (haptics) {
           void Haptics.impactAsync(type);
         }
       },
       notification: (type?: Haptics.NotificationFeedbackType) => {
-        if (enabled) {
+        if (haptics) {
           void Haptics.notificationAsync(type);
         }
       },
       selection: () => {
-        if (enabled) {
+        if (haptics) {
           void Haptics.selectionAsync();
         }
       },
     }),
-    [enabled],
+    [haptics],
   );
 };

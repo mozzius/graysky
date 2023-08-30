@@ -10,10 +10,9 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-// @ts-expect-error metro bull****
-import { produce } from "immer/dist/cjs";
 
 import { useAgent } from "../agent";
+import { produce } from "../utils/produce";
 import { useContentFilter, useHaptics } from "./preferences";
 
 export const useSavedFeeds = (
@@ -139,24 +138,31 @@ export const useReorderFeeds = (
   const agent = useAgent();
   const queryClient = useQueryClient();
   const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
+  const [saved, setSaved] = useState(savedFeeds.data?.saved ?? []);
 
-  const stringified = (savedFeeds.data?.pinned ?? []).toString();
+  const stringifiedPinned = savedFeeds.data?.pinned
+    ? savedFeeds.data.feeds.join()
+    : null;
+  const stringifiedSaved = savedFeeds.data?.saved
+    ? savedFeeds.data.saved.join()
+    : null;
 
   useEffect(() => {
-    if (savedFeeds.data?.pinned) setPinned(savedFeeds.data.pinned);
-  }, [savedFeeds.data?.pinned, stringified]);
+    if (stringifiedPinned) setPinned(stringifiedPinned.split(","));
+  }, [stringifiedPinned]);
 
-  const reorder = useMutation({
+  useEffect(() => {
+    if (stringifiedSaved) setSaved(stringifiedSaved.split(","));
+  }, [stringifiedSaved]);
+
+  const reorderFavs = useMutation({
     mutationFn: async (pins: string[]) => {
       if (!savedFeeds.data) return;
       setPinned(pins);
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(savedFeeds.data.preferences, (draft) => {
           for (const pref of draft) {
-            if (
-              AppBskyActorDefs.isSavedFeedsPref(pref) &&
-              AppBskyActorDefs.validateSavedFeedsPref(pref).success
-            ) {
+            if (AppBskyActorDefs.isSavedFeedsPref(pref)) {
               pref.pinned = pins;
             }
           }
@@ -166,7 +172,25 @@ export const useReorderFeeds = (
     onSettled: () => queryClient.invalidateQueries(["feeds", "saved"]),
   });
 
-  return { pinned, reorder };
+  const reorderRest = useMutation({
+    mutationFn: async (uris: string[]) => {
+      if (!savedFeeds.data) return;
+      const saved = [...pinned, ...uris];
+      setSaved(saved);
+      await agent.app.bsky.actor.putPreferences({
+        preferences: produce(savedFeeds.data.preferences, (draft) => {
+          for (const pref of draft) {
+            if (AppBskyActorDefs.isSavedFeedsPref(pref)) {
+              pref.saved = saved;
+            }
+          }
+        }),
+      });
+    },
+    onSettled: () => queryClient.invalidateQueries(["feeds", "saved"]),
+  });
+
+  return { pinned, saved, reorderFavs, reorderRest };
 };
 
 export const useTimeline = (feed: string) => {

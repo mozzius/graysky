@@ -5,10 +5,8 @@ import { GroupedList } from "../../components/grouped-list";
 import { useAppPreferences } from "../../lib/hooks/preferences";
 
 export default function AppSettings() {
-  const { appPrefs, setAppPrefs } = useAppPreferences();
+  const [appPrefs, setAppPrefs] = useAppPreferences();
   const theme = useTheme();
-
-  if (!appPrefs.data) return null;
 
   return (
     <GroupedList
@@ -17,12 +15,25 @@ export default function AppSettings() {
           title: "General",
           options: [
             {
+              title: "Manually sort non-favourite feeds",
+              action: (
+                <Switch
+                  value={appPrefs.sortableFeeds}
+                  onValueChange={(sortableFeeds) =>
+                    setAppPrefs({ sortableFeeds })
+                  }
+                  trackColor={{ true: theme.colors.primary }}
+                  accessibilityLabel="Allows you to manually sort non-favourite feeds in the feeds tab"
+                />
+              ),
+            },
+            {
               title: "Group notifications together",
               action: (
                 <Switch
-                  value={appPrefs.data.groupNotifications}
+                  value={appPrefs.groupNotifications}
                   onValueChange={(groupNotifications) =>
-                    setAppPrefs.mutate({ groupNotifications })
+                    setAppPrefs({ groupNotifications })
                   }
                   trackColor={{ true: theme.colors.primary }}
                   accessibilityLabel="Group notifications together in the notification tab"
@@ -35,12 +46,13 @@ export default function AppSettings() {
           title: "Accessibility",
           options: [
             {
-              title: "Enable haptics",
+              title: "Disable haptics",
               action: (
                 <Switch
-                  value={appPrefs.data.haptics}
-                  onValueChange={(haptics) => {
-                    setAppPrefs.mutate({ haptics });
+                  value={!appPrefs.haptics}
+                  onValueChange={(disableHaptics) => {
+                    const haptics = !disableHaptics;
+                    setAppPrefs({ haptics });
                     if (!haptics) {
                       Alert.alert(
                         "Haptics disabled",
@@ -49,7 +61,17 @@ export default function AppSettings() {
                     }
                   }}
                   trackColor={{ true: theme.colors.primary }}
-                  accessibilityLabel="Enable haptics (vibrations)"
+                  accessibilityLabel="Disable haptics (vibrations)"
+                />
+              ),
+            },
+            {
+              title: "Reduce motion (coming soon)",
+              action: (
+                <Switch
+                  value={false}
+                  trackColor={{ true: theme.colors.primary }}
+                  disabled
                 />
               ),
             },

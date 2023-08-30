@@ -24,6 +24,7 @@ import {
   useReorderFeeds,
   useToggleFeedPref,
 } from "../../../../lib/hooks/feeds";
+import { useAppPreferences } from "../../../../lib/hooks/preferences";
 import { cx } from "../../../../lib/utils/cx";
 
 const NoFeeds = () => {
@@ -57,9 +58,11 @@ const FeedsPage = ({ editing }: Props) => {
   const theme = useTheme();
 
   const savedFeeds = useSavedFeeds();
+  const [{ sortableFeeds }] = useAppPreferences();
 
   const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
-  const { pinned, reorder } = useReorderFeeds(savedFeeds);
+  const { pinned, saved, reorderFavs, reorderRest } =
+    useReorderFeeds(savedFeeds);
 
   const handleUnsave = (feed: string) => () => {
     toggleFeed.mutate({ save: feed });
@@ -93,41 +96,57 @@ const FeedsPage = ({ editing }: Props) => {
             </View>
           </TouchableHighlight>
         </Link>
-        <SectionHeader title="Favourites" />
+        {pinned.length > 0 && (
+          <>
+            <SectionHeader title="Favourites" />
+            <NestableDraggableFlatList
+              data={pinned
+                .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+                .filter(Boolean)}
+              keyExtractor={(item) => item.uri}
+              onDragEnd={({ data }) => {
+                reorderFavs.mutate(data.map((item) => item.uri));
+              }}
+              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              renderItem={({ item, drag }) => (
+                <DraggableFeedRow
+                  feed={item}
+                  onPressStar={() => {
+                    toggleFeed.mutate({ pin: item.uri });
+                  }}
+                  drag={drag}
+                  editing={editing}
+                  onUnsave={handleUnsave(item.uri)}
+                />
+              )}
+              ItemSeparatorComponent={() => (
+                <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+              )}
+            />
+          </>
+        )}
+        <SectionHeader title="All feeds" />
         <NestableDraggableFlatList
-          data={pinned
-            .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
-            .filter(Boolean)}
+          data={
+            sortableFeeds
+              ? saved
+                  .map(
+                    (uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!,
+                  )
+                  .filter((x) => x && !x.pinned)
+              : savedFeeds.data.feeds
+                  .filter((feed) => !feed.pinned)
+                  .sort((a, b) => a.displayName.localeCompare(b.displayName))
+          }
           keyExtractor={(item) => item.uri}
-          onDragEnd={({ data }) => {
-            reorder.mutate(data.map((item) => item.uri));
-          }}
           style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          onDragEnd={({ data }) => {
+            reorderRest.mutate(data.map((item) => item.uri));
+          }}
           renderItem={({ item, drag }) => (
             <DraggableFeedRow
               feed={item}
-              onPressStar={() => {
-                toggleFeed.mutate({ pin: item.uri });
-              }}
-              drag={drag}
-              editing={editing}
-              onUnsave={handleUnsave(item.uri)}
-            />
-          )}
-          ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
-          )}
-        />
-        <SectionHeader title="All feeds" />
-        <NestableDraggableFlatList
-          data={savedFeeds.data.feeds
-            .filter((feed) => !feed.pinned)
-            .sort((a, b) => a.displayName.localeCompare(b.displayName))}
-          keyExtractor={(item) => item.uri}
-          style={{ backgroundColor: theme.dark ? "black" : "white" }}
-          renderItem={({ item }) => (
-            <DraggableFeedRow
-              feed={item}
+              drag={sortableFeeds ? drag : undefined}
               onPressStar={() => {
                 toggleFeed.mutate({ pin: item.uri });
               }}
