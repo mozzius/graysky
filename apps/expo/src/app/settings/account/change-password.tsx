@@ -1,5 +1,5 @@
-import { ChangePasswordFlow } from "../../../components/change-password-flow";
-import { useAgent } from "../../../lib/agent";
+import { ChangePasswordFlow } from "~/components/change-password-flow";
+import { useAgent } from "~/lib/agent";
 
 export default function ChangePassword() {
   const agent = useAgent();

@@ -4,7 +4,7 @@ import { Stack, useFocusEffect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 
-import { createTopTabsScreenOptions } from "../../../lib/utils/top-tabs";
+import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 import { QueryWithoutData } from "../../query-without-data";
 import { useDefaultHeaderHeight, useProfile, useProfileFeeds } from "./hooks";
 import { ProfileFeeds } from "./profile-feeds";

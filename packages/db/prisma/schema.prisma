@@ -1,62 +1,62 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider     = "mysql"
-    url          = env("DATABASE_URL")
-    relationMode = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Actor {
-    id  String @id @default(cuid())
-    did String @unique
+  id  String @id @default(cuid())
+  did String @unique
 
-    bookmarks Bookmark[]
+  bookmarks Bookmark[]
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([did])
+  @@index([did])
 }
 
 model Bookmark {
-    id  String @id @default(cuid())
-    uri String
+  id  String @id @default(cuid())
+  uri String
 
-    actorDid String
-    actor    Actor  @relation(fields: [actorDid], references: [did], onDelete: Cascade)
+  actorDid String
+  actor    Actor  @relation(fields: [actorDid], references: [did], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([uri])
-    @@index([actorDid])
+  @@index([uri])
+  @@index([actorDid])
 }
 
 model TranslatablePost {
-    id       String @id @default(cuid())
-    uri      String @unique
-    language String
+  id       String @id @default(cuid())
+  uri      String @unique
+  language String
 
-    translation PostTranslation[]
+  translation PostTranslation[]
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([uri])
+  @@index([uri])
 }
 
 model PostTranslation {
-    id       String @id @default(cuid())
-    language String
-    text     String @db.Text
+  id       String @id @default(cuid())
+  language String
+  text     String @db.Text
 
-    postUri String
-    post    TranslatablePost @relation(fields: [postUri], references: [uri], onDelete: Cascade)
+  postUri String
+  post    TranslatablePost @relation(fields: [postUri], references: [uri], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([postUri])
+  @@index([postUri])
 }

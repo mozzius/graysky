@@ -4,10 +4,10 @@ import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
-import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
-import { locale } from "../lib/locale";
-import { assert } from "../lib/utils/assert";
-import { cx } from "../lib/utils/cx";
+import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
+import { locale } from "~/lib/locale";
+import { assert } from "~/lib/utils/assert";
+import { cx } from "~/lib/utils/cx";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";

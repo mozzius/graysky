@@ -13,7 +13,7 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, LinkIcon } from "lucide-react-native";
 
-import { cx } from "../../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 import { ImageEmbed } from "./image";
 

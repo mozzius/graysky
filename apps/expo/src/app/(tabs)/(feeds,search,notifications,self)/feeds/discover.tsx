@@ -7,12 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import fuzzySort from "fuzzysort";
 import { CheckIcon } from "lucide-react-native";
 
-import { FeedRow } from "../../../../components/feed-row";
-import { ItemSeparator } from "../../../../components/item-separator";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { StatusBar } from "../../../../components/status-bar";
-import { useAgent } from "../../../../lib/agent";
-import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
+import { FeedRow } from "~/components/feed-row";
+import { ItemSeparator } from "~/components/item-separator";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { StatusBar } from "~/components/status-bar";
+import { useAgent } from "~/lib/agent";
+import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 
 export default function DiscoveryPage() {
   const agent = useAgent();

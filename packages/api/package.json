@@ -7,13 +7,13 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
-    "type-check": "tsc --noEmit"
+    "format": "prettier --check \"**/*.{mjs,ts,json}\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@graysky/db": "^0.1.0",
-    "@trpc/client": "^10.37.1",
-    "@trpc/server": "^10.37.1",
+    "@trpc/client": "^10.38.1",
+    "@trpc/server": "^10.38.1",
     "@vercel/kv": "^0.2.2",
     "encoding": "^0.1.13",
     "google-auth-library": "^8.9.0",
@@ -23,7 +23,17 @@
   },
   "devDependencies": {
     "@graysky/eslint-config": "^0.1.0",
+    "@graysky/prettier-config": "^0.1.0",
+    "@graysky/tsconfig": "^0.1.0",
     "eslint": "^8.47.0",
+    "prettier": "^3.0.2",
     "typescript": "^5.1.6"
-  }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@graysky/eslint-config/base"
+    ]
+  },
+  "prettier": "@graysky/prettier-config"
 }

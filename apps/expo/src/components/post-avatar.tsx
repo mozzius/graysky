@@ -5,7 +5,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { UserCircleIcon } from "lucide-react-native";
 
-import { cx } from "../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewBasic;

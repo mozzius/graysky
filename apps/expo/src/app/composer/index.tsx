@@ -41,12 +41,12 @@ import {
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { Avatar } from "../../components/avatar";
-import { Embed } from "../../components/embed";
-import { FeedPost } from "../../components/feed-post";
-import { RichText } from "../../components/rich-text";
-import { Text } from "../../components/text";
-import { useAgent } from "../../lib/agent";
+import { Avatar } from "~/components/avatar";
+import { Embed } from "~/components/embed";
+import { FeedPost } from "~/components/feed-post";
+import { RichText } from "~/components/rich-text";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
@@ -55,10 +55,10 @@ import {
   useQuote,
   useReply,
   useSendPost,
-} from "../../lib/hooks/composer";
-import { useContentFilter, useHaptics } from "../../lib/hooks/preferences";
-import { cx } from "../../lib/utils/cx";
-import { getMentionAt, insertMentionAt } from "../../lib/utils/mention-suggest";
+} from "~/lib/hooks/composer";
+import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
+import { cx } from "~/lib/utils/cx";
+import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
 
 interface Selection {
   start: number;

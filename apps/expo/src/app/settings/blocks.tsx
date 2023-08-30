@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { ProfileList } from "../../components/profile-list";
-import { QueryWithoutData } from "../../components/query-without-data";
-import { useAgent } from "../../lib/agent";
-import { useRefreshOnFocus } from "../../lib/utils/query";
+import { ProfileList } from "~/components/profile-list";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { useAgent } from "~/lib/agent";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function BlockedUsers() {
   const agent = useAgent();

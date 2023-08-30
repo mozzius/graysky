@@ -34,9 +34,9 @@ import {
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { blockAccount, muteAccount } from "../../../lib/account-actions";
-import { useAgent } from "../../../lib/agent";
-import { cx } from "../../../lib/utils/cx";
+import { blockAccount, muteAccount } from "~/lib/account-actions";
+import { useAgent } from "~/lib/agent";
+import { cx } from "~/lib/utils/cx";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
 import { Text } from "../../text";

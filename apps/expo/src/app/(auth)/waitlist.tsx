@@ -12,8 +12,8 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { Text } from "../../components/text";
-import { TextButton } from "../../components/text-button";
+import { Text } from "~/components/text";
+import { TextButton } from "~/components/text-button";
 
 const schema = z.discriminatedUnion("success", [
   z.object({ success: z.literal(false), error: z.string() }),

@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-import { cx } from "../../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 
 export const NotificationItem = ({
   left = null,

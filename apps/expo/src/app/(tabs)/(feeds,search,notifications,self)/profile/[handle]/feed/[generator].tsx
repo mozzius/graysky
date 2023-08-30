@@ -24,23 +24,20 @@ import {
   XIcon,
 } from "lucide-react-native";
 
-import { FeedRow } from "../../../../../../components/feed-row";
-import { ItemSeparator } from "../../../../../../components/item-separator";
-import { QueryWithoutData } from "../../../../../../components/query-without-data";
-import {
-  RichText,
-  RichTextWithoutFacets,
-} from "../../../../../../components/rich-text";
-import { FeedScreen } from "../../../../../../components/screens/feed-screen";
-import { Text } from "../../../../../../components/text";
-import { useAgent } from "../../../../../../lib/agent";
+import { FeedRow } from "~/components/feed-row";
+import { ItemSeparator } from "~/components/item-separator";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
+import { FeedScreen } from "~/components/screens/feed-screen";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
 import {
   useFeedInfo,
   useSavedFeeds,
   useToggleFeedPref,
-} from "../../../../../../lib/hooks/feeds";
-import { useHaptics } from "../../../../../../lib/hooks/preferences";
-import { cx } from "../../../../../../lib/utils/cx";
+} from "~/lib/hooks/feeds";
+import { useHaptics } from "~/lib/hooks/preferences";
+import { cx } from "~/lib/utils/cx";
 
 export default function FeedsPage() {
   const [open, setOpen] = useState(false);

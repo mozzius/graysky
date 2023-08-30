@@ -6,12 +6,12 @@ import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { QueryWithoutData } from "~/components/query-without-data";
+import { RichText } from "~/components/rich-text";
+import { Text } from "~/components/text";
+import { TextButton } from "~/components/text-button";
+import { useAgent } from "~/lib/agent";
 import { useSelf } from ".";
-import { QueryWithoutData } from "../../../components/query-without-data";
-import { RichText } from "../../../components/rich-text";
-import { Text } from "../../../components/text";
-import { TextButton } from "../../../components/text-button";
-import { useAgent } from "../../../lib/agent";
 
 export default function EditBio() {
   const theme = useTheme();

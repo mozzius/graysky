@@ -14,9 +14,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { blockAccount, muteAccount } from "../lib/account-actions";
-import { useAgent } from "../lib/agent";
-import { useHaptics } from "../lib/hooks/preferences";
+import { blockAccount, muteAccount } from "~/lib/account-actions";
+import { useAgent } from "~/lib/agent";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { useLists } from "./lists/context";
 
 interface Props {

@@ -19,17 +19,17 @@ import {
 } from "@tanstack/react-query";
 import { SearchIcon } from "lucide-react-native";
 
-import { GroupedList } from "../../../../components/grouped-list";
-import { ItemSeparator } from "../../../../components/item-separator";
-import { PersonRow } from "../../../../components/lists/person-row";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { RichTextWithoutFacets } from "../../../../components/rich-text";
-import { Text } from "../../../../components/text";
-import { useAgent } from "../../../../lib/agent";
-import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
-import { useTabPress } from "../../../../lib/hooks/tab-press-scroll";
-import { cx } from "../../../../lib/utils/cx";
-import { useRefreshOnFocus } from "../../../../lib/utils/query";
+import { GroupedList } from "~/components/grouped-list";
+import { ItemSeparator } from "~/components/item-separator";
+import { PersonRow } from "~/components/lists/person-row";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { RichTextWithoutFacets } from "~/components/rich-text";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
+import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { useTabPress } from "~/lib/hooks/tab-press-scroll";
+import { cx } from "~/lib/utils/cx";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");

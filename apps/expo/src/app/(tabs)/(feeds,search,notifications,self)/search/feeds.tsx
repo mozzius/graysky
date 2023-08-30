@@ -6,14 +6,14 @@ import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 
-import { FeedRow } from "../../../../components/feed-row";
-import { ItemSeparator } from "../../../../components/item-separator";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { Text } from "../../../../components/text";
-import { useTabPressScrollRef } from "../../../../lib/hooks";
-import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
-import { api } from "../../../../lib/utils/api";
-import { useUserRefresh } from "../../../../lib/utils/query";
+import { FeedRow } from "~/components/feed-row";
+import { ItemSeparator } from "~/components/item-separator";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
+import { useTabPressScrollRef } from "~/lib/hooks";
+import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { api } from "~/lib/utils/api";
+import { useUserRefresh } from "~/lib/utils/query";
 
 interface Props {
   search: string;

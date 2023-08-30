@@ -14,10 +14,10 @@ import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
 import { z } from "zod";
 
-import { Text } from "../../components/text";
-import { TextButton } from "../../components/text-button";
-import { useAgent } from "../../lib/agent";
-import { cx } from "../../lib/utils/cx";
+import { Text } from "~/components/text";
+import { TextButton } from "~/components/text-button";
+import { useAgent } from "~/lib/agent";
+import { cx } from "~/lib/utils/cx";
 
 const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
 

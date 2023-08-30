@@ -9,9 +9,9 @@ import {
   SparklesIcon,
 } from "lucide-react-native";
 
-import { locale } from "../lib/locale";
-import { api } from "../lib/utils/api";
-import { cx } from "../lib/utils/cx";
+import { locale } from "~/lib/locale";
+import { api } from "~/lib/utils/api";
+import { cx } from "~/lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
 import { Text } from "./text";
 

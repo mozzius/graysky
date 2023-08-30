@@ -4,11 +4,11 @@ import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
-import { StatusBar } from "../../components/status-bar";
-import { Text } from "../../components/text";
-import { useAgent } from "../../lib/agent";
-import { useCanGoBack } from "../../lib/hooks/can-go-back";
-import { useRefreshOnFocus } from "../../lib/utils/query";
+import { StatusBar } from "~/components/status-bar";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
+import { useCanGoBack } from "~/lib/hooks/can-go-back";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function SettingsLayout() {
   const theme = useTheme();

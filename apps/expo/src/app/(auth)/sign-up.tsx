@@ -16,10 +16,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { Text } from "../../components/text";
-import { TextButton } from "../../components/text-button";
-import { useAgent } from "../../lib/agent";
-import { locale } from "../../lib/locale";
+import { Text } from "~/components/text";
+import { TextButton } from "~/components/text-button";
+import { useAgent } from "~/lib/agent";
+import { locale } from "~/lib/locale";
 
 // helper from official app
 export function getAge(birthDate: Date): number {

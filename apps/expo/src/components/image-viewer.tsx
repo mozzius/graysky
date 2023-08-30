@@ -20,7 +20,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { useHaptics } from "../lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { useImageOptions } from "./image-with-context";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);

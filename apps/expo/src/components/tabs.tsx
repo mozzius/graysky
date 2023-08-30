@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-import { cx } from "../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 
 interface TabsProps extends React.PropsWithChildren {
   style?: StyleProp<ViewStyle>;

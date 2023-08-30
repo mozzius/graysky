@@ -11,9 +11,9 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
 
-import { ImageViewer } from "../../components/image-viewer";
-import { useAgent } from "../../lib/agent";
-import { assert } from "../../lib/utils/assert";
+import { ImageViewer } from "~/components/image-viewer";
+import { useAgent } from "~/lib/agent";
+import { assert } from "~/lib/utils/assert";
 
 export default function ImageModal() {
   const agent = useAgent();

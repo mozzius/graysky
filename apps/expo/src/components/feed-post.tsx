@@ -18,14 +18,14 @@ import {
 } from "lucide-react-native";
 import { z } from "zod";
 
-import { type Posts } from "../app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
-import { useAgent } from "../lib/agent";
-import { useHandleRepost, useLike, useRepost } from "../lib/hooks";
-import { type FilterResult } from "../lib/hooks/preferences";
-import { locale } from "../lib/locale";
-import { assert } from "../lib/utils/assert";
-import { cx } from "../lib/utils/cx";
-import { timeSince } from "../lib/utils/time";
+import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
+import { useAgent } from "~/lib/agent";
+import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
+import { type FilterResult } from "~/lib/hooks/preferences";
+import { locale } from "~/lib/locale";
+import { assert } from "~/lib/utils/assert";
+import { cx } from "~/lib/utils/cx";
+import { timeSince } from "~/lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";

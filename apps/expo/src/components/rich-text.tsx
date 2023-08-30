@@ -3,7 +3,7 @@ import { Linking } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
-import { cx } from "../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
 interface Props {
