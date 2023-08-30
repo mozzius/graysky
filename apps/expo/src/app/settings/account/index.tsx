@@ -8,10 +8,10 @@ import {
   UserX,
 } from "lucide-react-native";
 
-import { Avatar } from "../../../components/avatar";
-import { GroupedList } from "../../../components/grouped-list";
-import { Text } from "../../../components/text";
-import { useAgent } from "../../../lib/agent";
+import { Avatar } from "~/components/avatar";
+import { GroupedList } from "~/components/grouped-list";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
 
 export const useSelf = () => {
   const agent = useAgent();

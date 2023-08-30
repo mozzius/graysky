@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CheckCircle2Icon } from "lucide-react-native";
 import { z } from "zod";
 
-import { useAgent } from "../lib/agent";
+import { useAgent } from "~/lib/agent";
 import { Text } from "./text";
 import { TextButton } from "./text-button";
 

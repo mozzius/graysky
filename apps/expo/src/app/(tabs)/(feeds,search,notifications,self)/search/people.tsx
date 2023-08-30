@@ -7,14 +7,14 @@ import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { ItemSeparator } from "../../../../components/item-separator";
-import { PersonRow } from "../../../../components/lists/person-row";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { Text } from "../../../../components/text";
-import { useAgent } from "../../../../lib/agent";
-import { useTabPressScrollRef } from "../../../../lib/hooks";
-import { useSearchBarOptions } from "../../../../lib/hooks/search-bar";
-import { useUserRefresh } from "../../../../lib/utils/query";
+import { ItemSeparator } from "~/components/item-separator";
+import { PersonRow } from "~/components/lists/person-row";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
+import { useTabPressScrollRef } from "~/lib/hooks";
+import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { useUserRefresh } from "~/lib/utils/query";
 
 interface Props {
   search: string;

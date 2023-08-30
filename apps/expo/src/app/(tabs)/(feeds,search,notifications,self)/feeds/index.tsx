@@ -13,19 +13,16 @@ import {
   PlusIcon,
 } from "lucide-react-native";
 
-import { Avatar } from "../../../../components/avatar";
-import { useDrawer } from "../../../../components/drawer-content";
-import { DraggableFeedRow } from "../../../../components/feed-row";
-import { ItemSeparator } from "../../../../components/item-separator";
-import { QueryWithoutData } from "../../../../components/query-without-data";
-import { Text } from "../../../../components/text";
-import { useSavedFeeds } from "../../../../lib/hooks";
-import {
-  useReorderFeeds,
-  useToggleFeedPref,
-} from "../../../../lib/hooks/feeds";
-import { useAppPreferences } from "../../../../lib/hooks/preferences";
-import { cx } from "../../../../lib/utils/cx";
+import { Avatar } from "~/components/avatar";
+import { useDrawer } from "~/components/drawer-content";
+import { DraggableFeedRow } from "~/components/feed-row";
+import { ItemSeparator } from "~/components/item-separator";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
+import { useSavedFeeds } from "~/lib/hooks";
+import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
+import { useAppPreferences } from "~/lib/hooks/preferences";
+import { cx } from "~/lib/utils/cx";
 
 const NoFeeds = () => {
   const theme = useTheme();

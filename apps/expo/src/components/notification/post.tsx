@@ -5,8 +5,8 @@ import {
   type AppBskyFeedDefs,
 } from "@atproto/api";
 
-import { useContentFilter } from "../../lib/hooks/preferences";
-import { assert } from "../../lib/utils/assert";
+import { useContentFilter } from "~/lib/hooks/preferences";
+import { assert } from "~/lib/utils/assert";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";

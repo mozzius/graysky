@@ -10,7 +10,7 @@ import { Link } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, type LucideIcon } from "lucide-react-native";
 
-import { cx } from "../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 import { ItemSeparator } from "./item-separator";
 
 interface ListProps {

@@ -21,8 +21,8 @@ import {
   VoteIcon,
 } from "lucide-react-native";
 
-import { StatusBar } from "../components/status-bar";
-import { useOfferings } from "../lib/hooks/purchases";
+import { StatusBar } from "~/components/status-bar";
+import { useOfferings } from "~/lib/hooks/purchases";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const background = require("../../assets/graysky.png") as ImageSourcePropType;

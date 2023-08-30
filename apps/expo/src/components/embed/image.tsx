@@ -7,7 +7,7 @@ import { type AppBskyEmbedImages } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { cx } from "../../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 import { ImageWithContext } from "../image-with-context";
 
 interface Props {

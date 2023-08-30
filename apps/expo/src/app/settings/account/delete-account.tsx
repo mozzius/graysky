@@ -12,12 +12,12 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { AlertTriangleIcon, CheckCircle2Icon } from "lucide-react-native";
 
+import { Avatar } from "~/components/avatar";
+import { Text } from "~/components/text";
+import { TextButton } from "~/components/text-button";
+import { useAgent } from "~/lib/agent";
+import { useLogOut } from "~/lib/log-out-context";
 import { useSelf } from ".";
-import { Avatar } from "../../../components/avatar";
-import { Text } from "../../../components/text";
-import { TextButton } from "../../../components/text-button";
-import { useAgent } from "../../../lib/agent";
-import { useLogOut } from "../../../lib/log-out-context";
 
 export default function DeleteAccount() {
   const theme = useTheme();

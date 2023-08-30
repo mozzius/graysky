@@ -12,9 +12,9 @@ import {
   UserIcon,
 } from "lucide-react-native";
 
-import { DrawerContent, DrawerProvider } from "../../components/drawer-content";
-import { StatusBar } from "../../components/status-bar";
-import { useOptionalAgent } from "../../lib/agent";
+import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
+import { StatusBar } from "~/components/status-bar";
+import { useOptionalAgent } from "~/lib/agent";
 
 export default function AppLayout() {
   // agent might not be available yet

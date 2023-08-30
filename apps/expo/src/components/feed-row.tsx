@@ -24,8 +24,8 @@ import {
   StarIcon,
 } from "lucide-react-native";
 
-import { useHaptics } from "../lib/hooks/preferences";
-import { cx } from "../lib/utils/cx";
+import { useHaptics } from "~/lib/hooks/preferences";
+import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
 interface Props {

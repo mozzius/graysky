@@ -11,8 +11,8 @@ import {
   WrenchIcon,
 } from "lucide-react-native";
 
-import { GroupedList } from "../../components/grouped-list";
-import { Text } from "../../components/text";
+import { GroupedList } from "~/components/grouped-list";
+import { Text } from "~/components/text";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../assets/graysky.png") as ImageSource;

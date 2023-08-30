@@ -11,13 +11,9 @@ import { FlashList } from "@shopify/flash-list";
 import { type DefinedUseQueryResult } from "@tanstack/react-query";
 import { SearchIcon } from "lucide-react-native";
 
-import { useTabPressScrollRef } from "../../lib/hooks";
-import {
-  useFeedInfo,
-  useTimeline,
-  type TimelineItem,
-} from "../../lib/hooks/feeds";
-import { useUserRefresh } from "../../lib/utils/query";
+import { useTabPressScrollRef } from "~/lib/hooks";
+import { useFeedInfo, useTimeline, type TimelineItem } from "~/lib/hooks/feeds";
+import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";

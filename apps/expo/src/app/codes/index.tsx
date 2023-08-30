@@ -3,10 +3,10 @@ import * as Clipboard from "expo-clipboard";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon, CopyIcon } from "lucide-react-native";
 
-import { GroupedList } from "../../components/grouped-list";
-import { QueryWithoutData } from "../../components/query-without-data";
-import { Text } from "../../components/text";
-import { useAppPreferences, useHaptics } from "../../lib/hooks/preferences";
+import { GroupedList } from "~/components/grouped-list";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
+import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { useInviteCodes } from "./_layout";
 
 export default function InviteCodesScreen() {

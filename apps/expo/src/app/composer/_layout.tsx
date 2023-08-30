@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { StatusBar } from "../../components/status-bar";
+import { StatusBar } from "~/components/status-bar";
 
 export default function ComposerLayout() {
   return (

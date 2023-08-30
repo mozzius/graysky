@@ -4,9 +4,9 @@ import { Link, useRouter } from "expo-router";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import { StyledComponent } from "nativewind";
 
-import type { NotificationGroup } from "../../app/(tabs)/(feeds,search,notifications,self)/notifications";
-import { useAgent } from "../../lib/agent";
-import { timeSince } from "../../lib/utils/time";
+import type { NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
+import { useAgent } from "~/lib/agent";
+import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";
 import { Text } from "../text";
 import { NotificationItem } from "./item";

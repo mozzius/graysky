@@ -22,19 +22,19 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import * as Sentry from "sentry-expo";
 import { z } from "zod";
 
-import { ListProvider } from "../components/lists/context";
-import { StatusBar } from "../components/status-bar";
-import { Text } from "../components/text";
-import { AgentProvider } from "../lib/agent";
+import { ListProvider } from "~/components/lists/context";
+import { StatusBar } from "~/components/status-bar";
+import { Text } from "~/components/text";
+import { AgentProvider } from "~/lib/agent";
 // import {
 //   configureRevenueCat,
 //   CustomerInfoProvider,
 //   useCustomerInfoQuery,
-// } from "../lib/hooks/purchases";
-import { LogOutProvider } from "../lib/log-out-context";
-import { store } from "../lib/storage";
-import { TRPCProvider } from "../lib/utils/api";
-import { fetchHandler } from "../lib/utils/polyfills/fetch-polyfill";
+// } from "~/lib/hooks/purchases";
+import { LogOutProvider } from "~/lib/log-out-context";
+import { store } from "~/lib/storage";
+import { TRPCProvider } from "~/lib/utils/api";
+import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,

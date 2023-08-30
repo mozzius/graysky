@@ -17,8 +17,8 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
-import { useBottomSheetStyles } from "../../lib/bottom-sheet";
-import { cx } from "../../lib/utils/cx";
+import { useBottomSheetStyles } from "~/lib/bottom-sheet";
+import { cx } from "~/lib/utils/cx";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";

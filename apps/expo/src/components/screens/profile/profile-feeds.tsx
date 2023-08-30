@@ -15,10 +15,10 @@ import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 
-import { useAgent } from "../../../lib/agent";
-import { useTabPressScrollRef } from "../../../lib/hooks";
-import { cx } from "../../../lib/utils/cx";
-import { useUserRefresh } from "../../../lib/utils/query";
+import { useAgent } from "~/lib/agent";
+import { useTabPressScrollRef } from "~/lib/hooks";
+import { cx } from "~/lib/utils/cx";
+import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../text";

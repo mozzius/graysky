@@ -3,8 +3,8 @@ import { Image } from "expo-image";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { useAgent } from "../lib/agent";
-import { cx } from "../lib/utils/cx";
+import { useAgent } from "~/lib/agent";
+import { cx } from "~/lib/utils/cx";
 
 interface Props {
   size?: "large" | "medium" | "small";

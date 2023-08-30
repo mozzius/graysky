@@ -1,8 +1,8 @@
 import { Alert, Switch } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-import { GroupedList } from "../../components/grouped-list";
-import { useAppPreferences } from "../../lib/hooks/preferences";
+import { GroupedList } from "~/components/grouped-list";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 
 export default function AppSettings() {
   const [appPrefs, setAppPrefs] = useAppPreferences();

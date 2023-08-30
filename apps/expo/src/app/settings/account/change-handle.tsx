@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { Text } from "../../../components/text";
+import { Text } from "~/components/text";
 
 export default function ChangeHandle() {
   return (

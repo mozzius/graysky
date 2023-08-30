@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 
-import { cx } from "../lib/utils/cx";
+import { cx } from "~/lib/utils/cx";
 
 interface ButtonProps extends React.PropsWithChildren {
   onPress: (evt: GestureResponderEvent) => void | Promise<void>;

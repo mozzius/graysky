@@ -5,8 +5,8 @@ import { AppBskyFeedDefs } from "@atproto/api";
 import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { useAgent } from "../../../lib/agent";
-import { useContentFilter } from "../../../lib/hooks/preferences";
+import { useAgent } from "~/lib/agent";
+import { useContentFilter } from "~/lib/hooks/preferences";
 
 export const useProfile = (handle?: string) => {
   const agent = useAgent();

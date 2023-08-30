@@ -16,9 +16,9 @@ import {
 import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
-import { useInviteCodes } from "../app/codes/_layout";
-import { useAgent } from "../lib/agent";
-import { useLogOut } from "../lib/log-out-context";
+import { useInviteCodes } from "~/app/codes/_layout";
+import { useAgent } from "~/lib/agent";
+import { useLogOut } from "~/lib/log-out-context";
 import { ActorDetails } from "./actor-details";
 import { Text } from "./text";
 

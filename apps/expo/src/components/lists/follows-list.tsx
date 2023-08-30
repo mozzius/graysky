@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { useAgent } from "../../lib/agent";
+import { useAgent } from "~/lib/agent";
 import { PeopleList, type PeopleListRef } from "./people-list";
 
 const useFollows = (actor?: string) => {

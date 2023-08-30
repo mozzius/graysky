@@ -4,7 +4,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { useAgent } from "../lib/agent";
+import { useAgent } from "~/lib/agent";
 import { useLists } from "./lists/context";
 import { Text } from "./text";
 

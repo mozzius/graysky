@@ -1,9 +1,9 @@
 import { type ComAtprotoServerDefs } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 
-import { ProfileList } from "../../components/profile-list";
-import { QueryWithoutData } from "../../components/query-without-data";
-import { useAgent } from "../../lib/agent";
+import { ProfileList } from "~/components/profile-list";
+import { QueryWithoutData } from "~/components/query-without-data";
+import { useAgent } from "~/lib/agent";
 import { useInviteCodes } from "./_layout";
 
 interface Props {

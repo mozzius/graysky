@@ -3,9 +3,9 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
-import { StatusBar } from "../../components/status-bar";
-import { Text } from "../../components/text";
-import { useCanGoBack } from "../../lib/hooks/can-go-back";
+import { StatusBar } from "~/components/status-bar";
+import { Text } from "~/components/text";
+import { useCanGoBack } from "~/lib/hooks/can-go-back";
 
 export default function SettingsLayout() {
   const theme = useTheme();
