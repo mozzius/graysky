@@ -7,8 +7,8 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
-    "type-check": "tsc --noEmit"
+    "format": "prettier --check \"**/*.{mjs,ts,json}\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@graysky/db": "^0.1.0",

@@ -193,7 +193,6 @@ const App = ({ session, saveSession }: Props) => {
                       options={{
                         headerShown: false,
                         gestureEnabled: false,
-                        
                       }}
                     />
                     <Stack.Screen

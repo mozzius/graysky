@@ -11,8 +11,8 @@
     "build:dev-client": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.zip\" --wait",
     "build:android:dev-client": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
-    "type-check": "tsc --noEmit"
+    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@graysky/api": "^0.1.0",

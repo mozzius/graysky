@@ -17,10 +17,11 @@
     "dev": "pnpm dev:expo",
     "dev:expo": "cd apps/expo && pnpm dev",
     "dev:next": "cd apps/nextjs && pnpm dev",
-    "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
+    "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
+    "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
-    "type-check": "turbo type-check",
+    "typecheck": "turbo typecheck",
     "postinstall": "pnpm db:generate"
   },
   "dependencies": {
