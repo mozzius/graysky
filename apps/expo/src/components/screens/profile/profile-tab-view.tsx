@@ -59,6 +59,7 @@ export const ProfileTabView = ({
         <Tabs.Container
           minHeaderHeight={headerHeight}
           initialTabName={initial}
+          headerContainerStyle={{ shadowOpacity: 0, elevation: 0 }}
           renderTabBar={(props) => (
             <MaterialTabBar
               {...props}
