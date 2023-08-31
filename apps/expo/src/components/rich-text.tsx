@@ -67,18 +67,19 @@ export const RichText = ({
           component: (
             <Text
               className={cx("text-blue-500", classNames)}
+              accessibilityRole="link"
               onPress={(evt) => {
                 if (disableLinks) return;
                 evt.stopPropagation();
                 const url = segment.link!.uri;
                 // TODO: better heuristic?
-                if (url.startsWith("https://bsky.app/profile")) {
+                if (url.startsWith("https://bsky.app")) {
                   const path = url.slice("https://bsky.app".length);
                   router.push(path);
                 } else {
                   void Linking.openURL(url);
                   // check link is not deceptive
-                  // TODO: test
+                  // TODO: the official app now shortens links - will need new logic
                   // const realHost = new URL(url).hostname;
                   // const statedHost = new URL(segment.text).hostname;
                   // if (realHost === statedHost) {
@@ -112,6 +113,7 @@ export const RichText = ({
           component: (
             <Text
               className={cx("text-blue-500", classNames)}
+              accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
                 router.push(`/profile/${segment.mention!.did}`);

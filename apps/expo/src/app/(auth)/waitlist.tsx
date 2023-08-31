@@ -86,6 +86,7 @@ export default function Waitlist() {
         might be able to skip the queue via the{" "}
         <Text
           style={{ color: theme.colors.primary }}
+          accessibilityRole="link"
           onPress={() =>
             void Linking.openURL("https://atproto.com/blog/call-for-developers")
           }

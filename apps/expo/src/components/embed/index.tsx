@@ -46,8 +46,9 @@ export const Embed = ({
     if (AppBskyEmbedExternal.isView(content)) {
       return (
         <TouchableHighlight
+          accessibilityRole="link"
           onPress={() => void Linking.openURL(content.external.uri)}
-          className={cx("mt-1.5 rounded-lg")}
+          className="mt-1.5 rounded-lg"
         >
           <View
             className={cx(

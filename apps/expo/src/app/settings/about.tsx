@@ -11,7 +11,7 @@ import {
   WrenchIcon,
 } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { GroupedList, Groups } from "~/components/grouped-list";
 import { Text } from "~/components/text";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -22,18 +22,21 @@ const groups = [
     options: [
       {
         title: "Star us on GitHub!",
+        accessibilityRole: "link",
         onPress: () => Linking.openURL("https://github.com/mozzius/graysky"),
         icon: GithubIcon,
         chevron: true,
       },
       {
         title: "Sign up for project updates",
+        accessibilityRole: "link",
         onPress: () => Linking.openURL("https://graysky.app"),
         icon: MailIcon,
         chevron: true,
       },
       {
         title: "Contact",
+        accessibilityRole: "link",
         onPress: () => Linking.openURL("mailto:hello@graysky.app"),
         icon: SendIcon,
         chevron: true,
@@ -45,11 +48,13 @@ const groups = [
     options: [
       {
         title: "mozzius.dev",
+        accessibilityRole: "link",
         href: "/profile/mozzius.dev",
         icon: AtSignIcon,
       },
       {
         title: "Sponsor my work",
+        accessibilityRole: "link",
         onPress: () => Linking.openURL("https://github.com/sponsors/mozzius"),
         icon: HeartIcon,
         chevron: true,
@@ -61,21 +66,25 @@ const groups = [
     options: [
       {
         title: "alice.bsky.sh",
+        accessibilityRole: "link",
         href: "/profile/alice.bsky.sh",
         icon: AtSignIcon,
       },
       {
         title: "holden.bsky.social",
+        accessibilityRole: "link",
         href: "/profile/holden.bsky.social",
         icon: AtSignIcon,
       },
       {
         title: "matthewstanciu.com",
+        accessibilityRole: "link",
         href: "/profile/matthewstanciu.com",
         icon: AtSignIcon,
       },
       {
         title: "jcsalterego.bsky.social",
+        accessibilityRole: "link",
         href: "/profile/jcsalterego.bsky.social",
         icon: AtSignIcon,
       },
@@ -90,7 +99,7 @@ const groups = [
       },
     ],
   },
-];
+] satisfies Groups;
 
 export default function AboutPage() {
   return (

@@ -22,6 +22,8 @@ interface ListProps {
         onPress?: () => void | Promise<void>;
         action?: React.ReactNode;
         destructive?: boolean;
+        accessibilityRole?: "link"; // todo: add more
+        chevron?: boolean;
       }
     | undefined
     | null
@@ -46,7 +48,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
           const row = (
             <Row
               icon={option.icon}
-              chevron={!!option.href && !option.action}
+              chevron={(!!option.href && !option.action) || option.chevron}
               action={option.action}
               destructive={option.destructive}
             >
@@ -69,7 +71,10 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
                   </TouchableHighlight>
                 </Link>
               ) : option.onPress ? (
-                <TouchableHighlight onPress={() => void option.onPress?.()}>
+                <TouchableHighlight
+                  onPress={() => void option.onPress?.()}
+                  accessibilityRole={option.accessibilityRole}
+                >
                   <View>{row}</View>
                 </TouchableHighlight>
               ) : (
