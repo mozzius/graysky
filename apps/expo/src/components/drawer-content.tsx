@@ -9,7 +9,7 @@ import { useTheme } from "@react-navigation/native";
 import {
   LogOutIcon,
   PaletteIcon,
-  Settings2Icon,
+  SettingsIcon,
   StarIcon,
   TicketIcon,
 } from "lucide-react-native";
@@ -120,7 +120,7 @@ export const DrawerContent = () => {
             accessibilityLabel="Settings"
             className="mt-2 w-full flex-row items-center py-2"
           >
-            <Settings2Icon color={theme.colors.text} />
+            <SettingsIcon color={theme.colors.text} />
             <Text className="ml-6 text-base font-medium">Settings</Text>
           </TouchableOpacity>
         </Link>

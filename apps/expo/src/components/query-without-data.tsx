@@ -30,9 +30,7 @@ export const QueryWithoutData = ({ query }: Props) => {
           )}
           <TouchableOpacity
             className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
-            style={{
-              backgroundColor: theme.colors.primary,
-            }}
+            style={{ backgroundColor: theme.colors.primary }}
             onPress={() => void query.refetch()}
           >
             <RefreshCcwIcon size={20} className="text-white" />

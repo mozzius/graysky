@@ -31,6 +31,8 @@ const config = {
       { checksVoidReturn: { attributes: false } },
     ],
     "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+    // stupid ass rule
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
   },
   ignorePatterns: [
     "**/.eslintrc.cjs",

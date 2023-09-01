@@ -28,13 +28,13 @@ import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { useUserRefresh } from "~/lib/utils/query";
 
-export type Posts = {
+export interface Posts {
   post: AppBskyFeedDefs.PostView;
   primary: boolean;
   hasParent: boolean;
   hasReply: boolean;
   filter: FilterResult;
-};
+}
 
 interface Props {
   contentFilter: (labels?: ComAtprotoLabelDefs.Label[]) => FilterResult;
@@ -127,7 +127,7 @@ const PostThread = ({ contentFilter }: Props) => {
             });
           }
 
-          if (reply.replies && reply.replies[0]) {
+          if (reply.replies?.[0]) {
             let child;
             child = reply.replies[0];
             while (child) {
