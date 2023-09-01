@@ -65,12 +65,15 @@ pnpm dev
   - [x] Mention autocomplete
   - [x] Embeds in composer
     - [ ] Embed image upload
+  - [ ] Alt text editor
+    - [x] iOS
+    - [ ] Android
 - [ ] App Store
 
 ## Future (no promises)
 
 - [ ] Change handle
-- [ ] Push notifications (waiting for official push notification API)
+- [ ] Push notifications
 - [ ] Multi-account support
 - [ ] Drafts
 - [ ] GIFs ;)
