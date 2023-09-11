@@ -96,7 +96,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
+            onRefresh={handleRefresh}
             tintColor={tintColor}
           />
         }

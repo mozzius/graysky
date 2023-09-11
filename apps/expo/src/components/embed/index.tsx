@@ -47,7 +47,7 @@ export const Embed = ({
       return (
         <TouchableHighlight
           accessibilityRole="link"
-          onPress={() => void Linking.openURL(content.external.uri)}
+          onPress={() => Linking.openURL(content.external.uri)}
           className="mt-1.5 rounded-lg"
         >
           <View

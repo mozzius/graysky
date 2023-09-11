@@ -49,6 +49,7 @@ export default function SearchPage() {
     onFocus: () => setIsSearching(true),
     onBlur: () => setIsSearching(false),
     hideWhenScrolling: false,
+    hideNavigationBar: false,
     autoFocus: true,
     ref,
   });
@@ -175,7 +176,7 @@ const Suggestions = () => {
         ListHeaderComponent={
           <Text className="mt-4 px-4 text-lg font-bold">Suggested follows</Text>
         }
-        onEndReached={() => void suggestions.fetchNextPage()}
+        onEndReached={() => suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
         ListFooterComponent={<View className="h-4" />}
       />

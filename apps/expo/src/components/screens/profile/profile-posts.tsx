@@ -115,7 +115,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
+            onRefresh={handleRefresh}
             tintColor={tintColor}
           />
         }

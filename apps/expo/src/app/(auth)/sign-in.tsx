@@ -143,9 +143,7 @@ export default function SignIn() {
                 style={{ color: theme.colors.primary }}
                 accessibilityRole="link"
                 onPress={() =>
-                  void Linking.openURL(
-                    "https://bsky.app/settings/app-passwords",
-                  )
+                  Linking.openURL("https://bsky.app/settings/app-passwords")
                 }
               >
                 Create one at bsky.app/settings

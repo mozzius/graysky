@@ -69,17 +69,16 @@ const PeopleSearch = ({ search }: Props) => {
         )}
         estimatedItemSize={56}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => void handleRefresh()}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         onEndReachedThreshold={0.6}
-        onEndReached={() => void query.fetchNextPage()}
+        onEndReached={() => query.fetchNextPage()}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
-              No users found - maybe try a different search term?
+              {search
+                ? "No users found - maybe try a different search term?"
+                : "Search for users"}
             </Text>
           </View>
         }

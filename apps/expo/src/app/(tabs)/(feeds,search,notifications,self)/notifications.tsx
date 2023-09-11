@@ -217,11 +217,11 @@ export default function NotificationsPage() {
           // }
           estimatedItemSize={105}
           onEndReachedThreshold={0.6}
-          onEndReached={() => void notifications.fetchNextPage()}
+          onEndReached={() => notifications.fetchNextPage()}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={() => void handleRefresh()}
+              onRefresh={handleRefresh}
               tintColor={tintColor}
             />
           }

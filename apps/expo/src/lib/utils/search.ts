@@ -64,7 +64,7 @@ async function doFetch<T>(
   res.headers.forEach((value: string, key: string) => {
     resHeaders[key] = value;
   });
-  const resBody = await res.json();
+  const resBody = (await res.json()) as unknown as T;
 
-  return (resBody as unknown as T) ?? ([] as T);
+  return resBody ?? ([] as T);
 }

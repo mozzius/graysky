@@ -43,7 +43,6 @@
     "expo-system-ui": "~2.4.0",
     "expo-updates": "^0.18.12",
     "fast-text-encoding": "^1.0.6",
-    "fuzzysort": "^2.0.4",
     "graphemer": "^1.4.0",
     "immer": "^10.0.2",
     "lucide-react-native": "^0.276.0",

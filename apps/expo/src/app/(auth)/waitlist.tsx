@@ -88,7 +88,7 @@ export default function Waitlist() {
           style={{ color: theme.colors.primary }}
           accessibilityRole="link"
           onPress={() =>
-            void Linking.openURL("https://atproto.com/blog/call-for-developers")
+            Linking.openURL("https://atproto.com/blog/call-for-developers")
           }
         >
           developer waitlist form

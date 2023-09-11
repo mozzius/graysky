@@ -166,9 +166,6 @@ importers:
       fast-text-encoding:
         specifier: ^1.0.6
         version: 1.0.6
-      fuzzysort:
-        specifier: ^2.0.4
-        version: 2.0.4
       graphemer:
         specifier: ^1.4.0
         version: 1.4.0
@@ -6581,10 +6578,6 @@ packages:
 
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
-    dev: false
-
-  /fuzzysort@2.0.4:
-    resolution: {integrity: sha512-Api1mJL+Ad7W7vnDZnWq5pGaXJjyencT+iKGia2PlHUcSsSzWwIQ3S1isiMpwpavjYtGd2FzhUIhnnhOULZgDw==}
     dev: false
 
   /gensync@1.0.0-beta.2:

@@ -31,7 +31,7 @@ export function useUserRefresh<T>(refetch: () => Promise<T>) {
   //   return (
   //     <RefreshControl
   //       refreshing={refreshing}
-  //       onRefresh={() => void handleRefresh()}
+  //       onRefresh={handleRefresh}
   //       tintColor={theme.colors.text}
   //     />
   //   );

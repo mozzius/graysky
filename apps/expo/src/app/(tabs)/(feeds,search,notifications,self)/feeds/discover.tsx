@@ -1,10 +1,9 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import fuzzySort from "fuzzysort";
 import { CheckIcon } from "lucide-react-native";
 
 import { FeedRow } from "~/components/feed-row";
@@ -14,6 +13,8 @@ import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 
+// TODO: make this a flashlist and add a cursor to the query
+
 export default function DiscoveryPage() {
   const agent = useAgent();
   const theme = useTheme();
@@ -22,6 +23,7 @@ export default function DiscoveryPage() {
     placeholder: "Search feeds",
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
+    hideNavigationBar: false,
   });
 
   const saved = useQuery({
@@ -39,25 +41,16 @@ export default function DiscoveryPage() {
   });
 
   const recommended = useQuery({
-    queryKey: ["feeds", "discover"],
+    queryKey: ["feeds", "discover", search],
     queryFn: async () => {
-      const popular = await agent.app.bsky.unspecced.getPopularFeedGenerators();
+      const popular = await agent.app.bsky.unspecced.getPopularFeedGenerators({
+        query: search || undefined,
+      });
       if (!popular.success) throw new Error("Failed to fetch popular feeds");
       return popular.data.feeds;
     },
+    keepPreviousData: true,
   });
-
-  const sorted = useMemo(() => {
-    if (!recommended.data) return [];
-
-    if (!search) return recommended.data;
-
-    const results = fuzzySort.go(search, recommended.data, {
-      key: "displayName",
-    });
-
-    return results.map((result) => result.obj);
-  }, [recommended.data, search]);
 
   if (recommended.data) {
     return (
@@ -71,7 +64,7 @@ export default function DiscoveryPage() {
           style={{ backgroundColor: theme.colors.card }}
           className="my-4 overflow-hidden rounded-lg"
         >
-          {sorted.map((feed, i, arr) => (
+          {recommended.data.map((feed, i, arr) => (
             <Fragment key={feed.uri}>
               <FeedRow feed={feed} large>
                 {saved.data?.some((f) => f === feed.uri) && (
