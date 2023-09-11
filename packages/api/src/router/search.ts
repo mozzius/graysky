@@ -11,10 +11,10 @@ export const searchRouter = createTRPCRouter({
 
     if (!res.ok) throw new Error(`${res.status} - ${res.statusText}`);
 
-    const data = await res.json();
-
-    return data as {
+    const data = (await res.json()) as {
       feeds: AppBskyFeedDefs.GeneratorView[];
     };
+
+    return data;
   }),
 });

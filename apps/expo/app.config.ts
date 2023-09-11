@@ -1,5 +1,7 @@
-import type { ExpoConfig } from "@expo/config";
+import { type ExpoConfig } from "@expo/config";
 import dotenv from "dotenv";
+
+import { version } from "./package.json";
 
 dotenv.config({
   path: "../../.env",
@@ -11,7 +13,7 @@ const defineConfig = (): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
-  version: "0.1.2",
+  version,
   owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -36,7 +38,7 @@ const defineConfig = (): ExpoConfig => ({
       usesNonExemptEncryption: false,
     },
     infoPlist: {
-      UIViewControllerBasedStatusBarAppearance: false,
+      UIViewControllerBasedStatusBarAppearance: true,
       CADisableMinimumFrameDurationOnPhone: true,
     },
   },
@@ -58,15 +60,17 @@ const defineConfig = (): ExpoConfig => ({
     sentry: process.env.SENTRY_DSN,
   },
   hooks: {
-    postPublish: [
-      {
-        file: "sentry-expo/upload-sourcemaps",
-        config: {
-          organization: "graysky",
-          project: "graysky",
-        },
-      },
-    ],
+    postPublish: process.env.SENTRY_AUTH_TOKEN
+      ? [
+          {
+            file: "sentry-expo/upload-sourcemaps",
+            config: {
+              organization: "graysky",
+              project: "graysky",
+            },
+          },
+        ]
+      : undefined,
   },
   experiments: {
     tsconfigPaths: true,

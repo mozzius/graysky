@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
 import { type BskyAgent } from "@atproto/api";
-import { QueryClient } from "@tanstack/react-query";
+import { type QueryClient } from "@tanstack/react-query";
 
 export const muteAccount = (
   agent: BskyAgent,

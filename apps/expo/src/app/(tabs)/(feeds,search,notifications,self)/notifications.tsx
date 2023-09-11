@@ -15,14 +15,14 @@ import { useTabPressScrollRef } from "~/lib/hooks";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { useRefreshOnFocus, useUserRefresh } from "~/lib/utils/query";
 
-export type NotificationGroup = {
+export interface NotificationGroup {
   reason: AppBskyNotificationListNotifications.Notification["reason"];
   subject: AppBskyNotificationListNotifications.Notification["reasonSubject"];
   item?: AppBskyFeedDefs.ThreadViewPost;
   actors: AppBskyNotificationListNotifications.Notification["author"][];
   isRead: boolean;
   indexedAt: string;
-};
+}
 
 export default function NotificationsPage() {
   const agent = useAgent();

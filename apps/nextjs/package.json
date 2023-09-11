@@ -1,21 +1,10 @@
 {
   "name": "@graysky/nextjs",
   "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "build": "pnpm with-env next build",
-    "clean": "git clean -xdf .next .turbo node_modules",
-    "dev": "pnpm with-env next dev",
-    "lint": "next lint",
-    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
-    "start": "pnpm with-env next start",
-    "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
-  },
   "dependencies": {
-    "@graysky/api": "^0.1.0",
-    "@graysky/tailwind-config": "^0.1.0",
-    "@tanstack/react-query": "^4.33.0",
+    "@graysky/api": "0.1.0",
+    "@graysky/tailwind-config": "0.1.0",
+    "@tanstack/react-query": "^4.35.0",
     "@trpc/client": "^10.38.1",
     "@trpc/next": "^10.38.1",
     "@trpc/react-query": "^10.38.1",
@@ -28,19 +17,18 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@graysky/eslint-config": "^0.1.0",
-    "@graysky/prettier-config": "^0.1.0",
-    "@graysky/tailwind-config": "^0.1.0",
-    "@graysky/tsconfig": "^0.1.0",
-    "@types/node": "^20.5.7",
+    "@graysky/eslint-config": "0.1.0",
+    "@graysky/prettier-config": "0.1.0",
+    "@graysky/tsconfig": "0.1.0",
+    "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.15",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.48.0",
-    "prettier": "^3.0.2",
+    "eslint": "^8.49.0",
     "postcss": "^8.4.29",
-    "tailwindcss": "3.3.2",
+    "prettier": "^3.0.3",
+    "tailwindcss": "3.3.3",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
@@ -51,5 +39,16 @@
       "@graysky/eslint-config/react"
     ]
   },
-  "prettier": "@graysky/prettier-config"
+  "prettier": "@graysky/prettier-config",
+  "private": true,
+  "scripts": {
+    "build": "pnpm with-env next build",
+    "clean": "git clean -xdf .next .turbo node_modules",
+    "dev": "pnpm with-env next dev",
+    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
+    "lint": "next lint",
+    "start": "pnpm with-env next start",
+    "typecheck": "tsc --noEmit",
+    "with-env": "dotenv -e ../../.env --"
+  }
 }

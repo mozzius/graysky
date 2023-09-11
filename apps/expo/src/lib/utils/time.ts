@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 export const timeSince = (date: Date) => {
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
 

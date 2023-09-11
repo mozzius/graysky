@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useId } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import { ImageStyle } from "expo-image";
+import { type ImageStyle } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";

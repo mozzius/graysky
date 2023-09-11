@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { redirect } from "next/navigation";
 import { z } from "zod";
 

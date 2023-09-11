@@ -24,10 +24,10 @@ import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";
 import { PersonRow } from "./person-row";
 
-type PeopleListResponse = {
+interface PeopleListResponse {
   people: AppBskyActorDefs.ProfileView[];
   cursor: string | undefined;
-};
+}
 
 export interface PeopleListRef {
   open: () => void;

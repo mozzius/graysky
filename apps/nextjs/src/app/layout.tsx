@@ -37,7 +37,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <html>
+    <html lang="en">
       <head />
       <Providers>
         <body>{children}</body>

@@ -1,6 +1,6 @@
 // taken from the offical app
 
-import { AppBskyFeedPost } from "@atproto/api";
+import { type AppBskyFeedPost } from "@atproto/api";
 
 const PROFILES_ENDPOINT = "https://search.bsky.social/search/profiles";
 const POSTS_ENDPOINT = "https://search.bsky.social/search/posts";
@@ -64,7 +64,7 @@ async function doFetch<T>(
   res.headers.forEach((value: string, key: string) => {
     resHeaders[key] = value;
   });
-  let resBody = await res.json();
+  const resBody = await res.json();
 
   return (resBody as unknown as T) ?? ([] as T);
 }

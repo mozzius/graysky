@@ -23,7 +23,7 @@ LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 // vendored react-merge-refs due to import issues
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mergeRefs<T = any>(
-  refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>,
+  refs: (React.MutableRefObject<T> | React.LegacyRef<T>)[],
 ): React.RefCallback<T> {
   return (value) => {
     refs.forEach((ref) => {

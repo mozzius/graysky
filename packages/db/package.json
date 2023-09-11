@@ -1,27 +1,16 @@
 {
   "name": "@graysky/db",
   "version": "0.1.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
-  "license": "MIT",
-  "scripts": {
-    "clean": "rm -rf .turbo node_modules",
-    "format": "prisma format && prettier --check \"**/*.{mjs,ts,json}\"",
-    "lint": "eslint .",
-    "db:generate": "pnpm with-env prisma generate",
-    "db:push": "pnpm with-env prisma db push --skip-generate",
-    "db:studio": "pnpm with-env prisma studio --port 5556",
-    "with-env": "dotenv -e ../../.env --"
-  },
   "dependencies": {
     "@prisma/client": "^5.2.0"
   },
   "devDependencies": {
-    "@graysky/eslint-config": "^0.1.0",
-    "@graysky/prettier-config": "^0.1.0",
+    "@graysky/eslint-config": "0.1.0",
+    "@graysky/prettier-config": "0.1.0",
+    "@graysky/tsconfig": "0.1.0",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.47.0",
-    "prettier": "^3.0.2",
+    "eslint": "^8.49.0",
+    "prettier": "^3.0.3",
     "prisma": "^5.2.0",
     "typescript": "^5.2.2"
   },
@@ -33,5 +22,17 @@
       "@typescript-eslint/consistent-type-definitions": "off"
     }
   },
-  "prettier": "@graysky/prettier-config"
+  "license": "MIT",
+  "main": "./index.ts",
+  "prettier": "@graysky/prettier-config",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "db:generate": "pnpm with-env prisma generate",
+    "db:push": "pnpm with-env prisma db push --skip-generate",
+    "db:studio": "pnpm with-env prisma studio --port 5556",
+    "format": "prisma format && prettier --check \"**/*.{mjs,ts,json}\"",
+    "lint": "eslint .",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "types": "./index.ts"
 }

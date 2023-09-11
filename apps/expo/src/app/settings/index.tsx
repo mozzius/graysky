@@ -5,7 +5,7 @@ import {
   UserIcon,
 } from "lucide-react-native";
 
-import { GroupedList, Groups } from "~/components/grouped-list";
+import { GroupedList, type Groups } from "~/components/grouped-list";
 
 const groups = [
   {

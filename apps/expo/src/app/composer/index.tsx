@@ -107,7 +107,7 @@ export default function ComposerScreen() {
     enabled: isSuggestionsOpen,
     queryKey: ["suggestions", prefix?.value],
     queryFn: async () => {
-      if (!prefix || !prefix.value) return [];
+      if (!prefix?.value) return [];
       const actors = await agent.searchActorsTypeahead({
         term: prefix.value,
         limit: 10,

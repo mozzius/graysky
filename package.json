@@ -1,40 +1,21 @@
 {
   "name": "graysky",
-  "private": true,
+  "dependencies": {
+    "@graysky/eslint-config": "0.1.0",
+    "@manypkg/cli": "^0.21.0",
+    "eslint": "^8.49.0",
+    "prettier": "^3.0.3",
+    "syncpack": "^11.2.1",
+    "turbo": "^1.10.13",
+    "typescript": "^5.2.2"
+  },
   "engines": {
     "node": ">=v18.17.1"
   },
-  "packageManager": "pnpm@8.6.12",
-  "scripts": {
-    "eas-build-pre-install": "npm install -g pnpm@8.6.12",
-    "build": "turbo build",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo clean",
-    "db:generate": "turbo db:generate",
-    "db:push": "turbo db:push db:generate",
-    "db:studio": "turbo db:studio",
-    "dev:both": "turbo dev --parallel",
-    "dev": "pnpm dev:expo",
-    "dev:expo": "cd apps/expo && pnpm dev",
-    "dev:next": "cd apps/nextjs && pnpm dev",
-    "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
-    "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
-    "lint": "turbo lint && manypkg check",
-    "lint:fix": "turbo lint:fix && manypkg fix",
-    "typecheck": "turbo typecheck",
-    "postinstall": "pnpm db:generate"
-  },
-  "dependencies": {
-    "@graysky/eslint-config": "^0.1.0",
-    "@manypkg/cli": "^0.21.0",
-    "eslint": "^8.47.0",
-    "prettier": "^3.0.2",
-    "turbo": "^1.10.13",
-    "typescript": "^5.1.6"
-  },
   "overrides": {
-    "@tanstack/react-query": "^4.29.12"
+    "@tanstack/react-query": "^4.35.0"
   },
+  "packageManager": "pnpm@8.7.4",
   "pnpm": {
     "patchedDependencies": {
       "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
@@ -42,5 +23,25 @@
       "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch"
     }
   },
-  "prettier": "@graysky/prettier-config"
+  "prettier": "@graysky/prettier-config",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push db:generate",
+    "db:studio": "turbo db:studio",
+    "dev": "pnpm dev:expo",
+    "dev:both": "turbo dev --parallel",
+    "dev:expo": "cd apps/expo && pnpm dev",
+    "dev:next": "cd apps/nextjs && pnpm dev",
+    "eas-build-pre-install": "npm install -g pnpm@8.7.4",
+    "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
+    "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
+    "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
+    "lint:fix": "turbo lint --continue -- --fix --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg fix",
+    "postinstall": "pnpm db:generate",
+    "typecheck": "turbo typecheck"
+  }
 }

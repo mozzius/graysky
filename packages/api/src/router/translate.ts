@@ -50,7 +50,7 @@ export const translateRouter = createTRPCRouter({
           method: "POST",
           headers: new Headers({
             "Content-Type": "application/json",
-            "X-goog-api-key": process.env.TRANSLATION_KEY as string,
+            "X-goog-api-key": process.env.TRANSLATION_KEY!,
           }),
           body: JSON.stringify({
             q: post.text,

@@ -1,4 +1,4 @@
-import type { produce as esm } from "immer";
+import { type produce as esm } from "immer";
 // @ts-expect-error metro bull****
 import { produce as cjs } from "immer/dist/cjs";
 

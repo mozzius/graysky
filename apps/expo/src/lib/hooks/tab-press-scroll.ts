@@ -15,9 +15,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
 
-type Options = {
+interface Options {
   largeHeader?: boolean;
-};
+}
 
 export const useTabPressScroll = <T>(
   ref: React.RefObject<FlashList<T>>,

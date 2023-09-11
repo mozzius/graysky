@@ -30,10 +30,10 @@ export const MAX_LENGTH = 300;
 const MAX_SIZE = 976_560;
 const MAX_DIMENSION = 2048;
 
-type ImageWithAlt = {
+interface ImageWithAlt {
   asset: ImagePicker.ImagePickerAsset;
   alt: string;
-};
+}
 
 const strongRefSchema = z.object({
   cid: z.string(),
