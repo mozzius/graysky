@@ -148,14 +148,28 @@ export default function ComposerScreen() {
             headerTitle: "Edit alt text",
             headerLeft: () => null,
             headerRight: () => (
-              <TouchableOpacity onPress={() => setEditingAltText(null)}>
-                <Text
-                  style={{ color: theme.colors.primary }}
-                  className="text-lg font-medium"
+              <View className="relative">
+                <TouchableOpacity
+                  onPress={() => setEditingAltText(null)}
+                  className="absolute right-0"
                 >
-                  Save
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{ color: theme.colors.primary }}
+                    className="text-lg font-medium"
+                  >
+                    Save
+                  </Text>
+                </TouchableOpacity>
+                <View className="-z-50 opacity-0" pointerEvents="none">
+                  <PostButton
+                    disabled
+                    loading={false}
+                    onPress={() => {
+                      throw Error("unreachable");
+                    }}
+                  />
+                </View>
+              </View>
             ),
             headerTitleStyle: { color: theme.colors.text },
           }}
@@ -163,6 +177,7 @@ export default function ComposerScreen() {
         <KeyboardAwareScrollView className="flex-1 px-4" extraScrollHeight={30}>
           <View className="flex-1 items-center py-4">
             <AnimatedImage
+              // doesn't work yet but on the reanimated roadmap
               sharedTransitionTag={`image-${editingAltText}`}
               cachePolicy="memory"
               source={{ uri: image.asset.uri }}
@@ -178,7 +193,7 @@ export default function ComposerScreen() {
               addAltText(editingAltText, evt.nativeEvent.text);
             }}
             multiline
-            className="mt-4 flex-1 rounded-md border p-2 text-base leading-5"
+            className="min-h-[80px] flex-1 rounded-md border p-2 text-base leading-5"
             numberOfLines={5}
             autoFocus
             scrollEnabled={false}
