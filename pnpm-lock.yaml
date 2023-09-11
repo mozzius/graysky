@@ -131,11 +131,11 @@ importers:
         specifier: ^1.3.2
         version: 1.3.2(expo@49.0.10)
       expo-image-manipulator:
-        specifier: ^11.3.0
-        version: 11.3.0(expo@49.0.10)
+        specifier: ^11.5.0
+        version: 11.5.0(expo@49.0.10)
       expo-image-picker:
-        specifier: ~14.3.2
-        version: 14.3.2(expo@49.0.10)
+        specifier: ~14.5.0
+        version: 14.5.0(expo@49.0.10)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.10)
@@ -6045,30 +6045,30 @@ packages:
       - react-dom
     dev: false
 
-  /expo-image-loader@4.3.0(expo@49.0.10):
-    resolution: {integrity: sha512-2kqJIO+oYM8J3GbvTUHLqTSpt1dLpOn/X0eB4U4RTuzz/faj8l/TyQELsMBLlGAkweNUuG9LqznbaBz+WuSFEw==}
+  /expo-image-loader@4.4.0(expo@49.0.10):
+    resolution: {integrity: sha512-dq88tiRB8aB1U+O/oJI7IY4VU9Nu2iDjEwR8QDfLtD4xWd5lNGoyic5Vh7911E1qNJFqNMSVIVzOD5l1SQ3A6g==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.10(@babel/core@7.22.17)
     dev: false
 
-  /expo-image-manipulator@11.3.0(expo@49.0.10):
-    resolution: {integrity: sha512-lw17v8VD5LqE+j3YMZNNlfM19OlkBPzLEoVyGcx9FtGC533le5dnXF+UiZTCbFIVr/xyBJTMse9G0oJ70q9MbQ==}
+  /expo-image-manipulator@11.5.0(expo@49.0.10):
+    resolution: {integrity: sha512-W/mwSIuLyolDDSzIkENvwVoQpe6HJfpcAQbeu3VX3ZcTJrgvORM/tfuCJacCTHQ0iVIB49Txv65CgbtO+3Pd6w==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.10(@babel/core@7.22.17)
-      expo-image-loader: 4.3.0(expo@49.0.10)
+      expo-image-loader: 4.4.0(expo@49.0.10)
     dev: false
 
-  /expo-image-picker@14.3.2(expo@49.0.10):
-    resolution: {integrity: sha512-xr/YeQMIYheXecWP033F2SPwpBlBR5xVCx7YSfSCTH8Y9pw7Z886agqKGbS9QBVGlzJ5qecJktZ6ASSzeslDVg==}
+  /expo-image-picker@14.5.0(expo@49.0.10):
+    resolution: {integrity: sha512-9icvfQuWMdNKufFqu+FxenKcfybz9ior+XYQCIl/q5+mpHPo2tKq8I30vu2BjsOJ0Cfo7V4vMeN7a9F/3ooUfQ==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.10(@babel/core@7.22.17)
-      expo-image-loader: 4.3.0(expo@49.0.10)
+      expo-image-loader: 4.4.0(expo@49.0.10)
     dev: false
 
   /expo-image@1.3.2(expo@49.0.10):
