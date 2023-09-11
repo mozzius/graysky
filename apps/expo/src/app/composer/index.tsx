@@ -5,6 +5,7 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
+  ScrollView,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
@@ -60,6 +61,8 @@ import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
 
+const AnimatedImage = Animated.createAnimatedComponent(Image);
+
 interface Selection {
   start: number;
   end: number;
@@ -68,6 +71,7 @@ interface Selection {
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
+  const { showActionSheetWithOptions } = useActionSheet();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -87,6 +91,7 @@ export default function ComposerScreen() {
   const [text, setText] = useState("");
 
   const { images, imagePicker, addAltText, removeImage } = useImages();
+  const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
   const rt = useMemo(() => {
     const rt = new RichTextHelper({ text });
@@ -135,6 +140,67 @@ export default function ComposerScreen() {
     navigation.getParent()?.setOptions({ gestureEnabled: isEmpty });
   }, [navigation, isEmpty]);
 
+  if (editingAltText) {
+    const image = images[editingAltText]!;
+    return (
+      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+        <Stack.Screen
+          options={{
+            headerTitle: "Edit alt text",
+            headerLeft: () => null,
+            headerRight: () => (
+              <TouchableOpacity onPress={() => setEditingAltText(null)}>
+                <Text
+                  style={{ color: theme.colors.primary }}
+                  className="text-lg font-medium"
+                >
+                  Save
+                </Text>
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <ScrollView className="flex-1">
+          {/* todo: calcualte size */}
+          <View>
+            <AnimatedImage
+              sharedTransitionTag={`image-${editingAltText}`}
+              cachePolicy="memory"
+              source={{ uri: image.asset.uri }}
+              alt={image.alt ?? `image ${editingAltText + 1}`}
+              className="h-44 rounded-md"
+              style={{
+                aspectRatio: Math.max(
+                  0.6,
+                  Math.min(image.asset.width / image.asset.height, 1.2),
+                ),
+              }}
+            />
+          </View>
+          <TextInput
+            value={image.alt}
+            onChange={(evt) => {
+              addAltText(editingAltText, evt.nativeEvent.text);
+            }}
+            multiline
+            className="min-h-[40]px mt-4 rounded-md border text-base leading-5"
+            autoFocus
+            scrollEnabled={false}
+            keyboardAppearance={theme.dark ? "dark" : "light"}
+            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+            style={{
+              color: theme.colors.text,
+              borderColor: theme.colors.border,
+            }}
+            placeholder={
+              "Add a description to the image. Good alt text is and consise yet detailed. Make sure to write out any text in the image itself."
+            }
+          />
+        </ScrollView>
+      </View>
+    );
+  }
+
   return (
     <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
       <Stack.Screen
@@ -151,7 +217,27 @@ export default function ComposerScreen() {
           ),
           headerRight: () => (
             <PostButton
-              onPress={send.mutate}
+              onPress={async () => {
+                if (images.some((i) => !i.alt)) {
+                  const cancel = await new Promise((resolve) => {
+                    showActionSheetWithOptions(
+                      {
+                        title: "Missing alt text",
+                        message:
+                          "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.",
+                        options: ["Post anyway", "Go back"],
+                        destructiveButtonIndex: 0,
+                        cancelButtonIndex: 1,
+                        userInterfaceStyle: theme.dark ? "dark" : "light",
+                      },
+                      (index) => resolve(index === 1),
+                    );
+                  });
+                  if (cancel) return;
+                }
+
+                send.mutate();
+              }}
               disabled={
                 isEmpty ||
                 send.isLoading ||
@@ -346,11 +432,12 @@ export default function ComposerScreen() {
                   layout={Layout}
                   exiting={FadeOut}
                 >
-                  <Image
+                  <AnimatedImage
+                    sharedTransitionTag={`image-${i}`}
                     cachePolicy="memory"
                     source={{ uri: image.asset.uri }}
-                    alt={`image ${i}}`}
-                    className="h-44"
+                    alt={image.alt ?? `image ${i + 1}`}
+                    className="h-44 rounded-md"
                     style={{
                       aspectRatio: Math.max(
                         0.6,

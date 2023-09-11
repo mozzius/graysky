@@ -219,6 +219,7 @@ export const useSendPost = ({
 export const useImages = () => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
+  const agent = useAgent();
 
   const imagePicker = useMutation({
     mutationFn: async () => {
@@ -230,7 +231,11 @@ export const useImages = () => {
         await new Promise((resolve) => setTimeout(resolve, 300));
       }
 
-      const options = ["Take Photo", "Choose from Library", "Cancel"];
+      // jank feature flag
+      const options =
+        agent.session?.handle === "mozzius.dev"
+          ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
+          : ["Take Photo", "Choose from Library", "Cancel"];
       showActionSheetWithOptions(
         {
           options,
@@ -400,7 +405,7 @@ const compress = async ({
         return compressed.uri;
       }
     } catch (err) {
-      throw new Error(`Failed to resize: ${err}`);
+      throw new Error("Failed to resize", { cause: err });
     }
   }
   throw new Error("Failed to compress - image may be incompressable");

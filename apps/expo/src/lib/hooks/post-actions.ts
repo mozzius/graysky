@@ -129,7 +129,7 @@ export const useHandleRepost = (
   const { colorScheme } = useColorScheme();
 
   return () => {
-    const options = [reposted ? "Unrepost" : "Repost", "Quote", "Cancel"];
+    const options = [reposted ? "Undo Repost" : "Repost", "Quote", "Cancel"];
     showActionSheetWithOptions(
       {
         options,
