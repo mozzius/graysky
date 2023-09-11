@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useCallback, useEffect, useRef } from "react";
 import {
   Platform,
-  StyleSheet,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
@@ -31,9 +31,7 @@ export const useTabPressScroll = <T>(
 
   // 14 pro needs to be 5px more :/
   const targetOffset =
-    largeHeader && Platform.OS === "ios"
-      ? (top + 96 - StyleSheet.hairlineWidth) * -1
-      : 0;
+    largeHeader && Platform.OS === "ios" ? (top + 96) * -1 : 0;
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is

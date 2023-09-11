@@ -161,7 +161,7 @@ export const useSendPost = ({
           if (!uploaded.success) throw new Error("Failed to upload image");
           return {
             image: uploaded.data.blob,
-            alt: img.alt,
+            alt: img.alt.trim(),
           } satisfies AppBskyEmbedImages.Image;
         }),
       );

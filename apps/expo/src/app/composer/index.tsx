@@ -5,6 +5,7 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
+  StyleSheet,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
@@ -21,6 +22,7 @@ import Animated, {
   SlideInUp,
   SlideOutUp,
 } from "react-native-reanimated";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { Link, Stack, useNavigation, useRouter } from "expo-router";
 import {
@@ -29,6 +31,7 @@ import {
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -67,10 +70,28 @@ interface Selection {
   end: number;
 }
 
+function useKeyboardMaxHeight() {
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  useEffect(() => {
+    const sub = Keyboard.addListener("keyboardDidShow", (e) =>
+      setKeyboardHeight((h) => Math.max(e.endCoordinates.height, h)),
+    );
+    return () => {
+      sub.remove();
+    };
+  }, [setKeyboardHeight]);
+
+  return keyboardHeight;
+}
+
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
   const { showActionSheetWithOptions } = useActionSheet();
+  const keyboardHeight = useKeyboardMaxHeight();
+  const frame = useSafeAreaFrame();
+  const headerHeight = useHeaderHeight();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -144,16 +165,13 @@ export default function ComposerScreen() {
   if (editingAltText !== null) {
     const image = images[editingAltText]!;
     return (
-      <View
-        className="z-50 flex-1"
-        style={{ backgroundColor: theme.colors.card }}
-      >
+      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
         <Stack.Screen
           options={{
             headerTitle: "Edit alt text",
             headerLeft: () => null,
             headerRight: () => (
-              <View className="relative">
+              <View className="relative justify-center">
                 <TouchableOpacity
                   onPress={() => {
                     setEditingAltText(null);
@@ -184,7 +202,7 @@ export default function ComposerScreen() {
         />
         <KeyboardAwareScrollView
           className="flex-1 px-4"
-          extraScrollHeight={30}
+          extraScrollHeight={32}
           keyboardShouldPersistTaps="handled"
         >
           <View className="flex-1 items-center py-4">
@@ -204,27 +222,27 @@ export default function ComposerScreen() {
                 cachePolicy="memory"
                 source={{ uri: image.asset.uri }}
                 alt={image.alt ?? `image ${editingAltText + 1}`}
-                // todo: better height calculation
-                className={cx(
-                  "h-full w-full flex-1 rounded-md",
-                  !expandPreview && "max-h-44",
-                )}
-                style={{ aspectRatio: image.asset.width / image.asset.height }}
+                className="h-full w-full flex-1 rounded-md"
+                style={{
+                  aspectRatio: image.asset.width / image.asset.height,
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderColor: theme.colors.border,
+                  maxHeight: expandPreview
+                    ? undefined
+                    : // 80px text input
+                      frame.height - headerHeight - keyboardHeight - 80,
+                }}
               />
             </TouchableWithoutFeedback>
           </View>
-          <Animated.View
-            className="flex-1"
-            layout={Layout}
-            entering={FadeInDown}
-          >
+          <Animated.View className="flex-1" layout={Layout} entering={FadeIn}>
             <TextInput
               value={image.alt}
               onChange={(evt) =>
                 addAltText(editingAltText, evt.nativeEvent.text)
               }
               multiline
-              className="min-h-[80px] flex-1 rounded-md border p-2 text-base leading-5"
+              className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
               numberOfLines={5}
               autoFocus
               scrollEnabled={false}
@@ -232,6 +250,7 @@ export default function ComposerScreen() {
               placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
               style={{
                 color: theme.colors.text,
+                borderWidth: StyleSheet.hairlineWidth,
                 borderColor: theme.colors.border,
               }}
               placeholder="Add a description to the image. Good alt text is and consise yet detailed. Make sure to write out any text in the image itself."
@@ -684,7 +703,7 @@ const PostButton = ({
         <View
           className={cx(
             "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
-            disabled && "opacity-50",
+            disabled && !loading && "opacity-50",
           )}
           style={{ backgroundColor: theme.colors.primary }}
         >
