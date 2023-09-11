@@ -7,6 +7,7 @@ const config = {
   ],
   rules: {
     "react/prop-types": "off",
+    "jsx-a11y/no-autofocus": "off",
   },
   globals: {
     React: "writable",

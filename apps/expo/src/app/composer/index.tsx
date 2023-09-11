@@ -90,7 +90,9 @@ export default function ComposerScreen() {
   const [text, setText] = useState("");
 
   const { images, imagePicker, addAltText, removeImage } = useImages();
+
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
+  const [expandPreview, setExpandPreview] = useState(false);
 
   const rt = useMemo(() => {
     const rt = new RichTextHelper({ text });
@@ -142,7 +144,10 @@ export default function ComposerScreen() {
   if (editingAltText !== null) {
     const image = images[editingAltText]!;
     return (
-      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+      <View
+        className="z-50 flex-1"
+        style={{ backgroundColor: theme.colors.card }}
+      >
         <Stack.Screen
           options={{
             headerTitle: "Edit alt text",
@@ -150,7 +155,10 @@ export default function ComposerScreen() {
             headerRight: () => (
               <View className="relative">
                 <TouchableOpacity
-                  onPress={() => setEditingAltText(null)}
+                  onPress={() => {
+                    setEditingAltText(null);
+                    setExpandPreview(false);
+                  }}
                   className="absolute right-0"
                 >
                   <Text
@@ -174,39 +182,61 @@ export default function ComposerScreen() {
             headerTitleStyle: { color: theme.colors.text },
           }}
         />
-        <KeyboardAwareScrollView className="flex-1 px-4" extraScrollHeight={30}>
+        <KeyboardAwareScrollView
+          className="flex-1 px-4"
+          extraScrollHeight={30}
+          keyboardShouldPersistTaps="handled"
+        >
           <View className="flex-1 items-center py-4">
-            <AnimatedImage
-              // doesn't work yet but on the reanimated roadmap
-              sharedTransitionTag={`image-${editingAltText}`}
-              cachePolicy="memory"
-              source={{ uri: image.asset.uri }}
-              alt={image.alt ?? `image ${editingAltText + 1}`}
-              // todo: better height calculation
-              className="h-full max-h-44 w-full flex-1 rounded-md"
-              style={{ aspectRatio: image.asset.width / image.asset.height }}
-            />
+            <TouchableWithoutFeedback
+              className="flex-1"
+              accessibilityLabel="Toggle expanding the image to full width"
+              onPress={() => {
+                haptics.impact();
+                setExpandPreview((e) => !e);
+              }}
+            >
+              <AnimatedImage
+                // doesn't work yet but on the reanimated roadmap
+                sharedTransitionTag={`image-${editingAltText}`}
+                layout={Layout}
+                entering={FadeIn}
+                cachePolicy="memory"
+                source={{ uri: image.asset.uri }}
+                alt={image.alt ?? `image ${editingAltText + 1}`}
+                // todo: better height calculation
+                className={cx(
+                  "h-full w-full flex-1 rounded-md",
+                  !expandPreview && "max-h-44",
+                )}
+                style={{ aspectRatio: image.asset.width / image.asset.height }}
+              />
+            </TouchableWithoutFeedback>
           </View>
-          <TextInput
-            value={image.alt}
-            onChange={(evt) => {
-              addAltText(editingAltText, evt.nativeEvent.text);
-            }}
-            multiline
-            className="min-h-[80px] flex-1 rounded-md border p-2 text-base leading-5"
-            numberOfLines={5}
-            autoFocus
-            scrollEnabled={false}
-            keyboardAppearance={theme.dark ? "dark" : "light"}
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-            style={{
-              color: theme.colors.text,
-              borderColor: theme.colors.border,
-            }}
-            placeholder={
-              "Add a description to the image. Good alt text is and consise yet detailed. Make sure to write out any text in the image itself."
-            }
-          />
+          <Animated.View
+            className="flex-1"
+            layout={Layout}
+            entering={FadeInDown}
+          >
+            <TextInput
+              value={image.alt}
+              onChange={(evt) =>
+                addAltText(editingAltText, evt.nativeEvent.text)
+              }
+              multiline
+              className="min-h-[80px] flex-1 rounded-md border p-2 text-base leading-5"
+              numberOfLines={5}
+              autoFocus
+              scrollEnabled={false}
+              keyboardAppearance={theme.dark ? "dark" : "light"}
+              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+              style={{
+                color: theme.colors.text,
+                borderColor: theme.colors.border,
+              }}
+              placeholder="Add a description to the image. Good alt text is and consise yet detailed. Make sure to write out any text in the image itself."
+            />
+          </Animated.View>
         </KeyboardAwareScrollView>
       </View>
     );
@@ -432,6 +462,7 @@ export default function ComposerScreen() {
               entering={FadeInDown}
               exiting={FadeOutDown}
               layout={Layout}
+              keyboardShouldPersistTaps="handled"
             >
               {images.map((image, i) => (
                 <Animated.View
