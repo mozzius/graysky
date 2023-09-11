@@ -139,7 +139,7 @@ export default function ComposerScreen() {
     navigation.getParent()?.setOptions({ gestureEnabled: isEmpty });
   }, [navigation, isEmpty]);
 
-  if (editingAltText) {
+  if (editingAltText !== null) {
     const image = images[editingAltText]!;
     return (
       <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
@@ -157,17 +157,18 @@ export default function ComposerScreen() {
                 </Text>
               </TouchableOpacity>
             ),
+            headerTitleStyle: { color: theme.colors.text },
           }}
         />
-        <KeyboardAwareScrollView className="flex-1">
-          <View className="flex-1 items-center">
+        <KeyboardAwareScrollView className="flex-1 px-4" extraScrollHeight={30}>
+          <View className="flex-1 items-center py-4">
             <AnimatedImage
               sharedTransitionTag={`image-${editingAltText}`}
               cachePolicy="memory"
               source={{ uri: image.asset.uri }}
               alt={image.alt ?? `image ${editingAltText + 1}`}
               // todo: better height calculation
-              className="max-h-44 rounded-md"
+              className="h-full max-h-44 w-full flex-1 rounded-md"
               style={{ aspectRatio: image.asset.width / image.asset.height }}
             />
           </View>
@@ -177,7 +178,8 @@ export default function ComposerScreen() {
               addAltText(editingAltText, evt.nativeEvent.text);
             }}
             multiline
-            className="mt-4 min-h-[40px] rounded-md border text-base leading-5"
+            className="mt-4 flex-1 rounded-md border p-2 text-base leading-5"
+            numberOfLines={5}
             autoFocus
             scrollEnabled={false}
             keyboardAppearance={theme.dark ? "dark" : "light"}
@@ -439,36 +441,24 @@ export default function ComposerScreen() {
                       ),
                     }}
                   />
-                  {Platform.OS === "ios" && (
-                    <TouchableOpacity
-                      className="absolute left-2 top-2 z-10"
-                      onPress={() => {
-                        haptics.impact();
-                        Alert.prompt(
-                          "Add a caption",
-                          undefined,
-                          (alt) => {
-                            if (alt !== null) {
-                              addAltText(i, alt);
-                            }
-                          },
-                          undefined,
-                          image.alt,
-                        );
-                      }}
-                    >
-                      <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
-                        {image.alt ? (
-                          <CheckIcon size={14} color="white" />
-                        ) : (
-                          <PlusIcon size={14} color="white" />
-                        )}
-                        <Text className="ml-1 text-xs font-bold uppercase text-white">
-                          Alt
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  )}
+                  <TouchableOpacity
+                    className="absolute left-2 top-2 z-10"
+                    onPress={() => {
+                      haptics.impact();
+                      setEditingAltText(i);
+                    }}
+                  >
+                    <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
+                      {image.alt ? (
+                        <CheckIcon size={14} color="white" />
+                      ) : (
+                        <PlusIcon size={14} color="white" />
+                      )}
+                      <Text className="ml-1 text-xs font-bold uppercase text-white">
+                        Alt
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     className="absolute right-2 top-2 z-10"
                     onPress={() => {
