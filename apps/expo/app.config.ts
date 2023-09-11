@@ -1,4 +1,5 @@
-import { type ExpoConfig } from "@expo/config";
+// eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this
+import type { ExpoConfig } from "@expo/config";
 import dotenv from "dotenv";
 
 import { version } from "./package.json";
