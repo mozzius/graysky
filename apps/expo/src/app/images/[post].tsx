@@ -1,5 +1,6 @@
-import { TouchableOpacity } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import { useState } from "react";
+import { Platform, TouchableOpacity } from "react-native";
+import Animated, { FadeIn, FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -18,6 +19,7 @@ import { assert } from "~/lib/utils/assert";
 export default function ImageModal() {
   const agent = useAgent();
   const router = useRouter();
+  const [infoVisible, setInfoVisible] = useState(true);
   const { post, initial } = useLocalSearchParams() as {
     post: string;
     initial?: string;
@@ -103,22 +105,37 @@ export default function ImageModal() {
       entering={FadeIn}
       // exiting={FadeOut}
     >
-      {/* background is always black, so status bar should always be light */}
-      <StatusBar style="light" backgroundColor="black" />
-      <TouchableOpacity
-        accessibilityLabel="Back"
-        accessibilityRole="button"
-        onPress={() => router.back()}
-        className="absolute right-5 z-10 h-10 w-10 items-center justify-center rounded-full bg-black/40"
-        style={{ top: top + 10 }}
-      >
-        <XIcon color="white" />
-      </TouchableOpacity>
+      <StatusBar
+        style={Platform.select({
+          ios: "inverted",
+          android: "light",
+        })}
+        backgroundColor="black"
+      />
+      {infoVisible && (
+        <TouchableOpacity
+          accessibilityLabel="Close image modal"
+          accessibilityRole="button"
+          onPress={() => router.back()}
+          className="absolute right-5 z-10"
+          style={{ top: top + 10 }}
+        >
+          <Animated.View
+            entering={FadeInUp}
+            exiting={FadeOutUp}
+            className="h-10 w-10 items-center justify-center rounded-full bg-black/50"
+          >
+            <XIcon color="white" />
+          </Animated.View>
+        </TouchableOpacity>
+      )}
       {images.data && (
         <ImageViewer
           images={images.data}
           onClose={() => router.back()}
           initialIndex={Number(initial) || 0}
+          infoVisible={infoVisible}
+          toggleInfo={() => setInfoVisible((v) => !v)}
         />
       )}
     </Animated.View>
