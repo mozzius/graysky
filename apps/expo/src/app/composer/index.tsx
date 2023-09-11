@@ -5,7 +5,6 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  ScrollView,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
@@ -160,21 +159,16 @@ export default function ComposerScreen() {
             ),
           }}
         />
-        <ScrollView className="flex-1">
-          {/* todo: calcualte size */}
-          <View>
+        <KeyboardAwareScrollView className="flex-1">
+          <View className="flex-1 items-center">
             <AnimatedImage
               sharedTransitionTag={`image-${editingAltText}`}
               cachePolicy="memory"
               source={{ uri: image.asset.uri }}
               alt={image.alt ?? `image ${editingAltText + 1}`}
-              className="h-44 rounded-md"
-              style={{
-                aspectRatio: Math.max(
-                  0.6,
-                  Math.min(image.asset.width / image.asset.height, 1.2),
-                ),
-              }}
+              // todo: better height calculation
+              className="max-h-44 rounded-md"
+              style={{ aspectRatio: image.asset.width / image.asset.height }}
             />
           </View>
           <TextInput
@@ -183,7 +177,7 @@ export default function ComposerScreen() {
               addAltText(editingAltText, evt.nativeEvent.text);
             }}
             multiline
-            className="min-h-[40]px mt-4 rounded-md border text-base leading-5"
+            className="mt-4 min-h-[40px] rounded-md border text-base leading-5"
             autoFocus
             scrollEnabled={false}
             keyboardAppearance={theme.dark ? "dark" : "light"}
@@ -196,7 +190,7 @@ export default function ComposerScreen() {
               "Add a description to the image. Good alt text is and consise yet detailed. Make sure to write out any text in the image itself."
             }
           />
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
