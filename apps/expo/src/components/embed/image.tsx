@@ -27,7 +27,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
   switch (content.images.length) {
     case 0:
       return null;
-    case 1:
+    case 1: {
       const image = content.images[0]!;
       return (
         <View
@@ -46,6 +46,7 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
           />
         </View>
       );
+    }
     case 2:
       return (
         <View className="mt-1.5 flex-row justify-between overflow-hidden rounded-lg">

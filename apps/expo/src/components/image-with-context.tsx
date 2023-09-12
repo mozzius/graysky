@@ -30,7 +30,9 @@ export const ImageWithContext = ({
   tag,
   ...props
 }: Props) => {
-  const [aspectRatio, setAspectRatio] = useState(1);
+  const hintedHeight = image.aspectRatio?.height ?? 1;
+  const hintedWidth = image.aspectRatio?.width ?? 1;
+  const [aspectRatio, setAspectRatio] = useState(hintedWidth / hintedHeight);
   const items = useImageOptions();
 
   const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);

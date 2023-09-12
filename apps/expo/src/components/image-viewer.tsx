@@ -204,10 +204,11 @@ const ImageWithFallback = ({
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
 
-  const size = queryClient.getQueryData<{
-    width: number;
-    height: number;
-  }>(["image", item.fullsize, "size"]);
+  const size =
+    queryClient.getQueryData<{
+      width: number;
+      height: number;
+    }>(["image", item.fullsize, "size"]) ?? item.aspectRatio;
 
   return (
     <>

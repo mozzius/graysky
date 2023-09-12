@@ -162,6 +162,12 @@ export const useSendPost = ({
           return {
             image: uploaded.data.blob,
             alt: img.alt.trim(),
+            aspectRatio: {
+              // note: may not be the size of the compressed image,
+              // but it just has to be proportional
+              width: img.asset.width,
+              height: img.asset.height,
+            },
           } satisfies AppBskyEmbedImages.Image;
         }),
       );
