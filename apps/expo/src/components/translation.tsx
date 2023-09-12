@@ -33,7 +33,7 @@ export const Translation = ({ text, uri }: Props) => {
     case "idle":
       return (
         <TouchableOpacity
-          className="mt-0.5"
+          className="my-1"
           onPress={() =>
             translate.mutate({ text, uri, target: locale.languageCode })
           }
@@ -49,7 +49,12 @@ export const Translation = ({ text, uri }: Props) => {
               size={18}
               color={theme.colors.primary}
             />
-            <Text className="text-base font-medium">Translate post</Text>
+            <Text
+              className="text-base font-medium"
+              style={{ color: theme.colors.primary }}
+            >
+              Translate post
+            </Text>
           </View>
         </TouchableOpacity>
       );

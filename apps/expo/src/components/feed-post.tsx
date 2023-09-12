@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Button,
   I18nManager,
@@ -25,6 +25,7 @@ import { type FilterResult } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
+import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
@@ -122,6 +123,11 @@ export const FeedPost = ({
       }
     });
   }, [item.post, postHref, filter, queryClient]);
+
+  const needsTranslation = useMemo(
+    () => !isPostInLanguage(item.post, [locale.languageCode]),
+    [item.post],
+  );
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
@@ -322,13 +328,12 @@ export const FeedPost = ({
                       </View>
                     </TouchableWithoutFeedback>
                   </Link>
-                  {item.post.language &&
-                    item.post.language !== locale.languageCode && (
-                      <Translation
-                        uri={item.post.uri}
-                        text={item.post.record.text}
-                      />
-                    )}
+                  {needsTranslation && (
+                    <Translation
+                      uri={item.post.uri}
+                      text={item.post.record.text}
+                    />
+                  )}
                 </>
               )}
               {/* embeds */}
@@ -344,7 +349,6 @@ export const FeedPost = ({
             </View>
           )}
           {/* display labels for debug */}
-          {/* <Text>{item.post.language}</Text> */}
           {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
           {!hideActions && (

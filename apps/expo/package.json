@@ -18,6 +18,7 @@
     "@trpc/client": "^10.38.2",
     "@trpc/react-query": "^10.38.2",
     "@trpc/server": "^10.38.2",
+    "bcp-47-match": "^2.0.3",
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "expo": "49.0.10",

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
@@ -8,6 +9,7 @@ import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
+import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
@@ -37,6 +39,11 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
   const profileHref = `/profile/${postAuthorHandle}`;
+
+  const needsTranslation = useMemo(
+    () => !isPostInLanguage(post, [locale.languageCode]),
+    [post],
+  );
 
   if (!AppBskyFeedPost.isRecord(post.record)) {
     return null;
@@ -92,7 +99,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
             size="lg"
             selectable
           />
-          {post.language && post.language !== locale.languageCode && (
+          {needsTranslation && (
             <View className="mt-1">
               <Translation uri={post.uri} text={post.record.text} />
             </View>
