@@ -1,4 +1,10 @@
-import { Linking, TouchableHighlight, View } from "react-native";
+import {
+  Linking,
+  Platform,
+  Share,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
@@ -47,8 +53,16 @@ export const Embed = ({
       return (
         <TouchableHighlight
           accessibilityRole="link"
-          onPress={() => Linking.openURL(content.external.uri)}
           className="mt-1.5 rounded-lg"
+          onPress={() => Linking.openURL(content.external.uri)}
+          onLongPress={() =>
+            Share.share(
+              Platform.select({
+                ios: { url: content.external.uri },
+                default: { message: content.external.uri },
+              }),
+            )
+          }
         >
           <View
             className={cx(

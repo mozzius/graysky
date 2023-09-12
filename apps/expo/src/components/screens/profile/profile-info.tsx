@@ -115,7 +115,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         if (index === undefined) return;
         const option = options[index];
         switch (option) {
-          case "Share Profile":
+          case "Share Profile": {
             const url = `https://bsky.app/profile/${profile.handle}`;
             void Share.share(
               Platform.select({
@@ -124,14 +124,14 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               }),
             );
             break;
+          }
           case "Mute Account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
             break;
           case "Block Account":
             blockAccount(agent, profile.handle, profile.did, queryClient);
-
             break;
-          case "Report Account":
+          case "Report Account": {
             // prettier-ignore
             const reportOptions = [
               { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
@@ -164,6 +164,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               },
             );
             break;
+          }
         }
       },
     );
@@ -423,7 +424,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                         case "Edit Profile":
                           router.push("/settings/account/edit-bio");
                           break;
-                        case "Share Profile":
+                        case "Share Profile": {
                           const url = `https://bsky.app/profile/${profile.handle}`;
                           void Share.share(
                             Platform.select({
@@ -432,6 +433,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                             }),
                           );
                           break;
+                        }
                       }
                     },
                   );
