@@ -103,6 +103,7 @@ export default function ComposerScreen() {
   });
   const inputRef = useRef<TextInput>(null!);
   const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
+  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
 
   const reply = useReply();
   const quote = useQuote();
@@ -183,7 +184,7 @@ export default function ComposerScreen() {
                     style={{ color: theme.colors.primary }}
                     className="text-lg font-medium"
                   >
-                    Save
+                    Done
                   </Text>
                 </TouchableOpacity>
                 <View className="-z-50 opacity-0" pointerEvents="none">
@@ -204,6 +205,7 @@ export default function ComposerScreen() {
           className="flex-1 px-4"
           extraScrollHeight={32}
           keyboardShouldPersistTaps="handled"
+          ref={altTextScrollViewRef}
         >
           <View className="flex-1 items-center py-4">
             <TouchableWithoutFeedback
@@ -211,7 +213,14 @@ export default function ComposerScreen() {
               accessibilityLabel="Toggle expanding the image to full width"
               onPress={() => {
                 haptics.impact();
-                setExpandPreview((e) => !e);
+                setExpandPreview((currentlyExpanded) => {
+                  if (!currentlyExpanded)
+                    setTimeout(
+                      () => altTextScrollViewRef.current?.scrollToEnd(),
+                      250,
+                    );
+                  return !currentlyExpanded;
+                });
               }}
             >
               <AnimatedImage
@@ -229,8 +238,7 @@ export default function ComposerScreen() {
                   borderColor: theme.colors.border,
                   maxHeight: expandPreview
                     ? undefined
-                    : // 80px text input
-                      frame.height - headerHeight - keyboardHeight - 80,
+                    : frame.height - headerHeight - keyboardHeight - 100,
                 }}
               />
             </TouchableWithoutFeedback>
