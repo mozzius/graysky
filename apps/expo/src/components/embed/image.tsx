@@ -13,9 +13,10 @@ interface Props {
   uri: string;
   content: AppBskyEmbedImages.View;
   depth: number;
+  isNotification: boolean;
 }
 
-export const ImageEmbed = ({ uri, content, depth }: Props) => {
+export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
   const href = `/images/${encodeURIComponent(uri)}`;
   const theme = useTheme();
   const queryClient = useQueryClient();
@@ -23,6 +24,27 @@ export const ImageEmbed = ({ uri, content, depth }: Props) => {
   useEffect(() => {
     queryClient.setQueryData(["images", uri], content.images);
   }, [content.images, uri, queryClient]);
+
+  // just square images in the notifications screen
+  if (isNotification) {
+    return (
+      <View className="mt-1.5 flex-1 flex-row">
+        {content.images.map((image) => (
+          <Image
+            key={image.fullsize}
+            href={href}
+            image={image}
+            depth={depth}
+            className="mr-2 aspect-square w-20 rounded-lg"
+            style={{
+              borderWidth: StyleSheet.hairlineWidth,
+              borderColor: theme.colors.border,
+            }}
+          />
+        ))}
+      </View>
+    );
+  }
 
   switch (content.images.length) {
     case 0:

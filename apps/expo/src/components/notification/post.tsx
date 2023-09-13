@@ -56,6 +56,7 @@ export const PostNotification = ({
               content={item.post.embed}
               truncate
               depth={1}
+              isNotification
             />
           )}
         </View>
