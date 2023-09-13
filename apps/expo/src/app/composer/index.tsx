@@ -261,7 +261,7 @@ export default function ComposerScreen() {
                 borderWidth: StyleSheet.hairlineWidth,
                 borderColor: theme.colors.border,
               }}
-              placeholder="Add a description to the image. Good alt text is consise yet detailed. Make sure to write out any text in the image itself."
+              placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
             />
           </Animated.View>
         </KeyboardAwareScrollView>
