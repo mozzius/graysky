@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Platform, TouchableOpacity } from "react-native";
+import { Alert, LogBox, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -44,6 +44,11 @@ Sentry.init({
 // configureRevenueCat();
 
 SplashScreen.preventAutoHideAsync();
+
+// absolutely no idea where this is coming from
+LogBox.ignoreLogs([
+  "The `redirect` prop on <Screen /> is deprecated and will be removed. Please use `router.redirect` instead",
+]);
 
 interface Props {
   session: AtpSessionData | null;

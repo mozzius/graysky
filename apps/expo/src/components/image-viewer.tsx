@@ -225,11 +225,7 @@ const ImageWithFallback = ({
         source={item.thumb}
         alt={item.alt}
         style={
-          size
-            ? {
-                aspectRatio: size.width / size.height,
-              }
-            : { width: "100%" }
+          size ? { aspectRatio: size.width / size.height } : { width: "100%" }
         }
         onLoad={({ source: { width, height } }) => {
           setImageDimensions({
