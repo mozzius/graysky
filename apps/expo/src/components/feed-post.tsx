@@ -189,12 +189,12 @@ export const FeedPost = ({
             <TouchableWithoutFeedback>
               <View
                 className={cx("flex-1 items-center", {
-                  "mt-2 w-10": avatarSize === "reduced",
+                  "w-10": avatarSize === "reduced",
                   "w-12": avatarSize === "normal",
                 })}
               >
                 <View
-                  className="w-0.5 grow"
+                  className="w-0.5 flex-1"
                   style={{
                     backgroundColor: hasReply ? theme.colors.border : undefined,
                   }}
