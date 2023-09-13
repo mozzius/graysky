@@ -40,6 +40,10 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+    devDependencies:
+      '@graysky/prettier-config':
+        specifier: 0.1.0
+        version: link:tooling/prettier
 
   apps/expo:
     dependencies:

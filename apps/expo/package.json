@@ -104,6 +104,14 @@
       "@graysky/eslint-config/react"
     ]
   },
+  "expo": {
+    "install": {
+      "exclude": [
+        "expo-image-manipulator",
+        "expo-image-picker"
+      ]
+    }
+  },
   "main": "index.tsx",
   "prettier": "@graysky/prettier-config",
   "scripts": {
