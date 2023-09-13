@@ -231,7 +231,10 @@ export const useTimeline = (feed: string) => {
         if (filter?.visibility === "hide") return [];
 
         if (item.reply && !item.reason) {
-          if (AppBskyFeedDefs.isBlockedPost(item.reply.parent)) {
+          if (
+            AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
+            AppBskyFeedDefs.isBlockedPost(item.reply.root)
+          ) {
             return [];
           } else if (
             AppBskyFeedDefs.isPostView(item.reply.parent) &&
