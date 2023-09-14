@@ -122,7 +122,6 @@
     "dev": "expo start",
     "dev:android": "expo start --android",
     "dev:ios": "expo start --ios",
-    "eas-build-pre-install": "npm install -g pnpm@8.6.12",
     "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

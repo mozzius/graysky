@@ -18,7 +18,7 @@
   "overrides": {
     "@tanstack/react-query": "^4.35.3"
   },
-  "packageManager": "pnpm@8.7.4",
+  "packageManager": "pnpm@8.7.5",
   "pnpm": {
     "patchedDependencies": {
       "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
@@ -29,6 +29,7 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "scripts": {
+    "eas-build-pre-install": "npm install -g pnpm@8.7.5",
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
@@ -39,7 +40,6 @@
     "dev:both": "turbo dev --parallel",
     "dev:expo": "cd apps/expo && pnpm dev",
     "dev:next": "cd apps/nextjs && pnpm dev",
-    "eas-build-pre-install": "npm install -g pnpm@8.7.4",
     "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",

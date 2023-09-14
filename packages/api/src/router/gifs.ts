@@ -64,7 +64,7 @@ export const gifsRouter = createTRPCRouter({
         locale: input.locale,
         limit: input.limit,
         pos: input.cursor,
-        mediafilter: "mp4",
+        mediafilter: "tinymp4,mp4",
       });
     }),
   categories: publicProcedure

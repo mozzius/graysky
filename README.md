@@ -18,12 +18,20 @@ Build the dev client using EAS:
 ```bash
 cd apps/expo
 pnpm build:dev-client
+// or
+pnpm build:android:dev-client
 ```
 
-Unzip the `graysky.zip` file that appears, then install `Graysky.app` to your simulator.
+For iOS, unzip the `graysky.zip` file that appears, then install `Graysky.app` to your simulator:
 
 ```bash
 eas build:run --path=Graysky.app
+```
+
+For Android, install the APK to your device:
+
+```bash
+eas build:run --path=graysky.apk
 ```
 
 You can then start the expo server with:
