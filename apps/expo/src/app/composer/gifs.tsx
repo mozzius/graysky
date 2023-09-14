@@ -81,6 +81,7 @@ export default function GifSearch() {
               onPress={() => router.push("../")}
             >
               <Video
+                key={item.media_formats.tinymp4.url}
                 source={{ uri: item.media_formats.tinymp4.url }}
                 className="w-full flex-1 rounded-lg"
                 style={{
