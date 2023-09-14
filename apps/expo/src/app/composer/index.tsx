@@ -175,6 +175,7 @@ export default function ComposerScreen() {
               <View className="relative justify-center">
                 <TouchableOpacity
                   onPress={() => {
+                    haptics.selection();
                     setEditingAltText(null);
                     setExpandPreview(false);
                   }}

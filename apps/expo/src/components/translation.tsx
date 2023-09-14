@@ -9,9 +9,9 @@ import {
   SparklesIcon,
 } from "lucide-react-native";
 
+import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
-import { cx } from "~/lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
 import { Text } from "./text";
 
@@ -21,7 +21,10 @@ interface Props {
 }
 
 export const Translation = ({ text, uri }: Props) => {
-  const translate = api.translate.post.useMutation();
+  const haptics = useHaptics();
+  const translate = api.translate.post.useMutation({
+    onMutate: () => haptics.impact(),
+  });
   const theme = useTheme();
 
   useEffect(() => {
@@ -38,12 +41,7 @@ export const Translation = ({ text, uri }: Props) => {
             translate.mutate({ text, uri, target: locale.languageCode })
           }
         >
-          <View
-            className={cx(
-              "flex-row items-center",
-              theme.dark ? "bg-black" : "bg-white",
-            )}
-          >
+          <View className="flex-row items-center">
             <SparklesIcon
               className="mr-2"
               size={18}
@@ -101,10 +99,7 @@ export const Translation = ({ text, uri }: Props) => {
             translate.mutate({ text, uri, target: locale.languageCode })
           }
         >
-          <View
-            className="flex-row items-center"
-            style={{ backgroundColor: theme.dark ? "black" : "white" }}
-          >
+          <View className="flex-row items-center">
             <AlertTriangleIcon
               className="mr-2"
               size={18}
