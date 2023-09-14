@@ -24,11 +24,14 @@ async function fetchTenor<
   });
   url.search = new URLSearchParams({
     ...params,
-    key: process.env.TENOR_API_KEY!,
+    key: process.env.GOOGLE_API_KEY!,
     client_key: "graysky",
   }).toString();
+  console.log(url.toString());
   const res = await fetch(url.toString());
-  if (!res.ok) throw new Error("API call to tenor failed");
+  if (!res.ok) {
+    throw new Error(`Tenor API error: ${res.status} ${res.statusText}`);
+  }
   return res.json() as Promise<T>;
 }
 
