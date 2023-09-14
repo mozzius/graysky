@@ -50,7 +50,7 @@ export const translateRouter = createTRPCRouter({
           method: "POST",
           headers: new Headers({
             "Content-Type": "application/json",
-            "X-goog-api-key": process.env.TRANSLATION_KEY!,
+            "X-goog-api-key": process.env.GOOGLE_API_KEY!,
           }),
           body: JSON.stringify({
             q: post.text,
@@ -60,7 +60,9 @@ export const translateRouter = createTRPCRouter({
         },
       );
       if (!res.ok) throw new Error("API call to gcloud failed");
-      const { data } = await res.json();
+      const { data } = (await res.json()) as {
+        data: { translations: unknown[] };
+      };
 
       const parsed = z
         .object({
