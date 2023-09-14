@@ -141,7 +141,7 @@ export const gifsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      await fetchTenor<TenorRegisterShareAPIResponse>("/register_share", {
+      await fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
         id: input.id,
       });
     }),
