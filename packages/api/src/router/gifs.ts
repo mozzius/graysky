@@ -206,7 +206,6 @@ interface TenorSearchAPIResponse {
 interface TenorFeaturedAPIResponse {
   next: string;
   results: TenorResponse[];
-  weburl: string;
 }
 
 interface TenorCategoriesAPIResponse {

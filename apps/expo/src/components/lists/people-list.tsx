@@ -1,12 +1,11 @@
 import {
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from "react";
-import { BackHandler, Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
@@ -19,6 +18,7 @@ import { type UseInfiniteQueryResult } from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { cx } from "~/lib/utils/cx";
+import { BackButtonOverride } from "../back-button-override";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";
@@ -87,7 +87,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         enableDismissOnClose
         detached
       >
-        <BackButton dismiss={onPressBackButton} />
+        <BackButtonOverride dismiss={onPressBackButton} />
         <Text className="mt-2 text-center text-xl font-medium">{title}</Text>
         {data.data ? (
           <View
@@ -145,18 +145,3 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
   },
 );
 PeopleList.displayName = "PeopleList";
-
-const BackButton = ({ dismiss }: { dismiss: () => void }) => {
-  useEffect(() => {
-    function onBackButton() {
-      dismiss();
-      return true;
-    }
-    BackHandler.addEventListener("hardwareBackPress", onBackButton);
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", onBackButton);
-    };
-  }, [dismiss]);
-
-  return null;
-};

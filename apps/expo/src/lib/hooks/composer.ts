@@ -222,7 +222,7 @@ export const useSendPost = ({
   });
 };
 
-export const useImages = () => {
+export const useImages = (seachGIFs: () => void) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
   const agent = useAgent();
@@ -239,7 +239,7 @@ export const useImages = () => {
 
       // jank feature flag
       const options =
-        agent.session?.handle === "mozzius.dev"
+        agent.session?.handle === "mozzius.dev" && images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
       showActionSheetWithOptions(
@@ -289,6 +289,10 @@ export const useImages = () => {
                   ]);
                 }
               });
+              break;
+            case "Search GIFs":
+              seachGIFs();
+              break;
           }
         },
       );

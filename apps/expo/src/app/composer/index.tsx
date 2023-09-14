@@ -90,6 +90,7 @@ export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
   const { showActionSheetWithOptions } = useActionSheet();
+  const router = useRouter();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -108,7 +109,9 @@ export default function ComposerScreen() {
 
   const [text, setText] = useState("");
 
-  const { images, imagePicker, addAltText, removeImage } = useImages();
+  const { images, imagePicker, addAltText, removeImage } = useImages(() => {
+    router.push("/composer/gifs");
+  });
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
