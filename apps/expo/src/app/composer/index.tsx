@@ -58,6 +58,7 @@ import {
   useQuote,
   useReply,
   useSendPost,
+  type ImageWithAlt,
 } from "~/lib/hooks/composer";
 import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
@@ -89,9 +90,6 @@ export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
   const { showActionSheetWithOptions } = useActionSheet();
-  const keyboardHeight = useKeyboardMaxHeight();
-  const frame = useSafeAreaFrame();
-  const headerHeight = useHeaderHeight();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -103,7 +101,6 @@ export default function ComposerScreen() {
   });
   const inputRef = useRef<TextInput>(null!);
   const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
-  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
 
   const reply = useReply();
   const quote = useQuote();
@@ -114,7 +111,6 @@ export default function ComposerScreen() {
   const { images, imagePicker, addAltText, removeImage } = useImages();
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
-  const [expandPreview, setExpandPreview] = useState(false);
 
   const rt = useMemo(() => {
     const rt = new RichTextHelper({ text });
@@ -166,107 +162,12 @@ export default function ComposerScreen() {
   if (editingAltText !== null) {
     const image = images[editingAltText]!;
     return (
-      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
-        <Stack.Screen
-          options={{
-            headerTitle: "Edit alt text",
-            headerLeft: () => null,
-            headerRight: () => (
-              <View className="relative justify-center">
-                <TouchableOpacity
-                  onPress={() => {
-                    haptics.selection();
-                    setEditingAltText(null);
-                    setExpandPreview(false);
-                  }}
-                  className="absolute right-0"
-                >
-                  <Text
-                    style={{ color: theme.colors.primary }}
-                    className="text-lg font-medium"
-                  >
-                    Done
-                  </Text>
-                </TouchableOpacity>
-                <View className="-z-50 opacity-0" pointerEvents="none">
-                  <PostButton
-                    disabled
-                    loading={false}
-                    onPress={() => {
-                      throw Error("unreachable");
-                    }}
-                  />
-                </View>
-              </View>
-            ),
-            headerTitleStyle: { color: theme.colors.text },
-          }}
-        />
-        <KeyboardAwareScrollView
-          className="flex-1 px-4"
-          extraScrollHeight={32}
-          keyboardShouldPersistTaps="handled"
-          ref={altTextScrollViewRef}
-        >
-          <View className="flex-1 items-center py-4">
-            <TouchableWithoutFeedback
-              className="flex-1"
-              accessibilityLabel="Toggle expanding the image to full width"
-              onPress={() => {
-                haptics.impact();
-                setExpandPreview((currentlyExpanded) => {
-                  if (!currentlyExpanded)
-                    setTimeout(
-                      () => altTextScrollViewRef.current?.scrollToEnd(),
-                      250,
-                    );
-                  return !currentlyExpanded;
-                });
-              }}
-            >
-              <AnimatedImage
-                // doesn't work yet but on the reanimated roadmap
-                sharedTransitionTag={`image-${editingAltText}`}
-                layout={Layout}
-                entering={FadeIn}
-                cachePolicy="memory"
-                source={{ uri: image.asset.uri }}
-                alt={image.alt ?? `image ${editingAltText + 1}`}
-                className="h-full w-full flex-1 rounded-md"
-                style={{
-                  aspectRatio: image.asset.width / image.asset.height,
-                  borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: theme.colors.border,
-                  maxHeight: expandPreview
-                    ? undefined
-                    : frame.height - headerHeight - keyboardHeight - 100,
-                }}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-          <Animated.View className="flex-1" layout={Layout} entering={FadeIn}>
-            <TextInput
-              value={image.alt}
-              onChange={(evt) =>
-                addAltText(editingAltText, evt.nativeEvent.text)
-              }
-              multiline
-              className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
-              numberOfLines={5}
-              autoFocus
-              scrollEnabled={false}
-              keyboardAppearance={theme.dark ? "dark" : "light"}
-              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-              style={{
-                color: theme.colors.text,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: theme.colors.border,
-              }}
-              placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-            />
-          </Animated.View>
-        </KeyboardAwareScrollView>
-      </View>
+      <AltTextEditor
+        image={image}
+        editingAltText={editingAltText}
+        setEditingAltText={setEditingAltText}
+        addAltText={addAltText}
+      />
     );
   }
 
@@ -876,5 +777,129 @@ const SuggestionList = ({
         );
       })}
     </Animated.View>
+  );
+};
+
+interface AltTextEditorProps {
+  image: ImageWithAlt;
+  editingAltText: number;
+  setEditingAltText: (index: number | null) => void;
+  addAltText: (index: number, alt: string) => void;
+}
+
+const AltTextEditor = ({
+  setEditingAltText,
+  editingAltText,
+  image,
+  addAltText,
+}: AltTextEditorProps) => {
+  const theme = useTheme();
+  const haptics = useHaptics();
+  const [expandPreview, setExpandPreview] = useState(false);
+  const keyboardHeight = useKeyboardMaxHeight();
+  const frame = useSafeAreaFrame();
+  const headerHeight = useHeaderHeight();
+  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
+
+  return (
+    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+      <Stack.Screen
+        options={{
+          headerTitle: "Edit alt text",
+          headerLeft: () => null,
+          headerRight: () => (
+            <View className="relative justify-center">
+              <TouchableOpacity
+                onPress={() => {
+                  haptics.selection();
+                  setEditingAltText(null);
+                  setExpandPreview(false);
+                }}
+                className="absolute right-0"
+              >
+                <Text
+                  style={{ color: theme.colors.primary }}
+                  className="text-lg font-medium"
+                >
+                  Done
+                </Text>
+              </TouchableOpacity>
+              <View className="-z-50 opacity-0" pointerEvents="none">
+                <PostButton
+                  disabled
+                  loading={false}
+                  onPress={() => {
+                    throw Error("unreachable");
+                  }}
+                />
+              </View>
+            </View>
+          ),
+          headerTitleStyle: { color: theme.colors.text },
+        }}
+      />
+      <KeyboardAwareScrollView
+        className="flex-1 px-4"
+        extraScrollHeight={32}
+        keyboardShouldPersistTaps="handled"
+        ref={altTextScrollViewRef}
+      >
+        <View className="flex-1 items-center py-4">
+          <TouchableWithoutFeedback
+            className="flex-1"
+            accessibilityLabel="Toggle expanding the image to full width"
+            onPress={() => {
+              haptics.impact();
+              setExpandPreview((currentlyExpanded) => {
+                if (!currentlyExpanded)
+                  setTimeout(
+                    () => altTextScrollViewRef.current?.scrollToEnd(),
+                    250,
+                  );
+                return !currentlyExpanded;
+              });
+            }}
+          >
+            <AnimatedImage
+              // doesn't work yet but on the reanimated roadmap
+              sharedTransitionTag={`image-${editingAltText}`}
+              layout={Layout}
+              entering={FadeIn}
+              cachePolicy="memory"
+              source={{ uri: image.asset.uri }}
+              alt={image.alt ?? `image ${editingAltText + 1}`}
+              className="h-full w-full flex-1 rounded-md"
+              style={{
+                aspectRatio: image.asset.width / image.asset.height,
+                borderWidth: StyleSheet.hairlineWidth,
+                borderColor: theme.colors.border,
+                maxHeight: expandPreview
+                  ? undefined
+                  : frame.height - headerHeight - keyboardHeight - 100,
+              }}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+        <Animated.View className="flex-1" layout={Layout} entering={FadeIn}>
+          <TextInput
+            value={image.alt}
+            onChange={(evt) => addAltText(editingAltText, evt.nativeEvent.text)}
+            multiline
+            className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
+            numberOfLines={5}
+            autoFocus
+            scrollEnabled={false}
+            keyboardAppearance={theme.dark ? "dark" : "light"}
+            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+            style={{
+              color: theme.colors.text,
+              borderWidth: StyleSheet.hairlineWidth,
+              borderColor: theme.colors.border,
+            }}
+            placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
+          />
+        </Animated.View>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
