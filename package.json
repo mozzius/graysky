@@ -16,7 +16,7 @@
     "node": ">=v18.17.1"
   },
   "overrides": {
-    "@tanstack/react-query": "^4.35.0"
+    "@tanstack/react-query": "^4.35.3"
   },
   "packageManager": "pnpm@8.7.4",
   "pnpm": {
