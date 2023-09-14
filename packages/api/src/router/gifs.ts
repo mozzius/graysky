@@ -36,123 +36,143 @@ async function fetchTenor<
 }
 
 export const gifsRouter = createTRPCRouter({
-  search: publicProcedure
-    .input(
-      z.object({
-        query: z.string(),
-        locale: z.string().optional(),
-        limit: z.number().optional(),
-        cursor: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorSearchAPIResponse>("/search", {
-        q: input.query,
-        locale: input.locale,
-        limit: input.limit,
-        pos: input.cursor,
-        mediafilter: "mp4",
+  get: publicProcedure
+    .input(z.string())
+    .query(async ({ input, ctx: { db } }) => {
+      const gif = await db.gif.findUnique({
+        where: { url: input },
       });
+      // TODO: fetch from tenor if not found
+      return gif;
     }),
-  featured: publicProcedure
-    .input(
-      z.object({
-        locale: z.string().optional(),
-        limit: z.number().optional(),
-        cursor: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorFeaturedAPIResponse>("/featured", {
-        locale: input.locale,
-        limit: input.limit,
-        pos: input.cursor,
-        mediafilter: "tinymp4,mp4",
-      });
-    }),
-  categories: publicProcedure
-    .input(
-      z.object({
-        type: z.enum(["featured", "trending"]).optional(),
-        locale: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorCategoriesAPIResponse>("/categories", {
-        type: input.type,
-        locale: input.locale,
-      });
-    }),
-  searchSuggestions: publicProcedure
-    .input(
-      z.object({
-        query: z.string(),
-        locale: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorSearchSuggestionsAPIResponse>(
-        "/search_suggestions",
-        {
-          q: input.query,
-          locale: input.locale,
-        },
-      );
-    }),
-  autocomplete: publicProcedure
-    .input(
-      z.object({
-        query: z.string(),
-        locale: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorAutocompleteAPIResponse>("/autocomplete", {
-        q: input.query,
-        locale: input.locale,
-      });
-    }),
-  trendingTerms: publicProcedure
-    .input(
-      z.object({
-        locale: z.string().optional(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorTrendingTermsAPIResponse>(
-        "/trending_terms",
-        {
-          locale: input.locale,
-        },
-      );
-    }),
-  posts: publicProcedure
-    .input(
-      z.object({
-        ids: z.string().array(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await fetchTenor<TenorPostsAPIResponse>("/posts", {
-        ids: input.ids.join(","),
-      });
-    }),
-  registerShare: publicProcedure
+  save: publicProcedure
     .input(
       z.object({
         id: z.string(),
+        url: z.string(),
+        asset: z.string(),
+        width: z.number(),
+        height: z.number(),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx: { db } }) => {
+      // save asset url to db
+      await db.gif.upsert({
+        where: { url: input.url },
+        create: {
+          url: input.url,
+          asset: input.asset,
+          width: input.width,
+          height: input.height,
+        },
+        update: {
+          asset: input.asset,
+          width: input.width,
+          height: input.height,
+        },
+      });
+
       await fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
         id: input.id,
       });
     }),
+  tenor: createTRPCRouter({
+    search: publicProcedure
+      .input(
+        z.object({
+          query: z.string(),
+          locale: z.string().optional(),
+          limit: z.number().optional(),
+          cursor: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorSearchAPIResponse>("/search", {
+          q: input.query,
+          locale: input.locale,
+          limit: input.limit,
+          pos: input.cursor,
+          mediafilter: "mp4",
+        });
+      }),
+    featured: publicProcedure
+      .input(
+        z.object({
+          locale: z.string().optional(),
+          limit: z.number().optional(),
+          cursor: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorFeaturedAPIResponse>("/featured", {
+          locale: input.locale,
+          limit: input.limit,
+          pos: input.cursor,
+          mediafilter: "tinymp4,mp4",
+        });
+      }),
+    categories: publicProcedure
+      .input(
+        z.object({
+          type: z.enum(["featured", "trending"]).optional(),
+          locale: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorCategoriesAPIResponse>("/categories", {
+          type: input.type,
+          locale: input.locale,
+        });
+      }),
+    searchSuggestions: publicProcedure
+      .input(
+        z.object({
+          query: z.string(),
+          locale: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorSearchSuggestionsAPIResponse>(
+          "/search_suggestions",
+          {
+            q: input.query,
+            locale: input.locale,
+          },
+        );
+      }),
+    autocomplete: publicProcedure
+      .input(
+        z.object({
+          query: z.string(),
+          locale: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorAutocompleteAPIResponse>("/autocomplete", {
+          q: input.query,
+          locale: input.locale,
+        });
+      }),
+    trendingTerms: publicProcedure
+      .input(
+        z.object({
+          locale: z.string().optional(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await fetchTenor<TenorTrendingTermsAPIResponse>(
+          "/trending_terms",
+          {
+            locale: input.locale,
+          },
+        );
+      }),
+  }),
 });
 
 // tenor response types
 
-interface TenorResponse {
+export interface TenorResponse {
   created: number;
   hasaudio: boolean;
   id: string;
@@ -167,14 +187,14 @@ interface TenorResponse {
   url: string;
 }
 
-interface TenorCategory {
+export interface TenorCategory {
   searchterm: string;
   path: string;
   image: string;
   name: string;
 }
 
-interface TenorMedia {
+export interface TenorMedia {
   url: string;
   dims: number[];
   duration: number;

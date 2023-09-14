@@ -6,6 +6,8 @@ import { Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
 import { MasonryFlashList } from "@shopify/flash-list";
 
+import { type TenorResponse } from "@graysky/api/src/router/gifs";
+
 import { QueryWithoutData } from "~/components/query-without-data";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
@@ -17,7 +19,6 @@ export default function GifSearch() {
   const [_search, setSearch] = useState("");
   const [_focused, setFocused] = useState(false);
   const { width } = useSafeAreaFrame();
-  const router = useRouter();
 
   const headerSearchBarOptions = useSearchBarOptions({
     ref,
@@ -31,7 +32,7 @@ export default function GifSearch() {
     placeholder: "Search Tenor",
   });
 
-  const featured = api.gifs.featured.useInfiniteQuery(
+  const featured = api.gifs.tenor.featured.useInfiniteQuery(
     {
       locale: locale.languageTag.includes("-")
         ? locale.languageTag.replace("-", "_")
@@ -57,7 +58,7 @@ export default function GifSearch() {
               item.media_formats.tinymp4.dims[0]! /
               item.media_formats.tinymp4.dims[1]!;
             layout.span = width / 2 - 16;
-            layout.size = (layout.span - 8) / aspectRatio + 8;
+            layout.size = Math.floor((layout.span - 8) / aspectRatio + 8);
           }}
           onEndReached={() => featured.fetchNextPage()}
           estimatedItemSize={200}
@@ -73,27 +74,7 @@ export default function GifSearch() {
           contentContainerStyle={{ paddingHorizontal: 16 }}
           optimizeItemArrangement
           renderItem={({ item, columnIndex }) => (
-            <TouchableHighlight
-              className={cx(
-                "mb-2 w-full flex-1 rounded-lg",
-                columnIndex === 0 ? "mr-2" : "ml-2",
-              )}
-              onPress={() => router.push("../")}
-            >
-              <Video
-                key={item.media_formats.tinymp4.url}
-                source={{ uri: item.media_formats.tinymp4.url }}
-                className="w-full flex-1 rounded-lg"
-                style={{
-                  aspectRatio:
-                    item.media_formats.tinymp4.dims[0]! /
-                    item.media_formats.tinymp4.dims[1]!,
-                }}
-                isMuted
-                isLooping
-                shouldPlay
-              />
-            </TouchableHighlight>
+            <Gif item={item} column={columnIndex} />
           )}
         />
       </>
@@ -111,3 +92,45 @@ export default function GifSearch() {
     </>
   );
 }
+
+interface GifProps {
+  item: TenorResponse;
+  column: number;
+}
+
+const Gif = ({ item, column }: GifProps) => {
+  const router = useRouter();
+  const frame = useSafeAreaFrame();
+
+  const aspectRatio =
+    item.media_formats.tinymp4.dims[0]! / item.media_formats.tinymp4.dims[1]!;
+  const width = frame.width / 2 - 16;
+  const height = Math.floor((width - 8) / aspectRatio + 8);
+
+  return (
+    <TouchableHighlight
+      className={cx(
+        "mb-2 w-full flex-1 rounded-lg",
+        column === 0 ? "mr-2" : "ml-2",
+      )}
+      onPress={() => router.push("../")}
+    >
+      <Video
+        key={item.media_formats.tinymp4.url}
+        source={{ uri: item.media_formats.tinymp4.url }}
+        className="w-full flex-1 rounded-lg"
+        PosterComponent={() => (
+          <View style={{ backgroundColor: item.bg_color }} />
+        )}
+        pointerEvents="none"
+        style={{
+          width,
+          height,
+        }}
+        isMuted
+        isLooping
+        shouldPlay
+      />
+    </TouchableHighlight>
+  );
+};
