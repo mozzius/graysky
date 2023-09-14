@@ -1,6 +1,6 @@
 # Graysky
 
-Graysky is a Bluesky client written in React Native. 🚧 WIP 🚧
+Graysky is a Bluesky client written in React Native.
 
 ## Getting Started
 
