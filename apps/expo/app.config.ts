@@ -40,9 +40,7 @@ const defineConfig = (): ExpoConfig => ({
     },
     infoPlist: {
       // should be true but simulator builds don't like this
-      UIViewControllerBasedStatusBarAppearance: process.env.SIMULATOR_BUILD
-        ? false
-        : true,
+      // UIViewControllerBasedStatusBarAppearance: true,
       CADisableMinimumFrameDurationOnPhone: true,
     },
   },
