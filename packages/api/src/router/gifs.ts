@@ -108,7 +108,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "tinymp4,mp4",
+          mediafilter: "nanomp4,tinymp4,mp4",
         });
       }),
     categories: publicProcedure
@@ -183,7 +183,7 @@ export interface TenorResponse {
   itemurl: string;
   hascaption: boolean;
   flags: string;
-  bg_color: string;
+  bg_color?: string;
   url: string;
 }
 
