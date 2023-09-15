@@ -44,7 +44,7 @@ You can then start the expo server with:
 pnpm dev
 ```
 
-## Roadmap to Feature Parity
+## Roadmap to Launch 🚀
 
 - [x] Notifications screen
 - [x] Image viewer
