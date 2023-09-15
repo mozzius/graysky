@@ -73,18 +73,19 @@ pnpm dev
   - [x] Mention autocomplete
   - [x] Embeds in composer
     - [ ] Embed image upload
-  - [ ] Alt text editor
-    - [x] iOS
-    - [ ] Android
+  - [x] Alt text editor
 - [ ] App Store
 
 ## Future (no promises)
 
 - [ ] Change handle
+  - [ ] own domain
+  - [ ] bsky.social
+  - [ ] community handles
 - [ ] Push notifications
 - [ ] Multi-account support
 - [ ] Drafts
-- [ ] GIFs ;)
+- [ ] Lists support
 
 ## Android local APK builds
 
