@@ -67,12 +67,12 @@ export const FeedPost = ({
   avatarSize = "normal",
   background,
 }: Props) => {
-  const startHidden = Boolean(
+  const showWarning = Boolean(
     !!item.post.author.viewer?.blocking ||
       !!item.post.author.viewer?.blocked ||
       !!filter,
   );
-  const [hidden, setHidden] = useState(startHidden);
+  const [hidden, setHidden] = useState(showWarning);
   const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
   const { reposted, repostCount, toggleRepost } = useRepost(
     item.post,
@@ -99,8 +99,8 @@ export const FeedPost = ({
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
   useEffect(() => {
-    setHidden(startHidden);
-  }, [item.post.cid, startHidden]);
+    setHidden(showWarning);
+  }, [item.post.cid, showWarning]);
 
   useEffect(() => {
     queryClient.setQueryData(postHref.slice(1).split("/"), (old: unknown) => {
@@ -143,10 +143,10 @@ export const FeedPost = ({
 
   const timeSincePost = timeSince(new Date(item.post.indexedAt));
 
-  const hiddenContent = (
+  const hiddenContent = showWarning && (
     <View
       className={cx(
-        "my-2 flex-row items-center justify-between rounded border px-2",
+        "my-2 max-w-xl flex-row items-center justify-between rounded border px-2",
         theme.dark
           ? "border-neutral-700 bg-neutral-950"
           : "border-neutral-300 bg-neutral-50",
@@ -159,7 +159,10 @@ export const FeedPost = ({
               item.post.author.viewer?.blocking ? "blocked" : "muted"
             }.`}
       </Text>
-      <Button title="Show" onPress={() => setHidden(false)} />
+      <Button
+        title={hidden ? "Hide" : "Show"}
+        onPress={() => setHidden((h) => !h)}
+      />
     </View>
   );
 
@@ -311,9 +314,8 @@ export const FeedPost = ({
               : !!item.post.record.reply && (
                   <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
                 ))}
-          {hidden ? (
-            hiddenContent
-          ) : (
+          {hiddenContent}
+          {hidden || (
             <View className="flex-1">
               {/* text content */}
               {item.post.record.text && (

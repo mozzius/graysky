@@ -97,7 +97,7 @@ export const ImageViewer = ({
         onSwipeToClose={onClose}
         onTap={toggleInfo}
       />
-      {infoVisible && (
+      {infoVisible && images[index]?.alt && (
         <Animated.View
           entering={mounted ? FadeInDown : undefined}
           exiting={FadeOutDown}
