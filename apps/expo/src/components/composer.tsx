@@ -1,42 +1,44 @@
 import { useRouter } from "expo-router";
-import { type AppBskyFeedDefs, type AppBskyFeedPost } from "@atproto/api";
+import {
+  AppBskyFeedPost,
+  type AppBskyFeedDefs,
+  type ComAtprotoRepoStrongRef,
+} from "@atproto/api";
 import { useQueryClient } from "@tanstack/react-query";
+
+const getReplyRef = (post: AppBskyFeedDefs.PostView) => {
+  if (AppBskyFeedPost.isRecord(post.record)) {
+    return post.record.reply;
+  }
+};
 
 export const useComposer = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   return {
     open: () => router.push("/composer"),
-    reply: (reply: {
-      parent: AppBskyFeedDefs.PostView;
-      root: AppBskyFeedDefs.PostView;
-    }) => {
-      queryClient.setQueryData(["context", reply.parent.uri], {
-        post: reply.parent,
+    reply: (post: AppBskyFeedDefs.PostView) => {
+      queryClient.setQueryData(["context", post.uri], {
+        post,
       } satisfies AppBskyFeedDefs.ThreadViewPost);
+
+      const parent = {
+        uri: post.uri,
+        cid: post.cid,
+      } satisfies ComAtprotoRepoStrongRef.Main;
+
+      const root = getReplyRef(post)?.root ?? parent;
+
+      const replyRef = {
+        parent,
+        root,
+      } satisfies AppBskyFeedPost.ReplyRef;
+
       router.push(
-        `/composer?reply=${encodeURIComponent(
-          JSON.stringify({
-            parent: {
-              uri: reply.parent.uri,
-              cid: reply.parent.cid,
-            },
-            root: {
-              uri: reply.root.uri,
-              cid: reply.root.cid,
-            },
-          } satisfies AppBskyFeedPost.ReplyRef),
-        )}`,
+        `/composer?reply=${encodeURIComponent(JSON.stringify(replyRef))}`,
       );
     },
-    quote: (post: AppBskyFeedDefs.PostView) =>
-      router.push(
-        `/composer?quote=${encodeURIComponent(
-          JSON.stringify({
-            uri: post.uri,
-            cid: post.cid,
-          }),
-        )}`,
-      ),
+    quote: (ref: ComAtprotoRepoStrongRef.Main) =>
+      router.push(`/composer?quote=${encodeURIComponent(JSON.stringify(ref))}`),
   };
 };

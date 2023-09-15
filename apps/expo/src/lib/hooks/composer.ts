@@ -17,6 +17,7 @@ import {
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useColorScheme } from "nativewind";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
@@ -226,6 +227,7 @@ export const useImages = (seachGIFs: () => void) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
   const agent = useAgent();
+  const { colorScheme } = useColorScheme();
 
   const imagePicker = useMutation({
     mutationFn: async () => {
@@ -246,6 +248,7 @@ export const useImages = (seachGIFs: () => void) => {
         {
           options,
           cancelButtonIndex: options.length - 1,
+          userInterfaceStyle: colorScheme,
         },
         async (index) => {
           if (index === undefined) return;
