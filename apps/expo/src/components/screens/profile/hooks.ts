@@ -62,7 +62,7 @@ export const useProfilePosts = (
       switch (mode) {
         case "posts":
         case "replies":
-        case "media":
+        case "media": {
           if (!actor) throw new Error("Not logged in");
           const feed = await agent.getAuthorFeed({
             actor,
@@ -70,7 +70,8 @@ export const useProfilePosts = (
           });
           ({ cursor, feed: posts } = feed.data);
           break;
-        case "likes":
+        }
+        case "likes": {
           // all credit to @handlerug.me for this one
           // https://github.com/handlerug/bluesky-liked-posts
           if (!actor) throw new Error("Not logged in");
@@ -111,6 +112,7 @@ export const useProfilePosts = (
           posts = likes;
           cursor = list.cursor;
           break;
+        }
       }
 
       return { posts, cursor };

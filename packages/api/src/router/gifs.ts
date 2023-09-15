@@ -27,7 +27,6 @@ async function fetchTenor<
     key: process.env.GOOGLE_API_KEY!,
     client_key: "graysky",
   }).toString();
-  console.log(url.toString());
   const res = await fetch(url.toString());
   if (!res.ok) {
     throw new Error(`Tenor API error: ${res.status} ${res.statusText}`);

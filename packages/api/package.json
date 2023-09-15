@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "dependencies": {
     "@graysky/db": "0.1.0",
-    "@trpc/client": "^10.38.2",
-    "@trpc/server": "^10.38.2",
+    "@trpc/client": "^10.38.3",
+    "@trpc/server": "^10.38.3",
     "@vercel/kv": "^0.2.2",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",

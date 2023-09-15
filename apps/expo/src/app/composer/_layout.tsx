@@ -6,7 +6,6 @@ import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
-import { useCanGoBack } from "~/lib/hooks/can-go-back";
 
 export default function ComposerLayout() {
   const theme = useTheme();

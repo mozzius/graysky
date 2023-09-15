@@ -21,13 +21,13 @@ import { z } from "zod";
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAgent } from "~/lib/agent";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
+import { useComposer } from "~/lib/hooks/composer";
 import { type FilterResult } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
-import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
@@ -383,7 +383,7 @@ export const FeedPost = ({
                   style={{
                     color: reposted ? "#2563eb" : theme.colors.text,
                   }}
-                  className="tabular-nums"
+                  className={cx("tabular-nums", reposted && "font-bold")}
                 >
                   {repostCount}
                 </Text>
@@ -407,7 +407,7 @@ export const FeedPost = ({
                   style={{
                     color: liked ? "#dc2626" : theme.colors.text,
                   }}
-                  className="tabular-nums"
+                  className={cx("tabular-nums", liked && "font-bold")}
                 >
                   {likeCount}
                 </Text>
@@ -436,8 +436,17 @@ const Reason = ({ item }: Pick<Props, "item">) => {
       >
         <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
-            <RepeatIcon color={theme.colors.text} size={12} />
-            <Text className="ml-2 flex-1 text-sm" numberOfLines={1}>
+            <RepeatIcon
+              className={theme.dark ? "text-neutral-400" : "text-neutral-500"}
+              size={12}
+            />
+            <Text
+              className={cx(
+                "ml-2 flex-1 text-sm",
+                theme.dark ? "text-neutral-400" : "text-neutral-500",
+              )}
+              numberOfLines={1}
+            >
               Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
             </Text>
           </View>

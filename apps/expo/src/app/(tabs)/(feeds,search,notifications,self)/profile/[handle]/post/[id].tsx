@@ -18,12 +18,12 @@ import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 
 import { Avatar } from "~/components/avatar";
-import { useComposer } from "~/components/composer";
 import { FeedPost } from "~/components/feed-post";
 import { Post } from "~/components/post";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScroll } from "~/lib/hooks";
+import { useComposer } from "~/lib/hooks/composer";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { useUserRefresh } from "~/lib/utils/query";

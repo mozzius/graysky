@@ -6,11 +6,11 @@ import { useTheme } from "@react-navigation/native";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
+import { useComposer } from "~/lib/hooks/composer";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
-import { useComposer } from "./composer";
 import { Embed } from "./embed";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
@@ -142,7 +142,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
             style={{
               color: reposted ? "#2563eb" : theme.colors.text,
             }}
-            className="tabular-nums"
+            className={cx("tabular-nums", reposted && "font-bold")}
           >
             {repostCount}
           </Text>
@@ -166,7 +166,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
             style={{
               color: liked ? "#dc2626" : theme.colors.text,
             }}
-            className="tabular-nums"
+            className={cx("tabular-nums", liked && "font-bold")}
           >
             {likeCount}
           </Text>
