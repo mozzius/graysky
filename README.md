@@ -86,6 +86,7 @@ pnpm dev
 - [ ] Multi-account support
 - [ ] Drafts
 - [ ] Lists support
+- [ ] Share post as image
 
 ## Android local APK builds
 
