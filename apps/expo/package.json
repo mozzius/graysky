@@ -58,7 +58,7 @@
     "react-native": "0.72.4",
     "react-native-awesome-gallery": "^0.3.6",
     "react-native-collapsible-tab-view": "^6.2.1",
-    "react-native-date-picker": "^4.3.2",
+    "react-native-date-picker": "^4.3.3",
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-drawer-layout": "^3.2.1",
     "react-native-gesture-handler": "~2.12.1",
