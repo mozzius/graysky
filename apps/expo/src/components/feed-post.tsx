@@ -392,7 +392,7 @@ export const FeedPost = ({
                   style={{
                     color: reposted ? "#2563eb" : theme.colors.text,
                   }}
-                  className="tabular-nums"
+                  className={cx("tabular-nums", reposted && "font-bold")}
                 >
                   {repostCount}
                 </Text>
@@ -416,7 +416,7 @@ export const FeedPost = ({
                   style={{
                     color: liked ? "#dc2626" : theme.colors.text,
                   }}
-                  className="tabular-nums"
+                  className={cx("tabular-nums", liked && "font-bold")}
                 >
                   {likeCount}
                 </Text>
