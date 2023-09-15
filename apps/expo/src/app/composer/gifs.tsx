@@ -55,7 +55,7 @@ export default function GifSearch() {
               item.media_formats.tinymp4.dims[0]! /
               item.media_formats.tinymp4.dims[1]!;
             layout.span = (width - 16) / 2;
-            layout.size = (layout.span - 8) / aspectRatio + 8;
+            layout.size = (layout.span - 4) / aspectRatio + 8;
           }}
           onEndReached={() => featured.fetchNextPage()}
           estimatedItemSize={200}
