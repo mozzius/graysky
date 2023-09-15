@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
+  findNodeHandle,
   I18nManager,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -79,10 +80,13 @@ export const FeedPost = ({
   );
   const replyCount = item.post.replyCount;
   const composer = useComposer();
+  const anchorRef = useRef<TouchableOpacity>(null!);
+
   const handleRepost = useHandleRepost(
     item.post,
     reposted,
     toggleRepost.mutate,
+    (anchorRef.current && findNodeHandle(anchorRef.current)) ?? undefined,
   );
 
   const postAuthorDisplayName = item.post.author.displayName;
@@ -319,7 +323,7 @@ export const FeedPost = ({
                       className="my-0.5"
                       accessibilityHint="Opens post details"
                     >
-                      <View>
+                      <View className="flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
@@ -338,7 +342,7 @@ export const FeedPost = ({
               )}
               {/* embeds */}
               {item.post.embed && !hideEmbed && (
-                <View className="flex-1">
+                <View className="max-w-xl flex-1">
                   <Embed
                     uri={item.post.uri}
                     content={item.post.embed}
@@ -352,7 +356,7 @@ export const FeedPost = ({
           {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
           {!hideActions && (
-            <View className="mt-2.5 flex-row justify-between pr-6">
+            <View className="mt-2.5 max-w-sm flex-row justify-between pr-6">
               <TouchableOpacity
                 accessibilityLabel={`Reply, ${replyCount} repl${
                   replyCount !== 1 ? "ies" : "y"
@@ -383,6 +387,7 @@ export const FeedPost = ({
                 onPress={handleRepost}
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
                 className="flex-row items-center gap-2 tabular-nums"
+                ref={anchorRef}
               >
                 <RepeatIcon
                   size={16}

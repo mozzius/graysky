@@ -29,8 +29,11 @@ export default function LandingPage() {
               a bluesky client
             </Animated.Text>
           </View>
-          <View className="relative">
-            <Animated.View entering={FadeInDown.delay(500)}>
+          <View className="relative items-center">
+            <Animated.View
+              entering={FadeInDown.delay(500)}
+              className="w-full max-w-xl"
+            >
               <LinkButton href="/sign-up" variant="white">
                 Create an account
               </LinkButton>

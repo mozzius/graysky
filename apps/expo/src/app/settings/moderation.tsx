@@ -172,6 +172,10 @@ export default function ModerationSettings() {
                               cancelButtonIndex: 3,
                               destructiveButtonIndex: 0,
                               userInterfaceStyle: colorScheme,
+                              textStyle: { color: theme.colors.text },
+                              containerStyle: {
+                                backgroundColor: theme.colors.card,
+                              },
                             },
                             (index) => {
                               if (index === undefined || index === 3) return;

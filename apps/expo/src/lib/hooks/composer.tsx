@@ -1,5 +1,11 @@
 import { useCallback, useState } from "react";
-import { Alert, Keyboard, Platform } from "react-native";
+import {
+  Alert,
+  findNodeHandle,
+  Keyboard,
+  Platform,
+  type TouchableOpacity,
+} from "react-native";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -16,7 +22,9 @@ import {
   type BskyAgent,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
@@ -261,10 +269,12 @@ export const useSendPost = ({
   });
 };
 
-export const useImages = (seachGIFs: () => void) => {
+export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
   const agent = useAgent();
+  const theme = useTheme();
+  const router = useRouter();
 
   const imagePicker = useMutation({
     mutationFn: async () => {
@@ -281,10 +291,22 @@ export const useImages = (seachGIFs: () => void) => {
         agent.session?.handle === "mozzius.dev" && images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
+      const icons = [
+        <CameraIcon key={0} size={24} color={theme.colors.text} />,
+        <ImageIcon key={1} size={24} color={theme.colors.text} />,
+        <SearchIcon key={2} size={24} color={theme.colors.text} />,
+        <></>,
+      ];
       showActionSheetWithOptions(
         {
           options,
+          icons,
           cancelButtonIndex: options.length - 1,
+          anchor:
+            (anchorRef?.current && findNodeHandle(anchorRef.current)) ??
+            undefined,
+          textStyle: { color: theme.colors.text },
+          containerStyle: { backgroundColor: theme.colors.card },
         },
         async (index) => {
           if (index === undefined) return;
@@ -330,7 +352,7 @@ export const useImages = (seachGIFs: () => void) => {
               });
               break;
             case "Search GIFs":
-              seachGIFs();
+              router.push("/composer/gifs");
               break;
           }
         },

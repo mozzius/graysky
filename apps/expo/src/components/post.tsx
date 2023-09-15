@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { useMemo, useRef } from "react";
+import { findNodeHandle, TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -32,7 +32,13 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
     dataUpdatedAt,
   );
   const replyCount = post.replyCount;
-  const handleRepost = useHandleRepost(post, reposted, toggleRepost.mutate);
+  const anchorRef = useRef<TouchableOpacity>(null);
+  const handleRepost = useHandleRepost(
+    post,
+    reposted,
+    toggleRepost.mutate,
+    (anchorRef.current && findNodeHandle(anchorRef.current)) ?? undefined,
+  );
   const theme = useTheme();
   const composer = useComposer();
 
@@ -93,12 +99,14 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
       {/* text content */}
       {post.record.text && (
         <>
-          <RichText
-            text={post.record.text}
-            facets={post.record.facets}
-            size="lg"
-            selectable
-          />
+          <View className="flex-1 lg:pr-24">
+            <RichText
+              text={post.record.text}
+              facets={post.record.facets}
+              size="lg"
+              selectable
+            />
+          </View>
           {needsTranslation && (
             <View className="mt-1">
               <Translation uri={post.uri} text={post.record.text} />
@@ -131,6 +139,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           <Text className="tabular-nums">{replyCount}</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          ref={anchorRef}
           accessibilityLabel={`Repost, ${repostCount} repost${
             repostCount !== 1 ? "s" : ""
           }`}

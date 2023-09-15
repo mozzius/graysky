@@ -11,7 +11,18 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
-import { MoreHorizontalIcon } from "lucide-react-native";
+import {
+  CopyIcon,
+  FlagIcon,
+  HeartIcon,
+  LanguagesIcon,
+  MegaphoneOffIcon,
+  MoreHorizontalIcon,
+  RepeatIcon,
+  Share2Icon,
+  Trash2Icon,
+  XOctagonIcon,
+} from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "~/lib/account-actions";
@@ -99,6 +110,8 @@ const PostContextMenuButton = ({
         options: reportOptions.map((x) => x.label),
         cancelButtonIndex: reportOptions.length - 1,
         userInterfaceStyle: colorScheme,
+        textStyle: { color: theme.colors.text },
+        containerStyle: { backgroundColor: theme.colors.card },
       },
       async (index) => {
         if (index === undefined) return;
@@ -126,18 +139,21 @@ const PostContextMenuButton = ({
     action: () => void;
     icon: string;
     destructive?: boolean;
+    reactIcon: JSX.Element;
   }[] = [
     {
       key: "translate",
       label: "Translate",
       action: () => translate(),
       icon: "character.book.closed",
+      reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
     },
     {
       key: "share",
       label: "Share post",
       action: () => share(),
       icon: "square.and.arrow.up",
+      reactIcon: <Share2Icon size={24} color={theme.colors.text} />,
     },
     showCopyText
       ? {
@@ -145,6 +161,7 @@ const PostContextMenuButton = ({
           label: "Copy post text",
           action: () => copy(),
           icon: "doc.on.doc",
+          reactIcon: <CopyIcon size={24} color={theme.colors.text} />,
         }
       : [],
     showSeeLikes
@@ -153,6 +170,7 @@ const PostContextMenuButton = ({
           label: "See likes",
           action: () => openLikes(post.uri),
           icon: "heart",
+          reactIcon: <HeartIcon size={24} color={theme.colors.text} />,
         }
       : [],
     showSeeReposts
@@ -161,6 +179,7 @@ const PostContextMenuButton = ({
           label: "See reposts",
           action: () => openReposts(post.uri),
           icon: "arrow.2.squarepath",
+          reactIcon: <RepeatIcon size={24} color={theme.colors.text} />,
         }
       : [],
     post.author.handle === agent.session?.handle
@@ -170,6 +189,7 @@ const PostContextMenuButton = ({
           action: () => delet(),
           icon: "trash",
           destructive: true,
+          reactIcon: <Trash2Icon size={24} color={theme.colors.text} />,
         }
       : [
           post.author.viewer?.muted
@@ -185,6 +205,9 @@ const PostContextMenuButton = ({
                     queryClient,
                   ),
                 icon: "speaker.slash",
+                reactIcon: (
+                  <MegaphoneOffIcon size={24} color={theme.colors.text} />
+                ),
               },
           post.author.viewer?.blocking
             ? []
@@ -199,12 +222,14 @@ const PostContextMenuButton = ({
                     queryClient,
                   ),
                 icon: "xmark.octagon",
+                reactIcon: <XOctagonIcon size={24} color={theme.colors.text} />,
               },
           {
             key: "report",
             label: "Report post",
             action: () => report(),
             icon: "flag",
+            reactIcon: <FlagIcon size={24} color={theme.colors.text} />,
           },
         ],
   ].flat(2);
@@ -216,8 +241,11 @@ const PostContextMenuButton = ({
     showActionSheetWithOptions(
       {
         options: [...options.map((x) => x.label), "Cancel"],
+        icons: [...options.map((x) => x.reactIcon), <></>],
         cancelButtonIndex: options.length,
         userInterfaceStyle: colorScheme,
+        textStyle: { color: theme.colors.text },
+        containerStyle: { backgroundColor: theme.colors.card },
       },
       (index) => {
         if (index === undefined) return;

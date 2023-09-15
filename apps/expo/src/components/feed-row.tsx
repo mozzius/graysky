@@ -198,6 +198,9 @@ export const DraggableFeedRow = ({
                         options: ["Unsave", "Cancel"],
                         cancelButtonIndex: 1,
                         destructiveButtonIndex: 0,
+                        userInterfaceStyle: theme.dark ? "dark" : "light",
+                        textStyle: { color: theme.colors.text },
+                        containerStyle: { backgroundColor: theme.colors.card },
                       },
                       (index) => {
                         if (index === 0) {

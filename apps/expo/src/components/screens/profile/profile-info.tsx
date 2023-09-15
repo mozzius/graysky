@@ -110,6 +110,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         options,
         cancelButtonIndex: options.length - 1,
         userInterfaceStyle: colorScheme,
+        textStyle: { color: theme.colors.text },
+        containerStyle: { backgroundColor: theme.colors.card },
       },
       (index) => {
         if (index === undefined) return;
@@ -145,6 +147,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 options: reportOptions.map((x) => x.label),
                 cancelButtonIndex: reportOptions.length - 1,
                 userInterfaceStyle: colorScheme,
+                textStyle: { color: theme.colors.text },
+                containerStyle: { backgroundColor: theme.colors.card },
               },
               async (index) => {
                 if (index === undefined) return;
@@ -416,6 +420,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       options,
                       cancelButtonIndex: options.length - 1,
                       userInterfaceStyle: colorScheme,
+                      textStyle: { color: theme.colors.text },
+                      containerStyle: { backgroundColor: theme.colors.card },
                     },
                     (index) => {
                       if (index === undefined) return;

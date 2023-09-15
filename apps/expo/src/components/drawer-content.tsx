@@ -8,9 +8,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import {
   LogOutIcon,
+  MoonIcon,
   PaletteIcon,
   SettingsIcon,
+  SmartphoneIcon,
   StarIcon,
+  SunIcon,
   TicketIcon,
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -44,11 +47,20 @@ export const DrawerContent = () => {
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
+    const icons = [
+      <SunIcon key={0} size={24} color={theme.colors.text} />,
+      <MoonIcon key={1} size={24} color={theme.colors.text} />,
+      <SmartphoneIcon key={2} size={24} color={theme.colors.text} />,
+      <></>,
+    ];
     showActionSheetWithOptions(
       {
         options,
+        icons,
         cancelButtonIndex: options.length - 1,
         userInterfaceStyle: colorScheme,
+        textStyle: { color: theme.colors.text },
+        containerStyle: { backgroundColor: theme.colors.card },
       },
       async (index) => {
         if (index === undefined) return;

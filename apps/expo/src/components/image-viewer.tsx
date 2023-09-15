@@ -23,6 +23,7 @@ import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -144,6 +145,7 @@ const ImageOptionsButton = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const { colorScheme } = useColorScheme();
   const haptics = useHaptics();
+  const theme = useTheme();
 
   return Platform.OS === "ios" ? (
     <ContextMenuButton
@@ -181,8 +183,11 @@ const ImageOptionsButton = ({
         showActionSheetWithOptions(
           {
             options: [...items.map((x) => x.label), "Cancel"],
+            icons: [...items.map((x) => x.reactIcon), <></>],
             cancelButtonIndex: items.length,
             userInterfaceStyle: colorScheme,
+            textStyle: { color: theme.colors.text },
+            containerStyle: { backgroundColor: theme.colors.card },
           },
           (index) => {
             if (index === undefined) return;

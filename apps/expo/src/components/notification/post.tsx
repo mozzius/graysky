@@ -42,7 +42,7 @@ export const PostNotification = ({
       return (
         <View className="mt-0.5 flex-1">
           {item.post.record.text && (
-            <Text className="text-neutral-500 dark:text-neutral-400">
+            <Text className="text-neutral-500 dark:text-neutral-400 lg:pr-24">
               <RichText
                 text={item.post.record.text}
                 facets={item.post.record.facets}
