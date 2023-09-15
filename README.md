@@ -2,6 +2,10 @@
 
 Graysky is a Bluesky client written in React Native.
 
+TestFlight: https://testflight.apple.com/join/8Q1M4gwt
+
+Play Store beta: https://play.google.com/apps/testing/dev.mozzius.graysky
+
 ## Getting Started
 
 You'll need pnpm, and some sort of simulator or device to run the app on.
