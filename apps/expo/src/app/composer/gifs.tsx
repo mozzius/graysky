@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
-import { ActivityIndicator, TouchableHighlight, View } from "react-native";
+import {
+  ActivityIndicator,
+  Linking,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
 import { ResizeMode, Video } from "expo-av";
@@ -9,6 +14,7 @@ import { MasonryFlashList } from "@shopify/flash-list";
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
 import { QueryWithoutData } from "~/components/query-without-data";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
@@ -98,6 +104,12 @@ interface GifProps {
 
 const Gif = ({ item, column }: GifProps) => {
   const router = useRouter();
+  const haptics = useHaptics();
+
+  const save = api.gifs.save.useMutation({
+    onMutate: () => haptics.impact(),
+    onSuccess: () => router.push(`../?gif=${item.url}`),
+  });
 
   const aspectRatio =
     item.media_formats.tinymp4.dims[0]! / item.media_formats.tinymp4.dims[1]!;
@@ -106,7 +118,16 @@ const Gif = ({ item, column }: GifProps) => {
     <View className={cx("mb-2 flex-1", column === 0 ? "pr-1" : "pl-1")}>
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
-        onPress={() => router.push("../")}
+        onPress={() =>
+          save.mutate({
+            id: item.id,
+            url: item.url,
+            asset: item.media_formats.mp4.url,
+            width: item.media_formats.mp4.dims[0]!,
+            height: item.media_formats.mp4.dims[1]!,
+          })
+        }
+        onLongPress={() => Linking.openURL(item.url)}
         style={{ aspectRatio }}
       >
         <Video

@@ -8,6 +8,7 @@ import {
   LanguagesIcon,
   SparklesIcon,
 } from "lucide-react-native";
+import { z } from "zod";
 
 import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
@@ -32,6 +33,10 @@ export const Translation = ({ text, uri }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
+  if (text.length < 2 || z.string().emoji().safeParse(text).success) {
+    return null;
+  }
+
   switch (translate.status) {
     case "idle":
       return (
@@ -43,14 +48,11 @@ export const Translation = ({ text, uri }: Props) => {
         >
           <View className="flex-row items-center">
             <SparklesIcon
-              className="mr-2"
-              size={18}
+              className="mr-1.5"
+              size={16}
               color={theme.colors.primary}
             />
-            <Text
-              className="text-base font-medium"
-              style={{ color: theme.colors.primary }}
-            >
+            <Text className="text-base" style={{ color: theme.colors.primary }}>
               Translate post
             </Text>
           </View>
@@ -101,13 +103,13 @@ export const Translation = ({ text, uri }: Props) => {
         >
           <View className="flex-row items-center">
             <AlertTriangleIcon
-              className="mr-2"
-              size={18}
+              className="mr-1.5"
+              size={16}
               color={theme.colors.notification}
             />
             <Text
               style={{ color: theme.colors.notification }}
-              className="text-base font-semibold"
+              className="text-base"
             >
               An error occurred - try again?
             </Text>

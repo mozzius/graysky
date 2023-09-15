@@ -144,12 +144,12 @@ export const Embed = ({
         throw new Error("An error occurred");
 
       return (
-        <View className="flex-1">
+        <View className="mt-1.5 flex-1">
           {media && <Embed uri={uri} content={media} depth={depth} />}
           <PostEmbed
             author={record.author}
             uri={record.uri}
-            transparent={transparent}
+            transparent={transparent || isNotification}
           >
             {record.value.text && (
               <Text
@@ -207,7 +207,7 @@ export const PostEmbed = ({
         className="mt-1.5 flex-1 rounded-lg"
       >
         <View
-          className={cx("flex-1 rounded-lg border px-2 pb-2 pt-1")}
+          className="flex-1 rounded-lg border px-2 pb-2 pt-1"
           style={{
             backgroundColor: transparent
               ? "transparent"
