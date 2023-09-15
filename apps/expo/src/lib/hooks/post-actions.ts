@@ -4,7 +4,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
-import { useComposer } from "~/components/composer";
+import { useComposer } from "~/lib/hooks/composer";
 import { useAgent } from "../agent";
 import { useHaptics } from "./preferences";
 

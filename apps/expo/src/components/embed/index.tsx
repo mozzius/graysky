@@ -17,7 +17,6 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon } from "lucide-react-native";
 
-import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";

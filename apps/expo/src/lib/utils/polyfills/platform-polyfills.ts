@@ -63,6 +63,7 @@ globalThis.Intl = globalThis.Intl || {};
 globalThis.Intl.Segmenter =
   globalThis.Intl.Segmenter ||
   class Segmenter {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     constructor() {}
     // NOTE
     // this is not a precisely correct polyfill but it's sufficient for our needs
