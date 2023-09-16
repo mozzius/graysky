@@ -205,13 +205,18 @@ interface AltProps {
 export const Alt = ({ alt }: AltProps) => {
   if (!alt) return null;
   return (
-    <TouchableWithoutFeedback
-      className="absolute bottom-1 left-1 w-max rounded bg-black/80 px-1 py-px"
-      onPress={() => {
-        Alert.alert("Alt text", alt);
-      }}
-    >
-      <Text className="text-sm text-white">ALT</Text>
-    </TouchableWithoutFeedback>
+    <View className="absolute bottom-1.5 left-1.5 z-10 rounded">
+      <TouchableWithoutFeedback
+        accessibilityLabel="View alt text"
+        className="rounded"
+        onPress={() => {
+          Alert.alert("Alt text", alt);
+        }}
+      >
+        <View className="rounded bg-black/40 px-1 py-px">
+          <Text className="text-xs font-medium text-white">ALT</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
