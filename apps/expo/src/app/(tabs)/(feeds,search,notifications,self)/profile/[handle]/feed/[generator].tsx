@@ -1,5 +1,6 @@
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import {
+  BackHandler,
   Dimensions,
   Platform,
   ScrollView,
@@ -41,15 +42,17 @@ import { cx } from "~/lib/utils/cx";
 
 export default function FeedsPage() {
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
+
   const { handle, generator } = useLocalSearchParams<{
     handle: string;
     generator: string;
   }>();
-  const theme = useTheme();
 
   const feed = `at://${handle}/app.bsky.feed.generator/${generator}`;
 
   const info = useFeedInfo(feed);
+
   const renderDrawerContent = useCallback(() => {
     if (info.data) {
       return <FeedInfo feed={feed} info={info.data} />;
@@ -60,6 +63,22 @@ export default function FeedsPage() {
 
   const onOpen = useCallback(() => setOpen(true), []);
   const onClose = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    if (open) {
+      const onBackPress = () => {
+        onClose();
+        return true;
+      };
+
+      const handler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress,
+      );
+
+      return () => handler.remove();
+    }
+  }, [open, onClose]);
 
   return (
     <Drawer
