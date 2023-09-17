@@ -78,13 +78,20 @@ export const FeedRow = ({ feed, children, large }: Props) => {
                     feed.viewer?.like
                       ? "text-red-500"
                       : theme.dark
-                      ? "text-neutral-400"
-                      : "text-neutral-500"
+                      ? "text-neutral-500"
+                      : "text-neutral-400"
                   }
                   size={12}
                 />{" "}
-                <Text className="tabular-nums">{feed.likeCount ?? 0}</Text> • @
-                {feed.creator.handle}
+                <Text
+                  className={cx(
+                    "tabular-nums",
+                    theme.dark ? "text-neutral-400" : "text-neutral-500",
+                  )}
+                >
+                  {feed.likeCount ?? 0}
+                </Text>{" "}
+                • @{feed.creator.handle}
               </Text>
             )}
           </View>

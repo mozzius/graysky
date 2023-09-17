@@ -148,7 +148,7 @@ export const Row = ({
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
-      className="flex-row items-center px-4 py-3"
+      className="min-h-[50px] flex-row items-center px-4 py-2"
     >
       {Icon && (
         <Icon

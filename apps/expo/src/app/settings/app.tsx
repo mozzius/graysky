@@ -1,12 +1,10 @@
 import { Alert, Switch } from "react-native";
-import { useTheme } from "@react-navigation/native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 
 export default function AppSettings() {
   const [appPrefs, setAppPrefs] = useAppPreferences();
-  const theme = useTheme();
 
   return (
     <GroupedList
@@ -22,7 +20,6 @@ export default function AppSettings() {
                   onValueChange={(sortableFeeds) =>
                     setAppPrefs({ sortableFeeds })
                   }
-                  trackColor={{ true: theme.colors.primary }}
                   accessibilityLabel="Allows you to manually sort non-favourite feeds in the feeds tab"
                 />
               ),
@@ -35,7 +32,6 @@ export default function AppSettings() {
                   onValueChange={(groupNotifications) =>
                     setAppPrefs({ groupNotifications })
                   }
-                  trackColor={{ true: theme.colors.primary }}
                   accessibilityLabel="Group notifications together in the notification tab"
                 />
               ),
@@ -60,21 +56,20 @@ export default function AppSettings() {
                       );
                     }
                   }}
-                  trackColor={{ true: theme.colors.primary }}
                   accessibilityLabel="Disable haptics (vibrations)"
                 />
               ),
             },
-            {
-              title: "Reduce motion (coming soon)",
-              action: (
-                <Switch
-                  value={false}
-                  trackColor={{ true: theme.colors.primary }}
-                  disabled
-                />
-              ),
-            },
+            // {
+            //   title: "Reduce motion (coming soon)",
+            //   action: (
+            //     <Switch
+            //       value={false}
+            //       trackColor={{ true: theme.colors.primary }}
+            //       disabled
+            //     />
+            //   ),
+            // },
           ],
         },
       ]}

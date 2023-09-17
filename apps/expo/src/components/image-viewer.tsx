@@ -116,6 +116,9 @@ export const ImageViewer = ({
               haptics.selection();
               setInfoExpanded((v) => !v);
             }}
+            onLongPress={(evt) => {
+              evt.preventDefault();
+            }}
           >
             {/* consider scrollview */}
             <Text

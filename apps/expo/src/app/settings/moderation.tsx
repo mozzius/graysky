@@ -131,7 +131,6 @@ export default function ModerationSettings() {
                         : adultContentEnabled
                     }
                     onValueChange={() => toggleAdultContent.mutate()}
-                    trackColor={{ true: theme.colors.primary }}
                   />
                 ),
               },
