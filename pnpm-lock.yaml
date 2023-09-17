@@ -146,6 +146,9 @@ importers:
       expo-image-picker:
         specifier: ~14.5.0
         version: 14.5.0(expo@49.0.11)
+      expo-insights:
+        specifier: ~0.2.0
+        version: 0.2.0(expo@49.0.11)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.11)
@@ -6155,6 +6158,15 @@ packages:
       expo: '*'
     dependencies:
       expo: 49.0.11(@babel/core@7.22.20)
+    dev: false
+
+  /expo-insights@0.2.0(expo@49.0.11):
+    resolution: {integrity: sha512-1TN1DALyCGXnohoxBO3hW+2T4X6h33StsmRUutw+Dp7Y4oDcrhB8ViDEhUzvVPPDWIRbYLmo6ZqzgvPltZUtJw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.11(@babel/core@7.22.20)
+      expo-eas-client: 0.6.0
     dev: false
 
   /expo-json-utils@0.7.1:
