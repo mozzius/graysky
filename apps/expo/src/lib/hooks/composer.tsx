@@ -11,15 +11,16 @@ import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   AppBskyFeedDefs,
+  AppBskyFeedPost,
   AppBskyRichtextFacet,
   RichText,
   type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
   type AppBskyEmbedRecord,
   type AppBskyEmbedRecordWithMedia,
-  type AppBskyFeedPost,
   type BlobRef,
   type BskyAgent,
+  type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -54,43 +55,40 @@ const replyRefSchema = z.object({
   root: strongRefSchema,
   parent: strongRefSchema,
 });
+const getReplyRef = (post: AppBskyFeedDefs.PostView) => {
+  if (AppBskyFeedPost.isRecord(post.record)) {
+    return post.record.reply;
+  }
+};
 
 export const useComposer = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   return {
     open: () => router.push("/composer"),
-    reply: (reply: {
-      parent: AppBskyFeedDefs.PostView;
-      root: AppBskyFeedDefs.PostView;
-    }) => {
-      queryClient.setQueryData(["context", reply.parent.uri], {
-        post: reply.parent,
+    reply: (post: AppBskyFeedDefs.PostView) => {
+      queryClient.setQueryData(["context", post.uri], {
+        post,
       } satisfies AppBskyFeedDefs.ThreadViewPost);
+
+      const parent = {
+        uri: post.uri,
+        cid: post.cid,
+      } satisfies ComAtprotoRepoStrongRef.Main;
+
+      const root = getReplyRef(post)?.root ?? parent;
+
+      const replyRef = {
+        parent,
+        root,
+      } satisfies AppBskyFeedPost.ReplyRef;
+
       router.push(
-        `/composer?reply=${encodeURIComponent(
-          JSON.stringify({
-            parent: {
-              uri: reply.parent.uri,
-              cid: reply.parent.cid,
-            },
-            root: {
-              uri: reply.root.uri,
-              cid: reply.root.cid,
-            },
-          } satisfies AppBskyFeedPost.ReplyRef),
-        )}`,
+        `/composer?reply=${encodeURIComponent(JSON.stringify(replyRef))}`,
       );
     },
-    quote: (post: AppBskyFeedDefs.PostView) =>
-      router.push(
-        `/composer?quote=${encodeURIComponent(
-          JSON.stringify({
-            uri: post.uri,
-            cid: post.cid,
-          }),
-        )}`,
-      ),
+    quote: (ref: ComAtprotoRepoStrongRef.Main) =>
+      router.push(`/composer?quote=${encodeURIComponent(JSON.stringify(ref))}`),
   };
 };
 
