@@ -23,7 +23,6 @@ import {
   MinusCircleIcon,
   StarIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
@@ -118,7 +117,6 @@ export const DraggableFeedRow = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const haptics = useHaptics();
-  const { colorScheme } = useColorScheme();
 
   const editingValue = useSharedValue(editing ? 1 : 0);
 
