@@ -364,16 +364,7 @@ export const FeedPost = ({
                   replyCount !== 1 ? "ies" : "y"
                 }`}
                 accessibilityRole="button"
-                onPress={() =>
-                  composer.reply({
-                    parent: item.post,
-                    root:
-                      item.reply?.root &&
-                      AppBskyFeedDefs.isPostView(item.reply.root)
-                        ? item.reply.root
-                        : item.post,
-                  })
-                }
+                onPress={() => composer.reply(item.post)}
                 className="flex-row items-center gap-2 tabular-nums"
                 hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
               >

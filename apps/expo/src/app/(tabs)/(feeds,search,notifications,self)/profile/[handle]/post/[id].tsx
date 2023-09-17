@@ -215,7 +215,6 @@ const PostThread = ({ contentFilter }: Props) => {
               <Post
                 post={item.post}
                 hasParent={item.hasParent}
-                root={thread.data.posts[0]!.post}
                 dataUpdatedAt={thread.dataUpdatedAt}
               />
             ) : (
@@ -230,12 +229,7 @@ const PostThread = ({ contentFilter }: Props) => {
           }
         />
         <TouchableNativeFeedback
-          onPress={() =>
-            composer.reply({
-              parent: thread.data.main,
-              root: thread.data.posts[0]!.post,
-            })
-          }
+          onPress={() => composer.reply(thread.data.main)}
         >
           <View
             className="w-full flex-row items-center px-4 py-2"

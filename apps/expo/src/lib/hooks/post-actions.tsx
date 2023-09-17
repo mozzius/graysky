@@ -157,7 +157,10 @@ export const useHandleRepost = (
             toggleRepost();
             break;
           case "Quote":
-            composer.quote(post);
+            composer.quote({
+              uri: post.uri,
+              cid: post.cid,
+            });
             break;
         }
       },

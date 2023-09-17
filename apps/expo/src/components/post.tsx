@@ -21,11 +21,10 @@ import { Translation } from "./translation";
 interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
-  root: AppBskyFeedDefs.PostView;
   dataUpdatedAt: number;
 }
 
-export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
+export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const { liked, likeCount, toggleLike } = useLike(post, dataUpdatedAt);
   const { reposted, repostCount, toggleRepost } = useRepost(
     post,
@@ -128,12 +127,7 @@ export const Post = ({ post, hasParent, root, dataUpdatedAt }: Props) => {
           }`}
           accessibilityRole="button"
           className="flex-row items-center gap-2 p-1"
-          onPress={() =>
-            composer.reply({
-              parent: post,
-              root,
-            })
-          }
+          onPress={() => composer.reply(post)}
         >
           <MessageSquareIcon size={18} color={theme.colors.text} />
           <Text className="tabular-nums">{replyCount}</Text>
