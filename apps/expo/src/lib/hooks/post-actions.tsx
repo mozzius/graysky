@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
+import { QuoteIcon, RepeatIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { useComposer } from "~/lib/hooks/composer";
@@ -123,18 +125,29 @@ export const useHandleRepost = (
   post: AppBskyFeedDefs.PostView,
   reposted: boolean,
   toggleRepost: () => void,
+  anchor?: number,
 ) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
   const { colorScheme } = useColorScheme();
+  const theme = useTheme();
 
   return () => {
     const options = [reposted ? "Undo Repost" : "Repost", "Quote", "Cancel"];
+    const icons = [
+      <RepeatIcon key={0} size={24} color={theme.colors.text} />,
+      <QuoteIcon key={1} size={24} color={theme.colors.text} />,
+      <></>,
+    ];
     showActionSheetWithOptions(
       {
         options,
+        icons,
         cancelButtonIndex: options.length - 1,
         userInterfaceStyle: colorScheme,
+        anchor,
+        textStyle: { color: theme.colors.text },
+        containerStyle: { backgroundColor: theme.colors.card },
       },
       (index) => {
         if (index === undefined) return;

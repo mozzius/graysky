@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import {
   AppBskyEmbedImages,
+  AppBskyEmbedRecordWithMedia,
   AppBskyFeedPost,
   type AppBskyFeedDefs,
 } from "@atproto/api";
@@ -39,6 +40,13 @@ export const PostNotification = ({
       if (!AppBskyFeedPost.isRecord(item.post.record)) return null;
       assert(AppBskyFeedPost.validateRecord(item.post.record));
 
+      const embedImage =
+        item.post.embed && AppBskyEmbedImages.isView(item.post.embed)
+          ? item.post.embed
+          : AppBskyEmbedRecordWithMedia.isView(item.post.embed) &&
+            AppBskyEmbedImages.isView(item.post.embed.media) &&
+            item.post.embed.media;
+
       return (
         <View className="mt-0.5 flex-1">
           {item.post.record.text && (
@@ -50,10 +58,10 @@ export const PostNotification = ({
               />
             </Text>
           )}
-          {item.post.embed && AppBskyEmbedImages.isView(item.post.embed) && (
+          {embedImage && (
             <Embed
               uri={item.post.uri}
-              content={item.post.embed}
+              content={embedImage}
               truncate
               depth={1}
               isNotification

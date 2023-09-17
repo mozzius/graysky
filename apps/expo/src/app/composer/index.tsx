@@ -39,6 +39,7 @@ import {
   PaperclipIcon,
   PlusIcon,
   SendIcon,
+  Trash2Icon,
   UserIcon,
   XIcon,
 } from "lucide-react-native";
@@ -90,7 +91,6 @@ export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
   const { showActionSheetWithOptions } = useActionSheet();
-  const router = useRouter();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -102,6 +102,7 @@ export default function ComposerScreen() {
   });
   const inputRef = useRef<TextInput>(null!);
   const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
+  const anchorRef = useRef<TouchableOpacity>(null);
 
   const reply = useReply();
   const quote = useQuote();
@@ -109,9 +110,7 @@ export default function ComposerScreen() {
 
   const [text, setText] = useState("");
 
-  const { images, imagePicker, addAltText, removeImage } = useImages(() => {
-    router.push("/composer/gifs");
-  });
+  const { images, imagePicker, addAltText, removeImage } = useImages(anchorRef);
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
@@ -155,7 +154,7 @@ export default function ComposerScreen() {
     images,
     reply: reply.ref,
     quote: quote.ref,
-    external: external.query.data?.main,
+    external: external.query.data,
   });
 
   useEffect(() => {
@@ -202,6 +201,8 @@ export default function ComposerScreen() {
                         destructiveButtonIndex: 0,
                         cancelButtonIndex: 1,
                         userInterfaceStyle: theme.dark ? "dark" : "light",
+                        textStyle: { color: theme.colors.text },
+                        containerStyle: { backgroundColor: theme.colors.card },
                       },
                       (index) => resolve(index === 1),
                     );
@@ -347,6 +348,7 @@ export default function ComposerScreen() {
                   className="mt-4 flex-row items-center"
                   hitSlop={8}
                   onPress={() => imagePicker.mutate()}
+                  ref={anchorRef}
                 >
                   <PaperclipIcon
                     size={18}
@@ -659,13 +661,20 @@ const CancelButton = ({
     haptics.impact();
     if (Platform.OS === "android") Keyboard.dismiss();
     const options = ["Discard post", "Cancel"];
+    const icons = [
+      <Trash2Icon key={0} size={24} className="text-red-500" />,
+      <></>,
+    ];
     const selected = await new Promise((resolve) => {
       showActionSheetWithOptions(
         {
           options,
+          icons,
           cancelButtonIndex: options.length - 1,
           destructiveButtonIndex: 0,
           userInterfaceStyle: colorScheme,
+          textStyle: { color: theme.colors.text },
+          containerStyle: { backgroundColor: theme.colors.card },
         },
         (index) => resolve(options[index!]),
       );

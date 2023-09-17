@@ -1,29 +1,37 @@
 import { useCallback, useState } from "react";
-import { Alert, Keyboard, Platform } from "react-native";
+import {
+  Alert,
+  findNodeHandle,
+  Keyboard,
+  Platform,
+  type TouchableOpacity,
+} from "react-native";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   AppBskyFeedDefs,
-  AppBskyFeedPost,
   AppBskyRichtextFacet,
   RichText,
   type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
   type AppBskyEmbedRecord,
   type AppBskyEmbedRecordWithMedia,
+  type AppBskyFeedPost,
   type BlobRef,
   type BskyAgent,
-  type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
+import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
+import RNFetchBlob from "rn-fetch-blob";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
 import { locale } from "../locale";
+import { produce } from "../utils/produce";
 import { useHaptics } from "./preferences";
 
 export const MAX_IMAGES = 4;
@@ -47,40 +55,42 @@ const replyRefSchema = z.object({
   parent: strongRefSchema,
 });
 
-const getReplyRef = (post: AppBskyFeedDefs.PostView) => {
-  if (AppBskyFeedPost.isRecord(post.record)) {
-    return post.record.reply;
-  }
-};
-
 export const useComposer = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   return {
     open: () => router.push("/composer"),
-    reply: (post: AppBskyFeedDefs.PostView) => {
-      queryClient.setQueryData(["context", post.uri], {
-        post,
+    reply: (reply: {
+      parent: AppBskyFeedDefs.PostView;
+      root: AppBskyFeedDefs.PostView;
+    }) => {
+      queryClient.setQueryData(["context", reply.parent.uri], {
+        post: reply.parent,
       } satisfies AppBskyFeedDefs.ThreadViewPost);
-
-      const parent = {
-        uri: post.uri,
-        cid: post.cid,
-      } satisfies ComAtprotoRepoStrongRef.Main;
-
-      const root = getReplyRef(post)?.root ?? parent;
-
-      const replyRef = {
-        parent,
-        root,
-      } satisfies AppBskyFeedPost.ReplyRef;
-
       router.push(
-        `/composer?reply=${encodeURIComponent(JSON.stringify(replyRef))}`,
+        `/composer?reply=${encodeURIComponent(
+          JSON.stringify({
+            parent: {
+              uri: reply.parent.uri,
+              cid: reply.parent.cid,
+            },
+            root: {
+              uri: reply.root.uri,
+              cid: reply.root.cid,
+            },
+          } satisfies AppBskyFeedPost.ReplyRef),
+        )}`,
       );
     },
-    quote: (ref: ComAtprotoRepoStrongRef.Main) =>
-      router.push(`/composer?quote=${encodeURIComponent(JSON.stringify(ref))}`),
+    quote: (post: AppBskyFeedDefs.PostView) =>
+      router.push(
+        `/composer?quote=${encodeURIComponent(
+          JSON.stringify({
+            uri: post.uri,
+            cid: post.cid,
+          }),
+        )}`,
+      ),
   };
 };
 
@@ -144,7 +154,7 @@ export const useSendPost = ({
   images: ImageWithAlt[];
   reply?: AppBskyFeedPost.ReplyRef;
   quote?: AppBskyEmbedRecord.Main;
-  external?: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.Main;
+  external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -169,30 +179,7 @@ export const useSendPost = ({
 
       const uploadedImages = await Promise.all(
         images.map(async (img) => {
-          let uri = img.asset.uri;
-          const size = img.asset.fileSize ?? MAX_SIZE + 1;
-          let targetWidth,
-            targetHeight = MAX_DIMENSION;
-
-          const needsResize =
-            img.asset.width > MAX_DIMENSION || img.asset.height > MAX_DIMENSION;
-
-          if (img.asset.width > img.asset.height) {
-            targetHeight = img.asset.height * (MAX_DIMENSION / img.asset.width);
-          } else {
-            targetWidth = img.asset.width * (MAX_DIMENSION / img.asset.height);
-          }
-
-          // compress if > 1mb
-
-          if (size > MAX_SIZE) {
-            uri = await compress({
-              uri: img.asset.uri,
-              width: targetWidth,
-              height: targetHeight,
-              needsResize,
-            });
-          }
+          const uri = await compressToMaxSize(img);
 
           const uploaded = await agent.uploadBlob(uri, {
             encoding: "image/jpeg",
@@ -240,7 +227,46 @@ export const useSendPost = ({
       } else if (media) {
         mergedEmbed = media;
       } else if (external) {
-        mergedEmbed = external;
+        if (external.type === "record") {
+          mergedEmbed = external.main;
+        } else {
+          const thumbUrl = external.view.external.thumb;
+          let thumb: BlobRef | undefined;
+
+          // upload thumbnail if it exists
+          if (thumbUrl) {
+            const thumbUri = await downloadThumbnail(thumbUrl);
+            let encoding;
+            if (thumbUri.endsWith(".png")) {
+              encoding = "image/png";
+            } else if (
+              thumbUri.endsWith(".jpeg") ||
+              thumbUri.endsWith(".jpg")
+            ) {
+              encoding = "image/jpeg";
+            } else {
+              console.warn(
+                `Unknown thumbnail extension, skipping: ${thumbUri}`,
+              );
+              Sentry.Native.captureMessage(
+                `Unknown thumbnail extension, skipping: ${thumbUri}`,
+                { level: "warning" },
+              );
+            }
+            if (encoding) {
+              const thumbUploadRes = await agent.uploadBlob(thumbUri, {
+                encoding,
+              });
+              if (!thumbUploadRes.success)
+                throw new Error("Failed to upload thumbnail");
+              thumb = thumbUploadRes.data.blob;
+            }
+
+            mergedEmbed = produce(external.main, (draft) => {
+              draft.external.thumb = thumb;
+            });
+          }
+        }
       }
 
       await agent.post({
@@ -261,11 +287,12 @@ export const useSendPost = ({
   });
 };
 
-export const useImages = (seachGIFs: () => void) => {
+export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
   const agent = useAgent();
-  const { colorScheme } = useColorScheme();
+  const theme = useTheme();
+  const router = useRouter();
 
   const imagePicker = useMutation({
     mutationFn: async () => {
@@ -282,11 +309,22 @@ export const useImages = (seachGIFs: () => void) => {
         agent.session?.handle === "mozzius.dev" && images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
+      const icons = [
+        <CameraIcon key={0} size={24} color={theme.colors.text} />,
+        <ImageIcon key={1} size={24} color={theme.colors.text} />,
+        <SearchIcon key={2} size={24} color={theme.colors.text} />,
+        <></>,
+      ];
       showActionSheetWithOptions(
         {
           options,
+          icons,
           cancelButtonIndex: options.length - 1,
-          userInterfaceStyle: colorScheme,
+          anchor:
+            (anchorRef?.current && findNodeHandle(anchorRef.current)) ??
+            undefined,
+          textStyle: { color: theme.colors.text },
+          containerStyle: { backgroundColor: theme.colors.card },
         },
         async (index) => {
           if (index === undefined) return;
@@ -332,7 +370,7 @@ export const useImages = (seachGIFs: () => void) => {
               });
               break;
             case "Search GIFs":
-              seachGIFs();
+              router.push("/composer/gifs");
               break;
           }
         },
@@ -462,6 +500,35 @@ const compress = async ({
   throw new Error("Failed to compress - image may be incompressable");
 };
 
+const compressToMaxSize = async (image: ImageWithAlt) => {
+  let uri = image.asset.uri;
+  const size = image.asset.fileSize ?? MAX_SIZE + 1;
+  let targetWidth,
+    targetHeight = MAX_DIMENSION;
+
+  const needsResize =
+    image.asset.width > MAX_DIMENSION || image.asset.height > MAX_DIMENSION;
+
+  if (image.asset.width > image.asset.height) {
+    targetHeight = image.asset.height * (MAX_DIMENSION / image.asset.width);
+  } else {
+    targetWidth = image.asset.width * (MAX_DIMENSION / image.asset.height);
+  }
+
+  // compress if > 1mb
+
+  if (size > MAX_SIZE) {
+    uri = await compress({
+      uri: image.asset.uri,
+      width: targetWidth,
+      height: targetHeight,
+      needsResize,
+    });
+  }
+
+  return uri;
+};
+
 export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
   const [selectedEmbed, selectEmbed] = useState<string | null>(null);
   const agent = useAgent();
@@ -481,10 +548,19 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
   const embed = useQuery({
     enabled: !!selectedEmbed,
     queryKey: ["embed", selectedEmbed],
-    queryFn: async (): Promise<{
-      view: AppBskyEmbedRecord.View | AppBskyEmbedExternal.View;
-      main: AppBskyEmbedRecord.Main | AppBskyEmbedExternal.Main;
-    } | null> => {
+    queryFn: async (): Promise<
+      | {
+          type: "record";
+          view: AppBskyEmbedRecord.View;
+          main: AppBskyEmbedRecord.Main;
+        }
+      | {
+          type: "external";
+          view: AppBskyEmbedExternal.View;
+          main: AppBskyEmbedExternal.Main;
+        }
+      | null
+    > => {
       if (!selectedEmbed) return null;
 
       // check if it's a url via zod
@@ -520,6 +596,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
             if (AppBskyFeedDefs.isThreadViewPost(thread)) {
               return {
+                type: "record",
                 view: {
                   $type: "app.bsky.embed.record#view",
                   record: {
@@ -553,6 +630,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
             if (!generator.success) return null;
 
             return {
+              type: "record",
               view: {
                 $type: "app.bsky.embed.record#view",
                 record: generator.data.view,
@@ -593,18 +671,10 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
         const { error, title = "", description = "", image } = body;
 
-        let thumb: BlobRef | undefined;
-
-        if (image) {
-          // probably need to download first :/
-          // const uploaded = await agent.uploadBlob(image);
-          // if (!uploaded.success) throw new Error("Failed to upload image");
-          // thumb = uploaded.data.blob;
-        }
-
         if (error) throw new Error(error);
 
         return {
+          type: "external",
           view: {
             $type: "app.bsky.embed.external#view",
             external: {
@@ -623,7 +693,8 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
               uri: url.toString(),
               title,
               description,
-              thumb,
+              // thumb is filled in later
+              thumb: undefined,
               url: selectedEmbed,
             } satisfies AppBskyEmbedExternal.External,
           } satisfies AppBskyEmbedExternal.Main,
@@ -641,4 +712,41 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
     selectExternal: selectEmbed,
     hasExternal: urls.length > 0 || !!selectedEmbed,
   };
+};
+
+const downloadThumbnail = async (url: string) => {
+  let appendExt = "jpeg";
+  try {
+    const urip = new URL(url);
+    const ext = urip.pathname.split(".").pop();
+    if (ext === "png") {
+      appendExt = "png";
+    }
+  } catch (err) {
+    throw new Error(`Invalid url: ${url}`, { cause: err });
+  }
+
+  let downloadRes;
+  try {
+    const downloadResPromise = RNFetchBlob.config({
+      fileCache: true,
+      appendExt,
+    }).fetch("GET", url);
+    downloadRes = await downloadResPromise;
+
+    let localUri = downloadRes.path();
+    if (!localUri.startsWith("file://")) {
+      localUri = `file://${localUri}`;
+    }
+
+    return await compress({
+      uri: localUri,
+      needsResize: true,
+      width: MAX_DIMENSION / 2,
+    });
+  } finally {
+    if (downloadRes) {
+      downloadRes.flush();
+    }
+  }
 };

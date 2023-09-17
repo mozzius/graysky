@@ -1,5 +1,11 @@
 import { useEffect, useId } from "react";
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { type ImageStyle } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
@@ -53,12 +59,13 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
       const image = content.images[0]!;
       return (
         <View
-          className="mt-1.5 overflow-hidden rounded-lg"
+          className="relative mt-1.5 overflow-hidden rounded-lg"
           style={{
             borderWidth: StyleSheet.hairlineWidth,
             borderColor: theme.colors.border,
           }}
         >
+          <Alt alt={image.alt} />
           <Image
             href={href}
             image={image}
@@ -74,9 +81,13 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
         <View className="mt-1.5 flex-row justify-between overflow-hidden rounded-lg">
           {content.images.map((image, i) => (
             <View
-              className={cx("w-1/2", i % 2 === 0 ? "pr-0.5" : "pl-0.5")}
+              className={cx(
+                "relative w-1/2",
+                i % 2 === 0 ? "pr-0.5" : "pl-0.5",
+              )}
               key={image.fullsize}
             >
+              <Alt alt={image.alt} />
               <Image
                 href={href}
                 index={i}
@@ -92,6 +103,7 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
       return (
         <View className="mt-1.5 aspect-[3/2] flex-row justify-between overflow-hidden rounded-lg">
           <View className="pr-0.50 w-1/2">
+            <Alt alt={content.images[0]!.alt} />
             <Image
               href={href}
               image={content.images[0]!}
@@ -103,11 +115,12 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
             {content.images.slice(1).map((image, i) => (
               <View
                 className={cx(
-                  "h-1/2 w-full",
+                  "relative h-1/2 w-full",
                   i % 2 === 0 ? "pb-0.5" : "pt-0.5",
                 )}
                 key={image.fullsize}
               >
+                <Alt alt={image.alt} />
                 <Image
                   href={href}
                   index={i + 1}
@@ -126,12 +139,13 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
           {content.images.map((image, i) => (
             <View
               className={cx(
-                "w-1/2",
+                "relative w-1/2",
                 i > 1 && "mt-1",
                 i % 2 === 0 ? "pr-0.5" : "pl-0.5",
               )}
               key={image.fullsize}
             >
+              <Alt alt={image.alt} />
               <Image
                 href={href}
                 index={i}
@@ -181,5 +195,28 @@ const Image = ({
         />
       </TouchableWithoutFeedback>
     </Link>
+  );
+};
+
+interface AltProps {
+  alt?: string;
+}
+
+export const Alt = ({ alt }: AltProps) => {
+  if (!alt) return null;
+  return (
+    <View className="absolute bottom-1.5 left-1.5 z-10 rounded">
+      <TouchableWithoutFeedback
+        accessibilityLabel="View alt text"
+        className="rounded"
+        onPress={() => {
+          Alert.alert("Alt text", alt);
+        }}
+      >
+        <View className="rounded bg-black/40 px-1 py-px">
+          <Text className="text-xs font-medium text-white">ALT</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };

@@ -144,7 +144,11 @@ export const Embed = ({
 
       return (
         <View className="mt-1.5 flex-1">
-          {media && <Embed uri={uri} content={media} depth={depth} />}
+          {media && (
+            <View className="mb-1.5 flex-1">
+              <Embed uri={uri} content={media} depth={depth} />
+            </View>
+          )}
           <PostEmbed
             author={record.author}
             uri={record.uri}

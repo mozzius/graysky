@@ -8,7 +8,9 @@ import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { type AppBskyEmbedImages } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { CopyIcon, SaveIcon, Share2Icon } from "lucide-react-native";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -104,6 +106,7 @@ export const ImageWithContext = ({
 };
 
 export const useImageOptions = () => {
+  const theme = useTheme();
   const { data: canShare } = useQuery({
     queryKey: ["is-sharing-available"],
     queryFn: () => Sharing.isAvailableAsync(),
@@ -129,6 +132,7 @@ export const useImageOptions = () => {
     {
       key: "copy",
       label: "Copy Image",
+      reactIcon: <CopyIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         try {
           const download = await downloadImage(uri);
@@ -149,6 +153,7 @@ export const useImageOptions = () => {
     {
       key: "save",
       label: "Save Image",
+      reactIcon: <SaveIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         if (!(await MediaLibrary.requestPermissionsAsync()).granted) {
           Alert.alert(
@@ -175,6 +180,7 @@ export const useImageOptions = () => {
     items.push({
       key: "share",
       label: "Share via...",
+      reactIcon: <Share2Icon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         try {
           const res = await downloadImage(uri);

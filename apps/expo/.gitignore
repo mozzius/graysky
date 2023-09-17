@@ -6,3 +6,5 @@ android
 .idea
 
 expo.iml
+
+*.tar.gz
