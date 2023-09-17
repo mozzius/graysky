@@ -160,7 +160,7 @@ export const FeedPost = ({
             }.`}
       </Text>
       <Button
-        title={hidden ? "Hide" : "Show"}
+        title={hidden ? "Show" : "Hide"}
         onPress={() => setHidden((h) => !h)}
       />
     </View>
