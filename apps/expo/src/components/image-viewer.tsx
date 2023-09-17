@@ -121,6 +121,7 @@ export const ImageViewer = ({
             <Text
               className="text-base text-white"
               numberOfLines={infoExpanded ? undefined : 2}
+              selectable
             >
               {images[index]?.alt}
             </Text>

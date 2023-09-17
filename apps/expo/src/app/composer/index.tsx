@@ -154,7 +154,7 @@ export default function ComposerScreen() {
     images,
     reply: reply.ref,
     quote: quote.ref,
-    external: external.query.data?.main,
+    external: external.query.data,
   });
 
   useEffect(() => {

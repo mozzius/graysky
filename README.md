@@ -26,15 +26,15 @@ pnpm build:dev-client
 pnpm build:android:dev-client
 ```
 
-For iOS, unzip the `graysky.zip` file that appears, then install `Graysky.app` to your simulator:
+Install the output onto your simulator
 
 ```bash
-eas build:run --path=Graysky.app
+// ios
+eas build:run --path=Graysky.tar.gz
 ```
 
-For Android, install the APK to your device:
-
 ```bash
+// android
 eas build:run --path=graysky.apk
 ```
 

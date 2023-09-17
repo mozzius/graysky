@@ -124,11 +124,13 @@ export const useProfilePosts = (
     if (!timeline.data) return [];
     const flat = timeline.data.pages.flatMap((page) => page.posts);
     return flat
-      .map((item) => {
+      .map((item, i) => {
         const filter = contentFilter(item.post.labels);
         if (filter?.visibility === "hide") return [];
         switch (mode) {
           case "posts":
+            if (i === 0)
+              console.log("0", JSON.stringify(item.post.record.reply, null, 2));
             return item.reply && !item.reason
               ? []
               : [{ item, hasReply: false, filter }];
