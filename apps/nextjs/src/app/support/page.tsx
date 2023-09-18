@@ -1,4 +1,4 @@
-export default async function SupportPage() {
+export default function SupportPage() {
   return (
     <div className="container mx-auto pt-8">
       <h1 className="text-2xl">Support</h1>
