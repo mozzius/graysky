@@ -21,7 +21,7 @@ import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useSavedFeeds } from "~/lib/hooks";
 import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
 const NoFeeds = () => {
@@ -182,6 +182,8 @@ export default function Page() {
   const openDrawer = useDrawer();
   const [editing, setEditing] = useState(false);
   const theme = useTheme();
+  const haptics = useHaptics();
+
   return (
     <>
       <Stack.Screen
@@ -193,7 +195,12 @@ export default function Page() {
           ),
           headerRight: () => (
             <View className="flex-row items-center">
-              <TouchableOpacity onPress={() => setEditing((e) => !e)}>
+              <TouchableOpacity
+                onPress={() => {
+                  haptics.selection();
+                  setEditing((e) => !e);
+                }}
+              >
                 <Text
                   style={{ color: theme.colors.primary }}
                   className={cx("text-lg", editing && "font-medium")}

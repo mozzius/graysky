@@ -6,6 +6,7 @@ import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAgent } from "~/lib/agent";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";
@@ -147,6 +148,7 @@ const ProfileList = ({
   showAll: () => void;
 }) => {
   const theme = useTheme();
+  const haptics = useHaptics();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
@@ -180,7 +182,10 @@ const ProfileList = ({
         </View>
         {actors.length > 5 && (
           <TouchableOpacity
-            onPress={showAll}
+            onPress={() => {
+              haptics.selection();
+              showAll();
+            }}
             className={cx(
               "h-8 items-center justify-center rounded-full px-4",
               theme.dark ? "bg-white" : "bg-black",

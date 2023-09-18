@@ -33,7 +33,6 @@ import { z } from "zod";
 import { useAgent } from "../agent";
 import { locale } from "../locale";
 import { produce } from "../utils/produce";
-import { useHaptics } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -159,7 +158,6 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const haptics = useHaptics();
 
   return useMutation({
     mutationKey: ["send"],
@@ -286,7 +284,6 @@ export const useSendPost = ({
         langs: [locale.languageCode],
       });
     },
-    onMutate: () => haptics.impact(),
     onSuccess: () => {
       void queryClient.invalidateQueries(["profile"]);
       router.push("../");

@@ -208,6 +208,8 @@ export default function ComposerScreen() {
           headerRight: () => (
             <PostButton
               onPress={async () => {
+                haptics.impact();
+
                 if (images.some((i) => !i.alt)) {
                   const cancel = await new Promise((resolve) => {
                     showActionSheetWithOptions(
