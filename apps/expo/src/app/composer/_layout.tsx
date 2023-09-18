@@ -25,7 +25,7 @@ export default function ComposerLayout() {
             headerLargeTitle: true,
             headerLargeTitleShadowVisible: false,
             headerLargeStyle: {
-              backgroundColor: theme.colors.background,
+              backgroundColor: theme.colors.card,
             },
             presentation: "modal",
             headerRight:

@@ -146,7 +146,8 @@ const ProfileList = ({
   return (
     <View className="flex-1">
       <View className="h-8 flex-row">
-        <View className="h-8 flex-1 flex-row flex-wrap overflow-hidden">
+        {/* (32px + 8px) * 5 = 200px */}
+        <View className="h-8 max-w-[200px] flex-1 flex-row flex-wrap overflow-hidden">
           {actors.slice(0, 5).map((actor, index) => (
             <Link
               href={`/profile/${actor.handle}`}
@@ -183,7 +184,10 @@ const ProfileList = ({
               theme.dark ? "bg-white" : "bg-black",
             )}
           >
-            <Text style={{ color: theme.dark ? "black" : "white" }}>
+            <Text
+              className="font-medium"
+              style={{ color: theme.dark ? "black" : "white" }}
+            >
               +{actors.length - 5}
             </Text>
           </TouchableOpacity>

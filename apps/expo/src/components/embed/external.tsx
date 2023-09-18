@@ -31,6 +31,23 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
     return (
       <Gif
         uri={content.external.uri}
+        link={uri}
+        title={content.external.title}
+        thumb={content.external.thumb}
+        transparent={transparent}
+        depth={depth}
+      />
+    );
+  } else if (
+    uri.hostname === "graysky.app" &&
+    uri.pathname.startsWith("/gif/")
+  ) {
+    const decoded = decodeURIComponent(uri.pathname.slice("/gif/".length));
+    const tenorUrl = `https://media.tenor.com/${decoded}`;
+    return (
+      <Gif
+        uri={tenorUrl}
+        link={uri}
         title={content.external.title}
         thumb={content.external.thumb}
         transparent={transparent}
@@ -114,26 +131,29 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
 
 interface GifProps {
   uri: string;
+  link: URL;
   title: string;
   thumb?: string;
   transparent: boolean;
   depth: number;
 }
 
-const Gif = ({ uri, title, thumb, transparent, depth }: GifProps) => {
+const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
   const theme = useTheme();
   const [aspectRatio, setAspectRatio] = useState(1);
+
+  const shareUrl = link.toString();
 
   return (
     <TouchableHighlight
       accessibilityRole="link"
       className="mt-1.5 flex-1 rounded-lg"
-      onPress={() => Linking.openURL(uri)}
+      onPress={() => Linking.openURL(shareUrl)}
       onLongPress={() =>
         Share.share(
           Platform.select({
-            ios: { url: uri },
-            default: { message: uri },
+            ios: { url: shareUrl },
+            default: { message: shareUrl },
           }),
         )
       }

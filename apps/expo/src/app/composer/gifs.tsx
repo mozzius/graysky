@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   Linking,
+  Platform,
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
@@ -85,7 +86,11 @@ export default function GifSearch() {
           >
             {trendingTerms.data.results.slice(0, 6).map((term) => (
               <TouchableOpacity
-                onPress={() => setQuery(term)}
+                onPress={() => {
+                  setQuery(term);
+                  ref.current?.setText(term);
+                  ref.current?.blur();
+                }}
                 key={term}
                 className="w-full flex-1 border-b px-2 py-3"
                 style={{ borderColor: theme.colors.border }}
@@ -134,7 +139,10 @@ export default function GifSearch() {
               <View className="h-20" />
             )
           }
-          contentContainerStyle={{ paddingHorizontal: 16 }}
+          contentContainerStyle={{
+            paddingHorizontal: 16,
+            paddingTop: Platform.select({ ios: 0, default: 16 }),
+          }}
           optimizeItemArrangement
           renderItem={({ item, columnIndex }) => (
             <Gif item={item} column={columnIndex} />

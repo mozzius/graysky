@@ -76,12 +76,18 @@ export const gifsRouter = createTRPCRouter({
       const title = input.description ?? "Tenor GIF";
       const description = "Posted via Graysky";
 
+      const assetPath = new URL(input.assetUrl).pathname;
+
+      const uri = `https://graysky.app/gif/${assetPath}?title=${encodeURIComponent(
+        title,
+      )}`;
+
       return {
         view: {
           $type: "app.bsky.embed.external#view",
           external: {
             $type: "app.bsky.embed.external#viewExternal",
-            uri: input.assetUrl,
+            uri,
             title,
             description,
           },
@@ -90,7 +96,7 @@ export const gifsRouter = createTRPCRouter({
           $type: "app.bsky.embed.external",
           external: {
             $type: "app.bsky.embed.external#external",
-            uri: input.assetUrl,
+            uri,
             title,
             description,
             thumb: blobRef?.blob,
