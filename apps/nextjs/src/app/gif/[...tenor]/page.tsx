@@ -28,12 +28,12 @@ export default function GifScreen({
           playsInline
           className="max-h-[80vh] rounded bg-neutral-800"
         />
-        <div className="flex w-full max-w-xl flex-col rounded bg-neutral-800 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex w-full max-w-xl flex-row items-center justify-between rounded bg-neutral-800 px-4 py-2">
           <h1 className="text-lg">{title}</h1>
           <Image
             src={poweredByTenor as StaticImport}
             alt="Powered by Tenor"
-            height={16}
+            height={32}
             className="mt-2 sm:mt-0"
           />
         </div>

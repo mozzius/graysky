@@ -164,7 +164,7 @@ export default function ComposerScreen() {
   const suggestions = suggestionsQuery.data ?? [];
 
   const tooLong = (rt.graphemeLength ?? 0) > MAX_LENGTH;
-  const isEmpty = text.trim().length === 0 && images.length === 0;
+  const isEmpty = text.trim().length === 0 && images.length === 0 && !gif;
 
   const send = useSendPost({
     text,
