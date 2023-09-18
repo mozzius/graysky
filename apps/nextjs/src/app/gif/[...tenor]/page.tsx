@@ -25,6 +25,7 @@ export default function GifScreen({
           autoPlay
           loop
           muted
+          playsInline
           className="max-h-[80vh] rounded bg-neutral-800"
         />
         <div className="flex w-full max-w-xl flex-col rounded bg-neutral-800 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
