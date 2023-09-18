@@ -148,7 +148,6 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
     <TouchableHighlight
       accessibilityRole="link"
       className="mt-1.5 flex-1 rounded-lg"
-      onPress={() => Linking.openURL(shareUrl)}
       onLongPress={() =>
         Share.share(
           Platform.select({
