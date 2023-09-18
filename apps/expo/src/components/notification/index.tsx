@@ -1,11 +1,12 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
-import { StyledComponent } from "nativewind";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAgent } from "~/lib/agent";
+import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";
 import { Text } from "../text";
@@ -31,16 +32,19 @@ export const Notification = ({
     href = `/profile/${did}/post/${id}`;
   }
 
+  const Container = ({ children }: React.PropsWithChildren) =>
+    href ? (
+      <Link href={href} asChild>
+        <TouchableHighlight className="flex-1">{children}</TouchableHighlight>
+      </Link>
+    ) : (
+      <View className="flex-1">{children}</View>
+    );
+
   switch (reason) {
     case "like":
       return (
-        <TouchableOpacity
-          onPress={() =>
-            actors.length === 1 && href
-              ? router.push(href)
-              : subject && openLikes(subject, actors.length)
-          }
-        >
+        <Container>
           <NotificationItem
             unread={!isRead}
             left={<HeartIcon size={24} fill="#dc2626" color="#dc2626" />}
@@ -49,6 +53,7 @@ export const Notification = ({
               actors={actors}
               action="liked your post"
               indexedAt={indexedAt}
+              showAll={() => subject && openLikes(subject, actors.length)}
             />
             {subject && item && href && (
               <Link href={href} asChild>
@@ -63,17 +68,11 @@ export const Notification = ({
               </Link>
             )}
           </NotificationItem>
-        </TouchableOpacity>
+        </Container>
       );
     case "repost":
       return (
-        <TouchableOpacity
-          onPress={() =>
-            actors.length === 1 && href
-              ? router.push(href)
-              : subject && openReposts(subject, actors.length)
-          }
-        >
+        <Container>
           <NotificationItem
             unread={!isRead}
             left={<RepeatIcon size={24} color="#2563eb" />}
@@ -82,6 +81,7 @@ export const Notification = ({
               actors={actors}
               action="reposted your post"
               indexedAt={indexedAt}
+              showAll={() => subject && openReposts(subject, actors.length)}
             />
             {subject && item && href && (
               <Link href={href} asChild>
@@ -96,11 +96,11 @@ export const Notification = ({
               </Link>
             )}
           </NotificationItem>
-        </TouchableOpacity>
+        </Container>
       );
     case "follow":
       return (
-        <TouchableOpacity
+        <TouchableHighlight
           onPress={() =>
             actors.length === 1
               ? router.push(`/profile/${actors[0]!.handle}`)
@@ -115,9 +115,10 @@ export const Notification = ({
               actors={actors}
               action="started following you"
               indexedAt={indexedAt}
+              showAll={() => openFollowers(agent.session!.did, actors.length)}
             />
           </NotificationItem>
-        </TouchableOpacity>
+        </TouchableHighlight>
       );
     case "reply":
     case "quote":
@@ -140,39 +141,56 @@ const ProfileList = ({
   actors,
   action,
   indexedAt,
-}: Pick<NotificationGroup, "actors" | "indexedAt"> & { action: string }) => {
+  showAll,
+}: Pick<NotificationGroup, "actors" | "indexedAt"> & {
+  action: string;
+  showAll: () => void;
+}) => {
+  const theme = useTheme();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
-    <View>
-      <View className="h-8 flex-row flex-wrap overflow-hidden">
-        {actors.map((actor, index) => (
-          <Link
-            href={`/profile/${actor.handle}`}
-            asChild
-            key={actor.did}
-            accessibilityHint="Opens profile"
-          >
-            <StyledComponent
-              component={TouchableOpacity}
-              className="mr-2 rounded-full"
+    <View className="flex-1">
+      <View className="h-8 flex-row justify-between">
+        <View className="h-8 flex-1 flex-row flex-wrap overflow-hidden">
+          {actors.map((actor, index) => (
+            <Link
+              href={`/profile/${actor.handle}`}
+              asChild
+              key={actor.did}
+              accessibilityHint="Opens profile"
             >
-              <Image
-                recyclingKey={actor.did}
-                className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
-                source={{ uri: actor.avatar }}
-                alt={
-                  // TODO: find a better way to handle this
-                  action === "started following you"
-                    ? `${index === 0 ? "New follower: " : ""}${
-                        actor.displayName
-                      } @${actor.handle}`
-                    : ""
-                }
-              />
-            </StyledComponent>
-          </Link>
-        ))}
+              <TouchableOpacity className="mr-2 rounded-full">
+                <Image
+                  recyclingKey={actor.did}
+                  className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
+                  source={{ uri: actor.avatar }}
+                  alt={
+                    // TODO: find a better way to handle this
+                    action === "started following you"
+                      ? `${index === 0 ? "New follower: " : ""}${
+                          actor.displayName
+                        } @${actor.handle}`
+                      : ""
+                  }
+                />
+              </TouchableOpacity>
+            </Link>
+          ))}
+        </View>
+        {actors.length > 5 && (
+          <TouchableOpacity
+            onPress={showAll}
+            className={cx(
+              "h-8 items-center justify-center rounded-full px-4",
+              theme.dark ? "bg-white" : "bg-black",
+            )}
+          >
+            <Text style={{ color: theme.dark ? "white" : "black" }}>
+              +{actors.length - 5}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
       <Text className="mt-2 text-base">
         <Text className="text-base font-medium">

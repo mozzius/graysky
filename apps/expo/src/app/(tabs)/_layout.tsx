@@ -15,6 +15,7 @@ import {
 import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
 import { StatusBar } from "~/components/status-bar";
 import { useOptionalAgent } from "~/lib/agent";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function AppLayout() {
   // agent might not be available yet
@@ -25,11 +26,16 @@ export default function AppLayout() {
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
       if (!agent?.hasSession) return null;
-      return await agent.countUnreadNotifications();
+      const unreadCount = await agent.countUnreadNotifications();
+      if (!unreadCount.success)
+        throw new Error("Failed to fetch notifications");
+      return unreadCount.data;
     },
     // refetch every 15 seconds
     refetchInterval: 1000 * 15,
   });
+
+  useRefreshOnFocus(notifications.refetch);
 
   const renderDrawerContent = useCallback(() => <DrawerContent />, []);
 
@@ -118,11 +124,9 @@ export default function AppLayout() {
             options={{
               title: "Notifications",
               tabBarAccessibilityLabel: `Notifications${
-                notifications.data?.data?.count || undefined
-                  ? ", new items"
-                  : ""
+                notifications.data?.count || undefined ? ", new items" : ""
               }`,
-              tabBarBadge: notifications.data?.data?.count || undefined,
+              tabBarBadge: notifications.data?.count || undefined,
               tabBarBadgeStyle: {
                 fontSize: 12,
                 backgroundColor: theme.colors.primary,

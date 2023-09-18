@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, useFocusEffect } from "expo-router";
 import {
   type AppBskyFeedDefs,
   type AppBskyNotificationListNotifications,
@@ -139,17 +139,18 @@ export default function NotificationsPage() {
 
   const hasData = !!notifications.data;
 
-  useEffect(() => {
-    if (!hasData) return;
-    const timeout = setTimeout(() => {
-      void agent.updateSeenNotifications().then(() =>
-        queryClient.invalidateQueries({
-          queryKey: ["notifications", "unread"],
-        }),
-      );
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, [queryClient, agent, hasData, notifications.dataUpdatedAt]);
+  useFocusEffect(
+    useCallback(() => {
+      if (!hasData) return;
+      return () =>
+        agent.updateSeenNotifications().then(() => {
+          queryClient.setQueryData(["notifications", "unread"], { count: 0 });
+          void queryClient.invalidateQueries({
+            queryKey: ["notifications", "unread"],
+          });
+        });
+    }, [agent, hasData, queryClient]),
+  );
 
   useRefreshOnFocus(notifications.refetch);
 
@@ -159,11 +160,12 @@ export default function NotificationsPage() {
         notifications
           .refetch()
           .then(() => agent.updateSeenNotifications())
-          .then(() =>
-            queryClient.invalidateQueries({
+          .then(() => {
+            queryClient.setQueryData(["notifications", "unread"], { count: 0 });
+            return queryClient.invalidateQueries({
               queryKey: ["notifications", "unread"],
-            }),
-          ),
+            });
+          }),
       [queryClient, agent, notifications],
     ),
   );
@@ -174,7 +176,14 @@ export default function NotificationsPage() {
       haptics.impact();
       await notifications.refetch();
       setNonScrollRefreshing(false);
-    }, [notifications, haptics]),
+      if (hasData) {
+        queryClient.setQueryData(["notifications", "unread"], { count: 0 });
+        await agent.updateSeenNotifications();
+        await queryClient.invalidateQueries({
+          queryKey: ["notifications", "unread"],
+        });
+      }
+    }, [notifications, haptics, queryClient, hasData, agent]),
     { largeHeader: true },
   );
 
