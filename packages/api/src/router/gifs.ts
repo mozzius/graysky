@@ -35,46 +35,11 @@ async function fetchTenor<
 }
 
 export const gifsRouter = createTRPCRouter({
-  get: publicProcedure
-    .input(z.string())
-    .query(async ({ input, ctx: { db } }) => {
-      const gif = await db.gif.findUnique({
-        where: { url: input },
-      });
-      // TODO: fetch from tenor if not found
-      return gif;
-    }),
-  save: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        url: z.string(),
-        asset: z.string(),
-        width: z.number(),
-        height: z.number(),
-      }),
-    )
-    .mutation(async ({ input, ctx: { db } }) => {
-      // save asset url to db
-      await db.gif.upsert({
-        where: { url: input.url },
-        create: {
-          url: input.url,
-          asset: input.asset,
-          width: input.width,
-          height: input.height,
-        },
-        update: {
-          asset: input.asset,
-          width: input.width,
-          height: input.height,
-        },
-      });
-
-      await fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
-        id: input.id,
-      });
-    }),
+  select: publicProcedure.input(z.string()).mutation(async ({ input }) => {
+    await fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
+      id: input,
+    });
+  }),
   tenor: createTRPCRouter({
     search: publicProcedure
       .input(

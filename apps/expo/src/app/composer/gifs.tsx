@@ -106,9 +106,12 @@ const Gif = ({ item, column }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
 
-  const save = api.gifs.save.useMutation({
+  const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
-    onSuccess: () => router.push(`../?gif=${item.url}`),
+    onSuccess: () => {
+      router.push("../");
+      router.setParams({ gif: JSON.stringify(item) });
+    },
   });
 
   const aspectRatio =
@@ -118,15 +121,7 @@ const Gif = ({ item, column }: GifProps) => {
     <View className={cx("mb-2 flex-1", column === 0 ? "pr-1" : "pl-1")}>
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
-        onPress={() =>
-          save.mutate({
-            id: item.id,
-            url: item.url,
-            asset: item.media_formats.mp4.url,
-            width: item.media_formats.mp4.dims[0]!,
-            height: item.media_formats.mp4.dims[1]!,
-          })
-        }
+        onPress={() => select.mutate(item.id)}
         onLongPress={() => Linking.openURL(item.url)}
         style={{ aspectRatio }}
       >

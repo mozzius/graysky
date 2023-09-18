@@ -30,6 +30,8 @@ import RNFetchBlob from "rn-fetch-blob";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
+import { type TenorResponse } from "@graysky/api/src/router/gifs";
+
 import { useAgent } from "../agent";
 import { locale } from "../locale";
 import { produce } from "../utils/produce";
@@ -147,12 +149,14 @@ export const useSendPost = ({
   reply,
   quote,
   external,
+  gif,
 }: {
   text: string;
   images: ImageWithAlt[];
   reply?: AppBskyFeedPost.ReplyRef;
   quote?: AppBskyEmbedRecord.Main;
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
+  gif?: TenorResponse;
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -211,6 +215,12 @@ export const useSendPost = ({
       // 2. quote
       // 3. media
       // 4. external
+
+      let gifEmbed: AppBskyEmbedExternal.Main | undefined;
+
+      if (gif) {
+        // upload gif
+      }
 
       if (quote) {
         if (media) {

@@ -24,7 +24,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { Link, Stack, useNavigation, useRouter } from "expo-router";
+import {
+  Link,
+  Stack,
+  useLocalSearchParams,
+  useNavigation,
+  useRouter,
+} from "expo-router";
 import {
   RichText as RichTextHelper,
   type AppBskyActorDefs,
@@ -44,6 +50,8 @@ import {
   XIcon,
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
+
+import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -95,6 +103,12 @@ export default function ComposerScreen() {
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
+
+  const searchParams = useLocalSearchParams<{ gif: string }>();
+
+  const gif = searchParams.gif
+    ? (JSON.parse(searchParams.gif) as TenorResponse)
+    : undefined;
 
   const selectionRef = useRef<Selection>({
     start: 0,
@@ -155,6 +169,7 @@ export default function ComposerScreen() {
     reply: reply.ref,
     quote: quote.ref,
     external: external.query.data,
+    gif,
   });
 
   useEffect(() => {

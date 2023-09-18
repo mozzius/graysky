@@ -111,7 +111,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
           />
         )}
         onEndReachedThreshold={0.6}
-        onEndReached={() => void timeline.fetchNextPage()}
+        onEndReached={() => timeline.fetchNextPage()}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

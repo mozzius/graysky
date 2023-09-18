@@ -60,17 +60,3 @@ model PostTranslation {
 
   @@index([postUri])
 }
-
-model Gif {
-  id  String @id @default(cuid())
-  url String @unique
-
-  asset  String
-  width  Int
-  height Int
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([url])
-}
