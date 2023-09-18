@@ -1,19 +1,26 @@
 import { useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Linking,
+  ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
 import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { MasonryFlashList } from "@shopify/flash-list";
+import Sentry from "sentry-expo";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
 import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
+import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
@@ -22,38 +29,92 @@ import { cx } from "~/lib/utils/cx";
 
 export default function GifSearch() {
   const ref = useRef<SearchBarCommands>(null);
-  const [_search, setSearch] = useState("");
-  const [_focused, setFocused] = useState(false);
+  const [query, setQuery] = useState("");
+  const [focused, setFocused] = useState(false);
   const { width } = useSafeAreaFrame();
+  const theme = useTheme();
 
   const headerSearchBarOptions = useSearchBarOptions({
     ref,
     onFocus: () => setFocused(true),
     onBlur: () => setFocused(false),
-    onChangeText: (evt) => setSearch(evt.nativeEvent.text),
+    onChangeText: (evt) => setQuery(evt.nativeEvent.text),
     onCancelButtonPress: () => {
-      setSearch("");
+      setQuery("");
       ref.current?.blur();
     },
     placeholder: "Search Tenor",
     hideWhenScrolling: false,
   });
 
+  const langTag = locale.languageTag.includes("-")
+    ? locale.languageTag.replace("-", "_")
+    : undefined;
+
   const featured = api.gifs.tenor.featured.useInfiniteQuery(
-    {
-      locale: locale.languageTag.includes("-")
-        ? locale.languageTag.replace("-", "_")
-        : undefined,
-    },
+    { locale: langTag },
     { getNextPageParam: (lastPage) => lastPage.next },
   );
 
-  if (featured.data) {
+  const isSearching = query.length > 0;
+
+  const search = api.gifs.tenor.search.useInfiniteQuery(
+    {
+      query: query.trim(),
+      locale: langTag,
+    },
+    {
+      enabled: isSearching,
+      keepPreviousData: true,
+      getNextPageParam: (lastPage) => lastPage.next,
+    },
+  );
+
+  const trendingTerms = api.gifs.tenor.trendingTerms.useQuery({
+    locale: langTag,
+  });
+
+  if (focused && !isSearching) {
+    if (trendingTerms.data) {
+      return (
+        <>
+          <Stack.Screen options={{ headerSearchBarOptions }} />
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            className="px-4"
+          >
+            <Text className="py-2 text-xs">Trending terms</Text>
+            {trendingTerms.data.results.map((term) => (
+              <TouchableOpacity
+                onPress={() => setQuery(term)}
+                key={term}
+                className="w-full flex-1 border-b py-2"
+                style={{ borderColor: theme.colors.border }}
+              >
+                <Text>{term}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Stack.Screen options={{ headerSearchBarOptions }} />
+        <QueryWithoutData query={trendingTerms} />
+      </>
+    );
+  }
+
+  const gifQuery = isSearching ? search : featured;
+
+  if (gifQuery.data) {
     return (
       <>
         <Stack.Screen options={{ headerSearchBarOptions }} />
         <MasonryFlashList
-          data={featured.data.pages.flatMap((page) => page.results)}
+          data={gifQuery.data.pages.flatMap((page) => page.results)}
           contentInsetAdjustmentBehavior="automatic"
           numColumns={2}
           overrideItemLayout={(layout, item) => {
@@ -92,7 +153,7 @@ export default function GifSearch() {
           headerSearchBarOptions,
         }}
       />
-      <QueryWithoutData query={featured} />
+      <QueryWithoutData query={gifQuery} />
     </>
   );
 }
@@ -105,12 +166,17 @@ interface GifProps {
 const Gif = ({ item, column }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
+  const agent = useAgent();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
-    onSuccess: () => {
+    onSuccess: (result) => {
       router.push("../");
-      router.setParams({ gif: JSON.stringify(item) });
+      router.setParams({ gif: JSON.stringify(result) });
+    },
+    onError: (err) => {
+      Sentry.Native.captureException(err);
+      Alert.alert("Could not select GIF", "Please try again later");
     },
   });
 
@@ -121,7 +187,18 @@ const Gif = ({ item, column }: GifProps) => {
     <View className={cx("mb-2 flex-1", column === 0 ? "pr-1" : "pl-1")}>
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
-        onPress={() => select.mutate(item.id)}
+        onPress={() => {
+          if (!agent.session)
+            throw new Error("No session when trying to select a gif");
+          select.mutate({
+            id: item.id,
+            assetUrl: item.media_formats.mp4.url,
+            previewUrl: item.media_formats.preview.url,
+            title: item.title,
+            description: item.content_description,
+            token: agent.session.accessJwt,
+          });
+        }}
         onLongPress={() => Linking.openURL(item.url)}
         style={{ aspectRatio }}
       >

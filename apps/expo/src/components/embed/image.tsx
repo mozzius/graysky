@@ -213,7 +213,7 @@ export const Alt = ({ alt }: AltProps) => {
           Alert.alert("Alt text", alt);
         }}
       >
-        <View className="rounded bg-black/40 px-1 py-px">
+        <View className="rounded bg-black/60 px-1 py-px">
           <Text className="text-xs font-medium text-white">ALT</Text>
         </View>
       </TouchableWithoutFeedback>

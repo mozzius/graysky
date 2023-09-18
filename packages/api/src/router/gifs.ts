@@ -1,3 +1,5 @@
+import { type AppBskyEmbedExternal, type BlobRef } from "@atproto/api";
+import sharp from "sharp";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -35,11 +37,68 @@ async function fetchTenor<
 }
 
 export const gifsRouter = createTRPCRouter({
-  select: publicProcedure.input(z.string()).mutation(async ({ input }) => {
-    await fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
-      id: input,
-    });
-  }),
+  select: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        assetUrl: z.string(),
+        previewUrl: z.string(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        token: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      void fetchTenor<TenorRegisterShareAPIResponse>("/registershare", {
+        id: input.id,
+      });
+
+      // fetch preview image, which is a one frame gif, convert to to jpeg, and send to bsky.social
+
+      const res = await fetch(input.previewUrl);
+      const buffer = await res.arrayBuffer();
+
+      const image = await sharp(buffer).toFormat("jpeg").toBuffer();
+
+      const uploadRes = await fetch(
+        "https://bsky.social/xrpc/com.atproto.repo.uploadBlob",
+        {
+          method: "POST",
+          body: image,
+          headers: {
+            "Content-Type": "image/jpeg",
+            Authorization: `Bearer ${input.token}`,
+          },
+        },
+      );
+
+      const blobRef = (await uploadRes.json()) as BlobRef;
+
+      const title = "";
+      const description = "";
+
+      return {
+        view: {
+          $type: "app.bsky.embed.external#view",
+          external: {
+            $type: "app.bsky.embed.external#viewExternal",
+            uri: input.assetUrl,
+            title,
+            description,
+          },
+        } satisfies AppBskyEmbedExternal.View,
+        main: {
+          $type: "app.bsky.embed.external#view",
+          external: {
+            $type: "app.bsky.embed.external#external",
+            uri: input.assetUrl,
+            title,
+            description,
+            thumb: blobRef,
+          },
+        } satisfies AppBskyEmbedExternal.Main,
+      };
+    }),
   tenor: createTRPCRouter({
     search: publicProcedure
       .input(
@@ -56,7 +115,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "mp4",
+          mediafilter: "nanomp4,tinymp4,mp4,preview",
         });
       }),
     featured: publicProcedure
@@ -72,7 +131,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "nanomp4,tinymp4,mp4",
+          mediafilter: "nanomp4,tinymp4,mp4,preview",
         });
       }),
     categories: publicProcedure

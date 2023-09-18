@@ -30,8 +30,6 @@ import RNFetchBlob from "rn-fetch-blob";
 import Sentry from "sentry-expo";
 import { z } from "zod";
 
-import { type TenorResponse } from "@graysky/api/src/router/gifs";
-
 import { useAgent } from "../agent";
 import { locale } from "../locale";
 import { produce } from "../utils/produce";
@@ -156,7 +154,7 @@ export const useSendPost = ({
   reply?: AppBskyFeedPost.ReplyRef;
   quote?: AppBskyEmbedRecord.Main;
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
-  gif?: TenorResponse;
+  gif?: AppBskyEmbedExternal.Main;
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -216,14 +214,14 @@ export const useSendPost = ({
       // 3. media
       // 4. external
 
-      let gifEmbed: AppBskyEmbedExternal.Main | undefined;
-
-      if (gif) {
-        // upload gif
-      }
-
       if (quote) {
-        if (media) {
+        if (gif) {
+          mergedEmbed = {
+            $type: "app.bsky.embed.recordWithMedia",
+            record: quote,
+            media: gif,
+          } satisfies AppBskyEmbedRecordWithMedia.Main;
+        } else if (media) {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
@@ -232,6 +230,8 @@ export const useSendPost = ({
         } else {
           mergedEmbed = quote;
         }
+      } else if (gif) {
+        mergedEmbed = gif;
       } else if (media) {
         mergedEmbed = media;
       } else if (external) {
@@ -301,6 +301,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
   const agent = useAgent();
   const theme = useTheme();
   const router = useRouter();
+  const searchParams = useLocalSearchParams();
 
   const imagePicker = useMutation({
     mutationFn: async () => {
@@ -350,6 +351,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
                 quality: 0.7,
               }).then((result) => {
                 if (!result.canceled) {
+                  router.setParams({ ...searchParams, gif: "" });
                   setImages((prev) => [
                     ...prev,
                     ...result.assets.map((a) => ({ asset: a, alt: "" })),
@@ -370,6 +372,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
                 orderedSelection: true,
               }).then((result) => {
                 if (!result.canceled) {
+                  router.setParams({ ...searchParams, gif: "" });
                   setImages((prev) => [
                     ...prev,
                     ...result.assets.map((a) => ({ asset: a, alt: "" })),

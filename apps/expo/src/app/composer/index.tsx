@@ -34,6 +34,7 @@ import {
 import {
   RichText as RichTextHelper,
   type AppBskyActorDefs,
+  type AppBskyEmbedExternal,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
@@ -50,8 +51,6 @@ import {
   XIcon,
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-
-import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -98,6 +97,7 @@ function useKeyboardMaxHeight() {
 export default function ComposerScreen() {
   const theme = useTheme();
   const agent = useAgent();
+  const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
 
   const navigation = useNavigation();
@@ -107,8 +107,11 @@ export default function ComposerScreen() {
   const searchParams = useLocalSearchParams<{ gif: string }>();
 
   const gif = searchParams.gif
-    ? (JSON.parse(searchParams.gif) as TenorResponse)
-    : undefined;
+    ? (JSON.parse(searchParams.gif) as {
+        view: AppBskyEmbedExternal.View;
+        main: AppBskyEmbedExternal.Main;
+      })
+    : null;
 
   const selectionRef = useRef<Selection>({
     start: 0,
@@ -169,7 +172,7 @@ export default function ComposerScreen() {
     reply: reply.ref,
     quote: quote.ref,
     external: external.query.data,
-    gif,
+    gif: gif?.main,
   });
 
   useEffect(() => {
@@ -404,7 +407,7 @@ export default function ComposerScreen() {
           </Animated.View>
           <Animated.View />
           {/* IMAGES */}
-          {images.length > 0 && (
+          {!gif && images.length > 0 && (
             <Animated.ScrollView
               horizontal
               className="mt-4 w-full flex-1 pb-2 pl-16"
@@ -504,6 +507,28 @@ export default function ComposerScreen() {
             layout={Layout}
             className="w-full flex-1 flex-row pl-16 pr-2"
           >
+            {/* GIF */}
+            {gif && (
+              <Animated.View
+                className="relative mb-2 flex-1"
+                layout={Layout}
+                entering={FadeInDown}
+              >
+                <TouchableOpacity
+                  onPress={() => router.setParams({ ...searchParams, gif: "" })}
+                  className="absolute right-2 top-4 z-10 rounded-full"
+                >
+                  <View className="rounded-full bg-black/90 p-1">
+                    <XIcon size={14} color="white" />
+                  </View>
+                </TouchableOpacity>
+                <Embed
+                  uri={gif.view.external.uri}
+                  transparent
+                  content={gif.view}
+                />
+              </Animated.View>
+            )}
             {/* EMBED/QUOTE */}
             {(!!quote.thread.data || hasExternal) && (
               <Animated.View
@@ -530,6 +555,7 @@ export default function ComposerScreen() {
                   </View>
                 ) : (
                   images.length === 0 &&
+                  !gif &&
                   (external.url ? (
                     <View className="relative flex-1">
                       <TouchableOpacity

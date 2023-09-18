@@ -418,6 +418,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@atproto/api':
+        specifier: ^0.6.14
+        version: 0.6.14
       '@graysky/db':
         specifier: 0.1.0
         version: link:../db
