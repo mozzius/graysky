@@ -77,14 +77,13 @@ export default function GifSearch() {
   if (focused && !isSearching) {
     if (trendingTerms.data) {
       return (
-        <>
+        <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
           <Stack.Screen options={{ headerSearchBarOptions }} />
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             className="px-4"
           >
-            <Text className="my-4 text-xs">Trending terms</Text>
-            {trendingTerms.data.results.map((term) => (
+            {trendingTerms.data.results.slice(0, 6).map((term) => (
               <TouchableOpacity
                 onPress={() => setQuery(term)}
                 key={term}
@@ -95,15 +94,15 @@ export default function GifSearch() {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </>
+        </View>
       );
     }
 
     return (
-      <>
+      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
         <Stack.Screen options={{ headerSearchBarOptions }} />
         <QueryWithoutData query={trendingTerms} />
-      </>
+      </View>
     );
   }
 
@@ -111,7 +110,7 @@ export default function GifSearch() {
 
   if (gifQuery.data) {
     return (
-      <>
+      <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
         <Stack.Screen options={{ headerSearchBarOptions }} />
         <MasonryFlashList
           data={gifQuery.data.pages.flatMap((page) => page.results)}
@@ -142,19 +141,19 @@ export default function GifSearch() {
           )}
           drawDistance={0}
         />
-      </>
+      </View>
     );
   }
 
   return (
-    <>
+    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
       <Stack.Screen
         options={{
           headerSearchBarOptions,
         }}
       />
       <QueryWithoutData query={gifQuery} />
-    </>
+    </View>
   );
 }
 

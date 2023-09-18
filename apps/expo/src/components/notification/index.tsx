@@ -56,17 +56,13 @@ export const Notification = ({
               indexedAt={indexedAt}
               showAll={() => subject && openLikes(subject, actors.length)}
             />
-            {subject && item && href && (
-              <Link href={href} asChild>
-                <TouchableOpacity className="flex-1">
-                  <PostNotification
-                    item={item}
-                    unread={!isRead}
-                    inline
-                    dataUpdatedAt={dataUpdatedAt}
-                  />
-                </TouchableOpacity>
-              </Link>
+            {item && (
+              <PostNotification
+                item={item}
+                unread={!isRead}
+                inline
+                dataUpdatedAt={dataUpdatedAt}
+              />
             )}
           </NotificationItem>
         </Container>
@@ -84,17 +80,13 @@ export const Notification = ({
               indexedAt={indexedAt}
               showAll={() => subject && openReposts(subject, actors.length)}
             />
-            {subject && item && href && (
-              <Link href={href} asChild>
-                <TouchableOpacity className="flex-1">
-                  <PostNotification
-                    item={item}
-                    unread={!isRead}
-                    inline
-                    dataUpdatedAt={dataUpdatedAt}
-                  />
-                </TouchableOpacity>
-              </Link>
+            {item && (
+              <PostNotification
+                item={item}
+                unread={!isRead}
+                inline
+                dataUpdatedAt={dataUpdatedAt}
+              />
             )}
           </NotificationItem>
         </Container>
@@ -153,9 +145,9 @@ const ProfileList = ({
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
     <View className="flex-1">
-      <View className="h-8 flex-row justify-between">
+      <View className="h-8 flex-row">
         <View className="h-8 flex-1 flex-row flex-wrap overflow-hidden">
-          {actors.map((actor, index) => (
+          {actors.slice(0, 5).map((actor, index) => (
             <Link
               href={`/profile/${actor.handle}`}
               asChild
@@ -191,7 +183,7 @@ const ProfileList = ({
               theme.dark ? "bg-white" : "bg-black",
             )}
           >
-            <Text style={{ color: theme.dark ? "white" : "black" }}>
+            <Text style={{ color: theme.dark ? "black" : "white" }}>
               +{actors.length - 5}
             </Text>
           </TouchableOpacity>
