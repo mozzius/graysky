@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Linking,
   Platform,
@@ -28,45 +29,13 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
 
   if (uri.hostname === "media.tenor.com" && uri.pathname.endsWith(".mp4")) {
     return (
-      <TouchableHighlight
-        accessibilityRole="link"
-        className="mt-1.5 flex-1 rounded-lg"
-        onPress={() => Linking.openURL(content.external.uri)}
-        onLongPress={() =>
-          Share.share(
-            Platform.select({
-              ios: { url: content.external.uri },
-              default: { message: content.external.uri },
-            }),
-          )
-        }
-      >
-        <View
-          className={cx(
-            "relative flex-1 overflow-hidden rounded-lg",
-            theme.dark ? "bg-black" : "bg-white",
-            transparent && "bg-transparent",
-            depth > 0 && "flex-row",
-          )}
-          style={{
-            borderColor: theme.colors.border,
-            borderWidth: StyleSheet.hairlineWidth,
-          }}
-        >
-          <View className="absolute bottom-1.5 left-1.5 z-10 rounded bg-black/60 px-1 py-px">
-            <Text className="text-xs font-medium text-white">GIF</Text>
-          </View>
-          <Video
-            source={{ uri: content.external.uri }}
-            resizeMode={ResizeMode.COVER}
-            shouldPlay
-            isLooping
-            isMuted
-            style={{ flex: 1 }}
-            posterSource={{ uri: content.external.thumb }}
-          />
-        </View>
-      </TouchableHighlight>
+      <Gif
+        uri={content.external.uri}
+        title={content.external.title}
+        thumb={content.external.thumb}
+        transparent={transparent}
+        depth={depth}
+      />
     );
   }
 
@@ -138,6 +107,65 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
               </Text>
             )}
         </View>
+      </View>
+    </TouchableHighlight>
+  );
+};
+
+interface GifProps {
+  uri: string;
+  title: string;
+  thumb?: string;
+  transparent: boolean;
+  depth: number;
+}
+
+const Gif = ({ uri, title, thumb, transparent, depth }: GifProps) => {
+  const theme = useTheme();
+  const [aspectRatio, setAspectRatio] = useState(1);
+
+  return (
+    <TouchableHighlight
+      accessibilityRole="link"
+      className="mt-1.5 flex-1 rounded-lg"
+      onPress={() => Linking.openURL(uri)}
+      onLongPress={() =>
+        Share.share(
+          Platform.select({
+            ios: { url: uri },
+            default: { message: uri },
+          }),
+        )
+      }
+    >
+      <View
+        className={cx(
+          "relative flex-1 overflow-hidden rounded-lg",
+          theme.dark ? "bg-black" : "bg-white",
+          transparent && "bg-transparent",
+          depth > 0 && "flex-row",
+        )}
+        style={{
+          borderColor: theme.colors.border,
+          borderWidth: StyleSheet.hairlineWidth,
+        }}
+      >
+        <View className="absolute bottom-1.5 left-1.5 z-10 rounded bg-black/60 px-1 py-px">
+          <Text className="text-xs font-medium text-white">GIF</Text>
+        </View>
+        <Video
+          source={{ uri }}
+          resizeMode={ResizeMode.COVER}
+          shouldPlay
+          isLooping
+          isMuted
+          style={{ flex: 1, aspectRatio }}
+          posterSource={{ uri: thumb }}
+          onReadyForDisplay={({ naturalSize }) =>
+            setAspectRatio(naturalSize.width / naturalSize.height)
+          }
+          accessibilityLabel={title}
+        />
       </View>
     </TouchableHighlight>
   );

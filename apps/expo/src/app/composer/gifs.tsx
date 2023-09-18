@@ -83,15 +83,15 @@ export default function GifSearch() {
             contentInsetAdjustmentBehavior="automatic"
             className="px-4"
           >
-            <Text className="py-2 text-xs">Trending terms</Text>
+            <Text className="my-4 text-xs">Trending terms</Text>
             {trendingTerms.data.results.map((term) => (
               <TouchableOpacity
                 onPress={() => setQuery(term)}
                 key={term}
-                className="w-full flex-1 border-b py-2"
+                className="w-full flex-1 border-b px-2 py-3"
                 style={{ borderColor: theme.colors.border }}
               >
-                <Text>{term}</Text>
+                <Text className="text-lg">{term}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -193,8 +193,7 @@ const Gif = ({ item, column }: GifProps) => {
           select.mutate({
             id: item.id,
             assetUrl: item.media_formats.mp4.url,
-            previewUrl: item.media_formats.preview.url,
-            title: item.title,
+            previewUrl: item.media_formats.gifpreview.url,
             description: item.content_description,
             token: agent.session.accessJwt,
           });

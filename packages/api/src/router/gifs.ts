@@ -43,7 +43,6 @@ export const gifsRouter = createTRPCRouter({
         id: z.string(),
         assetUrl: z.string(),
         previewUrl: z.string(),
-        title: z.string().optional(),
         description: z.string().optional(),
         token: z.string(),
       }),
@@ -72,10 +71,10 @@ export const gifsRouter = createTRPCRouter({
         },
       );
 
-      const blobRef = (await uploadRes.json()) as BlobRef;
+      const blobRef = (await uploadRes.json()) as { blob: BlobRef };
 
-      const title = "";
-      const description = "";
+      const title = input.description ?? "Tenor GIF";
+      const description = "Posted via Graysky";
 
       return {
         view: {
@@ -88,13 +87,13 @@ export const gifsRouter = createTRPCRouter({
           },
         } satisfies AppBskyEmbedExternal.View,
         main: {
-          $type: "app.bsky.embed.external#view",
+          $type: "app.bsky.embed.external",
           external: {
             $type: "app.bsky.embed.external#external",
             uri: input.assetUrl,
             title,
             description,
-            thumb: blobRef,
+            thumb: blobRef?.blob,
           },
         } satisfies AppBskyEmbedExternal.Main,
       };
@@ -115,7 +114,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "nanomp4,tinymp4,mp4,preview",
+          mediafilter: "nanomp4,tinymp4,mp4,gifpreview",
         });
       }),
     featured: publicProcedure
@@ -131,7 +130,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "nanomp4,tinymp4,mp4,preview",
+          mediafilter: "nanomp4,tinymp4,mp4,gifpreview",
         });
       }),
     categories: publicProcedure
@@ -225,7 +224,7 @@ export interface TenorMedia {
 }
 
 type TenorContentFormat =
-  | "preview"
+  | "gifpreview"
   | "gif"
   | "mediumgif"
   | "tinygif"

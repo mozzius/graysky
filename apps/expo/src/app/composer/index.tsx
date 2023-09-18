@@ -515,6 +515,7 @@ export default function ComposerScreen() {
                 className="relative mb-2 flex-1"
                 layout={Layout}
                 entering={FadeInDown}
+                exiting={FadeOutDown}
               >
                 <TouchableOpacity
                   onPress={() => router.setParams({ ...searchParams, gif: "" })}

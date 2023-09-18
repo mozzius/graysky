@@ -312,7 +312,9 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
 
       // jank feature flag
       const options =
-        agent.session?.handle === "mozzius.dev" && images.length === 0
+        ["mozzius.dev", "grayskytest.bsky.social"].includes(
+          agent.session?.handle ?? "",
+        ) && images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
       const icons = [
