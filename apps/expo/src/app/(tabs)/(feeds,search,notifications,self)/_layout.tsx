@@ -11,6 +11,7 @@ import { useTheme } from "@react-navigation/native";
 import { Avatar } from "~/components/avatar";
 import { useDrawer } from "~/components/drawer-content";
 import { useOptionalAgent } from "~/lib/agent";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 
 const stackOptions = {
   screenOptions: {
@@ -28,6 +29,8 @@ export default function SubStack({
   const theme = useTheme();
   // agent might not be available yet
   const agent = useOptionalAgent();
+
+  const [{ homepage, defaultFeed }] = useAppPreferences();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
@@ -47,7 +50,16 @@ export default function SubStack({
   switch (segment) {
     case "(feeds)":
       return (
-        <Stack {...stackOptions}>
+        <Stack
+          {...stackOptions}
+          initialRouteName={
+            homepage === "feeds"
+              ? "feeds/index"
+              : defaultFeed === "following"
+              ? "feeds/following"
+              : defaultFeed
+          }
+        >
           <Stack.Screen
             name="feeds/index"
             options={{

@@ -7,12 +7,12 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import {
+  CloudyIcon,
   LogOutIcon,
   MoonIcon,
   PaletteIcon,
   SettingsIcon,
   SmartphoneIcon,
-  StarIcon,
   SunIcon,
   TicketIcon,
 } from "lucide-react-native";
@@ -20,7 +20,7 @@ import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "~/app/codes/_layout";
-import { useAgent } from "~/lib/agent";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
 import { ActorDetails } from "./actor-details";
 import { Text } from "./text";
@@ -40,10 +40,10 @@ export const DrawerContent = () => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
-  const agent = useAgent();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
+  const [{ homepage }] = useAppPreferences();
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -93,6 +93,22 @@ export const DrawerContent = () => {
     <SafeAreaView className="h-full p-8">
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
+        {homepage === "skyline" && (
+          <Link
+            href="/feeds/index"
+            asChild
+            onPress={() => setOpenDrawer(false)}
+          >
+            <TouchableOpacity
+              accessibilityRole="link"
+              accessibilityLabel="Feeds screen"
+              className="mt-2 w-full flex-row items-center py-2"
+            >
+              <CloudyIcon color={theme.colors.text} />
+              <Text className="ml-6 text-base font-medium">My feeds</Text>
+            </TouchableOpacity>
+          </Link>
+        )}
         <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
@@ -101,7 +117,15 @@ export const DrawerContent = () => {
           >
             <TicketIcon color={theme.colors.text} />
             <Text className="ml-6 text-base font-medium">
-              Invite codes{numCodes > 0 && ` (${numCodes})`}
+              Invite codes
+              {numCodes > 0 && (
+                <>
+                  {" "}
+                  <Text style={{ color: theme.colors.primary }}>
+                    ({numCodes})
+                  </Text>
+                </>
+              )}
             </Text>
           </TouchableOpacity>
         </Link>
@@ -114,7 +138,7 @@ export const DrawerContent = () => {
           <PaletteIcon color={theme.colors.text} />
           <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
-        {agent?.session?.handle === "mozzius.dev" && (
+        {/* {agent?.session?.handle === "mozzius.dev" && (
           <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
             <TouchableOpacity
               accessibilityRole="link"
@@ -125,7 +149,7 @@ export const DrawerContent = () => {
               <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
             </TouchableOpacity>
           </Link>
-        )}
+        )} */}
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"

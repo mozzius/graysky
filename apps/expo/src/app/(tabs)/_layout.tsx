@@ -6,15 +6,18 @@ import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
   BellIcon,
+  CloudIcon,
   CloudyIcon,
   PenBox,
   SearchIcon,
   UserIcon,
+  View,
 } from "lucide-react-native";
 
 import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
 import { StatusBar } from "~/components/status-bar";
 import { useOptionalAgent } from "~/lib/agent";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function AppLayout() {
@@ -48,6 +51,8 @@ export default function AppLayout() {
   const segments = useSegments();
   const router = useRouter();
 
+  const [{ homepage }] = useAppPreferences();
+
   return (
     <DrawerProvider value={openDrawer}>
       <StatusBar />
@@ -66,13 +71,14 @@ export default function AppLayout() {
         drawerType="slide"
         statusBarAnimation="slide"
         drawerStyle={{
-          width: Math.min(Dimensions.get("window").width * 0.8, 350),
+          width: Math.min(Dimensions.get("window").width * 0.8, 400),
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={Dimensions.get("window").width}
         swipeEnabled={Platform.OS === "ios" ? segments.length === 3 : true}
       >
         <Tabs
+          screenOptions={{ headerShown: false }}
           screenListeners={{
             tabPress: (evt) => {
               if (evt.target?.startsWith("null")) {
@@ -83,14 +89,17 @@ export default function AppLayout() {
               }
             },
           }}
-          screenOptions={{ headerShown: false }}
         >
           <Tabs.Screen
             name="(feeds)"
             options={{
-              title: "Feeds",
+              title: homepage === "feeds" ? "Feeds" : "Skyline",
               tabBarIcon({ color }) {
-                return <CloudyIcon color={color} />;
+                return homepage === "feeds" ? (
+                  <CloudyIcon color={color} />
+                ) : (
+                  <CloudIcon color={color} />
+                );
               },
             }}
           />
@@ -107,8 +116,15 @@ export default function AppLayout() {
             name="null"
             options={{
               title: "Post",
-              tabBarIcon({ color }) {
-                return <PenBox color={color} />;
+              tabBarIcon() {
+                return (
+                  <View
+                    className="h-8 w-10 flex-1 items-center justify-center rounded-lg"
+                    style={{ backgroundColor: theme.colors.primary }}
+                  >
+                    <PenBox className="text-white" size={16} />
+                  </View>
+                );
               },
             }}
           />
