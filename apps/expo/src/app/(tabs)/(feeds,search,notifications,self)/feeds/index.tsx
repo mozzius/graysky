@@ -30,7 +30,7 @@ import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
-exportconst NoFeeds = () => {
+export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {
   const theme = useTheme();
   return (
     <View className="flex-1 items-center justify-center">
@@ -40,7 +40,7 @@ exportconst NoFeeds = () => {
         <Text className="text-lg">
           To get started, add some feeds to your home screen.
         </Text>
-        <Link asChild href="/feeds/discover">
+        <Link asChild href="/feeds/discover" onPress={onPress}>
           <TouchableOpacity
             className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
             style={{ backgroundColor: theme.colors.primary }}
@@ -78,15 +78,17 @@ const FeedsPage = ({ editing }: Props) => {
 
     return (
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
-        <Link href="/feeds/following" asChild>
-          <TouchableHighlight>
-            <LargeRow
-              icon={<CloudIcon size={32} color="white" />}
-              title="Following"
-              subtitle="Posts from people you follow"
+        <LargeRow
+          icon={<CloudIcon size={32} color="white" />}
+          title="Following"
+          subtitle="Posts from people you follow"
+          right={
+            <ChevronRightIcon
+              size={20}
+              className={theme.dark ? "text-neutral-200" : "text-neutral-400"}
             />
-          </TouchableHighlight>
-        </Link>
+          }
+        />
         {pinned.length > 0 && (
           <>
             <SectionHeader title="Favourites" />
@@ -218,7 +220,7 @@ export default function Page() {
   );
 }
 
-const SectionHeader = ({ title }: { title: string }) => {
+export const SectionHeader = ({ title }: { title: string }) => {
   const theme = useTheme();
   return (
     <View
@@ -247,6 +249,8 @@ interface LargeRowProps {
   subtitle: string;
   className?: string;
   style?: StyleProp<ViewStyle>;
+  right?: React.ReactNode;
+  onPress?: () => void;
 }
 
 export const LargeRow = ({
@@ -255,25 +259,31 @@ export const LargeRow = ({
   subtitle,
   className,
   style,
+  right,
+  onPress,
 }: LargeRowProps) => {
   const theme = useTheme();
   return (
-    <View
-      className={cx(
-        "flex-row items-center p-4",
-        theme.dark ? "bg-black" : "bg-white",
-        className,
-      )}
-      style={style}
-    >
-      <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
-        {icon}
-      </View>
-      <View className="flex-1 px-3">
-        <Text className="text-lg leading-5">{title}</Text>
-        <Text className="text-sm text-neutral-500">{subtitle}</Text>
-      </View>
-      <ChevronRightIcon size={20} className="text-neutral-400" />
-    </View>
+    <Link href="/feeds/following" asChild onPress={onPress}>
+      <TouchableHighlight>
+        <View
+          className={cx(
+            "flex-row items-center p-4",
+            theme.dark ? "bg-black" : "bg-white",
+            className,
+          )}
+          style={style}
+        >
+          <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
+            {icon}
+          </View>
+          <View className="flex-1 px-3">
+            <Text className="text-lg leading-5">{title}</Text>
+            <Text className="text-sm text-neutral-500">{subtitle}</Text>
+          </View>
+          {right}
+        </View>
+      </TouchableHighlight>
+    </Link>
   );
 };

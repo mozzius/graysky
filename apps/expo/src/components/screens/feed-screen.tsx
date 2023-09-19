@@ -15,6 +15,7 @@ import { useTabPressScrollRef } from "~/lib/hooks";
 import { useFeedInfo, useTimeline, type TimelineItem } from "~/lib/hooks/feeds";
 import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../feed-post";
+import { FeedsButton } from "../feeds-button";
 import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";
 
@@ -141,6 +142,7 @@ const Wrapper = ({
         }}
       />
       {children}
+      <FeedsButton />
     </>
   );
 };

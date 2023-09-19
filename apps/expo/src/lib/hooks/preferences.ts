@@ -158,6 +158,8 @@ const appPrefsSchema = z.object({
   copiedCodes: z.array(z.string()).default([]),
   haptics: z.boolean().optional().default(true),
   sortableFeeds: z.boolean().optional().default(false),
+  homepage: z.enum(["feeds", "skyline"]).optional().default("feeds"),
+  defaultFeed: z.string().optional().default("following"),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;

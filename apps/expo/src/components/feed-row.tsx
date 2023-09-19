@@ -32,9 +32,11 @@ interface Props {
   feed: AppBskyFeedDefs.GeneratorView;
   children?: React.ReactNode;
   large?: boolean;
+  onPress?: () => void;
+  right?: React.ReactNode;
 }
 
-export const FeedRow = ({ feed, children, large }: Props) => {
+export const FeedRow = ({ feed, children, large, onPress, right }: Props) => {
   const router = useRouter();
   const theme = useTheme();
   const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
@@ -42,6 +44,7 @@ export const FeedRow = ({ feed, children, large }: Props) => {
   return (
     <TouchableHighlight
       onPress={() => {
+        onPress?.();
         if (navigation.getState().routes.at(-1)?.name === "feeds/discover")
           router.push("../");
         router.push(href);
@@ -97,10 +100,12 @@ export const FeedRow = ({ feed, children, large }: Props) => {
           </View>
           {children}
         </View>
-        <ChevronRightIcon
-          size={20}
-          className={theme.dark ? "text-neutral-200" : "text-neutral-400"}
-        />
+        {right ?? (
+          <ChevronRightIcon
+            size={20}
+            className={theme.dark ? "text-neutral-200" : "text-neutral-400"}
+          />
+        )}
       </View>
     </TouchableHighlight>
   );
