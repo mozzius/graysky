@@ -505,10 +505,7 @@ export default function ComposerScreen() {
               )}
             </Animated.ScrollView>
           )}
-          <Animated.View
-            layout={Layout}
-            className="w-full flex-1 flex-row pl-16 pr-2"
-          >
+          <Animated.View layout={Layout} className="w-full flex-1 pl-16 pr-2">
             {/* GIF */}
             {gif && (
               <Animated.View
