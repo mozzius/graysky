@@ -11,7 +11,6 @@ import {
   PenBox,
   SearchIcon,
   UserIcon,
-  View,
 } from "lucide-react-native";
 
 import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
@@ -116,15 +115,8 @@ export default function AppLayout() {
             name="null"
             options={{
               title: "Post",
-              tabBarIcon() {
-                return (
-                  <View
-                    className="h-8 w-10 flex-1 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: theme.colors.primary }}
-                  >
-                    <PenBox className="text-white" size={16} />
-                  </View>
-                );
+              tabBarIcon({ color }) {
+                return <PenBox color={color} />;
               },
             }}
           />

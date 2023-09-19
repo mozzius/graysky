@@ -2,14 +2,19 @@ import { useCallback, useRef } from "react";
 import { Dimensions, TouchableHighlight, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { usePathname } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetSectionList,
 } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
-import { CircleDotIcon, CloudIcon, CloudyIcon } from "lucide-react-native";
+import {
+  ChevronRightIcon,
+  CircleDotIcon,
+  CloudIcon,
+  CloudyIcon,
+} from "lucide-react-native";
 
 import {
   LargeRow,
@@ -24,6 +29,7 @@ import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
+import { Text } from "./text";
 
 export const FeedsButton = () => {
   const theme = useTheme();
@@ -48,11 +54,15 @@ export const FeedsButton = () => {
         }}
       >
         <Animated.View
-          className="absolute bottom-6 right-6 w-max max-w-max flex-1 flex-row items-center rounded-full p-4"
-          style={{ backgroundColor: theme.colors.primary }}
+          className="absolute bottom-6 right-6 flex-1 flex-row items-center rounded-full border p-4"
+          style={{
+            backgroundColor: theme.colors.card,
+            borderColor: theme.colors.border,
+          }}
           entering={FadeInDown}
         >
-          <CloudyIcon size={24} color="white" />
+          <CloudyIcon size={24} color={theme.colors.text} />
+          <Text className="ml-4 text-base">My Feeds</Text>
         </Animated.View>
       </TouchableHighlight>
       <BottomSheetModal
@@ -165,7 +175,26 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
         ItemSeparatorComponent={() => (
           <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
         )}
-        ListFooterComponent={<View className="h-20" />}
+        ListFooterComponent={
+          <View className="p-6 pb-12">
+            <Link href="/feeds" asChild onPress={dismiss}>
+              <TouchableHighlight className="overflow-hidden rounded-lg">
+                <View
+                  className="flex-row items-center justify-between p-4"
+                  style={{ backgroundColor: theme.colors.primary }}
+                >
+                  <View className="flex-row items-center">
+                    <CloudyIcon size={24} className="text-white" />
+                    <Text className="ml-4 text-base text-white">
+                      Manage my feeds
+                    </Text>
+                  </View>
+                  <ChevronRightIcon size={20} className="text-neutral-50" />
+                </View>
+              </TouchableHighlight>
+            </Link>
+          </View>
+        }
       />
     );
   }
