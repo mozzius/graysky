@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import {
   NestableDraggableFlatList,
   NestableScrollContainer,
@@ -24,7 +30,7 @@ import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
-const NoFeeds = () => {
+export const NoFeeds = () => {
   const theme = useTheme();
   return (
     <View className="flex-1 items-center justify-center">
@@ -74,23 +80,11 @@ const FeedsPage = ({ editing }: Props) => {
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <Link href="/feeds/following" asChild>
           <TouchableHighlight>
-            <View
-              className={cx(
-                "flex-row items-center p-4",
-                theme.dark ? "bg-black" : "bg-white",
-              )}
-            >
-              <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
-                <CloudIcon size={32} color="white" />
-              </View>
-              <View className="flex-1 px-3">
-                <Text className="text-lg leading-5">Following</Text>
-                <Text className="text-sm text-neutral-500">
-                  Posts from people you follow
-                </Text>
-              </View>
-              <ChevronRightIcon size={20} className="text-neutral-400" />
-            </View>
+            <LargeRow
+              icon={<CloudIcon size={32} color="white" />}
+              title="Following"
+              subtitle="Posts from people you follow"
+            />
           </TouchableHighlight>
         </Link>
         {pinned.length > 0 && (
@@ -243,6 +237,43 @@ const SectionHeader = ({ title }: { title: string }) => {
       >
         {title.toLocaleUpperCase()}
       </Text>
+    </View>
+  );
+};
+
+interface LargeRowProps {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+}
+
+export const LargeRow = ({
+  icon,
+  title,
+  subtitle,
+  className,
+  style,
+}: LargeRowProps) => {
+  const theme = useTheme();
+  return (
+    <View
+      className={cx(
+        "flex-row items-center p-4",
+        theme.dark ? "bg-black" : "bg-white",
+        className,
+      )}
+      style={style}
+    >
+      <View className="h-10 w-10 shrink-0 items-center justify-center rounded bg-blue-500">
+        {icon}
+      </View>
+      <View className="flex-1 px-3">
+        <Text className="text-lg leading-5">{title}</Text>
+        <Text className="text-sm text-neutral-500">{subtitle}</Text>
+      </View>
+      <ChevronRightIcon size={20} className="text-neutral-400" />
     </View>
   );
 };
