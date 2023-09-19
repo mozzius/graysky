@@ -1,5 +1,0 @@
-Graysky is a third-party client for Bluesky, with a clean look, smoother feel, and added features.
-
-See your likes in your likes tab, and see what matters to you on the Mutuals feed.
-
-Graysky is in early beta. Expect frequent updates with new features and improvements.

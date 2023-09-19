@@ -21,21 +21,9 @@ Build the dev client using EAS:
 
 ```bash
 cd apps/expo
-pnpm build:dev-client
+pnpm build:dev-client:ios
 // or
-pnpm build:android:dev-client
-```
-
-Install the output onto your simulator
-
-```bash
-// ios
-eas build:run --path=Graysky.tar.gz
-```
-
-```bash
-// android
-eas build:run --path=graysky.apk
+pnpm build:dev-client:android
 ```
 
 You can then start the expo server with:
@@ -110,22 +98,10 @@ org.gradle.caching=true
 - Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
 - Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
 
-## iOS local IPA builds
-
-### ZSH/Bash
+## iOS local builds
 
 ```
-SHORT_SHA=$(git rev-parse --short HEAD)
-eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait
-eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait
-```
-
-### Fish shell
-
-```
-set SHORT_SHA (git rev-parse --short HEAD)
-eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait
-eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait
+pnpm build:ios
 ```
 
 # Sponsors

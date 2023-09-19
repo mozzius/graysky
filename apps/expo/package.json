@@ -119,8 +119,10 @@
   "prettier": "@graysky/prettier-config",
   "scripts": {
     "eas-build-pre-install": "./scripts/pre-install.sh",
-    "build:android:dev-client": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait",
-    "build:dev-client": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait",
+    "build:ios": "./scripts/build-ios.sh",
+    "build:android": "./scripts/build-android.sh",
+    "build:dev-client:ios": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait && eas build:run -p ios --path=\"graysky.tar.gz\"",
+    "build:dev-client:android": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait  && eas build:run -p android --path=\"graysky.apk\"",
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start",
     "dev:android": "expo start --android",
