@@ -15,9 +15,8 @@ pnpm install
 ```
 
 > Weird side step - you need to go to `apps/expo/app.config.ts` and delete the `extra` field which has an expo project id in it. Sorry, I'll fix this later.
-> You may also need to delete Sentry, or else provide your own key
 
-Build the dev client using EAS:
+In the `/apps/expo` directory, build the dev client using EAS:
 
 ```bash
 cd apps/expo
@@ -64,7 +63,7 @@ pnpm dev
 - [x] Composer rewrite
   - [x] Mention autocomplete
   - [x] Embeds in composer
-    - [ ] Embed image upload
+    - [x] Embed image upload
   - [x] Alt text editor
 - [ ] App Store
 
