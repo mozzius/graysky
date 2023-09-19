@@ -116,16 +116,16 @@ org.gradle.caching=true
 
 ```
 SHORT_SHA=$(git rev-parse --short HEAD)
-eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait && say "Build finished"
-eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait && say "Submitted to TestFlight"
+eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait
+eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait
 ```
 
 ### Fish shell
 
 ```
 set SHORT_SHA (git rev-parse --short HEAD)
-eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait; and say "Build finished"
-eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait; and say "Submitted to TestFlight"
+eas build --platform ios --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait
+eas submit --platform ios --path="./$SHORT_SHA.ipa" --wait
 ```
 
 # Sponsors

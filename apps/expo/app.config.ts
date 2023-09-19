@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this
-import type { ExpoConfig } from "@expo/config";
+import type { ConfigContext, ExpoConfig } from "@expo/config";
 import dotenv from "dotenv";
 
 import { version } from "./package.json";
@@ -10,7 +10,7 @@ dotenv.config({
 
 // todo: https://docs.expo.dev/build-reference/variables/#how-to-upload-a-secret-file-and-use-it-in-my-app-config
 
-const defineConfig = (): ExpoConfig => ({
+const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
   scheme: "graysky",
@@ -40,6 +40,7 @@ const defineConfig = (): ExpoConfig => ({
     },
     infoPlist: {
       // should be true but simulator builds don't like this
+      // TODO: figure out if a simulator build - however local builds don't give env vars indicating this
       UIViewControllerBasedStatusBarAppearance: true,
       // UIViewControllerBasedStatusBarAppearance: false,
       CADisableMinimumFrameDurationOnPhone: true,

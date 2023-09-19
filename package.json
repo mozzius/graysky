@@ -29,7 +29,6 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "scripts": {
-    "eas-build-pre-install": "npm install -g pnpm@8.7.5",
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
