@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions, Text, TouchableHighlight } from "react-native";
-import Animated, { FadeInDown, Layout } from "react-native-reanimated";
+import { useCallback, useRef } from "react";
+import { Dimensions, TouchableHighlight, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { usePathname } from "expo-router";
 import {
@@ -28,13 +28,6 @@ export const FeedsButton = () => {
   const theme = useTheme();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setShow(false), 2000);
-    return () => clearTimeout(timeout);
-  }, []);
-
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
 
   const {
@@ -48,19 +41,11 @@ export const FeedsButton = () => {
     <>
       <TouchableHighlight onPress={() => bottomSheetRef.current?.present()}>
         <Animated.View
-          className="absolute bottom-6 right-4 w-max max-w-max flex-1 flex-row items-center rounded-full p-4"
+          className="absolute bottom-6 right-6 w-max max-w-max flex-1 flex-row items-center rounded-full p-4"
           style={{ backgroundColor: theme.colors.primary }}
           entering={FadeInDown}
-          layout={Layout}
         >
-          <Animated.View layout={Layout.springify()}>
-            <CloudyIcon size={24} color="white" />
-          </Animated.View>
-          {show && (
-            <Text className="ml-4 text-lg font-medium text-white">
-              My Feeds
-            </Text>
-          )}
+          <CloudyIcon size={24} color="white" />
         </Animated.View>
       </TouchableHighlight>
       <BottomSheetModal
@@ -171,6 +156,7 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
         ItemSeparatorComponent={() => (
           <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
         )}
+        ListFooterComponent={<View className="h-20" />}
       />
     );
   }

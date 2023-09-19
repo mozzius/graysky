@@ -168,7 +168,7 @@ export default function ModerationSettings() {
                             {
                               title: label,
                               options: [...options.map(capitalise), "Cancel"],
-                              cancelButtonIndex: 3,
+                              cancelButtonIndex: options.length,
                               destructiveButtonIndex: 0,
                               userInterfaceStyle: colorScheme,
                               textStyle: { color: theme.colors.text },
