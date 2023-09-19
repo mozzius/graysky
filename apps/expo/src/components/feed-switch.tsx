@@ -13,6 +13,7 @@ import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { BackButtonOverride } from "./back-button-override";
+import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
 
 export const FeedSwitch = () => {
@@ -73,6 +74,15 @@ const SheetContent = () => {
     const favs = pinned
       .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
       .filter(Boolean);
+
+    return (
+      <BottomSheetSectionList
+      ListHeaderComponent={}
+        ItemSeparatorComponent={() => (
+          <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+        )}
+      />
+    );
   }
 
   return <QueryWithoutData query={savedFeeds} />;

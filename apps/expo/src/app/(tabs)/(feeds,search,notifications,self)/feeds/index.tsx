@@ -30,7 +30,7 @@ import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
-export const NoFeeds = () => {
+exportconst NoFeeds = () => {
   const theme = useTheme();
   return (
     <View className="flex-1 items-center justify-center">
