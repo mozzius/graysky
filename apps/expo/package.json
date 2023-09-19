@@ -118,7 +118,7 @@
   "main": "index.tsx",
   "prettier": "@graysky/prettier-config",
   "scripts": {
-    "eas-build-pre-install": "./scripts/pre-install",
+    "eas-build-pre-install": "./scripts/pre-install.sh",
     "build:android:dev-client": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait",
     "build:dev-client": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait",
     "clean": "git clean -xdf .expo .turbo node_modules",
