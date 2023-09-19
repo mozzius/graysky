@@ -26,6 +26,7 @@ import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
 import { AgentProvider } from "~/lib/agent";
+import { PreferencesProvider } from "~/lib/hooks/preferences";
 // import {
 //   configureRevenueCat,
 //   CustomerInfoProvider,
@@ -184,105 +185,109 @@ const App = ({ session, saveSession }: Props) => {
         <KeyboardProvider>
           {/* <CustomerInfoProvider info={info.data}> */}
           <AgentProvider agent={agent} update={agentUpdate}>
-            <LogOutProvider value={logOut}>
-              <ActionSheetProvider>
-                <ListProvider>
-                  <Stack
-                    screenOptions={{
-                      headerShown: true,
-                      fullScreenGestureEnabled: true,
-                    }}
-                  >
-                    <Stack.Screen
-                      name="index"
-                      options={{
-                        headerShown: false,
-                        gestureEnabled: false,
+            <PreferencesProvider>
+              <LogOutProvider value={logOut}>
+                <ActionSheetProvider>
+                  <ListProvider>
+                    <Stack
+                      screenOptions={{
+                        headerShown: true,
+                        fullScreenGestureEnabled: true,
                       }}
-                    />
-                    <Stack.Screen
-                      name="(auth)"
-                      options={{
-                        headerShown: false,
-                        presentation: "formSheet",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="settings"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="codes"
-                      options={{
-                        headerShown: false,
-                        presentation: "modal",
-                      }}
-                    />
-                    <Stack.Screen
-                      name="translate"
-                      options={{
-                        title: "Translate",
-                        presentation: "modal",
-                        headerRight: Platform.select({
-                          ios: () => (
-                            <TouchableOpacity onPress={handleModalBack}>
-                              <Text
-                                style={{ color: theme.colors.primary }}
-                                className="text-lg font-medium"
-                              >
-                                Done
-                              </Text>
-                            </TouchableOpacity>
-                          ),
-                        }),
-                      }}
-                    />
-                    <Stack.Screen
-                      name="images/[post]"
-                      options={{
-                        presentation: "transparentModal",
-                        headerShown: false,
-                        animation: "none",
-                        fullScreenGestureEnabled: false,
-                        customAnimationOnGesture: true,
-                      }}
-                    />
-                    <Stack.Screen
-                      name="pro"
-                      options={{
-                        title: "",
-                        headerTransparent: true,
-                        presentation: "modal",
-                        headerLeft: Platform.select({
-                          ios: () => (
-                            <TouchableOpacity onPress={handleModalBack}>
-                              <Text className="text-lg text-white">Cancel</Text>
-                            </TouchableOpacity>
-                          ),
-                        }),
-                      }}
-                    />
-                    <Stack.Screen
-                      name="composer"
-                      options={{
-                        headerShown: false,
-                        ...Platform.select({
-                          ios: {
-                            presentation: "formSheet",
-                          },
-                          android: {
-                            animation: "fade_from_bottom",
-                          },
-                        }),
-                      }}
-                    />
-                  </Stack>
-                </ListProvider>
-              </ActionSheetProvider>
-            </LogOutProvider>
+                    >
+                      <Stack.Screen
+                        name="index"
+                        options={{
+                          headerShown: false,
+                          gestureEnabled: false,
+                        }}
+                      />
+                      <Stack.Screen
+                        name="(auth)"
+                        options={{
+                          headerShown: false,
+                          presentation: "formSheet",
+                        }}
+                      />
+                      <Stack.Screen
+                        name="settings"
+                        options={{
+                          headerShown: false,
+                          presentation: "modal",
+                        }}
+                      />
+                      <Stack.Screen
+                        name="codes"
+                        options={{
+                          headerShown: false,
+                          presentation: "modal",
+                        }}
+                      />
+                      <Stack.Screen
+                        name="translate"
+                        options={{
+                          title: "Translate",
+                          presentation: "modal",
+                          headerRight: Platform.select({
+                            ios: () => (
+                              <TouchableOpacity onPress={handleModalBack}>
+                                <Text
+                                  style={{ color: theme.colors.primary }}
+                                  className="text-lg font-medium"
+                                >
+                                  Done
+                                </Text>
+                              </TouchableOpacity>
+                            ),
+                          }),
+                        }}
+                      />
+                      <Stack.Screen
+                        name="images/[post]"
+                        options={{
+                          presentation: "transparentModal",
+                          headerShown: false,
+                          animation: "none",
+                          fullScreenGestureEnabled: false,
+                          customAnimationOnGesture: true,
+                        }}
+                      />
+                      <Stack.Screen
+                        name="pro"
+                        options={{
+                          title: "",
+                          headerTransparent: true,
+                          presentation: "modal",
+                          headerLeft: Platform.select({
+                            ios: () => (
+                              <TouchableOpacity onPress={handleModalBack}>
+                                <Text className="text-lg text-white">
+                                  Cancel
+                                </Text>
+                              </TouchableOpacity>
+                            ),
+                          }),
+                        }}
+                      />
+                      <Stack.Screen
+                        name="composer"
+                        options={{
+                          headerShown: false,
+                          ...Platform.select({
+                            ios: {
+                              presentation: "formSheet",
+                            },
+                            android: {
+                              animation: "fade_from_bottom",
+                            },
+                          }),
+                        }}
+                      />
+                    </Stack>
+                  </ListProvider>
+                </ActionSheetProvider>
+              </LogOutProvider>
+            </PreferencesProvider>
           </AgentProvider>
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>

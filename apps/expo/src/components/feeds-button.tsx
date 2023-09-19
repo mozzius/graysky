@@ -18,7 +18,8 @@ import {
 } from "~/app/(tabs)/(feeds,search,notifications,self)/feeds";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
@@ -26,6 +27,7 @@ import { QueryWithoutData } from "./query-without-data";
 
 export const FeedsButton = () => {
   const theme = useTheme();
+  const haptics = useHaptics();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
@@ -39,7 +41,12 @@ export const FeedsButton = () => {
 
   return (
     <>
-      <TouchableHighlight onPress={() => bottomSheetRef.current?.present()}>
+      <TouchableHighlight
+        onPress={() => {
+          haptics.selection();
+          bottomSheetRef.current?.present();
+        }}
+      >
         <Animated.View
           className="absolute bottom-6 right-6 w-max max-w-max flex-1 flex-row items-center rounded-full p-4"
           style={{ backgroundColor: theme.colors.primary }}
@@ -120,9 +127,10 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
                 .pop()}` ? (
                 <CircleDotIcon
                   size={20}
-                  className={
-                    theme.dark ? "text-neutral-200" : "text-neutral-400"
-                  }
+                  className={cx(
+                    "mr-1",
+                    theme.dark ? "text-neutral-200" : "text-neutral-400",
+                  )}
                 />
               ) : (
                 <></>
@@ -145,9 +153,10 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
               pathname === "/feeds/following" && (
                 <CircleDotIcon
                   size={20}
-                  className={
-                    theme.dark ? "text-neutral-200" : "text-neutral-400"
-                  }
+                  className={cx(
+                    "mr-1",
+                    theme.dark ? "text-neutral-200" : "text-neutral-400",
+                  )}
                 />
               )
             }

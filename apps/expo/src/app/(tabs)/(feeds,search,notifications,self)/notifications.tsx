@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
 import { Stack, useFocusEffect } from "expo-router";
 import {
@@ -137,53 +137,81 @@ export default function NotificationsPage() {
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
-  const hasData = !!notifications.data;
+  const lastUpdated = notifications.isSuccess
+    ? notifications.dataUpdatedAt
+    : null;
 
+  const lastUpdatedRef = useRef(lastUpdated);
+
+  useEffect(() => {
+    lastUpdatedRef.current = lastUpdated;
+  }, [lastUpdated]);
+
+  // update seen notifications when leaving the screen
   useFocusEffect(
     useCallback(() => {
-      if (!hasData) return;
-      return () =>
-        agent.updateSeenNotifications().then(() => {
-          queryClient.setQueryData(["notifications", "unread"], { count: 0 });
-          void queryClient.invalidateQueries({
-            queryKey: ["notifications", "unread"],
-          });
-        });
-    }, [agent, hasData, queryClient]),
+      return () => {
+        if (lastUpdatedRef.current) {
+          void agent
+            .updateSeenNotifications(
+              new Date(lastUpdatedRef.current).toISOString(),
+            )
+            .then(() =>
+              queryClient.invalidateQueries({
+                queryKey: ["notifications", "unread"],
+              }),
+            );
+        }
+      };
+    }, [agent, queryClient]),
   );
 
-  useRefreshOnFocus(notifications.refetch);
+  const { refetch } = notifications;
 
+  // update notifications when the screen is focused
+  useRefreshOnFocus(
+    useCallback(async () => {
+      setNonScrollRefreshing(true);
+      await refetch();
+      setNonScrollRefreshing(false);
+    }, [refetch]),
+  );
+
+  // update notifications when the user refreshes
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    useCallback(
-      () =>
-        notifications
-          .refetch()
-          .then(() => agent.updateSeenNotifications())
-          .then(() => {
-            queryClient.setQueryData(["notifications", "unread"], { count: 0 });
-            return queryClient.invalidateQueries({
-              queryKey: ["notifications", "unread"],
-            });
-          }),
-      [queryClient, agent, notifications],
-    ),
+    useCallback(async () => {
+      if (lastUpdatedRef.current) {
+        await agent.updateSeenNotifications(
+          new Date(lastUpdatedRef.current).toISOString(),
+        );
+        void queryClient.invalidateQueries({
+          queryKey: ["notifications", "unread"],
+        });
+      }
+
+      await refetch();
+    }, [queryClient, agent, refetch]),
   );
 
+  // update notifications when the user presses the tab bar
   const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
       setNonScrollRefreshing(true);
       haptics.impact();
-      await notifications.refetch();
-      setNonScrollRefreshing(false);
-      if (hasData) {
-        queryClient.setQueryData(["notifications", "unread"], { count: 0 });
-        await agent.updateSeenNotifications();
-        await queryClient.invalidateQueries({
+
+      if (lastUpdatedRef.current) {
+        await agent.updateSeenNotifications(
+          new Date(lastUpdatedRef.current).toISOString(),
+        );
+        void queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
         });
       }
-    }, [notifications, haptics, queryClient, hasData, agent]),
+
+      await refetch();
+
+      setNonScrollRefreshing(false);
+    }, [refetch, haptics, queryClient, agent]),
     { largeHeader: true },
   );
 

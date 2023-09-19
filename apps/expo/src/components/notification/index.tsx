@@ -181,12 +181,14 @@ const ProfileList = ({
             }}
             className={cx(
               "h-8 items-center justify-center rounded-full px-4",
-              theme.dark ? "bg-white" : "bg-black",
+              theme.dark ? "bg-white" : "bg-neutral-900",
             )}
           >
             <Text
-              className="font-medium"
-              style={{ color: theme.dark ? "black" : "white" }}
+              className={cx(
+                "font-medium",
+                theme.dark ? "text-neutral-900" : "text-white",
+              )}
             >
               +{actors.length - 5}
             </Text>

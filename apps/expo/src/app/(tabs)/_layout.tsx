@@ -83,14 +83,7 @@ export default function AppLayout() {
               }
             },
           }}
-          screenOptions={{
-            headerShown: false,
-            // Would be nice - need to fix composer
-            // tabBarStyle: {
-            //   position: "absolute",
-            //   backgroundColor: "rgba(255, 255, 255, 0.95)",
-            // },
-          }}
+          screenOptions={{ headerShown: false }}
         >
           <Tabs.Screen
             name="(feeds)"

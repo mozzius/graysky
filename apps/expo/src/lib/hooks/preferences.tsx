@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
@@ -66,16 +66,44 @@ export const contentLabels = {
 
 export const adultContentLabels = ["nsfw", "nudity", "suggestive", "gore"];
 
-export const usePreferences = () => {
+const PreferencesContext = createContext<ReturnType<
+  typeof usePreferencesQuery
+> | null>(null);
+
+const usePreferencesQuery = () => {
   const agent = useAgent();
-  return useQuery({
+
+  const query = useQuery({
     queryKey: ["preferences"],
     queryFn: async () => {
       const prefs = await agent.app.bsky.actor.getPreferences();
       if (!prefs.success) throw new Error("Could not get preferences");
       return prefs.data.preferences;
     },
+    enabled: agent.hasSession,
   });
+
+  if (!agent.hasSession) {
+    return null;
+  }
+
+  return query;
+};
+
+export const PreferencesProvider = ({ children }: React.PropsWithChildren) => {
+  const query = usePreferencesQuery();
+
+  return (
+    <PreferencesContext.Provider value={query}>
+      {children}
+    </PreferencesContext.Provider>
+  );
+};
+
+export const usePreferences = () => {
+  const query = useContext(PreferencesContext);
+  if (!query) throw new Error("No preferences context, or no session");
+  return query;
 };
 
 export type FilterResult = {
