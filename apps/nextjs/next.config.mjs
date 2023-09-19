@@ -13,7 +13,6 @@ const config = {
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
   experimental: {
-    appDir: true,
     serverActions: true,
   },
 };
