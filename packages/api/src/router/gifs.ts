@@ -78,7 +78,7 @@ export const gifsRouter = createTRPCRouter({
 
       const assetPath = new URL(input.assetUrl).pathname;
 
-      const uri = `https://graysky.app/gif/${assetPath}?title=${encodeURIComponent(
+      const uri = `https://graysky.app/gif${assetPath}?title=${encodeURIComponent(
         title,
       )}`;
 
