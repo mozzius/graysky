@@ -93,6 +93,8 @@ org.gradle.daemon=false
 org.gradle.caching=true
 ```
 
+You can now either run `pnpm build:android` to build the app and automatically submit it with `eas submit`, or if you want to sign a build manually you can do the following:
+
 - [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
 - Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
 - Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`

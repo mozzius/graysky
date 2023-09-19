@@ -50,10 +50,6 @@ export default function SettingsLayout() {
           name="account/index"
           options={{
             title: "Account Settings",
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: theme.colors.background,
-            },
           }}
         />
         <Stack.Screen
