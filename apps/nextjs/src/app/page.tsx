@@ -1,33 +1,59 @@
 import Image from "next/image";
 
 import background from "~/assets/graysky.png";
-import { EmailInput } from "./email-input";
+import { Hero } from "./hero";
 
-export default function LandingPage({
-  searchParams,
-}: {
-  searchParams: {
-    error?: boolean;
-    success?: boolean;
-  };
-}) {
+export default function LandingPage() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center gap-16">
-      <Image
-        src={background}
-        alt="a gray sky"
-        className="absolute inset-0 -z-20 h-screen w-full object-cover"
-      />
-      {/* <RainAnimation /> */}
-      <div className="flex flex-col text-white">
-        <h1 className="text-center text-6xl font-bold [text-shadow:_0_1px_2px_rgb(0_0_0)] md:text-9xl">
-          GRAYSKY
-        </h1>
-        <p className="text-center [text-shadow:_0_1px_2px_rgb(0_0_0)] md:text-xl">
-          a bluesky client
+    <div className="min-h-screen w-full" id="top">
+      <div className="relative w-full bg-neutral-600 px-4 py-1">
+        <p className="container max-w-4xl text-center text-xs font-light">
+          Graysky is <b>not</b> available on the{" "}
+          <a href="#" className="underline">
+            App Store
+          </a>{" "}
+          and the{" "}
+          <a href="#" className="underline">
+            Play Store
+          </a>
+          !
         </p>
       </div>
-      <EmailInput {...searchParams} />
-    </main>
+      <nav className="sticky top-0 z-20 h-14 w-full border-b border-neutral-600 backdrop-blur-xl backdrop-saturate-[120%]">
+        <div className="container mx-auto flex h-full max-w-4xl flex-row items-center justify-between gap-4 px-4">
+          <a href="#top">
+            <h1 className="text-lg font-medium">Graysky</h1>
+          </a>
+          <div className="hidden flex-row items-center gap-4 sm:flex">
+            <a className="text-sm hover:underline" href="#features">
+              Features
+            </a>
+            <a className="text-sm hover:underline" href="#features">
+              Something
+            </a>
+            <a className="text-sm hover:underline" href="#features">
+              FAQ
+            </a>
+            <a
+              className="ml-2 rounded border px-3 py-1.5 text-sm transition-colors duration-200 ease-in-out hover:bg-neutral-700"
+              href="#download"
+            >
+              Download
+            </a>
+          </div>
+        </div>
+      </nav>
+      <header
+        id="top"
+        className="relative flex min-h-[400px] w-full items-center overflow-hidden"
+      >
+        <Image
+          src={background}
+          className="absolute h-full w-full object-cover brightness-50 filter"
+          alt="stormy gray clouds"
+        />
+        <Hero />
+      </header>
+    </div>
   );
 }
