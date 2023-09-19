@@ -7,7 +7,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen w-full" id="top">
       <div className="relative w-full bg-neutral-600 px-4 py-1">
-        <p className="container max-w-4xl text-center text-xs font-light">
+        <p className="container mx-auto max-w-4xl text-center text-xs font-light">
           Graysky is <b>not</b> available on the{" "}
           <a href="#" className="underline">
             App Store
