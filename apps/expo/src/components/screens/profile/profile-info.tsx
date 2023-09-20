@@ -36,7 +36,9 @@ import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
+import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
 import { Text } from "../../text";
@@ -66,6 +68,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
   const theme = useTheme();
+  const haptics = useHaptics();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -76,10 +79,28 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         await agent.follow(profile.did);
       }
     },
+    onMutate: () => {
+      haptics.impact();
+
+      // Optimistically update the profile
+      const updated = produce(profile, (draft) => {
+        if (draft.viewer) {
+          if (draft.viewer.following) {
+            delete draft.viewer.following;
+          } else {
+            draft.viewer.following = "pending";
+          }
+        }
+      });
+
+      queryClient.setQueryData(["profile", profile.handle], updated);
+      queryClient.setQueryData(["profile", profile.did], updated);
+    },
     onSettled: () => {
       void queryClient.invalidateQueries(["profile"]);
       void queryClient.invalidateQueries(["network"]);
     },
+    onError: (err: Error) => Alert.alert("Error", err.message),
   });
 
   useEffect(() => {
@@ -91,6 +112,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             alt: profile.displayName ?? `@${profile.handle}`,
             fullsize: profile.avatar,
             thumb: profile.avatar,
+            aspectRatio: { width: 1, height: 1 },
           } satisfies AppBskyEmbedImages.ViewImage,
         ],
       );
