@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Balancer from "react-wrap-balancer";
 
 import { Carousel } from "./carousel";
 
@@ -10,17 +11,17 @@ export const Hero = () => {
 
   return (
     <div className="container z-10 mx-auto flex h-full max-w-4xl flex-row items-center gap-4 p-4">
-      <div className="flex w-[calc(50%-8px)] flex-col gap-4">
+      <div className="flex w-[calc(50%-8px)] flex-col gap-6">
         <span className="w-max rounded-full border border-neutral-500 bg-neutral-900 px-4 py-1 text-xs text-white">
           Version 0.1.4 available now!
         </span>
-        <h1 className="text-5xl font-bold">
+        <Balancer as="h1" className="text-5xl font-bold">
           Bluesky, like you&apos;re never seen it before.
-        </h1>
-        <h2 className="max-w-xs text-lg font-medium">
+        </Balancer>
+        <Balancer as="h2" className="max-w-xs text-lg font-medium">
           Graysky is a 3<sup>rd</sup> party Bluesky client that&apos;s
           absolutely jam-packed with features.
-        </h2>
+        </Balancer>
         <div className=" mt-4 flex flex-row items-center gap-2">
           <button
             className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-neutral-400 bg-neutral-900 disabled:opacity-60"
