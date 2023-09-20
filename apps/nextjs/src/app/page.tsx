@@ -3,7 +3,7 @@ import Image from "next/image";
 import background from "~/assets/graysky.png";
 import { Hero } from "./hero";
 
-export default function LandingPage() {
+export default async function LandingPage() {
   return (
     <div className="min-h-screen w-full" id="top">
       <div className="relative w-full bg-neutral-600 px-4 py-1">
@@ -54,6 +54,28 @@ export default function LandingPage() {
         />
         <Hero />
       </header>
+      <section>{/* nice posts */}</section>
+      <section>{/*  */}</section>
     </div>
   );
 }
+
+// async function getNicePosts() {
+
+// const res1 = await fetch(
+//   "https://bsky.social/xrpc/com.atproto.server.createSession",
+//   {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       identifier: process.env.BSKY_EMAIL!,
+//       password: process.env.BSKY_PASSWORD!,
+//     } satisfies ComAtprotoServerCreateSession.InputSchema),
+//   },
+// );
+// const { accessJwt } =
+//   (await res1.json()) as ComAtprotoServerCreateSession.OutputSchema;
+
+// }

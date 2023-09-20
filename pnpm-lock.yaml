@@ -336,6 +336,9 @@ importers:
 
   apps/nextjs:
     dependencies:
+      '@atproto/api':
+        specifier: ^0.6.14
+        version: 0.6.14
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
