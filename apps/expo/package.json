@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "dependencies": {
     "@atproto/api": "^0.6.14",
     "@expo/metro-config": "^0.10.7",

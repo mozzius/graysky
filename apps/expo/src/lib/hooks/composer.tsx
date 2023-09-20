@@ -295,7 +295,7 @@ export const useSendPost = ({
 export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
-  const agent = useAgent();
+
   const theme = useTheme();
   const router = useRouter();
   const searchParams = useLocalSearchParams();
@@ -310,11 +310,8 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
         await new Promise((resolve) => setTimeout(resolve, 300));
       }
 
-      // jank feature flag
       const options =
-        ["mozzius.dev", "grayskytest.bsky.social"].includes(
-          agent.session?.handle ?? "",
-        ) && images.length === 0
+        images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
       const icons = [
