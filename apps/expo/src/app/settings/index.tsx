@@ -21,7 +21,7 @@ const groups = [
         icon: BanIcon,
       },
       {
-        title: "App Settings",
+        title: "App preferences",
         href: "/settings/app",
         icon: SmartphoneIcon,
       },

@@ -2,7 +2,7 @@ import { useCallback, useRef } from "react";
 import { Dimensions, TouchableHighlight, View } from "react-native";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Link, usePathname } from "expo-router";
+import { Link, usePathname, useRouter } from "expo-router";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -41,6 +41,8 @@ export const FeedsButton = ({ show = true }: Props) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();
   const savedFeeds = useSavedFeeds();
+  const router = useRouter();
+  const [{ homepage }] = useAppPreferences();
 
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
 
@@ -58,6 +60,14 @@ export const FeedsButton = ({ show = true }: Props) => {
           onPress={() => {
             haptics.selection();
             bottomSheetRef.current?.present();
+          }}
+          onLongPress={() => {
+            haptics.selection();
+            if (homepage === "feeds") {
+              router.push("/feeds");
+            } else {
+              router.push("/feeds/manage");
+            }
           }}
           accessibilityLabel="Open feed switch modal"
         >

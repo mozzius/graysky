@@ -81,7 +81,7 @@ export default function AppSettings() {
                     style={{ color: theme.colors.primary }}
                     className="text-base font-medium capitalize"
                   >
-                    {appPrefs.homepage === "feeds" ? "Feeds list" : "Feed"}
+                    {appPrefs.homepage === "feeds" ? "Feeds list" : "Skyline"}
                   </Text>
                 </TouchableOpacity>
               ),
