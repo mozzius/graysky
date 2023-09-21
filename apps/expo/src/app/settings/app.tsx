@@ -1,4 +1,9 @@
-import { Alert, Switch, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Switch,
+  TouchableOpacity,
+} from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { CircleDotIcon } from "lucide-react-native";
@@ -13,6 +18,19 @@ export default function AppSettings() {
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const savedFeeds = useSavedFeeds();
+
+  let defaultFeed = "Following";
+  let unknown = false;
+
+  if (appPrefs.defaultFeed !== "following") {
+    const data = savedFeeds.data?.feeds ?? [];
+    const feed = data.find((x) => x.uri === appPrefs.defaultFeed);
+    if (feed) {
+      defaultFeed = feed.displayName;
+    } else {
+      unknown = true;
+    }
+  }
 
   return (
     <GroupedList
@@ -102,14 +120,20 @@ export default function AppSettings() {
                           );
                         }}
                       >
-                        <Text
-                          style={{
-                            color: theme.colors.primary,
-                          }}
-                          className="text-base font-medium capitalize"
-                        >
-                          {appPrefs.defaultFeed}
-                        </Text>
+                        {savedFeeds.isSuccess ? (
+                          <Text
+                            style={{
+                              color: unknown
+                                ? theme.colors.notification
+                                : theme.colors.primary,
+                            }}
+                            className="text-base font-medium"
+                          >
+                            {unknown ? "Unknown" : defaultFeed}
+                          </Text>
+                        ) : (
+                          <ActivityIndicator />
+                        )}
                       </TouchableOpacity>
                     ),
                   },
