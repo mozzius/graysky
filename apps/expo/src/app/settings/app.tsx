@@ -1,74 +1,99 @@
-import { Alert, Switch } from "react-native";
-
-// import { useActionSheet } from "@expo/react-native-action-sheet";
-// import { useTheme } from "@react-navigation/native";
+import { Alert, Switch, TouchableOpacity } from "react-native";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 
 import { GroupedList } from "~/components/grouped-list";
-// import { Text } from "~/components/text";
-// import { useSavedFeeds } from "~/lib/hooks";
+import { Text } from "~/components/text";
+import { useSavedFeeds } from "~/lib/hooks";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 
 export default function AppSettings() {
   const [appPrefs, setAppPrefs] = useAppPreferences();
-  // const { showActionSheetWithOptions } = useActionSheet();
-  // const theme = useTheme();
-  // const savedFeeds = useSavedFeeds();
+  const { showActionSheetWithOptions } = useActionSheet();
+  const theme = useTheme();
+  const savedFeeds = useSavedFeeds();
 
   return (
     <GroupedList
       groups={[
-        // {
-        //   title: "Home screen",
-        //   options:
-        //     appPrefs.homepage === "feeds"
-        //       ? [
-        //           {
-        //             title: "Default feed",
-        //             action: (
-        //               <TouchableOpacity
-        //                 disabled={savedFeeds.isLoading}
-        //                 onPress={() => {
-        //                   const data =
-        //                     savedFeeds.data?.map((x) => x.name) ?? [];
-        //                   const options = ["following", ...data];
-        //                   showActionSheetWithOptions(
-        //                     {
-        //                       title: "Default feed",
-        //                       options: [...options, "Cancel"],
-        //                       cancelButtonIndex: options.length,
-        //                       destructiveButtonIndex: 0,
-        //                       userInterfaceStyle: theme.dark ? "dark" : "light",
-        //                       textStyle: { color: theme.colors.text },
-        //                       containerStyle: {
-        //                         backgroundColor: theme.colors.card,
-        //                       },
-        //                     },
-        //                     (index) => {
-        //                       if (
-        //                         index === undefined ||
-        //                         index === options.length
-        //                       )
-        //                         return;
-        //                       const selected = options[index];
-        //                       if (!selected) return;
-        //                     },
-        //                   );
-        //                 }}
-        //               >
-        //                 <Text
-        //                   style={{
-        //                     color: theme.colors.primary,
-        //                   }}
-        //                   className="text-base font-medium capitalize"
-        //                 >
-        //                   {appPrefs.defaultFeed}
-        //                 </Text>
-        //               </TouchableOpacity>
-        //             ),
-        //           },
-        //         ]
-        //       : [],
-        // },
+        {
+          title: "Home screen",
+          options: [
+            {
+              title: "Show a specific feed on the home screen",
+              action: (
+                <Switch
+                  value={appPrefs.homepage === "skyline"}
+                  onValueChange={(value) =>
+                    setAppPrefs({
+                      homepage: value ? "skyline" : "feeds",
+                    })
+                  }
+                  accessibilityLabel="Show a specific feed on the home screen, rather than the full list of feeds"
+                />
+              ),
+            },
+            ...(appPrefs.homepage === "skyline"
+              ? [
+                  {
+                    title: "Home feed",
+                    action: (
+                      <TouchableOpacity
+                        disabled={savedFeeds.isLoading}
+                        onPress={() => {
+                          const data = savedFeeds.data?.feeds ?? [];
+                          const options = [
+                            "Following",
+                            ...data
+                              .filter(
+                                (x) => savedFeeds.data?.pinned?.includes(x.uri),
+                              )
+                              .map((x) => x.displayName),
+                          ];
+                          showActionSheetWithOptions(
+                            {
+                              title: "Select home feed",
+                              options: [...options, "Cancel"],
+                              cancelButtonIndex: options.length,
+                              destructiveButtonIndex: 0,
+                              userInterfaceStyle: theme.dark ? "dark" : "light",
+                              textStyle: { color: theme.colors.text },
+                              containerStyle: {
+                                backgroundColor: theme.colors.card,
+                              },
+                            },
+                            (index) => {
+                              if (
+                                index === undefined ||
+                                index === options.length
+                              )
+                                return;
+                              if (index === 0) {
+                                setAppPrefs({ defaultFeed: "following" });
+                                return;
+                              }
+                              setAppPrefs({
+                                defaultFeed: data[index - 1]!.displayName,
+                              });
+                            },
+                          );
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: theme.colors.primary,
+                          }}
+                          className="text-base font-medium capitalize"
+                        >
+                          {appPrefs.defaultFeed}
+                        </Text>
+                      </TouchableOpacity>
+                    ),
+                  },
+                ]
+              : []),
+          ],
+        },
         {
           title: "General",
           options: [

@@ -30,7 +30,7 @@ export default function SubStack({
   // agent might not be available yet
   const agent = useOptionalAgent();
 
-  const [{ homepage, defaultFeed }] = useAppPreferences();
+  const [{ homepage }] = useAppPreferences();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
@@ -50,23 +50,21 @@ export default function SubStack({
   switch (segment) {
     case "(feeds)":
       return (
-        <Stack
-          {...stackOptions}
-          initialRouteName={
-            homepage === "feeds"
-              ? "feeds/index"
-              : defaultFeed === "following"
-              ? "feeds/following"
-              : defaultFeed
-          }
-        >
+        <Stack {...stackOptions}>
           <Stack.Screen
             name="feeds/index"
-            options={{
-              title: "Feeds",
-              headerLargeTitle: true,
-              headerLeft,
-            }}
+            options={
+              homepage === "feeds"
+                ? {
+                    title: "Feeds",
+                    headerLargeTitle: true,
+                    headerLeft,
+                  }
+                : {
+                    title: "Skyline",
+                    headerLeft,
+                  }
+            }
           />
           <Stack.Screen
             name="feeds/discover"

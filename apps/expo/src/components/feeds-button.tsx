@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 import { Dimensions, TouchableHighlight, View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Link, usePathname } from "expo-router";
 import {
@@ -16,11 +16,6 @@ import {
   CloudyIcon,
 } from "lucide-react-native";
 
-import {
-  LargeRow,
-  NoFeeds,
-  SectionHeader,
-} from "~/app/(tabs)/(feeds,search,notifications,self)/feeds";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
@@ -29,9 +24,18 @@ import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
+import {
+  LargeRow,
+  NoFeeds,
+  SectionHeader,
+} from "./screens/feeds-screen-elements";
 import { Text } from "./text";
 
-export const FeedsButton = () => {
+interface Props {
+  show?: boolean;
+}
+
+export const FeedsButton = ({ show }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -47,24 +51,28 @@ export const FeedsButton = () => {
 
   return (
     <>
-      <TouchableHighlight
-        onPress={() => {
-          haptics.selection();
-          bottomSheetRef.current?.present();
-        }}
-      >
-        <Animated.View
-          className="absolute bottom-6 right-6 flex-1 flex-row items-center rounded-full border p-4"
-          style={{
-            backgroundColor: theme.colors.card,
-            borderColor: theme.colors.border,
+      {show && (
+        <TouchableHighlight
+          onPress={() => {
+            haptics.selection();
+            bottomSheetRef.current?.present();
           }}
-          entering={FadeInDown}
+          accessibilityLabel="Open feed switch modal"
         >
-          <CloudyIcon size={24} color={theme.colors.text} />
-          <Text className="ml-4 text-base">My Feeds</Text>
-        </Animated.View>
-      </TouchableHighlight>
+          <Animated.View
+            className="absolute bottom-6 right-6 flex-1 flex-row items-center rounded-full border p-3"
+            style={{
+              backgroundColor: theme.colors.card,
+              borderColor: theme.colors.border,
+            }}
+            entering={FadeInDown}
+            exiting={FadeOutDown}
+          >
+            <CloudyIcon size={24} color={theme.colors.text} />
+            <Text className="ml-4 text-base">My Feeds</Text>
+          </Animated.View>
+        </TouchableHighlight>
+      )}
       <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose

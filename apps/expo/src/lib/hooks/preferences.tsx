@@ -83,10 +83,6 @@ const usePreferencesQuery = () => {
     enabled: agent.hasSession,
   });
 
-  if (!agent.hasSession) {
-    return null;
-  }
-
   return query;
 };
 
