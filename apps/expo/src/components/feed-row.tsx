@@ -34,9 +34,17 @@ interface Props {
   large?: boolean;
   onPress?: () => void;
   right?: React.ReactNode;
+  replace?: boolean;
 }
 
-export const FeedRow = ({ feed, children, large, onPress, right }: Props) => {
+export const FeedRow = ({
+  feed,
+  children,
+  large,
+  onPress,
+  right,
+  replace,
+}: Props) => {
   const router = useRouter();
   const theme = useTheme();
   const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
@@ -47,7 +55,11 @@ export const FeedRow = ({ feed, children, large, onPress, right }: Props) => {
         onPress?.();
         if (navigation.getState().routes.at(-1)?.name === "feeds/discover")
           router.push("../");
-        router.push(href);
+        if (replace) {
+          router.replace(href);
+        } else {
+          router.push(href);
+        }
       }}
     >
       <View

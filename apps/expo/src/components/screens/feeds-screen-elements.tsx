@@ -67,6 +67,7 @@ interface LargeRowProps {
   style?: StyleProp<ViewStyle>;
   right?: React.ReactNode;
   onPress?: () => void;
+  replace?: boolean;
 }
 
 export const LargeRow = ({
@@ -77,10 +78,11 @@ export const LargeRow = ({
   style,
   right,
   onPress,
+  replace,
 }: LargeRowProps) => {
   const theme = useTheme();
   return (
-    <Link href="/feeds/following" asChild onPress={onPress}>
+    <Link href="/feeds/following" asChild onPress={onPress} replace={replace}>
       <TouchableHighlight>
         <View
           className={cx(

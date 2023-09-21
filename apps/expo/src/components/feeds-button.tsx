@@ -35,7 +35,7 @@ interface Props {
   show?: boolean;
 }
 
-export const FeedsButton = ({ show }: Props) => {
+export const FeedsButton = ({ show = true }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -69,7 +69,7 @@ export const FeedsButton = ({ show }: Props) => {
             exiting={FadeOutDown}
           >
             <CloudyIcon size={24} color={theme.colors.text} />
-            <Text className="ml-4 text-base">My Feeds</Text>
+            <Text className="ml-4 mr-2 text-base">My Feeds</Text>
           </Animated.View>
         </TouchableHighlight>
       )}
@@ -99,7 +99,7 @@ export const FeedsButton = ({ show }: Props) => {
 const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
   const theme = useTheme();
   const savedFeeds = useSavedFeeds();
-  const [{ sortableFeeds }] = useAppPreferences();
+  const [{ sortableFeeds, homepage, defaultFeed }] = useAppPreferences();
 
   const { pinned, saved } = useReorderFeeds(savedFeeds);
 
@@ -134,28 +134,39 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
             data: all,
           },
         ]}
-        renderItem={({ item }) => (
-          <FeedRow
-            feed={item}
-            onPress={dismiss}
-            right={
-              pathname ===
-              `/profile/${item.creator.did}/feed/${item.uri
-                .split("/")
-                .pop()}` ? (
-                <CircleDotIcon
-                  size={20}
-                  className={cx(
-                    "mr-1",
-                    theme.dark ? "text-neutral-200" : "text-neutral-400",
-                  )}
-                />
-              ) : (
-                <></>
-              )
-            }
-          />
-        )}
+        renderItem={({ item }) => {
+          const itemPathname = `/profile/${item.creator.did}/feed/${item.uri
+            .split("/")
+            .pop()}`;
+
+          let active = false;
+
+          if (homepage === "skyline" && pathname === "/feeds") {
+            active = defaultFeed === item.uri;
+          } else {
+            active = pathname === itemPathname;
+          }
+
+          return (
+            <FeedRow
+              feed={item}
+              onPress={dismiss}
+              right={
+                active ? (
+                  <CircleDotIcon
+                    size={20}
+                    className={cx(
+                      "mr-1",
+                      theme.dark ? "text-neutral-200" : "text-neutral-400",
+                    )}
+                  />
+                ) : (
+                  <></>
+                )
+              }
+            />
+          );
+        }}
         keyExtractor={(item) => item.uri}
         renderSectionHeader={({ section }) => (
           <SectionHeader title={section.title} />
@@ -168,7 +179,10 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
             style={{ backgroundColor: theme.colors.card }}
             onPress={dismiss}
             right={
-              pathname === "/feeds/following" && (
+              (pathname === "/feeds/following" ||
+                (pathname === "/feeds" &&
+                  homepage === "skyline" &&
+                  defaultFeed === "following")) && (
                 <CircleDotIcon
                   size={20}
                   className={cx(
