@@ -7,13 +7,14 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export const useProfile = (handle?: string) => {
   const agent = useAgent();
 
   const actor = handle ?? agent.session?.did;
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["profile", actor],
     queryFn: async () => {
       if (!actor) throw new Error("Not logged in");
@@ -22,6 +23,10 @@ export const useProfile = (handle?: string) => {
       return profile.data;
     },
   });
+
+  useRefreshOnFocus(query.refetch);
+
+  return query;
 };
 
 export const useProfileFeeds = (handle?: string) => {
