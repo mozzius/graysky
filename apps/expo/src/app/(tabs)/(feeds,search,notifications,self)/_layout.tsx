@@ -103,6 +103,12 @@ export default function SubStack({
               title: "Following",
             }}
           />
+          <Stack.Screen
+            name="feeds/manage"
+            options={{
+              title: "Feeds",
+            }}
+          />
         </Stack>
       );
     case "(search)":
