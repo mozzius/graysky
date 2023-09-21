@@ -13,6 +13,7 @@ import { RssIcon, SearchIcon } from "lucide-react-native";
 
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useFeedInfo, useTimeline, type TimelineItem } from "~/lib/hooks/feeds";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { FeedsButton } from "../feeds-button";
@@ -28,12 +29,16 @@ export const FeedScreen = ({ feed }: Props) => {
   const theme = useTheme();
   const { timeline, data, preferences } = useTimeline(feed);
   const info = useFeedInfo(feed);
+  const haptics = useHaptics();
 
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
     timeline.refetch,
   );
 
-  const [ref, onScroll] = useTabPressScrollRef<TimelineItem>(timeline.refetch);
+  const [ref, onScroll] = useTabPressScrollRef<TimelineItem>(async () => {
+    haptics.selection();
+    await timeline.refetch();
+  });
 
   if (!info.data)
     return (
