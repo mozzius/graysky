@@ -95,7 +95,7 @@ export const DrawerContent = () => {
       <View className="mt-8 border-t border-neutral-300 pt-4">
         {homepage === "skyline" && (
           <Link
-            href="/feeds/index"
+            href="/feeds/manage"
             asChild
             onPress={() => setOpenDrawer(false)}
           >
