@@ -109,26 +109,28 @@ export const DrawerContent = () => {
             </TouchableOpacity>
           </Link>
         )}
-        <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
-          <TouchableOpacity
-            accessibilityRole="link"
-            accessibilityLabel="Invite codes"
-            className="mt-2 w-full flex-row items-center py-2"
-          >
-            <TicketIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">
-              Invite codes
-              {numCodes > 0 && (
-                <>
-                  {" "}
-                  <Text style={{ color: theme.colors.primary }}>
-                    ({numCodes})
-                  </Text>
-                </>
-              )}
-            </Text>
-          </TouchableOpacity>
-        </Link>
+        {codes.isSuccess && (
+          <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
+            <TouchableOpacity
+              accessibilityRole="link"
+              accessibilityLabel="Invite codes"
+              className="mt-2 w-full flex-row items-center py-2"
+            >
+              <TicketIcon color={theme.colors.text} />
+              <Text className="ml-6 text-base font-medium">
+                Invite codes
+                {numCodes > 0 && (
+                  <>
+                    {" "}
+                    <Text style={{ color: theme.colors.primary }}>
+                      ({numCodes})
+                    </Text>
+                  </>
+                )}
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        )}
         <TouchableOpacity
           accessibilityRole="button"
           accessibilityLabel="Change theme"

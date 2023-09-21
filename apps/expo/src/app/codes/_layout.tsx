@@ -69,7 +69,10 @@ export const useInviteCodes = () => {
       const codes = await agent.com.atproto.server.getAccountInviteCodes({
         includeUsed: true,
       });
-      if (!codes.success) throw new Error("Could not get invite codes");
+      if (!codes.success)
+        throw new Error(
+          "Could not get invite codes. This could be because you logged in using an App Password. Please log in using your main password.",
+        );
       const all = codes.data.codes.sort(
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
