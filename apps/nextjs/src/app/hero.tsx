@@ -52,7 +52,7 @@ export const Hero = () => {
 function getDescription(offset: number) {
   switch (offset) {
     case 0:
-      return "Manage your feeds easily";
+      return "Your feeds are front and center";
     case -1:
       return "Translate posts without leaving the app";
     case -2:

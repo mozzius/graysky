@@ -33,7 +33,8 @@ import { cx } from "~/lib/utils/cx";
 interface Props {
   editing: boolean;
 }
-const FeedsPage = ({ editing }: Props) => {
+
+export const FeedsPage = ({ editing }: Props) => {
   const theme = useTheme();
 
   const savedFeeds = useSavedFeeds();

@@ -199,7 +199,11 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
         )}
         ListFooterComponent={
           <View className="p-6 pb-12">
-            <Link href="/feeds" asChild onPress={dismiss}>
+            <Link
+              href={homepage === "feeds" ? "/feeds" : "/feeds/manage"}
+              asChild
+              onPress={dismiss}
+            >
               <TouchableHighlight className="overflow-hidden rounded-lg">
                 <View
                   className="flex-row items-center justify-between p-4"
