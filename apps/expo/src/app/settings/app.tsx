@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
-import { CircleDotIcon } from "lucide-react-native";
+import { CircleDotIcon, CloudIcon, CloudyIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { Text } from "~/components/text";
@@ -39,23 +39,57 @@ export default function AppSettings() {
           title: "Home screen",
           options: [
             {
-              title: "Show a specific feed on the home screen",
+              title: "Home screen layout",
               action: (
-                <Switch
-                  value={appPrefs.homepage === "skyline"}
-                  onValueChange={(value) =>
-                    setAppPrefs({
-                      homepage: value ? "skyline" : "feeds",
-                    })
-                  }
-                  accessibilityLabel="Show a specific feed on the home screen, rather than the full list of feeds"
-                />
+                <TouchableOpacity
+                  onPress={() => {
+                    const options = ["Feeds list", "A specific feed"];
+                    const icons = [
+                      <CloudyIcon
+                        size={24}
+                        color={theme.colors.text}
+                        key={0}
+                      />,
+                      <CloudIcon size={24} color={theme.colors.text} key={1} />,
+                      <></>,
+                    ];
+                    showActionSheetWithOptions(
+                      {
+                        options: [...options, "Cancel"],
+                        icons,
+                        cancelButtonIndex: options.length,
+                        userInterfaceStyle: theme.dark ? "dark" : "light",
+                        textStyle: { color: theme.colors.text },
+                        containerStyle: {
+                          backgroundColor: theme.colors.card,
+                        },
+                      },
+                      (index) => {
+                        switch (index) {
+                          case 0:
+                            setAppPrefs({ homepage: "feeds" });
+                            break;
+                          case 1:
+                            setAppPrefs({ homepage: "skyline" });
+                            break;
+                        }
+                      },
+                    );
+                  }}
+                >
+                  <Text
+                    style={{ color: theme.colors.primary }}
+                    className="text-base font-medium capitalize"
+                  >
+                    {appPrefs.homepage === "feeds" ? "Feeds list" : "Feed"}
+                  </Text>
+                </TouchableOpacity>
               ),
             },
             ...(appPrefs.homepage === "skyline"
               ? [
                   {
-                    title: "Home feed",
+                    title: "Primary feed",
                     action: (
                       <TouchableOpacity
                         disabled={savedFeeds.isLoading}
@@ -162,14 +196,14 @@ export default function AppSettings() {
               ),
             },
             {
-              title: "Group notifications together",
+              title: "Show each notification individually",
               action: (
                 <Switch
-                  value={appPrefs.groupNotifications}
-                  onValueChange={(groupNotifications) =>
-                    setAppPrefs({ groupNotifications })
+                  value={!appPrefs.groupNotifications}
+                  onValueChange={(value) =>
+                    setAppPrefs({ groupNotifications: !value })
                   }
-                  accessibilityLabel="Group notifications together in the notification tab"
+                  accessibilityLabel="Show each notification individually in the notification tab"
                 />
               ),
             },

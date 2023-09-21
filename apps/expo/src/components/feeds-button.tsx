@@ -40,6 +40,8 @@ export const FeedsButton = ({ show = true }: Props) => {
   const haptics = useHaptics();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();
+  const savedFeeds = useSavedFeeds();
+
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
 
   const {
@@ -90,35 +92,40 @@ export const FeedsButton = ({ show = true }: Props) => {
         enableDismissOnClose
       >
         <BackButtonOverride dismiss={dismiss} />
-        <SheetContent dismiss={dismiss} />
+        <SheetContent feeds={savedFeeds} dismiss={dismiss} />
       </BottomSheetModal>
     </>
   );
 };
 
-const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
+const SheetContent = ({
+  feeds,
+  dismiss,
+}: {
+  feeds: ReturnType<typeof useSavedFeeds>;
+  dismiss: () => void;
+}) => {
   const theme = useTheme();
-  const savedFeeds = useSavedFeeds();
   const [{ sortableFeeds, homepage, defaultFeed }] = useAppPreferences();
 
-  const { pinned, saved } = useReorderFeeds(savedFeeds);
+  const { pinned, saved } = useReorderFeeds(feeds);
 
   const pathname = usePathname();
 
-  if (savedFeeds.data) {
-    if (savedFeeds.data.feeds.length === 0) {
+  if (feeds.data) {
+    if (feeds.data.feeds.length === 0) {
       return <NoFeeds />;
     }
 
     const favs = pinned
-      .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+      .map((uri) => feeds.data.feeds.find((f) => f.uri === uri)!)
       .filter(Boolean);
 
     const all = sortableFeeds
       ? saved
-          .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+          .map((uri) => feeds.data.feeds.find((f) => f.uri === uri)!)
           .filter((x) => x && !x.pinned)
-      : savedFeeds.data.feeds
+      : feeds.data.feeds
           .filter((feed) => !feed.pinned)
           .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
@@ -225,5 +232,5 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
     );
   }
 
-  return <QueryWithoutData query={savedFeeds} />;
+  return <QueryWithoutData query={feeds} />;
 };
