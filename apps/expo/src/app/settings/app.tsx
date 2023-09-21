@@ -60,9 +60,14 @@ export default function AppSettings() {
                       <TouchableOpacity
                         disabled={savedFeeds.isLoading}
                         onPress={() => {
-                          const data = (savedFeeds.data?.feeds ?? []).filter(
-                            (x) => savedFeeds.data?.pinned?.includes(x.uri),
-                          );
+                          const data = savedFeeds.data
+                            ? savedFeeds.data.pinned.map(
+                                (pin) =>
+                                  savedFeeds.data.feeds.find(
+                                    (f) => f.uri === pin,
+                                  )!,
+                              )
+                            : [];
 
                           const options = [
                             "Following",
