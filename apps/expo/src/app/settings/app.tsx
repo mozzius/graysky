@@ -1,6 +1,7 @@
 import { Alert, Switch, TouchableOpacity } from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
+import { CircleDotIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { Text } from "~/components/text";
@@ -41,21 +42,43 @@ export default function AppSettings() {
                       <TouchableOpacity
                         disabled={savedFeeds.isLoading}
                         onPress={() => {
-                          const data = savedFeeds.data?.feeds ?? [];
+                          const data = (savedFeeds.data?.feeds ?? []).filter(
+                            (x) => savedFeeds.data?.pinned?.includes(x.uri),
+                          );
+
                           const options = [
                             "Following",
-                            ...data
-                              .filter(
-                                (x) => savedFeeds.data?.pinned?.includes(x.uri),
-                              )
-                              .map((x) => x.displayName),
+                            ...data.map((x) => x.displayName),
+                          ];
+                          const icons = [
+                            appPrefs.defaultFeed === "following" ? (
+                              <CircleDotIcon
+                                key={0}
+                                color={theme.colors.text}
+                                size={24}
+                              />
+                            ) : (
+                              <></>
+                            ),
+                            data.map((x, i) =>
+                              x.uri === appPrefs.defaultFeed ? (
+                                <CircleDotIcon
+                                  key={i + 1}
+                                  color={theme.colors.text}
+                                  size={24}
+                                />
+                              ) : (
+                                <></>
+                              ),
+                            ),
+                            <></>,
                           ];
                           showActionSheetWithOptions(
                             {
                               title: "Select home feed",
                               options: [...options, "Cancel"],
+                              icons,
                               cancelButtonIndex: options.length,
-                              destructiveButtonIndex: 0,
                               userInterfaceStyle: theme.dark ? "dark" : "light",
                               textStyle: { color: theme.colors.text },
                               containerStyle: {
@@ -70,11 +93,11 @@ export default function AppSettings() {
                                 return;
                               if (index === 0) {
                                 setAppPrefs({ defaultFeed: "following" });
-                                return;
+                              } else {
+                                setAppPrefs({
+                                  defaultFeed: data[index - 1]!.uri,
+                                });
                               }
-                              setAppPrefs({
-                                defaultFeed: data[index - 1]!.displayName,
-                              });
                             },
                           );
                         }}
