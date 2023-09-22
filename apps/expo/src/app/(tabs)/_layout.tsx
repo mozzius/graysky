@@ -13,7 +13,8 @@ import {
   UserIcon,
 } from "lucide-react-native";
 
-import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
+import { DrawerProvider } from "~/components/drawer/context";
+import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
 import { useOptionalAgent } from "~/lib/agent";
 import { useAppPreferences } from "~/lib/hooks/preferences";

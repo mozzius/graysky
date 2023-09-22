@@ -14,7 +14,7 @@ import {
 } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
-import { useDrawer } from "~/components/drawer-content";
+import { useDrawer } from "~/components/drawer/context";
 import { DraggableFeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";

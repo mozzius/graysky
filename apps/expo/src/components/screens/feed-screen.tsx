@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   RefreshControl,
@@ -30,16 +31,22 @@ export const FeedScreen = ({ feed }: Props) => {
   const { timeline, data, preferences } = useTimeline(feed);
   const info = useFeedInfo(feed);
   const haptics = useHaptics();
+  const [scrollDir, setScrollDir] = useState(0);
 
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    timeline.refetch,
-  );
+  const { refetch } = timeline;
+
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(refetch);
 
   // consider adding activity indicator to header like notifications screen
-  const [ref, onScroll] = useTabPressScrollRef<TimelineItem>(async () => {
-    haptics.selection();
-    await timeline.refetch();
-  });
+  const [ref, onScroll] = useTabPressScrollRef<TimelineItem>(
+    useCallback(() => {
+      async () => {
+        haptics.selection();
+        await refetch();
+      };
+    }, [haptics, refetch]),
+    { setScrollDir },
+  );
 
   if (!info.data)
     return (
@@ -51,14 +58,14 @@ export const FeedScreen = ({ feed }: Props) => {
 
   if (!preferences.data)
     return (
-      <Wrapper info={info}>
+      <Wrapper info={info} scrollDir={scrollDir}>
         <QueryWithoutData query={preferences} />
       </Wrapper>
     );
 
   if (timeline.data) {
     return (
-      <Wrapper info={info}>
+      <Wrapper info={info} scrollDir={scrollDir}>
         <FlashList<TimelineItem>
           ref={ref}
           onScroll={onScroll}
@@ -138,7 +145,7 @@ export const FeedScreen = ({ feed }: Props) => {
   }
 
   return (
-    <Wrapper info={info}>
+    <Wrapper info={info} scrollDir={scrollDir}>
       <QueryWithoutData query={timeline} />
     </Wrapper>
   );
@@ -147,9 +154,11 @@ export const FeedScreen = ({ feed }: Props) => {
 const Wrapper = ({
   info,
   children,
+  scrollDir,
 }: {
   info: DefinedUseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
   children: React.ReactNode;
+  scrollDir: number;
 }) => {
   return (
     <>
@@ -159,7 +168,7 @@ const Wrapper = ({
         }}
       />
       {children}
-      <FeedsButton />
+      {scrollDir <= 0 && <FeedsButton />}
     </>
   );
 };

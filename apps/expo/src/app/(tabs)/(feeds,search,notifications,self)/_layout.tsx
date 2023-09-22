@@ -9,7 +9,7 @@ import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "~/components/avatar";
-import { useDrawer } from "~/components/drawer-content";
+import { useDrawer } from "~/components/drawer/context";
 import { useOptionalAgent } from "~/lib/agent";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 

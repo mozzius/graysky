@@ -6,26 +6,24 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
-import type Animated from "react-native-reanimated";
-import {
-  useAnimatedReaction,
-  useScrollViewOffset,
-} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
 
 interface Options {
   largeHeader?: boolean;
+  setScrollDir?: (dir: number) => void;
 }
 
 export const useTabPressScroll = <T>(
   ref: React.RefObject<FlashList<T>>,
   callback: () => unknown = () => {},
-  { largeHeader }: Options = {},
+  { largeHeader, setScrollDir }: Options = {},
 ) => {
   const navigation = useNavigation();
   const atTopRef = useRef(true);
+
+  const prev = useRef(0);
 
   const { top } = useSafeAreaInsets();
 
@@ -63,13 +61,21 @@ export const useTabPressScroll = <T>(
         atTopRef.current = false;
       }
 
+      if (contentOffset.y > prev.current) {
+        if (setScrollDir) setScrollDir(1);
+      } else if (contentOffset.y < prev.current) {
+        if (setScrollDir) setScrollDir(-1);
+      }
+
+      prev.current = contentOffset.y;
+
       // good place to hide header on scroll?
       // unfortunately is a bit jarring since it adjusts the height of the scroll view
       // navigation.setOptions({
       //   headerShown: contentOffset.y <= 0 || (velocity?.y ?? 0 )< 0,
       // });
     },
-    [targetOffset],
+    [targetOffset, setScrollDir],
   );
 };
 
@@ -97,50 +103,4 @@ export const useTabPress = (callback: () => unknown = () => {}) => {
 
     return unsub;
   }, [callback, navigation]);
-};
-
-export const useAnimatedTabPressScroll = (
-  ref: React.RefObject<Animated.ScrollView>,
-  callback: () => unknown = () => {},
-) => {
-  const navigation = useNavigation();
-  const atTopRef = useRef(true);
-
-  console.log("animated");
-
-  useEffect(() => {
-    const unsub = navigation
-      .getParent()
-      ?.getParent()
-      // @ts-expect-error doesn't know what kind of navigator it is
-      ?.addListener("tabPress", (evt) => {
-        if (navigation.isFocused()) {
-          console.log("atTop:", atTopRef.current);
-          if (atTopRef.current) {
-            callback();
-          } else {
-            // @ts-expect-error this is just wrong for some reason
-            evt.preventDefault();
-            ref.current?.scrollTo({
-              y: 0,
-              animated: true,
-            });
-          }
-        }
-      });
-
-    return unsub;
-  }, [callback, navigation, ref]);
-
-  const offset = useScrollViewOffset(ref);
-
-  useAnimatedReaction(
-    () => {
-      return offset.value;
-    },
-    (atTop) => {
-      console.log(atTop);
-      atTopRef.current = atTop <= 0;
-    },
-  );
 };

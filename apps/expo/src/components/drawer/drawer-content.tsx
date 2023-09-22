@@ -1,4 +1,3 @@
-import { createContext, useContext } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -22,19 +21,9 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { useInviteCodes } from "~/app/codes/_layout";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
+import { Text } from "../text";
 import { ActorDetails } from "./actor-details";
-import { Text } from "./text";
-
-const DrawerContext = createContext<((open?: boolean) => void) | null>(null);
-
-export const DrawerProvider = DrawerContext.Provider;
-
-export const useDrawer = () => {
-  const openDrawer = useContext(DrawerContext);
-  if (!openDrawer)
-    throw new Error("useDrawer must be used within a DrawerProvider");
-  return openDrawer;
-};
+import { useDrawer } from "./context";
 
 export const DrawerContent = () => {
   const logOut = useLogOut();
