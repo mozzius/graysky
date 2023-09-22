@@ -61,10 +61,14 @@ export const useTabPressScroll = <T>(
         atTopRef.current = false;
       }
 
-      if (contentOffset.y > prev.current) {
-        if (setScrollDir) setScrollDir(1);
-      } else if (contentOffset.y < prev.current) {
-        if (setScrollDir) setScrollDir(-1);
+      if (setScrollDir) {
+        if (contentOffset.y <= 0) {
+          setScrollDir(0);
+        } else if (contentOffset.y > prev.current) {
+          setScrollDir(1);
+        } else if (contentOffset.y < prev.current) {
+          setScrollDir(-1);
+        }
       }
 
       prev.current = contentOffset.y;
