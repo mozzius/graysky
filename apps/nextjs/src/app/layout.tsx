@@ -5,6 +5,7 @@ import "~/styles/globals.css";
 export const metadata = {
   title: "Graysky - a bluesky client",
   description: "Experience a whole different skyline.",
+  metadataBase: new URL("https://graysky.app"),
   openGraph: {
     title: "Graysky - a bluesky client",
     description: "Experience a whole different skyline.",
@@ -12,25 +13,6 @@ export const metadata = {
     locale: "en_GB",
     url: "https://graysky.app",
     siteName: "Graysky",
-    images: [
-      {
-        url: "https://graysky.app/graysky.png",
-        width: 1024,
-        height: 1024,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Graysky - a bluesky client",
-    description: "Experience a whole different skyline.",
-    images: [
-      {
-        url: "https://graysky.app/graysky.png",
-        width: 1024,
-        height: 1024,
-      },
-    ],
   },
   colorScheme: "dark",
 };

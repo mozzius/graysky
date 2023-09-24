@@ -10,7 +10,7 @@ import {
   CloudyIcon,
   PenBox,
   SearchIcon,
-  UserIcon,
+  UserCircleIcon,
 } from "lucide-react-native";
 
 import { DrawerProvider } from "~/components/drawer/context";
@@ -144,7 +144,7 @@ export default function AppLayout() {
               title: "Profile",
               headerShown: false,
               tabBarIcon({ color }) {
-                return <UserIcon color={color} />;
+                return <UserCircleIcon color={color} />;
               },
             }}
           />
