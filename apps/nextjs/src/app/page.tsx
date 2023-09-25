@@ -184,11 +184,14 @@ async function getNicePosts() {
         identifier: process.env.BSKY_EMAIL!,
         password: process.env.BSKY_PASSWORD!,
       } satisfies ComAtprotoServerCreateSession.InputSchema),
+      next: {
+        revalidate: 3600,
+      },
     },
   );
 
   if (!res1.ok) {
-    console.log(await res1.text());
+    console.error(await res1.text());
     return [];
   }
 
@@ -210,7 +213,7 @@ async function getNicePosts() {
   );
 
   if (!res2.ok) {
-    console.log(await res2.text());
+    console.error(await res2.text());
     return [];
   }
 
