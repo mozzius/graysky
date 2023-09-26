@@ -112,7 +112,9 @@ export default function FeedSearchScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{ title: "Search Feeds", headerSearchBarOptions }}
+      />
       <FeedSearch search={search} />
     </>
   );

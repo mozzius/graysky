@@ -112,7 +112,9 @@ export default function PeopleSearchScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{ title: "Search People", headerSearchBarOptions }}
+      />
       <PeopleSearch search={search} />
     </>
   );

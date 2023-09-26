@@ -134,7 +134,9 @@ export default function PostsSearchScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{ title: "Search Posts", headerSearchBarOptions }}
+      />
       <PostsSearch search={search} />
     </>
   );
