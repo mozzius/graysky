@@ -71,13 +71,29 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     mutationFn: async () => {
       if (profile.viewer?.following) {
         await agent.deleteFollow(profile.viewer?.following);
+        return "unfollowed";
       } else {
         await agent.follow(profile.did);
+        return "followed";
       }
     },
     onSettled: () => {
       void queryClient.invalidateQueries(["profile"]);
       void queryClient.invalidateQueries(["network"]);
+    },
+    onSuccess: (result) => {
+      showToastable({
+        title: result === "followed" ? "Followed user" : "Unfollowed user",
+        message: `You are ${
+          result === "followed" ? "now following" : "no longer following"
+        } @${profile.handle}}`,
+      });
+    },
+    onError: () => {
+      showToastable({
+        message: "Could not follow user",
+        status: "danger",
+      });
     },
   });
 
@@ -376,50 +392,52 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             pointerEvents="box-none"
           >
             {agent.session?.handle !== profile.handle ? (
-              <View className="flex-row justify-end" pointerEvents="box-none">
-                <TouchableOpacity
-                  disabled={toggleFollow.isLoading}
-                  onPress={() => toggleFollow.mutate()}
-                  className={cx(
-                    "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
-                    profile.viewer?.following
-                      ? "bg-neutral-200 dark:bg-neutral-700"
-                      : "bg-black dark:bg-white",
-                    toggleFollow.isLoading && "opacity-50",
-                  )}
-                >
-                  {profile.viewer?.following ? (
-                    <>
-                      <CheckIcon
-                        size={18}
-                        className="mr-1 text-neutral-600 dark:text-neutral-300"
-                      />
-                      <Text className="font-medium text-neutral-600 dark:text-neutral-300">
-                        Following
-                      </Text>
-                    </>
-                  ) : (
-                    <>
-                      <PlusIcon
-                        size={18}
-                        className="mr-1 text-white dark:text-black"
-                      />
-                      <Text className="font-medium text-white dark:text-black">
-                        Follow
-                      </Text>
-                    </>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
-                  onPress={handleOptions}
-                >
-                  <MoreHorizontalIcon
-                    size={18}
-                    className="text-neutral-600 dark:text-neutral-300"
-                  />
-                </TouchableOpacity>
-              </View>
+              !profile.viewer?.blocking && (
+                <View className="flex-row justify-end" pointerEvents="box-none">
+                  <TouchableOpacity
+                    disabled={toggleFollow.isLoading}
+                    onPress={() => toggleFollow.mutate()}
+                    className={cx(
+                      "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
+                      profile.viewer?.following
+                        ? "bg-neutral-200 dark:bg-neutral-700"
+                        : "bg-black dark:bg-white",
+                      toggleFollow.isLoading && "opacity-50",
+                    )}
+                  >
+                    {profile.viewer?.following ? (
+                      <>
+                        <CheckIcon
+                          size={18}
+                          className="mr-1 text-neutral-600 dark:text-neutral-300"
+                        />
+                        <Text className="font-medium text-neutral-600 dark:text-neutral-300">
+                          Following
+                        </Text>
+                      </>
+                    ) : (
+                      <>
+                        <PlusIcon
+                          size={18}
+                          className="mr-1 text-white dark:text-black"
+                        />
+                        <Text className="font-medium text-white dark:text-black">
+                          Follow
+                        </Text>
+                      </>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
+                    onPress={handleOptions}
+                  >
+                    <MoreHorizontalIcon
+                      size={18}
+                      className="text-neutral-600 dark:text-neutral-300"
+                    />
+                  </TouchableOpacity>
+                </View>
+              )
             ) : (
               <TouchableOpacity
                 className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
