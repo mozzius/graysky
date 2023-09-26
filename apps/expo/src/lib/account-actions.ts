@@ -18,6 +18,21 @@ export const muteAccount = (
   });
 };
 
+export const unmuteAccount = (
+  agent: BskyAgent,
+  handle: string,
+  did: string,
+  queryClient?: QueryClient,
+) => {
+  void agent.unmute(did).then(() => {
+    if (queryClient) void queryClient.invalidateQueries(["profile"]);
+    showToastable({
+      title: "Unmuted",
+      message: `@${handle} is no longer muted`,
+    });
+  });
+};
+
 export const blockAccount = (
   agent: BskyAgent,
   handle: string,
@@ -45,6 +60,39 @@ export const blockAccount = (
         showToastable({
           title: "Blocked",
           message: `@${handle} has been blocked`,
+        });
+      },
+    },
+  ]);
+};
+
+export const unblockAccount = (
+  agent: BskyAgent,
+  handle: string,
+  rkey: string,
+  queryClient?: QueryClient,
+) => {
+  Alert.alert("Unblock", `Are you sure you want to unblock @${handle}?`, [
+    {
+      text: "Cancel",
+      style: "cancel",
+    },
+    {
+      text: "Unblock",
+      style: "destructive",
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onPress: async () => {
+        await agent.app.bsky.graph.block.delete(
+          {
+            repo: agent.session!.did,
+            rkey,
+          },
+          {},
+        );
+        if (queryClient) void queryClient.invalidateQueries(["profile"]);
+        showToastable({
+          title: "Unblocked",
+          message: `@${handle} has been unblocked`,
         });
       },
     },

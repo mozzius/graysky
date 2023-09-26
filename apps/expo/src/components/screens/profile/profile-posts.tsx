@@ -6,14 +6,9 @@ import {
   View,
 } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
-import { showToastable } from "react-native-toastable";
-import { useQueryClient } from "@tanstack/react-query";
-import { XOctagonIcon } from "lucide-react-native";
 
-import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useUserRefresh } from "~/lib/utils/query";
-import { Button } from "../../button";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
@@ -42,9 +37,6 @@ interface Props {
 }
 
 export const ProfilePosts = ({ handle, mode }: Props) => {
-  const agent = useAgent();
-  const queryClient = useQueryClient();
-
   const { preferences, timeline, timelineData } = useProfilePosts(mode, handle);
 
   const profile = useProfile(handle);
@@ -66,39 +58,9 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
   }
 
   if (profile.data.viewer?.blocking) {
-    return (
-      <View className="flex-1 flex-col items-center justify-center p-4">
-        <XOctagonIcon size={50} color="#888888" />
-        <Text className="my-4 text-center text-lg">
-          You have blocked this user
-        </Text>
-        <Button
-          variant="outline"
-          onPress={async () => {
-            await agent.app.bsky.graph.block.delete({
-              repo: agent.session!.did,
-              rkey: profile.data.viewer!.blocking!.split("/").pop(),
-            });
-            void queryClient.refetchQueries(["profile", handle]);
-            showToastable({
-              title: "Unblocked",
-              message: `@${profile.data.handle} has been unblocked`,
-              status: "success",
-            });
-          }}
-        >
-          Unblock
-        </Button>
-      </View>
-    );
+    return null;
   } else if (profile.data.viewer?.blockedBy) {
-    return (
-      <View className="flex-1 items-center justify-center p-4">
-        <Text className="text-center text-lg">
-          You have been blocked by this user
-        </Text>
-      </View>
-    );
+    return null;
   } else {
     return (
       <Tabs.FlashList<(typeof timelineData)[number]>

@@ -66,7 +66,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
               repo: agent.session!.did,
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
             });
-            void queryClient.refetchQueries(["profile", handle]);
+            void queryClient.invalidateQueries(["profile", handle]);
             showToastable({
               title: "Unblocked",
               message: `@${profile.data.handle} has been unblocked`,

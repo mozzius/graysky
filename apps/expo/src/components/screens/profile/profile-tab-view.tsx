@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { Platform } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { Stack, useFocusEffect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -49,7 +50,15 @@ export const ProfileTabView = ({
   if (profile.data) {
     return (
       <>
-        {mounted ? <StatusBar style="light" backgroundColor="black" /> : null}
+        {mounted ? (
+          <StatusBar
+            style={Platform.select({
+              ios: "inverted",
+              default: "light",
+            })}
+            backgroundColor="black"
+          />
+        ) : null}
         <Stack.Screen
           options={{
             headerShown: false,

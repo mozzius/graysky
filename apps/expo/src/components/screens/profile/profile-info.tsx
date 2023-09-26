@@ -28,7 +28,12 @@ import {
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { blockAccount, muteAccount } from "~/lib/account-actions";
+import {
+  blockAccount,
+  muteAccount,
+  unblockAccount,
+  unmuteAccount,
+} from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { cx } from "~/lib/utils/cx";
 import { useLists } from "../../lists/context";
@@ -94,8 +99,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const handleOptions = () => {
     const options = [
       "Share Profile",
-      "Mute Account",
-      "Block Account",
+      profile.viewer?.muted ? "Unmute Account" : "Mute Account",
+      profile.viewer?.blocking ? "Unblock Account" : "Block Account",
       "Report Account",
       "Cancel",
     ];
@@ -124,8 +129,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           case "Mute Account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
             break;
+          case "Unmute Account":
+            unmuteAccount(agent, profile.handle, profile.did, queryClient);
+            break;
           case "Block Account":
             blockAccount(agent, profile.handle, profile.did, queryClient);
+            break;
+          case "Unblock Account":
+            unblockAccount(
+              agent,
+              profile.handle,
+              profile.viewer!.blocking!.split("/").pop()!,
+              queryClient,
+            );
             break;
           case "Report Account": {
             // prettier-ignore
@@ -481,11 +497,16 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </Text>
             </View>
           </View>
-          {profile.description && (
-            <View className="mt-3" pointerEvents="box-none">
-              <RichTextWithoutFacets text={profile.description.trim()} />
-            </View>
-          )}
+          {profile.description &&
+            !(
+              profile.viewer?.blocking ||
+              profile.viewer?.blockedBy ||
+              profile.viewer?.muted
+            ) && (
+              <View className="mt-3" pointerEvents="box-none">
+                <RichTextWithoutFacets text={profile.description.trim()} />
+              </View>
+            )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
@@ -496,18 +517,35 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               <Button
                 title="Unmute"
                 onPress={() => {
-                  void agent.unmute(profile.did).then(() => {
-                    void queryClient.invalidateQueries([
-                      "profile",
-                      profile.handle,
-                    ]);
-                    void queryClient.invalidateQueries([
-                      "profile",
-                      profile.did,
-                    ]);
-                  });
+                  unmuteAccount(
+                    agent,
+                    profile.handle,
+                    profile.did,
+                    queryClient,
+                  );
                 }}
               />
+            </View>
+          )}
+          {profile.viewer?.blocking && (
+            <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+              <Text className="font-semibold">You have blocked this user</Text>
+              <Button
+                title="Unblock"
+                onPress={() => {
+                  unblockAccount(
+                    agent,
+                    profile.handle,
+                    profile.viewer!.blocking!.split("/").pop()!,
+                    queryClient,
+                  );
+                }}
+              />
+            </View>
+          )}
+          {profile.viewer?.blockedBy && (
+            <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+              <Text className="font-semibold">This user has blocked you</Text>
             </View>
           )}
         </View>
