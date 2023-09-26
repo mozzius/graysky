@@ -260,6 +260,9 @@ importers:
       react-native-svg:
         specifier: 13.9.0
         version: 13.9.0(patch_hash=ecipe4st4okn7y2jpmmjgu22me)(react-native@0.72.4)(react@18.2.0)
+      react-native-toastable:
+        specifier: ^0.2.1
+        version: 0.2.1(react-native@0.72.4)(react@18.2.0)
       react-native-url-polyfill:
         specifier: ^2.0.0
         version: 2.0.0(react-native@0.72.4)
@@ -10181,6 +10184,17 @@ packages:
       react-native: 0.72.4(@babel/core@7.23.0)(@babel/preset-env@7.22.20)(react@18.2.0)
     dev: false
     patched: true
+
+  /react-native-toastable@0.2.1(react-native@0.72.4)(react@18.2.0):
+    resolution: {integrity: sha512-i/Mh2kisg3n9cB7fpx5JpjVm/RSjdFFcXE3ABkwGnhQSFqRHTLOOZbIYjg3+IHq2oJLmus0jhL5jw3+U87aUnw==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.4(@babel/core@7.23.0)(@babel/preset-env@7.22.20)(react@18.2.0)
+    dev: false
 
   /react-native-url-polyfill@2.0.0(react-native@0.72.4):
     resolution: {integrity: sha512-My330Do7/DvKnEvwQc0WdcBnFPploYKp9CYlefDXzIdEaA+PAhDYllkvGeEroEzvc4Kzzj2O4yVdz8v6fjRvhA==}

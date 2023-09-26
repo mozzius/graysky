@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, TextInput, View } from "react-native";
+import { ActivityIndicator, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { CheckCircle2Icon } from "lucide-react-native";
@@ -56,13 +57,19 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
     onSuccess: () => setStage(3),
     onError: (err) => {
       if (err instanceof PasswordError) {
-        Alert.alert("Error", err.message);
+        showToastable({
+          title: err.message,
+          message: "Please try again",
+          status: "danger",
+        });
       } else {
         console.error(err);
-        Alert.alert(
-          "Error",
-          "Please try again (are you sure your reset code was correct?)",
-        );
+        showToastable({
+          title: "An error occured",
+          message:
+            "Please try again - are you sure your reset code is correct?",
+          status: "danger",
+        });
       }
     },
   });

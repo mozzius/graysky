@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import {
-  Alert,
   findNodeHandle,
   Keyboard,
   Platform,
   type TouchableOpacity,
 } from "react-native";
+import { showToastable } from "react-native-toastable";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -168,10 +168,11 @@ export const useSendPost = ({
 
       const rt = await generateRichText(text.trim(), agent);
       if (rt.graphemeLength > MAX_LENGTH) {
-        Alert.alert(
-          "Your post is too long",
-          "There is a character limit of 300 characters",
-        );
+        showToastable({
+          title: "Your post is too long",
+          message: "There is a character limit of 300 characters",
+          status: "danger",
+        });
         throw new Error("Too long");
       }
 
@@ -426,17 +427,19 @@ const getGalleryPermission = async () => {
       const { granted } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!granted) {
-        Alert.alert(
-          "Permission required",
-          "Please enable photo gallery access in your settings",
-        );
+        showToastable({
+          title: "Permission required",
+          message: "Please enable photo gallery access in your settings",
+          status: "warning",
+        });
         return false;
       }
     } else {
-      Alert.alert(
-        "Permission required",
-        "Please enable photo gallery access in your settings",
-      );
+      showToastable({
+        title: "Permission required",
+        message: "Please enable photo gallery access in your settings",
+        status: "warning",
+      });
       return false;
     }
   }
@@ -449,17 +452,19 @@ const getCameraPermission = async () => {
     if (canTakePhoto.canAskAgain) {
       const { granted } = await ImagePicker.requestCameraPermissionsAsync();
       if (!granted) {
-        Alert.alert(
-          "Permission required",
-          "Please enable camera access in your settings",
-        );
+        showToastable({
+          title: "Permission required",
+          message: "Please enable camera access in your settings",
+          status: "warning",
+        });
         return false;
       }
     } else {
-      Alert.alert(
-        "Permission required",
-        "Please enable camera access in your settings",
-      );
+      showToastable({
+        title: "Permission required",
+        message: "Please enable camera access in your settings",
+        status: "warning",
+      });
       return false;
     }
   }

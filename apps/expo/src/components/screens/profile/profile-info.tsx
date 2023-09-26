@@ -1,12 +1,5 @@
 import { useEffect } from "react";
-import {
-  Alert,
-  Button,
-  Platform,
-  Share,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Button, Platform, Share, TouchableOpacity, View } from "react-native";
 import { useHeaderMeasurements } from "react-native-collapsible-tab-view";
 import Animated, {
   Extrapolation,
@@ -15,6 +8,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
 import { Image, ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
@@ -161,10 +155,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     did: profile.did,
                   },
                 });
-                Alert.alert(
-                  "Report submitted",
-                  "Thank you for making the skyline a safer place.",
-                );
+                showToastable({
+                  title: "Report submitted",
+                  message: "Thank you for making the skyline a safer place",
+                });
               },
             );
             break;

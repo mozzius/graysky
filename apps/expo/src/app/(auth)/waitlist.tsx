@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
@@ -42,10 +43,11 @@ export default function Waitlist() {
       }
     },
     onError: (err) =>
-      Alert.alert(
-        "Error adding to waitlist",
-        err instanceof Error ? err.message : "Unknown error",
-      ),
+      showToastable({
+        title: "Error adding to waitlist",
+        message: err instanceof Error ? err.message : "Unknown error",
+        status: "warning",
+      }),
     onSuccess: () =>
       Alert.alert("Success", "You've been added to the waitlist!", [
         { text: "OK", onPress: () => router.push("/") },

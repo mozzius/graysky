@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import {
   ActivityIndicator,
-  Alert,
   LogBox,
   RefreshControl,
   TouchableOpacity,
   View,
 } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -67,7 +67,11 @@ export const ProfileFeeds = ({ handle }: Props) => {
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
             });
             void queryClient.refetchQueries(["profile", handle]);
-            Alert.alert("Unblocked", "This user has been unblocked");
+            showToastable({
+              title: "Unblocked",
+              message: `@${profile.data.handle} has been unblocked`,
+              status: "success",
+            });
           }}
         >
           Unblock

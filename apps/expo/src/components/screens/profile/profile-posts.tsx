@@ -1,12 +1,12 @@
 import {
   ActivityIndicator,
-  Alert,
   LogBox,
   RefreshControl,
   Text,
   View,
 } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { showToastable } from "react-native-toastable";
 import { useQueryClient } from "@tanstack/react-query";
 import { XOctagonIcon } from "lucide-react-native";
 
@@ -80,7 +80,11 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
             });
             void queryClient.refetchQueries(["profile", handle]);
-            Alert.alert("Unblocked", "This user has been unblocked");
+            showToastable({
+              title: "Unblocked",
+              message: `@${profile.data.handle} has been unblocked`,
+              status: "success",
+            });
           }}
         >
           Unblock

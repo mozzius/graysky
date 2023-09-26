@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Alert, LogBox, Platform, TouchableOpacity } from "react-native";
+import { LogBox, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toastable, { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import {
@@ -87,8 +88,9 @@ const App = ({ session, saveSession }: Props) => {
           case "expired":
             saveSession(null);
             setTimeout(() => {
-              // should be a toast
-              Alert.alert("Sorry! Your session expired. Please log in again.");
+              showToastable({
+                message: "Sorry! Your session expired. Please log in again.",
+              });
             });
             break;
         }
@@ -291,6 +293,7 @@ const App = ({ session, saveSession }: Props) => {
           </AgentProvider>
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>
+        <Toastable />
       </SafeAreaProvider>
     </ThemeProvider>
   );

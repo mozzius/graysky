@@ -223,7 +223,7 @@ export default function AppSettings() {
                     if (!haptics) {
                       Alert.alert(
                         "Haptics disabled",
-                        "The app won't trigger haptic feedback manually anymore, however some UI elements (such as the switch you just pressed) will still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings.",
+                        "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings.",
                       );
                     }
                   }}

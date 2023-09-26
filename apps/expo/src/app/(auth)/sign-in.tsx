@@ -1,13 +1,13 @@
 import { useState } from "react";
 import {
   ActivityIndicator,
-  Alert,
   Linking,
   StyleSheet,
   TextInput,
   View,
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
@@ -40,10 +40,11 @@ export default function SignIn() {
       });
     },
     onError: (err) =>
-      Alert.alert(
-        "Could not log you in",
-        err instanceof Error ? err.message : "Unknown error",
-      ),
+      showToastable({
+        title: "Could not log you in",
+        message: err instanceof Error ? err.message : "Unknown error",
+        status: "warning",
+      }),
   });
 
   return (

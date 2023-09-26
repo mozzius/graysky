@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
+import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import { useRouter } from "expo-router";
 import {
@@ -86,8 +87,10 @@ const PostContextMenuButton = ({
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onPress: async () => {
           await agent.deletePost(post.uri);
-          Alert.alert("Deleted", "Your post has been deleted.");
-          await queryClient.invalidateQueries();
+          void queryClient.invalidateQueries();
+          showToastable({
+            message: "Post deleted",
+          });
         },
       },
     ]);
@@ -125,10 +128,10 @@ const PostContextMenuButton = ({
             cid: post.cid,
           },
         });
-        Alert.alert(
-          "Report submitted",
-          "Thank you for making the skyline a safer place.",
-        );
+        showToastable({
+          title: "Report submitted",
+          message: "Thank you for making the skyline a safer place",
+        });
       },
     );
   };
