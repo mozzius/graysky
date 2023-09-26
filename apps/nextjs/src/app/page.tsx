@@ -62,6 +62,30 @@ export default async function LandingPage() {
         />
         <Hero />
       </header>
+      <section>
+        <h3>FAQ</h3>
+        <h4>What&apos;s Graysky then?</h4>
+        <p>
+          It&apos;s an alternative client for Bluesky. Same content, more
+          features.
+        </p>
+        <h4>Is that allowed?</h4>
+        <p>
+          More than allowed - it&apos;s encouraged! Bluesky&apos;s AT Protocol
+          is designed with third-party developers in mind, and the Bluesky team
+          has been tremendously supportive of this project.
+        </p>
+        <h4>What features does it have?</h4>
+        <p>
+          Inline translations, GIFs, and a thousand thoughtful quality of life
+          improvements.
+        </p>
+        <h4>Is it safe to log in with my Bluesky account?</h4>
+        <p>
+          It is, but if you don&apos;t trust me you can create an App Password
+          to restrict access how much access the app has to your account.
+        </p>
+      </section>
       <section className="py-4">
         <h3 className="text-center text-base">
           What people are saying about Graysky
