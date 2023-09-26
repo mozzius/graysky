@@ -102,18 +102,18 @@ const SearchResults = ({ search }: Props) => {
               {
                 icon: SearchIcon,
                 title: "Search posts",
-                href: `/search/posts?q=${search}`,
+                href: `/search/posts?q=${encodeURIComponent(search)}`,
               },
               {
                 icon: SearchIcon,
                 title: "Search feeds",
-                href: `/search/feeds?q=${search}`,
+                href: `/search/feeds?q=${encodeURIComponent(search)}`,
               },
               data.length === 0
                 ? {
                     icon: SearchIcon,
                     title: "Search users",
-                    href: `/search/people?q=${search}`,
+                    href: `/search/people?q=${encodeURIComponent(search)}`,
                   }
                 : [],
             ].flat(),
@@ -136,7 +136,9 @@ const SearchResults = ({ search }: Props) => {
                         {
                           icon: SearchIcon,
                           title: "Search all users",
-                          href: `/search/people?q=${search}`,
+                          href: `/search/people?q=${encodeURIComponent(
+                            search,
+                          )}`,
                         },
                       ]
                     : [],
