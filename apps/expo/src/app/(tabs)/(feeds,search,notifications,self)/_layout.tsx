@@ -109,6 +109,12 @@ export default function SubStack({
               title: "Feeds",
             }}
           />
+          <Stack.Screen
+            name="search/posts"
+            options={{
+              title: "Search Posts",
+            }}
+          />
         </Stack>
       );
     case "(search)":
@@ -155,6 +161,12 @@ export default function SubStack({
               headerLeft,
             }}
           />
+          <Stack.Screen
+            name="search/posts"
+            options={{
+              title: "Search Posts",
+            }}
+          />
         </Stack>
       );
     case "(self)":
@@ -165,6 +177,12 @@ export default function SubStack({
             options={{
               headerShown: false,
               headerBackTitle: "Profile",
+            }}
+          />
+          <Stack.Screen
+            name="search/posts"
+            options={{
+              title: "Search Posts",
             }}
           />
         </Stack>

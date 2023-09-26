@@ -276,9 +276,23 @@ export const useSendPost = ({
         }
       }
 
+      const tags: string[] = [];
+
+      for (const segment of rt.segments()) {
+        if (segment.isTag() && segment.tag?.tag) {
+          tags.push(
+            // remove #s - should be fixed upstream probably
+            segment.tag.tag.startsWith("#")
+              ? segment.tag.tag.slice(1)
+              : segment.tag.tag,
+          );
+        }
+      }
+
       await agent.post({
         text: rt.text,
         facets: rt.facets,
+        tags,
         reply,
         embed: mergedEmbed,
         // TODO: LANGUAGE SELECTOR

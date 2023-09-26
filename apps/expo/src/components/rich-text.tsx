@@ -123,6 +123,26 @@ export const RichText = ({
             </Text>
           ),
         });
+      } else if (segment.isTag()) {
+        let tag = segment.tag!.tag;
+        if (!tag.startsWith("#")) {
+          tag = `#${tag}`;
+        }
+        parts.push({
+          text: segment.text,
+          component: (
+            <Text
+              className={cx("text-blue-500", classNames)}
+              accessibilityRole="link"
+              onPress={(evt) => {
+                evt.stopPropagation();
+                router.push(`/search/posts?q=${encodeURIComponent(tag)}`);
+              }}
+            >
+              {segment.text}
+            </Text>
+          ),
+        });
       } else {
         parts.push({
           text: segment.text,
