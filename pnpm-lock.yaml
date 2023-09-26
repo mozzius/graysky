@@ -48,8 +48,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.6.16
-        version: 0.6.16
+        specifier: ^0.6.18
+        version: 0.6.18
       '@expo/metro-config':
         specifier: ^0.10.7
         version: 0.10.7
@@ -316,8 +316,8 @@ importers:
         specifier: ^18.2.22
         version: 18.2.22
       '@types/webpack-env':
-        specifier: ^1.18.1
-        version: 1.18.1
+        specifier: ^1.18.2
+        version: 1.18.2
       eslint:
         specifier: ^8.50.0
         version: 8.50.0
@@ -609,6 +609,18 @@ packages:
 
   /@atproto/api@0.6.16:
     resolution: {integrity: sha512-DpG994bdwk7NWJSb36Af+0+FRWMFZgzTcrK0rN2tvlsMh6wBF/RdErjHKuoL8wcogGzbI2yp8eOqsA00lyoisw==}
+    dependencies:
+      '@atproto/common-web': 0.2.0
+      '@atproto/lexicon': 0.2.1
+      '@atproto/syntax': 0.1.1
+      '@atproto/xrpc': 0.3.1
+      multiformats: 9.9.0
+      tlds: 1.242.0
+      typed-emitter: 2.1.0
+    dev: false
+
+  /@atproto/api@0.6.18:
+    resolution: {integrity: sha512-OmqZgLHDaB6Jho9Y+VA8ZYNuUYV9vnJqiOnDvCaCiQXr/UTBoccRpffqYHQ6SOt7X76nJZnAoqrs4vzxjdvhog==}
     dependencies:
       '@atproto/common-web': 0.2.0
       '@atproto/lexicon': 0.2.1
@@ -3948,8 +3960,8 @@ packages:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: false
 
-  /@types/webpack-env@1.18.1:
-    resolution: {integrity: sha512-D0HJET2/UY6k9L6y3f5BL+IDxZmPkYmPT4+qBrRdmRLYRuV0qNKizMgTvYxXZYn+36zjPeoDZAEYBCM6XB+gww==}
+  /@types/webpack-env@1.18.2:
+    resolution: {integrity: sha512-BFqcTHHTrrI8EBmIzNAmLPP3IqtEG9J1IPFWbPeS/F0/TGNmo0pI5svOa7JbMF9vSCXQCvJWT2gxLJNVuf9blw==}
     dev: true
 
   /@types/yargs-parser@21.0.0:

@@ -2,7 +2,7 @@
   "name": "@graysky/app",
   "version": "1.0.0",
   "dependencies": {
-    "@atproto/api": "^0.6.16",
+    "@atproto/api": "^0.6.18",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.5.1",
@@ -93,7 +93,7 @@
     "@types/babel__core": "^7.20.2",
     "@types/mime": "^3.0.1",
     "@types/react": "^18.2.22",
-    "@types/webpack-env": "^1.18.1",
+    "@types/webpack-env": "^1.18.2",
     "eslint": "^8.50.0",
     "postcss": "^8.4.30",
     "prettier": "^3.0.3",
