@@ -288,6 +288,9 @@ export const useSendPost = ({
     onSuccess: () => {
       void queryClient.invalidateQueries(["profile"]);
       router.push("../");
+      showToastable({
+        message: "Post published!",
+      });
     },
     onError: (err) => Sentry.Native.captureException(err),
   });

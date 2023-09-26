@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LogBox, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { FullWindowOverlay } from "react-native-screens";
 import Toastable, { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
@@ -293,7 +294,9 @@ const App = ({ session, saveSession }: Props) => {
           </AgentProvider>
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>
-        <Toastable />
+        <FullWindowOverlay>
+          <Toastable />
+        </FullWindowOverlay>
       </SafeAreaProvider>
     </ThemeProvider>
   );
