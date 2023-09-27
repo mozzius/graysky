@@ -75,7 +75,7 @@ export const gifsRouter = createTRPCRouter({
 
       const title = input.description ?? "Tenor GIF";
       const description =
-        "Want to post your own GIFs? Try Graysky for iOS and Android!";
+        "Posted from Graysky - get the app to view and post GIFs!";
 
       const assetPath = new URL(input.assetUrl).pathname;
 
