@@ -42,6 +42,7 @@ import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
   enableInExpoDevelopment: false,
+  integrations: [new Sentry.Native.ReactNativeTracing()],
 });
 
 // configureRevenueCat();
@@ -180,6 +181,38 @@ const App = ({ session, saveSession }: Props) => {
   function handleModalBack() {
     router.canGoBack() ? router.push("../") : router.push("/feeds");
   }
+
+  // SENTRY NAVIGATION LOGGING
+  const routeName = "/" + segments.join("/");
+
+  const transaction = useRef<ReturnType<
+    typeof Sentry.Native.startTransaction
+  > | null>(null); // Can't find Transaction type
+  const timer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      transaction.current?.finish?.();
+      transaction.current = null;
+    }, 3000);
+
+    transaction.current?.finish?.();
+    transaction.current = Sentry.Native.startTransaction({
+      // Transaction params are similar to those in @sentry/react-native
+      name: "Route Change",
+      op: "navigation",
+      tags: {
+        "routing.route.name": routeName,
+      },
+    });
+
+    return () => {
+      transaction.current?.finish?.();
+      transaction.current = null;
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [routeName]);
 
   return (
     <ThemeProvider value={theme}>
