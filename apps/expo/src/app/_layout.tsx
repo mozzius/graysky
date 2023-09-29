@@ -38,6 +38,7 @@ import { LogOutProvider } from "~/lib/log-out-context";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
+import { type SavedSession } from "../components/switch-accounts";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
@@ -56,7 +57,7 @@ LogBox.ignoreLogs([
 
 interface Props {
   session: AtpSessionData | null;
-  saveSession: (sess: AtpSessionData | null) => void;
+  saveSession: (sess: AtpSessionData | null, agent?: BskyAgent) => void;
 }
 
 const App = ({ session, saveSession }: Props) => {
@@ -78,21 +79,19 @@ const App = ({ session, saveSession }: Props) => {
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
         switch (evt) {
           case "create":
-            if (!sess) throw new Error("should be unreachable");
-            saveSession(sess);
-            break;
-          case "create-failed":
-            break;
           case "update":
             if (!sess) throw new Error("should be unreachable");
-            saveSession(sess);
+            saveSession(sess, agent);
+            break;
+          case "create-failed":
+            showToastable({
+              message: "Sorry! Your session expired. Please log in again.",
+            });
             break;
           case "expired":
             saveSession(null);
-            setTimeout(() => {
-              showToastable({
-                message: "Sorry! Your session expired. Please log in again.",
-              });
+            showToastable({
+              message: "Sorry! Your session expired. Please log in again.",
             });
             break;
         }
@@ -108,8 +107,12 @@ const App = ({ session, saveSession }: Props) => {
       await agent.resumeSession(sess);
     },
     retry: 3,
-    // maybe alert -> retry here?
-    onError: () => router.replace("/"),
+    onError: () => {
+      showToastable({
+        message: "Sorry! Your session expired. Please log in again.",
+      });
+      router.replace("/");
+    },
   });
 
   const tryResumeSession = !agent.hasSession && !!session;
@@ -338,20 +341,58 @@ const App = ({ session, saveSession }: Props) => {
 const getSession = () => {
   const raw = store.getString("session");
   if (!raw) return null;
-  return JSON.parse(raw) as AtpSessionData;
+  const session = JSON.parse(raw) as AtpSessionData;
+  return session;
 };
 
 export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
 
-  const saveSession = useCallback((sess: AtpSessionData | null) => {
-    setSession(sess);
-    if (sess) {
-      store.set("session", JSON.stringify(sess));
-    } else {
-      store.delete("session");
-    }
-  }, []);
+  const saveSession = useCallback(
+    (sess: AtpSessionData | null, agent?: BskyAgent) => {
+      setSession(sess);
+      if (sess) {
+        store.set("session", JSON.stringify(sess));
+        if (agent) {
+          void agent.getProfile({ actor: sess.did }).then((res) => {
+            if (res.success) {
+              const sessions = store.getString("sessions");
+              if (sessions) {
+                const old = JSON.parse(sessions) as SavedSession[];
+                const newSessions = [
+                  {
+                    session: sess,
+                    did: sess.did,
+                    handle: res.data.handle,
+                    avatar: res.data.avatar,
+                    displayName: res.data.displayName,
+                  },
+                  ...old.filter((s) => s.did !== sess.did),
+                ];
+                store.set("sessions", JSON.stringify(newSessions));
+              } else {
+                store.set(
+                  "sessions",
+                  JSON.stringify([
+                    {
+                      session: sess,
+                      did: sess.did,
+                      handle: res.data.handle,
+                      avatar: res.data.avatar,
+                      displayName: res.data.displayName,
+                    },
+                  ] satisfies SavedSession[]),
+                );
+              }
+            }
+          });
+        }
+      } else {
+        store.delete("session");
+      }
+    },
+    [],
+  );
 
   return (
     <TRPCProvider>

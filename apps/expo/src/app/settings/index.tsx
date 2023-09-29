@@ -1,3 +1,5 @@
+import { View } from "react-native";
+import { useMMKVObject } from "react-native-mmkv";
 import {
   AtSignIcon,
   BanIcon,
@@ -6,6 +8,12 @@ import {
 } from "lucide-react-native";
 
 import { GroupedList, type Groups } from "~/components/grouped-list";
+import {
+  SwitchAccounts,
+  type SavedSession,
+} from "~/components/switch-accounts";
+import { useOptionalAgent } from "~/lib/agent";
+import { store } from "~/lib/storage";
 
 const groups = [
   {
@@ -39,7 +47,17 @@ const groups = [
 ] satisfies Groups;
 
 export default function SettingsPage() {
+  const agent = useOptionalAgent();
+  const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
+
   return (
-    <GroupedList groups={groups} contentInsetAdjustmentBehavior="automatic" />
+    <GroupedList groups={groups} contentInsetAdjustmentBehavior="automatic">
+      <View className="mb-4 flex-1">
+        <SwitchAccounts
+          sessions={sessions ?? []}
+          active={agent?.session?.did}
+        />
+      </View>
+    </GroupedList>
   );
 }

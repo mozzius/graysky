@@ -58,6 +58,12 @@ export default function AuthLayout() {
             title: "Join the Waitlist",
           }}
         />
+        <Stack.Screen
+          name="resume"
+          options={{
+            title: "Log back in",
+          }}
+        />
       </Stack>
     </>
   );
