@@ -86,7 +86,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         title: result === "followed" ? "Followed user" : "Unfollowed user",
         message: `You are ${
           result === "followed" ? "now following" : "no longer following"
-        } @${profile.handle}}`,
+        } @${profile.handle}`,
       });
     },
     onError: () => {
