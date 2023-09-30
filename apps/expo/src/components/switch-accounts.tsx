@@ -29,9 +29,14 @@ export interface SavedSession {
 interface Props {
   sessions: SavedSession[];
   active?: string;
+  onSuccessfulSwitch?: () => void;
 }
 
-export function SwitchAccounts({ sessions, active }: Props) {
+export function SwitchAccounts({
+  sessions,
+  active,
+  onSuccessfulSwitch,
+}: Props) {
   const agent = useAgent();
   const theme = useTheme();
   const queryClient = useQueryClient();
@@ -60,6 +65,7 @@ export function SwitchAccounts({ sessions, active }: Props) {
         status: "success",
       });
       void queryClient.resetQueries();
+      onSuccessfulSwitch?.();
     },
   });
 
