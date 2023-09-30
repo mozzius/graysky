@@ -157,7 +157,7 @@ export const DrawerContent = () => {
         accessibilityRole="button"
         accessibilityLabel="Sign out"
         className="w-full flex-row items-center py-2"
-        onPress={() => void logOut()}
+        onPress={() => logOut()}
       >
         <LogOutIcon color={theme.colors.text} />
         <Text className="ml-6 text-base font-medium">Sign out</Text>

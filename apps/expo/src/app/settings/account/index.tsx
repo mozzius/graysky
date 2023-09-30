@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
   LockIcon,
@@ -11,6 +12,8 @@ import { useAgent } from "~/lib/agent";
 
 export default function AccountSettings() {
   const agent = useAgent();
+  // preload for other pages
+  useSelf();
 
   return (
     <GroupedList
@@ -59,3 +62,19 @@ export default function AccountSettings() {
     />
   );
 }
+
+export const useSelf = () => {
+  const agent = useAgent();
+
+  return useQuery({
+    queryKey: ["self"],
+    queryFn: async () => {
+      if (!agent.session) throw new Error("Not logged in");
+      const self = await agent.app.bsky.actor.getProfile({
+        actor: agent.session.did,
+      });
+      if (!self.success) throw new Error("Could not fetch self");
+      return self.data;
+    },
+  });
+};

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { type AtpSessionData } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -36,6 +36,7 @@ export function SwitchAccounts({ sessions, active }: Props) {
   const theme = useTheme();
   const queryClient = useQueryClient();
   const logOut = useLogOut();
+  const router = useRouter();
 
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
@@ -77,7 +78,7 @@ export function SwitchAccounts({ sessions, active }: Props) {
           <Fragment key={account.did}>
             <TouchableHighlight
               className={cx("flex-1", resume.isLoading && "opacity-50")}
-              onPress={() => agent.resumeSession(account.session)}
+              onPress={() => resume.mutate(account.session)}
               disabled={resume.isLoading || account.did === active}
             >
               <View
@@ -96,18 +97,24 @@ export function SwitchAccounts({ sessions, active }: Props) {
                   )}
                   <Text className="text-neutral-500">@{account.handle}</Text>
                 </View>
-                {resume.isLoading && resume.variables?.did === account.did && (
+                {resume.isLoading && resume.variables?.did === account.did ? (
                   <ActivityIndicator />
-                )}
-                {account.did === active && (
-                  <TouchableOpacity onPress={logOut}>
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="font-medium"
+                ) : (
+                  account.did === active && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        router.push("../");
+                        logOut();
+                      }}
                     >
-                      Sign out
-                    </Text>
-                  </TouchableOpacity>
+                      <Text
+                        style={{ color: theme.colors.primary }}
+                        className="font-medium"
+                      >
+                        Sign out
+                      </Text>
+                    </TouchableOpacity>
+                  )
                 )}
               </View>
             </TouchableHighlight>
