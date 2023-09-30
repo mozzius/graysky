@@ -107,7 +107,7 @@ interface GroupProps extends ScrollViewProps {
 export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
   return (
     <ScrollView className="flex-1 px-4" {...props}>
-      <View className="mt-4">{children}</View>
+      <View className="mt-4 flex-1">{children}</View>
       {groups
         .filter((x) => !!x)
         .map((group, i, arr) => {

@@ -74,7 +74,8 @@ export const gifsRouter = createTRPCRouter({
       const blobRef = (await uploadRes.json()) as { blob: BlobRef };
 
       const title = input.description ?? "Tenor GIF";
-      const description = "Posted via Graysky";
+      const description =
+        "Posted from Graysky - get the app to view and post GIFs!";
 
       const assetPath = new URL(input.assetUrl).pathname;
 

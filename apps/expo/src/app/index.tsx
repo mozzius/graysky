@@ -1,8 +1,10 @@
 import { View, type ImageSourcePropType } from "react-native";
+import { useMMKVObject } from "react-native-mmkv";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
 import { StatusBar } from "expo-status-bar";
+import { type AtpSessionData } from "@atproto/api";
 
 import { LinkButton } from "~/components/button";
 
@@ -10,6 +12,8 @@ import { LinkButton } from "~/components/button";
 const background = require("../../assets/graysky.png") as ImageSourcePropType;
 
 export default function LandingPage() {
+  const [sessions] = useMMKVObject<AtpSessionData[]>("sessions");
+
   return (
     <View className="flex-1 bg-[#3B4245]">
       <StatusBar style="light" translucent backgroundColor="transparent" />
@@ -37,7 +41,11 @@ export default function LandingPage() {
               <LinkButton href="/sign-up" variant="white">
                 Create an account
               </LinkButton>
-              <LinkButton href="/sign-in" variant="black" className="mt-4">
+              <LinkButton
+                href={sessions?.length ? "/resume" : "/sign-in"}
+                variant="black"
+                className="mt-4"
+              >
                 Log in
               </LinkButton>
             </Animated.View>

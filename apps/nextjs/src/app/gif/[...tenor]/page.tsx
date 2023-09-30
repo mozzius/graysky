@@ -39,7 +39,7 @@ export default function GifScreen({
         </div>
         <div className="flex w-full max-w-xl flex-col gap-8 rounded px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            Want to post your own GIFs? Get Graysky for iOS and Android today!
+            Want to view and post GIFs? Get Graysky for iOS and Android today!
           </p>
           <div className="flex shrink-0 flex-row items-center justify-center gap-2 max-sm:w-full">
             <Link
