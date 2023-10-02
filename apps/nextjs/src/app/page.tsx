@@ -5,11 +5,19 @@ import {
 } from "@atproto/api";
 
 import background from "~/assets/graysky.png";
+import { EmailInput } from "./email-input";
 import { Features } from "./features";
 import { Hero } from "./hero";
 import { Post } from "./post";
 
-export default async function LandingPage() {
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: {
+    error?: boolean;
+    success?: boolean;
+  };
+}) {
   const posts = await getNicePosts();
   return (
     <div className="min-h-screen w-full" id="top">
@@ -107,6 +115,9 @@ export default async function LandingPage() {
             to restrict access how much access the app has to your account.
           </p>
         </div>
+      </section>
+      <section>
+        <EmailInput {...searchParams} />
       </section>
       <div className="relative w-full bg-neutral-600 px-4 py-2">
         <p className="container mx-auto max-w-4xl text-xs font-light">
