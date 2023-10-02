@@ -134,15 +134,10 @@ export const useProfilePosts = (
         if (filter?.visibility === "hide") return [];
         switch (mode) {
           case "posts":
-            return item.reply && !item.reason
-              ? []
-              : [{ item, hasReply: false, filter }];
           case "replies":
-            if (
-              item.reply &&
-              !item.reason &&
-              AppBskyFeedDefs.isPostView(item.reply.parent)
-            ) {
+            if (item.reply) {
+              if (mode === "posts" && !item.reason) return [];
+              if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
               const parentFilter = contentFilter(item.reply.parent.labels);
               if (parentFilter?.visibility === "hide")
                 return [{ item, hasReply: false, filter }];
