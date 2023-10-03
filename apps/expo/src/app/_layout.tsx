@@ -83,11 +83,6 @@ const App = ({ session, saveSession }: Props) => {
             if (!sess) throw new Error("should be unreachable");
             saveSession(sess, agent);
             break;
-          case "create-failed":
-            showToastable({
-              message: "Sorry! Your session expired. Please log in again.",
-            });
-            break;
           case "expired":
             saveSession(null);
             showToastable({
