@@ -122,7 +122,7 @@ export default function SignIn() {
           <Animated.View
             entering={FadeIn}
             exiting={FadeOut}
-            className="flex-row rounded border-blue-500 bg-blue-50 p-3 pb-4 dark:bg-yellow-950"
+            className="flex-row rounded border-blue-500 bg-blue-50 p-3 pb-4 dark:bg-blue-950"
             style={{
               borderWidth: StyleSheet.hairlineWidth,
             }}
