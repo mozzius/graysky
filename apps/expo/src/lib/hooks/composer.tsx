@@ -640,7 +640,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
                   } satisfies AppBskyEmbedRecord.ViewRecord,
                 } satisfies AppBskyEmbedRecord.View,
                 main: {
-                  $type: "app.bsky.embed.record#main",
+                  $type: "app.bsky.embed.record",
                   record: {
                     uri: thread.post.uri,
                     cid: thread.post.cid,
@@ -665,7 +665,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
                 record: generator.data.view,
               } satisfies AppBskyEmbedRecord.View,
               main: {
-                $type: "app.bsky.embed.record#main",
+                $type: "app.bsky.embed.record",
                 record: {
                   uri: generator.data.view.uri,
                   cid: generator.data.view.cid,
@@ -716,7 +716,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
             } satisfies AppBskyEmbedExternal.ViewExternal,
           } satisfies AppBskyEmbedExternal.View,
           main: {
-            $type: "app.bsky.embed.external#main",
+            $type: "app.bsky.embed.external",
             external: {
               $type: "app.bsky.embed.external#external",
               uri: url.toString(),
