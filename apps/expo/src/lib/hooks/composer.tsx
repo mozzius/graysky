@@ -166,7 +166,7 @@ export const useSendPost = ({
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
-      const rt = await generateRichText(text.trim(), agent);
+      const rt = await generateRichText(text.trimEnd(), agent);
       if (rt.graphemeLength > MAX_LENGTH) {
         showToastable({
           title: "Your post is too long",
