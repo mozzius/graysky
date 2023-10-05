@@ -44,7 +44,10 @@ export const EmailInput = ({
       <div className="grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
         <p className="text-center text-white">
           Something went wrong. Please could you let{" "}
-          <a className="underline" href="https://bsky.app/profile/mozzius.dev">
+          <a
+            className="underline underline-offset-4"
+            href="https://bsky.app/profile/mozzius.dev"
+          >
             @mozzius.dev
           </a>{" "}
           know?

@@ -58,7 +58,7 @@ function getDescription(offset: number) {
     case -2:
       return "Post GIFs!";
     case -3:
-      return "Admire the beautiful profile screens";
+      return "View your profile";
     case -4:
       return "See your notifications";
     case -5:
