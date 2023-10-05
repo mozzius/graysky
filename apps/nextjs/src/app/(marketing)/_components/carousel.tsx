@@ -17,7 +17,7 @@ interface Props {
 
 export const Carousel = ({ offset }: Props) => {
   const translation = offset * (200 + 32);
-  console.log(offset);
+
   return (
     <div className="flex w-[calc(50%-8px)] flex-row gap-8 overflow-visible py-8 pl-8">
       <Image

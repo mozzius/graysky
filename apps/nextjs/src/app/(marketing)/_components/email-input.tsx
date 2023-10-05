@@ -63,7 +63,7 @@ export const EmailInput = ({
 
   return (
     <form
-      className="flex max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
+      className="flex w-96 max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
       action={signUp}
     >
       <input
