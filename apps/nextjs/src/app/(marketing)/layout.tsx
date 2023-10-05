@@ -3,7 +3,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen w-full flex-col">
       <div className="relative w-full shrink-0 bg-neutral-600 px-4 py-1">
         <p className="container mx-auto max-w-4xl text-center text-xs font-light">
-          Graysky is available on the{" "}
+          Graysky is now available on the{" "}
           <a
             href="https://testflight.apple.com/join/8Q1M4gwt"
             className="underline"
