@@ -5,7 +5,7 @@ date: 2023-10-05
 author: mozzius.dev
 ---
 
-Graysky has just been released on the [App Store]() and [Play Store]()! This is a huge milestone, and I'm thrilled that I've been able to go on this journey with all of you. The support I've recieved is tremendous - over 4000 testers across iOS and Android, hundreds of bug reports recieved, and a ton of great feedback. I'm so excited to see where Graysky goes from here.
+Graysky has just been released on the [App Store](https://apps.apple.com/us/app/graysky/id6448234181) and [Play Store](https://play.google.com/store/apps/details?id=dev.mozzius.graysky)! This is a huge milestone, and I'm thrilled that I've been able to go on this journey with all of you. The support I've recieved is tremendous - over 4000 testers across iOS and Android, hundreds of bug reports recieved, and a ton of great feedback. I'm so excited to see where Graysky goes from here.
 
 ## What is Graysky?
 
@@ -67,6 +67,12 @@ If you're a developer, I cannot encourage you enough to check out the [AT Protoc
 
 ## The future of Graysky
 
+I'm so excited to see where Graysky goes from here. I've got a ton of ideas for new features, and I'm always open to suggestions. If you have any ideas for new features, or if you find any bugs, please [open an issue on GitHub](https://github.com/mozzius/graysky/issues).
+
 ## Shoutouts!
 
-I
+There are a few people I'd like to thank for helping me get Graysky to where it is today: [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements. Thanks also to [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com).
+
+See you on the Skyline!
+
+\- Samuel ([@mozzius.dev](https://bsky.app/profile/mozzius.dev))
