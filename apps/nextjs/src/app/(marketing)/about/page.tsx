@@ -6,7 +6,7 @@ export default function AboutPage() {
   return (
     <>
       <Header title="About" />
-      <div className="[&_p:mt-2] container mx-auto my-8 max-w-4xl px-4 [&_a]:underline [&_a]:underline-offset-4">
+      <div className="[&_p:mt-2] container mx-auto mb-12 mt-8 max-w-4xl px-4 [&_a]:underline [&_a]:underline-offset-4">
         <Markdown
           content={`
           ## The project
