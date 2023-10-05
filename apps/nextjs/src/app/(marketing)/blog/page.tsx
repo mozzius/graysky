@@ -4,13 +4,15 @@ import path from "node:path";
 import { Header } from "../_components/header";
 
 export default async function BlogIndexPage() {
-  const posts = await fs.readdir(path.join(__dirname, "(posts)"));
+  // const posts = await fs.readdir(path.join(__dirname, "(posts)"));
   return (
     <>
       <Header title="Blog" />
-      {posts.map((post, i) => (
+      {process.cwd()}
+      {__dirname}
+      {/* {posts.map((post, i) => (
         <pre key={i}>{JSON.stringify(post, null, 2)}</pre>
-      ))}
+      ))} */}
     </>
   );
 }
