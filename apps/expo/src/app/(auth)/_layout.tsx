@@ -49,13 +49,13 @@ export default function AuthLayout() {
         <Stack.Screen
           name="reset-password"
           options={{
-            title: "Reset Password",
+            title: "Reset password",
           }}
         />
         <Stack.Screen
           name="waitlist"
           options={{
-            title: "Join the Waitlist",
+            title: "Join the waitlist",
           }}
         />
         <Stack.Screen
