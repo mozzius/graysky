@@ -25,7 +25,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
           <a href="/">
             <h1 className="text-lg font-medium">Graysky</h1>
           </a>
-          <div className="hidden flex-row items-center gap-4 sm:flex">
+          <div className="flex flex-row items-center gap-2 sm:gap-4">
             <a className="text-sm hover:underline" href="/about">
               About
             </a>
@@ -33,7 +33,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
               Blog
             </a>
             <a
-              className="ml-2 rounded border px-3 py-1.5 text-sm transition-colors duration-200 ease-in-out hover:bg-neutral-700"
+              className="ml-0.5 rounded border px-1.5 py-1.5 text-sm transition-colors duration-200 ease-in-out hover:bg-neutral-700 sm:ml-2 sm:px-3"
               href="/download"
             >
               Download

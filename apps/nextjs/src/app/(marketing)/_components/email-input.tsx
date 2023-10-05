@@ -67,7 +67,7 @@ export const EmailInput = ({
       action={signUp}
     >
       <input
-        className="flex-1 rounded-sm border border-neutral-600 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
+        className="w-full flex-1 rounded-sm border border-neutral-600 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
         type="email"
         name="email"
         placeholder="Enter your email"
