@@ -1,20 +1,25 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import Link from "next/link";
 
 import { Header } from "../_components/header";
+import { getAllPosts } from "./utils";
 
 export default async function BlogIndexPage() {
-  // const posts = await fs.readdir(path.join(__dirname, "(posts)"));
+  const posts = await getAllPosts();
   return (
     <>
       <Header title="Blog" />
-      <pre>
-        <p>{process.cwd()}</p>
-        <p>{__dirname}</p>
-      </pre>
-      {/* {posts.map((post, i) => (
-        <pre key={i}>{JSON.stringify(post, null, 2)}</pre>
-      ))} */}
+      <ul>
+        {posts.map((post) => {
+          const { id, date, title } = post;
+          return (
+            <li key={id}>
+              <Link href={`/posts/${id}`}>
+                {date} - {title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }
