@@ -8,8 +8,10 @@ export default async function BlogIndexPage() {
   return (
     <>
       <Header title="Blog" />
-      {process.cwd()}
-      {__dirname}
+      <pre>
+        <p>{process.cwd()}</p>
+        <p>{__dirname}</p>
+      </pre>
       {/* {posts.map((post, i) => (
         <pre key={i}>{JSON.stringify(post, null, 2)}</pre>
       ))} */}
