@@ -1,8 +1,15 @@
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
 import { Providers } from "./providers";
 
 import "~/styles/globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata = {
   title: "Graysky - a bluesky client",
@@ -19,9 +26,13 @@ export const metadata = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: React.PropsWithChildren) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head />
       <body>
         <Providers>{children}</Providers>

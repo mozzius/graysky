@@ -19,13 +19,13 @@ export const Carousel = ({ offset }: Props) => {
   const translation = offset * (200 + 32);
 
   return (
-    <div className="flex w-[calc(50%-8px)] flex-row gap-8 overflow-visible py-8 pl-8">
+    <div className="flex w-full flex-row gap-8 overflow-visible py-8 pl-8 md:w-[calc(50%-8px)]">
       <Image
         src={screenshot1}
         alt="screenshot of Graysky's feeds screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < 0 ? 0 : 1,
@@ -37,7 +37,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's Art feed with an inline translation"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -1 ? 0 : 1,
@@ -49,7 +49,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky post editor with a GIF"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -2 ? 0 : 1,
@@ -61,7 +61,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's profile screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -3 ? 0 : 1,
@@ -73,7 +73,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's notification screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -4 ? 0 : 1,
@@ -85,7 +85,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's edit alt text screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -5 ? 0 : 1,
@@ -97,7 +97,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's media tab on the profile screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -6 ? 0 : 1,
@@ -109,7 +109,7 @@ export const Carousel = ({ offset }: Props) => {
         alt="screenshot of Graysky's search screen"
         width={200}
         height={400}
-        className="transition"
+        className="transition duration-700 sm:duration-500"
         style={{
           transform: `translateX(${translation}px)`,
           opacity: offset < -7 ? 0 : 1,
