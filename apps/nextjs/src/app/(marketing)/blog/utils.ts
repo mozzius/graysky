@@ -9,6 +9,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import * as shiki from "shiki";
 import { unified } from "unified";
+import { z } from "zod";
 
 // cache the creation of the markdown parser
 let p: ReturnType<typeof getParserPre> | undefined;
@@ -47,12 +48,17 @@ export async function getPostById(slug: string) {
   const parser = await getParser();
   const html = await parser.process(content);
 
+  const schema = z.object({
+    title: z.string(),
+    author: z.string(),
+    date: z.date(),
+  });
+
+  const parsed = schema.parse(data);
+
   return {
-    ...data,
-    title: data.title as string,
     id: slug,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    date: `${data.date?.toISOString().slice(0, 10)}`,
+    ...parsed,
     html: html.value.toString(),
   };
 }

@@ -13,7 +13,7 @@ export const Hero = () => {
     <div className="container z-10 mx-auto flex h-full max-w-4xl flex-row items-center gap-4 p-4">
       <div className="flex w-[calc(50%-8px)] flex-col gap-6">
         <span className="w-max translate-y-2 rounded-full border border-neutral-500 bg-neutral-900 px-4 py-1 text-xs text-white">
-          Version 0.1.4 available now!
+          Version 0.1.5 available now!
         </span>
         <Balancer as="h1" className="text-5xl font-bold">
           Bluesky, like you&apos;re never seen it before.
