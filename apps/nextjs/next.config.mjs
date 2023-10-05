@@ -1,23 +1,8 @@
-import mdx from "@next/mdx";
-
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds and Linting.
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
-
-const withMDX = mdx({
-  // Optionally provide remark and rehype plugins
-  options: {
-    // If you use remark-gfm, you'll need to use next.config.mjs
-    // as the package is ESM only
-    // https://github.com/remarkjs/remark-gfm#install
-    remarkPlugins: [],
-    rehypePlugins: [],
-    // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
-  },
-});
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -33,4 +18,4 @@ const config = {
   },
 };
 
-export default withMDX(config);
+export default config;

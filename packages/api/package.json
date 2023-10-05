@@ -10,7 +10,7 @@
     "encoding": "^0.1.13",
     "lande": "^1.0.10",
     "superjson": "1.13.3",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
