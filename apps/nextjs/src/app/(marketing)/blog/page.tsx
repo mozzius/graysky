@@ -36,7 +36,7 @@ export default async function BlogIndexPage() {
                   <time dateTime={date.toISOString().slice(0, 10)}>
                     {formatter.format(new Date(date))}
                   </time>{" "}
-                  - by @{author}
+                  - by {author}
                 </p>
               </div>
             </Link>
