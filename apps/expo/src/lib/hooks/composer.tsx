@@ -168,12 +168,9 @@ export const useSendPost = ({
 
       const rt = await generateRichText(text.trimEnd(), agent);
       if (rt.graphemeLength > MAX_LENGTH) {
-        showToastable({
-          title: "Your post is too long",
-          message: "There is a character limit of 300 characters",
-          status: "danger",
-        });
-        throw new Error("Too long");
+        throw new Error(
+          "Your post is too long - there is a character limit of 300 characters",
+        );
       }
 
       const uploadedImages = await Promise.all(
