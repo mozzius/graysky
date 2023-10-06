@@ -6,8 +6,10 @@ import {
 
 import background from "~/assets/graysky.png";
 import { env } from "~/env.mjs";
+import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
+import { GoogleBadge } from "./_components/google-badge";
 import { Hero } from "./_components/hero";
 import { Post } from "./_components/post";
 
@@ -30,11 +32,17 @@ export default async function LandingPage({
         />
         <Hero />
       </header>
-      <section className="px-4 py-8">
+      <section className="w-full px-4 py-8">
         <h3 className="text-center text-xl font-medium">Features</h3>
         <Features />
       </section>
-      <section>
+      <section className="w-full px-4 pb-8">
+        <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row">
+          <AppleBadge />
+          <GoogleBadge />
+        </div>
+      </section>
+      <section className="w-full">
         <h3 className="mt-4 px-4 text-center text-xl font-medium">
           What people are saying
         </h3>
@@ -44,7 +52,7 @@ export default async function LandingPage({
           ))}
         </div>
       </section>
-      <section className="bg-neutral-950 px-4 py-8 text-white">
+      <section className="w-full bg-neutral-950 px-4 py-8 text-white">
         <div className="container mx-auto max-w-2xl pb-8">
           <h3 className="mb-8 text-center text-xl font-medium">
             Frequently Asked Questions

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Header } from "../_components/header";
 import { Markdown } from "../_components/markdown";
 
@@ -15,7 +14,16 @@ export default function AboutPage() {
 
           ## The team
 
-          <figure className="my-4 flex w-full flex-col items-center">![The whole team!](https://av-cdn.bsky.app/img/avatar/plain/did:plc:p2cp5gopk7mgjegy6wadk3ep/bafkreia4j2kqupkd4n76kawghmjrpvb2bofvffajfcojh6pmowxrba3lvm@jpeg)</figure>
+          <figure className="my-4 flex w-full flex-col items-center">
+            <img
+              src="https://av-cdn.bsky.app/img/avatar/plain/did:plc:p2cp5gopk7mgjegy6wadk3ep/bafkreia4j2kqupkd4n76kawghmjrpvb2bofvffajfcojh6pmowxrba3lvm@jpeg"
+              alt="me :)"
+              className="mx-auto h-32 w-32 rounded-full bg-neutral-800 text-transparent"
+            />
+            <figcaption className="mt-4 text-center text-sm text-neutral-400">
+              The whole team
+            </figcaption>
+          </figure>
 
           The team is just me, Samuel. I'm a software dev based in London. Graysky is a side project of mine, and I work on it in my spare time. You can find me on Bluesky as [@mozzius.dev](https://bsky.app/profile/mozzius.dev).
           
@@ -29,20 +37,6 @@ export default function AboutPage() {
           - [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social)
           - [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com)
         `}
-          components={{
-            img: ({ src, alt }) => (
-              <>
-                <img
-                  src={src}
-                  alt={alt}
-                  className="mx-auto h-32 w-32 rounded-full bg-neutral-800 text-transparent"
-                />
-                <figcaption className="mt-4 text-center text-sm text-neutral-400">
-                  {alt}
-                </figcaption>
-              </>
-            ),
-          }}
         />
       </div>
     </>

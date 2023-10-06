@@ -49,13 +49,22 @@ export default function NavLayout({
           </div>
         </nav>
         <main className="grow">{children}</main>
-        <footer className="relative w-full shrink-0 bg-neutral-600 px-4 py-2">
-          <p className="container mx-auto max-w-4xl px-4 text-xs font-light">
-            Copyright © 2023 Pilvia Ltd |{" "}
-            <a href="/privacy-policy" className="underline">
-              Privacy Policy
-            </a>
-          </p>
+        <footer className="relative w-full shrink-0 bg-neutral-600 px-4 py-1 [&_p]:my-1">
+          <div className="container mx-auto max-w-4xl px-4 text-xs font-light">
+            <p>
+              Copyright © 2023 Pilvia Ltd |{" "}
+              <a href="/privacy-policy" className="underline">
+                Privacy Policy
+              </a>
+            </p>
+            <p>
+              Apple and the Apple Store are trademarks of Apple Inc., registered
+              in the U.S. and other countries.
+            </p>
+            <p>
+              Google Play and the Google Play logo are trademarks of Google LLC.
+            </p>
+          </div>
         </footer>
       </div>
       {modal}
