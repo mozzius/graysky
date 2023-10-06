@@ -27,6 +27,7 @@ const PeopleSearch = ({ search }: Props) => {
   const query = useInfiniteQuery({
     queryKey: ["search", "people", search, "all"],
     queryFn: async ({ pageParam }) => {
+      if (!search) return { actors: [] };
       const profile = await agent.searchActors({
         term: search,
         cursor: pageParam as string | undefined,

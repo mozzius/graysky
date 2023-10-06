@@ -225,8 +225,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.23.0)(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.5)
       react-native-drawer-layout:
-        specifier: 4.0.0-alpha.1
-        version: 4.0.0-alpha.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.5)(react@18.2.0)
+        specifier: 3.2.1
+        version: 3.2.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.5)(react@18.2.0)
       react-native-gesture-handler:
         specifier: ~2.12.1
         version: 2.12.1(react-native@0.72.5)(react@18.2.0)
@@ -11032,8 +11032,8 @@ packages:
       - '@babel/core'
     dev: false
 
-  /react-native-drawer-layout@4.0.0-alpha.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-WVJZKzm/7BFtri6jRfpQVgpZYqkiGNEn5gAy8+rwaUOin/m8E73WEjQwJ89IofgkInlPfW3HVUbA2sVj9tafRw==}
+  /react-native-drawer-layout@3.2.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-9GDzSLBblxox1zEACcbdXHMU8m22gCTdpT9g1G3Za4Bu766IDxVnIbgRGz6Z2dL99EMtz5E2JoWx257tdHkbpw==}
     peerDependencies:
       react: '*'
       react-native: '*'

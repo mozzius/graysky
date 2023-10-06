@@ -56,34 +56,39 @@ export const FeedsButton = ({ show = true }: Props) => {
   return (
     <>
       {show && (
-        <TouchableHighlight
-          onPress={() => {
-            haptics.selection();
-            bottomSheetRef.current?.present();
-          }}
-          onLongPress={() => {
-            haptics.selection();
-            if (homepage === "feeds") {
-              router.push("/feeds");
-            } else {
-              router.push("/feeds/manage");
-            }
-          }}
-          accessibilityLabel="Open feed switch modal"
+        <Animated.View
+          className="absolute bottom-6 right-6 flex-1 rounded-full"
+          entering={FadeInDown}
+          exiting={FadeOutDown}
         >
-          <Animated.View
-            className="absolute bottom-6 right-6 flex-1 flex-row items-center rounded-full border p-3"
-            style={{
-              backgroundColor: theme.colors.card,
-              borderColor: theme.colors.border,
+          <TouchableHighlight
+            onPress={() => {
+              haptics.selection();
+              bottomSheetRef.current?.present();
             }}
-            entering={FadeInDown}
-            exiting={FadeOutDown}
+            onLongPress={() => {
+              haptics.selection();
+              if (homepage === "feeds") {
+                router.push("/feeds");
+              } else {
+                router.push("/feeds/manage");
+              }
+            }}
+            accessibilityLabel="Open feed switch modal"
+            className="flex-1 rounded-full"
           >
-            <CloudyIcon size={24} color={theme.colors.text} />
-            <Text className="ml-4 mr-2 text-base">My Feeds</Text>
-          </Animated.View>
-        </TouchableHighlight>
+            <View
+              className="flex-1 flex-row items-center rounded-full border p-3"
+              style={{
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.border,
+              }}
+            >
+              <CloudyIcon size={24} color={theme.colors.text} />
+              <Text className="ml-4 mr-2 text-base">My Feeds</Text>
+            </View>
+          </TouchableHighlight>
+        </Animated.View>
       )}
       <BottomSheetModal
         ref={bottomSheetRef}

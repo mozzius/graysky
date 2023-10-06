@@ -76,6 +76,7 @@ const SearchResults = ({ search }: Props) => {
   const searchResults = useQuery({
     queryKey: ["search", "people", search, MAX_RESULTS],
     queryFn: async () => {
+      if (!search) return { actors: [] };
       const { data, success } = await agent.searchActors({
         term: search,
         limit: MAX_RESULTS,

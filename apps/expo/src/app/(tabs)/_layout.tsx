@@ -132,10 +132,22 @@ export default function AppLayout() {
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={Dimensions.get("window").width}
-        swipeEnabled={Platform.OS === "ios" ? segments.length === 3 : true}
+        swipeEnabled={segments.length === 3}
       >
         <Tabs
-          screenOptions={{ headerShown: false }}
+          screenOptions={{
+            headerShown: false,
+            ...Platform.select({
+              android: {
+                tabBarIconStyle: {
+                  marginTop: 2,
+                },
+                tabBarLabelStyle: {
+                  marginBottom: 4,
+                },
+              },
+            }),
+          }}
           screenListeners={{
             tabPress: (evt) => {
               if (evt.target?.startsWith("null")) {

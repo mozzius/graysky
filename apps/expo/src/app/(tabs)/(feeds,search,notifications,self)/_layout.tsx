@@ -122,6 +122,7 @@ export default function SubStack({
                 ios: headerLeft,
               }),
               headerLargeTitle: true,
+              headerSearchBarOptions: {},
             }}
           />
         </Stack>

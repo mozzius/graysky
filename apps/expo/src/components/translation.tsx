@@ -33,8 +33,12 @@ export const Translation = ({ text, uri }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
-  if (text.length < 2 || z.string().emoji().safeParse(text).success) {
-    return null;
+  try {
+    if (text.length < 2 || z.string().emoji().safeParse(text).success) {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
   }
 
   switch (translate.status) {

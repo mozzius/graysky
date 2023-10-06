@@ -2,8 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LogBox, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { FullWindowOverlay } from "react-native-screens";
-import Toastable, { showToastable } from "react-native-toastable";
+import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import {
@@ -27,6 +26,7 @@ import { z } from "zod";
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
+import { Toastable } from "~/components/toastable/toastable";
 import { AgentProvider } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
 // import {
@@ -325,9 +325,7 @@ const App = ({ session, saveSession }: Props) => {
           </AgentProvider>
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>
-        <FullWindowOverlay>
-          <Toastable />
-        </FullWindowOverlay>
+        <Toastable />
       </SafeAreaProvider>
     </ThemeProvider>
   );
