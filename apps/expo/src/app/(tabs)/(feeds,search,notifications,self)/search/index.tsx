@@ -121,10 +121,10 @@ const SearchResults = ({ search }: Props) => {
           },
           data.length > 0
             ? {
-                children: data.slice(0, 5).map((item, i) => (
+                children: data.slice(0, 5).map((item, i, arr) => (
                   <Fragment key={item.did}>
                     <PersonRow person={item} />
-                    {i !== data.length - 2 ? (
+                    {i !== arr.length - 1 ? (
                       <ItemSeparator iconWidth="w-10" />
                     ) : (
                       data.length === MAX_RESULTS && <ItemSeparator />
