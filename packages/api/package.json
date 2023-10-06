@@ -4,8 +4,8 @@
   "dependencies": {
     "@atproto/api": "^0.6.20",
     "@graysky/db": "0.1.0",
-    "@trpc/client": "^10.38.5",
-    "@trpc/server": "^10.38.5",
+    "@trpc/client": "^10.39.0",
+    "@trpc/server": "^10.39.0",
     "@vercel/kv": "^0.2.3",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",
