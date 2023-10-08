@@ -38,6 +38,7 @@ export default function SignIn() {
         password,
       });
     },
+    onSuccess: () => router.push("../"),
     onError: (err) =>
       showToastable({
         title: "Could not log you in",

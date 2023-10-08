@@ -46,7 +46,6 @@ export function SwitchAccounts({
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
     mutationFn: async (session: AtpSessionData) => {
-      console.log("ahhhhhh");
       const res = await agent.resumeSession(session);
       if (!res.success) throw new Error("Could not resume session");
       return res.data;
@@ -58,7 +57,6 @@ export function SwitchAccounts({
         status: "warning",
       }),
     onSuccess: (data) => {
-      console.log("sucess");
       showToastable({
         title: "Logged in",
         message: `You are now logged in as @${data.handle}`,
@@ -137,7 +135,10 @@ export function SwitchAccounts({
             style={{ backgroundColor: theme.colors.card }}
           >
             <View className="h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700">
-              <PlusIcon size={24} className="text-neutral-500" />
+              <PlusIcon
+                size={24}
+                className="text-neutral-500 dark:text-neutral-300"
+              />
             </View>
             <View className="ml-3 flex-1">
               <Text>Add another account</Text>

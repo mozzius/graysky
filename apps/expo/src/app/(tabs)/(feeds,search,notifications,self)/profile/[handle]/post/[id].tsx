@@ -8,19 +8,21 @@ import {
   View,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import {
-  AppBskyFeedDefs,
-  AppBskyFeedPost,
-  type ComAtprotoLabelDefs,
-} from "@atproto/api";
+import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
+import {
+  ShieldQuestionIcon,
+  ShieldXIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
 import { FeedPost } from "~/components/feed-post";
 import { Post } from "~/components/post";
 import { QueryWithoutData } from "~/components/query-without-data";
+import { Text as ThemedText } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScroll } from "~/lib/hooks";
 import { useComposer } from "~/lib/hooks/composer";
@@ -28,13 +30,22 @@ import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { useUserRefresh } from "~/lib/utils/query";
 
-export interface Posts {
-  post: AppBskyFeedDefs.PostView;
-  primary: boolean;
-  hasParent: boolean;
-  hasReply: boolean;
-  filter: FilterResult;
-}
+export type Posts =
+  | {
+      viewable: true;
+      post: AppBskyFeedDefs.PostView;
+      primary: boolean;
+      hasParent: boolean;
+      hasReply: boolean;
+      filter: FilterResult;
+    }
+  | {
+      viewable: false;
+      deleted: boolean;
+      blocked: boolean;
+      primary: boolean;
+      hasReply?: boolean;
+    };
 
 interface Props {
   contentFilter: (labels?: ComAtprotoLabelDefs.Label[]) => FilterResult;
@@ -66,6 +77,34 @@ const PostThread = ({ contentFilter }: Props) => {
 
       const thread = postThread.data.thread;
 
+      if (AppBskyFeedDefs.isBlockedPost(thread)) {
+        return {
+          index: 0,
+          main: thread.post,
+          posts: [
+            {
+              viewable: false,
+              blocked: true,
+              primary: true,
+              deleted: false,
+            },
+          ] as Posts[],
+        };
+      }
+      if (AppBskyFeedDefs.isNotFoundPost(thread)) {
+        return {
+          index: 0,
+          main: thread.post,
+          posts: [
+            {
+              viewable: false,
+              deleted: true,
+              primary: true,
+              blocked: false,
+            },
+          ] as Posts[],
+        };
+      }
       if (!AppBskyFeedDefs.isThreadViewPost(thread))
         throw Error("Post not found");
       assert(AppBskyFeedDefs.validateThreadViewPost(thread));
@@ -77,7 +116,25 @@ const PostThread = ({ contentFilter }: Props) => {
 
       let ancestor = thread;
       while (ancestor.parent) {
-        if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) break;
+        if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) {
+          if (AppBskyFeedDefs.isBlockedPost(ancestor.parent)) {
+            ancestors.push({
+              viewable: false,
+              blocked: true,
+              primary: false,
+              deleted: false,
+            });
+          }
+          if (AppBskyFeedDefs.isNotFoundPost(ancestor.parent)) {
+            ancestors.push({
+              deleted: true,
+              primary: false,
+              viewable: false,
+              blocked: false,
+            });
+          }
+          break;
+        }
         assert(AppBskyFeedDefs.validateThreadViewPost(ancestor.parent));
 
         const filter = contentFilter(ancestor.parent.post.labels);
@@ -89,6 +146,7 @@ const PostThread = ({ contentFilter }: Props) => {
             hasParent: false,
             hasReply: true,
             filter,
+            viewable: true,
           });
         }
 
@@ -107,13 +165,31 @@ const PostThread = ({ contentFilter }: Props) => {
           hasParent: !!thread.parent,
           hasReply: false,
           filter,
+          viewable: true,
         });
       }
 
       if (thread.replies) {
         for (const reply of thread.replies) {
-          if (!AppBskyFeedDefs.isThreadViewPost(reply)) continue;
-          assert(AppBskyFeedDefs.validateThreadViewPost(reply));
+          if (!AppBskyFeedDefs.isThreadViewPost(reply)) {
+            if (AppBskyFeedDefs.isBlockedPost(reply)) {
+              posts.push({
+                viewable: false,
+                blocked: true,
+                primary: false,
+                deleted: false,
+              });
+            }
+            if (AppBskyFeedDefs.isNotFoundPost(reply)) {
+              posts.push({
+                deleted: true,
+                primary: false,
+                viewable: false,
+                blocked: false,
+              });
+            }
+            continue;
+          }
 
           const filter = contentFilter(reply.post.labels);
 
@@ -124,6 +200,7 @@ const PostThread = ({ contentFilter }: Props) => {
               hasParent: false,
               hasReply: !!reply.replies?.[0],
               filter,
+              viewable: true,
             });
           }
 
@@ -143,6 +220,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   hasParent: false,
                   hasReply: !!child.replies?.[0],
                   filter: replyFilter,
+                  viewable: true,
                 });
               }
 
@@ -152,30 +230,11 @@ const PostThread = ({ contentFilter }: Props) => {
         }
       }
 
-      try {
-        const toBeDetected: { uri: string; text: string }[] = [];
-
-        for (const post of posts) {
-          if (
-            AppBskyFeedPost.isRecord(post.post.record) &&
-            post.post.record.text
-          ) {
-            toBeDetected.push({
-              uri: post.post.uri,
-              text: post.post.record.text,
-            });
-          }
-        }
-
-        return {
-          posts,
-          index,
-          main: thread.post,
-        };
-      } catch (err) {
-        console.error(err);
-        return { posts, index, main: thread.post };
-      }
+      return {
+        posts,
+        index,
+        main: thread.post,
+      };
     },
   });
 
@@ -211,45 +270,82 @@ const PostThread = ({ contentFilter }: Props) => {
           }
           getItemType={(item) => (item.primary ? "big" : "small")}
           renderItem={({ item, index }) =>
-            item.primary ? (
-              <Post
-                post={item.post}
-                hasParent={item.hasParent}
-                dataUpdatedAt={thread.dataUpdatedAt}
-              />
+            item.viewable ? (
+              item.primary ? (
+                <Post
+                  post={item.post}
+                  hasParent={item.hasParent}
+                  dataUpdatedAt={thread.dataUpdatedAt}
+                />
+              ) : (
+                <FeedPost
+                  filter={item.filter}
+                  item={{ post: item.post }}
+                  hasReply={item.hasReply}
+                  isReply={thread.data.posts[index - 1]?.hasReply}
+                  dataUpdatedAt={thread.dataUpdatedAt}
+                />
+              )
+            ) : item.blocked ? (
+              <View className="flex-1 flex-row items-center p-4">
+                <ShieldXIcon
+                  size={24}
+                  color={theme.colors.text}
+                  className="mr-4"
+                />
+                <ThemedText className="text-base">
+                  This post is blocked
+                </ThemedText>
+              </View>
+            ) : item.deleted ? (
+              <View className="flex-1 flex-row items-center p-4">
+                <Trash2Icon
+                  size={24}
+                  color={theme.colors.text}
+                  className="mr-4"
+                />
+                <ThemedText className="text-base">
+                  This post is deleted
+                </ThemedText>
+              </View>
             ) : (
-              <FeedPost
-                filter={item.filter}
-                item={{ post: item.post }}
-                hasReply={item.hasReply}
-                isReply={thread.data.posts[index - 1]?.hasReply}
-                dataUpdatedAt={thread.dataUpdatedAt}
-              />
+              <View className="flex-1 flex-row items-center p-4">
+                <ShieldQuestionIcon
+                  size={24}
+                  color={theme.colors.text}
+                  className="mr-4"
+                />
+                <ThemedText className="text-base">Unknown post type</ThemedText>
+              </View>
             )
           }
         />
-        <TouchableNativeFeedback
-          onPress={() => composer.reply(thread.data.main)}
-        >
-          <View
-            className="w-full flex-row items-center px-4 py-2"
-            style={{
-              backgroundColor: theme.colors.card,
-              borderColor: theme.colors.border,
-              borderTopWidth: StyleSheet.hairlineWidth,
-            }}
+        {AppBskyFeedDefs.isPostView(thread.data.main) && (
+          <TouchableNativeFeedback
+            onPress={() =>
+              composer.reply(thread.data.main as AppBskyFeedDefs.PostView)
+            }
           >
-            <Avatar size="medium" />
-            <Text
-              className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
-              numberOfLines={1}
+            <View
+              className="w-full flex-row items-center px-4 py-2"
+              style={{
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.border,
+                borderTopWidth: StyleSheet.hairlineWidth,
+              }}
             >
-              Reply to{" "}
-              {thread.data.main.author.displayName ??
-                `@${thread.data.main.author.handle}`}
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
+              <Avatar size="medium" />
+              <Text
+                className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
+                numberOfLines={1}
+              >
+                Reply to{" "}
+                {thread.data.main.author.displayName ??
+                  `@${thread.data.main.author.handle}`}
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+        )}
       </>
     );
   }

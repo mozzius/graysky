@@ -115,6 +115,7 @@ export const FeedPost = ({
               post: item.post,
               primary: true,
               filter,
+              viewable: true,
             },
           ],
           index: 0,
@@ -312,7 +313,7 @@ export const FeedPost = ({
                   } else return null;
                 })()
               : !!item.post.record.reply && (
-                  <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
+                  <ReplyParentAuthor uri={item.post.uri} />
                 ))}
           {hiddenContent}
           {hidden || (
@@ -321,11 +322,8 @@ export const FeedPost = ({
               {item.post.record.text && (
                 <>
                   <Link href={postHref} asChild>
-                    <TouchableWithoutFeedback
-                      className="my-0.5"
-                      accessibilityHint="Opens post details"
-                    >
-                      <View className="flex-1 lg:pr-24">
+                    <TouchableWithoutFeedback accessibilityHint="Opens post details">
+                      <View className="my-0.5 flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
@@ -474,16 +472,25 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       const thread = await agent.getPostThread({
         uri,
         depth: 0,
-        parentHeight: 0,
+        parentHeight: 1,
       });
-      if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
-        assert(AppBskyFeedDefs.validateThreadViewPost(thread.data.thread));
-        return thread.data.thread.post;
-      }
-      throw new Error("invalid post");
+      console.log(thread.data.thread.parent);
+      return thread.data.thread.parent;
     },
   });
-  if (!data)
+
+  if (!AppBskyFeedDefs.isThreadViewPost(data)) {
+    let text = "replying to a post that couldn't be fetched";
+    if (isLoading) {
+      text = "replying to...";
+    }
+    if (AppBskyFeedDefs.isBlockedPost(data)) {
+      text = "replying to a blocked user";
+    }
+    if (AppBskyFeedDefs.isNotFoundPost(data)) {
+      text = "replying to a deleted post";
+    }
+
     return (
       <View className="flex-row items-center">
         <MessageCircleIcon size={12} color={circleColor} />
@@ -494,13 +501,16 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
           )}
           numberOfLines={1}
         >
-          replying to{isLoading ? "..." : " unknown"}
+          {text}
         </Text>
       </View>
     );
+  }
   return (
     <Link
-      href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
+      href={`/profile/${data.post.author.handle}/post/${data.post.uri
+        .split("/")
+        .pop()}`}
       asChild
       accessibilityHint="Opens parent post"
     >
@@ -514,7 +524,8 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
             )}
             numberOfLines={1}
           >
-            replying to {data.author.displayName ?? `@${data.author.handle}`}
+            replying to{" "}
+            {data.post.author.displayName ?? `@${data.post.author.handle}`}
           </Text>
         </View>
       </TouchableWithoutFeedback>

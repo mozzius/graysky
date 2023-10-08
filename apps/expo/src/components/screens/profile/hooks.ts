@@ -61,25 +61,39 @@ export const useProfilePosts = (
   const timeline = useInfiniteQuery({
     queryKey: ["profile", actor, "feed", mode],
     queryFn: async ({ pageParam }) => {
+      if (!actor) throw new Error("Not logged in");
       let cursor;
       let posts = [];
 
       switch (mode) {
-        case "posts":
-        case "replies":
-        case "media": {
-          if (!actor) throw new Error("Not logged in");
+        case "posts": {
           const feed = await agent.getAuthorFeed({
             actor,
             cursor: pageParam as string | undefined,
+            filter: "posts_no_replies",
+          });
+          ({ cursor, feed: posts } = feed.data);
+          break;
+        }
+        case "replies": {
+          const feed = await agent.getAuthorFeed({
+            actor,
+            cursor: pageParam as string | undefined,
+            filter: "posts_with_replies",
+          });
+          ({ cursor, feed: posts } = feed.data);
+          break;
+        }
+        case "media": {
+          const feed = await agent.getAuthorFeed({
+            actor,
+            cursor: pageParam as string | undefined,
+            filter: "posts_with_media",
           });
           ({ cursor, feed: posts } = feed.data);
           break;
         }
         case "likes": {
-          // all credit to @handlerug.me for this one
-          // https://github.com/handlerug/bluesky-liked-posts
-          if (!actor) throw new Error("Not logged in");
           const list = await agent.app.bsky.feed.like.list({
             repo: actor,
             cursor: pageParam as string | undefined,
@@ -136,8 +150,8 @@ export const useProfilePosts = (
           case "posts":
           case "replies":
             if (item.reply) {
-              if (mode === "posts" && !item.reason) return [];
               if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
+
               const parentFilter = contentFilter(item.reply.parent.labels);
               if (parentFilter?.visibility === "hide")
                 return [{ item, hasReply: false, filter }];
@@ -153,11 +167,8 @@ export const useProfilePosts = (
               return [{ item, hasReply: false, filter }];
             }
           case "likes":
-            return [{ item, hasReply: false, filter }];
           case "media":
-            return item.post.embed?.images && !item.reason
-              ? [{ item, hasReply: false, filter }]
-              : [];
+            return [{ item, hasReply: false, filter }];
         }
       })
       .flat();

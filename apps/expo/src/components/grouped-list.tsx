@@ -24,6 +24,7 @@ interface ListProps {
         destructive?: boolean;
         accessibilityRole?: "link"; // todo: add more
         chevron?: boolean;
+        disabled?: boolean;
       }
     | undefined
     | null
@@ -51,6 +52,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
               chevron={(!!option.href && !option.action) || option.chevron}
               action={option.action}
               destructive={option.destructive}
+              disabled={option.disabled}
             >
               <Text
                 style={{
@@ -64,13 +66,13 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
           );
           return (
             <Fragment key={option.title}>
-              {option.href ? (
+              {option.href && !option.disabled ? (
                 <Link asChild href={option.href}>
                   <TouchableHighlight>
                     <View>{row}</View>
                   </TouchableHighlight>
                 </Link>
-              ) : option.onPress ? (
+              ) : option.onPress && !option.disabled ? (
                 <TouchableHighlight
                   onPress={() => void option.onPress?.()}
                   accessibilityRole={option.accessibilityRole}
@@ -134,6 +136,7 @@ interface RowProps {
   chevron?: boolean;
   action?: React.ReactNode;
   destructive?: boolean;
+  disabled?: boolean;
 }
 
 export const Row = ({
@@ -142,6 +145,7 @@ export const Row = ({
   chevron,
   action,
   destructive,
+  disabled,
 }: RowProps) => {
   const Icon = icon;
   const theme = useTheme();
@@ -149,14 +153,20 @@ export const Row = ({
     <View
       style={{ backgroundColor: theme.colors.card }}
       className="min-h-[50px] flex-row items-center px-4 py-2"
+      aria-disabled={disabled}
     >
       {Icon && (
         <Icon
           size={24}
           color={destructive ? "#ef4444" : theme.colors.primary}
+          className={cx(disabled && "opacity-50")}
         />
       )}
-      <View className={cx("mr-3 flex-1", icon && "ml-3")}>{children}</View>
+      <View
+        className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}
+      >
+        {children}
+      </View>
       {chevron && (
         <ChevronRightIcon
           size={20}

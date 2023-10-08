@@ -2,7 +2,8 @@ import { View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import {
   AtSignIcon,
-  BanIcon,
+  NewspaperIcon,
+  ShieldIcon,
   SmartphoneIcon,
   UserIcon,
 } from "lucide-react-native";
@@ -26,7 +27,12 @@ const groups = [
       {
         title: "Moderation",
         href: "/settings/moderation",
-        icon: BanIcon,
+        icon: ShieldIcon,
+      },
+      {
+        title: "Home feed preferences",
+        href: "/settings/feed",
+        icon: NewspaperIcon,
       },
       {
         title: "App preferences",

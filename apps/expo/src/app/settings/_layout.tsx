@@ -101,6 +101,12 @@ export default function SettingsLayout() {
           }}
         />
         <Stack.Screen
+          name="feed"
+          options={{
+            title: "Home Feed Preferences",
+          }}
+        />
+        <Stack.Screen
           name="about"
           options={{
             title: "About",
