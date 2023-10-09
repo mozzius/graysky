@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
+import * as Localization from "expo-localization";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -184,6 +185,14 @@ const appPrefsSchema = z.object({
   sortableFeeds: z.boolean().optional().default(false),
   homepage: z.enum(["feeds", "skyline"]).optional().default("feeds"),
   defaultFeed: z.string().optional().default("following"),
+  primaryLanguage: z
+    .string()
+    .optional()
+    .default(Localization.getLocales()[0]?.languageCode ?? "en"),
+  contentLanguages: z
+    .array(z.string())
+    .optional()
+    .default(Localization.getLocales().map((l) => l.languageCode)),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;

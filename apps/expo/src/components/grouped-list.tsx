@@ -95,6 +95,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
 export type Groups = (
   | (ListProps & {
       title?: string;
+      footer?: string;
     })
   | false
   | null
@@ -114,7 +115,7 @@ export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
         .filter((x) => !!x)
         .map((group, i, arr) => {
           if (!group) return null;
-          const { title, ...list } = group;
+          const { title, footer, ...list } = group;
           return (
             <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
               {title && (
@@ -123,6 +124,11 @@ export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
                 </Text>
               )}
               <ListGroup {...list} />
+              {footer && (
+                <Text className="mx-4 mt-3 text-sm text-neutral-500">
+                  {footer}
+                </Text>
+              )}
             </View>
           );
         })}
@@ -167,13 +173,10 @@ export const Row = ({
       >
         {children}
       </View>
-      {chevron && (
-        <ChevronRightIcon
-          size={20}
-          className="text-neutral-400 dark:text-neutral-200"
-        />
-      )}
       {action}
+      {chevron && (
+        <ChevronRightIcon size={20} className="ml-1 text-neutral-500" />
+      )}
     </View>
   );
 };

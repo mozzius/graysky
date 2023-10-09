@@ -23,8 +23,7 @@ import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profi
 import { useAgent } from "~/lib/agent";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { useComposer } from "~/lib/hooks/composer";
-import { type FilterResult } from "~/lib/hooks/preferences";
-import { locale } from "~/lib/locale";
+import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
@@ -129,9 +128,11 @@ export const FeedPost = ({
     });
   }, [item.post, postHref, filter, queryClient]);
 
+  const [{ contentLanguages }] = useAppPreferences();
+
   const needsTranslation = useMemo(
-    () => !isPostInLanguage(item.post, [locale.languageCode]),
-    [item.post],
+    () => !isPostInLanguage(item.post, contentLanguages),
+    [item.post, contentLanguages],
   );
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {

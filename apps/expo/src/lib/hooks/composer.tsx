@@ -31,7 +31,7 @@ import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
-import { locale } from "../locale";
+import { useAppPreferences } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -157,6 +157,7 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [{ primaryLanguage }] = useAppPreferences();
 
   return useMutation({
     mutationKey: ["send"],
@@ -302,7 +303,7 @@ export const useSendPost = ({
         reply,
         embed: mergedEmbed,
         // TODO: LANGUAGE SELECTOR
-        langs: [locale.languageCode],
+        langs: [primaryLanguage],
       });
     },
     onSuccess: () => {

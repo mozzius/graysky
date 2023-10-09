@@ -10,7 +10,7 @@ import {
 } from "lucide-react-native";
 import { z } from "zod";
 
-import { useHaptics } from "~/lib/hooks/preferences";
+import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { RichTextWithoutFacets } from "./rich-text";
@@ -22,6 +22,7 @@ interface Props {
 }
 
 export const Translation = ({ text, uri }: Props) => {
+  const [{ primaryLanguage }] = useAppPreferences();
   const haptics = useHaptics();
   const translate = api.translate.post.useMutation({
     onMutate: () => haptics.impact(),
@@ -47,7 +48,7 @@ export const Translation = ({ text, uri }: Props) => {
         <TouchableOpacity
           className="my-1"
           onPress={() =>
-            translate.mutate({ text, uri, target: locale.languageCode })
+            translate.mutate({ text, uri, target: primaryLanguage })
           }
         >
           <View className="flex-row items-center">

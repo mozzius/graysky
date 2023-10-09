@@ -7,6 +7,7 @@ import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { useComposer } from "~/lib/hooks/composer";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
@@ -45,9 +46,11 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const postAuthorHandle = post.author.handle;
   const profileHref = `/profile/${postAuthorHandle}`;
 
+  const [{ contentLanguages }] = useAppPreferences();
+
   const needsTranslation = useMemo(
-    () => !isPostInLanguage(post, [locale.languageCode]),
-    [post],
+    () => !isPostInLanguage(post, contentLanguages),
+    [post, contentLanguages],
   );
 
   if (!AppBskyFeedPost.isRecord(post.record)) {
