@@ -148,8 +148,11 @@ export const useProfilePosts = (
         if (filter?.visibility === "hide") return [];
         switch (mode) {
           case "posts":
+          case "likes":
+          case "media":
+            return [{ item, hasReply: false, filter }];
           case "replies":
-            if (item.reply) {
+            if (item.reply && !item.reason) {
               if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
 
               const parentFilter = contentFilter(item.reply.parent.labels);
@@ -166,9 +169,6 @@ export const useProfilePosts = (
             } else {
               return [{ item, hasReply: false, filter }];
             }
-          case "likes":
-          case "media":
-            return [{ item, hasReply: false, filter }];
         }
       })
       .flat();

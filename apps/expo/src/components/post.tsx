@@ -69,13 +69,15 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
           : "border-neutral-200 bg-white",
       )}
     >
-      <View className="mb-2 flex-row">
+      <View className="mb-2 flex-row items-center">
         <PostAvatar profile={post.author} />
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
             accessibilityHint="Opens profile"
-            accessibilityLabel={`${postAuthorDisplayName} @${postAuthorHandle}`}
+            accessibilityLabel={`${
+              postAuthorDisplayName ?? ""
+            } @${postAuthorHandle}`}
             asChild
           >
             <TouchableOpacity className="flex-1">

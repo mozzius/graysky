@@ -26,7 +26,7 @@ export const LANGUAGES: Language[] = [
   { code3: "alt", code2: "", name: "Southern Altai" },
   { code3: "amh", code2: "am", name: "Amharic" },
   { code3: "ang", code2: "", name: "English, Old (ca.450-1100)" },
-  { code3: "anp ", code2: "Angika", name: "Angika" },
+  { code3: "anp", code2: "", name: "Angika" },
   { code3: "apa", code2: "", name: "Apache languages" },
   { code3: "ara", code2: "ar", name: "Arabic" },
   { code3: "arc", code2: "", name: "Official Aramaic (700-300 BCE); Imperial Aramaic (700-300 BCE)" },
@@ -183,7 +183,7 @@ export const LANGUAGES: Language[] = [
   { code3: "gre", code2: "el", name: "Greek, Modern (1453-)" },
   { code3: "grn", code2: "gn", name: "Guarani" },
   { code3: "gsw", code2: "", name: "Swiss German; Alemannic; Alsatian" },
-  { code3: "gujgu", code2: "Gujarati", name: "goudjrati" },
+  { code3: "gujgu", code2: "", name: "goudjrati" },
   { code3: "gwi", code2: "", name: "Gwich'in" },
   { code3: "hai", code2: "", name: "Haida" },
   { code3: "hat", code2: "ht", name: "Haitian; Haitian Creole" },
@@ -279,7 +279,7 @@ export const LANGUAGES: Language[] = [
   { code3: "lug", code2: "lg", name: "Ganda" },
   { code3: "lui", code2: "", name: "Luiseno" },
   { code3: "lun", code2: "", name: "Lunda" },
-  { code3: "luo", code2: " Luo (Kenya and Tanzania)", name: "luo (Kenya et Tanzanie)" },
+  { code3: "luo", code2: "", name: "luo (Kenya et Tanzanie)" },
   { code3: "lus", code2: "", name: "Lushai" },
   { code3: "mac", code2: "mk", name: "Macedonian" },
   { code3: "mad", code2: "", name: "Madurese" },
@@ -362,7 +362,7 @@ export const LANGUAGES: Language[] = [
   { code3: "pag", code2: "", name: "Pangasinan" },
   { code3: "pal", code2: "", name: "Pahlavi" },
   { code3: "pam", code2: "", name: "Pampanga; Kapampangan" },
-  { code3: "pan", code2: "paPanjabi; Punjabi", name: "pendjabi" },
+  { code3: "pan", code2: "", name: "pendjabi" },
   { code3: "pap", code2: "", name: "Papiamento" },
   { code3: "pau", code2: "", name: "Palauan" },
   { code3: "peo", code2: "", name: "Persian, Old (ca.600-400 B.C.)" },
@@ -513,7 +513,13 @@ export const LANGUAGES: Language[] = [
   { code3: "zul", code2: "zu", name: "Zulu" },
   { code3: "zun", code2: "", name: "Zuni" },
   { code3: "zza", code2: "", name: "Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki" },
-].sort((a,b) => a.name.localeCompare(b.name))
+]
+
+export const SELECTABLE_LANGUAGES = LANGUAGES.filter(
+  (lang) =>
+    lang.code2.length > 0 &&
+    lang.code3 === LANGUAGES.find((other) => lang.code2 === other.code2)?.code3,
+).sort((a, b) => a.name.localeCompare(b.name));
 
 export const LANGUAGES_MAP_CODE2 = Object.fromEntries(
   LANGUAGES.map((lang) => [lang.code2, lang]),
