@@ -2,6 +2,7 @@ import { View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import {
   AtSignIcon,
+  LanguagesIcon,
   NewspaperIcon,
   ShieldIcon,
   SmartphoneIcon,
@@ -35,7 +36,12 @@ const groups = [
         icon: NewspaperIcon,
       },
       {
-        title: "App preferences",
+        title: "Languages",
+        href: "/settings/language",
+        icon: LanguagesIcon,
+      },
+      {
+        title: "App settings",
         href: "/settings/app",
         icon: SmartphoneIcon,
       },

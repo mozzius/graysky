@@ -112,6 +112,24 @@ export default function SettingsLayout() {
             title: "About",
           }}
         />
+        <Stack.Screen
+          name="language/index"
+          options={{
+            title: "Languages",
+          }}
+        />
+        <Stack.Screen
+          name="language/primary"
+          options={{
+            title: "Primary Language",
+          }}
+        />
+        <Stack.Screen
+          name="language/content"
+          options={{
+            title: "Content Languages",
+          }}
+        />
       </Stack>
     </>
   );
