@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { useAppPreferences } from "~/lib/hooks/preferences";
@@ -15,7 +15,6 @@ export default function LanguageSettings() {
     <GroupedList
       groups={[
         {
-          children: <View className="h-2" />,
           options: [
             {
               title: "Primary language",
