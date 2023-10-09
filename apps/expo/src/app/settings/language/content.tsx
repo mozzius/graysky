@@ -27,7 +27,7 @@ export default function ContentLanguageSettings() {
             action:
               contentLanguages.includes(lang.code2) ||
               lang.code2 === primaryLanguage ? (
-                <CheckIcon color={theme.colors.primary} size={24} />
+                <CheckIcon color={theme.colors.primary} size={20} />
               ) : null,
           })),
         },

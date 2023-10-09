@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { useAppPreferences } from "~/lib/hooks/preferences";
@@ -15,13 +15,16 @@ export default function LanguageSettings() {
     <GroupedList
       groups={[
         {
+          children: <View className="h-2" />,
           options: [
             {
               title: "Primary language",
               href: "/settings/language/primary",
               chevron: true,
               action: (
-                <Text className="text-neutral-500">{primaryLanguageLabel}</Text>
+                <Text className="text-base text-neutral-500">
+                  {primaryLanguageLabel}
+                </Text>
               ),
             },
           ],
@@ -35,14 +38,19 @@ export default function LanguageSettings() {
               href: "/settings/language/content",
               chevron: true,
               action: (
-                <Text className="text-neutral-500">
-                  {contentLanguages.join()}
+                <Text className="text-base text-neutral-500">
+                  {contentLanguages
+                    .map(
+                      (contentLang) =>
+                        LANGUAGES.find((lang) => lang.code2 === contentLang)
+                          ?.name ?? contentLang,
+                    )
+                    .join(", ")}
                 </Text>
               ),
             },
           ],
-          footer:
-            "These are the language(s) that you understand. posts in these languages will not be translated.",
+          footer: "Posts in these languages will not be translated.",
         },
       ]}
     />

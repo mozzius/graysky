@@ -175,7 +175,7 @@ export const Row = ({
       </View>
       {action}
       {chevron && (
-        <ChevronRightIcon size={20} className="ml-1 text-neutral-500" />
+        <ChevronRightIcon size={20} className="ml-0.5 text-neutral-500" />
       )}
     </View>
   );
