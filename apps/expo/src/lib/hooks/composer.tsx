@@ -32,7 +32,6 @@ import { z } from "zod";
 
 import { useAgent } from "../agent";
 import { locale } from "../locale";
-import { produce } from "../utils/produce";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -202,6 +201,41 @@ export const useSendPost = ({
             }
           : undefined;
 
+      // upload thumbnail
+
+      if (
+        external &&
+        external.type === "external" &&
+        external.view.external.thumb
+      ) {
+        const thumbUrl = external.view.external.thumb;
+        let thumb: BlobRef | undefined;
+
+        const thumbUri = await downloadThumbnail(thumbUrl);
+        let encoding;
+        if (thumbUri.endsWith(".png")) {
+          encoding = "image/png";
+        } else if (thumbUri.endsWith(".jpeg") || thumbUri.endsWith(".jpg")) {
+          encoding = "image/jpeg";
+        } else {
+          console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
+          Sentry.Native.captureMessage(
+            `Unknown thumbnail extension, skipping: ${thumbUri}`,
+            { level: "warning" },
+          );
+        }
+        if (encoding) {
+          const thumbUploadRes = await agent.uploadBlob(thumbUri, {
+            encoding,
+          });
+          if (!thumbUploadRes.success)
+            throw new Error("Failed to upload thumbnail");
+          thumb = thumbUploadRes.data.blob;
+        }
+
+        external.main.external.thumb = thumb;
+      }
+
       let mergedEmbed: AppBskyFeedPost.Record["embed"];
 
       // embed priorities
@@ -223,54 +257,29 @@ export const useSendPost = ({
             record: quote,
             media,
           } satisfies AppBskyEmbedRecordWithMedia.Main;
+        } else if (external && external.type === "external") {
+          mergedEmbed = {
+            $type: "app.bsky.embed.recordWithMedia",
+            record: quote,
+            media: external.main,
+          } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else {
           mergedEmbed = quote;
         }
       } else if (gif) {
         mergedEmbed = gif;
       } else if (media) {
-        mergedEmbed = media;
-      } else if (external) {
-        if (external.type === "record") {
-          mergedEmbed = external.main;
+        if (external && external.type === "record") {
+          mergedEmbed = {
+            $type: "app.bsky.embed.recordWithMedia",
+            record: external.main,
+            media,
+          } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else {
-          const thumbUrl = external.view.external.thumb;
-          let thumb: BlobRef | undefined;
-
-          // upload thumbnail if it exists
-          if (thumbUrl) {
-            const thumbUri = await downloadThumbnail(thumbUrl);
-            let encoding;
-            if (thumbUri.endsWith(".png")) {
-              encoding = "image/png";
-            } else if (
-              thumbUri.endsWith(".jpeg") ||
-              thumbUri.endsWith(".jpg")
-            ) {
-              encoding = "image/jpeg";
-            } else {
-              console.warn(
-                `Unknown thumbnail extension, skipping: ${thumbUri}`,
-              );
-              Sentry.Native.captureMessage(
-                `Unknown thumbnail extension, skipping: ${thumbUri}`,
-                { level: "warning" },
-              );
-            }
-            if (encoding) {
-              const thumbUploadRes = await agent.uploadBlob(thumbUri, {
-                encoding,
-              });
-              if (!thumbUploadRes.success)
-                throw new Error("Failed to upload thumbnail");
-              thumb = thumbUploadRes.data.blob;
-            }
-
-            mergedEmbed = produce(external.main, (draft) => {
-              draft.external.thumb = thumb;
-            });
-          }
+          mergedEmbed = media;
         }
+      } else if (external) {
+        mergedEmbed = external.main;
       }
 
       const tags: string[] = [];
@@ -289,7 +298,7 @@ export const useSendPost = ({
       await agent.post({
         text: rt.text,
         facets: rt.facets,
-        tags,
+        tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
         // TODO: LANGUAGE SELECTOR
