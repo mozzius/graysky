@@ -1,8 +1,8 @@
 {
   "name": "graysky",
   "dependencies": {
-    "@graysky/prettier-config": "0.1.0",
     "@graysky/eslint-config": "0.1.0",
+    "@graysky/prettier-config": "0.1.0",
     "@manypkg/cli": "^0.21.0",
     "eslint": "^8.51.0",
     "prettier": "^3.0.3",
