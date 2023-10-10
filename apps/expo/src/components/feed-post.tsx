@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   findNodeHandle,
@@ -51,7 +51,7 @@ interface Props {
   background?: "transparent";
 }
 
-export const FeedPost = ({
+const FeedPostInner = ({
   item,
   isReply = false,
   hasReply = false,
@@ -462,6 +462,8 @@ const Reason = ({ item }: Pick<Props, "item">) => {
   );
 };
 
+export const FeedPost = memo(FeedPostInner);
+
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const theme = useTheme();
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
@@ -475,7 +477,6 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
         depth: 0,
         parentHeight: 1,
       });
-      console.log(thread.data.thread.parent);
       return thread.data.thread.parent;
     },
   });

@@ -8,7 +8,6 @@ import {
   LanguagesIcon,
   SparklesIcon,
 } from "lucide-react-native";
-import { z } from "zod";
 
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
@@ -34,12 +33,8 @@ export const Translation = ({ text, uri }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
-  try {
-    if (text.length < 2 || z.string().emoji().safeParse(text).success) {
-      return null;
-    }
-  } catch (err) {
-    console.log(err);
+  if (text.length < 2) {
+    return null;
   }
 
   switch (translate.status) {

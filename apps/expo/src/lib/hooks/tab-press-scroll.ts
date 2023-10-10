@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
   Platform,
+  type FlatList,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
@@ -16,7 +17,7 @@ interface Options {
 }
 
 export const useTabPressScroll = <T>(
-  ref: React.RefObject<FlashList<T>>,
+  ref: React.RefObject<FlashList<T> | FlatList<T>>,
   callback: () => unknown = () => {},
   { largeHeader, setScrollDir }: Options = {},
 ) => {

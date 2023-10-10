@@ -62,6 +62,7 @@ export default function SubStack({
                   }
                 : {
                     title: "Skyline",
+                    headerLargeTitle: false,
                     headerLeft,
                   }
             }
