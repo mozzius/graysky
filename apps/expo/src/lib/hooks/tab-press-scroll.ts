@@ -28,9 +28,12 @@ export const useTabPressScroll = <T>(
 
   const { top } = useSafeAreaInsets();
 
-  // 14 pro needs to be 5px more :/
+  // 14 pro needs to be 5px smaller
+  // see https://github.com/software-mansion/react-native-screens/blob/24689052c009f383657a74521c5ce875044ee2ef/src/native-stack/views/NativeStackView.tsx#L431
+  const statusBarHeight = top > 50 ? top - 5 : top;
+
   const targetOffset =
-    largeHeader && Platform.OS === "ios" ? (top + 96) * -1 : 0;
+    largeHeader && Platform.OS === "ios" ? (statusBarHeight + 96) * -1 : 0;
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
