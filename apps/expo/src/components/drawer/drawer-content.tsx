@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -21,6 +22,7 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { useInviteCodes } from "~/app/codes/_layout";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
+import { BackButtonOverride } from "../back-button-override";
 import { Text } from "../text";
 import { ActorDetails } from "./actor-details";
 import { useDrawer } from "./context";
@@ -33,6 +35,8 @@ export const DrawerContent = () => {
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
   const [{ homepage }] = useAppPreferences();
+
+  const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -80,6 +84,7 @@ export const DrawerContent = () => {
 
   return (
     <SafeAreaView className="h-full p-8">
+      <BackButtonOverride dismiss={closeDrawer} />
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
         {homepage === "skyline" && (

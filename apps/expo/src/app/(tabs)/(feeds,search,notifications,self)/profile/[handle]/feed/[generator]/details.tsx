@@ -1,7 +1,5 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment } from "react";
 import {
-  BackHandler,
-  Dimensions,
   Platform,
   ScrollView,
   Share as Sharing,
@@ -9,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Drawer } from "react-native-drawer-layout";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
@@ -22,14 +19,12 @@ import {
   PlusIcon,
   ShareIcon,
   StarIcon,
-  XIcon,
 } from "lucide-react-native";
 
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
-import { FeedScreen } from "~/components/screens/feed-screen";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import {
@@ -40,10 +35,7 @@ import {
 import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
-export default function FeedsPage() {
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-
+export default function FeedDetails() {
   const { handle, generator } = useLocalSearchParams<{
     handle: string;
     generator: string;
@@ -53,73 +45,21 @@ export default function FeedsPage() {
 
   const info = useFeedInfo(feed);
 
-  const renderDrawerContent = useCallback(() => {
-    if (info.data) {
-      return <FeedInfo feed={feed} info={info.data} />;
-    } else {
-      return <QueryWithoutData query={info} />;
-    }
-  }, [feed, info]);
-
-  const onOpen = useCallback(() => setOpen(true), []);
-  const onClose = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    if (open) {
-      const onBackPress = () => {
-        onClose();
-        return true;
-      };
-
-      const handler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        onBackPress,
-      );
-
-      return () => handler.remove();
-    }
-  }, [open, onClose]);
-
-  return (
-    <Drawer
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      renderDrawerContent={renderDrawerContent}
-      drawerType="front"
-      statusBarAnimation="slide"
-      drawerPosition="right"
-      drawerStyle={{
-        width: Dimensions.get("window").width * 0.9,
-        backgroundColor: theme.colors.background,
-      }}
-      swipeEdgeWidth={Dimensions.get("window").width * 0.1}
-    >
-      <FeedScreen feed={feed} />
-      <Stack.Screen
-        options={{
-          headerRight: () => (
-            <TouchableOpacity onPress={() => setOpen((o) => !o)}>
-              {open ? (
-                <View className="">
-                  <XIcon color={theme.colors.primary} />
-                </View>
-              ) : (
-                <Image
-                  source={{ uri: info.data?.view.avatar }}
-                  className="h-6 w-6 rounded bg-blue-500"
-                  alt={info.data?.view.displayName}
-                />
-              )}
-            </TouchableOpacity>
-          ),
-          headerTitleStyle: {
-            color: open ? theme.colors.card : theme.colors.text,
-          },
-        }}
-      />
-    </Drawer>
-  );
+  if (info.data) {
+    return (
+      <>
+        <Stack.Screen options={{ title: "Feed Details" }} />
+        <FeedInfo feed={feed} info={info.data} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Stack.Screen options={{ title: "Feed Details" }} />
+        <QueryWithoutData query={info} />
+      </>
+    );
+  }
 }
 
 const FeedInfo = ({
@@ -397,7 +337,6 @@ const FeedInfo = ({
                 </View>
               </>
             )}
-
             <Text
               className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
               numberOfLines={1}
@@ -406,7 +345,7 @@ const FeedInfo = ({
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
-              className="mx-4 overflow-hidden rounded-lg"
+              className="mx-4 mb-4 overflow-hidden rounded-lg"
             >
               <TouchableHighlight
                 onPress={() => {
