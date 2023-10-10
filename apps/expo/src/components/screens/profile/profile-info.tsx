@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { Button, Platform, Share, TouchableOpacity, View } from "react-native";
 import { useHeaderMeasurements } from "react-native-collapsible-tab-view";
 import Animated, {
@@ -67,7 +67,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
   const theme = useTheme();
+<<<<<<< Updated upstream
   const haptics = useHaptics();
+=======
+  const id = useId();
+>>>>>>> Stashed changes
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -384,7 +388,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ borderColor: theme.colors.card }}
             >
               <AnimatedImage
-                sharedTransitionTag={profile.avatar}
+                sharedTransitionTag={id}
                 source={{ uri: profile.avatar }}
                 className="h-full w-full rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""
