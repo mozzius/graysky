@@ -67,11 +67,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
   const theme = useTheme();
-<<<<<<< Updated upstream
   const haptics = useHaptics();
-=======
   const id = useId();
->>>>>>> Stashed changes
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
