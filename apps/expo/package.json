@@ -112,7 +112,8 @@
     "install": {
       "exclude": [
         "expo-image-manipulator",
-        "expo-image-picker"
+        "expo-image-picker",
+        "react-native-screens"
       ]
     }
   },
