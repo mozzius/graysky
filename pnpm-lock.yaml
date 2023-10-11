@@ -465,6 +465,9 @@ importers:
       lande:
         specifier: ^1.0.10
         version: 1.0.10
+      sharp:
+        specifier: ^0.32.6
+        version: 0.32.6
       superjson:
         specifier: 1.13.3
         version: 1.13.3
