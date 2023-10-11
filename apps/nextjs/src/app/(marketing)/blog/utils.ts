@@ -34,7 +34,7 @@ export async function getAllPosts() {
   return posts
     .sort((a, b) => (a.date > b.date ? -1 : 1))
     .filter(
-      process.env.NODE_ENV !== "production"
+      process.env.NODE_ENV === "production"
         ? (post) => !post.draft
         : () => true,
     );
