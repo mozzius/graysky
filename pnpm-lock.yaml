@@ -275,8 +275,8 @@ importers:
         specifier: ~7.0.1
         version: 7.0.1(expo-application@5.3.1)(expo-constants@14.4.2)(expo-device@5.4.0)(expo@49.0.13)(react-native@0.72.5)(react@18.2.0)
       superjson:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 1.13.3
+        version: 1.13.3
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
@@ -396,8 +396,8 @@ importers:
         specifier: ^0.32.6
         version: 0.32.6
       superjson:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 1.13.3
+        version: 1.13.3
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -466,8 +466,8 @@ importers:
         specifier: ^1.0.10
         version: 1.0.10
       superjson:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 1.13.3
+        version: 1.13.3
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -12155,9 +12155,9 @@ packages:
     resolution: {integrity: sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==}
     dev: false
 
-  /superjson@2.0.0:
-    resolution: {integrity: sha512-W3n+NJ7TFjaLle8ihIIvsr/bbuKpnxeatsyjmhy7iSkom+/cshaHziCQAWXrHGWJVQSQFDOuES6C3nSEvcbrQg==}
-    engines: {node: '>=16'}
+  /superjson@1.13.3:
+    resolution: {integrity: sha512-mJiVjfd2vokfDxsQPOwJ/PtanO87LhpYY88ubI5dUB1Ab58Txbyje3+jpm+/83R/fevaq/107NNhtYBLuoTrFg==}
+    engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.5
     dev: false
