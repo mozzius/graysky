@@ -48,7 +48,7 @@ const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 const INITIAL_HEADER_HEIGHT = 90;
 const AVATAR_PLATFORM_ADJUST = Platform.select({
   ios: 5,
-  android: 12,
+  android: 35,
   default: 0,
 });
 
@@ -336,9 +336,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             })}
             <Animated.View
               className={cx(
-                "absolute top-1/2 -translate-y-1/2",
+                "absolute",
                 backButton ? "left-28" : "left-16",
-                Platform.OS === "android" && "-mt-2.5",
+                Platform.OS === "ios" ? "top-1/2 -translate-y-1/2" : "top-1.5",
               )}
               style={animatedOpacitysStyle}
             >
