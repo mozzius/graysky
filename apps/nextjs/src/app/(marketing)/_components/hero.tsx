@@ -16,7 +16,7 @@ export const Hero = () => {
           Version 0.1.5 available now!
         </span>
         <Balancer as="h1" className="text-5xl font-bold">
-          Bluesky, like you&apos;re never seen it before.
+          Bluesky, like you&apos;ve never seen it before.
         </Balancer>
         <Balancer as="h2" className="max-w-xs text-lg font-medium">
           Graysky is a 3<sup>rd</sup> party Bluesky client that&apos;s
