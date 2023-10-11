@@ -324,7 +324,7 @@ const FeedPostInner = ({
                 <>
                   <Link href={postHref} asChild>
                     <TouchableWithoutFeedback accessibilityHint="Opens post details">
-                      <View className="my-0.5 flex-1 lg:pr-24">
+                      <View className="mb-0.5 mt-px flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
