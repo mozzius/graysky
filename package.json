@@ -20,7 +20,8 @@
     "patchedDependencies": {
       "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch"
+      "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch",
+      "react-native-screens@3.25.0": "patches/react-native-screens@3.25.0.patch"
     }
   },
   "prettier": "@graysky/prettier-config",

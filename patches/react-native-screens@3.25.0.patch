@@ -1,0 +1,21 @@
+diff --git a/android/src/main/java/com/swmansion/rnscreens/Screen.kt b/android/src/main/java/com/swmansion/rnscreens/Screen.kt
+index dac3ac901346209759455f6fcfcd1587c838af43..15301b52760839cc341c7bae39a341fb9f558061 100644
+--- a/android/src/main/java/com/swmansion/rnscreens/Screen.kt
++++ b/android/src/main/java/com/swmansion/rnscreens/Screen.kt
+@@ -8,6 +8,7 @@ import android.util.SparseArray
+ import android.view.ViewGroup
+ import android.view.WindowManager
+ import android.webkit.WebView
++import androidx.core.view.children
+ import com.facebook.react.bridge.GuardedRunnable
+ import com.facebook.react.bridge.ReactContext
+ import com.facebook.react.uimanager.UIManagerModule
+@@ -84,7 +85,7 @@ class Screen constructor(context: ReactContext?) : FabricEnabledViewGroup(contex
+     }
+ 
+     val headerConfig: ScreenStackHeaderConfig?
+-        get() = getChildAt(0) as? ScreenStackHeaderConfig
++        get() = children.find { it is ScreenStackHeaderConfig } as? ScreenStackHeaderConfig
+ 
+     /**
+      * While transitioning this property allows to optimize rendering behavior on Android and provide
