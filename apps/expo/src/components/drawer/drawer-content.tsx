@@ -88,11 +88,7 @@ export const DrawerContent = () => {
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
         {homepage === "skyline" && (
-          <Link
-            href="/feeds/manage"
-            asChild
-            onPress={() => setOpenDrawer(false)}
-          >
+          <Link href="/feeds/manage" asChild onPress={closeDrawer}>
             <TouchableOpacity
               accessibilityRole="link"
               accessibilityLabel="Feeds screen"
