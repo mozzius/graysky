@@ -1,7 +1,8 @@
 ---
 title: "Graysky: Now Available!"
-date: 2023-10-05
+date: 2023-10-20
 author: "@mozzius.dev"
+draft: true
 ---
 
 Graysky has just been released on the [App Store](https://apps.apple.com/us/app/graysky/id6448234181) and [Play Store](https://play.google.com/store/apps/details?id=dev.mozzius.graysky)! This is a huge milestone, and I'm thrilled that I've been able to go on this journey with all of you. The support I've recieved is tremendous - over 4000 testers across iOS and Android, hundreds of bug reports recieved, and a ton of great feedback. I'm so excited to see where Graysky goes from here.

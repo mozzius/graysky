@@ -13,6 +13,7 @@ export async function getPostById(slug: string) {
     title: z.string(),
     author: z.string(),
     date: z.date(),
+    draft: z.boolean().optional(),
   });
 
   const parsed = schema.parse(data);
@@ -30,5 +31,11 @@ export async function getAllPosts() {
       .readdirSync(join(process.cwd(), "src", "posts"))
       .map((file) => getPostById(file.replace(/\.md$/, ""))),
   );
-  return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  return posts
+    .sort((a, b) => (a.date > b.date ? -1 : 1))
+    .filter(
+      process.env.NODE_ENV !== "production"
+        ? (post) => !post.draft
+        : () => true,
+    );
 }

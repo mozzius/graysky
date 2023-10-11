@@ -55,6 +55,6 @@ export async function generateMetadata({
 }) {
   const { title } = await getPostById(slug);
   return {
-    title: title + " | Graysky Blog",
+    title: title + " - Graysky",
   };
 }

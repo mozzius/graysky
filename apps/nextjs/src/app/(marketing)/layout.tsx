@@ -8,7 +8,7 @@ export default function NavLayout({
   return (
     <>
       <div className="flex min-h-screen w-full flex-col">
-        <div className="relative w-full shrink-0 bg-neutral-600 px-4 py-1">
+        {/* <div className="relative w-full shrink-0 bg-neutral-600 px-4 py-1">
           <p className="container mx-auto max-w-4xl text-center text-xs font-light">
             Graysky is now available on the{" "}
             <a
@@ -26,7 +26,7 @@ export default function NavLayout({
             </a>
             !
           </p>
-        </div>
+        </div> */}
         <nav className="sticky top-0 z-20 h-14 w-full border-b border-neutral-600 backdrop-blur-xl backdrop-saturate-[120%]">
           <div className="container mx-auto flex h-full max-w-4xl flex-row items-center justify-between gap-4 px-4">
             <a href="/">

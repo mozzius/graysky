@@ -6,10 +6,10 @@ import {
 
 import background from "~/assets/graysky.png";
 import { env } from "~/env.mjs";
-import { AppleBadge } from "./_components/apple-badge";
+// import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
-import { GoogleBadge } from "./_components/google-badge";
+// import { GoogleBadge } from "./_components/google-badge";
 import { Hero } from "./_components/hero";
 import { Post } from "./_components/post";
 
@@ -36,12 +36,12 @@ export default async function LandingPage({
         <h3 className="text-center text-xl font-medium">Features</h3>
         <Features />
       </section>
-      <section className="w-full px-4 pb-8">
+      {/* <section className="w-full px-4 pb-8">
         <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row">
           <AppleBadge />
           <GoogleBadge />
         </div>
-      </section>
+      </section> */}
       <section className="w-full">
         <h3 className="mt-4 px-4 text-center text-xl font-medium">
           What people are saying

@@ -56,7 +56,9 @@ function getDescription(offset: number) {
     case -1:
       return "Translate posts without leaving the app";
     case -2:
-      return "Post GIFs!";
+      // temp rearrange
+      return "Search for users, posts, and feeds";
+    // return "Post GIFs!";
     case -3:
       return "View your profile";
     case -4:
