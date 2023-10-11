@@ -27,6 +27,7 @@ const PeopleSearch = ({ search }: Props) => {
   const query = useInfiniteQuery({
     queryKey: ["search", "people", search, "all"],
     queryFn: async ({ pageParam }) => {
+      if (!search) return { actors: [] };
       const profile = await agent.searchActors({
         term: search,
         cursor: pageParam as string | undefined,
@@ -91,15 +92,16 @@ const PeopleSearch = ({ search }: Props) => {
 
 export default function PeopleSearchScreen() {
   const { q } = useLocalSearchParams() as { q: string };
-  const [search, setSearch] = useState(q || "");
+  const query = decodeURIComponent(q || "");
+  const [search, setSearch] = useState(query);
 
   const ref = useRef<SearchBarCommands>(null);
 
   useEffect(() => {
     setTimeout(() => {
-      if (ref.current && q) ref.current.setText(q || "");
+      if (ref.current && query) ref.current.setText(query);
     }, 50);
-  }, [q]);
+  }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search people",
@@ -111,7 +113,9 @@ export default function PeopleSearchScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{ title: "Search People", headerSearchBarOptions }}
+      />
       <PeopleSearch search={search} />
     </>
   );

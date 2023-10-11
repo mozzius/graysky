@@ -197,7 +197,7 @@ export default function NotificationsPage() {
   const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
       setNonScrollRefreshing(true);
-      haptics.impact();
+      haptics.selection();
 
       if (lastUpdatedRef.current) {
         await agent.updateSeenNotifications(

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import {
   ActivityIndicator,
-  Alert,
   Linking,
   Platform,
   ScrollView,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
+import { showToastable } from "react-native-toastable";
 import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -183,7 +183,11 @@ const Gif = ({ item, column }: GifProps) => {
     },
     onError: (err) => {
       Sentry.Native.captureException(err);
-      Alert.alert("Could not select GIF", "Please try again later");
+      showToastable({
+        title: "Could not select GIF",
+        message: "Please try again",
+        status: "warning",
+      });
     },
   });
 

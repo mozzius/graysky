@@ -91,15 +91,16 @@ const FeedSearch = ({ search }: Props) => {
 
 export default function FeedSearchScreen() {
   const { q } = useLocalSearchParams() as { q: string };
-  const [search, setSearch] = useState(q || "");
+  const query = decodeURIComponent(q || "");
+  const [search, setSearch] = useState(query);
 
   const ref = useRef<SearchBarCommands>(null);
 
   useEffect(() => {
     setTimeout(() => {
-      if (ref.current && q) ref.current.setText(q || "");
+      if (ref.current && query) ref.current.setText(query);
     }, 50);
-  }, [q]);
+  }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search feeds",
@@ -111,7 +112,9 @@ export default function FeedSearchScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{ title: "Search Feeds", headerSearchBarOptions }}
+      />
       <FeedSearch search={search} />
     </>
   );

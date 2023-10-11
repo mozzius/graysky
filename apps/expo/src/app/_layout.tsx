@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Alert, LogBox, Platform, TouchableOpacity } from "react-native";
+import { LogBox, Platform, TouchableOpacity } from "react-native";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import {
@@ -25,6 +26,7 @@ import { z } from "zod";
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
+import { Toastable } from "~/components/toastable/toastable";
 import { AgentProvider } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
 // import {
@@ -36,10 +38,12 @@ import { LogOutProvider } from "~/lib/log-out-context";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
+import { type SavedSession } from "../components/switch-accounts";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
   enableInExpoDevelopment: false,
+  integrations: [new Sentry.Native.ReactNativeTracing()],
 });
 
 // configureRevenueCat();
@@ -53,7 +57,7 @@ LogBox.ignoreLogs([
 
 interface Props {
   session: AtpSessionData | null;
-  saveSession: (sess: AtpSessionData | null) => void;
+  saveSession: (sess: AtpSessionData | null, agent?: BskyAgent) => void;
 }
 
 const App = ({ session, saveSession }: Props) => {
@@ -75,20 +79,14 @@ const App = ({ session, saveSession }: Props) => {
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
         switch (evt) {
           case "create":
-            if (!sess) throw new Error("should be unreachable");
-            saveSession(sess);
-            break;
-          case "create-failed":
-            break;
           case "update":
             if (!sess) throw new Error("should be unreachable");
-            saveSession(sess);
+            saveSession(sess, agent);
             break;
           case "expired":
             saveSession(null);
-            setTimeout(() => {
-              // should be a toast
-              Alert.alert("Sorry! Your session expired. Please log in again.");
+            showToastable({
+              message: "Sorry! Your session expired. Please log in again.",
             });
             break;
         }
@@ -104,8 +102,12 @@ const App = ({ session, saveSession }: Props) => {
       await agent.resumeSession(sess);
     },
     retry: 3,
-    // maybe alert -> retry here?
-    onError: () => router.replace("/"),
+    onError: () => {
+      showToastable({
+        message: "Sorry! Your session expired. Please log in again.",
+      });
+      router.replace("/");
+    },
   });
 
   const tryResumeSession = !agent.hasSession && !!session;
@@ -177,6 +179,38 @@ const App = ({ session, saveSession }: Props) => {
   function handleModalBack() {
     router.canGoBack() ? router.push("../") : router.push("/feeds");
   }
+
+  // SENTRY NAVIGATION LOGGING
+  const routeName = "/" + segments.join("/");
+
+  const transaction = useRef<ReturnType<
+    typeof Sentry.Native.startTransaction
+  > | null>(null); // Can't find Transaction type
+  const timer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      transaction.current?.finish?.();
+      transaction.current = null;
+    }, 3000);
+
+    transaction.current?.finish?.();
+    transaction.current = Sentry.Native.startTransaction({
+      // Transaction params are similar to those in @sentry/react-native
+      name: "Route Change",
+      op: "navigation",
+      tags: {
+        "routing.route.name": routeName,
+      },
+    });
+
+    return () => {
+      transaction.current?.finish?.();
+      transaction.current = null;
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [routeName]);
 
   return (
     <ThemeProvider value={theme}>
@@ -291,6 +325,7 @@ const App = ({ session, saveSession }: Props) => {
           </AgentProvider>
           {/* </CustomerInfoProvider> */}
         </KeyboardProvider>
+        <Toastable />
       </SafeAreaProvider>
     </ThemeProvider>
   );
@@ -299,20 +334,58 @@ const App = ({ session, saveSession }: Props) => {
 const getSession = () => {
   const raw = store.getString("session");
   if (!raw) return null;
-  return JSON.parse(raw) as AtpSessionData;
+  const session = JSON.parse(raw) as AtpSessionData;
+  return session;
 };
 
 export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
 
-  const saveSession = useCallback((sess: AtpSessionData | null) => {
-    setSession(sess);
-    if (sess) {
-      store.set("session", JSON.stringify(sess));
-    } else {
-      store.delete("session");
-    }
-  }, []);
+  const saveSession = useCallback(
+    (sess: AtpSessionData | null, agent?: BskyAgent) => {
+      setSession(sess);
+      if (sess) {
+        store.set("session", JSON.stringify(sess));
+        if (agent) {
+          void agent.getProfile({ actor: sess.did }).then((res) => {
+            if (res.success) {
+              const sessions = store.getString("sessions");
+              if (sessions) {
+                const old = JSON.parse(sessions) as SavedSession[];
+                const newSessions = [
+                  {
+                    session: sess,
+                    did: sess.did,
+                    handle: res.data.handle,
+                    avatar: res.data.avatar,
+                    displayName: res.data.displayName,
+                  },
+                  ...old.filter((s) => s.did !== sess.did),
+                ];
+                store.set("sessions", JSON.stringify(newSessions));
+              } else {
+                store.set(
+                  "sessions",
+                  JSON.stringify([
+                    {
+                      session: sess,
+                      did: sess.did,
+                      handle: res.data.handle,
+                      avatar: res.data.avatar,
+                      displayName: res.data.displayName,
+                    },
+                  ] satisfies SavedSession[]),
+                );
+              }
+            }
+          });
+        }
+      } else {
+        store.delete("session");
+      }
+    },
+    [],
+  );
 
   return (
     <TRPCProvider>

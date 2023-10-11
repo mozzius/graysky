@@ -4,7 +4,7 @@ import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { BanIcon, MegaphoneOffIcon } from "lucide-react-native";
+import { MegaphoneOffIcon, ShieldXIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "~/components/grouped-list";
@@ -40,7 +40,9 @@ export default function ModerationSettings() {
 
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences.data, (draft) => {
-          const index = draft.findIndex((x) => x.label === label);
+          const index = draft.findIndex(
+            (x) => x.$type === newPref.$type && x.label === label,
+          );
           if (index === -1) {
             draft.push(newPref);
           } else {
@@ -97,7 +99,7 @@ export default function ModerationSettings() {
               {
                 title: "Blocked users",
                 href: "/settings/blocks",
-                icon: BanIcon,
+                icon: ShieldXIcon,
               },
               {
                 title: "Muted users",

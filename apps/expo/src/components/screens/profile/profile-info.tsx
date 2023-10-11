@@ -1,12 +1,5 @@
-import { useEffect } from "react";
-import {
-  Alert,
-  Button,
-  Platform,
-  Share,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useEffect, useId } from "react";
+import { Button, Platform, Share, TouchableOpacity, View } from "react-native";
 import { useHeaderMeasurements } from "react-native-collapsible-tab-view";
 import Animated, {
   Extrapolation,
@@ -15,6 +8,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
 import { Image, ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
@@ -34,7 +28,12 @@ import {
 } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { blockAccount, muteAccount } from "~/lib/account-actions";
+import {
+  blockAccount,
+  muteAccount,
+  unblockAccount,
+  unmuteAccount,
+} from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
@@ -69,14 +68,17 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
+  const id = useId();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
     mutationFn: async () => {
       if (profile.viewer?.following) {
         await agent.deleteFollow(profile.viewer?.following);
+        return "unfollowed";
       } else {
         await agent.follow(profile.did);
+        return "followed";
       }
     },
     onMutate: () => {
@@ -100,7 +102,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       void queryClient.invalidateQueries(["profile"]);
       void queryClient.invalidateQueries(["network"]);
     },
-    onError: (err: Error) => Alert.alert("Error", err.message),
+    onSuccess: (result) => {
+      showToastable({
+        title: result === "followed" ? "Followed user" : "Unfollowed user",
+        message: `You are ${
+          result === "followed" ? "now following" : "no longer following"
+        } @${profile.handle}`,
+      });
+    },
+    onError: () => {
+      showToastable({
+        message: "Could not follow user",
+        status: "danger",
+      });
+    },
   });
 
   useEffect(() => {
@@ -122,8 +137,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const handleOptions = () => {
     const options = [
       "Share Profile",
-      "Mute Account",
-      "Block Account",
+      profile.viewer?.muted ? "Unmute Account" : "Mute Account",
+      profile.viewer?.blocking ? "Unblock Account" : "Block Account",
       "Report Account",
       "Cancel",
     ];
@@ -152,8 +167,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           case "Mute Account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
             break;
+          case "Unmute Account":
+            unmuteAccount(agent, profile.handle, profile.did, queryClient);
+            break;
           case "Block Account":
             blockAccount(agent, profile.handle, profile.did, queryClient);
+            break;
+          case "Unblock Account":
+            unblockAccount(
+              agent,
+              profile.handle,
+              profile.viewer!.blocking!.split("/").pop()!,
+              queryClient,
+            );
             break;
           case "Report Account": {
             // prettier-ignore
@@ -183,10 +209,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     did: profile.did,
                   },
                 });
-                Alert.alert(
-                  "Report submitted",
-                  "Thank you for making the skyline a safer place.",
-                );
+                showToastable({
+                  title: "Report submitted",
+                  message: "Thank you for making the skyline a safer place",
+                });
               },
             );
             break;
@@ -359,7 +385,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ borderColor: theme.colors.card }}
             >
               <AnimatedImage
-                sharedTransitionTag={profile.avatar}
+                sharedTransitionTag={id}
                 source={{ uri: profile.avatar }}
                 className="h-full w-full rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""
@@ -388,50 +414,52 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             pointerEvents="box-none"
           >
             {agent.session?.handle !== profile.handle ? (
-              <View className="flex-row justify-end" pointerEvents="box-none">
-                <TouchableOpacity
-                  disabled={toggleFollow.isLoading}
-                  onPress={() => toggleFollow.mutate()}
-                  className={cx(
-                    "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
-                    profile.viewer?.following
-                      ? "bg-neutral-200 dark:bg-neutral-700"
-                      : "bg-black dark:bg-white",
-                    toggleFollow.isLoading && "opacity-50",
-                  )}
-                >
-                  {profile.viewer?.following ? (
-                    <>
-                      <CheckIcon
-                        size={18}
-                        className="mr-1 text-neutral-600 dark:text-neutral-300"
-                      />
-                      <Text className="font-medium text-neutral-600 dark:text-neutral-300">
-                        Following
-                      </Text>
-                    </>
-                  ) : (
-                    <>
-                      <PlusIcon
-                        size={18}
-                        className="mr-1 text-white dark:text-black"
-                      />
-                      <Text className="font-medium text-white dark:text-black">
-                        Follow
-                      </Text>
-                    </>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
-                  onPress={handleOptions}
-                >
-                  <MoreHorizontalIcon
-                    size={18}
-                    className="text-neutral-600 dark:text-neutral-300"
-                  />
-                </TouchableOpacity>
-              </View>
+              !profile.viewer?.blocking && (
+                <View className="flex-row justify-end" pointerEvents="box-none">
+                  <TouchableOpacity
+                    disabled={toggleFollow.isLoading}
+                    onPress={() => toggleFollow.mutate()}
+                    className={cx(
+                      "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
+                      profile.viewer?.following
+                        ? "bg-neutral-200 dark:bg-neutral-700"
+                        : "bg-black dark:bg-white",
+                      toggleFollow.isLoading && "opacity-50",
+                    )}
+                  >
+                    {profile.viewer?.following ? (
+                      <>
+                        <CheckIcon
+                          size={18}
+                          className="mr-1 text-neutral-600 dark:text-neutral-300"
+                        />
+                        <Text className="font-medium text-neutral-600 dark:text-neutral-300">
+                          Following
+                        </Text>
+                      </>
+                    ) : (
+                      <>
+                        <PlusIcon
+                          size={18}
+                          className="mr-1 text-white dark:text-black"
+                        />
+                        <Text className="font-medium text-white dark:text-black">
+                          Follow
+                        </Text>
+                      </>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
+                    onPress={handleOptions}
+                  >
+                    <MoreHorizontalIcon
+                      size={18}
+                      className="text-neutral-600 dark:text-neutral-300"
+                    />
+                  </TouchableOpacity>
+                </View>
+              )
             ) : (
               <TouchableOpacity
                 className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
@@ -509,11 +537,16 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </Text>
             </View>
           </View>
-          {profile.description && (
-            <View className="mt-3" pointerEvents="box-none">
-              <RichTextWithoutFacets text={profile.description.trim()} />
-            </View>
-          )}
+          {profile.description &&
+            !(
+              profile.viewer?.blocking ||
+              profile.viewer?.blockedBy ||
+              profile.viewer?.muted
+            ) && (
+              <View className="mt-3" pointerEvents="box-none">
+                <RichTextWithoutFacets text={profile.description.trim()} />
+              </View>
+            )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
@@ -524,18 +557,35 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               <Button
                 title="Unmute"
                 onPress={() => {
-                  void agent.unmute(profile.did).then(() => {
-                    void queryClient.invalidateQueries([
-                      "profile",
-                      profile.handle,
-                    ]);
-                    void queryClient.invalidateQueries([
-                      "profile",
-                      profile.did,
-                    ]);
-                  });
+                  unmuteAccount(
+                    agent,
+                    profile.handle,
+                    profile.did,
+                    queryClient,
+                  );
                 }}
               />
+            </View>
+          )}
+          {profile.viewer?.blocking && (
+            <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+              <Text className="font-semibold">You have blocked this user</Text>
+              <Button
+                title="Unblock"
+                onPress={() => {
+                  unblockAccount(
+                    agent,
+                    profile.handle,
+                    profile.viewer!.blocking!.split("/").pop()!,
+                    queryClient,
+                  );
+                }}
+              />
+            </View>
+          )}
+          {profile.viewer?.blockedBy && (
+            <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
+              <Text className="font-semibold">This user has blocked you</Text>
             </View>
           )}
         </View>

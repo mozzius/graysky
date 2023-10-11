@@ -1,8 +1,8 @@
 import { useCallback, useRef } from "react";
 import { Dimensions, TouchableHighlight, View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Link, usePathname } from "expo-router";
+import { Link, usePathname, useRouter } from "expo-router";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -16,11 +16,6 @@ import {
   CloudyIcon,
 } from "lucide-react-native";
 
-import {
-  LargeRow,
-  NoFeeds,
-  SectionHeader,
-} from "~/app/(tabs)/(feeds,search,notifications,self)/feeds";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
@@ -29,13 +24,26 @@ import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
+import {
+  LargeRow,
+  NoFeeds,
+  SectionHeader,
+} from "./screens/feeds-screen-elements";
 import { Text } from "./text";
 
-export const FeedsButton = () => {
+interface Props {
+  show?: boolean;
+}
+
+export const FeedsButton = ({ show = true }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();
+  const savedFeeds = useSavedFeeds();
+  const router = useRouter();
+  const [{ homepage }] = useAppPreferences();
+
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
 
   const {
@@ -47,24 +55,41 @@ export const FeedsButton = () => {
 
   return (
     <>
-      <TouchableHighlight
-        onPress={() => {
-          haptics.selection();
-          bottomSheetRef.current?.present();
-        }}
-      >
+      {show && (
         <Animated.View
-          className="absolute bottom-6 right-6 flex-1 flex-row items-center rounded-full border p-4"
-          style={{
-            backgroundColor: theme.colors.card,
-            borderColor: theme.colors.border,
-          }}
+          className="absolute bottom-6 right-6 flex-1 rounded-full"
           entering={FadeInDown}
+          exiting={FadeOutDown}
         >
-          <CloudyIcon size={24} color={theme.colors.text} />
-          <Text className="ml-4 text-base">My Feeds</Text>
+          <TouchableHighlight
+            onPress={() => {
+              haptics.selection();
+              bottomSheetRef.current?.present();
+            }}
+            onLongPress={() => {
+              haptics.selection();
+              if (homepage === "feeds") {
+                router.push("/feeds");
+              } else {
+                router.push("/feeds/manage");
+              }
+            }}
+            accessibilityLabel="Open feed switch modal"
+            className="flex-1 rounded-full"
+          >
+            <View
+              className="flex-1 flex-row items-center rounded-full border p-3"
+              style={{
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.border,
+              }}
+            >
+              <CloudyIcon size={24} color={theme.colors.text} />
+              <Text className="ml-4 mr-2 text-base">My Feeds</Text>
+            </View>
+          </TouchableHighlight>
         </Animated.View>
-      </TouchableHighlight>
+      )}
       <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose
@@ -82,35 +107,40 @@ export const FeedsButton = () => {
         enableDismissOnClose
       >
         <BackButtonOverride dismiss={dismiss} />
-        <SheetContent dismiss={dismiss} />
+        <SheetContent feeds={savedFeeds} dismiss={dismiss} />
       </BottomSheetModal>
     </>
   );
 };
 
-const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
+const SheetContent = ({
+  feeds,
+  dismiss,
+}: {
+  feeds: ReturnType<typeof useSavedFeeds>;
+  dismiss: () => void;
+}) => {
   const theme = useTheme();
-  const savedFeeds = useSavedFeeds();
-  const [{ sortableFeeds }] = useAppPreferences();
+  const [{ sortableFeeds, homepage, defaultFeed }] = useAppPreferences();
 
-  const { pinned, saved } = useReorderFeeds(savedFeeds);
+  const { pinned, saved } = useReorderFeeds(feeds);
 
   const pathname = usePathname();
 
-  if (savedFeeds.data) {
-    if (savedFeeds.data.feeds.length === 0) {
+  if (feeds.data) {
+    if (feeds.data.feeds.length === 0) {
       return <NoFeeds />;
     }
 
     const favs = pinned
-      .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+      .map((uri) => feeds.data.feeds.find((f) => f.uri === uri)!)
       .filter(Boolean);
 
     const all = sortableFeeds
       ? saved
-          .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+          .map((uri) => feeds.data.feeds.find((f) => f.uri === uri)!)
           .filter((x) => x && !x.pinned)
-      : savedFeeds.data.feeds
+      : feeds.data.feeds
           .filter((feed) => !feed.pinned)
           .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
@@ -126,28 +156,39 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
             data: all,
           },
         ]}
-        renderItem={({ item }) => (
-          <FeedRow
-            feed={item}
-            onPress={dismiss}
-            right={
-              pathname ===
-              `/profile/${item.creator.did}/feed/${item.uri
-                .split("/")
-                .pop()}` ? (
-                <CircleDotIcon
-                  size={20}
-                  className={cx(
-                    "mr-1",
-                    theme.dark ? "text-neutral-200" : "text-neutral-400",
-                  )}
-                />
-              ) : (
-                <></>
-              )
-            }
-          />
-        )}
+        renderItem={({ item }) => {
+          const itemPathname = `/profile/${item.creator.did}/feed/${item.uri
+            .split("/")
+            .pop()}`;
+
+          let active = false;
+
+          if (homepage === "skyline" && pathname === "/feeds") {
+            active = defaultFeed === item.uri;
+          } else {
+            active = pathname === itemPathname;
+          }
+
+          return (
+            <FeedRow
+              feed={item}
+              onPress={dismiss}
+              right={
+                active ? (
+                  <CircleDotIcon
+                    size={20}
+                    className={cx(
+                      "mr-1",
+                      theme.dark ? "text-neutral-200" : "text-neutral-400",
+                    )}
+                  />
+                ) : (
+                  <></>
+                )
+              }
+            />
+          );
+        }}
         keyExtractor={(item) => item.uri}
         renderSectionHeader={({ section }) => (
           <SectionHeader title={section.title} />
@@ -160,7 +201,10 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
             style={{ backgroundColor: theme.colors.card }}
             onPress={dismiss}
             right={
-              pathname === "/feeds/following" && (
+              (pathname === "/feeds/following" ||
+                (pathname === "/feeds" &&
+                  homepage === "skyline" &&
+                  defaultFeed === "following")) && (
                 <CircleDotIcon
                   size={20}
                   className={cx(
@@ -177,7 +221,11 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
         )}
         ListFooterComponent={
           <View className="p-6 pb-12">
-            <Link href="/feeds" asChild onPress={dismiss}>
+            <Link
+              href={homepage === "feeds" ? "/feeds" : "/feeds/manage"}
+              asChild
+              onPress={dismiss}
+            >
               <TouchableHighlight className="overflow-hidden rounded-lg">
                 <View
                   className="flex-row items-center justify-between p-4"
@@ -199,5 +247,5 @@ const SheetContent = ({ dismiss }: { dismiss: () => void }) => {
     );
   }
 
-  return <QueryWithoutData query={savedFeeds} />;
+  return <QueryWithoutData query={feeds} />;
 };

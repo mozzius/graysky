@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
+import { useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { AlertTriangleIcon, CheckCircle2Icon } from "lucide-react-native";
@@ -22,6 +24,7 @@ import { useSelf } from ".";
 export default function DeleteAccount() {
   const theme = useTheme();
   const agent = useAgent();
+  const router = useRouter();
 
   const self = useSelf();
   const logOut = useLogOut();
@@ -51,15 +54,17 @@ export default function DeleteAccount() {
     onSuccess: () => {
       setStage(3);
       setTimeout(() => {
+        router.push("../");
         logOut();
       }, 2000);
     },
     onError: (err) => {
       console.error(err);
-      Alert.alert(
-        "Error",
-        "Please try again (are you sure your reset code was correct?)",
-      );
+      showToastable({
+        title: "Could not delete account",
+        message: err instanceof Error ? err.message : "Unknown error",
+        status: "danger",
+      });
     },
   });
 

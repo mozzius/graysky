@@ -7,6 +7,7 @@ import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { useComposer } from "~/lib/hooks/composer";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
@@ -45,9 +46,11 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const postAuthorHandle = post.author.handle;
   const profileHref = `/profile/${postAuthorHandle}`;
 
+  const [{ contentLanguages }] = useAppPreferences();
+
   const needsTranslation = useMemo(
-    () => !isPostInLanguage(post, [locale.languageCode]),
-    [post],
+    () => !isPostInLanguage(post, contentLanguages),
+    [post, contentLanguages],
   );
 
   if (!AppBskyFeedPost.isRecord(post.record)) {
@@ -66,13 +69,15 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
           : "border-neutral-200 bg-white",
       )}
     >
-      <View className="mb-2 flex-row">
+      <View className="mb-2 flex-row items-center">
         <PostAvatar profile={post.author} />
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
             accessibilityHint="Opens profile"
-            accessibilityLabel={`${postAuthorDisplayName} @${postAuthorHandle}`}
+            accessibilityLabel={`${
+              postAuthorDisplayName ?? ""
+            } @${postAuthorHandle}`}
             asChild
           >
             <TouchableOpacity className="flex-1">

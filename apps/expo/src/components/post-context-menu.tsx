@@ -1,8 +1,9 @@
 import { memo } from "react";
 import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
+import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
@@ -51,6 +52,9 @@ const PostContextMenuButton = ({
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
+  const path = usePathname();
+
+  const rkey = post.uri.split("/").pop()!;
 
   const translate = () => {
     if (!AppBskyFeedPost.isRecord(post.record)) return;
@@ -58,9 +62,7 @@ const PostContextMenuButton = ({
   };
 
   const share = () => {
-    const url = `https://bsky.app/profile/${post.author.handle}/post/${post.uri
-      .split("/")
-      .pop()}`;
+    const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
     void Share.share(
       Platform.select({
         ios: { url },
@@ -86,8 +88,13 @@ const PostContextMenuButton = ({
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onPress: async () => {
           await agent.deletePost(post.uri);
-          Alert.alert("Deleted", "Your post has been deleted.");
-          await queryClient.invalidateQueries();
+          void queryClient.invalidateQueries();
+          showToastable({
+            message: "Post deleted",
+          });
+          if (path.endsWith(rkey)) {
+            router.back();
+          }
         },
       },
     ]);
@@ -125,10 +132,10 @@ const PostContextMenuButton = ({
             cid: post.cid,
           },
         });
-        Alert.alert(
-          "Report submitted",
-          "Thank you for making the skyline a safer place.",
-        );
+        showToastable({
+          title: "Report submitted",
+          message: "Thank you for making the skyline a safer place",
+        });
       },
     );
   };

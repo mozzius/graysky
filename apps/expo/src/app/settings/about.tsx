@@ -91,6 +91,17 @@ const groups = [
     ],
   },
   {
+    title: "Logo designed by",
+    options: [
+      {
+        title: "roselia.gay",
+        accessibilityRole: "link",
+        href: "/profile/roselia.gay",
+        icon: AtSignIcon,
+      },
+    ],
+  },
+  {
     title: "App info",
     options: [
       {

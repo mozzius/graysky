@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   AppBskyActorDefs,
+  AppBskyEmbedRecord,
+  AppBskyEmbedRecordWithMedia,
   AppBskyFeedDefs,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
@@ -11,9 +13,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
+import { getFeedViewPref } from "~/app/settings/feed";
 import { useAgent } from "../agent";
 import { produce } from "../utils/produce";
-import { useContentFilter, useHaptics } from "./preferences";
+import { useAppPreferences, useContentFilter, useHaptics } from "./preferences";
 
 export const useSavedFeeds = (
   { pinned }: { pinned: boolean } = { pinned: false },
@@ -196,6 +199,7 @@ export const useReorderFeeds = (
 export const useTimeline = (feed: string) => {
   const agent = useAgent();
   const { contentFilter, preferences } = useContentFilter();
+  const [{ homepage, defaultFeed }] = useAppPreferences();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],
@@ -223,6 +227,7 @@ export const useTimeline = (feed: string) => {
 
   const data = useMemo(() => {
     if (!timeline.data) return [];
+    const feedViewPref = getFeedViewPref(preferences.data);
     const flattened = timeline.data.pages.flatMap((page) => page.posts);
     return flattened
       .map((item) => {
@@ -230,16 +235,34 @@ export const useTimeline = (feed: string) => {
 
         if (filter?.visibility === "hide") return [];
 
+        // preference filters
+
+        if (
+          homepage === "feeds" ? feed === "following" : feed === defaultFeed
+        ) {
+          const isEmbed =
+            AppBskyEmbedRecord.isView(item.post.embed) ||
+            AppBskyEmbedRecordWithMedia.isView(item.post.embed);
+          const isByUnfollowed = !item.post.author.viewer?.following;
+
+          if (feedViewPref.hideReplies && item.reply) {
+            return [];
+          } else if (feedViewPref.hideReposts && item.reason) {
+            return [];
+          } else if (feedViewPref.hideQuotePosts && isEmbed) {
+            return [];
+          } else if (feedViewPref.hideRepliesByUnfollowed && isByUnfollowed) {
+            return [];
+          }
+        }
+
         if (item.reply && !item.reason) {
           if (
             AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
             AppBskyFeedDefs.isBlockedPost(item.reply.root)
           ) {
             return [];
-          } else if (
-            AppBskyFeedDefs.isPostView(item.reply.parent) &&
-            AppBskyFeedDefs.validatePostView(item.reply.parent).success
-          ) {
+          } else if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
             if (item.reply.parent.author.viewer?.muted) return [];
             const parentFilter = contentFilter(item.reply.parent.labels);
             if (parentFilter?.visibility === "hide") return [];
@@ -259,7 +282,7 @@ export const useTimeline = (feed: string) => {
         }
       })
       .flat();
-  }, [timeline, contentFilter]);
+  }, [timeline, contentFilter, preferences.data, defaultFeed, homepage, feed]);
 
   return { timeline, data, preferences, contentFilter };
 };

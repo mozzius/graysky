@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   findNodeHandle,
@@ -23,8 +23,7 @@ import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profi
 import { useAgent } from "~/lib/agent";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { useComposer } from "~/lib/hooks/composer";
-import { type FilterResult } from "~/lib/hooks/preferences";
-import { locale } from "~/lib/locale";
+import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
@@ -52,7 +51,7 @@ interface Props {
   background?: "transparent";
 }
 
-export const FeedPost = ({
+const FeedPostInner = ({
   item,
   isReply = false,
   hasReply = false,
@@ -115,6 +114,7 @@ export const FeedPost = ({
               post: item.post,
               primary: true,
               filter,
+              viewable: true,
             },
           ],
           index: 0,
@@ -128,9 +128,11 @@ export const FeedPost = ({
     });
   }, [item.post, postHref, filter, queryClient]);
 
+  const [{ contentLanguages }] = useAppPreferences();
+
   const needsTranslation = useMemo(
-    () => !isPostInLanguage(item.post, [locale.languageCode]),
-    [item.post],
+    () => !isPostInLanguage(item.post, contentLanguages),
+    [item.post, contentLanguages],
   );
 
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
@@ -312,7 +314,7 @@ export const FeedPost = ({
                   } else return null;
                 })()
               : !!item.post.record.reply && (
-                  <ReplyParentAuthor uri={item.post.record.reply.parent.uri} />
+                  <ReplyParentAuthor uri={item.post.uri} />
                 ))}
           {hiddenContent}
           {hidden || (
@@ -321,11 +323,8 @@ export const FeedPost = ({
               {item.post.record.text && (
                 <>
                   <Link href={postHref} asChild>
-                    <TouchableWithoutFeedback
-                      className="my-0.5"
-                      accessibilityHint="Opens post details"
-                    >
-                      <View className="flex-1 lg:pr-24">
+                    <TouchableWithoutFeedback accessibilityHint="Opens post details">
+                      <View className="my-0.5 flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
@@ -463,6 +462,8 @@ const Reason = ({ item }: Pick<Props, "item">) => {
   );
 };
 
+export const FeedPost = memo(FeedPostInner);
+
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const theme = useTheme();
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
@@ -474,16 +475,24 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
       const thread = await agent.getPostThread({
         uri,
         depth: 0,
-        parentHeight: 0,
+        parentHeight: 1,
       });
-      if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
-        assert(AppBskyFeedDefs.validateThreadViewPost(thread.data.thread));
-        return thread.data.thread.post;
-      }
-      throw new Error("invalid post");
+      return thread.data.thread.parent;
     },
   });
-  if (!data)
+
+  if (!AppBskyFeedDefs.isThreadViewPost(data)) {
+    let text = "replying to a post that couldn't be fetched";
+    if (isLoading) {
+      text = "replying to...";
+    }
+    if (AppBskyFeedDefs.isBlockedPost(data)) {
+      text = "replying to a blocked user";
+    }
+    if (AppBskyFeedDefs.isNotFoundPost(data)) {
+      text = "replying to a deleted post";
+    }
+
     return (
       <View className="flex-row items-center">
         <MessageCircleIcon size={12} color={circleColor} />
@@ -494,13 +503,16 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
           )}
           numberOfLines={1}
         >
-          replying to{isLoading ? "..." : " unknown"}
+          {text}
         </Text>
       </View>
     );
+  }
   return (
     <Link
-      href={`/profile/${data.author.handle}/post/${data.uri.split("/").pop()}`}
+      href={`/profile/${data.post.author.handle}/post/${data.post.uri
+        .split("/")
+        .pop()}`}
       asChild
       accessibilityHint="Opens parent post"
     >
@@ -514,7 +526,8 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
             )}
             numberOfLines={1}
           >
-            replying to {data.author.displayName ?? `@${data.author.handle}`}
+            replying to{" "}
+            {data.post.author.displayName ?? `@${data.post.author.handle}`}
           </Text>
         </View>
       </TouchableWithoutFeedback>

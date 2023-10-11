@@ -97,13 +97,37 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="app"
           options={{
-            title: "App Settings",
+            title: "App Preferences",
+          }}
+        />
+        <Stack.Screen
+          name="feed"
+          options={{
+            title: "Home Feed Preferences",
           }}
         />
         <Stack.Screen
           name="about"
           options={{
             title: "About",
+          }}
+        />
+        <Stack.Screen
+          name="language/index"
+          options={{
+            title: "Languages",
+          }}
+        />
+        <Stack.Screen
+          name="language/primary"
+          options={{
+            title: "Primary Language",
+          }}
+        />
+        <Stack.Screen
+          name="language/content"
+          options={{
+            title: "Content Languages",
           }}
         />
       </Stack>

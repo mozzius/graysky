@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   ActivityIndicator,
-  Alert,
   ScrollView,
   TextInput,
   TouchableHighlight,
@@ -10,6 +9,7 @@ import {
 import DatePicker from "react-native-date-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -117,10 +117,11 @@ export default function SignUp() {
     onSuccess: () => setStage(3),
     onError: (err) => {
       console.error(err);
-      Alert.alert(
-        "Could not create account",
-        err instanceof Error ? err.message : "Unknown error",
-      );
+      showToastable({
+        title: "Could not create account",
+        message: err instanceof Error ? err.message : "Unknown error",
+        status: "warning",
+      });
     },
   });
 

@@ -41,10 +41,13 @@ export const EmailInput = ({
 
   if (error) {
     return (
-      <div className="px8 grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
+      <div className="grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
         <p className="text-center text-white">
           Something went wrong. Please could you let{" "}
-          <a className="underline" href="https://bsky.app/profile/mozzius.dev">
+          <a
+            className="underline underline-offset-4"
+            href="https://bsky.app/profile/mozzius.dev"
+          >
             @mozzius.dev
           </a>{" "}
           know?
@@ -56,25 +59,18 @@ export const EmailInput = ({
   if (success) {
     return (
       <div className="grid h-[50px] place-items-center rounded border border-neutral-600 px-8 text-white backdrop-blur backdrop-brightness-50">
-        <p className="text-center text-white">
-          Thanks for registering your interest - we&apos;ll be in touch. Check
-          out{" "}
-          <a className="underline" href="https://bsky.app/profile/graysky.app">
-            @graysky.app
-          </a>{" "}
-          for info on how to join the early beta.
-        </p>
+        <p className="text-center text-white">We&apos;ll be in touch!</p>
       </div>
     );
   }
 
   return (
     <form
-      className="flex max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
+      className="flex w-96 max-w-[90%] gap-1 rounded border border-neutral-600 p-1 shadow-white backdrop-blur backdrop-brightness-50 transition-shadow focus-within:shadow-xl hover:shadow-xl"
       action={signUp}
     >
       <input
-        className="flex-1 rounded-sm border border-neutral-600 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
+        className="w-full flex-1 rounded-sm border border-neutral-600 bg-transparent px-4 py-2 text-white focus:outline-none focus:ring-1 focus:ring-white"
         type="email"
         name="email"
         placeholder="Enter your email"

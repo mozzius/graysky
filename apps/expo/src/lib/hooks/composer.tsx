@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import {
-  Alert,
   findNodeHandle,
   Keyboard,
   Platform,
   type TouchableOpacity,
 } from "react-native";
+import { showToastable } from "react-native-toastable";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -31,8 +31,7 @@ import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
-import { locale } from "../locale";
-import { produce } from "../utils/produce";
+import { useAppPreferences } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -158,6 +157,7 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [{ primaryLanguage }] = useAppPreferences();
 
   return useMutation({
     mutationKey: ["send"],
@@ -166,13 +166,11 @@ export const useSendPost = ({
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
-      const rt = await generateRichText(text.trim(), agent);
+      const rt = await generateRichText(text.trimEnd(), agent);
       if (rt.graphemeLength > MAX_LENGTH) {
-        Alert.alert(
-          "Your post is too long",
-          "There is a character limit of 300 characters",
+        throw new Error(
+          "Your post is too long - there is a character limit of 300 characters",
         );
-        throw new Error("Too long");
       }
 
       const uploadedImages = await Promise.all(
@@ -204,6 +202,41 @@ export const useSendPost = ({
             }
           : undefined;
 
+      // upload thumbnail
+
+      if (
+        external &&
+        external.type === "external" &&
+        external.view.external.thumb
+      ) {
+        const thumbUrl = external.view.external.thumb;
+        let thumb: BlobRef | undefined;
+
+        const thumbUri = await downloadThumbnail(thumbUrl);
+        let encoding;
+        if (thumbUri.endsWith(".png")) {
+          encoding = "image/png";
+        } else if (thumbUri.endsWith(".jpeg") || thumbUri.endsWith(".jpg")) {
+          encoding = "image/jpeg";
+        } else {
+          console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
+          Sentry.Native.captureMessage(
+            `Unknown thumbnail extension, skipping: ${thumbUri}`,
+            { level: "warning" },
+          );
+        }
+        if (encoding) {
+          const thumbUploadRes = await agent.uploadBlob(thumbUri, {
+            encoding,
+          });
+          if (!thumbUploadRes.success)
+            throw new Error("Failed to upload thumbnail");
+          thumb = thumbUploadRes.data.blob;
+        }
+
+        external.main.external.thumb = thumb;
+      }
+
       let mergedEmbed: AppBskyFeedPost.Record["embed"];
 
       // embed priorities
@@ -225,68 +258,60 @@ export const useSendPost = ({
             record: quote,
             media,
           } satisfies AppBskyEmbedRecordWithMedia.Main;
+        } else if (external && external.type === "external") {
+          mergedEmbed = {
+            $type: "app.bsky.embed.recordWithMedia",
+            record: quote,
+            media: external.main,
+          } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else {
           mergedEmbed = quote;
         }
       } else if (gif) {
         mergedEmbed = gif;
       } else if (media) {
-        mergedEmbed = media;
-      } else if (external) {
-        if (external.type === "record") {
-          mergedEmbed = external.main;
+        if (external && external.type === "record") {
+          mergedEmbed = {
+            $type: "app.bsky.embed.recordWithMedia",
+            record: external.main,
+            media,
+          } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else {
-          const thumbUrl = external.view.external.thumb;
-          let thumb: BlobRef | undefined;
+          mergedEmbed = media;
+        }
+      } else if (external) {
+        mergedEmbed = external.main;
+      }
 
-          // upload thumbnail if it exists
-          if (thumbUrl) {
-            const thumbUri = await downloadThumbnail(thumbUrl);
-            let encoding;
-            if (thumbUri.endsWith(".png")) {
-              encoding = "image/png";
-            } else if (
-              thumbUri.endsWith(".jpeg") ||
-              thumbUri.endsWith(".jpg")
-            ) {
-              encoding = "image/jpeg";
-            } else {
-              console.warn(
-                `Unknown thumbnail extension, skipping: ${thumbUri}`,
-              );
-              Sentry.Native.captureMessage(
-                `Unknown thumbnail extension, skipping: ${thumbUri}`,
-                { level: "warning" },
-              );
-            }
-            if (encoding) {
-              const thumbUploadRes = await agent.uploadBlob(thumbUri, {
-                encoding,
-              });
-              if (!thumbUploadRes.success)
-                throw new Error("Failed to upload thumbnail");
-              thumb = thumbUploadRes.data.blob;
-            }
+      const tags: string[] = [];
 
-            mergedEmbed = produce(external.main, (draft) => {
-              draft.external.thumb = thumb;
-            });
-          }
+      for (const segment of rt.segments()) {
+        if (segment.isTag() && segment.tag?.tag) {
+          tags.push(
+            // remove #s - should be fixed upstream probably
+            segment.tag.tag.startsWith("#")
+              ? segment.tag.tag.slice(1)
+              : segment.tag.tag,
+          );
         }
       }
 
       await agent.post({
         text: rt.text,
         facets: rt.facets,
+        tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
         // TODO: LANGUAGE SELECTOR
-        langs: [locale.languageCode],
+        langs: [primaryLanguage],
       });
     },
     onSuccess: () => {
       void queryClient.invalidateQueries(["profile"]);
       router.push("../");
+      showToastable({
+        message: "Post published!",
+      });
     },
     onError: (err) => Sentry.Native.captureException(err),
   });
@@ -295,7 +320,7 @@ export const useSendPost = ({
 export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
-  const agent = useAgent();
+
   const theme = useTheme();
   const router = useRouter();
   const searchParams = useLocalSearchParams();
@@ -310,11 +335,8 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
         await new Promise((resolve) => setTimeout(resolve, 300));
       }
 
-      // jank feature flag
       const options =
-        ["mozzius.dev", "grayskytest.bsky.social"].includes(
-          agent.session?.handle ?? "",
-        ) && images.length === 0
+        images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
       const icons = [
@@ -429,17 +451,19 @@ const getGalleryPermission = async () => {
       const { granted } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!granted) {
-        Alert.alert(
-          "Permission required",
-          "Please enable photo gallery access in your settings",
-        );
+        showToastable({
+          title: "Permission required",
+          message: "Please enable photo gallery access in your settings",
+          status: "warning",
+        });
         return false;
       }
     } else {
-      Alert.alert(
-        "Permission required",
-        "Please enable photo gallery access in your settings",
-      );
+      showToastable({
+        title: "Permission required",
+        message: "Please enable photo gallery access in your settings",
+        status: "warning",
+      });
       return false;
     }
   }
@@ -452,17 +476,19 @@ const getCameraPermission = async () => {
     if (canTakePhoto.canAskAgain) {
       const { granted } = await ImagePicker.requestCameraPermissionsAsync();
       if (!granted) {
-        Alert.alert(
-          "Permission required",
-          "Please enable camera access in your settings",
-        );
+        showToastable({
+          title: "Permission required",
+          message: "Please enable camera access in your settings",
+          status: "warning",
+        });
         return false;
       }
     } else {
-      Alert.alert(
-        "Permission required",
-        "Please enable camera access in your settings",
-      );
+      showToastable({
+        title: "Permission required",
+        message: "Please enable camera access in your settings",
+        status: "warning",
+      });
       return false;
     }
   }
@@ -621,7 +647,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
                   } satisfies AppBskyEmbedRecord.ViewRecord,
                 } satisfies AppBskyEmbedRecord.View,
                 main: {
-                  $type: "app.bsky.embed.record#main",
+                  $type: "app.bsky.embed.record",
                   record: {
                     uri: thread.post.uri,
                     cid: thread.post.cid,
@@ -646,7 +672,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
                 record: generator.data.view,
               } satisfies AppBskyEmbedRecord.View,
               main: {
-                $type: "app.bsky.embed.record#main",
+                $type: "app.bsky.embed.record",
                 record: {
                   uri: generator.data.view.uri,
                   cid: generator.data.view.cid,
@@ -697,7 +723,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
             } satisfies AppBskyEmbedExternal.ViewExternal,
           } satisfies AppBskyEmbedExternal.View,
           main: {
-            $type: "app.bsky.embed.external#main",
+            $type: "app.bsky.embed.external",
             external: {
               $type: "app.bsky.embed.external#external",
               uri: url.toString(),

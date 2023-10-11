@@ -1,10 +1,20 @@
+import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+
 import { Providers } from "./providers";
 
 import "~/styles/globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata = {
   title: "Graysky - a bluesky client",
   description: "Experience a whole different skyline.",
+  metadataBase: new URL("https://graysky.app"),
   openGraph: {
     title: "Graysky - a bluesky client",
     description: "Experience a whole different skyline.",
@@ -12,36 +22,22 @@ export const metadata = {
     locale: "en_GB",
     url: "https://graysky.app",
     siteName: "Graysky",
-    images: [
-      {
-        url: "https://graysky.app/graysky.png",
-        width: 1024,
-        height: 1024,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Graysky - a bluesky client",
-    description: "Experience a whole different skyline.",
-    images: [
-      {
-        url: "https://graysky.app/graysky.png",
-        width: 1024,
-        height: 1024,
-      },
-    ],
   },
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: React.PropsWithChildren) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head />
-      <Providers>
-        <body>{children}</body>
-      </Providers>
+      <body>
+        <Providers>{children}</Providers>
+        <Analytics />
+      </body>
     </html>
   );
 }

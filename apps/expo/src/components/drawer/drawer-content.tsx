@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { useCallback } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -22,19 +22,10 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { useInviteCodes } from "~/app/codes/_layout";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
+import { BackButtonOverride } from "../back-button-override";
+import { Text } from "../text";
 import { ActorDetails } from "./actor-details";
-import { Text } from "./text";
-
-const DrawerContext = createContext<((open?: boolean) => void) | null>(null);
-
-export const DrawerProvider = DrawerContext.Provider;
-
-export const useDrawer = () => {
-  const openDrawer = useContext(DrawerContext);
-  if (!openDrawer)
-    throw new Error("useDrawer must be used within a DrawerProvider");
-  return openDrawer;
-};
+import { useDrawer } from "./context";
 
 export const DrawerContent = () => {
   const logOut = useLogOut();
@@ -44,6 +35,8 @@ export const DrawerContent = () => {
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
   const [{ homepage }] = useAppPreferences();
+
+  const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -91,11 +84,12 @@ export const DrawerContent = () => {
 
   return (
     <SafeAreaView className="h-full p-8">
+      <BackButtonOverride dismiss={closeDrawer} />
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
         {homepage === "skyline" && (
           <Link
-            href="/feeds/index"
+            href="/feeds/manage"
             asChild
             onPress={() => setOpenDrawer(false)}
           >
@@ -109,26 +103,28 @@ export const DrawerContent = () => {
             </TouchableOpacity>
           </Link>
         )}
-        <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
-          <TouchableOpacity
-            accessibilityRole="link"
-            accessibilityLabel="Invite codes"
-            className="mt-2 w-full flex-row items-center py-2"
-          >
-            <TicketIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">
-              Invite codes
-              {numCodes > 0 && (
-                <>
-                  {" "}
-                  <Text style={{ color: theme.colors.primary }}>
-                    ({numCodes})
-                  </Text>
-                </>
-              )}
-            </Text>
-          </TouchableOpacity>
-        </Link>
+        {codes.isSuccess && (
+          <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
+            <TouchableOpacity
+              accessibilityRole="link"
+              accessibilityLabel="Invite codes"
+              className="mt-2 w-full flex-row items-center py-2"
+            >
+              <TicketIcon color={theme.colors.text} />
+              <Text className="ml-6 text-base font-medium">
+                Invite codes
+                {numCodes > 0 && (
+                  <>
+                    {" "}
+                    <Text style={{ color: theme.colors.primary }}>
+                      ({numCodes})
+                    </Text>
+                  </>
+                )}
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        )}
         <TouchableOpacity
           accessibilityRole="button"
           accessibilityLabel="Change theme"
@@ -166,7 +162,7 @@ export const DrawerContent = () => {
         accessibilityRole="button"
         accessibilityLabel="Sign out"
         className="w-full flex-row items-center py-2"
-        onPress={() => void logOut()}
+        onPress={() => logOut()}
       >
         <LogOutIcon color={theme.colors.text} />
         <Text className="ml-6 text-base font-medium">Sign out</Text>

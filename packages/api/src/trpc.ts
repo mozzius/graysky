@@ -45,7 +45,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async (_opts: FetchCreateContextFnOptions) => {
+export const createTRPCContext = (_opts: FetchCreateContextFnOptions) => {
   return createInnerTRPCContext({});
 };
 

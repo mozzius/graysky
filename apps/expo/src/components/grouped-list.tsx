@@ -24,6 +24,7 @@ interface ListProps {
         destructive?: boolean;
         accessibilityRole?: "link"; // todo: add more
         chevron?: boolean;
+        disabled?: boolean;
       }
     | undefined
     | null
@@ -51,6 +52,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
               chevron={(!!option.href && !option.action) || option.chevron}
               action={option.action}
               destructive={option.destructive}
+              disabled={option.disabled}
             >
               <Text
                 style={{
@@ -64,13 +66,13 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
           );
           return (
             <Fragment key={option.title}>
-              {option.href ? (
+              {option.href && !option.disabled ? (
                 <Link asChild href={option.href}>
                   <TouchableHighlight>
                     <View>{row}</View>
                   </TouchableHighlight>
                 </Link>
-              ) : option.onPress ? (
+              ) : option.onPress && !option.disabled ? (
                 <TouchableHighlight
                   onPress={() => void option.onPress?.()}
                   accessibilityRole={option.accessibilityRole}
@@ -93,6 +95,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
 export type Groups = (
   | (ListProps & {
       title?: string;
+      footer?: string;
     })
   | false
   | null
@@ -107,12 +110,12 @@ interface GroupProps extends ScrollViewProps {
 export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
   return (
     <ScrollView className="flex-1 px-4" {...props}>
-      <View className="mt-4">{children}</View>
+      <View className="mt-4 flex-1">{children}</View>
       {groups
         .filter((x) => !!x)
         .map((group, i, arr) => {
           if (!group) return null;
-          const { title, ...list } = group;
+          const { title, footer, ...list } = group;
           return (
             <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
               {title && (
@@ -121,6 +124,11 @@ export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
                 </Text>
               )}
               <ListGroup {...list} />
+              {footer && (
+                <Text className="mx-4 mt-3 text-sm text-neutral-500">
+                  {footer}
+                </Text>
+              )}
             </View>
           );
         })}
@@ -134,6 +142,7 @@ interface RowProps {
   chevron?: boolean;
   action?: React.ReactNode;
   destructive?: boolean;
+  disabled?: boolean;
 }
 
 export const Row = ({
@@ -142,6 +151,7 @@ export const Row = ({
   chevron,
   action,
   destructive,
+  disabled,
 }: RowProps) => {
   const Icon = icon;
   const theme = useTheme();
@@ -149,21 +159,24 @@ export const Row = ({
     <View
       style={{ backgroundColor: theme.colors.card }}
       className="min-h-[50px] flex-row items-center px-4 py-2"
+      aria-disabled={disabled}
     >
       {Icon && (
         <Icon
           size={24}
           color={destructive ? "#ef4444" : theme.colors.primary}
+          className={cx(disabled && "opacity-50")}
         />
       )}
-      <View className={cx("mr-3 flex-1", icon && "ml-3")}>{children}</View>
-      {chevron && (
-        <ChevronRightIcon
-          size={20}
-          className="text-neutral-400 dark:text-neutral-200"
-        />
-      )}
+      <View
+        className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}
+      >
+        {children}
+      </View>
       {action}
+      {chevron && (
+        <ChevronRightIcon size={20} className="ml-0.5 text-neutral-500" />
+      )}
     </View>
   );
 };

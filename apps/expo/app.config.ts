@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this
+// eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this (???)
 import type { ConfigContext, ExpoConfig } from "@expo/config";
 import dotenv from "dotenv";
 
@@ -55,9 +55,11 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     },
   },
   extra: {
-    eas: {
-      projectId: "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
-    },
+    eas: process.env.EAS_PROJECT_ID
+      ? {
+          projectId: process.env.EAS_PROJECT_ID,
+        }
+      : undefined,
     revenueCat: {
       ios: process.env.REVENUECAT_API_KEY_IOS,
     },

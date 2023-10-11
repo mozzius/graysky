@@ -9,7 +9,7 @@ import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { Avatar } from "~/components/avatar";
-import { useDrawer } from "~/components/drawer-content";
+import { useDrawer } from "~/components/drawer/context";
 import { useOptionalAgent } from "~/lib/agent";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 
@@ -30,7 +30,7 @@ export default function SubStack({
   // agent might not be available yet
   const agent = useOptionalAgent();
 
-  const [{ homepage, defaultFeed }] = useAppPreferences();
+  const [{ homepage }] = useAppPreferences();
 
   const headerLeft = () => (
     <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
@@ -50,23 +50,22 @@ export default function SubStack({
   switch (segment) {
     case "(feeds)":
       return (
-        <Stack
-          {...stackOptions}
-          initialRouteName={
-            homepage === "feeds"
-              ? "feeds/index"
-              : defaultFeed === "following"
-              ? "feeds/following"
-              : defaultFeed
-          }
-        >
+        <Stack {...stackOptions}>
           <Stack.Screen
             name="feeds/index"
-            options={{
-              title: "Feeds",
-              headerLargeTitle: true,
-              headerLeft,
-            }}
+            options={
+              homepage === "feeds"
+                ? {
+                    title: "Feeds",
+                    headerLargeTitle: true,
+                    headerLeft,
+                  }
+                : {
+                    title: "Skyline",
+                    headerLargeTitle: false,
+                    headerLeft,
+                  }
+            }
           />
           <Stack.Screen
             name="feeds/discover"
@@ -105,6 +104,12 @@ export default function SubStack({
               title: "Following",
             }}
           />
+          <Stack.Screen
+            name="feeds/manage"
+            options={{
+              title: "Feeds",
+            }}
+          />
         </Stack>
       );
     case "(search)":
@@ -118,24 +123,7 @@ export default function SubStack({
                 ios: headerLeft,
               }),
               headerLargeTitle: true,
-            }}
-          />
-          <Stack.Screen
-            name="search/posts"
-            options={{
-              title: "Search Posts",
-            }}
-          />
-          <Stack.Screen
-            name="search/feeds"
-            options={{
-              title: "Search Feeds",
-            }}
-          />
-          <Stack.Screen
-            name="search/people"
-            options={{
-              title: "Search People",
+              headerSearchBarOptions: {},
             }}
           />
         </Stack>

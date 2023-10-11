@@ -7,13 +7,14 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
+import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export const useProfile = (handle?: string) => {
   const agent = useAgent();
 
   const actor = handle ?? agent.session?.did;
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["profile", actor],
     queryFn: async () => {
       if (!actor) throw new Error("Not logged in");
@@ -22,6 +23,10 @@ export const useProfile = (handle?: string) => {
       return profile.data;
     },
   });
+
+  useRefreshOnFocus(query.refetch);
+
+  return query;
 };
 
 export const useProfileFeeds = (handle?: string) => {
@@ -56,25 +61,39 @@ export const useProfilePosts = (
   const timeline = useInfiniteQuery({
     queryKey: ["profile", actor, "feed", mode],
     queryFn: async ({ pageParam }) => {
+      if (!actor) throw new Error("Not logged in");
       let cursor;
       let posts = [];
 
       switch (mode) {
-        case "posts":
-        case "replies":
-        case "media": {
-          if (!actor) throw new Error("Not logged in");
+        case "posts": {
           const feed = await agent.getAuthorFeed({
             actor,
             cursor: pageParam as string | undefined,
+            filter: "posts_no_replies",
+          });
+          ({ cursor, feed: posts } = feed.data);
+          break;
+        }
+        case "replies": {
+          const feed = await agent.getAuthorFeed({
+            actor,
+            cursor: pageParam as string | undefined,
+            filter: "posts_with_replies",
+          });
+          ({ cursor, feed: posts } = feed.data);
+          break;
+        }
+        case "media": {
+          const feed = await agent.getAuthorFeed({
+            actor,
+            cursor: pageParam as string | undefined,
+            filter: "posts_with_media",
           });
           ({ cursor, feed: posts } = feed.data);
           break;
         }
         case "likes": {
-          // all credit to @handlerug.me for this one
-          // https://github.com/handlerug/bluesky-liked-posts
-          if (!actor) throw new Error("Not logged in");
           const list = await agent.app.bsky.feed.like.list({
             repo: actor,
             cursor: pageParam as string | undefined,
@@ -129,15 +148,13 @@ export const useProfilePosts = (
         if (filter?.visibility === "hide") return [];
         switch (mode) {
           case "posts":
-            return item.reply && !item.reason
-              ? []
-              : [{ item, hasReply: false, filter }];
+          case "likes":
+          case "media":
+            return [{ item, hasReply: false, filter }];
           case "replies":
-            if (
-              item.reply &&
-              !item.reason &&
-              AppBskyFeedDefs.isPostView(item.reply.parent)
-            ) {
+            if (item.reply && !item.reason) {
+              if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
+
               const parentFilter = contentFilter(item.reply.parent.labels);
               if (parentFilter?.visibility === "hide")
                 return [{ item, hasReply: false, filter }];
@@ -152,12 +169,6 @@ export const useProfilePosts = (
             } else {
               return [{ item, hasReply: false, filter }];
             }
-          case "likes":
-            return [{ item, hasReply: false, filter }];
-          case "media":
-            return item.post.embed?.images && !item.reason
-              ? [{ item, hasReply: false, filter }]
-              : [];
         }
       })
       .flat();

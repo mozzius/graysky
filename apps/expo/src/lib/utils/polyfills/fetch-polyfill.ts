@@ -31,6 +31,9 @@ export async function fetchHandler(
       // see https://github.com/facebook/react-native/issues/27099
       // -prf
       const newPath = reqBody.replace(/\.jpe?g$/, ".bin");
+      if ((await FileSystem.getInfoAsync(newPath)).exists) {
+        await FileSystem.deleteAsync(newPath);
+      }
       await FileSystem.moveAsync({ from: reqBody, to: newPath });
       reqBody = newPath;
     }

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ContextMenuView } from "react-native-ios-context-menu";
 import Animated from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system";
 import { Image, type ImageStyle } from "expo-image";
@@ -142,10 +143,10 @@ export const useImageOptions = () => {
           await Clipboard.setImageAsync(base64);
         } catch (err) {
           console.error(err);
-          Alert.alert(
-            "Error",
-            "An error occured while trying to copy the image",
-          );
+          showToastable({
+            message: "An error occured while trying to copy the image",
+            status: "danger",
+          });
         }
       },
       icon: "doc.on.doc",
@@ -156,10 +157,11 @@ export const useImageOptions = () => {
       reactIcon: <SaveIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         if (!(await MediaLibrary.requestPermissionsAsync()).granted) {
-          Alert.alert(
-            "Error",
-            "You need to grant permission to save images to your library",
-          );
+          showToastable({
+            title: "Permission required",
+            message: "Please enable photo gallery access in your settings",
+            status: "warning",
+          });
           return;
         }
         try {
@@ -167,10 +169,10 @@ export const useImageOptions = () => {
           await MediaLibrary.saveToLibraryAsync(download.uri);
         } catch (err) {
           console.error(err);
-          Alert.alert(
-            "Error",
-            "An error occured while trying to save the image",
-          );
+          showToastable({
+            message: "An error occured while trying to save the image",
+            status: "danger",
+          });
         }
       },
       icon: "arrow.down.to.line",
@@ -191,10 +193,10 @@ export const useImageOptions = () => {
           });
         } catch (err) {
           console.error(err);
-          Alert.alert(
-            "Error",
-            "An error occured while trying to share the image",
-          );
+          showToastable({
+            message: "An error occured while trying to share the image",
+            status: "danger",
+          });
         }
       },
       icon: "square.and.arrow.up",

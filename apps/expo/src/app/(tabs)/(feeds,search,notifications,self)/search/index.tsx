@@ -76,6 +76,7 @@ const SearchResults = ({ search }: Props) => {
   const searchResults = useQuery({
     queryKey: ["search", "people", search, MAX_RESULTS],
     queryFn: async () => {
+      if (!search) return { actors: [] };
       const { data, success } = await agent.searchActors({
         term: search,
         limit: MAX_RESULTS,
@@ -102,28 +103,28 @@ const SearchResults = ({ search }: Props) => {
               {
                 icon: SearchIcon,
                 title: "Search posts",
-                href: `/search/posts?q=${search}`,
+                href: `/search/posts?q=${encodeURIComponent(search)}`,
               },
               {
                 icon: SearchIcon,
                 title: "Search feeds",
-                href: `/search/feeds?q=${search}`,
+                href: `/search/feeds?q=${encodeURIComponent(search)}`,
               },
               data.length === 0
                 ? {
                     icon: SearchIcon,
                     title: "Search users",
-                    href: `/search/people?q=${search}`,
+                    href: `/search/people?q=${encodeURIComponent(search)}`,
                   }
                 : [],
             ].flat(),
           },
           data.length > 0
             ? {
-                children: data.slice(0, 5).map((item, i) => (
+                children: data.slice(0, 5).map((item, i, arr) => (
                   <Fragment key={item.did}>
                     <PersonRow person={item} />
-                    {i !== data.length - 2 ? (
+                    {i !== arr.length - 1 ? (
                       <ItemSeparator iconWidth="w-10" />
                     ) : (
                       data.length === MAX_RESULTS && <ItemSeparator />
@@ -136,7 +137,9 @@ const SearchResults = ({ search }: Props) => {
                         {
                           icon: SearchIcon,
                           title: "Search all users",
-                          href: `/search/people?q=${search}`,
+                          href: `/search/people?q=${encodeURIComponent(
+                            search,
+                          )}`,
                         },
                       ]
                     : [],

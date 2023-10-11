@@ -3,35 +3,37 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
   Platform,
+  type FlatList,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
-import type Animated from "react-native-reanimated";
-import {
-  useAnimatedReaction,
-  useScrollViewOffset,
-} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { type FlashList } from "@shopify/flash-list";
 
 interface Options {
   largeHeader?: boolean;
+  setScrollDir?: (dir: number) => void;
 }
 
 export const useTabPressScroll = <T>(
-  ref: React.RefObject<FlashList<T>>,
+  ref: React.RefObject<FlashList<T> | FlatList<T>>,
   callback: () => unknown = () => {},
-  { largeHeader }: Options = {},
+  { largeHeader, setScrollDir }: Options = {},
 ) => {
   const navigation = useNavigation();
   const atTopRef = useRef(true);
 
+  const prev = useRef(0);
+
   const { top } = useSafeAreaInsets();
 
-  // 14 pro needs to be 5px more :/
+  // 14 pro needs to be 5px smaller
+  // see https://github.com/software-mansion/react-native-screens/blob/24689052c009f383657a74521c5ce875044ee2ef/src/native-stack/views/NativeStackView.tsx#L431
+  const statusBarHeight = top > 50 ? top - 5 : top;
+
   const targetOffset =
-    largeHeader && Platform.OS === "ios" ? (top + 96) * -1 : 0;
+    largeHeader && Platform.OS === "ios" ? (statusBarHeight + 96) * -1 : 0;
 
   useEffect(() => {
     // @ts-expect-error doesn't know what kind of navigator it is
@@ -63,13 +65,25 @@ export const useTabPressScroll = <T>(
         atTopRef.current = false;
       }
 
+      if (setScrollDir) {
+        if (contentOffset.y <= 0) {
+          setScrollDir(0);
+        } else if (contentOffset.y > prev.current) {
+          setScrollDir(1);
+        } else if (contentOffset.y < prev.current) {
+          setScrollDir(-1);
+        }
+      }
+
+      prev.current = contentOffset.y;
+
       // good place to hide header on scroll?
       // unfortunately is a bit jarring since it adjusts the height of the scroll view
       // navigation.setOptions({
       //   headerShown: contentOffset.y <= 0 || (velocity?.y ?? 0 )< 0,
       // });
     },
-    [targetOffset],
+    [targetOffset, setScrollDir],
   );
 };
 
@@ -97,50 +111,4 @@ export const useTabPress = (callback: () => unknown = () => {}) => {
 
     return unsub;
   }, [callback, navigation]);
-};
-
-export const useAnimatedTabPressScroll = (
-  ref: React.RefObject<Animated.ScrollView>,
-  callback: () => unknown = () => {},
-) => {
-  const navigation = useNavigation();
-  const atTopRef = useRef(true);
-
-  console.log("animated");
-
-  useEffect(() => {
-    const unsub = navigation
-      .getParent()
-      ?.getParent()
-      // @ts-expect-error doesn't know what kind of navigator it is
-      ?.addListener("tabPress", (evt) => {
-        if (navigation.isFocused()) {
-          console.log("atTop:", atTopRef.current);
-          if (atTopRef.current) {
-            callback();
-          } else {
-            // @ts-expect-error this is just wrong for some reason
-            evt.preventDefault();
-            ref.current?.scrollTo({
-              y: 0,
-              animated: true,
-            });
-          }
-        }
-      });
-
-    return unsub;
-  }, [callback, navigation, ref]);
-
-  const offset = useScrollViewOffset(ref);
-
-  useAnimatedReaction(
-    () => {
-      return offset.value;
-    },
-    (atTop) => {
-      console.log(atTop);
-      atTopRef.current = atTop <= 0;
-    },
-  );
 };

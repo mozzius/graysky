@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
@@ -8,51 +7,19 @@ import {
   UserX,
 } from "lucide-react-native";
 
-import { Avatar } from "~/components/avatar";
 import { GroupedList } from "~/components/grouped-list";
-import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
-
-export const useSelf = () => {
-  const agent = useAgent();
-
-  return useQuery({
-    queryKey: ["self"],
-    queryFn: async () => {
-      if (!agent.session) throw new Error("Not logged in");
-      const self = await agent.app.bsky.actor.getProfile({
-        actor: agent.session.did,
-      });
-      if (!self.success) throw new Error("Could not fetch self");
-      return self.data;
-    },
-  });
-};
 
 export default function AccountSettings() {
   const agent = useAgent();
-
-  const self = useSelf();
+  // preload for other pages
+  useSelf();
 
   return (
     <GroupedList
       groups={[
-        {
-          children: (
-            <View className="flex-row items-center px-4 py-3">
-              <Avatar size="large" />
-              <View className="ml-4">
-                <Text className="text-base font-medium">
-                  {self.data?.displayName}
-                </Text>
-                <Text className="text-sm">
-                  @{self.data?.handle ?? agent?.session?.handle}
-                </Text>
-              </View>
-            </View>
-          ),
-        },
         !!agent?.session?.email && {
+          title: "Account Details",
           options: [
             {
               icon: MailIcon,
@@ -95,3 +62,19 @@ export default function AccountSettings() {
     />
   );
 }
+
+export const useSelf = () => {
+  const agent = useAgent();
+
+  return useQuery({
+    queryKey: ["self"],
+    queryFn: async () => {
+      if (!agent.session) throw new Error("Not logged in");
+      const self = await agent.app.bsky.actor.getProfile({
+        actor: agent.session.did,
+      });
+      if (!self.success) throw new Error("Could not fetch self");
+      return self.data;
+    },
+  });
+};

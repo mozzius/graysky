@@ -1,13 +1,13 @@
 import { useState } from "react";
 import {
   ActivityIndicator,
-  Alert,
   Linking,
   StyleSheet,
   TextInput,
   View,
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
@@ -19,8 +19,6 @@ import { TextButton } from "~/components/text-button";
 import { useAgent } from "~/lib/agent";
 import { cx } from "~/lib/utils/cx";
 
-const appPwdRegex = /^[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}-[a-zA-Z\d]{4}$/;
-
 export default function SignIn() {
   const agent = useAgent();
   const router = useRouter();
@@ -28,6 +26,7 @@ export default function SignIn() {
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [hasFocusedPassword, setHasFocusedPassword] = useState(false);
 
   const login = useMutation({
     mutationKey: ["login"],
@@ -39,11 +38,13 @@ export default function SignIn() {
         password,
       });
     },
+    onSuccess: () => router.push("../"),
     onError: (err) =>
-      Alert.alert(
-        "Could not log you in",
-        err instanceof Error ? err.message : "Unknown error",
-      ),
+      showToastable({
+        title: "Could not log you in",
+        message: err instanceof Error ? err.message : "Unknown error",
+        status: "warning",
+      }),
   });
 
   return (
@@ -104,6 +105,7 @@ export default function SignIn() {
             secureTextEntry
             placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             keyboardAppearance={theme.dark ? "dark" : "light"}
+            onFocus={() => setHasFocusedPassword(true)}
           />
           <TextButton
             onPress={() => {
@@ -117,26 +119,28 @@ export default function SignIn() {
             className="pr-3 text-sm"
           />
         </View>
-        {password && !appPwdRegex.test(password) && (
+        {hasFocusedPassword && (
           <Animated.View
             entering={FadeIn}
             exiting={FadeOut}
-            className="flex-row rounded border-yellow-500 bg-yellow-50 p-3 pb-4 dark:bg-yellow-950"
+            className="flex-row rounded border-blue-500 bg-blue-50 p-3 pb-4 dark:bg-blue-950"
             style={{
               borderWidth: StyleSheet.hairlineWidth,
             }}
           >
             <ShieldAlertIcon
               size={18}
-              className="mt-0.5 text-yellow-800 dark:text-white"
+              className="mt-px"
+              color={theme.colors.text}
             />
             <View className="ml-3 flex-1">
-              <Text className="text-base font-medium leading-5 text-yellow-800 dark:text-white">
-                Note: Not an App Password
+              <Text className="text-base font-medium leading-5">
+                App Passwords
               </Text>
               <Text className="mt-1">
-                Consider using an App Password rather than your main password.
-                This helps keep your account secure.
+                You might want to use an App Password rather than of your main
+                password - this helps keep you account secure, but will disable
+                certain features such as viewing your invite codes.
               </Text>
               <Text
                 className="mt-2"

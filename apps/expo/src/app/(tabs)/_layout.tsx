@@ -1,7 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
+import { useMMKVObject } from "react-native-mmkv";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -10,13 +17,22 @@ import {
   CloudyIcon,
   PenBox,
   SearchIcon,
-  UserIcon,
+  UserCircleIcon,
 } from "lucide-react-native";
 
-import { DrawerContent, DrawerProvider } from "~/components/drawer-content";
+import { BackButtonOverride } from "~/components/back-button-override";
+import { DrawerProvider } from "~/components/drawer/context";
+import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
+import {
+  SwitchAccounts,
+  type SavedSession,
+} from "~/components/switch-accounts";
+import { Text } from "~/components/text";
 import { useOptionalAgent } from "~/lib/agent";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import { useBottomSheetStyles } from "~/lib/bottom-sheet";
+import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { store } from "~/lib/storage";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function AppLayout() {
@@ -52,8 +68,50 @@ export default function AppLayout() {
 
   const [{ homepage }] = useAppPreferences();
 
+  const accountRef = useRef<BottomSheetModal>(null);
+  const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
+  const { top } = useSafeAreaInsets();
+  const {
+    backgroundStyle,
+    handleStyle,
+    handleIndicatorStyle,
+    contentContainerStyle,
+  } = useBottomSheetStyles();
+  const haptics = useHaptics();
+
+  const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
+
   return (
     <DrawerProvider value={openDrawer}>
+      <BottomSheetModal
+        ref={accountRef}
+        enablePanDownToClose
+        snapPoints={["40%", Dimensions.get("window").height - top - 10]}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop
+            {...props}
+            appearsOnIndex={0}
+            disappearsOnIndex={-1}
+          />
+        )}
+        handleIndicatorStyle={handleIndicatorStyle}
+        handleStyle={handleStyle}
+        backgroundStyle={backgroundStyle}
+        enableDismissOnClose
+        detached
+      >
+        <BackButtonOverride dismiss={dismissSheet} />
+        <Text className="my-2 text-center text-xl font-medium">
+          Switch Accounts
+        </Text>
+        <BottomSheetScrollView style={contentContainerStyle}>
+          <SwitchAccounts
+            sessions={sessions ?? []}
+            active={agent?.session?.did}
+            onSuccessfulSwitch={dismissSheet}
+          />
+        </BottomSheetScrollView>
+      </BottomSheetModal>
       <StatusBar />
       <Stack.Screen
         options={{
@@ -74,10 +132,22 @@ export default function AppLayout() {
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={Dimensions.get("window").width}
-        swipeEnabled={Platform.OS === "ios" ? segments.length === 3 : true}
+        swipeEnabled={segments.length === 3}
       >
         <Tabs
-          screenOptions={{ headerShown: false }}
+          screenOptions={{
+            headerShown: false,
+            ...Platform.select({
+              android: {
+                tabBarIconStyle: {
+                  marginTop: 2,
+                },
+                tabBarLabelStyle: {
+                  marginBottom: 4,
+                },
+              },
+            }),
+          }}
           screenListeners={{
             tabPress: (evt) => {
               if (evt.target?.startsWith("null")) {
@@ -85,6 +155,12 @@ export default function AppLayout() {
                 if (agent?.hasSession) {
                   router.push("/composer");
                 }
+              }
+            },
+            tabLongPress: (evt) => {
+              if (evt.target?.startsWith("(self)")) {
+                haptics.selection();
+                accountRef.current?.present();
               }
             },
           }}
@@ -143,7 +219,7 @@ export default function AppLayout() {
               title: "Profile",
               headerShown: false,
               tabBarIcon({ color }) {
-                return <UserIcon color={color} />;
+                return <UserCircleIcon color={color} />;
               },
             }}
           />
