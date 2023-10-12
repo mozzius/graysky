@@ -32,7 +32,7 @@ export default function NavLayout({
             <a href="/">
               <h1 className="text-lg font-medium">Graysky</h1>
             </a>
-            <div className="flex flex-row items-center gap-2 sm:gap-4">
+            <div className="flex flex-row items-center gap-4">
               <a className="text-sm hover:underline" href="/about">
                 About
               </a>

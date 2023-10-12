@@ -4,22 +4,25 @@
 import Image from "next/image";
 
 import badge from "~/assets/app-store-badge.svg";
+import preorderBadge from "~/assets/app-store-preorder-badge.svg";
 
 interface Props {
   className?: string;
 }
 
+const PREORDER = true;
+
 export const AppleBadge = ({ className }: Props) => {
   return (
     <a
-      onClick={(evt) => {
-        evt.preventDefault();
-        alert("I don't have an app store page to link to yet, sorry!");
-      }}
-      href="https://testflight.apple.com/join/8Q1M4gwt"
+      href="https://apps.apple.com/gb/app/graysky/id6448234181"
       className={className}
     >
-      <Image alt="Get it on the App Store" src={badge} height={56} />
+      <Image
+        alt="Get it on the App Store"
+        src={PREORDER ? preorderBadge : badge}
+        height={56}
+      />
     </a>
   );
 };
