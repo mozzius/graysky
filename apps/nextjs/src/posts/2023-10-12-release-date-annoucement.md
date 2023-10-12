@@ -8,7 +8,7 @@ author: "@mozzius.dev"
 
 Graysky is now available to [preorder on the App Store](https://apps.apple.com/gb/app/graysky/id6448234181), with the launch date on October the 21st!
 
-I'm so excited to finally be able to share Graysky with you all. I've been working on this app for almost 6 months now, and I'm so proud of what I've been able to build. I hope you all love it as much as I do. It's been a crazy ride - thousands of you have signed up to be beta testers, and I've recieved hundreds of bug reports and feature requests. I'm so grateful for all of your support.
+I'm so excited to finally be able to share Graysky with you all. I've been working on this app for almost 6 months now, and I'm so proud of what I've been able to build. I hope you all love it as much as I do. It's been a crazy ride - thousands of you have signed up to be beta testers, and I've received hundreds of bug reports and feature requests. I'm so grateful for all of your support.
 
 ## What's Graysky again?
 
