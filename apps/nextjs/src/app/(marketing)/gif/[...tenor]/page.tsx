@@ -39,20 +39,15 @@ export default function GifScreen({
         </div>
         <div className="flex w-full max-w-xl flex-col gap-8 rounded px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            Want to view and post GIFs? Get Graysky for iOS and Android today!
+            Want to view and post GIFs? Get Graysky for iOS and Android{" "}
+            <span className="line-through">today</span> soon!
           </p>
           <div className="flex shrink-0 flex-row items-center justify-center gap-2 max-sm:w-full">
             <Link
               className="w-max rounded bg-neutral-800 px-4 py-1 transition-colors hover:bg-neutral-700"
-              href="https://testflight.apple.com/join/8Q1M4gwt"
+              href="/download"
             >
-              iOS
-            </Link>
-            <Link
-              className="w-max rounded bg-neutral-800 px-4 py-1 transition-colors hover:bg-neutral-700"
-              href="https://play.google.com/apps/testing/dev.mozzius.graysky"
-            >
-              Android
+              Pre-order now!
             </Link>
           </div>
         </div>

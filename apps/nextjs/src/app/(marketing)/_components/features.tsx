@@ -3,9 +3,8 @@ import {
   HashIcon,
   HeartIcon,
   LanguagesIcon,
-  MoreHorizontalIcon,
   TicketIcon,
-  // TvIcon,
+  TvIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -17,11 +16,11 @@ export const Features = () => {
         description="Translate posts without leaving the app"
         icon={LanguagesIcon}
       />
-      {/* <FeatureCard
+      <FeatureCard
         title="GIFs"
         description="View and post animated GIFs - exclusive to Graysky"
         icon={TvIcon}
-      /> */}
+      />
       <FeatureCard
         title="View likes"
         description="View anyone's likes, not just your own"
@@ -41,11 +40,6 @@ export const Features = () => {
         title="See your invitees"
         description="See who you've invited to Bluesky"
         icon={TicketIcon}
-      />
-      <FeatureCard
-        title="And more..."
-        description="To be announced!"
-        icon={MoreHorizontalIcon}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import screenshot1 from "~/assets/screenshots/1.png";
 import screenshot2 from "~/assets/screenshots/2.png";
 import screenshot3 from "~/assets/screenshots/3.png";
-// import screenshot4 from "~/assets/screenshots/4.png";
+import screenshot4 from "~/assets/screenshots/4.png";
 import screenshot5 from "~/assets/screenshots/5.png";
 import screenshot6 from "~/assets/screenshots/6.png";
 import screenshot7 from "~/assets/screenshots/7.png";
@@ -44,22 +44,9 @@ export const Carousel = ({ offset }: Props) => {
           pointerEvents: offset < -1 ? "none" : "auto",
         }}
       />
-      {/* temp rearrange */}
-      {/* <Image
+      <Image
         src={screenshot4}
         alt="screenshot of Graysky post editor with a GIF"
-        width={200}
-        height={400}
-        className="transition duration-700 sm:duration-500"
-        style={{
-          transform: `translateX(${translation}px)`,
-          opacity: offset < -2 ? 0 : 1,
-          pointerEvents: offset < -2 ? "none" : "auto",
-        }}
-      /> */}
-      <Image
-        src={screenshot2}
-        alt="screenshot of Graysky's search screen"
         width={200}
         height={400}
         className="transition duration-700 sm:duration-500"
@@ -117,7 +104,7 @@ export const Carousel = ({ offset }: Props) => {
           pointerEvents: offset < -6 ? "none" : "auto",
         }}
       />
-      {/* <Image
+      <Image
         src={screenshot2}
         alt="screenshot of Graysky's search screen"
         width={200}
@@ -128,7 +115,7 @@ export const Carousel = ({ offset }: Props) => {
           opacity: offset < -7 ? 0 : 1,
           pointerEvents: offset < -7 ? "none" : "auto",
         }}
-      /> */}
+      />
     </div>
   );
 };
