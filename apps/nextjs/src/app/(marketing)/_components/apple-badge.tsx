@@ -15,7 +15,7 @@ const PREORDER = true;
 export const AppleBadge = ({ className }: Props) => {
   return (
     <a
-      href="https://apps.apple.com/gb/app/graysky/id6448234181?platform=iphone"
+      href="https://apps.apple.com/gb/app/graysky/id6448234181"
       className={className}
     >
       <Image
