@@ -53,8 +53,16 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const { title } = await getPostById(slug);
+  const { title, author, date } = await getPostById(slug);
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "long",
+  });
   return {
     title: title + " - Graysky",
+    description: `${formatter.format(date)} - by ${author}`,
+    openGraph: {
+      title: title + " - Graysky",
+      description: `${formatter.format(date)} - by ${author}`,
+    },
   };
 }
