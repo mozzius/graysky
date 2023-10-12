@@ -78,7 +78,7 @@ export default async function LandingPage({
           </h4>
           <p className="mt-2 max-w-xl text-sm opacity-70">
             It is, but if you don&apos;t trust me you can create an App Password
-            to restrict access how much access the app has to your account.
+            to restrict how much access the app has to your account.
           </p>
         </div>
       </section>
