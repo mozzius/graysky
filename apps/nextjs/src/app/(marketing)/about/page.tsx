@@ -16,7 +16,7 @@ export default function AboutPage() {
 
           <figure className="my-4 flex w-full flex-col items-center">
             <img
-              src="https://av-cdn.bsky.app/img/avatar/plain/did:plc:p2cp5gopk7mgjegy6wadk3ep/bafkreia4j2kqupkd4n76kawghmjrpvb2bofvffajfcojh6pmowxrba3lvm@jpeg"
+              src="/me.jpg"
               alt="me :)"
               className="mx-auto h-32 w-32 rounded-full bg-neutral-800 text-transparent"
             />
