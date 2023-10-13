@@ -2,7 +2,6 @@
 title: "As seen on TechCrunch!"
 date: 2023-10-13
 author: "@mozzius.dev"
-draft: true
 ---
 
 # Graysky was featured in TechCrunch!
