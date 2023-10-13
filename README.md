@@ -14,8 +14,6 @@ You'll need pnpm, and some sort of simulator or device to run the app on.
 pnpm install
 ```
 
-> Weird side step - you need to go to `apps/expo/app.config.ts` and delete the `extra` field which has an expo project id in it. Sorry, I'll fix this later.
-
 In the `/apps/expo` directory, build the dev client using EAS:
 
 ```bash
