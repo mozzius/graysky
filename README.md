@@ -31,53 +31,19 @@ You can then start the expo server with:
 pnpm dev
 ```
 
-## Roadmap to Launch 🚀
-
-- [x] Notifications screen
-- [x] Image viewer
-- [x] Pull to refresh fix
-- [x] Haptics
-- [x] Post composer
-- [x] Context menu - post actions
-- [x] Block/Unblock user
-- [x] Quote post
-- [x] Dark mode
-- [x] Sidebar w/ logout button
-- [x] Search screen
-- [x] Invites screen
-- [x] Upload images
-- [x] Followers/Following screens
-- [x] Likes list
-- [x] Context menu - user actions
-- [x] Image viewer: Pinch to zoom
-- [x] Custom feeds
-- [x] Settings screens
-  - [x] Moderation settings
-    - [x] Content filtering
-    - [x] Review blocked/muted users
-  - [x] Account settings
-    - [x] Edit profile
-  - [x] App settings
-    - [x] Notification grouping
-  - [x] About & credits
-- [x] Composer rewrite
-  - [x] Mention autocomplete
-  - [x] Embeds in composer
-    - [x] Embed image upload
-  - [x] Alt text editor
-- [ ] App Store
-
-## Future (no promises)
+## Future Roadmap
 
 - [ ] Change handle
   - [ ] own domain
   - [ ] bsky.social
   - [ ] community handles
 - [ ] Push notifications
-- [ ] Multi-account support
 - [ ] Drafts
 - [ ] Lists support
 - [ ] Share post as image
+- [ ] Pro features
+  - [ ] Polls
+  - [ ] Analytics
 
 ## Android local APK builds
 
