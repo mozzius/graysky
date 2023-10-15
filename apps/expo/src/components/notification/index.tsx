@@ -141,6 +141,7 @@ const ProfileList = ({
 }) => {
   const theme = useTheme();
   const haptics = useHaptics();
+  const router = useRouter();
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
   return (
@@ -196,7 +197,17 @@ const ProfileList = ({
         )}
       </View>
       <Text className="mt-2 text-base">
-        <Text className="text-base font-medium">
+        <Text
+          className="text-base font-medium"
+          onPress={() => {
+            if (actors.length === 1) {
+              router.push(`/profile/${actors[0]!.handle}`);
+            } else {
+              haptics.selection();
+              showAll();
+            }
+          }}
+        >
           {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&
