@@ -114,6 +114,10 @@ export default function SubStack({
             }}
           />
           <Stack.Screen
+            name="profile/[handle]/index"
+            getId={({ params }) => `${params?.handle}`}
+          />
+          <Stack.Screen
             name="profile/[handle]/post/[id]"
             getId={({ params }) => `${params?.handle}/${params?.id}`}
           />
@@ -134,6 +138,10 @@ export default function SubStack({
             }}
           />
           <Stack.Screen
+            name="profile/[handle]/index"
+            getId={({ params }) => `${params?.handle}`}
+          />
+          <Stack.Screen
             name="profile/[handle]/post/[id]"
             getId={({ params }) => `${params?.handle}/${params?.id}`}
           />
@@ -151,6 +159,10 @@ export default function SubStack({
             }}
           />
           <Stack.Screen
+            name="profile/[handle]/index"
+            getId={({ params }) => `${params?.handle}`}
+          />
+          <Stack.Screen
             name="profile/[handle]/post/[id]"
             getId={({ params }) => `${params?.handle}/${params?.id}`}
           />
@@ -165,6 +177,10 @@ export default function SubStack({
               headerShown: false,
               headerBackTitle: "Profile",
             }}
+          />
+          <Stack.Screen
+            name="profile/[handle]/index"
+            getId={({ params }) => `${params?.handle}`}
           />
           <Stack.Screen
             name="profile/[handle]/post/[id]"

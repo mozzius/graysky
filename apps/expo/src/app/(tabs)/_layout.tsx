@@ -17,7 +17,7 @@ import {
   CloudyIcon,
   PenBox,
   SearchIcon,
-  UserCircleIcon,
+  UserIcon,
 } from "lucide-react-native";
 
 import { BackButtonOverride } from "~/components/back-button-override";
@@ -219,7 +219,7 @@ export default function AppLayout() {
               title: "Profile",
               headerShown: false,
               tabBarIcon({ color, size }) {
-                return <UserCircleIcon color={color} size={size} />;
+                return <UserIcon color={color} size={size} />;
               },
             }}
           />

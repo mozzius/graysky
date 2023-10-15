@@ -15,8 +15,9 @@ import {
   type AppBskyActorDefs,
 } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { HeartIcon } from "lucide-react-native";
+import { HeartIcon, ShieldXIcon, Trash2Icon } from "lucide-react-native";
 
+import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";
@@ -131,9 +132,35 @@ export const Embed = ({
             </Link>
           );
         } else if (AppBskyEmbedRecord.isViewNotFound(record)) {
-          throw new Error("Post not found");
+          return (
+            <View
+              className={cx(
+                "mt-1.5 flex-1 flex-row items-center rounded-md border",
+                depth > 0 ? "p-2" : "p-3",
+              )}
+              style={{
+                borderColor: theme.colors.border,
+              }}
+            >
+              <Trash2Icon size={16} color={theme.colors.text} />
+              <Text className="ml-2">This post has been deleted</Text>
+            </View>
+          );
         } else if (AppBskyEmbedRecord.isViewBlocked(record)) {
-          throw new Error("This post is from a blocked user");
+          return (
+            <View
+              className={cx(
+                "mt-1.5 flex-1 flex-row items-center rounded-md border",
+                depth > 0 ? "p-2" : "p-3",
+              )}
+              style={{
+                borderColor: theme.colors.border,
+              }}
+            >
+              <ShieldXIcon size={16} color={theme.colors.text} />
+              <Text className="ml-2">This post is from a blocked user</Text>
+            </View>
+          );
         } else {
           throw new Error("An error occurred");
         }
