@@ -55,7 +55,10 @@ export default function AppLayout() {
 
   useRefreshOnFocus(notifications.refetch);
 
-  const renderDrawerContent = useCallback(() => <DrawerContent />, []);
+  const renderDrawerContent = useCallback(
+    () => <DrawerContent open={open} />,
+    [open],
+  );
 
   const openDrawer = useCallback((open = true) => setOpen(open), []);
 
@@ -137,16 +140,7 @@ export default function AppLayout() {
         <Tabs
           screenOptions={{
             headerShown: false,
-            ...Platform.select({
-              android: {
-                tabBarIconStyle: {
-                  marginTop: 2,
-                },
-                tabBarLabelStyle: {
-                  marginBottom: 4,
-                },
-              },
-            }),
+            tabBarShowLabel: Platform.select({ android: false, ios: true }),
           }}
           screenListeners={{
             tabPress: (evt) => {

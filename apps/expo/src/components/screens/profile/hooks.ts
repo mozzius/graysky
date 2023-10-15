@@ -181,5 +181,5 @@ export const useDefaultHeaderHeight = () => {
   const layout = useWindowDimensions();
   const { top } = useSafeAreaInsets();
 
-  return getDefaultHeaderHeight(layout, false, top);
+  return getDefaultHeaderHeight(layout, false, top > 50 ? top - 5 : top);
 };

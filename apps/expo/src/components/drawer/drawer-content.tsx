@@ -27,7 +27,11 @@ import { Text } from "../text";
 import { ActorDetails } from "./actor-details";
 import { useDrawer } from "./context";
 
-export const DrawerContent = () => {
+interface Props {
+  open: boolean;
+}
+
+export const DrawerContent = ({ open }: Props) => {
   const logOut = useLogOut();
   const { colorScheme, setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
@@ -84,7 +88,7 @@ export const DrawerContent = () => {
 
   return (
     <SafeAreaView className="h-full p-8">
-      <BackButtonOverride dismiss={closeDrawer} />
+      {open && <BackButtonOverride dismiss={closeDrawer} />}
       <ActorDetails />
       <View className="mt-8 border-t border-neutral-300 pt-4">
         {homepage === "skyline" && (

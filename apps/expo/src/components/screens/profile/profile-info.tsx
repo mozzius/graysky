@@ -47,8 +47,7 @@ const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
 const INITIAL_HEADER_HEIGHT = 90;
 const AVATAR_PLATFORM_ADJUST = Platform.select({
-  ios: 5,
-  android: 35,
+  android: 60,
   default: 0,
 });
 
@@ -226,6 +225,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const headerHeight = useDefaultHeaderHeight();
   const headerMeasurements = useHeaderMeasurements();
 
+  const statusBarHeight = top > 50 ? top - 5 : top;
+
   const animatedContainerStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: -headerMeasurements.top.value }],
@@ -237,7 +238,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       height: interpolate(
         -headerMeasurements.top.value,
         [0, 100],
-        [INITIAL_HEADER_HEIGHT + top, headerHeight],
+        [INITIAL_HEADER_HEIGHT + statusBarHeight, headerHeight],
         Extrapolation.CLAMP,
       ),
     };
@@ -258,7 +259,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     const size = interpolate(
       -headerMeasurements.top.value,
       [0, 100],
-      [80, 36],
+      [80, 32],
       Extrapolation.CLAMP,
     );
     return {
@@ -267,7 +268,15 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       bottom: interpolate(
         -headerMeasurements.top.value,
         [0, 100],
-        [-42, (headerHeight + top) / 2 - size / 2 + AVATAR_PLATFORM_ADJUST],
+        [
+          -size / 2,
+          (headerHeight +
+            statusBarHeight +
+            (top > 50 ? -5 : 10) +
+            AVATAR_PLATFORM_ADJUST) /
+            2 -
+            size / 2,
+        ],
         Extrapolation.CLAMP,
       ),
       transform: [
@@ -307,7 +316,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       <Animated.View
         style={[
           animatedContainerStyle,
-          { height: INITIAL_HEADER_HEIGHT + top },
+          { height: INITIAL_HEADER_HEIGHT + statusBarHeight },
         ]}
         className="absolute top-0 z-10 w-full"
         pointerEvents="box-none"
@@ -367,7 +376,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 ? "mt-2.5 bg-neutral-800"
                 : "bg-black/60",
             )}
-            style={{ top }}
+            style={{ top: statusBarHeight }}
           >
             <ChevronLeftIcon size={20} color="white" />
           </TouchableOpacity>
@@ -402,7 +411,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       </Animated.View>
       <View
         pointerEvents="box-none"
-        style={{ marginTop: top + INITIAL_HEADER_HEIGHT }}
+        style={{ marginTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
       >
         <View
           style={{ backgroundColor: theme.colors.card }}
