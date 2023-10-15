@@ -169,11 +169,11 @@ export default function AppLayout() {
             name="(feeds)"
             options={{
               title: homepage === "feeds" ? "Feeds" : "Skyline",
-              tabBarIcon({ color }) {
+              tabBarIcon({ color, size }) {
                 return homepage === "feeds" ? (
-                  <CloudyIcon color={color} />
+                  <CloudyIcon color={color} size={size} />
                 ) : (
-                  <CloudIcon color={color} />
+                  <CloudIcon color={color} size={size} />
                 );
               },
             }}
@@ -182,8 +182,8 @@ export default function AppLayout() {
             name="(search)"
             options={{
               title: "Search",
-              tabBarIcon({ color }) {
-                return <SearchIcon color={color} />;
+              tabBarIcon({ color, size }) {
+                return <SearchIcon color={color} size={size} />;
               },
             }}
           />
@@ -191,8 +191,8 @@ export default function AppLayout() {
             name="null"
             options={{
               title: "Post",
-              tabBarIcon({ color }) {
-                return <PenBox color={color} />;
+              tabBarIcon({ color, size }) {
+                return <PenBox color={color} size={size} />;
               },
             }}
           />
@@ -208,8 +208,8 @@ export default function AppLayout() {
                 fontSize: 12,
                 backgroundColor: theme.colors.primary,
               },
-              tabBarIcon({ color }) {
-                return <BellIcon color={color} />;
+              tabBarIcon({ color, size }) {
+                return <BellIcon color={color} size={size} />;
               },
             }}
           />
@@ -218,8 +218,8 @@ export default function AppLayout() {
             options={{
               title: "Profile",
               headerShown: false,
-              tabBarIcon({ color }) {
-                return <UserCircleIcon color={color} />;
+              tabBarIcon({ color, size }) {
+                return <UserCircleIcon color={color} size={size} />;
               },
             }}
           />

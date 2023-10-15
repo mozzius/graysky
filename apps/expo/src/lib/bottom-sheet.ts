@@ -30,6 +30,6 @@ export const useBottomSheetStyles = () => {
           backgroundColor: theme.colors.text,
         },
       }),
-    [theme],
+    [theme.colors.card, theme.colors.text],
   );
 };

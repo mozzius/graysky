@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {
   ActivityIndicator,
   Platform,
@@ -29,13 +30,15 @@ export default function SubStack({
   const theme = useTheme();
   // agent might not be available yet
   const agent = useOptionalAgent();
-
   const [{ homepage }] = useAppPreferences();
 
-  const headerLeft = () => (
-    <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
-      <Avatar size="small" />
-    </TouchableOpacity>
+  const headerLeft = useCallback(
+    () => (
+      <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
+        <Avatar size="small" />
+      </TouchableOpacity>
+    ),
+    [openDrawer],
   );
 
   if (!agent?.hasSession) {
@@ -110,6 +113,10 @@ export default function SubStack({
               title: "Feeds",
             }}
           />
+          <Stack.Screen
+            name="profile/[handle]/post/[id]"
+            getId={({ params }) => `${params?.handle}/${params?.id}`}
+          />
         </Stack>
       );
     case "(search)":
@@ -126,6 +133,10 @@ export default function SubStack({
               headerSearchBarOptions: {},
             }}
           />
+          <Stack.Screen
+            name="profile/[handle]/post/[id]"
+            getId={({ params }) => `${params?.handle}/${params?.id}`}
+          />
         </Stack>
       );
     case "(notifications)":
@@ -139,6 +150,10 @@ export default function SubStack({
               headerLeft,
             }}
           />
+          <Stack.Screen
+            name="profile/[handle]/post/[id]"
+            getId={({ params }) => `${params?.handle}/${params?.id}`}
+          />
         </Stack>
       );
     case "(self)":
@@ -150,6 +165,10 @@ export default function SubStack({
               headerShown: false,
               headerBackTitle: "Profile",
             }}
+          />
+          <Stack.Screen
+            name="profile/[handle]/post/[id]"
+            getId={({ params }) => `${params?.handle}/${params?.id}`}
           />
         </Stack>
       );

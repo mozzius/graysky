@@ -176,9 +176,43 @@ const App = ({ session, saveSession }: Props) => {
     }, 100);
   }, []);
 
-  function handleModalBack() {
-    router.canGoBack() ? router.push("../") : router.push("/feeds");
-  }
+  // const cancelButton = useCallback(
+  //   () =>
+  //     Platform.select({
+  //       ios: (
+  //         <TouchableOpacity
+  //           onPress={() =>
+  //             router.canGoBack() ? router.push("../") : router.push("/feeds")
+  //           }
+  //         >
+  //           <Text className="text-lg text-white">Cancel</Text>
+  //         </TouchableOpacity>
+  //       ),
+  //     }),
+  //   [router],
+  // );
+
+  const doneButton = useCallback(
+    () =>
+      Platform.select({
+        ios: (
+          <TouchableOpacity
+            onPress={() =>
+              router.canGoBack() ? router.push("../") : router.push("/feeds")
+            }
+          >
+            <Text
+              style={{ color: theme.colors.primary }}
+              className="text-lg font-medium"
+            >
+              Done
+            </Text>
+          </TouchableOpacity>
+        ),
+        default: null,
+      }),
+    [router, theme.colors.primary],
+  );
 
   // SENTRY NAVIGATION LOGGING
   const routeName = "/" + segments.join("/");
@@ -262,18 +296,7 @@ const App = ({ session, saveSession }: Props) => {
                         options={{
                           title: "Translate",
                           presentation: "modal",
-                          headerRight: Platform.select({
-                            ios: () => (
-                              <TouchableOpacity onPress={handleModalBack}>
-                                <Text
-                                  style={{ color: theme.colors.primary }}
-                                  className="text-lg font-medium"
-                                >
-                                  Done
-                                </Text>
-                              </TouchableOpacity>
-                            ),
-                          }),
+                          headerRight: doneButton,
                         }}
                       />
                       <Stack.Screen
@@ -286,23 +309,15 @@ const App = ({ session, saveSession }: Props) => {
                           customAnimationOnGesture: true,
                         }}
                       />
-                      <Stack.Screen
+                      {/* <Stack.Screen
                         name="pro"
                         options={{
                           title: "",
                           headerTransparent: true,
                           presentation: "modal",
-                          headerLeft: Platform.select({
-                            ios: () => (
-                              <TouchableOpacity onPress={handleModalBack}>
-                                <Text className="text-lg text-white">
-                                  Cancel
-                                </Text>
-                              </TouchableOpacity>
-                            ),
-                          }),
+                          headerLeft,
                         }}
-                      />
+                      /> */}
                       <Stack.Screen
                         name="composer"
                         options={{
