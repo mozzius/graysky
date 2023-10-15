@@ -13,6 +13,7 @@ import { type AppBskyEmbedExternal } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { LinkIcon } from "lucide-react-native";
 
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 
@@ -141,6 +142,8 @@ interface GifProps {
 const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
   const theme = useTheme();
   const [aspectRatio, setAspectRatio] = useState(1);
+  const [{ gifAutoplay }] = useAppPreferences();
+  const [playing, setPlaying] = useState(gifAutoplay);
 
   const shareUrl = link.toString();
 
@@ -148,6 +151,7 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
     <TouchableHighlight
       accessibilityRole="link"
       className="mt-1.5 flex-1 rounded-lg"
+      onPress={gifAutoplay ? undefined : () => setPlaying((p) => !p)}
       onLongPress={() =>
         Share.share(
           Platform.select({
@@ -170,12 +174,14 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
         }}
       >
         <View className="absolute bottom-1.5 left-1.5 z-10 rounded bg-black/60 px-1 py-px">
-          <Text className="text-xs font-medium text-white">GIF</Text>
+          <Text className="text-xs font-medium text-white">
+            GIF{!playing && " (tap to play)"}
+          </Text>
         </View>
         <Video
           source={{ uri }}
           resizeMode={ResizeMode.COVER}
-          shouldPlay
+          shouldPlay={playing}
           isLooping
           isMuted
           style={{ flex: 1, aspectRatio }}
