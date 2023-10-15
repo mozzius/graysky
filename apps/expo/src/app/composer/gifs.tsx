@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Linking,
@@ -27,6 +27,18 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
+
+const useDebounce = <T,>(value: T, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
+
+    return () => clearTimeout(timeout);
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 export default function GifSearch() {
   const ref = useRef<SearchBarCommands>(null);
@@ -59,9 +71,11 @@ export default function GifSearch() {
 
   const isSearching = query.length > 0;
 
+  const debouncedQuery = useDebounce(query.trim(), 500);
+
   const search = api.gifs.tenor.search.useInfiniteQuery(
     {
-      query: query.trim(),
+      query: debouncedQuery,
       locale: langTag,
     },
     {
@@ -128,6 +142,7 @@ export default function GifSearch() {
             layout.span = (width - 16) / 2;
             layout.size = (layout.span - 4) / aspectRatio + 8;
           }}
+          onEndReachedThreshold={0.5}
           onEndReached={() => featured.fetchNextPage()}
           estimatedItemSize={200}
           ListFooterComponent={
