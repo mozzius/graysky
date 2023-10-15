@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
@@ -23,8 +23,9 @@ export default function SignIn() {
   const agent = useAgent();
   const router = useRouter();
   const theme = useTheme();
+  const { handle } = useLocalSearchParams<{ handle?: string }>();
 
-  const [identifier, setIdentifier] = useState("");
+  const [identifier, setIdentifier] = useState(handle ?? "");
   const [password, setPassword] = useState("");
   const [hasFocusedPassword, setHasFocusedPassword] = useState(false);
 

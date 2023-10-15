@@ -171,9 +171,7 @@ export default function NotificationsPage() {
   // update notifications when the screen is focused
   useRefreshOnFocus(
     useCallback(async () => {
-      setNonScrollRefreshing(true);
       await refetch();
-      setNonScrollRefreshing(false);
     }, [refetch]),
   );
 
@@ -196,22 +194,24 @@ export default function NotificationsPage() {
   // update notifications when the user presses the tab bar
   const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
-      setNonScrollRefreshing(true);
-      haptics.selection();
+      if (!notifications.isLoading) {
+        setNonScrollRefreshing(true);
+        haptics.selection();
 
-      if (lastUpdatedRef.current) {
-        await agent.updateSeenNotifications(
-          new Date(lastUpdatedRef.current).toISOString(),
-        );
-        void queryClient.invalidateQueries({
-          queryKey: ["notifications", "unread"],
-        });
+        if (lastUpdatedRef.current) {
+          await agent.updateSeenNotifications(
+            new Date(lastUpdatedRef.current).toISOString(),
+          );
+          void queryClient.invalidateQueries({
+            queryKey: ["notifications", "unread"],
+          });
+        }
+
+        await refetch();
+
+        setNonScrollRefreshing(false);
       }
-
-      await refetch();
-
-      setNonScrollRefreshing(false);
-    }, [refetch, haptics, queryClient, agent]),
+    }, [refetch, haptics, queryClient, agent, notifications.isLoading]),
     { largeHeader: true },
   );
 

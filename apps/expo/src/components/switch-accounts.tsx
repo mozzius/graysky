@@ -11,7 +11,7 @@ import { Link, useRouter } from "expo-router";
 import { type AtpSessionData } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react-native";
+import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 
 import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/text";
@@ -30,12 +30,14 @@ interface Props {
   sessions: SavedSession[];
   active?: string;
   onSuccessfulSwitch?: () => void;
+  chevrons?: boolean;
 }
 
 export function SwitchAccounts({
   sessions,
   active,
   onSuccessfulSwitch,
+  chevrons,
 }: Props) {
   const agent = useAgent();
   const theme = useTheme();
@@ -50,12 +52,14 @@ export function SwitchAccounts({
       if (!res.success) throw new Error("Could not resume session");
       return res.data;
     },
-    onError: (err) =>
+    onError: (err, session) => {
       showToastable({
         title: "Could not log you in",
         message: err instanceof Error ? err.message : "Unknown error",
         status: "warning",
-      }),
+      });
+      router.push(`/sign-in?handle=${session.handle}`);
+    },
     onSuccess: (data) => {
       showToastable({
         title: "Logged in",
@@ -103,21 +107,23 @@ export function SwitchAccounts({
                 </View>
                 {resume.isLoading && resume.variables?.did === account.did ? (
                   <ActivityIndicator />
-                ) : (
-                  account.did === active && (
-                    <TouchableOpacity
-                      onPress={() => {
-                        router.push("../");
-                        logOut();
-                      }}
+                ) : account.did === active ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      router.push("../");
+                      logOut();
+                    }}
+                  >
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="font-medium"
                     >
-                      <Text
-                        style={{ color: theme.colors.primary }}
-                        className="font-medium"
-                      >
-                        Sign out
-                      </Text>
-                    </TouchableOpacity>
+                      Sign out
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  chevrons && (
+                    <ChevronRightIcon size={16} className="text-neutral-500" />
                   )
                 )}
               </View>
