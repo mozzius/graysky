@@ -121,41 +121,15 @@ const nicePostsUris = [
 
 async function getNicePosts() {
   try {
-    const res1 = await fetch(
-      "https://bsky.social/xrpc/com.atproto.server.createSession",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: env.BSKY_EMAIL,
-          password: env.BSKY_PASSWORD,
-        } satisfies ComAtprotoServerCreateSession.InputSchema),
-        next: {
-          revalidate: 3600,
-        },
-      },
-    );
-
-    if (!res1.ok) {
-      console.error(await res1.text());
-      return [];
-    }
-
-    const { accessJwt } =
-      (await res1.json()) as ComAtprotoServerCreateSession.OutputSchema;
-
     const params = new URLSearchParams(
       nicePostsUris.map((post) => ["uris", post]),
     );
 
     const res2 = await fetch(
-      "https://bsky.social/xrpc/app.bsky.feed.getPosts?" + params.toString(),
+      "https://api.bsky.app/xrpc/app.bsky.feed.getPosts?" + params.toString(),
       {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${accessJwt}`,
         },
       },
     );
