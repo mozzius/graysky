@@ -54,7 +54,6 @@ export const ProfileTabView = ({
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
-            headerTitle: profile.data.displayName ?? `@${profile.data.handle}`,
           }}
         />
         <Tabs.Container
