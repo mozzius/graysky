@@ -449,11 +449,12 @@ const Reason = ({ item }: Pick<Props, "item">) => {
             <Text
               className={cx(
                 "ml-2 flex-1 text-sm",
-                theme.dark ? "text-neutral-400" : "text-neutral-500",
+                theme.dark ? "text-neutral-400" : "text-neutral-600",
               )}
               numberOfLines={1}
             >
-              Reposted by {item.reason.by.displayName ?? item.reason.by.handle}
+              Reposted by{" "}
+              {item.reason.by.displayName ?? `@${item.reason.by.handle}`}
             </Text>
           </View>
         </TouchableWithoutFeedback>

@@ -294,7 +294,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   className="mr-4"
                 />
                 <ThemedText className="text-base">
-                  This post is blocked
+                  Replying to a blocked post
                 </ThemedText>
               </View>
             ) : item.deleted ? (
@@ -305,7 +305,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   className="mr-4"
                 />
                 <ThemedText className="text-base">
-                  This post is deleted
+                  Replying to a deleted post
                 </ThemedText>
               </View>
             ) : (
@@ -315,7 +315,9 @@ const PostThread = ({ contentFilter }: Props) => {
                   color={theme.colors.text}
                   className="mr-4"
                 />
-                <ThemedText className="text-base">Unknown post type</ThemedText>
+                <ThemedText className="text-base">
+                  Replying to an post type
+                </ThemedText>
               </View>
             )
           }

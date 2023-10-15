@@ -193,6 +193,7 @@ const appPrefsSchema = z.object({
     .array(z.string())
     .optional()
     .default(Localization.getLocales().map((l) => l.languageCode)),
+  gifAutoplay: z.boolean().optional().default(true),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;

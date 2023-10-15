@@ -4,7 +4,11 @@ import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { MegaphoneOffIcon, ShieldXIcon } from "lucide-react-native";
+import {
+  ChevronsUpDownIcon,
+  MegaphoneOffIcon,
+  ShieldXIcon,
+} from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "~/components/grouped-list";
@@ -152,9 +156,15 @@ export default function ModerationSettings() {
                     return {
                       title: label,
                       action: (
-                        <Text className="text-base font-medium capitalize text-neutral-400 dark:text-neutral-300">
-                          {adultContentEnabled ? visibility : "Hide"}
-                        </Text>
+                        <View className="flex-row items-center">
+                          <Text className="text-base font-medium capitalize text-neutral-400 dark:text-neutral-300">
+                            {adultContentEnabled ? visibility : "Hide"}
+                          </Text>
+                          <ChevronsUpDownIcon
+                            size={16}
+                            className="ml-1 text-neutral-400 dark:text-neutral-300"
+                          />
+                        </View>
                       ),
                     };
                   }
@@ -189,6 +199,7 @@ export default function ModerationSettings() {
                             },
                           );
                         }}
+                        className="flex-row items-center"
                       >
                         <Text
                           style={{
@@ -198,6 +209,11 @@ export default function ModerationSettings() {
                         >
                           {visibility}
                         </Text>
+                        <ChevronsUpDownIcon
+                          size={16}
+                          color={theme.colors.primary}
+                          className="ml-1"
+                        />
                       </TouchableOpacity>
                     ),
                   };

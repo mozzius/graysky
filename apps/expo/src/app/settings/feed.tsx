@@ -1,11 +1,21 @@
-import { ActivityIndicator, Switch } from "react-native";
+import { ActivityIndicator, Switch, TouchableOpacity } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTheme } from "@react-navigation/native";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
+import {
+  ChevronsUpDownIcon,
+  CircleDotIcon,
+  CloudIcon,
+  CloudyIcon,
+} from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
+import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
-import { usePreferences } from "~/lib/hooks/preferences";
+import { useSavedFeeds } from "~/lib/hooks";
+import { useAppPreferences, usePreferences } from "~/lib/hooks/preferences";
 import { produce } from "~/lib/utils/produce";
 
 const defaultFeedViewPref = {
@@ -31,6 +41,23 @@ export const getFeedViewPref = (preferences?: AppBskyActorDefs.Preferences) => {
 
 export default function FeedPreferences() {
   const agent = useAgent();
+  const [appPrefs, setAppPrefs] = useAppPreferences();
+  const { showActionSheetWithOptions } = useActionSheet();
+  const theme = useTheme();
+  const savedFeeds = useSavedFeeds();
+
+  let defaultFeed = "Following";
+  let unknown = false;
+
+  if (appPrefs.defaultFeed !== "following") {
+    const data = savedFeeds.data?.feeds ?? [];
+    const feed = data.find((x) => x.uri === appPrefs.defaultFeed);
+    if (feed) {
+      defaultFeed = feed.displayName;
+    } else {
+      unknown = true;
+    }
+  }
 
   const preferences = usePreferences();
 
@@ -68,6 +95,171 @@ export default function FeedPreferences() {
     return (
       <GroupedList
         groups={[
+          {
+            title: "Home screen",
+            options: [
+              {
+                title: "Home screen layout",
+                action: (
+                  <TouchableOpacity
+                    onPress={() => {
+                      const options = ["Feeds list", "A specific feed"];
+                      const icons = [
+                        <CloudyIcon
+                          size={24}
+                          color={theme.colors.text}
+                          key={0}
+                        />,
+                        <CloudIcon
+                          size={24}
+                          color={theme.colors.text}
+                          key={1}
+                        />,
+                        <></>,
+                      ];
+                      showActionSheetWithOptions(
+                        {
+                          options: [...options, "Cancel"],
+                          icons,
+                          cancelButtonIndex: options.length,
+                          userInterfaceStyle: theme.dark ? "dark" : "light",
+                          textStyle: { color: theme.colors.text },
+                          containerStyle: {
+                            backgroundColor: theme.colors.card,
+                          },
+                        },
+                        (index) => {
+                          switch (index) {
+                            case 0:
+                              setAppPrefs({ homepage: "feeds" });
+                              break;
+                            case 1:
+                              setAppPrefs({ homepage: "skyline" });
+                              break;
+                          }
+                        },
+                      );
+                    }}
+                    className="flex-row items-center"
+                  >
+                    <Text
+                      style={{ color: theme.colors.primary }}
+                      className="text-base font-medium capitalize"
+                    >
+                      {appPrefs.homepage === "feeds" ? "Feeds list" : "Skyline"}
+                    </Text>
+                    <ChevronsUpDownIcon
+                      size={16}
+                      color={theme.colors.primary}
+                      className="ml-1"
+                    />
+                  </TouchableOpacity>
+                ),
+              },
+              ...(appPrefs.homepage === "skyline"
+                ? [
+                    {
+                      title: "Primary feed",
+                      action: (
+                        <TouchableOpacity
+                          disabled={savedFeeds.isLoading}
+                          onPress={() => {
+                            const data = savedFeeds.data
+                              ? savedFeeds.data.pinned.map(
+                                  (pin) =>
+                                    savedFeeds.data.feeds.find(
+                                      (f) => f.uri === pin,
+                                    )!,
+                                )
+                              : [];
+
+                            const options = [
+                              "Following",
+                              ...data.map((x) => x.displayName),
+                            ];
+                            const icons = [
+                              appPrefs.defaultFeed === "following" ? (
+                                <CircleDotIcon
+                                  key={0}
+                                  color={theme.colors.text}
+                                  size={24}
+                                />
+                              ) : (
+                                <></>
+                              ),
+                              data.map((x, i) =>
+                                x.uri === appPrefs.defaultFeed ? (
+                                  <CircleDotIcon
+                                    key={i + 1}
+                                    color={theme.colors.text}
+                                    size={24}
+                                  />
+                                ) : (
+                                  <></>
+                                ),
+                              ),
+                              <></>,
+                            ];
+                            showActionSheetWithOptions(
+                              {
+                                title: "Select home feed",
+                                options: [...options, "Cancel"],
+                                icons,
+                                cancelButtonIndex: options.length,
+                                userInterfaceStyle: theme.dark
+                                  ? "dark"
+                                  : "light",
+                                textStyle: { color: theme.colors.text },
+                                containerStyle: {
+                                  backgroundColor: theme.colors.card,
+                                },
+                              },
+                              (index) => {
+                                if (
+                                  index === undefined ||
+                                  index === options.length
+                                )
+                                  return;
+                                if (index === 0) {
+                                  setAppPrefs({ defaultFeed: "following" });
+                                } else {
+                                  setAppPrefs({
+                                    defaultFeed: data[index - 1]!.uri,
+                                  });
+                                }
+                              },
+                            );
+                          }}
+                          className="flex-row items-center"
+                        >
+                          {savedFeeds.isSuccess ? (
+                            <>
+                              <Text
+                                style={{
+                                  color: unknown
+                                    ? theme.colors.notification
+                                    : theme.colors.primary,
+                                }}
+                                className="text-base font-medium"
+                              >
+                                {unknown ? "Unknown" : defaultFeed}
+                              </Text>
+                              <ChevronsUpDownIcon
+                                size={16}
+                                color={theme.colors.primary}
+                                className="ml-1"
+                              />
+                            </>
+                          ) : (
+                            <ActivityIndicator />
+                          )}
+                        </TouchableOpacity>
+                      ),
+                    },
+                  ]
+                : []),
+            ],
+          },
           {
             title: "Reply settings",
             options: [

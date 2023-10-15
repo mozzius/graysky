@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   Platform,
-  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
   type StyleProp,
   type ViewStyle,
 } from "react-native";
@@ -18,7 +16,11 @@ import Animated, {
   FadeOutUp,
   Layout,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaFrame,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
@@ -58,6 +60,12 @@ export const ImageViewer = ({
     tag?: string;
   }>();
 
+  const [unmountTag, setUnmountTag] = useState(tag);
+
+  useEffect(() => {
+    setUnmountTag(undefined);
+  }, []);
+
   const { top } = useSafeAreaInsets();
 
   useEffect(() => {
@@ -87,12 +95,12 @@ export const ImageViewer = ({
         keyExtractor={(_, i) => i}
         onIndexChange={(index) => setIndex(index)}
         renderItem={(props) => (
-          <View style={StyleSheet.absoluteFill} className="justify-center">
+          <SafeAreaView className="flex-1 items-center justify-center">
             <ImageWithFallback
               {...props}
-              tag={props.index === initialIndex ? tag : undefined}
+              tag={props.index === initialIndex ? unmountTag : undefined}
             />
-          </View>
+          </SafeAreaView>
         )}
         onSwipeToClose={onClose}
         onTap={toggleInfo}
@@ -212,6 +220,7 @@ const ImageWithFallback = ({
   tag,
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
+  const frame = useSafeAreaFrame();
 
   const size =
     queryClient.getQueryData<{
@@ -219,32 +228,52 @@ const ImageWithFallback = ({
       height: number;
     }>(["image", item.fullsize, "size"]) ?? item.aspectRatio;
 
+  const imageAspectRatio = size ? size?.width / size?.height : 1;
+  const frameAspectRatio = frame.width / frame.height;
+
+  let width, flex;
+
+  if (imageAspectRatio > frameAspectRatio) {
+    width = frame.width;
+  } else {
+    flex = 1;
+  }
+
   return (
     <>
       <AnimatedImage
         sharedTransitionTag={tag}
-        // doesn't load fullsize
-        // source={[item.thumb, item.fullsize]}
         // weird postitioning
         // placeholder={{
         //   width: size.data?.width,
         //   height: size.data?.height,
         //   uri: item.thumb,
         // }}
-        source={item.thumb}
+        source={[
+          {
+            uri: item.thumb,
+            width: size?.width ? size?.width / 2 : undefined,
+            height: size?.height ? size?.height / 2 : undefined,
+          },
+          { uri: item.fullsize, width: size?.width, height: size?.height },
+        ]}
         alt={item.alt}
-        style={
-          size ? { aspectRatio: size.width / size.height } : { width: "100%" }
-        }
+        style={[
+          size
+            ? { aspectRatio: size.width / size.height, width, flex }
+            : { width: "100%" },
+        ]}
         onLoad={({ source: { width, height } }) => {
           setImageDimensions({
             width,
             height,
           });
-          queryClient.setQueryData(["image", item.fullsize, "size"], {
-            width,
-            height,
-          });
+          if (!size) {
+            queryClient.setQueryData(["image", item.fullsize, "size"], {
+              width,
+              height,
+            });
+          }
         }}
       />
     </>
