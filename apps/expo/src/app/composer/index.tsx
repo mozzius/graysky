@@ -412,6 +412,7 @@ export default function ComposerScreen() {
           {!gif && images.length > 0 && (
             <Animated.ScrollView
               horizontal
+              showsHorizontalScrollIndicator={false}
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
               exiting={FadeOutDown}
@@ -949,6 +950,7 @@ const AltTextEditor = ({
               borderWidth: StyleSheet.hairlineWidth,
               borderColor: theme.colors.border,
             }}
+            textAlignVertical="top"
             placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
           />
         </Animated.View>
