@@ -251,7 +251,11 @@ export const useTimeline = (feed: string) => {
             return [];
           } else if (feedViewPref.hideQuotePosts && isEmbed) {
             return [];
-          } else if (feedViewPref.hideRepliesByUnfollowed && isByUnfollowed) {
+          } else if (
+            feedViewPref.hideRepliesByUnfollowed &&
+            item.reply &&
+            isByUnfollowed
+          ) {
             return [];
           }
         }
