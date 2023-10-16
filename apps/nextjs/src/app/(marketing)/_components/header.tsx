@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import background from "~/assets/graysky.png";
+import background from "~/assets/graysky.jpg";
 
 interface Props {
   title: string;

@@ -4,7 +4,7 @@ import {
   type ComAtprotoServerCreateSession,
 } from "@atproto/api";
 
-import background from "~/assets/graysky.png";
+import background from "~/assets/graysky.jpg";
 import { env } from "~/env.mjs";
 import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
