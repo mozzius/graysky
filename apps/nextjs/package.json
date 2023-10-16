@@ -58,10 +58,5 @@
     "start": "pnpm with-env next start",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
-  },
-  "overrides": {
-    "@leafac/rehype-shiki": {
-      "shiki": ">=0.14.4"
-    }
   }
 }
