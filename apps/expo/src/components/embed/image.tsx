@@ -35,10 +35,10 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
   if (isNotification) {
     return (
       <View className="mt-1.5 flex-1 flex-row">
-        {content.images.map((image) => (
+        {content.images.map((image, index) => (
           <Image
             key={image.fullsize}
-            href={href}
+            href={`${href}?initial=${index}`}
             image={image}
             depth={depth}
             className="mr-2 aspect-square w-20 rounded-lg"
