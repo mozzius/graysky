@@ -1,11 +1,7 @@
 import Image from "next/image";
-import {
-  type AppBskyFeedGetPosts,
-  type ComAtprotoServerCreateSession,
-} from "@atproto/api";
+import { type AppBskyFeedGetPosts } from "@atproto/api";
 
 import background from "~/assets/graysky.jpg";
-import { env } from "~/env.mjs";
 import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
