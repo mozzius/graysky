@@ -19,7 +19,7 @@ export const Carousel = ({ offset }: Props) => {
   const translation = offset * (200 + 32);
 
   return (
-    <div className="flex h-[400px] w-full flex-row gap-8 overflow-visible py-8 pl-8 md:w-[calc(50%-8px)]">
+    <div className="flex h-[400px+4rem] w-full flex-row gap-8 overflow-visible py-8 pl-8 md:w-[calc(50%-8px)]">
       <Image
         src={screenshot1}
         alt="screenshot of Graysky's feeds screen"

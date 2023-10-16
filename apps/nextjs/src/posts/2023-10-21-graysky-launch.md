@@ -31,7 +31,7 @@ If you've ever tried to read a Bluesky thread in a language you don't speak, you
 
 Graysky lets you see not just your own likes, but anyone's likes! Every user's profile has a likes tab, much like Twitter.
 
->The official app opts not to show other people's likes, but the AT Protocol built in such a way that almost all data is inherently public. I think it's important to embrace this, rather than give people a false sense of privacy.
+> The official app opts not to show other people's likes, but the AT Protocol built in such a way that almost all data is inherently public. I think it's important to embrace this, rather than give people a false sense of privacy.
 
 ### Other features
 
@@ -65,7 +65,7 @@ The plan is to maintain feature parity with the official app, where possible. Ho
 
 If you're a developer, I cannot encourage you enough to check out the [AT Protocol](atproto.com). The open architecture that the Bluesky team is developing is super exciting, and extremely fun and easy to develop for. If you're a JS/TS dev, their `@atproto/api` NPM package is all you need to make a full-featured client from top to bottom. If clients aren't your thing, you can also [build your own algorithmic feed](https://github.com/bluesky-social/feed-generator), or [make bots](https://github.com/philnash/bsky-bot). The possibilities are endless!
 
->If you don't have a Bluesky invite code yet, check out [Bluesky's Call for Developers](https://atproto.com/blog/call-for-developers)
+> If you don't have a Bluesky invite code yet, check out [Bluesky's Call for Developers](https://atproto.com/blog/call-for-developers)
 
 ## The future of Graysky
 
