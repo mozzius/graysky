@@ -20,7 +20,7 @@ import { produce } from "~/lib/utils/produce";
 
 const defaultFeedViewPref = {
   hideReplies: false,
-  hideRepliesByUnfollowed: true,
+  hideRepliesByUnfollowed: false,
   hideRepliesByLikeCount: 2,
   hideReposts: false,
   hideQuotePosts: false,
@@ -146,7 +146,9 @@ export default function FeedPreferences() {
                       style={{ color: theme.colors.primary }}
                       className="text-base font-medium capitalize"
                     >
-                      {appPrefs.homepage === "feeds" ? "Feeds list" : "Skyline"}
+                      {appPrefs.homepage === "feeds"
+                        ? "Feeds list"
+                        : "Primary feed"}
                     </Text>
                     <ChevronsUpDownIcon
                       size={16}
@@ -290,10 +292,10 @@ export default function FeedPreferences() {
                       disabled={
                         setPreference.isLoading || feedViewPref.hideReplies
                       }
-                      value={!feedViewPref.hideRepliesByUnfollowed}
+                      value={feedViewPref.hideRepliesByUnfollowed}
                       onValueChange={(value) => {
                         setPreference.mutate({
-                          hideRepliesByUnfollowed: !value,
+                          hideRepliesByUnfollowed: value,
                         });
                       }}
                     />
