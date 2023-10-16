@@ -73,7 +73,7 @@ I'm so excited to see where Graysky goes from here. I've got a ton of ideas for 
 
 ## Shoutouts!
 
-There are a few people I'd like to thank for helping me get Graysky to where it is today: [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements. Thanks also to [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com).
+There are a few people I'd like to thank for helping me get Graysky to where it is today: [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh) for her work on adding dark mode, and getting Android builds working, [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social) for their invaluable accessibility improvements. Thanks also to [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com) and [intrnl](https://github.com/intrnl)!
 
 See you on the Skyline!
 

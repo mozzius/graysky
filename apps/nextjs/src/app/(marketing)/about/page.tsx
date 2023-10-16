@@ -36,6 +36,7 @@ export default function AboutPage() {
           - [@alice.bsky.sh](https://bsky.app/profile/alice.bsky.sh)
           - [@holden.bsky.social](https://bsky.app/profile/holden.bsky.social)
           - [@matthewstanciu.com](https://bsky.app/profile/matthewstanciu.com)
+          - [intrnl](https://github.com/intrnl)
         `}
         />
       </div>
