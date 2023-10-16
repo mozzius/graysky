@@ -125,7 +125,7 @@ async function getNicePosts() {
       nicePostsUris.map((post) => ["uris", post]),
     );
 
-    const res2 = await fetch(
+    const res = await fetch(
       "https://api.bsky.app/xrpc/app.bsky.feed.getPosts?" + params.toString(),
       {
         headers: {
@@ -134,12 +134,12 @@ async function getNicePosts() {
       },
     );
 
-    if (!res2.ok) {
-      console.error(await res2.text());
+    if (!res.ok) {
+      console.error(await res.text());
       return [];
     }
 
-    const data = (await res2.json()) as AppBskyFeedGetPosts.OutputSchema;
+    const data = (await res.json()) as AppBskyFeedGetPosts.OutputSchema;
 
     return data.posts;
   } catch (err) {
