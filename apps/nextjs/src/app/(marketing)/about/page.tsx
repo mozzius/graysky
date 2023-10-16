@@ -1,6 +1,10 @@
 import { Header } from "../_components/header";
 import { Markdown } from "../_components/markdown";
 
+export const metadata = {
+  title: "About - Graysky",
+};
+
 export default function AboutPage() {
   return (
     <>

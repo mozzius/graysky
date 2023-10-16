@@ -4,6 +4,11 @@ import Link from "next/link";
 
 import poweredByTenor from "./tenor.svg";
 
+export const metadata = {
+  title: "GIF - Graysky",
+  description: "If you send this link via Graysky, you get a nice preview",
+};
+
 export default function GifScreen({
   params,
   searchParams,

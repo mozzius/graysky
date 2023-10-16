@@ -3,6 +3,10 @@ import { EmailInput } from "../_components/email-input";
 // import { GoogleBadge } from "../_components/google-badge";
 import { Header } from "../_components/header";
 
+export const metadata = {
+  title: "Download Graysky",
+};
+
 export default function DownloadModal({
   searchParams,
 }: {

@@ -5,6 +5,10 @@ import background from "~/assets/graysky.jpg";
 import { Header } from "../_components/header";
 import { getAllPosts } from "./utils";
 
+export const metadata = {
+  title: "Blog - Graysky",
+};
+
 export default async function BlogIndexPage() {
   const posts = await getAllPosts();
   const formatter = new Intl.DateTimeFormat("en-GB", {
