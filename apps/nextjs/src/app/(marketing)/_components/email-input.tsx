@@ -33,10 +33,10 @@ export const EmailInput = ({
     );
 
     if (!res.ok) {
-      return redirect("/?error=true");
+      return redirect("?error=true");
     }
 
-    redirect("/?success=true");
+    redirect("?success=true");
   }
 
   if (error) {
