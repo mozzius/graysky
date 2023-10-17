@@ -346,7 +346,7 @@ for (const segment of rt.segments()) {
 
 ### Display replies
 
-A little tricker, but `agent.getPostThread()` returns all the post's replies in a recursive data structure. You can use this to display the replies to a post. Same applies to a post's parents, if it itself is a reply. Link them all together to let you browse through a post!
+A little tricker, but `agent.getPostThread()` returns all the post's replies in a recursive data structure. You can use this to display the replies to a post. Same applies to a post's parents, if it itself is a reply. Link them all together to let you browse through a thread!
 
 ### View a user's profile
 
