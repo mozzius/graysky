@@ -18,7 +18,7 @@ export const Features = () => {
       />
       <FeatureCard
         title="GIFs"
-        description="View and post animated GIFs - exclusive to Graysky"
+        description="View and post animated GIFs"
         icon={TvIcon}
       />
       <FeatureCard
