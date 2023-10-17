@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import Link from "next/link";
+import { Code } from "bright";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import { remarkHeadingId } from "remark-custom-heading-id";
+import remarkGfm from "remark-gfm";
 
 interface Props {
   content: string;
@@ -11,6 +16,12 @@ export const Markdown = ({ content, components }: Props) => {
   return (
     <MDXRemote
       source={content}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [remarkGfm, remarkHeadingId],
+          rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+        },
+      }}
       components={{
         a: ({ href, ref: _, ...props }) =>
           href ? (
@@ -55,11 +66,8 @@ export const Markdown = ({ content, components }: Props) => {
         ul: (props) => (
           <ul {...props} className="my-6 ml-6 list-disc [&>li]:mt-1.5" />
         ),
-        code: (props) => (
-          <code
-            {...props}
-            className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"
-          />
+        pre: (props) => (
+          <Code {...props} className="my-6" theme="github-dark" lineNumbers />
         ),
         ...components,
       }}
