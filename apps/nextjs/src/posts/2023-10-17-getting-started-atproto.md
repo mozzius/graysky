@@ -127,6 +127,7 @@ Oh no! Type error! That's because the thread's main post might be deleted, or bl
 
 ```tsx
 // src/app/page.tsx
+import { AppBskyFeedDefs } from "@atproto/api";
 import { agent } from "~/lib/api";
 
 const EXAMPLE_POST =
@@ -198,7 +199,7 @@ You should now be able to see `@retr0.id`'s post!
 
 ## Viewing any post
 
-Let's now set up routing, so that we can view any post via the URL. The URL will be in the format `/profile/:handle/post/:rkey`, where `:uri` is the URI of the post we want to view. We'll use Next.js's built-in routing for this. We'll need to make a folder structure like this:
+Let's now set up routing, so that we can view any post via the URL. The URL will be in the format `/profile/:handle/post/:rkey`. We'll take the two dynamic sections to construct the AT URI, and then use that to fetch the post thread like we did befire. Since we're using the Next.js App Routing, we'll need to make a folder structure like this:
 
 ```
 app
