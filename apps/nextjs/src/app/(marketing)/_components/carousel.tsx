@@ -31,6 +31,7 @@ export const Carousel = ({ offset }: Props) => {
           opacity: offset < 0 ? 0 : 1,
           pointerEvents: offset < 0 ? "none" : "auto",
         }}
+        priority
       />
       <Image
         src={screenshot5}
@@ -43,6 +44,7 @@ export const Carousel = ({ offset }: Props) => {
           opacity: offset < -1 ? 0 : 1,
           pointerEvents: offset < -1 ? "none" : "auto",
         }}
+        priority
       />
       <Image
         src={screenshot4}
