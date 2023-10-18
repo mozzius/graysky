@@ -25,6 +25,7 @@ export default async function LandingPage({
           src={background}
           className="absolute h-full w-full object-cover brightness-50 filter"
           alt="stormy gray clouds"
+          priority
         />
         <Hero />
       </header>
