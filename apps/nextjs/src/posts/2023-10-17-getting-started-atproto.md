@@ -364,7 +364,7 @@ Use `https://bsky.social` when making the session agent, and use `agent.login()`
 
 ## Conclusion
 
-I hope this tutorial has been helpful! If you have any questions, feel free to [ask on Bluesky](https://bsky.app/profile/mozzius). If you want to see the full code, you can find it [on GitHub](https://github.com/mozzius/bsky-simple-viewer). You can also see this app live [here](https://bsky-simple-viewer.vercel.app/).
+I hope this tutorial has been helpful! If you have any questions, feel free to [ask on Bluesky](https://bsky.app/profile/mozzius.dev). If you want to see the full code, you can find it [on GitHub](https://github.com/mozzius/bsky-simple-viewer). You can also see this app live [here](https://bsky-simple-viewer.vercel.app/).
 
 If you want to see how a full-featured third-party client works, check out [Graysky on GitHub](https://github.com/mozzius/graysky)!
 
