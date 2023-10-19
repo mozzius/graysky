@@ -15,7 +15,7 @@
   "overrides": {
     "@tanstack/react-query": "^4.36.1"
   },
-  "packageManager": "pnpm@8.9.0",
+  "packageManager": "pnpm@8.9.2",
   "pnpm": {
     "patchedDependencies": {
       "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
