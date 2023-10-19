@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { track } from "@vercel/analytics/server";
 import { z } from "zod";
 
 import { env } from "~/env.mjs";
@@ -35,6 +36,8 @@ export const EmailInput = ({
     if (!res.ok) {
       return redirect("?error=true");
     }
+
+    await track("email-signup");
 
     redirect("?success=true");
   }
