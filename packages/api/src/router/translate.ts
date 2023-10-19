@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -43,6 +44,10 @@ export const translateRouter = createTRPCRouter({
           languageCode: cached.language,
         };
       }
+
+      await track("translate post", {
+        uri: post.uri,
+      });
 
       const res = await fetch(
         "https://translation.googleapis.com/language/translate/v2",

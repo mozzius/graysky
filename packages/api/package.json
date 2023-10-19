@@ -6,6 +6,7 @@
     "@graysky/db": "0.1.0",
     "@trpc/client": "^10.41.0",
     "@trpc/server": "^10.41.0",
+    "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^0.2.3",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",

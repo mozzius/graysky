@@ -1,4 +1,5 @@
 import { type AppBskyEmbedExternal, type BlobRef } from "@atproto/api";
+import { track } from "@vercel/analytics/server";
 import sharp from "sharp";
 import { z } from "zod";
 
@@ -82,6 +83,11 @@ export const gifsRouter = createTRPCRouter({
       const uri = `https://graysky.app/gif${assetPath}?title=${encodeURIComponent(
         title,
       )}`;
+
+      await track("post gif", {
+        title: input.description ?? "No description",
+        url: uri,
+      });
 
       return {
         view: {
