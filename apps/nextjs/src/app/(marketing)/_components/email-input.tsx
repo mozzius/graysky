@@ -34,6 +34,10 @@ export const EmailInput = ({
     );
 
     if (!res.ok) {
+      await track("email-signup-error", {
+        status: res.status,
+      });
+
       return redirect("?error=true");
     }
 
