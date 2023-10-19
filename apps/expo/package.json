@@ -91,7 +91,7 @@
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/babel__core": "^7.20.2",
+    "@types/babel__core": "^7.20.3",
     "@types/mime": "^3.0.2",
     "@types/react": "^18.2.28",
     "@types/webpack-env": "^1.18.2",
