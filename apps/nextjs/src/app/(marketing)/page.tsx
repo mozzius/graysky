@@ -47,7 +47,7 @@ export default async function LandingPage({
           rel="noreferrer"
         >
           <img
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=420831&theme=dark"
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=420831&theme=neutral"
             alt="Graysky - A&#0032;third&#0045;party&#0032;Bluesky&#0032;client&#0032;for&#0032;iOS&#0032;and&#0032;Android | Product Hunt"
             className="mx-auto mt-8 h-[54px] w-[250px]"
             width="250"
