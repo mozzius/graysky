@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const PREORDER = true;
+const PREORDER = false;
 
 export const AppleBadge = ({ className }: Props) => {
   return (
