@@ -18,6 +18,7 @@ export default function Page() {
     <>
       <Stack.Screen
         options={{
+          title: "Feeds",
           headerRight: () => (
             <View className="flex-row items-center">
               <TouchableOpacity

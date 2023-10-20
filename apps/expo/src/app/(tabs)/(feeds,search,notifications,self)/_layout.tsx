@@ -108,12 +108,6 @@ export default function SubStack({
             }}
           />
           <Stack.Screen
-            name="feeds/manage"
-            options={{
-              title: "Feeds",
-            }}
-          />
-          <Stack.Screen
             name="profile/[handle]/index"
             getId={({ params }) => `${params?.handle}`}
           />
