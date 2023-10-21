@@ -204,7 +204,7 @@ export default function FeedPreferences() {
                             ];
                             showActionSheetWithOptions(
                               {
-                                title: "Select home feed",
+                                title: "Select primary feed",
                                 options: [...options, "Cancel"],
                                 icons,
                                 cancelButtonIndex: options.length,
