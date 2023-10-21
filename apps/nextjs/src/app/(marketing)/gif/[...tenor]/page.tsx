@@ -43,16 +43,13 @@ export default function GifScreen({
           />
         </div>
         <div className="flex w-full max-w-xl flex-col gap-8 rounded px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            Want to view and post GIFs? Get Graysky for iOS and Android{" "}
-            <span className="line-through">today</span> soon!
-          </p>
+          <p>Want to view and post GIFs? Get Graysky for iOS and Android!</p>
           <div className="flex shrink-0 flex-row items-center justify-center gap-2 max-sm:w-full">
             <Link
               className="w-max rounded bg-neutral-800 px-4 py-1 transition-colors hover:bg-neutral-700"
               href="/download"
             >
-              Pre-order now!
+              Download
             </Link>
           </div>
         </div>
