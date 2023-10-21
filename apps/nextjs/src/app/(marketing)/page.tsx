@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { type AppBskyFeedGetPosts } from "@atproto/api";
 
@@ -5,7 +6,7 @@ import background from "~/assets/graysky.jpg";
 import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
-// import { GoogleBadge } from "./_components/google-badge";
+import { GoogleBadge } from "./_components/google-badge";
 import { Hero } from "./_components/hero";
 import { Post } from "./_components/post";
 
@@ -38,8 +39,21 @@ export default async function LandingPage({
       <section className="w-full px-4 pb-8">
         <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row">
           <AppleBadge />
-          {/* <GoogleBadge /> */}
+          <GoogleBadge />
         </div>
+        <a
+          href="https://www.producthunt.com/posts/graysky?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-graysky"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=420831&theme=neutral"
+            alt="Graysky - A&#0032;third&#0045;party&#0032;Bluesky&#0032;client&#0032;for&#0032;iOS&#0032;and&#0032;Android | Product Hunt"
+            className="mx-auto mt-8 h-[54px] w-[250px]"
+            width="250"
+            height="54"
+          />
+        </a>
       </section>
       <section className="w-full">
         <h3 className="mt-4 px-4 text-center text-xl font-medium">

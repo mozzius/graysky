@@ -2,7 +2,6 @@
 title: "Graysky: Now Available!"
 date: 2023-10-21
 author: "@mozzius.dev"
-draft: true
 ---
 
 # We're live!
