@@ -2,7 +2,7 @@
 
 Graysky is a Bluesky client written in React Native.
 
-Get it here: graysky.app/download
+Get it here: https://graysky.app/download
 
 ## Getting Started
 
