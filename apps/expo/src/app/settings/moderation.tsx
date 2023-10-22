@@ -9,7 +9,6 @@ import {
   MegaphoneOffIcon,
   ShieldXIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
@@ -17,6 +16,7 @@ import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { contentLabels, usePreferences } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { produce } from "~/lib/utils/produce";
 
 type Pref = "show" | "warn" | "hide";
@@ -24,7 +24,7 @@ type Pref = "show" | "warn" | "hide";
 export default function ModerationSettings() {
   const agent = useAgent();
   const theme = useTheme();
-  const { colorScheme } = useColorScheme();
+
   const { showActionSheetWithOptions } = useActionSheet();
   const [optimisticSwitchValue, setOptimisticSwitchValue] = useState(false);
 
@@ -182,11 +182,7 @@ export default function ModerationSettings() {
                               options: [...options.map(capitalise), "Cancel"],
                               cancelButtonIndex: options.length,
                               destructiveButtonIndex: 0,
-                              userInterfaceStyle: colorScheme,
-                              textStyle: { color: theme.colors.text },
-                              containerStyle: {
-                                backgroundColor: theme.colors.card,
-                              },
+                              ...actionSheetStyles(theme),
                             },
                             (index) => {
                               if (index === undefined || index === 3) return;

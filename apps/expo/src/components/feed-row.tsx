@@ -25,6 +25,7 @@ import {
 } from "lucide-react-native";
 
 import { useHaptics } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
@@ -222,9 +223,7 @@ export const DraggableFeedRow = ({
                         options: ["Unsave", "Cancel"],
                         cancelButtonIndex: 1,
                         destructiveButtonIndex: 0,
-                        userInterfaceStyle: theme.dark ? "dark" : "light",
-                        textStyle: { color: theme.colors.text },
-                        containerStyle: { backgroundColor: theme.colors.card },
+                        ...actionSheetStyles(theme),
                       },
                       (index) => {
                         if (index === 0) {

@@ -1,12 +1,7 @@
-import {
-  ActivityIndicator,
-  LogBox,
-  RefreshControl,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, LogBox, RefreshControl, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 
+import { Text } from "~/components/text";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../../feed-post";

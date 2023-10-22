@@ -22,6 +22,7 @@ import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme
 import { useInviteCodes } from "~/app/codes/_layout";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { BackButtonOverride } from "../back-button-override";
 import { Text } from "../text";
 import { ActorDetails } from "./actor-details";
@@ -33,7 +34,7 @@ interface Props {
 
 export const DrawerContent = ({ open }: Props) => {
   const logOut = useLogOut();
-  const { colorScheme, setColorScheme } = useColorScheme();
+  const { setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
@@ -55,9 +56,7 @@ export const DrawerContent = ({ open }: Props) => {
         options,
         icons,
         cancelButtonIndex: options.length - 1,
-        userInterfaceStyle: colorScheme,
-        textStyle: { color: theme.colors.text },
-        containerStyle: { backgroundColor: theme.colors.card },
+        ...actionSheetStyles(theme),
       },
       async (index) => {
         if (index === undefined) return;

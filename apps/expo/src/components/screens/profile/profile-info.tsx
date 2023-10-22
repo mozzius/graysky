@@ -36,6 +36,7 @@ import {
 } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
@@ -145,9 +146,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       {
         options,
         cancelButtonIndex: options.length - 1,
-        userInterfaceStyle: colorScheme,
-        textStyle: { color: theme.colors.text },
-        containerStyle: { backgroundColor: theme.colors.card },
+        ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;
@@ -193,9 +192,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 title: "What is the issue with this account?",
                 options: reportOptions.map((x) => x.label),
                 cancelButtonIndex: reportOptions.length - 1,
-                userInterfaceStyle: colorScheme,
-                textStyle: { color: theme.colors.text },
-                containerStyle: { backgroundColor: theme.colors.card },
+                ...actionSheetStyles(theme),
               },
               async (index) => {
                 if (index === undefined) return;
@@ -478,9 +475,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     {
                       options,
                       cancelButtonIndex: options.length - 1,
-                      userInterfaceStyle: colorScheme,
-                      textStyle: { color: theme.colors.text },
-                      containerStyle: { backgroundColor: theme.colors.card },
+                      ...actionSheetStyles(theme),
                     },
                     (index) => {
                       if (index === undefined) return;

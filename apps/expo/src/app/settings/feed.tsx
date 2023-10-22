@@ -16,6 +16,7 @@ import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds } from "~/lib/hooks";
 import { useAppPreferences, usePreferences } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { produce } from "~/lib/utils/produce";
 
 const defaultFeedViewPref = {
@@ -122,11 +123,7 @@ export default function FeedPreferences() {
                           options: [...options, "Cancel"],
                           icons,
                           cancelButtonIndex: options.length,
-                          userInterfaceStyle: theme.dark ? "dark" : "light",
-                          textStyle: { color: theme.colors.text },
-                          containerStyle: {
-                            backgroundColor: theme.colors.card,
-                          },
+                          ...actionSheetStyles(theme),
                         },
                         (index) => {
                           switch (index) {
@@ -208,13 +205,7 @@ export default function FeedPreferences() {
                                 options: [...options, "Cancel"],
                                 icons,
                                 cancelButtonIndex: options.length,
-                                userInterfaceStyle: theme.dark
-                                  ? "dark"
-                                  : "light",
-                                textStyle: { color: theme.colors.text },
-                                containerStyle: {
-                                  backgroundColor: theme.colors.card,
-                                },
+                                ...actionSheetStyles(theme),
                               },
                               (index) => {
                                 if (

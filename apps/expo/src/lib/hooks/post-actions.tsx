@@ -4,10 +4,10 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { QuoteIcon, RepeatIcon } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { useComposer } from "~/lib/hooks/composer";
 import { useAgent } from "../agent";
+import { actionSheetStyles } from "../utils/action-sheet";
 import { useHaptics } from "./preferences";
 
 export const useLike = (
@@ -129,7 +129,7 @@ export const useHandleRepost = (
 ) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
-  const { colorScheme } = useColorScheme();
+
   const theme = useTheme();
 
   return () => {
@@ -144,10 +144,8 @@ export const useHandleRepost = (
         options,
         icons,
         cancelButtonIndex: options.length - 1,
-        userInterfaceStyle: colorScheme,
         anchor,
-        textStyle: { color: theme.colors.text },
-        containerStyle: { backgroundColor: theme.colors.card },
+        ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;

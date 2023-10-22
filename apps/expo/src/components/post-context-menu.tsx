@@ -24,11 +24,11 @@ import {
   Trash2Icon,
   XOctagonIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { blockAccount, muteAccount } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useLists } from "./lists/context";
 
 interface Props {
@@ -45,7 +45,7 @@ const PostContextMenuButton = ({
   showCopyText,
 }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
-  const { colorScheme } = useColorScheme();
+
   const agent = useAgent();
   const { openLikes, openReposts } = useLists();
   const router = useRouter();
@@ -116,9 +116,7 @@ const PostContextMenuButton = ({
         title: "What is the issue with this post?",
         options: reportOptions.map((x) => x.label),
         cancelButtonIndex: reportOptions.length - 1,
-        userInterfaceStyle: colorScheme,
-        textStyle: { color: theme.colors.text },
-        containerStyle: { backgroundColor: theme.colors.card },
+        ...actionSheetStyles(theme),
       },
       async (index) => {
         if (index === undefined) return;
@@ -250,9 +248,7 @@ const PostContextMenuButton = ({
         options: [...options.map((x) => x.label), "Cancel"],
         icons: [...options.map((x) => x.reactIcon), <></>],
         cancelButtonIndex: options.length,
-        userInterfaceStyle: colorScheme,
-        textStyle: { color: theme.colors.text },
-        containerStyle: { backgroundColor: theme.colors.card },
+        ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;

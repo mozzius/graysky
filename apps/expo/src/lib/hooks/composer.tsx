@@ -31,6 +31,7 @@ import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
+import { actionSheetStyles } from "../utils/action-sheet";
 import { useAppPreferences } from "./preferences";
 
 export const MAX_IMAGES = 4;
@@ -353,8 +354,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
           anchor:
             (anchorRef?.current && findNodeHandle(anchorRef.current)) ??
             undefined,
-          textStyle: { color: theme.colors.text },
-          containerStyle: { backgroundColor: theme.colors.card },
+          ...actionSheetStyles(theme),
         },
         async (index) => {
           if (index === undefined) return;

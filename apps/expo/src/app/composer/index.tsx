@@ -50,7 +50,6 @@ import {
   UserIcon,
   XIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -69,6 +68,7 @@ import {
   type ImageWithAlt,
 } from "~/lib/hooks/composer";
 import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
+import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
 
@@ -220,9 +220,7 @@ export default function ComposerScreen() {
                         options: ["Post anyway", "Go back"],
                         destructiveButtonIndex: 0,
                         cancelButtonIndex: 1,
-                        userInterfaceStyle: theme.dark ? "dark" : "light",
-                        textStyle: { color: theme.colors.text },
-                        containerStyle: { backgroundColor: theme.colors.card },
+                        ...actionSheetStyles(theme),
                       },
                       (index) => resolve(index === 1),
                     );
@@ -696,7 +694,7 @@ const CancelButton = ({
   const theme = useTheme();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const { colorScheme } = useColorScheme();
+
   const haptics = useHaptics();
 
   const handleCancel = async () => {
@@ -714,9 +712,7 @@ const CancelButton = ({
           icons,
           cancelButtonIndex: options.length - 1,
           destructiveButtonIndex: 0,
-          userInterfaceStyle: colorScheme,
-          textStyle: { color: theme.colors.text },
-          containerStyle: { backgroundColor: theme.colors.card },
+          ...actionSheetStyles(theme),
         },
         (index) => resolve(options[index!]),
       );
