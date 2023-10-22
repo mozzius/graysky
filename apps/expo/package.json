@@ -39,6 +39,7 @@
     "expo-linking": "~5.0.2",
     "expo-localization": "~14.3.0",
     "expo-media-library": "^15.4.1",
+    "expo-notifications": "^0.23.0",
     "expo-router": "2.0.5",
     "expo-sharing": "^11.5.0",
     "expo-splash-screen": "~0.20.5",
