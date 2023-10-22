@@ -313,6 +313,10 @@ export default function ComposerScreen() {
                       ? `Replying to @${reply.thread.data.post.author.handle}`
                       : `What's on your mind?`
                   }
+                  keyboardType={Platform.select({
+                    ios: "twitter",
+                    default: "default",
+                  })}
                   placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                   verticalAlign="middle"
                   textAlignVertical="center"
