@@ -8,3 +8,5 @@ android
 expo.iml
 
 *.tar.gz
+
+google-services.json
