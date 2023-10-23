@@ -6,9 +6,15 @@ import { useTheme } from "@react-navigation/native";
 
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 import { QueryWithoutData } from "../../query-without-data";
-import { useDefaultHeaderHeight, useProfile, useProfileFeeds } from "./hooks";
+import {
+  useDefaultHeaderHeight,
+  useProfile,
+  useProfileFeeds,
+  useProfileLists,
+} from "./hooks";
 import { ProfileFeeds } from "./profile-feeds";
 import { ProfileInfo } from "./profile-info";
+import { ProfileLists } from "./profile-lists";
 import { ProfilePosts } from "./profile-posts";
 
 interface Props {
@@ -24,11 +30,13 @@ export const ProfileTabView = ({
 }: Props) => {
   const profile = useProfile(handle);
   const feeds = useProfileFeeds(handle);
+  const lists = useProfileLists(handle);
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
   const [mounted, setMounted] = useState(false);
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
+  const numberOfLists = lists.data?.pages?.[0]?.lists?.length ?? 0;
 
   useFocusEffect(
     useCallback(() => {
@@ -49,7 +57,7 @@ export const ProfileTabView = ({
   if (profile.data) {
     return (
       <>
-        {mounted ? <StatusBar style="light" backgroundColor="black" /> : null}
+        {mounted && <StatusBar style="light" backgroundColor="black" />}
         <Stack.Screen
           options={{
             headerShown: false,
@@ -86,6 +94,11 @@ export const ProfileTabView = ({
           {numberOfFeeds === 0 ? null : (
             <Tabs.Tab name="feeds" label="Feeds">
               <ProfileFeeds handle={handle} />
+            </Tabs.Tab>
+          )}
+          {numberOfLists === 0 ? null : (
+            <Tabs.Tab name="lists" label="Lists">
+              <ProfileLists handle={handle} />
             </Tabs.Tab>
           )}
         </Tabs.Container>

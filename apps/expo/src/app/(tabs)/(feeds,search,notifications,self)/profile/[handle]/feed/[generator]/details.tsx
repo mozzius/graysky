@@ -178,12 +178,20 @@ const FeedInfo = ({
               >
                 {isSaved ? (
                   <>
-                    <CheckIcon className="h-6 w-6" size={16} />
+                    <CheckIcon
+                      className="h-6 w-6"
+                      size={16}
+                      color={theme.colors.text}
+                    />
                     <Text className="ml-2 text-base">Saved</Text>
                   </>
                 ) : (
                   <>
-                    <PlusIcon className="h-6 w-6" size={16} />
+                    <PlusIcon
+                      className="h-6 w-6"
+                      size={16}
+                      color={theme.colors.primary}
+                    />
                     <Text className="ml-2 text-base">Save</Text>
                   </>
                 )}

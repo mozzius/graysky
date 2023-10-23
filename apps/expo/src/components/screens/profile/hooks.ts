@@ -183,3 +183,25 @@ export const useDefaultHeaderHeight = () => {
 
   return getDefaultHeaderHeight(layout, false, top > 50 ? top - 5 : top);
 };
+
+export const useProfileLists = (handle?: string) => {
+  const agent = useAgent();
+
+  const actor = handle ?? agent.session?.did;
+
+  const query = useInfiniteQuery({
+    queryKey: ["profile", actor, "lists"],
+    queryFn: async ({ pageParam }) => {
+      if (!actor) throw new Error("Not logged in");
+      const lists = await agent.app.bsky.graph.getLists({
+        actor,
+        cursor: pageParam as string | undefined,
+      });
+      if (!lists.success) throw new Error("Profile lists not found");
+      return lists.data;
+    },
+    getNextPageParam: (lastPage) => lastPage.cursor,
+  });
+
+  return query;
+};
