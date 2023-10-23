@@ -139,7 +139,7 @@ export default function SignIn() {
                 App Passwords
               </Text>
               <Text className="mt-1">
-                You might want to use an App Password rather than of your main
+                You might want to use an App Password rather than your main
                 password - this helps keep you account secure, but will disable
                 certain features such as viewing your invite codes.
               </Text>
