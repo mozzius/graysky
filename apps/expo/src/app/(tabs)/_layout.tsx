@@ -3,6 +3,7 @@ import { Dimensions, Platform } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useMMKVObject } from "react-native-mmkv";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Notifications from "expo-notifications";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
 import {
   BottomSheetBackdrop,
@@ -31,6 +32,7 @@ import {
 import { Text } from "~/components/text";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
+import { useNotifications } from "~/lib/hooks/notifications";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { store } from "~/lib/storage";
 import { useRefreshOnFocus } from "~/lib/utils/query";
@@ -40,6 +42,8 @@ export default function AppLayout() {
   const agent = useOptionalAgent();
   const [open, setOpen] = useState(false);
 
+  useNotifications();
+
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
@@ -47,6 +51,7 @@ export default function AppLayout() {
       const unreadCount = await agent.countUnreadNotifications();
       if (!unreadCount.success)
         throw new Error("Failed to fetch notifications");
+      await Notifications.setBadgeCountAsync(unreadCount.data.count);
       return unreadCount.data;
     },
     // refetch every 15 seconds
