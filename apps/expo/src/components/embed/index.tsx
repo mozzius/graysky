@@ -12,10 +12,16 @@ import {
   AppBskyEmbedRecordWithMedia,
   AppBskyFeedDefs,
   AppBskyFeedPost,
+  AppBskyGraphDefs,
   type AppBskyActorDefs,
 } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { HeartIcon, ShieldXIcon, Trash2Icon } from "lucide-react-native";
+import {
+  CheckIcon,
+  HeartIcon,
+  ShieldXIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
@@ -83,7 +89,7 @@ export const Embed = ({
     if (record !== null) {
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
         if (AppBskyFeedDefs.isGeneratorView(record)) {
-          // Case 3.5: Is feed generator
+          // Case 3.1: Is feed generator
           const href = `/profile/${record.creator.did}/feed/${record.uri
             .split("/")
             .pop()}`;
@@ -125,6 +131,54 @@ export const Embed = ({
                         {record.likeCount ?? 0}
                       </Text>{" "}
                       • @{record.creator.handle}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </Link>
+          );
+        } else if (AppBskyGraphDefs.isListView(record)) {
+          // Case 3.2 Is list
+          const href = `/profile/${record.creator.did}/lists/${record.uri
+            .split("/")
+            .pop()}`;
+          let purposeText = "List";
+          switch (record.purpose) {
+            case AppBskyGraphDefs.MODLIST:
+              purposeText = "Moderation list";
+              break;
+            case AppBskyGraphDefs.CURATELIST:
+              purposeText = "Curation list";
+              break;
+          }
+          return (
+            <Link href={href} asChild>
+              <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
+                <View
+                  className="flex-1 flex-row items-center rounded-lg border p-2"
+                  style={{
+                    backgroundColor: theme.dark ? "black" : "white",
+                    borderColor: theme.colors.border,
+                  }}
+                >
+                  <Image
+                    recyclingKey={record.avatar}
+                    alt={record.name}
+                    source={{ uri: record.avatar }}
+                    className="h-14 w-14 rounded bg-blue-500"
+                  />
+                  <View className="ml-2 flex-1">
+                    <Text className="text-lg font-medium">
+                      {record.name}
+                      {(record.viewer?.blocked || record.viewer?.muted) && (
+                        <>
+                          {" "}
+                          <CheckIcon color={theme.colors.primary} size={12} />
+                        </>
+                      )}
+                    </Text>
+                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                      {purposeText} by @{record.creator.handle}
                     </Text>
                   </View>
                 </View>
