@@ -3,6 +3,7 @@ import { Linking } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
+import { useLinkPress } from "~/lib/hooks/link-press";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
@@ -28,6 +29,7 @@ export const RichText = ({
   selectable,
 }: Props) => {
   const router = useRouter();
+  const onLongPressLink = useLinkPress();
 
   const classNames = cx(
     {
@@ -102,6 +104,11 @@ export const RichText = ({
                   // }
                 }
               }}
+              onLongPress={(evt) => {
+                if (disableLinks) return;
+                evt.stopPropagation();
+                onLongPressLink(segment.link!.uri);
+              }}
             >
               {textToShow}
             </Text>
@@ -162,7 +169,15 @@ export const RichText = ({
       });
     }
     return parts;
-  }, [text, facets, router, disableLinks, truncate, classNames]);
+  }, [
+    text,
+    facets,
+    router,
+    disableLinks,
+    truncate,
+    classNames,
+    onLongPressLink,
+  ]);
 
   if (!segments) return null;
 

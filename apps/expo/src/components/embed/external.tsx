@@ -13,6 +13,7 @@ import { type AppBskyEmbedExternal } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { LinkIcon } from "lucide-react-native";
 
+import { useLinkPress } from "~/lib/hooks/link-press";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
@@ -25,6 +26,7 @@ interface Props {
 
 export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
   const theme = useTheme();
+  const onLongPressLink = useLinkPress();
 
   const uri = new URL(content.external.uri);
 
@@ -62,14 +64,7 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
       accessibilityRole="link"
       className="mt-1.5 flex-1 rounded-lg"
       onPress={() => Linking.openURL(content.external.uri)}
-      onLongPress={() =>
-        Share.share(
-          Platform.select({
-            ios: { url: content.external.uri },
-            default: { message: content.external.uri },
-          }),
-        )
-      }
+      onLongPress={() => onLongPressLink(content.external.uri)}
     >
       <View
         className={cx(

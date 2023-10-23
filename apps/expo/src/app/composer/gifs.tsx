@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
-  Linking,
   Platform,
   ScrollView,
   TouchableHighlight,
@@ -22,6 +21,7 @@ import { type TenorResponse } from "@graysky/api/src/router/gifs";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
+import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
@@ -189,6 +189,7 @@ const Gif = ({ item, column }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
   const agent = useAgent();
+  const onLongPressLink = useLinkPress();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
@@ -224,7 +225,7 @@ const Gif = ({ item, column }: GifProps) => {
             token: agent.session.accessJwt,
           });
         }}
-        onLongPress={() => Linking.openURL(item.url)}
+        onLongPress={() => onLongPressLink(item.url)}
         style={{ aspectRatio }}
       >
         <Video

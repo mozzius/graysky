@@ -17,6 +17,7 @@ import { z } from "zod";
 import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
 import { useAgent } from "~/lib/agent";
+import { useLinkPress } from "~/lib/hooks/link-press";
 import { cx } from "~/lib/utils/cx";
 
 export default function SignIn() {
@@ -24,6 +25,7 @@ export default function SignIn() {
   const router = useRouter();
   const theme = useTheme();
   const { handle } = useLocalSearchParams<{ handle?: string }>();
+  const onLongPressLink = useLinkPress();
 
   const [identifier, setIdentifier] = useState(handle ?? "");
   const [password, setPassword] = useState("");
@@ -34,8 +36,8 @@ export default function SignIn() {
     mutationFn: async () => {
       await agent.login({
         identifier: identifier.startsWith("@")
-          ? identifier.slice(1)
-          : identifier,
+          ? identifier.slice(1).trim()
+          : identifier.trim(),
         password,
       });
     },
@@ -52,8 +54,6 @@ export default function SignIn() {
     <View
       className={cx("flex-1 px-4 pt-6", theme.dark ? "bg-black" : "bg-white")}
     >
-      {/* STUPID HACK */}
-      {/* I HATE THIS SO MUCH */}
       <Stack.Screen options={{ headerRight: () => null }} />
       <View className="items-stretch gap-4">
         <View
@@ -149,6 +149,9 @@ export default function SignIn() {
                 accessibilityRole="link"
                 onPress={() =>
                   Linking.openURL("https://bsky.app/settings/app-passwords")
+                }
+                onLongPress={() =>
+                  onLongPressLink("https://bsky.app/settings/app-passwords")
                 }
               >
                 Create one at bsky.app/settings
