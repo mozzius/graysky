@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect } from "react";
 import { Platform } from "react-native";
-import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
@@ -31,9 +30,7 @@ export function useNotifications() {
             serviceDid: "did:web:api.bsky.app",
             platform: Platform.OS,
             token: token.data as string,
-            appId:
-              (Constants.expoConfig?.extra?.appId as string) ??
-              "dev.mozzius.graysky",
+            appId: "dev.mozzius.graysky",
           });
         } catch (error) {
           Sentry.Native.captureException(
