@@ -70,6 +70,7 @@ export const FeedScreen = ({ feed }: Props) => {
           ref={ref}
           onScroll={onScroll}
           data={data}
+          contentInsetAdjustmentBehavior="automatic"
           renderItem={({ item: { hasReply, item, filter }, index }) => (
             <FeedPost
               filter={filter}
@@ -90,9 +91,6 @@ export const FeedScreen = ({ feed }: Props) => {
             />
           }
           estimatedItemSize={171}
-          // ListHeaderComponent={
-          //   <View className="w-full border-t border-neutral-200 dark:border-neutral-800" />
-          // }
           ListFooterComponent={
             timeline.isFetching ? (
               <View className="w-full items-center py-8">
