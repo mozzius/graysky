@@ -235,7 +235,6 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         -headerMeasurements.top.value,
         [0, 100],
         [INITIAL_HEADER_HEIGHT + statusBarHeight, headerHeight],
-        // TODO: experiment with EXTEND
         Extrapolation.CLAMP,
       ),
     };

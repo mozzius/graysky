@@ -1,9 +1,12 @@
 import { useCallback, useState } from "react";
-import { RefreshControl, ScrollView } from "react-native";
+import { Platform, RefreshControl } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
+import { ScrollView } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 import { QueryWithoutData } from "../../query-without-data";
@@ -34,6 +37,8 @@ export const ProfileTabView = ({
   const lists = useProfileLists(handle);
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
+  const queryClient = useQueryClient();
+  const { top } = useSafeAreaInsets();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -44,12 +49,17 @@ export const ProfileTabView = ({
   const feedsRefetch = feeds.refetch;
   const listsRefetch = lists.refetch;
 
-  const handleRefresh = useCallback(async () => {
+  const handleRefresh = useCallback(() => {
     setRefreshing(true);
-    await Promise.all([profileRefetch(), feedsRefetch(), listsRefetch()])
+    Promise.all([
+      profileRefetch(),
+      feedsRefetch(),
+      listsRefetch(),
+      queryClient.invalidateQueries(["profile", handle, "feed"]),
+    ])
       .catch(() => console.error("Failed to refresh profile"))
       .finally(() => setRefreshing(false));
-  }, [profileRefetch, feedsRefetch, listsRefetch]);
+  }, [profileRefetch, feedsRefetch, listsRefetch, handle, queryClient]);
 
   const renderProfileInfo = useCallback(() => {
     if (profile.data) {
@@ -62,13 +72,13 @@ export const ProfileTabView = ({
     return (
       <ScrollView
         nestedScrollEnabled
-        className="flex-1"
         contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
             tintColor={theme.colors.text}
+            progressViewOffset={Platform.OS === "ios" ? top / 2 : undefined}
           />
         }
       >
@@ -92,7 +102,6 @@ export const ProfileTabView = ({
             />
           )}
           renderHeader={renderProfileInfo}
-          allowHeaderOverscroll
           lazy
         >
           <Tabs.Tab name="posts" label="Posts">
