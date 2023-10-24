@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { Dimensions, Platform } from "react-native";
+import { Platform, useWindowDimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useMMKVObject } from "react-native-mmkv";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -86,6 +86,7 @@ export default function AppLayout() {
     contentContainerStyle,
   } = useBottomSheetStyles();
   const haptics = useHaptics();
+  const dimensions = useWindowDimensions();
 
   const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
 
@@ -94,7 +95,7 @@ export default function AppLayout() {
       <BottomSheetModal
         ref={accountRef}
         enablePanDownToClose
-        snapPoints={["40%", Dimensions.get("window").height - top - 10]}
+        snapPoints={["40%", dimensions.height - top - 10]}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}
@@ -136,10 +137,10 @@ export default function AppLayout() {
         drawerType="slide"
         statusBarAnimation="slide"
         drawerStyle={{
-          width: Math.min(Dimensions.get("window").width * 0.8, 400),
+          width: Math.min(dimensions.width * 0.8, 400),
           backgroundColor: theme.colors.card,
         }}
-        swipeEdgeWidth={Dimensions.get("window").width}
+        swipeEdgeWidth={dimensions.width}
         swipeEnabled={segments.length === 3}
       >
         <Tabs

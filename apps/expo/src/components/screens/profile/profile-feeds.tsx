@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import {
   ActivityIndicator,
   LogBox,
-  RefreshControl,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -18,7 +17,6 @@ import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
-import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../text";
@@ -36,10 +34,6 @@ export const ProfileFeeds = ({ handle }: Props) => {
 
   const feeds = useProfileFeeds(handle);
   const profile = useProfile(handle);
-
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    feeds.refetch,
-  );
 
   const feedsData = useMemo(() => {
     if (!feeds.data) return [];
@@ -97,13 +91,6 @@ export const ProfileFeeds = ({ handle }: Props) => {
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => void feeds.fetchNextPage()}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={tintColor}
-          />
-        }
         estimatedItemSize={91}
         ListFooterComponent={
           feeds.isFetching ? (

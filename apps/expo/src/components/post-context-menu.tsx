@@ -74,6 +74,10 @@ const PostContextMenuButton = ({
   const copy = async () => {
     if (!AppBskyFeedPost.isRecord(post.record)) return;
     await Clipboard.setStringAsync(post.record.text);
+    showToastable({
+      title: "Copied post text",
+      message: "Post text copied to clipboard",
+    });
   };
 
   const delet = () => {
@@ -91,6 +95,7 @@ const PostContextMenuButton = ({
           void queryClient.invalidateQueries();
           showToastable({
             message: "Post deleted",
+            status: "danger",
           });
           if (path.endsWith(rkey)) {
             router.back();

@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { RefreshControl, ScrollView } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { Stack, useFocusEffect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -34,9 +35,21 @@ export const ProfileTabView = ({
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
   const [mounted, setMounted] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
   const numberOfLists = lists.data?.pages?.[0]?.lists?.length ?? 0;
+
+  const profileRefetch = profile.refetch;
+  const feedsRefetch = feeds.refetch;
+  const listsRefetch = lists.refetch;
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await Promise.all([profileRefetch(), feedsRefetch(), listsRefetch()])
+      .catch(() => console.error("Failed to refresh profile"))
+      .finally(() => setRefreshing(false));
+  }, [profileRefetch, feedsRefetch, listsRefetch]);
 
   useFocusEffect(
     useCallback(() => {
@@ -56,7 +69,17 @@ export const ProfileTabView = ({
 
   if (profile.data) {
     return (
-      <>
+      <ScrollView
+        nestedScrollEnabled
+        className="flex-1"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={theme.colors.text}
+          />
+        }
+      >
         {mounted && <StatusBar style="light" backgroundColor="black" />}
         <Stack.Screen
           options={{
@@ -103,7 +126,7 @@ export const ProfileTabView = ({
             </Tabs.Tab>
           )}
         </Tabs.Container>
-      </>
+      </ScrollView>
     );
   }
 

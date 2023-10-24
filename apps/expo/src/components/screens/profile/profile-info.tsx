@@ -26,7 +26,6 @@ import {
   MoreHorizontalIcon,
   PlusIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 
 import {
   blockAccount,
@@ -64,7 +63,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();
-  const { colorScheme } = useColorScheme();
+
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
@@ -236,7 +235,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         -headerMeasurements.top.value,
         [0, 100],
         [INITIAL_HEADER_HEIGHT + statusBarHeight, headerHeight],
-        Extrapolation.CLAMP,
+        Extrapolation.EXTEND,
       ),
     };
   });

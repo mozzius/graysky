@@ -1,9 +1,8 @@
-import { ActivityIndicator, LogBox, RefreshControl, View } from "react-native";
+import { ActivityIndicator, LogBox, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 
 import { Text } from "~/components/text";
 import { useTabPressScrollRef } from "~/lib/hooks";
-import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
@@ -40,10 +39,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     timeline.refetch,
   );
 
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    timeline.refetch,
-  );
-
   if (!preferences.data) {
     return <QueryWithoutData query={preferences} />;
   }
@@ -73,13 +68,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => timeline.fetchNextPage()}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={tintColor}
-          />
-        }
         estimatedItemSize={91}
         ListFooterComponent={
           timeline.isFetching ? (

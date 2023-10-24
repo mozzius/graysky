@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { Dimensions, TouchableHighlight, View } from "react-native";
+import { TouchableHighlight, useWindowDimensions, View } from "react-native";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Link, usePathname, useRouter } from "expo-router";
@@ -43,6 +43,7 @@ export const FeedsButton = ({ show = true }: Props) => {
   const savedFeeds = useSavedFeeds();
   const router = useRouter();
   const [{ homepage }] = useAppPreferences();
+  const dimensions = useWindowDimensions();
 
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
 
@@ -93,7 +94,7 @@ export const FeedsButton = ({ show = true }: Props) => {
       <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose
-        snapPoints={["60%", Dimensions.get("window").height - top - 10]}
+        snapPoints={["60%", dimensions.height - top - 10]}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}

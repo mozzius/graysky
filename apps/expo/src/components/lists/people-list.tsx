@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
@@ -46,6 +46,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
     const { top } = useSafeAreaInsets();
     const [showAll, setShowAll] = useState(false);
     const theme = useTheme();
+    const dimensions = useWindowDimensions();
 
     useImperativeHandle(ref, () => ({
       open: () => {
@@ -73,7 +74,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
       <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose
-        snapPoints={["60%", Dimensions.get("window").height - top - 10]}
+        snapPoints={["60%", dimensions.height - top - 10]}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}

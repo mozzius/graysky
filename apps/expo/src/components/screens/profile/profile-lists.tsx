@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import {
   ActivityIndicator,
   LogBox,
-  RefreshControl,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,7 +14,6 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
-import { useUserRefresh } from "~/lib/utils/query";
 import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../text";
 import { useProfile, useProfileLists } from "./hooks";
@@ -29,10 +27,6 @@ interface Props {
 export const ProfileLists = ({ handle }: Props) => {
   const lists = useProfileLists(handle);
   const profile = useProfile(handle);
-
-  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
-    lists.refetch,
-  );
 
   const listsData = useMemo(() => {
     if (!lists.data) return [];
@@ -56,13 +50,6 @@ export const ProfileLists = ({ handle }: Props) => {
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => lists.fetchNextPage()}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={tintColor}
-          />
-        }
         estimatedItemSize={91}
         ListFooterComponent={
           lists.isFetching ? (
