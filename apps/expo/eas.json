@@ -29,7 +29,7 @@
     },
     "production": {
       "autoIncrement": true,
-      "node": "18.16.0",
+      "node": "18.18.2",
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
@@ -40,7 +40,7 @@
     },
     "production-apk": {
       "autoIncrement": true,
-      "node": "18.16.0",
+      "node": "18.18.2",
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"

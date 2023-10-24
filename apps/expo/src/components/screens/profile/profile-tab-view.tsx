@@ -77,7 +77,8 @@ export const ProfileTabView = ({
             />
           )}
           renderHeader={renderProfileInfo}
-          // lazy
+          allowHeaderOverscroll
+          lazy
         >
           <Tabs.Tab name="posts" label="Posts">
             <ProfilePosts mode="posts" handle={handle} />
