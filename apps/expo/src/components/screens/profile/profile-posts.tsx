@@ -55,6 +55,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     return (
       <Tabs.FlashList<(typeof timelineData)[number]>
         ref={ref}
+        nestedScrollEnabled
         onScroll={onScroll}
         data={timelineData}
         renderItem={({ item, index }) => (

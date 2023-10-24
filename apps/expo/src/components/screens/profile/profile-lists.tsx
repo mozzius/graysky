@@ -43,6 +43,7 @@ export const ProfileLists = ({ handle }: Props) => {
     return (
       <Tabs.FlashList<(typeof listsData)[number]>
         ref={ref}
+        nestedScrollEnabled
         onScroll={onScroll}
         data={listsData}
         renderItem={({ item }) => (

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { RefreshControl, ScrollView } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import { Stack, useFocusEffect } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 
@@ -34,7 +34,7 @@ export const ProfileTabView = ({
   const lists = useProfileLists(handle);
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
-  const [mounted, setMounted] = useState(false);
+
   const [refreshing, setRefreshing] = useState(false);
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
@@ -51,15 +51,6 @@ export const ProfileTabView = ({
       .finally(() => setRefreshing(false));
   }, [profileRefetch, feedsRefetch, listsRefetch]);
 
-  useFocusEffect(
-    useCallback(() => {
-      setMounted(true);
-      return () => {
-        setMounted(false);
-      };
-    }, []),
-  );
-
   const renderProfileInfo = useCallback(() => {
     if (profile.data) {
       return <ProfileInfo profile={profile.data} backButton={backButton} />;
@@ -72,6 +63,7 @@ export const ProfileTabView = ({
       <ScrollView
         nestedScrollEnabled
         className="flex-1"
+        contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -80,7 +72,7 @@ export const ProfileTabView = ({
           />
         }
       >
-        {mounted && <StatusBar style="light" backgroundColor="black" />}
+        <StatusBar style="light" backgroundColor="black" />
         <Stack.Screen
           options={{
             headerShown: false,

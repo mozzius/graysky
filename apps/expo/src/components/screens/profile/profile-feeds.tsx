@@ -84,6 +84,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
     return (
       <Tabs.FlashList<(typeof feedsData)[number]>
         ref={ref}
+        nestedScrollEnabled
         onScroll={onScroll}
         data={feedsData}
         renderItem={({ item }) => (
