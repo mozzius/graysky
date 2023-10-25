@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Linking,
   Platform,
@@ -139,8 +139,20 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
   const [aspectRatio, setAspectRatio] = useState(1);
   const [{ gifAutoplay }] = useAppPreferences();
   const [playing, setPlaying] = useState(gifAutoplay);
+  const ref = useRef<Video>(null!);
 
   const shareUrl = link.toString();
+
+  useEffect(() => {
+    const player = ref.current;
+    void player.loadAsync(
+      { uri },
+      { shouldPlay: gifAutoplay, isLooping: true, isMuted: true },
+    );
+    return () => {
+      void player.unloadAsync();
+    };
+  }, [gifAutoplay, uri]);
 
   return (
     <TouchableHighlight
@@ -174,11 +186,8 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
           </Text>
         </View>
         <Video
-          source={{ uri }}
           resizeMode={ResizeMode.COVER}
           shouldPlay={playing}
-          isLooping
-          isMuted
           style={{ flex: 1, aspectRatio }}
           posterSource={{ uri: thumb }}
           onReadyForDisplay={({ naturalSize }) =>
