@@ -11,7 +11,7 @@ import { ResizeMode, Video } from "expo-av";
 import { Image } from "expo-image";
 import { type AppBskyEmbedExternal } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { LinkIcon } from "lucide-react-native";
+import { LinkIcon, NewspaperIcon } from "lucide-react-native";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useAppPreferences } from "~/lib/hooks/preferences";
@@ -71,11 +71,11 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
           "flex-1 overflow-hidden rounded-lg border",
           theme.dark ? "bg-black" : "bg-white",
           transparent && "bg-transparent",
-          depth > 0 && "flex-row",
+          (depth > 0 || !content.external.thumb) && "flex-row",
         )}
         style={{ borderColor: theme.colors.border }}
       >
-        {content.external.thumb && (
+        {content.external.thumb ? (
           <Image
             recyclingKey={content.external.thumb}
             source={{ uri: content.external.thumb }}
@@ -86,11 +86,21 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
               depth === 0 ? "aspect-[2/1] w-full" : "aspect-square h-full",
             )}
           />
+        ) : (
+          <View className="aspect-square h-full flex-1 items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+            <NewspaperIcon
+              size={48}
+              className="text-neutral-300 dark:text-neutral-700"
+            />
+          </View>
         )}
         <View
           className={cx(
             "flex-1 p-2",
-            content.external.thumb && (depth === 0 ? "border-t" : "border-l"),
+            content.external.thumb &&
+              (depth === 0 || !content.external.thumb
+                ? "border-t"
+                : "border-l"),
           )}
           style={{ borderColor: theme.colors.border }}
         >
