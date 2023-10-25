@@ -155,13 +155,15 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
 
   useEffect(() => {
     const player = ref.current;
-    void player.loadAsync(
-      { uri },
-      { shouldPlay: gifAutoplay, isLooping: true, isMuted: true },
-    );
-    return () => {
-      void player.unloadAsync();
-    };
+    if (player) {
+      void player.loadAsync(
+        { uri },
+        { shouldPlay: gifAutoplay, isLooping: true, isMuted: true },
+      );
+      return () => {
+        void player.unloadAsync();
+      };
+    }
   }, [gifAutoplay, uri]);
 
   return (
@@ -196,6 +198,7 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
           </Text>
         </View>
         <Video
+          ref={ref}
           resizeMode={ResizeMode.COVER}
           shouldPlay={playing}
           style={{ flex: 1, aspectRatio }}

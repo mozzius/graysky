@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
+import { ChevronRightIcon } from "lucide-react-native";
 
 import { Text } from "../text";
 
@@ -54,6 +55,7 @@ export const PersonRow = ({
             @{person.handle}
           </Text>
         </View>
+        <ChevronRightIcon size={20} className="ml-0.5 text-neutral-500" />
       </View>
     </Touchable>
   );

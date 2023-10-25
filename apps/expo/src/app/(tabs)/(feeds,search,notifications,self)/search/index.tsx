@@ -1,5 +1,6 @@
 import { Fragment, useMemo, useRef, useState } from "react";
 import {
+  KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -50,7 +51,6 @@ export default function SearchPage() {
     onBlur: () => setIsSearching(false),
     hideWhenScrolling: false,
     hideNavigationBar: false,
-    autoFocus: true,
     ref,
   });
 
@@ -95,58 +95,60 @@ const SearchResults = ({ search }: Props) => {
 
   if (searchResults.data) {
     return (
-      <GroupedList
-        contentInsetAdjustmentBehavior="automatic"
-        groups={[
-          {
-            options: [
-              {
-                icon: SearchIcon,
-                title: "Search posts",
-                href: `/search/posts?q=${encodeURIComponent(search)}`,
-              },
-              {
-                icon: SearchIcon,
-                title: "Search feeds",
-                href: `/search/feeds?q=${encodeURIComponent(search)}`,
-              },
-              data.length === 0
-                ? {
-                    icon: SearchIcon,
-                    title: "Search users",
-                    href: `/search/people?q=${encodeURIComponent(search)}`,
-                  }
-                : [],
-            ].flat(),
-          },
-          data.length > 0
-            ? {
-                children: data.slice(0, 5).map((item, i, arr) => (
-                  <Fragment key={item.did}>
-                    <PersonRow person={item} />
-                    {i !== arr.length - 1 ? (
-                      <ItemSeparator iconWidth="w-10" />
-                    ) : (
-                      data.length === MAX_RESULTS && <ItemSeparator />
-                    )}
-                  </Fragment>
-                )),
-                options:
-                  data.length === MAX_RESULTS
-                    ? [
-                        {
-                          icon: SearchIcon,
-                          title: "Search all users",
-                          href: `/search/people?q=${encodeURIComponent(
-                            search,
-                          )}`,
-                        },
-                      ]
-                    : [],
-              }
-            : [],
-        ].flat()}
-      />
+      <KeyboardAvoidingView behavior="padding" className="flex-1">
+        <GroupedList
+          contentInsetAdjustmentBehavior="automatic"
+          groups={[
+            {
+              options: [
+                {
+                  icon: SearchIcon,
+                  title: "Search posts",
+                  href: `/search/posts?q=${encodeURIComponent(search)}`,
+                },
+                {
+                  icon: SearchIcon,
+                  title: "Search feeds",
+                  href: `/search/feeds?q=${encodeURIComponent(search)}`,
+                },
+                data.length === 0
+                  ? {
+                      icon: SearchIcon,
+                      title: "Search users",
+                      href: `/search/people?q=${encodeURIComponent(search)}`,
+                    }
+                  : [],
+              ].flat(),
+            },
+            data.length > 0
+              ? {
+                  children: data.slice(0, 5).map((item, i, arr) => (
+                    <Fragment key={item.did}>
+                      <PersonRow person={item} />
+                      {i !== arr.length - 1 ? (
+                        <ItemSeparator iconWidth="w-10" />
+                      ) : (
+                        data.length === MAX_RESULTS && <ItemSeparator />
+                      )}
+                    </Fragment>
+                  )),
+                  options:
+                    data.length === MAX_RESULTS
+                      ? [
+                          {
+                            icon: SearchIcon,
+                            title: "Search all users",
+                            href: `/search/people?q=${encodeURIComponent(
+                              search,
+                            )}`,
+                          },
+                        ]
+                      : [],
+                }
+              : [],
+          ].flat()}
+        />
+      </KeyboardAvoidingView>
     );
   }
 
