@@ -8,6 +8,8 @@ import * as Sentry from "sentry-expo";
 
 import { useOptionalAgent } from "../agent";
 
+const SERVICE_DID = "did:web:graysky.app";
+
 export function useNotifications() {
   const agent = useOptionalAgent();
   const router = useRouter();
@@ -27,7 +29,7 @@ export function useNotifications() {
       if (token) {
         try {
           await agent.api.app.bsky.notification.registerPush({
-            serviceDid: "did:web:api.bsky.app",
+            serviceDid: SERVICE_DID,
             platform: Platform.OS,
             token: token.data as string,
             appId: "dev.mozzius.graysky",
@@ -48,7 +50,7 @@ export function useNotifications() {
       if (t) {
         try {
           await agent.api.app.bsky.notification.registerPush({
-            serviceDid: "did:web:api.bsky.app",
+            serviceDid: SERVICE_DID,
             platform: Platform.OS,
             token: t as string,
             appId: "dev.mozzius.graysky",
