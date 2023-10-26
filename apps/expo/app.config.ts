@@ -44,6 +44,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       UIViewControllerBasedStatusBarAppearance: true,
       // UIViewControllerBasedStatusBarAppearance: false,
       CADisableMinimumFrameDurationOnPhone: true,
+      UIBackgroundModes: ["remote-notification"],
     },
   },
   android: {
