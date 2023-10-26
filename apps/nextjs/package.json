@@ -13,6 +13,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^0.2.3",
     "bright": "^0.8.4",
+    "firebase-admin": "^11.11.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.289.0",
     "next": "13.5.6",
