@@ -35,7 +35,7 @@ export const Button = ({
           outline: "border border-black dark:border-white",
         }[variant],
       )}
-      style={style}
+      style={[{ borderCurve: "continuous" }, style]}
     >
       {isChildAString ? (
         <Text
