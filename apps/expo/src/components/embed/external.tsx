@@ -87,9 +87,9 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
             )}
           />
         ) : (
-          <View className="aspect-square h-full flex-1 items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+          <View className="h-full items-center justify-center bg-neutral-100 px-3 dark:bg-neutral-900">
             <NewspaperIcon
-              size={48}
+              size={24}
               className="text-neutral-300 dark:text-neutral-700"
             />
           </View>
@@ -122,13 +122,6 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
           >
             {content.external.title || content.external.uri}
           </Text>
-          {content.external.description &&
-            depth === 0 &&
-            !content.external.thumb && (
-              <Text className="mt-0.5 text-sm leading-5" numberOfLines={2}>
-                {content.external.description}
-              </Text>
-            )}
         </View>
       </View>
     </TouchableHighlight>
