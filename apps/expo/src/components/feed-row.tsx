@@ -242,8 +242,6 @@ export const DraggableFeedRow = ({
                       },
                     );
                   }}
-                  accessibilityLabel="Unsave feed"
-                  accessibilityRole="button"
                 >
                   <View className="mr-1 px-2 py-0.5">
                     <MinusCircleIcon
@@ -274,10 +272,7 @@ export const DraggableFeedRow = ({
                   className="absolute left-full"
                   pointerEvents={editing ? "auto" : "none"}
                 >
-                  <TouchableWithoutFeedback
-                    onPressIn={drag}
-                    accessibilityLabel="Reorder feed"
-                  >
+                  <TouchableWithoutFeedback onPressIn={drag}>
                     <View className="ml-1 px-2 py-0.5">
                       <EqualIcon size={20} color={theme.colors.text} />
                     </View>
