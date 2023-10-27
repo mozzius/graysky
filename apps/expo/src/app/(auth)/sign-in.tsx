@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  Linking,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -25,7 +19,7 @@ export default function SignIn() {
   const router = useRouter();
   const theme = useTheme();
   const { handle } = useLocalSearchParams<{ handle?: string }>();
-  const onLongPressLink = useLinkPress();
+  const { openLink, showLinkOptions } = useLinkPress();
 
   const [identifier, setIdentifier] = useState(handle ?? "");
   const [password, setPassword] = useState("");
@@ -148,10 +142,10 @@ export default function SignIn() {
                 style={{ color: theme.colors.primary }}
                 accessibilityRole="link"
                 onPress={() =>
-                  Linking.openURL("https://bsky.app/settings/app-passwords")
+                  openLink("https://bsky.app/settings/app-passwords")
                 }
                 onLongPress={() =>
-                  onLongPressLink("https://bsky.app/settings/app-passwords")
+                  showLinkOptions("https://bsky.app/settings/app-passwords")
                 }
               >
                 Create one at bsky.app/settings

@@ -1,4 +1,4 @@
-import { Linking, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
@@ -11,110 +11,112 @@ import {
   WrenchIcon,
 } from "lucide-react-native";
 
-import { GroupedList, type Groups } from "~/components/grouped-list";
+import { GroupedList } from "~/components/grouped-list";
 import { Text } from "~/components/text";
+import { useLinkPress } from "~/lib/hooks/link-press";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../assets/graysky.png") as ImageSource;
 
-const groups = [
-  {
-    options: [
-      {
-        title: "Star us on GitHub!",
-        accessibilityRole: "link",
-        onPress: () => Linking.openURL("https://github.com/mozzius/graysky"),
-        icon: GithubIcon,
-        chevron: true,
-      },
-      {
-        title: "Sign up for project updates",
-        accessibilityRole: "link",
-        onPress: () => Linking.openURL("https://graysky.app"),
-        icon: MailIcon,
-        chevron: true,
-      },
-      {
-        title: "Contact",
-        accessibilityRole: "link",
-        onPress: () => Linking.openURL("mailto:hello@graysky.app"),
-        icon: SendIcon,
-        chevron: true,
-      },
-    ],
-  },
-  {
-    title: "Created by",
-    options: [
-      {
-        title: "mozzius.dev",
-        accessibilityRole: "link",
-        href: "/profile/mozzius.dev",
-        icon: AtSignIcon,
-      },
-      {
-        title: "Sponsor my work",
-        accessibilityRole: "link",
-        onPress: () => Linking.openURL("https://github.com/sponsors/mozzius"),
-        icon: HeartIcon,
-        chevron: true,
-      },
-    ],
-  },
-  {
-    title: "Contributors",
-    options: [
-      {
-        title: "alice.bsky.sh",
-        accessibilityRole: "link",
-        href: "/profile/alice.bsky.sh",
-        icon: AtSignIcon,
-      },
-      {
-        title: "holden.bsky.social",
-        accessibilityRole: "link",
-        href: "/profile/holden.bsky.social",
-        icon: AtSignIcon,
-      },
-      {
-        title: "matthewstanciu.com",
-        accessibilityRole: "link",
-        href: "/profile/matthewstanciu.com",
-        icon: AtSignIcon,
-      },
-      {
-        title: "jcsalterego.bsky.social",
-        accessibilityRole: "link",
-        href: "/profile/jcsalterego.bsky.social",
-        icon: AtSignIcon,
-      },
-    ],
-  },
-  {
-    title: "Logo designed by",
-    options: [
-      {
-        title: "roselia.gay",
-        accessibilityRole: "link",
-        href: "/profile/roselia.gay",
-        icon: AtSignIcon,
-      },
-    ],
-  },
-  {
-    title: "App info",
-    options: [
-      {
-        title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
-        icon: WrenchIcon,
-      },
-    ],
-  },
-] satisfies Groups;
-
 export default function AboutPage() {
+  const { openLink } = useLinkPress();
   return (
-    <GroupedList groups={groups}>
+    <GroupedList
+      groups={[
+        {
+          options: [
+            {
+              title: "Star us on GitHub!",
+              accessibilityRole: "link",
+              onPress: () => openLink("https://github.com/mozzius/graysky"),
+              icon: GithubIcon,
+              chevron: true,
+            },
+            {
+              title: "Sign up for project updates",
+              accessibilityRole: "link",
+              onPress: () => openLink("https://graysky.app"),
+              icon: MailIcon,
+              chevron: true,
+            },
+            {
+              title: "Contact",
+              accessibilityRole: "link",
+              onPress: () => openLink("mailto:hello@graysky.app"),
+              icon: SendIcon,
+              chevron: true,
+            },
+          ],
+        },
+        {
+          title: "Created by",
+          options: [
+            {
+              title: "mozzius.dev",
+              accessibilityRole: "link",
+              href: "/profile/mozzius.dev",
+              icon: AtSignIcon,
+            },
+            {
+              title: "Sponsor my work",
+              accessibilityRole: "link",
+              onPress: () => openLink("https://github.com/sponsors/mozzius"),
+              icon: HeartIcon,
+              chevron: true,
+            },
+          ],
+        },
+        {
+          title: "Contributors",
+          options: [
+            {
+              title: "alice.bsky.sh",
+              accessibilityRole: "link",
+              href: "/profile/alice.bsky.sh",
+              icon: AtSignIcon,
+            },
+            {
+              title: "holden.bsky.social",
+              accessibilityRole: "link",
+              href: "/profile/holden.bsky.social",
+              icon: AtSignIcon,
+            },
+            {
+              title: "matthewstanciu.com",
+              accessibilityRole: "link",
+              href: "/profile/matthewstanciu.com",
+              icon: AtSignIcon,
+            },
+            {
+              title: "jcsalterego.bsky.social",
+              accessibilityRole: "link",
+              href: "/profile/jcsalterego.bsky.social",
+              icon: AtSignIcon,
+            },
+          ],
+        },
+        {
+          title: "Logo designed by",
+          options: [
+            {
+              title: "roselia.gay",
+              accessibilityRole: "link",
+              href: "/profile/roselia.gay",
+              icon: AtSignIcon,
+            },
+          ],
+        },
+        {
+          title: "App info",
+          options: [
+            {
+              title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
+              icon: WrenchIcon,
+            },
+          ],
+        },
+      ]}
+    >
       <View className="mb-4 flex-row items-center justify-center py-4">
         <Image
           alt="graysky"

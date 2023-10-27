@@ -7,6 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
+import * as Sentry from "sentry-expo";
 
 import { actionSheetStyles } from "../utils/action-sheet";
 import { useAppPreferences } from "./preferences";
@@ -16,7 +17,31 @@ export const useLinkPress = () => {
   const [{ inAppBrowser }] = useAppPreferences();
   const theme = useTheme();
 
-  return useCallback(
+  const openLink = useCallback(
+    async (url: string) => {
+      try {
+        if (inAppBrowser) {
+          await WebBrowser.openBrowserAsync(url, {
+            presentationStyle:
+              WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+          });
+        } else {
+          await Linking.openURL(url);
+        }
+      } catch (err) {
+        showToastable({
+          title: "Failed to open link",
+          message:
+            err instanceof Error ? err.message : "Not sure why, sorry :(",
+          status: "danger",
+        });
+        Sentry.Native.captureException(err);
+      }
+    },
+    [inAppBrowser],
+  );
+
+  const showLinkOptions = useCallback(
     (url: string) => {
       const options = ["Open link", "Copy link", "Share link"] as const;
       const icons = [
@@ -37,11 +62,7 @@ export const useLinkPress = () => {
           if (index === undefined) return;
           switch (options[index]) {
             case "Open link":
-              if (inAppBrowser) {
-                void WebBrowser.openBrowserAsync(url);
-              } else {
-                void Linking.openURL(url);
-              }
+              void openLink(url);
               break;
             case "Copy link":
               void Clipboard.setUrlAsync(url);
@@ -62,6 +83,8 @@ export const useLinkPress = () => {
         },
       );
     },
-    [showActionSheetWithOptions, theme, inAppBrowser],
+    [showActionSheetWithOptions, theme, openLink],
   );
+
+  return { openLink, showLinkOptions };
 };

@@ -194,7 +194,7 @@ const appPrefsSchema = z.object({
     .optional()
     .default(Localization.getLocales().map((l) => l.languageCode)),
   gifAutoplay: z.boolean().optional().default(true),
-  inAppBrowser: z.boolean().optional().default(false),
+  inAppBrowser: z.boolean().optional().default(true),
   altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
 });
 

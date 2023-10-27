@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Linking,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Alert, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
@@ -15,6 +9,7 @@ import { z } from "zod";
 
 import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { useLinkPress } from "~/lib/hooks/link-press";
 
 const schema = z.discriminatedUnion("success", [
   z.object({ success: z.literal(false), error: z.string() }),
@@ -25,6 +20,7 @@ export default function Waitlist() {
   const [email, setEmail] = useState("");
   const theme = useTheme();
   const router = useRouter();
+  const { openLink } = useLinkPress();
 
   const submit = useMutation({
     mutationKey: ["waitlist"],
@@ -90,7 +86,7 @@ export default function Waitlist() {
           style={{ color: theme.colors.primary }}
           accessibilityRole="link"
           onPress={() =>
-            Linking.openURL("https://atproto.com/blog/call-for-developers")
+            openLink("https://atproto.com/blog/call-for-developers")
           }
         >
           developer waitlist form

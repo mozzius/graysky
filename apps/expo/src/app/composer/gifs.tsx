@@ -189,7 +189,7 @@ const Gif = ({ item, column }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
   const agent = useAgent();
-  const onLongPressLink = useLinkPress();
+  const { showLinkOptions } = useLinkPress();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
@@ -225,7 +225,7 @@ const Gif = ({ item, column }: GifProps) => {
             token: agent.session.accessJwt,
           });
         }}
-        onLongPress={() => onLongPressLink(item.url)}
+        onLongPress={() => showLinkOptions(item.url)}
         style={{ aspectRatio }}
       >
         <Video
