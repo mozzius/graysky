@@ -194,33 +194,55 @@ const appPrefsSchema = z.object({
     .optional()
     .default(Localization.getLocales().map((l) => l.languageCode)),
   gifAutoplay: z.boolean().optional().default(true),
+  inAppBrowser: z.boolean().optional().default(false),
+  altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;
 
-export const useAppPreferences = () => {
+type AppPreferencesContextType = [
+  AppPreferences,
+  (prefs: Partial<AppPreferences>) => void,
+];
+
+const AppPreferencesContext = createContext<AppPreferencesContextType | null>(
+  null,
+);
+
+export const AppPreferencesProvider = ({
+  children,
+}: React.PropsWithChildren) => {
   const [rawPrefs, setRawPrefs] = useMMKVObject<AppPreferences>(
     "app-prefs",
     store,
   );
 
-  const prefs = useMemo(() => {
+  const value = useMemo(() => {
+    let prefs: AppPreferences;
     try {
-      return appPrefsSchema.parse(rawPrefs ?? {});
+      prefs = appPrefsSchema.parse(rawPrefs ?? {});
     } catch (err) {
       console.warn(err);
-      return appPrefsSchema.parse({});
+      prefs = appPrefsSchema.parse({});
     }
-  }, [rawPrefs]);
-
-  const setPrefs = useCallback(
-    (incoming: Partial<AppPreferences>) => {
+    const setPrefs = (incoming: Partial<AppPreferences>) => {
       setRawPrefs({ ...prefs, ...incoming });
-    },
-    [prefs, setRawPrefs],
-  );
+    };
 
-  return [prefs, setPrefs] as const;
+    return [prefs, setPrefs] satisfies AppPreferencesContextType;
+  }, [rawPrefs, setRawPrefs]);
+
+  return (
+    <AppPreferencesContext.Provider value={value}>
+      {children}
+    </AppPreferencesContext.Provider>
+  );
+};
+
+export const useAppPreferences = () => {
+  const context = useContext(AppPreferencesContext);
+  if (!context) throw new Error("No app preferences context");
+  return context;
 };
 
 export const useHaptics = () => {

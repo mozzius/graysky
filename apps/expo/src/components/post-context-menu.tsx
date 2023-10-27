@@ -36,6 +36,7 @@ interface Props {
   showSeeLikes?: boolean;
   showSeeReposts?: boolean;
   showCopyText?: boolean;
+  onTranslate?: () => void;
 }
 
 const PostContextMenuButton = ({
@@ -43,6 +44,7 @@ const PostContextMenuButton = ({
   showSeeLikes,
   showSeeReposts,
   showCopyText,
+  onTranslate,
 }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -55,11 +57,6 @@ const PostContextMenuButton = ({
   const path = usePathname();
 
   const rkey = post.uri.split("/").pop()!;
-
-  const translate = () => {
-    if (!AppBskyFeedPost.isRecord(post.record)) return;
-    router.push(`/translate?text=${encodeURIComponent(post.record.text)}`);
-  };
 
   const share = () => {
     const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
@@ -151,13 +148,15 @@ const PostContextMenuButton = ({
     destructive?: boolean;
     reactIcon: JSX.Element;
   }[] = [
-    {
-      key: "translate",
-      label: "Translate",
-      action: () => translate(),
-      icon: "character.book.closed",
-      reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
-    },
+    onTranslate
+      ? {
+          key: "translate",
+          label: "Translate",
+          action: () => onTranslate(),
+          icon: "character.book.closed",
+          reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
+        }
+      : [],
     {
       key: "share",
       label: "Share post",

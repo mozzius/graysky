@@ -64,6 +64,10 @@ const FeedPostInner = ({
       !!filter,
   );
   const [hidden, setHidden] = useState(showWarning);
+  const [forceShowTranslation, setForceShowTranslation] = useState<
+    string | null
+  >(null);
+
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
 
@@ -309,10 +313,11 @@ const FeedPostInner = ({
                       </View>
                     </TouchableWithoutFeedback>
                   </Link>
-                  {needsTranslation && (
+                  {(needsTranslation || forceShowTranslation) && (
                     <Translation
                       uri={item.post.uri}
                       text={item.post.record.text}
+                      forceShow={forceShowTranslation === item.post.uri}
                     />
                   )}
                 </>
@@ -334,7 +339,14 @@ const FeedPostInner = ({
           {/* actions */}
           {!hideActions && (
             <PostActionRow post={item.post} dataUpdatedAt={dataUpdatedAt}>
-              <PostContextMenu post={item.post} />
+              <PostContextMenu
+                post={item.post}
+                onTranslate={
+                  needsTranslation
+                    ? undefined
+                    : () => setForceShowTranslation(item.post.uri)
+                }
+              />
             </PostActionRow>
           )}
         </View>

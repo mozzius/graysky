@@ -20,7 +20,7 @@ export default function AppSettings() {
                   onValueChange={(sortableFeeds) =>
                     setAppPrefs({ sortableFeeds })
                   }
-                  accessibilityLabel="Allows you to manually sort non-favourite feeds in the feeds tab"
+                  accessibilityHint="Allows you to manually sort non-favourite feeds in the feeds tab"
                 />
               ),
             },
@@ -32,7 +32,19 @@ export default function AppSettings() {
                   onValueChange={(value) =>
                     setAppPrefs({ groupNotifications: !value })
                   }
-                  accessibilityLabel="Show each notification individually in the notification tab"
+                  accessibilityHint="Show each notification individually in the notification tab"
+                />
+              ),
+            },
+            {
+              title: "Use in-app browser",
+              action: (
+                <Switch
+                  value={appPrefs.inAppBrowser}
+                  onValueChange={(value) =>
+                    setAppPrefs({ inAppBrowser: value })
+                  }
+                  accessibilityHint="Links will open in the app instead of your device's default browser"
                 />
               ),
             },
@@ -56,7 +68,7 @@ export default function AppSettings() {
                       );
                     }
                   }}
-                  accessibilityLabel="Disable haptics (vibrations)"
+                  accessibilityHint="Disable haptics (vibrations)"
                 />
               ),
             },
@@ -69,7 +81,7 @@ export default function AppSettings() {
                     const gifAutoplay = !disableGifAutoplay;
                     setAppPrefs({ gifAutoplay });
                   }}
-                  accessibilityLabel="Disable GIF autoplay"
+                  accessibilityHint="Disable GIF autoplay"
                 />
               ),
             },

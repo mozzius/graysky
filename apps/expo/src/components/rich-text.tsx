@@ -1,9 +1,11 @@
 import { Fragment, useMemo } from "react";
 import { Linking } from "react-native";
 import { useRouter } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
+import { useAppPreferences } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
@@ -30,6 +32,7 @@ export const RichText = ({
 }: Props) => {
   const router = useRouter();
   const onLongPressLink = useLinkPress();
+  const [{ inAppBrowser }] = useAppPreferences();
 
   const classNames = cx(
     {
@@ -79,7 +82,11 @@ export const RichText = ({
                   const path = url.slice("https://bsky.app".length);
                   router.push(path);
                 } else {
-                  void Linking.openURL(url);
+                  if (inAppBrowser) {
+                    void WebBrowser.openBrowserAsync(url);
+                  } else {
+                    void Linking.openURL(url);
+                  }
                   // check link is not deceptive
                   // TODO: the official app now shortens links - will need new logic
                   // const realHost = new URL(url).hostname;
@@ -174,6 +181,7 @@ export const RichText = ({
     truncate,
     classNames,
     onLongPressLink,
+    inAppBrowser,
   ]);
 
   if (!segments) return null;

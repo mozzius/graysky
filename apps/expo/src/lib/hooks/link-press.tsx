@@ -3,14 +3,17 @@ import { Platform, Share } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
+import * as WebBrowser from "expo-web-browser";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
 
 import { actionSheetStyles } from "../utils/action-sheet";
+import { useAppPreferences } from "./preferences";
 
 export const useLinkPress = () => {
   const { showActionSheetWithOptions } = useActionSheet();
+  const [{ inAppBrowser }] = useAppPreferences();
   const theme = useTheme();
 
   return useCallback(
@@ -34,7 +37,11 @@ export const useLinkPress = () => {
           if (index === undefined) return;
           switch (options[index]) {
             case "Open link":
-              void Linking.openURL(url);
+              if (inAppBrowser) {
+                void WebBrowser.openBrowserAsync(url);
+              } else {
+                void Linking.openURL(url);
+              }
               break;
             case "Copy link":
               void Clipboard.setUrlAsync(url);
@@ -55,6 +62,6 @@ export const useLinkPress = () => {
         },
       );
     },
-    [showActionSheetWithOptions, theme],
+    [showActionSheetWithOptions, theme, inAppBrowser],
   );
 };

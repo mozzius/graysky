@@ -117,7 +117,7 @@ export default function ImageModal() {
           accessibilityLabel="Close image modal"
           accessibilityRole="button"
           onPress={() => router.back()}
-          className="absolute right-5 z-10"
+          className="absolute left-5 z-10"
           style={{ top: top + 10 }}
         >
           <Animated.View

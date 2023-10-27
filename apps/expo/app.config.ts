@@ -40,9 +40,8 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     },
     infoPlist: {
       // should be true but simulator builds don't like this
-      // TODO: figure out if a simulator build - however local builds don't give env vars indicating this
-      UIViewControllerBasedStatusBarAppearance: true,
-      // UIViewControllerBasedStatusBarAppearance: false,
+      UIViewControllerBasedStatusBarAppearance:
+        process.env.SIMULATOR === "true" ? false : true,
       CADisableMinimumFrameDurationOnPhone: true,
       UIBackgroundModes: ["remote-notification"],
     },

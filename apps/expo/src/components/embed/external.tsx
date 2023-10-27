@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { ResizeMode, Video } from "expo-av";
 import { Image } from "expo-image";
+import * as WebBrowser from "expo-web-browser";
 import { type AppBskyEmbedExternal } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { LinkIcon, NewspaperIcon } from "lucide-react-native";
@@ -27,6 +28,7 @@ interface Props {
 export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
   const theme = useTheme();
   const onLongPressLink = useLinkPress();
+  const [{ inAppBrowser }] = useAppPreferences();
 
   const uri = new URL(content.external.uri);
 
@@ -63,7 +65,13 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
     <TouchableHighlight
       accessibilityRole="link"
       className="mt-1.5 flex-1 rounded-lg"
-      onPress={() => Linking.openURL(content.external.uri)}
+      onPress={() => {
+        if (inAppBrowser) {
+          void WebBrowser.openBrowserAsync(content.external.uri);
+        } else {
+          void Linking.openURL(content.external.uri);
+        }
+      }}
       onLongPress={() => onLongPressLink(content.external.uri)}
     >
       <View

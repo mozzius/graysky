@@ -77,7 +77,7 @@ export const ImageViewer = ({
       {infoVisible && (
         <ImageOptionsButton
           image={images[index]!}
-          className="absolute left-5 z-10 h-10 w-10 flex-1"
+          className="absolute right-5 z-10 h-10 w-10 flex-1"
           style={{ top: top + 10 }}
         >
           <Animated.View

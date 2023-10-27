@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { useTheme } from "@react-navigation/native";
@@ -18,9 +18,10 @@ import { Text } from "./text";
 interface Props {
   text: string;
   uri: string;
+  forceShow?: boolean;
 }
 
-export const Translation = ({ text, uri }: Props) => {
+export const Translation = ({ text, uri, forceShow }: Props) => {
   const [{ primaryLanguage }] = useAppPreferences();
   const haptics = useHaptics();
   const translate = api.translate.post.useMutation({
@@ -28,10 +29,23 @@ export const Translation = ({ text, uri }: Props) => {
   });
   const theme = useTheme();
 
+  const { mutate, status, reset } = translate;
+
+  const trigger = useCallback(() => {
+    if (status === "idle") {
+      mutate({ text, uri, target: primaryLanguage });
+    }
+  }, [mutate, status, text, uri, primaryLanguage]);
+
   useEffect(() => {
-    translate.reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uri]);
+    if (forceShow) {
+      trigger();
+    }
+  }, [forceShow, trigger]);
+
+  useEffect(() => {
+    reset();
+  }, [uri, reset]);
 
   if (text.length < 2) {
     return null;
@@ -40,12 +54,7 @@ export const Translation = ({ text, uri }: Props) => {
   switch (translate.status) {
     case "idle":
       return (
-        <TouchableOpacity
-          className="my-1"
-          onPress={() =>
-            translate.mutate({ text, uri, target: primaryLanguage })
-          }
-        >
+        <TouchableOpacity className="my-1" onPress={() => trigger()}>
           <View className="flex-row items-center">
             <SparklesIcon
               className="mr-1.5"

@@ -8,6 +8,9 @@
       "developmentClient": true,
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "SIMULATOR": "true"
       }
     },
     "development": {

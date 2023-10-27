@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
@@ -25,6 +25,9 @@ interface Props {
 
 export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const theme = useTheme();
+  const [forceShowTranslation, setForceShowTranslation] = useState<
+    string | null
+  >(null);
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -81,6 +84,11 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
             showSeeLikes
             showSeeReposts
             showCopyText
+            onTranslate={
+              needsTranslation
+                ? undefined
+                : () => setForceShowTranslation(post.uri)
+            }
           />
         </View>
       </View>
@@ -95,9 +103,13 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
               selectable
             />
           </View>
-          {needsTranslation && (
+          {(needsTranslation || forceShowTranslation) && (
             <View className="mt-1">
-              <Translation uri={post.uri} text={post.record.text} />
+              <Translation
+                uri={post.uri}
+                text={post.record.text}
+                forceShow={forceShowTranslation === post.uri}
+              />
             </View>
           )}
         </>
