@@ -114,7 +114,7 @@ export const useContentFilter = () => {
   const contentFilter = useCallback(
     (labels?: ComAtprotoLabelDefs.Label[]): FilterResult => {
       if (!labels || labels.length === 0) return null;
-      if (!preferences.data) throw new Error("No preferences");
+      if (!preferences.data) return null;
 
       let warn: FilterResult = null;
 

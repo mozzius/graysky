@@ -131,10 +131,7 @@ export const RichText = ({
           ),
         });
       } else if (segment.isTag()) {
-        let tag = segment.tag!.tag;
-        if (!tag.startsWith("#")) {
-          tag = `#${tag}`;
-        }
+        const tag = segment.tag!.tag;
         parts.push({
           text: segment.text,
           component: (
@@ -143,7 +140,7 @@ export const RichText = ({
               accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
-                router.push(`/search/posts?q=${encodeURIComponent(tag)}`);
+                router.push(`/tag/${encodeURIComponent(tag)}`);
               }}
             >
               {segment.text}
