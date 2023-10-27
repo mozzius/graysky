@@ -2,31 +2,29 @@ import React from "react";
 import {
   Text,
   TouchableOpacity,
-  type GestureResponderEvent,
-  type StyleProp,
-  type ViewStyle,
+  type TouchableOpacityProps,
 } from "react-native";
 import { useRouter } from "expo-router";
 
 import { cx } from "~/lib/utils/cx";
 
-interface ButtonProps extends React.PropsWithChildren {
-  onPress: (evt: GestureResponderEvent) => void | Promise<void>;
+interface ButtonProps extends TouchableOpacityProps {
   variant?: "white" | "black" | "outline";
   className?: string;
-  style?: StyleProp<ViewStyle>;
 }
 
 export const Button = ({
   onPress,
+  className,
   variant = "black",
   children,
   style,
+  ...props
 }: ButtonProps) => {
   const isChildAString = typeof children === "string";
   return (
     <TouchableOpacity
-      onPress={(evt) => void onPress(evt)}
+      onPress={onPress}
       className={cx(
         "items-center justify-center rounded-sm px-4 py-2.5",
         {
@@ -34,8 +32,10 @@ export const Button = ({
           white: "bg-white",
           outline: "border border-black dark:border-white",
         }[variant],
+        className,
       )}
       style={[{ borderCurve: "continuous" }, style]}
+      {...props}
     >
       {isChildAString ? (
         <Text
@@ -63,5 +63,11 @@ interface LinkProps extends Omit<ButtonProps, "onPress"> {
 
 export const LinkButton = ({ href, ...props }: LinkProps) => {
   const router = useRouter();
-  return <Button onPress={() => router.push(href)} {...props} />;
+  return (
+    <Button
+      onPress={() => router.push(href)}
+      {...props}
+      accessibilityRole="link"
+    />
+  );
 };

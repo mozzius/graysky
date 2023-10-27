@@ -25,6 +25,7 @@ export interface SavedSession {
   handle: string;
   did: string;
   session: AtpSessionData;
+  signedOut?: boolean;
 }
 interface Props {
   sessions: SavedSession[];
@@ -86,7 +87,13 @@ export function SwitchAccounts({
           <Fragment key={account.did}>
             <TouchableHighlight
               className={cx("flex-1", resume.isLoading && "opacity-50")}
-              onPress={() => resume.mutate(account.session)}
+              onPress={() => {
+                if (account.signedOut) {
+                  router.push(`/sign-in?handle=${account.handle}`);
+                } else {
+                  resume.mutate(account.session);
+                }
+              }}
               disabled={resume.isLoading || account.did === active}
             >
               <View

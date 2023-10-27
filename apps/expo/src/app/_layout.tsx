@@ -147,10 +147,25 @@ const App = ({ session, saveSession }: Props) => {
   }, [segments, router, agent.hasSession, resumeSession.isLoading]);
 
   const logOut = useCallback(() => {
+    const sessions = store.getString("sessions");
+    if (sessions) {
+      const old = JSON.parse(sessions) as SavedSession[];
+      const newSessions = old.map((s) => {
+        if (s.did === session?.did) {
+          return {
+            ...s,
+            loggedOut: true,
+          };
+        }
+        return s;
+      });
+      store.set("sessions", JSON.stringify(newSessions));
+    }
+
     saveSession(null);
     queryClient.clear();
     setInvalidator((i) => i + 1);
-  }, [queryClient, saveSession]);
+  }, [queryClient, saveSession, session?.did]);
 
   const { setColorScheme } = useColorScheme();
 
@@ -374,6 +389,7 @@ export default function RootLayout() {
                     handle: res.data.handle,
                     avatar: res.data.avatar,
                     displayName: res.data.displayName,
+                    loggedOut: false,
                   },
                   ...old.filter((s) => s.did !== sess.did),
                 ];

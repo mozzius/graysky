@@ -37,7 +37,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
   const theme = useTheme();
   return (
     <View
-      style={{ backgroundColor: theme.colors.card }}
+      style={{ backgroundColor: theme.colors.card, borderCurve: "continuous" }}
       className="overflow-hidden rounded-lg"
     >
       {children}
