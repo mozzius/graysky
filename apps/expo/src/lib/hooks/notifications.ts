@@ -28,7 +28,7 @@ export function useNotifications() {
       const token = await getPushToken();
       if (token) {
         try {
-          await agent.api.app.bsky.notification.registerPush({
+          await agent.app.bsky.notification.registerPush({
             serviceDid: SERVICE_DID,
             platform: Platform.OS,
             token: token.data as string,
