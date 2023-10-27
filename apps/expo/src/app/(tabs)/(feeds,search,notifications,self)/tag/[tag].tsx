@@ -91,6 +91,7 @@ export default function TagScreen() {
                         "Cancel",
                       ],
                       cancelButtonIndex: OPTIONS.length,
+                      title: "Sort posts by",
                       ...actionSheetStyles(theme),
                     },
                     (index) => {
