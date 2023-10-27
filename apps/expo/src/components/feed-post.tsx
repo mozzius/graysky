@@ -1,9 +1,7 @@
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import {
   Button,
-  findNodeHandle,
   I18nManager,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -11,24 +9,18 @@ import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  HeartIcon,
-  MessageCircleIcon,
-  MessageSquareIcon,
-  RepeatIcon,
-} from "lucide-react-native";
+import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
 import { z } from "zod";
 
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAgent } from "~/lib/agent";
-import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
-import { useComposer } from "~/lib/hooks/composer";
 import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
 import { Embed } from "./embed";
+import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
@@ -72,22 +64,6 @@ const FeedPostInner = ({
       !!filter,
   );
   const [hidden, setHidden] = useState(showWarning);
-  const { liked, likeCount, toggleLike } = useLike(item.post, dataUpdatedAt);
-  const { reposted, repostCount, toggleRepost } = useRepost(
-    item.post,
-    dataUpdatedAt,
-  );
-  const replyCount = item.post.replyCount;
-  const composer = useComposer();
-  const anchorRef = useRef<TouchableOpacity>(null!);
-
-  const handleRepost = useHandleRepost(
-    item.post,
-    reposted,
-    toggleRepost.mutate,
-    (anchorRef.current && findNodeHandle(anchorRef.current)) ?? undefined,
-  );
-
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
 
@@ -213,7 +189,7 @@ const FeedPostInner = ({
           </Link>
         </View>
         {/* right col */}
-        <View className="flex-1 pb-2.5 pl-1 pr-2">
+        <View className="flex-1 pb-1 pl-1 pr-2">
           <View className="flex-row items-center">
             <Link
               href={profileHref}
@@ -357,69 +333,9 @@ const FeedPostInner = ({
           {/* <Text>{(item.post.labels ?? []).map((x) => x.val).join(", ")}</Text> */}
           {/* actions */}
           {!hideActions && (
-            <View className="mt-2.5 max-w-sm flex-row justify-between pr-6">
-              <TouchableOpacity
-                accessibilityLabel={`Reply, ${replyCount} repl${
-                  replyCount !== 1 ? "ies" : "y"
-                }`}
-                accessibilityRole="button"
-                onPress={() => composer.reply(item.post)}
-                className="flex-row items-center gap-2 tabular-nums"
-                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-              >
-                <MessageSquareIcon size={16} color={theme.colors.text} />
-                <Text className="tabular-nums">{replyCount}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                accessibilityLabel={`Repost, ${repostCount} repost${
-                  repostCount !== 1 ? "s" : ""
-                }`}
-                accessibilityRole="button"
-                disabled={toggleRepost.isLoading}
-                onPress={handleRepost}
-                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-                className="flex-row items-center gap-2 tabular-nums"
-                ref={anchorRef}
-              >
-                <RepeatIcon
-                  size={16}
-                  color={reposted ? "#2563eb" : theme.colors.text}
-                />
-                <Text
-                  style={{
-                    color: reposted ? "#2563eb" : theme.colors.text,
-                  }}
-                  className={cx("tabular-nums", reposted && "font-bold")}
-                >
-                  {repostCount}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                accessibilityLabel={`Like, ${likeCount} like${
-                  likeCount !== 1 ? "s" : ""
-                }`}
-                accessibilityRole="button"
-                disabled={toggleLike.isLoading}
-                onPress={() => toggleLike.mutate()}
-                hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-                className="flex-row items-center gap-2 tabular-nums"
-              >
-                <HeartIcon
-                  size={16}
-                  fill={liked ? "#dc2626" : "transparent"}
-                  color={liked ? "#dc2626" : theme.colors.text}
-                />
-                <Text
-                  style={{
-                    color: liked ? "#dc2626" : theme.colors.text,
-                  }}
-                  className={cx("tabular-nums", liked && "font-bold")}
-                >
-                  {likeCount}
-                </Text>
-              </TouchableOpacity>
+            <PostActionRow post={item.post} dataUpdatedAt={dataUpdatedAt}>
               <PostContextMenu post={item.post} />
-            </View>
+            </PostActionRow>
           )}
         </View>
       </View>

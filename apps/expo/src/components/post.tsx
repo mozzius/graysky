@@ -1,18 +1,16 @@
-import { useMemo, useRef } from "react";
-import { findNodeHandle, TouchableOpacity, View } from "react-native";
+import { useMemo } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
-import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
-import { useComposer } from "~/lib/hooks/composer";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { Embed } from "./embed";
+import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
@@ -26,21 +24,7 @@ interface Props {
 }
 
 export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
-  const { liked, likeCount, toggleLike } = useLike(post, dataUpdatedAt);
-  const { reposted, repostCount, toggleRepost } = useRepost(
-    post,
-    dataUpdatedAt,
-  );
-  const replyCount = post.replyCount;
-  const anchorRef = useRef<TouchableOpacity>(null);
-  const handleRepost = useHandleRepost(
-    post,
-    reposted,
-    toggleRepost.mutate,
-    (anchorRef.current && findNodeHandle(anchorRef.current)) ?? undefined,
-  );
   const theme = useTheme();
-  const composer = useComposer();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -125,66 +109,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
         </View>
       )}
       {/* actions */}
-      <View className="mt-4 flex-row items-center justify-between">
-        <TouchableOpacity
-          accessibilityLabel={`Reply, ${replyCount} repl${
-            replyCount !== 1 ? "ies" : "y"
-          }`}
-          accessibilityRole="button"
-          className="flex-row items-center gap-2 p-1"
-          onPress={() => composer.reply(post)}
-        >
-          <MessageSquareIcon size={18} color={theme.colors.text} />
-          <Text className="tabular-nums">{replyCount}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          ref={anchorRef}
-          accessibilityLabel={`Repost, ${repostCount} repost${
-            repostCount !== 1 ? "s" : ""
-          }`}
-          accessibilityRole="button"
-          className="flex-row items-center gap-2 p-1"
-          disabled={toggleRepost.isLoading}
-          onPress={handleRepost}
-          hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-        >
-          <RepeatIcon
-            size={18}
-            color={reposted ? "#2563eb" : theme.colors.text}
-          />
-          <Text
-            style={{
-              color: reposted ? "#2563eb" : theme.colors.text,
-            }}
-            className={cx("tabular-nums", reposted && "font-bold")}
-          >
-            {repostCount}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          accessibilityLabel={`Like, ${likeCount} like${
-            likeCount !== 1 ? "s" : ""
-          }`}
-          accessibilityRole="button"
-          className="flex-row items-center gap-2 p-1"
-          disabled={toggleLike.isLoading}
-          onPress={() => toggleLike.mutate()}
-          hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-        >
-          <HeartIcon
-            size={18}
-            fill={liked ? "#dc2626" : "transparent"}
-            color={liked ? "#dc2626" : theme.colors.text}
-          />
-          <Text
-            style={{
-              color: liked ? "#dc2626" : theme.colors.text,
-            }}
-            className={cx("tabular-nums", liked && "font-bold")}
-          >
-            {likeCount}
-          </Text>
-        </TouchableOpacity>
+      <PostActionRow post={post} dataUpdatedAt={dataUpdatedAt} className="mt-4">
         <Text className="text-sm text-neutral-500 dark:text-neutral-400">
           {new Intl.DateTimeFormat(locale.languageTag, {
             timeStyle: "short",
@@ -195,7 +120,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
             .reverse()
             .join(" · ")}
         </Text>
-      </View>
+      </PostActionRow>
     </View>
   );
 };
