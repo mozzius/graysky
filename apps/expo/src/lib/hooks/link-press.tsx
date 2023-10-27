@@ -23,12 +23,12 @@ export const useLinkPress = () => {
         if (inAppBrowser === undefined) {
           showActionSheetWithOptions(
             {
-              title: "Open this link in the in-app browser?",
+              title: "How should we open this link?",
               message:
-                "Your choice will be saved, but you can change this later in the settings",
+                "Your choice will be saved, but can be changed in settings",
               options: [
-                "Open using the in-app browser",
-                "Open new tab in your default browser",
+                "Use in-app browser",
+                "Use my default browser",
                 "Cancel",
               ],
               cancelButtonIndex: 2,
