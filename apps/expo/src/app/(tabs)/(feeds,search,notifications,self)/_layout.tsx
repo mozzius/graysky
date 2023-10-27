@@ -34,7 +34,11 @@ export default function SubStack({
 
   const headerLeft = useCallback(
     () => (
-      <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
+      <TouchableOpacity
+        onPress={() => openDrawer()}
+        className="mr-3"
+        accessibilityHint="Open drawer menu"
+      >
         <Avatar size="small" />
       </TouchableOpacity>
     ),

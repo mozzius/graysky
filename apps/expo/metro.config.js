@@ -20,4 +20,11 @@ if (config.resolver) {
   config.resolver.disableHierarchicalLookup = true;
 }
 
+// inline requires for better performance
+config.transformer.getTransformOptions = async () => ({
+  transform: {
+    inlineRequires: true,
+  },
+});
+
 module.exports = config;

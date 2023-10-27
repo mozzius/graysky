@@ -18,7 +18,14 @@ module.exports = function (api) {
   api.cache.forever();
 
   return {
-    presets: ["babel-preset-expo"],
+    presets: [
+      [
+        "babel-preset-expo",
+        {
+          lazyImports: true,
+        },
+      ],
+    ],
     plugins: [
       ["nativewind/babel", { tailwindConfig: lazyLoadConfig() }],
       require.resolve("expo-router/babel"),

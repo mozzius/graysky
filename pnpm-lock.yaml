@@ -230,8 +230,11 @@ importers:
         specifier: ~2.12.1
         version: 2.12.1(react-native@0.72.6)(react@18.2.0)
       react-native-ios-context-menu:
-        specifier: ^1.15.3
-        version: 1.15.3(react-native@0.72.6)(react@18.2.0)
+        specifier: ^2.0.0
+        version: 2.0.0(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0)
+      react-native-ios-utilities:
+        specifier: ^4.0.0
+        version: 4.0.0(expo@49.0.16)(react-native@0.72.6)(react@18.2.0)
       react-native-keyboard-aware-scroll-view:
         specifier: ^0.9.5
         version: 0.9.5(react-native@0.72.6)
@@ -2322,7 +2325,7 @@ packages:
       md5-file: 3.2.3
       md5hex: 1.0.0
       minipass: 3.1.6
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       node-forge: 1.3.1
       npm-package-arg: 7.0.0
       ora: 3.4.0
@@ -2478,7 +2481,7 @@ packages:
       fs-extra: 9.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       open: 8.4.2
       resolve-from: 5.0.0
       serialize-error: 6.0.0
@@ -2544,7 +2547,7 @@ packages:
       getenv: 1.0.0
       jimp-compact: 0.16.1
       mime: 2.6.0
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       parse-png: 2.1.0
       resolve-from: 5.0.0
       semver: 7.3.2
@@ -2659,7 +2662,7 @@ packages:
       '@segment/loosely-validate-event': 2.0.0
       fetch-retry: 4.1.1
       md5: 2.3.0
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       remove-trailing-slash: 0.1.1
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -3315,7 +3318,7 @@ packages:
       chalk: 4.1.2
       find-up: 5.0.0
       mime: 2.6.0
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       open: 6.4.0
       ora: 5.4.1
       semver: 7.5.4
@@ -3562,7 +3565,7 @@ packages:
     requiresBuild: true
     dependencies:
       https-proxy-agent: 5.0.1
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       progress: 2.0.3
       proxy-from-env: 1.1.0
       which: 2.0.2
@@ -5424,7 +5427,7 @@ packages:
   /cross-fetch@3.1.8:
     resolution: {integrity: sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==}
     dependencies:
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -6864,7 +6867,7 @@ packages:
       fbemitter: 3.0.0
       invariant: 2.2.4
       md5-file: 3.2.3
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       pretty-format: 26.6.2
       uuid: 3.4.0
     transitivePeerDependencies:
@@ -9041,7 +9044,7 @@ packages:
     dependencies:
       connect: 3.7.0
       debug: 2.6.9
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       ws: 7.5.9
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -9338,7 +9341,7 @@ packages:
       metro-transform-plugins: 0.76.8
       metro-transform-worker: 0.76.8
       mime-types: 2.1.35
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       nullthrows: 1.1.1
       rimraf: 3.0.2
       serialize-error: 2.1.0
@@ -9394,7 +9397,7 @@ packages:
       metro-transform-plugins: 0.80.0
       metro-transform-worker: 0.80.0
       mime-types: 2.1.35
-      node-fetch: 2.7.0
+      node-fetch: 2.7.0(encoding@0.1.13)
       nullthrows: 1.1.1
       rimraf: 3.0.2
       serialize-error: 2.1.0
@@ -10060,18 +10063,6 @@ packages:
     engines: {node: '>= 0.10.5'}
     dependencies:
       minimatch: 3.1.2
-    dev: false
-
-  /node-fetch@2.7.0:
-    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
     dev: false
 
   /node-fetch@2.7.0(encoding@0.1.13):
@@ -11100,13 +11091,29 @@ packages:
       react-native: 0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0)
     dev: false
 
-  /react-native-ios-context-menu@1.15.3(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-UNkVl7ocvSpNaEpvBvE1aHOfDy/DFdZ5I+ElfnTXFsRxrVZmxLtST0b1q2wSWGWDmd2Ig2AYd7GRbYtcY222Ag==}
+  /react-native-ios-context-menu@2.0.0(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-PwSLiK9z22OUur9Sc2l1jxVbXGuBOu1xkv3MZQTLHeVsLIQM8AzHDKWGXa475eEG4WWRo+bZoYBOTAp514iFLQ==}
     peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+      react-native-ios-utilities: 4.x
+    dependencies:
+      '@dominicstop/ts-event-emitter': 1.1.0
+      expo: 49.0.16(@babel/core@7.23.2)
+      react: 18.2.0
+      react-native: 0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native-ios-utilities: 4.0.0(expo@49.0.16)(react-native@0.72.6)(react@18.2.0)
+    dev: false
+
+  /react-native-ios-utilities@4.0.0(expo@49.0.16)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-FCKTO0h/yCw985EAdWICgB5mFQ++PXZW6rVne4J5mpf3xORGc+23fdr23TrTYfapUwsnGydAHsdP50iqCRIwFg==}
+    peerDependencies:
+      expo: '*'
       react: '*'
       react-native: '*'
     dependencies:
-      '@dominicstop/ts-event-emitter': 1.1.0
+      expo: 49.0.16(@babel/core@7.23.2)
       react: 18.2.0
       react-native: 0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0)
     dev: false

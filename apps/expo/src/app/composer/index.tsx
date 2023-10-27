@@ -755,7 +755,7 @@ const CancelButton = ({
 
   return (
     <Link href="../" asChild>
-      <TouchableOpacity>
+      <TouchableOpacity accessibilityRole="link">
         <Text style={{ color: theme.colors.primary }} className="text-lg">
           Cancel
         </Text>

@@ -172,7 +172,11 @@ export default function Page() {
       <Stack.Screen
         options={{
           headerLeft: () => (
-            <TouchableOpacity onPress={() => openDrawer()} className="mr-3">
+            <TouchableOpacity
+              onPress={() => openDrawer()}
+              className="mr-3"
+              accessibilityHint="Open drawer menu"
+            >
               <Avatar size="small" />
             </TouchableOpacity>
           ),

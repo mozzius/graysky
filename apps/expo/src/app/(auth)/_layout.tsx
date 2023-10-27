@@ -16,7 +16,10 @@ export default function AuthLayout() {
     Platform.OS === "ios" && !canGoBack
       ? () => (
           <Animated.View entering={FadeIn}>
-            <TouchableOpacity onPress={() => router.push("../")}>
+            <TouchableOpacity
+              onPress={() => router.push("../")}
+              accessibilityRole="link"
+            >
               <Text style={{ color: theme.colors.primary }} className="text-lg">
                 Cancel
               </Text>

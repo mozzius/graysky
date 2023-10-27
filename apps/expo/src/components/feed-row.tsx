@@ -62,10 +62,17 @@ export const FeedRow = ({
           router.push(href);
         }
       }}
+      accessibilityLabel={
+        large
+          ? `${feed.displayName} feed by @${feed.creator.handle}, ${feed.likeCount} likes`
+          : `${feed.displayName} feed`
+      }
+      accessibilityRole="link"
     >
       <View
         style={{ backgroundColor: theme.colors.card }}
         className="flex-row items-center px-4 py-3"
+        accessibilityElementsHidden
       >
         <Image
           source={{ uri: feed.avatar }}
@@ -155,6 +162,9 @@ export const DraggableFeedRow = ({
         haptics.impact();
         onPressStar();
       }}
+      accessibilityLabel={feed.pinned ? "Favourited" : "Not favourited"}
+      accessibilityRole="togglebutton"
+      accessibilityHint="Toggle favourite status"
     >
       <StarIcon
         size={20}
@@ -232,6 +242,8 @@ export const DraggableFeedRow = ({
                       },
                     );
                   }}
+                  accessibilityLabel="Unsave feed"
+                  accessibilityRole="button"
                 >
                   <View className="mr-1 px-2 py-0.5">
                     <MinusCircleIcon
@@ -262,7 +274,10 @@ export const DraggableFeedRow = ({
                   className="absolute left-full"
                   pointerEvents={editing ? "auto" : "none"}
                 >
-                  <TouchableWithoutFeedback onPressIn={drag}>
+                  <TouchableWithoutFeedback
+                    onPressIn={drag}
+                    accessibilityLabel="Reorder feed"
+                  >
                     <View className="ml-1 px-2 py-0.5">
                       <EqualIcon size={20} color={theme.colors.text} />
                     </View>
