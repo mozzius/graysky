@@ -26,6 +26,7 @@ export default function Page() {
                   haptics.selection();
                   setEditing((e) => !e);
                 }}
+                accessibilityLabel={editing ? "Stop editing" : "Edit feeds"}
               >
                 <Text
                   style={{ color: theme.colors.primary }}
@@ -36,7 +37,11 @@ export default function Page() {
               </TouchableOpacity>
               {!editing && (
                 <Link href="/feeds/discover" asChild>
-                  <TouchableOpacity className="ml-4">
+                  <TouchableOpacity
+                    className="ml-4"
+                    accessibilityLabel="Discover feeds"
+                    accessibilityRole="link"
+                  >
                     <PlusIcon size={24} color={theme.colors.primary} />
                   </TouchableOpacity>
                 </Link>

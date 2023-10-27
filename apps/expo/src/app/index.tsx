@@ -22,7 +22,7 @@ export default function LandingPage() {
           <View>
             <Animated.Text
               entering={FadeIn.delay(100)}
-              className="mt-10 text-center text-7xl font-medium text-white"
+              className="mt-10 text-center text-6xl font-medium text-white sm:text-7xl"
             >
               Graysky
             </Animated.Text>
