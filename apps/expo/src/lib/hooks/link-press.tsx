@@ -25,7 +25,7 @@ export const useLinkPress = () => {
             {
               title: "Open this link in the in-app browser?",
               message:
-                "Your choice will be saved, but can change this later in the settings",
+                "Your choice will be saved, but you can change this later in the settings",
               options: [
                 "Open using the in-app browser",
                 "Open new tab in your default browser",
