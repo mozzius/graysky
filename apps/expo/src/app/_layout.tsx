@@ -154,7 +154,7 @@ const App = ({ session, saveSession }: Props) => {
         if (s.did === session?.did) {
           return {
             ...s,
-            loggedOut: true,
+            signedOut: true,
           };
         }
         return s;
@@ -389,7 +389,7 @@ export default function RootLayout() {
                     handle: res.data.handle,
                     avatar: res.data.avatar,
                     displayName: res.data.displayName,
-                    loggedOut: false,
+                    signedOut: false,
                   },
                   ...old.filter((s) => s.did !== sess.did),
                 ];
@@ -404,6 +404,7 @@ export default function RootLayout() {
                       handle: res.data.handle,
                       avatar: res.data.avatar,
                       displayName: res.data.displayName,
+                      signedOut: false,
                     },
                   ] satisfies SavedSession[]),
                 );
