@@ -14,13 +14,44 @@ import { useAppPreferences } from "./preferences";
 
 export const useLinkPress = () => {
   const { showActionSheetWithOptions } = useActionSheet();
-  const [{ inAppBrowser }] = useAppPreferences();
+  const [{ inAppBrowser }, setAppPrefs] = useAppPreferences();
   const theme = useTheme();
 
   const openLink = useCallback(
     async (url: string) => {
       try {
-        if (inAppBrowser) {
+        if (inAppBrowser === undefined) {
+          showActionSheetWithOptions(
+            {
+              title: "Open this link in the in-app browser?",
+              message:
+                "Your choice will be saved, but can change this later in the settings",
+              options: [
+                "Open using the in-app browser",
+                "Open new tab in your default browser",
+                "Cancel",
+              ],
+              cancelButtonIndex: 2,
+              ...actionSheetStyles(theme),
+            },
+            (index) => {
+              if (index === undefined) return;
+              switch (index) {
+                case 0:
+                  setAppPrefs({ inAppBrowser: true });
+                  void WebBrowser.openBrowserAsync(url, {
+                    presentationStyle:
+                      WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+                  });
+                  break;
+                case 1:
+                  setAppPrefs({ inAppBrowser: false });
+                  void Linking.openURL(url);
+                  break;
+              }
+            },
+          );
+        } else if (inAppBrowser) {
           await WebBrowser.openBrowserAsync(url, {
             presentationStyle:
               WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
@@ -38,7 +69,7 @@ export const useLinkPress = () => {
         Sentry.Native.captureException(err);
       }
     },
-    [inAppBrowser],
+    [inAppBrowser, setAppPrefs, showActionSheetWithOptions, theme],
   );
 
   const showLinkOptions = useCallback(
