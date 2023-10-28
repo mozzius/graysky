@@ -25,5 +25,7 @@ export function createTopTabsScreenOptions(theme: Theme) {
     },
     scrollEnabled: true,
     keepActiveTabCentered: true,
+    activeColor: theme.colors.text,
+    inactiveColor: theme.colors.text,
   } as const;
 }

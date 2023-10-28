@@ -94,12 +94,7 @@ export const ProfileTabView = ({
           initialTabName={initial}
           headerContainerStyle={{ shadowOpacity: 0, elevation: 0 }}
           renderTabBar={(props) => (
-            <MaterialTabBar
-              {...props}
-              {...createTopTabsScreenOptions(theme)}
-              activeColor={theme.colors.text}
-              inactiveColor={theme.colors.text}
-            />
+            <MaterialTabBar {...props} {...createTopTabsScreenOptions(theme)} />
           )}
           renderHeader={renderProfileInfo}
           lazy
