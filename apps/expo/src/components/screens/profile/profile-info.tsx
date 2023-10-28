@@ -572,7 +572,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           )}
           {profile.viewer?.blocking && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-              <Text className="font-semibold">You have blocked this user</Text>
+              <Text className="font-semibold">
+                {profile.viewer.blockingByList
+                  ? `This user is on the "${profile.viewer.blockingByList.name}" block list`
+                  : "You have blocked this user"}
+              </Text>
               <Button
                 title="Unblock"
                 onPress={() => {

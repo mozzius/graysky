@@ -2,7 +2,7 @@
   "name": "@graysky/api",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.6.20",
+    "@atproto/api": "^0.6.21",
     "@graysky/db": "0.1.0",
     "@trpc/client": "^10.43.0",
     "@trpc/server": "^10.43.0",

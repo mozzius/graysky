@@ -2,7 +2,7 @@
   "name": "@graysky/nextjs",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.6.20",
+    "@atproto/api": "^0.6.21",
     "@graysky/api": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@tanstack/react-query": "^4.36.1",
