@@ -49,7 +49,8 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   android: {
     package: "dev.mozzius.graysky",
     softwareKeyboardLayoutMode: "pan",
-    googleServicesFile: "./google-services.json",
+    googleServicesFile:
+      process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#888888",
