@@ -23,6 +23,9 @@ export const metadata = {
     url: "https://graysky.app",
     siteName: "Graysky",
   },
+};
+
+export const viewport = {
   colorScheme: "dark",
 };
 
