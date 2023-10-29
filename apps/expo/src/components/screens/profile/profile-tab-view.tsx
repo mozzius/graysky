@@ -3,7 +3,7 @@ import { Platform, RefreshControl } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, useFocusEffect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
@@ -39,6 +39,7 @@ export const ProfileTabView = ({
   const headerHeight = useDefaultHeaderHeight();
   const queryClient = useQueryClient();
   const { top } = useSafeAreaInsets();
+  const [mounted, setMounted] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -68,6 +69,13 @@ export const ProfileTabView = ({
     return null;
   }, [profile.data, backButton]);
 
+  useFocusEffect(
+    useCallback(() => {
+      setMounted(true);
+      return () => setMounted(false);
+    }, []),
+  );
+
   if (profile.data) {
     return (
       <ScrollView
@@ -82,7 +90,7 @@ export const ProfileTabView = ({
           />
         }
       >
-        <StatusBar style="light" backgroundColor="black" />
+        {mounted && <StatusBar style="light" backgroundColor="black" />}
         <Stack.Screen
           options={{
             headerShown: false,
@@ -94,7 +102,11 @@ export const ProfileTabView = ({
           initialTabName={initial}
           headerContainerStyle={{ shadowOpacity: 0, elevation: 0 }}
           renderTabBar={(props) => (
-            <MaterialTabBar {...props} {...createTopTabsScreenOptions(theme)} />
+            <MaterialTabBar
+              {...props}
+              {...createTopTabsScreenOptions(theme)}
+              scrollEnabled
+            />
           )}
           renderHeader={renderProfileInfo}
           lazy

@@ -133,23 +133,22 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   const handleOptions = () => {
     const options = [
-      "Share Profile",
-      profile.viewer?.muted ? "Unmute Account" : "Mute Account",
-      profile.viewer?.blocking ? "Unblock Account" : "Block Account",
-      "Report Account",
-      "Cancel",
-    ];
+      "Share profile",
+      profile.viewer?.muted ? "Unmute account" : "Mute account",
+      profile.viewer?.blocking ? "Unblock account" : "Block account",
+      "Report account",
+    ] as const;
     showActionSheetWithOptions(
       {
-        options,
-        cancelButtonIndex: options.length - 1,
+        options: [...options, "Cancel"],
+        cancelButtonIndex: options.length,
         ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;
         const option = options[index];
         switch (option) {
-          case "Share Profile": {
+          case "Share profile": {
             const url = `https://bsky.app/profile/${profile.handle}`;
             void Share.share(
               Platform.select({
@@ -159,16 +158,16 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             );
             break;
           }
-          case "Mute Account":
+          case "Mute account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
             break;
-          case "Unmute Account":
+          case "Unmute account":
             unmuteAccount(agent, profile.handle, profile.did, queryClient);
             break;
-          case "Block Account":
+          case "Block account":
             blockAccount(agent, profile.handle, profile.did, queryClient);
             break;
-          case "Unblock Account":
+          case "Unblock account":
             unblockAccount(
               agent,
               profile.handle,
@@ -176,7 +175,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               queryClient,
             );
             break;
-          case "Report Account": {
+          case "Report account": {
             // prettier-ignore
             const reportOptions = [
               { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
@@ -555,14 +554,21 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   : "You have muted this user"}
               </Text>
               <Button
-                title="Unmute"
+                title={profile.viewer.mutedByList ? "View" : "Unmute"}
                 onPress={() => {
-                  unmuteAccount(
-                    agent,
-                    profile.handle,
-                    profile.did,
-                    queryClient,
-                  );
+                  if (profile.viewer?.mutedByList) {
+                    const segments = profile.viewer.mutedByList.uri.split("/");
+                    router.push(
+                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                    );
+                  } else {
+                    unmuteAccount(
+                      agent,
+                      profile.handle,
+                      profile.did,
+                      queryClient,
+                    );
+                  }
                 }}
               />
             </View>
@@ -575,14 +581,22 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   : "You have blocked this user"}
               </Text>
               <Button
-                title="Unblock"
+                title={profile.viewer.blockingByList ? "View" : "Unblock"}
                 onPress={() => {
-                  unblockAccount(
-                    agent,
-                    profile.handle,
-                    profile.viewer!.blocking!.split("/").pop()!,
-                    queryClient,
-                  );
+                  if (profile.viewer?.blockingByList) {
+                    const segments =
+                      profile.viewer.blockingByList.uri.split("/");
+                    router.push(
+                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                    );
+                  } else {
+                    unblockAccount(
+                      agent,
+                      profile.handle,
+                      profile.viewer!.blocking!.split("/").pop()!,
+                      queryClient,
+                    );
+                  }
                 }}
               />
             </View>

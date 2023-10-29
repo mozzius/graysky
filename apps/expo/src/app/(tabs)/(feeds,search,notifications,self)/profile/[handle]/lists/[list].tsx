@@ -26,7 +26,6 @@ import { FeedPost } from "~/components/feed-post";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PostAvatar } from "~/components/post-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
@@ -105,9 +104,9 @@ export default function ListsScreen() {
         options={{
           title: "List",
           headerTitle: "",
+          headerBackTitle: "Back",
         }}
       />
-      <StatusBar />
       <QueryWithoutData query={list} />
     </>
   );
@@ -320,20 +319,25 @@ const ListHeader = ({
   const handleOptions = () => {
     if (!info) return;
     if (info.creator.did === agent.session?.did) {
+      const options = [
+        info.purpose === AppBskyGraphDefs.CURATELIST
+          ? "Change to moderation list"
+          : "Change to curation list",
+        "Delete list",
+        "Share",
+      ] as const;
       showActionSheetWithOptions(
         {
-          options: ["Edit", "Delete", "Share", "Cancel"],
+          options: [...options, "Cancel"],
           destructiveButtonIndex: 1,
-          cancelButtonIndex: 3,
+          cancelButtonIndex: options.length,
           ...actionSheetStyles(theme),
         },
-        (buttonIndex) => {
+        async (buttonIndex) => {
+          if (buttonIndex === undefined) return;
           const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
-          switch (buttonIndex) {
-            case 0:
-              Alert.alert("Not yet implemented", "Please use the official app");
-              break;
-            case 1:
+          switch (options[buttonIndex]) {
+            case "Delete list":
               Alert.alert(
                 "Delete list",
                 "Are you sure you want to delete this list?",
@@ -352,7 +356,7 @@ const ListHeader = ({
                 ],
               );
               break;
-            case 2:
+            case "Share":
               void Share.share(
                 Platform.select({
                   ios: { url: bskyUrl },
@@ -360,6 +364,31 @@ const ListHeader = ({
                 }),
               );
               break;
+            case "Change to curation list":
+            case "Change to moderation list": {
+              const collection = "app.bsky.graph.list";
+              const repo = agent.session!.did;
+              const rkey = info.uri.split("/").pop()!;
+              const record = await agent.com.atproto.repo.getRecord({
+                collection,
+                repo,
+                rkey,
+              });
+              await agent.com.atproto.repo.putRecord({
+                collection,
+                repo,
+                rkey,
+                record: {
+                  ...record.data.value,
+                  purpose:
+                    info.purpose === AppBskyGraphDefs.CURATELIST
+                      ? AppBskyGraphDefs.MODLIST
+                      : AppBskyGraphDefs.CURATELIST,
+                },
+              });
+              await queryClient.refetchQueries(["list", info.uri, "info"]);
+              break;
+            }
           }
         },
       );
@@ -392,11 +421,11 @@ const ListHeader = ({
       className="flex-1 px-4 pb-2 pt-4"
       style={{ backgroundColor: theme.colors.card }}
     >
-      <StatusBar />
       <Stack.Screen
         options={{
           title: info?.name ?? "List",
           headerTitle: "",
+          headerBackTitle: "Back",
           headerRight: () => (
             <View className="flex-row">
               {actionText && (

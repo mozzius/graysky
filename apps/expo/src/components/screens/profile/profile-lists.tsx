@@ -101,7 +101,7 @@ const ListItem = ({
               {(viewer?.blocked || viewer?.muted) && (
                 <>
                   {" "}
-                  <CheckIcon color={theme.colors.primary} size={12} />
+                  <CheckIcon color={theme.colors.primary} size={16} />
                 </>
               )}
             </Text>
