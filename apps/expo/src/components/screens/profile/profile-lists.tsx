@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { LogBox, TouchableHighlight, View } from "react-native";
+import { LogBox, RefreshControl, TouchableHighlight, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
@@ -10,9 +10,11 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
+import { useUserRefresh } from "~/lib/utils/query";
 import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../text";
 import { useProfile, useProfileLists } from "./hooks";
+import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
@@ -31,6 +33,10 @@ export const ProfileLists = ({ handle }: Props) => {
 
   const [ref, onScroll] = useTabPressScrollRef<(typeof listsData)[number]>();
 
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    lists.refetch,
+  );
+
   if (!profile.data) {
     return <QueryWithoutData query={profile} />;
   }
@@ -39,7 +45,6 @@ export const ProfileLists = ({ handle }: Props) => {
     return (
       <Tabs.FlashList<(typeof listsData)[number]>
         ref={ref}
-        nestedScrollEnabled
         onScroll={onScroll}
         data={listsData}
         renderItem={({ item }) => (
@@ -50,6 +55,14 @@ export const ProfileLists = ({ handle }: Props) => {
         estimatedItemSize={91}
         ListFooterComponent={<ListFooterComponent query={lists} />}
         extraData={lists.dataUpdatedAt}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={tintColor}
+            progressViewOffset={INITIAL_HEADER_HEIGHT}
+          />
+        }
       />
     );
   }

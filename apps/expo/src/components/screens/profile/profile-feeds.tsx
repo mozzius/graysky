@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { LogBox, TouchableOpacity, View } from "react-native";
+import { LogBox, RefreshControl, TouchableOpacity, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
@@ -13,10 +13,12 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
+import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../text";
 import { useProfile, useProfileFeeds } from "./hooks";
+import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
@@ -37,6 +39,10 @@ export const ProfileFeeds = ({ handle }: Props) => {
   }, [feeds.data]);
 
   const [ref, onScroll] = useTabPressScrollRef<(typeof feedsData)[number]>();
+
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    feeds.refetch,
+  );
 
   if (!profile.data) {
     return <QueryWithoutData query={profile} />;
@@ -80,17 +86,24 @@ export const ProfileFeeds = ({ handle }: Props) => {
     return (
       <Tabs.FlashList<(typeof feedsData)[number]>
         ref={ref}
-        nestedScrollEnabled
         onScroll={onScroll}
         data={feedsData}
         renderItem={({ item }) => (
           <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />
         )}
         onEndReachedThreshold={0.6}
-        onEndReached={() => void feeds.fetchNextPage()}
+        onEndReached={() => feeds.fetchNextPage()}
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={feeds} />}
         extraData={feeds.dataUpdatedAt}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={tintColor}
+            progressViewOffset={INITIAL_HEADER_HEIGHT}
+          />
+        }
       />
     );
   }

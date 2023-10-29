@@ -45,7 +45,7 @@ import { useDefaultHeaderHeight } from "./hooks";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
-const INITIAL_HEADER_HEIGHT = 90;
+export const INITIAL_HEADER_HEIGHT = 90;
 const AVATAR_PLATFORM_ADJUST = Platform.select({
   android: 60,
   default: 0,

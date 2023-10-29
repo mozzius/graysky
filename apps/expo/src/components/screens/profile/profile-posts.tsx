@@ -1,11 +1,14 @@
 import { LogBox } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { RefreshControl } from "react-native-gesture-handler";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
+import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
+import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
@@ -39,6 +42,10 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     timeline.refetch,
   );
 
+  const { refreshing, handleRefresh, tintColor } = useUserRefresh(
+    timeline.refetch,
+  );
+
   if (!preferences.data) {
     return <QueryWithoutData query={preferences} />;
   }
@@ -55,7 +62,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     return (
       <Tabs.FlashList<(typeof timelineData)[number]>
         ref={ref}
-        nestedScrollEnabled
         onScroll={onScroll}
         data={timelineData}
         renderItem={({ item, index }) => (
@@ -72,6 +78,14 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={timeline} />}
         extraData={timeline.dataUpdatedAt}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={tintColor}
+            progressViewOffset={INITIAL_HEADER_HEIGHT}
+          />
+        }
       />
     );
   }
