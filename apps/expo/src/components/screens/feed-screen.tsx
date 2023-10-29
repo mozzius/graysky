@@ -1,10 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  ActivityIndicator,
-  RefreshControl,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { RefreshControl, TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -18,6 +13,7 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../feed-post";
 import { FeedsButton } from "../feeds-button";
+import { ListFooterComponent } from "../list-footer";
 import { QueryWithoutData } from "../query-without-data";
 import { Text } from "../text";
 
@@ -91,19 +87,7 @@ export const FeedScreen = ({ feed }: Props) => {
             />
           }
           estimatedItemSize={171}
-          ListFooterComponent={
-            timeline.isFetching ? (
-              <View className="w-full items-center py-8">
-                <ActivityIndicator />
-              </View>
-            ) : data.length > 0 ? (
-              <View className="py-16">
-                <Text className="text-center">That&apos;s everything!</Text>
-              </View>
-            ) : (
-              <></>
-            )
-          }
+          ListFooterComponent={<ListFooterComponent query={timeline} />}
           extraData={timeline.dataUpdatedAt}
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center py-20">

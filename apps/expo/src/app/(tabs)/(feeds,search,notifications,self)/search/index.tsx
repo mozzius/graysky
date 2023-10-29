@@ -22,6 +22,7 @@ import { SearchIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
+import { ListFooterComponent } from "~/components/list-footer";
 import { PersonRow } from "~/components/lists/person-row";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichTextWithoutFacets } from "~/components/rich-text";
@@ -183,7 +184,8 @@ const Suggestions = () => {
         }
         onEndReached={() => suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
-        ListFooterComponent={<View className="h-4" />}
+        ListFooterComponent={<ListFooterComponent query={suggestions} />}
+        onEndReachedThreshold={0.6}
       />
     );
   }

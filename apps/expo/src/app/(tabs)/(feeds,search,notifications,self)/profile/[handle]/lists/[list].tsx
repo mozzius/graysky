@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import {
   Alert,
   Platform,
@@ -8,20 +8,33 @@ import {
   View,
 } from "react-native";
 import * as Tabs from "react-native-collapsible-tab-view";
+import { RefreshControl } from "react-native-gesture-handler";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { AppBskyGraphDefs } from "@atproto/api";
+import { AppBskyGraphDefs, type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 
+import { FeedPost } from "~/components/feed-post";
+import { ListFooterComponent } from "~/components/list-footer";
+import { PostAvatar } from "~/components/post-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
+import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
+import { useTabPressScrollRef } from "~/lib/hooks";
+import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
+import { produce } from "~/lib/utils/produce";
+import { useUserRefresh } from "~/lib/utils/query";
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 
 export default function ListsScreen() {
@@ -55,10 +68,10 @@ export default function ListsScreen() {
               {...createTopTabsScreenOptions(theme)}
             />
           )}
-          lazy
+          allowHeaderOverscroll
         >
           <Tabs.Tab name="feed">
-            <Text>Feed</Text>
+            <ListFeed uri={uri} />
           </Tabs.Tab>
           <Tabs.Tab name="members">
             <ListMembers query={list} />
@@ -76,7 +89,7 @@ export default function ListsScreen() {
               {...createTopTabsScreenOptions(theme)}
             />
           )}
-          lazy
+          allowHeaderOverscroll
         >
           <Tabs.Tab name="members">
             <ListMembers query={list} />
@@ -94,6 +107,7 @@ export default function ListsScreen() {
           headerTitle: "",
         }}
       />
+      <StatusBar />
       <QueryWithoutData query={list} />
     </>
   );
@@ -102,7 +116,7 @@ export default function ListsScreen() {
 const useListQuery = (uri: string) => {
   const agent = useAgent();
   return useInfiniteQuery({
-    queryKey: ["list", uri],
+    queryKey: ["list", uri, "info"],
     queryFn: async ({ pageParam }) => {
       const res = await agent.app.bsky.graph.getList({
         list: uri,
@@ -127,6 +141,7 @@ const ListHeader = ({
   const agent = useAgent();
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
+  const queryClient = useQueryClient();
 
   const deleteList = useMutation({
     mutationFn: async () => {
@@ -157,97 +172,251 @@ const ListHeader = ({
     },
   });
 
-  let listType = null;
+  const subscribe = useMutation({
+    mutationFn: () =>
+      new Promise<string | null>((resolve) => {
+        if (info.viewer?.blocked || info.viewer?.muted) {
+          showActionSheetWithOptions(
+            {
+              options: ["Unsubscribe from list", "Cancel"],
+              cancelButtonIndex: 1,
+              ...actionSheetStyles(theme),
+            },
+            async (buttonIndex) => {
+              if (buttonIndex === 0) {
+                if (info.viewer?.muted) {
+                  await agent.app.bsky.graph.unmuteActorList({
+                    list: info.uri,
+                  });
+                }
+                if (info.viewer?.blocked) {
+                  await agent.app.bsky.graph.listblock.delete({
+                    repo: agent.session!.did,
+                    rkey: info.viewer.blocked.split("/").pop(),
+                  });
+                }
+                queryClient.setQueryData(
+                  ["list", info.uri, "info"],
+                  (old: ReturnType<typeof useListQuery>["data"]) => {
+                    if (!old) return;
+                    return produce(old, (draft) => {
+                      if (draft.pages[0]) {
+                        draft.pages[0].list.viewer = {
+                          muted: undefined,
+                          blocked: undefined,
+                        };
+                      }
+                    });
+                  },
+                );
+                resolve("Unsubscribed from list");
+              } else {
+                resolve(null);
+              }
+            },
+          );
+        } else {
+          const options = ["Mute all members", "Block all members"];
+          showActionSheetWithOptions(
+            {
+              title: `Subscribe to ${info.name}`,
+              options: [...options, "Cancel"],
+              cancelButtonIndex: options.length,
+              destructiveButtonIndex: [0, 1],
+              ...actionSheetStyles(theme),
+            },
+            async (buttonIndex) => {
+              if (buttonIndex === undefined) {
+                resolve(null);
+              } else {
+                const answer = options[buttonIndex];
+                switch (answer) {
+                  case "Mute all members":
+                    await agent.app.bsky.graph.muteActorList({
+                      list: info.uri,
+                    });
+                    queryClient.setQueryData(
+                      ["list", info.uri, "info"],
+                      (old: ReturnType<typeof useListQuery>["data"]) => {
+                        if (!old) return;
+                        return produce(old, (draft) => {
+                          if (draft.pages[0]) {
+                            draft.pages[0].list.viewer = {
+                              muted: true,
+                            };
+                          }
+                        });
+                      },
+                    );
+                    resolve("List muted");
+                    break;
+                  case "Block all members": {
+                    const block = await agent.app.bsky.graph.listblock.create(
+                      { repo: agent.session!.did },
+                      {
+                        createdAt: new Date().toISOString(),
+                        subject: info.uri,
+                      },
+                    );
+                    queryClient.setQueryData(
+                      ["list", info.uri, "info"],
+                      (old: ReturnType<typeof useListQuery>["data"]) => {
+                        if (!old) return;
+                        return produce(old, (draft) => {
+                          if (draft.pages[0]) {
+                            draft.pages[0].list.viewer = {
+                              blocked: block.uri,
+                            };
+                          }
+                        });
+                      },
+                    );
+                    resolve("List blocked");
+                    break;
+                  }
+                  default:
+                    resolve(null);
+                    break;
+                }
+              }
+            },
+          );
+        }
+      }),
+    onSuccess: (message) => {
+      if (message) {
+        showToastable({
+          message,
+        });
+      }
+    },
+    onSettled: () => queryClient.refetchQueries(["list", info.uri, "info"]),
+  });
+
+  let purposeText: string | null = null;
+  let actionText: string | null = null;
+  let actionClass: string | null = null;
+  let purposeClass = "bg-neutral-500";
   switch (info.purpose) {
-    case AppBskyGraphDefs.CURATELIST:
-      listType = "Curation list";
-      break;
     case AppBskyGraphDefs.MODLIST:
-      listType = "Moderation list";
+      purposeText = "Moderation list";
+      actionText = "Subscribe to list";
+      actionClass = "bg-blue-500";
+      if (info.viewer?.muted) {
+        actionText = "Muted list";
+        actionClass = "bg-neutral-500";
+      }
+      if (info.viewer?.blocked) {
+        actionText = "Blocking list";
+        actionClass = "bg-red-500";
+      }
+      break;
+    case AppBskyGraphDefs.CURATELIST:
+      purposeText = "Curation list";
+      purposeClass = "bg-blue-500";
       break;
   }
+
+  const handleOptions = () => {
+    if (!info) return;
+    if (info.creator.did === agent.session?.did) {
+      showActionSheetWithOptions(
+        {
+          options: ["Edit", "Delete", "Share", "Cancel"],
+          destructiveButtonIndex: 1,
+          cancelButtonIndex: 3,
+          ...actionSheetStyles(theme),
+        },
+        (buttonIndex) => {
+          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          switch (buttonIndex) {
+            case 0:
+              Alert.alert("Not yet implemented", "Please use the official app");
+              break;
+            case 1:
+              Alert.alert(
+                "Delete list",
+                "Are you sure you want to delete this list?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel",
+                  },
+                  {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                      deleteList.mutate();
+                    },
+                  },
+                ],
+              );
+              break;
+            case 2:
+              void Share.share(
+                Platform.select({
+                  ios: { url: bskyUrl },
+                  default: { message: bskyUrl },
+                }),
+              );
+              break;
+          }
+        },
+      );
+    } else {
+      showActionSheetWithOptions(
+        {
+          options: ["Share", "Cancel"],
+          cancelButtonIndex: 1,
+          ...actionSheetStyles(theme),
+        },
+        (buttonIndex) => {
+          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          switch (buttonIndex) {
+            case 0:
+              void Share.share(
+                Platform.select({
+                  ios: { url: bskyUrl },
+                  default: { message: bskyUrl },
+                }),
+              );
+              break;
+          }
+        },
+      );
+    }
+  };
+
   return (
-    <View className="flex-1 px-4 pb-2 pt-4">
+    <View
+      className="flex-1 px-4 pb-2 pt-4"
+      style={{ backgroundColor: theme.colors.card }}
+    >
+      <StatusBar />
       <Stack.Screen
         options={{
           title: info?.name ?? "List",
           headerTitle: "",
           headerRight: () => (
             <View className="flex-row">
+              {actionText && (
+                <TouchableOpacity
+                  className={cx(
+                    "mr-2 items-center rounded-full px-4",
+                    actionClass,
+                    subscribe.isLoading && "opacity-50",
+                  )}
+                  disabled={subscribe.isLoading}
+                  onPress={() => subscribe.mutate()}
+                >
+                  <Text className="text-base font-bold leading-7 text-white">
+                    {actionText}
+                  </Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
-                className="mr-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
-                onPress={() => {
-                  if (!info) return;
-                  if (info.creator.did === agent.session?.did) {
-                    showActionSheetWithOptions(
-                      {
-                        options: ["Edit", "Delete", "Share", "Cancel"],
-                        destructiveButtonIndex: 1,
-                        cancelButtonIndex: 3,
-                        ...actionSheetStyles(theme),
-                      },
-                      (buttonIndex) => {
-                        const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
-                        switch (buttonIndex) {
-                          case 0:
-                            Alert.alert(
-                              "Not yet implemented",
-                              "Please use the official app",
-                            );
-                            break;
-                          case 1:
-                            Alert.alert(
-                              "Delete list",
-                              "Are you sure you want to delete this list?",
-                              [
-                                {
-                                  text: "Cancel",
-                                  style: "cancel",
-                                },
-                                {
-                                  text: "Delete",
-                                  style: "destructive",
-                                  onPress: () => {
-                                    deleteList.mutate();
-                                  },
-                                },
-                              ],
-                            );
-                            break;
-                          case 2:
-                            void Share.share(
-                              Platform.select({
-                                ios: { url: bskyUrl },
-                                default: { message: bskyUrl },
-                              }),
-                            );
-                            break;
-                        }
-                      },
-                    );
-                  } else {
-                    showActionSheetWithOptions(
-                      {
-                        options: ["Share", "Cancel"],
-                        cancelButtonIndex: 1,
-                        ...actionSheetStyles(theme),
-                      },
-                      (buttonIndex) => {
-                        const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
-                        switch (buttonIndex) {
-                          case 0:
-                            void Share.share(
-                              Platform.select({
-                                ios: { url: bskyUrl },
-                                default: { message: bskyUrl },
-                              }),
-                            );
-                            break;
-                        }
-                      },
-                    );
-                  }
-                }}
+                className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
+                onPress={handleOptions}
               >
                 <MoreHorizontalIcon
                   size={18}
@@ -261,7 +430,7 @@ const ListHeader = ({
       <View className="flex-1 flex-row">
         <View className="flex-1">
           <Text className="text-2xl font-medium">{info.name}</Text>
-          {listType && <Text className="text-lg">{listType}</Text>}
+          {purposeText && <Text className="text-lg">{purposeText}</Text>}
           <Text
             className="text-base leading-5"
             onPress={() => {
@@ -274,7 +443,7 @@ const ListHeader = ({
         </View>
         <Image
           source={{ uri: info.avatar }}
-          className="ml-4 h-16 w-16 rounded-lg"
+          className={cx("ml-4 h-16 w-16 rounded-lg", purposeClass)}
         />
       </View>
       {info.description && (
@@ -295,6 +464,15 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
       renderItem={({ item }) => <ListMemberItem item={item} />}
       onEndReachedThreshold={0.6}
       onEndReached={() => query.fetchNextPage()}
+      estimatedItemSize={140}
+      ListFooterComponent={<ListFooterComponent query={query} />}
+      ListEmptyComponent={
+        <View className="flex-1 items-center justify-center p-8">
+          <Text className="text-center text-neutral-500 dark:text-neutral-400">
+            This list is empty
+          </Text>
+        </View>
+      }
     />
   );
 };
@@ -315,20 +493,87 @@ const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
             theme.dark ? "bg-black" : "bg-white",
           )}
         >
-          <Image
-            source={{ uri: item.subject.avatar }}
-            className="h-10 w-10 rounded-full"
-            recyclingKey={item.subject.did}
-          />
+          <PostAvatar profile={item.subject} />
           <View className="ml-2 flex-1">
             {item.subject.displayName && (
-              <Text className="text-base">{item.subject.displayName}</Text>
+              <Text className="text-base font-medium">
+                {item.subject.displayName}
+              </Text>
             )}
-            <Text>@{item.subject.handle}</Text>
-            <Text className="mt-2">{item.subject.description}</Text>
+            <Text className="text-neutral-500">@{item.subject.handle}</Text>
+            <Text className="mb-1 mr-2 mt-2">{item.subject.description}</Text>
           </View>
         </View>
       </TouchableHighlight>
     </Link>
   );
+};
+
+const ListFeed = ({ uri }: { uri: string }) => {
+  const agent = useAgent();
+  const { contentFilter } = useContentFilter();
+
+  const query = useInfiniteQuery({
+    queryKey: ["list", uri, "feed"],
+    queryFn: async ({ pageParam }) => {
+      const res = await agent.app.bsky.feed.getListFeed({
+        list: uri,
+        cursor: pageParam as string | undefined,
+      });
+      if (!res.success) throw new Error("Could not fetch list feed");
+      return res.data;
+    },
+  });
+
+  const [ref, onScroll] = useTabPressScrollRef<{
+    item: AppBskyFeedDefs.FeedViewPost;
+    filter: FilterResult;
+  }>(query.refetch);
+  const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
+
+  const data = useMemo(() => {
+    if (!query.data) return [];
+    return query.data.pages
+      .flatMap((page) => page.feed)
+      .map((item) => ({
+        item,
+        filter: contentFilter(item.post.labels),
+      }));
+  }, [query.data, contentFilter]);
+
+  if (query.data) {
+    return (
+      <Tabs.FlashList<{
+        item: AppBskyFeedDefs.FeedViewPost;
+        filter: FilterResult;
+      }>
+        estimatedItemSize={264}
+        contentInsetAdjustmentBehavior="automatic"
+        ref={ref}
+        onScroll={onScroll}
+        data={data}
+        renderItem={({ item }) => (
+          <FeedPost
+            {...item}
+            inlineParent
+            dataUpdatedAt={query.dataUpdatedAt}
+          />
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        ListEmptyComponent={
+          <View className="flex-1 items-center justify-center p-8">
+            <Text className="text-center text-neutral-500 dark:text-neutral-400">
+              This list is empty
+            </Text>
+          </View>
+        }
+        ListFooterComponent={<ListFooterComponent query={query} />}
+        extraData={query.dataUpdatedAt}
+      />
+    );
+  }
+
+  return <QueryWithoutData query={query} />;
 };

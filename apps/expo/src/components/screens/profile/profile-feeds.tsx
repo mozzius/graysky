@@ -1,10 +1,5 @@
 import { useMemo } from "react";
-import {
-  ActivityIndicator,
-  LogBox,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { LogBox, TouchableOpacity, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
@@ -14,6 +9,7 @@ import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 
+import { ListFooterComponent } from "~/components/list-footer";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
@@ -92,18 +88,8 @@ export const ProfileFeeds = ({ handle }: Props) => {
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => void feeds.fetchNextPage()}
-        estimatedItemSize={91}
-        ListFooterComponent={
-          feeds.isFetching ? (
-            <View className="w-full items-center py-8">
-              <ActivityIndicator />
-            </View>
-          ) : (
-            <View className="py-16">
-              <Text className="text-center">That&apos;s everything!</Text>
-            </View>
-          )
-        }
+        estimatedItemSize={100}
+        ListFooterComponent={<ListFooterComponent query={feeds} />}
         extraData={feeds.dataUpdatedAt}
       />
     );

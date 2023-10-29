@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, RefreshControl, View } from "react-native";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { Stack, useFocusEffect } from "expo-router";
 import {
   type AppBskyFeedDefs,
@@ -8,6 +8,7 @@ import {
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
+import { ListFooterComponent } from "~/components/list-footer";
 import { Notification } from "~/components/notification";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { useAgent } from "~/lib/agent";
@@ -262,13 +263,7 @@ export default function NotificationsPage() {
               tintColor={tintColor}
             />
           }
-          ListFooterComponent={
-            notifications.isFetching ? (
-              <View className="w-full items-center py-4">
-                <ActivityIndicator />
-              </View>
-            ) : null
-          }
+          ListFooterComponent={<ListFooterComponent query={notifications} />}
           extraData={notifications.dataUpdatedAt}
         />
       </>

@@ -86,6 +86,8 @@ export const Embed = ({
       media = content.media;
     }
 
+    // TODO: Support all record types equally
+
     if (record !== null) {
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
         if (AppBskyFeedDefs.isGeneratorView(record)) {

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 import { RefreshControl, TouchableOpacity } from "react-native-gesture-handler";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { BskyAgent, type AppBskyFeedDefs } from "@atproto/api";
@@ -10,6 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { RssIcon } from "lucide-react-native";
 
 import { FeedPost } from "~/components/feed-post";
+import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
@@ -170,20 +171,7 @@ export default function TagScreen() {
           }
           estimatedItemSize={171}
           ListFooterComponent={
-            feed.isFetching ? (
-              <View className="w-full flex-col items-center justify-center py-8">
-                <ActivityIndicator />
-                <Text className="mt-4 text-center text-sm text-neutral-400">
-                  Powered by Skyfeed
-                </Text>
-              </View>
-            ) : data.length > 0 ? (
-              <View className="py-16">
-                <Text className="text-center">That&apos;s everything!</Text>
-              </View>
-            ) : (
-              <></>
-            )
+            <ListFooterComponent query={feed} text="Powered by Skyfeed" />
           }
           extraData={feed.dataUpdatedAt}
           ListEmptyComponent={

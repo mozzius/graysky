@@ -262,7 +262,7 @@ const PostThread = ({ contentFilter }: Props) => {
           ListFooterComponent={
             thread.isFetching && !refreshing ? (
               <View className="w-full items-center py-4">
-                <ActivityIndicator size="small" />
+                <ActivityIndicator />
               </View>
             ) : (
               <View className="h-20" />

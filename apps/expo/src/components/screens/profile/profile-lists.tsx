@@ -1,10 +1,5 @@
 import { useMemo } from "react";
-import {
-  ActivityIndicator,
-  LogBox,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { LogBox, TouchableHighlight, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
@@ -12,6 +7,7 @@ import { AppBskyGraphDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 
+import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
 import { QueryWithoutData } from "../../query-without-data";
@@ -52,17 +48,7 @@ export const ProfileLists = ({ handle }: Props) => {
         onEndReachedThreshold={0.6}
         onEndReached={() => lists.fetchNextPage()}
         estimatedItemSize={91}
-        ListFooterComponent={
-          lists.isFetching ? (
-            <View className="w-full items-center py-8">
-              <ActivityIndicator />
-            </View>
-          ) : (
-            <View className="py-16">
-              <Text className="text-center">That&apos;s everything!</Text>
-            </View>
-          )
-        }
+        ListFooterComponent={<ListFooterComponent query={lists} />}
         extraData={lists.dataUpdatedAt}
       />
     );
@@ -95,7 +81,7 @@ const ListItem = ({
   }
   return (
     <Link href={href} asChild>
-      <TouchableOpacity>
+      <TouchableHighlight>
         <View
           className={cx(
             "flex-row items-center border-b px-4 py-2",
@@ -132,7 +118,7 @@ const ListItem = ({
             className="text-neutral-400 dark:text-neutral-200"
           />
         </View>
-      </TouchableOpacity>
+      </TouchableHighlight>
     </Link>
   );
 };

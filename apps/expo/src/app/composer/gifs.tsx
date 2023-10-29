@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   Platform,
+  RefreshControl,
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
@@ -18,6 +18,7 @@ import Sentry from "sentry-expo";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
+import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
@@ -27,6 +28,7 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
+import { useUserRefresh } from "~/lib/utils/query";
 
 const useDebounce = <T,>(value: T, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -89,6 +91,12 @@ export default function GifSearch() {
     locale: langTag,
   });
 
+  const gifQuery = isSearching ? search : featured;
+
+  const { handleRefresh, refreshing, tintColor } = useUserRefresh(
+    gifQuery.refetch,
+  );
+
   if (focused && !isSearching) {
     if (trendingTerms.data) {
       return (
@@ -125,8 +133,6 @@ export default function GifSearch() {
     );
   }
 
-  const gifQuery = isSearching ? search : featured;
-
   if (gifQuery.data) {
     return (
       <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
@@ -142,18 +148,17 @@ export default function GifSearch() {
             layout.span = (width - 16) / 2;
             layout.size = (layout.span - 4) / aspectRatio + 8;
           }}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => featured.fetchNextPage()}
-          estimatedItemSize={200}
-          ListFooterComponent={
-            featured.isFetching ? (
-              <View className="w-full items-center py-4">
-                <ActivityIndicator size="small" />
-              </View>
-            ) : (
-              <View className="h-20" />
-            )
+          onEndReachedThreshold={0.6}
+          onEndReached={() => gifQuery.fetchNextPage()}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={tintColor}
+            />
           }
+          estimatedItemSize={200}
+          ListFooterComponent={<ListFooterComponent query={gifQuery} />}
           contentContainerStyle={{
             paddingHorizontal: 16,
             paddingTop: Platform.select({ ios: 0, default: 16 }),

@@ -72,6 +72,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
     mutationFn: async () => {
+      const updater = (old: AppBskyActorDefs.ProfileView | undefined) => {
+        if (!old) return;
+        return produce(old, (draft) => {
+          if (draft.viewer) {
+            if (draft.viewer.following) {
+              delete draft.viewer.following;
+            } else {
+              draft.viewer.following = "pending";
+            }
+          }
+        });
+      };
+      queryClient.setQueryData(["profile", profile.handle], updater);
+      queryClient.setQueryData(["profile", profile.did], updater);
       if (profile.viewer?.following) {
         await agent.deleteFollow(profile.viewer?.following);
         return "unfollowed";
@@ -80,23 +94,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         return "followed";
       }
     },
-    onMutate: () => {
-      haptics.impact();
-
-      // Optimistically update the profile
-      const updated = produce(profile, (draft) => {
-        if (draft.viewer) {
-          if (draft.viewer.following) {
-            delete draft.viewer.following;
-          } else {
-            draft.viewer.following = "pending";
-          }
-        }
-      });
-
-      queryClient.setQueryData(["profile", profile.handle], updated);
-      queryClient.setQueryData(["profile", profile.did], updated);
-    },
+    onMutate: () => haptics.impact(),
     onSettled: () => {
       void queryClient.invalidateQueries(["profile"]);
       void queryClient.invalidateQueries(["network"]);
@@ -429,7 +427,6 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       profile.viewer?.following
                         ? "bg-neutral-200 dark:bg-neutral-700"
                         : "bg-black dark:bg-white",
-                      toggleFollow.isLoading && "opacity-50",
                     )}
                   >
                     {profile.viewer?.following ? (

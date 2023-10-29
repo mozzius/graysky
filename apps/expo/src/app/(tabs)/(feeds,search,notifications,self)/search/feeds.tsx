@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, RefreshControl, View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
@@ -9,6 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
+import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
@@ -72,16 +73,9 @@ const FeedSearch = ({ search }: Props) => {
             </Text>
           </View>
         }
-        ListFooterComponent={
-          query.isFetching && !refreshing ? (
-            <View className="w-full items-center py-4">
-              <ActivityIndicator size="small" />
-            </View>
-          ) : (
-            <View className="h-20" />
-          )
-        }
+        ListFooterComponent={<ListFooterComponent query={query} />}
         onEndReached={() => query.fetchNextPage()}
+        onEndReachedThreshold={0.6}
       />
     );
   }

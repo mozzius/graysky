@@ -1,7 +1,7 @@
-import { ActivityIndicator, LogBox, View } from "react-native";
+import { LogBox } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 
-import { Text } from "~/components/text";
+import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
@@ -69,18 +69,8 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => timeline.fetchNextPage()}
-        estimatedItemSize={91}
-        ListFooterComponent={
-          timeline.isFetching ? (
-            <View className="w-full items-center py-8">
-              <ActivityIndicator />
-            </View>
-          ) : (
-            <View className="py-16">
-              <Text className="text-center">That&apos;s everything!</Text>
-            </View>
-          )
-        }
+        estimatedItemSize={100}
+        ListFooterComponent={<ListFooterComponent query={timeline} />}
         extraData={timeline.dataUpdatedAt}
       />
     );
