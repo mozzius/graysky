@@ -171,6 +171,20 @@ const ListHeader = ({
     },
   });
 
+  const setViewerState = (viewer: AppBskyGraphDefs.ListViewerState) => {
+    queryClient.setQueryData(
+      ["list", info.uri, "info"],
+      (old: ReturnType<typeof useListQuery>["data"]) => {
+        if (!old) return;
+        return produce(old, (draft) => {
+          if (draft.pages[0]) {
+            draft.pages[0].list.viewer = viewer;
+          }
+        });
+      },
+    );
+  };
+
   const subscribe = useMutation({
     mutationFn: () =>
       new Promise<string | null>((resolve) => {
@@ -184,30 +198,15 @@ const ListHeader = ({
             async (buttonIndex) => {
               if (buttonIndex === 0) {
                 if (info.viewer?.muted) {
-                  await agent.app.bsky.graph.unmuteActorList({
-                    list: info.uri,
-                  });
+                  await agent.unmuteModList(info.uri);
                 }
                 if (info.viewer?.blocked) {
-                  await agent.app.bsky.graph.listblock.delete({
-                    repo: agent.session!.did,
-                    rkey: info.viewer.blocked.split("/").pop(),
-                  });
+                  await agent.unblockModList(info.uri);
                 }
-                queryClient.setQueryData(
-                  ["list", info.uri, "info"],
-                  (old: ReturnType<typeof useListQuery>["data"]) => {
-                    if (!old) return;
-                    return produce(old, (draft) => {
-                      if (draft.pages[0]) {
-                        draft.pages[0].list.viewer = {
-                          muted: undefined,
-                          blocked: undefined,
-                        };
-                      }
-                    });
-                  },
-                );
+                setViewerState({
+                  blocked: undefined,
+                  muted: undefined,
+                });
                 resolve("Unsubscribed from list");
               } else {
                 resolve(null);
@@ -231,45 +230,13 @@ const ListHeader = ({
                 const answer = options[buttonIndex];
                 switch (answer) {
                   case "Mute all members":
-                    await agent.app.bsky.graph.muteActorList({
-                      list: info.uri,
-                    });
-                    queryClient.setQueryData(
-                      ["list", info.uri, "info"],
-                      (old: ReturnType<typeof useListQuery>["data"]) => {
-                        if (!old) return;
-                        return produce(old, (draft) => {
-                          if (draft.pages[0]) {
-                            draft.pages[0].list.viewer = {
-                              muted: true,
-                            };
-                          }
-                        });
-                      },
-                    );
+                    await agent.muteModList(info.uri);
+                    setViewerState({ muted: true });
                     resolve("List muted");
                     break;
                   case "Block all members": {
-                    const block = await agent.app.bsky.graph.listblock.create(
-                      { repo: agent.session!.did },
-                      {
-                        createdAt: new Date().toISOString(),
-                        subject: info.uri,
-                      },
-                    );
-                    queryClient.setQueryData(
-                      ["list", info.uri, "info"],
-                      (old: ReturnType<typeof useListQuery>["data"]) => {
-                        if (!old) return;
-                        return produce(old, (draft) => {
-                          if (draft.pages[0]) {
-                            draft.pages[0].list.viewer = {
-                              blocked: block.uri,
-                            };
-                          }
-                        });
-                      },
-                    );
+                    const block = await agent.blockModList(info.uri);
+                    setViewerState({ blocked: block.uri });
                     resolve("List blocked");
                     break;
                   }

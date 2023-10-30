@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "dependencies": {
     "@atproto/api": "^0.6.21",
     "@expo/metro-config": "^0.10.7",
@@ -35,7 +35,7 @@
     "expo-image": "^1.3.4",
     "expo-image-manipulator": "^11.5.0",
     "expo-image-picker": "~14.5.0",
-    "expo-insights": "~0.2.0",
+    "expo-insights": "~0.4.0",
     "expo-linking": "~5.0.2",
     "expo-localization": "~14.3.0",
     "expo-media-library": "^15.4.1",

@@ -140,8 +140,8 @@ importers:
         specifier: ~14.5.0
         version: 14.5.0(expo@49.0.16)
       expo-insights:
-        specifier: ~0.2.0
-        version: 0.2.0(expo@49.0.16)
+        specifier: ~0.4.0
+        version: 0.4.0(expo@49.0.16)
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.16)
@@ -5698,6 +5698,11 @@ packages:
       prop-types: 15.8.1
     dev: false
 
+  /dequal@1.0.0:
+    resolution: {integrity: sha512-/Nd1EQbQbI9UbSHrMiKZjFLrXSnU328iQdZKPQf78XQI6C+gutkFUeoHpG5J08Ioa6HeRbRNFpSIclh1xyG0mw==}
+    engines: {node: '>=6'}
+    dev: false
+
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
@@ -6546,6 +6551,10 @@ packages:
     resolution: {integrity: sha512-FSPy0ThcJBvzEzOZVhpOrYyHgQ8U1jJ4v7u7tr1x0KOVRqyf25APEQZFxxRPn3zAYW0tQ+uDTCbrwNymFqhQfw==}
     dev: false
 
+  /expo-eas-client@0.8.0:
+    resolution: {integrity: sha512-GHhmxuQ8jTg3++4qgcp7GblBgqJYQVrln9R6n75iLK++joJR+k3f4/EpdfDg0sgckKt6Bh0th65C31h+q4BA4A==}
+    dev: false
+
   /expo-file-system@15.4.4(expo@49.0.16):
     resolution: {integrity: sha512-F0xS88D85F7qVQ61r0qBnzh6VW/s6iIl+VaQEEi2nAIOQHw1JIEj4yCXPLTtbyn5VmArbe2dSL3KYz1V+BLkKA==}
     peerDependencies:
@@ -6623,13 +6632,13 @@ packages:
       expo: 49.0.16(@babel/core@7.23.2)
     dev: false
 
-  /expo-insights@0.2.0(expo@49.0.16):
-    resolution: {integrity: sha512-1TN1DALyCGXnohoxBO3hW+2T4X6h33StsmRUutw+Dp7Y4oDcrhB8ViDEhUzvVPPDWIRbYLmo6ZqzgvPltZUtJw==}
+  /expo-insights@0.4.0(expo@49.0.16):
+    resolution: {integrity: sha512-8TtFfgHj5iuuV76qsMTNOlwZ1SwU6/3wTXbLXkZcxJ15RNxg6A8lRJCRbF80s31zIuAQPRqewsTYagyXtVyGDg==}
     peerDependencies:
       expo: '*'
     dependencies:
       expo: 49.0.16(@babel/core@7.23.2)
-      expo-eas-client: 0.6.0
+      expo-eas-client: 0.8.0
     dev: false
 
   /expo-json-utils@0.7.1:
@@ -13183,7 +13192,7 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
-      dequal: 2.0.3
+      dequal: 1.0.0
       react: 18.2.0
     dev: false
 
