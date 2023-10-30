@@ -78,7 +78,7 @@ export const RichText = ({
                   const path = url.slice("https://bsky.app".length);
                   router.push(path);
                 } else {
-                  openLink(url);
+                  void openLink(url);
                   // check link is not deceptive
                   // TODO: the official app now shortens links - will need new logic
                   // const realHost = new URL(url).hostname;
