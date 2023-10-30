@@ -30,7 +30,7 @@ If you've ever tried to read a Bluesky thread in a language you don't speak, you
 
 Graysky lets you see not just your own likes, but anyone's likes! Every user's profile has a likes tab, much like Twitter.
 
-> The official app opts not to show other people's likes, but the AT Protocol built in such a way that almost all data is inherently public. I think it's important to embrace this, rather than give people a false sense of privacy.
+> The official app opts not to show other people's likes, but the AT Protocol is built in such a way that almost all data is inherently public. I think it's important to embrace this, rather than give people a false sense of privacy.
 
 ### Other features
 
