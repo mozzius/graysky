@@ -153,7 +153,11 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
         { shouldPlay: gifAutoplay, isLooping: true, isMuted: true },
       );
       return () => {
-        void player.unloadAsync();
+        try {
+          void player.unloadAsync();
+        } catch {
+          console.log("unloadAsync failed");
+        }
       };
     }
   }, [gifAutoplay, uri]);
