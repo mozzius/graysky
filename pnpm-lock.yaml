@@ -62,8 +62,8 @@ importers:
         specifier: 1.18.2
         version: 1.18.2(react-native@0.72.6)
       '@react-native-community/netinfo':
-        specifier: 9.3.10
-        version: 9.3.10(react-native@0.72.6)
+        specifier: 9.5.0
+        version: 9.5.0(react-native@0.72.6)
       '@react-native-community/slider':
         specifier: ^4.4.2
         version: 4.4.2
@@ -3367,8 +3367,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@react-native-community/netinfo@9.3.10(react-native@0.72.6):
-    resolution: {integrity: sha512-OwnqoJUp/4sa9e3ju+wQavAa8l0fiA3DheeLMKzKxtKeAe0CA7bNxWRM752JvRQ6A/igPnt1V0zSlu5owvQEuA==}
+  /@react-native-community/netinfo@9.5.0(react-native@0.72.6):
+    resolution: {integrity: sha512-sppTBobjvIlPYXyDAyb5WJoBaQq1hprnHj1PWICsA10mVnlmwX5ZVkgO2vGjsfFtb+fmWK9XtZF+aQ6ijqQcwg==}
     peerDependencies:
       react-native: '>=0.59'
     dependencies:
