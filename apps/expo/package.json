@@ -40,7 +40,7 @@
     "expo-localization": "~14.3.0",
     "expo-media-library": "^15.4.1",
     "expo-notifications": "^0.23.0",
-    "expo-router": "2.0.5",
+    "expo-router": "2.0.10",
     "expo-sharing": "^11.5.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
@@ -50,7 +50,7 @@
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",
     "immer": "^10.0.3",
-    "lucide-react-native": "^0.290.0",
+    "lucide-react-native": "^0.291.0",
     "metro": "~0.80.0",
     "mime": "^3.0.0",
     "nativewind": "^2.0.11",
@@ -82,7 +82,7 @@
     "rn-fetch-blob": "^0.12.0",
     "sentry-expo": "~7.0.1",
     "superjson": "1.13.3",
-    "tailwind-merge": "^1.14.0",
+    "tailwind-merge": "^2.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
