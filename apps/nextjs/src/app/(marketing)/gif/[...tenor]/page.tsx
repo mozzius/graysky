@@ -4,10 +4,16 @@ import Link from "next/link";
 
 import poweredByTenor from "./tenor.svg";
 
-export const metadata = {
-  title: "GIF - Graysky",
+export const generateMetadata = ({
+  searchParams,
+}: {
+  searchParams: { title?: string };
+}) => ({
+  title: searchParams.title
+    ? decodeURIComponent(searchParams.title) + " - Graysky"
+    : "GIF - Graysky",
   description: "If you send this link via Graysky, you get a nice preview",
-};
+});
 
 export default function GifScreen({
   params,

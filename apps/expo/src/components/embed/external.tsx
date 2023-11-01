@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Platform,
   Share,
   StyleSheet,
@@ -142,25 +143,10 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
   const [{ gifAutoplay }] = useAppPreferences();
   const [playing, setPlaying] = useState(gifAutoplay);
   const ref = useRef<Video>(null!);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const shareUrl = link.toString();
-
-  useEffect(() => {
-    const player = ref.current;
-    if (player) {
-      void player.loadAsync(
-        { uri },
-        { shouldPlay: gifAutoplay, isLooping: true, isMuted: true },
-      );
-      return () => {
-        try {
-          void player.unloadAsync();
-        } catch {
-          console.log("unloadAsync failed");
-        }
-      };
-    }
-  }, [gifAutoplay, uri]);
 
   return (
     <TouchableHighlight
@@ -176,35 +162,77 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
         )
       }
     >
-      <View
-        className={cx(
-          "relative flex-1 overflow-hidden rounded-lg",
-          theme.dark ? "bg-black" : "bg-white",
-          transparent && "bg-transparent",
-          depth > 0 && "flex-row",
+      <>
+        {(loading || error) && (
+          <View
+            className="absolute left-0 top-0 z-50 h-full w-full flex-1 items-center justify-center gap-4"
+            pointerEvents="none"
+          >
+            {loading && <ActivityIndicator size="large" />}
+            {error && (
+              <View className="mt-4 rounded bg-black/60 px-1 py-px">
+                <Text className="text-xs font-medium text-white">
+                  Error: could not load GIF
+                </Text>
+              </View>
+            )}
+          </View>
         )}
-        style={{
-          borderColor: theme.colors.border,
-          borderWidth: StyleSheet.hairlineWidth,
-        }}
-      >
-        <View className="absolute bottom-1.5 left-1.5 z-10 rounded bg-black/60 px-1 py-px">
-          <Text className="text-xs font-medium text-white">
-            GIF{!playing && " (tap to play)"}
-          </Text>
+        <View
+          className={cx(
+            "relative flex-1 overflow-hidden rounded-lg",
+            theme.dark ? "bg-black" : "bg-white",
+            transparent && "bg-transparent",
+            depth > 0 && "flex-row",
+          )}
+          style={{
+            borderColor: theme.colors.border,
+            borderWidth: StyleSheet.hairlineWidth,
+          }}
+        >
+          <View className="absolute bottom-1.5 left-1.5 z-10 rounded bg-black/60 px-1 py-px">
+            <Text className="text-xs font-medium text-white">
+              GIF{!playing && " (tap to play)"}
+            </Text>
+          </View>
+          <Video
+            ref={ref}
+            resizeMode={ResizeMode.COVER}
+            shouldPlay={playing}
+            source={{ uri }}
+            isLooping
+            isMuted
+            usePoster
+            style={{ flex: 1, aspectRatio }}
+            onPlaybackStatusUpdate={(status) => {
+              if (status.isLoaded) {
+                setLoading(false);
+                setError(false);
+                if (gifAutoplay) {
+                  if (!status.isPlaying) void ref.current.playAsync();
+                } else {
+                  setPlaying(status.isPlaying);
+                }
+                if (!status.isLooping) {
+                  void ref.current.setIsLoopingAsync(true);
+                }
+              } else if (status.error) {
+                setLoading(false);
+                setError(true);
+                console.error(status.error);
+              } else {
+                setLoading(true);
+                setError(false);
+              }
+            }}
+            posterSource={{ uri: thumb }}
+            onReadyForDisplay={({ naturalSize }) =>
+              setAspectRatio(naturalSize.width / naturalSize.height)
+            }
+            accessibilityLabel={title}
+          />
         </View>
-        <Video
-          ref={ref}
-          resizeMode={ResizeMode.COVER}
-          shouldPlay={playing}
-          style={{ flex: 1, aspectRatio }}
-          posterSource={{ uri: thumb }}
-          onReadyForDisplay={({ naturalSize }) =>
-            setAspectRatio(naturalSize.width / naturalSize.height)
-          }
-          accessibilityLabel={title}
-        />
-      </View>
+      </>
     </TouchableHighlight>
   );
 };
