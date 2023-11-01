@@ -121,7 +121,7 @@ const App = ({ session, saveSession }: Props) => {
         onceRef.current = true;
         resumeSession.mutate(session);
         setTimeout(() => {
-          router.replace("/feeds");
+          router.replace("/(feeds)/feeds");
         });
       }
     }
@@ -142,9 +142,9 @@ const App = ({ session, saveSession }: Props) => {
       // Redirect to the sign-in page.
       console.log("redirecting to /");
       router.replace("/");
-    } else if (agent.hasSession && (inAuthGroup || atRoot)) {
+    } else if (agent.hasSession && atRoot) {
       console.log("redirecting to /feeds");
-      router.replace("/feeds");
+      router.replace("/(feeds)/feeds");
     }
   }, [segments, router, agent.hasSession, resumeSession.isLoading]);
 

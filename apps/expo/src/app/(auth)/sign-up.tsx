@@ -102,7 +102,7 @@ export default function SignUp() {
   }
 
   const createAccount = useMutation({
-    mutationKey: ["change-password"],
+    mutationKey: ["create-account"],
     mutationFn: async () => {
       if (password.length < 8) {
         throw new Error("Password must be at least 8 characters");
@@ -114,7 +114,7 @@ export default function SignUp() {
         handle: derivedHandle,
       });
     },
-    onSuccess: () => setStage(3),
+    onSuccess: () => router.push("../"),
     onError: (err) => {
       console.error(err);
       showToastable({

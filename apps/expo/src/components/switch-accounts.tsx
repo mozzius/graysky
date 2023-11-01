@@ -51,6 +51,7 @@ export function SwitchAccounts({
     mutationFn: async (session: AtpSessionData) => {
       const res = await agent.resumeSession(session);
       if (!res.success) throw new Error("Could not resume session");
+      await queryClient.resetQueries();
       return res.data;
     },
     onError: (err, session) => {
@@ -67,7 +68,7 @@ export function SwitchAccounts({
         message: `You are now logged in as @${data.handle}`,
         status: "success",
       });
-      void queryClient.resetQueries();
+      router.replace("/(feeds)/feeds");
       onSuccessfulSwitch?.();
     },
   });
