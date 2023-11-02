@@ -39,9 +39,9 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       usesNonExemptEncryption: false,
     },
     infoPlist: {
-      // should be true but simulator builds don't like this
+      // should be true but dev client builds don't like this
       UIViewControllerBasedStatusBarAppearance:
-        process.env.SIMULATOR === "true" ? false : true,
+        process.env.DEV_CLIENT === "true" ? false : true,
       CADisableMinimumFrameDurationOnPhone: true,
       UIBackgroundModes: ["remote-notification"],
     },
