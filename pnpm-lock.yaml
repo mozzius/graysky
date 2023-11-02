@@ -233,8 +233,8 @@ importers:
         specifier: ~2.12.1
         version: 2.12.1(react-native@0.72.6)(react@18.2.0)
       react-native-ios-context-menu:
-        specifier: ^2.0.0
-        version: 2.0.0(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0)
+        specifier: ^2.0.1
+        version: 2.0.1(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0)
       react-native-ios-utilities:
         specifier: ^4.0.0
         version: 4.0.0(expo@49.0.16)(react-native@0.72.6)(react@18.2.0)
@@ -11135,8 +11135,8 @@ packages:
       react-native: 0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0)
     dev: false
 
-  /react-native-ios-context-menu@2.0.0(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-PwSLiK9z22OUur9Sc2l1jxVbXGuBOu1xkv3MZQTLHeVsLIQM8AzHDKWGXa475eEG4WWRo+bZoYBOTAp514iFLQ==}
+  /react-native-ios-context-menu@2.0.1(expo@49.0.16)(react-native-ios-utilities@4.0.0)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-laCZQ9bHhZYd7XFy/Vz/dx2y3uKvxnVYl5jdX6uGbYxmQdZEkSFSddDkEHR/+7n4wA3bpQmS6wPiq1odb4Rcrw==}
     peerDependencies:
       expo: '*'
       react: '*'
