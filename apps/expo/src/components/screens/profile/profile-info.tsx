@@ -299,13 +299,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   });
 
   return (
-    <View
-      className="relative"
-      pointerEvents="box-none"
-      style={{
-        backgroundColor: theme.colors.background,
-      }}
-    >
+    <View className="relative" pointerEvents="box-none">
       <Animated.View
         style={[
           animatedContainerStyle,
@@ -378,7 +372,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           style={animatedImageStyle}
           className="absolute left-4 z-40 origin-left rounded-full"
         >
-          <Link asChild href={`/images/${profile.did}`}>
+          <Link asChild href={`/images/${profile.did}?tag=${id}`}>
             <TouchableOpacity
               className={cx(
                 "h-full w-full rounded-full border-2",
@@ -404,7 +398,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       </Animated.View>
       <View
         pointerEvents="box-none"
-        style={{ marginTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
+        className="bg-transparent"
+        style={{ paddingTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
       >
         <View
           style={{ backgroundColor: theme.colors.card }}

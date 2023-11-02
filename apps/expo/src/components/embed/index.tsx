@@ -23,6 +23,7 @@ import {
   Trash2Icon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 import { ExternalEmbed } from "./external";
@@ -282,7 +283,8 @@ export const PostEmbed = ({
   transparent?: boolean;
 }>) => {
   const theme = useTheme();
-  const profileHref = `/profile/${author.handle}`;
+  const path = useAbsolutePath();
+  const profileHref = path(`/profile/${author.did}`);
 
   const postHref = `${profileHref}/post/${uri.split("/").pop()}`;
 
