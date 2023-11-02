@@ -17,9 +17,20 @@ export const useProfile = (handle?: string) => {
   const query = useQuery({
     queryKey: ["profile", actor],
     queryFn: async () => {
+      // Gets actor profile
       if (!actor) throw new Error("Not logged in");
       const profile = await agent.getProfile({ actor });
       if (!profile.success) throw new Error("Profile not found");
+      // Get actor creation date based on his audit log creation date
+      const response = await fetch(`https://plc.directory/${profile.data.did}/log/audit`);
+      const profileAuditLog = (await response.json()) as [{
+        cid: string;
+        createdAt: string;
+      }];
+      profile.data = {
+        ...profile.data,
+        ...{"createdAt": new Date(profileAuditLog[0].createdAt)}
+      };
       return profile.data;
     },
   });
