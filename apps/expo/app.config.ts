@@ -15,7 +15,6 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   slug: "graysky",
   scheme: "graysky",
   version,
-  owner: "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
@@ -34,7 +33,9 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "dev.mozzius.graysky",
+    bundleIdentifier: process.env.APP_ID
+      ? process.env.APP_ID
+      : "dev.mozzius.graysky",
     config: {
       usesNonExemptEncryption: false,
     },
@@ -47,7 +48,9 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     },
   },
   android: {
-    package: "dev.mozzius.graysky",
+    package: process.env.APP_ID
+      ? process.env.APP_ID
+      : "dev.mozzius.graysky",
     softwareKeyboardLayoutMode: "pan",
     googleServicesFile:
       process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
