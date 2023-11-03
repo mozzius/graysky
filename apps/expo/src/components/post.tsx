@@ -5,6 +5,7 @@ import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 
 import { useAppPreferences } from "~/lib/hooks/preferences";
+import { useIsPro } from "~/lib/hooks/purchases";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
@@ -28,6 +29,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
   >(null);
+  const isPro = useIsPro();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -103,7 +105,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
               selectable
             />
           </View>
-          {(needsTranslation || forceShowTranslation) && (
+          {isPro && (needsTranslation || forceShowTranslation) && (
             <View className="mt-1">
               <Translation
                 uri={post.uri}

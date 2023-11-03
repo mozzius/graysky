@@ -31,11 +31,10 @@ import {
   AppPreferencesProvider,
   PreferencesProvider,
 } from "~/lib/hooks/preferences";
-// import {
-//   configureRevenueCat,
-//   CustomerInfoProvider,
-//   useCustomerInfoQuery,
-// } from "~/lib/hooks/purchases";
+import {
+  configureRevenueCat,
+  CustomerInfoProvider,
+} from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
@@ -48,9 +47,9 @@ Sentry.init({
   integrations: [new Sentry.Native.ReactNativeTracing()],
 });
 
-// configureRevenueCat();
-
 SplashScreen.preventAutoHideAsync();
+
+configureRevenueCat();
 
 // absolutely no idea where this is coming from
 LogBox.ignoreLogs([
@@ -69,8 +68,6 @@ const App = ({ session, saveSession }: Props) => {
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
-
-  // const info = useCustomerInfoQuery();
 
   const [agentUpdate, setAgentUpdate] = useState(0);
 
@@ -230,88 +227,87 @@ const App = ({ session, saveSession }: Props) => {
       <StatusBar />
       <SafeAreaProvider>
         <KeyboardProvider>
-          {/* <CustomerInfoProvider info={info.data}> */}
-          <AgentProvider agent={agent} update={agentUpdate}>
-            <PreferencesProvider>
-              <AppPreferencesProvider>
-                <LogOutProvider value={logOut}>
-                  <ActionSheetProvider>
-                    <ListProvider>
-                      <Stack
-                        screenOptions={{
-                          headerShown: true,
-                          fullScreenGestureEnabled: true,
-                        }}
-                      >
-                        <Stack.Screen
-                          name="index"
-                          options={{
-                            headerShown: false,
-                            gestureEnabled: false,
+          <CustomerInfoProvider>
+            <AgentProvider agent={agent} update={agentUpdate}>
+              <PreferencesProvider>
+                <AppPreferencesProvider>
+                  <LogOutProvider value={logOut}>
+                    <ActionSheetProvider>
+                      <ListProvider>
+                        <Stack
+                          screenOptions={{
+                            headerShown: true,
+                            fullScreenGestureEnabled: true,
                           }}
-                        />
-                        <Stack.Screen
-                          name="(auth)"
-                          options={{
-                            headerShown: false,
-                            presentation: "formSheet",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="settings"
-                          options={{
-                            headerShown: false,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="codes"
-                          options={{
-                            headerShown: false,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="images/[post]"
-                          options={{
-                            presentation: "transparentModal",
-                            headerShown: false,
-                            animation: "none",
-                            fullScreenGestureEnabled: false,
-                            customAnimationOnGesture: true,
-                          }}
-                        />
-                        {/* <Stack.Screen
-                        name="pro"
-                        options={{
-                          title: "",
-                          headerTransparent: true,
-                          presentation: "modal",
-                          headerLeft,
-                        }}
-                      /> */}
-                        <Stack.Screen
-                          name="composer"
-                          options={{
-                            headerShown: false,
-                            ...Platform.select({
-                              ios: {
-                                presentation: "formSheet",
-                              },
-                              android: {
-                                animation: "fade_from_bottom",
-                              },
-                            }),
-                          }}
-                        />
-                      </Stack>
-                    </ListProvider>
-                  </ActionSheetProvider>
-                </LogOutProvider>
-              </AppPreferencesProvider>
-            </PreferencesProvider>
-          </AgentProvider>
-          {/* </CustomerInfoProvider> */}
+                        >
+                          <Stack.Screen
+                            name="index"
+                            options={{
+                              headerShown: false,
+                              gestureEnabled: false,
+                            }}
+                          />
+                          <Stack.Screen
+                            name="(auth)"
+                            options={{
+                              headerShown: false,
+                              presentation: "formSheet",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="settings"
+                            options={{
+                              headerShown: false,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="codes"
+                            options={{
+                              headerShown: false,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="images/[post]"
+                            options={{
+                              presentation: "transparentModal",
+                              headerShown: false,
+                              animation: "none",
+                              fullScreenGestureEnabled: false,
+                              customAnimationOnGesture: true,
+                            }}
+                          />
+                          <Stack.Screen
+                            name="pro"
+                            options={{
+                              title: "",
+                              headerTransparent: true,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="composer"
+                            options={{
+                              headerShown: false,
+                              ...Platform.select({
+                                ios: {
+                                  presentation: "formSheet",
+                                },
+                                android: {
+                                  animation: "fade_from_bottom",
+                                },
+                              }),
+                            }}
+                          />
+                        </Stack>
+                      </ListProvider>
+                    </ActionSheetProvider>
+                  </LogOutProvider>
+                </AppPreferencesProvider>
+              </PreferencesProvider>
+            </AgentProvider>
+          </CustomerInfoProvider>
         </KeyboardProvider>
         <Toastable />
       </SafeAreaProvider>

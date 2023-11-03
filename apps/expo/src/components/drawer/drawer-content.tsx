@@ -13,6 +13,7 @@ import {
   PaletteIcon,
   SettingsIcon,
   SmartphoneIcon,
+  StarIcon,
   SunIcon,
   TicketIcon,
 } from "lucide-react-native";
@@ -133,18 +134,16 @@ export const DrawerContent = ({ open }: Props) => {
           <PaletteIcon color={theme.colors.text} />
           <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
-        {/* {agent?.session?.handle === "mozzius.dev" && (
-          <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
-            <TouchableOpacity
-              accessibilityRole="link"
-              accessibilityLabel="Pro version"
-              className="mt-2 w-full flex-row items-center py-2"
-            >
-              <StarIcon color={theme.colors.text} />
-              <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
-            </TouchableOpacity>
-          </Link>
-        )} */}
+        <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
+          <TouchableOpacity
+            accessibilityRole="link"
+            accessibilityLabel="Pro version"
+            className="mt-2 w-full flex-row items-center py-2"
+          >
+            <StarIcon color={theme.colors.text} />
+            <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
+          </TouchableOpacity>
+        </Link>
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"

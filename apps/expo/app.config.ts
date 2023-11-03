@@ -64,6 +64,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       : undefined,
     revenueCat: {
       ios: process.env.REVENUECAT_API_KEY_IOS,
+      android: process.env.REVENUECAT_API_KEY_ANDROID,
     },
     sentry: process.env.SENTRY_DSN,
   },
