@@ -42,6 +42,9 @@ import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 import { type SavedSession } from "../components/switch-accounts";
 
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,
   enableInExpoDevelopment: false,
@@ -62,9 +65,56 @@ interface Props {
   saveSession: (sess: AtpSessionData | null, agent?: BskyAgent) => void;
 }
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig?.extra?.eas.projectId,
+    });
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  return token.data;
+}
+
 const App = ({ session, saveSession }: Props) => {
   const segments = useSegments();
   const router = useRouter();
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const [invalidator, setInvalidator] = useState(0);
   const { colorScheme } = useColorScheme();
@@ -111,6 +161,23 @@ const App = ({ session, saveSession }: Props) => {
       router.replace("/");
     },
   });
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   const tryResumeSession = !agent.hasSession && !!session;
   const onceRef = useRef(false);
