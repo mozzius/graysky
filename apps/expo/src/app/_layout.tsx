@@ -49,8 +49,6 @@ Sentry.init({
 
 SplashScreen.preventAutoHideAsync();
 
-configureRevenueCat();
-
 // absolutely no idea where this is coming from
 LogBox.ignoreLogs([
   "The `redirect` prop on <Screen /> is deprecated and will be removed. Please use `router.redirect` instead",
@@ -324,6 +322,10 @@ const getSession = () => {
 
 export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
+
+  useEffect(() => {
+    configureRevenueCat();
+  }, []);
 
   const saveSession = useCallback(
     (sess: AtpSessionData | null, agent?: BskyAgent) => {
