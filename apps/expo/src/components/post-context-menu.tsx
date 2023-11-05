@@ -27,12 +27,15 @@ import {
 
 import { blockAccount, muteAccount } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
+import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useIsPro } from "~/lib/hooks/purchases";
+import { locale } from "~/lib/locale";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useLists } from "./lists/context";
 
 interface Props {
-  post: AppBskyFeedDefs.PostView;
+  post: AppBskyFeedDefs.PostView & { record: AppBskyFeedPost.Record };
   showSeeLikes?: boolean;
   showSeeReposts?: boolean;
   showCopyText?: boolean;
@@ -47,6 +50,8 @@ const PostContextMenuButton = ({
   onTranslate,
 }: Props) => {
   const { showActionSheetWithOptions } = useActionSheet();
+  const { openLink } = useLinkPress();
+  const isPro = useIsPro();
 
   const agent = useAgent();
   const { openLikes, openReposts } = useLists();
@@ -57,6 +62,15 @@ const PostContextMenuButton = ({
   const path = usePathname();
 
   const rkey = post.uri.split("/").pop()!;
+
+  const translate = () =>
+    isPro
+      ? onTranslate?.()
+      : openLink(
+          `https://translate.google.com/?sl=auto&tl=${
+            locale.languageCode
+          }&text=${encodeURIComponent(post.record.text)}`,
+        );
 
   const share = () => {
     const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
@@ -152,7 +166,7 @@ const PostContextMenuButton = ({
       ? {
           key: "translate",
           label: "Translate",
-          action: () => onTranslate(),
+          action: () => translate(),
           icon: "character.book.closed",
           reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
         }

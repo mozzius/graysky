@@ -87,6 +87,7 @@ export default function SubStack({
                         ? router.push("../")
                         : router.push("/feeds");
                     }}
+                    accessibilityRole="link"
                   >
                     <Text
                       style={{ color: theme.colors.primary }}

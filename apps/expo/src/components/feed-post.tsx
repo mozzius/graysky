@@ -342,7 +342,7 @@ const FeedPostInner = ({
           {!hideActions && (
             <PostActionRow post={item.post} dataUpdatedAt={dataUpdatedAt}>
               <PostContextMenu
-                post={item.post}
+                post={{ ...item.post, record: item.post.record }}
                 onTranslate={
                   needsTranslation
                     ? undefined

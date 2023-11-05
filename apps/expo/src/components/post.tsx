@@ -82,7 +82,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
             </TouchableOpacity>
           </Link>
           <PostContextMenu
-            post={post}
+            post={{ ...post, record: post.record }}
             showSeeLikes
             showSeeReposts
             showCopyText

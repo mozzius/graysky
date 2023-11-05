@@ -125,15 +125,6 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel="Change theme"
-          className="mt-2 w-full flex-row items-center py-2"
-          onPress={() => changeTheme()}
-        >
-          <PaletteIcon color={theme.colors.text} />
-          <Text className="ml-6 text-base font-medium">Change theme</Text>
-        </TouchableOpacity>
         <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
@@ -144,6 +135,15 @@ export const DrawerContent = ({ open }: Props) => {
             <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
           </TouchableOpacity>
         </Link>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityLabel="Change theme"
+          className="mt-2 w-full flex-row items-center py-2"
+          onPress={() => changeTheme()}
+        >
+          <PaletteIcon color={theme.colors.text} />
+          <Text className="ml-6 text-base font-medium">Change theme</Text>
+        </TouchableOpacity>
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"
