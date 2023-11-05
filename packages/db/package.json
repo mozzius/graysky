@@ -9,7 +9,7 @@
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "prettier": "^3.0.3",
     "prisma": "^5.5.2",
     "typescript": "^5.2.2"
