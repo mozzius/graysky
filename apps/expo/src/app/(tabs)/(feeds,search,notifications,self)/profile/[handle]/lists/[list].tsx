@@ -302,7 +302,7 @@ const ListHeader = ({
         },
         async (buttonIndex) => {
           if (buttonIndex === undefined) return;
-          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
           switch (options[buttonIndex]) {
             case "Delete list":
               Alert.alert(
@@ -332,6 +332,14 @@ const ListHeader = ({
               );
               break;
             case "Change to curation list":
+              // unmute and unblock before changing type
+              if (info.viewer?.muted) {
+                await agent.unmuteModList(info.uri);
+              }
+              if (info.viewer?.blocked) {
+                await agent.unblockModList(info.uri);
+              }
+            // eslint-disable-next-line no-fallthrough
             case "Change to moderation list": {
               const collection = "app.bsky.graph.list";
               const repo = agent.session!.did;
@@ -367,7 +375,7 @@ const ListHeader = ({
           ...actionSheetStyles(theme),
         },
         (buttonIndex) => {
-          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
           switch (buttonIndex) {
             case 0:
               void Share.share(
