@@ -12,7 +12,10 @@ export const configureRevenueCat = async () => {
     ios: Constants.expoConfig?.extra?.revenueCat?.ios,
     android: Constants.expoConfig?.extra?.revenueCat?.android,
   });
-  Purchases.configure({ apiKey });
+  Purchases.configure({
+    apiKey,
+    appUserID: null,
+  });
 };
 
 const CustomerInfo = createContext<CustomerInfo | undefined | null>(null);
