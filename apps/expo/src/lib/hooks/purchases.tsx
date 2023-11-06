@@ -6,7 +6,8 @@ import Purchases, { type CustomerInfo } from "react-native-purchases";
 import Constants from "expo-constants";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const configureRevenueCat = () => {
+export const configureRevenueCat = async () => {
+  await Purchases.setLogLevel(Purchases.LOG_LEVEL.DEBUG);
   const apiKey = Platform.select({
     ios: Constants.expoConfig?.extra?.revenueCat?.ios,
     android: Constants.expoConfig?.extra?.revenueCat?.android,

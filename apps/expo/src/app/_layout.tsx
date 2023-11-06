@@ -324,15 +324,13 @@ export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
 
   useEffect(() => {
-    try {
-      configureRevenueCat();
-    } catch (err) {
+    configureRevenueCat().catch((err) => {
       showToastable({
         title: "Error configuring RevenueCat",
         message: err instanceof Error ? err.message : String(err),
         status: "danger",
       });
-    }
+    });
   }, []);
 
   const saveSession = useCallback(
