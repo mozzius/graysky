@@ -1,7 +1,15 @@
+import { DidResolver } from "@atproto/identity";
+import { verifyJwt } from "@atproto/xrpc-server";
 import { track } from "@vercel/analytics/server";
 import { z } from "zod";
 
+import { TranslationService } from "@graysky/db";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
+
+const didResolver = new DidResolver({
+  plcUrl: "https://plc.directory",
+});
 
 export const translateRouter = createTRPCRouter({
   post: publicProcedure
@@ -10,6 +18,7 @@ export const translateRouter = createTRPCRouter({
         uri: z.string(),
         text: z.string(),
         target: z.string(),
+        session: z.string().optional(),
       }),
     )
     .output(
@@ -19,35 +28,66 @@ export const translateRouter = createTRPCRouter({
         languageCode: z.string(),
       }),
     )
-    .mutation(async ({ input: post, ctx: { db } }) => {
-      const langNames = new Intl.DisplayNames([post.target], {
+    .mutation(async ({ input, ctx: { db } }) => {
+      let isPro = false;
+
+      if (input.session) {
+        try {
+          const decoded = await verifyJwt(
+            input.session,
+            null,
+            async (did: string) => {
+              return didResolver.resolveAtprotoKey(did);
+            },
+          );
+
+          const account = await db.account.findUnique({
+            where: { did: decoded.iss },
+          });
+
+          if (account) {
+            isPro = account.pro;
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      const langNames = new Intl.DisplayNames([input.target], {
         type: "language",
       });
 
       const cached = await db.translatablePost.findFirst({
         where: {
-          uri: post.uri,
+          uri: input.uri,
         },
         include: {
           translation: {
             where: {
-              language: post.target,
+              language: input.target,
             },
           },
         },
       });
 
-      if (cached && cached.translation[0]) {
-        return {
-          text: cached.translation[0].text,
-          language: langNames.of(cached.language),
-          languageCode: cached.language,
-        };
+      if (cached?.translation[0]) {
+        if (
+          !isPro ||
+          cached.translation[0].service === TranslationService.DEEPL
+        ) {
+          return {
+            text: cached.translation[0].text,
+            language: langNames.of(cached.language),
+            languageCode: cached.language,
+          };
+        }
       }
 
       await track("translate post", {
-        uri: post.uri,
+        uri: input.uri,
       });
+
+      // TODO: FORK HERE AND FETCH FROM DEEPL INSTEAD IF PRO
 
       const res = await fetch(
         "https://translation.googleapis.com/language/translate/v2",
@@ -58,8 +98,8 @@ export const translateRouter = createTRPCRouter({
             "X-goog-api-key": process.env.GOOGLE_API_KEY!,
           }),
           body: JSON.stringify({
-            q: post.text,
-            target: post.target,
+            q: input.text,
+            target: input.target,
             format: "text",
           }),
         },
@@ -78,15 +118,15 @@ export const translateRouter = createTRPCRouter({
 
       await db.postTranslation.create({
         data: {
-          language: post.target,
+          language: input.target,
           text: parsed.translatedText,
           post: {
             connectOrCreate: {
               where: {
-                uri: post.uri,
+                uri: input.uri,
               },
               create: {
-                uri: post.uri,
+                uri: input.uri,
                 language: parsed.detectedSourceLanguage,
               },
             },
@@ -97,7 +137,7 @@ export const translateRouter = createTRPCRouter({
       if (cached?.language !== parsed.detectedSourceLanguage) {
         await db.translatablePost.update({
           where: {
-            uri: post.uri,
+            uri: input.uri,
           },
           data: {
             language: parsed.detectedSourceLanguage,

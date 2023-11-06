@@ -88,8 +88,8 @@ export default function Pro() {
   const features = [
     {
       colour: "rgb(59, 130, 246)",
-      title: "Inline Translations",
-      subtitle: "Get translations in app",
+      title: "Better Translations",
+      subtitle: "Unlimited DeepL translations",
       icon: <LanguagesIcon className="text-white" />,
     },
     {

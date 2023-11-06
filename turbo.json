@@ -56,6 +56,7 @@
     "API_URL",
     "REVENUECAT_API_KEY_IOS",
     "REVENUECAT_API_KEY_ANDROID",
-    "SENTRY_DSN"
+    "SENTRY_DSN",
+    "DEEPL_API_KEY"
   ]
 }
