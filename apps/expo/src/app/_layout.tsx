@@ -32,8 +32,8 @@ import {
   PreferencesProvider,
 } from "~/lib/hooks/preferences";
 import {
-  configureRevenueCat,
   CustomerInfoProvider,
+  useConfigurePurchases,
 } from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
 import { store } from "~/lib/storage";
@@ -49,7 +49,7 @@ Sentry.init({
 
 SplashScreen.preventAutoHideAsync();
 
-// absolutely no idea where this is coming from
+// can remove when updated to expo-router 2.0.10
 LogBox.ignoreLogs([
   "The `redirect` prop on <Screen /> is deprecated and will be removed. Please use `router.redirect` instead",
 ]);
@@ -323,15 +323,7 @@ const getSession = () => {
 export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
 
-  useEffect(() => {
-    void configureRevenueCat().catch((err) => {
-      showToastable({
-        title: "Error configuring RevenueCat",
-        message: err instanceof Error ? err.message : String(err),
-        status: "danger",
-      });
-    });
-  }, []);
+  useConfigurePurchases();
 
   const saveSession = useCallback(
     (sess: AtpSessionData | null, agent?: BskyAgent) => {

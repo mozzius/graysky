@@ -8,8 +8,6 @@ dotenv.config({
   path: "../../.env",
 });
 
-// todo: https://docs.expo.dev/build-reference/variables/#how-to-upload-a-secret-file-and-use-it-in-my-app-config
-
 const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",

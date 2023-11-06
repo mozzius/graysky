@@ -5,17 +5,30 @@ import { Platform } from "react-native";
 import Purchases, { type CustomerInfo } from "react-native-purchases";
 import Constants from "expo-constants";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import * as Sentry from "sentry-expo";
 
-export const configureRevenueCat = async () => {
-  await Purchases.setLogLevel(Purchases.LOG_LEVEL.DEBUG);
+const configureRevenueCat = () => {
   const apiKey = Platform.select({
     ios: Constants.expoConfig?.extra?.revenueCat?.ios,
     android: Constants.expoConfig?.extra?.revenueCat?.android,
   });
+  if (!apiKey) throw new Error("No RevenueCat API key found");
   Purchases.configure({
     apiKey,
     appUserID: null,
   });
+};
+
+export const useConfigurePurchases = () => {
+  useEffect(() => {
+    try {
+      configureRevenueCat();
+    } catch (err) {
+      Sentry.Native.captureException(err, {
+        extra: Constants?.expoConfig?.extra,
+      });
+    }
+  }, []);
 };
 
 const CustomerInfo = createContext<CustomerInfo | undefined | null>(null);
@@ -41,15 +54,27 @@ export const CustomerInfoProvider = ({
   );
 };
 
+class NotYetConfiguredError extends Error {
+  constructor() {
+    super("Not configured yet");
+  }
+}
+
 const useCustomerInfoQuery = () => {
   return useQuery({
     queryKey: ["purchases", "info"],
     queryFn: async () => {
+      if (!(await Purchases.isConfigured())) throw new NotYetConfiguredError();
+
       const info = await Purchases.getCustomerInfo();
       console.log(JSON.stringify(info, null, 2));
       return info;
     },
     staleTime: Infinity,
+    retry: (_, err) => {
+      if (err instanceof NotYetConfiguredError) return true;
+      return 3;
+    },
   });
 };
 
