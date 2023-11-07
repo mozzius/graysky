@@ -6,6 +6,7 @@ import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bot
 import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { Text } from "../text";
 
 interface Props {
@@ -23,6 +24,7 @@ export const PersonRow = ({
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
+  const path = useAbsolutePath();
   const Touchable = bottomSheet
     ? BottomSheetTouchableHighlight
     : TouchableHighlight;
@@ -30,7 +32,7 @@ export const PersonRow = ({
     <Touchable
       onPress={() => {
         onPress?.();
-        router.push(`/profile/${person.handle}`);
+        router.push(path(`/profile/${person.handle}`));
       }}
     >
       <View

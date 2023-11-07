@@ -19,6 +19,7 @@ import {
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
@@ -127,6 +128,7 @@ const SheetContent = ({
   const { pinned, saved } = useReorderFeeds(feeds);
 
   const pathname = usePathname();
+  const path = useAbsolutePath();
 
   if (feeds.data) {
     if (feeds.data.feeds.length === 0) {
@@ -158,9 +160,9 @@ const SheetContent = ({
           },
         ]}
         renderItem={({ item }) => {
-          const itemPathname = `/profile/${item.creator.did}/feed/${item.uri
-            .split("/")
-            .pop()}`;
+          const itemPathname = path(
+            `/profile/${item.creator.did}/feed/${item.uri.split("/").pop()}`,
+          );
 
           let active = false;
 

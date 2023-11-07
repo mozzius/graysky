@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 
@@ -29,6 +30,7 @@ export const RichText = ({
 }: Props) => {
   const router = useRouter();
   const { openLink, showLinkOptions } = useLinkPress();
+  const path = useAbsolutePath();
 
   const classNames = cx(
     {
@@ -122,7 +124,7 @@ export const RichText = ({
               accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
-                router.push(`/profile/${segment.mention!.did}`);
+                router.push(path(`/profile/${segment.mention!.did}`));
               }}
             >
               {segment.text}
@@ -174,6 +176,7 @@ export const RichText = ({
     router,
     openLink,
     showLinkOptions,
+    path,
   ]);
 
   if (!segments) return null;

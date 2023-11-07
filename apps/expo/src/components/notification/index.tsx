@@ -98,7 +98,7 @@ export const Notification = ({
         <TouchableHighlight
           onPress={() =>
             actors.length === 1
-              ? router.push(`/profile/${actors[0]!.handle}`)
+              ? router.push(path(`/profile/${actors[0]!.handle}`))
               : openFollowers(agent.session!.did, actors.length)
           }
         >
@@ -206,7 +206,7 @@ const ProfileList = ({
           className="text-base font-medium"
           onPress={() => {
             if (actors.length === 1) {
-              router.push(`/profile/${actors[0]!.handle}`);
+              router.push(path(`/profile/${actors[0]!.handle}`));
             } else {
               haptics.selection();
               showAll();

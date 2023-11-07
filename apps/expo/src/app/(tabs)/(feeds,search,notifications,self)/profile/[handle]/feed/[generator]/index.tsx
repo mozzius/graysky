@@ -5,8 +5,10 @@ import { Link, Stack, useLocalSearchParams } from "expo-router";
 
 import { FeedScreen } from "~/components/screens/feed-screen";
 import { useFeedInfo } from "~/lib/hooks/feeds";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 
 export default function FeedsPage() {
+  const path = useAbsolutePath();
   const { handle, generator } = useLocalSearchParams<{
     handle: string;
     generator: string;
@@ -21,7 +23,10 @@ export default function FeedsPage() {
       <Stack.Screen
         options={{
           headerRight: () => (
-            <Link asChild href={`/profile/${handle}/feed/${generator}/details`}>
+            <Link
+              asChild
+              href={path(`/profile/${handle}/feed/${generator}/details`)}
+            >
               <TouchableOpacity>
                 <Image
                   source={{ uri: info.data?.view.avatar }}

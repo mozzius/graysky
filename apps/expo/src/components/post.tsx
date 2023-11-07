@@ -94,8 +94,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
           />
         </View>
       </View>
-      {/* text content */}
-      {post.record.text && (
+      {!!post.record.text && (
         <>
           <View className="flex-1 lg:pr-24">
             <RichText

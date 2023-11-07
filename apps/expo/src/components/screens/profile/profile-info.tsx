@@ -35,6 +35,7 @@ import {
 } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -68,6 +69,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const id = useId();
+  const path = useAbsolutePath();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -554,7 +556,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   if (profile.viewer?.mutedByList) {
                     const segments = profile.viewer.mutedByList.uri.split("/");
                     router.push(
-                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      path(
+                        `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      ),
                     );
                   } else {
                     unmuteAccount(
@@ -582,7 +586,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     const segments =
                       profile.viewer.blockingByList.uri.split("/");
                     router.push(
-                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      path(
+                        `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      ),
                     );
                   } else {
                     unblockAccount(

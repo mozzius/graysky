@@ -49,7 +49,10 @@ export const FeedRow = ({
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
-  const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
+  const path = useAbsolutePath();
+  const href = path(
+    `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
+  );
   const navigation = useNavigation();
   return (
     <TouchableHighlight

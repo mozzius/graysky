@@ -366,10 +366,13 @@ export default function PostPage() {
     );
   }
 
-  return (
-    <>
-      <Stack.Screen options={{ headerTitle: "Post" }} />
-      <QueryWithoutData query={preferences} />;
-    </>
-  );
+  // breaks somehow when quick switching accounts
+  // return (
+  //   <>
+  //     <Stack.Screen options={{ headerTitle: "Post" }} />
+  //     <QueryWithoutData query={preferences} />;
+  //   </>
+  // );
+
+  return <Stack.Screen options={{ headerTitle: "Post" }} />;
 }
