@@ -1,9 +1,10 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
+import { Text } from "~/components/text";
 import { useOptionalAgent } from "~/lib/agent";
 
 const stackOptions = {
