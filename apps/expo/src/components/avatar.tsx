@@ -52,11 +52,13 @@ const AvatarInner = ({ size }: Props) => {
   const uri = profile.data?.avatar;
 
   if (uri) {
-    <Image
-      source={{ uri }}
-      alt={profile.data?.displayName}
-      className={className}
-    />;
+    return (
+      <Image
+        source={{ uri }}
+        alt={profile.data?.displayName}
+        className={className}
+      />
+    );
   }
 
   return <View className={className} />;
