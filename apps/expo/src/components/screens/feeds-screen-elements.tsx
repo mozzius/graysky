@@ -22,7 +22,7 @@ export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {
         <Text className="text-lg">
           To get started, add some feeds to your home screen.
         </Text>
-        <Link asChild href="/feeds/discover" onPress={onPress}>
+        <Link asChild href="/discover" onPress={onPress}>
           <TouchableOpacity
             className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
             style={{ backgroundColor: theme.colors.primary }}

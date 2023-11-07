@@ -10,6 +10,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { Notification } from "~/components/notification";
+import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
@@ -25,7 +26,7 @@ export interface NotificationGroup {
   indexedAt: string;
 }
 
-export default function NotificationsPage() {
+function Notifications() {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
@@ -271,4 +272,21 @@ export default function NotificationsPage() {
   }
 
   return <QueryWithoutData query={notifications} />;
+}
+
+export default function NotificationPage() {
+  const headerLeft = useCallback(() => <OpenDrawerAvatar />, []);
+
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: "Notifications",
+          headerLargeTitle: true,
+          headerLeft,
+        }}
+      />
+      <Notifications />
+    </>
+  );
 }

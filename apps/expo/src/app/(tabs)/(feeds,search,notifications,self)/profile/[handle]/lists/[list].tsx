@@ -30,6 +30,7 @@ import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -141,6 +142,7 @@ const ListHeader = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const queryClient = useQueryClient();
+  const path = useAbsolutePath();
 
   const deleteList = useMutation({
     mutationFn: async () => {
@@ -438,7 +440,7 @@ const ListHeader = ({
           <Text
             className="text-base leading-5"
             onPress={() => {
-              router.push(`/profile/${info.creator.did}`);
+              router.push(path(`/profile/${info.creator.did}`));
             }}
             accessibilityRole="link"
           >

@@ -35,6 +35,7 @@ import {
 } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -68,6 +69,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const id = useId();
+  const path = useAbsolutePath();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -299,13 +301,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   });
 
   return (
-    <View
-      className="relative"
-      pointerEvents="box-none"
-      style={{
-        backgroundColor: theme.colors.background,
-      }}
-    >
+    <View className="relative" pointerEvents="box-none">
       <Animated.View
         style={[
           animatedContainerStyle,
@@ -378,7 +374,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           style={animatedImageStyle}
           className="absolute left-4 z-40 origin-left rounded-full"
         >
-          <Link asChild href={`/images/${profile.did}`}>
+          <Link asChild href={`/images/${profile.did}?tag=${id}`}>
             <TouchableOpacity
               className={cx(
                 "h-full w-full rounded-full border-2",
@@ -404,7 +400,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       </Animated.View>
       <View
         pointerEvents="box-none"
-        style={{ marginTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
+        className="bg-transparent"
+        style={{ paddingTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
       >
         <View
           style={{ backgroundColor: theme.colors.card }}
@@ -559,7 +556,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   if (profile.viewer?.mutedByList) {
                     const segments = profile.viewer.mutedByList.uri.split("/");
                     router.push(
-                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      path(
+                        `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      ),
                     );
                   } else {
                     unmuteAccount(
@@ -587,7 +586,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     const segments =
                       profile.viewer.blockingByList.uri.split("/");
                     router.push(
-                      `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      path(
+                        `/profile/${segments.at(-3)}/lists/${segments.at(-1)}`,
+                      ),
                     );
                   } else {
                     unblockAccount(

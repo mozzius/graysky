@@ -7,6 +7,7 @@ import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";
@@ -26,11 +27,12 @@ export const Notification = ({
   const { openLikes, openFollowers, openReposts } = useLists();
   const agent = useAgent();
   const router = useRouter();
+  const path = useAbsolutePath();
 
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
     const [did, _, id] = subject.slice("at://".length).split("/");
-    href = `/profile/${did}/post/${id}`;
+    href = path(`/profile/${did}/post/${id}`);
   }
 
   const Container = ({ children }: React.PropsWithChildren) =>
@@ -96,7 +98,7 @@ export const Notification = ({
         <TouchableHighlight
           onPress={() =>
             actors.length === 1
-              ? router.push(`/profile/${actors[0]!.handle}`)
+              ? router.push(path(`/profile/${actors[0]!.handle}`))
               : openFollowers(agent.session!.did, actors.length)
           }
         >
@@ -142,8 +144,11 @@ const ProfileList = ({
   const theme = useTheme();
   const haptics = useHaptics();
   const router = useRouter();
+  const path = useAbsolutePath();
+
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
+
   return (
     <View className="flex-1">
       <View className="h-8 flex-row">
@@ -151,7 +156,7 @@ const ProfileList = ({
         <View className="h-8 max-w-[200px] flex-1 flex-row flex-wrap overflow-hidden">
           {actors.slice(0, 5).map((actor, index) => (
             <Link
-              href={`/profile/${actor.handle}`}
+              href={path(`/profile/${actor.handle}`)}
               asChild
               key={actor.did}
               accessibilityHint="Opens profile"
@@ -201,7 +206,7 @@ const ProfileList = ({
           className="text-base font-medium"
           onPress={() => {
             if (actors.length === 1) {
-              router.push(`/profile/${actors[0]!.handle}`);
+              router.push(path(`/profile/${actors[0]!.handle}`));
             } else {
               haptics.selection();
               showAll();

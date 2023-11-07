@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import {
   NestableDraggableFlatList,
@@ -13,10 +13,9 @@ import {
   PlusIcon,
 } from "lucide-react-native";
 
-import { Avatar } from "~/components/avatar";
-import { useDrawer } from "~/components/drawer/context";
 import { DraggableFeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
+import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { FeedScreen } from "~/components/screens/feed-screen";
 import {
@@ -129,7 +128,7 @@ export const FeedsPage = ({ editing }: Props) => {
           )}
         />
         <View className="p-6">
-          <Link href="/feeds/discover" asChild>
+          <Link href="/discover" asChild>
             <TouchableHighlight className="overflow-hidden rounded-lg">
               <View
                 className="flex-row items-center justify-between p-4"
@@ -152,16 +151,23 @@ export const FeedsPage = ({ editing }: Props) => {
 };
 
 export default function Page() {
-  const openDrawer = useDrawer();
   const [editing, setEditing] = useState(false);
   const theme = useTheme();
   const haptics = useHaptics();
   const [{ homepage, defaultFeed }] = useAppPreferences();
+  const headerLeft = useCallback(() => <OpenDrawerAvatar />, []);
 
   if (homepage === "skyline") {
     return (
       <>
-        <Stack.Screen options={{ headerRight: () => null }} />
+        <Stack.Screen
+          options={{
+            title: "Skyline",
+            headerLargeTitle: false,
+            headerLeft,
+            headerRight: () => null,
+          }}
+        />
         <FeedScreen feed={defaultFeed} />
       </>
     );
@@ -171,15 +177,9 @@ export default function Page() {
     <>
       <Stack.Screen
         options={{
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => openDrawer()}
-              className="mr-3"
-              accessibilityHint="Open drawer menu"
-            >
-              <Avatar size="small" />
-            </TouchableOpacity>
-          ),
+          title: "Feeds",
+          headerLargeTitle: true,
+          headerLeft,
           headerRight: () => (
             <View className="flex-row items-center">
               <TouchableOpacity
@@ -196,7 +196,7 @@ export default function Page() {
                 </Text>
               </TouchableOpacity>
               {!editing && (
-                <Link href="/feeds/discover" asChild>
+                <Link href="/discover" asChild>
                   <TouchableOpacity className="ml-4">
                     <PlusIcon size={24} color={theme.colors.primary} />
                   </TouchableOpacity>

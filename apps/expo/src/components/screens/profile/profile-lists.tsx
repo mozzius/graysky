@@ -9,6 +9,7 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { QueryWithoutData } from "../../query-without-data";
@@ -80,7 +81,8 @@ const ListItem = ({
   viewer,
 }: AppBskyGraphDefs.ListView) => {
   const theme = useTheme();
-  const href = `/profile/${creator.did}/lists/${uri.split("/").pop()}`;
+  const path = useAbsolutePath();
+  const href = path(`/profile/${creator.did}/lists/${uri.split("/").pop()}`);
   let purposeText = "List";
   let purposeClass = "bg-neutral-500";
   switch (purpose) {

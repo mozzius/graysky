@@ -23,6 +23,7 @@ import {
   Trash2Icon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../text";
 import { ExternalEmbed } from "./external";
@@ -46,6 +47,7 @@ export const Embed = ({
   isNotification = false,
 }: Props) => {
   const theme = useTheme();
+  const path = useAbsolutePath();
 
   if (!content) return null;
 
@@ -92,9 +94,11 @@ export const Embed = ({
       if (!AppBskyEmbedRecord.isViewRecord(record)) {
         if (AppBskyFeedDefs.isGeneratorView(record)) {
           // Case 3.1: Is feed generator
-          const href = `/profile/${record.creator.did}/feed/${record.uri
-            .split("/")
-            .pop()}`;
+          const href = path(
+            `/profile/${record.creator.did}/feed/${record.uri
+              .split("/")
+              .pop()}`,
+          );
           // TODO: add hold menu
           // - open feed
           // - save to my feeds
@@ -141,9 +145,11 @@ export const Embed = ({
           );
         } else if (AppBskyGraphDefs.isListView(record)) {
           // Case 3.2 Is list
-          const href = `/profile/${record.creator.did}/lists/${record.uri
-            .split("/")
-            .pop()}`;
+          const href = path(
+            `/profile/${record.creator.did}/lists/${record.uri
+              .split("/")
+              .pop()}`,
+          );
           let purposeText = "List";
           switch (record.purpose) {
             case AppBskyGraphDefs.MODLIST:
@@ -282,7 +288,8 @@ export const PostEmbed = ({
   transparent?: boolean;
 }>) => {
   const theme = useTheme();
-  const profileHref = `/profile/${author.handle}`;
+  const path = useAbsolutePath();
+  const profileHref = path(`/profile/${author.did}`);
 
   const postHref = `${profileHref}/post/${uri.split("/").pop()}`;
 
