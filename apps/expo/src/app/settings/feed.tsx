@@ -164,12 +164,14 @@ export default function FeedPreferences() {
                           disabled={savedFeeds.isLoading}
                           onPress={() => {
                             const data = savedFeeds.data
-                              ? savedFeeds.data.pinned.map(
-                                  (pin) =>
-                                    savedFeeds.data.feeds.find(
-                                      (f) => f.uri === pin,
-                                    )!,
-                                )
+                              ? savedFeeds.data.pinned
+                                  .map(
+                                    (pin) =>
+                                      savedFeeds.data.feeds.find(
+                                        (f) => f.uri === pin,
+                                      )!,
+                                  )
+                                  .filter((x) => x !== undefined)
                               : [];
 
                             const options = [

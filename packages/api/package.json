@@ -2,10 +2,10 @@
   "name": "@graysky/api",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.6.21",
+    "@atproto/api": "^0.6.23",
     "@graysky/db": "0.1.0",
-    "@trpc/client": "^10.43.0",
-    "@trpc/server": "^10.43.0",
+    "@trpc/client": "^10.43.1",
+    "@trpc/server": "^10.43.1",
     "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^0.2.4",
     "encoding": "^0.1.13",
@@ -18,7 +18,7 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },

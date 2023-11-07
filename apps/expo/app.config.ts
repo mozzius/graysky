@@ -15,7 +15,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   slug: "graysky",
   scheme: "graysky",
   version,
-  owner: "mozzius",
+  owner: process.env.OWNER ?? "mozzius",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
@@ -34,20 +34,20 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "dev.mozzius.graysky",
+    bundleIdentifier: process.env.APP_ID ?? "dev.mozzius.graysky",
     config: {
       usesNonExemptEncryption: false,
     },
     infoPlist: {
-      // should be true but simulator builds don't like this
+      // should be true but dev client builds don't like this
       UIViewControllerBasedStatusBarAppearance:
-        process.env.SIMULATOR === "true" ? false : true,
+        process.env.DEV_CLIENT === "true" ? false : true,
       CADisableMinimumFrameDurationOnPhone: true,
       UIBackgroundModes: ["remote-notification"],
     },
   },
   android: {
-    package: "dev.mozzius.graysky",
+    package: process.env.APP_ID ?? "dev.mozzius.graysky",
     softwareKeyboardLayoutMode: "pan",
     googleServicesFile:
       process.env.GOOGLE_SERVICES_JSON ?? "./google-services.json",
