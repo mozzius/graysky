@@ -5,6 +5,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { UserCircleIcon } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
@@ -14,8 +15,9 @@ interface Props {
 
 export const PostAvatar = ({ profile, avatarSize = "normal" }: Props) => {
   const theme = useTheme();
+  const path = useAbsolutePath();
 
-  const profileHref = `/profile/${profile.handle}`;
+  const profileHref = path(`/profile/${profile.did}`);
 
   return (
     <Link href={profileHref} asChild>

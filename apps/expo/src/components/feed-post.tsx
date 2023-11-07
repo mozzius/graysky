@@ -16,6 +16,7 @@ import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profi
 import { useAgent } from "~/lib/agent";
 import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/hooks/purchases";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
@@ -72,11 +73,12 @@ const FeedPostInner = ({
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
+  const path = useAbsolutePath();
 
   const theme = useTheme();
   const queryClient = useQueryClient();
 
-  const profileHref = `/profile/${postAuthorHandle}`;
+  const profileHref = path(`/profile/${item.post.author.did}`);
   const postHref = `${profileHref}/post/${item.post.uri.split("/").pop()}`;
 
   useEffect(() => {
@@ -258,6 +260,7 @@ const FeedPostInner = ({
                     .object({
                       author: z.object({
                         handle: z.string(),
+                        did: z.string(),
                         displayName: z.string().optional(),
                       }),
                       uri: z.string(),
@@ -267,9 +270,11 @@ const FeedPostInner = ({
                   if (parse.success) {
                     return (
                       <Link
-                        href={`/profile/${
-                          parse.data.author.handle
-                        }/post/${parse.data.uri.split("/").pop()}`}
+                        href={path(
+                          `/profile/${
+                            parse.data.author.did
+                          }/post/${parse.data.uri.split("/").pop()}`,
+                        )}
                         asChild
                         accessibilityHint="Opens parent post"
                       >
@@ -359,6 +364,7 @@ const FeedPostInner = ({
 
 const Reason = ({ item }: Pick<Props, "item">) => {
   const theme = useTheme();
+  const path = useAbsolutePath();
 
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
   assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
@@ -366,7 +372,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
   return (
     <View className="mb-1 ml-12 flex-1">
       <Link
-        href={`/profile/${item.reason.by.handle}`}
+        href={path(`/profile/${item.reason.by.did}`)}
         asChild
         accessibilityHint="Opens profile"
       >
@@ -397,6 +403,8 @@ export const FeedPost = memo(FeedPostInner);
 
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const theme = useTheme();
+  const path = useAbsolutePath();
+
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
   const agent = useAgent();
@@ -441,9 +449,11 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   }
   return (
     <Link
-      href={`/profile/${data.post.author.handle}/post/${data.post.uri
-        .split("/")
-        .pop()}`}
+      href={path(
+        `/profile/${data.post.author.did}/post/${data.post.uri
+          .split("/")
+          .pop()}`,
+      )}
       asChild
       accessibilityHint="Opens parent post"
     >

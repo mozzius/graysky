@@ -30,6 +30,7 @@ import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -141,6 +142,7 @@ const ListHeader = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const queryClient = useQueryClient();
+  const path = useAbsolutePath();
 
   const deleteList = useMutation({
     mutationFn: async () => {
@@ -302,7 +304,7 @@ const ListHeader = ({
         },
         async (buttonIndex) => {
           if (buttonIndex === undefined) return;
-          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
           switch (options[buttonIndex]) {
             case "Delete list":
               Alert.alert(
@@ -332,6 +334,14 @@ const ListHeader = ({
               );
               break;
             case "Change to curation list":
+              // unmute and unblock before changing type
+              if (info.viewer?.muted) {
+                await agent.unmuteModList(info.uri);
+              }
+              if (info.viewer?.blocked) {
+                await agent.unblockModList(info.uri);
+              }
+            // eslint-disable-next-line no-fallthrough
             case "Change to moderation list": {
               const collection = "app.bsky.graph.list";
               const repo = agent.session!.did;
@@ -367,7 +377,7 @@ const ListHeader = ({
           ...actionSheetStyles(theme),
         },
         (buttonIndex) => {
-          const bskyUrl = `https://bsky.app/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
           switch (buttonIndex) {
             case 0:
               void Share.share(
@@ -430,7 +440,7 @@ const ListHeader = ({
           <Text
             className="text-base leading-5"
             onPress={() => {
-              router.push(`/profile/${info.creator.did}`);
+              router.push(path(`/profile/${info.creator.did}`));
             }}
             accessibilityRole="link"
           >

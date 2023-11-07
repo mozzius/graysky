@@ -6,6 +6,7 @@ import { useTheme } from "@react-navigation/native";
 
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/hooks/purchases";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
@@ -29,11 +30,12 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
   >(null);
+  const path = useAbsolutePath();
   const isPro = useIsPro();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
-  const profileHref = `/profile/${postAuthorHandle}`;
+  const profileHref = path(`/profile/${post.author.did}`);
 
   const [{ contentLanguages }] = useAppPreferences();
 
@@ -94,8 +96,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
           />
         </View>
       </View>
-      {/* text content */}
-      {post.record.text && (
+      {!!post.record.text && (
         <>
           <View className="flex-1 lg:pr-24">
             <RichText

@@ -33,6 +33,7 @@ import {
   useToggleFeedPref,
 } from "~/lib/hooks/feeds";
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 
 export default function FeedDetails() {
@@ -78,6 +79,7 @@ const FeedInfo = ({
     generator: string;
   }>();
   const haptics = useHaptics();
+  const path = useAbsolutePath();
 
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
   const toggleLike = useMutation({
@@ -133,7 +135,7 @@ const FeedInfo = ({
               <Text className="text-xl font-medium">
                 {info.view.displayName}
               </Text>
-              <Link asChild href={`/profile/${info.view.creator.handle}`}>
+              <Link asChild href={path(`/profile/${info.view.creator.handle}`)}>
                 <TouchableOpacity>
                   <Text className="text-base text-neutral-400">
                     By @{info.view.creator.handle}
@@ -263,7 +265,7 @@ const FeedInfo = ({
             <Text className="mb-1 ml-8 mr-4 text-sm uppercase text-neutral-500">
               Creator
             </Text>
-            <Link href={`/profile/${info.view.creator.handle}`} asChild>
+            <Link href={path(`/profile/${info.view.creator.handle}`)} asChild>
               <TouchableHighlight className="mx-4 overflow-hidden rounded-lg">
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -324,7 +326,9 @@ const FeedInfo = ({
                       </Fragment>
                     ))}
                   <Link
-                    href={`/profile/${info.view.creator.handle}?tab=feeds`}
+                    href={path(
+                      `/profile/${info.view.creator.handle}?tab=feeds`,
+                    )}
                     asChild
                   >
                     <TouchableHighlight>

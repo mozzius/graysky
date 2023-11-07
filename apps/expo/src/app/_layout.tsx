@@ -277,6 +277,19 @@ const App = ({ session, saveSession }: Props) => {
                             }}
                           />
                           <Stack.Screen
+                            name="discover"
+                            options={{
+                              title: "Discover Feeds",
+                              presentation: "modal",
+                              headerLargeTitle: true,
+                              headerLargeTitleShadowVisible: false,
+                              headerLargeStyle: {
+                                backgroundColor: theme.colors.background,
+                              },
+                              headerSearchBarOptions: {},
+                            }}
+                          />
+                          <Stack.Screen
                             name="pro"
                             options={{
                               title: "",

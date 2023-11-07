@@ -1,6 +1,7 @@
-import { Fragment, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -24,12 +25,14 @@ import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PersonRow } from "~/components/lists/person-row";
+import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichTextWithoutFacets } from "~/components/rich-text";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
@@ -54,10 +57,21 @@ export default function SearchPage() {
     hideNavigationBar: false,
     ref,
   });
+  const headerLeft = useCallback(
+    () => (Platform.OS === "android" ? null : <OpenDrawerAvatar />),
+    [],
+  );
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{
+          title: "Search",
+          headerLargeTitle: true,
+          headerLeft,
+          headerSearchBarOptions,
+        }}
+      />
       {isSearching || search ? (
         <SearchResults search={search} />
       ) : (
@@ -71,6 +85,7 @@ interface Props {
 }
 const SearchResults = ({ search }: Props) => {
   const agent = useAgent();
+  const path = useAbsolutePath();
 
   const MAX_RESULTS = 6;
 
@@ -105,18 +120,20 @@ const SearchResults = ({ search }: Props) => {
                 {
                   icon: SearchIcon,
                   title: "Search posts",
-                  href: `/search/posts?q=${encodeURIComponent(search)}`,
+                  href: path(`/search/posts?q=${encodeURIComponent(search)}`),
                 },
                 {
                   icon: SearchIcon,
                   title: "Search feeds",
-                  href: `/search/feeds?q=${encodeURIComponent(search)}`,
+                  href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
                 },
                 data.length === 0
                   ? {
                       icon: SearchIcon,
                       title: "Search users",
-                      href: `/search/people?q=${encodeURIComponent(search)}`,
+                      href: path(
+                        `/search/people?q=${encodeURIComponent(search)}`,
+                      ),
                     }
                   : [],
               ].flat(),
@@ -139,9 +156,9 @@ const SearchResults = ({ search }: Props) => {
                           {
                             icon: SearchIcon,
                             title: "Search all users",
-                            href: `/search/people?q=${encodeURIComponent(
-                              search,
-                            )}`,
+                            href: path(
+                              `/search/people?q=${encodeURIComponent(search)}`,
+                            ),
                           },
                         ]
                       : [],
@@ -203,8 +220,9 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
   const ref = useRef(item.did);
   const queryClient = useQueryClient();
   const theme = useTheme();
+  const path = useAbsolutePath();
 
-  const href = `/profile/${item.handle}`;
+  const href = path(`/profile/${item.handle}`);
 
   const follow = useMutation({
     mutationKey: ["follow", item.did],

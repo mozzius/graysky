@@ -12,6 +12,7 @@ import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 import { ListFooterComponent } from "~/components/list-footer";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
@@ -119,7 +120,8 @@ const Feed = ({
   viewer,
 }: AppBskyFeedDefs.GeneratorView) => {
   const theme = useTheme();
-  const href = `/profile/${creator.did}/feed/${uri.split("/").pop()}`;
+  const path = useAbsolutePath();
+  const href = path(`/profile/${creator.did}/feed/${uri.split("/").pop()}`);
   return (
     <Link href={href} asChild>
       <TouchableOpacity>

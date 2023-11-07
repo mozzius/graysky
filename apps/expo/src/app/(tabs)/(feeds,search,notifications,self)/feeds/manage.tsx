@@ -36,7 +36,7 @@ export default function Page() {
                 </Text>
               </TouchableOpacity>
               {!editing && (
-                <Link href="/feeds/discover" asChild>
+                <Link href="/discover" asChild>
                   <TouchableOpacity
                     className="ml-4"
                     accessibilityLabel="Discover feeds"

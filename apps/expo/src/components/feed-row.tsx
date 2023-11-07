@@ -25,6 +25,7 @@ import {
 } from "lucide-react-native";
 
 import { useHaptics } from "~/lib/hooks/preferences";
+import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
@@ -48,7 +49,10 @@ export const FeedRow = ({
 }: Props) => {
   const router = useRouter();
   const theme = useTheme();
-  const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
+  const path = useAbsolutePath();
+  const href = path(
+    `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
+  );
   const navigation = useNavigation();
   return (
     <TouchableHighlight
@@ -144,7 +148,10 @@ export const DraggableFeedRow = ({
   editing: boolean;
   onUnsave: () => void;
 }) => {
-  const href = `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`;
+  const path = useAbsolutePath();
+  const href = path(
+    `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
+  );
 
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();

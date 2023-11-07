@@ -99,7 +99,7 @@ export const FeedScreen = ({ feed }: Props) => {
                   <Text className="text-lg">
                     Follow people, and their posts will show up here
                   </Text>
-                  <Link asChild href="/search">
+                  <Link asChild href="/(tabs)/(search)/search">
                     <TouchableOpacity
                       className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
                       style={{ backgroundColor: theme.colors.primary }}
@@ -154,26 +154,3 @@ const Wrapper = ({
     </>
   );
 };
-
-// const HeaderUnderlay = ({
-//   large,
-//   absolute,
-// }: {
-//   large?: boolean;
-//   absolute?: boolean;
-// }) => (
-//   <SafeAreaView
-//     edges={["top"]}
-//     mode="padding"
-//     className={cx(
-//       "-z-10 w-full bg-white dark:bg-black",
-//       absolute && "absolute top-0",
-//     )}
-//   >
-//     <View
-//       style={{
-//         height: (Platform.OS === "ios" ? (large ? 96 : 44) : 56) + 1,
-//       }}
-//     />
-//   </SafeAreaView>
-// );
