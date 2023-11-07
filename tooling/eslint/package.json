@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@next/eslint-plugin-next": "^14.0.1",
-    "@types/eslint": "^8.44.6",
+    "@types/eslint": "^8.44.7",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint-config-prettier": "^9.0.0",
