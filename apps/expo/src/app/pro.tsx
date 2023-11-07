@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Platform,
   ScrollView,
   Switch,
@@ -163,13 +164,17 @@ export default function Pro() {
                     className="w-full rounded-xl bg-blue-500 py-4"
                     style={{ borderCurve: "continuous" }}
                   >
-                    <Text className="text-center text-base font-medium text-white">
-                      Subscribe (
-                      {annual
-                        ? `${annualProduct.priceString} / year`
-                        : `${monthlyProduct.priceString} / month`}
-                      )
-                    </Text>
+                    {subscribe.isLoading ? (
+                      <ActivityIndicator color="white" />
+                    ) : (
+                      <Text className="text-center text-base font-medium text-white">
+                        Subscribe (
+                        {annual
+                          ? `${annualProduct.priceString} / year`
+                          : `${monthlyProduct.priceString} / month`}
+                        )
+                      </Text>
+                    )}
                   </View>
                 </TouchableOpacity>
                 <View
@@ -192,6 +197,7 @@ export default function Pro() {
                     <Switch
                       value={annual}
                       onValueChange={(val) => setAnnual(val)}
+                      disabled={subscribe.isLoading}
                     />
                   </BlurView>
                 </View>
