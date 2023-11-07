@@ -1,6 +1,7 @@
-import { Fragment, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import {
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -24,6 +25,7 @@ import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PersonRow } from "~/components/lists/person-row";
+import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichTextWithoutFacets } from "~/components/rich-text";
 import { Text } from "~/components/text";
@@ -54,10 +56,21 @@ export default function SearchPage() {
     hideNavigationBar: false,
     ref,
   });
+  const headerLeft = useCallback(
+    () => (Platform.OS === "android" ? null : <OpenDrawerAvatar />),
+    [],
+  );
 
   return (
     <>
-      <Stack.Screen options={{ headerSearchBarOptions }} />
+      <Stack.Screen
+        options={{
+          title: "Search",
+          headerLargeTitle: true,
+          headerLeft,
+          headerSearchBarOptions,
+        }}
+      />
       {isSearching || search ? (
         <SearchResults search={search} />
       ) : (

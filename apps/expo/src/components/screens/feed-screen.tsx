@@ -154,26 +154,3 @@ const Wrapper = ({
     </>
   );
 };
-
-// const HeaderUnderlay = ({
-//   large,
-//   absolute,
-// }: {
-//   large?: boolean;
-//   absolute?: boolean;
-// }) => (
-//   <SafeAreaView
-//     edges={["top"]}
-//     mode="padding"
-//     className={cx(
-//       "-z-10 w-full bg-white dark:bg-black",
-//       absolute && "absolute top-0",
-//     )}
-//   >
-//     <View
-//       style={{
-//         height: (Platform.OS === "ios" ? (large ? 96 : 44) : 56) + 1,
-//       }}
-//     />
-//   </SafeAreaView>
-// );
