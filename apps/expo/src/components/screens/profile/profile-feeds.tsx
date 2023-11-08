@@ -153,7 +153,7 @@ const Feed = ({
                 }
                 size={12}
               />{" "}
-              <Text className="tabular-nums">{likeCount ?? 0}</Text>
+              <Text>{likeCount ?? 0}</Text>
               {description && ` • ${description}`}
             </Text>
           </View>

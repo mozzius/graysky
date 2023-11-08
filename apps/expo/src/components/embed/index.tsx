@@ -133,10 +133,8 @@ export const Embed = ({
                         }
                         size={12}
                       />{" "}
-                      <Text className="tabular-nums">
-                        {record.likeCount ?? 0}
-                      </Text>{" "}
-                      • @{record.creator.handle}
+                      <Text>{record.likeCount ?? 0}</Text> • @
+                      {record.creator.handle}
                     </Text>
                   </View>
                 </View>

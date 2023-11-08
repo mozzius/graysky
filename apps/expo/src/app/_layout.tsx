@@ -19,7 +19,6 @@ import {
 } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
-import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import * as Sentry from "sentry-expo";
 import { z } from "zod";
 
@@ -41,6 +40,8 @@ import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 import { type SavedSession } from "../components/switch-accounts";
+
+import "../../global.css";
 
 Sentry.init({
   dsn: Constants.expoConfig?.extra?.sentry as string,

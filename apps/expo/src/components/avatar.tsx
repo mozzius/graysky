@@ -29,14 +29,11 @@ export const Avatar = ({ size = "large" }: Props) => (
 const AvatarInner = ({ size }: Props) => {
   const agent = useOptionalAgent();
 
-  const className = cx(
-    "rounded-full bg-neutral-200 object-cover dark:bg-neutral-800",
-    {
-      "h-7 w-7": size === "small",
-      "h-10 w-10": size === "medium",
-      "h-12 w-12": size === "large",
-    },
-  );
+  const className = cx("rounded-full bg-neutral-200 dark:bg-neutral-800", {
+    "h-7 w-7": size === "small",
+    "h-10 w-10": size === "medium",
+    "h-12 w-12": size === "large",
+  });
 
   const profile = useQuery({
     queryKey: ["profile", agent?.session?.did],

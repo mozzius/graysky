@@ -108,7 +108,7 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
               href={href}
               image={content.images[0]!}
               depth={depth}
-              className="h-full w-full object-cover"
+              className="h-full w-full"
             />
           </View>
           <View className="h-full w-1/2 flex-1 flex-col pl-0.5">
@@ -126,7 +126,7 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
                   index={i + 1}
                   image={image}
                   depth={depth}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full"
                 />
               </View>
             ))}

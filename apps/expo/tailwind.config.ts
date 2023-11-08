@@ -4,5 +4,6 @@ import baseConfig from "@graysky/tailwind-config";
 
 export default {
   content: ["./src/**/*.{ts,tsx}"],
-  presets: [baseConfig],
+  darkMode: "class",
+  presets: [baseConfig, require("nativewind/preset")],
 } satisfies Config;

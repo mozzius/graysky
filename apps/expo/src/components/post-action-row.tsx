@@ -63,7 +63,7 @@ export const PostActionRow = ({
         className="flex-row items-center gap-2 pb-1.5 pr-2"
       >
         <MessageSquareIcon size={16} color={theme.colors.text} />
-        <Text className="tabular-nums">{post.replyCount}</Text>
+        <Text>{post.replyCount}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         accessibilityLabel={`Repost, ${repostCount} repost${
@@ -83,7 +83,7 @@ export const PostActionRow = ({
           style={{
             color: reposted ? "#2563eb" : theme.colors.text,
           }}
-          className={cx("tabular-nums", reposted && "font-bold")}
+          className={cx(reposted && "font-bold")}
         >
           {repostCount}
         </Text>
@@ -106,7 +106,7 @@ export const PostActionRow = ({
           style={{
             color: liked ? "#dc2626" : theme.colors.text,
           }}
-          className={cx("tabular-nums", liked && "font-bold")}
+          className={cx(liked && "font-bold")}
         >
           {likeCount}
         </Text>

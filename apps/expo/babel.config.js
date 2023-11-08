@@ -23,13 +23,16 @@ module.exports = function (api) {
         "babel-preset-expo",
         {
           lazyImports: true,
+          jsxImportSource: "nativewind",
+        },
+      ],
+      [
+        "nativewind/babel",
+        {
+          tailwindConfig: lazyLoadConfig(),
         },
       ],
     ],
-    plugins: [
-      ["nativewind/babel", { tailwindConfig: lazyLoadConfig() }],
-      require.resolve("expo-router/babel"),
-      "react-native-reanimated/plugin",
-    ],
+    plugins: ["expo-router/babel", "react-native-reanimated/plugin"],
   };
 };

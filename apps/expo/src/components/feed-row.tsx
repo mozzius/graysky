@@ -110,12 +110,7 @@ export const FeedRow = ({
                   }
                   size={12}
                 />{" "}
-                <Text
-                  className={cx(
-                    "tabular-nums",
-                    theme.dark ? "text-neutral-400" : "text-neutral-500",
-                  )}
-                >
+                <Text className="text-neutral-500 dark:text-neutral-400">
                   {feed.likeCount ?? 0}
                 </Text>{" "}
                 • @{feed.creator.handle}

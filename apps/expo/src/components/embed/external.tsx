@@ -81,10 +81,9 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
             source={{ uri: content.external.thumb }}
             alt={content.external.title || content.external.uri}
             contentFit="cover"
-            className={cx(
-              "object-cover",
-              depth === 0 ? "aspect-[2/1] w-full" : "aspect-square h-full",
-            )}
+            className={
+              depth === 0 ? "aspect-[2/1] w-full" : "aspect-square h-full"
+            }
           />
         ) : (
           <View className="h-full items-center justify-center bg-neutral-100 px-3 dark:bg-neutral-900">
