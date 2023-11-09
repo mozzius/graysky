@@ -35,7 +35,7 @@ pnpm dev
   - [ ] community handles
 - [ ] Push notifications
 - [ ] Drafts
-- [ ] Lists support
+- [ ] Full lists support
 - [ ] Share post as image
 - [ ] Pro features
   - [ ] Polls
