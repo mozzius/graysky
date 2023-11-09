@@ -18,9 +18,9 @@
   "packageManager": "pnpm@8.9.2",
   "pnpm": {
     "patchedDependencies": {
-      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch"
+      "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch",
+      "react-native-svg@13.14.0": "patches/react-native-svg@13.14.0.patch"
     }
   },
   "prettier": "@graysky/prettier-config",
