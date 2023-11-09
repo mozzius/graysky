@@ -1,13 +1,18 @@
 import { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AppBskyFeedDefs } from "@atproto/api";
+import { AppBskyFeedDefs, type AppBskyActorDefs } from "@atproto/api";
 import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
+
+type AuditLog = {
+  cid: string;
+  createdAt: string;
+}[];
 
 export const useProfile = (handle?: string) => {
   const agent = useAgent();
@@ -16,31 +21,30 @@ export const useProfile = (handle?: string) => {
 
   const query = useQuery({
     queryKey: ["profile", actor],
-    queryFn: async () => {
-
+    queryFn: async (): Promise<
+      AppBskyActorDefs.ProfileViewDetailed & {
+        createdAt?: Date;
+      }
+    > => {
       // Gets actor profile
       if (!actor) throw new Error("Not logged in");
       const profile = await agent.getProfile({ actor });
       if (!profile.success) throw new Error("Profile not found");
 
       // Get actor creation date based on his audit log creation date
-      await fetch(
-        `https://plc.directory/${profile.data.did}/log/audit`
-      ).then(async (response) => {
-          if (response.status == 200) {
-            const profileAuditLog = (await response.json()) as [{
-              cid: string;
-              createdAt: string;
-            }];
-            profile.data = {
-              ...profile.data,
-              ...{"createdAt": new Date(profileAuditLog[0].createdAt)}
-            };
-          }
+      const res = await fetch(
+        `https://plc.directory/${profile.data.did}/log/audit`,
+      );
+      if (res.ok) {
+        const profileAuditLog = (await res.json()) as AuditLog;
+
+        if (profileAuditLog[0]?.createdAt) {
+          return {
+            ...profile.data,
+            createdAt: new Date(profileAuditLog[0].createdAt),
+          };
         }
-      ).catch(() =>
-        console.log("Network error")
-      )
+      }
       return profile.data;
     },
   });

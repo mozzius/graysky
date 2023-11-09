@@ -21,6 +21,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  CalendarIcon,
   CheckIcon,
   ChevronLeftIcon,
   MoreHorizontalIcon,
@@ -36,9 +37,9 @@ import {
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { locale } from "~/lib/locale";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
-import { locale } from "~/lib/locale";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
@@ -56,7 +57,7 @@ const AVATAR_PLATFORM_ADJUST = Platform.select({
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  profile: AppBskyActorDefs.ProfileViewDetailed;
+  profile: AppBskyActorDefs.ProfileViewDetailed & { createdAt?: Date };
   backButton?: boolean;
 }
 
@@ -545,13 +546,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </View>
             )}
           {profile.createdAt && (
-            <View className="mt-3">
+            <View
+              className="mt-3 flex-1 flex-row items-center"
+              pointerEvents="none"
+            >
+              <CalendarIcon
+                size={14}
+                className="mr-1.5 text-neutral-500 dark:text-neutral-400"
+              />
               <Text className="text-xs text-neutral-500 dark:text-neutral-400">
-                This user joined Bluesky on {
-                  new Intl.DateTimeFormat(locale.languageTag, {
-                    month: "long",
-                    year: "numeric",
-                  }).format(profile.createdAt)}
+                Joined{" "}
+                {new Intl.DateTimeFormat(locale.languageTag, {
+                  month: "long",
+                  year: "numeric",
+                }).format(profile.createdAt)}
               </Text>
             </View>
           )}
