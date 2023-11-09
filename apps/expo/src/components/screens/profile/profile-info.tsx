@@ -38,6 +38,7 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
+import { locale } from "~/lib/locale";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
@@ -543,6 +544,17 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 <RichTextWithoutFacets text={profile.description.trim()} />
               </View>
             )}
+          {profile.createdAt && (
+            <View className="mt-3">
+              <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+                This user joined Bluesky on {
+                  new Intl.DateTimeFormat(locale.languageTag, {
+                    month: "long",
+                    year: "numeric",
+                  }).format(profile.createdAt)}
+              </Text>
+            </View>
+          )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
