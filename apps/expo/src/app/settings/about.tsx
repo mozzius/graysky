@@ -93,6 +93,12 @@ export default function AboutPage() {
               href: "/profile/jcsalterego.bsky.social",
               icon: AtSignIcon,
             },
+            {
+              title: "st-cyr.bsky.social",
+              accessibilityRole: "link",
+              href: "/profile/st-cyr.bsky.social",
+              icon: AtSignIcon,
+            },
           ],
         },
         {
