@@ -21,6 +21,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  CalendarIcon,
   CheckIcon,
   ChevronLeftIcon,
   MoreHorizontalIcon,
@@ -36,6 +37,7 @@ import {
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { locale } from "~/lib/locale";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -55,7 +57,7 @@ const AVATAR_PLATFORM_ADJUST = Platform.select({
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  profile: AppBskyActorDefs.ProfileViewDetailed;
+  profile: AppBskyActorDefs.ProfileViewDetailed & { createdAt?: Date };
   backButton?: boolean;
 }
 
@@ -543,6 +545,24 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 <RichTextWithoutFacets text={profile.description.trim()} />
               </View>
             )}
+          {profile.createdAt && (
+            <View
+              className="mt-3 flex-1 flex-row items-center"
+              pointerEvents="none"
+            >
+              <CalendarIcon
+                size={14}
+                className="mr-1.5 text-neutral-500 dark:text-neutral-400"
+              />
+              <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+                Joined{" "}
+                {new Intl.DateTimeFormat(locale.languageTag, {
+                  month: "long",
+                  year: "numeric",
+                }).format(profile.createdAt)}
+              </Text>
+            </View>
+          )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
