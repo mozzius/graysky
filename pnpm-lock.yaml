@@ -219,7 +219,7 @@ importers:
         version: 0.3.6(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0)
       react-native-collapsible-tab-view:
         specifier: ^6.2.1
-        version: 6.2.1(@shopify/flash-list@1.4.3)(react-native-pager-view@6.2.0)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0)
+        version: 6.2.1(@shopify/flash-list@1.4.3)(react-native-pager-view@6.2.2)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0)
       react-native-date-picker:
         specifier: ^4.3.3
         version: 4.3.3(react-native@0.72.6)(react@18.2.0)
@@ -248,8 +248,8 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(react-native@0.72.6)(react@18.2.0)
       react-native-pager-view:
-        specifier: 6.2.0
-        version: 6.2.0(react-native@0.72.6)(react@18.2.0)
+        specifier: 6.2.2
+        version: 6.2.2(react-native@0.72.6)(react@18.2.0)
       react-native-purchases:
         specifier: ^7.2.0
         version: 7.2.0(react-native@0.72.6)(react@18.2.0)
@@ -11390,7 +11390,7 @@ packages:
       react-native-redash: 16.3.0(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0)
     dev: false
 
-  /react-native-collapsible-tab-view@6.2.1(@shopify/flash-list@1.4.3)(react-native-pager-view@6.2.0)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0):
+  /react-native-collapsible-tab-view@6.2.1(@shopify/flash-list@1.4.3)(react-native-pager-view@6.2.2)(react-native-reanimated@3.3.0)(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-pgmpZYSg6TPYmhv3Dw/czFJHk4AzcYN2df3EMlKwFqbu1ifmlA866hBUVDX3mlbRaros75U5S1wpGCwlqqXLTQ==}
     peerDependencies:
       '@shopify/flash-list': '>=1.0.0'
@@ -11405,7 +11405,7 @@ packages:
       '@shopify/flash-list': 1.4.3(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0)
       react: 18.2.0
       react-native: 0.72.6(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
-      react-native-pager-view: 6.2.0(react-native@0.72.6)(react@18.2.0)
+      react-native-pager-view: 6.2.2(react-native@0.72.6)(react@18.2.0)
       react-native-reanimated: 3.3.0(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
       use-deep-compare: 1.1.0(patch_hash=wqnlzhkoyojz3dgedmc3ibvdcm)(react@18.2.0)
     dev: false
@@ -11532,8 +11532,8 @@ packages:
       react-native: 0.72.6(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
     dev: false
 
-  /react-native-pager-view@6.2.0(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-pf9OnL/Tkr+5s4Gjmsn7xh91PtJLDa6qxYa/bmtUhd/+s4cQdWQ8DIFoOFghwZIHHHwVdWtoXkp6HtpjN+r20g==}
+  /react-native-pager-view@6.2.2(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-MLkJB7iP6v0Hd4/B4/R/gLCSE+YBtjxG/vHZYBDU+fI3U7HBYgKAg4o6ad8HxbKVcWWyRDNeeVRGISw1MUjlHw==}
     peerDependencies:
       react: '*'
       react-native: '*'
