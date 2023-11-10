@@ -77,8 +77,8 @@ importers:
         specifier: 5.12.0
         version: 5.12.0(react-native@0.72.6)(react@18.2.0)
       '@shopify/flash-list':
-        specifier: 1.6.2
-        version: 1.6.2(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0)
+        specifier: 1.6.3
+        version: 1.6.3(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^4.36.1
         version: 4.36.1(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
@@ -219,7 +219,7 @@ importers:
         version: 0.3.6(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
       react-native-collapsible-tab-view:
         specifier: ^6.2.1
-        version: 6.2.1(@shopify/flash-list@1.6.2)(react-native-pager-view@6.2.2)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
+        version: 6.2.1(@shopify/flash-list@1.6.3)(react-native-pager-view@6.2.2)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
       react-native-date-picker:
         specifier: ^4.3.3
         version: 4.3.3(react-native@0.72.6)(react@18.2.0)
@@ -4138,8 +4138,8 @@ packages:
       '@sentry/types': 7.76.0
     dev: false
 
-  /@shopify/flash-list@1.6.2(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-8wcri0z/6Skv9y0bDOOVERMEoi+51saNSAMMRXmImJKgWb/jSI1FJeUSlzrw+RLUlgKndwcwVlqFvPuX5xpq8g==}
+  /@shopify/flash-list@1.6.3(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-XM2iu4CeD9SOEUxaGG3UkxfUxGPWG9yacga1yQSgskAjUsRDFTsD3y4Dyon9n8MfDwgrRpEwuijd+7NeQQoWaQ==}
     peerDependencies:
       '@babel/runtime': '*'
       react: '*'
@@ -9539,14 +9539,14 @@ packages:
     resolution: {integrity: sha512-Orbvg18qXHCrSj1KbaeSDVYRy/gkro2PC7Fy2tDSH1c9RB4aH8tuMOIXnKJE+1SXxBtjWmQ5Yirwkth2DyyEZA==}
     engines: {node: '>=16'}
     dependencies:
-      terser: 5.22.0
+      terser: 5.24.0
     dev: false
 
   /metro-minify-terser@0.80.1:
     resolution: {integrity: sha512-LfX3n895J6MsyiQkLz2SYcKVmZA1ag0NfYDyQapdnOd/oZmkdSu5jUWt0IjiohRLqKSnvyDp00OdQDRfhD3S8g==}
     engines: {node: '>=18'}
     dependencies:
-      terser: 5.22.0
+      terser: 5.24.0
     dev: false
 
   /metro-minify-uglify@0.76.8:
@@ -11520,7 +11520,7 @@ packages:
       react-native-redash: 16.3.0(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
     dev: false
 
-  /react-native-collapsible-tab-view@6.2.1(@shopify/flash-list@1.6.2)(react-native-pager-view@6.2.2)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0):
+  /react-native-collapsible-tab-view@6.2.1(@shopify/flash-list@1.6.3)(react-native-pager-view@6.2.2)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-pgmpZYSg6TPYmhv3Dw/czFJHk4AzcYN2df3EMlKwFqbu1ifmlA866hBUVDX3mlbRaros75U5S1wpGCwlqqXLTQ==}
     peerDependencies:
       '@shopify/flash-list': '>=1.0.0'
@@ -11532,7 +11532,7 @@ packages:
       '@shopify/flash-list':
         optional: true
     dependencies:
-      '@shopify/flash-list': 1.6.2(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0)
+      '@shopify/flash-list': 1.6.3(@babel/runtime@7.23.2)(react-native@0.72.6)(react@18.2.0)
       react: 18.2.0
       react-native: 0.72.6(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
       react-native-pager-view: 6.2.2(react-native@0.72.6)(react@18.2.0)
@@ -13104,8 +13104,8 @@ packages:
       supports-hyperlinks: 2.3.0
     dev: false
 
-  /terser@5.22.0:
-    resolution: {integrity: sha512-hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==}
+  /terser@5.24.0:
+    resolution: {integrity: sha512-ZpGR4Hy3+wBEzVEnHvstMvqpD/nABNelQn/z2r0fjVWGQsN3bpOLzQlqDxmb4CDZnXq5lpjnQ+mHQLAOpfM5iw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
