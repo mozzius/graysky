@@ -245,8 +245,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
       react-native-mmkv:
-        specifier: ^2.10.2
-        version: 2.10.2(react-native@0.72.6)(react@18.2.0)
+        specifier: ^2.11.0
+        version: 2.11.0(react-native@0.72.6)(react@18.2.0)
       react-native-pager-view:
         specifier: 6.2.2
         version: 6.2.2(react-native@0.72.6)(react@18.2.0)
@@ -11652,8 +11652,8 @@ packages:
       react-native-reanimated: 3.5.4(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
     dev: false
 
-  /react-native-mmkv@2.10.2(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-hNrZzwvIFyogJkqf//rVSw7EwceYqkx/jl3hb5tzct6qqwEmS1L9ybvnDjzDkaMyDeouQIqAnsdnb6AuDSrgQQ==}
+  /react-native-mmkv@2.11.0(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-28PdUHjZJmAw3q+8zJDAAdohnZMpDC7WgRUJxACOMkcmJeqS3u5cKS/lSq2bhf1CvaeIiHYHUWiyatUjMRCDQQ==}
     peerDependencies:
       react: '*'
       react-native: '>=0.71.0'
