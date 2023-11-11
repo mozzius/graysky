@@ -65,7 +65,7 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-drawer-layout": "4.0.0-alpha.1",
     "react-native-gesture-handler": "~2.13.4",
-    "react-native-ios-context-menu": "^2.0.5",
+    "react-native-ios-context-menu": "^2.1.0",
     "react-native-ios-utilities": "^4.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-keyboard-controller": "^1.9.0",
