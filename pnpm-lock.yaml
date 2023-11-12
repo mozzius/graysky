@@ -227,8 +227,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.23.3)(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)
       react-native-drawer-layout:
-        specifier: 4.0.0-alpha.1
-        version: 4.0.0-alpha.1(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
+        specifier: 4.0.0-alpha.2
+        version: 4.0.0-alpha.2(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0)
       react-native-gesture-handler:
         specifier: ~2.13.4
         version: 2.13.4(react-native@0.72.6)(react@18.2.0)
@@ -11310,19 +11310,19 @@ packages:
       - '@babel/core'
     dev: false
 
-  /react-native-drawer-layout@4.0.0-alpha.1(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-WVJZKzm/7BFtri6jRfpQVgpZYqkiGNEn5gAy8+rwaUOin/m8E73WEjQwJ89IofgkInlPfW3HVUbA2sVj9tafRw==}
+  /react-native-drawer-layout@4.0.0-alpha.2(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-wwBRMwTJciUJyjim6wjQbFE1xGjStYcPUiX/EBh52M8me12T/x/qTr09M0m4fS07YCpXF+w100OSkTh2AsTbIQ==}
     peerDependencies:
       react: '*'
-      react-native: '*'
-      react-native-gesture-handler: '>= 1.0.0'
-      react-native-reanimated: '>= 1.0.0'
+      react-native: 0.72.6
+      react-native-gesture-handler: ~2.12.0
+      react-native-reanimated: ~3.3.0
     dependencies:
       react: 18.2.0
       react-native: 0.72.6(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
       react-native-gesture-handler: 2.13.4(react-native@0.72.6)(react@18.2.0)
       react-native-reanimated: 3.5.4(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
-      use-latest-callback: 0.1.6(react@18.2.0)
+      use-latest-callback: 0.1.9(react@18.2.0)
     dev: false
 
   /react-native-gesture-handler@2.13.4(react-native@0.72.6)(react@18.2.0):
@@ -13390,16 +13390,16 @@ packages:
     dev: false
     patched: true
 
-  /use-latest-callback@0.1.6(react@18.2.0):
-    resolution: {integrity: sha512-VO/P91A/PmKH9bcN9a7O3duSuxe6M14ZoYXgA6a8dab8doWNdhiIHzEkX/jFeTTRBsX0Ubk6nG4q2NIjNsj+bg==}
+  /use-latest-callback@0.1.7(react@18.2.0):
+    resolution: {integrity: sha512-Hlrl0lskgZZpo2vIpZ4rA7qA/rAGn2PcDvDH1M47AogqMPB0qlGEdsa66AVkIUiEEDpfxA9/N6hY6MqtaNoqWA==}
     peerDependencies:
       react: '>=16.8'
     dependencies:
       react: 18.2.0
     dev: false
 
-  /use-latest-callback@0.1.7(react@18.2.0):
-    resolution: {integrity: sha512-Hlrl0lskgZZpo2vIpZ4rA7qA/rAGn2PcDvDH1M47AogqMPB0qlGEdsa66AVkIUiEEDpfxA9/N6hY6MqtaNoqWA==}
+  /use-latest-callback@0.1.9(react@18.2.0):
+    resolution: {integrity: sha512-CL/29uS74AwreI/f2oz2hLTW7ZqVeV5+gxFeGudzQrgkCytrHw33G4KbnQOrRlAEzzAFXi7dDLMC9zhWcVpzmw==}
     peerDependencies:
       react: '>=16.8'
     dependencies:
