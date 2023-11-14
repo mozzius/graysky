@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
@@ -42,7 +42,7 @@ export default function AboutPage() {
             {
               title: "Contact",
               accessibilityRole: "link",
-              onPress: () => openLink("mailto:hello@graysky.app"),
+              onPress: () => Linking.openURL("mailto:hello@graysky.app"),
               icon: SendIcon,
               chevron: true,
             },
