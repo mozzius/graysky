@@ -20,7 +20,7 @@
     "patchedDependencies": {
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
       "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch",
-      "react-native-svg@13.14.0": "patches/react-native-svg@13.14.0.patch"
+      "react-native-svg@14.0.0": "patches/react-native-svg@14.0.0.patch"
     }
   },
   "prettier": "@graysky/prettier-config",
