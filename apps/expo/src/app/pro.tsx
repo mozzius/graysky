@@ -20,6 +20,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
   LanguagesIcon,
+  LineChart,
   MoreHorizontalIcon,
 } from "lucide-react-native";
 import * as Sentry from "sentry-expo";
@@ -94,9 +95,15 @@ export default function Pro() {
       icon: <LanguagesIcon className="text-white" />,
     },
     {
+      colour: "rgb(202, 138, 4)",
+      title: "Analytics",
+      subtitle: "See how your posts are doing",
+      icon: <LineChart className="text-white" />,
+    },
+    {
       colour: "rgb(192, 38, 211)",
       title: "And a lot more planned...",
-      subtitle: "Polls, analytics, and more",
+      subtitle: "Polls and much more",
       icon: <MoreHorizontalIcon className="text-white" />,
     },
   ] satisfies Omit<Props, "index">[];
