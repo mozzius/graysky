@@ -16,7 +16,7 @@
   "devDependencies": {
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {

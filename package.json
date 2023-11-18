@@ -4,7 +4,7 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@manypkg/cli": "^0.21.0",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "prettier": "^3.1.0",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2"
