@@ -4,8 +4,8 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@manypkg/cli": "^0.21.0",
-    "eslint": "^8.53.0",
-    "prettier": "^3.0.3",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2"
   },
@@ -18,9 +18,8 @@
   "packageManager": "pnpm@8.9.2",
   "pnpm": {
     "patchedDependencies": {
-      "react-native-svg@13.9.0": "patches/react-native-svg@13.9.0.patch",
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "use-deep-compare@1.1.0": "patches/use-deep-compare@1.1.0.patch"
+      "react-native-svg@14.0.0": "patches/react-native-svg@14.0.0.patch"
     }
   },
   "prettier": "@graysky/prettier-config",

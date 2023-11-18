@@ -44,7 +44,7 @@ export const useSavedFeeds = (
         feeds: pinned ? feeds.pinned : feeds.saved,
       });
       if (!generators.success) {
-        throw new Error("Could not fetch feed generators");
+        throw new Error("Could not fetch saved feeds");
       }
       return {
         feeds: generators.data.feeds.map((feed) => ({
