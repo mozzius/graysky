@@ -292,13 +292,13 @@ const ListHeader = ({
         info.purpose === AppBskyGraphDefs.CURATELIST
           ? "Change to moderation list"
           : "Change to curation list",
-        "Delete list",
         "Share",
+        "Delete list",
       ] as const;
       showActionSheetWithOptions(
         {
           options: [...options, "Cancel"],
-          destructiveButtonIndex: 1,
+          destructiveButtonIndex: 2,
           cancelButtonIndex: options.length,
           ...actionSheetStyles(theme),
         },
