@@ -87,7 +87,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
-    "@babel/runtime": "^7.23.2",
+    "@babel/runtime": "^7.23.4",
     "@expo/config-plugins": "^7.2.5",
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
