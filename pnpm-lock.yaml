@@ -56,8 +56,8 @@ importers:
         specifier: 0.1.0
         version: link:../../packages/api
       '@react-native-async-storage/async-storage':
-        specifier: 1.19.5
-        version: 1.19.5(react-native@0.72.7)
+        specifier: 1.19.6
+        version: 1.19.6(react-native@0.72.7)
       '@react-native-community/netinfo':
         specifier: 11.1.0
         version: 11.1.0(react-native@0.72.7)
@@ -3225,10 +3225,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@react-native-async-storage/async-storage@1.19.5(react-native@0.72.7):
-    resolution: {integrity: sha512-zLT7oNPXpW8BxJyHyq8AJbXtlHE/eonFWuJt44y0WeCGnp4KOJ8mfqD8mtAIKLyrYHHE1uadFe/s4C+diYAi8g==}
+  /@react-native-async-storage/async-storage@1.19.6(react-native@0.72.7):
+    resolution: {integrity: sha512-Qjd1HlEusQQtPyDTM7zpO2P3G2mYY+z5at/aqsVJLJpzytZ+8QT+jgDQmt6BVgZcwk/74jSrhDIdu2j3YCmoEg==}
     peerDependencies:
-      react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
+      react-native: ^0.0.0-0 || >=0.60 <1.0
     dependencies:
       merge-options: 3.0.4
       react-native: 0.72.7(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
