@@ -51,7 +51,7 @@ importers:
         version: 4.0.1(react@18.2.0)
       '@gorhom/bottom-sheet':
         specifier: 4.5.1
-        version: 4.5.1(@types/react@18.2.37)(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0)
+        version: 4.5.1(@types/react@18.2.38)(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0)
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -315,8 +315,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4
       '@types/react':
-        specifier: ^18.2.37
-        version: 18.2.37
+        specifier: ^18.2.38
+        version: 18.2.38
       '@types/webpack-env':
         specifier: ^1.18.4
         version: 1.18.4
@@ -427,11 +427,11 @@ importers:
         specifier: ^20.9.0
         version: 20.9.0
       '@types/react':
-        specifier: ^18.2.37
-        version: 18.2.37
+        specifier: ^18.2.38
+        version: 18.2.38
       '@types/react-dom':
-        specifier: ^18.2.15
-        version: 18.2.15
+        specifier: ^18.2.16
+        version: 18.2.16
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -2795,7 +2795,7 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: false
 
-  /@gorhom/bottom-sheet@4.5.1(@types/react@18.2.37)(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0):
+  /@gorhom/bottom-sheet@4.5.1(@types/react@18.2.38)(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0):
     resolution: {integrity: sha512-4Qy6hzvN32fXu2hDxDXOIS0IBGBT6huST7J7+K1V5bXemZ08KIx5ZffyLgwhCUl+CnyeG2KG6tqk6iYLkIwi7Q==}
     peerDependencies:
       '@types/react': '*'
@@ -2811,7 +2811,7 @@ packages:
         optional: true
     dependencies:
       '@gorhom/portal': 1.0.14(react-native@0.72.7)(react@18.2.0)
-      '@types/react': 18.2.37
+      '@types/react': 18.2.38
       invariant: 2.2.4
       react: 18.2.0
       react-native: 0.72.7(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
@@ -3084,7 +3084,7 @@ packages:
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.8
-      '@types/react': 18.2.37
+      '@types/react': 18.2.38
       react: 18.2.0
     dev: false
 
@@ -4066,7 +4066,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 18.2.37
+      '@types/react': 18.2.38
       hoist-non-react-statics: 3.3.2
     dev: false
 
@@ -4134,14 +4134,14 @@ packages:
     resolution: {integrity: sha512-3Gnx08Ns1sEoCrWssEgTSJs/rsT2vhGP+Ja9cnnk9k4ALxinORlQneLXFeFKOTJMOeZUFD1s7w+w2AphTpvzZw==}
     dev: false
 
-  /@types/react-dom@18.2.15:
-    resolution: {integrity: sha512-HWMdW+7r7MR5+PZqJF6YFNSCtjz1T0dsvo/f1BV6HkV+6erD/nA7wd9NM00KVG83zf2nJ7uATPO9ttdIPvi3gg==}
+  /@types/react-dom@18.2.16:
+    resolution: {integrity: sha512-766c37araZ9vxtYs25gvY2wNdFWsT2ZiUvOd0zMhTaoGj6B911N8CKQWgXXJoPMLF3J82thpRqQA7Rf3rBwyJw==}
     dependencies:
-      '@types/react': 18.2.37
+      '@types/react': 18.2.38
     dev: true
 
-  /@types/react@18.2.37:
-    resolution: {integrity: sha512-RGAYMi2bhRgEXT3f4B92WTohopH6bIXw05FuGlmJEnv/omEn190+QYEIYxIAuIBdKgboYYdVved2p1AxZVQnaw==}
+  /@types/react@18.2.38:
+    resolution: {integrity: sha512-cBBXHzuPtQK6wNthuVMV6IjHAFkdl/FOPFIlkd81/Cd1+IqkHu/A+w4g43kaQQoYHik/ruaQBDL72HyCy1vuMw==}
     dependencies:
       '@types/prop-types': 15.7.10
       '@types/scheduler': 0.16.6
