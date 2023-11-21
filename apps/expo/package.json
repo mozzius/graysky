@@ -21,7 +21,7 @@
     "bcp-47-match": "^2.0.3",
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
-    "expo": "49.0.19",
+    "expo": "49.0.20",
     "expo-application": "~5.4.0",
     "expo-av": "^13.6.0",
     "expo-blur": "^12.6.0",
