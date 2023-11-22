@@ -266,8 +266,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(react-native@0.72.7)
       react-native-webview:
-        specifier: 13.6.2
-        version: 13.6.2(react-native@0.72.7)(react@18.2.0)
+        specifier: 13.6.3
+        version: 13.6.3(react-native@0.72.7)(react@18.2.0)
       rn-fetch-blob:
         specifier: ^0.12.0
         version: 0.12.0
@@ -11399,8 +11399,8 @@ packages:
       whatwg-url-without-unicode: 8.0.0-3
     dev: false
 
-  /react-native-webview@13.6.2(react-native@0.72.7)(react@18.2.0):
-    resolution: {integrity: sha512-QzhQ5JCU+Nf2W285DtvCZOVQy/MkJXMwNDYPZvOWQbAOgxJMSSO+BtqXTMA1UPugDsko6PxJ0TxSlUwIwJijDg==}
+  /react-native-webview@13.6.3(react-native@0.72.7)(react@18.2.0):
+    resolution: {integrity: sha512-IApO0JSj0uAWsBGKWagyfgDYoX29piiMYLmkHtRjKeL1rIVjLoR/bMe7KJ/0X47y86b//a6u3cYQtphyay+F2A==}
     peerDependencies:
       react: '*'
       react-native: '*'
