@@ -66,7 +66,7 @@
     "react-native-drawer-layout": "4.0.0-alpha.3",
     "react-native-gesture-handler": "~2.13.4",
     "react-native-ios-context-menu": "^2.2.1",
-    "react-native-ios-utilities": "^4.1.0",
+    "react-native-ios-utilities": "^4.2.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-mmkv": "^2.11.0",
     "react-native-pager-view": "6.2.2",
