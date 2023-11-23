@@ -212,8 +212,8 @@ importers:
         specifier: 0.72.7
         version: 0.72.7(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
       react-native-awesome-gallery:
-        specifier: ^0.3.6
-        version: 0.3.6(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0)
+        specifier: ^0.3.7
+        version: 0.3.7(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0)
       react-native-collapsible-tab-view:
         specifier: ^6.2.1
         version: 6.2.1(@shopify/flash-list@1.6.3)(react-native-pager-view@6.2.2)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0)
@@ -11142,8 +11142,8 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-native-awesome-gallery@0.3.6(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0):
-    resolution: {integrity: sha512-0hYkk9vFro21N4neHz4+obmxYvwK5FAnpjRgH4n0VH+3Hl92Iv+SNsvOAKd+vo2y52F5nh8KtJ4Z5SWX6DHJSw==}
+  /react-native-awesome-gallery@0.3.7(react-native-gesture-handler@2.13.4)(react-native-reanimated@3.5.4)(react-native@0.72.7)(react@18.2.0):
+    resolution: {integrity: sha512-kLaX/yF/3SerOSXH/d/u6q/w07hIPnYHEkAdrvzue62t3+//SpIQUSx0wh3/VOcEoGXoNg5vIz5iZS/9u+90bg==}
     peerDependencies:
       react: '*'
       react-native: '*'
