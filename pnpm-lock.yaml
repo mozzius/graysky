@@ -71,8 +71,8 @@ importers:
         specifier: ^6.1.9
         version: 6.1.9(react-native@0.72.7)(react@18.2.0)
       '@sentry/react-native':
-        specifier: 5.14.0
-        version: 5.14.0(react-native@0.72.7)(react@18.2.0)
+        specifier: 5.14.1
+        version: 5.14.1(react-native@0.72.7)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.23.4)(react-native@0.72.7)(react@18.2.0)
@@ -349,7 +349,7 @@ importers:
         version: link:../../tooling/tailwind
       '@tanstack/react-query':
         specifier: ^4.36.1
-        version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
+        version: 4.36.1(react-dom@18.2.0)(react-native@0.72.7)(react@18.2.0)
       '@trpc/client':
         specifier: ^10.44.0
         version: 10.44.0(@trpc/server@10.44.0)
@@ -3723,8 +3723,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/react-native@5.14.0(react-native@0.72.7)(react@18.2.0):
-    resolution: {integrity: sha512-QpG3OWQ5eWwFOE5sNtsOkbFaqCBJB7z9W92CxnD08WUwIPtt+5YcHs4aBi3bVqQAhwmC0VMwxCqCAgxt6VNf5Q==}
+  /@sentry/react-native@5.14.1(react-native@0.72.7)(react@18.2.0):
+    resolution: {integrity: sha512-qeQC72HMFJX7WEDF5rUT/8OZOkx64O6lZZWds8qGuwcDK0FeHBxt4IPJb6YGBTSW20q7mdK/c2hM8Q2ey13h2A==}
     peerDependencies:
       react: '>=17.0.0'
       react-native: '>=0.65.0'
@@ -3900,24 +3900,6 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@4.36.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 4.36.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
   /@trpc/client@10.44.0(@trpc/server@10.44.0):
     resolution: {integrity: sha512-6PAL5rXMGTMlsKKGW9aBsij8XFBbLUbOCJ7jNVX3IripGqiQG3b/VJyTsHRWkss/oaz/sZMOn62amhfev1UVfg==}
     peerDependencies:
@@ -3937,7 +3919,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.72.7)(react@18.2.0)
       '@trpc/client': 10.44.0(@trpc/server@10.44.0)
       '@trpc/react-query': 10.44.0(@tanstack/react-query@4.36.1)(@trpc/client@10.44.0)(@trpc/server@10.44.0)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server': 10.44.0
@@ -3956,7 +3938,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.72.7)(react@18.2.0)
       '@trpc/client': 10.44.0(@trpc/server@10.44.0)
       '@trpc/server': 10.44.0
       react: 18.2.0
