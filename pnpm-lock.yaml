@@ -245,8 +245,8 @@ importers:
         specifier: 6.2.2
         version: 6.2.2(react-native@0.72.7)(react@18.2.0)
       react-native-purchases:
-        specifier: ^7.3.1
-        version: 7.3.1(react-native@0.72.7)(react@18.2.0)
+        specifier: ^7.4.0
+        version: 7.4.0(react-native@0.72.7)(react@18.2.0)
       react-native-reanimated:
         specifier: ~3.5.4
         version: 3.5.4(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.7)(react@18.2.0)
@@ -3561,8 +3561,8 @@ packages:
       nanoid: 3.3.7
     dev: false
 
-  /@revenuecat/purchases-typescript-internal@7.3.3:
-    resolution: {integrity: sha512-mL0gNFcl0nxWTsy/UaCplPxwAQpeaULAQkm9Y0sEM4xDLa7Re2PHGbC8ysjdGR1+sa+damyNFq33jDupWvewaQ==}
+  /@revenuecat/purchases-typescript-internal@8.0.0:
+    resolution: {integrity: sha512-NMw5qGGr5zfvWq2WPwE5bQKOP0b7KIAzoujDfSp9/Lmdc/seCjKGwXazawk66PST0smAXWh7wbPwwrtMb0N8MA==}
     dev: false
 
   /@segment/loosely-validate-event@2.0.0:
@@ -11290,13 +11290,13 @@ packages:
       react-native: 0.72.7(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
     dev: false
 
-  /react-native-purchases@7.3.1(react-native@0.72.7)(react@18.2.0):
-    resolution: {integrity: sha512-tiIQoOqaWRt6HxdzTJT4Mv9i+I2YHVdMrPIKIegyIjUnm0avaXwYKLq1fp3BLIoVZjFBPd4OjpAEyMI5aonveA==}
+  /react-native-purchases@7.4.0(react-native@0.72.7)(react@18.2.0):
+    resolution: {integrity: sha512-SleCcPduzXvpa+TEaRFYNFpO0pmwIYjH02incsXRgyFgSPx5bOIteRk+5I4CnI1QUW+9Kok49ki+MwHpUXj/Cg==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '>= 0.58.2'
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 7.3.3
+      '@revenuecat/purchases-typescript-internal': 8.0.0
       react: 18.2.0
       react-native: 0.72.7(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
     dev: false
