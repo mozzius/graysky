@@ -32,7 +32,7 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/node": "^20.9.4",
+    "@types/node": "^20.10.0",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "autoprefixer": "^10.4.16",
