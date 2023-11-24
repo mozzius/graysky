@@ -3,11 +3,12 @@ import {
   ActivityIndicator,
   Platform,
   ScrollView,
-  Switch,
   Text,
+  TouchableHighlight,
   TouchableOpacity,
   View,
   type ImageSourcePropType,
+  type ViewStyle,
 } from "react-native";
 import Purchases from "react-native-purchases";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -20,13 +21,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
   LanguagesIcon,
-  LineChart,
+  // LineChart,
   MoreHorizontalIcon,
+  XIcon,
 } from "lucide-react-native";
 import * as Sentry from "sentry-expo";
 
 import { StatusBar } from "~/components/status-bar";
 import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/hooks/purchases";
+import { cx } from "~/lib/utils/cx";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const background = require("../../assets/graysky.png") as ImageSourcePropType;
@@ -91,19 +94,19 @@ export default function Pro() {
     {
       colour: "rgb(59, 130, 246)",
       title: "Better Translations",
-      subtitle: "Unlimited DeepL translations",
+      subtitle: "Translate posts using DeepL",
       icon: <LanguagesIcon className="text-white" />,
     },
-    {
-      colour: "rgb(202, 138, 4)",
-      title: "Analytics",
-      subtitle: "See how your posts are doing",
-      icon: <LineChart className="text-white" />,
-    },
+    // {
+    //   colour: "rgb(202, 138, 4)",
+    //   title: "Analytics",
+    //   subtitle: "See how your posts are doing",
+    //   icon: <LineChart className="text-white" />,
+    // },
     {
       colour: "rgb(192, 38, 211)",
       title: "And a lot more planned...",
-      subtitle: "Polls and much more",
+      subtitle: "Analytics, polls, and much more",
       icon: <MoreHorizontalIcon className="text-white" />,
     },
   ] satisfies Omit<Props, "index">[];
@@ -116,18 +119,24 @@ export default function Pro() {
       <StatusBar modal />
       <Stack.Screen
         options={{
+          headerTransparent: true,
           headerRight: () => (
-            <TouchableOpacity onPress={() => router.push("../")}>
-              <Text className="text-lg font-medium text-white">Done</Text>
-            </TouchableOpacity>
+            <TouchableHighlight
+              className="rounded-full"
+              onPress={() => router.push("../")}
+            >
+              <View className="flex-1 rounded-full bg-neutral-800 p-2">
+                <XIcon className="text-white" size={18} strokeWidth={3} />
+              </View>
+            </TouchableHighlight>
           ),
         }}
       />
       <ImageBackground className="flex-1" source={background} blurRadius={4}>
-        <SafeAreaView className="flex-1 items-stretch justify-between bg-black/40 p-4">
-          <ScrollView>
+        <View className="flex-1 bg-black/40">
+          <ScrollView fadingEdgeLength={20} indicatorStyle="white">
             <Animated.Text
-              className="mb-8 mt-4 text-center text-6xl font-semibold text-white"
+              className="mb-8 mt-24 text-center text-6xl font-semibold text-white"
               entering={FadeInDown.delay(500).duration(300).springify()}
             >
               Graysky Pro
@@ -136,64 +145,47 @@ export default function Pro() {
               <FeatureItem key={feature.title} {...feature} index={index} />
             ))}
           </ScrollView>
-          {isPro ? (
-            <View>
-              <View
-                className="w-full flex-row items-center justify-center rounded-xl bg-neutral-50 py-4"
-                style={{ borderCurve: "continuous" }}
-              >
-                <CheckIcon className="mr-2 text-black" size={20} />
-                <Text className="text-center text-base font-medium text-black">
-                  Currently Subscribed
-                  {customerInfo?.entitlements.active.pro?.periodType &&
-                    ` (${customerInfo.entitlements.active.pro.periodType})`}
-                </Text>
-              </View>
-              <Text className="mt-4 px-12 text-center text-sm text-white">
-                To manage your subscription, please visit the{" "}
-                {Platform.select({
-                  ios: "App Store",
-                  android: "Play Store",
-                  default: "magical store that doesn't exist",
-                })}
-                .
-              </Text>
-            </View>
-          ) : (
-            annualProduct &&
-            monthlyProduct && (
+          <SafeAreaView edges={["left", "bottom", "right"]} className="px-4">
+            {isPro ? (
               <View>
-                <TouchableOpacity
-                  onPress={() => subscribe.mutate()}
-                  disabled={subscribe.isLoading}
-                >
-                  <View
-                    className="w-full rounded-xl bg-blue-500 py-4"
-                    style={{ borderCurve: "continuous" }}
-                  >
-                    {subscribe.isLoading ? (
-                      <ActivityIndicator color="white" />
-                    ) : (
-                      <Text className="text-center text-base font-medium text-white">
-                        Subscribe (
-                        {annual
-                          ? `${annualProduct.priceString} / year`
-                          : `${monthlyProduct.priceString} / month`}
-                        )
-                      </Text>
-                    )}
-                  </View>
-                </TouchableOpacity>
                 <View
-                  className="mt-4 overflow-hidden rounded-xl"
+                  className="w-full flex-row items-center justify-center rounded-xl bg-neutral-50 py-4"
                   style={{ borderCurve: "continuous" }}
                 >
-                  <BlurView
-                    className="flex-row items-center justify-between p-4"
-                    tint="dark"
+                  <CheckIcon className="mr-2 text-black" size={20} />
+                  <Text className="text-center text-base font-medium text-black">
+                    Currently subscribed
+                    {customerInfo?.entitlements.active.pro?.periodType &&
+                      ` (${customerInfo.entitlements.active.pro.periodType})`}
+                  </Text>
+                </View>
+                <Text className="mb-4 mt-4 px-12 text-center text-sm text-white">
+                  To manage your subscription, please visit the{" "}
+                  {Platform.select({
+                    ios: "App Store",
+                    android: "Play Store",
+                    default: "???? store",
+                  })}
+                  .
+                </Text>
+              </View>
+            ) : (
+              annualProduct &&
+              monthlyProduct && (
+                <View>
+                  <BlurPill active={!annual} onPress={() => setAnnual(false)}>
+                    <Text className="text-base text-white">Monthly Plan</Text>
+                    <Text className="text-base text-white">
+                      {monthlyProduct.priceString} / month
+                    </Text>
+                  </BlurPill>
+                  <BlurPill
+                    active={annual}
+                    onPress={() => setAnnual(true)}
+                    className="mt-4"
                   >
                     <Text className="text-base text-white">
-                      Switch to annual plan (
+                      Annual Plan (
                       {Math.round(
                         1000 -
                           (annualProduct.price / (monthlyProduct.price * 12)) *
@@ -201,28 +193,45 @@ export default function Pro() {
                       ) / 10}
                       % off)
                     </Text>
-                    <Switch
-                      value={annual}
-                      onValueChange={(val) => setAnnual(val)}
-                      disabled={subscribe.isLoading}
-                    />
-                  </BlurView>
+                    <Text className="text-base text-white">
+                      {annualProduct.priceString} / year
+                    </Text>
+                  </BlurPill>
+                  <TouchableHighlight
+                    onPress={() => subscribe.mutate()}
+                    disabled={subscribe.isLoading}
+                    className="mt-4 rounded-xl"
+                    style={{ borderCurve: "continuous" }}
+                  >
+                    <View
+                      className="min-h-[56px] w-full items-center rounded-xl bg-blue-500 py-4"
+                      style={{ borderCurve: "continuous" }}
+                    >
+                      {subscribe.isLoading ? (
+                        <ActivityIndicator color="white" />
+                      ) : (
+                        <Text className="text-center text-base font-medium text-white">
+                          Get Graysky Pro
+                        </Text>
+                      )}
+                    </View>
+                  </TouchableHighlight>
+                  <TouchableOpacity
+                    onPress={() => restore.mutate()}
+                    disabled={restore.isLoading}
+                    className="mt-4 w-full py-2"
+                  >
+                    <Text className="text-center text-base text-blue-500">
+                      {restore.isLoading
+                        ? "Restoring purchases..."
+                        : "Restore purchases"}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                  onPress={() => restore.mutate()}
-                  disabled={restore.isLoading}
-                  className="mt-4 w-full py-2"
-                >
-                  <Text className="text-center text-base text-blue-500">
-                    {restore.isLoading
-                      ? "Restoring purchases..."
-                      : "Restore purchases"}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )
-          )}
-        </SafeAreaView>
+              )
+            )}
+          </SafeAreaView>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -240,7 +249,7 @@ const FeatureItem = ({ icon, title, subtitle, colour, index }: Props) => (
   <Animated.View
     className="flex-row items-center px-8 py-3"
     entering={FadeInDown.delay(750 + index * 300)
-      .duration(300)
+      .duration(100)
       .springify()}
   >
     <View
@@ -254,4 +263,40 @@ const FeatureItem = ({ icon, title, subtitle, colour, index }: Props) => (
       <Text className="text-base leading-5 text-white">{subtitle}</Text>
     </View>
   </Animated.View>
+);
+
+const BlurPill = ({
+  children,
+  active,
+  className,
+  style,
+  onPress,
+}: {
+  children: React.ReactNode;
+  active?: boolean;
+  className?: string;
+  style?: ViewStyle;
+  onPress?: () => void;
+}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    className={cx("rounded-xl", className)}
+    style={style}
+  >
+    <View
+      className="overflow-hidden rounded-xl"
+      style={{ borderCurve: "continuous" }}
+    >
+      <BlurView tint="dark">
+        <View
+          className={cx(
+            "flex-row items-center justify-between rounded-xl border-2 p-4",
+            active ? "border-blue-500" : "border-transparent",
+          )}
+        >
+          {children}
+        </View>
+      </BlurView>
+    </View>
+  </TouchableOpacity>
 );

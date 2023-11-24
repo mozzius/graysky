@@ -10,7 +10,7 @@ import {
 } from "lucide-react-native";
 
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
-import { locale } from "~/lib/locale";
+import { useIsPro } from "~/lib/hooks/purchases";
 import { api } from "~/lib/utils/api";
 import { RichTextWithoutFacets } from "./rich-text";
 import { Text } from "./text";
@@ -22,20 +22,24 @@ interface Props {
 }
 
 export const Translation = ({ text, uri, forceShow }: Props) => {
-  const [{ primaryLanguage }] = useAppPreferences();
+  const [{ primaryLanguage, translationMethod }] = useAppPreferences();
+  const isPro = useIsPro();
   const haptics = useHaptics();
   const translate = api.translate.post.useMutation({
     onMutate: () => haptics.impact(),
   });
   const theme = useTheme();
 
+  const service = isPro ? translationMethod : "GOOGLE";
+
   const { mutate, status, reset } = translate;
 
   const trigger = useCallback(() => {
     if (status === "idle") {
-      mutate({ text, uri, target: primaryLanguage });
+      console.log("Translating...", service);
+      mutate({ text, uri, target: primaryLanguage, service });
     }
-  }, [mutate, status, text, uri, primaryLanguage]);
+  }, [mutate, status, text, uri, primaryLanguage, service]);
 
   useEffect(() => {
     if (forceShow) {
@@ -89,27 +93,28 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
                 {translate.data.language}
               </Text>
             </View>
-            <Image
-              source={
-                theme.dark
-                  ? require("../../assets/translated_by-white.png")
-                  : require("../../assets/translated_by.png")
-              }
-              alt="Translated by Google"
-              style={{ aspectRatio: 7.6 }}
-              className="w-28 max-w-full"
-            />
+            {service === "GOOGLE" ? (
+              <Image
+                source={
+                  theme.dark
+                    ? require("../../assets/translated_by-white.png")
+                    : require("../../assets/translated_by.png")
+                }
+                alt="Translated by Google"
+                style={{ aspectRatio: 7.6 }}
+                className="w-28 max-w-full"
+              />
+            ) : (
+              <Text className="text-right text-sm text-neutral-500 dark:text-neutral-200">
+                Translated by DeepL
+              </Text>
+            )}
           </View>
         </View>
       );
     case "error":
       return (
-        <TouchableOpacity
-          className="mt-0.5"
-          onPress={() =>
-            translate.mutate({ text, uri, target: locale.languageCode })
-          }
-        >
+        <TouchableOpacity className="mt-0.5" onPress={() => trigger()}>
           <View className="flex-row items-center">
             <AlertTriangleIcon
               className="mr-1.5"

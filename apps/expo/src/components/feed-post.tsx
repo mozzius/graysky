@@ -15,7 +15,6 @@ import { z } from "zod";
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
 import { useAgent } from "~/lib/agent";
 import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
-import { useIsPro } from "~/lib/hooks/purchases";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
@@ -69,7 +68,6 @@ const FeedPostInner = ({
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
   >(null);
-  const isPro = useIsPro();
 
   const postAuthorDisplayName = item.post.author.displayName;
   const postAuthorHandle = item.post.author.handle;
@@ -163,8 +161,8 @@ const FeedPostInner = ({
             ? "border-slate-600 bg-slate-800"
             : "border-blue-200 bg-blue-50"
           : theme.dark
-          ? "bg-black"
-          : "bg-white",
+            ? "bg-black"
+            : "bg-white",
         background === "transparent" && "bg-transparent",
       )}
       style={unread ? undefined : { borderBottomColor: theme.colors.border }}
@@ -320,7 +318,7 @@ const FeedPostInner = ({
                       </View>
                     </TouchableWithoutFeedback>
                   </Link>
-                  {isPro && (needsTranslation || forceShowTranslation) && (
+                  {(needsTranslation || forceShowTranslation) && (
                     <Translation
                       uri={item.post.uri}
                       text={item.post.record.text}

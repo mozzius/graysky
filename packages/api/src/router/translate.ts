@@ -1,15 +1,9 @@
-import { DidResolver } from "@atproto/identity";
-import { verifyJwt } from "@atproto/xrpc-server";
 import { track } from "@vercel/analytics/server";
 import { z } from "zod";
 
 import { TranslationService } from "@graysky/db";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
-
-const didResolver = new DidResolver({
-  plcUrl: "https://plc.directory",
-});
 
 export const translateRouter = createTRPCRouter({
   post: publicProcedure
@@ -18,7 +12,10 @@ export const translateRouter = createTRPCRouter({
         uri: z.string(),
         text: z.string(),
         target: z.string(),
-        session: z.string().optional(),
+        service: z
+          .union([z.literal("GOOGLE"), z.literal("DEEPL")])
+          .optional()
+          .default("GOOGLE"),
       }),
     )
     .output(
@@ -29,97 +26,110 @@ export const translateRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx: { db } }) => {
-      let isPro = false;
-
-      if (input.session) {
-        try {
-          const decoded = await verifyJwt(
-            input.session,
-            null,
-            async (did: string) => {
-              return didResolver.resolveAtprotoKey(did);
-            },
-          );
-
-          const account = await db.account.findUnique({
-            where: { did: decoded.iss },
-          });
-
-          if (account) {
-            isPro = account.pro;
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
       const langNames = new Intl.DisplayNames([input.target], {
         type: "language",
       });
 
-      const cached = await db.translatablePost.findFirst({
+      console.log("translate", input.service);
+
+      const cached = await db.postTranslation.findFirst({
         where: {
-          uri: input.uri,
+          AND: [
+            { postUri: input.uri },
+            { language: input.target },
+            { service: input.service },
+          ],
         },
         include: {
-          translation: {
-            where: {
-              language: input.target,
-            },
-          },
+          post: true,
         },
       });
 
-      if (cached?.translation[0]) {
-        if (
-          !isPro ||
-          cached.translation[0].service === TranslationService.DEEPL
-        ) {
-          return {
-            text: cached.translation[0].text,
-            language: langNames.of(cached.language),
-            languageCode: cached.language,
-          };
-        }
+      if (cached) {
+        return {
+          text: cached.text,
+          language: langNames.of(cached.post.language),
+          languageCode: cached.post.language,
+        };
       }
 
       await track("translate post", {
         uri: input.uri,
       });
 
-      // TODO: FORK HERE AND FETCH FROM DEEPL INSTEAD IF PRO
+      let translatedText;
+      let detectedSourceLanguage;
 
-      const res = await fetch(
-        "https://translation.googleapis.com/language/translate/v2",
-        {
-          method: "POST",
-          headers: new Headers({
-            "Content-Type": "application/json",
-            "X-goog-api-key": process.env.GOOGLE_API_KEY!,
-          }),
-          body: JSON.stringify({
-            q: input.text,
-            target: input.target,
-            format: "text",
-          }),
-        },
-      );
-      if (!res.ok) throw new Error("API call to gcloud failed");
-      const { data } = (await res.json()) as {
-        data: { translations: unknown[] };
-      };
+      switch (input.service) {
+        case TranslationService.GOOGLE: {
+          const res = await fetch(
+            "https://translation.googleapis.com/language/translate/v2",
+            {
+              method: "POST",
+              headers: new Headers({
+                "Content-Type": "application/json",
+                "X-goog-api-key": process.env.GOOGLE_API_KEY!,
+              }),
+              body: JSON.stringify({
+                q: input.text,
+                target: input.target,
+                format: "text",
+              }),
+            },
+          );
+          if (!res.ok) throw new Error("API call to gcloud failed");
+          const { data } = (await res.json()) as {
+            data: {
+              translations: {
+                translatedText: string;
+                detectedSourceLanguage: string;
+              }[];
+            };
+          };
+          if (data.translations[0]) {
+            translatedText = data.translations[0].translatedText;
+            detectedSourceLanguage =
+              data.translations[0].detectedSourceLanguage;
+          }
+          break;
+        }
+        case TranslationService.DEEPL: {
+          const res = await fetch("https://api.deepl.com/v2/translate", {
+            method: "POST",
+            headers: new Headers({
+              "Content-Type": "application/json",
+              Authorization: `DeepL-Auth-Key ${process.env.DEEPL_API_KEY}`,
+            }),
+            body: JSON.stringify({
+              text: [input.text],
+              target_lang: input.target,
+              preserve_formatting: true,
+            }),
+          });
+          if (!res.ok) throw new Error("API call to deepl failed");
+          const data = (await res.json()) as {
+            translations: {
+              detected_source_language: string;
+              text: string;
+            }[];
+          };
+          if (data.translations[0]) {
+            translatedText = data.translations[0].text;
+            detectedSourceLanguage =
+              data.translations[0].detected_source_language.toLocaleLowerCase();
+          }
+          break;
+        }
+      }
 
-      const parsed = z
-        .object({
-          translatedText: z.string(),
-          detectedSourceLanguage: z.string(),
-        })
-        .parse(data.translations[0]);
+      if (translatedText === undefined || detectedSourceLanguage === undefined)
+        throw new Error("Translation failed");
 
       await db.postTranslation.create({
         data: {
           language: input.target,
-          text: parsed.translatedText,
+          text: translatedText,
+          service: input.service,
           post: {
             connectOrCreate: {
               where: {
@@ -127,28 +137,17 @@ export const translateRouter = createTRPCRouter({
               },
               create: {
                 uri: input.uri,
-                language: parsed.detectedSourceLanguage,
+                language: detectedSourceLanguage,
               },
             },
           },
         },
       });
 
-      if (cached?.language !== parsed.detectedSourceLanguage) {
-        await db.translatablePost.update({
-          where: {
-            uri: input.uri,
-          },
-          data: {
-            language: parsed.detectedSourceLanguage,
-          },
-        });
-      }
-
       return {
-        text: parsed.translatedText,
-        language: langNames.of(parsed.detectedSourceLanguage),
-        languageCode: parsed.detectedSourceLanguage,
+        text: translatedText,
+        language: langNames.of(detectedSourceLanguage),
+        languageCode: detectedSourceLanguage,
       };
     }),
 });

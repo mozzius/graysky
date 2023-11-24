@@ -5,7 +5,6 @@ import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 
 import { useAppPreferences } from "~/lib/hooks/preferences";
-import { useIsPro } from "~/lib/hooks/purchases";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
@@ -31,7 +30,6 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
     string | null
   >(null);
   const path = useAbsolutePath();
-  const isPro = useIsPro();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -106,7 +104,7 @@ export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
               selectable
             />
           </View>
-          {isPro && (needsTranslation || forceShowTranslation) && (
+          {(needsTranslation || forceShowTranslation) && (
             <View className="mt-1">
               <Translation
                 uri={post.uri}
