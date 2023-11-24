@@ -28,6 +28,7 @@ import {
 import * as Sentry from "sentry-expo";
 
 import { StatusBar } from "~/components/status-bar";
+import { useAgent } from "~/lib/agent";
 import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/hooks/purchases";
 import { cx } from "~/lib/utils/cx";
 
@@ -40,6 +41,7 @@ export default function Pro() {
   const router = useRouter();
   const customerInfo = useCustomerInfo();
   const isPro = useIsPro();
+  const agent = useAgent();
 
   const [annual, setAnnual] = useState(false);
 
@@ -57,6 +59,7 @@ export default function Pro() {
             throw Error("No monthly package");
           plan = offerings.data.current.monthly;
         }
+        await Purchases.setDisplayName(agent.session?.handle ?? null);
         await Purchases.purchasePackage(plan);
         await queryClient.refetchQueries(["purchases", "info"]);
       } catch (err) {
