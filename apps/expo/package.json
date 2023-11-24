@@ -40,7 +40,7 @@
     "expo-localization": "~14.5.0",
     "expo-media-library": "^15.6.0",
     "expo-notifications": "^0.23.0",
-    "expo-router": "2.0.13",
+    "expo-router": "2.0.14",
     "expo-sharing": "^11.7.0",
     "expo-splash-screen": "~0.22.0",
     "expo-status-bar": "~1.7.1",
