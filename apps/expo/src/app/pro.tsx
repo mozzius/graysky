@@ -48,14 +48,16 @@ export default function Pro() {
     mutationFn: async () => {
       if (!offerings.data) return "CANCELLED";
       try {
+        let plan;
         if (annual) {
           if (!offerings.data.current?.annual) throw Error("No annual package");
-          await Purchases.purchasePackage(offerings.data.current.annual);
+          plan = offerings.data.current.annual;
         } else {
           if (!offerings.data.current?.monthly)
             throw Error("No monthly package");
-          await Purchases.purchasePackage(offerings.data.current.monthly);
+          plan = offerings.data.current.monthly;
         }
+        await Purchases.purchasePackage(plan);
         await queryClient.refetchQueries(["purchases", "info"]);
       } catch (err) {
         // @ts-expect-error - rn-purchases doesn't seem to export error type
