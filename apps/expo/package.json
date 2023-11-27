@@ -1,6 +1,22 @@
 {
   "name": "@graysky/app",
   "version": "1.2.0",
+  "main": "index.tsx",
+  "scripts": {
+    "eas-build-pre-install": "./scripts/pre-install.sh",
+    "build:ios": "./scripts/build-ios.sh",
+    "build:android": "./scripts/build-android.sh",
+    "build:dev-client:ios": "eas build --platform ios --profile development",
+    "build:dev-client:ios-simulator": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait && eas build:run -p ios --path=\"graysky.tar.gz\"",
+    "build:dev-client:android": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait  && eas build:run -p android --path=\"graysky.apk\"",
+    "clean": "git clean -xdf .expo .turbo node_modules",
+    "dev": "expo start",
+    "dev:android": "expo start --android",
+    "dev:ios": "expo start --ios",
+    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "@atproto/api": "^0.6.23",
     "@expo/metro-config": "^0.10.7",
@@ -21,7 +37,7 @@
     "bcp-47-match": "^2.0.3",
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
-    "expo": "49.0.20",
+    "expo": "49.0.21",
     "expo-application": "~5.4.0",
     "expo-av": "^13.6.0",
     "expo-blur": "^12.6.0",
@@ -110,21 +126,5 @@
       "@graysky/eslint-config/react"
     ]
   },
-  "main": "index.tsx",
-  "prettier": "@graysky/prettier-config",
-  "scripts": {
-    "eas-build-pre-install": "./scripts/pre-install.sh",
-    "build:ios": "./scripts/build-ios.sh",
-    "build:android": "./scripts/build-android.sh",
-    "build:dev-client:ios": "eas build --platform ios --profile development",
-    "build:dev-client:ios-simulator": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait && eas build:run -p ios --path=\"graysky.tar.gz\"",
-    "build:dev-client:android": "ANDROID_HOME=/Users/samuel/Library/Android/sdk eas build --platform android --profile development --non-interactive --local --output=\"./graysky.apk\" --wait  && eas build:run -p android --path=\"graysky.apk\"",
-    "clean": "git clean -xdf .expo .turbo node_modules",
-    "dev": "expo start",
-    "dev:android": "expo start --android",
-    "dev:ios": "expo start --ios",
-    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
-  }
+  "prettier": "@graysky/prettier-config"
 }
