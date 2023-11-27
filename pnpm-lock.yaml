@@ -157,6 +157,9 @@ importers:
       expo-notifications:
         specifier: ^0.23.0
         version: 0.23.0(expo@49.0.21)
+      expo-quick-actions:
+        specifier: ^0.2.3
+        version: 0.2.3(expo@49.0.21)
       expo-router:
         specifier: 2.0.14
         version: 2.0.14(expo-constants@14.4.2)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.1)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.5.4)(react-native-safe-area-context@4.7.4)(react-native-screens@3.27.0)(react-native@0.72.7)(react@18.2.0)
@@ -2650,7 +2653,7 @@ packages:
       '@expo/bunyan': 4.0.0
       '@expo/metro-config': 0.10.7
       '@expo/osascript': 2.0.33
-      '@expo/spawn-async': 1.5.0
+      '@expo/spawn-async': 1.7.2
       body-parser: 1.20.2
       chalk: 4.1.2
       connect: 3.7.0
@@ -2732,6 +2735,24 @@ packages:
       - encoding
     dev: false
 
+  /@expo/image-utils@0.3.23:
+    resolution: {integrity: sha512-nhUVvW0TrRE4jtWzHQl8TR4ox7kcmrc2I0itaeJGjxF5A54uk7avgA0wRt7jP1rdvqQo1Ke1lXyLYREdhN9tPw==}
+    dependencies:
+      '@expo/spawn-async': 1.5.0
+      chalk: 4.1.2
+      fs-extra: 9.0.0
+      getenv: 1.0.0
+      jimp-compact: 0.16.1
+      mime: 2.6.0
+      node-fetch: 2.7.0
+      parse-png: 2.1.0
+      resolve-from: 5.0.0
+      semver: 7.3.2
+      tempy: 0.3.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@expo/json-file@8.2.37:
     resolution: {integrity: sha512-YaH6rVg11JoTS2P6LsW7ybS2CULjf40AbnAHw2F1eDPuheprNjARZMnyHFPkKv7GuxCy+B9GPcbOKgc4cgA80Q==}
     dependencies:
@@ -2772,7 +2793,7 @@ packages:
     resolution: {integrity: sha512-FQinlwHrTlJbntp8a7NAlCKedVXe06Va/0DSLXRO8lZVtgbEMrYYSUZWQNcOlNtc58c2elNph6z9dMOYwSo3JQ==}
     engines: {node: '>=12'}
     dependencies:
-      '@expo/spawn-async': 1.5.0
+      '@expo/spawn-async': 1.7.2
       exec-async: 2.2.0
     dev: false
 
@@ -2780,7 +2801,7 @@ packages:
     resolution: {integrity: sha512-JI9XzrxB0QVXysyuJ996FPCJGDCYRkbUvgG4QmMTTMFA1T+mv8YzazC3T9C1pHQUAAveVCre1+Pqv0nZXN24Xg==}
     dependencies:
       '@expo/json-file': 8.2.37
-      '@expo/spawn-async': 1.5.0
+      '@expo/spawn-async': 1.7.2
       ansi-regex: 5.0.1
       chalk: 4.1.2
       find-up: 5.0.0
@@ -7057,6 +7078,18 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /expo-quick-actions@0.2.3(expo@49.0.21):
+    resolution: {integrity: sha512-gi6/GraTZkLPViL2W0jo2KOMTKV1d4+Le3kMFvMUqQx4bIXCjgPEhyi46eet1LYZEaVlTozKR9IR36BOBvDrhA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/image-utils': 0.3.23
+      expo: 49.0.21(@babel/core@7.23.3)
+      schema-utils: 4.2.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /expo-router@2.0.14(expo-constants@14.4.2)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.1)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.5.4)(react-native-safe-area-context@4.7.4)(react-native-screens@3.27.0)(react-native@0.72.7)(react@18.2.0):

@@ -106,6 +106,37 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       },
     ],
     ["expo-notifications", { color: "#333333" }],
+    [
+      "expo-quick-actions",
+      {
+        iosActions: [
+          {
+            id: "search",
+            title: "Search",
+            icon: "search",
+            params: { href: "/search" },
+          },
+          {
+            id: "new-post",
+            title: "New Post",
+            icon: "compose",
+            params: { href: "/composer" },
+          },
+          {
+            id: "settings",
+            title: "Settings",
+            icon: "symbol:gearshape",
+            params: { href: "/settings" },
+          },
+          {
+            id: "about",
+            title: "About",
+            icon: "symbol:info.circle",
+            params: { href: "/settings/about" },
+          },
+        ],
+      },
+    ],
   ],
 });
 

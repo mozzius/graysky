@@ -33,20 +33,18 @@ import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { useQuickAction } from "~/lib/quick-actions";
 import { cx } from "~/lib/utils/cx";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const action = useQuickAction();
+
+  const autoFocus = action?.id === "search";
 
   const ref = useRef<SearchBarCommands>(null);
-
-  useTabPress(() => {
-    if (ref.current) {
-      ref.current.focus();
-    }
-  });
 
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search users, posts, feeds",
@@ -55,12 +53,20 @@ export default function SearchPage() {
     onBlur: () => setIsSearching(false),
     hideWhenScrolling: false,
     hideNavigationBar: false,
+    autoFocus,
     ref,
   });
+
   const headerLeft = useCallback(
     () => (Platform.OS === "android" ? null : <OpenDrawerAvatar />),
     [],
   );
+
+  useTabPress(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  });
 
   return (
     <>

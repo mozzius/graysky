@@ -35,6 +35,7 @@ import {
   useConfigurePurchases,
 } from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
+import { useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
@@ -67,6 +68,8 @@ const App = ({ session, saveSession }: Props) => {
   const queryClient = useQueryClient();
 
   const [agentUpdate, setAgentUpdate] = useState(0);
+
+  useSetupQuickActions();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
