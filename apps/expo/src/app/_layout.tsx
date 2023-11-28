@@ -35,7 +35,7 @@ import {
   useConfigurePurchases,
 } from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
-import { useSetupQuickActions } from "~/lib/quick-actions";
+import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
@@ -188,7 +188,7 @@ const App = ({ session, saveSession }: Props) => {
     setTimeout(() => {
       SplashScreen.hideAsync();
     }, 100);
-  }, []);
+  }, [agent]);
 
   // SENTRY NAVIGATION LOGGING
   const routeName = "/" + segments.join("/");
@@ -225,6 +225,7 @@ const App = ({ session, saveSession }: Props) => {
   return (
     <ThemeProvider value={theme}>
       <StatusBar />
+      {agent.hasSession && <QuickActions />}
       <SafeAreaProvider>
         <CustomerInfoProvider>
           <AgentProvider agent={agent} update={agentUpdate}>
@@ -392,3 +393,19 @@ export default function RootLayout() {
     </TRPCProvider>
   );
 }
+
+const QuickActions = () => {
+  const fired = useRef<string | null>(null);
+  const router = useRouter();
+  const action = useQuickAction();
+
+  const href = action?.params?.href;
+
+  useEffect(() => {
+    if (typeof href !== "string" || fired.current === href) return;
+    fired.current = href;
+    router.push(href);
+  }, [href, router]);
+
+  return null;
+};

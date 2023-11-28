@@ -1,13 +1,11 @@
-import { useEffect, useRef } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 import { Text } from "~/components/text";
 import { useOptionalAgent } from "~/lib/agent";
-import { useQuickAction } from "~/lib/quick-actions";
 
 const stackOptions = {
   screenOptions: {
@@ -30,27 +28,10 @@ export default function SubStack() {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <QuickActions />
       <Stack {...stackOptions} />
     </ErrorBoundary>
   );
 }
-
-const QuickActions = () => {
-  const fired = useRef<string | null>(null);
-  const router = useRouter();
-  const action = useQuickAction();
-
-  const href = action?.params?.href;
-
-  useEffect(() => {
-    if (typeof href !== "string" || fired.current === href) return;
-    fired.current = href;
-    router.push(href);
-  }, [href, router]);
-
-  return null;
-};
 
 const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
   const theme = useTheme();
