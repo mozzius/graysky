@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { LogBox, Platform } from "react-native";
+import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
