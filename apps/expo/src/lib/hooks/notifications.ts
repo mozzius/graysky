@@ -116,26 +116,26 @@ export function useNotifications() {
         }
       }
     })();
-    // listens for new changes to the push token
-    // In rare situations, a push token may be changed by the push notification service while the app is running. When a token is rolled, the old one becomes invalid and sending notifications to it will fail. A push token listener will let you handle this situation gracefully by registering the new token with your backend right away.
-    Notifications.addPushTokenListener(async ({ data: t, type }) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      console.log("Push token changed", { type, t });
-      if (t) {
-        try {
-          await agent.api.app.bsky.notification.registerPush({
-            serviceDid: SERVICE_DID,
-            platform: Platform.OS,
-            token: t as string,
-            appId: "dev.mozzius.graysky",
-          });
-        } catch (error) {
-          Sentry.Native.captureException(
-            new Error("Failed to update push token", { cause: error }),
-          );
-        }
-      }
-    });
+    // // listens for new changes to the push token
+    // // In rare situations, a push token may be changed by the push notification service while the app is running. When a token is rolled, the old one becomes invalid and sending notifications to it will fail. A push token listener will let you handle this situation gracefully by registering the new token with your backend right away.
+    // Notifications.addPushTokenListener(async ({ data: t, type }) => {
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    //   console.log("Push token changed", { type, data: t });
+    //   if (t) {
+    //     try {
+    //       await agent.api.app.bsky.notification.registerPush({
+    //         serviceDid: SERVICE_DID,
+    //         platform: Platform.OS,
+    //         token: t as string,
+    //         appId: "dev.mozzius.graysky",
+    //       });
+    //     } catch (error) {
+    //       Sentry.Native.captureException(
+    //         new Error("Failed to update push token", { cause: error }),
+    //       );
+    //     }
+    //   }
+    // });
     // handle notifications that are received, both in the foreground or background
     Notifications.addNotificationReceivedListener((event) => {
       if (event.request.trigger.type === "push") {
@@ -174,12 +174,10 @@ export function useNotifications() {
   }, [agent, agent?.hasSession, router, queryClient]);
 }
 
-export function getPushToken() {
-  const token = Notifications.getExpoPushTokenAsync({
-    projectId:
-      Constants.easConfig?.projectId ||
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      (Constants.expoConfig?.extra?.eas?.projectId as string | undefined),
+export async function getPushToken() {
+  const token = await Notifications.getExpoPushTokenAsync({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+    projectId: Constants.expoConfig?.extra?.eas.projectId,
   });
   console.log("Push token", token);
   return token;
