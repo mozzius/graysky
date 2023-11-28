@@ -81,7 +81,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
   });
 
   switch (stage) {
-    case 1:
+    case Stage.EnterEmail:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
           <View className="my-4 flex-1">
@@ -118,7 +118,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           </View>
         </KeyboardAwareScrollView>
       );
-    case 2:
+    case Stage.EnterResetCode:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
           <View className="my-4 flex-1">
@@ -207,7 +207,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           </View>
         </KeyboardAwareScrollView>
       );
-    case 3:
+    case Stage.Success:
       return (
         <Animated.View
           entering={FadeIn}
