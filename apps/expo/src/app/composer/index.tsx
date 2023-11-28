@@ -413,6 +413,7 @@ export default function ComposerScreen() {
           {/* IMAGES */}
           {!gif && images.length > 0 && (
             <Animated.ScrollView
+              horizontal
               showsHorizontalScrollIndicator={false}
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
