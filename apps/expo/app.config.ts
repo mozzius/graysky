@@ -109,6 +109,24 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     [
       "expo-quick-actions",
       {
+        androidIcons: {
+          shortcut_search: {
+            foregroundImage: "./assets/adaptive/search_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_compose: {
+            foregroundImage: "./assets/adaptive/compose_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_settings: {
+            foregroundImage: "./assets/adaptive/settings_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_info: {
+            foregroundImage: "./assets/adaptive/info_icon.png",
+            backgroundColor: "#121212",
+          },
+        },
         iosActions: [
           {
             id: "search",

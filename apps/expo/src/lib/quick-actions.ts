@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { AppState, Platform } from "react-native";
 import * as QuickActions from "expo-quick-actions";
 
 export function useQuickActionCallback(
@@ -32,14 +32,22 @@ export function useQuickAction() {
 
   useEffect(() => {
     let isMounted = true;
-    const sub = QuickActions.addListener((event) => {
+
+    const actionSub = QuickActions.addListener((event) => {
       if (isMounted) {
         setAction(event);
       }
     });
+    const appStateSub = AppState.addEventListener("change", (state) => {
+      if (isMounted && state !== "active") {
+        setAction(null);
+      }
+    });
+
     return () => {
       isMounted = false;
-      sub.remove();
+      actionSub.remove();
+      appStateSub.remove();
     };
   }, []);
 
@@ -47,12 +55,9 @@ export function useQuickAction() {
 }
 
 export function useSetupQuickActions() {
-  // use static quick actions on iOS
-  if (Platform.OS === "ios") return;
-
-  // I highly doubt the OS is going to change between renders
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
+    // use static quick actions on iOS
+    if (Platform.OS === "ios") return;
     void QuickActions.isSupported().then((supported) => {
       if (supported) {
         void QuickActions.setItems([
@@ -60,21 +65,25 @@ export function useSetupQuickActions() {
             id: "search",
             title: "Search",
             params: { href: "/search" },
+            icon: "shortcut_search",
           },
           {
             id: "new-post",
             title: "New Post",
             params: { href: "/composer" },
+            icon: "shortcut_compose",
           },
           {
             id: "settings",
             title: "Settings",
             params: { href: "/settings" },
+            icon: "shortcut_settings",
           },
           {
             id: "about",
             title: "About",
             params: { href: "/settings/about" },
+            icon: "shortcut_about",
           },
         ]);
       }
