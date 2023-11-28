@@ -100,8 +100,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
     onMutate: () => haptics.impact(),
     onSettled: () => {
-      void queryClient.invalidateQueries(["profile"]);
-      void queryClient.invalidateQueries(["network"]);
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
+      void queryClient.invalidateQueries({ queryKey: ["network"] });
     },
     onSuccess: (result) => {
       showToastable({
@@ -418,7 +418,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               !profile.viewer?.blocking && (
                 <View className="flex-row justify-end" pointerEvents="box-none">
                   <TouchableOpacity
-                    disabled={toggleFollow.isLoading}
+                    disabled={toggleFollow.isPending}
                     onPress={() => toggleFollow.mutate()}
                     className={cx(
                       "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",

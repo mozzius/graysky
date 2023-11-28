@@ -67,8 +67,8 @@ export default function ModerationSettings() {
   const adultContentEnabled = hasAdultContentPref
     ? !!adultContentPref
     : Platform.OS === "ios"
-    ? false
-    : true;
+      ? false
+      : true;
 
   const toggleAdultContent = useMutation({
     mutationFn: async () => {
@@ -132,7 +132,7 @@ export default function ModerationSettings() {
                   <Switch
                     disabled={Platform.OS === "ios"}
                     value={
-                      toggleAdultContent.isLoading
+                      toggleAdultContent.isPending
                         ? optimisticSwitchValue
                         : adultContentEnabled
                     }
@@ -173,7 +173,7 @@ export default function ModerationSettings() {
                     title: label,
                     action: (
                       <TouchableOpacity
-                        disabled={setPreference.isLoading}
+                        disabled={setPreference.isPending}
                         onPress={() => {
                           const options = ["show", "warn", "hide"];
                           showActionSheetWithOptions(

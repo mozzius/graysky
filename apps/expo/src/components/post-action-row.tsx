@@ -70,7 +70,7 @@ export const PostActionRow = ({
           repostCount !== 1 ? "s" : ""
         }`}
         accessibilityRole="button"
-        disabled={toggleRepost.isLoading}
+        disabled={toggleRepost.isPending}
         onPress={handleRepost}
         className="min-w-[50px] flex-row items-center gap-2 pb-1.5 pr-2"
         ref={anchorRef}
@@ -93,7 +93,7 @@ export const PostActionRow = ({
           likeCount !== 1 ? "s" : ""
         }`}
         accessibilityRole="button"
-        disabled={toggleLike.isLoading}
+        disabled={toggleLike.isPending}
         onPress={() => toggleLike.mutate()}
         className="min-w-[50px] flex-row items-center gap-2 pb-1.5 pr-2"
       >

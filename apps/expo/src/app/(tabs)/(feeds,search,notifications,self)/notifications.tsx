@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
+import * as ExpoNotifications from "expo-notifications";
 import { Stack, useFocusEffect } from "expo-router";
 import {
   type AppBskyFeedDefs,
@@ -37,7 +38,7 @@ function Notifications() {
     queryKey: ["notifications", "list", groupNotifications],
     queryFn: async ({ pageParam }) => {
       const notifs = await agent.listNotifications({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!notifs.success) throw new Error("Failed to fetch notifications");
 
@@ -136,6 +137,7 @@ function Notifications() {
         notifications,
       };
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
@@ -184,6 +186,8 @@ function Notifications() {
         await agent.updateSeenNotifications(
           new Date(lastUpdatedRef.current).toISOString(),
         );
+        void ExpoNotifications.setBadgeCountAsync(0);
+        void ExpoNotifications.dismissAllNotificationsAsync();
         void queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
         });
@@ -196,7 +200,7 @@ function Notifications() {
   // update notifications when the user presses the tab bar
   const [ref, onScroll] = useTabPressScrollRef<NotificationGroup>(
     useCallback(async () => {
-      if (!notifications.isLoading) {
+      if (!notifications.isPending) {
         setNonScrollRefreshing(true);
         haptics.selection();
 
@@ -204,6 +208,8 @@ function Notifications() {
           await agent.updateSeenNotifications(
             new Date(lastUpdatedRef.current).toISOString(),
           );
+          void ExpoNotifications.setBadgeCountAsync(0);
+          void ExpoNotifications.dismissAllNotificationsAsync();
           void queryClient.invalidateQueries({
             queryKey: ["notifications", "unread"],
           });
@@ -213,7 +219,7 @@ function Notifications() {
 
         setNonScrollRefreshing(false);
       }
-    }, [refetch, haptics, queryClient, agent, notifications.isLoading]),
+    }, [refetch, haptics, queryClient, agent, notifications.isPending]),
     { largeHeader: true },
   );
 

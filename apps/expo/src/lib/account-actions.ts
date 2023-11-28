@@ -10,7 +10,8 @@ export const muteAccount = (
   queryClient?: QueryClient,
 ) => {
   void agent.mute(did).then(() => {
-    if (queryClient) void queryClient.invalidateQueries(["profile"]);
+    if (queryClient)
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
     showToastable({
       title: "Muted",
       message: `You will no longer see posts from @${handle}`,
@@ -25,7 +26,8 @@ export const unmuteAccount = (
   queryClient?: QueryClient,
 ) => {
   void agent.unmute(did).then(() => {
-    if (queryClient) void queryClient.invalidateQueries(["profile"]);
+    if (queryClient)
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
     showToastable({
       title: "Unmuted",
       message: `@${handle} is no longer muted`,
@@ -56,7 +58,8 @@ export const blockAccount = (
             subject: did,
           },
         );
-        if (queryClient) void queryClient.invalidateQueries(["profile"]);
+        if (queryClient)
+          void queryClient.invalidateQueries({ queryKey: ["profile"] });
         showToastable({
           title: "Blocked",
           message: `@${handle} has been blocked`,
@@ -89,7 +92,8 @@ export const unblockAccount = (
           },
           {},
         );
-        if (queryClient) void queryClient.invalidateQueries(["profile"]);
+        if (queryClient)
+          void queryClient.invalidateQueries({ queryKey: ["profile"] });
         showToastable({
           title: "Unblocked",
           message: `@${handle} has been unblocked`,

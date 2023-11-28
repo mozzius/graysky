@@ -120,11 +120,13 @@ const useListQuery = (uri: string) => {
     queryFn: async ({ pageParam }) => {
       const res = await agent.app.bsky.graph.getList({
         list: uri,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!res.success) throw new Error("Could not fetch list");
       return res.data;
     },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };
 
@@ -258,7 +260,8 @@ const ListHeader = ({
         });
       }
     },
-    onSettled: () => queryClient.refetchQueries(["list", info.uri, "info"]),
+    onSettled: () =>
+      queryClient.refetchQueries({ queryKey: ["list", info.uri, "info"] }),
   });
 
   let purposeText: string | null = null;
@@ -363,7 +366,9 @@ const ListHeader = ({
                       : AppBskyGraphDefs.CURATELIST,
                 },
               });
-              await queryClient.refetchQueries(["list", info.uri, "info"]);
+              await queryClient.refetchQueries({
+                queryKey: ["list", info.uri, "info"],
+              });
               break;
             }
           }
@@ -410,9 +415,9 @@ const ListHeader = ({
                   className={cx(
                     "mr-2 items-center rounded-full px-4",
                     actionClass,
-                    subscribe.isLoading && "opacity-50",
+                    subscribe.isPending && "opacity-50",
                   )}
-                  disabled={subscribe.isLoading}
+                  disabled={subscribe.isPending}
                   onPress={() => subscribe.mutate()}
                 >
                   <Text className="text-base font-bold leading-7 text-white">
@@ -524,11 +529,13 @@ const ListFeed = ({ uri }: { uri: string }) => {
     queryFn: async ({ pageParam }) => {
       const res = await agent.app.bsky.feed.getListFeed({
         list: uri,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!res.success) throw new Error("Could not fetch list feed");
       return res.data;
     },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   const [ref, onScroll] = useTabPressScrollRef<{

@@ -116,7 +116,7 @@ const App = ({ session, saveSession }: Props) => {
   const onceRef = useRef(false);
 
   useEffect(() => {
-    if (tryResumeSession && !resumeSession.isLoading) {
+    if (tryResumeSession && !resumeSession.isPending) {
       if (!onceRef.current) {
         onceRef.current = true;
         resumeSession.mutate(session);
@@ -129,7 +129,7 @@ const App = ({ session, saveSession }: Props) => {
 
   // redirect depending on login state
   useEffect(() => {
-    if (resumeSession.isLoading) return;
+    if (resumeSession.isPending) return;
     const atRoot = segments.length === 0;
     const inAuthGroup = segments[0] === "(auth)";
 
@@ -146,7 +146,7 @@ const App = ({ session, saveSession }: Props) => {
       console.log("redirecting to /feeds");
       router.replace("/(feeds)/feeds");
     }
-  }, [segments, router, agent.hasSession, resumeSession.isLoading]);
+  }, [segments, router, agent.hasSession, resumeSession.isPending]);
 
   const logOut = useCallback(() => {
     const sessions = store.getString("sessions");

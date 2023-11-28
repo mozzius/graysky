@@ -48,7 +48,7 @@ export default function TagScreen() {
     queryFn: async ({ pageParam }) => {
       const rawPosts = await skyfeedAgent.app.bsky.feed.getFeedSkeleton({
         feed: `at://skyfeed:tags/app.bsky.feed.generator/${decodedTag.toLocaleLowerCase()}-${mode}`,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!rawPosts.success) throw new Error("Failed to fetch feed");
       // split to chunks of 25
@@ -73,6 +73,7 @@ export default function TagScreen() {
         cursor: rawPosts.data.cursor,
       };
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 

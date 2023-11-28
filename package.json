@@ -12,9 +12,6 @@
   "engines": {
     "node": ">=18.18.2"
   },
-  "overrides": {
-    "@tanstack/react-query": "^4.36.1"
-  },
   "packageManager": "pnpm@8.9.2",
   "pnpm": {
     "patchedDependencies": {
@@ -22,7 +19,9 @@
       "react-native-svg@14.0.0": "patches/react-native-svg@14.0.0.patch"
     },
     "overrides": {
-      "use-deep-compare>dequal": "1.0.0"
+      "dequal": "1.0.0",
+      "aria-query>dequal": "2.0.3",
+      "axobject-query>dequal": "2.0.3"
     }
   },
   "prettier": "@graysky/prettier-config",

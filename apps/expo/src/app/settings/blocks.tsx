@@ -13,11 +13,12 @@ export default function BlockedUsers() {
     queryKey: ["blocks"],
     queryFn: async ({ pageParam }) => {
       const blocks = await agent.app.bsky.graph.getBlocks({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!blocks.success) throw new Error("Could not fetch blocks");
       return blocks.data;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 

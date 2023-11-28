@@ -308,7 +308,7 @@ export const useSendPost = ({
       });
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries(["profile"]);
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
       router.push("../");
       showToastable({
         message: "Post published!",

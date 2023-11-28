@@ -87,7 +87,7 @@ export function SwitchAccounts({
         .map((account) => (
           <Fragment key={account.did}>
             <TouchableHighlight
-              className={cx("flex-1", resume.isLoading && "opacity-50")}
+              className={cx("flex-1", resume.isPending && "opacity-50")}
               onPress={() => {
                 if (account.signedOut) {
                   router.push(`/sign-in?handle=${account.handle}`);
@@ -95,7 +95,7 @@ export function SwitchAccounts({
                   resume.mutate(account.session);
                 }
               }}
-              disabled={resume.isLoading || account.did === active}
+              disabled={resume.isPending || account.did === active}
             >
               <View
                 className="flex-1 flex-row items-center px-4 py-2"
@@ -113,7 +113,7 @@ export function SwitchAccounts({
                   )}
                   <Text className="text-neutral-500">@{account.handle}</Text>
                 </View>
-                {resume.isLoading && resume.variables?.did === account.did ? (
+                {resume.isPending && resume.variables?.did === account.did ? (
                   <ActivityIndicator />
                 ) : account.did === active ? (
                   <TouchableOpacity
@@ -141,8 +141,8 @@ export function SwitchAccounts({
         ))}
       <Link href="/sign-in" asChild>
         <TouchableHighlight
-          className={cx("flex-1", resume.isLoading && "opacity-50")}
-          disabled={resume.isLoading}
+          className={cx("flex-1", resume.isPending && "opacity-50")}
+          disabled={resume.isPending}
         >
           <View
             className="flex-1 flex-row items-center px-4 py-2"

@@ -70,7 +70,7 @@ export default function SignUp() {
 
   let handleResult = null;
 
-  if (resolveHandle.isLoading && handle.length >= 3) {
+  if (resolveHandle.isPending && handle.length >= 3) {
     handleResult = <ActivityIndicator />;
   } else if (resolveHandle.data) {
     switch (resolveHandle.data) {
@@ -340,7 +340,7 @@ export default function SignUp() {
             layout={Layout}
           >
             <TextButton onPress={() => setStage(2)} title="Back" />
-            {!createAccount.isLoading ? (
+            {!createAccount.isPending ? (
               <TextButton
                 disabled={resolveHandle.data !== "available"}
                 onPress={() => createAccount.mutate()}

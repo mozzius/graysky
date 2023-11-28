@@ -40,7 +40,7 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   CheckIcon,
   PaperclipIcon,
@@ -158,7 +158,7 @@ export default function ComposerScreen() {
       if (!actors.success) throw new Error("Cannot fetch suggestions");
       return actors.data.actors;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const suggestions = suggestionsQuery.data ?? [];
@@ -202,7 +202,7 @@ export default function ComposerScreen() {
               onCancel={() => {
                 inputRef.current.focus();
               }}
-              disabled={send.isLoading}
+              disabled={send.isPending}
             />
           ),
           headerRight: () => (
@@ -232,10 +232,10 @@ export default function ComposerScreen() {
               }}
               disabled={
                 isEmpty ||
-                send.isLoading ||
+                send.isPending ||
                 (rt.graphemeLength ?? 0) > MAX_LENGTH
               }
-              loading={send.isLoading}
+              loading={send.isPending}
             />
           ),
           headerTitleStyle: { color: "transparent" },
@@ -413,7 +413,6 @@ export default function ComposerScreen() {
           {/* IMAGES */}
           {!gif && images.length > 0 && (
             <Animated.ScrollView
-              horizontal
               showsHorizontalScrollIndicator={false}
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
@@ -619,7 +618,7 @@ const LoadableEmbed = ({
   if (!url) return null;
 
   switch (query.status) {
-    case "loading":
+    case "pending":
       return (
         <View className="w-full flex-1 py-3">
           <ActivityIndicator size="large" color={theme.colors.text} />

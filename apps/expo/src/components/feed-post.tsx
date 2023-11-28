@@ -406,7 +406,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
   const agent = useAgent();
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["post", uri],
     queryFn: async () => {
       const thread = await agent.getPostThread({
@@ -420,7 +420,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
 
   if (!AppBskyFeedDefs.isThreadViewPost(data)) {
     let text = "replying to a post that couldn't be fetched";
-    if (isLoading) {
+    if (isPending) {
       text = "replying to...";
     }
     if (AppBskyFeedDefs.isBlockedPost(data)) {

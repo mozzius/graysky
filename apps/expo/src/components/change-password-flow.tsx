@@ -99,7 +99,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
             </View>
           </View>
           <View className="flex-row items-center justify-end pt-2">
-            {!sendEmail.isLoading ? (
+            {!sendEmail.isPending ? (
               <TextButton
                 disabled={!z.string().email().safeParse(email).success}
                 onPress={() => sendEmail.mutate()}
@@ -186,7 +186,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           </View>
           <View className="flex-row items-center justify-between pt-2">
             <TextButton onPress={() => setStage(1)} title="Back" />
-            {!changePassword.isLoading ? (
+            {!changePassword.isPending ? (
               <TextButton
                 disabled={
                   !token || !newPassword || newPassword !== newPasswordConfirm

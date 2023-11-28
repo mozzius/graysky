@@ -71,7 +71,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
           </View>
         </TouchableOpacity>
       );
-    case "loading":
+    case "pending":
       return (
         <View className="mt-1.5 h-12 w-full items-center justify-center">
           <ActivityIndicator />

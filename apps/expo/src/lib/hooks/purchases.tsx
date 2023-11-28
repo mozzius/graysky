@@ -8,8 +8,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Sentry from "sentry-expo";
 
 const configureRevenueCat = () => {
-  if (process.env.NODE_ENV === "development")
-    Purchases.setLogHandler(console.log);
+  // if (process.env.NODE_ENV === "development")
+  //   Purchases.setLogHandler(console.log);
   const apiKey = Platform.select({
     ios: Constants.expoConfig?.extra?.revenueCat?.ios,
     android: Constants.expoConfig?.extra?.revenueCat?.android,
@@ -45,7 +45,7 @@ export const CustomerInfoProvider = ({
 
   useEffect(() => {
     const listener = () => {
-      void queryClient.refetchQueries(["purchases", "info"]);
+      void queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
     };
     Purchases.addCustomerInfoUpdateListener(listener);
     return () => void Purchases.removeCustomerInfoUpdateListener(listener);
@@ -69,13 +69,12 @@ const useCustomerInfoQuery = () => {
       if (!(await Purchases.isConfigured())) throw new NotYetConfiguredError();
 
       const info = await Purchases.getCustomerInfo();
-      console.log(JSON.stringify(info, null, 2));
       return info;
     },
     staleTime: Infinity,
-    retry: (_, err) => {
+    retry: (count, err) => {
       if (err instanceof NotYetConfiguredError) return true;
-      return 3;
+      return count < 3;
     },
   });
 };

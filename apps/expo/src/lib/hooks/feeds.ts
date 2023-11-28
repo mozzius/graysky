@@ -131,7 +131,8 @@ export const useToggleFeedPref = (
         }),
       });
     },
-    onSettled: () => queryClient.invalidateQueries(["feeds", "saved"]),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),
   });
 };
 
@@ -172,7 +173,8 @@ export const useReorderFeeds = (
         }),
       });
     },
-    onSettled: () => queryClient.invalidateQueries(["feeds", "saved"]),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),
   });
 
   const reorderRest = useMutation({
@@ -190,7 +192,8 @@ export const useReorderFeeds = (
         }),
       });
     },
-    onSettled: () => queryClient.invalidateQueries(["feeds", "saved"]),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),
   });
 
   return { pinned, saved, reorderFavs, reorderRest };
@@ -208,20 +211,21 @@ export const useTimeline = (feed: string) => {
       let posts = [];
       if (feed === "following") {
         const timeline = await agent.getTimeline({
-          cursor: pageParam as string | undefined,
+          cursor: pageParam,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       } else {
         const timeline = await agent.app.bsky.feed.getFeed({
           feed,
-          cursor: pageParam as string | undefined,
+          cursor: pageParam,
         });
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       }
       return { posts, cursor };
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 

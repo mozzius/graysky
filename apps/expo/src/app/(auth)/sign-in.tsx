@@ -158,7 +158,7 @@ export default function SignIn() {
           layout={Layout}
         >
           <TextButton onPress={() => router.push("/sign-up")} title="Sign up" />
-          {!login.isLoading ? (
+          {!login.isPending ? (
             <TextButton
               disabled={!identifier || !password}
               onPress={() => login.mutate()}

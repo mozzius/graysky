@@ -161,7 +161,7 @@ export default function FeedPreferences() {
                       title: "Primary feed",
                       action: (
                         <TouchableOpacity
-                          disabled={savedFeeds.isLoading}
+                          disabled={savedFeeds.isPending}
                           onPress={() => {
                             const data = savedFeeds.data
                               ? savedFeeds.data.pinned
@@ -263,7 +263,7 @@ export default function FeedPreferences() {
                 action: (
                   <LoadingValue query={setPreference} property="hideReplies">
                     <Switch
-                      disabled={setPreference.isLoading}
+                      disabled={setPreference.isPending}
                       value={!feedViewPref.hideReplies}
                       onValueChange={(value) => {
                         setPreference.mutate({
@@ -283,7 +283,7 @@ export default function FeedPreferences() {
                   >
                     <Switch
                       disabled={
-                        setPreference.isLoading || feedViewPref.hideReplies
+                        setPreference.isPending || feedViewPref.hideReplies
                       }
                       value={feedViewPref.hideRepliesByUnfollowed}
                       onValueChange={(value) => {
@@ -306,7 +306,7 @@ export default function FeedPreferences() {
                 action: (
                   <LoadingValue query={setPreference} property="hideReposts">
                     <Switch
-                      disabled={setPreference.isLoading}
+                      disabled={setPreference.isPending}
                       value={!feedViewPref.hideReposts}
                       onValueChange={(value) => {
                         setPreference.mutate({
@@ -327,7 +327,7 @@ export default function FeedPreferences() {
                 action: (
                   <LoadingValue query={setPreference} property="hideQuotePosts">
                     <Switch
-                      disabled={setPreference.isLoading}
+                      disabled={setPreference.isPending}
                       value={!feedViewPref.hideQuotePosts}
                       onValueChange={(value) => {
                         setPreference.mutate({
@@ -370,7 +370,7 @@ const LoadingValue = ({
   >;
 }) => {
   if (
-    query.isLoading &&
+    query.isPending &&
     property in (query.variables as AppBskyActorDefs.FeedViewPref)
   ) {
     return <ActivityIndicator />;

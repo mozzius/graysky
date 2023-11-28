@@ -91,7 +91,9 @@ const PostContextMenuButton = ({
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onPress: async () => {
           await agent.deletePost(post.uri);
-          void queryClient.invalidateQueries();
+          await queryClient.refetchQueries({
+            queryKey: ["profile", post.author.did, "post", post.uri],
+          });
           showToastable({
             message: "Post deleted",
             status: "danger",

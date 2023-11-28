@@ -94,7 +94,7 @@ export default function Waitlist() {
         .
       </Text>
       <View className="mt-6 flex-row items-center justify-center">
-        {submit.isLoading ? (
+        {submit.isPending ? (
           <ActivityIndicator />
         ) : (
           <TextButton

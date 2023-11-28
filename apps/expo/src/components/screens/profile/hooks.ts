@@ -65,11 +65,12 @@ export const useProfileFeeds = (handle?: string) => {
       if (!actor) throw new Error("Not logged in");
       const feeds = await agent.app.bsky.feed.getActorFeeds({
         actor,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!feeds.success) throw new Error("Feeds not found");
       return feeds.data;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };
@@ -94,7 +95,7 @@ export const useProfilePosts = (
         case "posts": {
           const feed = await agent.getAuthorFeed({
             actor,
-            cursor: pageParam as string | undefined,
+            cursor: pageParam,
             filter: "posts_no_replies",
           });
           ({ cursor, feed: posts } = feed.data);
@@ -103,7 +104,7 @@ export const useProfilePosts = (
         case "replies": {
           const feed = await agent.getAuthorFeed({
             actor,
-            cursor: pageParam as string | undefined,
+            cursor: pageParam,
             filter: "posts_with_replies",
           });
           ({ cursor, feed: posts } = feed.data);
@@ -112,7 +113,7 @@ export const useProfilePosts = (
         case "media": {
           const feed = await agent.getAuthorFeed({
             actor,
-            cursor: pageParam as string | undefined,
+            cursor: pageParam,
             filter: "posts_with_media",
           });
           ({ cursor, feed: posts } = feed.data);
@@ -121,7 +122,7 @@ export const useProfilePosts = (
         case "likes": {
           const list = await agent.app.bsky.feed.like.list({
             repo: actor,
-            cursor: pageParam as string | undefined,
+            cursor: pageParam,
           });
 
           // split subjects into chunks of 25
@@ -161,6 +162,7 @@ export const useProfilePosts = (
 
       return { posts, cursor };
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
@@ -220,11 +222,12 @@ export const useProfileLists = (handle?: string) => {
       if (!actor) throw new Error("Not logged in");
       const lists = await agent.app.bsky.graph.getLists({
         actor,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!lists.success) throw new Error("Profile lists not found");
       return lists.data;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 

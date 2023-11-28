@@ -4,7 +4,7 @@ import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { FlashList } from "@shopify/flash-list";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { FeedPost } from "~/components/feed-post";
 import { QueryWithoutData } from "~/components/query-without-data";
@@ -59,7 +59,7 @@ const PostsSearch = ({ search }: Props) => {
 
       return all;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const [ref, onScroll] = useTabPressScrollRef<{

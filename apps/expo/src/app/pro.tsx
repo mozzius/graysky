@@ -61,7 +61,7 @@ export default function Pro() {
         }
         await Purchases.setDisplayName(agent.session?.handle ?? null);
         await Purchases.purchasePackage(plan);
-        await queryClient.refetchQueries(["purchases", "info"]);
+        await queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
       } catch (err) {
         // @ts-expect-error - rn-purchases doesn't seem to export error type
         if (err.userCancelled) return "CANCELLED";
@@ -91,7 +91,7 @@ export default function Pro() {
     mutationKey: ["restore"],
     mutationFn: async () => {
       await Purchases.restorePurchases();
-      await queryClient.refetchQueries(["purchases", "info"]);
+      await queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
     },
   });
 
@@ -204,7 +204,7 @@ export default function Pro() {
                   </BlurPill>
                   <TouchableHighlight
                     onPress={() => subscribe.mutate()}
-                    disabled={subscribe.isLoading}
+                    disabled={subscribe.isPending}
                     className="mt-4 rounded-xl"
                     style={{ borderCurve: "continuous" }}
                   >
@@ -212,7 +212,7 @@ export default function Pro() {
                       className="min-h-[56px] w-full items-center rounded-xl bg-blue-500 py-4"
                       style={{ borderCurve: "continuous" }}
                     >
-                      {subscribe.isLoading ? (
+                      {subscribe.isPending ? (
                         <ActivityIndicator color="white" />
                       ) : (
                         <Text className="text-center text-base font-medium text-white">
@@ -223,11 +223,11 @@ export default function Pro() {
                   </TouchableHighlight>
                   <TouchableOpacity
                     onPress={() => restore.mutate()}
-                    disabled={restore.isLoading}
+                    disabled={restore.isPending}
                     className="mt-4 w-full py-2"
                   >
                     <Text className="text-center text-base text-blue-500">
-                      {restore.isLoading
+                      {restore.isPending
                         ? "Restoring purchases..."
                         : "Restore purchases"}
                     </Text>

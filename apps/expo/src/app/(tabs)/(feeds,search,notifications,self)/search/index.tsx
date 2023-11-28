@@ -14,6 +14,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import {
+  keepPreviousData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -106,8 +107,7 @@ const SearchResults = ({ search }: Props) => {
       if (!success) throw new Error("Failed to search");
       return data;
     },
-    getNextPageParam: (lastPage) => lastPage.cursor,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const data = useMemo(() => {
@@ -186,11 +186,12 @@ const Suggestions = () => {
     queryKey: ["network"],
     queryFn: async ({ pageParam }) => {
       const result = await agent.getSuggestions({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!result.success) throw new Error("Failed to get suggestions");
       return result;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
@@ -272,12 +273,14 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             </View>
             {!item.viewer?.following && (
               <TouchableOpacity
-                disabled={follow.isLoading}
+                disabled={follow.isPending}
                 onPress={() => {
-                  if (follow.isLoading) return;
+                  if (follow.isPending) return;
                   if (follow.isSuccess) {
                     router.push(href);
-                    void queryClient.invalidateQueries(["network"]);
+                    void queryClient.invalidateQueries({
+                      queryKey: ["network"],
+                    });
                   } else {
                     follow.mutate();
                   }

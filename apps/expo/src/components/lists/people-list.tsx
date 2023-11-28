@@ -14,7 +14,10 @@ import {
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
-import { type UseInfiniteQueryResult } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { cx } from "~/lib/utils/cx";
@@ -35,8 +38,7 @@ export interface PeopleListRef {
 
 interface Props {
   title: string;
-  data: UseInfiniteQueryResult<PeopleListResponse, unknown>;
-
+  data: UseInfiniteQueryResult<InfiniteData<PeopleListResponse>, unknown>;
   limit?: number;
 }
 

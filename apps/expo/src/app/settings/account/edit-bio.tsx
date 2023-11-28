@@ -46,8 +46,8 @@ export default function EditBio() {
     },
     onSettled: () => {
       router.push("../");
-      void queryClient.invalidateQueries(["self"]);
-      void queryClient.invalidateQueries(["profile"]);
+      void queryClient.invalidateQueries({ queryKey: ["self"] });
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
   });
 
@@ -101,7 +101,7 @@ export default function EditBio() {
           </View>
         </View>
         <View className="flex-row items-center justify-end pt-2">
-          {!save.isLoading ? (
+          {!save.isPending ? (
             <TextButton
               // disabled={!identifier || !password}
               onPress={() => save.mutate()}

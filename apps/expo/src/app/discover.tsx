@@ -3,7 +3,7 @@ import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
 
 import { FeedRow } from "~/components/feed-row";
@@ -51,7 +51,7 @@ export default function DiscoveryPage() {
       if (!popular.success) throw new Error("Failed to fetch popular feeds");
       return popular.data.feeds;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const headerRight = useCallback(

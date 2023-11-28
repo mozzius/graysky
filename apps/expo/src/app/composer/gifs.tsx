@@ -14,6 +14,7 @@ import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { MasonryFlashList } from "@shopify/flash-list";
+import { keepPreviousData } from "@tanstack/react-query";
 import Sentry from "sentry-expo";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
@@ -82,7 +83,7 @@ export default function GifSearch() {
     },
     {
       enabled: isSearching,
-      keepPreviousData: true,
+      placeholderData: keepPreviousData,
       getNextPageParam: (lastPage) => lastPage.next,
     },
   );

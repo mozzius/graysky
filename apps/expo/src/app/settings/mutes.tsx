@@ -13,11 +13,12 @@ export default function MutedUsers() {
     queryKey: ["mutes"],
     queryFn: async ({ pageParam }) => {
       const mutes = await agent.app.bsky.graph.getMutes({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!mutes.success) throw new Error("Could not fetch mutes");
       return mutes.data;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 

@@ -14,7 +14,7 @@ const useFollows = (actor?: string) => {
       if (!agent.hasSession) throw new Error("Not logged in");
       const followers = await agent.getFollows({
         actor,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!followers.success) throw new Error("Could not fetch follows");
       return {
@@ -23,6 +23,7 @@ const useFollows = (actor?: string) => {
       };
     },
     enabled: !!actor,
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };

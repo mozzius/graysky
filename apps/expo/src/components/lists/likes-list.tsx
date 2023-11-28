@@ -14,7 +14,7 @@ const useLikes = (post?: string) => {
       if (!agent.hasSession) throw new Error("Not logged in");
       const followers = await agent.getLikes({
         uri: post,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!followers.success) throw new Error("Could not fetch follows");
 
@@ -24,6 +24,7 @@ const useLikes = (post?: string) => {
       };
     },
     enabled: !!post,
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };

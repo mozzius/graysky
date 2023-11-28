@@ -96,7 +96,7 @@ export default function DeleteAccount() {
             </View>
           </View>
           <View className="flex-row items-center justify-center pt-2">
-            {!sendEmail.isLoading ? (
+            {!sendEmail.isPending ? (
               <TextButton
                 onPress={() =>
                   Alert.alert(
@@ -190,7 +190,7 @@ export default function DeleteAccount() {
           </View>
           <View className="flex-row items-center justify-between pt-2">
             <TextButton onPress={() => setStage(1)} title="Back" />
-            {!changePassword.isLoading ? (
+            {!changePassword.isPending ? (
               <TextButton
                 disabled={!token || !password}
                 onPress={() => changePassword.mutate()}

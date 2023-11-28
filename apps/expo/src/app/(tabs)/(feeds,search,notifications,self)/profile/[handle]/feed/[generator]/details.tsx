@@ -91,7 +91,8 @@ const FeedInfo = ({
         await agent.like(info.view.uri, info.view.cid);
       }
     },
-    onSettled: () => queryClient.invalidateQueries(["generator", feed]),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: ["generator", feed] }),
   });
 
   const creator = useQuery({
@@ -165,10 +166,10 @@ const FeedInfo = ({
             <TouchableHighlight
               className={cx(
                 "flex-1 rounded",
-                toggleSave.isLoading && "opacity-50",
+                toggleSave.isPending && "opacity-50",
               )}
               onPress={() => toggleSave.mutate({ save: info.view.uri })}
-              disabled={toggleSave.isLoading}
+              disabled={toggleSave.isPending}
             >
               <View
                 className={cx(
@@ -204,9 +205,9 @@ const FeedInfo = ({
                 onPress={() => toggleSave.mutate({ pin: info.view.uri })}
                 className={cx(
                   "ml-2 rounded",
-                  toggleSave.isLoading && "opacity-50",
+                  toggleSave.isPending && "opacity-50",
                 )}
-                disabled={toggleSave.isLoading}
+                disabled={toggleSave.isPending}
               >
                 <View
                   className={cx(
@@ -233,7 +234,7 @@ const FeedInfo = ({
               onPress={() => toggleLike.mutate()}
               className={cx(
                 "ml-2 rounded",
-                toggleLike.isLoading && "opacity-50",
+                toggleLike.isPending && "opacity-50",
               )}
             >
               <View
@@ -244,8 +245,8 @@ const FeedInfo = ({
                       ? "border-red-800 bg-red-950"
                       : "border-red-200 bg-red-100"
                     : theme.dark
-                    ? "border-neutral-700 bg-black"
-                    : "border-neutral-300 bg-white",
+                      ? "border-neutral-700 bg-black"
+                      : "border-neutral-300 bg-white",
                 )}
               >
                 <HeartIcon
