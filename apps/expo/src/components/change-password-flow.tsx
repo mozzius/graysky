@@ -191,7 +191,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
             </View>
           </View>
           <View className="flex-row items-center justify-between pt-2">
-            <TextButton onPress={() => setStage(Stage.EnterResetCode)} title="Back" />
+            <TextButton onPress={() => setStage(Stage.EnterEmail)} title="Back" />
             {!changePassword.isLoading ? (
               <TextButton
                 disabled={
