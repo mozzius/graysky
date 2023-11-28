@@ -3,7 +3,9 @@ import { LogBox, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
+import * as Device from "expo-device";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import * as ScreenOrientation from "expo-screen-orientation";
 import {
   BskyAgent,
   type AtpSessionData,
@@ -49,10 +51,11 @@ Sentry.init({
 
 SplashScreen.preventAutoHideAsync();
 
-// can remove when updated to expo-router 2.0.10
-LogBox.ignoreLogs([
-  "The `redirect` prop on <Screen /> is deprecated and will be removed. Please use `router.redirect` instead",
-]);
+void Device.getDeviceTypeAsync().then((type) => {
+  if (type === Device.DeviceType.TABLET) {
+    void ScreenOrientation.unlockAsync();
+  }
+});
 
 interface Props {
   session: AtpSessionData | null;
