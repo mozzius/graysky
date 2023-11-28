@@ -61,7 +61,7 @@ The plan is to maintain feature parity with the official app, where possible. Ho
 
 ## Developing for the AT Protocol
 
-If you're a developer, I cannot encourage you enough to check out the [AT Protocol](atproto.com). The open architecture that the Bluesky team is developing is super exciting, and extremely fun and easy to develop for. If you're a JS/TS dev, their `@atproto/api` NPM package is all you need to make a full-featured client from top to bottom. I recently made a tutorial for making a super simple client using Next.js, which you can [check out here](/blog/2023-10-17-getting-started-atproto). If clients aren't your thing, you can also [build your own algorithmic feed](https://github.com/bluesky-social/feed-generator), or [make bots](https://github.com/philnash/bsky-bot). The possibilities are endless!
+If you're a developer, I cannot encourage you enough to check out the [AT Protocol](https://atproto.com). The open architecture that the Bluesky team is developing is super exciting, and extremely fun and easy to develop for. If you're a JS/TS dev, their `@atproto/api` NPM package is all you need to make a full-featured client from top to bottom. I recently made a tutorial for making a super simple client using Next.js, which you can [check out here](/blog/2023-10-17-getting-started-atproto). If clients aren't your thing, you can also [build your own algorithmic feed](https://github.com/bluesky-social/feed-generator), or [make bots](https://github.com/philnash/bsky-bot). The possibilities are endless!
 
 > If you don't have a Bluesky invite code yet, check out [Bluesky's Call for Developers](https://atproto.com/blog/call-for-developers)
 
