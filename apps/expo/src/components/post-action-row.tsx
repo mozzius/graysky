@@ -60,7 +60,10 @@ export const PostActionRow = ({
         }`}
         accessibilityRole="button"
         onPress={() => composer.reply(post)}
-        className="flex-row items-center gap-2 pb-1.5 pr-2"
+        className={cx(
+          "flex-row items-center gap-2 pb-1.5 pr-2",
+          !!post.viewer?.replyDisabled && "opacity-50",
+        )}
       >
         <MessageSquareIcon size={16} color={theme.colors.text} />
         <Text className="tabular-nums">{post.replyCount}</Text>

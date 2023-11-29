@@ -24,7 +24,7 @@ interface Props {
   dataUpdatedAt: number;
 }
 
-export const Post = ({ post, hasParent, dataUpdatedAt }: Props) => {
+export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const theme = useTheme();
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null

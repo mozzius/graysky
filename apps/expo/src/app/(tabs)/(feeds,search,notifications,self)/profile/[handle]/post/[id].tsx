@@ -13,6 +13,7 @@ import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 import {
+  LockIcon,
   ShieldQuestionIcon,
   ShieldXIcon,
   Trash2Icon,
@@ -20,7 +21,7 @@ import {
 
 import { Avatar } from "~/components/avatar";
 import { FeedPost } from "~/components/feed-post";
-import { Post } from "~/components/post";
+import { PrimaryPost } from "~/components/primary-post";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text as ThemedText } from "~/components/text";
 import { useAgent } from "~/lib/agent";
@@ -80,7 +81,7 @@ const PostThread = ({ contentFilter }: Props) => {
       if (AppBskyFeedDefs.isBlockedPost(thread)) {
         return {
           index: 0,
-          main: thread.post,
+          main: null,
           posts: [
             {
               viewable: false,
@@ -94,7 +95,7 @@ const PostThread = ({ contentFilter }: Props) => {
       if (AppBskyFeedDefs.isNotFoundPost(thread)) {
         return {
           index: 0,
-          main: thread.post,
+          main: null,
           posts: [
             {
               viewable: false,
@@ -272,7 +273,7 @@ const PostThread = ({ contentFilter }: Props) => {
           renderItem={({ item, index }) =>
             item.viewable ? (
               item.primary ? (
-                <Post
+                <PrimaryPost
                   post={item.post}
                   hasParent={item.hasParent}
                   dataUpdatedAt={thread.dataUpdatedAt}
@@ -322,11 +323,9 @@ const PostThread = ({ contentFilter }: Props) => {
             )
           }
         />
-        {AppBskyFeedDefs.isPostView(thread.data.main) && (
+        {thread.data.main && (
           <TouchableNativeFeedback
-            onPress={() =>
-              composer.reply(thread.data.main as AppBskyFeedDefs.PostView)
-            }
+            onPress={() => composer.reply(thread.data.main!)}
           >
             <View
               className="w-full flex-row items-center px-4 py-2"
@@ -336,14 +335,26 @@ const PostThread = ({ contentFilter }: Props) => {
                 borderTopWidth: StyleSheet.hairlineWidth,
               }}
             >
-              <Avatar size="medium" />
+              {thread.data.main.viewer?.replyDisabled ? (
+                <View className="h-10 w-10 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
+                  <LockIcon
+                    size={24}
+                    className="text-neutral-500 dark:text-neutral-400"
+                  />
+                </View>
+              ) : (
+                <Avatar size="medium" />
+              )}
               <Text
                 className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
                 numberOfLines={1}
               >
-                Reply to{" "}
-                {thread.data.main.author.displayName ??
-                  `@${thread.data.main.author.handle}`}
+                {thread.data.main.viewer?.replyDisabled
+                  ? "This thread is locked"
+                  : `Reply to ${
+                      thread.data.main.author.displayName ??
+                      `@${thread.data.main.author.handle}`
+                    }`}
               </Text>
             </View>
           </TouchableNativeFeedback>

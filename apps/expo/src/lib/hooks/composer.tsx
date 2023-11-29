@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import {
+  Alert,
   findNodeHandle,
   Keyboard,
   Platform,
@@ -66,6 +67,13 @@ export const useComposer = () => {
   return {
     open: () => router.push("/composer"),
     reply: (post: AppBskyFeedDefs.PostView) => {
+      if (post.viewer?.replyDisabled) {
+        Alert.alert(
+          "Replying disabled",
+          "This post has been threadgated, so you cannot reply to it",
+        );
+        return;
+      }
       queryClient.setQueryData(["context", post.uri], {
         post,
       } satisfies AppBskyFeedDefs.ThreadViewPost);
