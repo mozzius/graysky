@@ -23,11 +23,17 @@ interface Props {
   defaultEmail?: string;
 }
 
+enum Stage {
+  EnterEmail,
+  EnterResetCode,
+  Success,
+}
+
 export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
   const theme = useTheme();
   const agent = useAgent();
 
-  const [stage, setStage] = useState<1 | 2 | 3>(1);
+  const [stage, setStage] = useState<Stage>(Stage.EnterEmail);
   const [email, setEmail] = useState<string>(defaultEmail);
   const [token, setToken] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -40,7 +46,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
         email,
       });
     },
-    onSettled: () => setStage(2),
+    onSettled: () => setStage(Stage.EnterResetCode),
   });
 
   const changePassword = useMutation({
@@ -54,7 +60,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
         token: token.trim(),
       });
     },
-    onSuccess: () => setStage(3),
+    onSuccess: () => setStage(Stage.Success),
     onError: (err) => {
       if (err instanceof PasswordError) {
         showToastable({
@@ -75,7 +81,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
   });
 
   switch (stage) {
-    case 1:
+    case Stage.EnterEmail:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
           <View className="my-4 flex-1">
@@ -112,7 +118,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           </View>
         </KeyboardAwareScrollView>
       );
-    case 2:
+    case Stage.EnterResetCode:
       return (
         <KeyboardAwareScrollView className="flex-1 px-4">
           <View className="my-4 flex-1">
@@ -185,7 +191,10 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
             </View>
           </View>
           <View className="flex-row items-center justify-between pt-2">
-            <TextButton onPress={() => setStage(1)} title="Back" />
+            <TextButton
+              onPress={() => setStage(Stage.EnterEmail)}
+              title="Back"
+            />
             {!changePassword.isPending ? (
               <TextButton
                 disabled={
@@ -201,7 +210,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
           </View>
         </KeyboardAwareScrollView>
       );
-    case 3:
+    case Stage.Success:
       return (
         <Animated.View
           entering={FadeIn}
