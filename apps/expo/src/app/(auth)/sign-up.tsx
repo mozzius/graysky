@@ -18,6 +18,7 @@ import { useColorScheme } from "nativewind";
 
 import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { locale } from "~/lib/locale";
 
@@ -128,99 +129,84 @@ export default function SignUp() {
   switch (stage) {
     case 1:
       return (
-        <ScrollView className="flex-1 px-4">
-          <Stack.Screen
-            options={{
-              headerRight: () => <Text className="text-base">1 of 3</Text>,
-            }}
-          />
-          <View className="mt-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Invite code
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
-              <TextInput
-                value={code}
-                placeholder="Bluesky is currently invite-only"
-                autoComplete="off"
-                autoCapitalize="none"
-                onChange={(evt) => setCode(evt.nativeEvent.text)}
-                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                style={{ color: theme.colors.text }}
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                autoFocus
-                keyboardAppearance={theme.dark ? "dark" : "light"}
-              />
-            </View>
-          </View>
-          <Text className="mx-4 mt-3 text-sm text-neutral-500">
-            Don{"'"}t have one?{" "}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() => router.push("/waitlist")}
-            >
-              Join the waitlist.
-            </Text>
-          </Text>
-          <View className="flex-row items-center justify-end pt-2">
-            <TextButton
-              disabled={!code.trim()}
-              onPress={() => setStage(2)}
-              title="Next"
-              className="font-medium"
+        <TransparentHeaderUntilScrolled>
+          <ScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <Stack.Screen
+              options={{
+                headerRight: () => <Text className="text-base">1 of 3</Text>,
+              }}
             />
-          </View>
-        </ScrollView>
-      );
-    case 2:
-      return (
-        <KeyboardAwareScrollView className="flex-1 px-4">
-          <Stack.Screen
-            options={{
-              headerRight: () => <Text className="text-base">2 of 3</Text>,
-            }}
-          />
-          <View className="my-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Email
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
-              <TextInput
-                value={email}
-                placeholder="alice@example.com"
-                autoComplete="email"
-                autoCapitalize="none"
-                onChange={(evt) => setEmail(evt.nativeEvent.text)}
-                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                style={{ color: theme.colors.text }}
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                keyboardAppearance={theme.dark ? "dark" : "light"}
-              />
-            </View>
-          </View>
-          <View className="mb-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Password
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
+            <View className="mt-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Invite code
+              </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
                 className="flex-1 overflow-hidden rounded-lg"
               >
                 <TextInput
-                  value={password}
-                  secureTextEntry
-                  onChange={(evt) => setPassword(evt.nativeEvent.text)}
-                  placeholder="Must be at least 8 characters"
+                  value={code}
+                  placeholder="Bluesky is currently invite-only"
+                  autoComplete="off"
+                  autoCapitalize="none"
+                  onChange={(evt) => setCode(evt.nativeEvent.text)}
+                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                  style={{ color: theme.colors.text }}
+                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                  autoFocus
+                  keyboardAppearance={theme.dark ? "dark" : "light"}
+                />
+              </View>
+            </View>
+            <Text className="mx-4 mt-3 text-sm text-neutral-500">
+              Don{"'"}t have one?{" "}
+              <Text
+                style={{ color: theme.colors.primary }}
+                onPress={() => router.push("/waitlist")}
+              >
+                Join the waitlist.
+              </Text>
+            </Text>
+            <View className="flex-row items-center justify-end pt-2">
+              <TextButton
+                disabled={!code.trim()}
+                onPress={() => setStage(2)}
+                title="Next"
+                className="font-medium"
+              />
+            </View>
+          </ScrollView>
+        </TransparentHeaderUntilScrolled>
+      );
+    case 2:
+      return (
+        <TransparentHeaderUntilScrolled>
+          <KeyboardAwareScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <Stack.Screen
+              options={{
+                headerRight: () => <Text className="text-base">2 of 3</Text>,
+              }}
+            />
+            <View className="my-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Email
+              </Text>
+              <View
+                style={{ backgroundColor: theme.colors.card }}
+                className="flex-1 overflow-hidden rounded-lg"
+              >
+                <TextInput
+                  value={email}
+                  placeholder="alice@example.com"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  onChange={(evt) => setEmail(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                   style={{ color: theme.colors.text }}
                   placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
@@ -228,130 +214,159 @@ export default function SignUp() {
                 />
               </View>
             </View>
-          </View>
-          <View className="mb-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Date of Birth
-            </Text>
-            <TouchableHighlight
-              onPress={() => setDatePickerOpen(true)}
-              className="rounded-lg"
-            >
+            <View className="mb-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Password
+              </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
-                className="flex-1 overflow-hidden rounded-lg px-4 py-3"
+                className="flex-1 overflow-hidden rounded-lg"
               >
-                <Text
-                  className="text-base"
-                  style={{
-                    color: dob ? theme.colors.text : theme.colors.primary,
-                  }}
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg"
                 >
-                  {dob
-                    ? getAge(dob) < 18
-                      ? "Unfortunately, you do not meet the requirements to create an account"
-                      : new Intl.DateTimeFormat(locale.languageTag, {
-                          dateStyle: "long",
-                        }).format(new Date(dob))
-                    : "Select date of birth"}
-                </Text>
-                <DatePicker
-                  modal
-                  mode="date"
-                  open={datePickerOpen}
-                  // 20 year default
-                  date={dob ?? new Date(Date.now() - 60e3 * 60 * 24 * 365 * 20)}
-                  onConfirm={(date) => {
-                    setDatePickerOpen(false);
-                    setDob(date);
-                  }}
-                  onCancel={() => {
-                    setDatePickerOpen(false);
-                  }}
-                  theme={colorScheme}
-                />
+                  <TextInput
+                    value={password}
+                    secureTextEntry
+                    onChange={(evt) => setPassword(evt.nativeEvent.text)}
+                    placeholder="Must be at least 8 characters"
+                    className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                    style={{ color: theme.colors.text }}
+                    placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                    keyboardAppearance={theme.dark ? "dark" : "light"}
+                  />
+                </View>
               </View>
-            </TouchableHighlight>
-          </View>
-          <View className="flex-row items-center justify-between pt-2">
-            <TextButton onPress={() => setStage(1)} title="Back" />
-            <TextButton
-              disabled={!email || !password || !dob || getAge(dob) < 18}
-              onPress={() => setStage(3)}
-              title="Next"
-              className="font-medium"
-            />
-          </View>
-        </KeyboardAwareScrollView>
+            </View>
+            <View className="mb-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Date of Birth
+              </Text>
+              <TouchableHighlight
+                onPress={() => setDatePickerOpen(true)}
+                className="rounded-lg"
+              >
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg px-4 py-3"
+                >
+                  <Text
+                    className="text-base"
+                    style={{
+                      color: dob ? theme.colors.text : theme.colors.primary,
+                    }}
+                  >
+                    {dob
+                      ? getAge(dob) < 18
+                        ? "Unfortunately, you do not meet the requirements to create an account"
+                        : new Intl.DateTimeFormat(locale.languageTag, {
+                            dateStyle: "long",
+                          }).format(new Date(dob))
+                      : "Select date of birth"}
+                  </Text>
+                  <DatePicker
+                    modal
+                    mode="date"
+                    open={datePickerOpen}
+                    // 20 year default
+                    date={
+                      dob ?? new Date(Date.now() - 60e3 * 60 * 24 * 365 * 20)
+                    }
+                    onConfirm={(date) => {
+                      setDatePickerOpen(false);
+                      setDob(date);
+                    }}
+                    onCancel={() => {
+                      setDatePickerOpen(false);
+                    }}
+                    theme={colorScheme}
+                  />
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View className="flex-row items-center justify-between pt-2">
+              <TextButton onPress={() => setStage(1)} title="Back" />
+              <TextButton
+                disabled={!email || !password || !dob || getAge(dob) < 18}
+                onPress={() => setStage(3)}
+                title="Next"
+                className="font-medium"
+              />
+            </View>
+          </KeyboardAwareScrollView>
+        </TransparentHeaderUntilScrolled>
       );
     case 3:
       return (
-        <KeyboardAwareScrollView className="flex-1 px-4">
-          <Stack.Screen
-            options={{
-              headerRight: () => <Text className="text-base">3 of 3</Text>,
-            }}
-          />
-          <View className="my-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Choose a handle
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
-              <TextInput
-                value={handle}
-                placeholder="You can change it later"
-                autoComplete="username"
-                autoCapitalize="none"
-                onChange={(evt) => setHandle(evt.nativeEvent.text)}
-                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                style={{ color: theme.colors.text }}
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                keyboardAppearance={theme.dark ? "dark" : "light"}
-              />
+        <TransparentHeaderUntilScrolled>
+          <KeyboardAwareScrollView className="flex-1 px-4">
+            <Stack.Screen
+              options={{
+                headerRight: () => <Text className="text-base">3 of 3</Text>,
+              }}
+            />
+            <View className="my-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Choose a handle
+              </Text>
+              <View
+                style={{ backgroundColor: theme.colors.card }}
+                className="flex-1 overflow-hidden rounded-lg"
+              >
+                <TextInput
+                  value={handle}
+                  placeholder="You can change it later"
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  onChange={(evt) => setHandle(evt.nativeEvent.text)}
+                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                  style={{ color: theme.colors.text }}
+                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                  keyboardAppearance={theme.dark ? "dark" : "light"}
+                />
+              </View>
+              {handle && (
+                <Animated.View
+                  entering={FadeIn}
+                  exiting={FadeOut}
+                  layout={Layout}
+                >
+                  <Text className="mx-4 mt-3 text-sm text-neutral-500">
+                    Your handle will be:{" "}
+                    <Text className="font-bold">@{derivedHandle}</Text>
+                  </Text>
+                </Animated.View>
+              )}
+              {handle.length >= 3 && (
+                <Animated.View
+                  entering={FadeIn}
+                  exiting={FadeOut}
+                  layout={Layout}
+                  className="mx-4 mt-2 items-start"
+                >
+                  {handleResult}
+                </Animated.View>
+              )}
             </View>
-            {handle && (
-              <Animated.View
-                entering={FadeIn}
-                exiting={FadeOut}
-                layout={Layout}
-              >
-                <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                  Your handle will be:{" "}
-                  <Text className="font-bold">@{derivedHandle}</Text>
-                </Text>
-              </Animated.View>
-            )}
-            {handle.length >= 3 && (
-              <Animated.View
-                entering={FadeIn}
-                exiting={FadeOut}
-                layout={Layout}
-                className="mx-4 mt-2 items-start"
-              >
-                {handleResult}
-              </Animated.View>
-            )}
-          </View>
-          <Animated.View
-            className="flex-row items-center justify-between pt-2"
-            layout={Layout}
-          >
-            <TextButton onPress={() => setStage(2)} title="Back" />
-            {!createAccount.isPending ? (
-              <TextButton
-                disabled={resolveHandle.data !== "available"}
-                onPress={() => createAccount.mutate()}
-                title="Create Account"
-                className="font-medium"
-              />
-            ) : (
-              <ActivityIndicator className="px-2" />
-            )}
-          </Animated.View>
-        </KeyboardAwareScrollView>
+            <Animated.View
+              className="flex-row items-center justify-between pt-2"
+              layout={Layout}
+            >
+              <TextButton onPress={() => setStage(2)} title="Back" />
+              {!createAccount.isPending ? (
+                <TextButton
+                  disabled={resolveHandle.data !== "available"}
+                  onPress={() => createAccount.mutate()}
+                  title="Create Account"
+                  className="font-medium"
+                />
+              ) : (
+                <ActivityIndicator className="px-2" />
+              )}
+            </Animated.View>
+          </KeyboardAwareScrollView>
+        </TransparentHeaderUntilScrolled>
       );
   }
 }

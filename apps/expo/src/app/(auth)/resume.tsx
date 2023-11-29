@@ -3,6 +3,7 @@ import { useMMKVObject } from "react-native-mmkv";
 import { Redirect } from "expo-router";
 
 import { Text } from "~/components/text";
+import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { store } from "~/lib/storage";
 import {
   SwitchAccounts,
@@ -17,13 +18,15 @@ export default function ResumeSession() {
   }
 
   return (
-    <ScrollView className="flex-1">
-      <View className="flex-1 p-4">
-        <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-          Log back in
-        </Text>
-        <SwitchAccounts sessions={sessions} chevrons />
-      </View>
-    </ScrollView>
+    <TransparentHeaderUntilScrolled>
+      <ScrollView className="flex-1" contentInsetAdjustmentBehavior="automatic">
+        <View className="flex-1 p-4">
+          <Text className="mx-4 mb-1 mt-2 text-xs uppercase text-neutral-500">
+            Log back in
+          </Text>
+          <SwitchAccounts sessions={sessions} chevrons />
+        </View>
+      </ScrollView>
+    </TransparentHeaderUntilScrolled>
   );
 }

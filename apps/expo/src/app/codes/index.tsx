@@ -19,7 +19,6 @@ export default function InviteCodesScreen() {
   if (codes.data) {
     return (
       <GroupedList
-        contentInsetAdjustmentBehavior="automatic"
         groups={[
           {
             children:
