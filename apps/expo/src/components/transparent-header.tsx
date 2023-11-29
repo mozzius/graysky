@@ -37,9 +37,11 @@ export const TransparentHeaderUntilScrolled = ({ children }: Props) => {
                 headerShadowVisible: true,
                 headerBlurEffect: dark
                   ? "systemThickMaterialDark"
-                  : "systemThickMaterialLight",
+                  : "systemChromeMaterialLight",
                 headerStyle: {
-                  backgroundColor: "rgba(255,255,255,0.01)",
+                  backgroundColor: dark
+                    ? "rgba(0,0,0,0.4)"
+                    : "rgba(255,255,255,0.1)",
                 },
               }
         }
