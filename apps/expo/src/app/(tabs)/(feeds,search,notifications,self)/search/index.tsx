@@ -286,9 +286,14 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                   }
                 }}
                 className={cx(
-                  "shrink-0 rounded-full border border-white px-4 py-1",
-                  follow.isIdle ? "bg-black" : "bg-neutral-100",
+                  "shrink-0 rounded-full border-white px-4 py-1",
+                  follow.isIdle
+                    ? theme.dark
+                      ? theme.colors.card
+                      : "bg-black"
+                    : "bg-neutral-100",
                 )}
+                style={{ borderWidth: StyleSheet.hairlineWidth }}
               >
                 <Text className={cx("text-sm", follow.isIdle && "text-white")}>
                   {follow.isIdle ? "Follow" : "Following"}
