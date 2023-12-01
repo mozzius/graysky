@@ -80,11 +80,17 @@ export const PostActionRow = ({
       >
         <RepeatIcon
           size={16}
-          color={reposted ? "#2563eb" : theme.colors.text}
+          color={
+            reposted ? (theme.dark ? "#50eb25" : "#40b420") : theme.colors.text
+          }
         />
         <Text
           style={{
-            color: reposted ? "#2563eb" : theme.colors.text,
+            color: reposted
+              ? theme.dark
+                ? "#50eb25"
+                : "#40b420"
+              : theme.colors.text,
           }}
           className={cx("tabular-nums", reposted && "font-bold")}
         >

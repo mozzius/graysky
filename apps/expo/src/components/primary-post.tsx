@@ -1,8 +1,15 @@
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { Link } from "expo-router";
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import { Link, useRouter } from "expo-router";
+import {
+  AppBskyFeedPost,
+  AppBskyFeedThreadgate,
+  type AppBskyActorDefs,
+  type AppBskyFeedDefs,
+  type AppBskyGraphDefs,
+} from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
+import { MessagesSquareIcon } from "lucide-react-native";
 
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
@@ -47,6 +54,15 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
   }
 
   assert(AppBskyFeedPost.validateRecord(post.record));
+
+  let threadgate;
+
+  if (post.threadgate) {
+    const record = post.threadgate.record;
+    if (AppBskyFeedThreadgate.isRecord(record)) {
+      threadgate = record;
+    }
+  }
 
   return (
     <View
@@ -123,7 +139,7 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
       )}
       {/* actions */}
       <PostActionRow post={post} dataUpdatedAt={dataUpdatedAt} className="mt-4">
-        <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+        <Text className="-mt-1.5 text-sm text-neutral-500 dark:text-neutral-400">
           {new Intl.DateTimeFormat(locale.languageTag, {
             timeStyle: "short",
             dateStyle: "short",
@@ -134,6 +150,108 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
             .join(" · ")}
         </Text>
       </PostActionRow>
+      {/* threadgate info */}
+      {post.threadgate && threadgate && (
+        <View className="mt-2 flex-1 flex-row rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 dark:border-blue-700 dark:bg-blue-950">
+          <MessagesSquareIcon
+            size={20}
+            color={theme.colors.text}
+            className="mt-0.5 shrink-0"
+          />
+          <View className="ml-3 flex-1">
+            <Text className="text-base font-medium">Who can reply?</Text>
+            <ThreadgateInfo
+              author={post.author}
+              threadgate={threadgate}
+              lists={post.threadgate.lists}
+            />
+          </View>
+        </View>
+      )}
     </View>
+  );
+};
+
+const ThreadgateInfo = ({
+  threadgate,
+  author,
+  lists,
+}: {
+  threadgate: AppBskyFeedThreadgate.Record;
+  author: AppBskyActorDefs.ProfileViewBasic;
+  lists?: AppBskyGraphDefs.ListViewBasic[];
+}) => {
+  const path = useAbsolutePath();
+  const router = useRouter();
+
+  if (!threadgate.allow || threadgate.allow.length === 0) {
+    return <Text className="text-base">Nobody can reply</Text>;
+  }
+
+  const renderRule = (
+    rule:
+      | AppBskyFeedThreadgate.MentionRule
+      | AppBskyFeedThreadgate.FollowingRule
+      | AppBskyFeedThreadgate.ListRule,
+  ) => {
+    switch (true) {
+      case AppBskyFeedThreadgate.isMentionRule(rule): {
+        return (
+          <Text className="text-base">Users mentioned in this thread</Text>
+        );
+      }
+      case AppBskyFeedThreadgate.isFollowingRule(rule): {
+        return (
+          <Text className="text-base">
+            Users that{" "}
+            <Text className="text-base font-medium">
+              {author.displayName ?? `@${author.handle}`}
+            </Text>{" "}
+            follows
+          </Text>
+        );
+      }
+      case AppBskyFeedThreadgate.isListRule(rule): {
+        if (!lists || lists.length === 0) {
+          return null;
+        }
+        return (
+          <Text className="text-base">
+            Users in the list{lists.length > 1 && "s"}{" "}
+            {lists.map((list, idx) => (
+              <Fragment key={list.uri}>
+                <Text
+                  key={list.uri}
+                  className="text-base font-medium"
+                  onPress={() =>
+                    router.push(
+                      path(`/profile/${author.did}/lists/${list.uri}`),
+                    )
+                  }
+                >
+                  {list.name}
+                </Text>
+                {idx < lists.length - 1 && ", "}
+              </Fragment>
+            ))}
+          </Text>
+        );
+      }
+    }
+  };
+
+  if (threadgate.allow.length === 1) {
+    return renderRule(threadgate.allow[0]!);
+  }
+
+  return (
+    <>
+      {threadgate.allow.map((rule, idx) => (
+        <View key={idx} className="flex-1 flex-row">
+          <Text className="text-base font-medium">{"\u2022"}</Text>
+          <View className="ml-2">{renderRule(rule)}</View>
+        </View>
+      ))}
+    </>
   );
 };
