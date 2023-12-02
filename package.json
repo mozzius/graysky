@@ -13,7 +13,7 @@
     "node": ">=18.18.2"
   },
   "overrides": {
-    "@tanstack/react-query": "^4.36.1"
+    "@tanstack/react-query": "^5.12.2"
   },
   "packageManager": "pnpm@8.9.2",
   "pnpm": {
