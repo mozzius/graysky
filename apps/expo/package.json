@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@atproto/api": "^0.6.23",
+    "@atproto/api": "^0.6.24",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.5.1",
@@ -30,7 +30,7 @@
     "@react-navigation/native": "^6.1.9",
     "@sentry/react-native": "5.14.1",
     "@shopify/flash-list": "1.6.3",
-    "@tanstack/react-query": "^5.10.0",
+    "@tanstack/react-query": "^5.12.2",
     "@trpc/client": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
@@ -93,14 +93,14 @@
     "react-native-reanimated": "~3.6.1",
     "react-native-safe-area-context": "4.7.4",
     "react-native-screens": "~3.27.0",
-    "react-native-svg": "14.0.0",
+    "react-native-svg": "14.1.0",
     "react-native-toastable": "^0.2.1",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-webview": "13.6.3",
     "rn-fetch-blob": "^0.12.0",
     "sentry-expo": "~7.1.1",
     "superjson": "2.2.1",
-    "tailwind-merge": "^2.0.0",
+    "tailwind-merge": "^2.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -114,10 +114,10 @@
     "@graysky/tsconfig": "0.1.0",
     "@types/babel__core": "^7.20.5",
     "@types/mime": "^3.0.4",
-    "@types/react": "^18.2.39",
+    "@types/react": "^18.2.41",
     "@types/webpack-env": "^1.18.4",
-    "eslint": "^8.54.0",
-    "postcss": "^8.4.31",
+    "eslint": "^8.55.0",
+    "postcss": "^8.4.32",
     "prettier": "^3.1.0",
     "tailwindcss": "3.3.2",
     "typescript": "^5.3.2"
