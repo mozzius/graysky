@@ -169,7 +169,7 @@ export const Row = ({
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
-      className="min-h-[50px] flex-row items-center px-4 py-2"
+      className="min-h-[46px] flex-row items-center px-4 py-1.5"
       aria-disabled={disabled}
     >
       {Icon && (

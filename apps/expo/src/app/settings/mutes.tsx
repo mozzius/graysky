@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useRouter } from "expo-router";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "~/components/profile-list";
@@ -8,6 +9,7 @@ import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function MutedUsers() {
   const agent = useAgent();
+  const router = useRouter();
 
   const mutes = useInfiniteQuery({
     queryKey: ["mutes"],
@@ -30,7 +32,17 @@ export default function MutedUsers() {
   }, [mutes.data]);
 
   if (mutes.data) {
-    return <ProfileList profiles={data} emptyText="You haven't muted anyone" />;
+    return (
+      <ProfileList
+        profiles={data}
+        onProfilePress={(evt) => {
+          evt.preventDefault();
+          router.push("/settings/..");
+          router.push(`/profile/${evt.person.handle}`);
+        }}
+        emptyText="You haven't muted anyone"
+      />
+    );
   }
 
   return <QueryWithoutData query={mutes} />;
