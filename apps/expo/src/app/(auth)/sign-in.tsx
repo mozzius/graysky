@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
-import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -155,7 +159,7 @@ export default function SignIn() {
         )}
         <Animated.View
           className="flex-row items-center justify-between pt-1"
-          layout={Layout}
+          layout={LinearTransition}
         >
           <TextButton onPress={() => router.push("/sign-up")} title="Sign up" />
           {!login.isPending ? (

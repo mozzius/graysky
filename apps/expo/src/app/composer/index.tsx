@@ -18,7 +18,7 @@ import Animated, {
   FadeInDown,
   FadeOut,
   FadeOutDown,
-  Layout,
+  LinearTransition,
   SlideInUp,
   SlideOutUp,
 } from "react-native-reanimated";
@@ -104,7 +104,7 @@ export default function ComposerScreen() {
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
 
-  const searchParams = useLocalSearchParams<{ gif: string }>();
+  const searchParams = useLocalSearchParams<{ gif: string; langs: string }>();
 
   const gif = searchParams.gif
     ? (JSON.parse(searchParams.gif) as {
@@ -112,6 +112,7 @@ export default function ComposerScreen() {
         main: AppBskyEmbedExternal.Main;
       })
     : null;
+  const languages = searchParams.langs?.split(",");
 
   const selectionRef = useRef<Selection>({
     start: 0,
@@ -173,6 +174,7 @@ export default function ComposerScreen() {
     quote: quote.ref,
     external: external.query.data,
     gif: gif?.main,
+    languages,
   });
 
   useEffect(() => {
@@ -246,7 +248,7 @@ export default function ComposerScreen() {
           className="bg-red-500 px-4 py-3"
           entering={SlideInUp}
           exiting={SlideOutUp}
-          layout={Layout}
+          layout={LinearTransition}
         >
           <Text className="text-base font-medium leading-5 text-white">
             {send.error instanceof Error
@@ -256,7 +258,7 @@ export default function ComposerScreen() {
           <Text className="my-0.5 text-white/90">Please try again</Text>
         </Animated.View>
       )}
-      <Animated.View layout={Layout} className="flex-1">
+      <Animated.View layout={LinearTransition} className="flex-1">
         <KeyboardAwareScrollView
           ref={keyboardScrollViewRef}
           className="py-4"
@@ -269,7 +271,7 @@ export default function ComposerScreen() {
               className="flex-1"
             >
               <Animated.View
-                layout={Layout}
+                layout={LinearTransition}
                 pointerEvents="none"
                 className="flex-1"
               >
@@ -290,7 +292,7 @@ export default function ComposerScreen() {
           )}
           <Animated.View
             className="w-full flex-1 flex-row px-2 pb-6"
-            layout={Layout}
+            layout={LinearTransition}
           >
             <View className="shrink-0 px-2">
               <Avatar size="medium" />
@@ -364,7 +366,7 @@ export default function ComposerScreen() {
               {/* BUTTONS AND STUFF */}
               <Animated.View
                 className="w-full flex-row items-end justify-between"
-                layout={Layout}
+                layout={LinearTransition}
               >
                 <TouchableOpacity
                   className="mt-4 flex-row items-center"
@@ -418,7 +420,7 @@ export default function ComposerScreen() {
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
               exiting={FadeOutDown}
-              layout={Layout}
+              layout={LinearTransition}
               keyboardShouldPersistTaps="handled"
             >
               {images.map((image, i) => (
@@ -428,7 +430,7 @@ export default function ComposerScreen() {
                     "relative overflow-hidden rounded-md",
                     i !== 3 && "mr-2",
                   )}
-                  layout={Layout}
+                  layout={LinearTransition}
                   exiting={FadeOut}
                 >
                   <AnimatedImage
@@ -486,7 +488,10 @@ export default function ComposerScreen() {
                 </Animated.View>
               ))}
               {images.length < MAX_IMAGES && (
-                <Animated.View layout={Layout} className="mr-20 flex-1">
+                <Animated.View
+                  layout={LinearTransition}
+                  className="mr-20 flex-1"
+                >
                   <TouchableOpacity
                     onPress={() => {
                       haptics.impact();
@@ -508,12 +513,15 @@ export default function ComposerScreen() {
               )}
             </Animated.ScrollView>
           )}
-          <Animated.View layout={Layout} className="w-full flex-1 pl-16 pr-2">
+          <Animated.View
+            layout={LinearTransition}
+            className="w-full flex-1 pl-16 pr-2"
+          >
             {/* GIF */}
             {gif && (
               <Animated.View
                 className="relative mb-2 flex-1"
-                layout={Layout}
+                layout={LinearTransition}
                 entering={FadeInDown}
                 exiting={FadeOutDown}
               >
@@ -535,7 +543,7 @@ export default function ComposerScreen() {
             {/* EMBED/QUOTE */}
             {(!!quote.thread.data || hasExternal) && (
               <Animated.View
-                layout={Layout}
+                layout={LinearTransition}
                 entering={FadeInDown}
                 className="w-full flex-1"
               >
@@ -775,7 +783,7 @@ const SuggestionList = ({
     <Animated.View
       entering={FadeInDown}
       exiting={FadeOut}
-      layout={Layout}
+      layout={LinearTransition}
       className="mt-2"
     >
       {suggestions.map((actor) => {
@@ -894,7 +902,8 @@ const AltTextEditor = ({
       />
       <KeyboardAwareScrollView
         className="flex-1 px-4"
-        extraScrollHeight={32}
+        extraHeight={32}
+        extraScrollHeight={64}
         keyboardShouldPersistTaps="handled"
         ref={altTextScrollViewRef}
       >
@@ -917,7 +926,7 @@ const AltTextEditor = ({
             <AnimatedImage
               // doesn't work yet but on the reanimated roadmap
               sharedTransitionTag={`image-${editingAltText}`}
-              layout={Layout}
+              layout={LinearTransition}
               entering={FadeIn}
               cachePolicy="memory"
               source={{ uri: image.asset.uri }}
@@ -934,7 +943,11 @@ const AltTextEditor = ({
             />
           </TouchableWithoutFeedback>
         </View>
-        <Animated.View className="flex-1" layout={Layout} entering={FadeIn}>
+        <Animated.View
+          className="flex-1"
+          layout={LinearTransition}
+          entering={FadeIn}
+        >
           <TextInput
             value={image.alt}
             onChange={(evt) => addAltText(editingAltText, evt.nativeEvent.text)}

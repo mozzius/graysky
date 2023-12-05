@@ -8,7 +8,11 @@ import {
 } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -330,7 +334,7 @@ export default function SignUp() {
                 <Animated.View
                   entering={FadeIn}
                   exiting={FadeOut}
-                  layout={Layout}
+                  layout={LinearTransition}
                 >
                   <Text className="mx-4 mt-3 text-sm text-neutral-500">
                     Your handle will be:{" "}
@@ -342,7 +346,7 @@ export default function SignUp() {
                 <Animated.View
                   entering={FadeIn}
                   exiting={FadeOut}
-                  layout={Layout}
+                  layout={LinearTransition}
                   className="mx-4 mt-2 items-start"
                 >
                   {handleResult}
@@ -351,7 +355,7 @@ export default function SignUp() {
             </View>
             <Animated.View
               className="flex-row items-center justify-between pt-2"
-              layout={Layout}
+              layout={LinearTransition}
             >
               <TextButton onPress={() => setStage(2)} title="Back" />
               {!createAccount.isPending ? (

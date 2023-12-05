@@ -155,6 +155,7 @@ export const useSendPost = ({
   quote,
   external,
   gif,
+  languages,
 }: {
   text: string;
   images: ImageWithAlt[];
@@ -162,6 +163,7 @@ export const useSendPost = ({
   quote?: AppBskyEmbedRecord.Main;
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   gif?: AppBskyEmbedExternal.Main;
+  languages?: string[];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -311,8 +313,7 @@ export const useSendPost = ({
         tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
-        // TODO: LANGUAGE SELECTOR
-        langs: [primaryLanguage],
+        langs: languages ?? [primaryLanguage],
       });
     },
     onSuccess: () => {

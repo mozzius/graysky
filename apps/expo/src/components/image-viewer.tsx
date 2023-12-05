@@ -14,7 +14,7 @@ import Animated, {
   FadeInUp,
   FadeOutDown,
   FadeOutUp,
-  Layout,
+  LinearTransition,
 } from "react-native-reanimated";
 import {
   SafeAreaView,
@@ -109,7 +109,7 @@ export const ImageViewer = ({
         <Animated.View
           entering={mounted ? FadeInDown : undefined}
           exiting={FadeOutDown}
-          layout={Layout}
+          layout={LinearTransition}
           className={cx(
             "absolute bottom-0 z-10 w-full rounded-tl-lg rounded-tr-lg px-6 pt-6",
             infoExpanded ? "bg-black/90" : "bg-black/50",

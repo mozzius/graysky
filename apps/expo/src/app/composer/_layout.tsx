@@ -17,6 +17,7 @@ export default function ComposerLayout() {
       <Stack screenOptions={{ customAnimationOnGesture: true }}>
         <Stack.Screen name="index" options={{ title: "New Post" }} />
         <Stack.Screen name="drafts" options={{ title: "Drafts" }} />
+        <Stack.Screen name="language" options={{ title: "Post Language" }} />
         <Stack.Screen
           name="gifs"
           options={{
