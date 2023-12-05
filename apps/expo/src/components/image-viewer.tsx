@@ -249,8 +249,8 @@ const ImageWithFallback = ({
         source={[
           {
             uri: item.thumb,
-            width: size?.width ? size?.width / 100 : undefined,
-            height: size?.height ? size?.height / 100 : undefined,
+            width: size?.width ? size?.width / 5 : undefined,
+            height: size?.height ? size?.height / 5 : undefined,
           },
           { uri: item.fullsize, width: size?.width, height: size?.height },
         ]}
