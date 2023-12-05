@@ -15,6 +15,7 @@ import Animated, {
   FadeInDown,
   FadeOut,
   FadeOutDown,
+  FadeOutLeft,
   LinearTransition,
   SlideInUp,
   SlideOutUp,
@@ -409,7 +410,7 @@ export default function ComposerScreen() {
               showsHorizontalScrollIndicator={false}
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
-              exiting={FadeOutDown}
+              exiting={FadeOut}
               layout={LinearTransition}
               keyboardShouldPersistTaps="handled"
             >
@@ -421,7 +422,7 @@ export default function ComposerScreen() {
                     i !== 3 && "mr-2",
                   )}
                   layout={LinearTransition}
-                  exiting={FadeOut}
+                  exiting={FadeOutLeft}
                 >
                   <AnimatedImage
                     sharedTransitionTag={`image-${i}`}
