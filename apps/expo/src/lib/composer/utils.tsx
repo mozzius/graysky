@@ -32,8 +32,8 @@ import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
+import { useAppPreferences } from "../hooks/preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
-import { useAppPreferences } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;

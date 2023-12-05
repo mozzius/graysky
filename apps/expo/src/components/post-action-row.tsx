@@ -9,8 +9,8 @@ import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 
+import { useComposer } from "~/lib/composer/utils";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
-import { useComposer } from "~/lib/hooks/composer";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./text";
 

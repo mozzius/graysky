@@ -5,11 +5,9 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  StyleSheet,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -22,10 +20,8 @@ import Animated, {
   SlideInUp,
   SlideOutUp,
 } from "react-native-reanimated";
-import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import {
-  Link,
   Stack,
   useLocalSearchParams,
   useNavigation,
@@ -33,23 +29,13 @@ import {
 } from "expo-router";
 import {
   RichText as RichTextHelper,
-  type AppBskyActorDefs,
   type AppBskyEmbedExternal,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import {
-  CheckIcon,
-  PaperclipIcon,
-  PlusIcon,
-  SendIcon,
-  Trash2Icon,
-  UserIcon,
-  XIcon,
-} from "lucide-react-native";
+import { CheckIcon, PaperclipIcon, PlusIcon, XIcon } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -57,6 +43,9 @@ import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
 import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
+import { AltTextEditor } from "~/lib/composer/alt-text-editor";
+import { CancelButton, PostButton } from "~/lib/composer/buttons";
+import { SuggestionList } from "~/lib/composer/suggestion-list";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
@@ -65,8 +54,7 @@ import {
   useQuote,
   useReply,
   useSendPost,
-  type ImageWithAlt,
-} from "~/lib/hooks/composer";
+} from "~/lib/composer/utils";
 import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
@@ -653,322 +641,4 @@ const LoadableEmbed = ({
         </View>
       );
   }
-};
-
-const PostButton = ({
-  onPress,
-  loading,
-  disabled,
-}: {
-  onPress: () => void;
-  loading: boolean;
-  disabled: boolean;
-}) => {
-  const theme = useTheme();
-
-  return (
-    <View className="flex-row items-center">
-      <TouchableWithoutFeedback disabled={disabled} onPress={onPress}>
-        <View
-          className={cx(
-            "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
-            disabled && !loading && "opacity-50",
-          )}
-          style={{ backgroundColor: theme.colors.primary }}
-        >
-          <Text className="mr-2 text-base font-medium text-white">Post</Text>
-          <SendIcon size={12} className="text-white" />
-          {loading && (
-            <View
-              className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center"
-              style={{ backgroundColor: theme.colors.primary }}
-            >
-              <ActivityIndicator size="small" color="white" />
-            </View>
-          )}
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  );
-};
-
-const CancelButton = ({
-  hasContent,
-  onSave,
-  onCancel,
-  disabled,
-}: {
-  hasContent: boolean;
-  onSave: () => void;
-  onCancel: () => void;
-  disabled?: boolean;
-}) => {
-  const theme = useTheme();
-  const router = useRouter();
-  const { showActionSheetWithOptions } = useActionSheet();
-
-  const haptics = useHaptics();
-
-  const handleCancel = async () => {
-    haptics.impact();
-    if (Platform.OS === "android") Keyboard.dismiss();
-    const options = ["Discard post", "Cancel"];
-    const icons = [
-      <Trash2Icon key={0} size={24} className="text-red-500" />,
-      <></>,
-    ];
-    const selected = await new Promise((resolve) => {
-      showActionSheetWithOptions(
-        {
-          options,
-          icons,
-          cancelButtonIndex: options.length - 1,
-          destructiveButtonIndex: 0,
-          ...actionSheetStyles(theme),
-        },
-        (index) => resolve(options[index!]),
-      );
-    });
-    switch (selected) {
-      case "Discard post":
-        haptics.impact();
-        Platform.select({
-          ios: () => router.push("../"),
-          default: () =>
-            router.canGoBack() ? router.back() : router.replace("/feeds"),
-        })();
-        break;
-      case "Save to drafts":
-        onSave();
-        break;
-      default:
-        onCancel();
-        break;
-    }
-  };
-
-  if (hasContent) {
-    return (
-      <TouchableOpacity
-        disabled={disabled}
-        accessibilityLabel="Discard post"
-        onPress={() => void handleCancel()}
-      >
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
-          Cancel
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
-  return (
-    <Link href="../" asChild>
-      <TouchableOpacity accessibilityRole="link">
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
-          Cancel
-        </Text>
-      </TouchableOpacity>
-    </Link>
-  );
-};
-
-const SuggestionList = ({
-  suggestions,
-  onInsertHandle,
-}: {
-  suggestions: AppBskyActorDefs.ProfileViewBasic[];
-  onInsertHandle: (handle: string) => void;
-}) => {
-  return (
-    <Animated.View
-      entering={FadeInDown}
-      exiting={FadeOut}
-      layout={LinearTransition}
-      className="mt-2"
-    >
-      {suggestions.map((actor) => {
-        const { following, followedBy } = actor.viewer ?? {};
-
-        let text: string | null = null;
-
-        if (following && followedBy) {
-          text = "You are mutuals";
-        } else if (following) {
-          text = "You follow them";
-        } else if (followedBy) {
-          text = "Follows you";
-        }
-
-        return (
-          <TouchableOpacity
-            key={actor.did}
-            onPress={() => onInsertHandle(actor.handle)}
-          >
-            <Animated.View entering={FadeIn} className="flex-row p-1">
-              <Image
-                className="mr-2.5 mt-1.5 h-8 w-8 shrink-0 rounded-full bg-neutral-200 dark:bg-neutral-600"
-                source={{ uri: actor.avatar }}
-                alt={actor.displayName ?? `@${actor.handle}`}
-              />
-              <View>
-                {actor.displayName ? (
-                  <Text className="text-base font-medium" numberOfLines={1}>
-                    {actor.displayName}
-                  </Text>
-                ) : (
-                  <View className="h-2.5" />
-                )}
-                <Text className="text-sm text-neutral-500" numberOfLines={1}>
-                  @{actor.handle}
-                </Text>
-                {text && (
-                  <View className="my-0.5 flex-row items-center">
-                    <UserIcon
-                      size={12}
-                      className="mr-0.5 mt-px text-neutral-500"
-                      strokeWidth={3}
-                    />
-                    <Text className="text-xs font-medium text-neutral-500">
-                      {text}
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </Animated.View>
-          </TouchableOpacity>
-        );
-      })}
-    </Animated.View>
-  );
-};
-
-interface AltTextEditorProps {
-  image: ImageWithAlt;
-  editingAltText: number;
-  setEditingAltText: (index: number | null) => void;
-  addAltText: (index: number, alt: string) => void;
-  keyboardHeight: number;
-}
-
-const AltTextEditor = ({
-  setEditingAltText,
-  editingAltText,
-  image,
-  addAltText,
-  keyboardHeight,
-}: AltTextEditorProps) => {
-  const theme = useTheme();
-  const haptics = useHaptics();
-  const [expandPreview, setExpandPreview] = useState(false);
-  const frame = useSafeAreaFrame();
-  const headerHeight = useHeaderHeight();
-  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
-
-  return (
-    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
-      <Stack.Screen
-        options={{
-          headerTitle: "Edit alt text",
-          headerLeft: () => null,
-          headerRight: () => (
-            <View className="relative justify-center">
-              <TouchableOpacity
-                onPress={() => {
-                  haptics.selection();
-                  setEditingAltText(null);
-                  setExpandPreview(false);
-                }}
-                className="absolute right-0"
-              >
-                <Text
-                  style={{ color: theme.colors.primary }}
-                  className="text-lg font-medium"
-                >
-                  Done
-                </Text>
-              </TouchableOpacity>
-              <View className="-z-50 opacity-0" pointerEvents="none">
-                <PostButton
-                  disabled
-                  loading={false}
-                  onPress={() => {
-                    throw Error("unreachable");
-                  }}
-                />
-              </View>
-            </View>
-          ),
-          headerTitleStyle: { color: theme.colors.text },
-        }}
-      />
-      <KeyboardAwareScrollView
-        className="flex-1 px-4"
-        extraHeight={32}
-        extraScrollHeight={64}
-        keyboardShouldPersistTaps="handled"
-        ref={altTextScrollViewRef}
-      >
-        <View className="flex-1 items-center py-4">
-          <TouchableWithoutFeedback
-            className="flex-1"
-            accessibilityLabel="Toggle expanding the image to full width"
-            onPress={() => {
-              haptics.impact();
-              setExpandPreview((currentlyExpanded) => {
-                if (!currentlyExpanded)
-                  setTimeout(
-                    () => altTextScrollViewRef.current?.scrollToEnd(),
-                    250,
-                  );
-                return !currentlyExpanded;
-              });
-            }}
-          >
-            <AnimatedImage
-              // doesn't work yet but on the reanimated roadmap
-              sharedTransitionTag={`image-${editingAltText}`}
-              layout={LinearTransition}
-              entering={FadeIn}
-              cachePolicy="memory"
-              source={{ uri: image.asset.uri }}
-              alt={image.alt ?? `image ${editingAltText + 1}`}
-              className="h-full w-full flex-1 rounded-md"
-              style={{
-                aspectRatio: image.asset.width / image.asset.height,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: theme.colors.border,
-                maxHeight: expandPreview
-                  ? undefined
-                  : frame.height - headerHeight - keyboardHeight - 100,
-              }}
-            />
-          </TouchableWithoutFeedback>
-        </View>
-        <Animated.View
-          className="flex-1"
-          layout={LinearTransition}
-          entering={FadeIn}
-        >
-          <TextInput
-            value={image.alt}
-            onChange={(evt) => addAltText(editingAltText, evt.nativeEvent.text)}
-            multiline
-            className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
-            numberOfLines={5}
-            autoFocus
-            scrollEnabled={false}
-            keyboardAppearance={theme.dark ? "dark" : "light"}
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-            style={{
-              color: theme.colors.text,
-              borderWidth: StyleSheet.hairlineWidth,
-              borderColor: theme.colors.border,
-            }}
-            textAlignVertical="top"
-            placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-          />
-        </Animated.View>
-      </KeyboardAwareScrollView>
-    </View>
-  );
 };
