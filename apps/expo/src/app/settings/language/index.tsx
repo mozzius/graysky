@@ -38,13 +38,12 @@ export default function LanguageSettings() {
                 ),
               },
             ],
-            footer:
-              "This is the language that posts will be translated into, if they're not in your content languages. Temporarily, this is also the language that your posts will be marked as - this will change in the future.",
+            footer: `Posts will be translated into ${primaryLanguageLabel}.`,
           },
           {
             options: [
               {
-                title: "Content languages",
+                title: "My languages",
                 href: "/settings/language/content",
                 chevron: true,
                 action: (
@@ -60,7 +59,8 @@ export default function LanguageSettings() {
                 ),
               },
             ],
-            footer: "Posts in these languages will not be translated.",
+            footer:
+              "If a post is marked as being in one of these languages, it will not be translated.",
           },
           {
             title: "Translation provider",
