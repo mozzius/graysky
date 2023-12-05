@@ -379,7 +379,7 @@ const LoadingValue = ({
     query.isPending &&
     property in (query.variables as AppBskyActorDefs.FeedViewPref)
   ) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator size="small" />;
   }
   return <>{children}</>;
 };

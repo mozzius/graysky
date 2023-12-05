@@ -4,14 +4,14 @@ import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
-import { ChevronRightIcon } from "lucide-react-native";
+import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { Text } from "../text";
 
 interface Props {
   person: AppBskyActorDefs.ProfileView;
-  onPress?: () => void;
+  onPress?: (evt: { preventDefault: () => void }) => void;
   bottomSheet?: boolean;
   backgroundColor?: string;
 }
@@ -28,11 +28,32 @@ export const PersonRow = ({
   const Touchable = bottomSheet
     ? BottomSheetTouchableHighlight
     : TouchableHighlight;
+
+  const { following, followedBy } = person.viewer ?? {};
+
+  let text: string | null = null;
+  let mutuals = false;
+
+  if (following && followedBy) {
+    mutuals = true;
+    text = "Mutuals";
+  } else if (following) {
+    text = "Following";
+  } else if (followedBy) {
+    text = "Follows you";
+  }
+
+  const Icon = mutuals ? UsersIcon : UserIcon;
+
   return (
     <Touchable
       onPress={() => {
-        onPress?.();
-        router.push(path(`/profile/${person.handle}`));
+        let preventDefault = false;
+        const evt = { preventDefault: () => (preventDefault = true) };
+        onPress?.(evt);
+        if (!preventDefault) {
+          router.push(path(`/profile/${person.handle}`));
+        }
       }}
     >
       <View
@@ -53,9 +74,21 @@ export const PersonRow = ({
           {person.displayName && (
             <Text className="text-base leading-5">{person.displayName}</Text>
           )}
-          <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-            @{person.handle}
-          </Text>
+          <View className="flex flex-row flex-wrap">
+            <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+              @{person.handle}
+            </Text>
+            {text && (
+              <View className="my-0.5 ml-1.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
+                <Icon
+                  size={12}
+                  className="mr-0.5 mt-px text-neutral-500"
+                  strokeWidth={3}
+                />
+                <Text className="text-xs text-neutral-500">{text}</Text>
+              </View>
+            )}
+          </View>
         </View>
         <ChevronRightIcon size={20} className="ml-0.5 text-neutral-500" />
       </View>
