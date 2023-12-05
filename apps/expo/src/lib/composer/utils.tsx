@@ -21,6 +21,7 @@ import {
   type AppBskyEmbedRecordWithMedia,
   type BlobRef,
   type BskyAgent,
+  type ComAtprotoLabelDefs,
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
@@ -156,6 +157,7 @@ export const useSendPost = ({
   external,
   gif,
   languages,
+  selfLabels,
 }: {
   text: string;
   images: ImageWithAlt[];
@@ -164,6 +166,7 @@ export const useSendPost = ({
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   gif?: AppBskyEmbedExternal.Main;
   languages?: string[];
+  selfLabels?: string[];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -307,6 +310,14 @@ export const useSendPost = ({
         }
       }
 
+      let labels: ComAtprotoLabelDefs.SelfLabels | undefined;
+      if (selfLabels?.length) {
+        labels = {
+          $type: "com.atproto.label.defs#selfLabels",
+          values: selfLabels.map((val) => ({ val })),
+        };
+      }
+
       await agent.post({
         text: rt.text,
         facets: rt.facets,
@@ -314,6 +325,7 @@ export const useSendPost = ({
         reply,
         embed: mergedEmbed,
         langs: languages ?? [primaryLanguage],
+        labels,
       });
     },
     onSuccess: () => {
