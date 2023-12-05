@@ -121,6 +121,7 @@ export default function ComposerScreen() {
   const inputRef = useRef<TextInput>(null!);
   const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
   const anchorRef = useRef<TouchableOpacity>(null);
+  const keyboardMaxHeight = useKeyboardMaxHeight();
 
   const reply = useReply();
   const quote = useQuote();
@@ -189,6 +190,7 @@ export default function ComposerScreen() {
         editingAltText={editingAltText}
         setEditingAltText={setEditingAltText}
         addAltText={addAltText}
+        keyboardHeight={keyboardMaxHeight}
       />
     );
   }
@@ -677,14 +679,12 @@ const PostButton = ({
           <Text className="mr-2 text-base font-medium text-white">Post</Text>
           <SendIcon size={12} className="text-white" />
           {loading && (
-            <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
+            <View
               className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center"
               style={{ backgroundColor: theme.colors.primary }}
             >
               <ActivityIndicator size="small" color="white" />
-            </Animated.View>
+            </View>
           )}
         </View>
       </TouchableWithoutFeedback>
@@ -847,6 +847,7 @@ interface AltTextEditorProps {
   editingAltText: number;
   setEditingAltText: (index: number | null) => void;
   addAltText: (index: number, alt: string) => void;
+  keyboardHeight: number;
 }
 
 const AltTextEditor = ({
@@ -854,11 +855,11 @@ const AltTextEditor = ({
   editingAltText,
   image,
   addAltText,
+  keyboardHeight,
 }: AltTextEditorProps) => {
   const theme = useTheme();
   const haptics = useHaptics();
   const [expandPreview, setExpandPreview] = useState(false);
-  const keyboardHeight = useKeyboardMaxHeight();
   const frame = useSafeAreaFrame();
   const headerHeight = useHeaderHeight();
   const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
