@@ -5,21 +5,25 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
+  StyleSheet,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
-  FadeIn,
   FadeInDown,
   FadeOut,
   FadeOutDown,
   LinearTransition,
   SlideInUp,
   SlideOutUp,
+  useAnimatedKeyboard,
+  useAnimatedStyle,
 } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import {
   Stack,
@@ -35,7 +39,13 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { CheckIcon, PaperclipIcon, PlusIcon, XIcon } from "lucide-react-native";
+import {
+  CheckIcon,
+  LanguagesIcon,
+  PaperclipIcon,
+  PlusIcon,
+  XIcon,
+} from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -55,7 +65,11 @@ import {
   useReply,
   useSendPost,
 } from "~/lib/composer/utils";
-import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
+import {
+  useAppPreferences,
+  useContentFilter,
+  useHaptics,
+} from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
@@ -87,6 +101,7 @@ export default function ComposerScreen() {
   const agent = useAgent();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
+  const [{ primaryLanguage }] = useAppPreferences();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -153,7 +168,6 @@ export default function ComposerScreen() {
 
   const suggestions = suggestionsQuery.data ?? [];
 
-  const tooLong = (rt.graphemeLength ?? 0) > MAX_LENGTH;
   const isEmpty = text.trim().length === 0 && images.length === 0 && !gif;
 
   const send = useSendPost({
@@ -184,7 +198,10 @@ export default function ComposerScreen() {
   }
 
   return (
-    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+    <View
+      className="relative flex-1"
+      style={{ backgroundColor: theme.colors.card }}
+    >
       <Stack.Screen
         options={{
           headerLeft: () => (
@@ -254,6 +271,7 @@ export default function ComposerScreen() {
           className="py-4"
           alwaysBounceVertical={!isEmpty}
           keyboardShouldPersistTaps="handled"
+          extraScrollHeight={64}
         >
           {reply.thread.data && (
             <TouchableOpacity
@@ -321,7 +339,7 @@ export default function ComposerScreen() {
                     if (keyboardScrollViewRef.current) {
                       keyboardScrollViewRef.current.scrollToFocusedInput(
                         findNodeHandle(evt.target) || {},
-                        75,
+                        75 + 16,
                       );
                     }
                   }}
@@ -353,52 +371,38 @@ export default function ComposerScreen() {
                     }
                   />
                 )}
-              {/* BUTTONS AND STUFF */}
-              <Animated.View
-                className="w-full flex-row items-end justify-between"
-                layout={LinearTransition}
-              >
-                <TouchableOpacity
-                  className="mt-4 flex-row items-center"
-                  hitSlop={8}
-                  onPress={() => imagePicker.mutate()}
-                  ref={anchorRef}
+              {/* ADD IMAGE BUTTON */}
+              {images.length > 0 && (
+                <Animated.View
+                  className="w-full flex-row items-end justify-between"
+                  layout={LinearTransition}
                 >
-                  <PaperclipIcon
-                    size={18}
-                    className={
-                      theme.dark ? "text-neutral-400" : "text-neutral-500"
-                    }
-                  />
-
-                  <Animated.Text
-                    className={cx(
-                      "ml-2",
-                      theme.dark ? "text-neutral-400" : "text-neutral-500",
-                    )}
-                    entering={FadeIn}
-                    exiting={FadeOut}
-                  >
-                    {images.length > 0
-                      ? `${images.length} / ${MAX_IMAGES} images`
-                      : "Attach images"}
-                  </Animated.Text>
-                </TouchableOpacity>
-                {(rt.graphemeLength ?? 0) > 50 && (
-                  <Animated.Text
-                    style={{
-                      color: !tooLong
-                        ? theme.colors.text
-                        : theme.colors.notification,
+                  <TouchableOpacity
+                    className="mt-4 flex-row items-center"
+                    hitSlop={8}
+                    onPress={() => {
+                      haptics.impact();
+                      imagePicker.mutate();
                     }}
-                    entering={FadeIn}
-                    exiting={FadeOut}
-                    className="text-right"
+                    ref={anchorRef}
                   >
-                    {rt.graphemeLength} / {MAX_LENGTH}
-                  </Animated.Text>
-                )}
-              </Animated.View>
+                    <PlusIcon
+                      size={18}
+                      className={
+                        theme.dark ? "text-neutral-400" : "text-neutral-500"
+                      }
+                    />
+                    <Text
+                      className={cx(
+                        "ml-2",
+                        theme.dark ? "text-neutral-400" : "text-neutral-500",
+                      )}
+                    >
+                      {images.length} / {MAX_IMAGES} images
+                    </Text>
+                  </TouchableOpacity>
+                </Animated.View>
+              )}
             </View>
           </Animated.View>
           <Animated.View />
@@ -604,6 +608,55 @@ export default function ComposerScreen() {
           </Animated.View>
         </KeyboardAwareScrollView>
       </Animated.View>
+      <KeyboardAccessory charCount={rt.graphemeLength}>
+        <TouchableHighlight
+          className="rounded-full"
+          accessibilityLabel="Add image or GIF"
+          accessibilityRole="button"
+          onPress={() => {
+            haptics.impact();
+            imagePicker.mutate();
+          }}
+        >
+          <View
+            className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+            style={{ backgroundColor: theme.colors.background }}
+          >
+            <PaperclipIcon size={20} />
+            <Text
+              style={{ color: theme.colors.primary }}
+              className="ml-2.5 mr-1 font-medium"
+            >
+              Add image
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          className="rounded-full"
+          accessibilityLabel="Add image or GIF"
+          accessibilityRole="button"
+          onPress={() => {
+            haptics.impact();
+            const search = new URLSearchParams();
+            if (searchParams.langs) search.append("langs", searchParams.langs);
+            if (searchParams.gif) search.append("gif", searchParams.gif);
+            router.push("/composer/language?" + search.toString());
+          }}
+        >
+          <View
+            className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+            style={{ backgroundColor: theme.colors.background }}
+          >
+            <LanguagesIcon size={20} />
+            <Text
+              style={{ color: theme.colors.primary }}
+              className="ml-2.5 mr-1 font-medium"
+            >
+              {languages?.join(", ") ?? primaryLanguage}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </KeyboardAccessory>
     </View>
   );
 }
@@ -641,4 +694,66 @@ const LoadableEmbed = ({
         </View>
       );
   }
+};
+
+const KeyboardAccessory = ({
+  charCount = 0,
+  children,
+}: {
+  charCount?: number;
+  children?: React.ReactNode;
+}) => {
+  const theme = useTheme();
+  const keyboard = useAnimatedKeyboard();
+  const { bottom } = useSafeAreaInsets();
+  const translateStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: Math.min(-keyboard.height.value, -bottom) }],
+    };
+  });
+
+  const tooLong = charCount > MAX_LENGTH;
+
+  const progress = ((charCount / MAX_LENGTH) * 100) % 100;
+
+  return (
+    <Animated.View
+      style={translateStyle}
+      className="absolute bottom-0 w-full flex-1"
+    >
+      <View
+        className="h-12 flex-1 flex-row items-center px-2"
+        style={{
+          borderTopWidth: StyleSheet.hairlineWidth,
+          borderColor: theme.colors.border,
+          backgroundColor: theme.colors.card,
+        }}
+      >
+        <View className="flex-1 flex-row items-center justify-start gap-2">
+          {children}
+        </View>
+        <Text className="mx-3 text-right">
+          <Text
+            style={{
+              color: tooLong ? theme.colors.notification : undefined,
+            }}
+            className={cx(tooLong && "font-medium")}
+          >
+            {charCount}
+          </Text>{" "}
+          / {MAX_LENGTH}
+        </Text>
+        <AnimatedCircularProgress
+          fill={progress}
+          size={28}
+          width={5}
+          rotation={0}
+          backgroundColor={theme.colors.background}
+          tintColor={
+            !tooLong ? theme.colors.primary : theme.colors.notification
+          }
+        />
+      </View>
+    </Animated.View>
+  );
 };
