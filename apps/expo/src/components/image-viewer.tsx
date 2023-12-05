@@ -214,8 +214,7 @@ const ImageOptionsButton = ({
 
 const ImageWithFallback = ({
   item,
-  setImageDimensions,
-  tag,
+  setImageDimensions, // tag,
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
   const frame = useSafeAreaFrame();
@@ -232,7 +231,7 @@ const ImageWithFallback = ({
   let width, flex;
 
   if (imageAspectRatio > frameAspectRatio) {
-    width = frame.width;
+    width = "100%" as const;
   } else {
     flex = 1;
   }
@@ -240,7 +239,7 @@ const ImageWithFallback = ({
   return (
     <>
       <AnimatedImage
-        sharedTransitionTag={tag}
+        // sharedTransitionTag={tag}
         // weird postitioning
         // placeholder={{
         //   width: size.data?.width,
@@ -250,8 +249,8 @@ const ImageWithFallback = ({
         source={[
           {
             uri: item.thumb,
-            width: size?.width ? size?.width / 2 : undefined,
-            height: size?.height ? size?.height / 2 : undefined,
+            width: size?.width ? size?.width / 100 : undefined,
+            height: size?.height ? size?.height / 100 : undefined,
           },
           { uri: item.fullsize, width: size?.width, height: size?.height },
         ]}

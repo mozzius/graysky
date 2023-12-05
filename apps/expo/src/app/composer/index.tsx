@@ -336,7 +336,7 @@ export default function ComposerScreen() {
                     if (keyboardScrollViewRef.current) {
                       keyboardScrollViewRef.current.scrollToFocusedInput(
                         findNodeHandle(evt.target) || {},
-                        75 + 16,
+                        193,
                       );
                     }
                   }}
@@ -368,38 +368,6 @@ export default function ComposerScreen() {
                     }
                   />
                 )}
-              {/* ADD IMAGE BUTTON */}
-              {images.length > 0 && (
-                <Animated.View
-                  className="w-full flex-row items-end justify-between"
-                  layout={LinearTransition}
-                >
-                  <TouchableOpacity
-                    className="mt-4 flex-row items-center"
-                    hitSlop={8}
-                    onPress={() => {
-                      haptics.impact();
-                      imagePicker.mutate();
-                    }}
-                    ref={anchorRef}
-                  >
-                    <PlusIcon
-                      size={18}
-                      className={
-                        theme.dark ? "text-neutral-400" : "text-neutral-500"
-                      }
-                    />
-                    <Text
-                      className={cx(
-                        "ml-2",
-                        theme.dark ? "text-neutral-400" : "text-neutral-500",
-                      )}
-                    >
-                      {images.length} / {MAX_IMAGES} images
-                    </Text>
-                  </TouchableOpacity>
-                </Animated.View>
-              )}
             </View>
           </Animated.View>
           <Animated.View />
@@ -425,7 +393,7 @@ export default function ComposerScreen() {
                   exiting={FadeOutLeft}
                 >
                   <AnimatedImage
-                    sharedTransitionTag={`image-${i}`}
+                    // sharedTransitionTag={`image-${i}`}
                     cachePolicy="memory"
                     source={{ uri: image.asset.uri }}
                     alt={image.alt ?? `image ${i + 1}`}

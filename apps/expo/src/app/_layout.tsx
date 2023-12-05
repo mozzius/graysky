@@ -274,9 +274,8 @@ const App = ({ session, saveSession }: Props) => {
                         <Stack.Screen
                           name="images/[post]"
                           options={{
-                            presentation: "transparentModal",
                             headerShown: false,
-                            animation: "none",
+                            animation: "fade",
                             fullScreenGestureEnabled: false,
                             customAnimationOnGesture: true,
                           }}

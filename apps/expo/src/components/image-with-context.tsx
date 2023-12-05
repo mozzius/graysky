@@ -30,7 +30,7 @@ export const ImageWithContext = ({
   className: _,
   useCappedAspectRatio,
   style,
-  tag,
+  // tag,
   ...props
 }: Props) => {
   const hintedHeight = image.aspectRatio?.height ?? 1;
@@ -87,7 +87,7 @@ export const ImageWithContext = ({
       }}
     >
       <AnimatedImage
-        sharedTransitionTag={tag}
+        // sharedTransitionTag={tag}
         source={{ uri: image.thumb }}
         alt={image.alt}
         recyclingKey={image.thumb}

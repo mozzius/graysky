@@ -105,7 +105,7 @@ export const AltTextEditor = ({
           >
             <AnimatedImage
               // doesn't work yet but on the reanimated roadmap
-              sharedTransitionTag={`image-${editingAltText}`}
+              // sharedTransitionTag={`image-${editingAltText}`}
               layout={LinearTransition}
               entering={FadeIn}
               cachePolicy="memory"

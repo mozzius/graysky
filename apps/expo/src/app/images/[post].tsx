@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Platform, TouchableOpacity } from "react-native";
-import Animated, { FadeIn, FadeInUp, FadeOutUp } from "react-native-reanimated";
+import { Platform, TouchableOpacity, View } from "react-native";
+import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -100,11 +100,7 @@ export default function ImageModal() {
   const { top } = useSafeAreaInsets();
 
   return (
-    <Animated.View
-      className="relative flex-1 bg-black"
-      entering={FadeIn}
-      // exiting={FadeOut}
-    >
+    <View className="relative flex-1 bg-black">
       <StatusBar
         style={Platform.select({
           ios: "inverted",
@@ -138,6 +134,6 @@ export default function ImageModal() {
           toggleInfo={() => setInfoVisible((v) => !v)}
         />
       )}
-    </Animated.View>
+    </View>
   );
 }
