@@ -5,13 +5,11 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  StyleSheet,
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
   FadeInDown,
@@ -20,10 +18,7 @@ import Animated, {
   LinearTransition,
   SlideInUp,
   SlideOutUp,
-  useAnimatedKeyboard,
-  useAnimatedStyle,
 } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import {
   Stack,
@@ -55,6 +50,7 @@ import { Text } from "~/components/text";
 import { useAgent } from "~/lib/agent";
 import { AltTextEditor } from "~/lib/composer/alt-text-editor";
 import { CancelButton, PostButton } from "~/lib/composer/buttons";
+import { KeyboardAccessory } from "~/lib/composer/keyboard-accessory";
 import { SuggestionList } from "~/lib/composer/suggestion-list";
 import {
   MAX_IMAGES,
@@ -650,7 +646,7 @@ export default function ComposerScreen() {
             <LanguagesIcon size={20} />
             <Text
               style={{ color: theme.colors.primary }}
-              className="ml-2.5 mr-1 font-medium"
+              className="ml-2.5 mr-1 font-medium uppercase"
             >
               {languages?.join(", ") ?? primaryLanguage}
             </Text>
@@ -694,66 +690,4 @@ const LoadableEmbed = ({
         </View>
       );
   }
-};
-
-const KeyboardAccessory = ({
-  charCount = 0,
-  children,
-}: {
-  charCount?: number;
-  children?: React.ReactNode;
-}) => {
-  const theme = useTheme();
-  const keyboard = useAnimatedKeyboard();
-  const { bottom } = useSafeAreaInsets();
-  const translateStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: Math.min(-keyboard.height.value, -bottom) }],
-    };
-  });
-
-  const tooLong = charCount > MAX_LENGTH;
-
-  const progress = ((charCount / MAX_LENGTH) * 100) % 100;
-
-  return (
-    <Animated.View
-      style={translateStyle}
-      className="absolute bottom-0 w-full flex-1"
-    >
-      <View
-        className="h-12 flex-1 flex-row items-center px-2"
-        style={{
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderColor: theme.colors.border,
-          backgroundColor: theme.colors.card,
-        }}
-      >
-        <View className="flex-1 flex-row items-center justify-start gap-2">
-          {children}
-        </View>
-        <Text className="mx-3 text-right">
-          <Text
-            style={{
-              color: tooLong ? theme.colors.notification : undefined,
-            }}
-            className={cx(tooLong && "font-medium")}
-          >
-            {charCount}
-          </Text>{" "}
-          / {MAX_LENGTH}
-        </Text>
-        <AnimatedCircularProgress
-          fill={progress}
-          size={28}
-          width={5}
-          rotation={0}
-          backgroundColor={theme.colors.background}
-          tintColor={
-            !tooLong ? theme.colors.primary : theme.colors.notification
-          }
-        />
-      </View>
-    </Animated.View>
-  );
 };
