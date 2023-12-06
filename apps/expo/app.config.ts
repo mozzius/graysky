@@ -122,7 +122,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
             foregroundImage: "./assets/adaptive/settings_icon.png",
             backgroundColor: "#121212",
           },
-          shortcut_info: {
+          shortcut_about: {
             foregroundImage: "./assets/adaptive/info_icon.png",
             backgroundColor: "#121212",
           },
