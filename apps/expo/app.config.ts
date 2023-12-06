@@ -155,6 +155,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
+    ["react-native-safari-extension", { folderName: "RedirectExtension" }],
   ],
 });
 

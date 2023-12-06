@@ -267,6 +267,9 @@ importers:
       react-native-reanimated:
         specifier: ~3.6.1
         version: 3.6.1(@babel/core@7.23.5)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.7)(react@18.2.0)
+      react-native-safari-extension:
+        specifier: ^0.0.21
+        version: 0.0.21
       react-native-safe-area-context:
         specifier: 4.7.4
         version: 4.7.4(react-native@0.72.7)(react@18.2.0)
@@ -2671,6 +2674,28 @@ packages:
       nullthrows: 1.1.1
     dev: false
 
+  /@expo/config-plugins@6.0.2:
+    resolution: {integrity: sha512-Cn01fXMHwjU042EgO9oO3Mna0o/UCrW91MQLMbJa4pXM41CYGjNgVy1EVXiuRRx/upegHhvltBw5D+JaUm8aZQ==}
+    dependencies:
+      '@expo/config-types': 48.0.0
+      '@expo/json-file': 8.2.37
+      '@expo/plist': 0.0.20
+      '@expo/sdk-runtime-versions': 1.0.0
+      '@react-native/normalize-color': 2.1.0
+      chalk: 4.1.2
+      debug: 4.3.4
+      find-up: 5.0.0
+      getenv: 1.0.0
+      glob: 7.1.6
+      resolve-from: 5.0.0
+      semver: 7.5.4
+      slash: 3.0.0
+      xcode: 3.0.1
+      xml2js: 0.4.23
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@expo/config-plugins@7.2.5:
     resolution: {integrity: sha512-w+5ccu1IxBHgyQk9CPFKLZOk8yZQEyTjbJwOzESK1eR7QwosbcsLkN1c1WWUZYiCXwORu3UTwJYll4+X2xxJhQ==}
     dependencies:
@@ -2757,6 +2782,10 @@ packages:
       xml2js: 0.6.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@expo/config-types@48.0.0:
+    resolution: {integrity: sha512-DwyV4jTy/+cLzXGAo1xftS6mVlSiLIWZjl9DjTCLPFVgNYQxnh7htPilRv4rBhiNs7KaznWqKU70+4zQoKVT9A==}
     dev: false
 
   /@expo/config-types@49.0.0:
@@ -12159,6 +12188,15 @@ packages:
       react-native-reanimated: 3.6.1(@babel/core@7.23.5)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.7)(react@18.2.0)
     dev: false
 
+  /react-native-safari-extension@0.0.21:
+    resolution: {integrity: sha512-rN4IypDLwSuiyaalFYgt+TEJDzHXnYr4/7jOd2Acm0TnxVew3TUahlvfwwZqB3uQELVYCuhst7Jaffzeuj14CQ==}
+    dependencies:
+      '@expo/config-plugins': 6.0.2
+      xcode: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /react-native-safe-area-context@4.7.4(react-native@0.72.7)(react@18.2.0):
     resolution: {integrity: sha512-3LR3DCq9pdzlbq6vsHGWBFehXAKDh2Ljug6jWhLWs1QFuJHM6AS2+mH2JfKlB2LqiSFZOBcZfHQFz0sGaA3uqg==}
     peerDependencies:
@@ -14387,6 +14425,14 @@ packages:
     dependencies:
       simple-plist: 1.3.1
       uuid: 7.0.3
+
+  /xml2js@0.4.23:
+    resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+    engines: {node: '>=4.0.0'}
+    dependencies:
+      sax: 1.2.4
+      xmlbuilder: 11.0.1
+    dev: false
 
   /xml2js@0.6.0:
     resolution: {integrity: sha512-eLTh0kA8uHceqesPqSE+VvO1CDDJWMwlQfB6LuN6T8w6MaDJ8Txm8P7s5cHD0miF0V+GGTZrDQfxPZQVsur33w==}
