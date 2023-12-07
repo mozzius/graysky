@@ -93,7 +93,14 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
-    "expo-build-properties",
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          deploymentTarget: "14.0",
+        },
+      },
+    ],
     "expo-localization",
     "sentry-expo",
     "expo-router",
@@ -163,7 +170,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
-    ["react-native-safari-extension", { folderName: "RedirectExtension" }],
+    ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
   ],
 });
 
