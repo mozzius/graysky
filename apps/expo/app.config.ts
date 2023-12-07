@@ -4,9 +4,17 @@ import dotenv from "dotenv";
 
 import { version } from "./package.json";
 
-dotenv.config({
-  path: "../../.env",
-});
+// HACKFIX - .env is not copied to the working directory for eas local builds
+if (__dirname.includes("eas-workingdir")) {
+  // for eas local builds
+  dotenv.config({
+    path: "../../../../../../.env",
+  });
+} else {
+  dotenv.config({
+    path: "../../.env",
+  });
+}
 
 const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
