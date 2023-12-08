@@ -302,6 +302,14 @@ const App = ({ session, saveSession }: Props) => {
                           }}
                         />
                         <Stack.Screen
+                          name="success"
+                          options={{
+                            title: "Purchase Successful",
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
                           name="composer"
                           options={{
                             headerShown: false,

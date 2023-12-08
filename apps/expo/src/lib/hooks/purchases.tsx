@@ -33,7 +33,9 @@ export const useConfigurePurchases = () => {
   }, []);
 };
 
-const CustomerInfo = createContext<CustomerInfo | undefined | null>(null);
+const CustomerInfoContext = createContext<CustomerInfo | undefined | null>(
+  null,
+);
 
 export const CustomerInfoProvider = ({
   children,
@@ -52,7 +54,9 @@ export const CustomerInfoProvider = ({
   }, [queryClient]);
 
   return (
-    <CustomerInfo.Provider value={info.data}>{children}</CustomerInfo.Provider>
+    <CustomerInfoContext.Provider value={info.data}>
+      {children}
+    </CustomerInfoContext.Provider>
   );
 };
 
@@ -71,7 +75,6 @@ const useCustomerInfoQuery = () => {
       const info = await Purchases.getCustomerInfo();
       return info;
     },
-    staleTime: Infinity,
     retry: (count, err) => {
       if (err instanceof NotYetConfiguredError) return true;
       return count < 3;
@@ -80,7 +83,7 @@ const useCustomerInfoQuery = () => {
 };
 
 export const useCustomerInfo = () => {
-  const info = useContext(CustomerInfo);
+  const info = useContext(CustomerInfoContext);
   if (info === null)
     throw new Error(
       "useCustomerInfo must be used within a CustomerInfoProvider",

@@ -60,8 +60,8 @@ export default function Pro() {
           plan = offerings.data.current.monthly;
         }
         await Purchases.setDisplayName(agent.session?.handle ?? null);
-        await Purchases.purchasePackage(plan);
-        await queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
+        const { customerInfo } = await Purchases.purchasePackage(plan);
+        queryClient.setQueryData(["purchases", "info"], customerInfo);
       } catch (err) {
         // @ts-expect-error - rn-purchases doesn't seem to export error type
         if (err.userCancelled) return "CANCELLED";
@@ -70,11 +70,7 @@ export default function Pro() {
     },
     onSuccess: (res) => {
       if (res === "CANCELLED") return;
-      showToastable({
-        title: "Purchase successful",
-        message: "Welcome to Graysky Pro!",
-        status: "success",
-      });
+      router.push("/success");
     },
     onError: (err) => {
       console.error(err);
