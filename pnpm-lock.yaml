@@ -8,6 +8,7 @@ overrides:
   dequal: 1.0.0
   aria-query>dequal: 2.0.3
   axobject-query>dequal: 2.0.3
+  sharp: 0.33.0
 
 patchedDependencies:
   nativewind@2.0.11:
@@ -46,8 +47,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.1
-        version: 0.7.1
+        specifier: ^0.7.2
+        version: 0.7.2
       '@expo/metro-config':
         specifier: ^0.10.7
         version: 0.10.7
@@ -356,8 +357,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.1
-        version: 0.7.1
+        specifier: ^0.7.2
+        version: 0.7.2
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -425,7 +426,7 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       sharp:
-        specifier: ^0.33.0
+        specifier: 0.33.0
         version: 0.33.0
       superjson:
         specifier: 2.2.1
@@ -477,8 +478,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.1
-        version: 0.7.1
+        specifier: ^0.7.2
+        version: 0.7.2
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -507,7 +508,7 @@ importers:
         specifier: ^1.0.10
         version: 1.0.10
       sharp:
-        specifier: ^0.33.0
+        specifier: 0.33.0
         version: 0.33.0
       superjson:
         specifier: 2.2.1
@@ -662,8 +663,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
 
-  /@atproto/api@0.7.1:
-    resolution: {integrity: sha512-eqA3IW5bX2GROTeTo1faSSnVSdfG/AfOlQr1+uugwHB8u/h2pg/KWL0WEftyZE8MT1gv8ymGiuxJp7MkkuwlLg==}
+  /@atproto/api@0.7.2:
+    resolution: {integrity: sha512-OpE5LQdax5tL9KBmGs1euoNb/XMFUCqaOtEBF0PileOu52vb6Ba66ruEdNy/FEKhPdJryhLyiMfiHoPSvshBFQ==}
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/lexicon': 0.3.1
