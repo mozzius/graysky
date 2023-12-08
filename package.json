@@ -22,7 +22,7 @@
       "dequal": "1.0.0",
       "aria-query>dequal": "2.0.3",
       "axobject-query>dequal": "2.0.3",
-      "sharp": "0.33.0"
+      "sharp": "0.32.6"
     }
   },
   "prettier": "@graysky/prettier-config",
