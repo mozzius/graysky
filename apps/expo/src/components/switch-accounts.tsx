@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 
 import { ItemSeparator } from "~/components/item-separator";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
 import { cx } from "~/lib/utils/cx";

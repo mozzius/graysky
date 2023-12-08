@@ -10,7 +10,7 @@ import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { StatusBar } from "~/components/status-bar";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 

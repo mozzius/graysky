@@ -21,7 +21,7 @@ import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";

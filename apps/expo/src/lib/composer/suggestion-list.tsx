@@ -9,7 +9,7 @@ import { Image } from "expo-image";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { UserIcon, UsersIcon } from "lucide-react-native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 
 interface Props {
   suggestions: AppBskyActorDefs.ProfileViewBasic[];

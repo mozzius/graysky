@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
@@ -15,8 +9,9 @@ import { useMutation } from "@tanstack/react-query";
 import { AlertTriangleIcon, CheckCircle2Icon } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
@@ -168,9 +163,6 @@ export default function DeleteAccount() {
                   placeholder="ABCDE-ABCDE"
                   onChange={(evt) => setToken(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -191,9 +183,6 @@ export default function DeleteAccount() {
                     secureTextEntry
                     onChange={(evt) => setPassword(evt.nativeEvent.text)}
                     className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                    style={{ color: theme.colors.text }}
-                    placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                    keyboardAppearance={theme.dark ? "dark" : "light"}
                   />
                 </View>
               </View>

@@ -12,7 +12,7 @@ import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { NotificationItem } from "./item";
 import { PostNotification } from "./post";
 

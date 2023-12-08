@@ -29,7 +29,7 @@ import {
   SwitchAccounts,
   type SavedSession,
 } from "~/components/switch-accounts";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";

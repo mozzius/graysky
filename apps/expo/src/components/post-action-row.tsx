@@ -13,7 +13,7 @@ import colors from "tailwindcss/colors";
 import { useComposer } from "~/lib/composer/utils";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   post: AppBskyFeedDefs.PostView;

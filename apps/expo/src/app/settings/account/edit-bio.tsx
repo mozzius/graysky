@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, TextInput, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
@@ -8,8 +8,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText } from "~/components/rich-text";
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSelf } from ".";
@@ -92,8 +93,6 @@ export default function EditBio() {
                 placeholder="Optional"
                 multiline
                 className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                keyboardAppearance={theme.dark ? "dark" : "light"}
               >
                 <RichText
                   size="base"

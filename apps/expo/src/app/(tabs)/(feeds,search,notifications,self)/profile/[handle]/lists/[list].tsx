@@ -26,7 +26,7 @@ import { FeedPost } from "~/components/feed-post";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PostAvatar } from "~/components/post-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";

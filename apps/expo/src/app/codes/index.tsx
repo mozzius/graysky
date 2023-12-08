@@ -5,7 +5,7 @@ import { CheckIcon, CopyIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { useInviteCodes } from "./_layout";
 

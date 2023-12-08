@@ -7,7 +7,7 @@ import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 
 interface Props {
   person: AppBskyActorDefs.ProfileView;

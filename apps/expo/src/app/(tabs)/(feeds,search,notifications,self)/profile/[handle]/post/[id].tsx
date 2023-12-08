@@ -23,7 +23,7 @@ import { Avatar } from "~/components/avatar";
 import { FeedPost } from "~/components/feed-post";
 import { PrimaryPost } from "~/components/primary-post";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text as ThemedText } from "~/components/text";
+import { Text as ThemedText } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useComposer } from "~/lib/composer/utils";
 import { useTabPressScroll } from "~/lib/hooks";

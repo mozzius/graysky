@@ -7,7 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { useAgent } from "~/lib/agent";
 import { useLists } from "../lists/context";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { useDrawer } from "./context";
 
 export const ActorDetails = () => (

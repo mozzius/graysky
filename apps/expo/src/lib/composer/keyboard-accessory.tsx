@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@react-navigation/native";
 import colors from "tailwindcss/colors";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { cx } from "../utils/cx";
 import { MAX_LENGTH } from "./utils";
 

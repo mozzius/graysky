@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-query";
 import { RefreshCcwIcon } from "lucide-react-native";
 
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props<TData = unknown, TError = unknown> {
   query:

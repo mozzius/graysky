@@ -5,7 +5,7 @@ import { FlashList } from "@shopify/flash-list";
 
 import { ItemSeparator } from "./item-separator";
 import { PersonRow } from "./lists/person-row";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   profiles: AppBskyActorDefs.ProfileView[];

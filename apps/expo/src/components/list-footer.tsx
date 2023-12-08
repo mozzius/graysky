@@ -4,7 +4,7 @@ import {
   type UseInfiniteQueryResult,
 } from "@tanstack/react-query";
 
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props<TData = unknown, TError = unknown> {
   text?: string;

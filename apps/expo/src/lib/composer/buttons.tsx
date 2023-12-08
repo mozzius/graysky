@@ -11,7 +11,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { SendIcon, Trash2Icon } from "lucide-react-native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useHaptics } from "../hooks/preferences";
 import { cx } from "../utils/cx";

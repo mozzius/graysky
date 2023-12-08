@@ -1,6 +1,6 @@
 import { ScrollView } from "react-native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 
 export default function ChangeHandle() {

@@ -29,7 +29,7 @@ import { PersonRow } from "~/components/lists/person-row";
 import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichTextWithoutFacets } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";

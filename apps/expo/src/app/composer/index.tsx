@@ -5,7 +5,6 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -48,7 +47,8 @@ import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
 import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
 import { AltTextEditor } from "~/lib/composer/alt-text-editor";
 import { CancelButton, PostButton } from "~/lib/composer/buttons";
@@ -202,6 +202,7 @@ export default function ComposerScreen() {
     >
       <Stack.Screen
         options={{
+          headerBackVisible: false,
           headerLeft: () => (
             <CancelButton
               hasContent={!isEmpty}
@@ -315,7 +316,6 @@ export default function ComposerScreen() {
                   }}
                   multiline
                   className="relative -top-[3px] w-full text-lg leading-6"
-                  style={{ color: theme.colors.text }}
                   placeholder={
                     reply.thread.data
                       ? `Replying to @${reply.thread.data.post.author.handle}`
@@ -325,7 +325,6 @@ export default function ComposerScreen() {
                     ios: "twitter",
                     default: "default",
                   })}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                   verticalAlign="middle"
                   textAlignVertical="center"
                   autoFocus
@@ -341,7 +340,6 @@ export default function ComposerScreen() {
                       );
                     }
                   }}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 >
                   <RichText
                     size="lg"

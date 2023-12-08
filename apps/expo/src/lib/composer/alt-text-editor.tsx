@@ -1,20 +1,24 @@
 import { useRef, useState } from "react";
 import {
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Animated, { FadeIn, LinearTransition } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  LinearTransition,
+} from "react-native-reanimated";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { Stack } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { useHaptics } from "../hooks/preferences";
 import { PostButton } from "./buttons";
 import { type ImageWithAlt } from "./utils";
@@ -48,6 +52,7 @@ export const AltTextEditor = ({
       <Stack.Screen
         options={{
           headerTitle: "Edit alt text",
+          headerBackVisible: false,
           headerLeft: () => null,
           headerRight: () => (
             <View className="relative justify-center">
@@ -126,7 +131,7 @@ export const AltTextEditor = ({
         <Animated.View
           className="flex-1"
           layout={LinearTransition}
-          entering={FadeIn}
+          entering={FadeInDown}
         >
           <TextInput
             value={image.alt}
@@ -136,10 +141,7 @@ export const AltTextEditor = ({
             numberOfLines={5}
             autoFocus
             scrollEnabled={false}
-            keyboardAppearance={theme.dark ? "dark" : "light"}
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             style={{
-              color: theme.colors.text,
               borderWidth: StyleSheet.hairlineWidth,
               borderColor: theme.colors.border,
             }}

@@ -13,7 +13,7 @@ import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { QueryWithoutData } from "../../query-without-data";
-import { Text } from "../../text";
+import { Text } from "../../themed/text";
 import { useProfile, useProfileLists } from "./hooks";
 import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 

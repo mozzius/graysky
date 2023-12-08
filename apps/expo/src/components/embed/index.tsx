@@ -25,7 +25,7 @@ import {
 
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";
 
@@ -305,8 +305,8 @@ export const PostEmbed = ({
             backgroundColor: transparent
               ? "transparent"
               : theme.dark
-              ? "black"
-              : "white",
+                ? "black"
+                : "white",
             borderColor: theme.colors.border,
           }}
         >

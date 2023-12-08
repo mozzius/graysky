@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
@@ -7,8 +7,9 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useLinkPress } from "~/lib/hooks/link-press";
 
@@ -72,10 +73,7 @@ export default function Waitlist() {
               autoCapitalize="none"
               onChange={(evt) => setEmail(evt.nativeEvent.text)}
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-              style={{ color: theme.colors.text }}
-              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
               autoFocus
-              keyboardAppearance={theme.dark ? "dark" : "light"}
             />
           </View>
         </View>

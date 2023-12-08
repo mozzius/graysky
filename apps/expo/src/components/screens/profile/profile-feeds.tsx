@@ -17,7 +17,7 @@ import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
-import { Text } from "../../text";
+import { Text } from "../../themed/text";
 import { useProfile, useProfileFeeds } from "./hooks";
 import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 

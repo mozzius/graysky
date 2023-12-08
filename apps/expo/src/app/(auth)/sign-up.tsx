@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
-  TextInput,
   TouchableHighlight,
   View,
 } from "react-native";
@@ -20,8 +19,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckCircle2Icon, XCircleIcon } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { locale } from "~/lib/locale";
@@ -158,10 +158,7 @@ export default function SignUp() {
                   autoCapitalize="none"
                   onChange={(evt) => setCode(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                   autoFocus
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -212,9 +209,6 @@ export default function SignUp() {
                   autoCapitalize="none"
                   onChange={(evt) => setEmail(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -236,9 +230,6 @@ export default function SignUp() {
                     onChange={(evt) => setPassword(evt.nativeEvent.text)}
                     placeholder="Must be at least 8 characters"
                     className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                    style={{ color: theme.colors.text }}
-                    placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                    keyboardAppearance={theme.dark ? "dark" : "light"}
                   />
                 </View>
               </View>
@@ -325,9 +316,6 @@ export default function SignUp() {
                   autoCapitalize="none"
                   onChange={(evt) => setHandle(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
               {handle && (

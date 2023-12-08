@@ -22,7 +22,7 @@ import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 import { Translation } from "./translation";
 
 interface Props {

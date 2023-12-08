@@ -9,7 +9,7 @@ import { Link, Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { CompassIcon } from "lucide-react-native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { cx } from "~/lib/utils/cx";
 
 export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {

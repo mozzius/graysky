@@ -25,7 +25,7 @@ import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { BackButtonOverride } from "../back-button-override";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { ActorDetails } from "./actor-details";
 import { useDrawer } from "./context";
 

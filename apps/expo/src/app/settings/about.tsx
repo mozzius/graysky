@@ -12,7 +12,7 @@ import {
 } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useLinkPress } from "~/lib/hooks/link-press";
 

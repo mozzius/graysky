@@ -13,7 +13,7 @@ import {
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { contentLabels, usePreferences } from "~/lib/hooks/preferences";

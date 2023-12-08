@@ -50,7 +50,7 @@ import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
-import { Text } from "../../text";
+import { Text } from "../../themed/text";
 import { useDefaultHeaderHeight } from "./hooks";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);

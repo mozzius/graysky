@@ -15,7 +15,7 @@ import { FeedPost } from "../feed-post";
 import { FeedsButton } from "../feeds-button";
 import { ListFooterComponent } from "../list-footer";
 import { QueryWithoutData } from "../query-without-data";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 
 interface Props {
   feed: string;

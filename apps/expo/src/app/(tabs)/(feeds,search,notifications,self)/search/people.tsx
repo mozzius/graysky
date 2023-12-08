@@ -10,7 +10,7 @@ import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { ItemSeparator } from "~/components/item-separator";
 import { PersonRow } from "~/components/lists/person-row";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";

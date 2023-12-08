@@ -16,7 +16,7 @@ import { LinkIcon, NewspaperIcon } from "lucide-react-native";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 
 interface Props {
   content: AppBskyEmbedExternal.View;

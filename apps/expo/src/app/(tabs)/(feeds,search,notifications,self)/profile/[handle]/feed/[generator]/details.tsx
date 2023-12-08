@@ -26,7 +26,7 @@ import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import {
   useFeedInfo,

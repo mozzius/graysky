@@ -2,7 +2,7 @@ import { ScrollView, View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import { Redirect } from "expo-router";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { store } from "~/lib/storage";
 import {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, TextInput, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
@@ -9,8 +9,9 @@ import { CheckCircle2Icon } from "lucide-react-native";
 import { z } from "zod";
 
 import { useAgent } from "~/lib/agent";
-import { Text } from "./text";
 import { TextButton } from "./text-button";
+import { Text } from "./themed/text";
+import { TextInput } from "./themed/text-input";
 import { TransparentHeaderUntilScrolled } from "./transparent-header";
 
 class PasswordError extends Error {
@@ -103,9 +104,6 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
                   placeholder="alice@example.com"
                   onChange={(evt) => setEmail(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -144,9 +142,6 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
                   placeholder="ABCDE-ABCDE"
                   onChange={(evt) => setToken(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
@@ -167,9 +162,6 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
                     secureTextEntry
                     onChange={(evt) => setNewPassword(evt.nativeEvent.text)}
                     className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                    style={{ color: theme.colors.text }}
-                    placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                    keyboardAppearance={theme.dark ? "dark" : "light"}
                   />
                 </View>
               </View>
