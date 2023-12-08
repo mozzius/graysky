@@ -246,14 +246,7 @@ const ImageWithFallback = ({
         //   height: size.data?.height,
         //   uri: item.thumb,
         // }}
-        source={[
-          {
-            uri: item.thumb,
-            width: size?.width ? size?.width / 5 : undefined,
-            height: size?.height ? size?.height / 5 : undefined,
-          },
-          { uri: item.fullsize, width: size?.width, height: size?.height },
-        ]}
+        source={{ uri: item.fullsize }}
         alt={item.alt}
         style={[
           size
