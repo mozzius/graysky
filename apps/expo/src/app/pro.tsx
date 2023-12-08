@@ -46,7 +46,7 @@ export default function Pro() {
   const [annual, setAnnual] = useState(false);
 
   const subscribe = useMutation({
-    mutationKey: ["subscribe"],
+    mutationKey: ["purchases", "subscribe"],
     mutationFn: async () => {
       if (!offerings.data) return "CANCELLED";
       try {
@@ -84,10 +84,10 @@ export default function Pro() {
   });
 
   const restore = useMutation({
-    mutationKey: ["restore"],
+    mutationKey: ["purchases", "restore"],
     mutationFn: async () => {
-      await Purchases.restorePurchases();
-      await queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
+      const customerInfo = await Purchases.restorePurchases();
+      queryClient.setQueryData(["purchases", "info"], customerInfo);
     },
   });
 
@@ -110,7 +110,7 @@ export default function Pro() {
       subtitle: "Analytics, polls, and much more",
       icon: <MoreHorizontalIcon className="text-white" />,
     },
-  ] satisfies Omit<Props, "index">[];
+  ] satisfies Omit<FeatureItemProps, "index">[];
 
   const annualProduct = offerings.data?.current?.annual?.product;
   const monthlyProduct = offerings.data?.current?.monthly?.product;
@@ -145,6 +145,9 @@ export default function Pro() {
             {features.map((feature, index) => (
               <FeatureItem key={feature.title} {...feature} index={index} />
             ))}
+            <Text className="text-white">
+              {JSON.stringify(customerInfo, null, 2)}
+            </Text>
           </ScrollView>
           <SafeAreaView edges={["left", "bottom", "right"]} className="px-4">
             {isPro ? (
@@ -238,7 +241,7 @@ export default function Pro() {
   );
 }
 
-interface Props {
+interface FeatureItemProps {
   icon: React.ReactElement;
   title: string;
   subtitle: string;
@@ -246,7 +249,13 @@ interface Props {
   index: number;
 }
 
-const FeatureItem = ({ icon, title, subtitle, colour, index }: Props) => (
+const FeatureItem = ({
+  icon,
+  title,
+  subtitle,
+  colour,
+  index,
+}: FeatureItemProps) => (
   <Animated.View
     className="flex-row items-center px-8 py-3"
     entering={ZoomIn.delay(750 + index * 300)}
@@ -264,23 +273,28 @@ const FeatureItem = ({ icon, title, subtitle, colour, index }: Props) => (
   </Animated.View>
 );
 
+interface BlurPillProps {
+  children: React.ReactNode;
+  active?: boolean;
+  className?: string;
+  style?: ViewStyle;
+  onPress?: () => void;
+  disabled?: boolean;
+}
+
 const BlurPill = ({
   children,
   active,
   className,
   style,
   onPress,
-}: {
-  children: React.ReactNode;
-  active?: boolean;
-  className?: string;
-  style?: ViewStyle;
-  onPress?: () => void;
-}) => (
+  disabled,
+}: BlurPillProps) => (
   <TouchableOpacity
     onPress={onPress}
     className={cx("rounded-xl", className)}
     style={style}
+    disabled={disabled}
   >
     <View
       className="overflow-hidden rounded-xl"

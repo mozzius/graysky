@@ -2,7 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createContext, useContext, useEffect } from "react";
 import { Platform } from "react-native";
-import Purchases, { type CustomerInfo } from "react-native-purchases";
+import Purchases, {
+  type CustomerInfo,
+  type CustomerInfoUpdateListener,
+} from "react-native-purchases";
 import Constants from "expo-constants";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Sentry from "sentry-expo";
@@ -46,8 +49,9 @@ export const CustomerInfoProvider = ({
   const info = useCustomerInfoQuery();
 
   useEffect(() => {
-    const listener = () => {
-      void queryClient.refetchQueries({ queryKey: ["purchases", "info"] });
+    const listener: CustomerInfoUpdateListener = (customerInfo) => {
+      console.log("customer info updated", customerInfo);
+      queryClient.setQueryData(["purchases", "info"], customerInfo);
     };
     Purchases.addCustomerInfoUpdateListener(listener);
     return () => void Purchases.removeCustomerInfoUpdateListener(listener);
