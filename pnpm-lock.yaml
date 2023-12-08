@@ -386,8 +386,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       '@vercel/kv':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       bright:
         specifier: ^0.8.4
         version: 0.8.4(react@18.2.0)
@@ -498,8 +498,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       '@vercel/kv':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       encoding:
         specifier: ^0.1.13
         version: 0.1.13
@@ -5010,8 +5010,8 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@upstash/redis@1.24.3:
-    resolution: {integrity: sha512-gw6d4IA1biB4eye5ESaXc0zOlVQI94aptsBvVcTghYWu1kRmOrJFoMFEDCa8p5uzluyYAOFCuY2GWLR6O4ZoIw==}
+  /@upstash/redis@1.25.1:
+    resolution: {integrity: sha512-ACj0GhJ4qrQyBshwFgPod6XufVEfKX2wcaihsEvSdLYnY+m+pa13kGt1RXm/yTHKf4TQi/Dy2A8z/y6WUEOmlg==}
     dependencies:
       crypto-js: 4.2.0
     dev: false
@@ -5042,11 +5042,11 @@ packages:
       server-only: 0.0.1
     dev: false
 
-  /@vercel/kv@1.0.0:
-    resolution: {integrity: sha512-StouXunmEqUfKE+1joSYfELWEEnI1MhTnzUdarHtv6H18RAm3cf5u5g9ElvA1DJNHcrMT6g5yVAhZcYRbk6lvg==}
+  /@vercel/kv@1.0.1:
+    resolution: {integrity: sha512-uTKddsqVYS2GRAM/QMNNXCTuw9N742mLoGRXoNDcyECaxEXvIHG0dEY+ZnYISV4Vz534VwJO+64fd9XeSggSKw==}
     engines: {node: '>=14.6'}
     dependencies:
-      '@upstash/redis': 1.24.3
+      '@upstash/redis': 1.25.1
     dev: false
 
   /@xmldom/xmldom@0.7.11:
