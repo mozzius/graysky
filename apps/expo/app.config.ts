@@ -170,7 +170,8 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
-    ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
+    // entitlement issue - https://github.com/andrew-levy/react-native-safari-extension/issues/18
+    // ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
   ],
 });
 
