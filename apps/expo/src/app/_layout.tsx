@@ -197,7 +197,6 @@ const App = ({ session, saveSession }: Props) => {
     <AppPreferencesProvider>
       {(theme) => (
         <>
-          {" "}
           <StatusBar />
           {agent.hasSession && <QuickActions />}
           <SafeAreaProvider>

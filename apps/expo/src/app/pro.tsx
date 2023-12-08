@@ -11,7 +11,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import Purchases from "react-native-purchases";
-import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
+import Animated, { ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
@@ -153,7 +153,7 @@ export default function Pro() {
           <ScrollView fadingEdgeLength={20} indicatorStyle="white">
             <Animated.Text
               className="mb-8 mt-24 text-center text-6xl font-semibold text-white"
-              entering={FadeInDown.delay(500).duration(300)}
+              entering={ZoomIn.delay(500).duration(300)}
             >
               Graysky Pro
             </Animated.Text>
