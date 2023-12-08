@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { LogBox, Platform } from "react-native";
+import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
+import * as Device from "expo-device";
 import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import * as ScreenOrientation from "expo-screen-orientation";
 import {
   BskyAgent,
   type AtpSessionData,
@@ -30,12 +32,9 @@ import {
   AppPreferencesProvider,
   PreferencesProvider,
 } from "~/lib/hooks/preferences";
-// import {
-//   configureRevenueCat,
-//   CustomerInfoProvider,
-//   useCustomerInfoQuery,
-// } from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
+import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
+import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
@@ -47,14 +46,13 @@ Sentry.init({
   integrations: [new Sentry.Native.ReactNativeTracing()],
 });
 
-// configureRevenueCat();
-
 SplashScreen.preventAutoHideAsync();
 
-// absolutely no idea where this is coming from
-LogBox.ignoreLogs([
-  "The `redirect` prop on <Screen /> is deprecated and will be removed. Please use `router.redirect` instead",
-]);
+void Device.getDeviceTypeAsync().then((type) => {
+  if (type === Device.DeviceType.TABLET) {
+    void ScreenOrientation.unlockAsync();
+  }
+});
 
 interface Props {
   session: AtpSessionData | null;
@@ -69,9 +67,9 @@ const App = ({ session, saveSession }: Props) => {
   const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
-  // const info = useCustomerInfoQuery();
-
   const [agentUpdate, setAgentUpdate] = useState(0);
+
+  useSetupQuickActions();
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -115,7 +113,7 @@ const App = ({ session, saveSession }: Props) => {
   const onceRef = useRef(false);
 
   useEffect(() => {
-    if (tryResumeSession && !resumeSession.isLoading) {
+    if (tryResumeSession && !resumeSession.isPending) {
       if (!onceRef.current) {
         onceRef.current = true;
         resumeSession.mutate(session);
@@ -128,7 +126,7 @@ const App = ({ session, saveSession }: Props) => {
 
   // redirect depending on login state
   useEffect(() => {
-    if (resumeSession.isLoading) return;
+    if (resumeSession.isPending) return;
     const atRoot = segments.length === 0;
     const inAuthGroup = segments[0] === "(auth)";
 
@@ -145,7 +143,7 @@ const App = ({ session, saveSession }: Props) => {
       console.log("redirecting to /feeds");
       router.replace("/(feeds)/feeds");
     }
-  }, [segments, router, agent.hasSession, resumeSession.isLoading]);
+  }, [segments, router, agent.hasSession, resumeSession.isPending]);
 
   const logOut = useCallback(() => {
     const sessions = store.getString("sessions");
@@ -190,7 +188,7 @@ const App = ({ session, saveSession }: Props) => {
     setTimeout(() => {
       SplashScreen.hideAsync();
     }, 100);
-  }, []);
+  }, [agent]);
 
   // SENTRY NAVIGATION LOGGING
   const routeName = "/" + segments.join("/");
@@ -227,102 +225,109 @@ const App = ({ session, saveSession }: Props) => {
   return (
     <ThemeProvider value={theme}>
       <StatusBar />
+      {agent.hasSession && <QuickActions />}
       <SafeAreaProvider>
-        {/* <CustomerInfoProvider info={info.data}> */}
-        <AgentProvider agent={agent} update={agentUpdate}>
-          <PreferencesProvider>
-            <AppPreferencesProvider>
-              <LogOutProvider value={logOut}>
-                <ActionSheetProvider>
-                  <ListProvider>
-                    <Stack
-                      screenOptions={{
-                        headerShown: true,
-                        fullScreenGestureEnabled: true,
-                      }}
-                    >
-                      <Stack.Screen
-                        name="index"
-                        options={{
-                          headerShown: false,
-                          gestureEnabled: false,
+        <CustomerInfoProvider>
+          <AgentProvider agent={agent} update={agentUpdate}>
+            <PreferencesProvider>
+              <AppPreferencesProvider>
+                <LogOutProvider value={logOut}>
+                  <ActionSheetProvider>
+                    <ListProvider>
+                      <Stack
+                        screenOptions={{
+                          headerShown: true,
+                          fullScreenGestureEnabled: true,
                         }}
-                      />
-                      <Stack.Screen
-                        name="(auth)"
-                        options={{
-                          headerShown: false,
-                          presentation: "formSheet",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="settings"
-                        options={{
-                          headerShown: false,
-                          presentation: "modal",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="codes"
-                        options={{
-                          headerShown: false,
-                          presentation: "modal",
-                        }}
-                      />
-                      <Stack.Screen
-                        name="images/[post]"
-                        options={{
-                          presentation: "transparentModal",
-                          headerShown: false,
-                          animation: "none",
-                          fullScreenGestureEnabled: false,
-                          customAnimationOnGesture: true,
-                        }}
-                      />
-                      <Stack.Screen
-                        name="discover"
-                        options={{
-                          title: "Discover Feeds",
-                          presentation: "modal",
-                          headerLargeTitle: true,
-                          headerLargeTitleShadowVisible: false,
-                          headerLargeStyle: {
-                            backgroundColor: theme.colors.background,
-                          },
-                          headerSearchBarOptions: {},
-                        }}
-                      />
-                      {/* <Stack.Screen
-                        name="pro"
-                        options={{
-                          title: "",
-                          headerTransparent: true,
-                          presentation: "modal",
-                          headerLeft,
-                        }}
-                      /> */}
-                      <Stack.Screen
-                        name="composer"
-                        options={{
-                          headerShown: false,
-                          ...Platform.select({
-                            ios: {
-                              presentation: "formSheet",
+                      >
+                        <Stack.Screen
+                          name="index"
+                          options={{
+                            headerShown: false,
+                            gestureEnabled: false,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="(auth)"
+                          options={{
+                            headerShown: false,
+                            presentation: "formSheet",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="settings"
+                          options={{
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="codes"
+                          options={{
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="images/[post]"
+                          options={{
+                            headerShown: false,
+                            animation: "fade",
+                            fullScreenGestureEnabled: false,
+                            customAnimationOnGesture: true,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="discover"
+                          options={{
+                            title: "Discover Feeds",
+                            presentation: "modal",
+                            headerLargeTitle: true,
+                            headerLargeTitleShadowVisible: false,
+                            headerLargeStyle: {
+                              backgroundColor: theme.colors.background,
                             },
-                            android: {
-                              animation: "fade_from_bottom",
-                            },
-                          }),
-                        }}
-                      />
-                    </Stack>
-                  </ListProvider>
-                </ActionSheetProvider>
-              </LogOutProvider>
-            </AppPreferencesProvider>
-          </PreferencesProvider>
-        </AgentProvider>
-        {/* </CustomerInfoProvider> */}
+                            headerSearchBarOptions: {},
+                          }}
+                        />
+                        <Stack.Screen
+                          name="pro"
+                          options={{
+                            title: "",
+                            headerTransparent: true,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="success"
+                          options={{
+                            title: "Purchase Successful",
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="composer"
+                          options={{
+                            headerShown: false,
+                            ...Platform.select({
+                              ios: {
+                                presentation: "formSheet",
+                              },
+                              android: {
+                                animation: "fade_from_bottom",
+                              },
+                            }),
+                          }}
+                        />
+                      </Stack>
+                    </ListProvider>
+                  </ActionSheetProvider>
+                </LogOutProvider>
+              </AppPreferencesProvider>
+            </PreferencesProvider>
+          </AgentProvider>
+        </CustomerInfoProvider>
         <Toastable />
       </SafeAreaProvider>
     </ThemeProvider>
@@ -338,6 +343,8 @@ const getSession = () => {
 
 export default function RootLayout() {
   const [session, setSession] = useState(() => getSession());
+
+  useConfigurePurchases();
 
   const saveSession = useCallback(
     (sess: AtpSessionData | null, agent?: BskyAgent) => {
@@ -393,3 +400,19 @@ export default function RootLayout() {
     </TRPCProvider>
   );
 }
+
+const QuickActions = () => {
+  const fired = useRef<string | null>(null);
+  const router = useRouter();
+  const action = useQuickAction();
+
+  const href = action?.params?.href;
+
+  useEffect(() => {
+    if (typeof href !== "string" || fired.current === href) return;
+    fired.current = href;
+    router.push(href);
+  }, [href, router]);
+
+  return null;
+};

@@ -5,7 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { QuoteIcon, RepeatIcon } from "lucide-react-native";
 
-import { useComposer } from "~/lib/hooks/composer";
+import { useComposer } from "~/lib/composer/utils";
 import { useAgent } from "../agent";
 import { actionSheetStyles } from "../utils/action-sheet";
 import { useHaptics } from "./preferences";

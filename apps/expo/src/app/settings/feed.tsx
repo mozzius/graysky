@@ -12,7 +12,8 @@ import {
 
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
+import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds } from "~/lib/hooks";
 import { useAppPreferences, usePreferences } from "~/lib/hooks/preferences";
@@ -94,254 +95,259 @@ export default function FeedPreferences() {
     const feedViewPref = getFeedViewPref(preferences.data);
 
     return (
-      <GroupedList
-        groups={[
-          {
-            title: "Home screen",
-            options: [
-              {
-                title: "Home screen layout",
-                action: (
-                  <TouchableOpacity
-                    onPress={() => {
-                      const options = ["Feeds list", "A specific feed"];
-                      const icons = [
-                        <CloudyIcon
-                          size={24}
-                          color={theme.colors.text}
-                          key={0}
-                        />,
-                        <CloudIcon
-                          size={24}
-                          color={theme.colors.text}
-                          key={1}
-                        />,
-                        <></>,
-                      ];
-                      showActionSheetWithOptions(
-                        {
-                          options: [...options, "Cancel"],
-                          icons,
-                          cancelButtonIndex: options.length,
-                          ...actionSheetStyles(theme),
-                        },
-                        (index) => {
-                          switch (index) {
-                            case 0:
-                              setAppPrefs({ homepage: "feeds" });
-                              break;
-                            case 1:
-                              setAppPrefs({ homepage: "skyline" });
-                              break;
-                          }
-                        },
-                      );
-                    }}
-                    className="flex-row items-center"
-                  >
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="text-base font-medium capitalize"
+      <TransparentHeaderUntilScrolled>
+        <GroupedList
+          groups={[
+            {
+              title: "Home screen",
+              options: [
+                {
+                  title: "Home screen layout",
+                  action: (
+                    <TouchableOpacity
+                      onPress={() => {
+                        const options = ["Feeds list", "A specific feed"];
+                        const icons = [
+                          <CloudyIcon
+                            size={24}
+                            color={theme.colors.text}
+                            key={0}
+                          />,
+                          <CloudIcon
+                            size={24}
+                            color={theme.colors.text}
+                            key={1}
+                          />,
+                          <></>,
+                        ];
+                        showActionSheetWithOptions(
+                          {
+                            options: [...options, "Cancel"],
+                            icons,
+                            cancelButtonIndex: options.length,
+                            ...actionSheetStyles(theme),
+                          },
+                          (index) => {
+                            switch (index) {
+                              case 0:
+                                setAppPrefs({ homepage: "feeds" });
+                                break;
+                              case 1:
+                                setAppPrefs({ homepage: "skyline" });
+                                break;
+                            }
+                          },
+                        );
+                      }}
+                      className="flex-row items-center"
                     >
-                      {appPrefs.homepage === "feeds"
-                        ? "Feeds list"
-                        : "Primary feed"}
-                    </Text>
-                    <ChevronsUpDownIcon
-                      size={16}
-                      color={theme.colors.primary}
-                      className="ml-1"
-                    />
-                  </TouchableOpacity>
-                ),
-              },
-              ...(appPrefs.homepage === "skyline"
-                ? [
-                    {
-                      title: "Primary feed",
-                      action: (
-                        <TouchableOpacity
-                          disabled={savedFeeds.isLoading}
-                          onPress={() => {
-                            const data = savedFeeds.data
-                              ? savedFeeds.data.pinned
-                                  .map(
-                                    (pin) =>
-                                      savedFeeds.data.feeds.find(
-                                        (f) => f.uri === pin,
-                                      )!,
-                                  )
-                                  .filter((x) => x !== undefined)
-                              : [];
+                      <Text
+                        style={{ color: theme.colors.primary }}
+                        className="text-base font-medium capitalize"
+                      >
+                        {appPrefs.homepage === "feeds"
+                          ? "Feeds list"
+                          : "Primary feed"}
+                      </Text>
+                      <ChevronsUpDownIcon
+                        size={16}
+                        color={theme.colors.primary}
+                        className="ml-1"
+                      />
+                    </TouchableOpacity>
+                  ),
+                },
+                ...(appPrefs.homepage === "skyline"
+                  ? [
+                      {
+                        title: "Primary feed",
+                        action: (
+                          <TouchableOpacity
+                            disabled={savedFeeds.isPending}
+                            onPress={() => {
+                              const data = savedFeeds.data
+                                ? savedFeeds.data.pinned
+                                    .map(
+                                      (pin) =>
+                                        savedFeeds.data.feeds.find(
+                                          (f) => f.uri === pin,
+                                        )!,
+                                    )
+                                    .filter((x) => x !== undefined)
+                                : [];
 
-                            const options = [
-                              "Following",
-                              ...data.map((x) => x.displayName),
-                            ];
-                            const icons = [
-                              appPrefs.defaultFeed === "following" ? (
-                                <CircleDotIcon
-                                  key={0}
-                                  color={theme.colors.text}
-                                  size={24}
-                                />
-                              ) : (
-                                <></>
-                              ),
-                              data.map((x, i) =>
-                                x.uri === appPrefs.defaultFeed ? (
+                              const options = [
+                                "Following",
+                                ...data.map((x) => x.displayName),
+                              ];
+                              const icons = [
+                                appPrefs.defaultFeed === "following" ? (
                                   <CircleDotIcon
-                                    key={i + 1}
+                                    key={0}
                                     color={theme.colors.text}
                                     size={24}
                                   />
                                 ) : (
                                   <></>
                                 ),
-                              ),
-                              <></>,
-                            ];
-                            showActionSheetWithOptions(
-                              {
-                                title: "Select primary feed",
-                                options: [...options, "Cancel"],
-                                icons,
-                                cancelButtonIndex: options.length,
-                                ...actionSheetStyles(theme),
-                              },
-                              (index) => {
-                                if (
-                                  index === undefined ||
-                                  index === options.length
-                                )
-                                  return;
-                                if (index === 0) {
-                                  setAppPrefs({ defaultFeed: "following" });
-                                } else {
-                                  setAppPrefs({
-                                    defaultFeed: data[index - 1]!.uri,
-                                  });
-                                }
-                              },
-                            );
-                          }}
-                          className="flex-row items-center"
-                        >
-                          {savedFeeds.isSuccess ? (
-                            <>
-                              <Text
-                                style={{
-                                  color: unknown
-                                    ? theme.colors.notification
-                                    : theme.colors.primary,
-                                }}
-                                className="text-base font-medium"
-                              >
-                                {unknown ? "Unknown" : defaultFeed}
-                              </Text>
-                              <ChevronsUpDownIcon
-                                size={16}
-                                color={theme.colors.primary}
-                                className="ml-1"
-                              />
-                            </>
-                          ) : (
-                            <ActivityIndicator />
-                          )}
-                        </TouchableOpacity>
-                      ),
-                    },
-                  ]
-                : []),
-            ],
-          },
-          {
-            title: "Reply settings",
-            options: [
-              {
-                title: "Show replies",
-                action: (
-                  <LoadingValue query={setPreference} property="hideReplies">
-                    <Switch
-                      disabled={setPreference.isLoading}
-                      value={!feedViewPref.hideReplies}
-                      onValueChange={(value) => {
-                        setPreference.mutate({
-                          hideReplies: !value,
-                        });
-                      }}
-                    />
-                  </LoadingValue>
-                ),
-              },
-              {
-                title: "Only show replies from your follows",
-                action: (
-                  <LoadingValue
-                    query={setPreference}
-                    property="hideRepliesByUnfollowed"
-                  >
-                    <Switch
-                      disabled={
-                        setPreference.isLoading || feedViewPref.hideReplies
-                      }
-                      value={feedViewPref.hideRepliesByUnfollowed}
-                      onValueChange={(value) => {
-                        setPreference.mutate({
-                          hideRepliesByUnfollowed: value,
-                        });
-                      }}
-                    />
-                  </LoadingValue>
-                ),
-                disabled: feedViewPref.hideReplies,
-              },
-            ],
-          },
-          {
-            title: "Repost settings",
-            options: [
-              {
-                title: "Show reposts",
-                action: (
-                  <LoadingValue query={setPreference} property="hideReposts">
-                    <Switch
-                      disabled={setPreference.isLoading}
-                      value={!feedViewPref.hideReposts}
-                      onValueChange={(value) => {
-                        setPreference.mutate({
-                          hideReposts: !value,
-                        });
-                      }}
-                    />
-                  </LoadingValue>
-                ),
-              },
-            ],
-          },
-          {
-            title: "Quote post settings",
-            options: [
-              {
-                title: "Show quote posts",
-                action: (
-                  <LoadingValue query={setPreference} property="hideQuotePosts">
-                    <Switch
-                      disabled={setPreference.isLoading}
-                      value={!feedViewPref.hideQuotePosts}
-                      onValueChange={(value) => {
-                        setPreference.mutate({
-                          hideQuotePosts: !value,
-                        });
-                      }}
-                    />
-                  </LoadingValue>
-                ),
-              },
-            ],
-          },
-        ]}
-      />
+                                data.map((x, i) =>
+                                  x.uri === appPrefs.defaultFeed ? (
+                                    <CircleDotIcon
+                                      key={i + 1}
+                                      color={theme.colors.text}
+                                      size={24}
+                                    />
+                                  ) : (
+                                    <></>
+                                  ),
+                                ),
+                                <></>,
+                              ];
+                              showActionSheetWithOptions(
+                                {
+                                  title: "Select primary feed",
+                                  options: [...options, "Cancel"],
+                                  icons,
+                                  cancelButtonIndex: options.length,
+                                  ...actionSheetStyles(theme),
+                                },
+                                (index) => {
+                                  if (
+                                    index === undefined ||
+                                    index === options.length
+                                  )
+                                    return;
+                                  if (index === 0) {
+                                    setAppPrefs({ defaultFeed: "following" });
+                                  } else {
+                                    setAppPrefs({
+                                      defaultFeed: data[index - 1]!.uri,
+                                    });
+                                  }
+                                },
+                              );
+                            }}
+                            className="flex-row items-center"
+                          >
+                            {savedFeeds.isSuccess ? (
+                              <>
+                                <Text
+                                  style={{
+                                    color: unknown
+                                      ? theme.colors.notification
+                                      : theme.colors.primary,
+                                  }}
+                                  className="text-base font-medium"
+                                >
+                                  {unknown ? "Unknown" : defaultFeed}
+                                </Text>
+                                <ChevronsUpDownIcon
+                                  size={16}
+                                  color={theme.colors.primary}
+                                  className="ml-1"
+                                />
+                              </>
+                            ) : (
+                              <ActivityIndicator />
+                            )}
+                          </TouchableOpacity>
+                        ),
+                      },
+                    ]
+                  : []),
+              ],
+            },
+            {
+              title: "Reply settings",
+              options: [
+                {
+                  title: "Show replies",
+                  action: (
+                    <LoadingValue query={setPreference} property="hideReplies">
+                      <Switch
+                        disabled={setPreference.isPending}
+                        value={!feedViewPref.hideReplies}
+                        onValueChange={(value) => {
+                          setPreference.mutate({
+                            hideReplies: !value,
+                          });
+                        }}
+                      />
+                    </LoadingValue>
+                  ),
+                },
+                {
+                  title: "Only show replies from your follows",
+                  action: (
+                    <LoadingValue
+                      query={setPreference}
+                      property="hideRepliesByUnfollowed"
+                    >
+                      <Switch
+                        disabled={
+                          setPreference.isPending || feedViewPref.hideReplies
+                        }
+                        value={feedViewPref.hideRepliesByUnfollowed}
+                        onValueChange={(value) => {
+                          setPreference.mutate({
+                            hideRepliesByUnfollowed: value,
+                          });
+                        }}
+                      />
+                    </LoadingValue>
+                  ),
+                  disabled: feedViewPref.hideReplies,
+                },
+              ],
+            },
+            {
+              title: "Repost settings",
+              options: [
+                {
+                  title: "Show reposts",
+                  action: (
+                    <LoadingValue query={setPreference} property="hideReposts">
+                      <Switch
+                        disabled={setPreference.isPending}
+                        value={!feedViewPref.hideReposts}
+                        onValueChange={(value) => {
+                          setPreference.mutate({
+                            hideReposts: !value,
+                          });
+                        }}
+                      />
+                    </LoadingValue>
+                  ),
+                },
+              ],
+            },
+            {
+              title: "Quote post settings",
+              options: [
+                {
+                  title: "Show quote posts",
+                  action: (
+                    <LoadingValue
+                      query={setPreference}
+                      property="hideQuotePosts"
+                    >
+                      <Switch
+                        disabled={setPreference.isPending}
+                        value={!feedViewPref.hideQuotePosts}
+                        onValueChange={(value) => {
+                          setPreference.mutate({
+                            hideQuotePosts: !value,
+                          });
+                        }}
+                      />
+                    </LoadingValue>
+                  ),
+                },
+              ],
+            },
+          ]}
+        />
+      </TransparentHeaderUntilScrolled>
     );
   }
 
@@ -370,10 +376,10 @@ const LoadingValue = ({
   >;
 }) => {
   if (
-    query.isLoading &&
+    query.isPending &&
     property in (query.variables as AppBskyActorDefs.FeedViewPref)
   ) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator size="small" />;
   }
   return <>{children}</>;
 };

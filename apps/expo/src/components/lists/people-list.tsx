@@ -14,14 +14,17 @@ import {
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
-import { type UseInfiniteQueryResult } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "../back-button-override";
 import { ItemSeparator } from "../item-separator";
 import { QueryWithoutData } from "../query-without-data";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { PersonRow } from "./person-row";
 
 interface PeopleListResponse {
@@ -35,8 +38,7 @@ export interface PeopleListRef {
 
 interface Props {
   title: string;
-  data: UseInfiniteQueryResult<PeopleListResponse, unknown>;
-
+  data: UseInfiniteQueryResult<InfiniteData<PeopleListResponse>, unknown>;
   limit?: number;
 }
 

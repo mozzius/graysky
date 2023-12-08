@@ -4,7 +4,7 @@ import { Link, Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { PlusIcon } from "lucide-react-native";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { FeedsPage } from ".";

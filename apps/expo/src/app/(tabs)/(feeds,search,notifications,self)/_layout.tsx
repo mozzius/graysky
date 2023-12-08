@@ -4,7 +4,7 @@ import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
 
 const stackOptions = {

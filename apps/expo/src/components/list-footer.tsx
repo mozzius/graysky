@@ -1,11 +1,14 @@
 import { ActivityIndicator, View } from "react-native";
-import { type UseInfiniteQueryResult } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
-interface Props {
+interface Props<TData = unknown, TError = unknown> {
   text?: string;
-  query: UseInfiniteQueryResult;
+  query: UseInfiniteQueryResult<InfiniteData<TData, TError>, unknown>;
 }
 
 export const ListFooterComponent = ({ text, query }: Props) =>

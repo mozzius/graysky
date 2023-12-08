@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useRouter } from "expo-router";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "~/components/profile-list";
@@ -8,16 +9,18 @@ import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function BlockedUsers() {
   const agent = useAgent();
+  const router = useRouter();
 
   const blocks = useInfiniteQuery({
     queryKey: ["blocks"],
     queryFn: async ({ pageParam }) => {
       const blocks = await agent.app.bsky.graph.getBlocks({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!blocks.success) throw new Error("Could not fetch blocks");
       return blocks.data;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
@@ -30,7 +33,15 @@ export default function BlockedUsers() {
 
   if (blocks.data) {
     return (
-      <ProfileList profiles={data} emptyText="You haven't blocked anyone" />
+      <ProfileList
+        profiles={data}
+        onProfilePress={(evt) => {
+          evt.preventDefault();
+          router.push("/settings/..");
+          router.push(`/profile/${evt.person.handle}`);
+        }}
+        emptyText="You haven't blocked anyone"
+      />
     );
   }
 

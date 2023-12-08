@@ -8,32 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Actor {
-  id  String @id @default(cuid())
-  did String @unique
-
-  bookmarks Bookmark[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([did])
-}
-
-model Bookmark {
-  id  String @id @default(cuid())
-  uri String
-
-  actorDid String
-  actor    Actor  @relation(fields: [actorDid], references: [did], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([uri])
-  @@index([actorDid])
-}
-
 model TranslatablePost {
   id       String @id @default(cuid())
   uri      String @unique
@@ -47,16 +21,38 @@ model TranslatablePost {
   @@index([uri])
 }
 
+enum TranslationService {
+  GOOGLE
+  DEEPL
+}
+
 model PostTranslation {
   id       String @id @default(cuid())
   language String
   text     String @db.Text
 
+  service TranslationService @default(GOOGLE)
+
   postUri String
   post    TranslatablePost @relation(fields: [postUri], references: [uri], onDelete: Cascade)
+
+  translatorDid String?
+  translator    Account? @relation(fields: [translatorDid], references: [did], onDelete: SetNull)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([postUri])
+  @@index([translatorDid])
+  @@index([postUri, language, service], name: "unique_translation")
+}
+
+model Account {
+  did String  @id
+  pro Boolean @default(false)
+
+  translations PostTranslation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

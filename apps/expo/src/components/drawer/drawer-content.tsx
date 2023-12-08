@@ -13,6 +13,7 @@ import {
   PaletteIcon,
   SettingsIcon,
   SmartphoneIcon,
+  StarIcon,
   SunIcon,
   TicketIcon,
 } from "lucide-react-native";
@@ -24,7 +25,7 @@ import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { BackButtonOverride } from "../back-button-override";
-import { Text } from "../text";
+import { Text } from "../themed/text";
 import { ActorDetails } from "./actor-details";
 import { useDrawer } from "./context";
 
@@ -124,6 +125,16 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
+        <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
+          <TouchableOpacity
+            accessibilityRole="link"
+            accessibilityLabel="Pro version"
+            className="mt-2 w-full flex-row items-center py-2"
+          >
+            <StarIcon color={theme.colors.text} />
+            <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
+          </TouchableOpacity>
+        </Link>
         <TouchableOpacity
           accessibilityRole="button"
           accessibilityLabel="Change theme"
@@ -133,18 +144,6 @@ export const DrawerContent = ({ open }: Props) => {
           <PaletteIcon color={theme.colors.text} />
           <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
-        {/* {agent?.session?.handle === "mozzius.dev" && (
-          <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
-            <TouchableOpacity
-              accessibilityRole="link"
-              accessibilityLabel="Pro version"
-              className="mt-2 w-full flex-row items-center py-2"
-            >
-              <StarIcon color={theme.colors.text} />
-              <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
-            </TouchableOpacity>
-          </Link>
-        )} */}
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
           <TouchableOpacity
             accessibilityRole="link"

@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { UserCircleIcon } from "lucide-react-native";
+import { CircleUserIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
@@ -33,7 +33,7 @@ export const PostAvatar = ({ profile, avatarSize = "normal" }: Props) => {
                 "h-10 w-10": avatarSize === "reduced",
                 "h-12 w-12": avatarSize === "normal",
               },
-              theme.dark ? theme.colors.card : "bg-neutral-200",
+              theme.dark ? theme.colors.card : "bg-neutral-300",
             )}
           />
         ) : (
@@ -44,10 +44,10 @@ export const PostAvatar = ({ profile, avatarSize = "normal" }: Props) => {
                 "h-10 w-10": avatarSize === "reduced",
                 "h-12 w-12": avatarSize === "normal",
               },
-              theme.dark ? theme.colors.card : "bg-neutral-200",
+              theme.dark ? theme.colors.card : "bg-neutral-400",
             )}
           >
-            <UserCircleIcon size={32} color={theme.colors.text} />
+            <CircleUserIcon size={32} color={theme.colors.text} />
           </View>
         )}
       </TouchableOpacity>

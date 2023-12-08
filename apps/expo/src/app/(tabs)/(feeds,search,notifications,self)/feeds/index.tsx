@@ -23,7 +23,7 @@ import {
   NoFeeds,
   SectionHeader,
 } from "~/components/screens/feeds-screen-elements";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useSavedFeeds } from "~/lib/hooks";
 import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";

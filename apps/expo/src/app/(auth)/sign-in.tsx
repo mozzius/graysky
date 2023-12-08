@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
-import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -8,8 +12,9 @@ import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
 import { z } from "zod";
 
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { cx } from "~/lib/utils/cx";
@@ -62,13 +67,11 @@ export default function SignIn() {
         >
           <UserIcon size={18} color="rgb(163 163 163)" />
           <TextInput
-            style={{ color: theme.colors.text }}
             className="ml-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="Username or email address"
             value={identifier}
             onChangeText={setIdentifier}
             autoCapitalize="none"
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
             onBlur={() => {
               let fixed = identifier;
               if (identifier.startsWith("@")) fixed = identifier.slice(1);
@@ -77,7 +80,6 @@ export default function SignIn() {
               setIdentifier(fixed);
             }}
             autoFocus
-            keyboardAppearance={theme.dark ? "dark" : "light"}
           />
         </View>
         <View
@@ -92,14 +94,11 @@ export default function SignIn() {
         >
           <LockIcon size={18} color="rgb(163 163 163)" />
           <TextInput
-            style={{ color: theme.colors.text }}
             className="mx-2 flex-1 overflow-visible py-3 text-base leading-5"
             placeholder="App Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-            keyboardAppearance={theme.dark ? "dark" : "light"}
             onFocus={() => setHasFocusedPassword(true)}
           />
           <TextButton
@@ -155,10 +154,10 @@ export default function SignIn() {
         )}
         <Animated.View
           className="flex-row items-center justify-between pt-1"
-          layout={Layout}
+          layout={LinearTransition}
         >
           <TextButton onPress={() => router.push("/sign-up")} title="Sign up" />
-          {!login.isLoading ? (
+          {!login.isPending ? (
             <TextButton
               disabled={!identifier || !password}
               onPress={() => login.mutate()}

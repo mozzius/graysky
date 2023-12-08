@@ -14,7 +14,7 @@ const useReposts = (post?: string) => {
       if (!agent.hasSession) throw new Error("Not logged in");
       const followers = await agent.getRepostedBy({
         uri: post,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!followers.success) throw new Error("Could not fetch follows");
       return {
@@ -23,6 +23,7 @@ const useReposts = (post?: string) => {
       };
     },
     enabled: !!post,
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 };

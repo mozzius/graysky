@@ -5,27 +5,22 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  StyleSheet,
-  TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
-  FadeIn,
   FadeInDown,
   FadeOut,
   FadeOutDown,
-  Layout,
+  FadeOutLeft,
+  LinearTransition,
   SlideInUp,
   SlideOutUp,
 } from "react-native-reanimated";
-import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import {
-  Link,
   Stack,
   useLocalSearchParams,
   useNavigation,
@@ -33,30 +28,32 @@ import {
 } from "expo-router";
 import {
   RichText as RichTextHelper,
-  type AppBskyActorDefs,
   type AppBskyEmbedExternal,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   CheckIcon,
+  LanguagesIcon,
   PaperclipIcon,
   PlusIcon,
-  SendIcon,
-  Trash2Icon,
-  UserIcon,
   XIcon,
 } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
 import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
+import { AltTextEditor } from "~/lib/composer/alt-text-editor";
+import { CancelButton, PostButton } from "~/lib/composer/buttons";
+import { KeyboardAccessory } from "~/lib/composer/keyboard-accessory";
+import { SuggestionList } from "~/lib/composer/suggestion-list";
 import {
   MAX_IMAGES,
   MAX_LENGTH,
@@ -65,9 +62,12 @@ import {
   useQuote,
   useReply,
   useSendPost,
-  type ImageWithAlt,
-} from "~/lib/hooks/composer";
-import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
+} from "~/lib/composer/utils";
+import {
+  useAppPreferences,
+  useContentFilter,
+  useHaptics,
+} from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
@@ -99,12 +99,13 @@ export default function ComposerScreen() {
   const agent = useAgent();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
+  const [{ primaryLanguage }] = useAppPreferences();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
 
-  const searchParams = useLocalSearchParams<{ gif: string }>();
+  const searchParams = useLocalSearchParams<{ gif: string; langs: string }>();
 
   const gif = searchParams.gif
     ? (JSON.parse(searchParams.gif) as {
@@ -112,6 +113,7 @@ export default function ComposerScreen() {
         main: AppBskyEmbedExternal.Main;
       })
     : null;
+  const languages = searchParams.langs?.split(",");
 
   const selectionRef = useRef<Selection>({
     start: 0,
@@ -120,6 +122,7 @@ export default function ComposerScreen() {
   const inputRef = useRef<TextInput>(null!);
   const keyboardScrollViewRef = useRef<KeyboardAwareScrollView>(null);
   const anchorRef = useRef<TouchableOpacity>(null);
+  const keyboardMaxHeight = useKeyboardMaxHeight();
 
   const reply = useReply();
   const quote = useQuote();
@@ -158,12 +161,11 @@ export default function ComposerScreen() {
       if (!actors.success) throw new Error("Cannot fetch suggestions");
       return actors.data.actors;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const suggestions = suggestionsQuery.data ?? [];
 
-  const tooLong = (rt.graphemeLength ?? 0) > MAX_LENGTH;
   const isEmpty = text.trim().length === 0 && images.length === 0 && !gif;
 
   const send = useSendPost({
@@ -173,6 +175,7 @@ export default function ComposerScreen() {
     quote: quote.ref,
     external: external.query.data,
     gif: gif?.main,
+    languages,
   });
 
   useEffect(() => {
@@ -187,14 +190,19 @@ export default function ComposerScreen() {
         editingAltText={editingAltText}
         setEditingAltText={setEditingAltText}
         addAltText={addAltText}
+        keyboardHeight={keyboardMaxHeight}
       />
     );
   }
 
   return (
-    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+    <View
+      className="relative flex-1"
+      style={{ backgroundColor: theme.colors.card }}
+    >
       <Stack.Screen
         options={{
+          headerBackVisible: false,
           headerLeft: () => (
             <CancelButton
               hasContent={!isEmpty}
@@ -202,7 +210,7 @@ export default function ComposerScreen() {
               onCancel={() => {
                 inputRef.current.focus();
               }}
-              disabled={send.isLoading}
+              disabled={send.isPending}
             />
           ),
           headerRight: () => (
@@ -232,10 +240,10 @@ export default function ComposerScreen() {
               }}
               disabled={
                 isEmpty ||
-                send.isLoading ||
+                send.isPending ||
                 (rt.graphemeLength ?? 0) > MAX_LENGTH
               }
-              loading={send.isLoading}
+              loading={send.isPending}
             />
           ),
           headerTitleStyle: { color: "transparent" },
@@ -246,7 +254,7 @@ export default function ComposerScreen() {
           className="bg-red-500 px-4 py-3"
           entering={SlideInUp}
           exiting={SlideOutUp}
-          layout={Layout}
+          layout={LinearTransition}
         >
           <Text className="text-base font-medium leading-5 text-white">
             {send.error instanceof Error
@@ -256,12 +264,13 @@ export default function ComposerScreen() {
           <Text className="my-0.5 text-white/90">Please try again</Text>
         </Animated.View>
       )}
-      <Animated.View layout={Layout} className="flex-1">
+      <Animated.View layout={LinearTransition} className="flex-1">
         <KeyboardAwareScrollView
           ref={keyboardScrollViewRef}
           className="py-4"
           alwaysBounceVertical={!isEmpty}
           keyboardShouldPersistTaps="handled"
+          extraScrollHeight={64}
         >
           {reply.thread.data && (
             <TouchableOpacity
@@ -269,7 +278,7 @@ export default function ComposerScreen() {
               className="flex-1"
             >
               <Animated.View
-                layout={Layout}
+                layout={LinearTransition}
                 pointerEvents="none"
                 className="flex-1"
               >
@@ -290,7 +299,7 @@ export default function ComposerScreen() {
           )}
           <Animated.View
             className="w-full flex-1 flex-row px-2 pb-6"
-            layout={Layout}
+            layout={LinearTransition}
           >
             <View className="shrink-0 px-2">
               <Avatar size="medium" />
@@ -307,7 +316,6 @@ export default function ComposerScreen() {
                   }}
                   multiline
                   className="relative -top-[3px] w-full text-lg leading-6"
-                  style={{ color: theme.colors.text }}
                   placeholder={
                     reply.thread.data
                       ? `Replying to @${reply.thread.data.post.author.handle}`
@@ -317,7 +325,6 @@ export default function ComposerScreen() {
                     ios: "twitter",
                     default: "default",
                   })}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
                   verticalAlign="middle"
                   textAlignVertical="center"
                   autoFocus
@@ -329,11 +336,10 @@ export default function ComposerScreen() {
                     if (keyboardScrollViewRef.current) {
                       keyboardScrollViewRef.current.scrollToFocusedInput(
                         findNodeHandle(evt.target) || {},
-                        75,
+                        193,
                       );
                     }
                   }}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 >
                   <RichText
                     size="lg"
@@ -361,52 +367,6 @@ export default function ComposerScreen() {
                     }
                   />
                 )}
-              {/* BUTTONS AND STUFF */}
-              <Animated.View
-                className="w-full flex-row items-end justify-between"
-                layout={Layout}
-              >
-                <TouchableOpacity
-                  className="mt-4 flex-row items-center"
-                  hitSlop={8}
-                  onPress={() => imagePicker.mutate()}
-                  ref={anchorRef}
-                >
-                  <PaperclipIcon
-                    size={18}
-                    className={
-                      theme.dark ? "text-neutral-400" : "text-neutral-500"
-                    }
-                  />
-
-                  <Animated.Text
-                    className={cx(
-                      "ml-2",
-                      theme.dark ? "text-neutral-400" : "text-neutral-500",
-                    )}
-                    entering={FadeIn}
-                    exiting={FadeOut}
-                  >
-                    {images.length > 0
-                      ? `${images.length} / ${MAX_IMAGES} images`
-                      : "Attach images"}
-                  </Animated.Text>
-                </TouchableOpacity>
-                {(rt.graphemeLength ?? 0) > 50 && (
-                  <Animated.Text
-                    style={{
-                      color: !tooLong
-                        ? theme.colors.text
-                        : theme.colors.notification,
-                    }}
-                    entering={FadeIn}
-                    exiting={FadeOut}
-                    className="text-right"
-                  >
-                    {rt.graphemeLength} / {MAX_LENGTH}
-                  </Animated.Text>
-                )}
-              </Animated.View>
             </View>
           </Animated.View>
           <Animated.View />
@@ -417,8 +377,8 @@ export default function ComposerScreen() {
               showsHorizontalScrollIndicator={false}
               className="mt-4 w-full flex-1 pb-2 pl-16"
               entering={FadeInDown}
-              exiting={FadeOutDown}
-              layout={Layout}
+              exiting={FadeOut}
+              layout={LinearTransition}
               keyboardShouldPersistTaps="handled"
             >
               {images.map((image, i) => (
@@ -428,11 +388,11 @@ export default function ComposerScreen() {
                     "relative overflow-hidden rounded-md",
                     i !== 3 && "mr-2",
                   )}
-                  layout={Layout}
-                  exiting={FadeOut}
+                  layout={LinearTransition}
+                  exiting={FadeOutLeft}
                 >
                   <AnimatedImage
-                    sharedTransitionTag={`image-${i}`}
+                    // sharedTransitionTag={`image-${i}`}
                     cachePolicy="memory"
                     source={{ uri: image.asset.uri }}
                     alt={image.alt ?? `image ${i + 1}`}
@@ -486,7 +446,10 @@ export default function ComposerScreen() {
                 </Animated.View>
               ))}
               {images.length < MAX_IMAGES && (
-                <Animated.View layout={Layout} className="mr-20 flex-1">
+                <Animated.View
+                  layout={LinearTransition}
+                  className="mr-20 flex-1"
+                >
                   <TouchableOpacity
                     onPress={() => {
                       haptics.impact();
@@ -508,12 +471,15 @@ export default function ComposerScreen() {
               )}
             </Animated.ScrollView>
           )}
-          <Animated.View layout={Layout} className="w-full flex-1 pl-16 pr-2">
+          <Animated.View
+            layout={LinearTransition}
+            className="w-full flex-1 pl-16 pr-2"
+          >
             {/* GIF */}
             {gif && (
               <Animated.View
                 className="relative mb-2 flex-1"
-                layout={Layout}
+                layout={LinearTransition}
                 entering={FadeInDown}
                 exiting={FadeOutDown}
               >
@@ -535,7 +501,7 @@ export default function ComposerScreen() {
             {/* EMBED/QUOTE */}
             {(!!quote.thread.data || hasExternal) && (
               <Animated.View
-                layout={Layout}
+                layout={LinearTransition}
                 entering={FadeInDown}
                 className="w-full flex-1"
               >
@@ -606,6 +572,63 @@ export default function ComposerScreen() {
           </Animated.View>
         </KeyboardAwareScrollView>
       </Animated.View>
+      <KeyboardAccessory charCount={rt.graphemeLength}>
+        <TouchableHighlight
+          className="rounded-full"
+          accessibilityLabel="Add image or GIF"
+          accessibilityRole="button"
+          onPress={() => {
+            haptics.impact();
+            imagePicker.mutate();
+          }}
+        >
+          <View
+            className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+            style={{
+              backgroundColor: theme.dark
+                ? colors.neutral[800]
+                : theme.colors.background,
+            }}
+          >
+            <PaperclipIcon size={20} />
+            <Text
+              style={{ color: theme.colors.primary }}
+              className="ml-2.5 mr-1 font-medium"
+            >
+              Add image
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          className="rounded-full"
+          accessibilityLabel="Add image or GIF"
+          accessibilityRole="button"
+          onPress={() => {
+            haptics.impact();
+            const search = new URLSearchParams();
+            if (searchParams.langs) search.append("langs", searchParams.langs);
+            if (searchParams.gif) search.append("gif", searchParams.gif);
+            router.push("/composer/language?" + search.toString());
+          }}
+        >
+          <View
+            className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+            style={{
+              backgroundColor: theme.dark
+                ? colors.neutral[800]
+                : theme.colors.background,
+            }}
+          >
+            <LanguagesIcon size={20} />
+            <Text
+              style={{ color: theme.colors.primary }}
+              className="ml-2.5 mr-1 font-medium uppercase"
+            >
+              {languages?.join(", ") ?? primaryLanguage}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </KeyboardAccessory>
     </View>
   );
 }
@@ -619,7 +642,7 @@ const LoadableEmbed = ({
   if (!url) return null;
 
   switch (query.status) {
-    case "loading":
+    case "pending":
       return (
         <View className="w-full flex-1 py-3">
           <ActivityIndicator size="large" color={theme.colors.text} />
@@ -643,318 +666,4 @@ const LoadableEmbed = ({
         </View>
       );
   }
-};
-
-const PostButton = ({
-  onPress,
-  loading,
-  disabled,
-}: {
-  onPress: () => void;
-  loading: boolean;
-  disabled: boolean;
-}) => {
-  const theme = useTheme();
-
-  return (
-    <View className="flex-row items-center">
-      <TouchableWithoutFeedback disabled={disabled} onPress={onPress}>
-        <View
-          className={cx(
-            "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
-            disabled && !loading && "opacity-50",
-          )}
-          style={{ backgroundColor: theme.colors.primary }}
-        >
-          <Text className="mr-2 text-base font-medium text-white">Post</Text>
-          <SendIcon size={12} className="text-white" />
-          {loading && (
-            <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
-              className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center"
-              style={{ backgroundColor: theme.colors.primary }}
-            >
-              <ActivityIndicator size="small" color="white" />
-            </Animated.View>
-          )}
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  );
-};
-
-const CancelButton = ({
-  hasContent,
-  onSave,
-  onCancel,
-  disabled,
-}: {
-  hasContent: boolean;
-  onSave: () => void;
-  onCancel: () => void;
-  disabled?: boolean;
-}) => {
-  const theme = useTheme();
-  const router = useRouter();
-  const { showActionSheetWithOptions } = useActionSheet();
-
-  const haptics = useHaptics();
-
-  const handleCancel = async () => {
-    haptics.impact();
-    if (Platform.OS === "android") Keyboard.dismiss();
-    const options = ["Discard post", "Cancel"];
-    const icons = [
-      <Trash2Icon key={0} size={24} className="text-red-500" />,
-      <></>,
-    ];
-    const selected = await new Promise((resolve) => {
-      showActionSheetWithOptions(
-        {
-          options,
-          icons,
-          cancelButtonIndex: options.length - 1,
-          destructiveButtonIndex: 0,
-          ...actionSheetStyles(theme),
-        },
-        (index) => resolve(options[index!]),
-      );
-    });
-    switch (selected) {
-      case "Discard post":
-        haptics.impact();
-        Platform.select({
-          ios: () => router.push("../"),
-          default: () =>
-            router.canGoBack() ? router.back() : router.replace("/feeds"),
-        })();
-        break;
-      case "Save to drafts":
-        onSave();
-        break;
-      default:
-        onCancel();
-        break;
-    }
-  };
-
-  if (hasContent) {
-    return (
-      <TouchableOpacity
-        disabled={disabled}
-        accessibilityLabel="Discard post"
-        onPress={() => void handleCancel()}
-      >
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
-          Cancel
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
-  return (
-    <Link href="../" asChild>
-      <TouchableOpacity accessibilityRole="link">
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
-          Cancel
-        </Text>
-      </TouchableOpacity>
-    </Link>
-  );
-};
-
-const SuggestionList = ({
-  suggestions,
-  onInsertHandle,
-}: {
-  suggestions: AppBskyActorDefs.ProfileViewBasic[];
-  onInsertHandle: (handle: string) => void;
-}) => {
-  return (
-    <Animated.View
-      entering={FadeInDown}
-      exiting={FadeOut}
-      layout={Layout}
-      className="mt-2"
-    >
-      {suggestions.map((actor) => {
-        const { following, followedBy } = actor.viewer ?? {};
-
-        let text: string | null = null;
-
-        if (following && followedBy) {
-          text = "You are mutuals";
-        } else if (following) {
-          text = "You follow them";
-        } else if (followedBy) {
-          text = "Follows you";
-        }
-
-        return (
-          <TouchableOpacity
-            key={actor.did}
-            onPress={() => onInsertHandle(actor.handle)}
-          >
-            <Animated.View entering={FadeIn} className="flex-row p-1">
-              <Image
-                className="mr-2.5 mt-1.5 h-8 w-8 shrink-0 rounded-full bg-neutral-200 dark:bg-neutral-600"
-                source={{ uri: actor.avatar }}
-                alt={actor.displayName ?? `@${actor.handle}`}
-              />
-              <View>
-                {actor.displayName ? (
-                  <Text className="text-base font-medium" numberOfLines={1}>
-                    {actor.displayName}
-                  </Text>
-                ) : (
-                  <View className="h-2.5" />
-                )}
-                <Text className="text-sm text-neutral-500" numberOfLines={1}>
-                  @{actor.handle}
-                </Text>
-                {text && (
-                  <View className="my-0.5 flex-row items-center">
-                    <UserIcon
-                      size={12}
-                      className="mr-0.5 mt-px text-neutral-500"
-                      strokeWidth={3}
-                    />
-                    <Text className="text-xs font-medium text-neutral-500">
-                      {text}
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </Animated.View>
-          </TouchableOpacity>
-        );
-      })}
-    </Animated.View>
-  );
-};
-
-interface AltTextEditorProps {
-  image: ImageWithAlt;
-  editingAltText: number;
-  setEditingAltText: (index: number | null) => void;
-  addAltText: (index: number, alt: string) => void;
-}
-
-const AltTextEditor = ({
-  setEditingAltText,
-  editingAltText,
-  image,
-  addAltText,
-}: AltTextEditorProps) => {
-  const theme = useTheme();
-  const haptics = useHaptics();
-  const [expandPreview, setExpandPreview] = useState(false);
-  const keyboardHeight = useKeyboardMaxHeight();
-  const frame = useSafeAreaFrame();
-  const headerHeight = useHeaderHeight();
-  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
-
-  return (
-    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
-      <Stack.Screen
-        options={{
-          headerTitle: "Edit alt text",
-          headerLeft: () => null,
-          headerRight: () => (
-            <View className="relative justify-center">
-              <TouchableOpacity
-                onPress={() => {
-                  haptics.selection();
-                  setEditingAltText(null);
-                  setExpandPreview(false);
-                }}
-                className="absolute right-0"
-              >
-                <Text
-                  style={{ color: theme.colors.primary }}
-                  className="text-lg font-medium"
-                >
-                  Done
-                </Text>
-              </TouchableOpacity>
-              <View className="-z-50 opacity-0" pointerEvents="none">
-                <PostButton
-                  disabled
-                  loading={false}
-                  onPress={() => {
-                    throw Error("unreachable");
-                  }}
-                />
-              </View>
-            </View>
-          ),
-          headerTitleStyle: { color: theme.colors.text },
-        }}
-      />
-      <KeyboardAwareScrollView
-        className="flex-1 px-4"
-        extraScrollHeight={32}
-        keyboardShouldPersistTaps="handled"
-        ref={altTextScrollViewRef}
-      >
-        <View className="flex-1 items-center py-4">
-          <TouchableWithoutFeedback
-            className="flex-1"
-            accessibilityLabel="Toggle expanding the image to full width"
-            onPress={() => {
-              haptics.impact();
-              setExpandPreview((currentlyExpanded) => {
-                if (!currentlyExpanded)
-                  setTimeout(
-                    () => altTextScrollViewRef.current?.scrollToEnd(),
-                    250,
-                  );
-                return !currentlyExpanded;
-              });
-            }}
-          >
-            <AnimatedImage
-              // doesn't work yet but on the reanimated roadmap
-              sharedTransitionTag={`image-${editingAltText}`}
-              layout={Layout}
-              entering={FadeIn}
-              cachePolicy="memory"
-              source={{ uri: image.asset.uri }}
-              alt={image.alt ?? `image ${editingAltText + 1}`}
-              className="h-full w-full flex-1 rounded-md"
-              style={{
-                aspectRatio: image.asset.width / image.asset.height,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: theme.colors.border,
-                maxHeight: expandPreview
-                  ? undefined
-                  : frame.height - headerHeight - keyboardHeight - 100,
-              }}
-            />
-          </TouchableWithoutFeedback>
-        </View>
-        <Animated.View className="flex-1" layout={Layout} entering={FadeIn}>
-          <TextInput
-            value={image.alt}
-            onChange={(evt) => addAltText(editingAltText, evt.nativeEvent.text)}
-            multiline
-            className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
-            numberOfLines={5}
-            autoFocus
-            scrollEnabled={false}
-            keyboardAppearance={theme.dark ? "dark" : "light"}
-            placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-            style={{
-              color: theme.colors.text,
-              borderWidth: StyleSheet.hairlineWidth,
-              borderColor: theme.colors.border,
-            }}
-            textAlignVertical="top"
-            placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-          />
-        </Animated.View>
-      </KeyboardAwareScrollView>
-    </View>
-  );
 };

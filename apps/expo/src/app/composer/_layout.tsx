@@ -5,7 +5,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 
 export default function ComposerLayout() {
   const theme = useTheme();
@@ -17,6 +17,7 @@ export default function ComposerLayout() {
       <Stack screenOptions={{ customAnimationOnGesture: true }}>
         <Stack.Screen name="index" options={{ title: "New Post" }} />
         <Stack.Screen name="drafts" options={{ title: "Drafts" }} />
+        <Stack.Screen name="language" options={{ title: "Post Language" }} />
         <Stack.Screen
           name="gifs"
           options={{

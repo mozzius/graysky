@@ -14,6 +14,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import {
+  keepPreviousData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -28,25 +29,23 @@ import { PersonRow } from "~/components/lists/person-row";
 import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichTextWithoutFacets } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { useQuickAction } from "~/lib/quick-actions";
 import { cx } from "~/lib/utils/cx";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const action = useQuickAction();
+
+  const autoFocus = action?.id === "search";
 
   const ref = useRef<SearchBarCommands>(null);
-
-  useTabPress(() => {
-    if (ref.current) {
-      ref.current.focus();
-    }
-  });
 
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search users, posts, feeds",
@@ -55,12 +54,20 @@ export default function SearchPage() {
     onBlur: () => setIsSearching(false),
     hideWhenScrolling: false,
     hideNavigationBar: false,
+    autoFocus,
     ref,
   });
+
   const headerLeft = useCallback(
     () => (Platform.OS === "android" ? null : <OpenDrawerAvatar />),
     [],
   );
+
+  useTabPress(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  });
 
   return (
     <>
@@ -100,8 +107,7 @@ const SearchResults = ({ search }: Props) => {
       if (!success) throw new Error("Failed to search");
       return data;
     },
-    getNextPageParam: (lastPage) => lastPage.cursor,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const data = useMemo(() => {
@@ -180,11 +186,12 @@ const Suggestions = () => {
     queryKey: ["network"],
     queryFn: async ({ pageParam }) => {
       const result = await agent.getSuggestions({
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
       if (!result.success) throw new Error("Failed to get suggestions");
       return result;
     },
+    initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
@@ -266,20 +273,27 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             </View>
             {!item.viewer?.following && (
               <TouchableOpacity
-                disabled={follow.isLoading}
+                disabled={follow.isPending}
                 onPress={() => {
-                  if (follow.isLoading) return;
+                  if (follow.isPending) return;
                   if (follow.isSuccess) {
                     router.push(href);
-                    void queryClient.invalidateQueries(["network"]);
+                    void queryClient.invalidateQueries({
+                      queryKey: ["network"],
+                    });
                   } else {
                     follow.mutate();
                   }
                 }}
                 className={cx(
-                  "shrink-0 rounded-full border border-white px-4 py-1",
-                  follow.isIdle ? "bg-black" : "bg-neutral-100",
+                  "shrink-0 rounded-full border-white px-4 py-1",
+                  follow.isIdle
+                    ? theme.dark
+                      ? theme.colors.card
+                      : "bg-black"
+                    : "bg-neutral-100",
                 )}
+                style={{ borderWidth: StyleSheet.hairlineWidth }}
               >
                 <Text className={cx("text-sm", follow.isIdle && "text-white")}>
                   {follow.isIdle ? "Follow" : "Following"}

@@ -5,23 +5,33 @@ import { FlashList } from "@shopify/flash-list";
 
 import { ItemSeparator } from "./item-separator";
 import { PersonRow } from "./lists/person-row";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   profiles: AppBskyActorDefs.ProfileView[];
   emptyText?: string;
+  onProfilePress?: (evt: {
+    preventDefault: () => void;
+    person: AppBskyActorDefs.ProfileView;
+  }) => void;
 }
 
 export const ProfileList = ({
   profiles,
   emptyText = "No profiles found",
+  onProfilePress,
 }: Props) => {
   const theme = useTheme();
 
   return (
     <FlashList<AppBskyActorDefs.ProfileView>
       data={profiles}
-      renderItem={({ item }) => <PersonRow person={item} />}
+      renderItem={({ item }) => (
+        <PersonRow
+          person={item}
+          onPress={(evt) => onProfilePress?.({ ...evt, person: item })}
+        />
+      )}
       estimatedItemSize={61}
       ItemSeparatorComponent={() => (
         <ItemSeparator

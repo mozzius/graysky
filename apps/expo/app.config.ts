@@ -4,11 +4,17 @@ import dotenv from "dotenv";
 
 import { version } from "./package.json";
 
-dotenv.config({
-  path: "../../.env",
-});
-
-// todo: https://docs.expo.dev/build-reference/variables/#how-to-upload-a-secret-file-and-use-it-in-my-app-config
+// HACKFIX - .env is not copied to the working directory for eas local builds
+if (__dirname.includes("eas-workingdir")) {
+  // for eas local builds
+  dotenv.config({
+    path: "../../../../../../.env",
+  });
+} else {
+  dotenv.config({
+    path: "../../.env",
+  });
+}
 
 const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
@@ -64,8 +70,10 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       : undefined,
     revenueCat: {
       ios: process.env.REVENUECAT_API_KEY_IOS,
+      android: process.env.REVENUECAT_API_KEY_ANDROID,
     },
     sentry: process.env.SENTRY_DSN,
+    devClient: process.env.DEV_CLIENT === "true",
   },
   hooks: {
     postPublish: process.env.SENTRY_AUTH_TOKEN
@@ -86,7 +94,14 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
-    "expo-build-properties",
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          deploymentTarget: "14.0",
+        },
+      },
+    ],
     "expo-localization",
     "sentry-expo",
     "expo-router",
@@ -107,6 +122,57 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       },
     ],
     ["expo-notifications", { color: "#333333" }],
+    [
+      "expo-quick-actions",
+      {
+        androidIcons: {
+          shortcut_search: {
+            foregroundImage: "./assets/adaptive/search_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_compose: {
+            foregroundImage: "./assets/adaptive/compose_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_settings: {
+            foregroundImage: "./assets/adaptive/settings_icon.png",
+            backgroundColor: "#121212",
+          },
+          shortcut_about: {
+            foregroundImage: "./assets/adaptive/info_icon.png",
+            backgroundColor: "#121212",
+          },
+        },
+        iosActions: [
+          {
+            id: "search",
+            title: "Search",
+            icon: "search",
+            params: { href: "/search" },
+          },
+          {
+            id: "new-post",
+            title: "New Post",
+            icon: "compose",
+            params: { href: "/composer" },
+          },
+          {
+            id: "settings",
+            title: "Settings",
+            icon: "symbol:gearshape",
+            params: { href: "/settings" },
+          },
+          {
+            id: "about",
+            title: "About",
+            icon: "symbol:info.circle",
+            params: { href: "/settings/about" },
+          },
+        ],
+      },
+    ],
+    // entitlement issue - https://github.com/andrew-levy/react-native-safari-extension/issues/18
+    // ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
   ],
 });
 

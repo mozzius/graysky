@@ -63,7 +63,7 @@ export default function SettingsPage() {
   const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
 
   return (
-    <GroupedList groups={groups} contentInsetAdjustmentBehavior="automatic">
+    <GroupedList groups={groups}>
       <View className="mb-4 flex-1">
         <SwitchAccounts
           sessions={sessions ?? []}

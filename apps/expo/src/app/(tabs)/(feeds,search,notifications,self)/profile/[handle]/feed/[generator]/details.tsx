@@ -20,12 +20,13 @@ import {
   ShareIcon,
   StarIcon,
 } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import {
   useFeedInfo,
@@ -91,7 +92,8 @@ const FeedInfo = ({
         await agent.like(info.view.uri, info.view.cid);
       }
     },
-    onSettled: () => queryClient.invalidateQueries(["generator", feed]),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: ["generator", feed] }),
   });
 
   const creator = useQuery({
@@ -165,10 +167,10 @@ const FeedInfo = ({
             <TouchableHighlight
               className={cx(
                 "flex-1 rounded",
-                toggleSave.isLoading && "opacity-50",
+                toggleSave.isPending && "opacity-50",
               )}
               onPress={() => toggleSave.mutate({ save: info.view.uri })}
-              disabled={toggleSave.isLoading}
+              disabled={toggleSave.isPending}
             >
               <View
                 className={cx(
@@ -204,9 +206,9 @@ const FeedInfo = ({
                 onPress={() => toggleSave.mutate({ pin: info.view.uri })}
                 className={cx(
                   "ml-2 rounded",
-                  toggleSave.isLoading && "opacity-50",
+                  toggleSave.isPending && "opacity-50",
                 )}
-                disabled={toggleSave.isLoading}
+                disabled={toggleSave.isPending}
               >
                 <View
                   className={cx(
@@ -233,7 +235,7 @@ const FeedInfo = ({
               onPress={() => toggleLike.mutate()}
               className={cx(
                 "ml-2 rounded",
-                toggleLike.isLoading && "opacity-50",
+                toggleLike.isPending && "opacity-50",
               )}
             >
               <View
@@ -244,14 +246,16 @@ const FeedInfo = ({
                       ? "border-red-800 bg-red-950"
                       : "border-red-200 bg-red-100"
                     : theme.dark
-                    ? "border-neutral-700 bg-black"
-                    : "border-neutral-300 bg-white",
+                      ? "border-neutral-700 bg-black"
+                      : "border-neutral-300 bg-white",
                 )}
               >
                 <HeartIcon
                   className="h-8 w-8"
-                  color={"#dc2626"}
-                  fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
+                  color={colors.red[600]}
+                  fill={
+                    info.view.viewer?.like ? colors.red[600] : "transparent"
+                  }
                 />
                 <Text className="ml-2 text-base tabular-nums">
                   {info.view.likeCount}

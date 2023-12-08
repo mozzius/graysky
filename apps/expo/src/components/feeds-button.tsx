@@ -30,7 +30,7 @@ import {
   NoFeeds,
   SectionHeader,
 } from "./screens/feeds-screen-elements";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   show?: boolean;

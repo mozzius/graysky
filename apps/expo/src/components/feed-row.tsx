@@ -28,7 +28,7 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   feed: AppBskyFeedDefs.GeneratorView;
@@ -105,8 +105,8 @@ export const FeedRow = ({
                     feed.viewer?.like
                       ? "text-red-500"
                       : theme.dark
-                      ? "text-neutral-500"
-                      : "text-neutral-400"
+                        ? "text-neutral-500"
+                        : "text-neutral-400"
                   }
                   size={12}
                 />{" "}
@@ -181,8 +181,8 @@ export const DraggableFeedRow = ({
               ? "text-yellow-500"
               : "text-yellow-400"
             : theme.dark
-            ? "text-neutral-800"
-            : "text-neutral-200"
+              ? "text-neutral-800"
+              : "text-neutral-200"
         }
         fill="currentColor"
       />

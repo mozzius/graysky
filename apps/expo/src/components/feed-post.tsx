@@ -25,7 +25,7 @@ import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 import { Translation } from "./translation";
 
 interface Props {
@@ -161,8 +161,8 @@ const FeedPostInner = ({
             ? "border-slate-600 bg-slate-800"
             : "border-blue-200 bg-blue-50"
           : theme.dark
-          ? "bg-black"
-          : "bg-white",
+            ? "bg-black"
+            : "bg-white",
         background === "transparent" && "bg-transparent",
       )}
       style={unread ? undefined : { borderBottomColor: theme.colors.border }}
@@ -345,7 +345,7 @@ const FeedPostInner = ({
           {!hideActions && (
             <PostActionRow post={item.post} dataUpdatedAt={dataUpdatedAt}>
               <PostContextMenu
-                post={item.post}
+                post={{ ...item.post, record: item.post.record }}
                 onTranslate={
                   needsTranslation
                     ? undefined
@@ -406,7 +406,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
   const agent = useAgent();
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["post", uri],
     queryFn: async () => {
       const thread = await agent.getPostThread({
@@ -420,7 +420,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
 
   if (!AppBskyFeedDefs.isThreadViewPost(data)) {
     let text = "replying to a post that couldn't be fetched";
-    if (isLoading) {
+    if (isPending) {
       text = "replying to...";
     }
     if (AppBskyFeedDefs.isBlockedPost(data)) {

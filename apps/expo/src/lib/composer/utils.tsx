@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import {
+  Alert,
   findNodeHandle,
   Keyboard,
   Platform,
@@ -20,6 +21,7 @@ import {
   type AppBskyEmbedRecordWithMedia,
   type BlobRef,
   type BskyAgent,
+  type ComAtprotoLabelDefs,
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
@@ -31,8 +33,8 @@ import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
+import { useAppPreferences } from "../hooks/preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
-import { useAppPreferences } from "./preferences";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -66,6 +68,13 @@ export const useComposer = () => {
   return {
     open: () => router.push("/composer"),
     reply: (post: AppBskyFeedDefs.PostView) => {
+      if (post.viewer?.replyDisabled) {
+        Alert.alert(
+          "Replying disabled",
+          "This post has been threadgated, so you cannot reply to it",
+        );
+        return;
+      }
       queryClient.setQueryData(["context", post.uri], {
         post,
       } satisfies AppBskyFeedDefs.ThreadViewPost);
@@ -147,6 +156,8 @@ export const useSendPost = ({
   quote,
   external,
   gif,
+  languages,
+  selfLabels,
 }: {
   text: string;
   images: ImageWithAlt[];
@@ -154,6 +165,8 @@ export const useSendPost = ({
   quote?: AppBskyEmbedRecord.Main;
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   gif?: AppBskyEmbedExternal.Main;
+  languages?: string[];
+  selfLabels?: string[];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -297,18 +310,26 @@ export const useSendPost = ({
         }
       }
 
+      let labels: ComAtprotoLabelDefs.SelfLabels | undefined;
+      if (selfLabels?.length) {
+        labels = {
+          $type: "com.atproto.label.defs#selfLabels",
+          values: selfLabels.map((val) => ({ val })),
+        };
+      }
+
       await agent.post({
         text: rt.text,
         facets: rt.facets,
         tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
-        // TODO: LANGUAGE SELECTOR
-        langs: [primaryLanguage],
+        langs: languages ?? [primaryLanguage],
+        labels,
       });
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries(["profile"]);
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
       router.push("../");
       showToastable({
         message: "Post published!",

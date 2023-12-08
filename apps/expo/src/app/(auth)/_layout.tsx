@@ -4,7 +4,7 @@ import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useCanGoBack } from "~/lib/hooks/can-go-back";
 
 export default function AuthLayout() {

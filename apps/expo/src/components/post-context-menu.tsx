@@ -32,7 +32,7 @@ import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useLists } from "./lists/context";
 
 interface Props {
-  post: AppBskyFeedDefs.PostView;
+  post: AppBskyFeedDefs.PostView & { record: AppBskyFeedPost.Record };
   showSeeLikes?: boolean;
   showSeeReposts?: boolean;
   showCopyText?: boolean;
@@ -57,6 +57,8 @@ const PostContextMenuButton = ({
   const path = usePathname();
 
   const rkey = post.uri.split("/").pop()!;
+
+  const translate = () => onTranslate?.();
 
   const share = () => {
     const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
@@ -89,7 +91,9 @@ const PostContextMenuButton = ({
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onPress: async () => {
           await agent.deletePost(post.uri);
-          void queryClient.invalidateQueries();
+          await queryClient.refetchQueries({
+            queryKey: ["profile", post.author.did, "post", post.uri],
+          });
           showToastable({
             message: "Post deleted",
             status: "danger",
@@ -152,7 +156,7 @@ const PostContextMenuButton = ({
       ? {
           key: "translate",
           label: "Translate",
-          action: () => onTranslate(),
+          action: () => translate(),
           icon: "character.book.closed",
           reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
         }

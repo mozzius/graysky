@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, TextInput, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
@@ -8,8 +8,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText } from "~/components/rich-text";
-import { Text } from "~/components/text";
 import { TextButton } from "~/components/text-button";
+import { Text } from "~/components/themed/text";
+import { TextInput } from "~/components/themed/text-input";
+import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSelf } from ".";
 
@@ -46,8 +48,8 @@ export default function EditBio() {
     },
     onSettled: () => {
       router.push("../");
-      void queryClient.invalidateQueries(["self"]);
-      void queryClient.invalidateQueries(["profile"]);
+      void queryClient.invalidateQueries({ queryKey: ["self"] });
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
   });
 
@@ -55,64 +57,67 @@ export default function EditBio() {
 
   if (self.data) {
     return (
-      <KeyboardAwareScrollView className="flex-1 px-4">
-        <View className="my-4 flex-1">
-          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-            Display name
-          </Text>
-          <View
-            style={{ backgroundColor: theme.colors.card }}
-            className="flex-1 overflow-hidden rounded-lg"
-          >
-            <TextInput
-              value={displayName ?? ""}
-              placeholder="Required"
-              onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
-              className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-              style={{ color: theme.colors.text }}
-              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-            />
-          </View>
-        </View>
-        <View className="mb-4 flex-1">
-          <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-            Description
-          </Text>
-          <View
-            style={{ backgroundColor: theme.colors.card }}
-            className="flex-1 overflow-hidden rounded-lg"
-          >
-            <TextInput
-              onChange={(evt) => setDescription(evt.nativeEvent.text)}
-              placeholder="Optional"
-              multiline
-              className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-              placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-              keyboardAppearance={theme.dark ? "dark" : "light"}
+      <TransparentHeaderUntilScrolled>
+        <KeyboardAwareScrollView
+          className="flex-1 px-4"
+          contentInsetAdjustmentBehavior="automatic"
+        >
+          <View className="my-4 flex-1">
+            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+              Display name
+            </Text>
+            <View
+              style={{ backgroundColor: theme.colors.card }}
+              className="flex-1 overflow-hidden rounded-lg"
             >
-              <RichText
-                size="base"
-                text={rt.text}
-                facets={rt.facets}
-                truncate={false}
-                disableLinks
+              <TextInput
+                value={displayName ?? ""}
+                placeholder="Required"
+                onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
+                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                style={{ color: theme.colors.text }}
+                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
               />
-            </TextInput>
+            </View>
           </View>
-        </View>
-        <View className="flex-row items-center justify-end pt-2">
-          {!save.isLoading ? (
-            <TextButton
-              // disabled={!identifier || !password}
-              onPress={() => save.mutate()}
-              title="Save"
-              className="font-medium"
-            />
-          ) : (
-            <ActivityIndicator className="px-2" />
-          )}
-        </View>
-      </KeyboardAwareScrollView>
+          <View className="mb-4 flex-1">
+            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+              Description
+            </Text>
+            <View
+              style={{ backgroundColor: theme.colors.card }}
+              className="flex-1 overflow-hidden rounded-lg"
+            >
+              <TextInput
+                onChange={(evt) => setDescription(evt.nativeEvent.text)}
+                placeholder="Optional"
+                multiline
+                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+              >
+                <RichText
+                  size="base"
+                  text={rt.text}
+                  facets={rt.facets}
+                  truncate={false}
+                  disableLinks
+                />
+              </TextInput>
+            </View>
+          </View>
+          <View className="flex-row items-center justify-end pt-2">
+            {!save.isPending ? (
+              <TextButton
+                // disabled={!identifier || !password}
+                onPress={() => save.mutate()}
+                title="Save"
+                className="font-medium"
+              />
+            ) : (
+              <ActivityIndicator className="px-2" />
+            )}
+          </View>
+        </KeyboardAwareScrollView>
+      </TransparentHeaderUntilScrolled>
     );
   }
 

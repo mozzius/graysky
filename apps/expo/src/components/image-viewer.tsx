@@ -14,7 +14,7 @@ import Animated, {
   FadeInUp,
   FadeOutDown,
   FadeOutUp,
-  Layout,
+  LinearTransition,
 } from "react-native-reanimated";
 import {
   SafeAreaView,
@@ -109,7 +109,7 @@ export const ImageViewer = ({
         <Animated.View
           entering={mounted ? FadeInDown : undefined}
           exiting={FadeOutDown}
-          layout={Layout}
+          layout={LinearTransition}
           className={cx(
             "absolute bottom-0 z-10 w-full rounded-tl-lg rounded-tr-lg px-6 pt-6",
             infoExpanded ? "bg-black/90" : "bg-black/50",
@@ -214,8 +214,7 @@ const ImageOptionsButton = ({
 
 const ImageWithFallback = ({
   item,
-  setImageDimensions,
-  tag,
+  setImageDimensions, // tag,
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
   const frame = useSafeAreaFrame();
@@ -232,7 +231,7 @@ const ImageWithFallback = ({
   let width, flex;
 
   if (imageAspectRatio > frameAspectRatio) {
-    width = frame.width;
+    width = "100%" as const;
   } else {
     flex = 1;
   }
@@ -240,21 +239,14 @@ const ImageWithFallback = ({
   return (
     <>
       <AnimatedImage
-        sharedTransitionTag={tag}
+        // sharedTransitionTag={tag}
         // weird postitioning
         // placeholder={{
         //   width: size.data?.width,
         //   height: size.data?.height,
         //   uri: item.thumb,
         // }}
-        source={[
-          {
-            uri: item.thumb,
-            width: size?.width ? size?.width / 2 : undefined,
-            height: size?.height ? size?.height / 2 : undefined,
-          },
-          { uri: item.fullsize, width: size?.width, height: size?.height },
-        ]}
+        source={{ uri: item.fullsize }}
         alt={item.alt}
         style={[
           size

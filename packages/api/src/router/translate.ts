@@ -1,6 +1,8 @@
 import { track } from "@vercel/analytics/server";
 import { z } from "zod";
 
+import { TranslationService } from "@graysky/db";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const translateRouter = createTRPCRouter({
@@ -10,6 +12,10 @@ export const translateRouter = createTRPCRouter({
         uri: z.string(),
         text: z.string(),
         target: z.string(),
+        service: z
+          .union([z.literal("GOOGLE"), z.literal("DEEPL")])
+          .optional()
+          .default("GOOGLE"),
       }),
     )
     .output(
@@ -19,96 +25,129 @@ export const translateRouter = createTRPCRouter({
         languageCode: z.string(),
       }),
     )
-    .mutation(async ({ input: post, ctx: { db } }) => {
-      const langNames = new Intl.DisplayNames([post.target], {
+    .mutation(async ({ input, ctx: { db } }) => {
+      const langNames = new Intl.DisplayNames([input.target], {
         type: "language",
       });
 
-      const cached = await db.translatablePost.findFirst({
+      console.log("translate", input.service);
+
+      const cached = await db.postTranslation.findFirst({
         where: {
-          uri: post.uri,
+          AND: [
+            { postUri: input.uri },
+            { language: input.target },
+            { service: input.service },
+          ],
         },
         include: {
-          translation: {
-            where: {
-              language: post.target,
-            },
-          },
+          post: true,
         },
       });
 
-      if (cached && cached.translation[0]) {
+      if (cached) {
         return {
-          text: cached.translation[0].text,
-          language: langNames.of(cached.language),
-          languageCode: cached.language,
+          text: cached.text,
+          language: langNames.of(cached.post.language),
+          languageCode: cached.post.language,
         };
       }
 
       await track("translate post", {
-        uri: post.uri,
+        uri: input.uri,
       });
 
-      const res = await fetch(
-        "https://translation.googleapis.com/language/translate/v2",
-        {
-          method: "POST",
-          headers: new Headers({
-            "Content-Type": "application/json",
-            "X-goog-api-key": process.env.GOOGLE_API_KEY!,
-          }),
-          body: JSON.stringify({
-            q: post.text,
-            target: post.target,
-            format: "text",
-          }),
-        },
-      );
-      if (!res.ok) throw new Error("API call to gcloud failed");
-      const { data } = (await res.json()) as {
-        data: { translations: unknown[] };
-      };
+      let translatedText;
+      let detectedSourceLanguage;
 
-      const parsed = z
-        .object({
-          translatedText: z.string(),
-          detectedSourceLanguage: z.string(),
-        })
-        .parse(data.translations[0]);
+      switch (input.service) {
+        case TranslationService.GOOGLE: {
+          const res = await fetch(
+            "https://translation.googleapis.com/language/translate/v2",
+            {
+              method: "POST",
+              headers: new Headers({
+                "Content-Type": "application/json",
+                "X-goog-api-key": process.env.GOOGLE_API_KEY!,
+              }),
+              body: JSON.stringify({
+                q: input.text,
+                target: input.target,
+                format: "text",
+              }),
+            },
+          );
+          if (!res.ok) throw new Error("API call to gcloud failed");
+          const { data } = (await res.json()) as {
+            data: {
+              translations: {
+                translatedText: string;
+                detectedSourceLanguage: string;
+              }[];
+            };
+          };
+          if (data.translations[0]) {
+            translatedText = data.translations[0].translatedText;
+            detectedSourceLanguage =
+              data.translations[0].detectedSourceLanguage;
+          }
+          break;
+        }
+        case TranslationService.DEEPL: {
+          const res = await fetch("https://api.deepl.com/v2/translate", {
+            method: "POST",
+            headers: new Headers({
+              "Content-Type": "application/json",
+              Authorization: `DeepL-Auth-Key ${process.env.DEEPL_API_KEY}`,
+            }),
+            body: JSON.stringify({
+              text: [input.text],
+              target_lang: input.target,
+              preserve_formatting: true,
+            }),
+          });
+          if (!res.ok) throw new Error("API call to deepl failed");
+          const data = (await res.json()) as {
+            translations: {
+              detected_source_language: string;
+              text: string;
+            }[];
+          };
+          if (data.translations[0]) {
+            translatedText = data.translations[0].text;
+            detectedSourceLanguage =
+              data.translations[0].detected_source_language.toLocaleLowerCase();
+          }
+          break;
+        }
+      }
+
+      if (translatedText === undefined || detectedSourceLanguage === undefined)
+        throw new Error("Translation failed");
 
       await db.postTranslation.create({
         data: {
-          language: post.target,
-          text: parsed.translatedText,
+          language: input.target,
+          text: translatedText,
+          service: input.service,
           post: {
             connectOrCreate: {
               where: {
-                uri: post.uri,
+                uri: input.uri,
               },
               create: {
-                uri: post.uri,
-                language: parsed.detectedSourceLanguage,
+                uri: input.uri,
+                language: detectedSourceLanguage,
               },
             },
           },
         },
       });
 
-      if (cached?.language !== parsed.detectedSourceLanguage) {
-        await db.translatablePost.update({
-          where: {
-            uri: post.uri,
-          },
-          data: {
-            language: parsed.detectedSourceLanguage,
-          },
-        });
-      }
-
       return {
-        text: parsed.translatedText,
-        language: langNames.of(parsed.detectedSourceLanguage),
-        languageCode: parsed.detectedSourceLanguage,
+        text: translatedText,
+        language: langNames.of(detectedSourceLanguage),
+        languageCode: detectedSourceLanguage,
       };
     }),
 });

@@ -5,13 +5,13 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/text";
+import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
@@ -30,13 +30,15 @@ const FeedSearch = ({ search }: Props) => {
     queryFn: async ({ pageParam }) => {
       const feeds = await agent.app.bsky.unspecced.getPopularFeedGenerators({
         query: search,
-        cursor: pageParam as string | undefined,
+        cursor: pageParam,
       });
 
       if (!feeds.success) throw new Error("Failed to fetch feeds");
       return feeds.data;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   const [ref, onScroll] = useTabPressScrollRef<AppBskyFeedDefs.GeneratorView>(

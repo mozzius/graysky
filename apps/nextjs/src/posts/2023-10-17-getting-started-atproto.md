@@ -14,7 +14,7 @@ What makes this so interesting it that the APIs used to build Bluesky are comple
 
 In this blog post, we're going to go through the process of building a super simple Bluesky client using the `@atproto/api` package. We'll be using [Next.js](https://nextjs.org) for this tutorial, but you can use any framework you like - the `@atproto/api` package is framework agnostic. This tutorial will assume you have some familiarity with JavaScript.
 
-While you need an invite code to make a Bluesky account, you do *not* need an account to use a fair number of the ATProto APIs. Rather than connecting to a Personal Data Server, or PDS, you can connect directly to the "AppView", which does not need an account to view.
+While you need an invite code to make a Bluesky account, you do _not_ need an account to use a fair number of the ATProto APIs. Rather than connecting to a Personal Data Server, or PDS, you can connect directly to the "AppView", which does not need an account to view.
 
 > For a better understanding of these terms, check out the [Federation Architecture Overview](https://blueskyweb.xyz/blog/5-5-2023-federation-architecture).
 
@@ -37,7 +37,6 @@ The first thing we need to do is install the `@atproto/api` package.
 ```bash
 pnpm add @atproto/api
 ```
-
 
 Before we do anything else, quickly remove all the garbage CSS that comes with the Next.js template by setting `src/app/globals.css` to the following:
 
@@ -96,7 +95,8 @@ If it worked, congrats! You've made your first Bluesky client! If not, make sure
 Let's make a new page that shows a post. For the time being, let's just hard-code the post URI. The post we will use is this one:
 
 ```ts
-const EXAMPLE_POST = "at://did:plc:vwzwgnygau7ed7b7wt5ux7y2/app.bsky.feed.post/3karfx5vrvv23"
+const EXAMPLE_POST =
+  "at://did:plc:vwzwgnygau7ed7b7wt5ux7y2/app.bsky.feed.post/3karfx5vrvv23";
 ```
 
 > This is an AT URI, composed of a DID (which are how users are uniquely identified), the type of record (in this case, a post), and the `rkey` of the post. We could also use the user's handle to identify the post, but that risks breaking things if the user changes their handle. DIDs are permanent, so they're a better choice.
@@ -128,6 +128,7 @@ Oh no! Type error! That's because the thread's main post might be deleted, or bl
 ```tsx
 // src/app/page.tsx
 import { AppBskyFeedDefs } from "@atproto/api";
+
 import { agent } from "~/lib/api";
 
 const EXAMPLE_POST =
@@ -154,6 +155,7 @@ Now we can see the post author's display name! Let's also display the post conte
 ```tsx
 // src/app/page.tsx
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+
 import { agent } from "~/lib/api";
 
 const EXAMPLE_POST =
@@ -173,16 +175,16 @@ export default async function Homepage() {
     throw new Error("Expected a post with a record");
 
   return (
-    <div className="min-h-screen grid place-items-center">
+    <div className="grid min-h-screen place-items-center">
       <div className="w-full max-w-sm">
         <div className="flex flex-row items-center">
           <img
             src={post.author.avatar}
             alt={post.author.handle}
-            className="w-12 h-12 rounded-full"
+            className="h-12 w-12 rounded-full"
           />
           <div className="ml-4">
-            <p className="font-medium text-lg">{post.author.displayName}</p>
+            <p className="text-lg font-medium">{post.author.displayName}</p>
             <p>@{post.author.handle}</p>
           </div>
         </div>
@@ -235,10 +237,10 @@ export default function PostView({ params }: Props) {
 
 Now, we can use this URI to get the post and display it. Copy paste the code from `src/app/page.tsx` into `src/app/profile/[handle]/post/[rkey]/page.tsx`, and replace `EXAMPLE_POST` with `uri`.
 
-
 ```tsx
 // src/app/profile/[handle]/post/[rkey]/page.tsx
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+
 import { agent } from "~/lib/api";
 
 interface Props {
@@ -252,7 +254,7 @@ export default async function PostView({ params }: Props) {
   const uri = `at://${decodeURIComponent(params.handle)}/app.bsky.feed.post/${
     params.rkey
   }`;
-  
+
   const thread = await agent.app.bsky.feed.getPostThread({ uri });
 
   if (!AppBskyFeedDefs.isThreadViewPost(thread.data.thread))
@@ -264,16 +266,16 @@ export default async function PostView({ params }: Props) {
     throw new Error("Expected a post with a record");
 
   return (
-    <div className="min-h-screen grid place-items-center">
+    <div className="grid min-h-screen place-items-center">
       <div className="w-full max-w-sm">
         <div className="flex flex-row items-center">
           <img
             src={post.author.avatar}
             alt={post.author.handle}
-            className="w-12 h-12 rounded-full"
+            className="h-12 w-12 rounded-full"
           />
           <div className="ml-4">
-            <p className="font-medium text-lg">{post.author.displayName}</p>
+            <p className="text-lg font-medium">{post.author.displayName}</p>
             <p>@{post.author.handle}</p>
           </div>
         </div>
@@ -295,7 +297,6 @@ Here are some other posts you can look at:
 - http://localhost:3000/profile/did:plc:oky5czdrnfjpqslsw2a5iclo/post/3jxvznajs7m2h
 
 > If you want to be able to use a handle as well as a DID, as the official app does, check to see if `param.handle` starts with `did:`, and if not, use `agent.resolveHandle({ handle: param.handle })` to get the DID of the user.
-
 
 ## Next steps
 
@@ -328,13 +329,13 @@ for (const segment of rt.segments()) {
     text.push(
       <a className="text-blue-500" href={`/profile/${segment.mention?.did}`}>
         {segment.text}
-      </a>
+      </a>,
     );
   } else if (segment.isLink()) {
     text.push(
       <a className="text-blue-500" href={segment.link?.uri}>
         {segment.text}
-      </a>
+      </a>,
     );
   } else if (segment.isTag()) {
     text.push(<span className="text-blue-500">{segment.text}</span>);

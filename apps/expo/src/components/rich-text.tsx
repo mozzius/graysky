@@ -5,7 +5,7 @@ import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
 interface Props {
   text: string;

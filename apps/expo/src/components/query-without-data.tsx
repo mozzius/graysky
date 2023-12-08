@@ -1,6 +1,7 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
+  type InfiniteData,
   type InfiniteQueryObserverLoadingErrorResult,
   type InfiniteQueryObserverLoadingResult,
   type QueryObserverLoadingErrorResult,
@@ -8,14 +9,14 @@ import {
 } from "@tanstack/react-query";
 import { RefreshCcwIcon } from "lucide-react-native";
 
-import { Text } from "./text";
+import { Text } from "./themed/text";
 
-interface Props {
+interface Props<TData = unknown, TError = unknown> {
   query:
-    | QueryObserverLoadingResult
-    | QueryObserverLoadingErrorResult
-    | InfiniteQueryObserverLoadingResult
-    | InfiniteQueryObserverLoadingErrorResult;
+    | QueryObserverLoadingResult<TData, TError>
+    | QueryObserverLoadingErrorResult<TData, TError>
+    | InfiniteQueryObserverLoadingResult<InfiniteData<TData, TError>>
+    | InfiniteQueryObserverLoadingErrorResult<InfiniteData<TData, TError>>;
 }
 
 export const QueryWithoutData = ({ query }: Props) => {

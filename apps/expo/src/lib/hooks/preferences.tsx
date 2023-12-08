@@ -127,8 +127,8 @@ export const useContentFilter = () => {
       const adultContentEnabled = hasAdultContentPref
         ? !!adultContentPref
         : Platform.OS === "ios"
-        ? false
-        : true;
+          ? false
+          : true;
 
       for (const label of labels) {
         const foundLabel = Object.entries(contentLabels)
@@ -196,6 +196,7 @@ const appPrefsSchema = z.object({
   gifAutoplay: z.boolean().optional().default(true),
   inAppBrowser: z.boolean().optional(),
   altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
+  translationMethod: z.enum(["GOOGLE", "DEEPL"]).optional().default("DEEPL"),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;

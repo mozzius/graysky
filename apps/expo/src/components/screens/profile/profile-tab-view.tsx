@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import { Stack, useFocusEffect } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
@@ -34,8 +34,6 @@ export const ProfileTabView = ({
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
 
-  const [mounted, setMounted] = useState(false);
-
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
   const numberOfLists = lists.data?.pages?.[0]?.lists?.length ?? 0;
 
@@ -46,21 +44,21 @@ export const ProfileTabView = ({
     return null;
   }, [profile.data, backButton]);
 
-  useFocusEffect(
-    useCallback(() => {
-      setMounted(true);
-      return () => setMounted(false);
-    }, []),
-  );
-
   if (profile.data) {
     return (
       <>
-        {mounted && <StatusBar style="light" backgroundColor="black" />}
         <Stack.Screen
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
+            // needs UIViewControllerBasedStatusBarAppearance set to true in Info.plist
+            // however, this needs be set to false for the dev client to work
+            //
+            // sigh
+            ...(Constants.expoConfig?.extra?.devClient && {
+              statusBarStyle: "light",
+            }),
           }}
         />
         <Tabs.Container

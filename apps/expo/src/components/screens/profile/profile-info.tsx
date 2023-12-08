@@ -1,5 +1,12 @@
 import { useEffect, useId } from "react";
-import { Button, Platform, Share, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  Platform,
+  Share,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useHeaderMeasurements } from "react-native-collapsible-tab-view";
 import Animated, {
   Extrapolation,
@@ -43,7 +50,7 @@ import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
-import { Text } from "../../text";
+import { Text } from "../../themed/text";
 import { useDefaultHeaderHeight } from "./hooks";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
@@ -100,8 +107,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
     onMutate: () => haptics.impact(),
     onSettled: () => {
-      void queryClient.invalidateQueries(["profile"]);
-      void queryClient.invalidateQueries(["network"]);
+      void queryClient.invalidateQueries({ queryKey: ["profile"] });
+      void queryClient.invalidateQueries({ queryKey: ["network"] });
     },
     onSuccess: (result) => {
       showToastable({
@@ -234,9 +241,16 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     return {
       height: interpolate(
         -headerMeasurements.top.value,
-        [0, 100],
-        [INITIAL_HEADER_HEIGHT + statusBarHeight, headerHeight],
-        Extrapolation.CLAMP,
+        [-100, 0, 100],
+        [
+          (INITIAL_HEADER_HEIGHT + statusBarHeight) * 1.75,
+          INITIAL_HEADER_HEIGHT + statusBarHeight,
+          headerHeight,
+        ],
+        {
+          extrapolateLeft: Extrapolation.EXTEND,
+          extrapolateRight: Extrapolation.CLAMP,
+        },
       ),
     };
   });
@@ -264,8 +278,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       height: size,
       bottom: interpolate(
         -headerMeasurements.top.value,
-        [0, 100],
+        [-100, 0, 100],
         [
+          -size * 1.75,
           -size / 2,
           (headerHeight +
             statusBarHeight +
@@ -274,7 +289,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             2 -
             size / 2,
         ],
-        Extrapolation.CLAMP,
+        {
+          extrapolateLeft: Extrapolation.EXTEND,
+          extrapolateRight: Extrapolation.CLAMP,
+        },
       ),
       transform: [
         {
@@ -291,12 +309,23 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     };
   });
 
-  const animatedProps = useAnimatedProps(() => {
+  const animatedBlurProps = useAnimatedProps(() => {
     return {
       intensity: interpolate(
         -headerMeasurements.top.value,
-        [0, 100],
-        [0, 100],
+        [-50, 0, 100],
+        [100, 0, 100],
+        Extrapolation.CLAMP,
+      ),
+    };
+  });
+
+  const animatedActivityIndicatorStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(
+        headerMeasurements.top.value,
+        [25, 60],
+        [0, 1],
         Extrapolation.CLAMP,
       ),
     };
@@ -312,6 +341,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         className="absolute top-0 z-10 w-full"
         pointerEvents="box-none"
       >
+        {/* banner image */}
         <Animated.View style={animatedHeaderStyle} className="z-20 w-full">
           <ImageBackground
             source={profile.banner}
@@ -322,15 +352,18 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             {Platform.select({
               ios: (
                 <AnimatedBlurView
-                  animatedProps={animatedProps}
+                  animatedProps={animatedBlurProps}
                   className="flex-1"
                   tint="dark"
                 />
               ),
               android: (
                 <Animated.View
-                  className="flex-1 bg-black/90"
-                  style={animatedOpacitysStyle}
+                  className="flex-1"
+                  style={[
+                    animatedOpacitysStyle,
+                    { backgroundColor: theme.colors.card },
+                  ]}
                 />
               ),
             })}
@@ -341,6 +374,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 Platform.OS === "ios" ? "top-1/2 -translate-y-1/2" : "top-1.5",
               )}
               style={animatedOpacitysStyle}
+              pointerEvents="none"
             >
               {profile.displayName && (
                 <Text
@@ -355,7 +389,17 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </Text>
             </Animated.View>
           </ImageBackground>
+          {Platform.OS === "ios" && (
+            <Animated.View
+              className="absolute left-0 top-0 h-full w-full flex-1 items-center justify-center"
+              style={animatedActivityIndicatorStyle}
+              pointerEvents="none"
+            >
+              <ActivityIndicator color="white" size="small" />
+            </Animated.View>
+          )}
         </Animated.View>
+        {/* back button */}
         {backButton && (
           <TouchableOpacity
             accessibilityLabel="Back"
@@ -372,6 +416,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             <ChevronLeftIcon size={20} color="white" />
           </TouchableOpacity>
         )}
+        {/* profile picture */}
         <Animated.View
           style={animatedImageStyle}
           className="absolute left-4 z-40 origin-left rounded-full"
@@ -385,7 +430,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={{ borderColor: theme.colors.card }}
             >
               <AnimatedImage
-                sharedTransitionTag={id}
+                // sharedTransitionTag={id}
                 source={{ uri: profile.avatar }}
                 className="h-full w-full rounded-full bg-neutral-200 dark:bg-neutral-800"
                 alt=""
@@ -399,17 +444,17 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             </TouchableOpacity>
           </Link>
         </Animated.View>
+        {}
       </Animated.View>
       <View
         pointerEvents="box-none"
         className="bg-transparent"
-        style={{ paddingTop: statusBarHeight + INITIAL_HEADER_HEIGHT }}
+        style={{
+          paddingTop: statusBarHeight + INITIAL_HEADER_HEIGHT,
+          backgroundColor: theme.colors.card,
+        }}
       >
-        <View
-          style={{ backgroundColor: theme.colors.card }}
-          className="px-4 pt-1"
-          pointerEvents="box-none"
-        >
+        <View className="px-4 pt-1" pointerEvents="box-none">
           <View
             className="h-10 flex-row items-center justify-end"
             pointerEvents="box-none"
@@ -418,7 +463,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               !profile.viewer?.blocking && (
                 <View className="flex-row justify-end" pointerEvents="box-none">
                   <TouchableOpacity
-                    disabled={toggleFollow.isLoading}
+                    disabled={toggleFollow.isPending}
                     onPress={() => toggleFollow.mutate()}
                     className={cx(
                       "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
@@ -542,7 +587,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               profile.viewer?.muted
             ) && (
               <View className="mt-3" pointerEvents="box-none">
-                <RichTextWithoutFacets text={profile.description.trim()} />
+                <RichTextWithoutFacets
+                  text={profile.description.trim()}
+                  size="sm"
+                />
               </View>
             )}
           {profile.createdAt && (

@@ -3,23 +3,25 @@
   "dependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
-    "@manypkg/cli": "^0.21.0",
-    "eslint": "^8.54.0",
+    "@manypkg/cli": "^0.21.1",
+    "eslint": "^8.55.0",
     "prettier": "^3.1.0",
-    "turbo": "^1.10.16",
-    "typescript": "^5.3.2"
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.18.2"
-  },
-  "overrides": {
-    "@tanstack/react-query": "^4.36.1"
   },
   "packageManager": "pnpm@8.9.2",
   "pnpm": {
     "patchedDependencies": {
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "react-native-svg@14.0.0": "patches/react-native-svg@14.0.0.patch"
+      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch"
+    },
+    "overrides": {
+      "dequal": "1.0.0",
+      "aria-query>dequal": "2.0.3",
+      "axobject-query>dequal": "2.0.3"
     }
   },
   "prettier": "@graysky/prettier-config",

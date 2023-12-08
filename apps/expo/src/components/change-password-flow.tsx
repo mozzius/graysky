@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, TextInput, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
@@ -9,8 +9,10 @@ import { CheckCircle2Icon } from "lucide-react-native";
 import { z } from "zod";
 
 import { useAgent } from "~/lib/agent";
-import { Text } from "./text";
 import { TextButton } from "./text-button";
+import { Text } from "./themed/text";
+import { TextInput } from "./themed/text-input";
+import { TransparentHeaderUntilScrolled } from "./transparent-header";
 
 class PasswordError extends Error {
   constructor(message: string) {
@@ -83,129 +85,133 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
   switch (stage) {
     case Stage.EnterEmail:
       return (
-        <KeyboardAwareScrollView className="flex-1 px-4">
-          <View className="my-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Email
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
-              <TextInput
-                value={email}
-                autoComplete="email"
-                placeholder="alice@example.com"
-                onChange={(evt) => setEmail(evt.nativeEvent.text)}
-                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                style={{ color: theme.colors.text }}
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                keyboardAppearance={theme.dark ? "dark" : "light"}
-              />
+        <TransparentHeaderUntilScrolled>
+          <KeyboardAwareScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <View className="my-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Email
+              </Text>
+              <View
+                style={{ backgroundColor: theme.colors.card }}
+                className="flex-1 overflow-hidden rounded-lg"
+              >
+                <TextInput
+                  value={email}
+                  autoComplete="email"
+                  placeholder="alice@example.com"
+                  onChange={(evt) => setEmail(evt.nativeEvent.text)}
+                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                />
+              </View>
             </View>
-          </View>
-          <View className="flex-row items-center justify-end pt-2">
-            {!sendEmail.isLoading ? (
-              <TextButton
-                disabled={!z.string().email().safeParse(email).success}
-                onPress={() => sendEmail.mutate()}
-                title="Send reset email"
-                className="font-medium"
-              />
-            ) : (
-              <ActivityIndicator className="px-2" />
-            )}
-          </View>
-        </KeyboardAwareScrollView>
+            <View className="flex-row items-center justify-end pt-2">
+              {!sendEmail.isPending ? (
+                <TextButton
+                  disabled={!z.string().email().safeParse(email).success}
+                  onPress={() => sendEmail.mutate()}
+                  title="Send reset email"
+                  className="font-medium"
+                />
+              ) : (
+                <ActivityIndicator className="px-2" />
+              )}
+            </View>
+          </KeyboardAwareScrollView>
+        </TransparentHeaderUntilScrolled>
       );
     case Stage.EnterResetCode:
       return (
-        <KeyboardAwareScrollView className="flex-1 px-4">
-          <View className="my-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Reset Code
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
-              <TextInput
-                value={token}
-                placeholder="ABCDE-ABCDE"
-                onChange={(evt) => setToken(evt.nativeEvent.text)}
-                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                style={{ color: theme.colors.text }}
-                placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                keyboardAppearance={theme.dark ? "dark" : "light"}
-              />
-            </View>
-          </View>
-          <View className="flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              New Password
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
+        <TransparentHeaderUntilScrolled>
+          <KeyboardAwareScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <View className="my-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Reset Code
+              </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
                 className="flex-1 overflow-hidden rounded-lg"
               >
                 <TextInput
-                  value={newPassword}
-                  secureTextEntry
-                  onChange={(evt) => setNewPassword(evt.nativeEvent.text)}
+                  value={token}
+                  placeholder="ABCDE-ABCDE"
+                  onChange={(evt) => setToken(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
                 />
               </View>
             </View>
-          </View>
-          <View className="mb-4 flex-1">
-            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Confirm Password
-            </Text>
-            <View
-              style={{ backgroundColor: theme.colors.card }}
-              className="flex-1 overflow-hidden rounded-lg"
-            >
+            <View className="flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                New Password
+              </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
                 className="flex-1 overflow-hidden rounded-lg"
               >
-                <TextInput
-                  value={newPasswordConfirm}
-                  secureTextEntry
-                  onChange={(evt) =>
-                    setNewPasswordConfirm(evt.nativeEvent.text)
-                  }
-                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  style={{ color: theme.colors.text }}
-                  placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
-                  keyboardAppearance={theme.dark ? "dark" : "light"}
-                />
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg"
+                >
+                  <TextInput
+                    value={newPassword}
+                    secureTextEntry
+                    onChange={(evt) => setNewPassword(evt.nativeEvent.text)}
+                    className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                  />
+                </View>
               </View>
             </View>
-          </View>
-          <View className="flex-row items-center justify-between pt-2">
-            <TextButton onPress={() => setStage(Stage.EnterEmail)} title="Back" />
-            {!changePassword.isLoading ? (
+            <View className="mb-4 flex-1">
+              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                Confirm Password
+              </Text>
+              <View
+                style={{ backgroundColor: theme.colors.card }}
+                className="flex-1 overflow-hidden rounded-lg"
+              >
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg"
+                >
+                  <TextInput
+                    value={newPasswordConfirm}
+                    secureTextEntry
+                    onChange={(evt) =>
+                      setNewPasswordConfirm(evt.nativeEvent.text)
+                    }
+                    className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                    style={{ color: theme.colors.text }}
+                    placeholderTextColor={theme.dark ? "#525255" : "#C6C6C8"}
+                    keyboardAppearance={theme.dark ? "dark" : "light"}
+                  />
+                </View>
+              </View>
+            </View>
+            <View className="flex-row items-center justify-between pt-2">
               <TextButton
-                disabled={
-                  !token || !newPassword || newPassword !== newPasswordConfirm
-                }
-                onPress={() => changePassword.mutate()}
-                title="Save"
-                className="font-medium"
+                onPress={() => setStage(Stage.EnterEmail)}
+                title="Back"
               />
-            ) : (
-              <ActivityIndicator className="px-2" />
-            )}
-          </View>
-        </KeyboardAwareScrollView>
+              {!changePassword.isPending ? (
+                <TextButton
+                  disabled={
+                    !token || !newPassword || newPassword !== newPasswordConfirm
+                  }
+                  onPress={() => changePassword.mutate()}
+                  title="Save"
+                  className="font-medium"
+                />
+              ) : (
+                <ActivityIndicator className="px-2" />
+              )}
+            </View>
+          </KeyboardAwareScrollView>
+        </TransparentHeaderUntilScrolled>
       );
     case Stage.Success:
       return (

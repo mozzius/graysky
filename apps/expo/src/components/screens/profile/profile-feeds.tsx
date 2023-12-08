@@ -17,7 +17,7 @@ import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";
 import { QueryWithoutData } from "../../query-without-data";
-import { Text } from "../../text";
+import { Text } from "../../themed/text";
 import { useProfile, useProfileFeeds } from "./hooks";
 import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
@@ -63,7 +63,9 @@ export const ProfileFeeds = ({ handle }: Props) => {
               repo: agent.session!.did,
               rkey: profile.data.viewer!.blocking!.split("/").pop(),
             });
-            void queryClient.invalidateQueries(["profile", handle]);
+            void queryClient.invalidateQueries({
+              queryKey: ["profile", handle],
+            });
             showToastable({
               title: "Unblocked",
               message: `@${profile.data.handle} has been unblocked`,

@@ -105,12 +105,23 @@ export type Groups = (
 interface GroupProps extends ScrollViewProps {
   groups: Groups;
   children?: React.ReactNode;
+  scrollRef?: React.Ref<ScrollView>;
 }
 
-export const GroupedList = ({ groups, children, ...props }: GroupProps) => {
+export const GroupedList = ({
+  groups,
+  children,
+  scrollRef,
+  ...props
+}: GroupProps) => {
   return (
-    <ScrollView className="flex-1 px-4" {...props}>
-      <View className="mt-4 flex-1">{children}</View>
+    <ScrollView
+      className="flex-1 px-4"
+      ref={scrollRef}
+      contentInsetAdjustmentBehavior="automatic"
+      {...props}
+    >
+      <View className="mt-2 flex-1">{children}</View>
       {groups
         .filter((x) => !!x)
         .map((group, i, arr) => {
@@ -158,7 +169,7 @@ export const Row = ({
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
-      className="min-h-[50px] flex-row items-center px-4 py-2"
+      className="min-h-[46px] flex-row items-center px-4 py-1.5"
       aria-disabled={disabled}
     >
       {Icon && (
