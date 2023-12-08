@@ -1,16 +1,23 @@
 import { TouchableHighlight, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import { SparklesIcon } from "lucide-react-native";
 
 import { Confetti } from "~/components/confetti";
 import { Text } from "~/components/themed/text";
 
 export default function SuccessScreen() {
+  const theme = useTheme();
   return (
     <SafeAreaView className="flex-1 p-4">
       <View className="flex-1">
-        <SparklesIcon size={80} strokeWidth={1.5} className="mx-auto mt-16" />
+        <SparklesIcon
+          color={theme.colors.primary}
+          size={80}
+          strokeWidth={1.5}
+          className="mx-auto mt-16"
+        />
         <Text className="mx-auto mt-6 max-w-[210px] text-center text-3xl">
           Welcome to Graysky Pro!
         </Text>

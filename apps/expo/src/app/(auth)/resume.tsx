@@ -24,7 +24,7 @@ export default function ResumeSession() {
           <Text className="mx-4 mb-1 mt-2 text-xs uppercase text-neutral-500">
             Log back in
           </Text>
-          <SwitchAccounts sessions={sessions} chevrons />
+          <SwitchAccounts sessions={sessions} chevrons showAddAccount />
         </View>
       </ScrollView>
     </TransparentHeaderUntilScrolled>

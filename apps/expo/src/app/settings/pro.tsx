@@ -1,6 +1,7 @@
-import { TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
+import { DarkTheme, DefaultTheme, useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
@@ -12,6 +13,7 @@ import { useIsPro } from "~/lib/purchases";
 export default function ProSettings() {
   const [{ translationMethod, accentColor }, setAppPrefs] = useAppPreferences();
   const isPro = useIsPro();
+  const theme = useTheme();
   const router = useRouter();
 
   if (!isPro) router.back();
@@ -44,15 +46,17 @@ export default function ProSettings() {
           {
             title: "Accent color",
             children: (
-              <View className="space-between flex-row px-4 py-1.5">
+              <ScrollView
+                horizontal
+                className="space-between flex-1 flex-row gap-x-2 px-4 py-2"
+              >
                 {[
                   undefined,
-                  colors.green[500],
                   colors.amber[500],
-                  colors.emerald[500],
-                  colors.fuchsia[500],
-                  colors.teal[500],
                   colors.red[500],
+                  colors.purple[500],
+                  colors.green[500],
+                  colors.fuchsia[500],
                 ].map((color) => (
                   <TouchableOpacity
                     key={color ?? "default"}
@@ -61,15 +65,21 @@ export default function ProSettings() {
                     <View
                       key={color}
                       className="h-10 w-10 items-center justify-center rounded-full"
-                      style={{ backgroundColor: color }}
+                      style={{
+                        backgroundColor:
+                          color ??
+                          (theme.dark
+                            ? DarkTheme.colors.primary
+                            : DefaultTheme.colors.primary),
+                      }}
                     >
                       {accentColor === color && (
-                        <CheckIcon size={16} color="white" />
+                        <CheckIcon size={20} color="white" />
                       )}
                     </View>
                   </TouchableOpacity>
                 ))}
-              </View>
+              </ScrollView>
             ),
           },
         ]}

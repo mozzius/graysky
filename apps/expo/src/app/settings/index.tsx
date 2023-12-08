@@ -85,6 +85,7 @@ export default function SettingsPage() {
         <SwitchAccounts
           sessions={sessions ?? []}
           active={agent?.session?.did}
+          showAddAccount
         />
       </View>
     </GroupedList>

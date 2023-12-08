@@ -32,6 +32,7 @@ interface Props {
   active?: string;
   onSuccessfulSwitch?: () => void;
   chevrons?: boolean;
+  showAddAccount?: boolean;
 }
 
 export function SwitchAccounts({
@@ -39,6 +40,7 @@ export function SwitchAccounts({
   active,
   onSuccessfulSwitch,
   chevrons,
+  showAddAccount,
 }: Props) {
   const agent = useAgent();
   const theme = useTheme();
@@ -139,27 +141,29 @@ export function SwitchAccounts({
             <ItemSeparator iconWidth="w-10" />
           </Fragment>
         ))}
-      <Link href="/sign-in" asChild>
-        <TouchableHighlight
-          className={cx("flex-1", resume.isPending && "opacity-50")}
-          disabled={resume.isPending}
-        >
-          <View
-            className="flex-1 flex-row items-center px-4 py-2"
-            style={{ backgroundColor: theme.colors.card }}
+      {showAddAccount && (
+        <Link href="/sign-in" asChild>
+          <TouchableHighlight
+            className={cx("flex-1", resume.isPending && "opacity-50")}
+            disabled={resume.isPending}
           >
-            <View className="h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700">
-              <PlusIcon
-                size={24}
-                className="text-neutral-500 dark:text-neutral-300"
-              />
+            <View
+              className="flex-1 flex-row items-center px-4 py-2"
+              style={{ backgroundColor: theme.colors.card }}
+            >
+              <View className="h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700">
+                <PlusIcon
+                  size={24}
+                  className="text-neutral-500 dark:text-neutral-300"
+                />
+              </View>
+              <View className="ml-3 flex-1">
+                <Text>Add another account</Text>
+              </View>
             </View>
-            <View className="ml-3 flex-1">
-              <Text>Add another account</Text>
-            </View>
-          </View>
-        </TouchableHighlight>
-      </Link>
+          </TouchableHighlight>
+        </Link>
+      )}
     </View>
   );
 }

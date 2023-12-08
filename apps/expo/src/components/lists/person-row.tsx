@@ -79,13 +79,15 @@ export const PersonRow = ({
               @{person.handle}
             </Text>
             {text && (
-              <View className="my-0.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
+              <View className="my-0.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5 dark:bg-neutral-800">
                 <Icon
                   size={12}
-                  className="mr-0.5 mt-px text-neutral-500"
+                  className="mr-0.5 mt-px text-neutral-500 dark:text-neutral-400"
                   strokeWidth={3}
                 />
-                <Text className="text-xs text-neutral-500">{text}</Text>
+                <Text className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {text}
+                </Text>
               </View>
             )}
           </View>

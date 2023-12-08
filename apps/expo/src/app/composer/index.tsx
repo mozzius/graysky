@@ -590,7 +590,7 @@ export default function ComposerScreen() {
                 : theme.colors.background,
             }}
           >
-            <PaperclipIcon size={20} />
+            <PaperclipIcon size={20} color={theme.colors.primary} />
             <Text
               style={{ color: theme.colors.primary }}
               className="ml-2.5 mr-1 font-medium"
@@ -619,7 +619,7 @@ export default function ComposerScreen() {
                 : theme.colors.background,
             }}
           >
-            <LanguagesIcon size={20} />
+            <LanguagesIcon size={20} color={theme.colors.primary} />
             <Text
               style={{ color: theme.colors.primary }}
               className="ml-2.5 mr-1 font-medium uppercase"
