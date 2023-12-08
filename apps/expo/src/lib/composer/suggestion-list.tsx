@@ -74,11 +74,11 @@ export const SuggestionList = ({ suggestions, onInsertHandle }: Props) => {
                     <View className="h-2.5" />
                   )}
                   <View className="flex flex-row flex-wrap">
-                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <Text className="mr-1.5 text-sm text-neutral-500 dark:text-neutral-400">
                       @{actor.handle}
                     </Text>
                     {text && (
-                      <View className="my-0.5 ml-1.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
+                      <View className="my-0.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
                         <Icon
                           size={12}
                           className="mr-0.5 mt-px text-neutral-500"

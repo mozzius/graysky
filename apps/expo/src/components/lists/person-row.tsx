@@ -75,11 +75,11 @@ export const PersonRow = ({
             <Text className="text-base leading-5">{person.displayName}</Text>
           )}
           <View className="flex flex-row flex-wrap">
-            <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+            <Text className="mr-1.5 text-sm text-neutral-500 dark:text-neutral-400">
               @{person.handle}
             </Text>
             {text && (
-              <View className="my-0.5 ml-1.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
+              <View className="my-0.5 flex-row items-center rounded bg-neutral-100 pl-1 pr-1.5">
                 <Icon
                   size={12}
                   className="mr-0.5 mt-px text-neutral-500"
