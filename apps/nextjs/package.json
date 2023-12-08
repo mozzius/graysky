@@ -2,7 +2,7 @@
   "name": "@graysky/nextjs",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.7.0",
+    "@atproto/api": "^0.7.1",
     "@graysky/api": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@tanstack/react-query": "^5.12.2",
@@ -16,7 +16,7 @@
     "bright": "^0.8.4",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.294.0",
-    "next": "14.0.4",
+    "next": "14.0.3",
     "next-mdx-remote": "^4.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -20,7 +20,7 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@atproto/api": "^0.7.0",
+    "@atproto/api": "^0.7.1",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.5.1",
@@ -94,7 +94,7 @@
     "react-native-purchases": "^7.5.0",
     "react-native-reanimated": "~3.6.1",
     "react-native-safari-extension": "^1.0.0",
-    "react-native-safe-area-context": "4.7.4",
+    "react-native-safe-area-context": "4.8.0",
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-toastable": "^0.2.1",
