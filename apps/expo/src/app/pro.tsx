@@ -20,12 +20,15 @@ import { Stack, useRouter } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
+  HeartIcon,
   LanguagesIcon,
   // LineChart,
   MoreHorizontalIcon,
+  PaletteIcon,
   XIcon,
 } from "lucide-react-native";
 import * as Sentry from "sentry-expo";
+import colors from "tailwindcss/colors";
 
 import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
@@ -93,7 +96,7 @@ export default function Pro() {
 
   const features = [
     {
-      colour: "rgb(59, 130, 246)",
+      colour: colors.blue[500],
       title: "Better Translations",
       subtitle: "Translate posts using DeepL",
       icon: <LanguagesIcon className="text-white" />,
@@ -105,7 +108,19 @@ export default function Pro() {
     //   icon: <LineChart className="text-white" />,
     // },
     {
-      colour: "rgb(192, 38, 211)",
+      colour: colors.amber[500],
+      title: "Custom Themes",
+      subtitle: "Change the accent colour",
+      icon: <PaletteIcon className="text-white" />,
+    },
+    {
+      colour: colors.red[500],
+      title: "Support Development",
+      subtitle: "Help us keep adding new features",
+      icon: <HeartIcon className="text-white" />,
+    },
+    {
+      colour: colors.fuchsia[500],
       title: "And a lot more planned...",
       subtitle: "Analytics, polls, and much more",
       icon: <MoreHorizontalIcon className="text-white" />,
