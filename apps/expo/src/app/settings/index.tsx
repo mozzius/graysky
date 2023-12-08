@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import {
@@ -6,6 +7,7 @@ import {
   NewspaperIcon,
   ShieldIcon,
   SmartphoneIcon,
+  StarIcon,
   UserIcon,
 } from "lucide-react-native";
 
@@ -15,52 +17,67 @@ import {
   type SavedSession,
 } from "~/components/switch-accounts";
 import { useOptionalAgent } from "~/lib/agent";
+import { useIsPro } from "~/lib/purchases";
 import { store } from "~/lib/storage";
-
-const groups = [
-  {
-    options: [
-      {
-        title: "Account",
-        href: "/settings/account",
-        icon: UserIcon,
-      },
-      {
-        title: "Moderation",
-        href: "/settings/moderation",
-        icon: ShieldIcon,
-      },
-      {
-        title: "Home feed preferences",
-        href: "/settings/feed",
-        icon: NewspaperIcon,
-      },
-      {
-        title: "Languages",
-        href: "/settings/language",
-        icon: LanguagesIcon,
-      },
-      {
-        title: "App settings",
-        href: "/settings/app",
-        icon: SmartphoneIcon,
-      },
-    ],
-  },
-  {
-    options: [
-      {
-        title: "About Graysky",
-        href: "/settings/about",
-        icon: AtSignIcon,
-      },
-    ],
-  },
-] satisfies Groups;
 
 export default function SettingsPage() {
   const agent = useOptionalAgent();
   const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
+  const isPro = useIsPro();
+
+  const groups = useMemo(
+    () =>
+      [
+        {
+          options: [
+            {
+              title: "Graysky Pro",
+              href: isPro ? "/settings/pro" : "/pro",
+              icon: StarIcon,
+            },
+          ],
+        },
+        {
+          options: [
+            {
+              title: "Account",
+              href: "/settings/account",
+              icon: UserIcon,
+            },
+            {
+              title: "Moderation",
+              href: "/settings/moderation",
+              icon: ShieldIcon,
+            },
+            {
+              title: "Home feed preferences",
+              href: "/settings/feed",
+              icon: NewspaperIcon,
+            },
+            {
+              title: "Languages",
+              href: "/settings/language",
+              icon: LanguagesIcon,
+            },
+            {
+              title: "App settings",
+              href: "/settings/app",
+              icon: SmartphoneIcon,
+            },
+          ],
+        },
+        {
+          options: [
+            {
+              title: "About Graysky",
+              href: "/settings/about",
+              icon: AtSignIcon,
+            },
+          ],
+        },
+      ] satisfies Groups,
+    [isPro],
+  );
 
   return (
     <GroupedList groups={groups}>

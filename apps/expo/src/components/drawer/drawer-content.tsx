@@ -4,20 +4,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "@react-navigation/native";
 import {
   CloudyIcon,
   LogOutIcon,
   MoonIcon,
-  PaletteIcon,
   SettingsIcon,
   SmartphoneIcon,
   StarIcon,
   SunIcon,
   TicketIcon,
 } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "~/app/codes/_layout";
@@ -35,12 +32,11 @@ interface Props {
 
 export const DrawerContent = ({ open }: Props) => {
   const logOut = useLogOut();
-  const { setColorScheme } = useColorScheme();
   const { showActionSheetWithOptions } = useActionSheet();
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
-  const [{ homepage }] = useAppPreferences();
+  const [{ homepage, colorScheme }, setAppPrefs] = useAppPreferences();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
@@ -54,12 +50,14 @@ export const DrawerContent = ({ open }: Props) => {
     ];
     showActionSheetWithOptions(
       {
+        title: "Change theme",
+        message: `It's currently set to the ${colorScheme} theme`,
         options,
         icons,
         cancelButtonIndex: options.length - 1,
         ...actionSheetStyles(theme),
       },
-      async (index) => {
+      (index) => {
         if (index === undefined) return;
         const selected = options[index];
         let colorScheme: ColorSchemeSystem | null = null;
@@ -75,8 +73,7 @@ export const DrawerContent = ({ open }: Props) => {
             break;
         }
         if (!colorScheme) return;
-        await AsyncStorage.setItem("color-scheme", colorScheme);
-        setColorScheme(colorScheme);
+        setAppPrefs({ colorScheme });
       },
     );
   };
@@ -85,6 +82,8 @@ export const DrawerContent = ({ open }: Props) => {
     (acc, code) => (acc += code.available),
     0,
   );
+
+  const ChangeThemeIcon = theme.dark ? MoonIcon : SunIcon;
 
   return (
     <SafeAreaView className="h-full p-8">
@@ -141,7 +140,7 @@ export const DrawerContent = ({ open }: Props) => {
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
-          <PaletteIcon color={theme.colors.text} />
+          <ChangeThemeIcon color={theme.colors.text} />
           <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
         <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>

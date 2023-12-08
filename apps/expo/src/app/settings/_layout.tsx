@@ -47,6 +47,12 @@ export default function SettingsLayout() {
           }}
         />
         <Stack.Screen
+          name="account/pro"
+          options={{
+            title: "Pro Settings",
+          }}
+        />
+        <Stack.Screen
           name="account/index"
           options={{
             title: "Account Settings",

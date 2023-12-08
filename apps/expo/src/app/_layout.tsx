@@ -12,17 +12,8 @@ import {
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
-import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 import * as Sentry from "sentry-expo";
-import { z } from "zod";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
@@ -62,9 +53,7 @@ interface Props {
 const App = ({ session, saveSession }: Props) => {
   const segments = useSegments();
   const router = useRouter();
-
   const [invalidator, setInvalidator] = useState(0);
-  const { colorScheme } = useColorScheme();
   const queryClient = useQueryClient();
 
   const [agentUpdate, setAgentUpdate] = useState(0);
@@ -166,24 +155,6 @@ const App = ({ session, saveSession }: Props) => {
     setInvalidator((i) => i + 1);
   }, [queryClient, saveSession, session?.did]);
 
-  const { setColorScheme } = useColorScheme();
-
-  useEffect(() => {
-    void AsyncStorage.getItem("color-scheme").then((value) => {
-      const scheme = z.enum(["light", "dark", "system"]).safeParse(value);
-      if (scheme.success) {
-        setColorScheme(scheme.data);
-      } else {
-        void AsyncStorage.setItem(
-          "color-scheme",
-          "system" satisfies ColorSchemeSystem,
-        );
-      }
-    });
-  }, [setColorScheme]);
-
-  const theme = colorScheme === "light" ? DefaultTheme : DarkTheme;
-
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hideAsync();
@@ -223,114 +194,117 @@ const App = ({ session, saveSession }: Props) => {
   }, [routeName]);
 
   return (
-    <ThemeProvider value={theme}>
-      <StatusBar />
-      {agent.hasSession && <QuickActions />}
-      <SafeAreaProvider>
-        <CustomerInfoProvider>
-          <AgentProvider agent={agent} update={agentUpdate}>
-            <PreferencesProvider>
-              <AppPreferencesProvider>
-                <LogOutProvider value={logOut}>
-                  <ActionSheetProvider>
-                    <ListProvider>
-                      <Stack
-                        screenOptions={{
-                          headerShown: true,
-                          fullScreenGestureEnabled: true,
-                        }}
-                      >
-                        <Stack.Screen
-                          name="index"
-                          options={{
-                            headerShown: false,
-                            gestureEnabled: false,
+    <AppPreferencesProvider>
+      {(theme) => (
+        <>
+          {" "}
+          <StatusBar />
+          {agent.hasSession && <QuickActions />}
+          <SafeAreaProvider>
+            <CustomerInfoProvider>
+              <AgentProvider agent={agent} update={agentUpdate}>
+                <PreferencesProvider>
+                  <LogOutProvider value={logOut}>
+                    <ActionSheetProvider>
+                      <ListProvider>
+                        <Stack
+                          screenOptions={{
+                            headerShown: true,
+                            fullScreenGestureEnabled: true,
                           }}
-                        />
-                        <Stack.Screen
-                          name="(auth)"
-                          options={{
-                            headerShown: false,
-                            presentation: "formSheet",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="settings"
-                          options={{
-                            headerShown: false,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="codes"
-                          options={{
-                            headerShown: false,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="images/[post]"
-                          options={{
-                            headerShown: false,
-                            animation: "fade",
-                            fullScreenGestureEnabled: false,
-                            customAnimationOnGesture: true,
-                          }}
-                        />
-                        <Stack.Screen
-                          name="discover"
-                          options={{
-                            title: "Discover Feeds",
-                            presentation: "modal",
-                            headerLargeTitle: true,
-                            headerLargeTitleShadowVisible: false,
-                            headerLargeStyle: {
-                              backgroundColor: theme.colors.background,
-                            },
-                            headerSearchBarOptions: {},
-                          }}
-                        />
-                        <Stack.Screen
-                          name="pro"
-                          options={{
-                            title: "",
-                            headerTransparent: true,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="success"
-                          options={{
-                            title: "Purchase Successful",
-                            headerShown: false,
-                            presentation: "modal",
-                          }}
-                        />
-                        <Stack.Screen
-                          name="composer"
-                          options={{
-                            headerShown: false,
-                            ...Platform.select({
-                              ios: {
-                                presentation: "formSheet",
+                        >
+                          <Stack.Screen
+                            name="index"
+                            options={{
+                              headerShown: false,
+                              gestureEnabled: false,
+                            }}
+                          />
+                          <Stack.Screen
+                            name="(auth)"
+                            options={{
+                              headerShown: false,
+                              presentation: "formSheet",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="settings"
+                            options={{
+                              headerShown: false,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="codes"
+                            options={{
+                              headerShown: false,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="images/[post]"
+                            options={{
+                              headerShown: false,
+                              animation: "fade",
+                              fullScreenGestureEnabled: false,
+                              customAnimationOnGesture: true,
+                            }}
+                          />
+                          <Stack.Screen
+                            name="discover"
+                            options={{
+                              title: "Discover Feeds",
+                              presentation: "modal",
+                              headerLargeTitle: true,
+                              headerLargeTitleShadowVisible: false,
+                              headerLargeStyle: {
+                                backgroundColor: theme.colors.background,
                               },
-                              android: {
-                                animation: "fade_from_bottom",
-                              },
-                            }),
-                          }}
-                        />
-                      </Stack>
-                    </ListProvider>
-                  </ActionSheetProvider>
-                </LogOutProvider>
-              </AppPreferencesProvider>
-            </PreferencesProvider>
-          </AgentProvider>
-        </CustomerInfoProvider>
-        <Toastable />
-      </SafeAreaProvider>
-    </ThemeProvider>
+                              headerSearchBarOptions: {},
+                            }}
+                          />
+                          <Stack.Screen
+                            name="pro"
+                            options={{
+                              title: "",
+                              headerTransparent: true,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="success"
+                            options={{
+                              title: "Purchase Successful",
+                              headerShown: false,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="composer"
+                            options={{
+                              headerShown: false,
+                              ...Platform.select({
+                                ios: {
+                                  presentation: "formSheet",
+                                },
+                                android: {
+                                  animation: "fade_from_bottom",
+                                },
+                              }),
+                            }}
+                          />
+                        </Stack>
+                      </ListProvider>
+                    </ActionSheetProvider>
+                  </LogOutProvider>
+                </PreferencesProvider>
+              </AgentProvider>
+            </CustomerInfoProvider>
+            <Toastable />
+          </SafeAreaProvider>
+        </>
+      )}
+    </AppPreferencesProvider>
   );
 };
 

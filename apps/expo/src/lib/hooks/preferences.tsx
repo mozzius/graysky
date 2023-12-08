@@ -4,7 +4,15 @@ import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
 import * as Localization from "expo-localization";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+  type Theme,
+} from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import { produce } from "immer";
+import { useColorScheme } from "nativewind";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
@@ -197,6 +205,8 @@ const appPrefsSchema = z.object({
   inAppBrowser: z.boolean().optional(),
   altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
   translationMethod: z.enum(["GOOGLE", "DEEPL"]).optional().default("DEEPL"),
+  colorScheme: z.enum(["system", "light", "dark"]).optional().default("system"),
+  accentColor: z.string().optional(),
 });
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;
@@ -212,7 +222,10 @@ const AppPreferencesContext = createContext<AppPreferencesContextType | null>(
 
 export const AppPreferencesProvider = ({
   children,
-}: React.PropsWithChildren) => {
+}: {
+  children: (theme: Theme) => React.JSX.Element;
+}) => {
+  const { colorScheme, setColorScheme } = useColorScheme();
   const [rawPrefs, setRawPrefs] = useMMKVObject<AppPreferences>(
     "app-prefs",
     store,
@@ -222,6 +235,7 @@ export const AppPreferencesProvider = ({
     let prefs: AppPreferences;
     try {
       prefs = appPrefsSchema.parse(rawPrefs ?? {});
+      setColorScheme(prefs.colorScheme ?? "system");
     } catch (err) {
       console.warn(err);
       prefs = appPrefsSchema.parse({});
@@ -231,12 +245,27 @@ export const AppPreferencesProvider = ({
     };
 
     return [prefs, setPrefs] satisfies AppPreferencesContextType;
-  }, [rawPrefs, setRawPrefs]);
+  }, [rawPrefs, setRawPrefs, setColorScheme]);
+
+  const accentColor = value[0].accentColor;
+
+  const theme = useMemo(() => {
+    const base = colorScheme === "dark" ? DarkTheme : DefaultTheme;
+    if (accentColor) {
+      return produce(base, (draft) => {
+        draft.colors.primary = accentColor;
+      });
+    } else {
+      return base;
+    }
+  }, [colorScheme, accentColor]);
 
   return (
-    <AppPreferencesContext.Provider value={value}>
-      {children}
-    </AppPreferencesContext.Provider>
+    <ThemeProvider value={theme}>
+      <AppPreferencesContext.Provider value={value}>
+        {children(theme)}
+      </AppPreferencesContext.Provider>
+    </ThemeProvider>
   );
 };
 
