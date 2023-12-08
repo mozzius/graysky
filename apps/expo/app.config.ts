@@ -73,6 +73,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       android: process.env.REVENUECAT_API_KEY_ANDROID,
     },
     sentry: process.env.SENTRY_DSN,
+    devClient: process.env.DEV_CLIENT === "true",
   },
   hooks: {
     postPublish: process.env.SENTRY_AUTH_TOKEN

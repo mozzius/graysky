@@ -149,6 +149,10 @@ export default function AppLayout() {
             tabBarShowLabel: Platform.select({ android: false, ios: true }),
           }}
           screenListeners={{
+            // TODO: move to individual screens
+            // it's here because a previous version of expo-router
+            // didn't type the listerners correctly, so I couldn't
+            // figure out how to add it to the individual screens
             tabPress: (evt) => {
               if (evt.target?.startsWith("null")) {
                 evt.preventDefault();
@@ -191,6 +195,7 @@ export default function AppLayout() {
             name="null"
             options={{
               title: "Post",
+              tabBarAccessibilityLabel: "Create a new post",
               tabBarIcon({ color, size }) {
                 return <PenBox color={color} size={size} />;
               },

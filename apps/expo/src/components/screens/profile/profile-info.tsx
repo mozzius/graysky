@@ -278,8 +278,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       height: size,
       bottom: interpolate(
         -headerMeasurements.top.value,
-        [0, 100],
+        [-100, 0, 100],
         [
+          -size * 1.75,
           -size / 2,
           (headerHeight +
             statusBarHeight +
