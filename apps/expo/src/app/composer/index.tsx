@@ -42,6 +42,7 @@ import {
   PlusIcon,
   XIcon,
 } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -585,7 +586,11 @@ export default function ComposerScreen() {
         >
           <View
             className="h-9 flex-row items-center justify-center rounded-full px-2.5"
-            style={{ backgroundColor: theme.colors.background }}
+            style={{
+              backgroundColor: theme.dark
+                ? colors.neutral[800]
+                : theme.colors.background,
+            }}
           >
             <PaperclipIcon size={20} />
             <Text
@@ -610,7 +615,11 @@ export default function ComposerScreen() {
         >
           <View
             className="h-9 flex-row items-center justify-center rounded-full px-2.5"
-            style={{ backgroundColor: theme.colors.background }}
+            style={{
+              backgroundColor: theme.dark
+                ? colors.neutral[800]
+                : theme.colors.background,
+            }}
           >
             <LanguagesIcon size={20} />
             <Text

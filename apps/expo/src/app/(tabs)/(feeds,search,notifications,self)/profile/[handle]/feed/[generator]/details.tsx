@@ -20,6 +20,7 @@ import {
   ShareIcon,
   StarIcon,
 } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
@@ -251,8 +252,10 @@ const FeedInfo = ({
               >
                 <HeartIcon
                   className="h-8 w-8"
-                  color={"#dc2626"}
-                  fill={info.view.viewer?.like ? "#dc2626" : "transparent"}
+                  color={colors.red[600]}
+                  fill={
+                    info.view.viewer?.like ? colors.red[600] : "transparent"
+                  }
                 />
                 <Text className="ml-2 text-base tabular-nums">
                   {info.view.likeCount}

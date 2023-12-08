@@ -3,6 +3,7 @@ import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
 import { useAgent } from "~/lib/agent";
@@ -28,6 +29,7 @@ export const Notification = ({
   const agent = useAgent();
   const router = useRouter();
   const path = useAbsolutePath();
+  const theme = useTheme();
 
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
@@ -50,7 +52,13 @@ export const Notification = ({
         <Container>
           <NotificationItem
             unread={!isRead}
-            left={<HeartIcon size={24} fill="#dc2626" color="#dc2626" />}
+            left={
+              <HeartIcon
+                size={24}
+                fill={colors.red[600]}
+                color={colors.red[600]}
+              />
+            }
           >
             <ProfileList
               actors={actors}
@@ -74,7 +82,12 @@ export const Notification = ({
         <Container>
           <NotificationItem
             unread={!isRead}
-            left={<RepeatIcon size={24} color="#2563eb" />}
+            left={
+              <RepeatIcon
+                size={24}
+                color={theme.dark ? colors.green[400] : colors.green[600]}
+              />
+            }
           >
             <ProfileList
               actors={actors}

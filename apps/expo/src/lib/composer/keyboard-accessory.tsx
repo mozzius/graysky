@@ -6,6 +6,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@react-navigation/native";
+import colors from "tailwindcss/colors";
 
 import { Text } from "~/components/text";
 import { cx } from "../utils/cx";
@@ -62,7 +63,9 @@ export const KeyboardAccessory = ({ charCount = 0, children }: Props) => {
           size={28}
           width={5}
           rotation={0}
-          backgroundColor={theme.colors.background}
+          backgroundColor={
+            theme.dark ? colors.neutral[800] : theme.colors.background
+          }
           tintColor={
             !tooLong ? theme.colors.primary : theme.colors.notification
           }

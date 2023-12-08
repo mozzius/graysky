@@ -8,6 +8,7 @@ import {
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { useComposer } from "~/lib/composer/utils";
 import { useHandleRepost, useLike, useRepost } from "~/lib/hooks";
@@ -81,15 +82,19 @@ export const PostActionRow = ({
         <RepeatIcon
           size={16}
           color={
-            reposted ? (theme.dark ? "#50eb25" : "#40b420") : theme.colors.text
+            reposted
+              ? theme.dark
+                ? colors.green[400]
+                : colors.green[600]
+              : theme.colors.text
           }
         />
         <Text
           style={{
             color: reposted
               ? theme.dark
-                ? "#50eb25"
-                : "#40b420"
+                ? colors.green[400]
+                : colors.green[600]
               : theme.colors.text,
           }}
           className={cx("tabular-nums", reposted && "font-bold")}
@@ -108,12 +113,12 @@ export const PostActionRow = ({
       >
         <HeartIcon
           size={16}
-          fill={liked ? "#dc2626" : "transparent"}
-          color={liked ? "#dc2626" : theme.colors.text}
+          fill={liked ? colors.red[600] : "transparent"}
+          color={liked ? colors.red[600] : theme.colors.text}
         />
         <Text
           style={{
-            color: liked ? "#dc2626" : theme.colors.text,
+            color: liked ? colors.red[600] : theme.colors.text,
           }}
           className={cx("tabular-nums", liked && "font-bold")}
         >
