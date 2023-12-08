@@ -10,7 +10,7 @@ import {
 } from "lucide-react-native";
 
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
-import { useIsPro } from "~/lib/hooks/purchases";
+import { useIsPro } from "~/lib/purchases";
 import { api } from "~/lib/utils/api";
 import { RichTextWithoutFacets } from "./rich-text";
 import { Text } from "./themed/text";

@@ -4,7 +4,7 @@ import { Switch } from "react-native-gesture-handler";
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAppPreferences } from "~/lib/hooks/preferences";
-import { useIsPro } from "~/lib/hooks/purchases";
+import { useIsPro } from "~/lib/purchases";
 import { LANGUAGES } from "~/lib/utils/locale/languages";
 
 export default function LanguageSettings() {

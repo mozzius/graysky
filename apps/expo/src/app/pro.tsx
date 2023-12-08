@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   ActivityIndicator,
-  Platform,
+  Linking,
   ScrollView,
   Text,
   TouchableHighlight,
@@ -29,7 +29,7 @@ import * as Sentry from "sentry-expo";
 
 import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
-import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/hooks/purchases";
+import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/purchases";
 import { cx } from "~/lib/utils/cx";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -163,15 +163,16 @@ export default function Pro() {
                       ` (${customerInfo.entitlements.active.pro.periodType})`}
                   </Text>
                 </View>
-                <Text className="mb-4 mt-4 px-12 text-center text-sm text-white">
-                  To manage your subscription, please visit the{" "}
-                  {Platform.select({
-                    ios: "App Store",
-                    android: "Play Store",
-                    default: "???? store",
-                  })}
-                  .
-                </Text>
+                {customerInfo?.managementURL && (
+                  <Text
+                    className="mb-4 mt-4 px-12 text-center text-sm text-white"
+                    onPress={() =>
+                      void Linking.openURL(customerInfo.managementURL!)
+                    }
+                  >
+                    Manage my subscription
+                  </Text>
+                )}
               </View>
             ) : (
               annualProduct &&

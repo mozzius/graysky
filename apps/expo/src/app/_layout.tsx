@@ -32,11 +32,8 @@ import {
   AppPreferencesProvider,
   PreferencesProvider,
 } from "~/lib/hooks/preferences";
-import {
-  CustomerInfoProvider,
-  useConfigurePurchases,
-} from "~/lib/hooks/purchases";
 import { LogOutProvider } from "~/lib/log-out-context";
+import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";

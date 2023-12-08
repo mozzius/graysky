@@ -98,7 +98,7 @@ export const useCustomerInfo = () => {
 export const useIsPro = () => {
   const info = useCustomerInfo();
 
-  return info?.entitlements.active.pro?.isActive ?? false;
+  return info?.entitlements.active?.Pro?.isActive ?? false;
 };
 
 export const useOfferings = () => {
