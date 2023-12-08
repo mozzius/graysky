@@ -48,6 +48,7 @@ export const ProfileTabView = ({
     return (
       <>
         <Stack.Screen
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
@@ -55,9 +56,9 @@ export const ProfileTabView = ({
             // however, this needs be set to false for the dev client to work
             //
             // sigh
-            statusBarStyle: Constants.expoConfig?.extra?.devClient
-              ? undefined
-              : "light",
+            ...(Constants.expoConfig?.extra?.devClient && {
+              statusBarStyle: "light",
+            }),
           }}
         />
         <Tabs.Container
