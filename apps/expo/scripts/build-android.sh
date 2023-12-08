@@ -1,7 +1,13 @@
 #!/bin/bash
 
-rm -rf eas-workingdir
+get_abs_filename() {
+  # $1 : relative filename
+  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+export $(xargs < ../../.env)
+export GOOGLE_SERVICES_JSON=$(get_abs_filename google-services.json)
 SHORT_SHA=$(git rev-parse --short HEAD)
-[ -f "$SHORT_SHA.ipa" ] && rm "$SHORT_SHA.ipa"
-EAS_LOCAL_BUILD_WORKINGDIR="$PWD/eas-workingdir" eas build --platform android --profile production --non-interactive --local --output="./$SHORT_SHA.ipa" --wait
-[ -f "$SHORT_SHA.ipa" ] && eas submit --platform android --path="./$SHORT_SHA.ipa" --non-interactive --wait
+eas build --platform android --profile production --non-interactive --local --output="./$SHORT_SHA.aab" --wait
+[ -f "$SHORT_SHA.aab" ] && eas submit --platform android --path="./$SHORT_SHA.aab" --non-interactive --wait
+[ -f "$SHORT_SHA.aab" ] && rm "$SHORT_SHA.aab"
