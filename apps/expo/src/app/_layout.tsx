@@ -196,112 +196,110 @@ const App = ({ session, saveSession }: Props) => {
   return (
     <AppPreferencesProvider>
       {(theme) => (
-        <>
+        <SafeAreaProvider>
           <StatusBar />
           {agent.hasSession && <QuickActions />}
-          <SafeAreaProvider>
-            <CustomerInfoProvider>
-              <AgentProvider agent={agent} update={agentUpdate}>
-                <PreferencesProvider>
-                  <LogOutProvider value={logOut}>
-                    <ActionSheetProvider>
-                      <ListProvider>
-                        <Stack
-                          screenOptions={{
-                            headerShown: true,
-                            fullScreenGestureEnabled: true,
+          <CustomerInfoProvider>
+            <AgentProvider agent={agent} update={agentUpdate}>
+              <PreferencesProvider>
+                <LogOutProvider value={logOut}>
+                  <ActionSheetProvider>
+                    <ListProvider>
+                      <Stack
+                        screenOptions={{
+                          headerShown: true,
+                          fullScreenGestureEnabled: true,
+                        }}
+                      >
+                        <Stack.Screen
+                          name="index"
+                          options={{
+                            headerShown: false,
+                            gestureEnabled: false,
                           }}
-                        >
-                          <Stack.Screen
-                            name="index"
-                            options={{
-                              headerShown: false,
-                              gestureEnabled: false,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="(auth)"
-                            options={{
-                              headerShown: false,
-                              presentation: "formSheet",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="settings"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="codes"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="images/[post]"
-                            options={{
-                              headerShown: false,
-                              animation: "fade",
-                              fullScreenGestureEnabled: false,
-                              customAnimationOnGesture: true,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="discover"
-                            options={{
-                              title: "Discover Feeds",
-                              presentation: "modal",
-                              headerLargeTitle: true,
-                              headerLargeTitleShadowVisible: false,
-                              headerLargeStyle: {
-                                backgroundColor: theme.colors.background,
+                        />
+                        <Stack.Screen
+                          name="(auth)"
+                          options={{
+                            headerShown: false,
+                            presentation: "formSheet",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="settings"
+                          options={{
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="codes"
+                          options={{
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="images/[post]"
+                          options={{
+                            headerShown: false,
+                            animation: "fade",
+                            fullScreenGestureEnabled: false,
+                            customAnimationOnGesture: true,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="discover"
+                          options={{
+                            title: "Discover Feeds",
+                            presentation: "modal",
+                            headerLargeTitle: true,
+                            headerLargeTitleShadowVisible: false,
+                            headerLargeStyle: {
+                              backgroundColor: theme.colors.background,
+                            },
+                            headerSearchBarOptions: {},
+                          }}
+                        />
+                        <Stack.Screen
+                          name="pro"
+                          options={{
+                            title: "",
+                            headerTransparent: true,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="success"
+                          options={{
+                            title: "Purchase Successful",
+                            headerShown: false,
+                            presentation: "modal",
+                          }}
+                        />
+                        <Stack.Screen
+                          name="composer"
+                          options={{
+                            headerShown: false,
+                            ...Platform.select({
+                              ios: {
+                                presentation: "formSheet",
                               },
-                              headerSearchBarOptions: {},
-                            }}
-                          />
-                          <Stack.Screen
-                            name="pro"
-                            options={{
-                              title: "",
-                              headerTransparent: true,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="success"
-                            options={{
-                              title: "Purchase Successful",
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="composer"
-                            options={{
-                              headerShown: false,
-                              ...Platform.select({
-                                ios: {
-                                  presentation: "formSheet",
-                                },
-                                android: {
-                                  animation: "fade_from_bottom",
-                                },
-                              }),
-                            }}
-                          />
-                        </Stack>
-                      </ListProvider>
-                    </ActionSheetProvider>
-                  </LogOutProvider>
-                </PreferencesProvider>
-              </AgentProvider>
-            </CustomerInfoProvider>
-            <Toastable />
-          </SafeAreaProvider>
-        </>
+                              android: {
+                                animation: "fade_from_bottom",
+                              },
+                            }),
+                          }}
+                        />
+                      </Stack>
+                    </ListProvider>
+                  </ActionSheetProvider>
+                </LogOutProvider>
+              </PreferencesProvider>
+            </AgentProvider>
+          </CustomerInfoProvider>
+          <Toastable />
+        </SafeAreaProvider>
       )}
     </AppPreferencesProvider>
   );
