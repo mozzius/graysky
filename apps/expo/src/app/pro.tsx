@@ -145,9 +145,6 @@ export default function Pro() {
             {features.map((feature, index) => (
               <FeatureItem key={feature.title} {...feature} index={index} />
             ))}
-            <Text className="text-white">
-              {JSON.stringify(customerInfo, null, 2)}
-            </Text>
           </ScrollView>
           <SafeAreaView edges={["left", "bottom", "right"]} className="px-4">
             {isPro ? (
