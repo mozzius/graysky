@@ -1,6 +1,16 @@
 {
   "name": "@graysky/nextjs",
   "version": "0.1.0",
+  "scripts": {
+    "build": "pnpm with-env next build",
+    "clean": "git clean -xdf .next .turbo node_modules",
+    "dev": "pnpm with-env next dev",
+    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
+    "lint": "next lint",
+    "start": "pnpm with-env next start",
+    "typecheck": "tsc --noEmit",
+    "with-env": "dotenv -e ../../.env --"
+  },
   "dependencies": {
     "@atproto/api": "^0.7.1",
     "@graysky/api": "0.1.0",
@@ -25,7 +35,7 @@
     "rehype-slug": "^6.0.0",
     "remark-custom-heading-id": "^1.0.1",
     "remark-gfm": "^3.0.1",
-    "sharp": "0.32.6",
+    "sharp": "^0.33.0",
     "superjson": "2.2.1",
     "zod": "^3.22.4"
   },
@@ -44,6 +54,11 @@
     "tailwindcss": "3.3.2",
     "typescript": "^5.3.3"
   },
+  "pnpm": {
+    "overrides": {
+      "sharp": "0.33.0"
+    }
+  },
   "eslintConfig": {
     "root": true,
     "extends": [
@@ -53,15 +68,5 @@
     ]
   },
   "prettier": "@graysky/prettier-config",
-  "private": true,
-  "scripts": {
-    "build": "pnpm with-env next build",
-    "clean": "git clean -xdf .next .turbo node_modules",
-    "dev": "pnpm with-env next dev",
-    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
-    "lint": "next lint",
-    "start": "pnpm with-env next start",
-    "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
-  }
+  "private": true
 }
