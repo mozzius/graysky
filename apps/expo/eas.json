@@ -61,6 +61,15 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "track": "internal"
+      },
+      "ios": {
+        "appleId": "mozzius@protonmail.com",
+        "ascAppId": "6448234181",
+        "appleTeamId": "54BH7CRWVK"
+      }
+    }
   }
 }
