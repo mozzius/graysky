@@ -39,7 +39,13 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
   return (
     <View
       style={{ backgroundColor: theme.colors.card, borderCurve: "continuous" }}
-      className="overflow-hidden rounded-lg"
+      className={cx(
+        "overflow-hidden",
+        Platform.select({
+          android: "rounded-none",
+          default: "rounded-lg",
+        }),
+      )}
     >
       {children}
       {options
@@ -83,7 +89,10 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
               ) : (
                 row
               )}
-              {i !== arr.length - 1 && (
+              {Platform.select({
+                android: true,
+                default: i !== arr.length - 1,
+              }) && (
                 <ItemSeparator iconWidth={option.icon ? "w-6" : undefined} />
               )}
             </Fragment>
@@ -119,7 +128,13 @@ export const GroupedList = ({
   const theme = useTheme();
   return (
     <ScrollView
-      className="flex-1 px-4"
+      className={cx(
+        "flex-1",
+        Platform.select({
+          android: "px-0 pt-4",
+          default: "px-4",
+        }),
+      )}
       ref={scrollRef}
       contentInsetAdjustmentBehavior="automatic"
       style={[
@@ -184,7 +199,13 @@ export const Row = ({
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
-      className="min-h-[46px] flex-row items-center px-4 py-1.5"
+      className={cx(
+        "flex-row items-center px-4",
+        Platform.select({
+          default: "min-h-[46px] py-1.5",
+          android: "min-h-[48px] py-2",
+        }),
+      )}
       aria-disabled={disabled}
     >
       {Icon && (

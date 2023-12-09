@@ -190,17 +190,27 @@ export default function FeedPreferences() {
                                 ) : (
                                   <></>
                                 ),
-                                data.map((x, i) =>
-                                  x.uri === appPrefs.defaultFeed ? (
-                                    <CircleDotIcon
-                                      key={i + 1}
-                                      color={theme.colors.text}
-                                      size={24}
-                                    />
-                                  ) : (
-                                    <></>
-                                  ),
-                                ),
+                                ...(savedFeeds.data
+                                  ? savedFeeds.data.pinned
+                                      .map(
+                                        (pin) =>
+                                          savedFeeds.data.feeds.find(
+                                            (f) => f.uri === pin,
+                                          )!,
+                                      )
+                                      .filter((x) => x !== undefined)
+                                      .map((x, i) =>
+                                        x.uri === appPrefs.defaultFeed ? (
+                                          <CircleDotIcon
+                                            key={i + 1}
+                                            color={theme.colors.text}
+                                            size={24}
+                                          />
+                                        ) : (
+                                          <></>
+                                        ),
+                                      )
+                                  : []),
                                 <></>,
                               ];
                               showActionSheetWithOptions(
