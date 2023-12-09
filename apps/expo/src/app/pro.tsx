@@ -97,7 +97,7 @@ export default function Pro() {
   const features = [
     {
       colour: colors.blue[500],
-      title: "Better Translations",
+      title: "Better translations",
       subtitle: "Translate posts using DeepL",
       icon: <LanguagesIcon className="text-white" />,
     },
@@ -108,19 +108,19 @@ export default function Pro() {
     //   icon: <LineChart className="text-white" />,
     // },
     {
-      colour: colors.amber[500],
-      title: "Custom Themes",
+      colour: colors.green[500],
+      title: "Custom themes",
       subtitle: "Change the accent colour",
       icon: <PaletteIcon className="text-white" />,
     },
     {
       colour: colors.red[500],
-      title: "Support Development",
-      subtitle: "Help us keep adding new features",
+      title: "Support development",
+      subtitle: "Help us keep the lights on",
       icon: <HeartIcon className="text-white" />,
     },
     {
-      colour: colors.fuchsia[500],
+      colour: colors.amber[500],
       title: "And a lot more planned...",
       subtitle: "Analytics, polls, and much more",
       icon: <MoreHorizontalIcon className="text-white" />,
