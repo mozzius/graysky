@@ -4,30 +4,19 @@ import {
   Alert,
   Keyboard,
   Platform,
-  ScrollView,
   TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  useKeyboardContext,
-  useReanimatedFocusedInput,
-} from "react-native-keyboard-controller";
 import Animated, {
   FadeInDown,
   FadeOut,
   FadeOutDown,
   FadeOutLeft,
   LinearTransition,
-  runOnJS,
   SlideInUp,
   SlideOutUp,
-  useAnimatedReaction,
 } from "react-native-reanimated";
-import {
-  useSafeAreaFrame,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import {
   Stack,
@@ -41,7 +30,6 @@ import {
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon, PlusIcon, XIcon } from "lucide-react-native";
@@ -50,6 +38,7 @@ import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
 import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
+import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
@@ -124,45 +113,11 @@ export default function ComposerScreen() {
     end: 0,
   });
   const inputRef = useRef<TextInput>(null!);
-  const scrollViewRef = useRef<ScrollView>(null);
+
   const anchorRef = useRef<TouchableOpacity>(null);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
-  const insets = useSafeAreaInsets();
-  const frame = useSafeAreaFrame();
-  const headerHeight = useHeaderHeight();
-
   useControlledKeyboard();
-
-  const { input } = useReanimatedFocusedInput();
-
-  const scrollTo = (y: number) => {
-    console.log("scrolling to", y);
-    // scrollViewRef.current?.scrollTo({ y, animated: true });
-  };
-  const log = (...msg: any) => console.log(...msg);
-  const { reanimated: keyboard } = useKeyboardContext();
-
-  useAnimatedReaction(
-    () => input.value,
-    (value, previous) => {
-      // if the height of the component changes, we need to position the
-      // bottom of the text input at the top of the keyboard
-      if (value && value.layout.height !== previous?.layout.height) {
-        const { height, y, absoluteY } = value.layout;
-        const inputBottom = y + height;
-        const absInputBottom = absoluteY + height;
-        const visibleAreaHeight =
-          frame.height + keyboard.height.value - headerHeight;
-        runOnJS(log)("visibleAreaHeight", visibleAreaHeight);
-        // if (absInputBottom > frameMinusKeyboard - 16) {
-        //   runOnJS(scrollTo)(inputBottom - frameMinusKeyboard - 16);
-        // }
-      }
-    },
-  );
-
-  console.log("js", frame.height - keyboardMaxHeight - headerHeight);
 
   const reply = useReply();
   const quote = useQuote();
@@ -305,26 +260,12 @@ export default function ComposerScreen() {
           <Text className="my-0.5 text-white/90">Please try again</Text>
         </Animated.View>
       )}
-      <ScrollView
-        ref={scrollViewRef}
+      <KeyboardAwareScrollView
         className="py-4"
         alwaysBounceVertical={!isEmpty}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="always"
+        bottomOffset={48 + 32}
       >
-        {/* <Text>Above</Text>
-        <View className="flex-row pl-10">
-          <View
-            className="w-8 bg-red-500"
-            style={{ height: frame.height - headerHeight }}
-          />
-          <View
-            className="w-8 bg-blue-500"
-            style={{
-              height: frame.height - keyboardMaxHeight - headerHeight,
-            }}
-          />
-        </View>
-        <Text>Below</Text> */}
         {reply.thread.data && (
           <TouchableOpacity
             onPress={() => setTruncateParent((t) => !t)}
@@ -414,7 +355,6 @@ export default function ComposerScreen() {
               )}
           </View>
         </Animated.View>
-        <Animated.View />
         {/* IMAGES */}
         {!gif && images.length > 0 && (
           <Animated.ScrollView
@@ -609,7 +549,7 @@ export default function ComposerScreen() {
             </Animated.View>
           )}
         </Animated.View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <KeyboardAccessory
         charCount={rt.graphemeLength}
         onPressImage={() => imagePicker.mutate()}
