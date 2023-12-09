@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
@@ -68,7 +73,7 @@ export default function DeleteAccount() {
     case 1:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView
+          <ScrollView
             className="flex-1 px-4"
             contentInsetAdjustmentBehavior="automatic"
           >
@@ -122,13 +127,13 @@ export default function DeleteAccount() {
                 <ActivityIndicator className="px-2" />
               )}
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
     case 2:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView
+          <ScrollView
             className="flex-1 px-4"
             contentInsetAdjustmentBehavior="automatic"
           >
@@ -200,7 +205,7 @@ export default function DeleteAccount() {
                 <ActivityIndicator className="px-2" />
               )}
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
     case 3:

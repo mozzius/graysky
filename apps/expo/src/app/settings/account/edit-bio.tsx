@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -58,7 +57,7 @@ export default function EditBio() {
   if (self.data) {
     return (
       <TransparentHeaderUntilScrolled>
-        <KeyboardAwareScrollView
+        <ScrollView
           className="flex-1 px-4"
           contentInsetAdjustmentBehavior="automatic"
         >
@@ -116,7 +115,7 @@ export default function EditBio() {
               <ActivityIndicator className="px-2" />
             )}
           </View>
-        </KeyboardAwareScrollView>
+        </ScrollView>
       </TransparentHeaderUntilScrolled>
     );
   }

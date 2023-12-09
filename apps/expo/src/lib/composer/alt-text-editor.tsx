@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from "react";
 import {
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { AvoidSoftInputView } from "react-native-avoid-softinput";
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -46,7 +47,7 @@ export const AltTextEditor = ({
   const [expandPreview, setExpandPreview] = useState(false);
   const frame = useSafeAreaFrame();
   const headerHeight = useHeaderHeight();
-  const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
+  const altTextScrollViewRef = useRef<ScrollView>(null);
 
   const handleDone = useCallback(() => {
     setEditingAltText(null);
@@ -54,7 +55,10 @@ export const AltTextEditor = ({
   }, [setEditingAltText]);
 
   return (
-    <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+    <AvoidSoftInputView
+      className="flex-1"
+      style={{ backgroundColor: theme.colors.card }}
+    >
       <BackButtonOverride dismiss={handleDone} />
       <Stack.Screen
         options={{
@@ -91,10 +95,8 @@ export const AltTextEditor = ({
           headerTitleStyle: { color: theme.colors.text },
         }}
       />
-      <KeyboardAwareScrollView
+      <ScrollView
         className="flex-1 px-4"
-        extraHeight={32}
-        extraScrollHeight={64}
         keyboardShouldPersistTaps="handled"
         ref={altTextScrollViewRef}
       >
@@ -142,6 +144,9 @@ export const AltTextEditor = ({
           <TextInput
             value={image.alt}
             onChange={(evt) => addAltText(editingAltText, evt.nativeEvent.text)}
+            onLayout={() => {
+              altTextScrollViewRef.current?.scrollToEnd();
+            }}
             multiline
             className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
             numberOfLines={5}
@@ -155,7 +160,7 @@ export const AltTextEditor = ({
             placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
           />
         </Animated.View>
-      </KeyboardAwareScrollView>
-    </View>
+      </ScrollView>
+    </AvoidSoftInputView>
   );
 };

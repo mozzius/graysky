@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -54,7 +53,7 @@ export default function Waitlist() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <KeyboardAwareScrollView
+      <ScrollView
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
@@ -108,7 +107,7 @@ export default function Waitlist() {
             />
           )}
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </TransparentHeaderUntilScrolled>
   );
 }

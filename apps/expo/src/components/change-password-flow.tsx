@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { useTheme } from "@react-navigation/native";
@@ -86,7 +85,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
     case Stage.EnterEmail:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView
+          <ScrollView
             className="flex-1 px-4"
             contentInsetAdjustmentBehavior="automatic"
           >
@@ -119,13 +118,13 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
                 <ActivityIndicator className="px-2" />
               )}
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
     case Stage.EnterResetCode:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView
+          <ScrollView
             className="flex-1 px-4"
             contentInsetAdjustmentBehavior="automatic"
           >
@@ -210,7 +209,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
                 <ActivityIndicator className="px-2" />
               )}
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
     case Stage.Success:

@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -185,7 +184,7 @@ export default function SignUp() {
     case 2:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView
+          <ScrollView
             className="flex-1 px-4"
             contentInsetAdjustmentBehavior="automatic"
           >
@@ -289,13 +288,13 @@ export default function SignUp() {
                 className="font-medium"
               />
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
     case 3:
       return (
         <TransparentHeaderUntilScrolled>
-          <KeyboardAwareScrollView className="flex-1 px-4">
+          <ScrollView className="flex-1 px-4">
             <Stack.Screen
               options={{
                 headerRight: () => <Text className="text-base">3 of 3</Text>,
@@ -357,7 +356,7 @@ export default function SignUp() {
                 <ActivityIndicator className="px-2" />
               )}
             </Animated.View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
   }
