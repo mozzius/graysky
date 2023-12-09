@@ -114,7 +114,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
           "This app accesses your camera to let you add photos from your camera to your posts.",
       },
     ],
-    ["expo-notifications", { color: "#333333" }],
+    // ["expo-notifications", { color: "#333333" }],
     [
       "expo-quick-actions",
       {

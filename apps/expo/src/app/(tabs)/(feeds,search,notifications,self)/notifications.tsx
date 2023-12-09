@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
-import * as ExpoNotifications from "expo-notifications";
+// import * as ExpoNotifications from "expo-notifications";
 import { Stack, useFocusEffect } from "expo-router";
 import {
   type AppBskyFeedDefs,
@@ -186,8 +186,8 @@ function Notifications() {
         await agent.updateSeenNotifications(
           new Date(lastUpdatedRef.current).toISOString(),
         );
-        void ExpoNotifications.setBadgeCountAsync(0);
-        void ExpoNotifications.dismissAllNotificationsAsync();
+        // void ExpoNotifications.setBadgeCountAsync(0);
+        // void ExpoNotifications.dismissAllNotificationsAsync();
         void queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
         });
@@ -208,8 +208,8 @@ function Notifications() {
           await agent.updateSeenNotifications(
             new Date(lastUpdatedRef.current).toISOString(),
           );
-          void ExpoNotifications.setBadgeCountAsync(0);
-          void ExpoNotifications.dismissAllNotificationsAsync();
+          // void ExpoNotifications.setBadgeCountAsync(0);
+          // void ExpoNotifications.dismissAllNotificationsAsync();
           void queryClient.invalidateQueries({
             queryKey: ["notifications", "unread"],
           });
