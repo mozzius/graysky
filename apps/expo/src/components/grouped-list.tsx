@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import {
+  Platform,
   ScrollView,
   Text,
   TouchableHighlight,
@@ -112,13 +113,24 @@ export const GroupedList = ({
   groups,
   children,
   scrollRef,
+  style,
   ...props
 }: GroupProps) => {
+  const theme = useTheme();
   return (
     <ScrollView
       className="flex-1 px-4"
       ref={scrollRef}
       contentInsetAdjustmentBehavior="automatic"
+      style={[
+        {
+          backgroundColor: Platform.select({
+            ios: "transparent",
+            default: theme.colors.card,
+          }),
+        },
+        style,
+      ]}
       {...props}
     >
       <View className="mt-2 flex-1">{children}</View>
@@ -128,7 +140,10 @@ export const GroupedList = ({
           if (!group) return null;
           const { title, footer, ...list } = group;
           return (
-            <View key={i} className={i === arr.length - 1 ? "mb-16" : "mb-4"}>
+            <View
+              key={i}
+              className={cx(i === arr.length - 1 ? "mb-16" : "mb-4")}
+            >
               {title && (
                 <Text className="mx-4 mb-1.5 mt-4 text-xs uppercase text-neutral-500">
                   {title}

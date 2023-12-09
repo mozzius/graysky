@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
 import { cx } from "~/lib/utils/cx";
@@ -21,7 +21,9 @@ export const ItemSeparator = ({
       className={cx("flex-row pl-4", containerClassName)}
       style={{ backgroundColor }}
     >
-      {iconWidth && <View className={cx(iconWidth, "mr-3 shrink-0")} />}
+      {Platform.OS !== "android" && iconWidth && (
+        <View className={cx(iconWidth, "mr-3 shrink-0")} />
+      )}
       <View
         className={cx(
           "h-px flex-1",
