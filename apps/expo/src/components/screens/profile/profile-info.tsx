@@ -368,7 +368,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               className={cx(
                 "absolute",
                 backButton ? "left-28" : "left-16",
-                Platform.OS === "ios" ? "top-1/2 -translate-y-1/2" : "top-1.5",
+                Platform.OS === "ios" ? "top-1/2 -translate-y-1/2" : "top-2",
               )}
               style={animatedOpacitysStyle}
               pointerEvents="none"
