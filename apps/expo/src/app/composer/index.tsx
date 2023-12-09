@@ -215,6 +215,7 @@ export default function ComposerScreen() {
                 haptics.impact();
 
                 if (images.some((i) => !i.alt)) {
+                  if (Platform.OS === "android") Keyboard.dismiss();
                   const cancel = await new Promise((resolve) => {
                     showActionSheetWithOptions(
                       {
