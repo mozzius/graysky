@@ -13,6 +13,7 @@ All notable changes to this project will be documented here.
 - Added the date of when a user joined to their profile
 - Users you follow are shown at the top of the autocomplete list
 - Profile refreshes now show a loading indicator
+- Added quick actions (hold down on the app icon to see them)
 
 ### Notable bug fixes
 
