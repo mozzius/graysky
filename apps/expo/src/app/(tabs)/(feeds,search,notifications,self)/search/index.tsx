@@ -1,12 +1,15 @@
 import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
 import { Image } from "expo-image";
 import { Link, Stack, useRouter } from "expo-router";
@@ -20,7 +23,11 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { SearchIcon } from "lucide-react-native";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  SearchIcon,
+} from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
@@ -179,8 +186,35 @@ const SearchResults = ({ search }: Props) => {
   return <QueryWithoutData query={searchResults} />;
 };
 
+export interface TrendingTopic {
+  tag: string;
+  name: string;
+  count: number;
+}
+
+interface TrendingTopicsResponse {
+  tags: TrendingTopic[];
+}
+
+const TIMEFRAME = 360; // 6 hours, in minutes
+
 const Suggestions = () => {
   const agent = useAgent();
+  const theme = useTheme();
+  const path = useAbsolutePath();
+  const [showAll, setShowAll] = useState(false);
+  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
+
+  const trendingTopics = useQuery({
+    queryKey: ["trending-topics", TIMEFRAME],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://skyfeed-trending-tags.b-cdn.net/xrpc/app.skyfeed.feed.getTrendingTags?minutes=${TIMEFRAME}`,
+      );
+      const json = (await response.json()) as TrendingTopicsResponse;
+      return json.tags;
+    },
+  });
 
   const suggestions = useInfiniteQuery({
     queryKey: ["network"],
@@ -200,11 +234,105 @@ const Suggestions = () => {
   if (suggestions.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
+        ref={ref}
         data={suggestions.data.pages.flatMap((page) => page.data.actors)}
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
-          <Text className="mt-4 px-4 text-lg font-bold">Suggested follows</Text>
+          <View>
+            <Text className="mt-4 px-4 text-lg font-bold">Trending topics</Text>
+            {!trendingTopics.isPending ? (
+              trendingTopics.data ? (
+                <View className="flex-col px-4">
+                  {trendingTopics.data
+                    .slice(0, showAll ? 20 : 3)
+                    .map((tag, i) => (
+                      <Link
+                        key={tag.name}
+                        asChild
+                        href={path(`/tag/${encodeURIComponent(tag.tag)}`)}
+                      >
+                        <TouchableHighlight className="mt-2 flex-1 rounded-lg">
+                          <Animated.View
+                            entering={
+                              i >= 3 ? FadeInUp.delay(50 * i) : undefined
+                            }
+                            exiting={
+                              i >= 3
+                                ? FadeOutUp.delay(50 * (17 - i))
+                                : undefined
+                            }
+                            className="flex-1 flex-row rounded-lg px-4 py-2"
+                            style={{
+                              backgroundColor: theme.colors.card,
+                              borderWidth: StyleSheet.hairlineWidth,
+                              borderColor: theme.colors.border,
+                            }}
+                          >
+                            <Text className="text-base">{i + 1}.</Text>
+                            <View className="ml-1 flex-1 flex-col">
+                              <Text className="text-base" numberOfLines={1}>
+                                <Text className="font-semibold">
+                                  {tag.name}
+                                </Text>{" "}
+                                <Text className="font-normal text-neutral-400 dark:text-neutral-500">
+                                  #{tag.tag}
+                                </Text>
+                              </Text>
+                              <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
+                                {tag.count} posts
+                              </Text>
+                            </View>
+                          </Animated.View>
+                        </TouchableHighlight>
+                      </Link>
+                    ))}
+                  {trendingTopics.data.length > 3 && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowAll((s) => !s);
+                        if (showAll) {
+                          ref.current?.scrollToOffset({
+                            animated: true,
+                            offset: 0,
+                          });
+                        }
+                      }}
+                      className="mt-2"
+                    >
+                      <View className="flex-row items-center justify-center py-1">
+                        <Text className="text-center">
+                          {showAll ? "Show less" : "Show all"}
+                        </Text>
+                        {showAll ? (
+                          <ChevronUpIcon
+                            className="ml-2"
+                            color={theme.colors.text}
+                            size={16}
+                          />
+                        ) : (
+                          <ChevronDownIcon
+                            className="ml-2"
+                            color={theme.colors.text}
+                            size={16}
+                          />
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              ) : (
+                <Text className="mt-1 text-base">
+                  Could not fetch trending topics
+                </Text>
+              )
+            ) : (
+              <ActivityIndicator className="mt-2" />
+            )}
+            <Text className="mt-4 px-4 text-lg font-bold">
+              Suggested follows
+            </Text>
+          </View>
         }
         onEndReached={() => suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
