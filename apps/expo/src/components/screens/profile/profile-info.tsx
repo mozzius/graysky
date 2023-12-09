@@ -359,11 +359,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               ),
               android: (
                 <Animated.View
-                  className="flex-1"
-                  style={[
-                    animatedOpacitysStyle,
-                    { backgroundColor: theme.colors.card },
-                  ]}
+                  className="flex-1 bg-black/80"
+                  style={[animatedOpacitysStyle]}
                 />
               ),
             })}
