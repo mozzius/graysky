@@ -373,7 +373,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
     <Link href={href} asChild>
       <TouchableWithoutFeedback>
         <View
-          className="mx-4 mt-4 rounded-lg p-4"
+          className="mx-4 my-2 rounded-lg p-4"
           style={{
             backgroundColor: theme.colors.card,
             borderWidth: StyleSheet.hairlineWidth,
