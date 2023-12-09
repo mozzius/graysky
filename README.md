@@ -15,8 +15,7 @@ pnpm install
 In the `/apps/expo` directory, build the dev client using EAS:
 
 ```bash
-cd apps/expo
-pnpm build:dev-client:ios
+pnpm build:dev-client:ios-simulator
 // or
 pnpm build:dev-client:android
 ```
@@ -44,7 +43,7 @@ pnpm dev
 ## Android local APK builds
 
 - Install Android Studio, and the Android SDK
-- Install Oracle Java 11 JDK
+- Install Oracle Java 11 JDK (`brew install openjdk@11`)
 - Make Gradle faster in `~/.gradle/gradle.properties`:
 
 ```
@@ -55,7 +54,7 @@ org.gradle.daemon=false
 org.gradle.caching=true
 ```
 
-You can now either run `pnpm build:android` to build the app and automatically submit it with `eas submit`, or if you want to sign a build manually you can do the following:
+You can now either run `pnpm build:android` to build and submit the app, or if you want to sign a build manually you can do the following:
 
 - [Create a signing key in Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)
 - Build it with: `eas build --platform android --profile production-apk --non-interactive --local --output="./foo.apk" --wait`
