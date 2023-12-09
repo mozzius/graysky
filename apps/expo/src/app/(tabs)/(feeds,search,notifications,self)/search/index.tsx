@@ -192,10 +192,6 @@ export interface TrendingTopic {
   count: number;
 }
 
-interface TrendingTopicsResponse {
-  tags: TrendingTopic[];
-}
-
 const TIMEFRAME = 360; // 6 hours, in minutes
 
 const Suggestions = () => {
@@ -211,7 +207,9 @@ const Suggestions = () => {
       const response = await fetch(
         `https://skyfeed-trending-tags.b-cdn.net/xrpc/app.skyfeed.feed.getTrendingTags?minutes=${TIMEFRAME}`,
       );
-      const json = (await response.json()) as TrendingTopicsResponse;
+      const json = (await response.json()) as {
+        tags: TrendingTopic[];
+      };
       return json.tags;
     },
   });
