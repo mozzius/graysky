@@ -11,6 +11,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { SendIcon, Trash2Icon } from "lucide-react-native";
 
+import { BackButtonOverride } from "~/components/back-button-override";
 import { Text } from "~/components/themed/text";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useHaptics } from "../hooks/preferences";
@@ -110,15 +111,18 @@ export const CancelButton = ({
 
   if (hasContent) {
     return (
-      <TouchableOpacity
-        disabled={disabled}
-        accessibilityLabel="Discard post"
-        onPress={() => void handleCancel()}
-      >
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
-          Cancel
-        </Text>
-      </TouchableOpacity>
+      <>
+        <BackButtonOverride dismiss={handleCancel} />
+        <TouchableOpacity
+          disabled={disabled}
+          accessibilityLabel="Discard post"
+          onPress={() => void handleCancel()}
+        >
+          <Text style={{ color: theme.colors.primary }} className="text-lg">
+            Cancel
+          </Text>
+        </TouchableOpacity>
+      </>
     );
   }
 

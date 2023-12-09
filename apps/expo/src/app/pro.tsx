@@ -152,7 +152,7 @@ export default function Pro() {
         <View className="flex-1 bg-black/40">
           <ScrollView fadingEdgeLength={20} indicatorStyle="white">
             <Animated.Text
-              className="mb-8 mt-24 text-center text-6xl font-semibold text-white"
+              className="android:mt-32 mb-8 mt-24 text-center text-6xl font-semibold text-white"
               entering={ZoomIn.delay(500).duration(300)}
             >
               Graysky Pro

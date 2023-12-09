@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -17,6 +17,7 @@ import { Stack } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 
+import { BackButtonOverride } from "~/components/back-button-override";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { useHaptics } from "../hooks/preferences";
@@ -47,8 +48,14 @@ export const AltTextEditor = ({
   const headerHeight = useHeaderHeight();
   const altTextScrollViewRef = useRef<KeyboardAwareScrollView>(null);
 
+  const handleDone = useCallback(() => {
+    setEditingAltText(null);
+    setExpandPreview(false);
+  }, [setEditingAltText]);
+
   return (
     <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
+      <BackButtonOverride dismiss={handleDone} />
       <Stack.Screen
         options={{
           headerTitle: "Edit alt text",
@@ -59,8 +66,7 @@ export const AltTextEditor = ({
               <TouchableOpacity
                 onPress={() => {
                   haptics.selection();
-                  setEditingAltText(null);
-                  setExpandPreview(false);
+                  handleDone();
                 }}
                 className="absolute right-0"
               >
