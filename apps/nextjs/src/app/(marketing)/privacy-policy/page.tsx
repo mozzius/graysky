@@ -56,7 +56,7 @@ export default function Page() {
           <p>
             <strong className="font-bold">Company</strong> (referred to as
             either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or
-            &quot;Our&quot; in this Agreement) refers to Graysky.
+            &quot;Our&quot; in this Agreement) refers to Pilvia Ltd.
           </p>
         </li>
         <li>
