@@ -22,8 +22,8 @@ export const NotificationItem = ({
             ? "border-slate-600 bg-slate-800"
             : "border-blue-200 bg-blue-50"
           : theme.dark
-          ? "bg-black"
-          : "bg-white",
+            ? "bg-black"
+            : "bg-white",
       )}
       style={{ borderColor: unread ? undefined : theme.colors.border }}
     >

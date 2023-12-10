@@ -122,7 +122,7 @@
     "@types/webpack-env": "^1.18.4",
     "eslint": "^8.55.0",
     "postcss": "^8.4.32",
-    "prettier": "^3.1.0",
+    "prettier": "^3.1.1",
     "tailwindcss": "3.3.2",
     "typescript": "^5.3.3"
   },
