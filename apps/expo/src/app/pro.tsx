@@ -23,7 +23,7 @@ import {
   HeartIcon,
   LanguagesIcon,
   // LineChart,
-  MoreHorizontalIcon,
+  // MoreHorizontalIcon,
   PaletteIcon,
   XIcon,
 } from "lucide-react-native";
@@ -119,12 +119,12 @@ export default function Pro() {
       subtitle: "Help us keep the lights on",
       icon: <HeartIcon className="text-white" />,
     },
-    {
-      colour: colors.amber[500],
-      title: "And a lot more planned...",
-      subtitle: "Analytics, polls, and much more",
-      icon: <MoreHorizontalIcon className="text-white" />,
-    },
+    // {
+    //   colour: colors.amber[500],
+    //   title: "And a lot more planned...",
+    //   subtitle: "Analytics, polls, and much more",
+    //   icon: <MoreHorizontalIcon className="text-white" />,
+    // },
   ] satisfies Omit<FeatureItemProps, "index">[];
 
   const annualProduct = offerings.data?.current?.annual?.product;
@@ -191,9 +191,14 @@ export default function Pro() {
               monthlyProduct && (
                 <View>
                   <BlurPill active={!annual} onPress={() => setAnnual(false)}>
-                    <Text className="text-base text-white">Monthly Plan</Text>
-                    <Text className="text-base text-white">
-                      {monthlyProduct.priceString} / month
+                    <View className="flex-row justify-between">
+                      <Text className="text-base text-white">Monthly Plan</Text>
+                      <Text className="text-base text-white">
+                        {monthlyProduct.priceString} / month
+                      </Text>
+                    </View>
+                    <Text className="mt-0.5 text-sm text-white/80">
+                      Billed monthly, cancel anytime
                     </Text>
                   </BlurPill>
                   <BlurPill
@@ -201,17 +206,30 @@ export default function Pro() {
                     onPress={() => setAnnual(true)}
                     className="mt-4"
                   >
-                    <Text className="text-base text-white">
-                      Annual Plan (
-                      {Math.round(
-                        1000 -
-                          (annualProduct.price / (monthlyProduct.price * 12)) *
-                            1000,
-                      ) / 10}
-                      % off)
-                    </Text>
-                    <Text className="text-base text-white">
-                      {annualProduct.priceString} / year
+                    <View className="flex-row justify-between">
+                      <View className="flex-row items-center">
+                        <Text className="text-base text-white">
+                          Annual Plan
+                        </Text>
+                        <View className="ml-2 rounded-md bg-green-300">
+                          <Text className="py-0.5 pl-1.5 pr-1 text-xs font-bold text-green-950">
+                            Save{" "}
+                            {Math.round(
+                              1000 -
+                                (annualProduct.price /
+                                  (monthlyProduct.price * 12)) *
+                                  1000,
+                            ) / 10}
+                            %
+                          </Text>
+                        </View>
+                      </View>
+                      <Text className="text-base text-white">
+                        {annualProduct.priceString} / year
+                      </Text>
+                    </View>
+                    <Text className="mt-0.5 text-sm text-white/80">
+                      Billed annually, cancel anytime
                     </Text>
                   </BlurPill>
                   <TouchableHighlight
@@ -228,15 +246,27 @@ export default function Pro() {
                         <ActivityIndicator color="white" />
                       ) : (
                         <Text className="text-center text-base font-medium text-white">
-                          Get Graysky Pro
+                          Subscribe & pay
                         </Text>
                       )}
                     </View>
                   </TouchableHighlight>
+                  <Text className="mt-3 text-xs text-neutral-200">
+                    By subscribing, you agree to our{" "}
+                    <Text
+                      className="font-medium text-white underline"
+                      onPress={() =>
+                        Linking.openURL("https://graysky.app/terms-of-service")
+                      }
+                    >
+                      Terms of Service
+                    </Text>
+                    . Subscriptions renew automatically until cancelled.
+                  </Text>
                   <TouchableOpacity
                     onPress={() => restore.mutate()}
                     disabled={restore.isPending}
-                    className="mt-4 w-full py-2"
+                    className="mt w-full py-2"
                   >
                     <Text className="text-center text-base text-blue-500">
                       {restore.isPending
@@ -316,7 +346,7 @@ const BlurPill = ({
       <BlurView tint="dark">
         <View
           className={cx(
-            "flex-row items-center justify-between rounded-xl border-2 p-4",
+            "rounded-xl border-2 px-4 py-2",
             active ? "border-blue-500" : "border-transparent",
           )}
         >
