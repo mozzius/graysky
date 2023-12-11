@@ -174,7 +174,6 @@ export default function TagScreen() {
           ListFooterComponent={
             <ListFooterComponent query={feed} text="Powered by Skyfeed" />
           }
-          extraData={feed.dataUpdatedAt}
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center py-20">
               <View className="w-3/4 flex-col items-center">

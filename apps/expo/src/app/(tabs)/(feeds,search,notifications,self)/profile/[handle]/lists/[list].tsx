@@ -583,7 +583,6 @@ const ListFeed = ({ uri }: { uri: string }) => {
           </View>
         }
         ListFooterComponent={<ListFooterComponent query={query} />}
-        extraData={query.dataUpdatedAt}
       />
     );
   }

@@ -55,7 +55,6 @@ export const ProfileLists = ({ handle }: Props) => {
         onEndReached={() => lists.fetchNextPage()}
         estimatedItemSize={91}
         ListFooterComponent={<ListFooterComponent query={lists} />}
-        extraData={lists.dataUpdatedAt}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

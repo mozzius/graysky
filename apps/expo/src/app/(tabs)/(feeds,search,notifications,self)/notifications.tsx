@@ -271,7 +271,6 @@ function Notifications() {
             />
           }
           ListFooterComponent={<ListFooterComponent query={notifications} />}
-          extraData={notifications.dataUpdatedAt}
         />
       </>
     );

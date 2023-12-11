@@ -77,7 +77,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
         onEndReached={() => timeline.fetchNextPage()}
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={timeline} />}
-        extraData={timeline.dataUpdatedAt}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

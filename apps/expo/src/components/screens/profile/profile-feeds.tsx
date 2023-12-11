@@ -98,7 +98,6 @@ export const ProfileFeeds = ({ handle }: Props) => {
         onEndReached={() => feeds.fetchNextPage()}
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={feeds} />}
-        extraData={feeds.dataUpdatedAt}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

@@ -103,7 +103,6 @@ const PostsSearch = ({ search }: Props) => {
             </Text>
           </View>
         }
-        extraData={query.dataUpdatedAt}
       />
     );
   }
