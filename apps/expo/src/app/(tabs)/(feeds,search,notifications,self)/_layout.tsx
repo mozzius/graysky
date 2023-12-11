@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
+import * as Sentry from "sentry-expo";
 
 import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
@@ -35,6 +37,11 @@ export default function SubStack() {
 
 const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
   const theme = useTheme();
+
+  useEffect(() => {
+    Sentry.Native.captureException(error);
+  }, [error]);
+
   return (
     <View className="flex-1 items-center justify-center">
       <View className="w-3/4 flex-col items-start">
