@@ -3,9 +3,11 @@
 }
 
 body {
-  width: 100px;
-  padding: 10px;
-
+  margin: 0;
+  width: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  color: white;
   font-family:
     ui-sans-serif,
     system-ui,
@@ -22,10 +24,18 @@ body {
     "Segoe UI Symbol",
     "Noto Color Emoji";
   text-align: center;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  items-center;
+  gap: 16px;
+  background-color: #3B4245;
+  text-white;
 }
 
-@media (prefers-color-scheme: dark) {
-  /* Dark Mode styles go here. */
+img {
+  width: 200px;
+  max-height: 80%;
+  height: auto;
+  border-radius: 32px;
 }
