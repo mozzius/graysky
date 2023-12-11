@@ -335,7 +335,7 @@ const Suggestions = () => {
         onEndReached={() => suggestions.fetchNextPage()}
         contentInsetAdjustmentBehavior="automatic"
         ListFooterComponent={<ListFooterComponent query={suggestions} />}
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
       />
     );
   }

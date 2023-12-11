@@ -94,7 +94,7 @@ export const ProfileFeeds = ({ handle }: Props) => {
         renderItem={({ item }) => (
           <Feed {...item} dataUpdatedAt={feeds.dataUpdatedAt} />
         )}
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
         onEndReached={() => feeds.fetchNextPage()}
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={feeds} />}

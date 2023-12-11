@@ -130,7 +130,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                   </Text>
                 </View>
               }
-              onEndReachedThreshold={0.6}
+              onEndReachedThreshold={2}
               onEndReached={() => {
                 if (!limit || showAll || people.length < limit) {
                   void data.fetchNextPage();

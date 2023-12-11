@@ -77,7 +77,7 @@ const FeedSearch = ({ search }: Props) => {
         }
         ListFooterComponent={<ListFooterComponent query={query} />}
         onEndReached={() => query.fetchNextPage()}
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
       />
     );
   }

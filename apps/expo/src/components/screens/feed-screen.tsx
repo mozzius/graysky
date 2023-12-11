@@ -77,7 +77,7 @@ export const FeedScreen = ({ feed }: Props) => {
               dataUpdatedAt={timeline.dataUpdatedAt}
             />
           )}
-          onEndReachedThreshold={0.6}
+          onEndReachedThreshold={2}
           onEndReached={() => void timeline.fetchNextPage()}
           refreshControl={
             <RefreshControl

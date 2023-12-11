@@ -261,7 +261,7 @@ function Notifications() {
           //   ) : null
           // }
           estimatedItemSize={105}
-          onEndReachedThreshold={0.6}
+          onEndReachedThreshold={2}
           onEndReached={() => notifications.fetchNextPage()}
           refreshControl={
             <RefreshControl

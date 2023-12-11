@@ -473,7 +473,7 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
     <Tabs.FlashList<AppBskyGraphDefs.ListItemView>
       data={data}
       renderItem={({ item }) => <ListMemberItem item={item} />}
-      onEndReachedThreshold={0.6}
+      onEndReachedThreshold={2}
       onEndReached={() => query.fetchNextPage()}
       estimatedItemSize={140}
       ListFooterComponent={<ListFooterComponent query={query} />}

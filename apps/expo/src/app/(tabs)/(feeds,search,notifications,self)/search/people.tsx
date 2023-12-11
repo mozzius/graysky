@@ -73,7 +73,7 @@ const PeopleSearch = ({ search }: Props) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
         onEndReached={() => query.fetchNextPage()}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-8">

@@ -149,7 +149,7 @@ export default function GifSearch() {
             layout.span = (width - 16) / 2;
             layout.size = (layout.span - 4) / aspectRatio + 8;
           }}
-          onEndReachedThreshold={0.6}
+          onEndReachedThreshold={2}
           onEndReached={() => gifQuery.fetchNextPage()}
           refreshControl={
             <RefreshControl

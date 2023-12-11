@@ -73,7 +73,7 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             dataUpdatedAt={timeline.dataUpdatedAt}
           />
         )}
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
         onEndReached={() => timeline.fetchNextPage()}
         estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={timeline} />}

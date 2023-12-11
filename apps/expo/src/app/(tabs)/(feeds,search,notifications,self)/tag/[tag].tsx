@@ -161,7 +161,7 @@ export default function TagScreen() {
               dataUpdatedAt={feed.dataUpdatedAt}
             />
           )}
-          onEndReachedThreshold={0.6}
+          onEndReachedThreshold={2}
           onEndReached={() => void feed.fetchNextPage()}
           refreshControl={
             <RefreshControl

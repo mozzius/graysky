@@ -51,7 +51,7 @@ export const ProfileLists = ({ handle }: Props) => {
         renderItem={({ item }) => (
           <ListItem {...item} dataUpdatedAt={lists.dataUpdatedAt} />
         )}
-        onEndReachedThreshold={0.6}
+        onEndReachedThreshold={2}
         onEndReached={() => lists.fetchNextPage()}
         estimatedItemSize={91}
         ListFooterComponent={<ListFooterComponent query={lists} />}
