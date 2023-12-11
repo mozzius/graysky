@@ -114,7 +114,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
           "This app accesses your camera to let you add photos from your camera to your posts.",
       },
     ],
-    // ["expo-notifications", { color: "#333333" }],
+    ["expo-notifications", { color: "#333333" }],
     [
       "expo-quick-actions",
       {
@@ -165,7 +165,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       },
     ],
     // entitlement issue - https://github.com/andrew-levy/react-native-safari-extension/issues/18
-    // ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
+    ["react-native-safari-extension", { folderName: "OpenInGrayskyExtension" }],
   ],
 });
 

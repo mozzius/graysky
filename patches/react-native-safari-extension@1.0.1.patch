@@ -1,0 +1,13 @@
+diff --git a/plugin/build/xcodeSafariExtension/addXCConfigurationList.js b/plugin/build/xcodeSafariExtension/addXCConfigurationList.js
+index 82f56a6173b70d9490d1f73a20587c244fdfa37f..c3e49129dcae4c47242ad2ff184db8d13c712f63 100644
+--- a/plugin/build/xcodeSafariExtension/addXCConfigurationList.js
++++ b/plugin/build/xcodeSafariExtension/addXCConfigurationList.js
+@@ -5,7 +5,7 @@ function default_1(proj, { extensionBundleIdentifier, currentProjectVersion, mar
+     const commonBuildSettings = {
+         ASSETCATALOG_COMPILER_APPICON_NAME: "AppIcon",
+         CLANG_ENABLE_MODULES: "YES",
+-        CODE_SIGN_ENTITLEMENTS: `${appName}/${appName}.entitlements`,
++        // CODE_SIGN_ENTITLEMENTS: `${appName}/${appName}.entitlements`,
+         CURRENT_PROJECT_VERSION: (0, utils_1.quoted)(currentProjectVersion),
+         INFOPLIST_FILE: `../${extensionName}/Info.plist`,
+         MARKETING_VERSION: (0, utils_1.quoted)(marketingVersion),
