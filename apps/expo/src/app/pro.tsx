@@ -251,7 +251,7 @@ export default function Pro() {
                       )}
                     </View>
                   </TouchableHighlight>
-                  <Text className="mt-3 text-xs text-neutral-200">
+                  <Text className="mt-3 px-4 text-xs text-neutral-200">
                     By subscribing, you agree to our{" "}
                     <Text
                       className="font-medium text-white underline"
