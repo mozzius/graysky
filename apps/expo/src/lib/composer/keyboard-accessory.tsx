@@ -1,10 +1,4 @@
-import {
-  Platform,
-  StyleSheet,
-  TouchableHighlight,
-  View,
-  type PlatformIOSStatic,
-} from "react-native";
+import { Platform, StyleSheet, TouchableHighlight, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -128,9 +122,7 @@ export const KeyboardAccessory = ({
     </View>
   );
 
-  const platform = Platform as PlatformIOSStatic;
-
-  if (platform.OS === "ios" && platform.isPad) {
+  if (Platform.OS === "ios" && Platform.isPad) {
     return <View className="h-12 w-full">{content}</View>;
   }
 

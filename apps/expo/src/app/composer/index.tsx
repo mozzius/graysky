@@ -366,7 +366,7 @@ export default function ComposerScreen() {
             entering={FadeInDown}
             exiting={FadeOut}
             layout={LinearTransition}
-            keyboardShouldPersistTaps="handled"
+            keyboardShouldPersistTaps="always"
           >
             {images.map((image, i) => (
               <Animated.View

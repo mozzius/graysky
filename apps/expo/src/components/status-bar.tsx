@@ -9,7 +9,7 @@ interface Props {
 export const StatusBar = ({ modal }: Props) => {
   const theme = useTheme();
 
-  if (modal && Platform.OS === "ios") {
+  if (modal && Platform.OS === "ios" && !Platform.isPad) {
     return <ExpoStatusBar style="light" />;
   } else {
     return (
