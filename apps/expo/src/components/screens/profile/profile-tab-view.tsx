@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import Constants from "expo-constants";
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
@@ -48,17 +47,10 @@ export const ProfileTabView = ({
     return (
       <>
         <Stack.Screen
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
-            // needs UIViewControllerBasedStatusBarAppearance set to true in Info.plist
-            // however, this needs be set to false for the dev client to work
-            //
-            // sigh
-            ...(Constants.expoConfig?.extra?.devClient && {
-              statusBarStyle: "light",
-            }),
+            statusBarStyle: "light",
           }}
         />
         <Tabs.Container
