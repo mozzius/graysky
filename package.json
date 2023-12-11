@@ -16,8 +16,7 @@
   "pnpm": {
     "patchedDependencies": {
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch",
-      "react-native-safari-extension@1.0.1": "patches/react-native-safari-extension@1.0.1.patch"
+      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch"
     },
     "overrides": {
       "dequal": "1.0.0",
