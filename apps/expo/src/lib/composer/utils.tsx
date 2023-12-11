@@ -4,7 +4,7 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
-  type TouchableOpacity,
+  type TouchableHighlight,
 } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as ImageManipulator from "expo-image-manipulator";
@@ -339,7 +339,7 @@ export const useSendPost = ({
   });
 };
 
-export const useImages = (anchorRef?: React.RefObject<TouchableOpacity>) => {
+export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
 

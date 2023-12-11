@@ -114,7 +114,7 @@ export default function ComposerScreen() {
   });
   const inputRef = useRef<TextInput>(null!);
 
-  const anchorRef = useRef<TouchableOpacity>(null);
+  const anchorRef = useRef<TouchableHighlight>(null);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
   useControlledKeyboard();
@@ -211,7 +211,7 @@ export default function ComposerScreen() {
           ),
           headerRight: () => (
             <PostButton
-              onPress={async () => {
+              onPress={async (anchor) => {
                 haptics.impact();
 
                 if (images.some((i) => !i.alt)) {
@@ -225,6 +225,7 @@ export default function ComposerScreen() {
                         options: ["Post anyway", "Go back"],
                         destructiveButtonIndex: 0,
                         cancelButtonIndex: 1,
+                        anchor,
                         ...actionSheetStyles(theme),
                       },
                       (index) => resolve(index === 1),
@@ -553,6 +554,7 @@ export default function ComposerScreen() {
       </KeyboardAwareScrollView>
       <KeyboardAccessory
         charCount={rt.graphemeLength}
+        imageButtonRef={anchorRef}
         onPressImage={() => imagePicker.mutate()}
         language={languages?.join(", ") ?? primaryLanguage}
         onPressLanguage={() => {

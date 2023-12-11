@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import {
   ActivityIndicator,
+  findNodeHandle,
   Keyboard,
   Platform,
   TouchableOpacity,
@@ -22,15 +24,22 @@ export const PostButton = ({
   loading,
   disabled,
 }: {
-  onPress: () => void;
+  onPress: (number?: number) => void;
   loading: boolean;
   disabled: boolean;
 }) => {
   const theme = useTheme();
+  const ref = useRef<TouchableWithoutFeedback>(null);
 
   return (
     <View className="flex-row items-center">
-      <TouchableWithoutFeedback disabled={disabled} onPress={onPress}>
+      <TouchableWithoutFeedback
+        ref={ref}
+        disabled={disabled}
+        onPress={() =>
+          onPress((ref?.current && findNodeHandle(ref.current)) ?? undefined)
+        }
+      >
         <View
           className={cx(
             "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
@@ -68,6 +77,7 @@ export const CancelButton = ({
   const theme = useTheme();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
+  const ref = useRef<TouchableOpacity>(null);
 
   const haptics = useHaptics();
 
@@ -84,6 +94,7 @@ export const CancelButton = ({
         {
           options,
           icons,
+          anchor: (ref?.current && findNodeHandle(ref.current)) ?? undefined,
           cancelButtonIndex: options.length - 1,
           destructiveButtonIndex: 0,
           ...actionSheetStyles(theme),
@@ -114,6 +125,7 @@ export const CancelButton = ({
       <>
         <BackButtonOverride dismiss={handleCancel} />
         <TouchableOpacity
+          ref={ref}
           disabled={disabled}
           accessibilityLabel="Discard post"
           onPress={() => void handleCancel()}
