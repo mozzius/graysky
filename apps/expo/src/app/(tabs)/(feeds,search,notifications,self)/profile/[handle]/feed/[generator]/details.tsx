@@ -257,7 +257,10 @@ const FeedInfo = ({
                     info.view.viewer?.like ? colors.red[600] : "transparent"
                   }
                 />
-                <Text className="ml-2 text-base tabular-nums">
+                <Text
+                  className="ml-2 text-base"
+                  style={{ fontVariant: ["tabular-nums"] }}
+                >
                   {info.view.likeCount}
                 </Text>
               </View>

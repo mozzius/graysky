@@ -111,10 +111,10 @@ export const FeedRow = ({
                   size={12}
                 />{" "}
                 <Text
-                  className={cx(
-                    "tabular-nums",
-                    theme.dark ? "text-neutral-400" : "text-neutral-500",
-                  )}
+                  className={
+                    theme.dark ? "text-neutral-400" : "text-neutral-500"
+                  }
+                  style={{ fontVariant: ["tabular-nums"] }}
                 >
                   {feed.likeCount ?? 0}
                 </Text>{" "}

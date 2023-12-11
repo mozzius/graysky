@@ -133,7 +133,7 @@ export const Embed = ({
                         }
                         size={12}
                       />{" "}
-                      <Text className="tabular-nums">
+                      <Text style={{ fontVariant: ["tabular-nums"] }}>
                         {record.likeCount ?? 0}
                       </Text>{" "}
                       • @{record.creator.handle}
