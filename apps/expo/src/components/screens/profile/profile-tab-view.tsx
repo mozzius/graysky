@@ -50,7 +50,16 @@ export const ProfileTabView = ({
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
-            statusBarStyle: "light",
+            // needs UIViewControllerBasedStatusBarAppearance set to true in Info.plist
+            // however, this needs be set to false for the dev client to work
+            //
+            // sigh
+            //
+            // also extras.devClient isn't working
+            // double sigh
+            ...(process.env.API_URL !== undefined && {
+              statusBarStyle: "light",
+            }),
           }}
         />
         <Tabs.Container
