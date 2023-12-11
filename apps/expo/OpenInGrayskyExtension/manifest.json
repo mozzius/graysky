@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "default_locale": "en",
+
+  "name": "Open in Graysky",
+  "description": "Opens Bluesky links in Graysky.",
+  "version": "1.0",
+
+  "icons": {
+    "48": "assets/assets/icon-48.png",
+    "96": "assets/assets/icon-96.png",
+    "128": "assets/assets/icon-128.png",
+    "256": "assets/assets/icon-256.png",
+    "512": "assets/assets/icon-512.png"
+  },
+
+  "content_scripts": [
+    {
+      "js": ["src/content.js"],
+      "matches": ["https://bsky.app/*", "https://*.bsky.app/*"]
+    }
+  ],
+
+  "browser_action": {
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "assets/assets/toolbar-icon-16.png",
+      "19": "assets/assets/toolbar-icon-19.png",
+      "32": "assets/assets/toolbar-icon-32.png",
+      "38": "assets/assets/toolbar-icon-38.png",
+      "48": "assets/assets/toolbar-icon-48.png",
+      "72": "assets/assets/toolbar-icon-72.png"
+    }
+  },
+
+  "permissions": ["storage"]
+}
