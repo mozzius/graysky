@@ -28,7 +28,6 @@ import { useAgent } from "~/lib/agent";
 import { useComposer } from "~/lib/composer/utils";
 import { useTabPressScroll } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
-import { assert } from "~/lib/utils/assert";
 import { useUserRefresh } from "~/lib/utils/query";
 
 export type Posts =
@@ -108,7 +107,6 @@ const PostThread = ({ contentFilter }: Props) => {
       }
       if (!AppBskyFeedDefs.isThreadViewPost(thread))
         throw Error("Post not found");
-      assert(AppBskyFeedDefs.validateThreadViewPost(thread));
 
       const posts: Posts[] = [];
 
@@ -136,7 +134,6 @@ const PostThread = ({ contentFilter }: Props) => {
           }
           break;
         }
-        assert(AppBskyFeedDefs.validateThreadViewPost(ancestor.parent));
 
         const filter = contentFilter(ancestor.parent.post.labels);
 
@@ -210,7 +207,6 @@ const PostThread = ({ contentFilter }: Props) => {
             child = reply.replies[0];
             while (child) {
               if (!AppBskyFeedDefs.isThreadViewPost(child)) break;
-              assert(AppBskyFeedDefs.validateThreadViewPost(child));
 
               const replyFilter = contentFilter(child.post.labels);
 

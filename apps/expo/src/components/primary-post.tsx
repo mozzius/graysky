@@ -14,7 +14,6 @@ import { MessagesSquareIcon } from "lucide-react-native";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
-import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { Embed } from "./embed";
@@ -52,8 +51,6 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
   if (!AppBskyFeedPost.isRecord(post.record)) {
     return null;
   }
-
-  assert(AppBskyFeedPost.validateRecord(post.record));
 
   let threadgate;
 

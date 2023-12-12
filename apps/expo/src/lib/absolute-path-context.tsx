@@ -1,32 +1,16 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { useSegments } from "expo-router";
+import { createContext, useCallback, useContext } from "react";
 
 const AbsolutePathContext = createContext<string>("");
 
 export const AbsolutePathProvider = ({
   children,
+  segment,
 }: {
   children: React.ReactNode;
+  segment: string;
 }) => {
-  const [base, setBase] = useState("");
-  const segments = useSegments();
-
-  const path = segments.slice(0, 2).join("/");
-
-  useEffect(() => {
-    if (path.startsWith("(tabs)")) {
-      setBase(path);
-    }
-  }, [path]);
-
   return (
-    <AbsolutePathContext.Provider value={base}>
+    <AbsolutePathContext.Provider value={`/(tabs)/${segment}`}>
       {children}
     </AbsolutePathContext.Provider>
   );

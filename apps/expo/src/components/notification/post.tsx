@@ -7,7 +7,6 @@ import {
 } from "@atproto/api";
 
 import { useContentFilter } from "~/lib/hooks/preferences";
-import { assert } from "~/lib/utils/assert";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
@@ -38,7 +37,6 @@ export const PostNotification = ({
       if (filter) return null;
 
       if (!AppBskyFeedPost.isRecord(item.post.record)) return null;
-      assert(AppBskyFeedPost.validateRecord(item.post.record));
 
       const embedImage =
         item.post.embed && AppBskyEmbedImages.isView(item.post.embed)

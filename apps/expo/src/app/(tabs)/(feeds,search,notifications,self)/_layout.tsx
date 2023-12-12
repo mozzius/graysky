@@ -7,6 +7,7 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import * as Sentry from "sentry-expo";
 
 import { Text } from "~/components/themed/text";
+import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
 
 const stackOptions = {
@@ -15,7 +16,11 @@ const stackOptions = {
   },
 };
 
-export default function SubStack() {
+export default function SubStack({
+  segment,
+}: {
+  segment: "(feeds)" | "(search)" | "(notifications)" | "(self)";
+}) {
   // agent might not be available yet
   const agent = useOptionalAgent();
 
@@ -30,7 +35,9 @@ export default function SubStack() {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Stack {...stackOptions} />
+      <AbsolutePathProvider segment={segment}>
+        <Stack {...stackOptions} />
+      </AbsolutePathProvider>
     </ErrorBoundary>
   );
 }

@@ -14,7 +14,6 @@ import { XIcon } from "lucide-react-native";
 
 import { ImageViewer } from "~/components/image-viewer";
 import { useAgent } from "~/lib/agent";
-import { assert } from "~/lib/utils/assert";
 
 export default function ImageModal() {
   const agent = useAgent();
@@ -55,32 +54,15 @@ export default function ImageModal() {
         if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {
           throw new Error("Invalid thread post");
         }
-        assert(AppBskyFeedDefs.validateThreadViewPost(record.data.thread));
 
         if (AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
-          assert(
-            AppBskyEmbedImages.validateView(record.data.thread.post.embed),
-          );
-
           return record.data.thread.post.embed.images;
         } else if (
           AppBskyEmbedRecordWithMedia.isView(record.data.thread.post.embed)
         ) {
-          assert(
-            AppBskyEmbedRecordWithMedia.validateView(
-              record.data.thread.post.embed,
-            ),
-          );
-
           if (
             AppBskyEmbedImages.isView(record.data.thread.post.embed.media.embed)
           ) {
-            assert(
-              AppBskyEmbedImages.validateView(
-                record.data.thread.post.embed.media.embed,
-              ),
-            );
-
             return record.data.thread.post.embed.media.embed.images;
           }
         }

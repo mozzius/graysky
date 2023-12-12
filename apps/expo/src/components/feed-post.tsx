@@ -16,7 +16,6 @@ import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profi
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
-import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
@@ -120,8 +119,6 @@ const FeedPostInner = ({
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
   }
-
-  assert(AppBskyFeedPost.validateRecord(item.post.record));
 
   const displayInlineParent = inlineParent || !!item.reason;
 
@@ -365,7 +362,6 @@ const Reason = ({ item }: Pick<Props, "item">) => {
   const path = useAbsolutePath();
 
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
-  assert(AppBskyFeedDefs.validateReasonRepost(item.reason));
 
   return (
     <View className="mb-1 ml-12 flex-1">
