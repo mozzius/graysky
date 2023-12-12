@@ -26,7 +26,7 @@
     "@gorhom/bottom-sheet": "4.5.1",
     "@graysky/api": "0.1.0",
     "@mattermost/react-native-paste-input": "^0.7.0",
-    "@react-native-community/netinfo": "11.2.0",
+    "@react-native-community/netinfo": "11.2.1",
     "@react-native-community/slider": "^4.4.4",
     "@react-navigation/elements": "^1.3.21",
     "@react-navigation/native": "^6.1.9",
