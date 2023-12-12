@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/heading-has-content */
 import Link from "next/link";
 import { Code } from "bright";
@@ -68,6 +69,14 @@ export const Markdown = ({ content, components }: Props) => {
         ),
         pre: (props) => (
           <Code {...props} className="my-6" theme="github-dark" lineNumbers />
+        ),
+        img: ({ alt, ...props }) => (
+          <img
+            {...props}
+            alt={alt}
+            className="mx-auto my-6 max-w-full rounded"
+            loading="lazy"
+          />
         ),
         ...components,
       }}
