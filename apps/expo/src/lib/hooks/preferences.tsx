@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useMemo } from "react";
+import {
+  createContext,
+  startTransition,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 import { Platform } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
@@ -241,7 +247,9 @@ export const AppPreferencesProvider = ({
       prefs = appPrefsSchema.parse({});
     }
     const setPrefs = (incoming: Partial<AppPreferences>) => {
-      setRawPrefs({ ...prefs, ...incoming });
+      startTransition(() => {
+        setRawPrefs({ ...prefs, ...incoming });
+      });
     };
 
     return [prefs, setPrefs] satisfies AppPreferencesContextType;
