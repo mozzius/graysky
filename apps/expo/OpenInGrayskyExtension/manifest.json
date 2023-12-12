@@ -31,7 +31,5 @@
       "48": "assets/assets/toolbar-icon-48.png",
       "72": "assets/assets/toolbar-icon-72.png"
     }
-  },
-
-  "permissions": ["storage"]
+  }
 }
