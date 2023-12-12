@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Linking,
+  Platform,
   ScrollView,
   Text,
   TouchableHighlight,
@@ -260,6 +261,32 @@ export default function Pro() {
                       }
                     >
                       Terms of Service
+                    </Text>
+                    {Platform.OS === "ios" ? (
+                      <>
+                        , the{" "}
+                        <Text
+                          className="font-medium text-white underline"
+                          onPress={() =>
+                            Linking.openURL(
+                              "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+                            )
+                          }
+                        >
+                          Terms of Use (EULA)
+                        </Text>
+                        , and our
+                      </>
+                    ) : (
+                      " and"
+                    )}{" "}
+                    <Text
+                      className="font-medium text-white underline"
+                      onPress={() =>
+                        Linking.openURL("https://graysky.app/privacy-policy")
+                      }
+                    >
+                      Privacy Policy
                     </Text>
                     . Subscriptions renew automatically until cancelled.
                   </Text>
