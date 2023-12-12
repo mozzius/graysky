@@ -4,8 +4,8 @@ import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 
 import { FeedScreen } from "~/components/screens/feed-screen";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useFeedInfo } from "~/lib/hooks/feeds";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 
 export default function FeedsPage() {
   const path = useAbsolutePath();

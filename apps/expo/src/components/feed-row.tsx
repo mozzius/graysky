@@ -24,8 +24,8 @@ import {
   StarIcon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./themed/text";

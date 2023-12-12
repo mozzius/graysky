@@ -30,6 +30,7 @@ import {
   type SavedSession,
 } from "~/components/switch-accounts";
 import { Text } from "~/components/themed/text";
+import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";
@@ -91,145 +92,147 @@ export default function AppLayout() {
   const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
 
   return (
-    <DrawerProvider value={openDrawer}>
-      <BottomSheetModal
-        ref={accountRef}
-        enablePanDownToClose
-        snapPoints={["40%", dimensions.height - top - 10]}
-        backdropComponent={(props) => (
-          <BottomSheetBackdrop
-            {...props}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-          />
-        )}
-        handleIndicatorStyle={handleIndicatorStyle}
-        handleStyle={handleStyle}
-        backgroundStyle={backgroundStyle}
-        enableDismissOnClose
-        detached
-      >
-        <BackButtonOverride dismiss={dismissSheet} />
-        <Text className="my-2 text-center text-xl font-medium">
-          Switch Accounts
-        </Text>
-        <BottomSheetScrollView style={contentContainerStyle}>
-          <SwitchAccounts
-            sessions={sessions ?? []}
-            active={agent?.session?.did}
-            onSuccessfulSwitch={dismissSheet}
-          />
-        </BottomSheetScrollView>
-      </BottomSheetModal>
-      <StatusBar />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-          animation: "none",
-          gestureEnabled: false,
-        }}
-      />
-      <Drawer
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        renderDrawerContent={renderDrawerContent}
-        drawerType="slide"
-        statusBarAnimation="slide"
-        drawerStyle={{
-          width: Math.min(dimensions.width * 0.8, 400),
-          backgroundColor: theme.colors.card,
-        }}
-        swipeEdgeWidth={dimensions.width}
-        swipeEnabled={segments.length === 3}
-      >
-        <Tabs
-          screenOptions={{
-            headerShown: false,
-            tabBarShowLabel: Platform.select({ android: false, ios: true }),
-          }}
-          screenListeners={{
-            // TODO: move to individual screens
-            // it's here because a previous version of expo-router
-            // didn't type the listerners correctly, so I couldn't
-            // figure out how to add it to the individual screens
-            tabPress: (evt) => {
-              if (evt.target?.startsWith("null")) {
-                evt.preventDefault();
-                if (agent?.hasSession) {
-                  router.push("/composer");
-                }
-              }
-            },
-            tabLongPress: (evt) => {
-              if (evt.target?.startsWith("(self)")) {
-                haptics.selection();
-                accountRef.current?.present();
-              }
-            },
-          }}
+    <AbsolutePathProvider>
+      <DrawerProvider value={openDrawer}>
+        <BottomSheetModal
+          ref={accountRef}
+          enablePanDownToClose
+          snapPoints={["40%", dimensions.height - top - 10]}
+          backdropComponent={(props) => (
+            <BottomSheetBackdrop
+              {...props}
+              appearsOnIndex={0}
+              disappearsOnIndex={-1}
+            />
+          )}
+          handleIndicatorStyle={handleIndicatorStyle}
+          handleStyle={handleStyle}
+          backgroundStyle={backgroundStyle}
+          enableDismissOnClose
+          detached
         >
-          <Tabs.Screen
-            name="(feeds)"
-            options={{
-              title: homepage === "feeds" ? "Feeds" : "Skyline",
-              tabBarIcon({ color, size }) {
-                return homepage === "feeds" ? (
-                  <CloudyIcon color={color} size={size} />
-                ) : (
-                  <CloudIcon color={color} size={size} />
-                );
-              },
-            }}
-          />
-          <Tabs.Screen
-            name="(search)"
-            options={{
-              title: "Search",
-              tabBarIcon({ color, size }) {
-                return <SearchIcon color={color} size={size} />;
-              },
-            }}
-          />
-          <Tabs.Screen
-            name="null"
-            options={{
-              title: "Post",
-              tabBarAccessibilityLabel: "Create a new post",
-              tabBarIcon({ color, size }) {
-                return <PenBox color={color} size={size} />;
-              },
-            }}
-          />
-          <Tabs.Screen
-            name="(notifications)"
-            options={{
-              title: "Notifications",
-              tabBarAccessibilityLabel: `Notifications${
-                notifications.data?.count || undefined ? ", new items" : ""
-              }`,
-              tabBarBadge: notifications.data?.count || undefined,
-              tabBarBadgeStyle: {
-                fontSize: 12,
-                backgroundColor: theme.colors.primary,
-              },
-              tabBarIcon({ color, size }) {
-                return <BellIcon color={color} size={size} />;
-              },
-            }}
-          />
-          <Tabs.Screen
-            name="(self)"
-            options={{
-              title: "Profile",
+          <BackButtonOverride dismiss={dismissSheet} />
+          <Text className="my-2 text-center text-xl font-medium">
+            Switch Accounts
+          </Text>
+          <BottomSheetScrollView style={contentContainerStyle}>
+            <SwitchAccounts
+              sessions={sessions ?? []}
+              active={agent?.session?.did}
+              onSuccessfulSwitch={dismissSheet}
+            />
+          </BottomSheetScrollView>
+        </BottomSheetModal>
+        <StatusBar />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            animation: "none",
+            gestureEnabled: false,
+          }}
+        />
+        <Drawer
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          renderDrawerContent={renderDrawerContent}
+          drawerType="slide"
+          statusBarAnimation="slide"
+          drawerStyle={{
+            width: Math.min(dimensions.width * 0.8, 400),
+            backgroundColor: theme.colors.card,
+          }}
+          swipeEdgeWidth={dimensions.width}
+          swipeEnabled={segments.length === 3}
+        >
+          <Tabs
+            screenOptions={{
               headerShown: false,
-              tabBarIcon({ color, size }) {
-                return <UserIcon color={color} size={size} />;
+              tabBarShowLabel: Platform.select({ android: false, ios: true }),
+            }}
+            screenListeners={{
+              // TODO: move to individual screens
+              // it's here because a previous version of expo-router
+              // didn't type the listerners correctly, so I couldn't
+              // figure out how to add it to the individual screens
+              tabPress: (evt) => {
+                if (evt.target?.startsWith("null")) {
+                  evt.preventDefault();
+                  if (agent?.hasSession) {
+                    router.push("/composer");
+                  }
+                }
+              },
+              tabLongPress: (evt) => {
+                if (evt.target?.startsWith("(self)")) {
+                  haptics.selection();
+                  accountRef.current?.present();
+                }
               },
             }}
-          />
-        </Tabs>
-      </Drawer>
-    </DrawerProvider>
+          >
+            <Tabs.Screen
+              name="(feeds)"
+              options={{
+                title: homepage === "feeds" ? "Feeds" : "Skyline",
+                tabBarIcon({ color, size }) {
+                  return homepage === "feeds" ? (
+                    <CloudyIcon color={color} size={size} />
+                  ) : (
+                    <CloudIcon color={color} size={size} />
+                  );
+                },
+              }}
+            />
+            <Tabs.Screen
+              name="(search)"
+              options={{
+                title: "Search",
+                tabBarIcon({ color, size }) {
+                  return <SearchIcon color={color} size={size} />;
+                },
+              }}
+            />
+            <Tabs.Screen
+              name="null"
+              options={{
+                title: "Post",
+                tabBarAccessibilityLabel: "Create a new post",
+                tabBarIcon({ color, size }) {
+                  return <PenBox color={color} size={size} />;
+                },
+              }}
+            />
+            <Tabs.Screen
+              name="(notifications)"
+              options={{
+                title: "Notifications",
+                tabBarAccessibilityLabel: `Notifications${
+                  notifications.data?.count || undefined ? ", new items" : ""
+                }`,
+                tabBarBadge: notifications.data?.count || undefined,
+                tabBarBadgeStyle: {
+                  fontSize: 12,
+                  backgroundColor: theme.colors.primary,
+                },
+                tabBarIcon({ color, size }) {
+                  return <BellIcon color={color} size={size} />;
+                },
+              }}
+            />
+            <Tabs.Screen
+              name="(self)"
+              options={{
+                title: "Profile",
+                headerShown: false,
+                tabBarIcon({ color, size }) {
+                  return <UserIcon color={color} size={size} />;
+                },
+              }}
+            />
+          </Tabs>
+        </Drawer>
+      </DrawerProvider>
+    </AbsolutePathProvider>
   );
 }

@@ -13,9 +13,9 @@ import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
 import { z } from "zod";
 
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { useAppPreferences, type FilterResult } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";

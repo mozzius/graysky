@@ -11,8 +11,8 @@ import {
 import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAppPreferences } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { locale } from "~/lib/locale";
 import { assert } from "~/lib/utils/assert";
 import { cx } from "~/lib/utils/cx";

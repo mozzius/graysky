@@ -6,7 +6,7 @@ import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bot
 import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { Text } from "../themed/text";
 
 interface Props {

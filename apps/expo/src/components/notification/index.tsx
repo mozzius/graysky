@@ -6,9 +6,9 @@ import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
 import { useLists } from "../lists/context";

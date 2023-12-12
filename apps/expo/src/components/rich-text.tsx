@@ -2,8 +2,8 @@ import { Fragment, useMemo } from "react";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useLinkPress } from "~/lib/hooks/link-press";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "./themed/text";
 

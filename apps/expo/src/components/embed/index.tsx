@@ -23,7 +23,7 @@ import {
   Trash2Icon,
 } from "lucide-react-native";
 
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../themed/text";
 import { ExternalEmbed } from "./external";

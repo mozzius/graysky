@@ -8,8 +8,8 @@ import { useTheme } from "@react-navigation/native";
 import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useTabPressScrollRef } from "~/lib/hooks";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { QueryWithoutData } from "../../query-without-data";

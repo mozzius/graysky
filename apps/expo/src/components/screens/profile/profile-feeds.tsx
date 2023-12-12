@@ -10,9 +10,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
 import { Button } from "../../button";

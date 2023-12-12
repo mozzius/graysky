@@ -5,7 +5,7 @@ import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { CircleUserIcon } from "lucide-react-native";
 
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {

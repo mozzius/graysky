@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import {
   NestableDraggableFlatList,
@@ -33,7 +33,7 @@ interface Props {
   editing: boolean;
 }
 
-export const FeedsPage = ({ editing }: Props) => {
+const FeedsPageUnmemoized = ({ editing }: Props) => {
   const theme = useTheme();
 
   const savedFeeds = useSavedFeeds();
@@ -149,6 +149,8 @@ export const FeedsPage = ({ editing }: Props) => {
 
   return <QueryWithoutData query={savedFeeds} />;
 };
+
+export const FeedsPage = memo(FeedsPageUnmemoized);
 
 export default function Page() {
   const [editing, setEditing] = useState(false);

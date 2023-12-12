@@ -35,6 +35,7 @@ import {
   PlusIcon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import {
   blockAccount,
   muteAccount,
@@ -43,7 +44,6 @@ import {
 } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { locale } from "~/lib/locale";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";

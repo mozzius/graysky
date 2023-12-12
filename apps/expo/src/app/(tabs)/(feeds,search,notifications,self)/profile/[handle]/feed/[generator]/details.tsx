@@ -27,6 +27,7 @@ import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
 import { Text } from "~/components/themed/text";
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import {
   useFeedInfo,
@@ -34,7 +35,6 @@ import {
   useToggleFeedPref,
 } from "~/lib/hooks/feeds";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 
 export default function FeedDetails() {

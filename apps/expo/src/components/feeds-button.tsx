@@ -16,10 +16,10 @@ import {
   CloudyIcon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
-import { useAbsolutePath } from "~/lib/hooks/use-absolute-path";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
