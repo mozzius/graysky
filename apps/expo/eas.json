@@ -28,9 +28,6 @@
       "channel": "preview",
       "ios": {
         "resourceClass": "m-medium"
-      },
-      "env": {
-        "API_URL": "https://graysky.app"
       }
     },
     "production": {
@@ -39,9 +36,6 @@
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
-      },
-      "env": {
-        "API_URL": "https://graysky.app"
       }
     },
     "production-apk": {
@@ -54,9 +48,6 @@
       "android": {
         "gradleCommand": ":app:assembleRelease",
         "buildType": "apk"
-      },
-      "env": {
-        "API_URL": "https://graysky.app"
       }
     }
   },

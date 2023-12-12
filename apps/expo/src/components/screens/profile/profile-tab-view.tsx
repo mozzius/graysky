@@ -55,10 +55,7 @@ export const ProfileTabView = ({
             // however, this needs be set to false for the dev client to work
             //
             // sigh
-            //
-            // also extras.devClient isn't working
-            // double sigh
-            ...(process.env.API_URL !== undefined && {
+            ...(!__DEV__ && {
               statusBarStyle: "light",
             }),
           }}

@@ -257,10 +257,12 @@ export default function Pro() {
                     <Text
                       className="font-medium text-white underline"
                       onPress={() =>
-                        Linking.openURL("https://graysky.app/terms-of-service")
+                        Linking.openURL(
+                          "https://graysky.app/terms-and-conditions",
+                        )
                       }
                     >
-                      Terms of Service
+                      Terms and Conditions
                     </Text>
                     {Platform.OS === "ios" ? (
                       <>

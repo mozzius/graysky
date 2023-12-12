@@ -4,7 +4,7 @@ Last updated December 10, 2023
 
 ## AGREEMENT TO OUR LEGAL TERMS
 
-We are Pilvia Ltd ('Company', 'we', 'us', or 'our'), a company registered in the United Kingdmo at Flat 4, 100 Sclater Street, London E1 6HR.
+We are Pilvia Ltd ('Company', 'we', 'us', or 'our'), a company registered in the United Kingdom at Flat 4, 100 Sclater Street, London E1 6HR.
 
 We operate the mobile application Graysky (the 'App'), as well as any other related products and services that refer or link to these legal terms (the 'Legal Terms') (collectively, the 'Services').
 
