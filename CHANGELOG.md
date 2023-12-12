@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented here.
 
-## UNRELEASED 2023/12/09 v1.2.0 - the Pro update
+## UNRELEASED 2023/12/13 v1.2.0 - the Pro update
 
 ### Features
 
@@ -18,6 +18,7 @@ All notable changes to this project will be documented here.
 
 ### Notable bug fixes
 
+- Big performance improvements
 - Removed animation from image viewer (should fix "stuck" images)
 - Forced images to load the highest quality version
 - Fixed bug where you couldn't view the profile of someone you blocked/muted from the lists in settings
