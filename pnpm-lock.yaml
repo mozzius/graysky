@@ -5,9 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  use-deep-compare>dequal: 1.0.0
-  aria-query>dequal: 2.0.3
-  axobject-query>dequal: 2.0.3
+  use-deep-compare: npm:use-deep-compare-dequal-update@2.0.0
   sharp: 0.32.6
 
 patchedDependencies:
@@ -6479,11 +6477,6 @@ packages:
       prop-types: 15.8.1
     dev: false
 
-  /dequal@1.0.0:
-    resolution: {integrity: sha512-/Nd1EQbQbI9UbSHrMiKZjFLrXSnU328iQdZKPQf78XQI6C+gutkFUeoHpG5J08Ioa6HeRbRNFpSIclh1xyG0mw==}
-    engines: {node: '>=6'}
-    dev: false
-
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
@@ -12143,7 +12136,7 @@ packages:
       react-native: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
       react-native-pager-view: 6.2.3(react-native@0.72.6)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.6)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
-      use-deep-compare: 1.1.0(react@18.2.0)
+      use-deep-compare: /use-deep-compare-dequal-update@2.0.0(react@18.2.0)
     dev: false
 
   /react-native-date-picker@4.3.4(react-native@0.72.6)(react@18.2.0):
@@ -14284,12 +14277,12 @@ packages:
       qs: 6.11.2
     dev: false
 
-  /use-deep-compare@1.1.0(react@18.2.0):
-    resolution: {integrity: sha512-6yY3zmKNCJ1jjIivfZMZMReZjr8e6iC6Uqtp701jvWJ6ejC/usXD+JjmslZDPJQgX8P4B1Oi5XSLHkOLeYSJsA==}
+  /use-deep-compare-dequal-update@2.0.0(react@18.2.0):
+    resolution: {integrity: sha512-jyEBvPUQF48ynEIgoWPednGt9k8cirIDJEHw+JypbwoADVR64kqY7rbcVIjOLfytUtGropp8MDGoh9DHuTrYPw==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
-      dequal: 1.0.0
+      dequal: 2.0.3
       react: 18.2.0
     dev: false
 
