@@ -2,7 +2,6 @@
 title: "Introducing Graysky Pro"
 date: 2023-12-13
 author: "@mozzius.dev"
-draft: true
 ---
 
 ![Collage of screenshots showing off the new features](/update-1-2.png)
