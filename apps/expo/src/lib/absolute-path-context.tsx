@@ -34,8 +34,5 @@ export const AbsolutePathProvider = ({
 
 export const useAbsolutePath = () => {
   const base = useContext(AbsolutePathContext);
-  useEffect(() => {
-    console.log("base changed", base);
-  }, [base]);
   return useCallback((path: string) => `${base}${path}`, [base]);
 };
