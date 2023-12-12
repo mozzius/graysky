@@ -1,6 +1,6 @@
 ---
 title: "Introducing Graysky Pro"
-date: 2023-12-13
+date: 2023-12-12
 author: "@mozzius.dev"
 ---
 

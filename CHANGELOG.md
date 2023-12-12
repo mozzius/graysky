@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented here.
 
-## UNRELEASED 2023/12/13 v1.2.0 - the Pro update
+## 2023/12/12 v1.2.0 - the Pro update
 
 ### Features
 
