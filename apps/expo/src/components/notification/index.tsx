@@ -2,7 +2,12 @@ import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
+import {
+  HeartIcon,
+  RepeatIcon,
+  UserCircle,
+  UserPlusIcon,
+} from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
@@ -175,19 +180,37 @@ const ProfileList = ({
               accessibilityHint="Opens profile"
             >
               <TouchableOpacity className="mr-2 rounded-full">
-                <Image
-                  recyclingKey={actor.did}
-                  className="h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-800"
-                  source={{ uri: actor.avatar }}
-                  alt={
-                    // TODO: find a better way to handle this
-                    action === "started following you"
-                      ? `${index === 0 ? "New follower: " : ""}${
-                          actor.displayName
-                        } @${actor.handle}`
-                      : ""
-                  }
-                />
+                {actor.avatar ? (
+                  <Image
+                    recyclingKey={actor.did}
+                    className={cx(
+                      "h-8 w-8 rounded-full",
+                      theme.dark ? "bg-neutral-800" : "bg-neutral-200",
+                    )}
+                    source={{ uri: actor.avatar }}
+                    alt={
+                      // TODO: find a better way to handle this
+                      action === "started following you"
+                        ? `${index === 0 ? "New follower: " : ""}${
+                            actor.displayName
+                          } @${actor.handle}`
+                        : ""
+                    }
+                  />
+                ) : (
+                  <View
+                    className={cx(
+                      "h-8 w-8 items-center justify-center rounded-full",
+                      theme.dark ? "bg-neutral-800" : "bg-neutral-200",
+                    )}
+                  >
+                    <UserCircle
+                      size={24}
+                      color={theme.colors.text}
+                      className="opacity-50"
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
             </Link>
           ))}

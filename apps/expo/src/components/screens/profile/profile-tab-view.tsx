@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { Platform } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
@@ -74,7 +75,7 @@ export const ProfileTabView = ({
             />
           )}
           renderHeader={renderProfileInfo}
-          allowHeaderOverscroll
+          allowHeaderOverscroll={Platform.OS === "ios"}
           lazy
         >
           <Tabs.Tab name="posts" label="Posts">

@@ -68,7 +68,7 @@ export default function ListsScreen() {
               {...createTopTabsScreenOptions(theme)}
             />
           )}
-          allowHeaderOverscroll
+          allowHeaderOverscroll={Platform.OS === "ios"}
         >
           <Tabs.Tab name="feed">
             <ListFeed uri={uri} />
@@ -89,7 +89,7 @@ export default function ListsScreen() {
               {...createTopTabsScreenOptions(theme)}
             />
           )}
-          allowHeaderOverscroll
+          allowHeaderOverscroll={Platform.OS === "ios"}
         >
           <Tabs.Tab name="members">
             <ListMembers query={list} />
@@ -523,6 +523,7 @@ const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
 const ListFeed = ({ uri }: { uri: string }) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
+  const theme = useTheme();
 
   const query = useInfiniteQuery({
     queryKey: ["list", uri, "feed"],
@@ -573,7 +574,11 @@ const ListFeed = ({ uri }: { uri: string }) => {
           />
         )}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={theme.colors.text}
+          />
         }
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center p-8">

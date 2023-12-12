@@ -1,4 +1,4 @@
-import { LogBox } from "react-native";
+import { LogBox, Platform } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { RefreshControl } from "react-native-gesture-handler";
 
@@ -82,7 +82,6 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
             refreshing={refreshing}
             onRefresh={handleRefresh}
             tintColor={tintColor}
-            progressViewOffset={INITIAL_HEADER_HEIGHT}
           />
         }
       />
