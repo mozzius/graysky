@@ -30,6 +30,7 @@ import {
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { type PasteInputRef } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon, PlusIcon, XIcon } from "lucide-react-native";
@@ -40,7 +41,7 @@ import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
 import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { Text } from "~/components/themed/text";
-import { TextInput } from "~/components/themed/text-input";
+import { PasteableTextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
 import { AltTextEditor } from "~/lib/composer/alt-text-editor";
 import { CancelButton, PostButton } from "~/lib/composer/buttons";
@@ -112,7 +113,7 @@ export default function ComposerScreen() {
     start: 0,
     end: 0,
   });
-  const inputRef = useRef<TextInput>(null!);
+  const inputRef = useRef<PasteInputRef>(null!);
 
   const anchorRef = useRef<TouchableHighlight>(null);
   const keyboardMaxHeight = useKeyboardMaxHeight();
@@ -125,7 +126,8 @@ export default function ComposerScreen() {
 
   const [text, setText] = useState("");
 
-  const { images, imagePicker, addAltText, removeImage } = useImages(anchorRef);
+  const { images, imagePicker, addAltText, removeImage, handlePaste } =
+    useImages(anchorRef);
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
@@ -302,7 +304,7 @@ export default function ComposerScreen() {
           </View>
           <View className="flex flex-1 items-start pl-1 pr-2">
             <View className="min-h-[40px] flex-1 flex-row items-center">
-              <TextInput
+              <PasteableTextInput
                 ref={inputRef}
                 onChange={(evt) => {
                   setText(evt.nativeEvent.text);
@@ -328,6 +330,7 @@ export default function ComposerScreen() {
                   selectionRef.current = evt.nativeEvent.selection;
                 }}
                 scrollEnabled={false}
+                onPaste={handlePaste}
               >
                 <RichText
                   size="lg"
@@ -336,7 +339,7 @@ export default function ComposerScreen() {
                   truncate={false}
                   disableLinks
                 />
-              </TextInput>
+              </PasteableTextInput>
             </View>
             {/* AUTOSUGGESTIONS */}
             {isSuggestionsOpen &&

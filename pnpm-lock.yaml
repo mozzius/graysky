@@ -59,6 +59,9 @@ importers:
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
+      '@mattermost/react-native-paste-input':
+        specifier: ^0.7.0
+        version: 0.7.0(react-native@0.72.6)(react@18.2.0)
       '@react-native-community/netinfo':
         specifier: 11.2.0
         version: 11.2.0(react-native@0.72.6)
@@ -3514,6 +3517,17 @@ packages:
       globby: 11.1.0
       jju: 1.4.0
       read-yaml-file: 1.1.0
+    dev: false
+
+  /@mattermost/react-native-paste-input@0.7.0(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-uLzKUelwy4Ar/0B/GTeVDR74EQX1ON8BP3yt0KNR9pTzS72ihPhmgFyXJkDVSwRwNh8UAHhY78cVirpERnlrAQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
+      semver: 7.5.4
     dev: false
 
   /@mdx-js/mdx@2.3.0:

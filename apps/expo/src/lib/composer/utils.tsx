@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import {
   Alert,
   findNodeHandle,
+  Image,
   Keyboard,
   Platform,
   type TouchableHighlight,
@@ -25,6 +26,7 @@ import {
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { type PastedFile } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
@@ -451,11 +453,59 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
     [setImages],
   );
 
+  console.log(images);
+
+  const handlePaste = useCallback(
+    async (err: string | null, files: PastedFile[]) => {
+      if (images.length >= MAX_IMAGES) return;
+
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const uris = files.map((f) => f.uri);
+      const uri = uris.find((uri) => /\.(jpg|jpeg|png).*$/.test(uri));
+
+      if (uri) {
+        try {
+          const { width, height } = await new Promise<{
+            width: number;
+            height: number;
+          }>((resolve, reject) => {
+            Image.getSize(
+              uri,
+              (width, height) => {
+                resolve({ width, height });
+              },
+              reject,
+            );
+          });
+          setImages((prev) => [
+            ...prev,
+            {
+              asset: {
+                uri,
+                width,
+                height,
+              },
+              alt: "",
+            },
+          ]);
+        } catch (err) {
+          Sentry.Native.captureException(err);
+          return;
+        }
+      }
+    },
+    [images.length],
+  );
+
   return {
     images,
     imagePicker,
     removeImage,
     addAltText,
+    handlePaste,
   };
 };
 
