@@ -1,4 +1,4 @@
-import { LogBox, Platform } from "react-native";
+import { LogBox } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { RefreshControl } from "react-native-gesture-handler";
 
@@ -8,7 +8,6 @@ import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../../feed-post";
 import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
-import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
