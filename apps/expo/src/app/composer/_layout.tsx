@@ -14,7 +14,16 @@ export default function ComposerLayout() {
   return (
     <BottomSheetModalProvider>
       <StatusBar modal />
-      <Stack screenOptions={{ customAnimationOnGesture: true }}>
+      <Stack
+        screenOptions={{
+          customAnimationOnGesture: true,
+          ...Platform.select({
+            android: {
+              animation: "ios",
+            },
+          }),
+        }}
+      >
         <Stack.Screen name="index" options={{ title: "New Post" }} />
         <Stack.Screen name="drafts" options={{ title: "Drafts" }} />
         <Stack.Screen name="language" options={{ title: "Post Language" }} />

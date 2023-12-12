@@ -35,6 +35,11 @@ export default function AuthLayout() {
         screenOptions={{
           fullScreenGestureEnabled: true,
           headerLeft,
+          ...Platform.select({
+            android: {
+              animation: "ios",
+            },
+          }),
         }}
       >
         <Stack.Screen

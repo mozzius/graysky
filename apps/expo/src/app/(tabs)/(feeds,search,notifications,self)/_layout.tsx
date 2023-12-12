@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
@@ -9,12 +14,6 @@ import * as Sentry from "sentry-expo";
 import { Text } from "~/components/themed/text";
 import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
-
-const stackOptions = {
-  screenOptions: {
-    fullScreenGestureEnabled: true,
-  },
-};
 
 export default function SubStack({
   segment,
@@ -36,7 +35,16 @@ export default function SubStack({
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <AbsolutePathProvider segment={segment}>
-        <Stack {...stackOptions} />
+        <Stack
+          screenOptions={{
+            fullScreenGestureEnabled: true,
+            ...Platform.select({
+              android: {
+                animation: "ios",
+              },
+            }),
+          }}
+        />
       </AbsolutePathProvider>
     </ErrorBoundary>
   );

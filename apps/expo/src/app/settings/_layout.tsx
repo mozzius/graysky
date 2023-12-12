@@ -18,10 +18,10 @@ export default function SettingsLayout() {
       <Stack
         screenOptions={{
           fullScreenGestureEnabled: true,
-          headerRight:
-            canGoBack || Platform.OS === "android"
-              ? undefined
-              : () => (
+          ...Platform.select({
+            ios: {
+              headerRight: () =>
+                canGoBack || (
                   <Animated.View entering={FadeIn}>
                     <TouchableOpacity onPress={() => router.push("../")}>
                       <Text
@@ -33,6 +33,11 @@ export default function SettingsLayout() {
                     </TouchableOpacity>
                   </Animated.View>
                 ),
+            },
+            android: {
+              animation: "ios",
+            },
+          }),
         }}
       >
         <Stack.Screen

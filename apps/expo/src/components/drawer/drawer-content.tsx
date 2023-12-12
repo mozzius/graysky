@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
@@ -39,6 +39,10 @@ export const DrawerContent = ({ open }: Props) => {
   const [{ homepage, colorScheme }, setAppPrefs] = useAppPreferences();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
+  const closeDrawerIOS = useCallback(
+    () => Platform.OS === "ios" && setOpenDrawer(false),
+    [setOpenDrawer],
+  );
 
   const changeTheme = () => {
     const options = ["Light", "Dark", "System", "Cancel"];
@@ -103,7 +107,7 @@ export const DrawerContent = ({ open }: Props) => {
           </Link>
         )}
         {codes.isSuccess && (
-          <Link href="/codes" asChild onPress={() => setOpenDrawer(false)}>
+          <Link href="/codes" asChild onPress={closeDrawerIOS}>
             <TouchableOpacity
               accessibilityRole="link"
               accessibilityLabel="Invite codes"
@@ -124,7 +128,7 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
-        <Link href="/pro" asChild onPress={() => setOpenDrawer(false)}>
+        <Link href="/pro" asChild onPress={closeDrawerIOS}>
           <TouchableOpacity
             accessibilityRole="link"
             accessibilityLabel="Pro version"
@@ -143,7 +147,7 @@ export const DrawerContent = ({ open }: Props) => {
           <ChangeThemeIcon color={theme.colors.text} />
           <Text className="ml-6 text-base font-medium">Change theme</Text>
         </TouchableOpacity>
-        <Link href="/settings" asChild onPress={() => setOpenDrawer(false)}>
+        <Link href="/settings" asChild onPress={closeDrawerIOS}>
           <TouchableOpacity
             accessibilityRole="link"
             accessibilityLabel="Settings"

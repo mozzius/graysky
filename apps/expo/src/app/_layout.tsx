@@ -211,6 +211,11 @@ const App = ({ session, saveSession }: Props) => {
                           screenOptions={{
                             headerShown: true,
                             fullScreenGestureEnabled: true,
+                            ...Platform.select({
+                              android: {
+                                animation: "ios",
+                              },
+                            }),
                           }}
                         >
                           <Stack.Screen
@@ -288,7 +293,7 @@ const App = ({ session, saveSession }: Props) => {
                                   presentation: "formSheet",
                                 },
                                 android: {
-                                  animation: "slide_from_bottom",
+                                  animation: "fade_from_bottom",
                                 },
                               }),
                             }}
