@@ -29,7 +29,7 @@ On top of this, update v1.2 is jam-packed with new features for all versions of 
 - **Trending topics**: The search screen now shows trending topics, so you can see what's popular on Bluesky right now.
 - **Quick actions**: You can now hold down on the Graysky icon to quickly compose a post, search, or open settings. On Android, you can even drag these actions onto your home screen for quick access.
 - **Fancy profile refresh animation** (iOS): Pull to refresh got a makeover, and now shows a fancy animation when you refresh your profile.
-- **Profile joined date**: You can now see when a user joined Bluesky on their profile. Thanks [@st-cyr.bsky.social](https://bsky.app/profile/st-cyr.bsky.social) for you contribution!
+- **Profile joined date**: You can now see when a user joined Bluesky on their profile. Thanks [@st-cyr.bsky.social](https://bsky.app/profile/st-cyr.bsky.social) for your contribution!
 - **Better suggestions**: Users you follow are now shown at the top of the autocomplete list.
 - **Tablet orientation lock** (Android): You can now rotate Graysky on Android tablets.
 
