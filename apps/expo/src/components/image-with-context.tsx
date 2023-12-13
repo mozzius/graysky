@@ -51,22 +51,6 @@ export const ImageWithContext = ({
 
   return (
     <ContextMenuView
-      previewConfig={{
-        // TODO: Get this working
-        // previewSize: "STRETCH",
-        previewSize: "INHERIT",
-        previewType: "CUSTOM",
-        backgroundColor: "rgba(0,0,0,0.5)",
-      }}
-      renderPreview={() => (
-        <Image
-          source={{ uri: image.thumb }}
-          alt={image.alt}
-          recyclingKey={image.thumb}
-          style={{ aspectRatio }}
-          className="w-full"
-        />
-      )}
       menuConfig={{
         menuTitle: image.alt,
         menuItems: items.map((item) => ({

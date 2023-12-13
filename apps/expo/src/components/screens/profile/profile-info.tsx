@@ -313,8 +313,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     return {
       intensity: interpolate(
         -headerMeasurements.top.value,
-        [-50, 0, 100],
-        [100, 0, 100],
+        [-120, -15, 0, 100],
+        [100, 0, 0, 100],
         Extrapolation.CLAMP,
       ),
     };

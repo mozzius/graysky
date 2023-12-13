@@ -220,7 +220,6 @@ function Notifications() {
         setNonScrollRefreshing(false);
       }
     }, [refetch, haptics, queryClient, agent, notifications.isPending]),
-    { largeHeader: true },
   );
 
   const data = useMemo(() => {
