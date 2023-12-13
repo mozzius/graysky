@@ -211,11 +211,6 @@ const App = ({ session, saveSession }: Props) => {
                           screenOptions={{
                             headerShown: true,
                             fullScreenGestureEnabled: true,
-                            ...Platform.select({
-                              android: {
-                                animation: "ios",
-                              },
-                            }),
                           }}
                         >
                           <Stack.Screen

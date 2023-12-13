@@ -30,7 +30,7 @@ export const KeyboardAccessory = ({
   const haptics = useHaptics();
 
   const tooLong = charCount > MAX_LENGTH;
-  const progress = ((charCount / MAX_LENGTH) * 100) % 100;
+  const progress = (charCount / MAX_LENGTH) * 100;
 
   const { bottom } = useSafeAreaInsets();
 
@@ -110,7 +110,7 @@ export const KeyboardAccessory = ({
         / {MAX_LENGTH}
       </Text>
       <AnimatedCircularProgress
-        fill={progress}
+        fill={tooLong ? progress % 100 : progress}
         size={28}
         width={5}
         rotation={0}

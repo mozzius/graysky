@@ -40,7 +40,7 @@ export default function SignIn() {
         password,
       });
     },
-    onSuccess: () => router.push("../"),
+    onSuccess: () => router.replace("/(feeds)/feeds"),
     onError: (err) =>
       showToastable({
         title: "Could not log you in",

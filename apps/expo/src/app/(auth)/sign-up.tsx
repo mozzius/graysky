@@ -118,7 +118,7 @@ export default function SignUp() {
         handle: derivedHandle,
       });
     },
-    onSuccess: () => router.push("../"),
+    onSuccess: () => router.replace("/(feeds)/feeds"),
     onError: (err) => {
       console.error(err);
       showToastable({

@@ -58,11 +58,7 @@ export default function DiscoveryPage() {
     () =>
       Platform.select({
         ios: (
-          <TouchableOpacity
-            onPress={() => {
-              router.canGoBack() ? router.push("../") : router.push("/feeds");
-            }}
-          >
+          <TouchableOpacity onPress={() => router.push("../")}>
             <Text
               style={{ color: theme.colors.primary }}
               className="text-lg font-medium"
