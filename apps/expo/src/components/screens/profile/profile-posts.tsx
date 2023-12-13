@@ -6,7 +6,6 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useUserRefresh } from "~/lib/utils/query";
 import { FeedPost } from "../../feed-post";
-import { QueryWithoutData } from "../../query-without-data";
 import { useProfile, useProfilePosts } from "./hooks";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
@@ -45,24 +44,16 @@ export const ProfilePosts = ({ handle, mode }: Props) => {
     timeline.refetch,
   );
 
-  if (!preferences.data) {
-    return <QueryWithoutData query={preferences} />;
-  }
-
-  if (!profile.data) {
-    return <QueryWithoutData query={profile} />;
-  }
-
-  if (profile.data.viewer?.blocking) {
+  if (profile.data?.viewer?.blocking) {
     return null;
-  } else if (profile.data.viewer?.blockedBy) {
+  } else if (profile.data?.viewer?.blockedBy) {
     return null;
   } else {
     return (
       <Tabs.FlashList<(typeof timelineData)[number]>
         ref={ref}
         onScroll={onScroll}
-        data={timelineData}
+        data={preferences.data ? timelineData : []}
         renderItem={({ item, index }) => (
           <FeedPost
             {...item}

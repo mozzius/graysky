@@ -1,22 +1,17 @@
 import { useMemo } from "react";
 import { LogBox, RefreshControl, TouchableOpacity, View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
-import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
-import { useQueryClient } from "@tanstack/react-query";
-import { ChevronRightIcon, HeartIcon, XOctagonIcon } from "lucide-react-native";
+import { ChevronRightIcon, HeartIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
-import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
-import { Button } from "../../button";
-import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../themed/text";
 import { useProfile, useProfileFeeds } from "./hooks";
 import { INITIAL_HEADER_HEIGHT } from "./profile-info";
@@ -28,9 +23,6 @@ interface Props {
 }
 
 export const ProfileFeeds = ({ handle }: Props) => {
-  const agent = useAgent();
-  const queryClient = useQueryClient();
-
   const feeds = useProfileFeeds(handle);
   const profile = useProfile(handle);
 
@@ -45,46 +37,10 @@ export const ProfileFeeds = ({ handle }: Props) => {
     feeds.refetch,
   );
 
-  if (!profile.data) {
-    return <QueryWithoutData query={profile} />;
-  }
-
-  if (profile.data.viewer?.blocking) {
-    return (
-      <View className="flex-1 flex-col items-center justify-center p-4">
-        <XOctagonIcon size={50} color="#888888" />
-        <Text className="my-4 text-center text-lg">
-          You have blocked this user
-        </Text>
-        <Button
-          variant="outline"
-          onPress={async () => {
-            await agent.app.bsky.graph.block.delete({
-              repo: agent.session!.did,
-              rkey: profile.data.viewer!.blocking!.split("/").pop(),
-            });
-            void queryClient.invalidateQueries({
-              queryKey: ["profile", handle],
-            });
-            showToastable({
-              title: "Unblocked",
-              message: `@${profile.data.handle} has been unblocked`,
-              status: "success",
-            });
-          }}
-        >
-          Unblock
-        </Button>
-      </View>
-    );
-  } else if (profile.data.viewer?.blockedBy) {
-    return (
-      <View className="flex-1 items-center justify-center p-4">
-        <Text className="text-center text-lg">
-          You have been blocked by this user
-        </Text>
-      </View>
-    );
+  if (profile.data?.viewer?.blocking) {
+    return null;
+  } else if (profile.data?.viewer?.blockedBy) {
+    return null;
   } else {
     return (
       <Tabs.FlashList<(typeof feedsData)[number]>

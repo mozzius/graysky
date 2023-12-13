@@ -1,23 +1,20 @@
+import { type MaterialTabBarProps } from "react-native-collapsible-tab-view";
 import { type Theme } from "@react-navigation/native";
 
 export function createTopTabsScreenOptions(theme: Theme) {
   return {
-    indicatorContainerStyle: {
-      marginHorizontal: 16,
-    },
     style: {
       backgroundColor: theme.colors.card,
       borderBottomColor: theme.colors.border,
       borderBottomWidth: 1,
-      paddingHorizontal: 16,
     },
-    itemStyle: {
-      width: "auto",
+    contentContainerStyle: {
+      paddingHorizontal: 16,
     },
     indicatorStyle: {
       backgroundColor: theme.colors.primary,
       bottom: -1,
-      height: 2.5,
+      height: 3,
     },
     labelStyle: {
       textTransform: "none",
@@ -27,5 +24,5 @@ export function createTopTabsScreenOptions(theme: Theme) {
     keepActiveTabCentered: true,
     activeColor: theme.colors.text,
     inactiveColor: theme.colors.text,
-  } as const;
+  } satisfies Partial<MaterialTabBarProps<string>>;
 }

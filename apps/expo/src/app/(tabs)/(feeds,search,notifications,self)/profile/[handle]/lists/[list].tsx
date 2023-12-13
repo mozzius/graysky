@@ -70,10 +70,10 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="feed">
+          <Tabs.Tab name="feed" label="Feed">
             <ListFeed uri={uri} />
           </Tabs.Tab>
-          <Tabs.Tab name="members">
+          <Tabs.Tab name="members" label="Members">
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>
@@ -91,7 +91,7 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="members">
+          <Tabs.Tab name="members" label="Members">
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>

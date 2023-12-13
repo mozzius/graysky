@@ -1,8 +1,7 @@
-import { ScrollView, View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import { Redirect } from "expo-router";
 
-import { Text } from "~/components/themed/text";
+import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { store } from "~/lib/storage";
 import {
@@ -19,14 +18,16 @@ export default function ResumeSession() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <ScrollView className="flex-1" contentInsetAdjustmentBehavior="automatic">
-        <View className="flex-1 p-4">
-          <Text className="mx-4 mb-1 mt-2 text-xs uppercase text-neutral-500">
-            Log back in
-          </Text>
-          <SwitchAccounts sessions={sessions} chevrons showAddAccount />
-        </View>
-      </ScrollView>
+      <GroupedList
+        groups={[
+          {
+            title: "Log back in",
+            children: (
+              <SwitchAccounts sessions={sessions} chevrons showAddAccount />
+            ),
+          },
+        ]}
+      />
     </TransparentHeaderUntilScrolled>
   );
 }

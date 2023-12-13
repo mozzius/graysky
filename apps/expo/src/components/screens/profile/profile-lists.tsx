@@ -12,9 +12,8 @@ import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { cx } from "~/lib/utils/cx";
 import { useUserRefresh } from "~/lib/utils/query";
-import { QueryWithoutData } from "../../query-without-data";
 import { Text } from "../../themed/text";
-import { useProfile, useProfileLists } from "./hooks";
+import { useProfileLists } from "./hooks";
 import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
@@ -25,7 +24,6 @@ interface Props {
 
 export const ProfileLists = ({ handle }: Props) => {
   const lists = useProfileLists(handle);
-  const profile = useProfile(handle);
 
   const listsData = useMemo(() => {
     if (!lists.data) return [];
@@ -38,36 +36,28 @@ export const ProfileLists = ({ handle }: Props) => {
     lists.refetch,
   );
 
-  if (!profile.data) {
-    return <QueryWithoutData query={profile} />;
-  }
-
-  if (lists.data) {
-    return (
-      <Tabs.FlashList<(typeof listsData)[number]>
-        ref={ref}
-        onScroll={onScroll}
-        data={listsData}
-        renderItem={({ item }) => (
-          <ListItem {...item} dataUpdatedAt={lists.dataUpdatedAt} />
-        )}
-        onEndReachedThreshold={2}
-        onEndReached={() => lists.fetchNextPage()}
-        estimatedItemSize={91}
-        ListFooterComponent={<ListFooterComponent query={lists} />}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={tintColor}
-            progressViewOffset={INITIAL_HEADER_HEIGHT}
-          />
-        }
-      />
-    );
-  }
-
-  return <QueryWithoutData query={lists} />;
+  return (
+    <Tabs.FlashList<(typeof listsData)[number]>
+      ref={ref}
+      onScroll={onScroll}
+      data={listsData}
+      renderItem={({ item }) => (
+        <ListItem {...item} dataUpdatedAt={lists.dataUpdatedAt} />
+      )}
+      onEndReachedThreshold={2}
+      onEndReached={() => lists.fetchNextPage()}
+      estimatedItemSize={91}
+      ListFooterComponent={<ListFooterComponent query={lists} />}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          tintColor={tintColor}
+          progressViewOffset={INITIAL_HEADER_HEIGHT}
+        />
+      }
+    />
+  );
 };
 
 const ListItem = ({
