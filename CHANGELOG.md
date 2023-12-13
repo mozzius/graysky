@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented here.
 
-## 2023/12/12 v1.2.0 - the Pro update
+## 2023-12-12 v1.2.1
+
+- You can now paste images into the composer
+- Better search results - use `from:username` to search for posts from a specific user
+- Fixed logout issue with the account switcher
+- Changed Android navigation animation
+- Change navigation screen to use the small title
+
+## 2023-12-12 v1.2.0 - the Pro update
 
 ### Features
 
@@ -25,7 +33,7 @@ All notable changes to this project will be documented here.
 - Unlocked screen orientation for Android tablets
 - Initial support for "threadgates" (you can't create them yet though)
 
-## 2023/10/30 v1.1.0 - the Lists update
+## 2023-10-30 v1.1.0 - the Lists update
 
 ### Features
 
@@ -44,4 +52,4 @@ All notable changes to this project will be documented here.
 - Improved profile pull-to-refresh behaviour
 - Logging out now lets you re-enter your password
 
-## 2023/10/21 v1.0.1 - Initial Release
+## 2023-10-21 v1.0.1 - Initial Release
