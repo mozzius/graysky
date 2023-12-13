@@ -56,6 +56,7 @@ const App = ({ session, saveSession }: Props) => {
   const router = useRouter();
   const [invalidator, setInvalidator] = useState(0);
   const queryClient = useQueryClient();
+  const [ready, setReady] = useState(false);
 
   const [agentUpdate, setAgentUpdate] = useState(0);
 
@@ -100,19 +101,24 @@ const App = ({ session, saveSession }: Props) => {
   });
 
   const tryResumeSession = !agent.hasSession && !!session;
+  const { mutate: resumeSessionMutate, isPending: isResuming } = resumeSession;
   const onceRef = useRef(false);
 
   useEffect(() => {
-    if (tryResumeSession && !resumeSession.isPending) {
+    if (tryResumeSession) {
+      if (isResuming) return;
       if (!onceRef.current) {
         onceRef.current = true;
-        resumeSession.mutate(session);
+        resumeSessionMutate(session);
         setTimeout(() => {
           router.replace("/(feeds)/feeds");
+          setReady(true);
         });
       }
+    } else {
+      setReady(true);
     }
-  }, [session, agent, tryResumeSession, resumeSession, router]);
+  }, [session, tryResumeSession, isResuming, router, resumeSessionMutate]);
 
   // redirect depending on login state
   useEffect(() => {
@@ -156,11 +162,15 @@ const App = ({ session, saveSession }: Props) => {
     setInvalidator((i) => i + 1);
   }, [queryClient, saveSession, session?.did]);
 
+  const splashscreenHidden = useRef(false);
+
   useEffect(() => {
-    setTimeout(() => {
+    if (splashscreenHidden.current) return;
+    if (ready) {
       SplashScreen.hideAsync();
-    }, 100);
-  }, [agent]);
+      splashscreenHidden.current = true;
+    }
+  }, [ready]);
 
   // SENTRY NAVIGATION LOGGING
   const routeName = "/" + segments.join("/");
