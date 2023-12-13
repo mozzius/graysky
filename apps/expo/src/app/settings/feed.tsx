@@ -1,11 +1,16 @@
-import { ActivityIndicator, Switch, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  Switch,
+  TouchableOpacity,
+} from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import {
+  CheckIcon,
   ChevronsUpDownIcon,
-  CircleDotIcon,
   CloudIcon,
   CloudyIcon,
 } from "lucide-react-native";
@@ -182,7 +187,7 @@ export default function FeedPreferences() {
                               ];
                               const icons = [
                                 appPrefs.defaultFeed === "following" ? (
-                                  <CircleDotIcon
+                                  <CheckIcon
                                     key={0}
                                     color={theme.colors.text}
                                     size={24}
@@ -201,7 +206,7 @@ export default function FeedPreferences() {
                                       .filter((x) => x !== undefined)
                                       .map((x, i) =>
                                         x.uri === appPrefs.defaultFeed ? (
-                                          <CircleDotIcon
+                                          <CheckIcon
                                             key={i + 1}
                                             color={theme.colors.text}
                                             size={24}
@@ -392,4 +397,26 @@ const LoadingValue = ({
     return <ActivityIndicator size="small" />;
   }
   return <>{children}</>;
+};
+
+interface MenuPickerProps {
+  items: {
+    label: string;
+    value: string;
+  }[];
+  value: string | null;
+  children: string;
+}
+
+const MenuPicker = () => {
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  if (Platform.OS === "ios") {
+  } else {
+    return (
+      <TouchableOpacity>
+        <Text>Menu picker</Text>
+      </TouchableOpacity>
+    );
+  }
 };
