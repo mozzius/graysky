@@ -7,13 +7,13 @@ import {
   View,
 } from "react-native";
 import { type ImageStyle } from "expo-image";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { cx } from "~/lib/utils/cx";
-import { ImageWithContext } from "../image-with-context";
+import { ImageWithContextMenu } from "../image-with-context-menu";
 
 interface Props {
   uri: string;
@@ -182,16 +182,19 @@ const Image = ({
   style,
 }: ImageProps) => {
   const tag = useId();
+  const router = useRouter();
+  const link = `${href}?initial=${index}&tag=${tag}`;
   return (
-    <Link href={`${href}?initial=${index}&tag=${tag}`} asChild>
+    <Link href={link} asChild>
       <TouchableWithoutFeedback accessibilityRole="image">
-        <ImageWithContext
+        <ImageWithContextMenu
           tag={tag}
           image={image}
           depth={depth}
           className={className}
           style={style}
           useCappedAspectRatio={useCappedAspectRatio}
+          onPressMenuPreview={() => router.push(link)}
         />
       </TouchableWithoutFeedback>
     </Link>

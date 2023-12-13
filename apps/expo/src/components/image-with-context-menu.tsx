@@ -21,15 +21,17 @@ interface Props {
   className?: string;
   style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
+  onPressMenuPreview?: () => void;
   tag?: string;
 }
 
-export const ImageWithContext = ({
+export const ImageWithContextMenu = ({
   image,
   depth,
   className: _,
   useCappedAspectRatio,
   style,
+  onPressMenuPreview,
   // tag,
   ...props
 }: Props) => {
@@ -70,6 +72,7 @@ export const ImageWithContext = ({
         if (!item) return;
         void item.action(image.fullsize);
       }}
+      onPressMenuPreview={onPressMenuPreview}
     >
       <AnimatedImage
         // sharedTransitionTag={tag}

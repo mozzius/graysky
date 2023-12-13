@@ -32,7 +32,7 @@ import { MoreHorizontalIcon } from "lucide-react-native";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
-import { useImageOptions } from "./image-with-context";
+import { useImageOptions } from "./image-with-context-menu";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
