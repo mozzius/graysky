@@ -3,10 +3,12 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
+import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
 import { FeedPost } from "~/components/feed-post";
+import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
@@ -14,7 +16,6 @@ import { useTabPressScrollRef } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useUserRefresh } from "~/lib/utils/query";
-import { searchPosts } from "~/lib/utils/search";
 
 interface Props {
   search: string;
@@ -23,62 +24,44 @@ interface Props {
 const PostsSearch = ({ search }: Props) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
+  const theme = useTheme();
 
-  const query = useQuery({
+  const query = useInfiniteQuery({
     queryKey: ["search", "posts", search],
-    queryFn: async ({ signal }) => {
-      if (!search) return [];
-      const posts = await searchPosts(search, signal);
-
-      if (posts.length === 0) return [];
-
-      // split into groups of 25
-      const groups = posts.reduce<string[][]>(
-        (acc, p) => {
-          if (acc[acc.length - 1]!.length === 25) {
-            acc.push([`at://${p.user.did}/${p.tid}`]);
-          } else {
-            acc[acc.length - 1]!.push(`at://${p.user.did}/${p.tid}`);
-          }
-          return acc;
-        },
-        [[]],
-      );
-
-      const all = await Promise.all(
-        groups.map((chunk) =>
-          agent.getPosts({
-            uris: chunk,
-          }),
-        ),
-      ).then((x) =>
-        x
-          .flatMap((x) => x.data.posts)
-          .map((post) => ({ post, reply: undefined, reason: undefined })),
-      );
-
-      return all;
+    queryFn: async ({ pageParam }) => {
+      if (!search) return Promise.resolve({ posts: [], cursor: undefined });
+      const posts = await agent.app.bsky.feed.searchPosts({
+        q: search,
+        cursor: pageParam,
+        limit: 25,
+      });
+      if (!posts.success) throw new Error("Could not get posts");
+      return posts.data;
     },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.cursor,
     placeholderData: keepPreviousData,
   });
 
   const [ref, onScroll] = useTabPressScrollRef<{
-    item: AppBskyFeedDefs.FeedViewPost;
+    item: AppBskyFeedDefs.PostView;
     filter: FilterResult;
   }>(query.refetch);
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
 
   const data = useMemo(() => {
     if (!query.data) return [];
-    return query.data.map((item) => ({
-      item,
-      filter: contentFilter(item.post.labels),
-    }));
+    return query.data.pages
+      .flatMap((page) => page.posts)
+      .map((item) => ({
+        item,
+        filter: contentFilter(item.labels),
+      }));
   }, [query.data, contentFilter]);
 
   if (query.data) {
     return (
-      <FlashList<{ item: AppBskyFeedDefs.FeedViewPost; filter: FilterResult }>
+      <FlashList<{ item: AppBskyFeedDefs.PostView; filter: FilterResult }>
         estimatedItemSize={264}
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}
@@ -86,22 +69,39 @@ const PostsSearch = ({ search }: Props) => {
         data={data}
         renderItem={({ item }) => (
           <FeedPost
-            {...item}
+            item={{
+              post: item.item,
+            }}
+            filter={item.filter}
             inlineParent
             dataUpdatedAt={query.dataUpdatedAt}
           />
         )}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={theme.colors.text}
+          />
+        }
+        onEndReached={() => query.fetchNextPage()}
+        onEndReachedThreshold={2}
+        ListFooterComponent={
+          <ListFooterComponent
+            query={query}
+            hideEmptyMessage={data.length === 0}
+          />
         }
         ListEmptyComponent={
-          <View className="flex-1 items-center justify-center p-8">
-            <Text className="text-center text-neutral-500 dark:text-neutral-400">
-              {search
-                ? "No posts found - maybe try a different search term?"
-                : "Search for posts"}
-            </Text>
-          </View>
+          !query.isPending && (
+            <View className="flex-1 items-center justify-center p-8">
+              <Text className="text-center text-neutral-500 dark:text-neutral-400">
+                {search
+                  ? "No posts found - maybe try a different search term?"
+                  : "Search for posts"}
+              </Text>
+            </View>
+          )
         }
       />
     );

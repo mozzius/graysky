@@ -180,6 +180,7 @@ const ThreadgateInfo = ({
 }) => {
   const path = useAbsolutePath();
   const router = useRouter();
+  const theme = useTheme();
 
   if (!threadgate.allow || threadgate.allow.length === 0) {
     return <Text className="text-base">Nobody can reply</Text>;
@@ -220,9 +221,14 @@ const ThreadgateInfo = ({
                 <Text
                   key={list.uri}
                   className="text-base font-medium"
+                  style={{ color: theme.colors.primary }}
                   onPress={() =>
                     router.push(
-                      path(`/profile/${author.did}/lists/${list.uri}`),
+                      path(
+                        `/profile/${author.did}/lists/${list.uri
+                          .split("/")
+                          .pop()}`,
+                      ),
                     )
                   }
                 >

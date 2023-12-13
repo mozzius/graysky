@@ -87,7 +87,12 @@ export const FeedScreen = ({ feed }: Props) => {
             />
           }
           estimatedItemSize={171}
-          ListFooterComponent={<ListFooterComponent query={timeline} />}
+          ListFooterComponent={
+            <ListFooterComponent
+              query={timeline}
+              hideEmptyMessage={data.length === 0}
+            />
+          }
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center py-20">
               {feed === "following" ? (

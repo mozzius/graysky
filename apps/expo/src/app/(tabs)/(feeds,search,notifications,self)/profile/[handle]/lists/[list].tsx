@@ -476,7 +476,12 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
       onEndReachedThreshold={2}
       onEndReached={() => query.fetchNextPage()}
       estimatedItemSize={140}
-      ListFooterComponent={<ListFooterComponent query={query} />}
+      ListFooterComponent={
+        <ListFooterComponent
+          query={query}
+          hideEmptyMessage={data.length === 0}
+        />
+      }
       ListEmptyComponent={
         <View className="flex-1 items-center justify-center p-8">
           <Text className="text-center text-neutral-500 dark:text-neutral-400">
@@ -587,7 +592,12 @@ const ListFeed = ({ uri }: { uri: string }) => {
             </Text>
           </View>
         }
-        ListFooterComponent={<ListFooterComponent query={query} />}
+        ListFooterComponent={
+          <ListFooterComponent
+            query={query}
+            hideEmptyMessage={data.length === 0}
+          />
+        }
       />
     );
   }

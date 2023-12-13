@@ -75,7 +75,12 @@ const FeedSearch = ({ search }: Props) => {
             </Text>
           </View>
         }
-        ListFooterComponent={<ListFooterComponent query={query} />}
+        ListFooterComponent={
+          <ListFooterComponent
+            query={query}
+            hideEmptyMessage={data.length === 0}
+          />
+        }
         onEndReached={() => query.fetchNextPage()}
         onEndReachedThreshold={2}
       />

@@ -104,7 +104,6 @@ export const CancelButton = ({
     });
     switch (selected) {
       case "Discard post":
-        haptics.impact();
         Platform.select({
           ios: () => router.push("../"),
           default: () =>

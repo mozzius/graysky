@@ -270,7 +270,12 @@ function Notifications() {
               tintColor={tintColor}
             />
           }
-          ListFooterComponent={<ListFooterComponent query={notifications} />}
+          ListFooterComponent={
+            <ListFooterComponent
+              query={notifications}
+              hideEmptyMessage={data.length === 0}
+            />
+          }
         />
       </>
     );

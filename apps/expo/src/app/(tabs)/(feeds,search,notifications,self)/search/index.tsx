@@ -49,6 +49,7 @@ export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const action = useQuickAction();
+  const theme = useTheme();
 
   const autoFocus = action?.id === "search";
 
@@ -82,6 +83,10 @@ export default function SearchPage() {
         options={{
           title: "Search",
           headerLargeTitle: true,
+          headerLargeTitleShadowVisible: false,
+          headerLargeStyle: {
+            backgroundColor: theme.colors.background,
+          },
           headerLeft,
           headerSearchBarOptions,
         }}
@@ -230,10 +235,11 @@ const Suggestions = () => {
   useRefreshOnFocus(suggestions.refetch);
 
   if (suggestions.data) {
+    const data = suggestions.data.pages.flatMap((page) => page.data.actors);
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
         ref={ref}
-        data={suggestions.data.pages.flatMap((page) => page.data.actors)}
+        data={data}
         estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={

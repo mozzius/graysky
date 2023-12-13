@@ -106,14 +106,7 @@ export const AltTextEditor = ({
             accessibilityLabel="Toggle expanding the image to full width"
             onPress={() => {
               haptics.impact();
-              setExpandPreview((currentlyExpanded) => {
-                if (!currentlyExpanded)
-                  setTimeout(
-                    () => altTextScrollViewRef.current?.scrollToEnd(),
-                    250,
-                  );
-                return !currentlyExpanded;
-              });
+              setExpandPreview((currentlyExpanded) => !currentlyExpanded);
             }}
           >
             <AnimatedImage

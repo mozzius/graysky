@@ -9,9 +9,14 @@ import { Text } from "./themed/text";
 interface Props<TData = unknown, TError = unknown> {
   text?: string;
   query: UseInfiniteQueryResult<InfiniteData<TData, TError>, unknown>;
+  hideEmptyMessage?: boolean;
 }
 
-export const ListFooterComponent = ({ text, query }: Props) =>
+export const ListFooterComponent = ({
+  text,
+  query,
+  hideEmptyMessage,
+}: Props) =>
   query.isFetching ? (
     <View className="w-full items-center justify-center py-8">
       <ActivityIndicator />
@@ -21,7 +26,9 @@ export const ListFooterComponent = ({ text, query }: Props) =>
         </Text>
       )}
     </View>
-  ) : !query.hasNextPage ? (
+  ) : !query.hasNextPage &&
+    !hideEmptyMessage &&
+    (query.data?.pages?.length ?? 0) >= 1 ? (
     <View className="py-16">
       <Text className="text-center">That&apos;s everything!</Text>
     </View>

@@ -20,7 +20,7 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@atproto/api": "^0.7.2",
+    "@atproto/api": "^0.7.3",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.5.1",
@@ -89,7 +89,7 @@
     "react-native-drawer-layout": "4.0.0-alpha.3",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-ios-context-menu": "^2.3.0",
-    "react-native-ios-utilities": "^4.2.2",
+    "react-native-ios-utilities": "^4.2.3",
     "react-native-keyboard-controller": "^1.9.5",
     "react-native-mmkv": "^2.11.0",
     "react-native-pager-view": "6.2.3",
@@ -119,7 +119,7 @@
     "@graysky/tsconfig": "0.1.0",
     "@types/babel__core": "^7.20.5",
     "@types/mime": "^3.0.4",
-    "@types/react": "^18.2.43",
+    "@types/react": "^18.2.45",
     "@types/webpack-env": "^1.18.4",
     "eslint": "^8.55.0",
     "postcss": "^8.4.32",

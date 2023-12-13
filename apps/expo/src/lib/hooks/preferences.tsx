@@ -290,7 +290,13 @@ export const useHaptics = () => {
     () => ({
       impact: (type?: Haptics.ImpactFeedbackStyle) => {
         if (haptics) {
-          void Haptics.impactAsync(type);
+          void Haptics.impactAsync(
+            type ??
+              Platform.select({
+                android: Haptics.ImpactFeedbackStyle.Light,
+                default: Haptics.ImpactFeedbackStyle.Medium,
+              }),
+          );
         }
       },
       notification: (type?: Haptics.NotificationFeedbackType) => {

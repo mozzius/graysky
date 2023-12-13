@@ -172,7 +172,11 @@ export default function TagScreen() {
           }
           estimatedItemSize={171}
           ListFooterComponent={
-            <ListFooterComponent query={feed} text="Powered by Skyfeed" />
+            <ListFooterComponent
+              query={feed}
+              text="Powered by Skyfeed"
+              hideEmptyMessage={data.length === 0}
+            />
           }
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center py-20">
