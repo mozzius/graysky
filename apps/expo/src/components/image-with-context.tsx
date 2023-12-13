@@ -51,6 +51,7 @@ export const ImageWithContext = ({
 
   return (
     <ContextMenuView
+      // TODO: Figure out how to grow preview to correct aspect ratio
       menuConfig={{
         menuTitle: image.alt,
         menuItems: items.map((item) => ({
