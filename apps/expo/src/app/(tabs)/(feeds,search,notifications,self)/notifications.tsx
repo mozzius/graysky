@@ -253,13 +253,6 @@ function Notifications() {
               dataUpdatedAt={notifications.dataUpdatedAt}
             />
           )}
-          // ListHeaderComponent={
-          //   nonScrollRefreshing ? (
-          //     <View className="h-16 w-full items-center justify-center">
-          //       <ActivityIndicator size="small" />
-          //     </View>
-          //   ) : null
-          // }
           estimatedItemSize={105}
           onEndReachedThreshold={2}
           onEndReached={() => notifications.fetchNextPage()}

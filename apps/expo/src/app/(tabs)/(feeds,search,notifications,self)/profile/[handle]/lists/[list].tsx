@@ -528,7 +528,6 @@ const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
 const ListFeed = ({ uri }: { uri: string }) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
-  const theme = useTheme();
 
   const query = useInfiniteQuery({
     queryKey: ["list", uri, "feed"],
@@ -548,7 +547,9 @@ const ListFeed = ({ uri }: { uri: string }) => {
     item: AppBskyFeedDefs.FeedViewPost;
     filter: FilterResult;
   }>(query.refetch);
-  const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
+  const { handleRefresh, refreshing, tintColor } = useUserRefresh(
+    query.refetch,
+  );
 
   const data = useMemo(() => {
     if (!query.data) return [];
@@ -582,7 +583,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor={theme.colors.text}
+            tintColor={tintColor}
           />
         }
         ListEmptyComponent={

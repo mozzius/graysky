@@ -3,7 +3,6 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
-import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
@@ -24,7 +23,6 @@ interface Props {
 const PostsSearch = ({ search }: Props) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
-  const theme = useTheme();
 
   const query = useInfiniteQuery({
     queryKey: ["search", "posts", search],
@@ -47,7 +45,9 @@ const PostsSearch = ({ search }: Props) => {
     item: AppBskyFeedDefs.PostView;
     filter: FilterResult;
   }>(query.refetch);
-  const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
+  const { handleRefresh, refreshing, tintColor } = useUserRefresh(
+    query.refetch,
+  );
 
   const data = useMemo(() => {
     if (!query.data) return [];
@@ -81,7 +81,7 @@ const PostsSearch = ({ search }: Props) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor={theme.colors.text}
+            tintColor={tintColor}
           />
         }
         onEndReached={() => query.fetchNextPage()}
