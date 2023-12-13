@@ -12,7 +12,7 @@
   "engines": {
     "node": ">=18.18.2"
   },
-  "packageManager": "pnpm@8.9.2",
+  "packageManager": "pnpm@8.12.1",
   "pnpm": {
     "patchedDependencies": {
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
@@ -21,6 +21,14 @@
     "overrides": {
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0",
       "sharp": "0.32.6"
+    },
+    "supportedArchitectures": {
+      "os": [
+        "current"
+      ],
+      "cpu": [
+        "current"
+      ]
     }
   },
   "prettier": "@graysky/prettier-config",
