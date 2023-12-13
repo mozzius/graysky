@@ -51,12 +51,16 @@ export function SwitchAccounts({
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
     mutationFn: async (session: AtpSessionData) => {
+      // HACKFIX - service url gets changed after authenication
+      // https://github.com/bluesky-social/atproto/issues/1964
+      agent.api.xrpc.uri = new URL("https://bsky.social");
       const res = await agent.resumeSession(session);
       if (!res.success) throw new Error("Could not resume session");
       await queryClient.resetQueries();
       return res.data;
     },
     onError: (err, session) => {
+      console.error(err);
       showToastable({
         title: "Could not log you in",
         message: err instanceof Error ? err.message : "Unknown error",
