@@ -27,10 +27,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  items-center;
   gap: 16px;
-  background-color: #3B4245;
-  text-white;
+  background-color: #3b4245;
 }
 
 img {
