@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Open in Graysky",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Opens Bluesky links in Graysky.",
+    "description": "Description of the extension."
+  }
+}

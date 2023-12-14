@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "default_locale": "en",
 
-  "name": "Open in Graysky",
-  "description": "Opens Bluesky links in Graysky.",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
   "version": "1.0",
 
   "icons": {
