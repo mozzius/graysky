@@ -5,10 +5,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, type ErrorBoundaryProps } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { RefreshCcwIcon } from "lucide-react-native";
-import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import * as Sentry from "sentry-expo";
 
 import { Text } from "~/components/themed/text";
@@ -33,24 +32,22 @@ export default function SubStack({
   }
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <AbsolutePathProvider segment={segment}>
-        <Stack
-          screenOptions={{
-            fullScreenGestureEnabled: true,
-            ...Platform.select({
-              android: {
-                animation: "ios",
-              },
-            }),
-          }}
-        />
-      </AbsolutePathProvider>
-    </ErrorBoundary>
+    <AbsolutePathProvider segment={segment}>
+      <Stack
+        screenOptions={{
+          fullScreenGestureEnabled: true,
+          ...Platform.select({
+            android: {
+              animation: "ios",
+            },
+          }),
+        }}
+      />
+    </AbsolutePathProvider>
   );
 }
 
-const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
+export const ErrorBoundary = ({ error, retry }: ErrorBoundaryProps) => {
   const theme = useTheme();
 
   useEffect(() => {
@@ -67,7 +64,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
         <TouchableOpacity
           className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
           style={{ backgroundColor: theme.colors.primary }}
-          onPress={() => resetErrorBoundary()}
+          onPress={() => retry()}
         >
           <RefreshCcwIcon size={20} className="text-white" />
           <Text className="ml-4 text-xl text-white">Retry</Text>
