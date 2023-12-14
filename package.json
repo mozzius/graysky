@@ -14,10 +14,6 @@
   },
   "packageManager": "pnpm@8.12.1",
   "pnpm": {
-    "patchedDependencies": {
-      "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch"
-    },
     "overrides": {
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0",
       "sharp": "0.32.6"
