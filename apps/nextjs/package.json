@@ -12,7 +12,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@atproto/api": "^0.7.3",
+    "@atproto/api": "^0.7.4",
     "@graysky/api": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@tanstack/react-query": "^5.13.4",
@@ -22,10 +22,10 @@
     "@trpc/server": "next",
     "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^1.0.1",
-    "@vercel/speed-insights": "^1.0.1",
+    "@vercel/speed-insights": "^1.0.2",
     "bright": "^0.8.4",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.294.0",
+    "lucide-react": "^0.295.0",
     "next": "14.0.4",
     "next-mdx-remote": "^4.4.1",
     "react": "18.2.0",
