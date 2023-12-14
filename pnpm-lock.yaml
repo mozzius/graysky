@@ -45,8 +45,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.3
-        version: 0.7.3
+        specifier: ^0.7.4
+        version: 0.7.4
       '@expo/metro-config':
         specifier: ^0.10.7
         version: 0.10.7
@@ -361,8 +361,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.3
-        version: 0.7.3
+        specifier: ^0.7.4
+        version: 0.7.4
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -482,8 +482,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.7.3
-        version: 0.7.3
+        specifier: ^0.7.4
+        version: 0.7.4
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -667,8 +667,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
 
-  /@atproto/api@0.7.3:
-    resolution: {integrity: sha512-fKU+W+S4kKxClE6IcPBHPZAjcyBYxG28S0FW/bv3T/ZYDkNxGzDV4xuoHOyEDGtB30slltl5U83njuuRZs5xtw==}
+  /@atproto/api@0.7.4:
+    resolution: {integrity: sha512-7DBy6/OcXemzCPzA0dx52LLYRABBs8bq9Docs3is+WRgEx5/Pd1kHSAlCHIaBhsym8fZ3/U4Fks/5FSHkSm4yQ==}
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/lexicon': 0.3.1
