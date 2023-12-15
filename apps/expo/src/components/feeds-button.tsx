@@ -1,6 +1,10 @@
 import { useCallback, useRef } from "react";
 import { TouchableHighlight, useWindowDimensions, View } from "react-native";
-import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import Animated, {
+  FadeInDown,
+  FadeOutDown,
+  useReducedMotion,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Link, usePathname, useRouter } from "expo-router";
 import {
@@ -55,6 +59,8 @@ export const FeedsButton = ({ show = true }: Props) => {
     // contentContainerStyle,
   } = useBottomSheetStyles();
 
+  const reducedMotion = useReducedMotion();
+
   return (
     <>
       {show && (
@@ -107,6 +113,7 @@ export const FeedsButton = ({ show = true }: Props) => {
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
         enableDismissOnClose
+        animateOnMount={!reducedMotion}
       >
         <BackButtonOverride dismiss={dismiss} />
         <SheetContent feeds={savedFeeds} dismiss={dismiss} />

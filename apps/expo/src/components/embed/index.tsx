@@ -25,6 +25,7 @@ import {
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { cx } from "~/lib/utils/cx";
+import { Avatar } from "../avatar";
 import { Text } from "../themed/text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";
@@ -311,11 +312,11 @@ export const PostEmbed = ({
           }}
         >
           <View className="flex flex-row items-center overflow-hidden">
-            <Image
-              recyclingKey={author.avatar}
-              source={{ uri: author.avatar }}
+            <Avatar
+              size="extraSmall"
+              uri={author.avatar}
               alt={author.displayName}
-              className="mr-2 h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800"
+              className="mr-2 shrink-0"
             />
             <Text className="flex-1 text-base" numberOfLines={1}>
               <Text className="font-semibold">{author.displayName}</Text>

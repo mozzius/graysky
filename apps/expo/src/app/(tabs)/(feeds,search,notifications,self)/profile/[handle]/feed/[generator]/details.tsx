@@ -22,6 +22,7 @@ import {
 } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
+import { Avatar } from "~/components/avatar";
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
@@ -278,10 +279,10 @@ const FeedInfo = ({
                   style={{ backgroundColor: theme.colors.card }}
                   className="flex-row items-center px-4 py-2"
                 >
-                  <Image
-                    source={{ uri: info.view.creator.avatar }}
-                    className="h-12 w-12 rounded-full bg-neutral-300"
+                  <Avatar
+                    uri={info.view.creator.avatar}
                     alt={info.view.creator.displayName}
+                    size="large"
                   />
                   <View className="flex-1 justify-center px-3">
                     <Text className="text-base" numberOfLines={2}>

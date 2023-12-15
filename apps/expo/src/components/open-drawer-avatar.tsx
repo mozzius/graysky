@@ -11,7 +11,7 @@ export const OpenDrawerAvatar = () => {
       className="mr-3"
       accessibilityHint="Open drawer menu"
     >
-      <Avatar size="small" />
+      <Avatar self size="small" />
     </TouchableOpacity>
   );
 };

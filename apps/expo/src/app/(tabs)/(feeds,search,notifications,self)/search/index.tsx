@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
-import { Image } from "expo-image";
 import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -29,6 +28,7 @@ import {
   SearchIcon,
 } from "lucide-react-native";
 
+import { Avatar } from "~/components/avatar";
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
 import { ListFooterComponent } from "~/components/list-footer";
@@ -43,7 +43,6 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
 import { useQuickAction } from "~/lib/quick-actions";
 import { cx } from "~/lib/utils/cx";
-import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -232,8 +231,6 @@ const Suggestions = () => {
     getNextPageParam: (lastPage) => lastPage.data.cursor,
   });
 
-  useRefreshOnFocus(suggestions.refetch);
-
   if (suggestions.data) {
     const data = suggestions.data.pages.flatMap((page) => page.data.actors);
     return (
@@ -387,11 +384,11 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
           }}
         >
           <View className="flex-row items-center">
-            <Image
-              recyclingKey={item.did}
-              source={{ uri: item.avatar }}
-              className="mr-4 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800"
-              alt={item.displayName}
+            <Avatar
+              uri={item.avatar}
+              className="mr-4"
+              alt={item.displayName ?? `@${item.handle}`}
+              size="medium"
             />
             <View className="flex-1 justify-center">
               {item.displayName && (

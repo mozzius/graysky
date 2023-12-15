@@ -437,6 +437,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     height,
                   });
                 }}
+                cachePolicy="memory-disk"
               />
             </TouchableOpacity>
           </Link>
