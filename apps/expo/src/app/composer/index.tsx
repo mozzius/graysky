@@ -99,7 +99,12 @@ export default function ComposerScreen() {
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
 
-  const searchParams = useLocalSearchParams<{ gif: string; langs: string }>();
+  const searchParams = useLocalSearchParams<{
+    gif: string;
+    langs: string;
+    reply: string;
+    quote: string;
+  }>();
 
   const gif = searchParams.gif
     ? (JSON.parse(searchParams.gif) as {
@@ -291,6 +296,7 @@ export default function ComposerScreen() {
                 numberOfLines={trucateParent ? 3 : undefined}
                 avatarSize="reduced"
                 background="transparent"
+                extraPadding
               />
             </Animated.View>
           </TouchableOpacity>
@@ -300,7 +306,7 @@ export default function ComposerScreen() {
           layout={LinearTransition}
         >
           <View className="shrink-0 px-2">
-            <Avatar size="medium" />
+            <Avatar self size="medium" />
           </View>
           <View className="flex flex-1 items-start pl-1 pr-2">
             <View className="min-h-[40px] flex-1 flex-row items-center">
@@ -562,6 +568,8 @@ export default function ComposerScreen() {
         language={languages?.join(", ") ?? primaryLanguage}
         onPressLanguage={() => {
           const search = new URLSearchParams();
+          if (searchParams.reply) search.append("reply", searchParams.reply);
+          if (searchParams.quote) search.append("quote", searchParams.quote);
           if (searchParams.langs) search.append("langs", searchParams.langs);
           if (searchParams.gif) search.append("gif", searchParams.gif);
           router.push("/composer/language?" + search.toString());

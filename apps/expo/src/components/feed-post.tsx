@@ -41,6 +41,7 @@ interface Props {
   numberOfLines?: number;
   avatarSize?: "normal" | "reduced";
   background?: "transparent";
+  extraPadding?: boolean;
 }
 
 const FeedPostInner = ({
@@ -57,6 +58,7 @@ const FeedPostInner = ({
   numberOfLines,
   avatarSize = "normal",
   background,
+  extraPadding,
 }: Props) => {
   const showWarning = Boolean(
     !!item.post.author.viewer?.blocking ||
@@ -192,7 +194,7 @@ const FeedPostInner = ({
           </Link>
         </View>
         {/* right col */}
-        <View className="flex-1 pb-1 pl-1 pr-2">
+        <View className={cx("flex-1 pb-1 pl-1 pr-2", extraPadding && "pb-2.5")}>
           <View className="flex-row items-center">
             <Link
               href={profileHref}
