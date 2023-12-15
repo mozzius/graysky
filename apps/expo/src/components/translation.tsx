@@ -32,18 +32,19 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
 
   const service = isPro ? translationMethod : "GOOGLE";
 
-  const { mutate, status, reset } = translate;
+  const { mutate, reset, isIdle } = translate;
 
   const trigger = useCallback(() => {
-    if (status === "idle") {
-      console.log("Translating...", service);
+    if (isIdle) {
       mutate({ text, uri, target: primaryLanguage, service });
     }
-  }, [mutate, status, text, uri, primaryLanguage, service]);
+  }, [mutate, isIdle, text, uri, primaryLanguage, service]);
 
   useEffect(() => {
     if (forceShow) {
-      trigger();
+      setTimeout(() => {
+        trigger();
+      });
     }
   }, [forceShow, trigger]);
 

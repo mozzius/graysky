@@ -11,8 +11,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Sentry from "sentry-expo";
 
 const configureRevenueCat = () => {
-  if (process.env.NODE_ENV === "development")
-    Purchases.setLogHandler(console.log);
+  if (__DEV__) Purchases.setLogHandler(console.log);
   const apiKey = Platform.select({
     ios: Constants.expoConfig?.extra?.revenueCat?.ios,
     android: Constants.expoConfig?.extra?.revenueCat?.android,
@@ -20,7 +19,6 @@ const configureRevenueCat = () => {
   if (!apiKey) throw new Error("No RevenueCat API key found");
   Purchases.configure({
     apiKey,
-    appUserID: null,
   });
 };
 
