@@ -194,7 +194,7 @@ const FeedPostInner = ({
           </Link>
         </View>
         {/* right col */}
-        <View className={cx("flex-1 pb-1 pl-1 pr-2", extraPadding && "pb-2.5")}>
+        <View className={cx("flex-1 pb-1 pl-1 pr-2", extraPadding && "pb-3")}>
           <View className="flex-row items-center">
             <Link
               href={profileHref}
