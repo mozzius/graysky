@@ -187,124 +187,131 @@ export default function Pro() {
                   </Text>
                 )}
               </View>
-            ) : (
-              annualProduct &&
-              monthlyProduct && (
-                <View>
-                  <BlurPill active={!annual} onPress={() => setAnnual(false)}>
-                    <View className="flex-row justify-between">
-                      <Text className="text-base text-white">Monthly Plan</Text>
-                      <Text className="text-base text-white">
-                        {monthlyProduct.priceString} / month
-                      </Text>
-                    </View>
-                    <Text className="mt-0.5 text-sm text-white/80">
-                      Billed monthly, cancel anytime
+            ) : annualProduct && monthlyProduct ? (
+              <View>
+                <BlurPill active={!annual} onPress={() => setAnnual(false)}>
+                  <View className="flex-row justify-between">
+                    <Text className="text-base text-white">Monthly Plan</Text>
+                    <Text className="text-base text-white">
+                      {monthlyProduct.priceString} / month
                     </Text>
-                  </BlurPill>
-                  <BlurPill
-                    active={annual}
-                    onPress={() => setAnnual(true)}
-                    className="mt-4"
-                  >
-                    <View className="flex-row justify-between">
-                      <View className="flex-row items-center">
-                        <Text className="text-base text-white">
-                          Annual Plan
+                  </View>
+                  <Text className="mt-0.5 text-sm text-white/80">
+                    Billed monthly, cancel anytime
+                  </Text>
+                </BlurPill>
+                <BlurPill
+                  active={annual}
+                  onPress={() => setAnnual(true)}
+                  className="mt-4"
+                >
+                  <View className="flex-row justify-between">
+                    <View className="flex-row items-center">
+                      <Text className="text-base text-white">Annual Plan</Text>
+                      <View className="ml-2 rounded-md bg-green-300">
+                        <Text className="py-0.5 pl-1.5 pr-1 text-xs font-bold text-green-950">
+                          Save{" "}
+                          {Math.round(
+                            1000 -
+                              (annualProduct.price /
+                                (monthlyProduct.price * 12)) *
+                                1000,
+                          ) / 10}
+                          %
                         </Text>
-                        <View className="ml-2 rounded-md bg-green-300">
-                          <Text className="py-0.5 pl-1.5 pr-1 text-xs font-bold text-green-950">
-                            Save{" "}
-                            {Math.round(
-                              1000 -
-                                (annualProduct.price /
-                                  (monthlyProduct.price * 12)) *
-                                  1000,
-                            ) / 10}
-                            %
-                          </Text>
-                        </View>
                       </View>
-                      <Text className="text-base text-white">
-                        {annualProduct.priceString} / year
-                      </Text>
                     </View>
-                    <Text className="mt-0.5 text-sm text-white/80">
-                      Billed annually, cancel anytime
+                    <Text className="text-base text-white">
+                      {annualProduct.priceString} / year
                     </Text>
-                  </BlurPill>
-                  <TouchableHighlight
-                    onPress={() => subscribe.mutate()}
-                    disabled={subscribe.isPending}
-                    className="mt-4 rounded-xl"
+                  </View>
+                  <Text className="mt-0.5 text-sm text-white/80">
+                    Billed annually, cancel anytime
+                  </Text>
+                </BlurPill>
+                <TouchableHighlight
+                  onPress={() => subscribe.mutate()}
+                  disabled={subscribe.isPending}
+                  className="mt-4 rounded-xl"
+                  style={{ borderCurve: "continuous" }}
+                >
+                  <View
+                    className="min-h-[56px] w-full items-center rounded-xl bg-blue-500 py-4"
                     style={{ borderCurve: "continuous" }}
                   >
-                    <View
-                      className="min-h-[56px] w-full items-center rounded-xl bg-blue-500 py-4"
-                      style={{ borderCurve: "continuous" }}
-                    >
-                      {subscribe.isPending ? (
-                        <ActivityIndicator color="white" />
-                      ) : (
-                        <Text className="text-center text-base font-medium text-white">
-                          Subscribe & pay
-                        </Text>
-                      )}
-                    </View>
-                  </TouchableHighlight>
-                  <Text className="mt-3 px-4 text-xs text-neutral-200">
-                    By subscribing, you agree to our{" "}
-                    <Text
-                      className="font-medium text-white underline"
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://graysky.app/terms-and-conditions",
-                        )
-                      }
-                    >
-                      Terms and Conditions
-                    </Text>
-                    {Platform.OS === "ios" ? (
-                      <>
-                        , the{" "}
-                        <Text
-                          className="font-medium text-white underline"
-                          onPress={() =>
-                            Linking.openURL(
-                              "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
-                            )
-                          }
-                        >
-                          Terms of Use (EULA)
-                        </Text>
-                        , and our
-                      </>
+                    {subscribe.isPending ? (
+                      <ActivityIndicator color="white" />
                     ) : (
-                      " and"
-                    )}{" "}
-                    <Text
-                      className="font-medium text-white underline"
-                      onPress={() =>
-                        Linking.openURL("https://graysky.app/privacy-policy")
-                      }
-                    >
-                      Privacy Policy
-                    </Text>
-                    . Subscriptions renew automatically until cancelled.
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => restore.mutate()}
-                    disabled={restore.isPending}
-                    className="mt w-full py-2"
+                      <Text className="text-center text-base font-medium text-white">
+                        Subscribe & pay
+                      </Text>
+                    )}
+                  </View>
+                </TouchableHighlight>
+                <Text className="mt-3 px-4 text-xs text-neutral-200">
+                  By subscribing, you agree to our{" "}
+                  <Text
+                    className="font-medium text-white underline"
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://graysky.app/terms-and-conditions",
+                      )
+                    }
                   >
-                    <Text className="text-center text-base text-blue-500">
-                      {restore.isPending
-                        ? "Restoring purchases..."
-                        : "Restore purchases"}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )
+                    Terms and Conditions
+                  </Text>
+                  {Platform.OS === "ios" ? (
+                    <>
+                      , the{" "}
+                      <Text
+                        className="font-medium text-white underline"
+                        onPress={() =>
+                          Linking.openURL(
+                            "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+                          )
+                        }
+                      >
+                        Terms of Use (EULA)
+                      </Text>
+                      , and our
+                    </>
+                  ) : (
+                    " and"
+                  )}{" "}
+                  <Text
+                    className="font-medium text-white underline"
+                    onPress={() =>
+                      Linking.openURL("https://graysky.app/privacy-policy")
+                    }
+                  >
+                    Privacy Policy
+                  </Text>
+                  . Subscriptions renew automatically until cancelled.
+                </Text>
+                <TouchableOpacity
+                  onPress={() => restore.mutate()}
+                  disabled={restore.isPending}
+                  className="mt-0.5 w-full py-2"
+                >
+                  <Text className="text-center text-base text-blue-500">
+                    {restore.isPending
+                      ? "Restoring purchases..."
+                      : "Restore purchases"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity
+                onPress={() => restore.mutate()}
+                disabled={restore.isPending}
+                className="w-full py-4"
+              >
+                <Text className="text-center text-base text-blue-500">
+                  {restore.isPending
+                    ? "Restoring purchases..."
+                    : "Restore purchases"}
+                </Text>
+              </TouchableOpacity>
             )}
           </SafeAreaView>
         </View>

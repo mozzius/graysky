@@ -68,7 +68,7 @@ class NotYetConfiguredError extends Error {
 }
 
 const useCustomerInfoQuery = () => {
-  return useQuery({
+  const info = useQuery({
     queryKey: ["purchases", "info"],
     queryFn: async () => {
       if (!(await Purchases.isConfigured())) throw new NotYetConfiguredError();
@@ -81,6 +81,16 @@ const useCustomerInfoQuery = () => {
       return count < 3;
     },
   });
+
+  const { error } = info;
+
+  useEffect(() => {
+    if (error) {
+      Sentry.Native.captureException(error);
+    }
+  }, [error]);
+
+  return info;
 };
 
 export const useCustomerInfo = () => {
@@ -99,11 +109,26 @@ export const useIsPro = () => {
 };
 
 export const useOfferings = () => {
-  return useQuery({
+  const offerings = useQuery({
     queryKey: ["offerings"],
     queryFn: async () => {
+      if (!(await Purchases.isConfigured())) throw new NotYetConfiguredError();
       const offerings = await Purchases.getOfferings();
       return offerings;
     },
+    retry: (count, err) => {
+      if (err instanceof NotYetConfiguredError) return true;
+      return count < 3;
+    },
   });
+
+  const { error } = offerings;
+
+  useEffect(() => {
+    if (error) {
+      Sentry.Native.captureException(error);
+    }
+  }, [error]);
+
+  return offerings;
 };
