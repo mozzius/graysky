@@ -53,6 +53,10 @@ export default function Pro() {
     mutationKey: ["purchases", "subscribe"],
     mutationFn: async () => {
       if (!offerings.data) return "CANCELLED";
+      if (__DEV__) {
+        router.push("/success");
+        return;
+      }
       try {
         let plan;
         if (annual) {
@@ -392,3 +396,5 @@ const BlurPill = ({
     </View>
   </TouchableOpacity>
 );
+
+export { ErrorBoundary } from "../components/error-boundary";
