@@ -1,4 +1,4 @@
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 import {
   ActivityIndicator,
   Button,
@@ -35,6 +35,7 @@ import {
   PlusIcon,
 } from "lucide-react-native";
 
+import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import {
   blockAccount,
@@ -73,6 +74,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();
+  const [translateBio, setTranslateBio] = useState(false);
 
   const queryClient = useQueryClient();
   const theme = useTheme();
@@ -145,6 +147,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const handleOptions = () => {
     const options = [
       "Share profile",
+      "Translate bio",
       profile.viewer?.muted ? "Unmute account" : "Mute account",
       profile.viewer?.blocking ? "Unblock account" : "Block account",
       "Report account",
@@ -169,6 +172,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             );
             break;
           }
+          case "Translate bio":
+            setTranslateBio(true);
+            break;
           case "Mute account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
             break;
@@ -591,6 +597,15 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 />
               </View>
             )}
+          {translateBio && profile.description && (
+            <View className="mt-1 flex-1">
+              <Translation
+                uri={profile.did}
+                text={profile.description}
+                forceShow
+              />
+            </View>
+          )}
           {profile.createdAt && (
             <View
               className="mt-3 flex-1 flex-row items-center"
