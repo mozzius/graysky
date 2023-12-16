@@ -600,7 +600,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           {translateBio && profile.description && (
             <View className="mt-1 flex-1">
               <Translation
-                uri={profile.did}
+                // cache on a day-by-day basis - absolute hack
+                uri={`${profile.did}#${new Date().toISOString().split("T")[0]}`}
                 text={profile.description}
                 forceShow
               />
