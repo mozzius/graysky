@@ -108,7 +108,7 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="app"
           options={{
-            title: "App Preferences",
+            title: "App Settings",
           }}
         />
         <Stack.Screen

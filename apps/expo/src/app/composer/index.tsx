@@ -93,7 +93,7 @@ export default function ComposerScreen() {
   const agent = useAgent();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const [{ primaryLanguage }] = useAppPreferences();
+  const [{ primaryLanguage, altText: altTextSetting }] = useAppPreferences();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -222,23 +222,38 @@ export default function ComposerScreen() {
                 haptics.impact();
 
                 if (images.some((i) => !i.alt)) {
-                  if (Platform.OS === "android") Keyboard.dismiss();
-                  const cancel = await new Promise((resolve) => {
-                    showActionSheetWithOptions(
-                      {
-                        title: "Missing alt text",
-                        message:
-                          "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.",
-                        options: ["Post anyway", "Go back"],
-                        destructiveButtonIndex: 0,
-                        cancelButtonIndex: 1,
-                        anchor,
-                        ...actionSheetStyles(theme),
-                      },
-                      (index) => resolve(index === 1),
-                    );
-                  });
-                  if (cancel) return;
+                  switch (altTextSetting) {
+                    case "force":
+                      Alert.alert(
+                        "Missing alt text",
+                        "Please add alt text to all images before posting.",
+                        [{ text: "OK" }],
+                      );
+                      return;
+                    case "warn": {
+                      if (Platform.OS === "android") Keyboard.dismiss();
+                      const cancel = await new Promise((resolve) => {
+                        showActionSheetWithOptions(
+                          {
+                            title: "Missing alt text",
+                            message:
+                              "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.",
+                            options: ["Post anyway", "Go back"],
+                            destructiveButtonIndex: 0,
+                            cancelButtonIndex: 1,
+                            anchor,
+                            ...actionSheetStyles(theme),
+                          },
+                          (index) => resolve(index === 1),
+                        );
+                      });
+                      if (cancel) return;
+                      else break;
+                    }
+                    case "hide":
+                      // do nothing
+                      break;
+                  }
                 }
 
                 send.mutate();
