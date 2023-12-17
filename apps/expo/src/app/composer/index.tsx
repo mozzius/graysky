@@ -226,7 +226,7 @@ export default function ComposerScreen() {
                     case "force":
                       Alert.alert(
                         "Missing alt text",
-                        "Please add alt text to all images before posting.",
+                        "Please add descriptive alt text to all images before posting.",
                         [{ text: "OK" }],
                       );
                       return;
