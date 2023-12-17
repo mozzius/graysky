@@ -90,7 +90,6 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
-        enableDismissOnClose
         animateOnMount={!reducedMotion}
       >
         <BackButtonOverride dismiss={onPressBackButton} />
