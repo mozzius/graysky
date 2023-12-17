@@ -99,19 +99,21 @@ export const ImageViewer = ({
   return (
     <>
       {infoVisible && (
-        <ImageOptionsButton
-          image={images[index]!}
+        <Animated.View
+          entering={FadeInUp}
+          exiting={FadeOutUp}
           className="absolute right-5 z-10 h-10 w-10 flex-1"
-          style={{ top: top + 10 }}
         >
-          <Animated.View
-            entering={FadeInUp}
-            exiting={FadeOutUp}
-            className="flex-1 items-center justify-center rounded-full bg-black/50"
+          <ImageOptionsButton
+            image={images[index]!}
+            className="flex-1"
+            style={{ top: top + 10 }}
           >
-            <MoreHorizontalIcon color="white" />
-          </Animated.View>
-        </ImageOptionsButton>
+            <View className="flex-1 items-center justify-center rounded-full bg-black/50">
+              <MoreHorizontalIcon color="white" />
+            </View>
+          </ImageOptionsButton>
+        </Animated.View>
       )}
       <Gallery
         data={images}
@@ -129,6 +131,7 @@ export const ImageViewer = ({
         onSwipeToClose={onClose}
         onTap={toggleInfo}
       />
+      {/* ALT TEXT STUFF */}
       {infoVisible && images[index]?.alt && (
         <Animated.View
           entering={mounted ? FadeInDown : undefined}
@@ -137,7 +140,7 @@ export const ImageViewer = ({
         >
           <PlatformSpecificBackdrop>
             <TouchableOpacity
-              accessibilityLabel="Expand alt text"
+              accessibilityLabel="Read full ALT text"
               accessibilityRole="button"
               className="flex-1 flex-row items-center px-4 pt-4"
               style={{ paddingBottom: bottom + 8 }}
@@ -202,7 +205,7 @@ const PlatformSpecificBackdrop: (props: {
   children: React.ReactNode;
 }) => React.ReactNode = Platform.select({
   ios: ({ children }) => (
-    <BlurView intensity={200} className="flex-1" tint="dark">
+    <BlurView intensity={100} className="flex-1" tint="dark">
       {children}
     </BlurView>
   ),
@@ -286,6 +289,7 @@ const ImageWithFallback = ({
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
   const frame = useSafeAreaFrame();
+  const insets = useSafeAreaInsets();
 
   const size =
     queryClient.getQueryData<{
@@ -294,7 +298,9 @@ const ImageWithFallback = ({
     }>(["image", item.fullsize, "size"]) ?? item.aspectRatio;
 
   const imageAspectRatio = size ? size?.width / size?.height : 1;
-  const frameAspectRatio = frame.width / frame.height;
+  const frameAspectRatio =
+    (frame.width - insets.left - insets.right) /
+    (frame.height - insets.top - insets.bottom);
 
   let width, flex;
 
