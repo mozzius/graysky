@@ -74,7 +74,7 @@
     "immer": "^10.0.3",
     "lucide-react-native": "^0.297.0",
     "metro": "~0.80.1",
-    "mime": "^4.0.0",
+    "mime": "^4.0.1",
     "nativewind": "^2.0.11",
     "prop-types": "^15.8.1",
     "react": "18.2.0",

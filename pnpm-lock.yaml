@@ -204,8 +204,8 @@ importers:
         specifier: ~0.80.1
         version: 0.80.1
       mime:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.1
+        version: 4.0.1
       nativewind:
         specifier: ^2.0.11
         version: 2.0.11(patch_hash=4qfpcgvukjl323s5mtctmu3ynu)(react@18.2.0)(tailwindcss@3.3.2)
@@ -10762,8 +10762,8 @@ packages:
     hasBin: true
     dev: false
 
-  /mime@4.0.0:
-    resolution: {integrity: sha512-pzhgdeqU5pJ9t5WK9m4RT4GgGWqYJylxUf62Yb9datXRwdcw5MjiD1BYI5evF8AgTXN9gtKX3CFLvCUL5fAhEA==}
+  /mime@4.0.1:
+    resolution: {integrity: sha512-5lZ5tyrIfliMXzFtkYyekWbtRXObT9OWa8IwQ5uxTBDHucNNwniRqo0yInflj+iYi5CBa6qxadGzGarDfuEOxA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: false
