@@ -93,7 +93,8 @@ export default function ComposerScreen() {
   const agent = useAgent();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const [{ primaryLanguage, altText: altTextSetting }] = useAppPreferences();
+  const [{ primaryLanguage, mostRecentLanguage, altText: altTextSetting }] =
+    useAppPreferences();
 
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
@@ -580,7 +581,9 @@ export default function ComposerScreen() {
         charCount={rt.graphemeLength}
         imageButtonRef={anchorRef}
         onPressImage={() => imagePicker.mutate()}
-        language={languages?.join(", ") ?? primaryLanguage}
+        language={
+          languages?.join(", ") ?? mostRecentLanguage ?? primaryLanguage
+        }
         onPressLanguage={() => {
           const search = new URLSearchParams();
           if (searchParams.reply) search.append("reply", searchParams.reply);

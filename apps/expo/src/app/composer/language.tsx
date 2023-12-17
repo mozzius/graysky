@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
@@ -10,8 +10,16 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
 
 export default function PostLanguage() {
-  const { langs, gif } = useLocalSearchParams<{ langs: string; gif: string }>();
-  const [{ primaryLanguage, contentLanguages }] = useAppPreferences();
+  const { langs, ...searchParams } = useLocalSearchParams<{
+    langs: string;
+    gif: string;
+    reply: string;
+    quote: string;
+  }>();
+  const [
+    { primaryLanguage, mostRecentLanguage, contentLanguages },
+    setAppPrefs,
+  ] = useAppPreferences();
   const theme = useTheme();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -20,18 +28,30 @@ export default function PostLanguage() {
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
   });
 
-  const selected = langs?.split(",") ?? [primaryLanguage];
+  const selected = langs?.split(",") ?? [mostRecentLanguage ?? primaryLanguage];
 
   const suggestedLangs = Array.from(
-    new Set([primaryLanguage, ...contentLanguages, ...selected]),
+    new Set([
+      mostRecentLanguage,
+      primaryLanguage,
+      ...contentLanguages,
+      ...selected,
+    ]),
   );
 
   const selectLanguage = (lang: string) => {
-    if (gif) {
-      router.push(`./?gif=${encodeURIComponent(gif)}&langs=${lang}`);
-    } else {
-      router.push(`./?langs=${lang}`);
-    }
+    startTransition(() => {
+      setAppPrefs({
+        mostRecentLanguage: lang,
+      });
+    });
+
+    const search = new URLSearchParams();
+    search.append("langs", lang);
+    if (searchParams.reply) search.append("reply", searchParams.reply);
+    if (searchParams.quote) search.append("quote", searchParams.quote);
+    if (searchParams.gif) search.append("gif", searchParams.gif);
+    router.push(`./?${search.toString()}`);
   };
 
   return (
