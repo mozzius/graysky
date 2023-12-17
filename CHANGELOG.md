@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented here.
 
+## 2023-12-17 v1.2.2
+
+- Translate bios and alt text
+- Better alt text viewer
+- Post language defaults to most recently used language
+- Fixed a bug where images we being cropped by the status bar
+- Fixed a bug where the composer would lose what it's replying to when change language
+- Fixed a bug where the manual translate button wouldn't automatically trigger the translation
+
 ## 2023-12-12 v1.2.1
 
 - You can now paste images into the composer
