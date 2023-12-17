@@ -185,7 +185,7 @@ export const ImageViewer = ({
             <Text className="mt-2 text-center text-xl font-medium text-white">
               ALT Text
             </Text>
-            <Text className="mb-2 mt-4 text-base text-white">
+            <Text className="mb-2 mt-4 text-base text-white" selectable>
               {images[index]?.alt}
             </Text>
             <ThemeProvider value={DarkTheme}>
