@@ -287,9 +287,6 @@ importers:
       react-native-url-polyfill:
         specifier: ^2.0.0
         version: 2.0.0(react-native@0.72.6)
-      react-native-webview:
-        specifier: 13.6.3
-        version: 13.6.3(react-native@0.72.6)(react@18.2.0)
       rn-fetch-blob:
         specifier: ^0.12.0
         version: 0.12.0
@@ -12397,18 +12394,6 @@ packages:
     dependencies:
       react-native: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
       whatwg-url-without-unicode: 8.0.0-3
-    dev: false
-
-  /react-native-webview@13.6.3(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-IApO0JSj0uAWsBGKWagyfgDYoX29piiMYLmkHtRjKeL1rIVjLoR/bMe7KJ/0X47y86b//a6u3cYQtphyay+F2A==}
-    peerDependencies:
-      react: '*'
-      react-native: '*'
-    dependencies:
-      escape-string-regexp: 2.0.0
-      invariant: 2.2.4
-      react: 18.2.0
-      react-native: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
     dev: false
 
   /react-native@0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0):
