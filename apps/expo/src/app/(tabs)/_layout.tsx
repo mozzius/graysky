@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import { Platform, useWindowDimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useMMKVObject } from "react-native-mmkv";
+import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import * as Notifications from "expo-notifications";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
@@ -90,6 +91,8 @@ export default function AppLayout() {
 
   const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
 
+  const reducedMotion = useReducedMotion();
+
   return (
     <DrawerProvider value={openDrawer}>
       <BottomSheetModal
@@ -108,6 +111,7 @@ export default function AppLayout() {
         backgroundStyle={backgroundStyle}
         enableDismissOnClose
         detached
+        animateOnMount={!reducedMotion}
       >
         <BackButtonOverride dismiss={dismissSheet} />
         <Text className="my-2 text-center text-xl font-medium">

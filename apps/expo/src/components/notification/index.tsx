@@ -1,13 +1,7 @@
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
-import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import {
-  HeartIcon,
-  RepeatIcon,
-  UserCircle,
-  UserPlusIcon,
-} from "lucide-react-native";
+import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
 import { type NotificationGroup } from "~/app/(tabs)/(feeds,search,notifications,self)/notifications";
@@ -16,6 +10,7 @@ import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { timeSince } from "~/lib/utils/time";
+import { Avatar } from "../avatar";
 import { useLists } from "../lists/context";
 import { Text } from "../themed/text";
 import { NotificationItem } from "./item";
@@ -180,37 +175,18 @@ const ProfileList = ({
               accessibilityHint="Opens profile"
             >
               <TouchableOpacity className="mr-2 rounded-full">
-                {actor.avatar ? (
-                  <Image
-                    recyclingKey={actor.did}
-                    className={cx(
-                      "h-8 w-8 rounded-full",
-                      theme.dark ? "bg-neutral-800" : "bg-neutral-200",
-                    )}
-                    source={{ uri: actor.avatar }}
-                    alt={
-                      // TODO: find a better way to handle this
-                      action === "started following you"
-                        ? `${index === 0 ? "New follower: " : ""}${
-                            actor.displayName
-                          } @${actor.handle}`
-                        : ""
-                    }
-                  />
-                ) : (
-                  <View
-                    className={cx(
-                      "h-8 w-8 items-center justify-center rounded-full",
-                      theme.dark ? "bg-neutral-800" : "bg-neutral-200",
-                    )}
-                  >
-                    <UserCircle
-                      size={24}
-                      color={theme.colors.text}
-                      className="opacity-50"
-                    />
-                  </View>
-                )}
+                <Avatar
+                  uri={actor.avatar}
+                  alt={
+                    // TODO: find a better way to handle this
+                    action === "started following you"
+                      ? `${index === 0 ? "New follower: " : ""}${
+                          actor.displayName
+                        } @${actor.handle}`
+                      : ""
+                  }
+                  size="small"
+                />
               </TouchableOpacity>
             </Link>
           ))}

@@ -173,7 +173,7 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [{ primaryLanguage }] = useAppPreferences();
+  const [{ primaryLanguage, mostRecentLanguage }] = useAppPreferences();
 
   return useMutation({
     mutationKey: ["send"],
@@ -326,7 +326,7 @@ export const useSendPost = ({
         tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
-        langs: languages ?? [primaryLanguage],
+        langs: languages ?? [mostRecentLanguage ?? primaryLanguage],
         labels,
       });
     },

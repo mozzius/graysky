@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Platform,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  View,
   type StyleProp,
   type ViewStyle,
 } from "react-native";
@@ -14,25 +14,33 @@ import Animated, {
   FadeInUp,
   FadeOutDown,
   FadeOutUp,
-  LinearTransition,
+  useReducedMotion,
 } from "react-native-reanimated";
 import {
   SafeAreaView,
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useTheme } from "@react-navigation/native";
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
+import { DarkTheme, ThemeProvider, useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 
+import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
-import { cx } from "~/lib/utils/cx";
+import { BackButtonOverride } from "./back-button-override";
 import { useImageOptions } from "./image-with-context-menu";
+import { Translation } from "./translation";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -51,14 +59,15 @@ export const ImageViewer = ({
   infoVisible,
   toggleInfo,
 }: Props) => {
-  const [infoExpanded, setInfoExpanded] = useState(false);
   const [index, setIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
-  const { bottom } = useSafeAreaInsets();
+
   const haptics = useHaptics();
   const { tag } = useLocalSearchParams<{
     tag?: string;
   }>();
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [unmountTag, setUnmountTag] = useState(tag);
 
@@ -66,28 +75,45 @@ export const ImageViewer = ({
     setUnmountTag(undefined);
   }, []);
 
-  const { top } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
+  const frame = useSafeAreaFrame();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const {
+    backgroundStyle,
+    handleStyle,
+    handleIndicatorStyle,
+    contentContainerStyle,
+  } = useBottomSheetStyles(DarkTheme);
+
+  const onPressBackButton = useCallback(
+    () => bottomSheetRef.current?.dismiss(),
+    [],
+  );
+
+  const reducedMotion = useReducedMotion();
+
   return (
     <>
       {infoVisible && (
-        <ImageOptionsButton
-          image={images[index]!}
+        <Animated.View
+          entering={FadeInUp}
+          exiting={FadeOutUp}
           className="absolute right-5 z-10 h-10 w-10 flex-1"
-          style={{ top: top + 10 }}
         >
-          <Animated.View
-            entering={FadeInUp}
-            exiting={FadeOutUp}
-            className="flex-1 items-center justify-center rounded-full bg-black/50"
+          <ImageOptionsButton
+            image={images[index]!}
+            className="flex-1"
+            style={{ top: top + 10 }}
           >
-            <MoreHorizontalIcon color="white" />
-          </Animated.View>
-        </ImageOptionsButton>
+            <View className="flex-1 items-center justify-center rounded-full bg-black/50">
+              <MoreHorizontalIcon color="white" />
+            </View>
+          </ImageOptionsButton>
+        </Animated.View>
       )}
       <Gallery
         data={images}
@@ -105,43 +131,88 @@ export const ImageViewer = ({
         onSwipeToClose={onClose}
         onTap={toggleInfo}
       />
+      {/* ALT TEXT STUFF */}
       {infoVisible && images[index]?.alt && (
         <Animated.View
           entering={mounted ? FadeInDown : undefined}
           exiting={FadeOutDown}
-          layout={LinearTransition}
-          className={cx(
-            "absolute bottom-0 z-10 w-full rounded-tl-lg rounded-tr-lg px-6 pt-6",
-            infoExpanded ? "bg-black/90" : "bg-black/50",
-          )}
-          style={{ paddingBottom: bottom + 8 }}
+          className="absolute bottom-0 z-10 w-full"
         >
-          <TouchableWithoutFeedback
-            accessibilityLabel="Expand alt text"
-            accessibilityRole="button"
-            className="flex-1"
-            onPress={() => {
-              haptics.selection();
-              setInfoExpanded((v) => !v);
-            }}
-            onLongPress={(evt) => {
-              evt.preventDefault();
-            }}
-          >
-            {/* consider scrollview */}
-            <Text
-              className="text-base text-white"
-              numberOfLines={infoExpanded ? undefined : 2}
-              selectable
+          <PlatformSpecificBackdrop>
+            <TouchableOpacity
+              accessibilityLabel="Read full ALT text"
+              accessibilityRole="button"
+              className="flex-1 flex-row items-center px-4 pt-4"
+              style={{ paddingBottom: bottom + 8 }}
+              onPress={() => {
+                haptics.selection();
+                bottomSheetRef.current?.present();
+              }}
+              onLongPress={(evt) => {
+                evt.preventDefault();
+              }}
             >
-              {images[index]?.alt}
-            </Text>
-          </TouchableWithoutFeedback>
+              <View className="mr-2 rounded-sm bg-black/50 px-1">
+                <Text className="text-xs font-medium text-white">ALT</Text>
+              </View>
+              <Text className="flex-1 text-base text-white" numberOfLines={1}>
+                {images[index]?.alt}
+              </Text>
+            </TouchableOpacity>
+          </PlatformSpecificBackdrop>
         </Animated.View>
       )}
+      <BottomSheetModal
+        ref={bottomSheetRef}
+        enableDynamicSizing
+        enablePanDownToClose
+        maxDynamicContentSize={frame.height - top}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop
+            {...props}
+            appearsOnIndex={0}
+            disappearsOnIndex={-1}
+          />
+        )}
+        handleIndicatorStyle={handleIndicatorStyle}
+        handleStyle={handleStyle}
+        backgroundStyle={backgroundStyle}
+        animateOnMount={!reducedMotion}
+      >
+        <BottomSheetScrollView style={contentContainerStyle} className="flex-1">
+          <BackButtonOverride dismiss={onPressBackButton} />
+          <View className="px-4" style={{ marginBottom: bottom + 16 }}>
+            <Text className="mt-2 text-center text-xl font-medium text-white">
+              ALT Text
+            </Text>
+            <Text className="mb-2 mt-4 text-base text-white" selectable>
+              {images[index]?.alt}
+            </Text>
+            <ThemeProvider value={DarkTheme}>
+              <Translation
+                uri={images[index]!.fullsize}
+                text={images[index]?.alt ?? ""}
+              />
+            </ThemeProvider>
+          </View>
+        </BottomSheetScrollView>
+      </BottomSheetModal>
     </>
   );
 };
+
+const PlatformSpecificBackdrop: (props: {
+  children: React.ReactNode;
+}) => React.ReactNode = Platform.select({
+  ios: ({ children }) => (
+    <BlurView intensity={100} className="flex-1" tint="dark">
+      {children}
+    </BlurView>
+  ),
+  default: ({ children }) => (
+    <View className="flex-1 bg-black/70">{children}</View>
+  ),
+});
 
 const ImageOptionsButton = ({
   image,
@@ -218,6 +289,7 @@ const ImageWithFallback = ({
 }: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
   const frame = useSafeAreaFrame();
+  const insets = useSafeAreaInsets();
 
   const size =
     queryClient.getQueryData<{
@@ -226,7 +298,9 @@ const ImageWithFallback = ({
     }>(["image", item.fullsize, "size"]) ?? item.aspectRatio;
 
   const imageAspectRatio = size ? size?.width / size?.height : 1;
-  const frameAspectRatio = frame.width / frame.height;
+  const frameAspectRatio =
+    (frame.width - insets.left - insets.right) /
+    (frame.height - insets.top - insets.bottom);
 
   let width, flex;
 

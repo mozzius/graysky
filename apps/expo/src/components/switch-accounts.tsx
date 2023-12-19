@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 import { showToastable } from "react-native-toastable";
-import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { type AtpSessionData } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -18,6 +17,7 @@ import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
 import { cx } from "~/lib/utils/cx";
+import { Avatar } from "./avatar";
 
 export interface SavedSession {
   displayName?: string;
@@ -107,9 +107,11 @@ export function SwitchAccounts({
                 className="flex-1 flex-row items-center px-4 py-2"
                 style={{ backgroundColor: theme.colors.card }}
               >
-                <Image
-                  source={{ uri: account.avatar }}
-                  className="h-10 w-10 shrink-0 rounded-full bg-neutral-200 dark:bg-neutral-700"
+                <Avatar
+                  uri={account.avatar}
+                  alt={account.displayName ?? `@${account.handle}`}
+                  className="shrink-0"
+                  size="medium"
                 />
                 <View className="ml-3 flex-1">
                   {account.displayName && (

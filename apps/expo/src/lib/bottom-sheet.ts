@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useTheme, type Theme } from "@react-navigation/native";
 
-export const useBottomSheetStyles = () => {
-  const theme = useTheme();
+export const useBottomSheetStyles = (overrideTheme?: Theme) => {
+  const appTheme = useTheme();
+
+  const theme = overrideTheme || appTheme;
 
   return useMemo(
     () =>

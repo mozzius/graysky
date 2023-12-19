@@ -87,6 +87,19 @@ export default function AppSettings() {
                   />
                 ),
               },
+              {
+                title: "Mandatory ALT text",
+                action: (
+                  <Switch
+                    value={appPrefs.altText === "force"}
+                    onValueChange={(force) => {
+                      const altText = force ? "force" : "warn";
+                      setAppPrefs({ altText });
+                    }}
+                    accessibilityHint="Makes adding ALT text to your images mandatory"
+                  />
+                ),
+              },
             ],
           },
         ]}

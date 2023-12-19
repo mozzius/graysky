@@ -1,15 +1,8 @@
-import { useEffect } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Stack, type ErrorBoundaryProps } from "expo-router";
-import { useTheme } from "@react-navigation/native";
-import { RefreshCcwIcon } from "lucide-react-native";
-import * as Sentry from "sentry-expo";
+import { ActivityIndicator, Platform, View } from "react-native";
+import { Stack } from "expo-router";
+import { ErrorBoundary } from "react-error-boundary";
 
+import { ErrorBoundary as ErrorBoundaryView } from "~/components/error-boundary";
 import { Text } from "~/components/themed/text";
 import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
@@ -33,43 +26,25 @@ export default function SubStack({
 
   return (
     <AbsolutePathProvider segment={segment}>
-      <Stack
-        screenOptions={{
-          fullScreenGestureEnabled: true,
-          ...Platform.select({
-            android: {
-              animation: "ios",
-            },
-          }),
-        }}
-      />
+      <ErrorBoundary
+        FallbackComponent={({ error, resetErrorBoundary }) => (
+          <ErrorBoundaryView
+            error={error as Error}
+            retry={() => Promise.resolve(resetErrorBoundary())}
+          />
+        )}
+      >
+        <Stack
+          screenOptions={{
+            fullScreenGestureEnabled: true,
+            ...Platform.select({
+              android: {
+                animation: "ios",
+              },
+            }),
+          }}
+        />
+      </ErrorBoundary>
     </AbsolutePathProvider>
   );
 }
-
-export const ErrorBoundary = ({ error, retry }: ErrorBoundaryProps) => {
-  const theme = useTheme();
-
-  useEffect(() => {
-    Sentry.Native.captureException(error);
-  }, [error]);
-
-  return (
-    <View className="flex-1 items-center justify-center">
-      <View className="w-3/4 flex-col items-start">
-        <Text className="mb-2 text-2xl font-medium">An error occurred</Text>
-        {error instanceof Error && (
-          <Text className="text-lg">{error.message}</Text>
-        )}
-        <TouchableOpacity
-          className="mt-8 flex-row items-center rounded-full py-2 pl-4 pr-8"
-          style={{ backgroundColor: theme.colors.primary }}
-          onPress={() => retry()}
-        >
-          <RefreshCcwIcon size={20} className="text-white" />
-          <Text className="ml-4 text-xl text-white">Retry</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};

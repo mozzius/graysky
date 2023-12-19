@@ -5,10 +5,10 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
-import { Image } from "expo-image";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { UserIcon, UsersIcon } from "lucide-react-native";
 
+import { Avatar } from "~/components/avatar";
 import { Text } from "~/components/themed/text";
 
 interface Props {
@@ -57,9 +57,10 @@ export const SuggestionList = ({ suggestions, onInsertHandle }: Props) => {
               onPress={() => onInsertHandle(actor.handle)}
             >
               <Animated.View entering={FadeIn} className="flex-row p-1">
-                <Image
-                  className="mr-2.5 mt-1.5 h-8 w-8 shrink-0 rounded-full bg-neutral-200 dark:bg-neutral-600"
-                  source={{ uri: actor.avatar }}
+                <Avatar
+                  className="mr-2.5 mt-1.5 shrink-0"
+                  size="medium"
+                  uri={actor.avatar}
                   alt={actor.displayName ?? `@${actor.handle}`}
                 />
                 <View>

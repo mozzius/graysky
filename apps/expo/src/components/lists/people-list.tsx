@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
@@ -72,6 +73,8 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
 
     const people = data.data?.pages.flatMap((x) => x.people) ?? [];
 
+    const reducedMotion = useReducedMotion();
+
     return (
       <BottomSheetModal
         ref={bottomSheetRef}
@@ -87,8 +90,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
         handleIndicatorStyle={handleIndicatorStyle}
         handleStyle={handleStyle}
         backgroundStyle={backgroundStyle}
-        enableDismissOnClose
-        detached
+        animateOnMount={!reducedMotion}
       >
         <BackButtonOverride dismiss={onPressBackButton} />
         <Text className="mt-2 text-center text-xl font-medium">{title}</Text>

@@ -12,6 +12,7 @@ import {
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/purchases";
 import { api } from "~/lib/utils/api";
+import { cx } from "~/lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
 import { Text } from "./themed/text";
 
@@ -32,18 +33,19 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
 
   const service = isPro ? translationMethod : "GOOGLE";
 
-  const { mutate, status, reset } = translate;
+  const { mutate, reset, isIdle } = translate;
 
   const trigger = useCallback(() => {
-    if (status === "idle") {
-      console.log("Translating...", service);
+    if (isIdle) {
       mutate({ text, uri, target: primaryLanguage, service });
     }
-  }, [mutate, status, text, uri, primaryLanguage, service]);
+  }, [mutate, isIdle, text, uri, primaryLanguage, service]);
 
   useEffect(() => {
     if (forceShow) {
-      trigger();
+      setTimeout(() => {
+        trigger();
+      });
     }
   }, [forceShow, trigger]);
 
@@ -79,7 +81,14 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
       );
     case "success":
       return (
-        <View className="mt-1.5 flex-1 rounded-lg border border-blue-300 bg-blue-50 px-3 py-2 dark:border-blue-700 dark:bg-blue-950">
+        <View
+          className={cx(
+            "mt-1.5 flex-1 rounded-lg border px-3 py-2",
+            theme.dark
+              ? "border-blue-700 bg-blue-950"
+              : "border-blue-300 bg-blue-50",
+          )}
+        >
           <Text className="text-base">
             <RichTextWithoutFacets text={translate.data.text} />
           </Text>
@@ -87,9 +96,17 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
             <View className="flex-row items-center">
               <LanguagesIcon
                 size={14}
-                className="mr-1 text-neutral-500 dark:text-neutral-200"
+                className={cx(
+                  "mr-1",
+                  theme.dark ? "text-neutral-200" : "text-neutral-500",
+                )}
               />
-              <Text className="text-sm text-neutral-500 dark:text-neutral-200">
+              <Text
+                className={cx(
+                  "text-sm",
+                  theme.dark ? "text-neutral-200" : "text-neutral-500",
+                )}
+              >
                 {translate.data.language}
               </Text>
             </View>
@@ -105,7 +122,12 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
                 className="w-28 max-w-full"
               />
             ) : (
-              <Text className="text-right text-sm text-neutral-500 dark:text-neutral-200">
+              <Text
+                className={cx(
+                  "text-right text-sm",
+                  theme.dark ? "text-neutral-200" : "text-neutral-500",
+                )}
+              >
                 Translated by DeepL
               </Text>
             )}

@@ -144,7 +144,7 @@ export default function DeleteAccount() {
                   backgroundColor: theme.colors.card,
                 }}
               >
-                <Avatar size="large" />
+                <Avatar self size="large" />
                 <View className="ml-4">
                   <Text className="text-base font-medium">
                     {self.data?.displayName}

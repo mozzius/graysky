@@ -45,6 +45,7 @@ const ActorDetailsInner = () => {
               source={{ uri: self.avatar }}
               alt={self.displayName}
               className="h-16 w-16 rounded-full bg-neutral-200 object-cover dark:bg-neutral-800"
+              cachePolicy="memory-disk"
             />
             <View className="mt-2">
               <Text className="text-2xl font-semibold">{self.displayName}</Text>

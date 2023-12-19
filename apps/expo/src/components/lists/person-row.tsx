@@ -1,5 +1,5 @@
+import { memo } from "react";
 import { TouchableHighlight, View } from "react-native";
-import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
@@ -7,6 +7,7 @@ import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
+import { Avatar } from "../avatar";
 import { Text } from "../themed/text";
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
   backgroundColor?: string;
 }
 
-export const PersonRow = ({
+const PersonRowUnmemoized = ({
   person,
   onPress,
   bottomSheet,
@@ -61,14 +62,7 @@ export const PersonRow = ({
         className="flex-row items-center px-4 py-2"
       >
         <View className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800">
-          {person.avatar && (
-            <Image
-              recyclingKey={person.avatar}
-              source={{ uri: person.avatar }}
-              className="h-10 w-10 rounded-full"
-              alt={person.displayName}
-            />
-          )}
+          <Avatar size="medium" uri={person.avatar} alt={person.displayName} />
         </View>
         <View className="flex-1">
           {person.displayName && (
@@ -97,3 +91,5 @@ export const PersonRow = ({
     </Touchable>
   );
 };
+
+export const PersonRow = memo(PersonRowUnmemoized);

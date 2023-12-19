@@ -339,7 +339,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   />
                 </View>
               ) : (
-                <Avatar size="medium" />
+                <Avatar self size="medium" />
               )}
               <Text
                 className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
