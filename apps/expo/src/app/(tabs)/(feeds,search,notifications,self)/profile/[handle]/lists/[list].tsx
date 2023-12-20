@@ -29,7 +29,8 @@ import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
-import { useTabPressScrollRef } from "~/lib/hooks";
+import { useSavedFeeds, useTabPressScrollRef } from "~/lib/hooks";
+import { useToggleFeedPref } from "~/lib/hooks/feeds";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
@@ -145,35 +146,12 @@ const ListHeader = ({
   const theme = useTheme();
   const queryClient = useQueryClient();
   const path = useAbsolutePath();
+  const savedFeeds = useSavedFeeds();
+  const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
 
-  const deleteList = useMutation({
-    mutationFn: async () => {
-      if (!handle || !rkey) throw new Error("Missing route params");
-      await agent.com.atproto.repo.applyWrites({
-        repo: handle,
-        writes: [
-          {
-            $type: "com.atproto.repo.applyWrites#delete",
-            collection: "app.bsky.graph.list",
-            rkey: rkey,
-          },
-        ],
-      });
-    },
-    onSuccess: () => {
-      router.back();
-      showToastable({
-        title: "List deleted",
-        message: "Your list has been deleted",
-      });
-    },
-    onError: () => {
-      showToastable({
-        title: "Error",
-        message: "Could not delete list",
-      });
-    },
-  });
+  const isPinned = savedFeeds.data?.pinned.includes(info.uri);
+
+  const deleteList = useDeleteList(handle, rkey);
 
   const setViewerState = (viewer: AppBskyGraphDefs.ListViewerState) => {
     queryClient.setQueryData(
@@ -192,65 +170,78 @@ const ListHeader = ({
   const subscribe = useMutation({
     mutationFn: () =>
       new Promise<string | null>((resolve) => {
-        if (info.viewer?.blocked || info.viewer?.muted) {
-          showActionSheetWithOptions(
-            {
-              options: ["Unsubscribe from list", "Cancel"],
-              cancelButtonIndex: 1,
-              ...actionSheetStyles(theme),
-            },
-            async (buttonIndex) => {
-              if (buttonIndex === 0) {
-                if (info.viewer?.muted) {
-                  await agent.unmuteModList(info.uri);
-                }
-                if (info.viewer?.blocked) {
-                  await agent.unblockModList(info.uri);
-                }
-                setViewerState({
-                  blocked: undefined,
-                  muted: undefined,
-                });
-                resolve("Unsubscribed from list");
-              } else {
-                resolve(null);
-              }
-            },
-          );
-        } else {
-          const options = ["Mute all members", "Block all members"];
-          showActionSheetWithOptions(
-            {
-              title: `Subscribe to ${info.name}`,
-              options: [...options, "Cancel"],
-              cancelButtonIndex: options.length,
-              destructiveButtonIndex: [0, 1],
-              ...actionSheetStyles(theme),
-            },
-            async (buttonIndex) => {
-              if (buttonIndex === undefined) {
-                resolve(null);
-              } else {
-                const answer = options[buttonIndex];
-                switch (answer) {
-                  case "Mute all members":
-                    await agent.muteModList(info.uri);
-                    setViewerState({ muted: true });
-                    resolve("List muted");
-                    break;
-                  case "Block all members": {
-                    const block = await agent.blockModList(info.uri);
-                    setViewerState({ blocked: block.uri });
-                    resolve("List blocked");
-                    break;
-                  }
-                  default:
+        switch (info.purpose) {
+          case AppBskyGraphDefs.MODLIST:
+            if (info.viewer?.blocked || info.viewer?.muted) {
+              showActionSheetWithOptions(
+                {
+                  options: ["Unsubscribe from list", "Cancel"],
+                  cancelButtonIndex: 1,
+                  ...actionSheetStyles(theme),
+                },
+                async (buttonIndex) => {
+                  if (buttonIndex === 0) {
+                    if (info.viewer?.muted) {
+                      await agent.unmuteModList(info.uri);
+                    }
+                    if (info.viewer?.blocked) {
+                      await agent.unblockModList(info.uri);
+                    }
+                    setViewerState({
+                      blocked: undefined,
+                      muted: undefined,
+                    });
+                    resolve("Unsubscribed from list");
+                  } else {
                     resolve(null);
-                    break;
-                }
-              }
-            },
-          );
+                  }
+                },
+              );
+            } else {
+              const options = ["Mute all members", "Block all members"];
+              showActionSheetWithOptions(
+                {
+                  title: `Subscribe to ${info.name}`,
+                  options: [...options, "Cancel"],
+                  cancelButtonIndex: options.length,
+                  destructiveButtonIndex: [0, 1],
+                  ...actionSheetStyles(theme),
+                },
+                async (buttonIndex) => {
+                  if (buttonIndex === undefined) {
+                    resolve(null);
+                  } else {
+                    const answer = options[buttonIndex];
+                    switch (answer) {
+                      case "Mute all members":
+                        await agent.muteModList(info.uri);
+                        setViewerState({ muted: true });
+                        resolve("List muted");
+                        break;
+                      case "Block all members": {
+                        const block = await agent.blockModList(info.uri);
+                        setViewerState({ blocked: block.uri });
+                        resolve("List blocked");
+                        break;
+                      }
+                      default:
+                        resolve(null);
+                        break;
+                    }
+                  }
+                },
+              );
+            }
+            break;
+          case AppBskyGraphDefs.CURATELIST:
+            void toggleSave
+              .mutateAsync({
+                pin: info.uri,
+              })
+              .then(() =>
+                resolve(!isPinned ? "List favorited" : "List unfavorited"),
+              );
+            break;
         }
       }),
     onSuccess: (message) => {
@@ -285,6 +276,12 @@ const ListHeader = ({
     case AppBskyGraphDefs.CURATELIST:
       purposeText = "Curation list";
       purposeClass = "bg-blue-500";
+      actionText = "Add to favourites";
+      actionClass = "bg-blue-500";
+      if (isPinned) {
+        actionText = "Unfavorite list";
+        actionClass = "bg-neutral-500";
+      }
       break;
   }
 
@@ -604,4 +601,39 @@ const ListFeed = ({ uri }: { uri: string }) => {
   }
 
   return <QueryWithoutData query={query} />;
+};
+
+const useDeleteList = (handle?: string, rkey?: string) => {
+  const agent = useAgent();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async () => {
+      if (!handle || !rkey) throw new Error("Missing route params");
+      await agent.com.atproto.repo.applyWrites({
+        repo: handle,
+        writes: [
+          {
+            $type: "com.atproto.repo.applyWrites#delete",
+            collection: "app.bsky.graph.list",
+            rkey: rkey,
+          },
+        ],
+      });
+    },
+    onSuccess: () => {
+      router.back();
+      showToastable({
+        title: "List deleted",
+        message: "Your list has been deleted",
+      });
+    },
+    onError: () => {
+      showToastable({
+        title: "Error",
+        message: "Could not delete list",
+        status: "danger",
+      });
+    },
+  });
 };
