@@ -129,6 +129,10 @@ export const useImageOptions = () => {
             encoding: FileSystem.EncodingType.Base64,
           });
           await Clipboard.setImageAsync(base64);
+          showToastable({
+            message: "Copied image to clipboard",
+            status: "success",
+          });
         } catch (err) {
           console.error(err);
           showToastable({
@@ -155,6 +159,10 @@ export const useImageOptions = () => {
         try {
           const download = await downloadImage(uri);
           await MediaLibrary.saveToLibraryAsync(download.uri);
+          showToastable({
+            message: "Saved image to gallery",
+            status: "success",
+          });
         } catch (err) {
           console.error(err);
           showToastable({
