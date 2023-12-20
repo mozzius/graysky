@@ -270,8 +270,8 @@ importers:
         specifier: ~3.6.1
         version: 3.6.1(@babel/core@7.23.6)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
       react-native-safari-extension:
-        specifier: ^1.0.2
-        version: 1.0.2(expo@49.0.21)(react-native@0.72.6)(react@18.2.0)
+        specifier: ^1.1.0
+        version: 1.1.0(expo@49.0.21)(react-native@0.72.6)(react@18.2.0)
       react-native-safe-area-context:
         specifier: 4.8.1
         version: 4.8.1(react-native@0.72.6)(react@18.2.0)
@@ -12202,8 +12202,8 @@ packages:
       react-native-reanimated: 3.6.1(@babel/core@7.23.6)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
     dev: false
 
-  /react-native-safari-extension@1.0.2(expo@49.0.21)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-qucRFya1MTLWNkRgErtbnlBOfGWOEPhbr/V62WraZcyqJv74QZl8hU4mlFIMv0NHu+dfKmjq0717eCkekmMPfQ==}
+  /react-native-safari-extension@1.1.0(expo@49.0.21)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-WrpdMNXpvZ2JMhzuKuBRSldSuj1lJtuENPMpczUdrAP6/ldhGJQ7kLYQ9Ho6dWr/G2m2iCmq71u0O9zciK3ctQ==}
     peerDependencies:
       expo: '*'
       react: '*'
