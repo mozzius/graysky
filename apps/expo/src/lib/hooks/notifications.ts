@@ -3,7 +3,6 @@ import { Platform } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
-import { BskyAgent } from "@atproto/api";
 import { useQueryClient } from "@tanstack/react-query";
 import * as Sentry from "sentry-expo";
 
@@ -36,7 +35,6 @@ export function useNotifications() {
       }
       // register the push token with the server
       const token = await getPushToken();
-      const agent = new BskyAgent({ service: "https://graysky.app" });
       if (token) {
         try {
           await agent.app.bsky.notification.registerPush({
