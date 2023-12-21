@@ -6,13 +6,17 @@ import { CheckIcon, CopyIcon } from "lucide-react-native";
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
+import {
+  appPreferencesStore,
+  useCopiedCodes,
+} from "~/lib/storage/app-preferences";
 import { useInviteCodes } from "./_layout";
 
 export default function InviteCodesScreen() {
-  const [appPrefs, setAppPrefs] = useAppPreferences();
   const theme = useTheme();
   const haptics = useHaptics();
+  const copiedCodes = useCopiedCodes();
 
   const codes = useInviteCodes();
 
@@ -36,11 +40,11 @@ export default function InviteCodesScreen() {
               onPress: () => {
                 haptics.impact();
                 void Clipboard.setStringAsync(code.code);
-                setAppPrefs({
-                  copiedCodes: [...appPrefs.copiedCodes, code.code],
+                appPreferencesStore.setState({
+                  copiedCodes: [...copiedCodes, code.code],
                 });
               },
-              action: appPrefs.copiedCodes.includes(code.code) ? (
+              action: copiedCodes.includes(code.code) ? (
                 <CheckIcon size={18} color={theme.colors.text} />
               ) : (
                 <CopyIcon size={18} color={theme.colors.text} />

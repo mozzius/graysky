@@ -26,7 +26,13 @@ import {
 import { Text } from "~/components/themed/text";
 import { useSavedFeeds } from "~/lib/hooks";
 import { useReorderFeeds, useToggleFeedPref } from "~/lib/hooks/feeds";
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
+import {
+  useDefaultFeed,
+  useHomepage,
+  useListsAboveFeeds,
+  useSortableFeeds,
+} from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
@@ -37,7 +43,8 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
   const theme = useTheme();
 
   const savedFeeds = useSavedFeeds();
-  const [{ sortableFeeds, listsAboveFeeds }] = useAppPreferences();
+  const sortableFeeds = useSortableFeeds();
+  const listsAboveFeeds = useListsAboveFeeds();
 
   const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
   const { pinned, saved, reorderFavs, reorderRest } =
@@ -208,7 +215,9 @@ export default function Page() {
   const [editing, setEditing] = useState(false);
   const theme = useTheme();
   const haptics = useHaptics();
-  const [{ homepage, defaultFeed }] = useAppPreferences();
+  const homepage = useHomepage();
+  const defaultFeed = useDefaultFeed();
+
   const headerLeft = useCallback(() => <OpenDrawerAvatar />, []);
 
   if (homepage === "skyline") {

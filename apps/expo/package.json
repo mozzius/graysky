@@ -106,7 +106,8 @@
     "sentry-expo": "~7.1.1",
     "superjson": "2.2.1",
     "tailwind-merge": "^2.1.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

@@ -1,28 +1,28 @@
 import {
   createContext,
-  startTransition,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
 } from "react";
 import { Platform } from "react-native";
-import { useMMKVObject } from "react-native-mmkv";
 import * as Haptics from "expo-haptics";
-import * as Localization from "expo-localization";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import {
   DarkTheme,
   DefaultTheme,
-  ThemeProvider,
-  type Theme,
+  ThemeProvider as NavigationThemeProvider,
 } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { produce } from "immer";
 import { useColorScheme } from "nativewind";
-import { z } from "zod";
 
 import { useAgent } from "../agent";
-import { store } from "../storage";
+import {
+  useAccentColor,
+  useColorScheme as useColorSchemePreference,
+  useHaptics as useHapticsPreference,
+} from "../storage/app-preferences";
 
 // TODO: Refactor to new Content Moderation API!
 // https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
@@ -192,72 +192,22 @@ export const useContentFilter = () => {
   };
 };
 
-const appPrefsSchema = z.object({
-  groupNotifications: z.boolean().default(true),
-  copiedCodes: z.array(z.string()).default([]),
-  haptics: z.boolean().optional().default(true),
-  sortableFeeds: z.boolean().optional().default(false),
-  listsAboveFeeds: z.boolean().optional().default(false),
-  homepage: z.enum(["feeds", "skyline"]).optional().default("feeds"),
-  defaultFeed: z.string().optional().default("following"),
-  primaryLanguage: z
-    .string()
-    .optional()
-    .default(Localization.getLocales()[0]?.languageCode ?? "en"),
-  contentLanguages: z
-    .array(z.string())
-    .optional()
-    .default(Localization.getLocales().map((l) => l.languageCode)),
-  mostRecentLanguage: z.string().optional(),
-  gifAutoplay: z.boolean().optional().default(true),
-  inAppBrowser: z.boolean().optional(),
-  altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
-  translationMethod: z.enum(["GOOGLE", "DEEPL"]).optional().default("DEEPL"),
-  colorScheme: z.enum(["system", "light", "dark"]).optional().default("system"),
-  accentColor: z.string().optional(),
-});
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const { colorScheme: currentColorScheme, setColorScheme } = useColorScheme();
+  const accentColor = useAccentColor();
+  const colorSchemePreference = useColorSchemePreference();
 
-export type AppPreferences = z.infer<typeof appPrefsSchema>;
-
-type AppPreferencesContextType = [
-  AppPreferences,
-  (prefs: Partial<AppPreferences>) => void,
-];
-
-const AppPreferencesContext = createContext<AppPreferencesContextType | null>(
-  null,
-);
-
-export const AppPreferencesProvider = ({
-  children,
-}: {
-  children: (theme: Theme) => React.JSX.Element;
-}) => {
-  const { colorScheme, setColorScheme } = useColorScheme();
-  const [rawPrefs, setRawPrefs] = useMMKVObject<AppPreferences>(
-    "app-prefs",
-    store,
-  );
-
-  const value = useMemo(() => {
-    let prefs: AppPreferences;
-    try {
-      prefs = appPrefsSchema.parse(rawPrefs ?? {});
-      setColorScheme(prefs.colorScheme ?? "system");
-    } catch (err) {
-      console.warn(err);
-      prefs = appPrefsSchema.parse({});
+  const colorScheme = useMemo(() => {
+    if (colorSchemePreference === "system") {
+      return currentColorScheme;
+    } else {
+      return colorSchemePreference;
     }
-    const setPrefs = (incoming: Partial<AppPreferences>) => {
-      startTransition(() => {
-        setRawPrefs({ ...prefs, ...incoming });
-      });
-    };
+  }, [colorSchemePreference, currentColorScheme]);
 
-    return [prefs, setPrefs] satisfies AppPreferencesContextType;
-  }, [rawPrefs, setRawPrefs, setColorScheme]);
-
-  const accentColor = value[0].accentColor;
+  useEffect(() => {
+    setColorScheme(colorSchemePreference);
+  }, [colorSchemePreference, setColorScheme]);
 
   const theme = useMemo(() => {
     const base = colorScheme === "dark" ? DarkTheme : DefaultTheme;
@@ -271,22 +221,12 @@ export const AppPreferencesProvider = ({
   }, [colorScheme, accentColor]);
 
   return (
-    <ThemeProvider value={theme}>
-      <AppPreferencesContext.Provider value={value}>
-        {children(theme)}
-      </AppPreferencesContext.Provider>
-    </ThemeProvider>
+    <NavigationThemeProvider value={theme}>{children}</NavigationThemeProvider>
   );
 };
 
-export const useAppPreferences = () => {
-  const context = useContext(AppPreferencesContext);
-  if (!context) throw new Error("No app preferences context");
-  return context;
-};
-
 export const useHaptics = () => {
-  const [{ haptics }] = useAppPreferences();
+  const haptics = useHapticsPreference();
 
   return useMemo(
     () => ({
