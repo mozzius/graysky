@@ -3,9 +3,7 @@ import { type AppBskyNotificationRegisterPush } from "@atproto/api";
 import { DidResolver, MemoryCache } from "@atproto/identity";
 import { AuthRequiredError, verifyJwt } from "@atproto/xrpc-server";
 
-import { db } from "@graysky/db";
-
-export const runtime = "edge";
+// import { db } from "@graysky/db";
 
 const didCache = new MemoryCache();
 const didResolver = new DidResolver({
