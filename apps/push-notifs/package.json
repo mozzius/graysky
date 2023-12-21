@@ -1,0 +1,35 @@
+{
+  "name": "@graysky/push-notifs",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc ./src/index.ts --outDir ./dist",
+    "dev": "tsx ./src/index.ts",
+    "start": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@graysky/eslint-config": "0.1.0",
+    "@graysky/tsconfig": "0.1.0",
+    "@types/node": "^20.10.5",
+    "dotenv-cli": "^7.3.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@graysky/eslint-config/base"
+    ]
+  },
+  "prettier": "@graysky/prettier-config",
+  "private": true,
+  "dependencies": {
+    "@atproto/api": "^0.7.4",
+    "atproto-firehose": "^0.2.2",
+    "expo-server-sdk": "^3.7.0",
+    "lru-cache": "^10.1.0",
+    "@graysky/db": "0.1.0"
+  }
+}

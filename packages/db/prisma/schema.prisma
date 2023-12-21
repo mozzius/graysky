@@ -55,8 +55,14 @@ model Poll {
 
   votes PollVote[]
 
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([postUri])
+  @@index([userDid])
 }
 
 model PollVote {
@@ -73,4 +79,59 @@ model PollVote {
 
   @@unique([pollId, userIp])
   @@index([pollId])
+}
+
+model PushToken {
+  id String @id @default(cuid())
+
+  did  String
+  user User   @relation(fields: [did], references: [did], onDelete: Cascade)
+
+  platform String
+  token    String @db.Text
+
+  disabled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([did, platform])
+  @@index([did, platform])
+}
+
+model User {
+  did String @id
+
+  tokens    PushToken[]
+  mutes     Mute[]
+  muteLists MuteList[]
+
+  polls Poll[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Mute {
+  did String @id
+
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userDid])
+}
+
+model MuteList {
+  uri String @id
+
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userDid])
 }
