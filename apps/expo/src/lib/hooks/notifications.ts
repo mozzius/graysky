@@ -113,6 +113,6 @@ export async function getPushToken() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
     projectId: Constants.expoConfig?.extra?.eas.projectId,
   });
-  console.log("Push token", token);
+  console.log("Push token:", token);
   return token;
 }

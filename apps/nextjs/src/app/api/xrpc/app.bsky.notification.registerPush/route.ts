@@ -5,6 +5,8 @@ import { AuthRequiredError, verifyJwt } from "@atproto/xrpc-server";
 
 // import { db } from "@graysky/db";
 
+const SERVICE_DID = "did:web:graysky.app";
+
 const didCache = new MemoryCache();
 const didResolver = new DidResolver({
   plcUrl: "https://plc.directory",
@@ -19,10 +21,8 @@ export async function POST(req: NextRequest) {
 
     const token = auth.slice("Bearer ".length);
 
-    const jwt = await verifyJwt(
-      token,
-      "did:web:graysky.app",
-      async (did: string) => didResolver.resolveAtprotoKey(did),
+    const jwt = await verifyJwt(token, SERVICE_DID, async (did: string) =>
+      didResolver.resolveAtprotoKey(did),
     );
 
     console.log(jwt);
