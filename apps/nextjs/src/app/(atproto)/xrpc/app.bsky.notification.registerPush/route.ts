@@ -3,7 +3,7 @@ import { type AppBskyNotificationRegisterPush } from "@atproto/api";
 import { DidResolver, MemoryCache } from "@atproto/identity";
 import { AuthRequiredError, verifyJwt } from "@atproto/xrpc-server";
 
-// import { db } from "@graysky/db";
+import { db } from "@graysky/db";
 
 const SERVICE_DID = "did:web:graysky.app";
 
@@ -21,22 +21,35 @@ export async function POST(req: NextRequest) {
 
     const token = auth.slice("Bearer ".length);
 
-    const jwt = await verifyJwt(token, SERVICE_DID, async (did: string) =>
-      didResolver.resolveAtprotoKey(did),
+    const { iss: did, aud } = await verifyJwt(
+      token,
+      SERVICE_DID,
+      async (did: string) => didResolver.resolveAtprotoKey(did),
     );
 
-    console.log(jwt);
+    if (aud !== SERVICE_DID) throw new AuthRequiredError("invalid audience");
 
     const body =
       (await req.json()) as AppBskyNotificationRegisterPush.InputSchema;
 
-    console.log(body);
-
-    // if (["ios", "android"].includes(body.platform)) {
-    //   await db.pushToken.upsert({
-    //     where: { AND: [{ did }, { platform: body.platform }] },
-    //   });
-    // }
+    if (body.platform === "ios" || body.platform === "android") {
+      await db.pushToken.upsert({
+        where: {
+          did_platform: {
+            did,
+            platform: body.platform,
+          },
+        },
+        create: {
+          did,
+          platform: body.platform as "ios" | "android",
+          token: body.token,
+        },
+        update: {
+          token: body.token,
+        },
+      });
+    }
 
     return new Response(null, { status: 200 });
   } catch (err) {
