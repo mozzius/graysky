@@ -8,7 +8,7 @@ export function GET() {
     id: SERVICE_DID,
     verificationMethod: [
       {
-        id: "did:web:api.bsky.app#atproto",
+        id: `${SERVICE_DID}#atproto`,
         type: "Multikey",
         controller: SERVICE_DID,
         publicKeyMultibase: "zQ3shS9xdF5BahagdsLPznAU9L3YrZ6qenrNaV2kq6RjvZ4d1",
