@@ -185,7 +185,7 @@ const ProfileList = ({
                         } @${actor.handle}`
                       : ""
                   }
-                  size="small"
+                  size="smallMedium"
                 />
               </TouchableOpacity>
             </Link>
