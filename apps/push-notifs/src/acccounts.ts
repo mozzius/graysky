@@ -50,6 +50,7 @@ export class Accounts {
         },
       },
     });
+    console.log("Account count:", accounts.length);
     this.accounts.clear();
     for (const account of accounts) {
       console.log(account.did);
