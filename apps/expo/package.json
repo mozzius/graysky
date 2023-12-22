@@ -105,7 +105,7 @@
     "rn-fetch-blob": "^0.12.0",
     "sentry-expo": "~7.1.1",
     "superjson": "2.2.1",
-    "tailwind-merge": "^2.1.0",
+    "tailwind-merge": "^2.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
