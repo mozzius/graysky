@@ -198,8 +198,8 @@ importers:
         specifier: ^10.0.3
         version: 10.0.3
       lucide-react-native:
-        specifier: ^0.299.0
-        version: 0.299.0(prop-types@15.8.1)(react-native-svg@14.1.0)(react-native@0.72.6)(react@18.2.0)
+        specifier: ^0.300.0
+        version: 0.300.0(prop-types@15.8.1)(react-native-svg@14.1.0)(react-native@0.72.6)(react@18.2.0)
       metro:
         specifier: ~0.80.2
         version: 0.80.2
@@ -2995,7 +2995,7 @@ packages:
       text-table: 0.2.0
       url-join: 4.0.0
       wrap-ansi: 7.0.0
-      ws: 8.14.2
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - bluebird
       - bufferutil
@@ -10111,8 +10111,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.299.0(prop-types@15.8.1)(react-native-svg@14.1.0)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-Y2ybyq19Gp8snKw+JjzmuCg+5BQ3OQ6l5dkitouzVZHkD0K40Iudz5FtS7q4knsi6u3FT9RX7cFMIrYF8PvUMw==}
+  /lucide-react-native@0.300.0(prop-types@15.8.1)(react-native-svg@14.1.0)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-73sNGq2XrMjEEtro/9T0EVRrjrO0lOCykGtL+8OOuJ2NlDqn9AOIGoLh7VbmQcGDIDlykV3HMvZF043WABPCWw==}
     peerDependencies:
       prop-types: ^15.7.2
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
@@ -15198,19 +15198,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.14.2:
-    resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
