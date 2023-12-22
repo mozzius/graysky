@@ -33,23 +33,34 @@ export async function POST(req: NextRequest) {
       (await req.json()) as AppBskyNotificationRegisterPush.InputSchema;
 
     if (body.platform === "ios" || body.platform === "android") {
-      await db.pushToken.upsert({
-        where: {
-          did_platform: {
-            did,
-            platform: body.platform,
-          },
-        },
+      const platform = body.platform as "ios" | "android";
+      await db.user.upsert({
+        where: { did },
         create: {
           did,
-          platform: body.platform as "ios" | "android",
-          token: body.token,
+          tokens: {
+            create: {
+              platform: platform,
+              token: body.token,
+            },
+          },
         },
         update: {
-          token: body.token,
+          tokens: {
+            upsert: {
+              where: { did_platform: { did, platform } },
+              create: {
+                platform,
+                token: body.token,
+              },
+              update: {
+                token: body.token,
+              },
+            },
+          },
         },
       });
-      console.log(`Registered ${body.platform} push token for ${did}`);
+      console.log(`Registered ${platform} push token for ${did}`);
     } else {
       throw new Error("invalid platform");
     }
