@@ -49,6 +49,9 @@ export async function POST(req: NextRequest) {
           token: body.token,
         },
       });
+      console.log(`Registered ${body.platform} push token for ${did}`);
+    } else {
+      throw new Error("invalid platform");
     }
 
     return new Response(null, { status: 200 });

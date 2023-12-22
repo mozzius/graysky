@@ -28,6 +28,7 @@ export class Accounts {
   }
 
   async syncAccounts() {
+    console.log("Syncing accounts");
     const accounts = await db.user.findMany({
       where: {
         tokens: {
@@ -51,6 +52,7 @@ export class Accounts {
     });
     this.accounts.clear();
     for (const account of accounts) {
+      console.log(account.did);
       this.accounts.set(account.did, {
         did: account.did,
         mutes: account.mutes.map((mute) => mute.did),
