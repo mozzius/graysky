@@ -60,7 +60,6 @@ export async function POST(req: NextRequest) {
           },
         },
       });
-      console.log(`Registered ${platform} push token for ${did}`);
     } else {
       throw new Error("invalid platform");
     }
