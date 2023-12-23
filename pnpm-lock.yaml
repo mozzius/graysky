@@ -75,8 +75,8 @@ importers:
         specifier: ^6.1.9
         version: 6.1.9(react-native@0.72.6)(react@18.2.0)
       '@sentry/react-native':
-        specifier: 5.15.1
-        version: 5.15.1(react-native@0.72.6)(react@18.2.0)
+        specifier: 5.15.2
+        version: 5.15.2(react-native@0.72.6)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.23.6)(react-native@0.72.6)(react@18.2.0)
@@ -4704,8 +4704,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/react-native@5.15.1(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-t/t3HZ2rAgOKS1BmjT3jThuT/mi+3hqLnsEZQlrM3oAbqQ/JYo++oMCv5kXLSSKtyXWyANlXSpC3mfiDrJiNDw==}
+  /@sentry/react-native@5.15.2(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-X9yYdgIvVloR4WUrX8zSU0SXbmqY5Yq1W68TT2xe4LyKpWYJHFFbeJUaFAXFn65JXOSJvjEpEFYYyGJ9dzQ9rg==}
     peerDependencies:
       react: '>=17.0.0'
       react-native: '>=0.65.0'
