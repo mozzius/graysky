@@ -72,7 +72,7 @@
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",
     "immer": "^10.0.3",
-    "lucide-react-native": "^0.300.0",
+    "lucide-react-native": "^0.302.0",
     "metro": "~0.80.2",
     "mime": "^4.0.1",
     "nativewind": "^2.0.11",
