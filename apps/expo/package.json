@@ -119,7 +119,7 @@
     "@graysky/tsconfig": "0.1.0",
     "@types/babel__core": "^7.20.5",
     "@types/mime": "^3.0.4",
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.2.46",
     "@types/webpack-env": "^1.18.4",
     "eslint": "^8.56.0",
     "postcss": "^8.4.32",
