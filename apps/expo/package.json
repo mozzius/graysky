@@ -38,7 +38,7 @@
     "@trpc/react-query": "next",
     "@trpc/server": "next",
     "bcp-47-match": "^2.0.3",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "dotenv": "^16.3.1",
     "expo": "49.0.21",
     "expo-application": "~5.4.0",
