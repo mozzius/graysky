@@ -16,7 +16,8 @@
   "pnpm": {
     "patchedDependencies": {
       "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch"
+      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch",
+      "expo-image-picker@14.5.0": "patches/expo-image-picker@14.5.0.patch"
     },
     "overrides": {
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0",

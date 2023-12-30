@@ -9,6 +9,9 @@ overrides:
   sharp: 0.32.6
 
 patchedDependencies:
+  expo-image-picker@14.5.0:
+    hash: viwdpenalsrxy5nuzgowpopdam
+    path: patches/expo-image-picker@14.5.0.patch
   nativewind@2.0.11:
     hash: 4qfpcgvukjl323s5mtctmu3ynu
     path: patches/nativewind@2.0.11.patch
@@ -142,7 +145,7 @@ importers:
         version: 11.5.0(expo@49.0.21)
       expo-image-picker:
         specifier: ~14.5.0
-        version: 14.5.0(expo@49.0.21)
+        version: 14.5.0(patch_hash=viwdpenalsrxy5nuzgowpopdam)(expo@49.0.21)
       expo-insights:
         specifier: ~0.4.0
         version: 0.4.0(expo@49.0.21)
@@ -7950,7 +7953,7 @@ packages:
       expo-image-loader: 4.4.0(expo@49.0.21)
     dev: false
 
-  /expo-image-picker@14.5.0(expo@49.0.21):
+  /expo-image-picker@14.5.0(patch_hash=viwdpenalsrxy5nuzgowpopdam)(expo@49.0.21):
     resolution: {integrity: sha512-9icvfQuWMdNKufFqu+FxenKcfybz9ior+XYQCIl/q5+mpHPo2tKq8I30vu2BjsOJ0Cfo7V4vMeN7a9F/3ooUfQ==}
     peerDependencies:
       expo: '*'
@@ -7958,6 +7961,7 @@ packages:
       expo: 49.0.21(@babel/core@7.23.6)
       expo-image-loader: 4.4.0(expo@49.0.21)
     dev: false
+    patched: true
 
   /expo-image@1.10.1(expo@49.0.21):
     resolution: {integrity: sha512-NwJt2FS6sZXeP92RpsZxBKSnCPWMdcJ2Q2bXHc8WgOkLLInvRd0yBKAzEusXTZ6+N+RqAcWVojlh3EBbSQhkiA==}
