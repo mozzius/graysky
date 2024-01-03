@@ -20,6 +20,7 @@
       "expo-image-picker@14.5.0": "patches/expo-image-picker@14.5.0.patch"
     },
     "overrides": {
+      "sharp": "0.32.6",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
     },
     "supportedArchitectures": {

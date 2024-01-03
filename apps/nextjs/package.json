@@ -39,7 +39,7 @@
     "rehype-slug": "^6.0.0",
     "remark-custom-heading-id": "^1.0.1",
     "remark-gfm": "^3.0.1",
-    "sharp": "0.33.1",
+    "sharp": "0.32.6",
     "superjson": "2.2.1",
     "zod": "^3.22.4"
   },
