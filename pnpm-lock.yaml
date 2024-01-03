@@ -183,8 +183,8 @@ importers:
         specifier: ^11.5.0
         version: 11.5.0(expo@49.0.21)
       expo-updates:
-        specifier: ^0.18.17
-        version: 0.18.17(expo@49.0.21)
+        specifier: ^0.18.19
+        version: 0.18.19(expo@49.0.21)
       expo-web-browser:
         specifier: ~12.5.0
         version: 12.5.0(expo@49.0.21)
@@ -8219,8 +8219,8 @@ packages:
       expo: 49.0.21(@babel/core@7.23.6)
     dev: false
 
-  /expo-updates@0.18.17(expo@49.0.21):
-    resolution: {integrity: sha512-oyBDR94nYEtVw+iBod3N9LFqTfpLHofmUjh0lP12YZINUI89hvoAyqRe56eSnlpWkzziG6g1y4NGva0D0ViK6w==}
+  /expo-updates@0.18.19(expo@49.0.21):
+    resolution: {integrity: sha512-dakYQ7XhZtBKMLcim08wum108ZUQcNigurijb/6PKdg3QHn21IzOr/27n6x54DctcoW8w1B8w8y1Xw2svVsx4w==}
     hasBin: true
     peerDependencies:
       expo: '*'
