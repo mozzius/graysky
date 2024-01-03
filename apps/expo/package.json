@@ -24,7 +24,7 @@
     "@atproto/api": "^0.7.4",
     "@expo/metro-config": "^0.10.7",
     "@expo/react-native-action-sheet": "^4.0.1",
-    "@gorhom/bottom-sheet": "4.5.1",
+    "@gorhom/bottom-sheet": "4.6.0",
     "@graysky/api": "0.1.0",
     "@mattermost/react-native-paste-input": "^0.7.0",
     "@react-native-community/netinfo": "11.2.1",

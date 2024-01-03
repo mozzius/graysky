@@ -57,8 +57,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(react@18.2.0)
       '@gorhom/bottom-sheet':
-        specifier: 4.5.1
-        version: 4.5.1(@types/react@18.2.46)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.72.6)(react@18.2.0)
+        specifier: 4.6.0
+        version: 4.6.0(@types/react@18.2.46)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.72.6)(react@18.2.0)
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -3126,8 +3126,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: false
 
-  /@gorhom/bottom-sheet@4.5.1(@types/react@18.2.46)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.72.6)(react@18.2.0):
-    resolution: {integrity: sha512-4Qy6hzvN32fXu2hDxDXOIS0IBGBT6huST7J7+K1V5bXemZ08KIx5ZffyLgwhCUl+CnyeG2KG6tqk6iYLkIwi7Q==}
+  /@gorhom/bottom-sheet@4.6.0(@types/react@18.2.46)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-XgNflkhATUqTIiMDGuLaQZAtjUzcrhGOEJGHT+7Tou1ctTMb958YRGGnU9KFo5TkD6YCZcfWfxHPi9F0FF+DjA==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-native': '*'
