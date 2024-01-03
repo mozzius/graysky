@@ -78,14 +78,24 @@ export const FeedRow = ({
         className="flex-row items-center px-4 py-3"
         accessibilityElementsHidden
       >
-        <Image
-          source={{ uri: feed.avatar }}
-          alt={feed.displayName}
-          className={cx(
-            "shrink-0 items-center justify-center rounded bg-blue-500",
-            large ? "h-10 w-10" : "h-6 w-6",
-          )}
-        />
+        {feed.avatar ? (
+          <Image
+            source={{ uri: feed.avatar }}
+            recyclingKey={feed.avatar}
+            alt={feed.displayName}
+            className={cx(
+              "shrink-0 items-center justify-center rounded bg-blue-500",
+              large ? "h-10 w-10" : "h-6 w-6",
+            )}
+          />
+        ) : (
+          <View
+            className={cx(
+              "shrink-0 rounded bg-blue-500",
+              large ? "h-10 w-10" : "h-6 w-6",
+            )}
+          />
+        )}
         <View className="mx-3 flex-1 flex-row items-center">
           <View>
             <Text className="text-base" numberOfLines={1}>
