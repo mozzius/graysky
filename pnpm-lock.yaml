@@ -629,8 +629,8 @@ importers:
         specifier: ^14.0.4
         version: 14.0.4
       '@types/eslint':
-        specifier: ^8.56.0
-        version: 8.56.0
+        specifier: ^8.56.1
+        version: 8.56.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.16.0
         version: 6.16.0(@typescript-eslint/parser@6.16.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -5018,8 +5018,8 @@ packages:
       '@types/ms': 0.7.32
     dev: false
 
-  /@types/eslint@8.56.0:
-    resolution: {integrity: sha512-FlsN0p4FhuYRjIxpbdXovvHQhtlG05O1GG/RNWvdAxTboR438IOTwmrY/vLA+Xfgg06BTkP045M3vpFwTMv1dg==}
+  /@types/eslint@8.56.1:
+    resolution: {integrity: sha512-18PLWRzhy9glDQp3+wOgfLYRWlhgX0azxgJ63rdpoUHyrC9z0f5CkFburjQx4uD7ZCruw85ZtMt6K+L+R8fLJQ==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
