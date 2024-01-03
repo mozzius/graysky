@@ -419,7 +419,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
                   router.setParams({ ...searchParams, gif: "" });
                   setImages((prev) => [
                     ...prev,
-                    ...result.assets.map((a) => ({ asset: a, alt: "" })),
+                    ...result.assets.slice(0, 4).map((a) => ({ asset: a, alt: "" })),
                   ]);
                 }
               });
