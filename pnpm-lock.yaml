@@ -126,7 +126,7 @@ importers:
         specifier: ~15.4.2
         version: 15.4.2(expo@50.0.0-preview.7)
       expo-dev-client:
-        specifier: ^3.3.3
+        specifier: ^3.3.4
         version: 3.3.4(expo@50.0.0-preview.7)
       expo-device:
         specifier: ~5.9.1
@@ -186,7 +186,7 @@ importers:
         specifier: ^11.7.0
         version: 11.7.0(expo@50.0.0-preview.7)
       expo-updates:
-        specifier: ^0.24.4
+        specifier: ^0.24.5
         version: 0.24.5(expo@50.0.0-preview.7)
       expo-web-browser:
         specifier: ~12.8.1
@@ -316,7 +316,7 @@ importers:
         specifier: ^7.23.7
         version: 7.23.7
       '@expo/config-plugins':
-        specifier: ^7.8.0
+        specifier: ^7.8.2
         version: 7.8.2
       '@graysky/eslint-config':
         specifier: 0.1.0
