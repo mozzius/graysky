@@ -1,0 +1,13 @@
+diff --git a/scripts/cocoapods/utils.rb b/scripts/cocoapods/utils.rb
+index 54ea36ce5fdaadf87fc74c97b4f94f882aef09be..f1914aec282c66b1229b7dcbfb28347bffcebba7 100644
+--- a/scripts/cocoapods/utils.rb
++++ b/scripts/cocoapods/utils.rb
+@@ -542,7 +542,7 @@ class ReactNativePodsUtils
+         info_plists = user_project
+           .files
+           .select { |p|
+-            p.name&.end_with?('Info.plist')
++            p.path&.include?('/') && p.name&.end_with?('Info.plist')
+           }
+         return info_plists
+       end

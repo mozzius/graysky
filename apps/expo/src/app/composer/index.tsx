@@ -458,7 +458,7 @@ export default function ComposerScreen() {
               </Animated.View>
             ))}
             {images.length < MAX_IMAGES && (
-              <Animated.View layout={LinearTransition} className="mr-20 flex-1">
+              <Animated.View layout={LinearTransition} className="flex-1">
                 <TouchableOpacity
                   onPress={() => {
                     haptics.impact();
@@ -478,6 +478,8 @@ export default function ComposerScreen() {
                 </TouchableOpacity>
               </Animated.View>
             )}
+            {/* spacer */}
+            <View className="w-20" />
           </Animated.ScrollView>
         )}
         <Animated.View
