@@ -417,10 +417,22 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
               }).then((result) => {
                 if (!result.canceled) {
                   router.setParams({ ...searchParams, gif: "" });
-                  setImages((prev) => [
-                    ...prev,
-                    ...result.assets.map((a) => ({ asset: a, alt: "" })),
-                  ]);
+
+                  setImages((prev) => {
+                    // max images prop not enforced on android due to the `browse` patch
+                    if (result.assets.length + prev.length > MAX_IMAGES) {
+                      showToastable({
+                        title: "Too many images selected",
+                        message: `You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
+                      });
+                    }
+                    return [
+                      ...prev,
+                      ...result.assets
+                        .slice(0, MAX_IMAGES - prev.length)
+                        .map((a) => ({ asset: a, alt: "" })),
+                    ];
+                  });
                 }
               });
               break;

@@ -4,7 +4,7 @@ import { Drawer } from "react-native-drawer-layout";
 import { useMMKVObject } from "react-native-mmkv";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import * as Notifications from "expo-notifications";
+import * as Notifications from "expo-notifications";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
 import {
   BottomSheetBackdrop,
@@ -52,7 +52,7 @@ export default function AppLayout() {
       const unreadCount = await agent.countUnreadNotifications();
       if (!unreadCount.success)
         throw new Error("Failed to fetch notifications");
-      // await Notifications.setBadgeCountAsync(unreadCount.data.count);
+      await Notifications.setBadgeCountAsync(unreadCount.data.count);
       return unreadCount.data;
     },
     // refetch every 15 seconds

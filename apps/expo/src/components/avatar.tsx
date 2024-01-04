@@ -10,7 +10,13 @@ import { useOptionalAgent } from "~/lib/agent";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
-  size?: "extraLarge" | "large" | "medium" | "small" | "extraSmall";
+  size?:
+    | "extraLarge"
+    | "large"
+    | "medium"
+    | "smallMedium"
+    | "small"
+    | "extraSmall";
   uri?: string;
   alt?: string;
   self?: boolean;
@@ -33,6 +39,7 @@ const AvatarUnmemoized = ({ self, ...props }: Props) => {
             {
               "h-4 w-4": props.size === "extraSmall",
               "h-7 w-7": props.size === "small",
+              "h-8 w-8": props.size === "smallMedium",
               "h-10 w-10": props.size === "medium",
               "h-12 w-12": props.size === "large",
               "h-14 w-14": props.size === "extraLarge",
@@ -94,6 +101,7 @@ const AvatarInner = ({
     {
       "h-4 w-4": size === "extraSmall",
       "h-7 w-7": size === "small",
+      "h-8 w-8": size === "smallMedium",
       "h-10 w-10": size === "medium",
       "h-12 w-12": size === "large",
       "h-14 w-14": size === "extraLarge",
@@ -123,6 +131,9 @@ const AvatarInner = ({
       break;
     case "small":
       iconSize = 24;
+      break;
+    case "smallMedium":
+      iconSize = 28;
       break;
     case "medium":
       iconSize = 34;

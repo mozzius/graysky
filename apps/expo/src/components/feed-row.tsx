@@ -13,7 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image } from "expo-image";
 import { Link, useNavigation, useRouter } from "expo-router";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { AppBskyFeedDefs, type AppBskyGraphDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -78,14 +78,24 @@ export const FeedRow = ({
         className="flex-row items-center px-4 py-3"
         accessibilityElementsHidden
       >
-        <Image
-          source={{ uri: feed.avatar }}
-          alt={feed.displayName}
-          className={cx(
-            "shrink-0 items-center justify-center rounded bg-blue-500",
-            large ? "h-10 w-10" : "h-6 w-6",
-          )}
-        />
+        {feed.avatar ? (
+          <Image
+            source={{ uri: feed.avatar }}
+            recyclingKey={feed.avatar}
+            alt={feed.displayName}
+            className={cx(
+              "shrink-0 items-center justify-center rounded bg-blue-500",
+              large ? "h-10 w-10" : "h-6 w-6",
+            )}
+          />
+        ) : (
+          <View
+            className={cx(
+              "shrink-0 rounded bg-blue-500",
+              large ? "h-10 w-10" : "h-6 w-6",
+            )}
+          />
+        )}
         <View className="mx-3 flex-1 flex-row items-center">
           <View>
             <Text className="text-base" numberOfLines={1}>
@@ -142,7 +152,9 @@ export const DraggableFeedRow = ({
   editing,
   onUnsave,
 }: {
-  feed: AppBskyFeedDefs.GeneratorView & { pinned: boolean };
+  feed: (AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView) & {
+    pinned: boolean;
+  };
   onPressStar: () => void;
   drag?: () => void;
   editing: boolean;
@@ -150,7 +162,9 @@ export const DraggableFeedRow = ({
 }) => {
   const path = useAbsolutePath();
   const href = path(
-    `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
+    `/profile/${feed.creator.did}/${
+      AppBskyFeedDefs.isGeneratorView(feed) ? "feed" : "lists"
+    }/${feed.uri.split("/").pop()}`,
   );
 
   const { showActionSheetWithOptions } = useActionSheet();
@@ -230,6 +244,7 @@ export const DraggableFeedRow = ({
               <Animated.View
                 style={deleteStyle}
                 className="absolute right-full"
+                accessibilityElementsHidden={editing ? false : true}
               >
                 <TouchableOpacity
                   onPress={() => {
@@ -261,17 +276,26 @@ export const DraggableFeedRow = ({
               </Animated.View>
               <Image
                 source={{ uri: feed.avatar }}
-                alt={feed.displayName}
+                alt={
+                  AppBskyFeedDefs.isGeneratorView(feed)
+                    ? feed.displayName
+                    : feed.name
+                }
                 className="h-6 w-6 shrink-0 items-center justify-center rounded bg-blue-500"
               />
               <View className="flex-1 px-3">
-                <Text className="text-base">{feed.displayName}</Text>
+                <Text className="text-base">
+                  {AppBskyFeedDefs.isGeneratorView(feed)
+                    ? feed.displayName
+                    : feed.name}
+                </Text>
               </View>
             </Animated.View>
             {drag ? (
               <Animated.View
                 style={rightContainerStyle}
                 className="relative flex-row items-center"
+                accessibilityElementsHidden={editing ? false : true}
               >
                 {star}
                 <Animated.View

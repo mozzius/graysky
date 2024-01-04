@@ -37,7 +37,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
   const theme = useTheme();
 
   const savedFeeds = useSavedFeeds();
-  const [{ sortableFeeds }] = useAppPreferences();
+  const [{ sortableFeeds, listsAboveFeeds }] = useAppPreferences();
 
   const toggleFeed = useToggleFeedPref(savedFeeds.data?.preferences);
   const { pinned, saved, reorderFavs, reorderRest } =
@@ -48,9 +48,51 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
   };
 
   if (savedFeeds.data) {
-    if (savedFeeds.data.feeds.length === 0) {
+    if (
+      savedFeeds.data.feeds.length === 0 &&
+      savedFeeds.data.lists.length === 0
+    ) {
       return <NoFeeds />;
     }
+
+    const lists = savedFeeds.data.lists.filter((x) => x && !x.pinned).length >
+      0 && (
+      <>
+        <SectionHeader title="My lists" />
+        <NestableDraggableFlatList
+          data={
+            sortableFeeds
+              ? saved
+                  .map(
+                    (uri) => savedFeeds.data.lists.find((f) => f.uri === uri)!,
+                  )
+                  .filter((x) => x && !x.pinned)
+              : savedFeeds.data.lists
+                  .filter((feed) => !feed.pinned)
+                  .sort((a, b) => a.name.localeCompare(b.name))
+          }
+          keyExtractor={(item) => item.uri}
+          style={{ backgroundColor: theme.dark ? "black" : "white" }}
+          onDragEnd={({ data }) => {
+            reorderRest.mutate(data.map((item) => item.uri));
+          }}
+          renderItem={({ item, drag }) => (
+            <DraggableFeedRow
+              feed={item}
+              drag={sortableFeeds ? drag : undefined}
+              onPressStar={() => {
+                toggleFeed.mutate({ pin: item.uri });
+              }}
+              editing={editing}
+              onUnsave={handleUnsave(item.uri)}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+          )}
+        />
+      </>
+    );
 
     return (
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
@@ -70,7 +112,15 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
             <SectionHeader title="Favourites" />
             <NestableDraggableFlatList
               data={pinned
-                .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+                .map((uri) => {
+                  if (uri.includes("app.bsky.feed.generator")) {
+                    return savedFeeds.data.feeds.find((f) => f.uri === uri)!;
+                  } else if (uri.includes("app.bsky.graph.list")) {
+                    return savedFeeds.data.lists.find((f) => f.uri === uri)!;
+                  } else {
+                    return null as never;
+                  }
+                })
                 .filter(Boolean)}
               keyExtractor={(item) => item.uri}
               onDragEnd={({ data }) => {
@@ -94,6 +144,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
             />
           </>
         )}
+        {listsAboveFeeds && lists}
         <SectionHeader title="All feeds" />
         <NestableDraggableFlatList
           data={
@@ -127,6 +178,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
             <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
           )}
         />
+        {!listsAboveFeeds && lists}
         <View className="p-6">
           <Link href="/discover" asChild>
             <TouchableHighlight className="overflow-hidden rounded-lg">

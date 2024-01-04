@@ -36,20 +36,54 @@ export const useSavedFeeds = (
       if (!feeds || feeds.saved.length === 0)
         return {
           feeds: [],
+          lists: [],
           pinned: [],
           saved: [],
           preferences: prefs.data.preferences,
         };
-      const generators = await agent.app.bsky.feed.getFeedGenerators({
-        feeds: pinned ? feeds.pinned : feeds.saved,
-      });
+
+      // fetch all feed generators
+      const feedGeneratorsUris = (pinned ? feeds.pinned : feeds.saved).filter(
+        (x) => x.includes("app.bsky.feed.generator"),
+      );
+      const generators =
+        feedGeneratorsUris.length === 0
+          ? { success: true, data: { feeds: [] } }
+          : await agent.app.bsky.feed.getFeedGenerators({
+              feeds: feedGeneratorsUris,
+            });
+
       if (!generators.success) {
         throw new Error("Could not fetch saved feeds");
       }
+
+      // fetch all lists
+      const listUris = (pinned ? feeds.pinned : feeds.saved).filter((x) =>
+        x.includes("app.bsky.graph.list"),
+      );
+      const lists =
+        listUris.length === 0
+          ? []
+          : await Promise.all(
+              listUris.map(async (uri) => {
+                const list = await agent.app.bsky.graph.getList({ list: uri });
+                if (!list.success) throw new Error("Could not fetch list");
+                return list.data.list;
+              }),
+            )
+              .catch(() => [])
+              .then((lists) => lists.filter((x) => x !== undefined));
+
       return {
         feeds: generators.data.feeds.map((feed) => ({
+          $type: "app.bsky.feed.defs#generatorView",
           ...feed,
           pinned: feeds.pinned.includes(feed.uri),
+        })),
+        lists: lists.map((list) => ({
+          $type: "app.bsky.graph.defs#listView",
+          ...list,
+          pinned: feeds.pinned.includes(list.uri),
         })),
         pinned: feeds.pinned,
         saved: feeds.saved,

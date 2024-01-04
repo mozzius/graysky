@@ -30,8 +30,6 @@ export const translateRouter = createTRPCRouter({
         type: "language",
       });
 
-      console.log("translate", input.service);
-
       const cached = await db.postTranslation.findFirst({
         where: {
           AND: [

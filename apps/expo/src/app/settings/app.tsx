@@ -27,6 +27,18 @@ export default function AppSettings() {
                 ),
               },
               {
+                title: 'Show "My Lists" above "All Feeds"',
+                action: (
+                  <Switch
+                    value={appPrefs.listsAboveFeeds}
+                    onValueChange={(listsAboveFeeds) =>
+                      setAppPrefs({ listsAboveFeeds })
+                    }
+                    accessibilityHint="Show lists above feeds in the feeds tab"
+                  />
+                ),
+              },
+              {
                 title: "Show each notification individually",
                 action: (
                   <Switch
