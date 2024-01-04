@@ -1,24 +1,9 @@
 diff --git a/android/src/main/java/expo/modules/imagepicker/contracts/ImageLibraryContract.kt b/android/src/main/java/expo/modules/imagepicker/contracts/ImageLibraryContract.kt
-index 6c4255640db70623510e9cc26aa3f542b13ed258..0281f1d2ae0b23413efef8ac7ac215ffb4f3973d 100644
+index ff15c91f6b3573c913eacad93c60cc795e855f2d..68bc047aaecc5b1c7aeee5b3270ffea46642863c 100644
 --- a/android/src/main/java/expo/modules/imagepicker/contracts/ImageLibraryContract.kt
 +++ b/android/src/main/java/expo/modules/imagepicker/contracts/ImageLibraryContract.kt
-@@ -14,6 +14,7 @@ import expo.modules.imagepicker.UNLIMITED_SELECTION
- import expo.modules.imagepicker.getAllDataUris
- import expo.modules.imagepicker.toMediaType
- import expo.modules.kotlin.activityresult.AppContextActivityResultContract
-+import expo.modules.kotlin.exception.Exceptions
- import expo.modules.kotlin.providers.AppContextProvider
- import java.io.Serializable
- 
-@@ -28,49 +29,23 @@ internal class ImageLibraryContract(
-   private val appContextProvider: AppContextProvider,
- ) : AppContextActivityResultContract<ImageLibraryContractOptions, ImagePickerContractResult> {
-   private val contentResolver: ContentResolver
--    get() = requireNotNull(appContextProvider.appContext.reactContext) {
--      "React Application Context is null"
--    }.contentResolver
-+    get() = appContextProvider.appContext.reactContext?.contentResolver
-+      ?: throw Exceptions.ReactContextLost()
+@@ -33,44 +33,19 @@ internal class ImageLibraryContract(
+       ?: throw Exceptions.ReactContextLost()
  
    override fun createIntent(context: Context, input: ImageLibraryContractOptions): Intent {
 -    val request = PickVisualMediaRequest.Builder()
@@ -69,21 +54,3 @@ index 6c4255640db70623510e9cc26aa3f542b13ed258..0281f1d2ae0b23413efef8ac7ac215ff
    }
  
    override fun parseResult(input: ImageLibraryContractOptions, resultCode: Int, intent: Intent?) =
-@@ -86,9 +61,9 @@ internal class ImageLibraryContract(
-           )
-         } else {
-           if (intent.data != null) {
--            intent.data?.let {
--              val type = it.toMediaType(contentResolver)
--              ImagePickerContractResult.Success(listOf(type to it))
-+            intent.data?.let { uri ->
-+              val type = uri.toMediaType(contentResolver)
-+              ImagePickerContractResult.Success(listOf(type to uri))
-             }
-           } else {
-             uris.firstOrNull()?.let { uri ->
-@@ -104,3 +79,4 @@ internal class ImageLibraryContract(
- internal data class ImageLibraryContractOptions(
-   val options: ImagePickerOptions
- ) : Serializable
-+

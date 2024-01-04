@@ -8,6 +8,11 @@ overrides:
   sharp: 0.32.6
   use-deep-compare: npm:use-deep-compare-dequal-update@2.0.0
 
+patchedDependencies:
+  expo-image-picker@14.7.1:
+    hash: 5nub3vfu3z76pr6gfqxa6jfucq
+    path: patches/expo-image-picker@14.7.1.patch
+
 importers:
 
   .:
@@ -134,7 +139,7 @@ importers:
         version: 11.8.0(expo@50.0.0-preview.6)
       expo-image-picker:
         specifier: ~14.7.1
-        version: 14.7.1(expo@50.0.0-preview.6)
+        version: 14.7.1(patch_hash=5nub3vfu3z76pr6gfqxa6jfucq)(expo@50.0.0-preview.6)
       expo-insights:
         specifier: ~0.6.1
         version: 0.6.1(expo@50.0.0-preview.6)
@@ -7570,7 +7575,7 @@ packages:
       expo-image-loader: 4.6.0(expo@50.0.0-preview.6)
     dev: false
 
-  /expo-image-picker@14.7.1(expo@50.0.0-preview.6):
+  /expo-image-picker@14.7.1(patch_hash=5nub3vfu3z76pr6gfqxa6jfucq)(expo@50.0.0-preview.6):
     resolution: {integrity: sha512-ILQVOJgI3aEzrDmCFGDPtpAepYkn8mot8G7vfQ51BfFdQbzL6N3Wm1fS/ofdWlAZJl/qT2DwaIh5xYmf3SyGZA==}
     peerDependencies:
       expo: '*'
@@ -7578,6 +7583,7 @@ packages:
       expo: 50.0.0-preview.6(@babel/core@7.23.7)(@react-native/babel-preset@0.74.0)
       expo-image-loader: 4.6.0(expo@50.0.0-preview.6)
     dev: false
+    patched: true
 
   /expo-image@1.10.1(expo@50.0.0-preview.6):
     resolution: {integrity: sha512-NwJt2FS6sZXeP92RpsZxBKSnCPWMdcJ2Q2bXHc8WgOkLLInvRd0yBKAzEusXTZ6+N+RqAcWVojlh3EBbSQhkiA==}
