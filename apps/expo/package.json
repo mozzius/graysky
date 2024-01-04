@@ -122,7 +122,7 @@
     "@types/react": "^18.2.46",
     "@types/webpack-env": "^1.18.4",
     "eslint": "^8.56.0",
-    "postcss": "^8.4.32",
+    "postcss": "^8.4.33",
     "prettier": "^3.1.1",
     "tailwindcss": "3.3.2",
     "typescript": "^5.3.3"
