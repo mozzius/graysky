@@ -12,6 +12,9 @@ patchedDependencies:
   expo-image-picker@14.7.1:
     hash: 5nub3vfu3z76pr6gfqxa6jfucq
     path: patches/expo-image-picker@14.7.1.patch
+  react-native@0.73.1:
+    hash: uxxizehfgi7xhmyzu25q52vc6u
+    path: patches/react-native@0.73.1.patch
 
 importers:
 
@@ -220,7 +223,7 @@ importers:
         version: 4.0.12(react@18.2.0)
       react-native:
         specifier: 0.73.1
-        version: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+        version: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-avoid-softinput:
         specifier: ^4.0.2
         version: 4.0.2(react-native@0.73.1)(react@18.2.0)
@@ -2948,7 +2951,7 @@ packages:
     peerDependencies:
       react-native: '*'
     dependencies:
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /@expo/osascript@2.0.33:
@@ -3121,7 +3124,7 @@ packages:
       '@types/react': 18.2.46
       invariant: 2.2.4
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-gesture-handler: 2.14.0(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
     dev: false
@@ -3134,7 +3137,7 @@ packages:
     dependencies:
       nanoid: 3.3.7
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /@graphql-typed-document-node/core@3.2.0(graphql@15.8.0):
@@ -3361,7 +3364,7 @@ packages:
       react-native: '*'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       semver: 7.5.4
     dev: false
 
@@ -3789,7 +3792,7 @@ packages:
     peerDependencies:
       react-native: '>=0.59'
     dependencies:
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /@react-native-community/slider@4.5.0:
@@ -4038,7 +4041,7 @@ packages:
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /@react-navigation/bottom-tabs@6.5.11(@react-navigation/native@6.1.9)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.1)(react@18.2.0):
@@ -4054,7 +4057,7 @@ packages:
       '@react-navigation/native': 6.1.9(react-native@0.73.1)(react@18.2.0)
       color: 4.2.3
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-safe-area-context: 4.8.2(react-native@0.73.1)(react@18.2.0)
       react-native-screens: 3.29.0(react-native@0.73.1)(react@18.2.0)
       warn-once: 0.1.1
@@ -4084,7 +4087,7 @@ packages:
     dependencies:
       '@react-navigation/native': 6.1.9(react-native@0.73.1)(react@18.2.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-safe-area-context: 4.8.2(react-native@0.73.1)(react@18.2.0)
     dev: false
 
@@ -4100,7 +4103,7 @@ packages:
       '@react-navigation/elements': 1.3.21(@react-navigation/native@6.1.9)(react-native-safe-area-context@4.8.2)(react-native@0.73.1)(react@18.2.0)
       '@react-navigation/native': 6.1.9(react-native@0.73.1)(react@18.2.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-safe-area-context: 4.8.2(react-native@0.73.1)(react@18.2.0)
       react-native-screens: 3.29.0(react-native@0.73.1)(react@18.2.0)
       warn-once: 0.1.1
@@ -4117,7 +4120,7 @@ packages:
       fast-deep-equal: 3.1.3
       nanoid: 3.3.7
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /@react-navigation/routers@6.1.9:
@@ -4564,7 +4567,7 @@ packages:
       '@sentry/types': 7.69.0
       '@sentry/utils': 7.69.0
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4585,7 +4588,7 @@ packages:
       '@sentry/types': 7.81.1
       '@sentry/utils': 7.81.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4727,7 +4730,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.7
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       recyclerlistview: 4.2.0(react-native@0.73.1)(react@18.2.0)
       tslib: 2.4.0
     dev: false
@@ -9605,7 +9608,7 @@ packages:
     dependencies:
       prop-types: 15.8.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-svg: 14.1.0(react-native@0.73.1)(react@18.2.0)
     dev: false
 
@@ -11826,7 +11829,7 @@ packages:
       react-native: '>=0.65.0'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-awesome-gallery@0.3.8(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0):
@@ -11838,7 +11841,7 @@ packages:
       react-native-reanimated: ^3.2.0
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-gesture-handler: 2.14.0(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
       react-native-redash: 16.3.0(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0)
@@ -11853,7 +11856,7 @@ packages:
     dependencies:
       prop-types: 15.8.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-svg: 14.1.0(react-native@0.73.1)(react@18.2.0)
     dev: false
 
@@ -11871,7 +11874,7 @@ packages:
     dependencies:
       '@shopify/flash-list': 1.6.3(@babel/runtime@7.23.7)(react-native@0.73.1)(react@18.2.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-pager-view: 6.2.3(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
       use-deep-compare: /use-deep-compare-dequal-update@2.0.0(react@18.2.0)
@@ -11884,7 +11887,7 @@ packages:
       react-native: '>= 0.64.3'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-draggable-flatlist@4.0.1(@babel/core@7.23.7)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.73.1):
@@ -11895,7 +11898,7 @@ packages:
       react-native-reanimated: '>=2.8.0'
     dependencies:
       '@babel/preset-typescript': 7.23.3(@babel/core@7.23.7)
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-gesture-handler: 2.14.0(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
     transitivePeerDependencies:
@@ -11911,7 +11914,7 @@ packages:
       react-native-reanimated: ~3.3.0
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-gesture-handler: 2.14.0(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
       use-latest-callback: 0.1.9(react@18.2.0)
@@ -11929,7 +11932,7 @@ packages:
       lodash: 4.17.21
       prop-types: 15.8.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-ios-context-menu@2.3.0(expo@50.0.0-preview.7)(react-native-ios-utilities@4.2.3)(react-native@0.73.1)(react@18.2.0):
@@ -11943,7 +11946,7 @@ packages:
       '@dominicstop/ts-event-emitter': 1.1.0
       expo: 50.0.0-preview.7(@babel/core@7.23.7)(@react-native/babel-preset@0.74.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-ios-utilities: 4.2.3(expo@50.0.0-preview.7)(react-native@0.73.1)(react@18.2.0)
     dev: false
 
@@ -11956,7 +11959,7 @@ packages:
     dependencies:
       expo: 50.0.0-preview.7(@babel/core@7.23.7)(@react-native/babel-preset@0.74.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-keyboard-controller@1.10.0(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0):
@@ -11967,7 +11970,7 @@ packages:
       react-native-reanimated: '>=2.3.0'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
     dev: false
 
@@ -11978,7 +11981,7 @@ packages:
       react-native: '>=0.71.0'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-pager-view@6.2.3(react-native@0.73.1)(react@18.2.0):
@@ -11988,7 +11991,7 @@ packages:
       react-native: '*'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-purchases@7.6.0(react-native@0.73.1)(react@18.2.0):
@@ -11999,7 +12002,7 @@ packages:
     dependencies:
       '@revenuecat/purchases-typescript-internal': 8.2.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-reanimated@3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0):
@@ -12025,7 +12028,7 @@ packages:
       convert-source-map: 2.0.0
       invariant: 2.2.4
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-redash@16.3.0(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0):
@@ -12040,7 +12043,7 @@ packages:
       normalize-svg-path: 1.1.0
       parse-svg-path: 0.1.2
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-gesture-handler: 2.14.0(react-native@0.73.1)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.1)(react@18.2.0)
     dev: false
@@ -12055,7 +12058,7 @@ packages:
       '@expo/config-plugins': 6.0.2
       expo: 50.0.0-preview.7(@babel/core@7.23.7)(@react-native/babel-preset@0.74.0)
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       xcode: 3.0.1
     transitivePeerDependencies:
       - supports-color
@@ -12068,7 +12071,7 @@ packages:
       react-native: '*'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-screens@3.29.0(react-native@0.73.1)(react@18.2.0):
@@ -12079,7 +12082,7 @@ packages:
     dependencies:
       react: 18.2.0
       react-freeze: 1.0.3(react@18.2.0)
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       warn-once: 0.1.1
     dev: false
 
@@ -12092,7 +12095,7 @@ packages:
       css-select: 5.1.0
       css-tree: 1.1.3
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-toastable@0.4.0(react-native@0.73.1)(react@18.2.0):
@@ -12103,7 +12106,7 @@ packages:
       react-native: '*'
     dependencies:
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
   /react-native-url-polyfill@2.0.0(react-native@0.73.1):
@@ -12111,11 +12114,11 @@ packages:
     peerDependencies:
       react-native: '*'
     dependencies:
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       whatwg-url-without-unicode: 8.0.0-3
     dev: false
 
-  /react-native@0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0):
+  /react-native@0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0):
     resolution: {integrity: sha512-nLl9O2yKRh1nMXwsk4SUiD0ddd19RqlKgNU9AU8bTK/zD2xwnVOG56YK1/22SN67niWyoeG83vVg1eTk+S6ReA==}
     engines: {node: '>=18'}
     hasBin: true
@@ -12168,6 +12171,7 @@ packages:
       - supports-color
       - utf-8-validate
     dev: false
+    patched: true
 
   /react-refresh@0.14.0:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
@@ -12280,7 +12284,7 @@ packages:
       lodash.debounce: 4.0.8
       prop-types: 15.8.1
       react: 18.2.0
-      react-native: 0.73.1(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
+      react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       ts-object-utils: 0.0.5
     dev: false
 

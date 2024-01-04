@@ -15,7 +15,8 @@
   "packageManager": "pnpm@8.14.0",
   "pnpm": {
     "patchedDependencies": {
-      "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch"
+      "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
+      "react-native@0.73.1": "patches/react-native@0.73.1.patch"
     },
     "overrides": {
       "sharp": "0.32.6",
