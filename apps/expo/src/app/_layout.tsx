@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import * as ScreenOrientation from "expo-screen-orientation";
+import * as SplashScreen from "expo-splash-screen";
 import {
   BskyAgent,
   type AtpSessionData,
@@ -18,6 +20,7 @@ import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
+import { type SavedSession } from "~/components/switch-accounts";
 import { Toastable } from "~/components/toastable/toastable";
 import { AgentProvider } from "~/lib/agent";
 import {
@@ -30,15 +33,14 @@ import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
-import { type SavedSession } from "../components/switch-accounts";
 
 Sentry.init({
+  autoSessionTracking: false,
   dsn: Constants.expoConfig?.extra?.sentry as string,
   enableInExpoDevelopment: false,
-  integrations: [new Sentry.Native.ReactNativeTracing()],
 });
 
-SplashScreen.preventAutoHideAsync();
+void SplashScreen.preventAutoHideAsync();
 
 void Device.getDeviceTypeAsync().then((type) => {
   if (type === Device.DeviceType.TABLET) {
@@ -167,7 +169,7 @@ const App = ({ session, saveSession }: Props) => {
   useEffect(() => {
     if (splashscreenHidden.current) return;
     if (ready) {
-      SplashScreen.hideAsync();
+      void SplashScreen.hideAsync().catch(() => console.warn);
       splashscreenHidden.current = true;
     }
   }, [ready]);
@@ -205,116 +207,118 @@ const App = ({ session, saveSession }: Props) => {
   }, [routeName]);
 
   return (
-    <KeyboardProvider>
-      <AppPreferencesProvider>
-        {(theme) => (
-          <SafeAreaProvider>
-            <StatusBar />
-            {agent.hasSession && <QuickActions />}
-            <CustomerInfoProvider>
-              <AgentProvider agent={agent} update={agentUpdate}>
-                <PreferencesProvider>
-                  <LogOutProvider value={logOut}>
-                    <ActionSheetProvider>
-                      <ListProvider>
-                        <Stack
-                          screenOptions={{
-                            headerShown: true,
-                            fullScreenGestureEnabled: true,
-                          }}
-                        >
-                          <Stack.Screen
-                            name="index"
-                            options={{
-                              headerShown: false,
-                              gestureEnabled: false,
+    <GestureHandlerRootView className="flex-1">
+      <KeyboardProvider>
+        <AppPreferencesProvider>
+          {(theme) => (
+            <SafeAreaProvider>
+              <StatusBar />
+              {agent.hasSession && <QuickActions />}
+              <CustomerInfoProvider>
+                <AgentProvider agent={agent} update={agentUpdate}>
+                  <PreferencesProvider>
+                    <LogOutProvider value={logOut}>
+                      <ActionSheetProvider>
+                        <ListProvider>
+                          <Stack
+                            screenOptions={{
+                              headerShown: true,
+                              fullScreenGestureEnabled: true,
                             }}
-                          />
-                          <Stack.Screen
-                            name="(auth)"
-                            options={{
-                              headerShown: false,
-                              presentation: "formSheet",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="settings"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="codes"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="images/[post]"
-                            options={{
-                              headerShown: false,
-                              animation: "fade",
-                              fullScreenGestureEnabled: false,
-                              customAnimationOnGesture: true,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="discover"
-                            options={{
-                              title: "Discover Feeds",
-                              presentation: "modal",
-                              headerLargeTitle: true,
-                              headerLargeTitleShadowVisible: false,
-                              headerLargeStyle: {
-                                backgroundColor: theme.colors.background,
-                              },
-                              headerSearchBarOptions: {},
-                            }}
-                          />
-                          <Stack.Screen
-                            name="pro"
-                            options={{
-                              title: "",
-                              headerTransparent: true,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="success"
-                            options={{
-                              title: "Purchase Successful",
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="composer"
-                            options={{
-                              headerShown: false,
-                              ...Platform.select({
-                                ios: {
-                                  presentation: "formSheet",
+                          >
+                            <Stack.Screen
+                              name="index"
+                              options={{
+                                headerShown: false,
+                                gestureEnabled: false,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="(auth)"
+                              options={{
+                                headerShown: false,
+                                presentation: "formSheet",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="settings"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="codes"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="images/[post]"
+                              options={{
+                                headerShown: false,
+                                animation: "fade",
+                                fullScreenGestureEnabled: false,
+                                customAnimationOnGesture: true,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="discover"
+                              options={{
+                                title: "Discover Feeds",
+                                presentation: "modal",
+                                headerLargeTitle: true,
+                                headerLargeTitleShadowVisible: false,
+                                headerLargeStyle: {
+                                  backgroundColor: theme.colors.background,
                                 },
-                                android: {
-                                  animation: "fade_from_bottom",
-                                },
-                              }),
-                            }}
-                          />
-                        </Stack>
-                      </ListProvider>
-                    </ActionSheetProvider>
-                  </LogOutProvider>
-                </PreferencesProvider>
-              </AgentProvider>
-            </CustomerInfoProvider>
-            <Toastable />
-          </SafeAreaProvider>
-        )}
-      </AppPreferencesProvider>
-    </KeyboardProvider>
+                                headerSearchBarOptions: {},
+                              }}
+                            />
+                            <Stack.Screen
+                              name="pro"
+                              options={{
+                                title: "",
+                                headerTransparent: true,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="success"
+                              options={{
+                                title: "Purchase Successful",
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="composer"
+                              options={{
+                                headerShown: false,
+                                ...Platform.select({
+                                  ios: {
+                                    presentation: "formSheet",
+                                  },
+                                  android: {
+                                    animation: "fade_from_bottom",
+                                  },
+                                }),
+                              }}
+                            />
+                          </Stack>
+                        </ListProvider>
+                      </ActionSheetProvider>
+                    </LogOutProvider>
+                  </PreferencesProvider>
+                </AgentProvider>
+              </CustomerInfoProvider>
+              <Toastable />
+            </SafeAreaProvider>
+          )}
+        </AppPreferencesProvider>
+      </KeyboardProvider>
+    </GestureHandlerRootView>
   );
 };
 
