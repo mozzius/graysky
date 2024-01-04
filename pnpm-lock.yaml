@@ -159,7 +159,7 @@ importers:
         specifier: ^0.27.2
         version: 0.27.2(expo@50.0.0-preview.7)
       expo-quick-actions:
-        specifier: ^0.2.6
+        specifier: ^0.2.8
         version: 0.2.8(expo@50.0.0-preview.7)
       expo-router:
         specifier: 3.4.1
