@@ -201,8 +201,8 @@ importers:
         specifier: ^10.0.3
         version: 10.0.3
       lucide-react-native:
-        specifier: ^0.304.0
-        version: 0.304.0(react-native-svg@14.1.0)(react-native@0.73.1)(react@18.2.0)
+        specifier: ^0.305.0
+        version: 0.305.0(react-native-svg@14.1.0)(react-native@0.73.1)(react@18.2.0)
       metro:
         specifier: ~0.80.3
         version: 0.80.3
@@ -258,8 +258,8 @@ importers:
         specifier: ^4.2.3
         version: 4.2.3(expo@50.0.0-preview.7)(react-native@0.73.1)(react@18.2.0)
       react-native-keyboard-controller:
-        specifier: ^1.10.0
-        version: 1.10.0(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0)
+        specifier: ^1.10.1
+        version: 1.10.1(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0)
       react-native-mmkv:
         specifier: ^2.11.0
         version: 2.11.0(react-native@0.73.1)(react@18.2.0)
@@ -412,8 +412,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.304.0
-        version: 0.304.0(react@18.2.0)
+        specifier: ^0.305.0
+        version: 0.305.0(react@18.2.0)
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -866,7 +866,7 @@ packages:
       mime-types: 2.1.35
       rate-limiter-flexible: 2.4.2
       uint8arrays: 3.0.0
-      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      ws: 8.14.2
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -2687,7 +2687,7 @@ packages:
       text-table: 0.2.0
       url-join: 4.0.0
       wrap-ansi: 7.0.0
-      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      ws: 8.14.2
     transitivePeerDependencies:
       - '@react-native/babel-preset'
       - bluebird
@@ -9645,8 +9645,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.304.0(react-native-svg@14.1.0)(react-native@0.73.1)(react@18.2.0):
-    resolution: {integrity: sha512-n1jKOwjlb2qyOD3/K4wXfxBlvh4gPjqFpXJ9uvD11Q0xh9UM4BmiGJeTqF91T+RFQAYGIJV/tYuJcb2ByJxSiQ==}
+  /lucide-react-native@0.305.0(react-native-svg@14.1.0)(react-native@0.73.1)(react@18.2.0):
+    resolution: {integrity: sha512-48RdvCj4XumH8WgJR/TM7y0Jgq1Yjhj3dyhaWitRw0gPG1tqBrZji8AVFMeY7cnOOf8fFLMeAQ7SJWqunZ/8GQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -9657,8 +9657,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.1)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.304.0(react@18.2.0):
-    resolution: {integrity: sha512-BlaKhPYo2hcZDjM34DpvypC3DoQ2x1NDugocmJP/G7y/hUmoV+/gK/4eXkIWaWwJ5naD1EBdF5n+XDCiUNXQ2w==}
+  /lucide-react@0.305.0(react@18.2.0):
+    resolution: {integrity: sha512-frSsvuReQ7JvOhmRFd+qkMpnL20nVPO+A3NuR+vLh8MXPZ8hHVSYKtgl2A2yV9PhzCtCGgwCmegFdZs9qVCXzQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -12020,8 +12020,8 @@ packages:
       react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
     dev: false
 
-  /react-native-keyboard-controller@1.10.0(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0):
-    resolution: {integrity: sha512-GflEM3fgISeijti/azU0/RPDUbztPNpvAjvLVGlmjHrbMVEi7lAnh/tfpjFxDmiKwbD1r0SdgA5p43meH/tlFg==}
+  /react-native-keyboard-controller@1.10.1(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0):
+    resolution: {integrity: sha512-bnO5Xw+LW5S64ivUBlb1JyzKCgz4udk6ficeUrTaxGDELpvk3StRLO0t6hUEStjxTdJJZh3MazAzQJH0Pms/6Q==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -14345,6 +14345,19 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /ws@8.14.2:
+    resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
