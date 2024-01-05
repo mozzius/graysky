@@ -12,13 +12,13 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@atproto/api": "^0.7.4",
+    "@atproto/api": "^0.8.0",
     "@atproto/identity": "^0.3.2",
     "@atproto/xrpc-server": "^0.4.2",
     "@graysky/api": "0.1.0",
     "@graysky/db": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
-    "@sentry/nextjs": "^7.91.0",
+    "@sentry/nextjs": "^7.92.0",
     "@tanstack/react-query": "^5.17.1",
     "@trpc/client": "next",
     "@trpc/next": "next",
@@ -29,7 +29,7 @@
     "@vercel/speed-insights": "^1.0.2",
     "bright": "^0.8.4",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.303.0",
+    "lucide-react": "^0.304.0",
     "next": "14.0.4",
     "next-mdx-remote": "^4.4.1",
     "react": "18.2.0",
@@ -53,7 +53,7 @@
     "autoprefixer": "^10.4.16",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
-    "postcss": "^8.4.32",
+    "postcss": "^8.4.33",
     "prettier": "^3.1.1",
     "tailwindcss": "3.3.2",
     "typescript": "^5.3.3"
