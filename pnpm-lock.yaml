@@ -228,8 +228,8 @@ importers:
         specifier: 0.73.1
         version: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
       react-native-avoid-softinput:
-        specifier: ^4.0.2
-        version: 4.0.2(react-native@0.73.1)(react@18.2.0)
+        specifier: ^5.0.0
+        version: 5.0.0(react-native@0.73.1)(react@18.2.0)
       react-native-awesome-gallery:
         specifier: ^0.3.8
         version: 0.3.8(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native@0.73.1)(react@18.2.0)
@@ -866,7 +866,7 @@ packages:
       mime-types: 2.1.35
       rate-limiter-flexible: 2.4.2
       uint8arrays: 3.0.0
-      ws: 8.14.2
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -2687,7 +2687,7 @@ packages:
       text-table: 0.2.0
       url-join: 4.0.0
       wrap-ansi: 7.0.0
-      ws: 8.14.2
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@react-native/babel-preset'
       - bluebird
@@ -2741,7 +2741,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -11880,11 +11880,11 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-native-avoid-softinput@4.0.2(react-native@0.73.1)(react@18.2.0):
-    resolution: {integrity: sha512-/i8xNWGjpu3hEPCVjW2WsWTsM/mC4zTBr3DabOrdPfgw9Ww0Na69YQY1TSXCjbTjJmWwfTToPK5OEVm+ZwHmiQ==}
+  /react-native-avoid-softinput@5.0.0(react-native@0.73.1)(react@18.2.0):
+    resolution: {integrity: sha512-hpyWhBLiWcMqKbnhH1uQ+xWjv8b9L4sxIUyWiRE4F2O7lk7KlOvMKcpdl7Xxb6cyBOUNQxxtqN0btOAC6hT6oQ==}
     peerDependencies:
-      react: '>=17.0.0'
-      react-native: '>=0.65.0'
+      react: '>=18.2.0'
+      react-native: '>=0.71.0'
     dependencies:
       react: 18.2.0
       react-native: 0.73.1(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.7)(react@18.2.0)
@@ -14345,19 +14345,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.14.2:
-    resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
