@@ -19,7 +19,7 @@
     "@graysky/db": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@sentry/nextjs": "^7.92.0",
-    "@tanstack/react-query": "^5.17.8",
+    "@tanstack/react-query": "^5.17.9",
     "@trpc/client": "next",
     "@trpc/next": "next",
     "@trpc/react-query": "next",
