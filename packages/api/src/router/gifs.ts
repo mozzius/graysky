@@ -77,7 +77,7 @@ export const gifsRouter = createTRPCRouter({
       const title = input.description ?? "Tenor GIF";
       const description = "Posted from Graysky";
 
-      const uri = input.assetUrl;
+      const uri = `https://tenor.com/view/${input.id}`;
 
       await track("post gif", {
         title: input.description ?? "No description",
