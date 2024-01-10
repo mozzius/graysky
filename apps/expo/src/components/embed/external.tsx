@@ -42,6 +42,29 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
       />
     );
   } else if (
+    (uri.hostname === "tenor.com" || uri.hostname === "www.tenor.com") &&
+    uri.pathname.includes("/view/")
+  ) {
+    const [_, pathOrIntl, pathOrFilename, intlFilename] =
+      uri.pathname.split("/");
+    const isIntl = pathOrFilename === "view";
+    const filename = isIntl ? intlFilename : pathOrFilename;
+
+    if ((pathOrIntl === "view" || pathOrFilename === "view") && filename) {
+      const includesExt = filename.split(".").pop() === "gif";
+
+      return (
+        <Gif
+          uri={`${uri.toString()}${!includesExt ? ".gif" : ""}`}
+          link={uri}
+          title="Tenor GIF"
+          thumb={content.external.thumb}
+          transparent={transparent}
+          depth={depth}
+        />
+      );
+    }
+  } else if (
     uri.hostname === "graysky.app" &&
     uri.pathname.startsWith("/gif/")
   ) {
