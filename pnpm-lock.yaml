@@ -165,8 +165,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(expo@50.0.0-preview.8)
       expo-router:
-        specifier: 3.4.1
-        version: 3.4.1(expo-constants@15.4.2)(expo-linking@6.2.1)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.11.1)(expo@50.0.0-preview.8)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0)
+        specifier: 3.4.2
+        version: 3.4.2(expo-constants@15.4.2)(expo-linking@6.2.1)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.11.1)(expo@50.0.0-preview.8)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0)
       expo-screen-orientation:
         specifier: ^6.4.1
         version: 6.4.1(expo@50.0.0-preview.8)
@@ -3042,6 +3042,27 @@ packages:
 
   /@expo/prebuild-config@6.7.2(expo-modules-autolinking@1.5.1):
     resolution: {integrity: sha512-Z1GyWfl923wU29YQg6Xik4URls4qcIddWA4vLhW6mUgiRhC3HCf1keHEzK5AtWsrga4bH/H+usAY0OltgABW1w==}
+    peerDependencies:
+      expo-modules-autolinking: '>=0.8.1'
+    dependencies:
+      '@expo/config': 8.5.3
+      '@expo/config-plugins': 7.8.3
+      '@expo/config-types': 50.0.0
+      '@expo/image-utils': 0.4.1
+      '@expo/json-file': 8.2.37
+      debug: 4.3.4
+      expo-modules-autolinking: 1.5.1
+      fs-extra: 9.1.0
+      resolve-from: 5.0.0
+      semver: 7.5.3
+      xml2js: 0.6.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
+  /@expo/prebuild-config@6.7.3(expo-modules-autolinking@1.5.1):
+    resolution: {integrity: sha512-jZIHzlnvdg4Gnln06XR9tvirL3hSp/Jh48COhLKs51vb3THCWumUytZBS4DSMdvGwf8btnaB01Zg00xQhSDBsA==}
     peerDependencies:
       expo-modules-autolinking: '>=0.8.1'
     dependencies:
@@ -7696,8 +7717,8 @@ packages:
       - encoding
     dev: false
 
-  /expo-router@3.4.1(expo-constants@15.4.2)(expo-linking@6.2.1)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.11.1)(expo@50.0.0-preview.8)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-Fllehb0JFiU1lfOt93aSbaWabhqlZsf/9atO4sSUtOYyy35j8/t9+64UdiyK8M9iazmQo954cPgRrkbHr75SFw==}
+  /expo-router@3.4.2(expo-constants@15.4.2)(expo-linking@6.2.1)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.11.1)(expo@50.0.0-preview.8)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-KBqTOe6SxxXjrZSyeaffUMSg+aK33ltxhPgCWMj9OGPdoTtfpnCUl24lDVJmFSWr8eingfjRf0sKqeU7sQYqGw==}
     peerDependencies:
       '@react-navigation/drawer': ^6.5.8
       '@testing-library/jest-native': '*'
@@ -7725,7 +7746,7 @@ packages:
       expo: 50.0.0-preview.8(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
       expo-constants: 15.4.2(expo@50.0.0-preview.8)
       expo-linking: 6.2.1(expo@50.0.0-preview.8)
-      expo-splash-screen: 0.26.1(expo-modules-autolinking@1.5.1)(expo@50.0.0-preview.8)
+      expo-splash-screen: 0.26.2(expo-modules-autolinking@1.5.1)(expo@50.0.0-preview.8)
       expo-status-bar: 1.11.1
       react-helmet-async: 1.3.0(react-dom@18.2.0)(react@18.2.0)
       react-native-reanimated: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.2)(react@18.2.0)
@@ -7773,6 +7794,19 @@ packages:
       expo: '*'
     dependencies:
       '@expo/prebuild-config': 6.7.2(expo-modules-autolinking@1.5.1)
+      expo: 50.0.0-preview.8(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
+    transitivePeerDependencies:
+      - encoding
+      - expo-modules-autolinking
+      - supports-color
+    dev: false
+
+  /expo-splash-screen@0.26.2(expo-modules-autolinking@1.5.1)(expo@50.0.0-preview.8):
+    resolution: {integrity: sha512-yvKjO+3WA1HSA/fRCtiRweC/LPYaB5UKjJQs7kHyZHjObvjAZC95tNorUitGQYPkrjgywsaDsXKlJt5KspmVgg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/prebuild-config': 6.7.3(expo-modules-autolinking@1.5.1)
       expo: 50.0.0-preview.8(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
     transitivePeerDependencies:
       - encoding
