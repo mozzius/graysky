@@ -60,7 +60,7 @@
     "expo-media-library": "^15.9.1",
     "expo-notifications": "^0.27.2",
     "expo-quick-actions": "^0.2.8",
-    "expo-router": "3.4.1",
+    "expo-router": "3.4.2",
     "expo-screen-orientation": "^6.4.1",
     "expo-sharing": "^11.10.0",
     "expo-splash-screen": "~0.26.1",
