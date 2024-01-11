@@ -201,11 +201,11 @@ importers:
         specifier: ^10.0.3
         version: 10.0.3
       lucide-react-native:
-        specifier: ^0.308.0
-        version: 0.308.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
+        specifier: ^0.309.0
+        version: 0.309.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
       metro:
-        specifier: ~0.80.3
-        version: 0.80.3
+        specifier: ~0.80.4
+        version: 0.80.4
       mime:
         specifier: ^4.0.1
         version: 4.0.1
@@ -412,8 +412,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.308.0
-        version: 0.308.0(react@18.2.0)
+        specifier: ^0.309.0
+        version: 0.309.0(react@18.2.0)
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -461,8 +461,8 @@ importers:
         specifier: 0.1.0
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^20.10.8
-        version: 20.10.8
+        specifier: ^20.11.0
+        version: 20.11.0
       '@types/react':
         specifier: ^18.2.47
         version: 18.2.47
@@ -516,8 +516,8 @@ importers:
         specifier: 0.1.0
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^20.10.8
-        version: 20.10.8
+        specifier: ^20.11.0
+        version: 20.11.0
       dotenv-cli:
         specifier: ^7.3.0
         version: 7.3.0
@@ -632,8 +632,8 @@ importers:
         specifier: ^14.0.4
         version: 14.0.4
       '@types/eslint':
-        specifier: ^8.56.1
-        version: 8.56.1
+        specifier: ^8.56.2
+        version: 8.56.2
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.18.1
         version: 6.18.1(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
@@ -2789,7 +2789,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.4
+      semver: 7.5.3
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -3290,7 +3290,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       jest-mock: 29.7.0
     dev: false
 
@@ -3300,7 +3300,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -3319,7 +3319,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       '@types/yargs': 15.0.19
       chalk: 4.1.2
     dev: false
@@ -3331,7 +3331,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       '@types/yargs': 17.0.32
       chalk: 4.1.2
     dev: false
@@ -3959,7 +3959,7 @@ packages:
       '@react-native/metro-babel-transformer': 0.73.13(@babel/core@7.23.7)(@babel/preset-env@7.23.8)
       chalk: 4.1.2
       execa: 5.1.1
-      metro: 0.80.3
+      metro: 0.80.4
       metro-config: 0.80.3
       metro-core: 0.80.3
       node-fetch: 2.7.0
@@ -4886,8 +4886,8 @@ packages:
       '@types/ms': 0.7.32
     dev: false
 
-  /@types/eslint@8.56.1:
-    resolution: {integrity: sha512-18PLWRzhy9glDQp3+wOgfLYRWlhgX0azxgJ63rdpoUHyrC9z0f5CkFburjQx4uD7ZCruw85ZtMt6K+L+R8fLJQ==}
+  /@types/eslint@8.56.2:
+    resolution: {integrity: sha512-uQDwm1wFHmbBbCZCqAlq6Do9LYwByNZHWzXppSnay9SuwJ+VRbjkbLABer54kcPnMSlG6Fdiy2yaFXm/z9Z5gw==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -4976,8 +4976,8 @@ packages:
     resolution: {integrity: sha512-xPSg0jm4mqgEkNhowKgZFBNtwoEwF6gJ4Dhww+GFpm3IgtNseHQZ5IqdNwnquZEoANxyDAKDRAdVo4Z72VvD/g==}
     dev: false
 
-  /@types/node@20.10.8:
-    resolution: {integrity: sha512-f8nQs3cLxbAFc00vEU59yf9UyGUftkPaLGfvbVOIDdx2i1b8epBqj2aNGyP19fiyXWvlmZ7qC1XLjAzw/OKIeA==}
+  /@types/node@20.11.0:
+    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
     dependencies:
       undici-types: 5.26.5
 
@@ -5263,6 +5263,12 @@ packages:
     resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  /acorn@8.11.3:
+    resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: false
 
   /agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -6137,7 +6143,7 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -6148,7 +6154,7 @@ packages:
   /chromium-edge-launcher@1.0.0:
     resolution: {integrity: sha512-pgtgjNKZ7i5U++1g1PWv75umkHvhVTDOQIZ+sjeUX9483S7Y6MUvO0lrd7ShGlQlFHMN4SwKTCq/X8hWrbv2KA==}
     dependencies:
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -8668,9 +8674,9 @@ packages:
     resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
     engines: {node: '>= 4'}
 
-  /image-size@1.0.2:
-    resolution: {integrity: sha512-xfOoWjceHntRb3qFCrh5ZFORYH8XCdYpASltMhZ/Q0KZiOwjdE/Yl2QCiWdwD+lygV5bMCvauzgu5PxBX/Yerg==}
-    engines: {node: '>=14.0.0'}
+  /image-size@1.1.1:
+    resolution: {integrity: sha512-541xKlUw6jr/6gGuk92F+mYM5zaFAc5ahphvkqvNe2bQ6gVBkd6bfrmVJ2t4KDAfikAYZyIqTnktX3i6/aQDrQ==}
+    engines: {node: '>=16.x'}
     hasBin: true
     dependencies:
       queue: 6.0.2
@@ -9140,7 +9146,7 @@ packages:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
     dev: false
@@ -9170,7 +9176,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       jest-util: 29.7.0
     dev: false
 
@@ -9179,7 +9185,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -9202,7 +9208,7 @@ packages:
     resolution: {integrity: sha512-eIz2msL/EzL9UFTFFx7jBTkeZfku0yUAyZZZmJ93H2TYEiroIx2PQjEXcwYtYl8zXCxb+PAmA2hLIt/6ZEkPHw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@types/node': 20.10.8
+      '@types/node': 20.11.0
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -9627,8 +9633,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.308.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-ze9z8a8VIqT4bZkXozY6l+CRld4MFGZy3YCg4q+e236JCI1wjDp2XU4nSA6AWZ5r1ECOEw1S5MSJmS4UJ2IFCQ==}
+  /lucide-react-native@0.309.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-Lc+mkttinSJPydLu8FJNvNiJrJvFO54NQP5FlN3ZmVqRklQ6Y/vEXdAAoIlMDvccESwCvMCagQWqdtWWeS3TZw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -9639,8 +9645,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.2)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.308.0(react@18.2.0):
-    resolution: {integrity: sha512-QC3S4Qi6s5y/w4bhS7sauDG29MsPwV0C5g9/mKkY7/gm3tPpg9tyRQG33g597Q5M3vmE0APcPuOjyQKsF8gnIg==}
+  /lucide-react@0.309.0(react@18.2.0):
+    resolution: {integrity: sha512-zNVPczuwFrCfksZH3zbd1UDE6/WYhYAdbe2k7CImVyPAkXLgIwbs6eXQ4loigqDnUFjyFYCI5jZ1y10Kqal0dg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -9944,8 +9950,24 @@ packages:
       - supports-color
     dev: false
 
+  /metro-babel-transformer@0.80.4:
+    resolution: {integrity: sha512-QP1kjYLap4O3w9tA4bYO8iyuNpR65If5Z97Ku37O4CwQPAwQaTmg67g4OdABS4BVK10fsxdExKp+fC37XirPow==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@babel/core': 7.23.7
+      hermes-parser: 0.18.2
+      nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /metro-cache-key@0.80.3:
     resolution: {integrity: sha512-WNrtDpbhtW2Yqjp1t0WxJhKNR/Zbo1LZ4WvHsdv/PraAs2mr+SaM5bbiptBSKOOGJkV/FIQveW5riZi53JnCbw==}
+    engines: {node: '>=18'}
+    dev: false
+
+  /metro-cache-key@0.80.4:
+    resolution: {integrity: sha512-okOOSRFou7Mxaaigoi+KxdFIU/ZJtvDCC6l8BYKsdMx86JDlVdvtIgFU4tFrY1yEkv0wnn7WH0X3xSz4mHKwoQ==}
     engines: {node: '>=18'}
     dev: false
 
@@ -9954,6 +9976,14 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       metro-core: 0.80.3
+      rimraf: 3.0.2
+    dev: false
+
+  /metro-cache@0.80.4:
+    resolution: {integrity: sha512-Dj+GoYt4PvsnnE4GdXhqV9PxEF7GPilY5NPeoTgptWZLlaDuTT2+cJQoDOOit1SfRjnF0zqABtVvB6GGBWdtaQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      metro-core: 0.80.4
       rimraf: 3.0.2
     dev: false
 
@@ -9975,12 +10005,38 @@ packages:
       - utf-8-validate
     dev: false
 
+  /metro-config@0.80.4:
+    resolution: {integrity: sha512-X3/3tleFYB4SdoxXg8uJ+qc8eITKiLnXs3Ev6pihM4jIM5JD89riwUsSLKVsovfZs8ETqKtjevzfe6jQ2O5NtQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      connect: 3.7.0
+      cosmiconfig: 5.2.1
+      jest-validate: 29.7.0
+      metro: 0.80.4
+      metro-cache: 0.80.4
+      metro-core: 0.80.4
+      metro-runtime: 0.80.4
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /metro-core@0.80.3:
     resolution: {integrity: sha512-X2ZfAvR55TdD/Rv9i4gYVI68JpRPHcpKpkr6IVtidFPoNjf4Fodh1qH7gEAJUnO5FL3a1JyPffbW6eFaXPxkFw==}
     engines: {node: '>=18'}
     dependencies:
       lodash.throttle: 4.1.1
       metro-resolver: 0.80.3
+    dev: false
+
+  /metro-core@0.80.4:
+    resolution: {integrity: sha512-HRb+zydAhI7QyLpK4D6ARZsKjaBwEn+kCrJEjnVFij8wjJxIIHVilgNCETgg9NWvKJFUoZZCG7ewHkxQ9Qpd8Q==}
+    engines: {node: '>=18'}
+    dependencies:
+      lodash.throttle: 4.1.1
+      metro-resolver: 0.80.4
     dev: false
 
   /metro-file-map@0.80.3:
@@ -10003,11 +10059,38 @@ packages:
       - supports-color
     dev: false
 
+  /metro-file-map@0.80.4:
+    resolution: {integrity: sha512-EvBC31JI5vsyebeQ8PWpGENuAWy2Ka7sLqEW7OInW+aLVWmBq02h0BNl33xRgAMz0gwvMf2nKie82hmefYF6ew==}
+    engines: {node: '>=18'}
+    dependencies:
+      anymatch: 3.1.3
+      debug: 2.6.9
+      fb-watchman: 2.0.2
+      graceful-fs: 4.2.11
+      invariant: 2.2.4
+      jest-worker: 29.7.0
+      micromatch: 4.0.5
+      node-abort-controller: 3.1.1
+      nullthrows: 1.1.1
+      walker: 1.0.8
+    optionalDependencies:
+      fsevents: 2.3.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /metro-minify-terser@0.80.3:
     resolution: {integrity: sha512-gVFwoL86emFoYbI2DZKk1Ved2CklYv//huWriF0UpLJHmVEO9ii2ajTx3aIxgSeuxFLPJhdp8RgUB2EDCooaJw==}
     engines: {node: '>=18'}
     dependencies:
-      terser: 5.24.0
+      terser: 5.26.0
+    dev: false
+
+  /metro-minify-terser@0.80.4:
+    resolution: {integrity: sha512-cuxfRZWDWGKjh+Z6t4KJkrvmV4JUKXfvQuAX7Pa7U0Mf1YJdLtoGQ5iVOu/6MkfYGXbppqGk2qmFECrRGRh0cA==}
+    engines: {node: '>=18'}
+    dependencies:
+      terser: 5.26.0
     dev: false
 
   /metro-resolver@0.80.3:
@@ -10015,8 +10098,20 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
+  /metro-resolver@0.80.4:
+    resolution: {integrity: sha512-PCiVWN+d3gtWlobf8jPypwKx9T1QrZmhLJAyqIWLoOsZbpSfj1dn5h0ajCr8rYi9LNzIHm58GGYJK8VFHNn8Cw==}
+    engines: {node: '>=18'}
+    dev: false
+
   /metro-runtime@0.80.3:
     resolution: {integrity: sha512-16RKcwpxriNnPdE5eKWJu7/KLgxE+AaDAdYthoS6zbzjaOu7RiY2zPM1Elz175Rw//74kOwtKXgxTW8ADHB8SQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@babel/runtime': 7.23.8
+    dev: false
+
+  /metro-runtime@0.80.4:
+    resolution: {integrity: sha512-CWIvf0zmL4jKHSj81zjUAbEwjTqFQmETI0NIQvN4JNwTSHiz50WPOuHnUUcmwM6Dye/ta6KNTELnERp0tKEYYg==}
     engines: {node: '>=18'}
     dependencies:
       '@babel/runtime': 7.23.8
@@ -10038,6 +10133,22 @@ packages:
       - supports-color
     dev: false
 
+  /metro-source-map@0.80.4:
+    resolution: {integrity: sha512-x+0By55ml6IcGqY9x9HE0hyU0S+uDssrTQ0bPvuydG+iKCX85DzGnlT8k0Vs+EYgZl3KMWcvQ9TpGHW4LRL4GQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
+      invariant: 2.2.4
+      metro-symbolicate: 0.80.4
+      nullthrows: 1.1.1
+      ob1: 0.80.4
+      source-map: 0.5.7
+      vlq: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /metro-symbolicate@0.80.3:
     resolution: {integrity: sha512-baIt8Ss2vTGbxolRTa5yg+tKVAIAB1OpwMzJ0FSUjLs+HDAzaOtSpGbNd3DPc+pzX8Gj/rdbDOA0wPuOhVsHKQ==}
     engines: {node: '>=18'}
@@ -10053,8 +10164,36 @@ packages:
       - supports-color
     dev: false
 
+  /metro-symbolicate@0.80.4:
+    resolution: {integrity: sha512-UmtH96G5TrcAgbIqdE4xA8MBS9fbZW9Pln+n7eJ0tQ0Fw0M/jzdpiZzhx3bIB2zzqbdm6Nv/kB1+aEo0WvXdyg==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      invariant: 2.2.4
+      metro-source-map: 0.80.4
+      nullthrows: 1.1.1
+      source-map: 0.5.7
+      through2: 2.0.5
+      vlq: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /metro-transform-plugins@0.80.3:
     resolution: {integrity: sha512-/2hGGRdJPrNfB9lz8unukaqQpGpDhYwNM0Odfh37OVFjygMB30Ffd8neQ4FNqnHnFxhl5j8VTcopUg6QhygMGQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/generator': 7.23.6
+      '@babel/template': 7.22.15
+      '@babel/traverse': 7.23.7
+      nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /metro-transform-plugins@0.80.4:
+    resolution: {integrity: sha512-cvmTLBA9ET64h+tgHt6prHlvOq98zBA1Glc9+wLZihPJo+Qmu9i3nQ1g4O+4aUnHivDlp+4C00BMNC+aC/buRQ==}
     engines: {node: '>=18'}
     dependencies:
       '@babel/core': 7.23.7
@@ -10088,6 +10227,28 @@ packages:
       - utf-8-validate
     dev: false
 
+  /metro-transform-worker@0.80.4:
+    resolution: {integrity: sha512-hLCrlxXyyaV64XQNSiyY/0jMVvGXrgXMkpJ4KwH2t4clxbxyt6TBW+4TqmgAeU9WGclY0OuQ0HzfvIZiONcUOw==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/types': 7.23.6
+      metro: 0.80.4
+      metro-babel-transformer: 0.80.4
+      metro-cache: 0.80.4
+      metro-cache-key: 0.80.4
+      metro-source-map: 0.80.4
+      metro-transform-plugins: 0.80.4
+      nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /metro@0.80.3:
     resolution: {integrity: sha512-7u6HjWVQR7wA/HbxzB0n6iQ0GI9s/fr49N++dZQ41BcrcFxrguIGaRe4W8VI5DtYifCVCjXDIFw6e9+MAccx/Q==}
     engines: {node: '>=18'}
@@ -10109,7 +10270,7 @@ packages:
       error-stack-parser: 2.1.4
       graceful-fs: 4.2.11
       hermes-parser: 0.18.2
-      image-size: 1.0.2
+      image-size: 1.1.1
       invariant: 2.2.4
       jest-worker: 29.7.0
       jsc-safe-url: 0.2.4
@@ -10127,6 +10288,62 @@ packages:
       metro-symbolicate: 0.80.3
       metro-transform-plugins: 0.80.3
       metro-transform-worker: 0.80.3
+      mime-types: 2.1.35
+      node-fetch: 2.7.0
+      nullthrows: 1.1.1
+      rimraf: 3.0.2
+      serialize-error: 2.1.0
+      source-map: 0.5.7
+      strip-ansi: 6.0.1
+      throat: 5.0.0
+      ws: 7.5.9
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /metro@0.80.4:
+    resolution: {integrity: sha512-fBhZKU1z44KdhS6sH6Sk97595A66EOniH+jI9OjKDu6piH1SIEqQgdWAuWfJJMzgBHcJceRRvJY1zzsOT/Zx0g==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      '@babel/code-frame': 7.23.5
+      '@babel/core': 7.23.7
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
+      '@babel/template': 7.22.15
+      '@babel/traverse': 7.23.7
+      '@babel/types': 7.23.6
+      accepts: 1.3.8
+      chalk: 4.1.2
+      ci-info: 2.0.0
+      connect: 3.7.0
+      debug: 2.6.9
+      denodeify: 1.2.1
+      error-stack-parser: 2.1.4
+      graceful-fs: 4.2.11
+      hermes-parser: 0.18.2
+      image-size: 1.1.1
+      invariant: 2.2.4
+      jest-worker: 29.7.0
+      jsc-safe-url: 0.2.4
+      lodash.throttle: 4.1.1
+      metro-babel-transformer: 0.80.4
+      metro-cache: 0.80.4
+      metro-cache-key: 0.80.4
+      metro-config: 0.80.4
+      metro-core: 0.80.4
+      metro-file-map: 0.80.4
+      metro-minify-terser: 0.80.4
+      metro-resolver: 0.80.4
+      metro-runtime: 0.80.4
+      metro-source-map: 0.80.4
+      metro-symbolicate: 0.80.4
+      metro-transform-plugins: 0.80.4
+      metro-transform-worker: 0.80.4
       mime-types: 2.1.35
       node-fetch: 2.7.0
       nullthrows: 1.1.1
@@ -10924,6 +11141,11 @@ packages:
 
   /ob1@0.80.3:
     resolution: {integrity: sha512-lKJ/Wp6eSyYKYKYds1lgiDRtD2j9nNhrhx4hwegxYXTBkWz4dqermZV+Bq0iw0SszUIb+fC+btNSXwc4AG1lBQ==}
+    engines: {node: '>=18'}
+    dev: false
+
+  /ob1@0.80.4:
+    resolution: {integrity: sha512-Lku8OBpq+fhF1ZdKUjbPnTNeqG+3OL0psGAEVJ8zcUiCB5/DPGR/rm3kLcjKDylzC9Rfv540/7I08+oImzfrhw==}
     engines: {node: '>=18'}
     dev: false
 
@@ -13454,13 +13676,13 @@ packages:
       supports-hyperlinks: 2.3.0
     dev: false
 
-  /terser@5.24.0:
-    resolution: {integrity: sha512-ZpGR4Hy3+wBEzVEnHvstMvqpD/nABNelQn/z2r0fjVWGQsN3bpOLzQlqDxmb4CDZnXq5lpjnQ+mHQLAOpfM5iw==}
+  /terser@5.26.0:
+    resolution: {integrity: sha512-dytTGoE2oHgbNV9nTzgBEPaqAWvcJNl66VZ0BkJqlvp71IjO8CxdBx/ykCNb47cLnCmCvRZ6ZR0tLkqvZCdVBQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.5
-      acorn: 8.11.2
+      acorn: 8.11.3
       commander: 2.20.3
       source-map-support: 0.5.21
     dev: false
