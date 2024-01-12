@@ -267,8 +267,8 @@ importers:
         specifier: 6.2.3
         version: 6.2.3(react-native@0.73.2)(react@18.2.0)
       react-native-purchases:
-        specifier: ^7.6.0
-        version: 7.6.0(react-native@0.73.2)(react@18.2.0)
+        specifier: ^7.15.0
+        version: 7.15.0(react-native@0.73.2)(react@18.2.0)
       react-native-reanimated:
         specifier: ~3.6.1
         version: 3.6.1(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.2)(react@18.2.0)
@@ -4178,8 +4178,8 @@ packages:
       web-streams-polyfill: 3.2.1
     dev: false
 
-  /@revenuecat/purchases-typescript-internal@8.2.1:
-    resolution: {integrity: sha512-LEF4H4Q4xDjV9zoVOrkR4EWhWvQ4JPPaVKVOwdFmQ+bCxLjFIJg8mwyWwIZ50Hva9cpDOvVN0Uwka0Ed0Hw2XQ==}
+  /@revenuecat/purchases-typescript-internal@8.10.1:
+    resolution: {integrity: sha512-T3GJHtYAHXLrM3XkAuxZCeYpn1yEShRb1qY31AIuyp/9eTTHgYhNa/jteNj1rlxYYFD4pCSi+dJeoy4vrpcf5w==}
     dev: false
 
   /@rollup/plugin-commonjs@24.0.0(rollup@2.78.0):
@@ -12235,13 +12235,13 @@ packages:
       react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
     dev: false
 
-  /react-native-purchases@7.6.0(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-WT/NzDTuomI3Prv4HEHzO2ImibVqM5OpYf32A1PTwMgrOiZYgicOC2MikpjWKMZpgrs1h9bBhA5nDeoKrUrl7A==}
+  /react-native-purchases@7.15.0(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-/8VnAbyxedmY5Cj3+3IBtDYVNhyfu2MyZErbNCyRpihJDfjZ0qclHfo2Sa7UeShJ0mreeUgm0nqAO2c0LT6wqg==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '>= 0.58.2'
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 8.2.1
+      '@revenuecat/purchases-typescript-internal': 8.10.1
       react: 18.2.0
       react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
     dev: false
