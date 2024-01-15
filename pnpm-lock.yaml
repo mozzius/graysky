@@ -30,8 +30,8 @@ importers:
         specifier: 0.1.0
         version: link:tooling/prettier
       '@manypkg/cli':
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -3350,8 +3350,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@manypkg/cli@0.21.1:
-    resolution: {integrity: sha512-v9Orok25sBcFfTSniDLx1FsRRXsn2qz7EiC3cPMKtTNDTwSE2Teq/nXUPX73xNd1NIjMwTXfio1QWsQ9O36Atg==}
+  /@manypkg/cli@0.21.2:
+    resolution: {integrity: sha512-Q9apaGBmzSqtzoYgQnY8onKmUOpigsUtAcbB/M0rQDsc6rXZlkDhDUkpwNQlt1Y1XQD0cVUgElbUsiLgtTi9jQ==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     dependencies:
