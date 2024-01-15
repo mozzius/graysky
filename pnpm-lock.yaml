@@ -285,8 +285,8 @@ importers:
         specifier: 14.1.0
         version: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.2)(react@18.2.0)
       react-native-toastable:
-        specifier: ^0.4.0
-        version: 0.4.0(react-native@0.73.2)(react@18.2.0)
+        specifier: ^0.4.1
+        version: 0.4.1(react-native@0.73.2)(react@18.2.0)
       react-native-url-polyfill:
         specifier: ^2.0.0
         version: 2.0.0(react-native@0.73.2)
@@ -12340,8 +12340,8 @@ packages:
     dev: false
     patched: true
 
-  /react-native-toastable@0.4.0(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-lBtIy1+Ou90XMSKWRApr3st/zudcpH10cQ2WEi9Mc8EuZ27F6kFNZAyCFciiqbv9I5DW+V+zKKLALrLcy/Ltcw==}
+  /react-native-toastable@0.4.1(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-v/Yykf0pYx0YJR5DXRjHEQIyu2yW/EB4+uG+y1DiQFQ7EjIr0SPkE6e7D6bxiu4PWM5ComawbQicHGMsmx2svw==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       react: '*'
