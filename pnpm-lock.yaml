@@ -78,8 +78,8 @@ importers:
         specifier: ^6.1.9
         version: 6.1.9(react-native@0.73.2)(react@18.2.0)
       '@sentry/react-native':
-        specifier: 5.15.2
-        version: 5.15.2(react-native@0.73.2)(react@18.2.0)
+        specifier: 5.16.0
+        version: 5.16.0(expo@50.0.0-preview.10)(react-native@0.73.2)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.23.8)(react-native@0.73.2)(react@18.2.0)
@@ -4551,11 +4551,16 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/react-native@5.15.2(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-X9yYdgIvVloR4WUrX8zSU0SXbmqY5Yq1W68TT2xe4LyKpWYJHFFbeJUaFAXFn65JXOSJvjEpEFYYyGJ9dzQ9rg==}
+  /@sentry/react-native@5.16.0(expo@50.0.0-preview.10)(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-Tc67g4UJO7nFJWrbsTGP/zrsTErXWvL8YNOR9pNvGPcsNdP2HcLrYfuHE7B29EQZeH6psEGVJuWeWbdlqRuKzA==}
+    hasBin: true
     peerDependencies:
+      expo: '>=49.0.0'
       react: '>=17.0.0'
       react-native: '>=0.65.0'
+    peerDependenciesMeta:
+      expo:
+        optional: true
     dependencies:
       '@sentry/browser': 7.81.1
       '@sentry/cli': 2.23.0
@@ -4565,6 +4570,7 @@ packages:
       '@sentry/react': 7.81.1(react@18.2.0)
       '@sentry/types': 7.81.1
       '@sentry/utils': 7.81.1
+      expo: 50.0.0-preview.10(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
       react: 18.2.0
       react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
     transitivePeerDependencies:
