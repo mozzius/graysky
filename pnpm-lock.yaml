@@ -79,7 +79,7 @@ importers:
         version: 6.1.9(react-native@0.73.2)(react@18.2.0)
       '@sentry/react-native':
         specifier: 5.16.0
-        version: 5.16.0(expo@50.0.0-preview.10)(react-native@0.73.2)(react@18.2.0)
+        version: 5.16.0(expo@50.0.0-preview.11)(react-native@0.73.2)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.23.8)(react-native@0.73.2)(react@18.2.0)
@@ -403,8 +403,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       '@vercel/speed-insights':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       bright:
         specifier: ^0.8.4
         version: 0.8.4(react@18.2.0)
@@ -4533,7 +4533,7 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/react-native@5.16.0(expo@50.0.0-preview.10)(react-native@0.73.2)(react@18.2.0):
+  /@sentry/react-native@5.16.0(expo@50.0.0-preview.11)(react-native@0.73.2)(react@18.2.0):
     resolution: {integrity: sha512-Tc67g4UJO7nFJWrbsTGP/zrsTErXWvL8YNOR9pNvGPcsNdP2HcLrYfuHE7B29EQZeH6psEGVJuWeWbdlqRuKzA==}
     hasBin: true
     peerDependencies:
@@ -4552,7 +4552,7 @@ packages:
       '@sentry/react': 7.81.1(react@18.2.0)
       '@sentry/types': 7.81.1
       '@sentry/utils': 7.81.1
-      expo: 50.0.0-preview.10(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
+      expo: 50.0.0-preview.11(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
       react: 18.2.0
       react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
     transitivePeerDependencies:
@@ -5184,8 +5184,8 @@ packages:
       '@upstash/redis': 1.25.1
     dev: false
 
-  /@vercel/speed-insights@1.0.3:
-    resolution: {integrity: sha512-bKIt0HDdF6hP2bJZyS+za3k6sKeAXNRLSIUbwVwvyvKdsHBWS6ILBvmD1wXHZZyTqjU1TP7dTE/F6lHM6rBdKA==}
+  /@vercel/speed-insights@1.0.4:
+    resolution: {integrity: sha512-Q7O0bnV11KUqNKAKA984YWIGxCjqgOuJdwH1cdItqlkUVTLbIm8BhObro6hJobGMSUHm+z7xjQ0YbC8ps1ekDg==}
     requiresBuild: true
     dev: false
 

@@ -26,7 +26,7 @@
     "@trpc/server": "next",
     "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^1.0.1",
-    "@vercel/speed-insights": "^1.0.3",
+    "@vercel/speed-insights": "^1.0.4",
     "bright": "^0.8.4",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.309.0",
