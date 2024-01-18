@@ -397,8 +397,8 @@ importers:
         specifier: next
         version: 11.0.0-next-alpha.153
       '@vercel/analytics':
-        specifier: ^1.1.1
-        version: 1.1.1
+        specifier: ^1.1.2
+        version: 1.1.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -555,8 +555,8 @@ importers:
         specifier: next
         version: 11.0.0-next-alpha.153
       '@vercel/analytics':
-        specifier: ^1.1.1
-        version: 1.1.1
+        specifier: ^1.1.2
+        version: 1.1.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -5171,8 +5171,8 @@ packages:
       wonka: 4.0.15
     dev: false
 
-  /@vercel/analytics@1.1.1:
-    resolution: {integrity: sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==}
+  /@vercel/analytics@1.1.2:
+    resolution: {integrity: sha512-CodhkLCQ/EHzjX8k+Qg+OzTBY0UadykrcfolfSOJVZZY/ZJM5nbhztm9KdbYvMfqKlasAr1+OYy0ThZnDA/MYA==}
     dependencies:
       server-only: 0.0.1
     dev: false
