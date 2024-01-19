@@ -21,7 +21,7 @@
     "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'"
   },
   "dependencies": {
-    "@atproto/api": "^0.8.0",
+    "@atproto/api": "^0.9.1",
     "@expo/metro-config": "^0.17.3",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.6.0",
