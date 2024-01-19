@@ -2,7 +2,7 @@
   "name": "@graysky/db",
   "version": "0.1.0",
   "dependencies": {
-    "@prisma/client": "^5.8.0"
+    "@prisma/client": "^5.8.1"
   },
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
@@ -10,8 +10,8 @@
     "@graysky/tsconfig": "0.1.0",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
-    "prettier": "^3.1.1",
-    "prisma": "^5.8.0",
+    "prettier": "^3.2.4",
+    "prisma": "^5.8.1",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {

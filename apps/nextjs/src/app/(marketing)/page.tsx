@@ -31,7 +31,7 @@ export default async function LandingPage({
       </header>
       <section className="w-full px-4 py-8">
         <h3 className="text-center text-xl font-medium">
-          Graysky is the best way to experience Bluesky
+          The best way to experience Bluesky
         </h3>
         <Features />
       </section>
