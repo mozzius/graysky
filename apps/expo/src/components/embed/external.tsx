@@ -294,8 +294,6 @@ const Gif = ({
                   if (videoRef.current) {
                     if (gifAutoplay) {
                       if (!status.isPlaying) void videoRef.current.playAsync();
-                    } else {
-                      setPlaying(status.isPlaying);
                     }
                     if (!status.isLooping) {
                       void videoRef.current.setIsLoopingAsync(true);
