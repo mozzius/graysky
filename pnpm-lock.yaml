@@ -48,8 +48,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.2
+        version: 0.9.2
       '@expo/metro-config':
         specifier: ^0.17.3
         version: 0.17.3(@react-native/babel-preset@0.73.19)
@@ -201,8 +201,8 @@ importers:
         specifier: ^10.0.3
         version: 10.0.3
       lucide-react-native:
-        specifier: ^0.312.0
-        version: 0.312.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
+        specifier: ^0.314.0
+        version: 0.314.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
       metro:
         specifier: ~0.80.4
         version: 0.80.4
@@ -361,8 +361,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.2
+        version: 0.9.2
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -412,8 +412,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.312.0
-        version: 0.312.0(react@18.2.0)
+        specifier: ^0.314.0
+        version: 0.314.0(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -494,8 +494,8 @@ importers:
   apps/push-notifs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.2
+        version: 0.9.2
       '@graysky/db':
         specifier: 0.1.0
         version: link:../../packages/db
@@ -537,8 +537,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.2
+        version: 0.9.2
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -733,8 +733,8 @@ packages:
       typed-emitter: 2.1.0
     dev: false
 
-  /@atproto/api@0.9.1:
-    resolution: {integrity: sha512-DHPc/dGgpf8sgPlfR9meIAk7s4YMll0g7HTq/W/LeaaaY0T6d3ZAtrgvjIU1aKCp5WNzTfzrmz0LIHIX46FHHw==}
+  /@atproto/api@0.9.2:
+    resolution: {integrity: sha512-Z1dJM3BER8XsXjw6b6WtbFB1/sf/JXHIGR6tmuOB1AZ1/CLAmBpRN/OAZYz3GD0EHnkzlnjOh9B6FJVfdLKXUQ==}
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/lexicon': 0.3.1
@@ -867,7 +867,7 @@ packages:
       mime-types: 2.1.35
       rate-limiter-flexible: 2.4.2
       uint8arrays: 3.0.0
-      ws: 8.16.0
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -2888,7 +2888,7 @@ packages:
       text-table: 0.2.0
       url-join: 4.0.0
       wrap-ansi: 7.0.0
-      ws: 8.16.0
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@react-native/babel-preset'
       - bluebird
@@ -10001,8 +10001,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.312.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-jMRFKV586nG7ZVwJl92QqxaqOu2sevzTBHl8A3Fo0t77y9oCYHnM5eLWZEWsReCVQadJ3lYvRJvYeKyqs+x6sw==}
+  /lucide-react-native@0.314.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-p2isOrzaEGfO16kVx1AwvdnQhSODC+iF/+KMMaA/90bNW0uFWMJSSDtzbw85Vy+MgfuVKahWC1O2648eMAAqVQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -10013,8 +10013,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.2)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.312.0(react@18.2.0):
-    resolution: {integrity: sha512-3UZsqyswRXjW4t+nw+InICewSimjPKHuSxiFYqTshv9xkK3tPPntXk/lvXc9pKlXIxm3v9WKyoxcrB6YHhP+dg==}
+  /lucide-react@0.314.0(react@18.2.0):
+    resolution: {integrity: sha512-c2zOW7TOyKxPCaSs1og2lFdoI3SR4iii3yrZJU2Zpdc78nOw4fUmrcFNultaCiwZcr4CyiKdzjMdvKNlBBk+UQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -14878,19 +14878,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true

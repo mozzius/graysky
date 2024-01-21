@@ -26,7 +26,7 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
-    "@atproto/api": "^0.9.1",
+    "@atproto/api": "^0.9.2",
     "@graysky/db": "0.1.0",
     "atproto-firehose": "^0.2.2",
     "expo-server-sdk": "^3.7.0",

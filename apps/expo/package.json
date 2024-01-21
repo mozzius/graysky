@@ -21,7 +21,7 @@
     "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'"
   },
   "dependencies": {
-    "@atproto/api": "^0.9.1",
+    "@atproto/api": "^0.9.2",
     "@expo/metro-config": "^0.17.3",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.6.0",
@@ -72,7 +72,7 @@
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",
     "immer": "^10.0.3",
-    "lucide-react-native": "^0.312.0",
+    "lucide-react-native": "^0.314.0",
     "metro": "~0.80.4",
     "mime": "^4.0.1",
     "nativewind": "^2.0.11",
