@@ -152,26 +152,6 @@ export default function AppLayout() {
             headerShown: false,
             tabBarShowLabel: Platform.select({ android: false, ios: true }),
           }}
-          screenListeners={{
-            // TODO: move to individual screens
-            // it's here because a previous version of expo-router
-            // didn't type the listerners correctly, so I couldn't
-            // figure out how to add it to the individual screens
-            tabPress: (evt) => {
-              if (evt.target?.startsWith("null")) {
-                evt.preventDefault();
-                if (agent?.hasSession) {
-                  router.push("/composer");
-                }
-              }
-            },
-            tabLongPress: (evt) => {
-              if (evt.target?.startsWith("(self)")) {
-                haptics.selection();
-                accountRef.current?.present();
-              }
-            },
-          }}
         >
           <Tabs.Screen
             name="(feeds)"
@@ -204,6 +184,14 @@ export default function AppLayout() {
                 return <PenBox color={color} size={size} />;
               },
             }}
+            listeners={{
+              tabPress: (evt) => {
+                evt.preventDefault();
+                if (agent?.hasSession) {
+                  router.push("/composer");
+                }
+              },
+            }}
           />
           <Tabs.Screen
             name="(notifications)"
@@ -229,6 +217,12 @@ export default function AppLayout() {
               headerShown: false,
               tabBarIcon({ color, size }) {
                 return <UserIcon color={color} size={size} />;
+              },
+            }}
+            listeners={{
+              tabLongPress: () => {
+                haptics.selection();
+                accountRef.current?.present();
               },
             }}
           />

@@ -105,6 +105,7 @@ export default function ComposerScreen() {
     langs: string;
     reply: string;
     quote: string;
+    initialText: string;
   }>();
 
   const gif = searchParams.gif
@@ -130,7 +131,7 @@ export default function ComposerScreen() {
   const quote = useQuote();
   const haptics = useHaptics();
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState(searchParams.initialText ?? "");
 
   const { images, imagePicker, addAltText, removeImage, handlePaste } =
     useImages(anchorRef);
