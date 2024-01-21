@@ -78,13 +78,13 @@ export const gifsRouter = createTRPCRouter({
       const description =
         "Posted from Graysky - get the app to view and post GIFs!";
 
-      // const uri = `https://tenor.com/view/${input.id}`;
+      const uri = `https://tenor.com/view/${input.id}`;
 
-      const assetPath = new URL(input.assetUrl).pathname;
+      // const assetPath = new URL(input.assetUrl).pathname;
 
-      const uri = `https://graysky.app/gif${assetPath}?title=${encodeURIComponent(
-        title,
-      )}`;
+      // const uri = `https://graysky.app/gif${assetPath}?title=${encodeURIComponent(
+      //   title,
+      // )}`;
 
       await track("post gif", {
         title: input.description ?? "No description",
