@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
@@ -21,6 +21,7 @@ import { useInviteCodes } from "~/app/codes/_layout";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
+import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "../back-button-override";
 import { Text } from "../themed/text";
 import { ActorDetails } from "./actor-details";
@@ -102,28 +103,50 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
-        {codes.isSuccess && (
-          <Link href="/codes" asChild onPress={closeDrawer}>
-            <TouchableOpacity
-              accessibilityRole="link"
-              accessibilityLabel="Invite codes"
-              className="mt-2 w-full flex-row items-center py-2"
-            >
-              <TicketIcon color={theme.colors.text} />
-              <Text className="ml-6 text-base font-medium">
-                Invite codes
-                {numCodes > 0 && (
-                  <>
-                    {" "}
-                    <Text style={{ color: theme.colors.primary }}>
-                      ({numCodes})
-                    </Text>
-                  </>
-                )}
-              </Text>
-            </TouchableOpacity>
-          </Link>
-        )}
+        <Link
+          href="/codes"
+          asChild
+          onPress={(evt) => {
+            switch (codes.status) {
+              case "pending":
+                evt.preventDefault();
+                Alert.alert("Loading codes...");
+                break;
+              case "error":
+                evt.preventDefault();
+                Alert.alert(
+                  "Viewing invite codes is not available",
+                  "To protect your codes, you must be logged in with your main password to use this feature.",
+                );
+                break;
+              default:
+                closeDrawer();
+                break;
+            }
+          }}
+        >
+          <TouchableOpacity
+            accessibilityRole="link"
+            accessibilityLabel="Invite codes"
+            className={cx(
+              "mt-2 w-full flex-row items-center py-2",
+              !codes.isSuccess && "opacity-30",
+            )}
+          >
+            <TicketIcon color={theme.colors.text} />
+            <Text className="ml-6 text-base font-medium">
+              Invite codes
+              {numCodes > 0 && (
+                <>
+                  {" "}
+                  <Text style={{ color: theme.colors.primary }}>
+                    ({numCodes})
+                  </Text>
+                </>
+              )}
+            </Text>
+          </TouchableOpacity>
+        </Link>
         <Link href="/pro" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"

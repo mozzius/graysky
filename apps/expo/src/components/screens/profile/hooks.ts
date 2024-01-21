@@ -1,7 +1,11 @@
 import { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AppBskyFeedDefs, type AppBskyActorDefs } from "@atproto/api";
+import {
+  AppBskyFeedDefs,
+  BskyAgent,
+  type AppBskyActorDefs,
+} from "@atproto/api";
 import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -120,7 +124,10 @@ export const useProfilePosts = (
           break;
         }
         case "likes": {
-          const list = await agent.app.bsky.feed.like.list({
+          const specificAgent = new BskyAgent({
+            service: await getPds(actor, agent),
+          });
+          const list = await specificAgent.app.bsky.feed.like.list({
             repo: actor,
             cursor: pageParam,
           });
@@ -232,4 +239,25 @@ export const useProfileLists = (handle?: string) => {
   });
 
   return query;
+};
+
+const getPds = async (handle: string, agent: BskyAgent) => {
+  let did = handle;
+  if (!did.startsWith("did:")) {
+    const resolution = await agent.resolveHandle({ handle });
+    if (!resolution.success) throw new Error("Handle not found");
+    did = resolution.data.did;
+  }
+  const res = await fetch(`https://plc.directory/${did}`);
+  if (!res.ok) throw new Error("PDS not found");
+  const pds = (await res.json()) as {
+    service: {
+      id: string;
+      type: string;
+      serviceEndpoint: string;
+    }[];
+  };
+  const service = pds.service.find((x) => x.id === "#atproto_pds");
+  if (!service) throw new Error("PDS not found");
+  return service.serviceEndpoint;
 };
