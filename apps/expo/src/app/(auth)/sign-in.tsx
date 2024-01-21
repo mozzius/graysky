@@ -18,7 +18,6 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useLinkPress } from "~/lib/hooks/link-press";
-import { cx } from "~/lib/utils/cx";
 
 export default function SignIn() {
   const agent = useAgent();
