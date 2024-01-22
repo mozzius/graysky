@@ -18,13 +18,11 @@ import { useAgent } from "../agent";
 import { produce } from "../utils/produce";
 import { useAppPreferences, useContentFilter, useHaptics } from "./preferences";
 
-export const useSavedFeeds = (
-  { pinned }: { pinned: boolean } = { pinned: false },
-) => {
+export const useSavedFeeds = () => {
   const agent = useAgent();
 
   return useQuery({
-    queryKey: ["feeds", "saved", { pinned }],
+    queryKey: ["feeds", "saved"],
     queryFn: async () => {
       const prefs = await agent.app.bsky.actor.getPreferences();
       if (!prefs.success) throw new Error("Could not fetch feeds");
@@ -42,9 +40,11 @@ export const useSavedFeeds = (
           preferences: prefs.data.preferences,
         };
 
+      const allUris = [...new Set([...feeds.pinned, ...feeds.saved])];
+
       // fetch all feed generators
-      const feedGeneratorsUris = (pinned ? feeds.pinned : feeds.saved).filter(
-        (x) => x.includes("app.bsky.feed.generator"),
+      const feedGeneratorsUris = allUris.filter((x) =>
+        x.includes("app.bsky.feed.generator"),
       );
       const generators =
         feedGeneratorsUris.length === 0
@@ -58,9 +58,7 @@ export const useSavedFeeds = (
       }
 
       // fetch all lists
-      const listUris = (pinned ? feeds.pinned : feeds.saved).filter((x) =>
-        x.includes("app.bsky.graph.list"),
-      );
+      const listUris = allUris.filter((x) => x.includes("app.bsky.graph.list"));
       const lists =
         listUris.length === 0
           ? []
