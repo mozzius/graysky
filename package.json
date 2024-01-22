@@ -12,7 +12,7 @@
   "engines": {
     "node": ">=18.18.2"
   },
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@8.14.2",
   "pnpm": {
     "patchedDependencies": {
       "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
