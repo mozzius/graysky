@@ -12,6 +12,9 @@ patchedDependencies:
   expo-image-picker@14.7.1:
     hash: 5nub3vfu3z76pr6gfqxa6jfucq
     path: patches/expo-image-picker@14.7.1.patch
+  expo-quick-actions@0.2.8:
+    hash: ysl7amuxhabtddgxtzfn7g4cmu
+    path: patches/expo-quick-actions@0.2.8.patch
   react-native-svg@14.1.0:
     hash: l2klev45ajjdxvjutvuscfgooi
     path: patches/react-native-svg@14.1.0.patch
@@ -163,7 +166,7 @@ importers:
         version: 0.27.4(expo@50.0.2)
       expo-quick-actions:
         specifier: ^0.2.8
-        version: 0.2.8(expo@50.0.2)
+        version: 0.2.8(patch_hash=ysl7amuxhabtddgxtzfn7g4cmu)(expo@50.0.2)
       expo-router:
         specifier: 3.4.4
         version: 3.4.4(expo-constants@15.4.5)(expo-linking@6.2.2)(expo-modules-autolinking@1.10.2)(expo-status-bar@1.11.1)(expo@50.0.2)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0)
@@ -867,7 +870,7 @@ packages:
       mime-types: 2.1.35
       rate-limiter-flexible: 2.4.2
       uint8arrays: 3.0.0
-      ws: 8.16.0
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -7599,7 +7602,7 @@ packages:
       - supports-color
     dev: false
 
-  /expo-quick-actions@0.2.8(expo@50.0.2):
+  /expo-quick-actions@0.2.8(patch_hash=ysl7amuxhabtddgxtzfn7g4cmu)(expo@50.0.2):
     resolution: {integrity: sha512-rAtmWYlwbtDA+TizwtBEu6OPOPTR3CMPVKQnl7/kHhAxsdm7jUEUe+eadndQM9/1vMizoobMmcCv+sQLZyfTtA==}
     peerDependencies:
       expo: '*'
@@ -7610,6 +7613,7 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: false
+    patched: true
 
   /expo-router@3.4.4(expo-constants@15.4.5)(expo-linking@6.2.2)(expo-modules-autolinking@1.10.2)(expo-status-bar@1.11.1)(expo@50.0.2)(react-dom@18.2.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.2)(react-native-screens@3.29.0)(react-native@0.73.2)(react@18.2.0):
     resolution: {integrity: sha512-72vpjXpVw+KoNMlEl6MGL0mpHom/5M3PmtojgLssLE2ZjLQqIym3qPcx2xYEE6nbo61+Z8ol5BT/Jvj9O2q0rw==}
@@ -14235,19 +14239,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true

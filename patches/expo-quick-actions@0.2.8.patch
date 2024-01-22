@@ -1,0 +1,28 @@
+diff --git a/android/build.gradle b/android/build.gradle
+index b30da32d4fb4af35c66f8e15192d1cf95d2dcf4d..dabce202c06d89892ea075ec3a641701e2447098 100644
+--- a/android/build.gradle
++++ b/android/build.gradle
+@@ -53,13 +53,16 @@ afterEvaluate {
+ android {
+   compileSdkVersion safeExtGet("compileSdkVersion", 33)
+ 
+-  compileOptions {
+-    sourceCompatibility JavaVersion.VERSION_11
+-    targetCompatibility JavaVersion.VERSION_11
+-  }
+-
+-  kotlinOptions {
+-    jvmTarget = JavaVersion.VERSION_11.majorVersion
++  def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
++  if (agpVersion.tokenize('.')[0].toInteger() < 8) {
++    compileOptions {
++      sourceCompatibility JavaVersion.VERSION_11
++      targetCompatibility JavaVersion.VERSION_11
++    }
++    
++    kotlinOptions {
++      jvmTarget = JavaVersion.VERSION_11.majorVersion
++    }  
+   }
+ 
+   namespace "expo.modules.quickactions"
