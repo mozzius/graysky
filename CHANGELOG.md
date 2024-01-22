@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-22 v1.3.0
+
+- GIFs are now compatible with the official app
+- (Android) You can access all photos from the photo picker (thanks @haileyok.com!)
+- Fixed likes tab not working for other users
+
+Note - it now asks for notification permission but we are still working on the notification backend, so no notifications are sent yet.
+
 ## 2023-12-17 v1.2.2
 
 - Translate bios and alt text
