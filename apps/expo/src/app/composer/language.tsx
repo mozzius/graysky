@@ -22,6 +22,7 @@ export default function PostLanguage() {
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search languages",
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
+    hideWhenScrolling: false,
   });
   const [{ languages }, setComposerState] = useComposerState();
 

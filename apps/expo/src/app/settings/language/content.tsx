@@ -18,6 +18,7 @@ export default function ContentLanguageSettings() {
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: "Search languages",
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
+    hideWhenScrolling: false,
   });
 
   return (
