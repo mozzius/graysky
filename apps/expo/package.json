@@ -31,7 +31,7 @@
     "@react-native-community/slider": "^4.5.0",
     "@react-navigation/elements": "^1.3.21",
     "@react-navigation/native": "^6.1.9",
-    "@sentry/react-native": "5.16.0",
+    "@sentry/react-native": "5.17.0",
     "@shopify/flash-list": "1.6.3",
     "@tanstack/react-query": "^5.17.19",
     "@trpc/client": "next",
