@@ -5,6 +5,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  type AccessibilityRole,
   type ScrollViewProps,
 } from "react-native";
 import { Link } from "expo-router";
@@ -23,7 +24,7 @@ interface ListProps {
         onPress?: () => void | Promise<void>;
         action?: React.ReactNode;
         destructive?: boolean;
-        accessibilityRole?: "link"; // todo: add more
+        accessibilityRole?: AccessibilityRole;
         chevron?: boolean;
         disabled?: boolean;
       }
