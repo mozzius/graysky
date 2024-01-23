@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-22 v1.3.1
+
+- Added threadgate support
+- Added self-labelling of nsfw images
+- Fixed bug with language selection
+
 ## 2024-1-22 v1.3.0
 
 - GIFs are now compatible with the official app
