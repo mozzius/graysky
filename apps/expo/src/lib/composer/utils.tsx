@@ -37,6 +37,7 @@ import { z } from "zod";
 import { useAgent } from "../agent";
 import { useAppPreferences } from "../hooks/preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
+import { useComposerState } from "./state";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -102,11 +103,7 @@ export const useComposer = () => {
   };
 };
 
-export const useReply = () => {
-  const { reply } = useLocalSearchParams<{
-    reply?: string;
-  }>();
-
+export const useReply = (reply?: string) => {
   const ref = reply
     ? replyRefSchema.parse(JSON.parse(decodeURIComponent(reply)))
     : undefined;
@@ -116,11 +113,7 @@ export const useReply = () => {
   return { thread, ref };
 };
 
-export const useQuote = () => {
-  const { quote } = useLocalSearchParams<{
-    quote?: string;
-  }>();
-
+export const useQuote = (quote?: string) => {
   const ref = quote
     ? {
         $type: "app.bsky.embed.record",
@@ -154,26 +147,21 @@ const useContextualPost = (uri?: string) => {
 export const useSendPost = ({
   text,
   images,
+  external,
   reply,
   quote,
-  external,
-  gif,
-  languages,
-  selfLabels,
 }: {
   text: string;
   images: ImageWithAlt[];
+  external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   reply?: AppBskyFeedPost.ReplyRef;
   quote?: AppBskyEmbedRecord.Main;
-  external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
-  gif?: AppBskyEmbedExternal.Main;
-  languages?: string[];
-  selfLabels?: string[];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
   const [{ primaryLanguage, mostRecentLanguage }] = useAppPreferences();
+  const [{ labels, languages, gif }] = useComposerState();
 
   return useMutation({
     mutationKey: ["send"],
@@ -266,7 +254,7 @@ export const useSendPost = ({
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
-            media: gif,
+            media: gif.main,
           } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else if (media) {
           mergedEmbed = {
@@ -283,8 +271,8 @@ export const useSendPost = ({
         } else {
           mergedEmbed = quote;
         }
-      } else if (gif) {
-        mergedEmbed = gif;
+      } else if (gif?.main) {
+        mergedEmbed = gif.main;
       } else if (media) {
         if (external && external.type === "record") {
           mergedEmbed = {
@@ -312,11 +300,11 @@ export const useSendPost = ({
         }
       }
 
-      let labels: ComAtprotoLabelDefs.SelfLabels | undefined;
-      if (selfLabels?.length) {
-        labels = {
+      let selfLabels: ComAtprotoLabelDefs.SelfLabels | undefined;
+      if (labels?.length) {
+        selfLabels = {
           $type: "com.atproto.label.defs#selfLabels",
-          values: selfLabels.map((val) => ({ val })),
+          values: labels.map((val) => ({ val })),
         };
       }
 
@@ -327,7 +315,7 @@ export const useSendPost = ({
         reply,
         embed: mergedEmbed,
         langs: languages ?? [mostRecentLanguage ?? primaryLanguage],
-        labels,
+        labels: selfLabels,
       });
     },
     onSuccess: () => {
@@ -464,8 +452,6 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
     },
     [setImages],
   );
-
-  console.log(images);
 
   const handlePaste = useCallback(
     async (err: string | null, files: PastedFile[]) => {

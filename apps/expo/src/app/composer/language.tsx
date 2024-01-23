@@ -1,21 +1,17 @@
 import { startTransition, useState } from "react";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
+import { useComposerState } from "~/lib/composer/state";
 import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
+import { produce } from "~/lib/utils/produce";
 
 export default function PostLanguage() {
-  const { langs, ...searchParams } = useLocalSearchParams<{
-    langs: string;
-    gif: string;
-    reply: string;
-    quote: string;
-  }>();
   const [
     { primaryLanguage, mostRecentLanguage, contentLanguages },
     setAppPrefs,
@@ -27,8 +23,9 @@ export default function PostLanguage() {
     placeholder: "Search languages",
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
   });
+  const [{ languages }, setComposerState] = useComposerState();
 
-  const selected = langs?.split(",") ?? [mostRecentLanguage ?? primaryLanguage];
+  const selected = languages ?? [mostRecentLanguage ?? primaryLanguage];
 
   const suggestedLangs = Array.from(
     new Set([
@@ -45,13 +42,12 @@ export default function PostLanguage() {
         mostRecentLanguage: lang,
       });
     });
-
-    const search = new URLSearchParams();
-    search.append("langs", lang);
-    if (searchParams.reply) search.append("reply", searchParams.reply);
-    if (searchParams.quote) search.append("quote", searchParams.quote);
-    if (searchParams.gif) search.append("gif", searchParams.gif);
-    router.navigate(`./?${search.toString()}`);
+    setComposerState(
+      produce((draft) => {
+        draft.languages = [lang];
+      }),
+    );
+    router.navigate("./");
   };
 
   return (

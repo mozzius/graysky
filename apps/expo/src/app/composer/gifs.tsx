@@ -23,12 +23,14 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
+import { useComposerState } from "~/lib/composer/state";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
+import { produce } from "~/lib/utils/produce";
 import { useUserRefresh } from "~/lib/utils/query";
 
 const useDebounce = <T,>(value: T, delay: number) => {
@@ -196,12 +198,17 @@ const Gif = ({ item, column }: GifProps) => {
   const haptics = useHaptics();
   const agent = useAgent();
   const { showLinkOptions } = useLinkPress();
+  const [, setComposerState] = useComposerState();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
     onSuccess: (result) => {
-      router.push("../");
-      router.setParams({ gif: JSON.stringify(result) });
+      setComposerState(
+        produce((draft) => {
+          draft.gif = result;
+        }),
+      );
+      router.navigate("../");
     },
     onError: (err) => {
       Sentry.Native.captureException(err);

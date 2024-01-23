@@ -18,7 +18,7 @@ interface ListProps {
   options?: (
     | {
         title: string;
-        icon?: LucideIcon;
+        icon?: LucideIcon | "SPACE";
         href?: string;
         onPress?: () => void | Promise<void>;
         action?: React.ReactNode;
@@ -178,7 +178,7 @@ export const GroupedList = ({
 };
 
 interface RowProps {
-  icon?: LucideIcon;
+  icon?: LucideIcon | "SPACE";
   children?: React.ReactNode;
   chevron?: boolean;
   action?: React.ReactNode;
@@ -194,7 +194,7 @@ export const Row = ({
   destructive,
   disabled,
 }: RowProps) => {
-  const Icon = icon;
+  const Icon = icon === "SPACE" ? null : icon;
   const theme = useTheme();
   return (
     <View
@@ -208,12 +208,14 @@ export const Row = ({
       )}
       aria-disabled={disabled}
     >
-      {Icon && (
+      {icon && Icon ? (
         <Icon
           size={24}
           color={destructive ? "#ef4444" : theme.colors.primary}
           className={cx(disabled && "opacity-50")}
         />
+      ) : (
+        <View style={{ width: 24 }} />
       )}
       <View
         className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}

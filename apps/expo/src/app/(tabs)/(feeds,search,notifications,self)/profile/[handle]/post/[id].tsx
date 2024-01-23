@@ -290,9 +290,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   color={theme.colors.text}
                   className="mr-4"
                 />
-                <ThemedText className="text-base">
-                  Replying to a blocked post
-                </ThemedText>
+                <ThemedText className="text-base">Blocked post</ThemedText>
               </View>
             ) : item.deleted ? (
               <View className="flex-1 flex-row items-center p-4">
@@ -301,9 +299,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   color={theme.colors.text}
                   className="mr-4"
                 />
-                <ThemedText className="text-base">
-                  Replying to a deleted post
-                </ThemedText>
+                <ThemedText className="text-base">Deleted post</ThemedText>
               </View>
             ) : (
               <View className="flex-1 flex-row items-center p-4">
