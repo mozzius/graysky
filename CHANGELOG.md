@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-23 v1.3.2
+
+Fixed the threadgate, self-label, and language select lists
+
 ## 2024-1-22 v1.3.1
 
 - Added threadgate support
