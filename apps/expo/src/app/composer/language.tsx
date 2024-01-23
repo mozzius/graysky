@@ -51,7 +51,7 @@ export default function PostLanguage() {
     if (searchParams.reply) search.append("reply", searchParams.reply);
     if (searchParams.quote) search.append("quote", searchParams.quote);
     if (searchParams.gif) search.append("gif", searchParams.gif);
-    router.push(`./?${search.toString()}`);
+    router.navigate(`./?${search.toString()}`);
   };
 
   return (
