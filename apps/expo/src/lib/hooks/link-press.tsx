@@ -42,6 +42,7 @@ export const useLinkPress = () => {
                   void WebBrowser.openBrowserAsync(url, {
                     presentationStyle:
                       WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+                    toolbarColor: theme.colors.card,
                   });
                   break;
                 case 1:
@@ -55,6 +56,7 @@ export const useLinkPress = () => {
           await WebBrowser.openBrowserAsync(url, {
             presentationStyle:
               WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+            toolbarColor: theme.colors.card,
           });
         } else {
           await Linking.openURL(url);
