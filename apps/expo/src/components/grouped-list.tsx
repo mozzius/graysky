@@ -208,15 +208,16 @@ export const Row = ({
       )}
       aria-disabled={disabled}
     >
-      {icon && Icon ? (
-        <Icon
-          size={24}
-          color={destructive ? "#ef4444" : theme.colors.primary}
-          className={cx(disabled && "opacity-50")}
-        />
-      ) : (
-        <View style={{ width: 24 }} />
-      )}
+      {icon &&
+        (Icon ? (
+          <Icon
+            size={24}
+            color={destructive ? "#ef4444" : theme.colors.primary}
+            className={cx(disabled && "opacity-50")}
+          />
+        ) : (
+          <View style={{ width: 24 }} />
+        ))}
       <View
         className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}
       >
