@@ -29,6 +29,7 @@ export default function ComposerLayout() {
     initialText: initialText,
     reply,
     quote,
+    threadgate: [],
   });
 
   const headerRight = useMemo(
@@ -71,6 +72,14 @@ export default function ComposerLayout() {
             name="content-warning"
             options={{
               title: "Content Warning",
+              presentation: "formSheet",
+              headerRight,
+            }}
+          />
+          <Stack.Screen
+            name="threadgate"
+            options={{
+              title: "Reply Controls",
               presentation: "formSheet",
               headerRight,
             }}

@@ -1,6 +1,12 @@
 import { createContext, useContext } from "react";
 import { type AppBskyEmbedExternal } from "@atproto/api";
 
+export type ThreadgateSetting =
+  | { type: "nobody" }
+  | { type: "following" }
+  | { type: "mention" }
+  | { type: "list"; list: string };
+
 export interface ComposerState {
   gif?: {
     view: AppBskyEmbedExternal.View;
@@ -11,6 +17,7 @@ export interface ComposerState {
   quote?: string;
   initialText?: string;
   labels: string[];
+  threadgate: ThreadgateSetting[];
 }
 
 const ComposerStateContext = createContext<

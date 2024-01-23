@@ -20,6 +20,7 @@ import {
   type AppBskyEmbedImages,
   type AppBskyEmbedRecord,
   type AppBskyEmbedRecordWithMedia,
+  type AppBskyFeedThreadgate,
   type BlobRef,
   type BskyAgent,
   type ComAtprotoLabelDefs,
@@ -161,7 +162,7 @@ export const useSendPost = ({
   const queryClient = useQueryClient();
   const router = useRouter();
   const [{ primaryLanguage, mostRecentLanguage }] = useAppPreferences();
-  const [{ labels, languages, gif }] = useComposerState();
+  const [{ labels, languages, gif, threadgate }] = useComposerState();
 
   return useMutation({
     mutationKey: ["send"],
@@ -308,7 +309,7 @@ export const useSendPost = ({
         };
       }
 
-      await agent.post({
+      const post = await agent.post({
         text: rt.text,
         facets: rt.facets,
         tags: tags.length > 0 ? tags : undefined,
@@ -317,6 +318,33 @@ export const useSendPost = ({
         langs: languages ?? [mostRecentLanguage ?? primaryLanguage],
         labels: selfLabels,
       });
+
+      if (threadgate.length > 0) {
+        const allow: (
+          | AppBskyFeedThreadgate.MentionRule
+          | AppBskyFeedThreadgate.FollowingRule
+          | AppBskyFeedThreadgate.ListRule
+        )[] = [];
+        if (!threadgate.find((v) => v.type === "nobody")) {
+          for (const rule of threadgate) {
+            if (rule.type === "mention") {
+              allow.push({ $type: "app.bsky.feed.threadgate#mentionRule" });
+            } else if (rule.type === "following") {
+              allow.push({ $type: "app.bsky.feed.threadgate#followingRule" });
+            } else if (rule.type === "list") {
+              allow.push({
+                $type: "app.bsky.feed.threadgate#listRule",
+                list: rule.list,
+              });
+            }
+          }
+        }
+
+        await agent.api.app.bsky.feed.threadgate.create(
+          { repo: agent.session!.did, rkey: post.uri.split("/").pop() },
+          { post: post.uri, createdAt: new Date().toISOString(), allow },
+        );
+      }
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["profile"] });

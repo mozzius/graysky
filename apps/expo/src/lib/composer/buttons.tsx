@@ -11,13 +11,19 @@ import {
 import { Link, useRouter } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
-import { SendIcon, Trash2Icon } from "lucide-react-native";
+import {
+  CheckIcon,
+  GlobeIcon,
+  SendIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 
 import { BackButtonOverride } from "~/components/back-button-override";
 import { Text } from "~/components/themed/text";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useHaptics } from "../hooks/preferences";
 import { cx } from "../utils/cx";
+import { useComposerState } from "./state";
 
 export const PostButton = ({
   onPress,
@@ -30,9 +36,22 @@ export const PostButton = ({
 }) => {
   const theme = useTheme();
   const ref = useRef<TouchableWithoutFeedback>(null);
+  const [{ threadgate }] = useComposerState();
 
   return (
     <View className="flex-row items-center">
+      <Link href="/composer/threadgate" asChild>
+        <TouchableOpacity className="relative mr-5 rounded-full p-1">
+          <GlobeIcon size={24} color={theme.colors.primary} />
+          {threadgate.length > 0 && (
+            <CheckIcon
+              size={16}
+              color={theme.colors.primary}
+              className="absolute -right-2 -top-0.5"
+            />
+          )}
+        </TouchableOpacity>
+      </Link>
       <TouchableWithoutFeedback
         ref={ref}
         disabled={disabled}
