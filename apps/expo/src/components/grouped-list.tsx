@@ -82,7 +82,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
                 </Link>
               ) : option.onPress && !option.disabled ? (
                 <TouchableHighlight
-                  onPress={() => void option.onPress?.()}
+                  onPress={() => option.onPress?.()}
                   accessibilityRole={option.accessibilityRole}
                 >
                   <View>{row}</View>
