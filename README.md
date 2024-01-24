@@ -10,7 +10,21 @@ You'll need pnpm, and some sort of simulator or device to run the app on.
 
 ```bash
 pnpm install
+cp .env.example .env
 ```
+
+Log into EAS:
+
+```bash
+// install eas-cli if you don't have it already
+pnpm i -g eas-cli
+eas login
+eas init
+```
+
+`eas init` can't automatically add the project ID for you, so take the string from the error message and add it to your `.env` file as `EAS_PROJECT_ID`.
+
+> If you're forking the app, this would be a good time to add your own bundle indentifier to the `.env` file as well via `APP_ID`.
 
 In the `/apps/expo` directory, build the dev client using EAS:
 
@@ -61,6 +75,8 @@ You can now either run `pnpm build:android` to build and submit the app, or if y
 - Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
 
 ## iOS local builds
+
+In the `/apps/expo` directory:
 
 ```
 pnpm build:ios
