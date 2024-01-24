@@ -58,6 +58,7 @@ pnpm dev
 
 - Install Android Studio, and the Android SDK
 - Install Oracle Java 11 JDK (`brew install openjdk@11`)
+- Copy `google-services.json.example` to `google-services.json`, or add your own Firebase config
 - Make Gradle faster in `~/.gradle/gradle.properties`:
 
 ```
