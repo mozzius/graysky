@@ -51,8 +51,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.2
-        version: 0.9.2
+        specifier: ^0.9.3
+        version: 0.9.3
       '@expo/metro-config':
         specifier: ^0.17.3
         version: 0.17.3(@react-native/babel-preset@0.73.19)
@@ -364,8 +364,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.2
-        version: 0.9.2
+        specifier: ^0.9.3
+        version: 0.9.3
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -497,8 +497,8 @@ importers:
   apps/push-notifs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.2
-        version: 0.9.2
+        specifier: ^0.9.3
+        version: 0.9.3
       '@graysky/db':
         specifier: 0.1.0
         version: link:../../packages/db
@@ -540,8 +540,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.9.2
-        version: 0.9.2
+        specifier: ^0.9.3
+        version: 0.9.3
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -736,8 +736,8 @@ packages:
       typed-emitter: 2.1.0
     dev: false
 
-  /@atproto/api@0.9.2:
-    resolution: {integrity: sha512-Z1dJM3BER8XsXjw6b6WtbFB1/sf/JXHIGR6tmuOB1AZ1/CLAmBpRN/OAZYz3GD0EHnkzlnjOh9B6FJVfdLKXUQ==}
+  /@atproto/api@0.9.3:
+    resolution: {integrity: sha512-CQdqhhXNQrMHylywp2K9RKyomHOpjQtZlyVaeUBp1VYKfsCDL9QxEJd02T5gpICIErtJe42P341QYTp80aZWOg==}
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/lexicon': 0.3.1
