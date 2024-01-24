@@ -13,18 +13,8 @@ pnpm install
 cp .env.example .env
 ```
 
-Log into EAS:
-
-```bash
-// install eas-cli if you don't have it already
-pnpm i -g eas-cli
-eas login
-eas init
-```
-
-`eas init` can't automatically add the project ID for you, so take the string from the error message and add it to your `.env` file as `EAS_PROJECT_ID`.
-
-> If you're forking the app, this would be a good time to add your own bundle indentifier to the `.env` file as well via `APP_ID`.
+>EAS setup (optional)
+>Set EAS_PROJECT_ID, APP_ID, and OWNER in .env
 
 In the `/apps/expo` directory, build the dev client using EAS:
 
