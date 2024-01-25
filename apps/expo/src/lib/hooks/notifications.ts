@@ -25,6 +25,9 @@ export function useNotifications() {
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!agent?.hasSession) return;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (!Constants.expoConfig?.extra?.eas.projectId) return;
+
     void (async () => {
       const perms = await Notifications.getPermissionsAsync();
       if (!perms.granted) {

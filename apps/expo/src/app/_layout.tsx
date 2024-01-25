@@ -40,7 +40,7 @@ import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
-  debug: __DEV__,
+  debug: false,
   // not a secret, but allow override
   dsn:
     (Constants.expoConfig?.extra?.sentry as string) ??

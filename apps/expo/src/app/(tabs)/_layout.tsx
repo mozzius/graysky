@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { Platform, useWindowDimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { useMMKVObject } from "react-native-mmkv";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
@@ -26,16 +25,12 @@ import { BackButtonOverride } from "~/components/back-button-override";
 import { DrawerProvider } from "~/components/drawer/context";
 import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
-import {
-  SwitchAccounts,
-  type SavedSession,
-} from "~/components/switch-accounts";
+import { SwitchAccounts } from "~/components/switch-accounts";
 import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";
 import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
-import { store } from "~/lib/storage";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function AppLayout() {
@@ -78,7 +73,6 @@ export default function AppLayout() {
   const [{ homepage }] = useAppPreferences();
 
   const accountRef = useRef<BottomSheetModal>(null);
-  const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
   const { top } = useSafeAreaInsets();
   const {
     backgroundStyle,
@@ -92,6 +86,8 @@ export default function AppLayout() {
   const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
 
   const reducedMotion = useReducedMotion();
+
+  console.log("aisuaoisjdioajsdio");
 
   return (
     <DrawerProvider value={openDrawer}>
@@ -119,7 +115,6 @@ export default function AppLayout() {
         </Text>
         <BottomSheetScrollView style={contentContainerStyle}>
           <SwitchAccounts
-            sessions={sessions ?? []}
             active={agent?.session?.did}
             onSuccessfulSwitch={dismissSheet}
           />

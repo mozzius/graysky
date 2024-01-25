@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { View } from "react-native";
-import { useMMKVObject } from "react-native-mmkv";
 import {
   AtSignIcon,
   LanguagesIcon,
@@ -12,17 +11,12 @@ import {
 } from "lucide-react-native";
 
 import { GroupedList, type Groups } from "~/components/grouped-list";
-import {
-  SwitchAccounts,
-  type SavedSession,
-} from "~/components/switch-accounts";
+import { SwitchAccounts } from "~/components/switch-accounts";
 import { useOptionalAgent } from "~/lib/agent";
 import { useIsPro } from "~/lib/purchases";
-import { store } from "~/lib/storage";
 
 export default function SettingsPage() {
   const agent = useOptionalAgent();
-  const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
   const isPro = useIsPro();
 
   const groups = useMemo(
@@ -82,11 +76,7 @@ export default function SettingsPage() {
   return (
     <GroupedList groups={groups}>
       <View className="mb-4 flex-1">
-        <SwitchAccounts
-          sessions={sessions ?? []}
-          active={agent?.session?.did}
-          showAddAccount
-        />
+        <SwitchAccounts active={agent?.session?.did} showAddAccount />
       </View>
     </GroupedList>
   );
