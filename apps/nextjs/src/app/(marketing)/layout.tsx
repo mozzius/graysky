@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+
+import icon from "~/assets/appicon.png";
 
 export default function NavLayout({
   children,
@@ -10,16 +13,26 @@ export default function NavLayout({
   return (
     <>
       <div className="flex min-h-screen w-full flex-col">
-        <div className="relative w-full shrink-0 bg-neutral-600 px-4 py-1">
+        {/* <div className="relative w-full shrink-0 bg-neutral-600 px-4 py-1">
           <p className="container mx-auto max-w-4xl text-center text-xs font-light">
             As seen on TechCrunch!
           </p>
-        </div>
+        </div> */}
         <nav className="sticky top-0 z-20 h-14 w-full border-b border-neutral-600 backdrop-blur-xl backdrop-saturate-[120%]">
           <div className="container mx-auto flex h-full max-w-4xl flex-row items-center justify-between gap-4 px-4">
-            <a href="/">
-              <h1 className="text-lg font-medium">Graysky</h1>
-            </a>
+            <Link
+              href="/"
+              className="-ml-2 flex flex-row items-center gap-3 rounded-lg py-2 pl-2 pr-3 transition-colors hover:bg-neutral-100/20"
+            >
+              <Image
+                src={icon}
+                width={24}
+                height={24}
+                alt="Graysky"
+                className="h-6 w-6 shrink-0 rounded"
+              />
+              <h1 className="text-lg font-medium leading-none">Graysky</h1>
+            </Link>
             <div className="flex flex-row items-center gap-4">
               <a className="text-sm hover:underline" href="/about">
                 About
