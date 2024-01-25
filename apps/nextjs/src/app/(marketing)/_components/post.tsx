@@ -15,7 +15,7 @@ export const Post = ({ data: post }: Props) => {
       key={post.uri}
       target="_blank"
       rel="noreferrer"
-      className="flex w-64 shrink-0 flex-col gap-3 rounded border border-neutral-600 p-3 transition-colors hover:bg-neutral-800"
+      className="mb-4 flex break-inside-avoid flex-col gap-3 rounded border border-neutral-600 p-3 transition-colors hover:bg-neutral-800"
     >
       <div className="flex flex-row items-center">
         <img
