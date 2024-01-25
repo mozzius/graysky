@@ -113,8 +113,6 @@ const nicePostsUris = [
   "at://did:plc:yucu4m7ovhqulwtvcjpfil6g/app.bsky.feed.post/3k7bp6ifoqh2e",
   // https://bsky.app/profile/shreyanjain.net/post/3kigibhnmqc2k
   "at://did:plc:bnqkww7bjxaacajzvu5gswdf/app.bsky.feed.post/3kigibhnmqc2k",
-  // https://bsky.app/profile/hex.foo/post/3kjszptt7cm2v
-  "at://did:plc:jmszivbbbadpztauju5dev26/app.bsky.feed.post/3kjszptt7cm2v",
 ];
 
 async function getNicePosts() {
