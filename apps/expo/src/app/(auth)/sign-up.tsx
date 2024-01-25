@@ -40,17 +40,29 @@ export default function SignUp() {
   const theme = useTheme();
   const agent = useAgent();
 
-  const [stage, setStage] = useState<1 | 2 | 3>(1);
-  const [code, setCode] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [stage, setStage] = useState<1 | 2 | 3 | 4>(1);
+  const [code, setCode] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [dob, setDob] = useState<Date | null>(null);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
-  const [handle, setHandle] = useState<string>("");
+  const [handle, setHandle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneCode, setPhoneCode] = useState("");
+
   const { colorScheme } = useColorScheme();
   const router = useRouter();
 
   const derivedHandle = `${handle.trim()}.bsky.social`;
+
+  const sendText = useMutation({
+    mutationKey: ["send-text"],
+    mutationFn: async () => {
+      await agent.com.atproto.temp.requestPhoneVerification({
+        phoneNumber: phone,
+      });
+    },
+  });
 
   const resolveHandle = useQuery({
     enabled: handle.length >= 3,
@@ -116,6 +128,8 @@ export default function SignUp() {
         email,
         password,
         handle: derivedHandle,
+        verificationPhone: phone,
+        verificationCode: phoneCode,
       });
     },
     onSuccess: () => router.replace("/(feeds)/feeds"),
@@ -139,7 +153,7 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">1 of 3</Text>,
+                headerRight: () => <Text className="text-base">1 of 4</Text>,
               }}
             />
             <View className="mt-4 flex-1">
@@ -163,10 +177,7 @@ export default function SignUp() {
             </View>
             <Text className="mx-4 mt-3 text-sm text-neutral-500">
               Don{"'"}t have one?{" "}
-              <Text
-                style={{ color: theme.colors.primary }}
-                onPress={() => router.push("/waitlist")}
-              >
+              <Text primary onPress={() => router.push("/waitlist")}>
                 Join the waitlist.
               </Text>
             </Text>
@@ -190,7 +201,7 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">2 of 3</Text>,
+                headerRight: () => <Text className="text-base">2 of 4</Text>,
               }}
             />
             <View className="my-4 flex-1">
@@ -239,11 +250,11 @@ export default function SignUp() {
               </Text>
               <TouchableHighlight
                 onPress={() => setDatePickerOpen(true)}
-                className="rounded-lg"
+                className="overflow-hidden rounded-lg"
               >
                 <View
                   style={{ backgroundColor: theme.colors.card }}
-                  className="flex-1 overflow-hidden rounded-lg px-4 py-3"
+                  className="flex-1 px-4 py-3"
                 >
                   <Text
                     className="text-base"
@@ -294,10 +305,102 @@ export default function SignUp() {
     case 3:
       return (
         <TransparentHeaderUntilScrolled>
-          <ScrollView className="flex-1 px-4">
+          <ScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">3 of 3</Text>,
+                headerRight: () => <Text className="text-base">3 of 4</Text>,
+              }}
+            />
+            {!sendText.isSuccess ? (
+              <View className="mt-4 flex-1">
+                <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                  Phone number
+                </Text>
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg"
+                >
+                  <TextInput
+                    value={phone}
+                    placeholder="Enter your phone number"
+                    keyboardType="phone-pad"
+                    autoComplete="tel"
+                    onChange={(evt) => setPhone(evt.nativeEvent.text)}
+                    className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                    autoFocus
+                  />
+                </View>
+                {sendText.isError ? (
+                  <Text className="mx-4 mt-3 text-sm text-red-500">
+                    {sendText.error.message}
+                  </Text>
+                ) : (
+                  <Text className="mx-4 mt-3 text-sm text-neutral-500">
+                    Please enter a phone number that can receive SMS text
+                    messages.
+                  </Text>
+                )}
+                <View className="flex-row items-center justify-between pt-4">
+                  <TextButton onPress={() => setStage(2)} title="Back" />
+                  <TextButton
+                    disabled={!phone.trim() || sendText.isPending}
+                    onPress={() => sendText.mutate()}
+                    title="Request code"
+                    className="font-medium"
+                  />
+                </View>
+              </View>
+            ) : (
+              <View className="mt-4 flex-1">
+                <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+                  Verification code
+                </Text>
+                <View
+                  style={{ backgroundColor: theme.colors.card }}
+                  className="flex-1 overflow-hidden rounded-lg"
+                >
+                  <TextInput
+                    value={phoneCode}
+                    placeholder="XXXXXX"
+                    autoComplete="one-time-code"
+                    onChange={(evt) => setPhoneCode(evt.nativeEvent.text)}
+                    className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                    autoFocus
+                  />
+                </View>
+                <Text className="mx-4 mt-3 text-sm text-neutral-500">
+                  A code has been sent to {phone}.{" "}
+                  <Text onPress={() => sendText.reset()} primary>
+                    Change phone number.
+                  </Text>
+                </Text>
+                <View className="flex-row items-center justify-between pt-4">
+                  <TextButton onPress={() => setStage(2)} title="Back" />
+                  <TextButton
+                    disabled={phoneCode.trim().length !== 6}
+                    onPress={() => setStage(4)}
+                    title="Next"
+                    className="font-medium"
+                  />
+                </View>
+              </View>
+            )}
+          </ScrollView>
+        </TransparentHeaderUntilScrolled>
+      );
+    case 4:
+      return (
+        <TransparentHeaderUntilScrolled>
+          <ScrollView
+            className="flex-1 px-4"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            <Stack.Screen
+              options={{
+                headerRight: () => <Text className="text-base">4 of 4</Text>,
               }}
             />
             <View className="my-4 flex-1">
@@ -313,7 +416,9 @@ export default function SignUp() {
                   placeholder="You can change it later"
                   autoComplete="username"
                   autoCapitalize="none"
-                  onChange={(evt) => setHandle(evt.nativeEvent.text)}
+                  onChange={(evt) =>
+                    setHandle(evt.nativeEvent.text.toLocaleLowerCase())
+                  }
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                 />
               </View>
@@ -344,7 +449,7 @@ export default function SignUp() {
               className="flex-row items-center justify-between pt-2"
               layout={LinearTransition}
             >
-              <TextButton onPress={() => setStage(2)} title="Back" />
+              <TextButton onPress={() => setStage(3)} title="Back" />
               {!createAccount.isPending ? (
                 <TextButton
                   disabled={resolveHandle.data !== "available"}
