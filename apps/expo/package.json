@@ -108,9 +108,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.8",
-    "@babel/runtime": "^7.23.8",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/runtime": "^7.23.9",
     "@expo/config-plugins": "^7.8.4",
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
