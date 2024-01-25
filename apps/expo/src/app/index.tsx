@@ -23,12 +23,15 @@ export default function LandingPage() {
             <Animated.Text
               entering={FadeIn.delay(100)}
               className="mt-10 text-center text-6xl font-medium text-white sm:text-7xl"
+              // already quite big, so don't scale it up too much
+              maxFontSizeMultiplier={1.5}
             >
               Graysky
             </Animated.Text>
             <Animated.Text
               entering={FadeIn.delay(250)}
               className="text-center text-xl font-medium text-white"
+              maxFontSizeMultiplier={2}
             >
               a bluesky client
             </Animated.Text>
