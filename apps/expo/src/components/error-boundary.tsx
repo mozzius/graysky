@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { ErrorBoundaryProps } from "expo-router";
+import { type ErrorBoundaryProps } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { RefreshCcwIcon } from "lucide-react-native";
