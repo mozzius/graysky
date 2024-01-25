@@ -29,10 +29,10 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type PastedFile } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
+import Sentry from "@sentry/react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
 import RNFetchBlob from "rn-fetch-blob";
-import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
@@ -225,7 +225,7 @@ export const useSendPost = ({
           encoding = "image/jpeg";
         } else {
           console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
-          Sentry.Native.captureMessage(
+          Sentry.captureMessage(
             `Unknown thumbnail extension, skipping: ${thumbUri}`,
             { level: "warning" },
           );
@@ -353,7 +353,7 @@ export const useSendPost = ({
         message: "Post published!",
       });
     },
-    onError: (err) => Sentry.Native.captureException(err),
+    onError: (err) => Sentry.captureException(err),
   });
 };
 
@@ -518,7 +518,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
             },
           ]);
         } catch (err) {
-          Sentry.Native.captureException(err);
+          Sentry.captureException(err);
           return;
         }
       }

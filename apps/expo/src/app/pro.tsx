@@ -18,6 +18,7 @@ import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
 import { ImageBackground } from "expo-image";
 import { Stack, useRouter } from "expo-router";
+import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
@@ -28,7 +29,6 @@ import {
   PaletteIcon,
   XIcon,
 } from "lucide-react-native";
-import * as Sentry from "sentry-expo";
 import colors from "tailwindcss/colors";
 
 import { StatusBar } from "~/components/status-bar";
@@ -82,7 +82,7 @@ export default function Pro() {
     },
     onError: (err) => {
       console.error(err);
-      Sentry.Native.captureException(err, { extra: { annual } });
+      Sentry.captureException(err, { extra: { annual } });
       showToastable({
         title: "Could not complete purchase",
         message: "Something went wrong, please try again later.",

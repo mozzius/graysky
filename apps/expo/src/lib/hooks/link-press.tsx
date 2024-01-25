@@ -6,8 +6,8 @@ import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
+import * as Sentry from "@sentry/react-native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
-import * as Sentry from "sentry-expo";
 
 import { actionSheetStyles } from "../utils/action-sheet";
 import { useAppPreferences } from "./preferences";
@@ -68,7 +68,7 @@ export const useLinkPress = () => {
             err instanceof Error ? err.message : "Not sure why, sorry :(",
           status: "danger",
         });
-        Sentry.Native.captureException(err);
+        Sentry.captureException(err);
       }
     },
     [inAppBrowser, setAppPrefs, showActionSheetWithOptions, theme],

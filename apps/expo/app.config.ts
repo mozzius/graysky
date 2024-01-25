@@ -68,19 +68,6 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     sentry: process.env.SENTRY_DSN,
     devClient: process.env.DEV_CLIENT === "true",
   },
-  hooks: {
-    postPublish: process.env.SENTRY_AUTH_TOKEN
-      ? [
-          {
-            file: "sentry-expo/upload-sourcemaps",
-            config: {
-              organization: "graysky",
-              project: "graysky",
-            },
-          },
-        ]
-      : undefined,
-  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: false, // too much string interpolation :(
@@ -96,7 +83,13 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       },
     ],
     "expo-localization",
-    "sentry-expo",
+    [
+      "@sentry/react-native/expo",
+      {
+        organization: "graysky",
+        project: "graysky",
+      },
+    ],
     "expo-router",
     [
       "expo-media-library",

@@ -103,7 +103,6 @@
     "react-native-toastable": "^0.4.1",
     "react-native-url-polyfill": "^2.0.0",
     "rn-fetch-blob": "^0.12.0",
-    "sentry-expo": "~7.1.1",
     "superjson": "2.2.1",
     "tailwind-merge": "^2.2.1",
     "zod": "^3.22.4"

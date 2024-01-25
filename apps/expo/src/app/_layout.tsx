@@ -5,9 +5,12 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
-import * as Device from "expo-device";
-import { Stack, useRouter, useSegments } from "expo-router";
-import * as ScreenOrientation from "expo-screen-orientation";
+import {
+  Stack,
+  useNavigationContainerRef,
+  useRouter,
+  useSegments,
+} from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import {
   BskyAgent,
@@ -15,8 +18,8 @@ import {
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
@@ -34,35 +37,96 @@ import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+
 Sentry.init({
-  autoSessionTracking: false,
-  dsn: Constants.expoConfig?.extra?.sentry as string,
-  enableInExpoDevelopment: false,
+  debug: __DEV__,
+  // not a secret, but allow override
+  dsn:
+    (Constants.expoConfig?.extra?.sentry as string) ??
+    "https://76421919ff114625bfd275af5f843452@o4505343214878720.ingest.sentry.io/4505478653739008",
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      routingInstrumentation,
+    }),
+  ],
 });
+
+const useSentryTracing = () => {
+  const ref = useNavigationContainerRef();
+
+  useEffect(() => {
+    if (ref) {
+      routingInstrumentation.registerNavigationContainer(ref);
+    }
+  }, [ref]);
+};
 
 void SplashScreen.preventAutoHideAsync();
 
-void Device.getDeviceTypeAsync().then((type) => {
-  if (type === Device.DeviceType.TABLET) {
-    void ScreenOrientation.unlockAsync();
-  }
-});
+// seems to cause crash - TODO: investigate
+// void Device.getDeviceTypeAsync().then((type) => {
+//   if (type === Device.DeviceType.TABLET) {
+//     void ScreenOrientation.unlockAsync();
+//   }
+// });
 
-interface Props {
-  session: AtpSessionData | null;
-  saveSession: (sess: AtpSessionData | null, agent?: BskyAgent) => void;
-}
-
-const App = ({ session, saveSession }: Props) => {
+const App = () => {
   const segments = useSegments();
   const router = useRouter();
   const [invalidator, setInvalidator] = useState(0);
   const queryClient = useQueryClient();
   const [ready, setReady] = useState(false);
-
   const [agentUpdate, setAgentUpdate] = useState(0);
+  const [session, setSession] = useState(() => getSession());
 
-  useSetupQuickActions();
+  const saveSession = useCallback(
+    (sess: AtpSessionData | null, agent?: BskyAgent) => {
+      setSession(sess);
+      if (sess) {
+        store.set("session", JSON.stringify(sess));
+        if (agent) {
+          void agent.getProfile({ actor: sess.did }).then((res) => {
+            if (res.success) {
+              const sessions = store.getString("sessions");
+              if (sessions) {
+                const old = JSON.parse(sessions) as SavedSession[];
+                const newSessions = [
+                  {
+                    session: sess,
+                    did: sess.did,
+                    handle: res.data.handle,
+                    avatar: res.data.avatar,
+                    displayName: res.data.displayName,
+                    signedOut: false,
+                  },
+                  ...old.filter((s) => s.did !== sess.did),
+                ];
+                store.set("sessions", JSON.stringify(newSessions));
+              } else {
+                store.set(
+                  "sessions",
+                  JSON.stringify([
+                    {
+                      session: sess,
+                      did: sess.did,
+                      handle: res.data.handle,
+                      avatar: res.data.avatar,
+                      displayName: res.data.displayName,
+                      signedOut: false,
+                    },
+                  ] satisfies SavedSession[]),
+                );
+              }
+            }
+          });
+        }
+      } else {
+        store.delete("session");
+      }
+    },
+    [],
+  );
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -173,38 +237,6 @@ const App = ({ session, saveSession }: Props) => {
       splashscreenHidden.current = true;
     }
   }, [ready]);
-
-  // SENTRY NAVIGATION LOGGING
-  const routeName = "/" + segments.join("/");
-
-  const transaction = useRef<ReturnType<
-    typeof Sentry.Native.startTransaction
-  > | null>(null); // Can't find Transaction type
-  const timer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      transaction.current?.finish?.();
-      transaction.current = null;
-    }, 3000);
-
-    transaction.current?.finish?.();
-    transaction.current = Sentry.Native.startTransaction({
-      // Transaction params are similar to those in @sentry/react-native
-      name: "Route Change",
-      op: "navigation",
-      tags: {
-        "routing.route.name": routeName,
-      },
-    });
-
-    return () => {
-      transaction.current?.finish?.();
-      transaction.current = null;
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, [routeName]);
 
   return (
     <GestureHandlerRootView className="flex-1">
@@ -329,65 +361,19 @@ const getSession = () => {
   return session;
 };
 
-export default function RootLayout() {
-  const [session, setSession] = useState(() => getSession());
-
+function RootLayout() {
   useConfigurePurchases();
-
-  const saveSession = useCallback(
-    (sess: AtpSessionData | null, agent?: BskyAgent) => {
-      setSession(sess);
-      if (sess) {
-        store.set("session", JSON.stringify(sess));
-        if (agent) {
-          void agent.getProfile({ actor: sess.did }).then((res) => {
-            if (res.success) {
-              const sessions = store.getString("sessions");
-              if (sessions) {
-                const old = JSON.parse(sessions) as SavedSession[];
-                const newSessions = [
-                  {
-                    session: sess,
-                    did: sess.did,
-                    handle: res.data.handle,
-                    avatar: res.data.avatar,
-                    displayName: res.data.displayName,
-                    signedOut: false,
-                  },
-                  ...old.filter((s) => s.did !== sess.did),
-                ];
-                store.set("sessions", JSON.stringify(newSessions));
-              } else {
-                store.set(
-                  "sessions",
-                  JSON.stringify([
-                    {
-                      session: sess,
-                      did: sess.did,
-                      handle: res.data.handle,
-                      avatar: res.data.avatar,
-                      displayName: res.data.displayName,
-                      signedOut: false,
-                    },
-                  ] satisfies SavedSession[]),
-                );
-              }
-            }
-          });
-        }
-      } else {
-        store.delete("session");
-      }
-    },
-    [],
-  );
+  useSentryTracing();
+  useSetupQuickActions();
 
   return (
     <TRPCProvider>
-      <App session={session} saveSession={saveSession} />
+      <App />
     </TRPCProvider>
   );
 }
+
+export default Sentry.wrap(RootLayout);
 
 const QuickActions = () => {
   const fired = useRef<string | null>(null);

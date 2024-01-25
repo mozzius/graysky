@@ -13,9 +13,9 @@ import { showToastable } from "react-native-toastable";
 import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
+import Sentry from "@sentry/react-native";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { keepPreviousData } from "@tanstack/react-query";
-import Sentry from "sentry-expo";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
@@ -211,7 +211,7 @@ const Gif = ({ item, column }: GifProps) => {
       router.navigate("../");
     },
     onError: (err) => {
-      Sentry.Native.captureException(err);
+      Sentry.captureException(err);
       showToastable({
         title: "Could not select GIF",
         message: "Please try again",

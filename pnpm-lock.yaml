@@ -296,9 +296,6 @@ importers:
       rn-fetch-blob:
         specifier: ^0.12.0
         version: 0.12.0
-      sentry-expo:
-        specifier: ~7.1.1
-        version: 7.1.1(expo-application@5.8.3)(expo-constants@15.4.5)(expo-device@5.9.3)(expo@50.0.3)(react-native@0.73.2)(react@18.2.0)
       superjson:
         specifier: 2.2.1
         version: 2.2.1
@@ -4175,16 +4172,6 @@ packages:
       '@sentry/utils': 7.98.0
     dev: false
 
-  /@sentry-internal/tracing@7.69.0:
-    resolution: {integrity: sha512-4BgeWZUj9MO6IgfO93C9ocP3+AdngqujF/+zB2rFdUe+y9S6koDyUC7jr9Knds/0Ta72N/0D6PwhgSCpHK8s0Q==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.69.0
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      tslib: 2.6.2
-    dev: false
-
   /@sentry-internal/tracing@7.81.1:
     resolution: {integrity: sha512-E5xm27xrLXL10knH2EWDQsQYh5nb4SxxZzJ3sJwDGG9XGKzBdlp20UUhKqx00wixooVX9uCj3e4Jg8SvNB1hKg==}
     engines: {node: '>=8'}
@@ -4201,18 +4188,6 @@ packages:
       '@sentry/core': 7.98.0
       '@sentry/types': 7.98.0
       '@sentry/utils': 7.98.0
-    dev: false
-
-  /@sentry/browser@7.69.0:
-    resolution: {integrity: sha512-5ls+zu2PrMhHCIIhclKQsWX5u6WH0Ez5/GgrCMZTtZ1d70ukGSRUvpZG9qGf5Cw1ezS1LY+1HCc3whf8x8lyPw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry-internal/tracing': 7.69.0
-      '@sentry/core': 7.69.0
-      '@sentry/replay': 7.69.0
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      tslib: 2.6.2
     dev: false
 
   /@sentry/browser@7.81.1:
@@ -4318,22 +4293,6 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli@2.20.7:
-    resolution: {integrity: sha512-YaHKEUdsFt59nD8yLvuEGCOZ3/ArirL8GZ/66RkZ8wcD2wbpzOFbzo08Kz4te/Eo3OD5/RdW+1dPaOBgGbrXlA==}
-    engines: {node: '>= 10'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      https-proxy-agent: 5.0.1
-      node-fetch: 2.7.0
-      progress: 2.0.3
-      proxy-from-env: 1.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
   /@sentry/cli@2.25.2:
     resolution: {integrity: sha512-lgt1QPaCfs/QZNXwyw3gvuBR2/CLwFSdU/oT7Bpxwizz8XVXhlKS98zJF1UVCy7SecsDSoOI0Z+B+X658cpquQ==}
     engines: {node: '>= 10'}
@@ -4358,15 +4317,6 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/core@7.69.0:
-    resolution: {integrity: sha512-V6jvK2lS8bhqZDMFUtvwe2XvNstFQf5A+2LMKCNBOV/NN6eSAAd6THwEpginabjet9dHsNRmMk7WNKvrUfQhZw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      tslib: 2.6.2
-    dev: false
-
   /@sentry/core@7.81.1:
     resolution: {integrity: sha512-tU37yAmckOGCw/moWKSwekSCWWJP15O6luIq+u7wal22hE88F3Vc5Avo8SeF3upnPR+4ejaOFH+BJTr6bgrs6Q==}
     engines: {node: '>=8'}
@@ -4383,16 +4333,6 @@ packages:
       '@sentry/utils': 7.98.0
     dev: false
 
-  /@sentry/hub@7.69.0:
-    resolution: {integrity: sha512-71TQ7P5de9+cdW1ETGI9wgi2VNqfyWaM3cnUvheXaSjPRBrr6mhwoaSjo+GGsiwx97Ob9DESZEIhdzcLupzkFA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.69.0
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      tslib: 2.6.2
-    dev: false
-
   /@sentry/hub@7.81.1:
     resolution: {integrity: sha512-25cvsI3HKiRLJBZGFC8ntuy7/yB8M1w8YLTjr3tIqydYmjFUX7f18w0iuWEtd204d8OQSPBJDapbGMdfkE5x6w==}
     engines: {node: '>=8'}
@@ -4400,16 +4340,6 @@ packages:
       '@sentry/core': 7.81.1
       '@sentry/types': 7.81.1
       '@sentry/utils': 7.81.1
-    dev: false
-
-  /@sentry/integrations@7.69.0:
-    resolution: {integrity: sha512-FEFtFqXuCo9+L7bENZxFpEAlIODwHl6FyW/DwLfniy9jOXHU7BhP/oICLrFE5J7rh1gNY7N/8VlaiQr3hCnS/g==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      localforage: 1.10.0
-      tslib: 2.6.2
     dev: false
 
   /@sentry/integrations@7.81.1:
@@ -4473,27 +4403,6 @@ packages:
       '@sentry/utils': 7.98.0
     dev: false
 
-  /@sentry/react-native@5.10.0(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-YuEZJ3tW5qZlFGFm2FoAZ9vw1fWnjrhMh1IHxo+nUHP3FvVgGkAd/PmSSbgPr2T3YLOIJNiyDdG031Qi7YvtGA==}
-    peerDependencies:
-      react: '>=17.0.0'
-      react-native: '>=0.65.0'
-    dependencies:
-      '@sentry/browser': 7.69.0
-      '@sentry/cli': 2.20.7
-      '@sentry/core': 7.69.0
-      '@sentry/hub': 7.69.0
-      '@sentry/integrations': 7.69.0
-      '@sentry/react': 7.69.0(react@18.2.0)
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      react: 18.2.0
-      react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
   /@sentry/react-native@5.17.0(expo@50.0.3)(react-native@0.73.2)(react@18.2.0):
     resolution: {integrity: sha512-d0TLASMcpUtvw0A8zNznRyCskfH0kwfb3GzqMXXpfPJAG8vsBnY15EFOIc+czOLt6FbV9o3567bHYWhSW51Ssg==}
     hasBin: true
@@ -4519,20 +4428,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-    dev: false
-
-  /@sentry/react@7.69.0(react@18.2.0):
-    resolution: {integrity: sha512-J+DciRRVuruf1nMmBOi2VeJkOLGeCb4vTOFmHzWTvRJNByZ0flyo8E/fyROL7+23kBq1YbcVY6IloUlH73hneQ==}
-    engines: {node: '>=8'}
-    peerDependencies:
-      react: 15.x || 16.x || 17.x || 18.x
-    dependencies:
-      '@sentry/browser': 7.69.0
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-      hoist-non-react-statics: 3.3.2
-      react: 18.2.0
-      tslib: 2.6.2
     dev: false
 
   /@sentry/react@7.81.1(react@18.2.0):
@@ -4562,15 +4457,6 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@sentry/replay@7.69.0:
-    resolution: {integrity: sha512-oUqWyBPFUgShdVvgJtV65EQH9pVDmoYVQMOu59JI6FHVeL3ald7R5Mvz6GaNLXsirvvhp0yAkcAd2hc5Xi6hDw==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@sentry/core': 7.69.0
-      '@sentry/types': 7.69.0
-      '@sentry/utils': 7.69.0
-    dev: false
-
   /@sentry/replay@7.81.1:
     resolution: {integrity: sha512-4ueT0C4bYjngN/9p0fEYH10dTMLovHyk9HxJ6zSTgePvGVexhg+cSEHXisoBDwHeRZVnbIvsVM0NA7rmEDXJJw==}
     engines: {node: '>=12'}
@@ -4591,11 +4477,6 @@ packages:
       '@sentry/utils': 7.98.0
     dev: false
 
-  /@sentry/types@7.69.0:
-    resolution: {integrity: sha512-zPyCox0mzitzU6SIa1KIbNoJAInYDdUpdiA+PoUmMn2hFMH1llGU/cS7f4w/mAsssTlbtlBi72RMnWUCy578bw==}
-    engines: {node: '>=8'}
-    dev: false
-
   /@sentry/types@7.81.1:
     resolution: {integrity: sha512-dvJvGyctiaPMIQqa46k56Re5IODWMDxiHJ1UjBs/WYDLrmWFPGrEbyJ8w8CYLhYA+7qqrCyIZmHbWSTRIxstHw==}
     engines: {node: '>=8'}
@@ -4604,14 +4485,6 @@ packages:
   /@sentry/types@7.98.0:
     resolution: {integrity: sha512-pc034ziM0VTETue4bfBcBqTWGy4w0okidtoZJjGVrYAfE95ObZnUGVj/XYIQ3FeCYWIa7NFN2MvdsCS0buwivQ==}
     engines: {node: '>=8'}
-    dev: false
-
-  /@sentry/utils@7.69.0:
-    resolution: {integrity: sha512-4eBixe5Y+0EGVU95R4NxH3jkkjtkE4/CmSZD4In8SCkWGSauogePtq6hyiLsZuP1QHdpPb9Kt0+zYiBb2LouBA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.69.0
-      tslib: 2.6.2
     dev: false
 
   /@sentry/utils@7.81.1:
@@ -12957,32 +12830,6 @@ packages:
       range-parser: 1.2.1
       statuses: 2.0.1
     transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /sentry-expo@7.1.1(expo-application@5.8.3)(expo-constants@15.4.5)(expo-device@5.9.3)(expo@50.0.3)(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-6vxiOKPepblVz12LqJRQu5BQdg0culbHq9y41wguanxwg3KphEzH000S5rUHQ0qdayBAxWYDpbzstQNz+uaf3g==}
-    peerDependencies:
-      expo: '>=47.0.0'
-      expo-application: '*'
-      expo-constants: '*'
-      expo-device: '*'
-    dependencies:
-      '@expo/spawn-async': 1.7.2
-      '@sentry/integrations': 7.69.0
-      '@sentry/react': 7.69.0(react@18.2.0)
-      '@sentry/react-native': 5.10.0(react-native@0.73.2)(react@18.2.0)
-      '@sentry/types': 7.69.0
-      expo: 50.0.3(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
-      expo-application: 5.8.3(expo@50.0.3)
-      expo-constants: 15.4.5(expo@50.0.3)
-      expo-device: 5.9.3(expo@50.0.3)
-      mkdirp: 1.0.4
-      rimraf: 3.0.2
-    transitivePeerDependencies:
-      - encoding
-      - react
-      - react-native
       - supports-color
     dev: false
 
