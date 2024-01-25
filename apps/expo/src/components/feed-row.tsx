@@ -12,7 +12,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { Image } from "expo-image";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { Link, usePathname, useRouter } from "expo-router";
 import { AppBskyFeedDefs, type AppBskyGraphDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
@@ -50,16 +50,16 @@ export const FeedRow = ({
   const router = useRouter();
   const theme = useTheme();
   const path = useAbsolutePath();
+  const pathname = usePathname();
   const href = path(
     `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
   );
-  const navigation = useNavigation();
+
   return (
     <TouchableHighlight
       onPress={() => {
         onPress?.();
-        if (navigation.getState().routes.at(-1)?.name === "feeds/discover")
-          router.push("../");
+        if (pathname === "/discover") router.navigate("../");
         if (replace) {
           router.replace(href);
         } else {
