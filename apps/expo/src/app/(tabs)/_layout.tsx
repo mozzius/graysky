@@ -87,8 +87,6 @@ export default function AppLayout() {
 
   const reducedMotion = useReducedMotion();
 
-  console.log("aisuaoisjdioajsdio");
-
   return (
     <DrawerProvider value={openDrawer}>
       <BottomSheetModal

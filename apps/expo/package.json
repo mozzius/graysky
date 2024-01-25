@@ -21,13 +21,14 @@
     "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'"
   },
   "dependencies": {
-    "@atproto/api": "^0.9.3",
+    "@atproto/api": "^0.9.5",
     "@expo/metro-config": "^0.17.3",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.6.0",
     "@graysky/api": "0.1.0",
     "@mattermost/react-native-paste-input": "^0.7.0",
     "@react-native-community/netinfo": "11.2.1",
+    "@react-native-community/progress-view": "^1.4.2",
     "@react-native-community/slider": "^4.5.0",
     "@react-navigation/elements": "^1.3.21",
     "@react-navigation/native": "^6.1.9",
@@ -72,6 +73,7 @@
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",
     "immer": "^10.0.3",
+    "jwt-decode": "^4.0.0",
     "lucide-react-native": "^0.315.0",
     "metro": "~0.80.5",
     "mime": "^4.0.1",
@@ -108,9 +110,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.8",
-    "@babel/runtime": "^7.23.8",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/runtime": "^7.23.9",
     "@expo/config-plugins": "^7.8.4",
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",

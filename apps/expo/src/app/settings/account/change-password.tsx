@@ -1,4 +1,4 @@
-import { ChangePasswordFlow } from "~/components/change-password-flow";
+import { ChangePasswordFlow } from "~/components/screens/change-password-flow";
 import { useAgent } from "~/lib/agent";
 
 export default function ChangePassword() {
