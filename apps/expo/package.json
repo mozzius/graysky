@@ -7,7 +7,7 @@
     "build:ios": "./scripts/build-ios.sh",
     "build:android": "./scripts/build-android.sh",
     "build:dev-client:ios": "eas build --platform ios --profile development",
-    "build:dev-client:ios-simulator": "eas build --platform ios --profile development-simulator --non-interactive --local --output=\"./graysky.tar.gz\" --wait && eas build:run -p ios --path=\"graysky.tar.gz\"",
+    "build:dev-client:ios-simulator": "./scripts/build-ios-devclient.sh",
     "build:dev-client:android": "./scripts/build-android-devclient.sh",
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start",
