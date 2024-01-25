@@ -139,9 +139,7 @@ export const DrawerContent = ({ open }: Props) => {
               {numCodes > 0 && (
                 <>
                   {" "}
-                  <Text style={{ color: theme.colors.primary }}>
-                    ({numCodes})
-                  </Text>
+                  <Text primary>({numCodes})</Text>
                 </>
               )}
             </Text>

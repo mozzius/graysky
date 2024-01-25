@@ -565,10 +565,7 @@ export default function ComposerScreen() {
                           className="rounded-lg border px-3 py-2"
                         >
                           <Text numberOfLines={1} className="text-base">
-                            Add embed for{" "}
-                            <Text style={{ color: theme.colors.primary }}>
-                              {potential}
-                            </Text>
+                            Add embed for <Text primary>{potential}</Text>
                           </Text>
                         </View>
                       </TouchableHighlight>
@@ -648,12 +645,7 @@ const AddContentWarning = ({ onPress }: { onPress: () => void }) => {
         {labels.length > 0 ? (
           <>
             <ShieldAlertIcon size={18} color={theme.colors.primary} />
-            <Text
-              className="ml-2 font-medium"
-              style={{
-                color: theme.colors.primary,
-              }}
-            >
+            <Text className="ml-2 font-medium" primary>
               {labels.map(captialise).join(", ")}
             </Text>
           </>

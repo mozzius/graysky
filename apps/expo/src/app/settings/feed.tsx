@@ -142,7 +142,7 @@ export default function FeedPreferences() {
                       className="flex-row items-center"
                     >
                       <Text
-                        style={{ color: theme.colors.primary }}
+                        primary
                         className="text-base font-medium capitalize"
                       >
                         {appPrefs.homepage === "feeds"

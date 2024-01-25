@@ -130,10 +130,7 @@ export function SwitchAccounts({
                       logOut();
                     }}
                   >
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="font-medium"
-                    >
+                    <Text primary className="font-medium">
                       Sign out
                     </Text>
                   </TouchableOpacity>

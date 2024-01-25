@@ -148,7 +148,7 @@ export const CancelButton = ({
           accessibilityLabel="Discard post"
           onPress={() => void handleCancel()}
         >
-          <Text style={{ color: theme.colors.primary }} className="text-lg">
+          <Text primary className="text-lg">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -159,7 +159,7 @@ export const CancelButton = ({
   return (
     <Link href="../" asChild>
       <TouchableOpacity accessibilityRole="link">
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
+        <Text primary className="text-lg">
           Cancel
         </Text>
       </TouchableOpacity>

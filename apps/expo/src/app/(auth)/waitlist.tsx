@@ -85,7 +85,7 @@ export default function Waitlist() {
           If you{"'"}re a developer interested in building on the AT Protocol,
           you might be able to skip the queue via the{" "}
           <Text
-            style={{ color: theme.colors.primary }}
+            primary
             accessibilityRole="link"
             onPress={() =>
               openLink("https://atproto.com/blog/call-for-developers")

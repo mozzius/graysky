@@ -128,7 +128,7 @@ export default function SignIn() {
                 </Text>
                 <Text
                   className="mt-2"
-                  style={{ color: theme.colors.primary }}
+                  primary
                   accessibilityRole="link"
                   onPress={() =>
                     openLink("https://bsky.app/settings/app-passwords")

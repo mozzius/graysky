@@ -67,7 +67,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
               size={16}
               color={theme.colors.primary}
             />
-            <Text className="text-base" style={{ color: theme.colors.primary }}>
+            <Text className="text-base" primary>
               Translate post
             </Text>
           </View>

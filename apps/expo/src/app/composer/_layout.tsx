@@ -38,17 +38,14 @@ export default function ComposerLayout() {
         ios: () => (
           <Animated.View entering={FadeIn}>
             <TouchableOpacity onPress={() => router.push("../")}>
-              <Text
-                style={{ color: theme.colors.primary }}
-                className="text-lg font-medium"
-              >
+              <Text primary className="text-lg font-medium">
                 Done
               </Text>
             </TouchableOpacity>
           </Animated.View>
         ),
       }),
-    [router, theme.colors.primary],
+    [router],
   );
 
   return (

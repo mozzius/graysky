@@ -243,7 +243,7 @@ export default function Page() {
                 }}
               >
                 <Text
-                  style={{ color: theme.colors.primary }}
+                  primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
                   {editing ? "Done" : "Edit"}

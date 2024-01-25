@@ -1,14 +1,12 @@
 import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
-import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useCanGoBack } from "~/lib/hooks/can-go-back";
 
 export default function AuthLayout() {
-  const theme = useTheme();
   const router = useRouter();
   const canGoBack = useCanGoBack("(auth)");
 
@@ -20,7 +18,7 @@ export default function AuthLayout() {
               onPress={() => router.push("../")}
               accessibilityRole="link"
             >
-              <Text style={{ color: theme.colors.primary }} className="text-lg">
+              <Text primary className="text-lg">
                 Cancel
               </Text>
             </TouchableOpacity>

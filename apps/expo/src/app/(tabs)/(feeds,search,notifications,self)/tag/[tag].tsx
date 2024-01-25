@@ -105,10 +105,7 @@ export default function TagScreen() {
                   );
                 }}
               >
-                <Text
-                  style={{ color: theme.colors.primary }}
-                  className="text-lg"
-                >
+                <Text primary className="text-lg">
                   Sort: {getModeName(mode)}{" "}
                 </Text>
               </TouchableOpacity>
