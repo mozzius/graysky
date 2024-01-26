@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-26 v1.3.3
+
+- Added phone verification to signup
+- Added support for the upcoming account creation queue system
+- Fixed some oversized text
+
 ## 2024-1-23 v1.3.2
 
 Fixed the threadgate, self-label, and language select lists
