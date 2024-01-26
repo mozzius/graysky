@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   ActivityIndicator,
   findNodeHandle,
@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, useFocusEffect, useRouter } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -97,10 +97,17 @@ export const CancelButton = ({
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
   const ref = useRef<TouchableOpacity>(null);
-
+  const [currentScreen, setCurrentScreen] = useState(false);
   const haptics = useHaptics();
 
-  const handleCancel = async () => {
+  useFocusEffect(
+    useCallback(() => {
+      setCurrentScreen(true);
+      return () => setCurrentScreen(false);
+    }, []),
+  );
+
+  const handleCancel = useCallback(async () => {
     haptics.impact();
     if (Platform.OS === "android") Keyboard.dismiss();
     const options = ["Discard post", "Cancel"];
@@ -136,17 +143,17 @@ export const CancelButton = ({
         onCancel();
         break;
     }
-  };
+  }, [haptics, onCancel, onSave, router, showActionSheetWithOptions, theme]);
 
   if (hasContent) {
     return (
       <>
-        <BackButtonOverride dismiss={handleCancel} />
+        {currentScreen && <BackButtonOverride dismiss={handleCancel} />}
         <TouchableOpacity
           ref={ref}
           disabled={disabled}
           accessibilityLabel="Discard post"
-          onPress={() => void handleCancel()}
+          onPress={handleCancel}
         >
           <Text primary className="text-lg">
             Cancel

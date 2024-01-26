@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -175,6 +175,14 @@ export default function ComposerScreen() {
     navigation.getParent()?.setOptions({ gestureEnabled: isEmpty });
   }, [navigation, isEmpty]);
 
+  const handleFocus = useCallback(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const handleSave = useCallback(() => {
+    Alert.alert("Not yet implemented");
+  }, []);
+
   if (editingAltText !== null) {
     const image = images[editingAltText]!;
     return (
@@ -199,10 +207,8 @@ export default function ComposerScreen() {
           headerLeft: () => (
             <CancelButton
               hasContent={!isEmpty}
-              onSave={() => Alert.alert("Not yet implemented")}
-              onCancel={() => {
-                inputRef.current.focus();
-              }}
+              onSave={handleSave}
+              onCancel={handleFocus}
               disabled={send.isPending}
             />
           ),
