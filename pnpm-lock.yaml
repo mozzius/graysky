@@ -210,8 +210,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       lucide-react-native:
-        specifier: ^0.315.0
-        version: 0.315.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0)
       metro:
         specifier: ~0.80.5
         version: 0.80.5
@@ -418,8 +418,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.315.0
-        version: 0.315.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -467,8 +467,8 @@ importers:
         specifier: 0.1.0
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^20.11.6
-        version: 20.11.6
+        specifier: ^20.11.7
+        version: 20.11.7
       '@types/react':
         specifier: ^18.2.48
         version: 18.2.48
@@ -522,8 +522,8 @@ importers:
         specifier: 0.1.0
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^20.11.6
-        version: 20.11.6
+        specifier: ^20.11.7
+        version: 20.11.7
       dotenv-cli:
         specifier: ^7.3.0
         version: 7.3.0
@@ -3355,7 +3355,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       jest-mock: 29.7.0
     dev: false
 
@@ -3365,7 +3365,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -3384,7 +3384,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       '@types/yargs': 15.0.19
       chalk: 4.1.2
     dev: false
@@ -3396,7 +3396,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       '@types/yargs': 17.0.32
       chalk: 4.1.2
     dev: false
@@ -5017,8 +5017,8 @@ packages:
     resolution: {integrity: sha512-xPSg0jm4mqgEkNhowKgZFBNtwoEwF6gJ4Dhww+GFpm3IgtNseHQZ5IqdNwnquZEoANxyDAKDRAdVo4Z72VvD/g==}
     dev: false
 
-  /@types/node@20.11.6:
-    resolution: {integrity: sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==}
+  /@types/node@20.11.7:
+    resolution: {integrity: sha512-GPmeN1C3XAyV5uybAf4cMLWT9fDWcmQhZVtMFu7OR32WjrqGG+Wnk2V1d0bmtUyE/Zy1QJ9BxyiTih9z8Oks8A==}
     dependencies:
       undici-types: 5.26.5
 
@@ -6214,7 +6214,7 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -6225,7 +6225,7 @@ packages:
   /chromium-edge-launcher@1.0.0:
     resolution: {integrity: sha512-pgtgjNKZ7i5U++1g1PWv75umkHvhVTDOQIZ+sjeUX9483S7Y6MUvO0lrd7ShGlQlFHMN4SwKTCq/X8hWrbv2KA==}
     dependencies:
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -9215,7 +9215,7 @@ packages:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       jest-mock: 29.7.0
       jest-util: 29.7.0
     dev: false
@@ -9245,7 +9245,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       jest-util: 29.7.0
     dev: false
 
@@ -9254,7 +9254,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -9277,7 +9277,7 @@ packages:
     resolution: {integrity: sha512-eIz2msL/EzL9UFTFFx7jBTkeZfku0yUAyZZZmJ93H2TYEiroIx2PQjEXcwYtYl8zXCxb+PAmA2hLIt/6ZEkPHw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@types/node': 20.11.6
+      '@types/node': 20.11.7
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -9707,8 +9707,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.315.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
-    resolution: {integrity: sha512-K3QxLs/Y10MYQpVrUvBTQyaw73X6NtjIGDocPrCovGS3YQK/1ng4WBpoIm48W3l8ub0mvMUAoNzIGekxmwMM2w==}
+  /lucide-react-native@0.316.0(react-native-svg@14.1.0)(react-native@0.73.2)(react@18.2.0):
+    resolution: {integrity: sha512-JhEVS3S/FEFy3Q8dqo8IgQHHBC4DGcnVffrSq+cub6pjbn3PnRpJHiYJi3C0Bf3PuZo7FSe42hOmxro8HG161w==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -9719,8 +9719,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.2)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.315.0(react@18.2.0):
-    resolution: {integrity: sha512-HHPhBRuubJLTERwI3czCgHCrYEtQSuUnniBwR/YHH4rNZXeqtOxyEX05lxpyTxlDr/ugKE+MM9/pWy+iju7xpw==}
+  /lucide-react@0.316.0(react@18.2.0):
+    resolution: {integrity: sha512-dTmYX1H4IXsRfVcj/KUxworV6814ApTl7iXaS21AimK2RUEl4j4AfOmqD3VR8phe5V91m4vEJ8tCK4uT1jE5nA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
