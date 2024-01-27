@@ -2,10 +2,9 @@ import { TouchableWithoutFeedback, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { useAgent } from "~/lib/agent";
+import { useSelf } from "~/app/settings/account";
 import { useLists } from "../lists/context";
 import { Text } from "../themed/text";
 import { useDrawer } from "./context";
@@ -17,22 +16,11 @@ export const ActorDetails = () => (
 );
 
 const ActorDetailsInner = () => {
-  const agent = useAgent();
   const setOpenDrawer = useDrawer();
 
   const { openFollows, openFollowers } = useLists();
 
-  const { data: self } = useQuery({
-    queryKey: ["profile", agent.session?.did],
-    queryFn: async () => {
-      if (!agent.session) return null;
-      const profile = await agent.getProfile({
-        actor: agent.session.did,
-      });
-      if (!profile.success) throw new Error("Couldn't fetch profile");
-      return profile.data;
-    },
-  });
+  const { data: self } = useSelf();
 
   if (!self) return null;
 

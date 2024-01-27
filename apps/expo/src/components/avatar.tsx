@@ -2,11 +2,10 @@ import { memo } from "react";
 import { View, type StyleProp } from "react-native";
 import { Image, type ImageProps, type ImageStyle } from "expo-image";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
 import { UserCircle } from "lucide-react-native";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { useOptionalAgent } from "~/lib/agent";
+import { useSelf } from "~/app/settings/account";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
@@ -58,18 +57,7 @@ const AvatarUnmemoized = ({ self, ...props }: Props) => {
 export const Avatar = memo(AvatarUnmemoized);
 
 const SelfAvatar = ({ size = "large", alt, className, style }: Props) => {
-  const agent = useOptionalAgent();
-
-  const profile = useQuery({
-    queryKey: ["profile", agent?.session?.did],
-    queryFn: async () => {
-      if (!agent?.session) return null;
-      const profile = await agent.getProfile({
-        actor: agent.session.did,
-      });
-      return profile.data;
-    },
-  });
+  const profile = useSelf();
 
   const uri = profile.data?.avatar;
 
