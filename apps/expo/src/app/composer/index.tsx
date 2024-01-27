@@ -176,7 +176,7 @@ export default function ComposerScreen() {
   }, [navigation, isEmpty]);
 
   const handleFocus = useCallback(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
 
   const handleSave = useCallback(() => {
