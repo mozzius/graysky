@@ -91,6 +91,7 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-drawer-layout": "4.0.0-alpha.3",
     "react-native-gesture-handler": "~2.14.1",
+    "react-native-image-crop-picker": "^0.40.2",
     "react-native-ios-context-menu": "^2.3.0",
     "react-native-ios-utilities": "^4.2.3",
     "react-native-keyboard-controller": "^1.10.3",

@@ -40,6 +40,7 @@ import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
+  enabled: !__DEV__,
   debug: false,
   // not a secret, but allow override
   dsn:
@@ -336,6 +337,14 @@ const App = () => {
                                     animation: "fade_from_bottom",
                                   },
                                 }),
+                              }}
+                            />
+                            <Stack.Screen
+                              name="edit-bio"
+                              options={{
+                                title: "Edit Profile",
+                                headerTransparent: true,
+                                presentation: "modal",
                               }}
                             />
                           </Stack>

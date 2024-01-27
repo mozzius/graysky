@@ -61,12 +61,6 @@ export default function SettingsLayout() {
           }}
         />
         <Stack.Screen
-          name="account/edit-bio"
-          options={{
-            title: "Edit Profile",
-          }}
-        />
-        <Stack.Screen
           name="account/change-handle"
           options={{
             title: "Change Handle",

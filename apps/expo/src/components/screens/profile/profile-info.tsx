@@ -525,7 +525,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       const option = options[index];
                       switch (option) {
                         case "Edit Profile":
-                          router.push("/settings/account/edit-bio");
+                          router.push("/edit-bio");
                           break;
                         case "Share Profile": {
                           const url = `https://bsky.app/profile/${profile.handle}`;

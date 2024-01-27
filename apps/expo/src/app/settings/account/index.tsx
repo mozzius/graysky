@@ -34,7 +34,7 @@ export default function AccountSettings() {
             options: [
               {
                 title: "Edit Profile",
-                href: "/settings/account/edit-bio",
+                href: "/edit-bio",
                 icon: UserIcon,
               },
               {

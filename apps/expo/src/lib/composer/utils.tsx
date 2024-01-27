@@ -541,7 +541,7 @@ export const generateRichText = async (text: string, agent: BskyAgent) => {
   return rt;
 };
 
-const getGalleryPermission = async () => {
+export const getGalleryPermission = async () => {
   const canChoosePhoto = await ImagePicker.getMediaLibraryPermissionsAsync();
   if (!canChoosePhoto.granted) {
     if (canChoosePhoto.canAskAgain) {
@@ -567,7 +567,7 @@ const getGalleryPermission = async () => {
   return true;
 };
 
-const getCameraPermission = async () => {
+export const getCameraPermission = async () => {
   const canTakePhoto = await ImagePicker.getCameraPermissionsAsync();
   if (!canTakePhoto.granted) {
     if (canTakePhoto.canAskAgain) {
@@ -592,7 +592,7 @@ const getCameraPermission = async () => {
   return true;
 };
 
-const compress = async ({
+export const compress = async ({
   uri,
   width,
   height,

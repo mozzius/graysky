@@ -260,6 +260,9 @@ importers:
       react-native-gesture-handler:
         specifier: ~2.14.1
         version: 2.14.1(react-native@0.73.2)(react@18.2.0)
+      react-native-image-crop-picker:
+        specifier: ^0.40.2
+        version: 0.40.2(react-native@0.73.2)
       react-native-ios-context-menu:
         specifier: ^2.3.0
         version: 2.3.0(expo@50.0.4)(react-native-ios-utilities@4.2.3)(react-native@0.73.2)(react@18.2.0)
@@ -12180,6 +12183,14 @@ packages:
       lodash: 4.17.21
       prop-types: 15.8.1
       react: 18.2.0
+      react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
+    dev: false
+
+  /react-native-image-crop-picker@0.40.2(react-native@0.73.2):
+    resolution: {integrity: sha512-u9iceozX8985vtZV5ozLMfNuCDjtm00GivExSxKwZmwv2wZYyv30VJkKhVJffVYsujvIzMfSCaWJPBsb5nSfZg==}
+    peerDependencies:
+      react-native: '>=0.40.0'
+    dependencies:
       react-native: 0.73.2(patch_hash=uxxizehfgi7xhmyzu25q52vc6u)(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
 
