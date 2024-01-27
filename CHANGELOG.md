@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-27 v1.3.4
+
+- Added avatar/banner photo upload to Edit Profile screen
+- Added basic support for changing your handle (bsky.social domain only)
+- Reenabled orientation unlock for Android tablets
+- Fixed back button triggering dismiss post popup in threadgate screen
+
 ## 2024-1-26 v1.3.3
 
 - Added phone verification to signup
