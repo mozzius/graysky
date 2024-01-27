@@ -5,12 +5,14 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
+import * as Device from "expo-device";
 import {
   Stack,
   useNavigationContainerRef,
   useRouter,
   useSegments,
 } from "expo-router";
+import * as ScreenOrientation from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import {
   BskyAgent,
@@ -64,13 +66,6 @@ const useSentryTracing = () => {
 };
 
 void SplashScreen.preventAutoHideAsync();
-
-// seems to cause crash - TODO: investigate
-// void Device.getDeviceTypeAsync().then((type) => {
-//   if (type === Device.DeviceType.TABLET) {
-//     void ScreenOrientation.unlockAsync();
-//   }
-// });
 
 const App = () => {
   const segments = useSegments();
@@ -234,7 +229,14 @@ const App = () => {
   useEffect(() => {
     if (splashscreenHidden.current) return;
     if (ready) {
-      void SplashScreen.hideAsync().catch(() => console.warn);
+      void SplashScreen.hideAsync()
+        .catch(() => console.warn)
+        .then(() => Device.getDeviceTypeAsync())
+        .then((type) => {
+          if (type === Device.DeviceType.TABLET) {
+            void ScreenOrientation.unlockAsync();
+          }
+        });
       splashscreenHidden.current = true;
     }
   }, [ready]);

@@ -35,7 +35,7 @@ interface ListProps {
   children?: React.ReactNode;
 }
 
-const ListGroup = ({ children, options = [] }: ListProps) => {
+export const ListGroup = ({ children, options = [] }: ListProps) => {
   const theme = useTheme();
   return (
     <View

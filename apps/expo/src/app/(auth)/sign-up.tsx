@@ -14,10 +14,13 @@ import Animated, {
 import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { CheckCircle2Icon, XCircleIcon } from "lucide-react-native";
+import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
+import {
+  HandleAvailabilityResult,
+  useHandleAvailability,
+} from "~/components/handle-availability";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
@@ -64,58 +67,7 @@ export default function SignUp() {
     },
   });
 
-  const resolveHandle = useQuery({
-    enabled: handle.length >= 3,
-    queryKey: ["resolve-handle", derivedHandle],
-    queryFn: async (): Promise<"available" | "taken" | "invalid"> => {
-      try {
-        await agent.resolveHandle({
-          handle: derivedHandle,
-        });
-        return "taken";
-      } catch (err) {
-        if (err instanceof Error) {
-          if (err.message === "Unable to resolve handle") return "available";
-          else return "invalid";
-        } else {
-          throw err;
-        }
-      }
-    },
-  });
-
-  let handleResult = null;
-
-  if (resolveHandle.isPending && handle.length >= 3) {
-    handleResult = <ActivityIndicator />;
-  } else if (resolveHandle.data) {
-    switch (resolveHandle.data) {
-      case "available":
-        handleResult = (
-          <View className="flex-row items-center">
-            <CheckCircle2Icon className="mr-1.5 text-green-700" size={14} />
-            <Text className="text-sm text-green-700">Available</Text>
-          </View>
-        );
-        break;
-      case "taken":
-        handleResult = (
-          <View className="flex-row items-center">
-            <XCircleIcon className="mr-1.5 text-red-500" size={14} />
-            <Text className="text-sm text-red-500">Handle is taken</Text>
-          </View>
-        );
-        break;
-      case "invalid":
-        handleResult = (
-          <View className="flex-row items-center">
-            <XCircleIcon className="mr-1.5 text-red-500" size={14} />
-            <Text className="text-sm text-red-500">Handle is invalid</Text>
-          </View>
-        );
-        break;
-    }
-  }
+  const resolveHandle = useHandleAvailability(derivedHandle);
 
   const createAccount = useMutation({
     mutationKey: ["create-account"],
@@ -441,7 +393,10 @@ export default function SignUp() {
                   layout={LinearTransition}
                   className="mx-4 mt-2 items-start"
                 >
-                  {handleResult}
+                  <HandleAvailabilityResult
+                    query={resolveHandle}
+                    handle={derivedHandle}
+                  />
                 </Animated.View>
               )}
             </View>

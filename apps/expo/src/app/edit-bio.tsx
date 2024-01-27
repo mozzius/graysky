@@ -129,13 +129,13 @@ export default function EditBio() {
   );
 
   const editAvatar = useCallback(async () => {
-    const image = await getImage([1, 1], true);
+    const image = await getImage([1, 1], true).catch(() => null);
     if (!image) return;
     setAvatar(image);
   }, []);
 
   const editBanner = useCallback(async () => {
-    const image = await getImage([1, 3]);
+    const image = await getImage([1, 3]).catch(() => null);
     if (!image) return;
     setBanner(image);
   }, []);
