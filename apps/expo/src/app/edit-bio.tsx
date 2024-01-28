@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   openPicker,
   type Image as CroppedImage,
@@ -9,6 +14,7 @@ import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { XIcon } from "lucide-react-native";
 
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText } from "~/components/rich-text";
@@ -102,13 +108,23 @@ export default function EditBio() {
 
   const cancelButton = useCallback(
     () => (
-      <TouchableOpacity onPress={() => router.push("../")}>
-        <Text className="text-lg font-medium" primary>
-          Cancel
-        </Text>
+      <TouchableOpacity
+        onPress={() => router.push("../")}
+        className={Platform.select({
+          android: "mr-3",
+        })}
+      >
+        {Platform.select({
+          ios: (
+            <Text className="text-lg font-medium" primary>
+              Cancel
+            </Text>
+          ),
+          default: <XIcon color={theme.colors.text} size={24} />,
+        })}
       </TouchableOpacity>
     ),
-    [router],
+    [router, theme.colors.text],
   );
 
   const saveButton = useCallback(

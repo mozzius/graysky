@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
 import { z } from "zod";
 
+import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
@@ -51,7 +52,7 @@ export default function SignIn() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <ScrollView
+      <KeyboardAwareScrollView
         contentInsetAdjustmentBehavior="automatic"
         className="flex-1 p-4"
       >
@@ -162,7 +163,7 @@ export default function SignIn() {
             )}
           </Animated.View>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </TransparentHeaderUntilScrolled>
   );
 }

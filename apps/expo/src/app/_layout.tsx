@@ -345,8 +345,11 @@ const App = () => {
                               name="edit-bio"
                               options={{
                                 title: "Edit Profile",
-                                headerTransparent: true,
                                 presentation: "modal",
+                                headerTransparent: Platform.select({
+                                  ios: true,
+                                  default: false,
+                                }),
                               }}
                             />
                           </Stack>
