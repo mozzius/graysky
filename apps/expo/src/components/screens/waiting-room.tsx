@@ -76,7 +76,7 @@ export const WaitingRoom = () => {
         ) : (
           <>
             <Text className="text-center text-xl">
-              You{"'"}re in the queue!
+              You{"'"}re in the queue to join Bluesky!
             </Text>
             <Text
               className="mt-8 text-center text-6xl font-medium"
