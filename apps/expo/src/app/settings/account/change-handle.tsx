@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, View } from "react-native";
+import { ActivityIndicator, Alert, Platform, View } from "react-native";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -14,6 +14,7 @@ import {
   HandleAvailabilityResult,
   useHandleAvailability,
 } from "~/components/handle-availability";
+import { ItemSeparator } from "~/components/item-separator";
 import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
@@ -63,6 +64,9 @@ export default function ChangeHandle() {
       <KeyboardAwareScrollView
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
+        style={Platform.select({
+          android: { backgroundColor: theme.colors.card },
+        })}
       >
         <View className="my-4 flex-1">
           <Text className="mx-4 mb-1.5 mt-2 text-xs uppercase text-neutral-500">
@@ -105,6 +109,7 @@ export default function ChangeHandle() {
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
               autoFocus
             />
+            {Platform.OS === "android" && <ItemSeparator />}
           </View>
           {handle && (
             <Animated.View
