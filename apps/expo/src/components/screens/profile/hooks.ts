@@ -32,13 +32,14 @@ export const useProfile = (handle?: string) => {
     > => {
       // Gets actor profile
       if (!actor) throw new Error("Not logged in");
-      const profile = await agent.getProfile({ actor });
+      const did = actor.startsWith("did:")
+        ? actor
+        : await agent.resolveHandle({ handle: actor }).then((x) => x.data.did);
+      const profile = await agent.getProfile({ actor: did });
       if (!profile.success) throw new Error("Profile not found");
 
       // Get actor creation date based on his audit log creation date
-      const res = await fetch(
-        `https://plc.directory/${profile.data.did}/log/audit`,
-      );
+      const res = await fetch(`https://plc.directory/${did}/log/audit`);
       if (res.ok) {
         const profileAuditLog = (await res.json()) as AuditLog;
 

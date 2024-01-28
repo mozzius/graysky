@@ -26,6 +26,7 @@ import { FeedPost } from "~/components/feed-post";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PostAvatar } from "~/components/post-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
+import { RichText } from "~/components/rich-text";
 import { Text } from "~/components/themed/text";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
@@ -84,10 +85,10 @@ export default function ListsScreen() {
         <Tabs.Container
           renderHeader={renderHeader}
           headerContainerStyle={{ shadowOpacity: 0, elevation: 0 }}
-          renderTabBar={(props) => (
-            <Tabs.MaterialTabBar
-              {...props}
-              {...createTopTabsScreenOptions(theme)}
+          renderTabBar={() => (
+            <View
+              className="border-b"
+              style={{ borderColor: theme.colors.border }}
             />
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
@@ -455,7 +456,13 @@ const ListHeader = ({
         />
       </View>
       {info.description && (
-        <Text className="mt-2 text-base">{info.description}</Text>
+        <View className="my-2 flex-1">
+          <RichText
+            text={info.description}
+            facets={info.descriptionFacets}
+            size="base"
+          />
+        </View>
       )}
     </View>
   );

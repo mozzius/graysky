@@ -31,8 +31,16 @@ import {
   CalendarIcon,
   CheckIcon,
   ChevronLeftIcon,
+  FlagIcon,
+  LanguagesIcon,
+  ListPlusIcon,
+  MegaphoneIcon,
+  MegaphoneOffIcon,
   MoreHorizontalIcon,
   PlusIcon,
+  ShareIcon,
+  ShieldOffIcon,
+  ShieldXIcon,
 } from "lucide-react-native";
 
 import { Translation } from "~/components/translation";
@@ -148,13 +156,28 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     const options = [
       "Share profile",
       "Translate bio",
+      "Add to list",
       profile.viewer?.muted ? "Unmute account" : "Mute account",
       profile.viewer?.blocking ? "Unblock account" : "Block account",
       "Report account",
     ] as const;
+    const icons = [
+      ShareIcon,
+      LanguagesIcon,
+      ListPlusIcon,
+      profile.viewer?.muted ? MegaphoneIcon : MegaphoneOffIcon,
+      profile.viewer?.blocking ? ShieldOffIcon : ShieldXIcon,
+      FlagIcon,
+    ];
     showActionSheetWithOptions(
       {
         options: [...options, "Cancel"],
+        icons: [
+          ...icons.map((Icon, i) => (
+            <Icon key={i} size={24} color={theme.colors.text} />
+          )),
+          <></>,
+        ],
         cancelButtonIndex: options.length,
         ...actionSheetStyles(theme),
       },
@@ -174,6 +197,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           }
           case "Translate bio":
             setTranslateBio(true);
+            break;
+          case "Add to list":
+            router.push(`/add-to-list/${profile.did}`);
             break;
           case "Mute account":
             muteAccount(agent, profile.handle, profile.did, queryClient);

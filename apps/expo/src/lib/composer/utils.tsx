@@ -379,16 +379,19 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
         images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
-      const icons = [
-        <CameraIcon key={0} size={24} color={theme.colors.text} />,
-        <ImageIcon key={1} size={24} color={theme.colors.text} />,
-        <SearchIcon key={2} size={24} color={theme.colors.text} />,
-        <></>,
-      ];
+      const icons =
+        images.length === 0
+          ? [CameraIcon, ImageIcon, SearchIcon]
+          : [CameraIcon, ImageIcon];
       showActionSheetWithOptions(
         {
           options,
-          icons,
+          icons: [
+            ...icons.map((Icon, i) => (
+              <Icon key={i} size={24} color={theme.colors.text} />
+            )),
+            <></>,
+          ],
           cancelButtonIndex: options.length - 1,
           anchor:
             (anchorRef?.current && findNodeHandle(anchorRef.current)) ??

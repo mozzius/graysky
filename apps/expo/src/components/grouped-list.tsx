@@ -212,12 +212,11 @@ export const Row = ({
       {icon &&
         (Icon ? (
           <Icon
-            size={24}
             color={destructive ? "#ef4444" : theme.colors.primary}
-            className={cx(disabled && "opacity-50")}
+            className={cx("w-6", disabled && "opacity-50")}
           />
         ) : (
-          <View style={{ width: 24 }} />
+          <View className="w-6" />
         ))}
       <View
         className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}

@@ -346,10 +346,20 @@ const App = () => {
                               options={{
                                 title: "Edit Profile",
                                 presentation: "modal",
-                                headerTransparent: Platform.select({
-                                  ios: true,
-                                  default: false,
-                                }),
+                              }}
+                            />
+                            <Stack.Screen
+                              name="create-list"
+                              options={{
+                                title: "Create List",
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="add-to-list/[handle]"
+                              options={{
+                                title: "Add to List",
+                                presentation: "modal",
                               }}
                             />
                           </Stack>
