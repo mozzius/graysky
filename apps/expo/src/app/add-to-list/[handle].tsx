@@ -1,17 +1,11 @@
-import { useCallback, useMemo } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useCallback } from "react";
+import { ActivityIndicator, Platform, TouchableOpacity } from "react-native";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { type AppBskyGraphDefs } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckIcon, ListPlusIcon, PlusIcon } from "lucide-react-native";
 
-import { Avatar } from "~/components/avatar";
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { StatusBar } from "~/components/status-bar";
