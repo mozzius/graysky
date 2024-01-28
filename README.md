@@ -34,7 +34,7 @@ pnpm dev
 
 - [ ] Change handle
   - [ ] own domain
-  - [ ] bsky.social
+  - [x] bsky.social
   - [ ] community handles
 - [ ] Push notifications
 - [ ] Drafts
