@@ -21,7 +21,6 @@ import {
   CheckIcon,
   FileXIcon,
   HeartIcon,
-  InfoIcon,
   ShieldXIcon,
   Trash2Icon,
 } from "lucide-react-native";
@@ -405,8 +404,7 @@ const ViewBlocked = ({ depth }: { depth: number }) => {
       }}
     >
       <ShieldXIcon size={16} color={theme.colors.text} />
-      <Text className="mx-2">This post is blocked</Text>
-      <InfoIcon size={14} color={theme.colors.primary} />
+      <Text className="ml-2">This post is blocked</Text>
     </View>
   );
 };
