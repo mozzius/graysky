@@ -385,7 +385,7 @@ const ViewNotFound = ({ depth }: { depth: number }) => {
       }}
     >
       <Trash2Icon size={16} color={theme.colors.text} />
-      <Text className="ml-2">This post has been deleted</Text>
+      <Text className="ml-2">Deleted post</Text>
     </View>
   );
 };
