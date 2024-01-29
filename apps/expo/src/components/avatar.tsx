@@ -4,6 +4,7 @@ import { Image, type ImageProps, type ImageStyle } from "expo-image";
 import { useTheme } from "@react-navigation/native";
 import { UserCircle } from "lucide-react-native";
 import { ErrorBoundary } from "react-error-boundary";
+import colors from "tailwindcss/colors";
 
 import { useSelf } from "~/app/settings/account";
 import { cx } from "~/lib/utils/cx";
@@ -136,11 +137,7 @@ const AvatarInner = ({
 
   return (
     <View className={className} accessibilityLabel={alt} style={style}>
-      <UserCircle
-        size={iconSize}
-        color={theme.colors.text}
-        className="opacity-50"
-      />
+      <UserCircle size={iconSize} color={colors.neutral[500]} />
     </View>
   );
 };
