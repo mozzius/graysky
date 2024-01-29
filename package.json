@@ -16,7 +16,6 @@
   "pnpm": {
     "patchedDependencies": {
       "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
-      "react-native@0.73.2": "patches/react-native@0.73.2.patch",
       "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch",
       "expo-quick-actions@0.2.8": "patches/expo-quick-actions@0.2.8.patch"
     },
