@@ -87,14 +87,14 @@ export const FeedsButton = ({ show = true }: Props) => {
             className="flex-1 rounded-full"
           >
             <View
-              className="flex-1 flex-row items-center rounded-full border p-3"
+              className="flex-1 flex-row items-center rounded-full border py-2 pl-2.5 pr-2"
               style={{
                 backgroundColor: theme.colors.card,
                 borderColor: theme.colors.border,
               }}
             >
               <CloudyIcon size={24} color={theme.colors.text} />
-              <Text className="ml-4 mr-2 text-base">My Feeds</Text>
+              <Text className="ml-3 mr-2 text-base">My Feeds</Text>
             </View>
           </TouchableHighlight>
         </Animated.View>
