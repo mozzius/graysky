@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   Alert,
   Platform,
@@ -6,9 +6,12 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from "react-native";
 import * as Tabs from "react-native-collapsible-tab-view";
 import { RefreshControl } from "react-native-gesture-handler";
+import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -23,6 +26,7 @@ import {
 import { MoreHorizontalIcon } from "lucide-react-native";
 
 import { FeedPost } from "~/components/feed-post";
+import { FeedsButton } from "~/components/feeds-button";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PostAvatar } from "~/components/post-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
@@ -275,7 +279,7 @@ const ListHeader = ({
       }
       break;
     case AppBskyGraphDefs.CURATELIST:
-      purposeText = "Curation list";
+      purposeText = "User list";
       purposeClass = "bg-blue-500";
       actionText = "Add to favourites";
       actionClass = "bg-blue-500";
@@ -292,7 +296,7 @@ const ListHeader = ({
       const options = [
         info.purpose === AppBskyGraphDefs.CURATELIST
           ? "Change to moderation list"
-          : "Change to curation list",
+          : "Change to user list",
         "Share",
         "Delete list",
       ] as const;
@@ -334,7 +338,7 @@ const ListHeader = ({
                 }),
               );
               break;
-            case "Change to curation list":
+            case "Change to user list":
               // unmute and unblock before changing type
               if (info.viewer?.muted) {
                 await agent.unmuteModList(info.uri);
@@ -532,6 +536,9 @@ const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
 const ListFeed = ({ uri }: { uri: string }) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
+  const [scrollDir, setScrollDir] = useState(0);
+
+  const scrollY = Tabs.useCurrentTabScrollY();
 
   const query = useInfiniteQuery({
     queryKey: ["list", uri, "feed"],
@@ -550,7 +557,22 @@ const ListFeed = ({ uri }: { uri: string }) => {
   const [ref, onScroll] = useTabPressScrollRef<{
     item: AppBskyFeedDefs.FeedViewPost;
     filter: FilterResult;
-  }>(query.refetch);
+  }>(query.refetch, { setScrollDir });
+
+  const onScrollWorkaround = useCallback(
+    (num: number) =>
+      onScroll({
+        nativeEvent: { contentOffset: { y: num, x: 0 } },
+      } as NativeSyntheticEvent<NativeScrollEvent>),
+    [onScroll],
+  );
+
+  useAnimatedReaction(
+    () => scrollY.value,
+    (scrollY) => runOnJS(onScrollWorkaround)(scrollY),
+    [scrollY],
+  );
+
   const { handleRefresh, refreshing, tintColor } = useUserRefresh(
     query.refetch,
   );
@@ -567,43 +589,46 @@ const ListFeed = ({ uri }: { uri: string }) => {
 
   if (query.data) {
     return (
-      <Tabs.FlashList<{
-        item: AppBskyFeedDefs.FeedViewPost;
-        filter: FilterResult;
-      }>
-        estimatedItemSize={264}
-        contentInsetAdjustmentBehavior="automatic"
-        ref={ref}
-        onScroll={onScroll}
-        data={data}
-        renderItem={({ item }) => (
-          <FeedPost
-            {...item}
-            inlineParent
-            dataUpdatedAt={query.dataUpdatedAt}
-          />
-        )}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={tintColor}
-          />
-        }
-        ListEmptyComponent={
-          <View className="flex-1 items-center justify-center p-8">
-            <Text className="text-center text-neutral-500 dark:text-neutral-400">
-              This list is empty
-            </Text>
-          </View>
-        }
-        ListFooterComponent={
-          <ListFooterComponent
-            query={query}
-            hideEmptyMessage={data.length === 0}
-          />
-        }
-      />
+      <>
+        <Tabs.FlashList<{
+          item: AppBskyFeedDefs.FeedViewPost;
+          filter: FilterResult;
+        }>
+          estimatedItemSize={264}
+          contentInsetAdjustmentBehavior="automatic"
+          ref={ref}
+          data={data}
+          renderItem={({ item }) => (
+            <FeedPost
+              {...item}
+              inlineParent
+              dataUpdatedAt={query.dataUpdatedAt}
+            />
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={tintColor}
+            />
+          }
+          ListEmptyComponent={
+            <View className="flex-1 items-center justify-center p-8">
+              <Text className="text-center text-neutral-500 dark:text-neutral-400">
+                This list is empty
+              </Text>
+            </View>
+          }
+          ListFooterComponent={
+            <ListFooterComponent
+              query={query}
+              hideEmptyMessage={data.length === 0}
+            />
+          }
+        />
+
+        {scrollDir <= 0 && <FeedsButton />}
+      </>
     );
   }
 

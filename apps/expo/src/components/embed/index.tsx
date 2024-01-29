@@ -157,7 +157,7 @@ export const Embed = ({
               purposeText = "Moderation list";
               break;
             case AppBskyGraphDefs.CURATELIST:
-              purposeText = "Curation list";
+              purposeText = "User list";
               break;
           }
           return (

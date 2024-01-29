@@ -31,7 +31,7 @@ import { cx } from "~/lib/utils/cx";
 import { Text } from "./themed/text";
 
 interface Props {
-  feed: AppBskyFeedDefs.GeneratorView;
+  feed: AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView;
   children?: React.ReactNode;
   large?: boolean;
   onPress?: () => void;
@@ -51,8 +51,30 @@ export const FeedRow = ({
   const theme = useTheme();
   const path = useAbsolutePath();
   const pathname = usePathname();
+
+  let segment;
+  let name;
+  let likes;
+  let purpose;
+  if (sketchyIsGeneratorView(feed)) {
+    segment = "feed";
+    name = feed.displayName;
+    likes = `, ${feed.likeCount} likes`;
+  } else {
+    segment = "lists";
+    name = feed.name;
+    switch (feed.purpose) {
+      case "app.bsky.graph.defs#curatelist":
+        purpose = "User list";
+        break;
+      case "app.bsky.graph.defs#modlist":
+        purpose = "Moderation list";
+        break;
+    }
+  }
+
   const href = path(
-    `/profile/${feed.creator.did}/feed/${feed.uri.split("/").pop()}`,
+    `/profile/${feed.creator.did}/${segment}/${feed.uri.split("/").pop()}`,
   );
 
   return (
@@ -68,8 +90,8 @@ export const FeedRow = ({
       }}
       accessibilityLabel={
         large
-          ? `${feed.displayName} feed by @${feed.creator.handle}, ${feed.likeCount} likes`
-          : `${feed.displayName} feed`
+          ? `${name} feed by @${feed.creator.handle}${likes}`
+          : `${name} feed`
       }
       accessibilityRole="link"
     >
@@ -82,7 +104,7 @@ export const FeedRow = ({
           <Image
             source={{ uri: feed.avatar }}
             recyclingKey={feed.avatar}
-            alt={feed.displayName}
+            alt={name}
             className={cx(
               "shrink-0 items-center justify-center rounded bg-blue-500",
               large ? "h-10 w-10" : "h-6 w-6",
@@ -99,7 +121,7 @@ export const FeedRow = ({
         <View className="mx-3 flex-1 flex-row items-center">
           <View>
             <Text className="text-base" numberOfLines={1}>
-              {feed.displayName}
+              {name}
             </Text>
             {large && (
               <Text
@@ -109,25 +131,31 @@ export const FeedRow = ({
                 )}
                 numberOfLines={1}
               >
-                <HeartIcon
-                  fill="currentColor"
-                  className={
-                    feed.viewer?.like
-                      ? "text-red-500"
-                      : theme.dark
-                        ? "text-neutral-500"
-                        : "text-neutral-400"
-                  }
-                  size={12}
-                />{" "}
-                <Text
-                  className={
-                    theme.dark ? "text-neutral-400" : "text-neutral-500"
-                  }
-                  style={{ fontVariant: ["tabular-nums"] }}
-                >
-                  {feed.likeCount ?? 0}
-                </Text>{" "}
+                {sketchyIsGeneratorView(feed) ? (
+                  <>
+                    <HeartIcon
+                      fill="currentColor"
+                      className={
+                        feed.viewer?.like
+                          ? "text-red-500"
+                          : theme.dark
+                            ? "text-neutral-500"
+                            : "text-neutral-400"
+                      }
+                      size={12}
+                    />{" "}
+                    <Text
+                      className={
+                        theme.dark ? "text-neutral-400" : "text-neutral-500"
+                      }
+                      style={{ fontVariant: ["tabular-nums"] }}
+                    >
+                      {feed.likeCount ?? 0}
+                    </Text>
+                  </>
+                ) : (
+                  purpose
+                )}{" "}
                 • @{feed.creator.handle}
               </Text>
             )}
@@ -319,3 +347,10 @@ export const DraggableFeedRow = ({
     </ShadowDecorator>
   );
 };
+
+// no $type, so we need to make a sketchy guess based on ATURI
+function sketchyIsGeneratorView(
+  feed: AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView,
+): feed is AppBskyFeedDefs.GeneratorView {
+  return feed.uri.includes("app.bsky.feed.generator");
+}

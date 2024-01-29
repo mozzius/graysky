@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { TouchableHighlight, useWindowDimensions, View } from "react-native";
 import Animated, {
   FadeInDown,
@@ -19,6 +19,7 @@ import {
   CloudIcon,
   CloudyIcon,
 } from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
@@ -130,20 +131,26 @@ const SheetContent = ({
   dismiss: () => void;
 }) => {
   const theme = useTheme();
-  const [{ sortableFeeds, homepage, defaultFeed }] = useAppPreferences();
+  const [{ sortableFeeds, homepage, defaultFeed, listsAboveFeeds }] =
+    useAppPreferences();
 
   const { pinned, saved } = useReorderFeeds(feeds);
 
   const pathname = usePathname();
   const path = useAbsolutePath();
 
-  if (feeds.data) {
-    if (feeds.data.feeds.length === 0) {
-      return <NoFeeds />;
-    }
-
+  const sections = useMemo(() => {
+    if (!feeds.data) return [];
     const favs = pinned
-      .map((uri) => feeds.data.feeds.find((f) => f.uri === uri)!)
+      .map((uri) => {
+        if (uri.includes("app.bsky.feed.generator")) {
+          return feeds.data.feeds.find((f) => f.uri === uri)!;
+        } else if (uri.includes("app.bsky.graph.list")) {
+          return feeds.data.lists.find((f) => f.uri === uri)!;
+        } else {
+          return null as never;
+        }
+      })
       .filter(Boolean);
 
     const all = sortableFeeds
@@ -154,18 +161,38 @@ const SheetContent = ({
           .filter((feed) => !feed.pinned)
           .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
+    const favourites = [
+      {
+        title: "Favourites",
+        data: favs,
+      },
+    ];
+    const listsAndFeeds = [
+      {
+        title: "All feeds",
+        data: all,
+      },
+      {
+        title: "My lists",
+        data: feeds.data.lists.filter((x) => x && !x.pinned),
+      },
+    ];
+
+    if (listsAboveFeeds) {
+      listsAndFeeds.reverse();
+    }
+
+    return favourites.concat(listsAndFeeds);
+  }, [feeds.data, listsAboveFeeds, pinned, saved, sortableFeeds]);
+
+  if (feeds.data) {
+    if (feeds.data.feeds.length === 0) {
+      return <NoFeeds />;
+    }
+
     return (
       <BottomSheetSectionList
-        sections={[
-          {
-            title: "Favourites",
-            data: favs,
-          },
-          {
-            title: "All feeds",
-            data: all,
-          },
-        ]}
+        sections={sections}
         renderItem={({ item }) => {
           const itemPathname = path(
             `/profile/${item.creator.did}/feed/${item.uri.split("/").pop()}`,
@@ -184,7 +211,7 @@ const SheetContent = ({
               feed={item}
               onPress={dismiss}
               right={
-                active ? (
+                active && (
                   <CircleDotIcon
                     size={20}
                     className={cx(
@@ -192,8 +219,6 @@ const SheetContent = ({
                       theme.dark ? "text-neutral-200" : "text-neutral-400",
                     )}
                   />
-                ) : (
-                  <></>
                 )
               }
             />
@@ -239,15 +264,22 @@ const SheetContent = ({
               <TouchableHighlight className="overflow-hidden rounded-lg">
                 <View
                   className="flex-row items-center justify-between p-4"
-                  style={{ backgroundColor: theme.colors.primary }}
+                  style={{
+                    backgroundColor: theme.dark
+                      ? colors.neutral[800]
+                      : theme.colors.background,
+                  }}
                 >
                   <View className="flex-row items-center">
-                    <CloudyIcon size={24} className="text-white" />
-                    <Text className="ml-4 text-base text-white">
+                    <CloudyIcon size={24} color={theme.colors.text} />
+                    <Text
+                      className="ml-4 text-base"
+                      style={{ color: theme.colors.text }}
+                    >
                       Manage my feeds
                     </Text>
                   </View>
-                  <ChevronRightIcon size={20} className="text-neutral-50" />
+                  <ChevronRightIcon size={20} color={theme.colors.text} />
                 </View>
               </TouchableHighlight>
             </Link>

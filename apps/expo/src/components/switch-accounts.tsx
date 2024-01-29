@@ -86,8 +86,6 @@ export function SwitchAccounts({
     },
   });
 
-  console.log("aoijsdjaoisd");
-
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}

@@ -79,7 +79,7 @@ const ListItem = ({
       purposeText = "Moderation list";
       break;
     case AppBskyGraphDefs.CURATELIST:
-      purposeText = "Curation list";
+      purposeText = "User list";
       purposeClass = "bg-blue-500";
       break;
   }
