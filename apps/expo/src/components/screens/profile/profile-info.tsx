@@ -1,7 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   Platform,
   Share,
   TouchableOpacity,
@@ -43,6 +42,7 @@ import {
   ShieldXIcon,
 } from "lucide-react-native";
 
+import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import {
@@ -658,7 +658,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
                   : "You have muted this user"}
               </Text>
-              <Button
+              <TextButton
                 title={profile.viewer.mutedByList ? "View" : "Unmute"}
                 onPress={() => {
                   if (profile.viewer?.mutedByList) {
@@ -687,7 +687,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   ? `This user is on the "${profile.viewer.blockingByList.name}" block list`
                   : "You have blocked this user"}
               </Text>
-              <Button
+              <TextButton
                 title={profile.viewer.blockingByList ? "View" : "Unblock"}
                 onPress={() => {
                   if (profile.viewer?.blockingByList) {
