@@ -57,7 +57,7 @@ export const appPreferencesStore = create<AppPreferences>()(
   }),
 );
 
-const createHookName = <T extends string>(str: T) =>
+const createHookName = (str: string) =>
   "use" + str.at(0)?.toUpperCase() + str.slice(1);
 
 function createSelectorHooks() {
