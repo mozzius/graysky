@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
@@ -8,6 +7,7 @@ import { create, useStore } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 import { produce } from "../utils/produce";
+import { store } from "./storage";
 
 export const appPrefsSchema = z.object({
   // feeds
@@ -44,15 +44,13 @@ export const appPrefsSchema = z.object({
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;
 
-const storage = new MMKV({ id: "app-prefs" });
-
 export const appPreferencesStore = create<AppPreferences>()(
   persist(() => ({ ...appPrefsSchema.parse({}) }), {
-    name: "app-preferences",
+    name: "app-prefs",
     storage: createJSONStorage(() => ({
-      setItem: (name, value) => storage.set(name, value),
-      getItem: (name) => storage.getString(name) ?? null,
-      removeItem: (name) => storage.delete(name),
+      setItem: (name, value) => store.set(name, value),
+      getItem: (name) => store.getString(name) ?? null,
+      removeItem: (name) => store.delete(name),
     })),
   }),
 );
