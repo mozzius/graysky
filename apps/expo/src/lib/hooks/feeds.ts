@@ -15,7 +15,11 @@ import {
 
 import { getFeedViewPref } from "~/app/settings/feed";
 import { useAgent } from "../agent";
-import { useDefaultFeed, useHomepage } from "../storage/app-preferences";
+import {
+  useContentLanguages,
+  useDefaultFeed,
+  useHomepage,
+} from "../storage/app-preferences";
 import { produce } from "../utils/produce";
 import { useContentFilter, useHaptics } from "./preferences";
 
@@ -237,9 +241,10 @@ export const useTimeline = (feed: string) => {
   const { contentFilter, preferences } = useContentFilter();
   const defaultFeed = useDefaultFeed();
   const homepage = useHomepage();
+  const contentLanguages = useContentLanguages();
 
   const timeline = useInfiniteQuery({
-    queryKey: ["timeline", feed],
+    queryKey: ["timeline", feed, contentLanguages],
     queryFn: async ({ pageParam }) => {
       let cursor;
       let posts = [];
@@ -250,10 +255,13 @@ export const useTimeline = (feed: string) => {
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       } else {
-        const timeline = await agent.app.bsky.feed.getFeed({
-          feed,
-          cursor: pageParam,
-        });
+        const timeline = await agent.app.bsky.feed.getFeed(
+          {
+            feed,
+            cursor: pageParam,
+          },
+          { headers: { "Accept-Language": contentLanguages.join(",") } },
+        );
         if (!timeline.success) throw new Error("Failed to fetch feed");
         ({ cursor, feed: posts } = timeline.data);
       }
