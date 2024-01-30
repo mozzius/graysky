@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-30 v1.3.5
+
+- Added support for creating lists
+- Added support for adding/removing users from lists
+- Added lists to the "My Feeds" popup
+- Reworked embeds to support all embed types and content warnings
+
 ## 2024-1-28 v1.3.4
 
 - Added avatar/banner photo upload to Edit Profile screen
