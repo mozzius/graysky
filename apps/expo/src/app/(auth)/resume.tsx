@@ -3,7 +3,7 @@ import { Redirect } from "expo-router";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { store } from "~/lib/storage";
+import { store } from "~/lib/storage/storage";
 import {
   SwitchAccounts,
   type SavedSession,

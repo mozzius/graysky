@@ -18,7 +18,7 @@ import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
-import { store } from "~/lib/storage";
+import { store } from "~/lib/storage/storage";
 import { cx } from "~/lib/utils/cx";
 import { Avatar } from "./avatar";
 
