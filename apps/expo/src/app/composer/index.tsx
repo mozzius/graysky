@@ -58,11 +58,12 @@ import {
   useSendPost,
 } from "~/lib/composer/utils";
 import { useControlledKeyboard } from "~/lib/hooks/keyboard-modifiers";
+import { useContentFilter, useHaptics } from "~/lib/hooks/preferences";
 import {
-  useAppPreferences,
-  useContentFilter,
-  useHaptics,
-} from "~/lib/hooks/preferences";
+  useAltText,
+  useMostRecentLanguage,
+  usePrimaryLanguage,
+} from "~/lib/storage/app-preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
@@ -95,8 +96,11 @@ export default function ComposerScreen() {
   const agent = useAgent();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const [{ primaryLanguage, mostRecentLanguage, altText: altTextSetting }] =
-    useAppPreferences();
+
+  const primaryLanguage = usePrimaryLanguage();
+  const mostRecentLanguage = useMostRecentLanguage();
+  const altTextSetting = useAltText();
+
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);

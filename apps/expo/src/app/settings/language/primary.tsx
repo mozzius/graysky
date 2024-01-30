@@ -5,13 +5,18 @@ import { CheckIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import {
+  useContentLanguages,
+  usePrimaryLanguage,
+  useSetAppPreferences,
+} from "~/lib/storage/app-preferences";
 import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
 
 export default function PrimaryLanguageSettings() {
-  const [{ primaryLanguage, contentLanguages }, setAppPrefs] =
-    useAppPreferences();
+  const primaryLanguage = usePrimaryLanguage();
+  const contentLanguages = useContentLanguages();
+  const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
   const router = useRouter();
 
@@ -38,7 +43,7 @@ export default function PrimaryLanguageSettings() {
               ).map((lang) => ({
                 title: lang.name,
                 onPress: () => {
-                  setAppPrefs({
+                  setAppPreferences({
                     primaryLanguage: lang.code2,
                     contentLanguages: contentLanguages.includes(lang.code2)
                       ? contentLanguages

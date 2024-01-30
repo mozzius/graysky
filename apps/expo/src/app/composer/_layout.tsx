@@ -11,7 +11,10 @@ import {
   ComposerStateProvider,
   type ComposerState,
 } from "~/lib/composer/state";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import {
+  useMostRecentLanguage,
+  usePrimaryLanguage,
+} from "~/lib/storage/app-preferences";
 
 export default function ComposerLayout() {
   const theme = useTheme();
@@ -21,7 +24,8 @@ export default function ComposerLayout() {
     reply: string;
     quote: string;
   }>();
-  const [{ mostRecentLanguage, primaryLanguage }] = useAppPreferences();
+  const mostRecentLanguage = useMostRecentLanguage();
+  const primaryLanguage = usePrimaryLanguage();
 
   const state = useState<ComposerState>({
     labels: [],

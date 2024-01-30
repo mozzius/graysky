@@ -1,4 +1,4 @@
-import { startTransition, useState } from "react";
+import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
@@ -6,16 +6,22 @@ import { CheckIcon } from "lucide-react-native";
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useComposerState } from "~/lib/composer/state";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import {
+  useContentLanguages,
+  useMostRecentLanguage,
+  usePrimaryLanguage,
+  useSetAppPreferences,
+} from "~/lib/storage/app-preferences";
 import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
 import { produce } from "~/lib/utils/produce";
 
 export default function PostLanguage() {
-  const [
-    { primaryLanguage, mostRecentLanguage, contentLanguages },
-    setAppPrefs,
-  ] = useAppPreferences();
+  const primaryLanguage = usePrimaryLanguage();
+  const mostRecentLanguage = useMostRecentLanguage();
+  const contentLanguages = useContentLanguages();
+  const setAppPreferences = useSetAppPreferences();
+
   const theme = useTheme();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -38,11 +44,7 @@ export default function PostLanguage() {
   );
 
   const selectLanguage = (lang: string) => {
-    startTransition(() => {
-      setAppPrefs({
-        mostRecentLanguage: lang,
-      });
-    });
+    setAppPreferences({ mostRecentLanguage: lang });
     setComposerState(
       produce((draft) => {
         draft.languages = [lang];

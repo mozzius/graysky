@@ -14,7 +14,7 @@ import { useTheme } from "@react-navigation/native";
 import { LinkIcon, NewspaperIcon } from "lucide-react-native";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import { useGifAutoplay } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { Text } from "../themed/text";
 
@@ -197,7 +197,7 @@ const Gif = ({
 }: GifProps) => {
   const theme = useTheme();
   const [aspectRatio, setAspectRatio] = useState(1);
-  const [{ gifAutoplay }] = useAppPreferences();
+  const gifAutoplay = useGifAutoplay();
   const [playing, setPlaying] = useState(gifAutoplay);
   const videoRef = useRef<Video>(null);
   const imageRef = useRef<Image>(null);

@@ -3,15 +3,20 @@ import { Switch } from "react-native-gesture-handler";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/purchases";
+import {
+  useContentLanguages,
+  usePrimaryLanguage,
+  useSetAppPreferences,
+  useTranslationMethod,
+} from "~/lib/storage/app-preferences";
 import { LANGUAGES } from "~/lib/utils/locale/languages";
 
 export default function LanguageSettings() {
-  const [
-    { primaryLanguage, contentLanguages, translationMethod },
-    setAppPrefs,
-  ] = useAppPreferences();
+  const primaryLanguage = usePrimaryLanguage();
+  const contentLanguages = useContentLanguages();
+  const translationMethod = useTranslationMethod();
+  const setAppPreferences = useSetAppPreferences();
   const isPro = useIsPro();
 
   const translationService = isPro ? translationMethod : "GOOGLE";
@@ -72,7 +77,7 @@ export default function LanguageSettings() {
                   <Switch
                     value={translationService === "DEEPL"}
                     onValueChange={(useDeepL) => {
-                      setAppPrefs({
+                      setAppPreferences({
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
                       });
                     }}

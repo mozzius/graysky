@@ -30,7 +30,8 @@ import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
+import { useHomepage } from "~/lib/storage/app-preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
 export default function AppLayout() {
@@ -70,7 +71,7 @@ export default function AppLayout() {
   const segments = useSegments();
   const router = useRouter();
 
-  const [{ homepage }] = useAppPreferences();
+  const homepage = useHomepage();
 
   const accountRef = useRef<BottomSheetModal>(null);
   const { top } = useSafeAreaInsets();

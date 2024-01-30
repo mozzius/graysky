@@ -15,7 +15,8 @@ import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
+import { useGroupNotifications } from "~/lib/storage/app-preferences";
 import { useRefreshOnFocus, useUserRefresh } from "~/lib/utils/query";
 
 export interface NotificationGroup {
@@ -32,7 +33,7 @@ function Notifications() {
   const queryClient = useQueryClient();
   const [nonScrollRefreshing, setNonScrollRefreshing] = useState(false);
   const haptics = useHaptics();
-  const [{ groupNotifications }] = useAppPreferences();
+  const groupNotifications = useGroupNotifications();
 
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],

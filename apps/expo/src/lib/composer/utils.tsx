@@ -36,7 +36,10 @@ import RNFetchBlob from "rn-fetch-blob";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
-import { useAppPreferences } from "../hooks/preferences";
+import {
+  useMostRecentLanguage,
+  usePrimaryLanguage,
+} from "../storage/app-preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
 import { useComposerState } from "./state";
 
@@ -161,7 +164,8 @@ export const useSendPost = ({
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [{ primaryLanguage, mostRecentLanguage }] = useAppPreferences();
+  const primaryLanguage = usePrimaryLanguage();
+  const mostRecentLanguage = useMostRecentLanguage();
   const [{ labels, languages, gif, threadgate }] = useComposerState();
 
   return useMutation({

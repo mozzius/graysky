@@ -9,7 +9,10 @@ import { DarkTheme, DefaultTheme, useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import {
+  useAccentColor,
+  useSetAppPreferences,
+} from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
@@ -18,7 +21,8 @@ interface Props {
 }
 
 export const AccentColourSelect = ({ className, style }: Props) => {
-  const [{ accentColor }, setAppPrefs] = useAppPreferences();
+  const accentColor = useAccentColor();
+  const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
 
   return (
@@ -37,7 +41,7 @@ export const AccentColourSelect = ({ className, style }: Props) => {
       ].map((color) => (
         <TouchableOpacity
           key={color ?? "default"}
-          onPress={() => setAppPrefs({ accentColor: color })}
+          onPress={() => setAppPreferences({ accentColor: color })}
         >
           <View
             key={color}

@@ -4,11 +4,15 @@ import { useRouter } from "expo-router";
 import { AccentColourSelect } from "~/components/accent-colour-select";
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/purchases";
+import {
+  useSetAppPreferences,
+  useTranslationMethod,
+} from "~/lib/storage/app-preferences";
 
 export default function ProSettings() {
-  const [{ translationMethod }, setAppPrefs] = useAppPreferences();
+  const translationMethod = useTranslationMethod();
+  const setAppPreferences = useSetAppPreferences();
   const isPro = useIsPro();
   const router = useRouter();
 
@@ -28,7 +32,7 @@ export default function ProSettings() {
                   <Switch
                     value={translationMethod === "DEEPL"}
                     onValueChange={(useDeepL) => {
-                      setAppPrefs({
+                      setAppPreferences({
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
                       });
                     }}
