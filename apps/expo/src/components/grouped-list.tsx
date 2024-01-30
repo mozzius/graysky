@@ -5,6 +5,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  type AccessibilityRole,
   type ScrollViewProps,
 } from "react-native";
 import { Link } from "expo-router";
@@ -18,12 +19,12 @@ interface ListProps {
   options?: (
     | {
         title: string;
-        icon?: LucideIcon;
+        icon?: LucideIcon | "SPACE";
         href?: string;
         onPress?: () => void | Promise<void>;
         action?: React.ReactNode;
         destructive?: boolean;
-        accessibilityRole?: "link"; // todo: add more
+        accessibilityRole?: AccessibilityRole;
         chevron?: boolean;
         disabled?: boolean;
       }
@@ -34,7 +35,7 @@ interface ListProps {
   children?: React.ReactNode;
 }
 
-const ListGroup = ({ children, options = [] }: ListProps) => {
+export const ListGroup = ({ children, options = [] }: ListProps) => {
   const theme = useTheme();
   return (
     <View
@@ -81,7 +82,7 @@ const ListGroup = ({ children, options = [] }: ListProps) => {
                 </Link>
               ) : option.onPress && !option.disabled ? (
                 <TouchableHighlight
-                  onPress={() => void option.onPress?.()}
+                  onPress={() => option.onPress?.()}
                   accessibilityRole={option.accessibilityRole}
                 >
                   <View>{row}</View>
@@ -178,7 +179,7 @@ export const GroupedList = ({
 };
 
 interface RowProps {
-  icon?: LucideIcon;
+  icon?: LucideIcon | "SPACE";
   children?: React.ReactNode;
   chevron?: boolean;
   action?: React.ReactNode;
@@ -194,7 +195,7 @@ export const Row = ({
   destructive,
   disabled,
 }: RowProps) => {
-  const Icon = icon;
+  const Icon = icon === "SPACE" ? null : icon;
   const theme = useTheme();
   return (
     <View
@@ -208,13 +209,15 @@ export const Row = ({
       )}
       aria-disabled={disabled}
     >
-      {Icon && (
-        <Icon
-          size={24}
-          color={destructive ? "#ef4444" : theme.colors.primary}
-          className={cx(disabled && "opacity-50")}
-        />
-      )}
+      {icon &&
+        (Icon ? (
+          <Icon
+            color={destructive ? "#ef4444" : theme.colors.primary}
+            className={cx("w-6", disabled && "opacity-50")}
+          />
+        ) : (
+          <View className="w-6" />
+        ))}
       <View
         className={cx("mr-3 flex-1", icon && "ml-3", disabled && "opacity-50")}
       >

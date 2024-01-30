@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-1-30 v1.3.5
+
+- Added support for creating lists
+- Added support for adding/removing users from lists
+- Added lists to the "My Feeds" popup
+- Reworked embeds to support all embed types and content warnings
+
+## 2024-1-28 v1.3.4
+
+- Added avatar/banner photo upload to Edit Profile screen
+- Added basic support for changing your handle (bsky.social domain only)
+- Reenabled orientation unlock for Android tablets
+- Fixed back button triggering dismiss post popup in threadgate screen
+
+## 2024-1-26 v1.3.3
+
+- Added phone verification to signup
+- Added support for the upcoming account creation queue system
+- Fixed some oversized text
+
+## 2024-1-23 v1.3.2
+
+Fixed the threadgate, self-label, and language select lists
+
+## 2024-1-22 v1.3.1
+
+- Added threadgate support
+- Added self-labelling of nsfw images
+- Fixed bug with language selection
+
+## 2024-1-22 v1.3.0
+
+- GIFs are now compatible with the official app
+- (Android) You can access all photos from the photo picker (thanks @haileyok.com!)
+- Fixed likes tab not working for other users
+
+Note - it now asks for notification permission but we are still working on the notification backend, so no notifications are sent yet.
+
 ## 2023-12-17 v1.2.2
 
 - Translate bios and alt text

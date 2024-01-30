@@ -2,15 +2,21 @@ import { memo } from "react";
 import { View, type StyleProp } from "react-native";
 import { Image, type ImageProps, type ImageStyle } from "expo-image";
 import { useTheme } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
 import { UserCircle } from "lucide-react-native";
 import { ErrorBoundary } from "react-error-boundary";
+import colors from "tailwindcss/colors";
 
-import { useOptionalAgent } from "~/lib/agent";
+import { useSelf } from "~/app/settings/account";
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
-  size?: "extraLarge" | "large" | "medium" | "small" | "extraSmall";
+  size?:
+    | "extraLarge"
+    | "large"
+    | "medium"
+    | "smallMedium"
+    | "small"
+    | "extraSmall";
   uri?: string;
   alt?: string;
   self?: boolean;
@@ -33,6 +39,7 @@ const AvatarUnmemoized = ({ self, ...props }: Props) => {
             {
               "h-4 w-4": props.size === "extraSmall",
               "h-7 w-7": props.size === "small",
+              "h-8 w-8": props.size === "smallMedium",
               "h-10 w-10": props.size === "medium",
               "h-12 w-12": props.size === "large",
               "h-14 w-14": props.size === "extraLarge",
@@ -51,18 +58,7 @@ const AvatarUnmemoized = ({ self, ...props }: Props) => {
 export const Avatar = memo(AvatarUnmemoized);
 
 const SelfAvatar = ({ size = "large", alt, className, style }: Props) => {
-  const agent = useOptionalAgent();
-
-  const profile = useQuery({
-    queryKey: ["profile", agent?.session?.did],
-    queryFn: async () => {
-      if (!agent?.session) return null;
-      const profile = await agent.getProfile({
-        actor: agent.session.did,
-      });
-      return profile.data;
-    },
-  });
+  const profile = useSelf();
 
   const uri = profile.data?.avatar;
 
@@ -94,6 +90,7 @@ const AvatarInner = ({
     {
       "h-4 w-4": size === "extraSmall",
       "h-7 w-7": size === "small",
+      "h-8 w-8": size === "smallMedium",
       "h-10 w-10": size === "medium",
       "h-12 w-12": size === "large",
       "h-14 w-14": size === "extraLarge",
@@ -124,6 +121,9 @@ const AvatarInner = ({
     case "small":
       iconSize = 24;
       break;
+    case "smallMedium":
+      iconSize = 28;
+      break;
     case "medium":
       iconSize = 34;
       break;
@@ -137,11 +137,7 @@ const AvatarInner = ({
 
   return (
     <View className={className} accessibilityLabel={alt} style={style}>
-      <UserCircle
-        size={iconSize}
-        color={theme.colors.text}
-        className="opacity-50"
-      />
+      <UserCircle size={iconSize} color={colors.neutral[500]} />
     </View>
   );
 };

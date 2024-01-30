@@ -3,24 +3,25 @@
   "dependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
-    "@manypkg/cli": "^0.21.1",
+    "@manypkg/cli": "^0.21.2",
     "eslint": "^8.56.0",
-    "prettier": "^3.1.1",
-    "turbo": "^1.11.2",
+    "prettier": "^3.2.4",
+    "turbo": "^1.11.3",
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": ">=18.18.2"
+    "node": ">=18.19.0"
   },
-  "packageManager": "pnpm@8.12.1",
+  "packageManager": "pnpm@8.15.1",
   "pnpm": {
     "patchedDependencies": {
-      "nativewind@2.0.11": "patches/nativewind@2.0.11.patch",
-      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch"
+      "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
+      "react-native-svg@14.1.0": "patches/react-native-svg@14.1.0.patch",
+      "expo-quick-actions@0.2.8": "patches/expo-quick-actions@0.2.8.patch"
     },
     "overrides": {
-      "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0",
-      "sharp": "0.32.6"
+      "sharp": "0.32.6",
+      "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
     },
     "supportedArchitectures": {
       "os": [

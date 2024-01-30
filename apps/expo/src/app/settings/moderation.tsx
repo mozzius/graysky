@@ -201,10 +201,8 @@ export default function ModerationSettings() {
                           className="flex-row items-center"
                         >
                           <Text
-                            style={{
-                              color: theme.colors.primary,
-                            }}
                             className="text-base font-medium capitalize"
+                            primary
                           >
                             {visibility}
                           </Text>

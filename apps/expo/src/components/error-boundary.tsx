@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { ErrorBoundaryProps } from "expo-router";
+import { type ErrorBoundaryProps } from "expo-router";
 import { useTheme } from "@react-navigation/native";
+import * as Sentry from "@sentry/react-native";
 import { RefreshCcwIcon } from "lucide-react-native";
-import * as Sentry from "sentry-expo";
 
 import { Text } from "./themed/text";
 
@@ -11,7 +11,7 @@ export const ErrorBoundary = ({ error, retry }: ErrorBoundaryProps) => {
   const theme = useTheme();
 
   useEffect(() => {
-    Sentry.Native.captureException(error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (

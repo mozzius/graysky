@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -18,22 +18,22 @@ import Animated, {
   SlideOutUp,
 } from "react-native-reanimated";
 import { Image } from "expo-image";
-import {
-  Stack,
-  useLocalSearchParams,
-  useNavigation,
-  useRouter,
-} from "expo-router";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import {
   RichText as RichTextHelper,
-  type AppBskyEmbedExternal,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type PasteInputRef } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { CheckIcon, PlusIcon, XIcon } from "lucide-react-native";
+import {
+  CheckIcon,
+  PlusIcon,
+  ShieldAlertIcon,
+  ShieldPlusIcon,
+  XIcon,
+} from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
@@ -46,6 +46,7 @@ import { useAgent } from "~/lib/agent";
 import { AltTextEditor } from "~/lib/composer/alt-text-editor";
 import { CancelButton, PostButton } from "~/lib/composer/buttons";
 import { KeyboardAccessory } from "~/lib/composer/keyboard-accessory";
+import { useComposerState } from "~/lib/composer/state";
 import { SuggestionList } from "~/lib/composer/suggestion-list";
 import {
   MAX_IMAGES,
@@ -66,6 +67,7 @@ import {
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { getMentionAt, insertMentionAt } from "~/lib/utils/mention-suggest";
+import { produce } from "~/lib/utils/produce";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -102,38 +104,28 @@ export default function ComposerScreen() {
   const navigation = useNavigation();
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
+  const haptics = useHaptics();
 
-  const searchParams = useLocalSearchParams<{
-    gif: string;
-    langs: string;
-    reply: string;
-    quote: string;
-  }>();
+  const [
+    { initialText, gif, languages, reply: replyStr, quote: quoteStr },
+    setComposerState,
+  ] = useComposerState();
 
-  const gif = searchParams.gif
-    ? (JSON.parse(searchParams.gif) as {
-        view: AppBskyEmbedExternal.View;
-        main: AppBskyEmbedExternal.Main;
-      })
-    : null;
-  const languages = searchParams.langs?.split(",");
+  const reply = useReply(replyStr);
+  const quote = useQuote(quoteStr);
 
   const selectionRef = useRef<Selection>({
     start: 0,
     end: 0,
   });
-  const inputRef = useRef<PasteInputRef>(null!);
 
+  const inputRef = useRef<PasteInputRef>(null!);
   const anchorRef = useRef<TouchableHighlight>(null);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
   useControlledKeyboard();
 
-  const reply = useReply();
-  const quote = useQuote();
-  const haptics = useHaptics();
-
-  const [text, setText] = useState("");
+  const [text, setText] = useState(initialText ?? "");
 
   const { images, imagePicker, addAltText, removeImage, handlePaste } =
     useImages(anchorRef);
@@ -178,16 +170,22 @@ export default function ComposerScreen() {
   const send = useSendPost({
     text,
     images,
-    reply: reply.ref,
-    quote: quote.ref,
     external: external.query.data,
-    gif: gif?.main,
-    languages,
+    reply: reply?.ref,
+    quote: quote?.ref,
   });
 
   useEffect(() => {
     navigation.getParent()?.setOptions({ gestureEnabled: isEmpty });
   }, [navigation, isEmpty]);
+
+  const handleFocus = useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const handleSave = useCallback(() => {
+    Alert.alert("Not yet implemented");
+  }, []);
 
   if (editingAltText !== null) {
     const image = images[editingAltText]!;
@@ -213,10 +211,8 @@ export default function ComposerScreen() {
           headerLeft: () => (
             <CancelButton
               hasContent={!isEmpty}
-              onSave={() => Alert.alert("Not yet implemented")}
-              onCancel={() => {
-                inputRef.current.focus();
-              }}
+              onSave={handleSave}
+              onCancel={handleFocus}
               disabled={send.isPending}
             />
           ),
@@ -289,7 +285,7 @@ export default function ComposerScreen() {
         </Animated.View>
       )}
       <KeyboardAwareScrollView
-        className="py-4"
+        className="pt-4"
         alwaysBounceVertical={!isEmpty}
         keyboardShouldPersistTaps="always"
         bottomOffset={48 + 32}
@@ -338,7 +334,7 @@ export default function ComposerScreen() {
                   }
                 }}
                 multiline
-                className="relative -top-[3px] w-full text-lg leading-6"
+                className="relative -top-[3px] w-full max-w-full text-lg leading-6"
                 placeholder={
                   reply.thread.data
                     ? `Replying to @${reply.thread.data.post.author.handle}`
@@ -387,101 +383,108 @@ export default function ComposerScreen() {
         </Animated.View>
         {/* IMAGES */}
         {!gif && images.length > 0 && (
-          <Animated.ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            className="mt-4 w-full flex-1 pb-2 pl-16"
-            entering={FadeInDown}
-            exiting={FadeOut}
-            layout={LinearTransition}
-            keyboardShouldPersistTaps="always"
-          >
-            {images.map((image, i) => (
-              <Animated.View
-                key={image.asset.uri}
-                className={cx(
-                  "relative overflow-hidden rounded-md",
-                  i !== 3 && "mr-2",
-                )}
-                layout={LinearTransition}
-                exiting={FadeOutLeft}
-              >
-                <AnimatedImage
-                  // sharedTransitionTag={`image-${i}`}
-                  cachePolicy="memory"
-                  source={{ uri: image.asset.uri }}
-                  alt={image.alt ?? `image ${i + 1}`}
-                  className="h-44 rounded-md"
-                  style={{
-                    aspectRatio: Math.max(
-                      0.6,
-                      Math.min(image.asset.width / image.asset.height, 1.2),
-                    ),
-                  }}
-                />
-                <TouchableOpacity
-                  className="absolute left-2 top-2 z-10"
-                  onPress={() => {
-                    haptics.impact();
-                    setEditingAltText(i);
-                  }}
+          <>
+            <Animated.ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              className="mt-4 w-full flex-1 pb-2 pl-16"
+              entering={FadeInDown}
+              exiting={FadeOut}
+              layout={LinearTransition}
+              keyboardShouldPersistTaps="always"
+            >
+              {images.map((image, i) => (
+                <Animated.View
+                  key={image.asset.uri}
+                  className={cx(
+                    "relative overflow-hidden rounded-md",
+                    i !== 3 && "mr-2",
+                  )}
+                  layout={LinearTransition}
+                  exiting={FadeOutLeft}
                 >
-                  <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
-                    {image.alt ? (
-                      <CheckIcon size={14} color="white" />
-                    ) : (
-                      <PlusIcon size={14} color="white" />
-                    )}
-                    <Text className="ml-1 text-xs font-bold uppercase text-white">
-                      Alt
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="absolute right-2 top-2 z-10"
-                  onPress={() => {
-                    haptics.impact();
-                    removeImage(i);
-                  }}
-                >
-                  <View className="rounded-full bg-black/90 p-1">
-                    <XIcon size={14} color="white" />
-                  </View>
-                </TouchableOpacity>
-                {image.alt && (
-                  <View className="absolute bottom-0 left-0 right-0 z-10 bg-black/60 px-3 pb-2 pt-1">
-                    <Text
-                      numberOfLines={2}
-                      className="text-sm leading-[18px] text-white"
-                    >
-                      {image.alt}
-                    </Text>
-                  </View>
-                )}
-              </Animated.View>
-            ))}
-            {images.length < MAX_IMAGES && (
-              <Animated.View layout={LinearTransition} className="mr-20 flex-1">
-                <TouchableOpacity
-                  onPress={() => {
-                    haptics.impact();
-                    imagePicker.mutate();
-                  }}
-                >
-                  <View
-                    className="h-44 w-32 items-center justify-center rounded border"
+                  <AnimatedImage
+                    // sharedTransitionTag={`image-${i}`}
+                    cachePolicy="memory"
+                    source={{ uri: image.asset.uri }}
+                    alt={image.alt ?? `image ${i + 1}`}
+                    className="h-44 rounded-md"
                     style={{
-                      backgroundColor: theme.colors.card,
-                      borderColor: theme.colors.border,
+                      aspectRatio: Math.max(
+                        0.6,
+                        Math.min(image.asset.width / image.asset.height, 1.2),
+                      ),
+                    }}
+                  />
+                  <TouchableOpacity
+                    className="absolute left-2 top-2 z-10"
+                    onPress={() => {
+                      haptics.impact();
+                      setEditingAltText(i);
                     }}
                   >
-                    <PlusIcon color={theme.colors.text} />
-                    <Text className="mt-2 text-center">Add image</Text>
-                  </View>
-                </TouchableOpacity>
-              </Animated.View>
-            )}
-          </Animated.ScrollView>
+                    <View className="flex-row items-center rounded-full bg-black/90 px-2 py-[3px]">
+                      {image.alt ? (
+                        <CheckIcon size={14} color="white" />
+                      ) : (
+                        <PlusIcon size={14} color="white" />
+                      )}
+                      <Text className="ml-1 text-xs font-bold uppercase text-white">
+                        Alt
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    className="absolute right-2 top-2 z-10"
+                    onPress={() => {
+                      haptics.impact();
+                      removeImage(i);
+                    }}
+                  >
+                    <View className="rounded-full bg-black/90 p-1">
+                      <XIcon size={14} color="white" />
+                    </View>
+                  </TouchableOpacity>
+                  {image.alt && (
+                    <View className="absolute bottom-0 left-0 right-0 z-10 bg-black/60 px-3 pb-2 pt-1">
+                      <Text
+                        numberOfLines={2}
+                        className="text-sm leading-[18px] text-white"
+                      >
+                        {image.alt}
+                      </Text>
+                    </View>
+                  )}
+                </Animated.View>
+              ))}
+              {images.length < MAX_IMAGES && (
+                <Animated.View layout={LinearTransition} className="flex-1">
+                  <TouchableOpacity
+                    onPress={() => {
+                      haptics.impact();
+                      imagePicker.mutate();
+                    }}
+                  >
+                    <View
+                      className="h-44 w-32 items-center justify-center rounded border"
+                      style={{
+                        backgroundColor: theme.colors.card,
+                        borderColor: theme.colors.border,
+                      }}
+                    >
+                      <PlusIcon color={theme.colors.text} />
+                      <Text className="mt-2 text-center">Add image</Text>
+                    </View>
+                  </TouchableOpacity>
+                </Animated.View>
+              )}
+              {/* spacer */}
+              <View className="w-20" />
+            </Animated.ScrollView>
+            <AddContentWarning
+              onPress={() => router.push("/composer/content-warning")}
+            />
+          </>
         )}
         <Animated.View
           layout={LinearTransition}
@@ -496,7 +499,13 @@ export default function ComposerScreen() {
               exiting={FadeOutDown}
             >
               <TouchableOpacity
-                onPress={() => router.setParams({ ...searchParams, gif: "" })}
+                onPress={() =>
+                  setComposerState(
+                    produce((draft) => {
+                      delete draft.gif;
+                    }),
+                  )
+                }
                 className="absolute right-2 top-4 z-10 rounded-full"
               >
                 <View className="rounded-full bg-black/90 p-1">
@@ -566,10 +575,7 @@ export default function ComposerScreen() {
                           className="rounded-lg border px-3 py-2"
                         >
                           <Text numberOfLines={1} className="text-base">
-                            Add embed for{" "}
-                            <Text style={{ color: theme.colors.primary }}>
-                              {potential}
-                            </Text>
+                            Add embed for <Text primary>{potential}</Text>
                           </Text>
                         </View>
                       </TouchableHighlight>
@@ -587,14 +593,7 @@ export default function ComposerScreen() {
         language={
           languages?.join(", ") ?? mostRecentLanguage ?? primaryLanguage
         }
-        onPressLanguage={() => {
-          const search = new URLSearchParams();
-          if (searchParams.reply) search.append("reply", searchParams.reply);
-          if (searchParams.quote) search.append("quote", searchParams.quote);
-          if (searchParams.langs) search.append("langs", searchParams.langs);
-          if (searchParams.gif) search.append("gif", searchParams.gif);
-          router.push("/composer/language?" + search.toString());
-        }}
+        onPressLanguage={() => router.push("/composer/language")}
       />
     </View>
   );
@@ -633,4 +632,40 @@ const LoadableEmbed = ({
         </View>
       );
   }
+};
+
+const AddContentWarning = ({ onPress }: { onPress: () => void }) => {
+  const theme = useTheme();
+  const [{ labels }] = useComposerState();
+
+  const captialise = (str: string) =>
+    str.charAt(0).toUpperCase() + str.slice(1);
+
+  return (
+    <Animated.View
+      className="w-full flex-1 pl-16"
+      entering={FadeInDown.delay(500)}
+      exiting={FadeOut}
+      layout={LinearTransition}
+    >
+      <TouchableOpacity
+        className="flex-row items-center py-2"
+        onPress={onPress}
+      >
+        {labels.length > 0 ? (
+          <>
+            <ShieldAlertIcon size={18} color={theme.colors.primary} />
+            <Text className="ml-2 font-medium" primary>
+              {labels.map(captialise).join(", ")}
+            </Text>
+          </>
+        ) : (
+          <>
+            <ShieldPlusIcon size={18} color={theme.colors.text} />
+            <Text className="ml-2">Add a content warning</Text>
+          </>
+        )}
+      </TouchableOpacity>
+    </Animated.View>
+  );
 };

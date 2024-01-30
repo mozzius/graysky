@@ -1,10 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 import { Platform, useWindowDimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
-import { useMMKVObject } from "react-native-mmkv";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import * as Notifications from "expo-notifications";
+import * as Notifications from "expo-notifications";
 import { Stack, Tabs, useRouter, useSegments } from "expo-router";
 import {
   BottomSheetBackdrop,
@@ -26,16 +25,12 @@ import { BackButtonOverride } from "~/components/back-button-override";
 import { DrawerProvider } from "~/components/drawer/context";
 import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
-import {
-  SwitchAccounts,
-  type SavedSession,
-} from "~/components/switch-accounts";
+import { SwitchAccounts } from "~/components/switch-accounts";
 import { Text } from "~/components/themed/text";
 import { useOptionalAgent } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { store } from "~/lib/storage";
 import { useHomepage } from "~/lib/storage/app-preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
 
@@ -53,7 +48,7 @@ export default function AppLayout() {
       const unreadCount = await agent.countUnreadNotifications();
       if (!unreadCount.success)
         throw new Error("Failed to fetch notifications");
-      // await Notifications.setBadgeCountAsync(unreadCount.data.count);
+      await Notifications.setBadgeCountAsync(unreadCount.data.count);
       return unreadCount.data;
     },
     // refetch every 15 seconds
@@ -79,7 +74,6 @@ export default function AppLayout() {
   const homepage = useHomepage();
 
   const accountRef = useRef<BottomSheetModal>(null);
-  const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
   const { top } = useSafeAreaInsets();
   const {
     backgroundStyle,
@@ -120,7 +114,6 @@ export default function AppLayout() {
         </Text>
         <BottomSheetScrollView style={contentContainerStyle}>
           <SwitchAccounts
-            sessions={sessions ?? []}
             active={agent?.session?.did}
             onSuccessfulSwitch={dismissSheet}
           />
@@ -152,26 +145,6 @@ export default function AppLayout() {
           screenOptions={{
             headerShown: false,
             tabBarShowLabel: Platform.select({ android: false, ios: true }),
-          }}
-          screenListeners={{
-            // TODO: move to individual screens
-            // it's here because a previous version of expo-router
-            // didn't type the listerners correctly, so I couldn't
-            // figure out how to add it to the individual screens
-            tabPress: (evt) => {
-              if (evt.target?.startsWith("null")) {
-                evt.preventDefault();
-                if (agent?.hasSession) {
-                  router.push("/composer");
-                }
-              }
-            },
-            tabLongPress: (evt) => {
-              if (evt.target?.startsWith("(self)")) {
-                haptics.selection();
-                accountRef.current?.present();
-              }
-            },
           }}
         >
           <Tabs.Screen
@@ -205,6 +178,14 @@ export default function AppLayout() {
                 return <PenBox color={color} size={size} />;
               },
             }}
+            listeners={{
+              tabPress: (evt) => {
+                evt.preventDefault();
+                if (agent?.hasSession) {
+                  router.push("/composer");
+                }
+              },
+            }}
           />
           <Tabs.Screen
             name="(notifications)"
@@ -230,6 +211,12 @@ export default function AppLayout() {
               headerShown: false,
               tabBarIcon({ color, size }) {
                 return <UserIcon color={color} size={size} />;
+              },
+            }}
+            listeners={{
+              tabLongPress: () => {
+                haptics.selection();
+                accountRef.current?.present();
               },
             }}
           />

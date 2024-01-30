@@ -29,7 +29,7 @@ export default function Page() {
                 accessibilityLabel={editing ? "Stop editing" : "Edit feeds"}
               >
                 <Text
-                  style={{ color: theme.colors.primary }}
+                  primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
                   {editing ? "Done" : "Edit"}

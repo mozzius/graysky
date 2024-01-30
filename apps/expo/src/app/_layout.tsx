@@ -1,23 +1,31 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import {
+  Stack,
+  useNavigationContainerRef,
+  useRouter,
+  useSegments,
+} from "expo-router";
 import * as ScreenOrientation from "expo-screen-orientation";
+import * as SplashScreen from "expo-splash-screen";
 import {
   BskyAgent,
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as Sentry from "sentry-expo";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
+import { type SavedSession } from "~/components/switch-accounts";
 import { Toastable } from "~/components/toastable/toastable";
 import { AgentProvider } from "~/lib/agent";
 import {
@@ -30,37 +38,91 @@ import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { store } from "~/lib/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
-import { type SavedSession } from "../components/switch-accounts";
+
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
-  dsn: Constants.expoConfig?.extra?.sentry as string,
-  enableInExpoDevelopment: false,
-  integrations: [new Sentry.Native.ReactNativeTracing()],
+  enabled: !__DEV__,
+  debug: false,
+  // not a secret, but allow override
+  dsn:
+    (Constants.expoConfig?.extra?.sentry as string) ??
+    "https://76421919ff114625bfd275af5f843452@o4505343214878720.ingest.sentry.io/4505478653739008",
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      routingInstrumentation,
+    }),
+  ],
 });
 
-SplashScreen.preventAutoHideAsync();
+const useSentryTracing = () => {
+  const ref = useNavigationContainerRef();
 
-void Device.getDeviceTypeAsync().then((type) => {
-  if (type === Device.DeviceType.TABLET) {
-    void ScreenOrientation.unlockAsync();
-  }
-});
+  useEffect(() => {
+    if (ref) {
+      routingInstrumentation.registerNavigationContainer(ref);
+    }
+  }, [ref]);
+};
 
-interface Props {
-  session: AtpSessionData | null;
-  saveSession: (sess: AtpSessionData | null, agent?: BskyAgent) => void;
-}
+void SplashScreen.preventAutoHideAsync();
 
-const App = ({ session, saveSession }: Props) => {
+const App = () => {
   const segments = useSegments();
   const router = useRouter();
   const [invalidator, setInvalidator] = useState(0);
   const queryClient = useQueryClient();
   const [ready, setReady] = useState(false);
-
   const [agentUpdate, setAgentUpdate] = useState(0);
+  const [session, setSession] = useState(() => getSession());
 
-  useSetupQuickActions();
+  const saveSession = useCallback(
+    (sess: AtpSessionData | null, agent?: BskyAgent) => {
+      setSession(sess);
+      if (sess) {
+        store.set("session", JSON.stringify(sess));
+        if (agent) {
+          void agent.getProfile({ actor: sess.did }).then((res) => {
+            if (res.success) {
+              const sessions = store.getString("sessions");
+              if (sessions) {
+                const old = JSON.parse(sessions) as SavedSession[];
+                const newSessions = [
+                  {
+                    session: sess,
+                    did: sess.did,
+                    handle: res.data.handle,
+                    avatar: res.data.avatar,
+                    displayName: res.data.displayName,
+                    signedOut: false,
+                  },
+                  ...old.filter((s) => s.did !== sess.did),
+                ];
+                store.set("sessions", JSON.stringify(newSessions));
+              } else {
+                store.set(
+                  "sessions",
+                  JSON.stringify([
+                    {
+                      session: sess,
+                      did: sess.did,
+                      handle: res.data.handle,
+                      avatar: res.data.avatar,
+                      displayName: res.data.displayName,
+                      signedOut: false,
+                    },
+                  ] satisfies SavedSession[]),
+                );
+              }
+            }
+          });
+        }
+      } else {
+        store.delete("session");
+      }
+    },
+    [],
+  );
 
   const agent = useMemo(() => {
     BskyAgent.configure({ fetch: fetchHandler });
@@ -167,154 +229,152 @@ const App = ({ session, saveSession }: Props) => {
   useEffect(() => {
     if (splashscreenHidden.current) return;
     if (ready) {
-      SplashScreen.hideAsync();
+      void SplashScreen.hideAsync()
+        .catch(() => console.warn)
+        .then(() => Device.getDeviceTypeAsync())
+        .then((type) => {
+          if (type === Device.DeviceType.TABLET) {
+            void ScreenOrientation.unlockAsync();
+          }
+        });
       splashscreenHidden.current = true;
     }
   }, [ready]);
 
-  // SENTRY NAVIGATION LOGGING
-  const routeName = "/" + segments.join("/");
-
-  const transaction = useRef<ReturnType<
-    typeof Sentry.Native.startTransaction
-  > | null>(null); // Can't find Transaction type
-  const timer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      transaction.current?.finish?.();
-      transaction.current = null;
-    }, 3000);
-
-    transaction.current?.finish?.();
-    transaction.current = Sentry.Native.startTransaction({
-      // Transaction params are similar to those in @sentry/react-native
-      name: "Route Change",
-      op: "navigation",
-      tags: {
-        "routing.route.name": routeName,
-      },
-    });
-
-    return () => {
-      transaction.current?.finish?.();
-      transaction.current = null;
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, [routeName]);
-
   return (
-    <KeyboardProvider>
-      <AppPreferencesProvider>
-        {(theme) => (
-          <SafeAreaProvider>
-            <StatusBar />
-            {agent.hasSession && <QuickActions />}
-            <CustomerInfoProvider>
-              <AgentProvider agent={agent} update={agentUpdate}>
-                <PreferencesProvider>
-                  <LogOutProvider value={logOut}>
-                    <ActionSheetProvider>
-                      <ListProvider>
-                        <Stack
-                          screenOptions={{
-                            headerShown: true,
-                            fullScreenGestureEnabled: true,
-                          }}
-                        >
-                          <Stack.Screen
-                            name="index"
-                            options={{
-                              headerShown: false,
-                              gestureEnabled: false,
+    <GestureHandlerRootView className="flex-1">
+      <KeyboardProvider>
+        <AppPreferencesProvider>
+          {(theme) => (
+            <SafeAreaProvider>
+              <StatusBar />
+              {agent.hasSession && <QuickActions />}
+              <CustomerInfoProvider>
+                <AgentProvider agent={agent} update={agentUpdate}>
+                  <PreferencesProvider>
+                    <LogOutProvider value={logOut}>
+                      <ActionSheetProvider>
+                        <ListProvider>
+                          <Stack
+                            screenOptions={{
+                              headerShown: true,
+                              fullScreenGestureEnabled: true,
                             }}
-                          />
-                          <Stack.Screen
-                            name="(auth)"
-                            options={{
-                              headerShown: false,
-                              presentation: "formSheet",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="settings"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="codes"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="images/[post]"
-                            options={{
-                              headerShown: false,
-                              animation: "fade",
-                              fullScreenGestureEnabled: false,
-                              customAnimationOnGesture: true,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="discover"
-                            options={{
-                              title: "Discover Feeds",
-                              presentation: "modal",
-                              headerLargeTitle: true,
-                              headerLargeTitleShadowVisible: false,
-                              headerLargeStyle: {
-                                backgroundColor: theme.colors.background,
-                              },
-                              headerSearchBarOptions: {},
-                            }}
-                          />
-                          <Stack.Screen
-                            name="pro"
-                            options={{
-                              title: "",
-                              headerTransparent: true,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="success"
-                            options={{
-                              title: "Purchase Successful",
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="composer"
-                            options={{
-                              headerShown: false,
-                              ...Platform.select({
-                                ios: {
-                                  presentation: "formSheet",
+                          >
+                            <Stack.Screen
+                              name="index"
+                              options={{
+                                headerShown: false,
+                                gestureEnabled: false,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="(auth)"
+                              options={{
+                                headerShown: false,
+                                presentation: "formSheet",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="settings"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="codes"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="images/[post]"
+                              options={{
+                                headerShown: false,
+                                animation: "fade",
+                                fullScreenGestureEnabled: false,
+                                customAnimationOnGesture: true,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="discover"
+                              options={{
+                                title: "Discover Feeds",
+                                presentation: "modal",
+                                headerLargeTitle: true,
+                                headerLargeTitleShadowVisible: false,
+                                headerLargeStyle: {
+                                  backgroundColor: theme.colors.background,
                                 },
-                                android: {
-                                  animation: "fade_from_bottom",
-                                },
-                              }),
-                            }}
-                          />
-                        </Stack>
-                      </ListProvider>
-                    </ActionSheetProvider>
-                  </LogOutProvider>
-                </PreferencesProvider>
-              </AgentProvider>
-            </CustomerInfoProvider>
-            <Toastable />
-          </SafeAreaProvider>
-        )}
-      </AppPreferencesProvider>
-    </KeyboardProvider>
+                                headerSearchBarOptions: {},
+                              }}
+                            />
+                            <Stack.Screen
+                              name="pro"
+                              options={{
+                                title: "",
+                                headerTransparent: true,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="success"
+                              options={{
+                                title: "Purchase Successful",
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="composer"
+                              options={{
+                                headerShown: false,
+                                ...Platform.select({
+                                  ios: {
+                                    presentation: "formSheet",
+                                  },
+                                  android: {
+                                    animation: "fade_from_bottom",
+                                  },
+                                }),
+                              }}
+                            />
+                            <Stack.Screen
+                              name="edit-bio"
+                              options={{
+                                title: "Edit Profile",
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="create-list"
+                              options={{
+                                title: "Create List",
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="add-to-list/[handle]"
+                              options={{
+                                title: "Add to List",
+                                presentation: "modal",
+                              }}
+                            />
+                          </Stack>
+                        </ListProvider>
+                      </ActionSheetProvider>
+                    </LogOutProvider>
+                  </PreferencesProvider>
+                </AgentProvider>
+              </CustomerInfoProvider>
+              <Toastable />
+            </SafeAreaProvider>
+          )}
+        </AppPreferencesProvider>
+      </KeyboardProvider>
+    </GestureHandlerRootView>
   );
 };
 
@@ -325,65 +385,19 @@ const getSession = () => {
   return session;
 };
 
-export default function RootLayout() {
-  const [session, setSession] = useState(() => getSession());
-
+function RootLayout() {
   useConfigurePurchases();
-
-  const saveSession = useCallback(
-    (sess: AtpSessionData | null, agent?: BskyAgent) => {
-      setSession(sess);
-      if (sess) {
-        store.set("session", JSON.stringify(sess));
-        if (agent) {
-          void agent.getProfile({ actor: sess.did }).then((res) => {
-            if (res.success) {
-              const sessions = store.getString("sessions");
-              if (sessions) {
-                const old = JSON.parse(sessions) as SavedSession[];
-                const newSessions = [
-                  {
-                    session: sess,
-                    did: sess.did,
-                    handle: res.data.handle,
-                    avatar: res.data.avatar,
-                    displayName: res.data.displayName,
-                    signedOut: false,
-                  },
-                  ...old.filter((s) => s.did !== sess.did),
-                ];
-                store.set("sessions", JSON.stringify(newSessions));
-              } else {
-                store.set(
-                  "sessions",
-                  JSON.stringify([
-                    {
-                      session: sess,
-                      did: sess.did,
-                      handle: res.data.handle,
-                      avatar: res.data.avatar,
-                      displayName: res.data.displayName,
-                      signedOut: false,
-                    },
-                  ] satisfies SavedSession[]),
-                );
-              }
-            }
-          });
-        }
-      } else {
-        store.delete("session");
-      }
-    },
-    [],
-  );
+  useSentryTracing();
+  useSetupQuickActions();
 
   return (
     <TRPCProvider>
-      <App session={session} saveSession={saveSession} />
+      <App />
     </TRPCProvider>
   );
 }
+
+export default Sentry.wrap(RootLayout);
 
 const QuickActions = () => {
   const fired = useRef<string | null>(null);

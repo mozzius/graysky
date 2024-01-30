@@ -7,6 +7,7 @@ import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
 import { GoogleBadge } from "./_components/google-badge";
 import { Hero } from "./_components/hero";
+import { Media } from "./_components/media";
 import { Post } from "./_components/post";
 
 export default async function LandingPage({
@@ -29,10 +30,7 @@ export default async function LandingPage({
         />
         <Hero />
       </header>
-      <section className="w-full px-4 py-8">
-        <h3 className="text-center text-xl font-medium">
-          Graysky is the best way to experience Bluesky
-        </h3>
+      <section className="w-full p-4 pb-8">
         <Features />
       </section>
       <section className="w-full px-4 pb-8">
@@ -41,14 +39,19 @@ export default async function LandingPage({
           <GoogleBadge />
         </div>
       </section>
+      <section className="w-full bg-neutral-950 px-4 py-8 text-white">
+        <h3 className="text-center text-xl font-medium">In the media</h3>
+        <Media />
+      </section>
       <section className="w-full">
-        <h3 className="mt-4 px-4 text-center text-xl font-medium">
+        <h3 className="mt-8 px-4 py-8 text-center text-xl font-medium">
           What people are saying
         </h3>
-        <div className="mt-4 flex flex-row items-start gap-4 overflow-auto px-4 pb-4">
+        <div className="relative columns-3xs gap-x-4 p-4">
           {posts.map((post) => (
             <Post data={post} key={post.uri} />
           ))}
+          <div className="absolute bottom-0 left-0 right-0 z-10 h-32 bg-gradient-to-b from-transparent via-black to-black" />
         </div>
       </section>
       <section className="w-full bg-neutral-950 px-4 py-8 text-white">
@@ -61,12 +64,6 @@ export default async function LandingPage({
             It&apos;s an alternative client for Bluesky. Same content, more
             features.
           </p>
-          <h4 className="mt-4 font-medium">Is that allowed?</h4>
-          <p className="mt-2 max-w-xl text-sm opacity-70">
-            More than allowed - it&apos;s encouraged! Bluesky&apos;s AT Protocol
-            is designed with third-party developers in mind, and the Bluesky
-            team has been tremendously supportive of this project.
-          </p>
           <h4 className="mt-4 font-medium">What features does it have?</h4>
           <p className="mt-2 max-w-xl text-sm opacity-70">
             Inline translations, GIFs, and a thousand thoughtful quality of life
@@ -76,8 +73,8 @@ export default async function LandingPage({
             Is it safe to log in with my Bluesky account?
           </h4>
           <p className="mt-2 max-w-xl text-sm opacity-70">
-            It is, but if you don&apos;t trust me you can create an App Password
-            to restrict how much access the app has to your account.
+            It is, but it&apos;s recommended to create an App Password to
+            restrict how much access the app has to your account.
           </p>
         </div>
       </section>
@@ -98,6 +95,8 @@ const nicePostsUris = [
   "at://did:plc:hpu7oaq76zlbzi4scasp47bz/app.bsky.feed.post/3k7wqoxqcxk2f",
   // https://bsky.app/profile/osc.ac/post/3k7wpjkkxee27
   "at://did:plc:esmiuxk53vmsllayghrq676w/app.bsky.feed.post/3k7wpjkkxee27",
+  // https://bsky.app/profile/mrchee.se/post/3k7tp5ezy252b
+  "at://did:plc:35peeambfq2eu7u3wvkkatpk/app.bsky.feed.post/3k7tp5ezy252b",
   // https://bsky.app/profile/maskedman.bsky.social/post/3k7hob6or5i2m
   "at://did:plc:kbxa3w7o6oj4rlbitcdd2rib/app.bsky.feed.post/3k7hob6or5i2m",
   // https://bsky.app/profile/seanm4c.bsky.social/post/3k7rv6jlrqk2s
@@ -110,10 +109,10 @@ const nicePostsUris = [
   "at://did:plc:x5uw2ciejsr2ajn4rw2xxtdb/app.bsky.feed.post/3k7mryjxnfd2n",
   // https://bsky.app/profile/steffenrusten.bsky.social/post/3k7lh6j45qn2s
   "at://did:plc:5dqtzkkxdyhfj7nhzp3iyxnu/app.bsky.feed.post/3k7lh6j45qn2s",
-  // https://bsky.app/profile/mrchee.se/post/3k7tp5ezy252b
-  "at://did:plc:35peeambfq2eu7u3wvkkatpk/app.bsky.feed.post/3k7tp5ezy252b",
   // https://bsky.app/profile/experimilk.bsky.social/post/3k7bp6ifoqh2e
   "at://did:plc:yucu4m7ovhqulwtvcjpfil6g/app.bsky.feed.post/3k7bp6ifoqh2e",
+  // https://bsky.app/profile/shreyanjain.net/post/3kigibhnmqc2k
+  "at://did:plc:bnqkww7bjxaacajzvu5gswdf/app.bsky.feed.post/3kigibhnmqc2k",
 ];
 
 async function getNicePosts() {

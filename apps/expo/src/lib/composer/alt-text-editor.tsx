@@ -74,10 +74,7 @@ export const AltTextEditor = ({
                 }}
                 className="absolute right-0"
               >
-                <Text
-                  style={{ color: theme.colors.primary }}
-                  className="text-lg font-medium"
-                >
+                <Text primary className="text-lg font-medium">
                   Done
                 </Text>
               </TouchableOpacity>

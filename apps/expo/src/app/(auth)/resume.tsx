@@ -22,9 +22,7 @@ export default function ResumeSession() {
         groups={[
           {
             title: "Log back in",
-            children: (
-              <SwitchAccounts sessions={sessions} chevrons showAddAccount />
-            ),
+            children: <SwitchAccounts chevrons showAddAccount />,
           },
         ]}
       />

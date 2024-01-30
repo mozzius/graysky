@@ -1,0 +1,12 @@
+{
+  "extends": "@graysky/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+  },
+  "include": ["*.ts", "*.js", "src"],
+  "exclude": ["node_modules"]
+}

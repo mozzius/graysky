@@ -8,10 +8,10 @@ import { CheckCircle2Icon } from "lucide-react-native";
 import { z } from "zod";
 
 import { useAgent } from "~/lib/agent";
-import { TextButton } from "./text-button";
-import { Text } from "./themed/text";
-import { TextInput } from "./themed/text-input";
-import { TransparentHeaderUntilScrolled } from "./transparent-header";
+import { TextButton } from "../text-button";
+import { Text } from "../themed/text";
+import { TextInput } from "../themed/text-input";
+import { TransparentHeaderUntilScrolled } from "../transparent-header";
 
 class PasswordError extends Error {
   constructor(message: string) {

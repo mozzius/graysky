@@ -9,7 +9,7 @@ import {
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent } from "~/lib/agent";
+import { useAgent, useOptionalAgent } from "~/lib/agent";
 
 export default function AccountSettings() {
   const agent = useAgent();
@@ -34,7 +34,7 @@ export default function AccountSettings() {
             options: [
               {
                 title: "Edit Profile",
-                href: "/settings/account/edit-bio",
+                href: "/edit-bio",
                 icon: UserIcon,
               },
               {
@@ -67,16 +67,16 @@ export default function AccountSettings() {
 }
 
 export const useSelf = () => {
-  const agent = useAgent();
+  const agent = useOptionalAgent();
 
   return useQuery({
     queryKey: ["self"],
     queryFn: async () => {
-      if (!agent.session) throw new Error("Not logged in");
-      const self = await agent.app.bsky.actor.getProfile({
+      if (!agent?.session) throw new Error("Not logged in");
+      const self = await agent.getProfile({
         actor: agent.session.did,
       });
-      if (!self.success) throw new Error("Could not fetch self");
+      if (!self.success) throw new Error("Could not fetch own profile");
       return self.data;
     },
   });

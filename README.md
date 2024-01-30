@@ -10,7 +10,11 @@ You'll need pnpm, and some sort of simulator or device to run the app on.
 
 ```bash
 pnpm install
+cp .env.example .env
 ```
+
+>EAS setup (optional)
+>Set EAS_PROJECT_ID, APP_ID, and OWNER in .env
 
 In the `/apps/expo` directory, build the dev client using EAS:
 
@@ -30,7 +34,7 @@ pnpm dev
 
 - [ ] Change handle
   - [ ] own domain
-  - [ ] bsky.social
+  - [x] bsky.social
   - [ ] community handles
 - [ ] Push notifications
 - [ ] Drafts
@@ -44,6 +48,7 @@ pnpm dev
 
 - Install Android Studio, and the Android SDK
 - Install Oracle Java 11 JDK (`brew install openjdk@11`)
+- Copy `google-services.json.example` to `google-services.json`, or add your own Firebase config
 - Make Gradle faster in `~/.gradle/gradle.properties`:
 
 ```
@@ -61,6 +66,8 @@ You can now either run `pnpm build:android` to build and submit the app, or if y
 - Sign it with: `/Users/alice/Library/Android/sdk/build-tools/33.0.0/apksigner sign -ks sideload.jks foo.apk`
 
 ## iOS local builds
+
+In the `/apps/expo` directory:
 
 ```
 pnpm build:ios

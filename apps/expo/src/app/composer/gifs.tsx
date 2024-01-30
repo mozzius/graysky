@@ -13,9 +13,9 @@ import { showToastable } from "react-native-toastable";
 import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "@react-navigation/native";
+import Sentry from "@sentry/react-native";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { keepPreviousData } from "@tanstack/react-query";
-import Sentry from "sentry-expo";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
@@ -23,12 +23,14 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
+import { useComposerState } from "~/lib/composer/state";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
+import { produce } from "~/lib/utils/produce";
 import { useUserRefresh } from "~/lib/utils/query";
 
 const useDebounce = <T,>(value: T, delay: number) => {
@@ -196,15 +198,20 @@ const Gif = ({ item, column }: GifProps) => {
   const haptics = useHaptics();
   const agent = useAgent();
   const { showLinkOptions } = useLinkPress();
+  const [, setComposerState] = useComposerState();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
     onSuccess: (result) => {
-      router.push("../");
-      router.setParams({ gif: JSON.stringify(result) });
+      setComposerState(
+        produce((draft) => {
+          draft.gif = result;
+        }),
+      );
+      router.navigate("../");
     },
     onError: (err) => {
-      Sentry.Native.captureException(err);
+      Sentry.captureException(err);
       showToastable({
         title: "Could not select GIF",
         message: "Please try again",

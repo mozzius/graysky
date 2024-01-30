@@ -1,10 +1,5 @@
 import { memo, useEffect, useMemo, useState } from "react";
-import {
-  Button,
-  I18nManager,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { I18nManager, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
@@ -24,6 +19,7 @@ import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
 import { PostContextMenu } from "./post-context-menu";
 import { RichText } from "./rich-text";
+import { TextButton } from "./text-button";
 import { Text } from "./themed/text";
 import { Translation } from "./translation";
 
@@ -82,7 +78,7 @@ const FeedPostInner = ({
 
   useEffect(() => {
     setHidden(showWarning);
-  }, [item.post.cid, showWarning]);
+  }, [item.post.uri, showWarning]);
 
   useEffect(() => {
     queryClient.setQueryData(postHref.slice(1).split("/"), (old: unknown) => {
@@ -142,7 +138,7 @@ const FeedPostInner = ({
               item.post.author.viewer?.blocking ? "blocked" : "muted"
             }.`}
       </Text>
-      <Button
+      <TextButton
         title={hidden ? "Show" : "Hide"}
         onPress={() => setHidden((h) => !h)}
       />

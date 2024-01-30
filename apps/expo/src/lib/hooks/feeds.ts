@@ -18,13 +18,11 @@ import { useAgent } from "../agent";
 import { produce } from "../utils/produce";
 import { useAppPreferences, useContentFilter, useHaptics } from "./preferences";
 
-export const useSavedFeeds = (
-  { pinned }: { pinned: boolean } = { pinned: false },
-) => {
+export const useSavedFeeds = () => {
   const agent = useAgent();
 
   return useQuery({
-    queryKey: ["feeds", "saved", { pinned }],
+    queryKey: ["feeds", "saved"],
     queryFn: async () => {
       const prefs = await agent.app.bsky.actor.getPreferences();
       if (!prefs.success) throw new Error("Could not fetch feeds");
@@ -42,9 +40,11 @@ export const useSavedFeeds = (
           preferences: prefs.data.preferences,
         };
 
+      const allUris = [...new Set([...feeds.pinned, ...feeds.saved])];
+
       // fetch all feed generators
-      const feedGeneratorsUris = (pinned ? feeds.pinned : feeds.saved).filter(
-        (x) => x.includes("app.bsky.feed.generator"),
+      const feedGeneratorsUris = allUris.filter((x) =>
+        x.includes("app.bsky.feed.generator"),
       );
       const generators =
         feedGeneratorsUris.length === 0
@@ -58,9 +58,7 @@ export const useSavedFeeds = (
       }
 
       // fetch all lists
-      const listUris = (pinned ? feeds.pinned : feeds.saved).filter((x) =>
-        x.includes("app.bsky.graph.list"),
-      );
+      const listUris = allUris.filter((x) => x.includes("app.bsky.graph.list"));
       const lists =
         listUris.length === 0
           ? []
@@ -267,63 +265,66 @@ export const useTimeline = (feed: string) => {
     if (!timeline.data) return [];
     const feedViewPref = getFeedViewPref(preferences.data);
     const flattened = timeline.data.pages.flatMap((page) => page.posts);
-    return flattened
-      .map((item) => {
-        const filter = contentFilter(item.post.labels);
+    return flattened.flatMap((item) => {
+      const filter = contentFilter(item.post.labels);
 
-        if (filter?.visibility === "hide") return [];
+      if (filter?.visibility === "hide") return [];
 
-        // preference filters
+      // preference filters
 
-        if (
-          homepage === "feeds" ? feed === "following" : feed === defaultFeed
+      if (homepage === "feeds" ? feed === "following" : feed === defaultFeed) {
+        const isEmbed =
+          AppBskyEmbedRecord.isView(item.post.embed) ||
+          AppBskyEmbedRecordWithMedia.isView(item.post.embed);
+        const isByUnfollowed = !item.post.author.viewer?.following;
+
+        if (feedViewPref.hideReplies && item.reply) {
+          return [];
+        } else if (feedViewPref.hideReposts && item.reason) {
+          return [];
+        } else if (feedViewPref.hideQuotePosts && isEmbed) {
+          return [];
+        } else if (
+          feedViewPref.hideRepliesByUnfollowed &&
+          item.reply &&
+          isByUnfollowed
         ) {
-          const isEmbed =
-            AppBskyEmbedRecord.isView(item.post.embed) ||
-            AppBskyEmbedRecordWithMedia.isView(item.post.embed);
-          const isByUnfollowed = !item.post.author.viewer?.following;
-
-          if (feedViewPref.hideReplies && item.reply) {
-            return [];
-          } else if (feedViewPref.hideReposts && item.reason) {
-            return [];
-          } else if (feedViewPref.hideQuotePosts && isEmbed) {
-            return [];
-          } else if (
-            feedViewPref.hideRepliesByUnfollowed &&
-            item.reply &&
-            isByUnfollowed
-          ) {
-            return [];
-          }
+          return [];
         }
+      }
 
-        if (item.reply && !item.reason) {
-          if (
-            AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
-            AppBskyFeedDefs.isBlockedPost(item.reply.root)
-          ) {
-            return [];
-          } else if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
-            if (item.reply.parent.author.viewer?.muted) return [];
-            const parentFilter = contentFilter(item.reply.parent.labels);
-            if (parentFilter?.visibility === "hide") return [];
-            return [
-              {
-                item: { post: item.reply.parent },
-                hasReply: true,
-                filter: parentFilter,
-              },
-              { item, hasReply: false, filter },
-            ];
-          } else {
-            return [{ item, hasReply: false, filter }];
-          }
+      // hide replies to blocked posts
+
+      if (
+        item.reply &&
+        (AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
+          AppBskyFeedDefs.isBlockedPost(item.reply.root))
+      ) {
+        return [];
+      }
+
+      // mini threads
+
+      if (item.reply && !item.reason) {
+        if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+          if (item.reply.parent.author.viewer?.muted) return [];
+          const parentFilter = contentFilter(item.reply.parent.labels);
+          if (parentFilter?.visibility === "hide") return [];
+          return [
+            {
+              item: { post: item.reply.parent },
+              hasReply: true,
+              filter: parentFilter,
+            },
+            { item, hasReply: false, filter },
+          ];
         } else {
           return [{ item, hasReply: false, filter }];
         }
-      })
-      .flat();
+      } else {
+        return [{ item, hasReply: false, filter }];
+      }
+    });
   }, [timeline, contentFilter, preferences.data, defaultFeed, homepage, feed]);
 
   return { timeline, data, preferences, contentFilter };

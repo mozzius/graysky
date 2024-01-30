@@ -38,7 +38,7 @@ export default function DiscoveryPage() {
           AppBskyActorDefs.isSavedFeedsPref(pref) &&
           AppBskyActorDefs.validateSavedFeedsPref(pref).success,
       ) as AppBskyActorDefs.SavedFeedsPref | undefined;
-      return feeds?.saved;
+      return feeds?.saved ?? [];
     },
   });
 
@@ -59,17 +59,14 @@ export default function DiscoveryPage() {
       Platform.select({
         ios: (
           <TouchableOpacity onPress={() => router.push("../")}>
-            <Text
-              style={{ color: theme.colors.primary }}
-              className="text-lg font-medium"
-            >
+            <Text primary className="text-lg font-medium">
               Done
             </Text>
           </TouchableOpacity>
         ),
         default: null,
       }),
-    [router, theme.colors.primary],
+    [router],
   );
 
   if (recommended.data) {

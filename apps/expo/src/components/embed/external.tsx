@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Platform,
@@ -30,9 +30,58 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
 
   const uri = new URL(content.external.uri);
 
-  if (uri.hostname === "media.tenor.com" && uri.pathname.endsWith(".mp4")) {
+  // tenor - gif
+  if (
+    (uri.hostname === "tenor.com" || uri.hostname === "www.tenor.com") &&
+    uri.pathname.includes("/view/")
+  ) {
+    const [_, pathOrIntl, pathOrFilename, intlFilename] =
+      uri.pathname.split("/");
+    const isIntl = pathOrFilename === "view";
+    const filename = isIntl ? intlFilename : pathOrFilename;
+
+    if ((pathOrIntl === "view" || pathOrFilename === "view") && filename) {
+      const includesExt = filename.split(".").pop() === "gif";
+      const source = `${uri.toString()}${!includesExt ? ".gif" : ""}`;
+      return (
+        <Gif
+          type="gif"
+          uri={source}
+          link={uri}
+          title={content.external.title}
+          transparent={transparent}
+          depth={depth}
+        />
+      );
+    }
+  }
+  // giphy - gif
+  else if (
+    uri.hostname === "giphy.com" ||
+    uri.hostname.endsWith(".giphy.com")
+  ) {
+    const giphyParams = getGiphyUrl(uri);
+    if (giphyParams) {
+      return (
+        <Gif
+          type="gif"
+          uri={giphyParams.playerUri}
+          link={giphyParams.metaUri}
+          title={content.external.title}
+          transparent={transparent}
+          depth={depth}
+        />
+      );
+    }
+  }
+  // tenor - mp4
+  else if (
+    uri.hostname === "media.tenor.com" &&
+    uri.pathname.endsWith(".mp4")
+  ) {
     return (
       <Gif
+        type="mp4"
         uri={content.external.uri}
         link={uri}
         title={content.external.title}
@@ -41,18 +90,17 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
         depth={depth}
       />
     );
-  } else if (
-    uri.hostname === "graysky.app" &&
-    uri.pathname.startsWith("/gif/")
-  ) {
+  }
+  // tenor - mp4, via graysky.app
+  else if (uri.hostname === "graysky.app" && uri.pathname.startsWith("/gif/")) {
     const decoded = decodeURIComponent(uri.pathname.slice("/gif/".length));
     const tenorUrl = `https://media.tenor.com/${decoded}`;
     return (
       <Gif
+        type="mp4"
         uri={tenorUrl}
         link={uri}
         title={content.external.title}
-        thumb={content.external.thumb}
         transparent={transparent}
         depth={depth}
       />
@@ -129,24 +177,44 @@ export const ExternalEmbed = ({ content, transparent, depth }: Props) => {
 };
 
 interface GifProps {
+  type: "gif" | "mp4";
   uri: string;
-  link: URL;
+  link: URL | string;
   title: string;
   thumb?: string;
   transparent: boolean;
   depth: number;
 }
 
-const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
+const Gif = ({
+  type,
+  uri,
+  link,
+  title,
+  thumb,
+  transparent,
+  depth,
+}: GifProps) => {
   const theme = useTheme();
   const [aspectRatio, setAspectRatio] = useState(1);
   const [{ gifAutoplay }] = useAppPreferences();
   const [playing, setPlaying] = useState(gifAutoplay);
-  const ref = useRef<Video>(null!);
+  const videoRef = useRef<Video>(null);
+  const imageRef = useRef<Image>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const shareUrl = link.toString();
+
+  useEffect(() => {
+    if (type === "gif" && imageRef.current) {
+      if (playing) {
+        void imageRef.current.startAnimating();
+      } else {
+        void imageRef.current.stopAnimating();
+      }
+    }
+  }, [playing, type]);
 
   return (
     <TouchableHighlight
@@ -195,44 +263,152 @@ const Gif = ({ uri, link, title, thumb, transparent, depth }: GifProps) => {
               GIF{!playing && " (tap to play)"}
             </Text>
           </View>
-          <Video
-            ref={ref}
-            resizeMode={ResizeMode.COVER}
-            shouldPlay={playing}
-            source={{ uri }}
-            isLooping
-            isMuted
-            usePoster
-            style={{ flex: 1, aspectRatio }}
-            onPlaybackStatusUpdate={(status) => {
-              if (status.isLoaded) {
-                setLoading(false);
-                setError(false);
-                if (gifAutoplay) {
-                  if (!status.isPlaying) void ref.current.playAsync();
-                } else {
-                  setPlaying(status.isPlaying);
-                }
-                if (!status.isLooping) {
-                  void ref.current.setIsLoopingAsync(true);
-                }
-              } else if (status.error) {
-                setLoading(false);
-                setError(true);
-                console.error(status.error);
-              } else {
-                setLoading(true);
-                setError(false);
+          {type === "gif" ? (
+            <Image
+              ref={imageRef}
+              source={uri}
+              recyclingKey={uri}
+              alt={title}
+              autoplay={gifAutoplay}
+              style={{ flex: 1, aspectRatio }}
+              onLoad={({ source: { width, height } }) =>
+                setAspectRatio(width / height)
               }
-            }}
-            posterSource={{ uri: thumb }}
-            onReadyForDisplay={({ naturalSize }) =>
-              setAspectRatio(naturalSize.width / naturalSize.height)
-            }
-            accessibilityLabel={title}
-          />
+              onLoadEnd={() => setLoading(false)}
+              onError={() => setError(true)}
+            />
+          ) : (
+            <Video
+              ref={videoRef}
+              resizeMode={ResizeMode.COVER}
+              shouldPlay={playing}
+              source={{ uri }}
+              isLooping
+              isMuted
+              usePoster
+              style={{ flex: 1, aspectRatio }}
+              onPlaybackStatusUpdate={(status) => {
+                if (status.isLoaded) {
+                  setLoading(false);
+                  setError(false);
+                  if (videoRef.current) {
+                    if (gifAutoplay) {
+                      if (!status.isPlaying) void videoRef.current.playAsync();
+                    }
+                    if (!status.isLooping) {
+                      void videoRef.current.setIsLoopingAsync(true);
+                    }
+                  }
+                } else if (status.error) {
+                  setLoading(false);
+                  setError(true);
+                  console.error(status.error);
+                } else {
+                  setLoading(true);
+                  setError(false);
+                }
+              }}
+              posterSource={{ uri: thumb }}
+              onReadyForDisplay={({ naturalSize }) =>
+                setAspectRatio(naturalSize.width / naturalSize.height)
+              }
+              accessibilityLabel={title}
+            />
+          )}
         </View>
       </>
     </TouchableHighlight>
   );
+};
+
+// Taken from the official app
+// Thanks @haileyok.com!
+const giphyRegex = /media(?:[0-4]\.giphy\.com|\.giphy\.com)/i;
+const gifFilenameRegex = /^(\S+)\.(webp|gif|mp4)$/i;
+
+const getGiphyUrl = (urlp: URL) => {
+  if (urlp.hostname === "giphy.com" || urlp.hostname === "www.giphy.com") {
+    const [_, gifs, nameAndId] = urlp.pathname.split("/");
+
+    /*
+     * nameAndId is a string that consists of the name (dash separated) and the id of the gif (the last part of the name)
+     * We want to get the id of the gif, then direct to media.giphy.com/media/{id}/giphy.webp so we can
+     * use it in an <Image> component
+     */
+
+    if (gifs === "gifs" && nameAndId) {
+      const gifId = nameAndId.split("-").pop();
+
+      if (gifId) {
+        return {
+          type: "giphy_gif",
+          source: "giphy",
+          isGif: true,
+          hideDetails: true,
+          metaUri: `https://giphy.com/gifs/${gifId}`,
+          playerUri: `https://i.giphy.com/media/${gifId}/giphy.webp`,
+        };
+      }
+    }
+  }
+
+  // There are five possible hostnames that also can be giphy urls: media.giphy.com and media0-4.giphy.com
+  // These can include (presumably) a tracking id in the path name, so we have to check for that as well
+  if (giphyRegex.test(urlp.hostname)) {
+    // We can link directly to the gif, if its a proper link
+    const [_, media, trackingOrId, idOrFilename, filename] =
+      urlp.pathname.split("/");
+
+    if (media === "media") {
+      if (idOrFilename && gifFilenameRegex.test(idOrFilename)) {
+        return {
+          type: "giphy_gif",
+          source: "giphy",
+          isGif: true,
+          hideDetails: true,
+          metaUri: `https://giphy.com/gifs/${trackingOrId}`,
+          playerUri: `https://i.giphy.com/media/${trackingOrId}/giphy.webp`,
+        };
+      } else if (filename && gifFilenameRegex.test(filename)) {
+        return {
+          type: "giphy_gif",
+          source: "giphy",
+          isGif: true,
+          hideDetails: true,
+          metaUri: `https://giphy.com/gifs/${idOrFilename}`,
+          playerUri: `https://i.giphy.com/media/${idOrFilename}/giphy.webp`,
+        };
+      }
+    }
+  }
+
+  // Finally, we should see if it is a link to i.giphy.com. These links don't necessarily end in .gif but can also
+  // be .webp
+  if (urlp.hostname === "i.giphy.com" || urlp.hostname === "www.i.giphy.com") {
+    const [_, mediaOrFilename, filename] = urlp.pathname.split("/");
+
+    if (mediaOrFilename === "media" && filename) {
+      const gifId = filename.split(".")[0];
+      return {
+        type: "giphy_gif",
+        source: "giphy",
+        isGif: true,
+        hideDetails: true,
+        metaUri: `https://giphy.com/gifs/${gifId}`,
+        playerUri: `https://i.giphy.com/media/${gifId}/giphy.webp`,
+      };
+    } else if (mediaOrFilename) {
+      const gifId = mediaOrFilename.split(".")[0];
+      return {
+        type: "giphy_gif",
+        source: "giphy",
+        isGif: true,
+        hideDetails: true,
+        metaUri: `https://giphy.com/gifs/${gifId}`,
+        playerUri: `https://i.giphy.com/media/${
+          mediaOrFilename.split(".")[0]
+        }/giphy.webp`,
+      };
+    }
+  }
 };

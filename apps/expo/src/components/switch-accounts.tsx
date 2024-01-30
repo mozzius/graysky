@@ -1,10 +1,12 @@
 import { Fragment } from "react";
 import {
   ActivityIndicator,
+  Alert,
   TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
+import { useMMKVObject } from "react-native-mmkv";
 import { showToastable } from "react-native-toastable";
 import { Link, useRouter } from "expo-router";
 import { type AtpSessionData } from "@atproto/api";
@@ -16,6 +18,7 @@ import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
+import { store } from "~/lib/storage";
 import { cx } from "~/lib/utils/cx";
 import { Avatar } from "./avatar";
 
@@ -28,7 +31,6 @@ export interface SavedSession {
   signedOut?: boolean;
 }
 interface Props {
-  sessions: SavedSession[];
   active?: string;
   onSuccessfulSwitch?: () => void;
   chevrons?: boolean;
@@ -36,7 +38,6 @@ interface Props {
 }
 
 export function SwitchAccounts({
-  sessions,
   active,
   onSuccessfulSwitch,
   chevrons,
@@ -48,6 +49,8 @@ export function SwitchAccounts({
   const logOut = useLogOut();
   const router = useRouter();
 
+  const [sessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
+
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
     mutationFn: async (session: AtpSessionData) => {
@@ -56,10 +59,13 @@ export function SwitchAccounts({
       agent.api.xrpc.uri = new URL("https://bsky.social");
       const res = await agent.resumeSession(session);
       if (!res.success) throw new Error("Could not resume session");
-      await queryClient.resetQueries();
       return res.data;
     },
     onError: (err, session) => {
+      Alert.alert(
+        "Could not log you in",
+        err instanceof Error ? err.message : "Unknown error",
+      );
       console.error(err);
       showToastable({
         title: "Could not log you in",
@@ -74,6 +80,7 @@ export function SwitchAccounts({
         message: `You are now logged in as @${data.handle}`,
         status: "success",
       });
+      void queryClient.resetQueries();
       router.replace("/(feeds)/feeds");
       onSuccessfulSwitch?.();
     },
@@ -130,10 +137,7 @@ export function SwitchAccounts({
                       logOut();
                     }}
                   >
-                    <Text
-                      style={{ color: theme.colors.primary }}
-                      className="font-medium"
-                    >
+                    <Text primary className="font-medium">
                       Sign out
                     </Text>
                   </TouchableOpacity>

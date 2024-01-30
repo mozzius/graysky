@@ -63,10 +63,7 @@ export const KeyboardAccessory = ({
             }}
           >
             <PaperclipIcon size={20} color={theme.colors.primary} />
-            <Text
-              style={{ color: theme.colors.primary }}
-              className="ml-2.5 mr-1 font-medium"
-            >
+            <Text primary className="ml-2.5 mr-1 font-medium">
               Add image
             </Text>
           </View>
@@ -89,10 +86,7 @@ export const KeyboardAccessory = ({
             }}
           >
             <LanguagesIcon size={20} color={theme.colors.primary} />
-            <Text
-              style={{ color: theme.colors.primary }}
-              className="ml-2.5 mr-1 font-medium uppercase"
-            >
+            <Text primary className="ml-2.5 mr-1 font-medium uppercase">
               {language}
             </Text>
           </View>

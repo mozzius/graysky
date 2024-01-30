@@ -20,6 +20,7 @@ import {
   type AppBskyEmbedImages,
   type AppBskyEmbedRecord,
   type AppBskyEmbedRecordWithMedia,
+  type AppBskyFeedThreadgate,
   type BlobRef,
   type BskyAgent,
   type ComAtprotoLabelDefs,
@@ -28,15 +29,16 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type PastedFile } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
+import Sentry from "@sentry/react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
 import RNFetchBlob from "rn-fetch-blob";
-import Sentry from "sentry-expo";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
 import { useAppPreferences } from "../hooks/preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
+import { useComposerState } from "./state";
 
 export const MAX_IMAGES = 4;
 export const MAX_LENGTH = 300;
@@ -102,11 +104,7 @@ export const useComposer = () => {
   };
 };
 
-export const useReply = () => {
-  const { reply } = useLocalSearchParams<{
-    reply?: string;
-  }>();
-
+export const useReply = (reply?: string) => {
   const ref = reply
     ? replyRefSchema.parse(JSON.parse(decodeURIComponent(reply)))
     : undefined;
@@ -116,11 +114,7 @@ export const useReply = () => {
   return { thread, ref };
 };
 
-export const useQuote = () => {
-  const { quote } = useLocalSearchParams<{
-    quote?: string;
-  }>();
-
+export const useQuote = (quote?: string) => {
   const ref = quote
     ? {
         $type: "app.bsky.embed.record",
@@ -154,26 +148,21 @@ const useContextualPost = (uri?: string) => {
 export const useSendPost = ({
   text,
   images,
+  external,
   reply,
   quote,
-  external,
-  gif,
-  languages,
-  selfLabels,
 }: {
   text: string;
   images: ImageWithAlt[];
+  external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   reply?: AppBskyFeedPost.ReplyRef;
   quote?: AppBskyEmbedRecord.Main;
-  external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
-  gif?: AppBskyEmbedExternal.Main;
-  languages?: string[];
-  selfLabels?: string[];
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
   const [{ primaryLanguage, mostRecentLanguage }] = useAppPreferences();
+  const [{ labels, languages, gif, threadgate }] = useComposerState();
 
   return useMutation({
     mutationKey: ["send"],
@@ -236,7 +225,7 @@ export const useSendPost = ({
           encoding = "image/jpeg";
         } else {
           console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
-          Sentry.Native.captureMessage(
+          Sentry.captureMessage(
             `Unknown thumbnail extension, skipping: ${thumbUri}`,
             { level: "warning" },
           );
@@ -266,7 +255,7 @@ export const useSendPost = ({
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
-            media: gif,
+            media: gif.main,
           } satisfies AppBskyEmbedRecordWithMedia.Main;
         } else if (media) {
           mergedEmbed = {
@@ -283,8 +272,8 @@ export const useSendPost = ({
         } else {
           mergedEmbed = quote;
         }
-      } else if (gif) {
-        mergedEmbed = gif;
+      } else if (gif?.main) {
+        mergedEmbed = gif.main;
       } else if (media) {
         if (external && external.type === "record") {
           mergedEmbed = {
@@ -312,23 +301,50 @@ export const useSendPost = ({
         }
       }
 
-      let labels: ComAtprotoLabelDefs.SelfLabels | undefined;
-      if (selfLabels?.length) {
-        labels = {
+      let selfLabels: ComAtprotoLabelDefs.SelfLabels | undefined;
+      if (labels?.length) {
+        selfLabels = {
           $type: "com.atproto.label.defs#selfLabels",
-          values: selfLabels.map((val) => ({ val })),
+          values: labels.map((val) => ({ val })),
         };
       }
 
-      await agent.post({
+      const post = await agent.post({
         text: rt.text,
         facets: rt.facets,
         tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
         langs: languages ?? [mostRecentLanguage ?? primaryLanguage],
-        labels,
+        labels: selfLabels,
       });
+
+      if (threadgate.length > 0) {
+        const allow: (
+          | AppBskyFeedThreadgate.MentionRule
+          | AppBskyFeedThreadgate.FollowingRule
+          | AppBskyFeedThreadgate.ListRule
+        )[] = [];
+        if (!threadgate.find((v) => v.type === "nobody")) {
+          for (const rule of threadgate) {
+            if (rule.type === "mention") {
+              allow.push({ $type: "app.bsky.feed.threadgate#mentionRule" });
+            } else if (rule.type === "following") {
+              allow.push({ $type: "app.bsky.feed.threadgate#followingRule" });
+            } else if (rule.type === "list") {
+              allow.push({
+                $type: "app.bsky.feed.threadgate#listRule",
+                list: rule.list,
+              });
+            }
+          }
+        }
+
+        await agent.api.app.bsky.feed.threadgate.create(
+          { repo: agent.session!.did, rkey: post.uri.split("/").pop() },
+          { post: post.uri, createdAt: new Date().toISOString(), allow },
+        );
+      }
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["profile"] });
@@ -337,7 +353,7 @@ export const useSendPost = ({
         message: "Post published!",
       });
     },
-    onError: (err) => Sentry.Native.captureException(err),
+    onError: (err) => Sentry.captureException(err),
   });
 };
 
@@ -363,16 +379,19 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
         images.length === 0
           ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
           : ["Take Photo", "Choose from Library", "Cancel"];
-      const icons = [
-        <CameraIcon key={0} size={24} color={theme.colors.text} />,
-        <ImageIcon key={1} size={24} color={theme.colors.text} />,
-        <SearchIcon key={2} size={24} color={theme.colors.text} />,
-        <></>,
-      ];
+      const icons =
+        images.length === 0
+          ? [CameraIcon, ImageIcon, SearchIcon]
+          : [CameraIcon, ImageIcon];
       showActionSheetWithOptions(
         {
           options,
-          icons,
+          icons: [
+            ...icons.map((Icon, i) => (
+              <Icon key={i} size={24} color={theme.colors.text} />
+            )),
+            <></>,
+          ],
           cancelButtonIndex: options.length - 1,
           anchor:
             (anchorRef?.current && findNodeHandle(anchorRef.current)) ??
@@ -417,10 +436,22 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
               }).then((result) => {
                 if (!result.canceled) {
                   router.setParams({ ...searchParams, gif: "" });
-                  setImages((prev) => [
-                    ...prev,
-                    ...result.assets.map((a) => ({ asset: a, alt: "" })),
-                  ]);
+
+                  setImages((prev) => {
+                    // max images prop not enforced on android due to the `browse` patch
+                    if (result.assets.length + prev.length > MAX_IMAGES) {
+                      showToastable({
+                        title: "Too many images selected",
+                        message: `You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
+                      });
+                    }
+                    return [
+                      ...prev,
+                      ...result.assets
+                        .slice(0, MAX_IMAGES - prev.length)
+                        .map((a) => ({ asset: a, alt: "" })),
+                    ];
+                  });
                 }
               });
               break;
@@ -452,8 +483,6 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
     },
     [setImages],
   );
-
-  console.log(images);
 
   const handlePaste = useCallback(
     async (err: string | null, files: PastedFile[]) => {
@@ -492,7 +521,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
             },
           ]);
         } catch (err) {
-          Sentry.Native.captureException(err);
+          Sentry.captureException(err);
           return;
         }
       }
@@ -515,7 +544,7 @@ export const generateRichText = async (text: string, agent: BskyAgent) => {
   return rt;
 };
 
-const getGalleryPermission = async () => {
+export const getGalleryPermission = async () => {
   const canChoosePhoto = await ImagePicker.getMediaLibraryPermissionsAsync();
   if (!canChoosePhoto.granted) {
     if (canChoosePhoto.canAskAgain) {
@@ -541,7 +570,7 @@ const getGalleryPermission = async () => {
   return true;
 };
 
-const getCameraPermission = async () => {
+export const getCameraPermission = async () => {
   const canTakePhoto = await ImagePicker.getCameraPermissionsAsync();
   if (!canTakePhoto.granted) {
     if (canTakePhoto.canAskAgain) {
@@ -566,7 +595,7 @@ const getCameraPermission = async () => {
   return true;
 };
 
-const compress = async ({
+export const compress = async ({
   uri,
   width,
   height,

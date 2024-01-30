@@ -1,7 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   Platform,
   Share,
   TouchableOpacity,
@@ -31,10 +30,19 @@ import {
   CalendarIcon,
   CheckIcon,
   ChevronLeftIcon,
+  FlagIcon,
+  LanguagesIcon,
+  ListPlusIcon,
+  MegaphoneIcon,
+  MegaphoneOffIcon,
   MoreHorizontalIcon,
   PlusIcon,
+  ShareIcon,
+  ShieldOffIcon,
+  ShieldXIcon,
 } from "lucide-react-native";
 
+import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import {
@@ -148,13 +156,28 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     const options = [
       "Share profile",
       "Translate bio",
+      "Add to list",
       profile.viewer?.muted ? "Unmute account" : "Mute account",
       profile.viewer?.blocking ? "Unblock account" : "Block account",
       "Report account",
     ] as const;
+    const icons = [
+      ShareIcon,
+      LanguagesIcon,
+      ListPlusIcon,
+      profile.viewer?.muted ? MegaphoneIcon : MegaphoneOffIcon,
+      profile.viewer?.blocking ? ShieldOffIcon : ShieldXIcon,
+      FlagIcon,
+    ];
     showActionSheetWithOptions(
       {
         options: [...options, "Cancel"],
+        icons: [
+          ...icons.map((Icon, i) => (
+            <Icon key={i} size={24} color={theme.colors.text} />
+          )),
+          <></>,
+        ],
         cancelButtonIndex: options.length,
         ...actionSheetStyles(theme),
       },
@@ -174,6 +197,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           }
           case "Translate bio":
             setTranslateBio(true);
+            break;
+          case "Add to list":
+            router.push(`/add-to-list/${profile.did}`);
             break;
           case "Mute account":
             muteAccount(agent, profile.handle, profile.did, queryClient);
@@ -525,7 +551,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       const option = options[index];
                       switch (option) {
                         case "Edit Profile":
-                          router.push("/settings/account/edit-bio");
+                          router.push("/edit-bio");
                           break;
                         case "Share Profile": {
                           const url = `https://bsky.app/profile/${profile.handle}`;
@@ -632,7 +658,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
                   : "You have muted this user"}
               </Text>
-              <Button
+              <TextButton
                 title={profile.viewer.mutedByList ? "View" : "Unmute"}
                 onPress={() => {
                   if (profile.viewer?.mutedByList) {
@@ -661,7 +687,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   ? `This user is on the "${profile.viewer.blockingByList.name}" block list`
                   : "You have blocked this user"}
               </Text>
-              <Button
+              <TextButton
                 title={profile.viewer.blockingByList ? "View" : "Unblock"}
                 onPress={() => {
                   if (profile.viewer?.blockingByList) {

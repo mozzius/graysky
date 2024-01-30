@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   ActivityIndicator,
   findNodeHandle,
@@ -8,16 +8,22 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, useFocusEffect, useRouter } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useTheme } from "@react-navigation/native";
-import { SendIcon, Trash2Icon } from "lucide-react-native";
+import {
+  CheckIcon,
+  GlobeIcon,
+  SendIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 
 import { BackButtonOverride } from "~/components/back-button-override";
 import { Text } from "~/components/themed/text";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useHaptics } from "../hooks/preferences";
 import { cx } from "../utils/cx";
+import { useComposerState } from "./state";
 
 export const PostButton = ({
   onPress,
@@ -30,9 +36,22 @@ export const PostButton = ({
 }) => {
   const theme = useTheme();
   const ref = useRef<TouchableWithoutFeedback>(null);
+  const [{ threadgate }] = useComposerState();
 
   return (
     <View className="flex-row items-center">
+      <Link href="/composer/threadgate" asChild>
+        <TouchableOpacity className="relative mr-5 rounded-full p-1">
+          <GlobeIcon size={24} color={theme.colors.primary} />
+          {threadgate.length > 0 && (
+            <CheckIcon
+              size={16}
+              color={theme.colors.primary}
+              className="absolute -right-2 -top-0.5"
+            />
+          )}
+        </TouchableOpacity>
+      </Link>
       <TouchableWithoutFeedback
         ref={ref}
         disabled={disabled}
@@ -78,10 +97,17 @@ export const CancelButton = ({
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
   const ref = useRef<TouchableOpacity>(null);
-
+  const [currentScreen, setCurrentScreen] = useState(false);
   const haptics = useHaptics();
 
-  const handleCancel = async () => {
+  useFocusEffect(
+    useCallback(() => {
+      setCurrentScreen(true);
+      return () => setCurrentScreen(false);
+    }, []),
+  );
+
+  const handleCancel = useCallback(async () => {
     haptics.impact();
     if (Platform.OS === "android") Keyboard.dismiss();
     const options = ["Discard post", "Cancel"];
@@ -117,19 +143,19 @@ export const CancelButton = ({
         onCancel();
         break;
     }
-  };
+  }, [haptics, onCancel, onSave, router, showActionSheetWithOptions, theme]);
 
   if (hasContent) {
     return (
       <>
-        <BackButtonOverride dismiss={handleCancel} />
+        {currentScreen && <BackButtonOverride dismiss={handleCancel} />}
         <TouchableOpacity
           ref={ref}
           disabled={disabled}
           accessibilityLabel="Discard post"
-          onPress={() => void handleCancel()}
+          onPress={handleCancel}
         >
-          <Text style={{ color: theme.colors.primary }} className="text-lg">
+          <Text primary className="text-lg">
             Cancel
           </Text>
         </TouchableOpacity>
@@ -140,7 +166,7 @@ export const CancelButton = ({
   return (
     <Link href="../" asChild>
       <TouchableOpacity accessibilityRole="link">
-        <Text style={{ color: theme.colors.primary }} className="text-lg">
+        <Text primary className="text-lg">
           Cancel
         </Text>
       </TouchableOpacity>

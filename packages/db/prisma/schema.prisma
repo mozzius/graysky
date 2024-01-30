@@ -36,23 +36,102 @@ model PostTranslation {
   postUri String
   post    TranslatablePost @relation(fields: [postUri], references: [uri], onDelete: Cascade)
 
-  translatorDid String?
-  translator    Account? @relation(fields: [translatorDid], references: [did], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postUri])
+  @@index([postUri, language, service], name: "unique_translation")
+}
+
+model Poll {
+  id      String @id // provided by client, since it needs to be made after posting
+  postUri String
+
+  question String @db.Text
+  q1       String @db.Text
+  q2       String @db.Text
+  q3       String @db.Text
+  q4       String @db.Text
+
+  votes PollVote[]
+
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([postUri])
-  @@index([translatorDid])
-  @@index([postUri, language, service], name: "unique_translation")
+  @@index([userDid])
 }
 
-model Account {
-  did String  @id
-  pro Boolean @default(false)
+model PollVote {
+  id String @id @default(cuid())
 
-  translations PostTranslation[]
+  pollId  String
+  poll    Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  choice  Int
+  userIp  String
+  userKey String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([pollId, userIp])
+  @@index([pollId])
+}
+
+model PushToken {
+  id String @id @default(cuid())
+
+  did  String
+  user User   @relation(fields: [did], references: [did], onDelete: Cascade)
+
+  platform String
+  token    String @db.Text
+
+  disabled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([did, platform])
+  @@index([did, platform])
+}
+
+model User {
+  did String @id
+
+  tokens    PushToken[]
+  mutes     Mute[]
+  muteLists MuteList[]
+
+  polls Poll[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Mute {
+  did String @id
+
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userDid])
+}
+
+model MuteList {
+  uri String @id
+
+  user    User   @relation(fields: [userDid], references: [did])
+  userDid String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userDid])
 }

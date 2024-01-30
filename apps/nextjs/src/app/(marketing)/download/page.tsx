@@ -1,4 +1,5 @@
 import { AppleBadge } from "../_components/apple-badge";
+import { Features } from "../_components/features";
 import { GoogleBadge } from "../_components/google-badge";
 import { Header } from "../_components/header";
 
@@ -18,6 +19,9 @@ export default function DownloadModal() {
           <AppleBadge />
           <GoogleBadge />
         </div>
+        <section className="px-4 pt-8">
+          <Features />
+        </section>
       </div>
     </>
   );

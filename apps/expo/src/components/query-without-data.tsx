@@ -4,8 +4,10 @@ import {
   type InfiniteData,
   type InfiniteQueryObserverLoadingErrorResult,
   type InfiniteQueryObserverLoadingResult,
+  type InfiniteQueryObserverPendingResult,
   type QueryObserverLoadingErrorResult,
   type QueryObserverLoadingResult,
+  type QueryObserverPendingResult,
 } from "@tanstack/react-query";
 import { RefreshCcwIcon } from "lucide-react-native";
 
@@ -14,8 +16,10 @@ import { Text } from "./themed/text";
 interface Props<TData = unknown, TError = unknown> {
   query:
     | QueryObserverLoadingResult<TData, TError>
+    | QueryObserverPendingResult<TData, TError>
     | QueryObserverLoadingErrorResult<TData, TError>
     | InfiniteQueryObserverLoadingResult<InfiniteData<TData, TError>>
+    | InfiniteQueryObserverPendingResult<InfiniteData<TData, TError>>
     | InfiniteQueryObserverLoadingErrorResult<InfiniteData<TData, TError>>;
 }
 

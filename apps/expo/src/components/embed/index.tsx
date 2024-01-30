@@ -1,7 +1,9 @@
+import { useState } from "react";
 import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   View,
+  type ViewStyle,
 } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
@@ -13,19 +15,21 @@ import {
   AppBskyFeedDefs,
   AppBskyFeedPost,
   AppBskyGraphDefs,
-  type AppBskyActorDefs,
 } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import {
   CheckIcon,
+  FileXIcon,
   HeartIcon,
   ShieldXIcon,
   Trash2Icon,
 } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
+import { useContentFilter } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 import { Avatar } from "../avatar";
+import { TextButton } from "../text-button";
 import { Text } from "../themed/text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";
@@ -48,7 +52,6 @@ export const Embed = ({
   isNotification = false,
 }: Props) => {
   const theme = useTheme();
-  const path = useAbsolutePath();
 
   if (!content) return null;
 
@@ -77,201 +80,96 @@ export const Embed = ({
     }
 
     // Case 3: Record (quote or linked post)
-    let record: AppBskyEmbedRecord.View["record"] | null = null;
-    let media: AppBskyEmbedRecordWithMedia.View["media"] | null = null;
-
     if (AppBskyEmbedRecord.isView(content)) {
-      record = content.record;
-    }
+      const record = content.record;
 
-    if (AppBskyEmbedRecordWithMedia.isView(content)) {
-      record = content.record.record;
-      media = content.media;
-    }
-
-    // TODO: Support all record types equally
-
-    if (record !== null) {
-      if (!AppBskyEmbedRecord.isViewRecord(record)) {
-        if (AppBskyFeedDefs.isGeneratorView(record)) {
-          // Case 3.1: Is feed generator
-          const href = path(
-            `/profile/${record.creator.did}/feed/${record.uri
-              .split("/")
-              .pop()}`,
-          );
-          // TODO: add hold menu
-          // - open feed
-          // - save to my feeds
-          // - like feed
-          return (
-            <Link href={href} asChild>
-              <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
-                <View
-                  className="flex-1 flex-row items-center rounded-lg border p-2"
-                  style={{
-                    backgroundColor: theme.dark ? "black" : "white",
-                    borderColor: theme.colors.border,
-                  }}
-                >
-                  <Image
-                    recyclingKey={record.avatar}
-                    alt={record.displayName}
-                    source={{ uri: record.avatar }}
-                    className="h-14 w-14 rounded bg-blue-500"
-                  />
-                  <View className="ml-2 flex-1">
-                    <Text className="text-lg font-medium">
-                      {record.displayName}
-                    </Text>
-                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-                      <HeartIcon
-                        fill="currentColor"
-                        className={
-                          record.viewer?.like
-                            ? "text-red-500"
-                            : "text-neutral-500 dark:text-neutral-400"
-                        }
-                        size={12}
-                      />{" "}
-                      <Text style={{ fontVariant: ["tabular-nums"] }}>
-                        {record.likeCount ?? 0}
-                      </Text>{" "}
-                      • @{record.creator.handle}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </Link>
-          );
-        } else if (AppBskyGraphDefs.isListView(record)) {
-          // Case 3.2 Is list
-          const href = path(
-            `/profile/${record.creator.did}/lists/${record.uri
-              .split("/")
-              .pop()}`,
-          );
-          let purposeText = "List";
-          switch (record.purpose) {
-            case AppBskyGraphDefs.MODLIST:
-              purposeText = "Moderation list";
-              break;
-            case AppBskyGraphDefs.CURATELIST:
-              purposeText = "Curation list";
-              break;
-          }
-          return (
-            <Link href={href} asChild>
-              <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
-                <View
-                  className="flex-1 flex-row items-center rounded-lg border p-2"
-                  style={{
-                    backgroundColor: theme.dark ? "black" : "white",
-                    borderColor: theme.colors.border,
-                  }}
-                >
-                  <Image
-                    recyclingKey={record.avatar}
-                    alt={record.name}
-                    source={{ uri: record.avatar }}
-                    className="h-14 w-14 rounded bg-blue-500"
-                  />
-                  <View className="ml-2 flex-1">
-                    <Text className="text-lg font-medium">
-                      {record.name}
-                      {(record.viewer?.blocked || record.viewer?.muted) && (
-                        <>
-                          {" "}
-                          <CheckIcon color={theme.colors.primary} size={12} />
-                        </>
-                      )}
-                    </Text>
-                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-                      {purposeText} by @{record.creator.handle}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </Link>
-          );
-        } else if (AppBskyEmbedRecord.isViewNotFound(record)) {
-          return (
-            <View
-              className={cx(
-                "mt-1.5 flex-1 flex-row items-center rounded-md border",
-                depth > 0 ? "p-2" : "p-3",
-              )}
-              style={{
-                borderColor: theme.colors.border,
-              }}
-            >
-              <Trash2Icon size={16} color={theme.colors.text} />
-              <Text className="ml-2">This post has been deleted</Text>
-            </View>
-          );
-        } else if (AppBskyEmbedRecord.isViewBlocked(record)) {
-          return (
-            <View
-              className={cx(
-                "mt-1.5 flex-1 flex-row items-center rounded-md border",
-                depth > 0 ? "p-2" : "p-3",
-              )}
-              style={{
-                borderColor: theme.colors.border,
-              }}
-            >
-              <ShieldXIcon size={16} color={theme.colors.text} />
-              <Text className="ml-2">This post is from a blocked user</Text>
-            </View>
-          );
-        } else {
-          throw new Error("An error occurred");
+      // Case 3.1: Post
+      if (AppBskyEmbedRecord.isViewRecord(record)) {
+        let text;
+        if (AppBskyFeedPost.isRecord(record.value)) {
+          text = record.value.text;
         }
+        return (
+          <View className="mt-1.5 flex-1">
+            <PostEmbed
+              post={record}
+              transparent={transparent || isNotification}
+            >
+              {text && (
+                <Text
+                  className="mt-1 text-base leading-5"
+                  numberOfLines={truncate ? 4 : undefined}
+                >
+                  {text}
+                </Text>
+              )}
+              {record.embeds?.map((embed, i) => (
+                <Embed
+                  key={record.uri + i}
+                  uri={record.uri}
+                  content={embed}
+                  depth={depth + 1}
+                />
+              ))}
+            </PostEmbed>
+          </View>
+        );
       }
 
-      if (!AppBskyFeedPost.isRecord(record.value))
-        throw new Error("An error occurred");
+      // Case 3.2: List
+      if (AppBskyGraphDefs.isListView(record)) {
+        return <ListEmbed list={record} />;
+      }
 
+      // Case 3.3: Feed
+      if (AppBskyFeedDefs.isGeneratorView(record)) {
+        return <FeedGeneratorEmbed generator={record} />;
+      }
+
+      // Case 3.4: Post not found
+      if (AppBskyEmbedRecord.isViewNotFound(record)) {
+        return <ViewNotFound depth={depth} />;
+      }
+
+      // Case 3.5: Post blocked
+      if (AppBskyEmbedRecord.isViewBlocked(record)) {
+        return <ViewBlocked depth={depth} />;
+      }
+
+      throw new Error("Unsupported record type");
+    }
+
+    // Case 4: Record with media
+    if (AppBskyEmbedRecordWithMedia.isView(content)) {
       return (
-        <View className="mt-1.5 flex-1">
-          {media && (
-            <View className="mb-1.5 flex-1">
-              <Embed uri={uri} content={media} depth={depth} />
-            </View>
-          )}
-          <PostEmbed
-            author={record.author}
-            uri={record.uri}
-            transparent={transparent || isNotification}
-          >
-            {record.value.text && (
-              <Text
-                className="mt-1 text-base leading-5"
-                numberOfLines={truncate ? 4 : undefined}
-              >
-                {record.value.text}
-              </Text>
-            )}
-            {/* in what case will there be more than one? in what order do we show them? */}
-            {record.embeds && record.embeds.length > 0 && (
-              <Embed
-                uri={record.uri}
-                content={record.embeds[0]}
-                depth={depth + 1}
-              />
-            )}
-          </PostEmbed>
+        <View className="mt-1.5 flex-1 gap-x-1.5">
+          <Embed uri={uri} content={content.media} depth={depth} />
+          <Embed
+            uri={uri}
+            content={{
+              $type: "app.bsky.embed.record#view",
+              record: content.record.record,
+            }}
+            depth={depth}
+          />
         </View>
       );
     }
 
     throw new Error("Unsupported embed type");
   } catch (err) {
-    console.error("Error rendering embed", content, err);
+    // console.error("Error rendering embed", content);
     return (
-      <View className="my-1.5 rounded-sm border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
-        <Text className="text-center font-semibold">
-          {(err as Error).message}
+      <View
+        className={cx(
+          "mt-1.5 flex-1 flex-row items-center rounded-md border",
+          depth > 0 ? "p-2" : "p-3",
+        )}
+        style={{ borderColor: theme.colors.border }}
+      >
+        <FileXIcon size={16} color={theme.colors.text} />
+        <Text className="ml-2">
+          {err instanceof Error ? err.message : "An error occurred"}
         </Text>
       </View>
     );
@@ -279,26 +177,63 @@ export const Embed = ({
 };
 
 export const PostEmbed = ({
-  author,
-  uri,
+  post,
   children,
   transparent,
+  className,
+  style,
 }: React.PropsWithChildren<{
-  author: AppBskyActorDefs.ProfileViewBasic;
-  uri: string;
+  post: AppBskyEmbedRecord.ViewRecord;
   transparent?: boolean;
+  className?: string;
+  style?: ViewStyle;
 }>) => {
   const theme = useTheme();
   const path = useAbsolutePath();
-  const profileHref = path(`/profile/${author.did}`);
+  const profileHref = path(`/profile/${post.author.did}`);
+  const { contentFilter, preferences } = useContentFilter();
+  const postHref = `${profileHref}/post/${post.uri.split("/").pop()}`;
+  const [hidden, setHidden] = useState(true);
 
-  const postHref = `${profileHref}/post/${uri.split("/").pop()}`;
+  const filter = contentFilter(post.labels);
+
+  if (filter?.visibility === "hide") return null;
+
+  if (filter?.visibility === "warn" && hidden) {
+    return (
+      <View
+        className={cx(
+          "my-2 max-w-xl flex-row items-center justify-between rounded border px-2",
+          theme.dark
+            ? "border-neutral-700 bg-neutral-950"
+            : "border-neutral-300 bg-neutral-50",
+        )}
+      >
+        <Text className="my-1 max-w-[75%] font-semibold">
+          {filter
+            ? filter.message
+            : post.author.viewer?.blocking
+              ? "This post has been blocked"
+              : "This post is from someone you have muted"}
+        </Text>
+        <TextButton
+          title={hidden ? "Show" : "Hide"}
+          onPress={() => setHidden((h) => !h)}
+        />
+      </View>
+    );
+  }
 
   return (
     <Link href={postHref} asChild>
       <TouchableWithoutFeedback
         accessibilityHint="Opens embedded post"
-        className="mt-1.5 flex-1 rounded-lg"
+        className={cx(
+          "mt-1.5 flex-1 rounded-lg",
+          preferences.isPending && "opacity-0",
+          className,
+        )}
+        style={style}
       >
         <View
           className="flex-1 rounded-lg border px-2 pb-2 pt-1"
@@ -314,18 +249,162 @@ export const PostEmbed = ({
           <View className="flex flex-row items-center overflow-hidden">
             <Avatar
               size="extraSmall"
-              uri={author.avatar}
-              alt={author.displayName}
+              uri={post.author.avatar}
+              alt={post.author.displayName}
               className="mr-2 shrink-0"
             />
             <Text className="flex-1 text-base" numberOfLines={1}>
-              <Text className="font-semibold">{author.displayName}</Text>
-              <Text className="text-neutral-500 dark:text-neutral-400">{` @${author.handle}`}</Text>
+              <Text className="font-semibold">{post.author.displayName}</Text>
+              <Text className="text-neutral-500 dark:text-neutral-400">{` @${post.author.handle}`}</Text>
             </Text>
           </View>
           {children}
         </View>
       </TouchableWithoutFeedback>
     </Link>
+  );
+};
+
+const FeedGeneratorEmbed = ({
+  generator,
+}: {
+  generator: AppBskyFeedDefs.GeneratorView;
+}) => {
+  const theme = useTheme();
+  const path = useAbsolutePath();
+
+  const href = path(
+    `/profile/${generator.creator.did}/feed/${generator.uri.split("/").pop()}`,
+  );
+  // TODO: add hold menu
+  // - open feed
+  // - save to my feeds
+  // - like feed
+  return (
+    <Link href={href} asChild>
+      <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
+        <View
+          className="flex-1 flex-row items-center rounded-lg border p-2"
+          style={{
+            backgroundColor: theme.dark ? "black" : "white",
+            borderColor: theme.colors.border,
+          }}
+        >
+          <Image
+            recyclingKey={generator.avatar}
+            alt={generator.displayName}
+            source={{ uri: generator.avatar }}
+            className="h-14 w-14 rounded bg-blue-500"
+          />
+          <View className="ml-2 flex-1">
+            <Text className="text-lg font-medium">{generator.displayName}</Text>
+            <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+              <HeartIcon
+                fill="currentColor"
+                className={
+                  generator.viewer?.like
+                    ? "text-red-500"
+                    : "text-neutral-500 dark:text-neutral-400"
+                }
+                size={12}
+              />{" "}
+              <Text style={{ fontVariant: ["tabular-nums"] }}>
+                {generator.likeCount ?? 0}
+              </Text>{" "}
+              • @{generator.creator.handle}
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    </Link>
+  );
+};
+
+const ListEmbed = ({ list }: { list: AppBskyGraphDefs.ListView }) => {
+  const theme = useTheme();
+  const path = useAbsolutePath();
+  const href = path(
+    `/profile/${list.creator.did}/lists/${list.uri.split("/").pop()}`,
+  );
+  let purposeText = "List";
+  switch (list.purpose) {
+    case AppBskyGraphDefs.MODLIST:
+      purposeText = "Moderation list";
+      break;
+    case AppBskyGraphDefs.CURATELIST:
+      purposeText = "User list";
+      break;
+  }
+  return (
+    <Link href={href} asChild>
+      <TouchableHighlight className="mt-1.5 flex-1 rounded-lg">
+        <View
+          className="flex-1 flex-row items-center rounded-lg border p-2"
+          style={{
+            backgroundColor: theme.dark ? "black" : "white",
+            borderColor: theme.colors.border,
+          }}
+        >
+          <Image
+            recyclingKey={list.avatar}
+            alt={list.name}
+            source={{ uri: list.avatar }}
+            className="h-14 w-14 rounded bg-blue-500"
+          />
+          <View className="ml-2 flex-1">
+            <Text className="text-lg font-medium">
+              {list.name}
+              {(list.viewer?.blocked || list.viewer?.muted) && (
+                <>
+                  {" "}
+                  <CheckIcon color={theme.colors.primary} size={12} />
+                </>
+              )}
+            </Text>
+            <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+              {purposeText} by @{list.creator.handle}
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    </Link>
+  );
+};
+
+const ViewNotFound = ({ depth }: { depth: number }) => {
+  const theme = useTheme();
+
+  return (
+    <View
+      className={cx(
+        "mt-1.5 flex-1 flex-row items-center rounded-md border",
+        depth > 0 ? "p-2" : "p-3",
+      )}
+      style={{
+        borderColor: theme.colors.border,
+      }}
+    >
+      <Trash2Icon size={16} color={theme.colors.text} />
+      <Text className="ml-2">Deleted post</Text>
+    </View>
+  );
+};
+
+const ViewBlocked = ({ depth }: { depth: number }) => {
+  const theme = useTheme();
+
+  return (
+    <View
+      className={cx(
+        "mt-1.5 flex-1 flex-row items-center rounded-md border",
+        depth > 0 ? "p-2" : "p-3",
+      )}
+      style={{
+        borderColor: theme.colors.border,
+      }}
+    >
+      <ShieldXIcon size={16} color={theme.colors.text} />
+      <Text className="ml-2">This post is blocked</Text>
+    </View>
   );
 };

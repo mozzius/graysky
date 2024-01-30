@@ -131,7 +131,7 @@ const FeedInfo = ({
           <View className="w-full flex-row items-center">
             <Image
               source={{ uri: info.view.avatar }}
-              className="h-12 w-12 rounded bg-blue-500"
+              className="h-12 w-12 rounded-md bg-blue-500"
               alt={info.view.displayName}
             />
             <View className="px-4">
@@ -140,7 +140,7 @@ const FeedInfo = ({
               </Text>
               <Link asChild href={path(`/profile/${info.view.creator.handle}`)}>
                 <TouchableOpacity>
-                  <Text className="text-base text-neutral-400">
+                  <Text className="text-base text-neutral-500">
                     By @{info.view.creator.handle}
                   </Text>
                 </TouchableOpacity>
@@ -175,7 +175,7 @@ const FeedInfo = ({
             >
               <View
                 className={cx(
-                  "flex-1 flex-row items-center justify-center rounded border py-2",
+                  "flex-1 flex-row items-center justify-center rounded border py-1.5",
                   theme.dark
                     ? "border-neutral-700 bg-black"
                     : "border-neutral-300 bg-white",
@@ -185,7 +185,7 @@ const FeedInfo = ({
                   <>
                     <CheckIcon
                       className="h-6 w-6"
-                      size={16}
+                      size={18}
                       color={theme.colors.text}
                     />
                     <Text className="ml-2 text-base">Saved</Text>
@@ -194,7 +194,7 @@ const FeedInfo = ({
                   <>
                     <PlusIcon
                       className="h-6 w-6"
-                      size={16}
+                      size={18}
                       color={theme.colors.primary}
                     />
                     <Text className="ml-2 text-base">Save</Text>
@@ -213,7 +213,7 @@ const FeedInfo = ({
               >
                 <View
                   className={cx(
-                    "items-center justify-center rounded border px-3 py-2",
+                    "items-center justify-center rounded border px-2 py-1.5",
                     theme.dark
                       ? "border-neutral-700 bg-black"
                       : "border-neutral-300 bg-white",
@@ -241,26 +241,30 @@ const FeedInfo = ({
             >
               <View
                 className={cx(
-                  "flex-row items-center rounded border px-3 py-2",
-                  info.view.viewer?.like
-                    ? theme.dark
-                      ? "border-red-800 bg-red-950"
-                      : "border-red-200 bg-red-100"
-                    : theme.dark
-                      ? "border-neutral-700 bg-black"
-                      : "border-neutral-300 bg-white",
+                  "flex-row items-center rounded border px-2 py-1.5",
+                  theme.dark
+                    ? "border-neutral-700 bg-black"
+                    : "border-neutral-300 bg-white",
                 )}
               >
                 <HeartIcon
-                  className="h-8 w-8"
+                  size={18}
                   color={colors.red[600]}
                   fill={
                     info.view.viewer?.like ? colors.red[600] : "transparent"
                   }
                 />
                 <Text
-                  className="ml-2 text-base"
-                  style={{ fontVariant: ["tabular-nums"] }}
+                  className={cx(
+                    "ml-2 text-base",
+                    info.view.viewer?.like && "font-bold",
+                  )}
+                  style={{
+                    fontVariant: ["tabular-nums"],
+                    color: info.view.viewer?.like
+                      ? colors.red[600]
+                      : theme.colors.text,
+                  }}
                 >
                   {info.view.likeCount}
                 </Text>
@@ -270,14 +274,14 @@ const FeedInfo = ({
         </View>
         {creator.data ? (
           <View className="my-4 w-full">
-            <Text className="mb-1 ml-8 mr-4 text-sm uppercase text-neutral-500">
+            <Text className="mx-8 mb-1.5 text-xs uppercase text-neutral-500">
               Creator
             </Text>
             <Link href={path(`/profile/${info.view.creator.handle}`)} asChild>
               <TouchableHighlight className="mx-4 overflow-hidden rounded-lg">
                 <View
                   style={{ backgroundColor: theme.colors.card }}
-                  className="flex-row items-center px-4 py-2"
+                  className="flex-row items-center px-2 py-1.5"
                 >
                   <Avatar
                     uri={info.view.creator.avatar}
@@ -305,7 +309,7 @@ const FeedInfo = ({
             {creator.data.feeds.length > 1 && (
               <>
                 <Text
-                  className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
+                  className="mx-8 mb-1.5 mt-4 text-xs uppercase text-neutral-500"
                   numberOfLines={1}
                 >
                   More from {info.view.creator.displayName}
@@ -358,7 +362,7 @@ const FeedInfo = ({
               </>
             )}
             <Text
-              className="mb-1 ml-8 mr-4 mt-6 text-sm uppercase text-neutral-500"
+              className="mx-8 mb-1.5 mt-4 text-xs uppercase text-neutral-500"
               numberOfLines={1}
             >
               Share

@@ -24,10 +24,7 @@ export default function SettingsLayout() {
                 canGoBack || (
                   <Animated.View entering={FadeIn}>
                     <TouchableOpacity onPress={() => router.push("../")}>
-                      <Text
-                        style={{ color: theme.colors.primary }}
-                        className="text-lg font-medium"
-                      >
+                      <Text primary className="text-lg font-medium">
                         Done
                       </Text>
                     </TouchableOpacity>
@@ -61,12 +58,6 @@ export default function SettingsLayout() {
           name="account/index"
           options={{
             title: "Account Settings",
-          }}
-        />
-        <Stack.Screen
-          name="account/edit-bio"
-          options={{
-            title: "Edit Profile",
           }}
         />
         <Stack.Screen

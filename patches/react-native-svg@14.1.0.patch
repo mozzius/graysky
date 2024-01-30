@@ -1,5 +1,5 @@
 diff --git a/lib/commonjs/lib/extract/extractProps.js b/lib/commonjs/lib/extract/extractProps.js
-index 618a08fd1b48a9bfe87cc9664ce5a1e8c87f0b3b..fb13e8ce3531ccea2c7eaa0d6942b9af91367f0d 100644
+index 618a08fd1b48a9bfe87cc9664ce5a1e8c87f0b3b..78900d4ef38598209a2d7e433928918452dc4cc6 100644
 --- a/lib/commonjs/lib/extract/extractProps.js
 +++ b/lib/commonjs/lib/extract/extractProps.js
 @@ -105,7 +105,7 @@ function extractProps(props, ref) {
@@ -7,12 +7,12 @@ index 618a08fd1b48a9bfe87cc9664ce5a1e8c87f0b3b..fb13e8ce3531ccea2c7eaa0d6942b9af
      }
    }
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(_util.idPattern);
      if (matched) {
        extracted.mask = matched[1];
 diff --git a/lib/commonjs/lib/extract/extractProps.windows.js b/lib/commonjs/lib/extract/extractProps.windows.js
-index 7e602b5c808e246ddf6f02d0976f48bc3236ea59..f802e8899b612c65bd74d69e0bb889f804c3cb21 100644
+index 7e602b5c808e246ddf6f02d0976f48bc3236ea59..69d6a2f205b6fc2f3d00a280a61383973f4fa5f2 100644
 --- a/lib/commonjs/lib/extract/extractProps.windows.js
 +++ b/lib/commonjs/lib/extract/extractProps.windows.js
 @@ -93,7 +93,7 @@ function extractProps(props, ref) {
@@ -20,12 +20,12 @@ index 7e602b5c808e246ddf6f02d0976f48bc3236ea59..f802e8899b612c65bd74d69e0bb889f8
      }
    }
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(_util.idPattern);
      if (matched) {
        extracted.mask = matched[1];
 diff --git a/lib/module/lib/extract/extractProps.js b/lib/module/lib/extract/extractProps.js
-index 968888919514bfdc638745837b5afc32c7f20f41..11bb8acf2dd39aeb49d8e2327b362f504b9bff1b 100644
+index 968888919514bfdc638745837b5afc32c7f20f41..1edcd4b36604b2efe3dac5360c091c1e8c9b2099 100644
 --- a/lib/module/lib/extract/extractProps.js
 +++ b/lib/module/lib/extract/extractProps.js
 @@ -94,7 +94,7 @@ export default function extractProps(props, ref) {
@@ -33,12 +33,12 @@ index 968888919514bfdc638745837b5afc32c7f20f41..11bb8acf2dd39aeb49d8e2327b362f50
      }
    }
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(idPattern);
      if (matched) {
        extracted.mask = matched[1];
 diff --git a/lib/module/lib/extract/extractProps.windows.js b/lib/module/lib/extract/extractProps.windows.js
-index 4f98597b1f6f6c309ed5fc6e74b6349eb9626246..62f52ee3f376c02d9f675e3a6378163eda6f0784 100644
+index 4f98597b1f6f6c309ed5fc6e74b6349eb9626246..aba80c76a7ad79e6f911d064a6c465341d24fa40 100644
 --- a/lib/module/lib/extract/extractProps.windows.js
 +++ b/lib/module/lib/extract/extractProps.windows.js
 @@ -82,7 +82,7 @@ export default function extractProps(props, ref) {
@@ -46,12 +46,12 @@ index 4f98597b1f6f6c309ed5fc6e74b6349eb9626246..62f52ee3f376c02d9f675e3a6378163e
      }
    }
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(idPattern);
      if (matched) {
        extracted.mask = matched[1];
 diff --git a/src/lib/extract/extractProps.ts b/src/lib/extract/extractProps.ts
-index 378aaf998ac03caf412b293f5088376e050d911a..939792b6a8b100e5f495090f6040cdfa18e80449 100644
+index 378aaf998ac03caf412b293f5088376e050d911a..a92fa82ac27bb202f9f9ea71b55018d41d15028c 100644
 --- a/src/lib/extract/extractProps.ts
 +++ b/src/lib/extract/extractProps.ts
 @@ -145,7 +145,7 @@ export default function extractProps(
@@ -59,12 +59,12 @@ index 378aaf998ac03caf412b293f5088376e050d911a..939792b6a8b100e5f495090f6040cdfa
    }
  
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(idPattern);
  
      if (matched) {
 diff --git a/src/lib/extract/extractProps.windows.ts b/src/lib/extract/extractProps.windows.ts
-index c2200a0aeb197a36baea6b87c84c45b61dfbda3a..dce7c108be6691d311ce7b6f45588607e23e8612 100644
+index c2200a0aeb197a36baea6b87c84c45b61dfbda3a..d213694a93aaad33b2a9f711ff9b389946934f67 100644
 --- a/src/lib/extract/extractProps.windows.ts
 +++ b/src/lib/extract/extractProps.windows.ts
 @@ -127,7 +127,7 @@ export default function extractProps(
@@ -72,7 +72,7 @@ index c2200a0aeb197a36baea6b87c84c45b61dfbda3a..dce7c108be6691d311ce7b6f45588607
    }
  
 -  if (mask) {
-+  if (typeof mask === 'string') {
++  if (mask && typeof mask === 'string') {
      const matched = mask.match(idPattern);
  
      if (matched) {
