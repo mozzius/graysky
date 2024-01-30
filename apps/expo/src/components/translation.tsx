@@ -9,8 +9,12 @@ import {
   SparklesIcon,
 } from "lucide-react-native";
 
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
 import { useIsPro } from "~/lib/purchases";
+import {
+  usePrimaryLanguage,
+  useTranslationMethod,
+} from "~/lib/storage/app-preferences";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
 import { RichTextWithoutFacets } from "./rich-text";
@@ -23,7 +27,8 @@ interface Props {
 }
 
 export const Translation = ({ text, uri, forceShow }: Props) => {
-  const [{ primaryLanguage, translationMethod }] = useAppPreferences();
+  const primaryLanguage = usePrimaryLanguage();
+  const translationMethod = useTranslationMethod();
   const isPro = useIsPro();
   const haptics = useHaptics();
   const translate = api.translate.post.useMutation({

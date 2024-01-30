@@ -24,7 +24,13 @@ import colors from "tailwindcss/colors";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useReorderFeeds, useSavedFeeds } from "~/lib/hooks/feeds";
-import { useAppPreferences, useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics } from "~/lib/hooks/preferences";
+import {
+  useDefaultFeed,
+  useHomepage,
+  useListsAboveFeeds,
+  useSortableFeeds,
+} from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
 import { FeedRow } from "./feed-row";
@@ -48,7 +54,7 @@ export const FeedsButton = ({ show = true }: Props) => {
   const { top } = useSafeAreaInsets();
   const savedFeeds = useSavedFeeds();
   const router = useRouter();
-  const [{ homepage }] = useAppPreferences();
+  const homepage = useHomepage();
   const dimensions = useWindowDimensions();
 
   const dismiss = useCallback(() => bottomSheetRef.current?.dismiss(), []);
@@ -131,8 +137,10 @@ const SheetContent = ({
   dismiss: () => void;
 }) => {
   const theme = useTheme();
-  const [{ sortableFeeds, homepage, defaultFeed, listsAboveFeeds }] =
-    useAppPreferences();
+  const sortableFeeds = useSortableFeeds();
+  const homepage = useHomepage();
+  const defaultFeed = useDefaultFeed();
+  const listsAboveFeeds = useListsAboveFeeds();
 
   const { pinned, saved } = useReorderFeeds(feeds);
 

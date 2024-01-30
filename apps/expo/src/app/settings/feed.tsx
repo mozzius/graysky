@@ -16,7 +16,12 @@ import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds } from "~/lib/hooks";
-import { useAppPreferences, usePreferences } from "~/lib/hooks/preferences";
+import { usePreferences } from "~/lib/hooks/preferences";
+import {
+  useDefaultFeed,
+  useHomepage,
+  useSetAppPreferences,
+} from "~/lib/storage/app-preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { produce } from "~/lib/utils/produce";
 
@@ -43,19 +48,21 @@ export const getFeedViewPref = (preferences?: AppBskyActorDefs.Preferences) => {
 
 export default function FeedPreferences() {
   const agent = useAgent();
-  const [appPrefs, setAppPrefs] = useAppPreferences();
+  const defaultFeed = useDefaultFeed();
+  const homepage = useHomepage();
+  const setAppPreferences = useSetAppPreferences();
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const savedFeeds = useSavedFeeds();
 
-  let defaultFeed = "Following";
+  let feedName = "Following";
   let unknown = false;
 
-  if (appPrefs.defaultFeed !== "following") {
+  if (defaultFeed !== "following") {
     const data = savedFeeds.data?.feeds ?? [];
-    const feed = data.find((x) => x.uri === appPrefs.defaultFeed);
+    const feed = data.find((x) => x.uri === defaultFeed);
     if (feed) {
-      defaultFeed = feed.displayName;
+      feedName = feed.displayName;
     } else {
       unknown = true;
     }
@@ -130,10 +137,10 @@ export default function FeedPreferences() {
                           (index) => {
                             switch (index) {
                               case 0:
-                                setAppPrefs({ homepage: "feeds" });
+                                setAppPreferences({ homepage: "feeds" });
                                 break;
                               case 1:
-                                setAppPrefs({ homepage: "skyline" });
+                                setAppPreferences({ homepage: "skyline" });
                                 break;
                             }
                           },
@@ -145,9 +152,7 @@ export default function FeedPreferences() {
                         primary
                         className="text-base font-medium capitalize"
                       >
-                        {appPrefs.homepage === "feeds"
-                          ? "Feeds list"
-                          : "Primary feed"}
+                        {homepage === "feeds" ? "Feeds list" : "Primary feed"}
                       </Text>
                       <ChevronsUpDownIcon
                         size={16}
@@ -157,7 +162,7 @@ export default function FeedPreferences() {
                     </TouchableOpacity>
                   ),
                 },
-                ...(appPrefs.homepage === "skyline"
+                ...(homepage === "skyline"
                   ? [
                       {
                         title: "Primary feed",
@@ -181,7 +186,7 @@ export default function FeedPreferences() {
                                 ...data.map((x) => x.displayName),
                               ];
                               const icons = [
-                                appPrefs.defaultFeed === "following" ? (
+                                defaultFeed === "following" ? (
                                   <CircleDotIcon
                                     key={0}
                                     color={theme.colors.text}
@@ -200,7 +205,7 @@ export default function FeedPreferences() {
                                       )
                                       .filter((x) => x !== undefined)
                                       .map((x, i) =>
-                                        x.uri === appPrefs.defaultFeed ? (
+                                        x.uri === defaultFeed ? (
                                           <CircleDotIcon
                                             key={i + 1}
                                             color={theme.colors.text}
@@ -228,9 +233,11 @@ export default function FeedPreferences() {
                                   )
                                     return;
                                   if (index === 0) {
-                                    setAppPrefs({ defaultFeed: "following" });
+                                    setAppPreferences({
+                                      defaultFeed: "following",
+                                    });
                                   } else {
-                                    setAppPrefs({
+                                    setAppPreferences({
                                       defaultFeed: data[index - 1]!.uri,
                                     });
                                   }
@@ -249,7 +256,7 @@ export default function FeedPreferences() {
                                   }}
                                   className="text-base font-medium"
                                 >
-                                  {unknown ? "Unknown" : defaultFeed}
+                                  {unknown ? "Unknown" : feedName}
                                 </Text>
                                 <ChevronsUpDownIcon
                                   size={16}

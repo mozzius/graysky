@@ -1,28 +1,11 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-} from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider as NavigationThemeProvider,
-} from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import { produce } from "immer";
-import { useColorScheme } from "nativewind";
 
 import { useAgent } from "../agent";
-import {
-  useAccentColor,
-  useColorScheme as useColorSchemePreference,
-  useHaptics as useHapticsPreference,
-} from "../storage/app-preferences";
+import { useHaptics as useHapticsPreference } from "../storage/app-preferences";
 
 // TODO: Refactor to new Content Moderation API!
 // https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
@@ -190,39 +173,6 @@ export const useContentFilter = () => {
     preferences,
     contentFilter,
   };
-};
-
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const { colorScheme: currentColorScheme, setColorScheme } = useColorScheme();
-  const accentColor = useAccentColor();
-  const colorSchemePreference = useColorSchemePreference();
-
-  const colorScheme = useMemo(() => {
-    if (colorSchemePreference === "system") {
-      return currentColorScheme;
-    } else {
-      return colorSchemePreference;
-    }
-  }, [colorSchemePreference, currentColorScheme]);
-
-  useEffect(() => {
-    setColorScheme(colorSchemePreference);
-  }, [colorSchemePreference, setColorScheme]);
-
-  const theme = useMemo(() => {
-    const base = colorScheme === "dark" ? DarkTheme : DefaultTheme;
-    if (accentColor) {
-      return produce(base, (draft) => {
-        draft.colors.primary = accentColor;
-      });
-    } else {
-      return base;
-    }
-  }, [colorScheme, accentColor]);
-
-  return (
-    <NavigationThemeProvider value={theme}>{children}</NavigationThemeProvider>
-  );
 };
 
 export const useHaptics = () => {

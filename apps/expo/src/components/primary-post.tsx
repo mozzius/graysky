@@ -12,8 +12,8 @@ import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
+import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { Embed } from "./embed";
@@ -41,7 +41,7 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
   const postAuthorHandle = post.author.handle;
   const profileHref = path(`/profile/${post.author.did}`);
 
-  const [{ contentLanguages }] = useAppPreferences();
+  const contentLanguages = useContentLanguages();
 
   const needsTranslation = useMemo(
     () => !isPostInLanguage(post, contentLanguages),

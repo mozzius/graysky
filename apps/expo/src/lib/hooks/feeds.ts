@@ -15,8 +15,9 @@ import {
 
 import { getFeedViewPref } from "~/app/settings/feed";
 import { useAgent } from "../agent";
+import { useDefaultFeed, useHomepage } from "../storage/app-preferences";
 import { produce } from "../utils/produce";
-import { useAppPreferences, useContentFilter, useHaptics } from "./preferences";
+import { useContentFilter, useHaptics } from "./preferences";
 
 export const useSavedFeeds = () => {
   const agent = useAgent();
@@ -234,7 +235,8 @@ export const useReorderFeeds = (
 export const useTimeline = (feed: string) => {
   const agent = useAgent();
   const { contentFilter, preferences } = useContentFilter();
-  const [{ homepage, defaultFeed }] = useAppPreferences();
+  const defaultFeed = useDefaultFeed();
+  const homepage = useHomepage();
 
   const timeline = useInfiniteQuery({
     queryKey: ["timeline", feed],

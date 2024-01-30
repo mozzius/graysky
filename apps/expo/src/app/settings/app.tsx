@@ -2,10 +2,27 @@ import { Alert, Switch } from "react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAppPreferences } from "~/lib/hooks/preferences";
+import {
+  useAltText,
+  useGifAutoplay,
+  useGroupNotifications,
+  useHaptics,
+  useInAppBrowser,
+  useListsAboveFeeds,
+  useSetAppPreferences,
+  useSortableFeeds,
+} from "~/lib/storage/app-preferences";
 
 export default function AppSettings() {
-  const [appPrefs, setAppPrefs] = useAppPreferences();
+  const sortableFeeds = useSortableFeeds();
+  const listsAboveFeeds = useListsAboveFeeds();
+  const groupNotifications = useGroupNotifications();
+  const inAppBrowser = useInAppBrowser();
+  const haptics = useHaptics();
+  const gifAutoplay = useGifAutoplay();
+  const altText = useAltText();
+
+  const setAppPreferences = useSetAppPreferences();
 
   return (
     <TransparentHeaderUntilScrolled>
@@ -18,9 +35,9 @@ export default function AppSettings() {
                 title: "Manually sort non-favourite feeds",
                 action: (
                   <Switch
-                    value={appPrefs.sortableFeeds}
+                    value={sortableFeeds}
                     onValueChange={(sortableFeeds) =>
-                      setAppPrefs({ sortableFeeds })
+                      setAppPreferences({ sortableFeeds })
                     }
                     accessibilityHint="Allows you to manually sort non-favourite feeds in the feeds tab"
                   />
@@ -30,9 +47,9 @@ export default function AppSettings() {
                 title: 'Show "My Lists" above "All Feeds"',
                 action: (
                   <Switch
-                    value={appPrefs.listsAboveFeeds}
+                    value={listsAboveFeeds}
                     onValueChange={(listsAboveFeeds) =>
-                      setAppPrefs({ listsAboveFeeds })
+                      setAppPreferences({ listsAboveFeeds })
                     }
                     accessibilityHint="Show lists above feeds in the feeds tab"
                   />
@@ -42,9 +59,9 @@ export default function AppSettings() {
                 title: "Show each notification individually",
                 action: (
                   <Switch
-                    value={!appPrefs.groupNotifications}
+                    value={!groupNotifications}
                     onValueChange={(value) =>
-                      setAppPrefs({ groupNotifications: !value })
+                      setAppPreferences({ groupNotifications: !value })
                     }
                     accessibilityHint="Show each notification individually in the notification tab"
                   />
@@ -54,9 +71,9 @@ export default function AppSettings() {
                 title: "Use in-app browser",
                 action: (
                   <Switch
-                    value={appPrefs.inAppBrowser}
+                    value={inAppBrowser}
                     onValueChange={(value) =>
-                      setAppPrefs({ inAppBrowser: value })
+                      setAppPreferences({ inAppBrowser: value })
                     }
                     accessibilityHint="Links will open in the app instead of your device's default browser"
                   />
@@ -71,10 +88,10 @@ export default function AppSettings() {
                 title: "Disable haptics",
                 action: (
                   <Switch
-                    value={!appPrefs.haptics}
+                    value={!haptics}
                     onValueChange={(disableHaptics) => {
                       const haptics = !disableHaptics;
-                      setAppPrefs({ haptics });
+                      setAppPreferences({ haptics });
                       if (!haptics) {
                         Alert.alert(
                           "Haptics disabled",
@@ -90,10 +107,10 @@ export default function AppSettings() {
                 title: "Disable GIF autoplay",
                 action: (
                   <Switch
-                    value={!appPrefs.gifAutoplay}
+                    value={!gifAutoplay}
                     onValueChange={(disableGifAutoplay) => {
                       const gifAutoplay = !disableGifAutoplay;
-                      setAppPrefs({ gifAutoplay });
+                      setAppPreferences({ gifAutoplay });
                     }}
                     accessibilityHint="Disable GIF autoplay"
                   />
@@ -103,10 +120,10 @@ export default function AppSettings() {
                 title: "Mandatory ALT text",
                 action: (
                   <Switch
-                    value={appPrefs.altText === "force"}
+                    value={altText === "force"}
                     onValueChange={(force) => {
                       const altText = force ? "force" : "warn";
-                      setAppPrefs({ altText });
+                      setAppPreferences({ altText });
                     }}
                     accessibilityHint="Makes adding ALT text to your images mandatory"
                   />

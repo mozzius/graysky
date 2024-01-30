@@ -18,8 +18,12 @@ import {
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useInviteCodes } from "~/app/codes/_layout";
-import { useAppPreferences } from "~/lib/hooks/preferences";
 import { useLogOut } from "~/lib/log-out-context";
+import {
+  useColorScheme,
+  useHomepage,
+  useSetAppPreferences,
+} from "~/lib/storage/app-preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "../back-button-override";
@@ -37,7 +41,9 @@ export const DrawerContent = ({ open }: Props) => {
   const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
-  const [{ homepage, colorScheme }, setAppPrefs] = useAppPreferences();
+  const homepage = useHomepage();
+  const colorScheme = useColorScheme();
+  const setAppPreferences = useSetAppPreferences();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
@@ -74,7 +80,7 @@ export const DrawerContent = ({ open }: Props) => {
             break;
         }
         if (!colorScheme) return;
-        setAppPrefs({ colorScheme });
+        setAppPreferences({ colorScheme });
       },
     );
   };

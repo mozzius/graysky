@@ -9,12 +9,16 @@ import { useTheme } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
 
+import {
+  useInAppBrowser,
+  useSetAppPreferences,
+} from "../storage/app-preferences";
 import { actionSheetStyles } from "../utils/action-sheet";
-import { useAppPreferences } from "./preferences";
 
 export const useLinkPress = () => {
   const { showActionSheetWithOptions } = useActionSheet();
-  const [{ inAppBrowser }, setAppPrefs] = useAppPreferences();
+  const inAppBrowser = useInAppBrowser();
+  const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
 
   const openLink = useCallback(
@@ -38,7 +42,7 @@ export const useLinkPress = () => {
               if (index === undefined) return;
               switch (index) {
                 case 0:
-                  setAppPrefs({ inAppBrowser: true });
+                  setAppPreferences({ inAppBrowser: true });
                   void WebBrowser.openBrowserAsync(url, {
                     presentationStyle:
                       WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
@@ -46,7 +50,7 @@ export const useLinkPress = () => {
                   });
                   break;
                 case 1:
-                  setAppPrefs({ inAppBrowser: false });
+                  setAppPreferences({ inAppBrowser: false });
                   void Linking.openURL(url);
                   break;
               }
@@ -71,7 +75,7 @@ export const useLinkPress = () => {
         Sentry.captureException(err);
       }
     },
-    [inAppBrowser, setAppPrefs, showActionSheetWithOptions, theme],
+    [inAppBrowser, setAppPreferences, showActionSheetWithOptions, theme],
   );
 
   const showLinkOptions = useCallback(
