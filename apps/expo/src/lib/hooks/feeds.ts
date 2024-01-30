@@ -296,13 +296,16 @@ export const useTimeline = (feed: string) => {
           }
         }
 
+        if (
+          item.reply &&
+          (AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
+            AppBskyFeedDefs.isBlockedPost(item.reply.root))
+        ) {
+          return [];
+        }
+
         if (item.reply && !item.reason) {
-          if (
-            AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
-            AppBskyFeedDefs.isBlockedPost(item.reply.root)
-          ) {
-            return [];
-          } else if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+          if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
             if (item.reply.parent.author.viewer?.muted) return [];
             const parentFilter = contentFilter(item.reply.parent.labels);
             if (parentFilter?.visibility === "hide") return [];
