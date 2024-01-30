@@ -207,8 +207,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       lucide-react-native:
-        specifier: ^0.317.0
-        version: 0.317.0(react-native-svg@14.1.0)(react-native@0.73.3)(react@18.2.0)
+        specifier: ^0.319.0
+        version: 0.319.0(react-native-svg@14.1.0)(react-native@0.73.3)(react@18.2.0)
       metro:
         specifier: ~0.80.5
         version: 0.80.5
@@ -312,8 +312,8 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
       zustand:
-        specifier: ^4.4.7
-        version: 4.4.7(@types/react@18.2.48)(immer@10.0.3)(react@18.2.0)
+        specifier: ^4.5.0
+        version: 4.5.0(@types/react@18.2.48)(immer@10.0.3)(react@18.2.0)
     devDependencies:
       '@babel/core':
         specifier: ^7.23.9
@@ -412,8 +412,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       '@vercel/speed-insights':
-        specifier: ^1.0.8
-        version: 1.0.8(next@14.1.0)(react@18.2.0)
+        specifier: ^1.0.9
+        version: 1.0.9(next@14.1.0)(react@18.2.0)
       bright:
         specifier: ^0.8.4
         version: 0.8.4(react@18.2.0)
@@ -421,8 +421,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.317.0
-        version: 0.317.0(react@18.2.0)
+        specifier: ^0.319.0
+        version: 0.319.0(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -5019,8 +5019,8 @@ packages:
       '@upstash/redis': 1.25.1
     dev: false
 
-  /@vercel/speed-insights@1.0.8(next@14.1.0)(react@18.2.0):
-    resolution: {integrity: sha512-x1V9MHUMGkaNafmgY0qRbmbr+jfeU+Cvo5KgreeEGo63SFuBYRg9RS52GUJ9p82nEL6NBzc9HNru6fkcvufYcQ==}
+  /@vercel/speed-insights@1.0.9(next@14.1.0)(react@18.2.0):
+    resolution: {integrity: sha512-f+XFP0O+aZ4Olj9h+BitkB1b4NJQaxtyCb69wWuDxytJHY6Pa4QtZPdBUftHOcajUCHRVeq062fk3MKXKtjNVQ==}
     requiresBuild: true
     peerDependencies:
       '@sveltejs/kit': ^1 || ^2
@@ -9446,8 +9446,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.317.0(react-native-svg@14.1.0)(react-native@0.73.3)(react@18.2.0):
-    resolution: {integrity: sha512-RKK+WgC7FfL0PAORE8D5jyfI7odhxXfJEZriXsauA1Kds7vcHdfeZ+8itzDaPdfprdWh7LT0MEEaESrBc6DRQQ==}
+  /lucide-react-native@0.319.0(react-native-svg@14.1.0)(react-native@0.73.3)(react@18.2.0):
+    resolution: {integrity: sha512-DrboDAGz2N5bk+Cpr2Owgx9LQaJmOtbDFCSTPrAvdrUsLQe1CUYgTjr0mKvwoMeBvR6P5sUxd91wgIh89TvsRw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -9458,8 +9458,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.3)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.317.0(react@18.2.0):
-    resolution: {integrity: sha512-8J8fIim0Sc+AYn8skgVau+hRGXaqjErRNzuW0vIGt4QA/f3UvY8g8o2A/OL9deCBKxZjVD1zuoidyMCiq8rfFQ==}
+  /lucide-react@0.319.0(react@18.2.0):
+    resolution: {integrity: sha512-IIbu4TfVI3yPI3ba/Li53mKeOd+WwcWI6+WcyoVdFLtrBfH88m2uQ/uTmtzBWt523HyxCFjWy3RFs0OxDFYm8w==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -14260,12 +14260,12 @@ packages:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
 
-  /zustand@4.4.7(@types/react@18.2.48)(immer@10.0.3)(react@18.2.0):
-    resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
+  /zustand@4.5.0(@types/react@18.2.48)(immer@10.0.3)(react@18.2.0):
+    resolution: {integrity: sha512-zlVFqS5TQ21nwijjhJlx4f9iGrXSL0o/+Dpy4txAP22miJ8Ti6c1Ol1RLNN98BMib83lmDH/2KmLwaNXpjrO1A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'
-      immer: '>=9.0'
+      immer: '>=9.0.6'
       react: '>=16.8'
     peerDependenciesMeta:
       '@types/react':
