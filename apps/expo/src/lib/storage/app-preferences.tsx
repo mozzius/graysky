@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { type MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
@@ -44,9 +45,12 @@ export const appPrefsSchema = z.object({
 
 export type AppPreferences = z.infer<typeof appPrefsSchema>;
 
+// migrate from old storage
+const oldPrefs = mirgrateFromOldAppPreferences(store);
+
 export const appPreferencesStore = create<AppPreferences>()(
-  persist(() => ({ ...appPrefsSchema.parse({}) }), {
-    name: "app-prefs",
+  persist(() => ({ ...(oldPrefs ?? appPrefsSchema.parse({})) }), {
+    name: "app-preferences",
     storage: createJSONStorage(() => ({
       setItem: (name, value) => store.set(name, value),
       getItem: (name) => store.getString(name) ?? null,
@@ -128,3 +132,17 @@ export const useThemeSetup = () => {
     }
   }, [colorScheme, accentColor]);
 };
+
+// fetch, parse, and delete old app preferences
+function mirgrateFromOldAppPreferences(store: MMKV) {
+  const oldPrefsStr = store.getString("app-prefs");
+  if (oldPrefsStr) {
+    store.delete("app-prefs");
+    try {
+      return appPrefsSchema.parse(JSON.parse(oldPrefsStr));
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
