@@ -265,66 +265,66 @@ export const useTimeline = (feed: string) => {
     if (!timeline.data) return [];
     const feedViewPref = getFeedViewPref(preferences.data);
     const flattened = timeline.data.pages.flatMap((page) => page.posts);
-    return flattened
-      .map((item) => {
-        const filter = contentFilter(item.post.labels);
+    return flattened.flatMap((item) => {
+      const filter = contentFilter(item.post.labels);
 
-        if (filter?.visibility === "hide") return [];
+      if (filter?.visibility === "hide") return [];
 
-        // preference filters
+      // preference filters
 
-        if (
-          homepage === "feeds" ? feed === "following" : feed === defaultFeed
-        ) {
-          const isEmbed =
-            AppBskyEmbedRecord.isView(item.post.embed) ||
-            AppBskyEmbedRecordWithMedia.isView(item.post.embed);
-          const isByUnfollowed = !item.post.author.viewer?.following;
+      if (homepage === "feeds" ? feed === "following" : feed === defaultFeed) {
+        const isEmbed =
+          AppBskyEmbedRecord.isView(item.post.embed) ||
+          AppBskyEmbedRecordWithMedia.isView(item.post.embed);
+        const isByUnfollowed = !item.post.author.viewer?.following;
 
-          if (feedViewPref.hideReplies && item.reply) {
-            return [];
-          } else if (feedViewPref.hideReposts && item.reason) {
-            return [];
-          } else if (feedViewPref.hideQuotePosts && isEmbed) {
-            return [];
-          } else if (
-            feedViewPref.hideRepliesByUnfollowed &&
-            item.reply &&
-            isByUnfollowed
-          ) {
-            return [];
-          }
-        }
-
-        if (
+        if (feedViewPref.hideReplies && item.reply) {
+          return [];
+        } else if (feedViewPref.hideReposts && item.reason) {
+          return [];
+        } else if (feedViewPref.hideQuotePosts && isEmbed) {
+          return [];
+        } else if (
+          feedViewPref.hideRepliesByUnfollowed &&
           item.reply &&
-          (AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
-            AppBskyFeedDefs.isBlockedPost(item.reply.root))
+          isByUnfollowed
         ) {
           return [];
         }
+      }
 
-        if (item.reply && !item.reason) {
-          if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
-            if (item.reply.parent.author.viewer?.muted) return [];
-            const parentFilter = contentFilter(item.reply.parent.labels);
-            if (parentFilter?.visibility === "hide") return [];
-            return [
-              {
-                item: { post: item.reply.parent },
-                hasReply: true,
-                filter: parentFilter,
-              },
-              { item, hasReply: false, filter },
-            ];
-          } else {
-            return [{ item, hasReply: false, filter }];
-          }
+      // hide replies to blocked posts
+
+      if (
+        item.reply &&
+        (AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
+          AppBskyFeedDefs.isBlockedPost(item.reply.root))
+      ) {
+        return [];
+      }
+
+      // mini threads
+
+      if (item.reply && !item.reason) {
+        if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+          if (item.reply.parent.author.viewer?.muted) return [];
+          const parentFilter = contentFilter(item.reply.parent.labels);
+          if (parentFilter?.visibility === "hide") return [];
+          return [
+            {
+              item: { post: item.reply.parent },
+              hasReply: true,
+              filter: parentFilter,
+            },
+            { item, hasReply: false, filter },
+          ];
         } else {
           return [{ item, hasReply: false, filter }];
         }
-      })
-      .flat();
+      } else {
+        return [{ item, hasReply: false, filter }];
+      }
+    });
   }, [timeline, contentFilter, preferences.data, defaultFeed, homepage, feed]);
 
   return { timeline, data, preferences, contentFilter };
