@@ -276,8 +276,8 @@ importers:
         specifier: 6.2.3
         version: 6.2.3(react-native@0.73.3)(react@18.2.0)
       react-native-purchases:
-        specifier: ^7.17.1
-        version: 7.17.1(react-native@0.73.3)(react@18.2.0)
+        specifier: ^7.18.0
+        version: 7.18.0(react-native@0.73.3)(react@18.2.0)
       react-native-reanimated:
         specifier: ~3.6.2
         version: 3.6.2(@babel/core@7.23.9)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.73.3)(react@18.2.0)
@@ -4105,8 +4105,8 @@ packages:
       web-streams-polyfill: 3.3.2
     dev: false
 
-  /@revenuecat/purchases-typescript-internal@9.2.0:
-    resolution: {integrity: sha512-c28kXwm81oVVr3AD23nUpHvkXZEGlXVpPLN+/igR7sTr6N7vKov3P+LsWpC3d7leFOLO8YdzAzq0tTJHb5R/GA==}
+  /@revenuecat/purchases-typescript-internal@9.3.0:
+    resolution: {integrity: sha512-Z6ZZxcTz83LIlHHLnr3WlFDc/tVPLKezVTW2pro1N35Uymweu+dlpsb/VSIeEjxoZ/zGRqN4AJkECOQUQtIyyQ==}
     dev: false
 
   /@rollup/plugin-commonjs@24.0.0(rollup@2.78.0):
@@ -11864,13 +11864,13 @@ packages:
       react-native: 0.73.3(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
 
-  /react-native-purchases@7.17.1(react-native@0.73.3)(react@18.2.0):
-    resolution: {integrity: sha512-9vfDOLF5ShBN87J4Kv9YyfzYzAgGc7pu6fwu3EJZgqkUge/8oyq6VTfYIfxB2GTooClLoX581RjpiyPoeRIHaw==}
+  /react-native-purchases@7.18.0(react-native@0.73.3)(react@18.2.0):
+    resolution: {integrity: sha512-U9evUL9LxC8ISF4teX9oqLna3x4JogOE8dw8CG76EFjY8+PgMBtggbBUWy1UzfgkVV74imvWLbKsrjNdaEDUCw==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '>= 0.58.2'
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 9.2.0
+      '@revenuecat/purchases-typescript-internal': 9.3.0
       react: 18.2.0
       react-native: 0.73.3(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
