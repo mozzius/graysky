@@ -62,9 +62,20 @@ export const useSavedFeeds = () => {
         throw new Error("Could not fetch saved feeds");
       }
 
+      const myLists = await agent.app.bsky.graph.getLists({
+        actor: agent.session!.did,
+      });
+
       // fetch all lists
-      const listUris = allUris.filter((x) => x.includes("app.bsky.graph.list"));
-      const lists =
+      const listUris = allUris.filter(
+        (
+          x, // find all list uris
+        ) =>
+          x.includes("app.bsky.graph.list") &&
+          // ...that we haven't already fetched
+          !myLists.data.lists.find((list) => list.uri === x),
+      );
+      const otherLists =
         listUris.length === 0
           ? []
           : await Promise.all(
@@ -76,6 +87,8 @@ export const useSavedFeeds = () => {
             )
               .catch(() => [])
               .then((lists) => lists.filter((x) => x !== undefined));
+
+      const lists = [...myLists.data.lists, ...otherLists];
 
       return {
         feeds: generators.data.feeds.map((feed) => ({

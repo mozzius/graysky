@@ -190,7 +190,7 @@ const SheetContent = ({
       listsAndFeeds.reverse();
     }
 
-    return favourites.concat(listsAndFeeds);
+    return favourites.concat(listsAndFeeds).filter((x) => x.data.length > 0);
   }, [feeds.data, listsAboveFeeds, pinned, saved, sortableFeeds]);
 
   if (feeds.data) {
