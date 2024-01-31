@@ -74,7 +74,7 @@
     "graphemer": "^1.4.0",
     "immer": "^10.0.3",
     "jwt-decode": "^4.0.0",
-    "lucide-react-native": "^0.319.0",
+    "lucide-react-native": "^0.320.0",
     "metro": "~0.80.5",
     "mime": "^4.0.1",
     "nativewind": "^2.0.11",
