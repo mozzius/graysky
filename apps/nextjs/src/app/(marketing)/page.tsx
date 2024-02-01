@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { type AppBskyFeedGetPosts } from "@atproto/api";
+import Balancer from "react-wrap-balancer";
 
 import background from "~/assets/graysky.jpg";
 import { AppleBadge } from "./_components/apple-badge";
@@ -28,7 +29,18 @@ export default async function LandingPage({
           alt="stormy gray clouds"
           priority
         />
-        <Hero />
+        <Hero>
+          <span className="w-max translate-y-2 rounded-full border border-neutral-500 bg-neutral-900 px-4 py-1 text-xs text-white">
+            New update v1.3.5 out now!
+          </span>
+          <Balancer as="h1" className="text-5xl font-bold">
+            Bluesky, like you&apos;ve never seen it before.
+          </Balancer>
+          <Balancer as="h2" className="max-w-xs text-lg font-medium">
+            Graysky is a 3<sup>rd</sup> party Bluesky client that&apos;s
+            absolutely jam-packed with features.
+          </Balancer>
+        </Hero>
       </header>
       <section className="w-full p-4 pb-8">
         <Features />
