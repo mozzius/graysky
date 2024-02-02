@@ -70,7 +70,12 @@ export function useNotifications() {
           void queryClient.invalidateQueries({
             queryKey: ["notifications", "list"],
           });
-          router.push("/notifications");
+          const notificationData = response.notification.request.content.data;
+          if (typeof notificationData.path === "string") {
+            router.push(notificationData.path);
+          } else {
+            router.push("/notifications");
+          }
         }
       },
     );
