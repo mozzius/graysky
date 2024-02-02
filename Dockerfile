@@ -24,7 +24,7 @@ RUN npm install -g pnpm
 
 # Install node modules
 COPY --link package.json .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --production
 
 # Copy application code
 COPY --link . .
