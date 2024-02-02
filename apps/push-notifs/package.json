@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "main": "./src/index.ts",
   "scripts": {
-    "build": "esbuild ./src/index.ts --bundle --outdir=dist --platform=node",
+    "build": "pnpm with-env esbuild ./src/index.ts --bundle --outdir=dist --platform=node",
     "dev": "pnpm with-env tsx watch ./src/index.ts",
-    "start": "node ./dist/index.js",
+    "start": "pnpm with-env node ./dist/index.js",
     "with-env": "dotenv -e ../../.env --"
   },
   "devDependencies": {

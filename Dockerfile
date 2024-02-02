@@ -20,6 +20,7 @@ RUN apt-get update -qq && \
 
 # Install pnpm
 RUN npm install -g pnpm
+RUN npm install -g dotenv-cli
 
 # Copy package.json and lockfile
 COPY --link package.json .
@@ -34,6 +35,8 @@ RUN pnpm install --frozen-lockfile --production
 
 # Copy application code
 COPY --link . .
+
+RUN pnpm db:generate
 
 # Build application
 RUN pnpm run push:build
