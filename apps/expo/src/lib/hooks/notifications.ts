@@ -25,8 +25,6 @@ export function useNotifications() {
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!agent?.hasSession) return;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (!Constants.expoConfig?.extra?.eas.projectId) return;
 
     void (async () => {
       const perms = await Notifications.getPermissionsAsync();
@@ -53,26 +51,6 @@ export function useNotifications() {
         }
       }
     })();
-    // // listens for new changes to the push token
-    // // In rare situations, a push token may be changed by the push notification service while the app is running. When a token is rolled, the old one becomes invalid and sending notifications to it will fail. A push token listener will let you handle this situation gracefully by registering the new token with your backend right away.
-    // Notifications.addPushTokenListener(async ({ data: t, type }) => {
-    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    //   console.log("Push token changed", { type, data: t });
-    //   if (t) {
-    //     try {
-    //       await agent.api.app.bsky.notification.registerPush({
-    //         serviceDid: SERVICE_DID,
-    //         platform: Platform.OS,
-    //         token: t as string,
-    //         appId: "dev.mozzius.graysky",
-    //       });
-    //     } catch (error) {
-    //       Sentry.captureException(
-    //         new Error("Failed to update push token", { cause: error }),
-    //       );
-    //     }
-    //   }
-    // });
     // handle notifications that are received, both in the foreground or background
     Notifications.addNotificationReceivedListener((event) => {
       if (event.request.trigger.type === "push") {
@@ -80,16 +58,6 @@ export function useNotifications() {
         void queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
         });
-        // TODO: handle payload-based deeplinks
-        // let payload;
-        // if (Platform.OS === 'ios') {
-        //   payload = event.request.trigger.payload;
-        // } else {
-        //   // TODO: handle android payload deeplink
-        // }
-        // if (payload) {
-        //   // TODO: deeplink notif here
-        // }
       }
     });
     // handle notifications that are tapped on
@@ -98,6 +66,7 @@ export function useNotifications() {
         if (
           response.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER
         ) {
+          // TODO: pass a deeplink in the notification to navigate to
           void queryClient.invalidateQueries({
             queryKey: ["notifications", "list"],
           });
@@ -112,9 +81,13 @@ export function useNotifications() {
 }
 
 export async function getPushToken() {
+  // TODO: Un-hardcode the projectId
+  // however expo-constants doesn't seem to work :/
   const token = await Notifications.getExpoPushTokenAsync({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-    projectId: Constants.expoConfig?.extra?.eas.projectId,
+    projectId:
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,
+      (Constants.expoConfig?.extra?.eas?.projectId as string | undefined) ??
+      "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
   });
   console.log("Push token:", token);
   return token;

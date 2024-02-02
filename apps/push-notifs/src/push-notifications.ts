@@ -68,6 +68,7 @@ export class PushNotifications {
           }
         }
       } catch (error) {
+        console.log("Error sending messages");
         console.error(error);
       }
     }
@@ -106,7 +107,7 @@ export class PushNotifications {
               // remove token
               for (const ticket of tickets) {
                 if (ticket.ticket.id === id) {
-                  this.accounts.disablePushToken(ticket.token);
+                  await this.accounts.disablePushToken(ticket.token);
                   break;
                 }
               }
@@ -114,6 +115,7 @@ export class PushNotifications {
           }
         }
       } catch (error) {
+        console.log("Error checking tickets");
         console.error(error);
       }
     }

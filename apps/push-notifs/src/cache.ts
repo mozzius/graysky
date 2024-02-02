@@ -22,12 +22,10 @@ export class Cache {
 
     const name = profile.data.displayName ?? profile.data.handle;
 
-    await this.kv
-      .multi()
-      .set(`profile:${did}`, name)
-      // expire in one day
-      .expire(`profile:${did}`, 60 * 60 * 24)
-      .exec();
+    await this.kv.set(`profile:${did}`, name);
+
+    // expire in one day
+    await this.kv.expire(`profile:${did}`, 60 * 60 * 24);
 
     return name;
   }
@@ -54,12 +52,10 @@ export class Cache {
       }
     }
 
-    await this.kv
-      .multi()
-      .set(`post:${uri}`, content)
-      // expire in one week (probably will stop receiving notifications by then?)
-      .expire(`post:${uri}`, 60 * 60 * 24 * 7)
-      .exec();
+    await this.kv.set(`post:${uri}`, content);
+
+    // expire in one week (probably will stop receiving notifications by then?)
+    await this.kv.expire(`post:${uri}`, 60 * 60 * 24 * 7);
 
     return content;
   }
@@ -87,12 +83,10 @@ export class Cache {
       if (!cursor) break;
     }
 
-    await this.kv
-      .multi()
-      .sAdd(`blocking:${did}`, allBlocks)
-      // expire in one day
-      .expire(`blocking:${did}`, 60 * 60 * 24)
-      .exec();
+    await this.kv.sAdd(`blocking:${did}`, allBlocks);
+
+    // expire in one day
+    await this.kv.expire(`blocking:${did}`, 60 * 60 * 24);
 
     return allBlocks.includes(target);
   }
