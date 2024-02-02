@@ -103,7 +103,7 @@ export class Firehose {
             type: "reply",
             creator,
             subject: rootSubject,
-            uri: parentUri,
+            uri: postUri,
             text: op.payload.text ?? "",
           });
         } else if (
