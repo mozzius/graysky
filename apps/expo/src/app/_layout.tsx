@@ -361,6 +361,16 @@ const App = () => {
                               presentation: "modal",
                             }}
                           />
+                          <Stack.Screen
+                            name="push-notifications"
+                            options={{
+                              title: "Push Notifications",
+                              presentation: "modal",
+                              headerShown: false,
+                              headerTransparent: true,
+                              gestureEnabled: false,
+                            }}
+                          />
                         </Stack>
                       </ListProvider>
                     </ActionSheetProvider>

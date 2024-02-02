@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
@@ -7,6 +7,10 @@ import * as Sentry from "@sentry/react-native";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useOptionalAgent } from "../agent";
+import {
+  useEnableNotifications,
+  useHasPromptedForNotifications,
+} from "../storage/app-preferences";
 
 const SERVICE_DID = "did:web:graysky.app";
 
@@ -19,12 +23,25 @@ Notifications.setNotificationHandler({
     }),
 });
 
-export function useNotifications() {
+export const useNotifications = () => {
   const agent = useOptionalAgent();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const notificationsEnabled = useEnableNotifications();
+  const hasPrompted = useHasPromptedForNotifications();
+  const hasPushed = useRef(false);
+
   useEffect(() => {
     if (!agent?.hasSession) return;
+
+    if (!hasPrompted && !hasPushed.current) {
+      hasPushed.current = true;
+      setTimeout(() => router.push("/push-notifications"));
+    }
+
+    if (!notificationsEnabled) {
+      return;
+    }
 
     void (async () => {
       const perms = await Notifications.getPermissionsAsync();
@@ -82,8 +99,15 @@ export function useNotifications() {
     return () => {
       sub.remove();
     };
-  }, [agent, agent?.hasSession, router, queryClient]);
-}
+  }, [
+    agent,
+    agent?.hasSession,
+    router,
+    queryClient,
+    notificationsEnabled,
+    hasPrompted,
+  ]);
+};
 
 export async function getPushToken() {
   // TODO: Un-hardcode the projectId

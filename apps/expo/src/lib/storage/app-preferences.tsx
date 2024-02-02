@@ -30,6 +30,9 @@ export const appPrefsSchema = z.object({
         .map((l) => l.languageCode!),
     ),
   mostRecentLanguage: z.string().optional(),
+  // notifications
+  enableNotifications: z.boolean().optional(),
+  hasPromptedForNotifications: z.boolean().optional().default(false),
   // misc
   groupNotifications: z.boolean().default(true),
   copiedCodes: z.array(z.string()).default([]),
@@ -95,6 +98,8 @@ export const {
   useAccentColor,
   useInAppBrowser,
   useMostRecentLanguage,
+  useEnableNotifications,
+  useHasPromptedForNotifications,
 } = createSelectorHooks();
 
 export const useSetAppPreferences = () => {

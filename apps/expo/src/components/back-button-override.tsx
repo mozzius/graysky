@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { BackHandler } from "react-native";
 
 interface Props {
-  dismiss: () => void;
+  dismiss?: () => void;
 }
 
 export const BackButtonOverride = ({ dismiss }: Props) => {
   useEffect(() => {
     function onBackButton() {
-      dismiss();
+      if (dismiss) dismiss();
       return true;
     }
     BackHandler.addEventListener("hardwareBackPress", onBackButton);
