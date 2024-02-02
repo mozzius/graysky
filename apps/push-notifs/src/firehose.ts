@@ -14,10 +14,10 @@ import {
   type XrpcEventStreamClient,
 } from "atproto-firehose";
 
-import { Accounts } from "./acccounts";
+import { type Accounts } from "./accounts";
 import { getDidFromUri } from "./utils/uri";
 
-type Notification =
+export type Notification =
   | {
       type: "follow";
       creator: string;
@@ -39,9 +39,11 @@ type Notification =
 
 export class Firehose {
   firehose: XrpcEventStreamClient;
-  accounts = new Accounts();
 
-  constructor(public queueNotification: (notification: Notification) => void) {
+  constructor(
+    public accounts: Accounts,
+    public queueNotification: (notification: Notification) => unknown,
+  ) {
     this.firehose = subscribeRepos("wss://bsky.network", {
       decodeRepoOps: true,
     });

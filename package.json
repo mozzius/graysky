@@ -45,6 +45,7 @@
     "dev:both": "turbo dev --parallel",
     "dev:expo": "cd apps/expo && pnpm dev",
     "dev:next": "cd apps/nextjs && pnpm dev",
+    "dev:push": "cd apps/push-notifs && pnpm dev",
     "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
