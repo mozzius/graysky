@@ -11,7 +11,6 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV=production
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -22,8 +21,15 @@ RUN apt-get update -qq && \
 # Install pnpm
 RUN npm install -g pnpm
 
-# Install node modules
+# Copy package.json and lockfile
 COPY --link package.json .
+COPY --link pnpm-lock.yaml .
+COPY --link pnpm-workspace.yaml .
+COPY --link .npmrc .
+# copy patches folder
+COPY --link patches patches
+
+# Install node modules
 RUN pnpm install --frozen-lockfile --production
 
 # Copy application code
@@ -31,7 +37,6 @@ COPY --link . .
 
 # Build application
 RUN pnpm run push:build
-
 
 
 # Final stage for app image

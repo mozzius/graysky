@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "main": "./src/index.ts",
   "scripts": {
-    "build": "pnpm with-env tsc ./src/index.ts --outDir ./dist",
+    "build": "esbuild ./src/index.ts --bundle --outdir=dist --platform=node",
     "dev": "pnpm with-env tsx watch ./src/index.ts",
-    "start": "pnpm with-env node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "with-env": "dotenv -e ../../.env --"
   },
   "devDependencies": {
@@ -31,6 +31,7 @@
     "@graysky/db": "0.1.0",
     "atproto-firehose": "^0.2.2",
     "cron": "^3.1.6",
+    "esbuild": "^0.20.0",
     "expo-server-sdk": "^3.7.0",
     "redis": "^4.6.12"
   }
