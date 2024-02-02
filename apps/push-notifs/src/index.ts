@@ -16,54 +16,62 @@ run(async () => {
   const pushNotifications = new PushNotifications(kv, accounts);
 
   new Firehose(accounts, async (notification) => {
-    const isBlocking = await cache.isBlocking(
-      notification.subject,
-      notification.creator,
-    );
-
-    if (isBlocking) {
-      console.log(
-        `Not sending notification to ${await cache.getProfile(
-          notification.subject,
-        )} because they are blocking ${await cache.getProfile(notification.creator)}`,
+    try {
+      const isBlocking = await cache.isBlocking(
+        notification.subject,
+        notification.creator,
       );
-      return;
-    }
 
-    const message = {
-      title: "",
-      body: "",
-    };
-
-    switch (notification.type) {
-      case "like":
-      case "repost":
-      case "reply":
-      case "quote":
-      case "mention": {
-        const [name, post] = await Promise.all([
-          cache.getProfile(notification.creator),
-          cache.getContextPost(notification.uri),
-        ]);
-        message.title = getTitle(name, notification.type);
-        message.body = post;
-        break;
+      if (isBlocking) {
+        console.log(
+          `Not sending notification to ${await cache.getProfile(
+            notification.subject,
+          )} because they are blocking ${await cache.getProfile(notification.creator)}`,
+        );
+        return;
       }
-      case "follow": {
-        const name = await cache.getProfile(notification.creator);
-        message.title = getTitle(name, notification.type);
-        break;
-      }
-    }
 
-    await pushNotifications.queue(notification.subject, message);
+      const message = {
+        title: "",
+        body: "",
+      };
+
+      switch (notification.type) {
+        case "like":
+        case "repost":
+        case "reply":
+        case "quote":
+        case "mention": {
+          const [name, post] = await Promise.all([
+            cache.getProfile(notification.creator),
+            notification.uri.includes("app.bsky.feed.post")
+              ? cache.getContextPost(notification.uri)
+              : cache.getContextFeed(notification.uri),
+          ]);
+          message.title = getTitle(name, notification);
+          message.body = post;
+          break;
+        }
+        case "follow": {
+          const name = await cache.getProfile(notification.creator);
+          message.title = getTitle(name, notification);
+          break;
+        }
+      }
+
+      await pushNotifications.queue(notification.subject, message);
+    } catch (err) {
+      console.error("Error processing notification", err);
+    }
   });
 });
 
-function getTitle(name: string, type: Notification["type"]) {
-  switch (type) {
+function getTitle(name: string, notification: Notification) {
+  switch (notification.type) {
     case "like":
-      return `${name} liked your post`;
+      return `${name} liked your ${
+        notification.uri.includes("app.bsky.feed.post") ? "post" : "feed"
+      }`;
     case "follow":
       return `${name} followed you`;
     case "repost":

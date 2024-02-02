@@ -1,6 +1,6 @@
 import { AppBskyFeedDefs, AppBskyFeedPost, BskyAgent } from "@atproto/api";
 
-import { KVClient } from "./db";
+import { type KVClient } from "./db";
 import { getPds } from "./utils/pds";
 
 export class Cache {
@@ -60,6 +60,26 @@ export class Cache {
     return content;
   }
 
+  async getContextFeed(uri: string) {
+    const cached = await this.kv.get(`feed:${uri}`);
+    if (cached) return cached;
+
+    const generator = await this.agent.app.bsky.feed.getFeedGenerator({
+      feed: uri,
+    });
+
+    if (!generator.success) throw new Error("Failed to get feed");
+
+    const name = generator.data.view.displayName;
+
+    await this.kv.set(`feed:${uri}`, name);
+
+    // expire in one week - no particular reason beyond making sure it clears out eventually
+    await this.kv.expire(`feed:${uri}`, 60 * 60 * 24 * 7);
+
+    return name;
+  }
+
   async isBlocking(did: string, target: string) {
     const hasCache = await this.kv.exists(`blocking:${did}`);
     if (hasCache) return await this.kv.sIsMember(`blocking:${did}`, target);
@@ -72,6 +92,7 @@ export class Cache {
       service: await getPds(did),
     });
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       const records = await pdsSpecificAgent.app.bsky.graph.block.list({
         repo: did,
