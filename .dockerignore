@@ -3,3 +3,9 @@ Dockerfile
 .dockerignore
 node_modules
 .git
+
+# only want db + push notifs
+/apps/expo
+/apps/nextjs
+/cryptography
+/packages/api
