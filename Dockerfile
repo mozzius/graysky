@@ -16,7 +16,7 @@ FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install -y python-is-python3 pkg-config build-essential openssl
+    apt-get install -y python-is-python3 pkg-config build-essential
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -50,6 +50,9 @@ RUN npm install -g dotenv-cli
 
 # Copy built application
 COPY --from=build /app /app
+
+RUN apt-get update -y && \
+    apt-get install -y openssl ca-certificates
 
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "push:start" ]
