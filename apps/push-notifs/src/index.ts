@@ -1,3 +1,5 @@
+import { AppBskyGraphDefs } from "@atproto/api";
+
 import { Accounts } from "./accounts";
 import { Cache } from "./cache";
 import { getRedisClient } from "./db";
@@ -75,8 +77,31 @@ run(async () => {
         }
         case "follow": {
           const name = await cache.getProfile(notification.creator);
-          message.title = getTitle(name, notification);
+          message.title = "New follower!";
+          message.body = getTitle(name, notification);
           message.data.path = `/profile/${notification.creator}`;
+
+          try {
+            // "followed you back" message
+            // don't bother caching because it's very unlikely
+            // we'd check the same relationship twice
+            const relationship =
+              await cache.agent.app.bsky.graph.getRelationships({
+                actor: notification.subject,
+                others: [notification.creator],
+              });
+            if (
+              AppBskyGraphDefs.isRelationship(
+                relationship.data.relationships[0],
+              )
+            ) {
+              if (relationship.data.relationships[0].following) {
+                message.body = `${name} followed you back`;
+              }
+            }
+          } catch (err) {
+            console.error("Error getting relationship", err);
+          }
           break;
         }
       }
@@ -95,7 +120,7 @@ function getTitle(name: string, notification: Notification) {
         notification.uri.includes("app.bsky.feed.post") ? "post" : "feed"
       }`;
     case "follow":
-      return `${name} followed you`;
+      return `${name} started following you`;
     case "repost":
       return `${name} reposted your post`;
     case "reply":
