@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { View } from "react-native";
 import {
   AtSignIcon,
+  BellRingIcon,
   LanguagesIcon,
   NewspaperIcon,
   ShieldIcon,
@@ -14,10 +15,12 @@ import { GroupedList, type Groups } from "~/components/grouped-list";
 import { SwitchAccounts } from "~/components/switch-accounts";
 import { useOptionalAgent } from "~/lib/agent";
 import { useIsPro } from "~/lib/purchases";
+import { useEnableNotifications } from "~/lib/storage/app-preferences";
 
 export default function SettingsPage() {
   const agent = useOptionalAgent();
   const isPro = useIsPro();
+  const enableNotifications = useEnableNotifications();
 
   const groups = useMemo(
     () =>
@@ -60,6 +63,19 @@ export default function SettingsPage() {
             },
           ],
         },
+        ...(enableNotifications
+          ? []
+          : [
+              {
+                options: [
+                  {
+                    title: "Push notifications",
+                    href: "/push-notifications",
+                    icon: BellRingIcon,
+                  },
+                ],
+              },
+            ]),
         {
           options: [
             {
@@ -70,7 +86,7 @@ export default function SettingsPage() {
           ],
         },
       ] satisfies Groups,
-    [isPro],
+    [isPro, enableNotifications],
   );
 
   return (
