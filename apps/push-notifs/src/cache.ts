@@ -104,7 +104,10 @@ export class Cache {
       if (!cursor) break;
     }
 
-    await this.kv.sAdd(`blocking:${did}`, allBlocks);
+    await this.kv.sAdd(
+      `blocking:${did}`,
+      allBlocks.length > 0 ? allBlocks : ["EMPTY"],
+    );
 
     // expire in one day
     await this.kv.expire(`blocking:${did}`, 60 * 60 * 24);

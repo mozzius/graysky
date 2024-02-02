@@ -48,7 +48,9 @@ export default function AppLayout() {
       const unreadCount = await agent.countUnreadNotifications();
       if (!unreadCount.success)
         throw new Error("Failed to fetch notifications");
-      await Notifications.setBadgeCountAsync(unreadCount.data.count);
+      await Notifications.setBadgeCountAsync(
+        Math.min(unreadCount.data.count, 30),
+      );
       return unreadCount.data;
     },
     // refetch every 15 seconds
@@ -192,9 +194,13 @@ export default function AppLayout() {
             options={{
               title: "Notifications",
               tabBarAccessibilityLabel: `Notifications${
-                notifications.data?.count || undefined ? ", new items" : ""
+                notifications.data?.count ? ", new items" : ""
               }`,
-              tabBarBadge: notifications.data?.count || undefined,
+              tabBarBadge: notifications.data?.count
+                ? notifications.data.count > 30
+                  ? "30+"
+                  : notifications.data.count
+                : undefined,
               tabBarBadgeStyle: {
                 fontSize: 12,
                 backgroundColor: theme.colors.primary,
