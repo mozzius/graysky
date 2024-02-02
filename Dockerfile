@@ -51,5 +51,8 @@ RUN npm install -g dotenv-cli
 # Copy built application
 COPY --from=build /app /app
 
+# make sure openssl is installed
+RUN apt-get update -y && apt-get install -y openssl
+
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "push:start" ]
