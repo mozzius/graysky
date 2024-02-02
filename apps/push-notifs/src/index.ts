@@ -3,6 +3,11 @@ import { Cache } from "./cache";
 import { getRedisClient } from "./db";
 import { Firehose, type Notification } from "./firehose";
 import { PushNotifications } from "./push-notifications";
+import { RateLimiter } from "./rate-limiter";
+
+// 5 notifications every 20 minutes
+const RATE_LIMIT = 5;
+const RATE_LIMIT_DURATION = 20;
 
 const accounts = new Accounts();
 
@@ -14,6 +19,7 @@ run(async () => {
 
   const cache = new Cache(kv);
   const pushNotifications = new PushNotifications(kv, accounts);
+  const rateLimiter = new RateLimiter(kv, RATE_LIMIT, RATE_LIMIT_DURATION);
 
   new Firehose(accounts, async (notification) => {
     try {
@@ -31,9 +37,17 @@ run(async () => {
         return;
       }
 
+      const { exceeded } = await rateLimiter.checkRateLimit(
+        notification.subject,
+      );
+      if (exceeded) {
+        return;
+      }
+
       const message = {
         title: "",
         body: "",
+        data: { path: "/notifications" },
       };
 
       switch (notification.type) {
@@ -42,19 +56,27 @@ run(async () => {
         case "reply":
         case "quote":
         case "mention": {
+          const [did, slug, rkey] = notification.uri.split("/").slice(2);
           const [name, post] = await Promise.all([
             cache.getProfile(notification.creator),
-            notification.uri.includes("app.bsky.feed.post")
+            slug === "app.bsky.feed.post"
               ? cache.getContextPost(notification.uri)
               : cache.getContextFeed(notification.uri),
           ]);
+
           message.title = getTitle(name, notification);
           message.body = post;
+          if (slug === "app.bsky.feed.post") {
+            message.data.path = `/profile/${did}/post/${rkey}`;
+          } else if (slug === "app.bsky.feed.generator") {
+            message.data.path = `/profile/${did}/feed/${rkey}`;
+          }
           break;
         }
         case "follow": {
           const name = await cache.getProfile(notification.creator);
           message.title = getTitle(name, notification);
+          message.data.path = `/profile/${notification.creator}`;
           break;
         }
       }

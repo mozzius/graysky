@@ -1,8 +1,8 @@
-import Expo, { ExpoPushSuccessTicket } from "expo-server-sdk";
+import Expo, { type ExpoPushSuccessTicket } from "expo-server-sdk";
 import { CronJob } from "cron";
 
-import { Accounts } from "./accounts";
-import { KVClient } from "./db";
+import { type Accounts } from "./accounts";
+import { type KVClient } from "./db";
 
 export class PushNotifications {
   expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
@@ -21,13 +21,12 @@ export class PushNotifications {
   }
 
   async queue(did: string, message: { title: string; body: string }) {
-    this.kv.rPush(this.key, JSON.stringify({ did, message }));
+    await this.kv.rPush(this.key, JSON.stringify({ did, message }));
   }
 
   async consumeQueue() {
     const len = await this.kv.lLen(this.key);
     if (len === 0) {
-      console.log("Nothing to send");
       return;
     }
 
@@ -41,13 +40,18 @@ export class PushNotifications {
       messages.flatMap((x) => {
         const { did, message } = JSON.parse(x) as {
           did: string;
-          message: { title: string; body: string };
+          message: {
+            title: string;
+            body: string;
+            data?: Record<string, unknown>;
+          };
         };
         const tokens = this.accounts.getPushTokens(did);
         return tokens.map((token) => ({
           to: token,
           title: message.title,
           body: message.body,
+          data: message.data,
         }));
       }),
     );
