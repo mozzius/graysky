@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-2 v1.4.0 - the Notifications update
+
+- Push Notifications!
+- Feeds now respond to your content languages
+- Your lists are now shown properly in the My Lists section
+- Minor improvements & bug fixes
+
 ## 2024-1-30 v1.3.5
 
 - Added support for creating lists
