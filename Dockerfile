@@ -45,6 +45,9 @@ RUN pnpm run push:build
 # Final stage for app image
 FROM base
 
+RUN npm install -g pnpm
+RUN npm install -g dotenv-cli
+
 # Copy built application
 COPY --from=build /app /app
 
