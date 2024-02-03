@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { useTheme } from "@react-navigation/native";
+import * as Sentry from "@sentry/react-native";
 import {
   AlertTriangleIcon,
   LanguagesIcon,
@@ -57,6 +58,12 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
   useEffect(() => {
     reset();
   }, [uri, reset]);
+
+  useEffect(() => {
+    if (translate.error) {
+      Sentry.captureException(translate.error);
+    }
+  }, [translate.error]);
 
   if (text.length < 2) {
     return null;
@@ -152,7 +159,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
               style={{ color: theme.colors.notification }}
               className="text-base"
             >
-              An error occurred - try again?
+              An error occurred
             </Text>
           </View>
         </TouchableOpacity>
