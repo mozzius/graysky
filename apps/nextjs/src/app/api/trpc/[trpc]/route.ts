@@ -12,9 +12,11 @@ const handler = (req: NextRequest) =>
     router: appRouter,
     req: req,
     createContext: createTRPCContext,
-    onError: (err) => {
-      console.log("TRPC Error", err);
-      Sentry.captureException(err);
+    onError({ error }) {
+      console.error("tRPC error:", error);
+      if (error.code === "INTERNAL_SERVER_ERROR") {
+        Sentry.captureException(error);
+      }
     },
   });
 
