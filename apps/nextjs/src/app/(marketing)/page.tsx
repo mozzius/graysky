@@ -31,7 +31,7 @@ export default async function LandingPage({
         />
         <Hero>
           <span className="w-max translate-y-2 rounded-full border border-neutral-500 bg-neutral-900 px-4 py-1 text-xs text-white">
-            New update v1.3.5 out now!
+            New update v1.4 out now!
           </span>
           <Balancer as="h1" className="text-5xl font-bold">
             Bluesky, like you&apos;ve never seen it before.
