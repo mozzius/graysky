@@ -32,7 +32,7 @@ export default function PushNotificationsScreen() {
           />
           <Text className="mt-8 text-center text-3xl">Push Notifications</Text>
           <Text className="mt-4 max-w-[510px] text-center text-base">
-            You can recieve push notifications for likes, replies, and more!
+            You can receive push notifications for likes, replies, and more!
             However, there are some caveats you should be aware of.
           </Text>
         </View>
@@ -44,7 +44,7 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You might receieve the same notifications via other Bluesky
+              You might receive the same notifications via other Bluesky
               clients.
             </Text>
           </View>
@@ -61,7 +61,7 @@ export default function PushNotificationsScreen() {
                 onPress={() =>
                   Alert.alert(
                     "Notifications from muted users",
-                    "Our server can't know who you've muted, for your privacy. This means you may receive notifications from muted users. We're working on a solution to this.",
+                    "For your privacy, our server can't know who you've muted. This means you may receive notifications from muted users. We're working on a solution to this.",
                   )
                 }
               >
@@ -76,14 +76,14 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may recieve notifications from people you{"'"}ve blocked/muted
+              You may receive notifications from people you{"'"}ve blocked or muted
               via moderation list.{" "}
               <Text
                 primary
                 onPress={() =>
                   Alert.alert(
                     "Moderation lists",
-                    "Our server can't currently tell what moderation lists you've subscribed to. This will likely change in the future, as we improve our software",
+                    "Our server can't currently tell what moderation lists you've subscribed to. This will likely change in the future, as we improve our software.",
                   )
                 }
               >
