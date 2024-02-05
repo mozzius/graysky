@@ -14,9 +14,9 @@ export class PushNotifications {
     public kv: KVClient,
     public accounts: Accounts,
   ) {
-    const everyThirtySeconds = "*/30 * * * * *";
-    new CronJob(everyThirtySeconds, this.consumeQueue.bind(this)).start();
-    const everyFifteenMinutes = "0 */15 * * * *";
+    const everyFiveSeconds = "*/5 * * * * *";
+    new CronJob(everyFiveSeconds, this.consumeQueue.bind(this)).start();
+    const everyFifteenMinutes = "0 */5 * * * *";
     new CronJob(everyFifteenMinutes, this.checkTickets.bind(this)).start();
   }
 
