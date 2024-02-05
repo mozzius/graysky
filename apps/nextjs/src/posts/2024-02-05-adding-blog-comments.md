@@ -2,7 +2,7 @@
 title: "Adding comments to this blog"
 date: 2024-02-05
 author: "@mozzius.dev"
-# atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kbkmgfbuxi2c"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kkobhar5qk2e"
 ---
 
 # This blog now has comments!
