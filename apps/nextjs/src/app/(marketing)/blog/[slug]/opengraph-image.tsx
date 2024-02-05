@@ -16,9 +16,9 @@ export default async function Image({ params }: { params: { slug: string } }) {
     `https://graysky.app/blog/${params.slug}/info`,
   ).then((res) => res.json() as Promise<BlogData>);
 
-  const imagePromise = fetch(new URL("./graysky.jpg", import.meta.url)).then(
-    (res) => res.arrayBuffer(),
-  );
+  const imagePromise = fetch(
+    new URL("~/assets/graysky.jpg", import.meta.url),
+  ).then((res) => res.arrayBuffer());
 
   const [blogData, image] = await Promise.all([blogDataPromise, imagePromise]);
 
