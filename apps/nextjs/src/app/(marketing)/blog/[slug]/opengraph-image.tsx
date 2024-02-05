@@ -14,6 +14,7 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: { slug: string } }) {
   try {
+    // this probably means that we need to make a build twice for each new blog post
     const blogDataPromise = fetch(
       `https://graysky.app/blog/${params.slug}/info`,
     ).then((res) => res.json() as Promise<BlogData>);
