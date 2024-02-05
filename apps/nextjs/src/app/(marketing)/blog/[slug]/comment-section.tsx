@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   AppBskyFeedDefs,
   AppBskyFeedPost,
+  RichText,
   type AppBskyFeedGetPostThread,
 } from "@atproto/api";
 import * as Sentry from "@sentry/nextjs";
@@ -67,6 +68,46 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
 
   if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
 
+  const rt = new RichText({
+    text: comment.post.record.text,
+    facets: comment.post.record.facets,
+  });
+
+  const richText = [];
+
+  let counter = 0;
+  for (const segment of rt.segments()) {
+    if (segment.isLink() && segment.link) {
+      richText.push(
+        <Link
+          key={counter}
+          href={segment.link.uri}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="text-blue-400 hover:underline"
+        >
+          {segment.text}
+        </Link>,
+      );
+    } else if (segment.isMention() && segment.mention) {
+      richText.push(
+        <Link
+          key={counter}
+          href={`https://bsky.app/profile/${segment.mention.did}`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="text-blue-400 hover:underline"
+        >
+          {segment.text}
+        </Link>,
+      );
+    } else {
+      richText.push(segment.text);
+    }
+
+    counter++;
+  }
+
   return (
     <div className="my-4 text-sm">
       <div className="flex max-w-xl flex-col gap-2">
@@ -95,21 +136,8 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
           target="_blank"
           rel="noreferrer noopener"
         >
-          <p>{comment.post.record.text}</p>
-          <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
-            <div className="flex flex-row items-center gap-1.5">
-              <MessageSquareIcon color="white" size={14} />
-              <p className="text-xs">{comment.post.replyCount ?? 0}</p>
-            </div>
-            <div className="flex flex-row items-center gap-1.5">
-              <RepeatIcon color="white" size={14} />
-              <p className="text-xs">{comment.post.repostCount ?? 0}</p>
-            </div>
-            <div className="flex flex-row items-center gap-1.5">
-              <HeartIcon color="white" size={14} />
-              <p className="text-xs">{comment.post.likeCount ?? 0}</p>
-            </div>
-          </div>
+          <p>{richText}</p>
+          <Actions post={comment.post} />
         </Link>
       </div>
       {comment.replies && comment.replies.length > 0 && (
@@ -123,6 +151,23 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
     </div>
   );
 };
+
+const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
+  <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
+    <div className="flex flex-row items-center gap-1.5">
+      <MessageSquareIcon color="white" size={14} />
+      <p className="text-xs">{post.replyCount ?? 0}</p>
+    </div>
+    <div className="flex flex-row items-center gap-1.5">
+      <RepeatIcon color="white" size={14} />
+      <p className="text-xs">{post.repostCount ?? 0}</p>
+    </div>
+    <div className="flex flex-row items-center gap-1.5">
+      <HeartIcon color="white" size={14} />
+      <p className="text-xs">{post.likeCount ?? 0}</p>
+    </div>
+  </div>
+);
 
 const getPostThread = async (uri: string) => {
   const params = new URLSearchParams({ uri });
