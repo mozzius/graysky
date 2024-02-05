@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-5 v1.4.1
+
+- Potential fix for the empty resume session screen bug
+- Fix typos in push notifications modal (thanks @surfdude29.ispost.ing!)
+
 ## 2024-2-2 v1.4.0 - the Notifications update
 
 - Push Notifications!
