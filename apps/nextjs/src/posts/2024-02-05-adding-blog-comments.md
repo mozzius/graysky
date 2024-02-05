@@ -62,6 +62,8 @@ This is critical to building trust in the platform among the developer community
 
 I think this is also great for non-developers too. I completely stopped using Reddit when they killed Apollo, because the official app is garbage. *That's not something you have to worry about with Bluesky*, and it goes so much deeper than just the app. Every part of the platform can be swapped out, and that's a really powerful thing. We've watched platform after platform succumb to [enshittification](https://www.wired.com/story/plaintext-twitter-alternatives-enshittification-trap/), and even if Bluesky (the company) follows suit, Bluesky (the community) doesn't have to.
 
+This little comments section project - sure, it's pretty frivolous, but I *love* that Bluesky doesn't shy away from creativity. *They want you to build cool things with what they've built*. I think that's great.
+
 Overall, I'm really optimistic about the future of Bluesky, and I'm excited to see what else is possible.
 
 Let me know what you think in the all-new comments!
