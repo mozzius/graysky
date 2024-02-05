@@ -26,6 +26,8 @@ export async function getPostById(slug: string) {
   };
 }
 
+export type BlogData = ReturnType<typeof getPostById>;
+
 export async function getAllPosts() {
   const posts = await Promise.all(
     fs
