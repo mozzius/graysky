@@ -112,7 +112,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
     <div className="my-4 text-sm">
       <div className="flex max-w-xl flex-col gap-2">
         <Link
-          className="flex flex-row items-center gap-1.5 hover:underline"
+          className="flex flex-row items-center gap-2 hover:underline"
           href={`https://bsky.app/profile/${author.did}`}
           target="_blank"
           rel="noreferrer noopener"
