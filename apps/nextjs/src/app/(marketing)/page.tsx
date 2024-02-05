@@ -63,7 +63,7 @@ export default async function LandingPage({
           {posts.map((post) => (
             <Post data={post} key={post.uri} />
           ))}
-          <div className="absolute bottom-0 left-0 right-0 z-10 h-32 bg-gradient-to-b from-transparent via-black to-black" />
+          <div className="absolute bottom-0 left-0 right-0 z-10 h-32 bg-gradient-to-b from-transparent via-neutral-950 to-neutral-950" />
         </div>
       </section>
       <section className="w-full bg-neutral-950 px-4 py-8 text-white">
