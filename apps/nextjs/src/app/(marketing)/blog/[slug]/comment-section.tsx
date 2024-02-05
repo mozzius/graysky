@@ -179,10 +179,7 @@ const getPostThread = async (uri: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      next: {
-        // Cache for 1 hour
-        revalidate: 3600,
-      },
+      cache: "no-store",
     },
   );
 
