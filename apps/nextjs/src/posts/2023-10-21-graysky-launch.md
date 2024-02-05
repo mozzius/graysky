@@ -2,6 +2,7 @@
 title: "Graysky: Now Available!"
 date: 2023-10-21
 author: "@mozzius.dev"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kcappacdie2u"
 ---
 
 # We're live!

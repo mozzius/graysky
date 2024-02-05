@@ -2,6 +2,7 @@
 title: "Introducing Graysky Pro"
 date: 2023-12-12
 author: "@mozzius.dev"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kgelncgzp62e"
 ---
 
 ![Collage of screenshots showing off the new features](/update-1-2.png)

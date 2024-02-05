@@ -14,6 +14,7 @@ export async function getPostById(slug: string) {
     author: z.string(),
     date: z.date(),
     draft: z.boolean().optional(),
+    atUri: z.string().optional(),
   });
 
   const parsed = schema.parse(data);

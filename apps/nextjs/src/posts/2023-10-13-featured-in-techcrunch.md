@@ -2,6 +2,7 @@
 title: "As seen on TechCrunch!"
 date: 2023-10-13
 author: "@mozzius.dev"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kblxur6zcy2k"
 ---
 
 # Graysky was featured in TechCrunch!

@@ -1,16 +1,19 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { HomeIcon } from "lucide-react";
 
 import { Header } from "../../_components/header";
 import { Markdown } from "../../_components/markdown";
+import { Spinner } from "../../_components/spinner";
 import { getAllPosts, getPostById } from "../utils";
+import { CommentSection } from "./comment-section";
 
 export default async function BlogPost({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
-  const { content, title, date, author } = await getPostById(slug);
+  const { content, title, date, author, atUri } = await getPostById(slug);
   const formatter = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "long",
   });
@@ -35,6 +38,10 @@ export default async function BlogPost({
       </div>
       <div className="container mx-auto mt-8 max-w-4xl px-4 pb-16">
         <Markdown content={content} />
+        <hr className="my-8" />
+        <Suspense fallback={<Spinner />}>
+          <CommentSection uri={atUri} />
+        </Suspense>
       </div>
     </article>
   );

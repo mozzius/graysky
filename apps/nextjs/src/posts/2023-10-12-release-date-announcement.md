@@ -2,6 +2,7 @@
 title: "Release date announcement"
 date: 2023-10-12
 author: "@mozzius.dev"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kbkmgfbuxi2c"
 ---
 
 # We're almost ready to go!

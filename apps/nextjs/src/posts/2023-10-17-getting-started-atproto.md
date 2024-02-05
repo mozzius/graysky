@@ -2,6 +2,7 @@
 title: "Getting started with #atdev"
 date: 2023-10-17
 author: "@mozzius.dev"
+atUri: "at://did:plc:sq6aa2wa32tiiqrbub64vcja/app.bsky.feed.post/3kbxfdowr7o2c"
 ---
 
 # So, you want to make a Bluesky client?
