@@ -76,8 +76,8 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may receive notifications from people you{"'"}ve blocked or muted
-              via moderation list.{" "}
+              You may receive notifications from people you{"'"}ve blocked or
+              muted via moderation list.{" "}
               <Text
                 primary
                 onPress={() =>
@@ -106,7 +106,7 @@ export default function PushNotificationsScreen() {
           }}
         >
           <View
-            className="min-h-[56px] w-full items-center rounded-xl py-4"
+            className="w-full items-center rounded-xl py-4"
             style={{
               borderCurve: "continuous",
               backgroundColor: theme.colors.primary,
@@ -118,7 +118,7 @@ export default function PushNotificationsScreen() {
           </View>
         </TouchableHighlight>
         <TouchableHighlight
-          className="mt-4 rounded-xl"
+          className="mt-2.5 rounded-xl"
           style={{ borderCurve: "continuous" }}
           onPress={() => {
             setAppPreferences({
@@ -129,7 +129,7 @@ export default function PushNotificationsScreen() {
           }}
         >
           <View
-            className="min-h-[56px] w-full items-center rounded-xl bg-neutral-100 py-4 dark:bg-neutral-800"
+            className="w-full items-center rounded-xl bg-neutral-100 py-4 dark:bg-neutral-800"
             style={{ borderCurve: "continuous" }}
           >
             <Text className="text-center text-base font-medium">
