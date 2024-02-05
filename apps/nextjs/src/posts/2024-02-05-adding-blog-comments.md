@@ -16,6 +16,7 @@ When I say "Bluesky is completely open", I really mean it. You don't even need a
 Here's the code I used to fetch the comments (slightly simplified for clarity):
 
 ```tsx
+// pass it the URI of the post you want to fetch replies for
 export const CommentSection = async ({ uri }: { uri: string }) => {
   if (!uri) return <p className="text-center">No comments</p>;
 
