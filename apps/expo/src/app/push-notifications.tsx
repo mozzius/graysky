@@ -32,7 +32,7 @@ export default function PushNotificationsScreen() {
           />
           <Text className="mt-8 text-center text-3xl">Push Notifications</Text>
           <Text className="mt-4 max-w-[510px] text-center text-base">
-            You can recieve push notifications for likes, replies, and more!
+            You can receive push notifications for likes, replies, and more!
             However, there are some caveats you should be aware of.
           </Text>
         </View>
