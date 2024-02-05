@@ -41,7 +41,7 @@ export const ListGroup = ({ children, options = [] }: ListProps) => {
     <View
       style={{ backgroundColor: theme.colors.card, borderCurve: "continuous" }}
       className={cx(
-        "overflow-hidden",
+        "flex-1 overflow-hidden",
         Platform.select({
           android: "rounded-none",
           default: "rounded-lg",
@@ -158,7 +158,7 @@ export const GroupedList = ({
           return (
             <View
               key={i}
-              className={cx(i === arr.length - 1 ? "mb-16" : "mb-4")}
+              className={cx("flex-1", i === arr.length - 1 ? "mb-16" : "mb-4")}
             >
               {title && (
                 <Text className="mx-4 mb-1.5 mt-4 text-xs uppercase text-neutral-500">

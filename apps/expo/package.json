@@ -1,6 +1,6 @@
 {
   "name": "@graysky/app",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "index.tsx",
   "scripts": {
     "eas-build-pre-install": "./scripts/pre-install.sh",
