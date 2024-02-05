@@ -8,7 +8,7 @@
     "@graysky/db": "0.1.0",
     "@trpc/client": "next",
     "@trpc/server": "next",
-    "@vercel/analytics": "^1.1.2",
+    "@vercel/analytics": "^1.1.3",
     "@vercel/kv": "^1.0.1",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",
