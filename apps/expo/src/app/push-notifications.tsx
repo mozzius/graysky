@@ -93,7 +93,7 @@ export default function PushNotificationsScreen() {
           </View>
         </View>
       </ScrollView>
-      <View className="px-4">
+      <View className="px-4 pb-2">
         <TouchableHighlight
           className="rounded-xl"
           style={{ borderCurve: "continuous" }}
