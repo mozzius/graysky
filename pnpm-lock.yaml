@@ -259,10 +259,10 @@ importers:
         version: 0.40.2(react-native@0.73.4)
       react-native-ios-context-menu:
         specifier: ^2.3.2
-        version: 2.3.2(expo@50.0.6)(react-native-ios-utilities@4.2.4)(react-native@0.73.4)(react@18.2.0)
+        version: 2.3.2(expo@50.0.6)(react-native-ios-utilities@4.3.0)(react-native@0.73.4)(react@18.2.0)
       react-native-ios-utilities:
-        specifier: 4.2.4
-        version: 4.2.4(expo@50.0.6)(react-native@0.73.4)(react@18.2.0)
+        specifier: 4.3.0
+        version: 4.3.0(expo@50.0.6)(react-native@0.73.4)(react@18.2.0)
       react-native-keyboard-controller:
         specifier: ^1.10.5
         version: 1.10.5(react-native-reanimated@3.6.2)(react-native@0.73.4)(react@18.2.0)
@@ -12093,7 +12093,7 @@ packages:
       react-native: 0.73.4(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
 
-  /react-native-ios-context-menu@2.3.2(expo@50.0.6)(react-native-ios-utilities@4.2.4)(react-native@0.73.4)(react@18.2.0):
+  /react-native-ios-context-menu@2.3.2(expo@50.0.6)(react-native-ios-utilities@4.3.0)(react-native@0.73.4)(react@18.2.0):
     resolution: {integrity: sha512-fkuvvV9iDucbrR5Yjo3IztB3MWAjXo4o9ZOEoBqGPxkvbyT6P8lv7kpaBE2BUkeZEbDVTcE1evApjyI1Ne67YA==}
     peerDependencies:
       expo: '*'
@@ -12105,11 +12105,11 @@ packages:
       expo: 50.0.6(@babel/core@7.23.9)(@react-native/babel-preset@0.73.21)
       react: 18.2.0
       react-native: 0.73.4(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
-      react-native-ios-utilities: 4.2.4(expo@50.0.6)(react-native@0.73.4)(react@18.2.0)
+      react-native-ios-utilities: 4.3.0(expo@50.0.6)(react-native@0.73.4)(react@18.2.0)
     dev: false
 
-  /react-native-ios-utilities@4.2.4(expo@50.0.6)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-BqQzJ0N/vorTn3Td5SIpB2QZJJb68AZIkWnAtGlgF6xEQabLHDHG0fiTrpSQsDnUVKuEpTaJ6yCqszGXyh9efw==}
+  /react-native-ios-utilities@4.3.0(expo@50.0.6)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-B3OYxFySF06s+DNSPZWc/ESOSq4T5ZUaPAboAlsL5+S/GY+D+hH2KvUEd3Tvry1fK0rRywWrvZJMzwdnwd4yvg==}
     peerDependencies:
       expo: '*'
       react: '*'
