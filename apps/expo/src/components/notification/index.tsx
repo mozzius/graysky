@@ -225,10 +225,10 @@ const ProfileList = ({
             }
           }}
         >
-          {actors[0].displayName?.trim() ?? `@${actors[0].handle}`}
+          {actors[0].displayName?.trim() || `@${actors[0].handle}`}
           {actors.length === 2 &&
             actors[1] &&
-            ` and ${actors[1].displayName?.trim() ?? `@${actors[1].handle}`}`}
+            ` and ${actors[1].displayName?.trim() || `@${actors[1].handle}`}`}
           {actors.length > 2 && ` and ${actors.length - 1} others`}
         </Text>
         <Text className="text-base text-neutral-500 dark:text-neutral-400">
