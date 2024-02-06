@@ -43,8 +43,8 @@ export default function SignUp() {
   const theme = useTheme();
   const agent = useAgent();
 
-  const [stage, setStage] = useState<1 | 2 | 3 | 4>(1);
-  const [code, setCode] = useState("");
+  const [stage, setStage] = useState<1 | 2 | 3>(1);
+  // const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState<Date | null>(null);
@@ -76,7 +76,6 @@ export default function SignUp() {
         throw new Error("Password must be at least 8 characters");
       }
       await agent.createAccount({
-        inviteCode: code.trim(),
         email,
         password,
         handle: derivedHandle,
@@ -96,6 +95,54 @@ export default function SignUp() {
   });
 
   switch (stage) {
+    // case 1:
+    //   return (
+    //     <TransparentHeaderUntilScrolled>
+    //       <ScrollView
+    //         className="flex-1 px-4"
+    //         contentInsetAdjustmentBehavior="automatic"
+    //       >
+    //         <Stack.Screen
+    //           options={{
+    //             headerRight: () => <Text className="text-base">1 of 4</Text>,
+    //           }}
+    //         />
+    //         <View className="mt-4 flex-1">
+    //           <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+    //             Invite code
+    //           </Text>
+    //           <View
+    //             style={{ backgroundColor: theme.colors.card }}
+    //             className="flex-1 overflow-hidden rounded-lg"
+    //           >
+    //             <TextInput
+    //               value={code}
+    //               placeholder="Bluesky is currently invite-only"
+    //               autoComplete="off"
+    //               autoCapitalize="none"
+    //               onChange={(evt) => setCode(evt.nativeEvent.text)}
+    //               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+    //               autoFocus
+    //             />
+    //           </View>
+    //         </View>
+    //         <Text className="mx-4 mt-3 text-sm text-neutral-500">
+    //           Don{"'"}t have one?{" "}
+    //           <Text primary onPress={() => router.push("/waitlist")}>
+    //             Join the waitlist.
+    //           </Text>
+    //         </Text>
+    //         <View className="flex-row items-center justify-end pt-2">
+    //           <TextButton
+    //             disabled={!code.trim()}
+    //             onPress={() => setStage(2)}
+    //             title="Next"
+    //             className="font-medium"
+    //           />
+    //         </View>
+    //       </ScrollView>
+    //     </TransparentHeaderUntilScrolled>
+    //   );
     case 1:
       return (
         <TransparentHeaderUntilScrolled>
@@ -105,55 +152,7 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">1 of 4</Text>,
-              }}
-            />
-            <View className="mt-4 flex-1">
-              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Invite code
-              </Text>
-              <View
-                style={{ backgroundColor: theme.colors.card }}
-                className="flex-1 overflow-hidden rounded-lg"
-              >
-                <TextInput
-                  value={code}
-                  placeholder="Bluesky is currently invite-only"
-                  autoComplete="off"
-                  autoCapitalize="none"
-                  onChange={(evt) => setCode(evt.nativeEvent.text)}
-                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  autoFocus
-                />
-              </View>
-            </View>
-            <Text className="mx-4 mt-3 text-sm text-neutral-500">
-              Don{"'"}t have one?{" "}
-              <Text primary onPress={() => router.push("/waitlist")}>
-                Join the waitlist.
-              </Text>
-            </Text>
-            <View className="flex-row items-center justify-end pt-2">
-              <TextButton
-                disabled={!code.trim()}
-                onPress={() => setStage(2)}
-                title="Next"
-                className="font-medium"
-              />
-            </View>
-          </ScrollView>
-        </TransparentHeaderUntilScrolled>
-      );
-    case 2:
-      return (
-        <TransparentHeaderUntilScrolled>
-          <ScrollView
-            className="flex-1 px-4"
-            contentInsetAdjustmentBehavior="automatic"
-          >
-            <Stack.Screen
-              options={{
-                headerRight: () => <Text className="text-base">2 of 4</Text>,
+                headerRight: () => <Text className="text-base">1 of 3</Text>,
               }}
             />
             <View className="my-4 flex-1">
@@ -242,11 +241,10 @@ export default function SignUp() {
                 </View>
               </TouchableHighlight>
             </View>
-            <View className="flex-row items-center justify-between pt-2">
-              <TextButton onPress={() => setStage(1)} title="Back" />
+            <View className="flex-row items-center justify-end pt-2">
               <TextButton
                 disabled={!email || !password || !dob || getAge(dob) < 18}
-                onPress={() => setStage(3)}
+                onPress={() => setStage(2)}
                 title="Next"
                 className="font-medium"
               />
@@ -254,7 +252,7 @@ export default function SignUp() {
           </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
-    case 3:
+    case 2:
       return (
         <TransparentHeaderUntilScrolled>
           <ScrollView
@@ -263,7 +261,7 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">3 of 4</Text>,
+                headerRight: () => <Text className="text-base">2 of 3</Text>,
               }}
             />
             {!sendText.isSuccess ? (
@@ -296,7 +294,7 @@ export default function SignUp() {
                   </Text>
                 )}
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(2)} title="Back" />
+                  <TextButton onPress={() => setStage(1)} title="Back" />
                   <TextButton
                     disabled={!phone.trim() || sendText.isPending}
                     onPress={() => sendText.mutate()}
@@ -330,10 +328,10 @@ export default function SignUp() {
                   </Text>
                 </Text>
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(2)} title="Back" />
+                  <TextButton onPress={() => setStage(1)} title="Back" />
                   <TextButton
                     disabled={phoneCode.trim().length !== 6}
-                    onPress={() => setStage(4)}
+                    onPress={() => setStage(3)}
                     title="Next"
                     className="font-medium"
                   />
@@ -343,7 +341,7 @@ export default function SignUp() {
           </ScrollView>
         </TransparentHeaderUntilScrolled>
       );
-    case 4:
+    case 3:
       return (
         <TransparentHeaderUntilScrolled>
           <ScrollView
@@ -352,7 +350,7 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">4 of 4</Text>,
+                headerRight: () => <Text className="text-base">3 of 3</Text>,
               }}
             />
             <View className="my-4 flex-1">
@@ -404,7 +402,7 @@ export default function SignUp() {
               className="flex-row items-center justify-between pt-2"
               layout={LinearTransition}
             >
-              <TextButton onPress={() => setStage(3)} title="Back" />
+              <TextButton onPress={() => setStage(2)} title="Back" />
               {!createAccount.isPending ? (
                 <TextButton
                   disabled={resolveHandle.data !== "available"}

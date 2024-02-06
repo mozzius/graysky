@@ -124,8 +124,8 @@ export default function SignIn() {
                 </Text>
                 <Text className="mt-1">
                   You might want to use an App Password rather than your main
-                  password - this helps keep your account secure, but will
-                  disable certain features such as viewing your invite codes.
+                  password - this helps keep your account secure, but it{"'"}s
+                  not required.
                 </Text>
                 <Text
                   className="mt-2"

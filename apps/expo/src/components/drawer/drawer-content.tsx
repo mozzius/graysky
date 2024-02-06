@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Alert, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
@@ -13,11 +13,9 @@ import {
   SmartphoneIcon,
   StarIcon,
   SunIcon,
-  TicketIcon,
 } from "lucide-react-native";
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
-import { useInviteCodes } from "~/app/codes/_layout";
 import { useLogOut } from "~/lib/log-out-context";
 import {
   useColorScheme,
@@ -25,7 +23,6 @@ import {
   useSetAppPreferences,
 } from "~/lib/storage/app-preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
-import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "../back-button-override";
 import { Text } from "../themed/text";
 import { ActorDetails } from "./actor-details";
@@ -38,7 +35,7 @@ interface Props {
 export const DrawerContent = ({ open }: Props) => {
   const logOut = useLogOut();
   const { showActionSheetWithOptions } = useActionSheet();
-  const codes = useInviteCodes();
+  // const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
   const homepage = useHomepage();
@@ -85,10 +82,10 @@ export const DrawerContent = ({ open }: Props) => {
     );
   };
 
-  const numCodes = (codes.data?.unused ?? []).reduce(
-    (acc, code) => (acc += code.available),
-    0,
-  );
+  // const numCodes = (codes.data?.unused ?? []).reduce(
+  //   (acc, code) => (acc += code.available),
+  //   0,
+  // );
 
   const ChangeThemeIcon = theme.dark ? MoonIcon : SunIcon;
 
@@ -109,7 +106,7 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
-        <Link
+        {/* <Link
           href="/codes"
           asChild
           onPress={(evt) => {
@@ -150,7 +147,7 @@ export const DrawerContent = ({ open }: Props) => {
               )}
             </Text>
           </TouchableOpacity>
-        </Link>
+        </Link> */}
         <Link href="/pro" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
