@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-6 v1.4.2
+
+- Remove invite codes 🎉
+
 ## 2024-2-5 v1.4.1
 
 - Potential fix for the empty resume session screen bug
