@@ -6,7 +6,7 @@
     "@manypkg/cli": "^0.21.2",
     "eslint": "^8.56.0",
     "prettier": "^3.2.5",
-    "turbo": "^1.12.2",
+    "turbo": "^1.12.3",
     "typescript": "^5.3.3"
   },
   "engines": {
