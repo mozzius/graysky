@@ -48,13 +48,17 @@ export async function POST(req: NextRequest) {
         update: {
           tokens: {
             upsert: {
-              where: { did_platform: { did, platform } },
+              where: {
+                did_platform: { did, platform },
+                NOT: { token: body.token },
+              },
               create: {
                 platform,
                 token: body.token,
               },
               update: {
                 token: body.token,
+                disabled: false,
               },
             },
           },
