@@ -264,8 +264,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(expo@50.0.6)(react-native@0.73.4)(react@18.2.0)
       react-native-keyboard-controller:
-        specifier: ^1.10.5
-        version: 1.10.5(react-native-reanimated@3.6.2)(react-native@0.73.4)(react@18.2.0)
+        specifier: ^1.10.6
+        version: 1.10.6(react-native-reanimated@3.6.2)(react-native@0.73.4)(react@18.2.0)
       react-native-mmkv:
         specifier: ^2.11.0
         version: 2.11.0(react-native@0.73.4)(react@18.2.0)
@@ -878,7 +878,7 @@ packages:
       mime-types: 2.1.35
       rate-limiter-flexible: 2.4.2
       uint8arrays: 3.0.0
-      ws: 8.16.0
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -2905,7 +2905,7 @@ packages:
       text-table: 0.2.0
       url-join: 4.0.0
       wrap-ansi: 7.0.0
-      ws: 8.16.0
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@react-native/babel-preset'
       - bluebird
@@ -12120,8 +12120,8 @@ packages:
       react-native: 0.73.4(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
 
-  /react-native-keyboard-controller@1.10.5(react-native-reanimated@3.6.2)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-aKiDqx5XJf6J7/WX4RUgCwjqD0XC9fRUMe8akD1XbrFiUMux/MrvS4siwepiOzfHnabJ8qIj+QOKxAzKaKNEeQ==}
+  /react-native-keyboard-controller@1.10.6(react-native-reanimated@3.6.2)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-UlXWtM4FvsJUYRFYKSN1ubummuOLSsQAPUAVk91fyfJJ4nM06lf0Nbx3xen6vT9CtohP3thL8cQp2Z+38N+Eiw==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -14433,19 +14433,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
