@@ -383,7 +383,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
               numberOfLines={1}
             >
               Reposted by{" "}
-              {item.reason.by.displayName ?? `@${item.reason.by.handle}`}
+              {item.reason.by.displayName || `@${item.reason.by.handle}`}
             </Text>
           </View>
         </TouchableWithoutFeedback>

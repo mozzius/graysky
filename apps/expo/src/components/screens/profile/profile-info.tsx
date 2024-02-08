@@ -405,14 +405,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               style={animatedOpacitysStyle}
               pointerEvents="none"
             >
-              {profile.displayName && (
-                <Text
-                  className="text-sm font-bold text-white"
-                  numberOfLines={1}
-                >
-                  {profile.displayName}
-                </Text>
-              )}
+              <Text className="text-sm font-bold text-white" numberOfLines={1}>
+                {profile.displayName || profile.handle}
+              </Text>
               <Text className="text-xs text-white" numberOfLines={1}>
                 @{profile.handle}
               </Text>
