@@ -105,8 +105,8 @@ export default function TagScreen() {
                   );
                 }}
               >
-                <Text primary className="text-lg">
-                  Sort: {getModeName(mode)}{" "}
+                <Text primary className="text-base">
+                  Sort: {getModeName(mode)}
                 </Text>
               </TouchableOpacity>
             );
