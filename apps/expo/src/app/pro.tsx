@@ -37,7 +37,7 @@ import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/purchases";
 import { cx } from "~/lib/utils/cx";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const background = require("../../assets/graysky.png") as ImageSourcePropType;
+const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
 
 export default function Pro() {
   const offerings = useOfferings();

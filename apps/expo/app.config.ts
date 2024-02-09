@@ -19,7 +19,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
   splash: {
-    image: "./assets/graysky.png",
+    image: "./assets/graysky.jpg",
     resizeMode: "cover",
     backgroundColor: "#888888",
   },

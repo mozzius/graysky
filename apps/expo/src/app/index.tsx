@@ -9,7 +9,7 @@ import { type AtpSessionData } from "@atproto/api";
 import { LinkButton } from "~/components/button";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const background = require("../../assets/graysky.png") as ImageSourcePropType;
+const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
 
 export default function LandingPage() {
   const [sessions] = useMMKVObject<AtpSessionData[]>("sessions");
