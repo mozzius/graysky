@@ -50,7 +50,6 @@ export async function POST(req: NextRequest) {
             upsert: {
               where: {
                 did_platform: { did, platform },
-                NOT: { token: body.token },
               },
               create: {
                 platform,
