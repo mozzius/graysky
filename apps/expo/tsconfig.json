@@ -9,6 +9,6 @@
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "types": ["nativewind/types"]
   },
-  "include": ["expo-plugins", "*.ts", "*.js", "index.tsx", "src"],
+  "include": ["expo-plugins", "*.ts", "*.js", "index.ts", "src"],
   "exclude": ["node_modules", "metro.config.js"]
 }

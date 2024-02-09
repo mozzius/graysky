@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { ActivityIndicator, Platform, View } from "react-native";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { jwtDecode } from "jwt-decode";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -24,12 +24,16 @@ export default function SubStack({
   }, [agent?.session?.accessJwt]);
 
   if (!decodedJwt) {
-    return (
-      <View className="flex-1 items-center justify-center bg-white dark:bg-black">
-        <ActivityIndicator size="large" />
-        <Text className="mt-4 text-center text-base">Connecting...</Text>
-      </View>
-    );
+    if (agent) {
+      return <Redirect href="/" />;
+    } else {
+      return (
+        <View className="flex-1 items-center justify-center bg-white dark:bg-black">
+          <ActivityIndicator size="large" />
+          <Text className="mt-4 text-center text-base">Connecting...</Text>
+        </View>
+      );
+    }
   }
 
   switch (decodedJwt.scope) {

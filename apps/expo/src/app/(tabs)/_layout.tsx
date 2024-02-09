@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { Platform, useWindowDimensions } from "react-native";
 import { Drawer } from "react-native-drawer-layout";
 import { useReducedMotion } from "react-native-reanimated";
@@ -76,51 +76,13 @@ export default function AppLayout() {
   const homepage = useHomepage();
 
   const accountRef = useRef<BottomSheetModal>(null);
-  const { top } = useSafeAreaInsets();
-  const {
-    backgroundStyle,
-    handleStyle,
-    handleIndicatorStyle,
-    contentContainerStyle,
-  } = useBottomSheetStyles();
+
   const haptics = useHaptics();
   const dimensions = useWindowDimensions();
 
-  const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
-
-  const reducedMotion = useReducedMotion();
-
   return (
     <DrawerProvider value={openDrawer}>
-      <BottomSheetModal
-        ref={accountRef}
-        enablePanDownToClose
-        snapPoints={["40%", dimensions.height - top - 10]}
-        backdropComponent={(props) => (
-          <BottomSheetBackdrop
-            {...props}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-          />
-        )}
-        handleIndicatorStyle={handleIndicatorStyle}
-        handleStyle={handleStyle}
-        backgroundStyle={backgroundStyle}
-        enableDismissOnClose
-        detached
-        animateOnMount={!reducedMotion}
-      >
-        <BackButtonOverride dismiss={dismissSheet} />
-        <Text className="my-2 text-center text-xl font-medium">
-          Switch Accounts
-        </Text>
-        <BottomSheetScrollView style={contentContainerStyle}>
-          <SwitchAccounts
-            active={agent?.session?.did}
-            onSuccessfulSwitch={dismissSheet}
-          />
-        </BottomSheetScrollView>
-      </BottomSheetModal>
+      <QuickSwitchModal accountRef={accountRef} />
       <StatusBar />
       <Stack.Screen
         options={{
@@ -231,3 +193,57 @@ export default function AppLayout() {
     </DrawerProvider>
   );
 }
+
+const QuickSwitchModalUnmemoized = ({
+  accountRef,
+}: {
+  accountRef: React.RefObject<BottomSheetModal>;
+}) => {
+  const agent = useOptionalAgent();
+  const { top } = useSafeAreaInsets();
+  const {
+    backgroundStyle,
+    handleStyle,
+    handleIndicatorStyle,
+    contentContainerStyle,
+  } = useBottomSheetStyles();
+  const dimensions = useWindowDimensions();
+  const reducedMotion = useReducedMotion();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const dismissSheet = useCallback(() => accountRef.current?.dismiss(), []);
+
+  return (
+    <BottomSheetModal
+      ref={accountRef}
+      enablePanDownToClose
+      snapPoints={["40%", dimensions.height - top - 10]}
+      backdropComponent={(props) => (
+        <BottomSheetBackdrop
+          {...props}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+        />
+      )}
+      handleIndicatorStyle={handleIndicatorStyle}
+      handleStyle={handleStyle}
+      backgroundStyle={backgroundStyle}
+      enableDismissOnClose
+      detached
+      animateOnMount={!reducedMotion}
+    >
+      <BackButtonOverride dismiss={dismissSheet} />
+      <Text className="my-2 text-center text-xl font-medium">
+        Switch Accounts
+      </Text>
+      <BottomSheetScrollView style={contentContainerStyle}>
+        <SwitchAccounts
+          active={agent?.session?.did}
+          onSuccessfulSwitch={dismissSheet}
+        />
+      </BottomSheetScrollView>
+    </BottomSheetModal>
+  );
+};
+
+const QuickSwitchModal = memo(QuickSwitchModalUnmemoized);
