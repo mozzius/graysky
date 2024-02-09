@@ -310,9 +310,19 @@ export const useTimeline = (feed: string) => {
         } else if (
           feedViewPref.hideRepliesByUnfollowed &&
           item.reply &&
-          isByUnfollowed
+          !item.reason
         ) {
-          return [];
+          // reply by unfollowed
+          if (isByUnfollowed) {
+            return [];
+          }
+          // reply TO unfollowed
+          if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+            const parent = item.reply.parent;
+            if (!parent.author.viewer?.following) {
+              return [];
+            }
+          }
         }
       }
 
