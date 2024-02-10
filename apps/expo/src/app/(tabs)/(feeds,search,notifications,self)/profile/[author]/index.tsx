@@ -3,12 +3,12 @@ import { useLocalSearchParams } from "expo-router";
 import { ProfileTabView } from "~/components/screens/profile/profile-tab-view";
 
 export default function ProfilePage() {
-  const { handle, tab } = useLocalSearchParams<{
-    handle: string;
+  const { author, tab } = useLocalSearchParams<{
+    author: string;
     tab: string;
   }>();
 
-  if (!handle) return null;
+  if (!author) return null;
 
-  return <ProfileTabView handle={handle} initial={tab} backButton />;
+  return <ProfileTabView handle={author} initial={tab} backButton />;
 }

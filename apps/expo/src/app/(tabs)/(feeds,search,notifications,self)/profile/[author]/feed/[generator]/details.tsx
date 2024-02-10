@@ -39,12 +39,12 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
 
 export default function FeedDetails() {
-  const { handle, generator } = useLocalSearchParams<{
-    handle: string;
+  const { author, generator } = useLocalSearchParams<{
+    author: string;
     generator: string;
   }>();
 
-  const feed = `at://${handle}/app.bsky.feed.generator/${generator}`;
+  const feed = `at://${author}/app.bsky.feed.generator/${generator}`;
 
   const info = useFeedInfo(feed);
 

@@ -9,12 +9,12 @@ import { useFeedInfo } from "~/lib/hooks/feeds";
 
 export default function FeedsPage() {
   const path = useAbsolutePath();
-  const { handle, generator } = useLocalSearchParams<{
-    handle: string;
+  const { author, generator } = useLocalSearchParams<{
+    author: string;
     generator: string;
   }>();
 
-  const feed = `at://${handle}/app.bsky.feed.generator/${generator}`;
+  const feed = `at://${author}/app.bsky.feed.generator/${generator}`;
 
   const info = useFeedInfo(feed);
 
@@ -25,7 +25,7 @@ export default function FeedsPage() {
           headerRight: () => (
             <Link
               asChild
-              href={path(`/profile/${handle}/feed/${generator}/details`)}
+              href={path(`/profile/${author}/feed/${generator}/details`)}
             >
               <TouchableOpacity>
                 <Image

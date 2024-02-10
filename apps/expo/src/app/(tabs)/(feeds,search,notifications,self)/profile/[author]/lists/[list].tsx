@@ -44,13 +44,13 @@ import { useUserRefresh } from "~/lib/utils/query";
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 
 export default function ListsScreen() {
-  const { handle, list: rkey } = useLocalSearchParams<{
-    handle: string;
+  const { author, list: rkey } = useLocalSearchParams<{
+    author: string;
     list: string;
   }>();
   const theme = useTheme();
 
-  const uri = `at://${handle}/app.bsky.graph.list/${rkey}`;
+  const uri = `at://${author}/app.bsky.graph.list/${rkey}`;
 
   const list = useListQuery(uri);
 
@@ -58,8 +58,8 @@ export default function ListsScreen() {
 
   const renderHeader = useCallback(() => {
     if (!info) return null;
-    return <ListHeader info={info} handle={handle} rkey={rkey} />;
-  }, [info, handle, rkey]);
+    return <ListHeader info={info} handle={author} rkey={rkey} />;
+  }, [info, author, rkey]);
 
   if (list.data) {
     if (!info) return null;

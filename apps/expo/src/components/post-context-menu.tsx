@@ -3,7 +3,7 @@ import { Alert, Platform, Share, TouchableOpacity } from "react-native";
 import { ContextMenuButton } from "react-native-ios-context-menu";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
-import { usePathname, useRouter } from "expo-router";
+import { useRouter, useSegments } from "expo-router";
 import {
   AppBskyFeedPost,
   ComAtprotoModerationDefs,
@@ -16,7 +16,9 @@ import {
   CopyIcon,
   FlagIcon,
   HeartIcon,
+  ImageIcon,
   LanguagesIcon,
+  LinkIcon,
   MegaphoneOffIcon,
   MoreHorizontalIcon,
   RepeatIcon,
@@ -25,6 +27,7 @@ import {
   XOctagonIcon,
 } from "lucide-react-native";
 
+import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { blockAccount, muteAccount } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
@@ -54,19 +57,44 @@ const PostContextMenuButton = ({
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
-  const path = usePathname();
+  const path = useAbsolutePath();
+  const segments = useSegments();
 
   const rkey = post.uri.split("/").pop()!;
 
   const translate = () => onTranslate?.();
 
   const share = () => {
-    const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
-    void Share.share(
-      Platform.select({
-        ios: { url },
-        default: { message: url },
-      }),
+    const postPath = `/profile/${post.author.handle}/post/${rkey}`;
+    const url = `https://bsky.app${postPath}`;
+    const options = ["Share link to post", "Share as image"] as const;
+    const icons = [
+      <LinkIcon key={0} size={24} color={theme.colors.text} />,
+      <ImageIcon key={1} size={24} color={theme.colors.text} />,
+    ];
+    showActionSheetWithOptions(
+      {
+        options: [...options, "Cancel"],
+        icons: [...icons, <></>],
+        cancelButtonIndex: options.length,
+        ...actionSheetStyles(theme),
+      },
+      (index) => {
+        if (index === undefined) return;
+        const option = options[index];
+        switch (option) {
+          case "Share link to post":
+            void Share.share(
+              Platform.select({
+                ios: { url },
+                default: { message: url },
+              }),
+            );
+            break;
+          case "Share as image":
+            router.push(path(`${postPath}/capture`));
+        }
+      },
     );
   };
 
@@ -98,7 +126,7 @@ const PostContextMenuButton = ({
             message: "Post deleted",
             status: "danger",
           });
-          if (path.endsWith(rkey)) {
+          if (segments.at(-1) === rkey) {
             router.back();
           }
         },

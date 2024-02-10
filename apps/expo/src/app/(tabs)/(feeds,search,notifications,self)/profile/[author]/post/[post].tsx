@@ -52,10 +52,10 @@ interface Props {
 }
 
 const PostThread = ({ contentFilter }: Props) => {
-  const { handle, id } = useLocalSearchParams() as {
-    id: string;
-    handle: string;
-  };
+  const { author, post } = useLocalSearchParams<{
+    post: string;
+    author: string;
+  }>();
 
   const agent = useAgent();
   const ref = useRef<FlashList<Posts>>(null);
@@ -63,14 +63,15 @@ const PostThread = ({ contentFilter }: Props) => {
   const composer = useComposer();
 
   const thread = useQuery({
-    queryKey: ["profile", handle, "post", id],
+    queryKey: ["profile", author, "post", post],
     queryFn: async () => {
-      let did = handle;
+      if (!author || !post) throw Error("Invalid path to post");
+      let did = author;
       if (!did.startsWith("did:")) {
-        const { data } = await agent.resolveHandle({ handle });
+        const { data } = await agent.resolveHandle({ handle: author });
         did = data.did;
       }
-      const uri = `at://${did}/app.bsky.feed.post/${id}`;
+      const uri = `at://${did}/app.bsky.feed.post/${post}`;
       const postThread = await agent.getPostThread({ uri });
 
       if (!postThread.success) throw Error("Failed to fetch post thread");
