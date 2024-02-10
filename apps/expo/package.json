@@ -40,7 +40,7 @@
     "@trpc/server": "next",
     "bcp-47-match": "^2.0.3",
     "clsx": "^2.1.0",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.2",
     "expo": "50.0.6",
     "expo-application": "~5.8.3",
     "expo-av": "^13.10.5",
