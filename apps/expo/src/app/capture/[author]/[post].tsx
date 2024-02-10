@@ -17,9 +17,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { PrimaryPost } from "~/components/primary-post";
 import { QueryWithoutData } from "~/components/query-without-data";
+import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
+import { produce } from "~/lib/utils/produce";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../../assets/icon.png") as ImageSource;
@@ -62,8 +64,12 @@ export default function ShareAsImageScreen() {
   });
 
   if (post.data) {
+    const anonymizedPost = produce(post.data.post, (draft) => {
+      delete draft.viewer;
+    });
     return (
       <>
+        <StatusBar modal />
         <TransparentHeaderUntilScrolled>
           <ScrollView
             className="flex-1"
@@ -80,18 +86,22 @@ export default function ShareAsImageScreen() {
             >
               <View className="relative flex-1 px-3 pb-1.5 pt-3">
                 <PrimaryPost
-                  post={post.data.post}
+                  post={anonymizedPost}
                   dataUpdatedAt={post.dataUpdatedAt}
                   className="overflow-hidden rounded-lg border"
                 />
-                <View className="mt-1 flex-row items-center gap-x-1.5">
-                  <Text className="text-sm">a bluesky post, via</Text>
+                <View className="mt-1 flex-row items-center justify-end gap-x-1.5">
+                  <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                    a bluesky post, via
+                  </Text>
                   <Image className="h-3 w-3 rounded" source={appIcon} />
-                  <Text className="text-sm">graysky.app</Text>
+                  <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                    graysky.app
+                  </Text>
                 </View>
               </View>
             </ViewShot>
-            <View className="mt-8 flex-1 p-4">
+            <View className="mt-4 flex-1 p-4">
               <TouchableHighlight
                 className="rounded-xl"
                 style={{ borderCurve: "continuous" }}
@@ -143,6 +153,7 @@ export default function ShareAsImageScreen() {
 
   return (
     <>
+      <StatusBar modal />
       <QueryWithoutData query={post} />
       {Platform.OS === "ios" && (
         <Stack.Screen
