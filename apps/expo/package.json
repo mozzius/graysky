@@ -68,7 +68,7 @@
     "expo-status-bar": "~1.11.1",
     "expo-system-ui": "~2.9.3",
     "expo-task-manager": "^11.7.2",
-    "expo-updates": "^0.24.9",
+    "expo-updates": "^0.24.10",
     "expo-web-browser": "~12.8.2",
     "fast-text-encoding": "^1.0.6",
     "graphemer": "^1.4.0",

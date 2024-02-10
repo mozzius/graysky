@@ -189,8 +189,8 @@ importers:
         specifier: ^11.7.2
         version: 11.7.2(expo@50.0.6)
       expo-updates:
-        specifier: ^0.24.9
-        version: 0.24.9(expo@50.0.6)
+        specifier: ^0.24.10
+        version: 0.24.10(expo@50.0.6)
       expo-web-browser:
         specifier: ~12.8.2
         version: 12.8.2(expo@50.0.6)
@@ -7918,8 +7918,8 @@ packages:
       expo: 50.0.6(@babel/core@7.23.9)(@react-native/babel-preset@0.73.21)
     dev: false
 
-  /expo-updates@0.24.9(expo@50.0.6):
-    resolution: {integrity: sha512-634C/JYYxk8PNkhviXiAejGSbisbmGxBIX6O2ScsJXXbB2cBgGT6nL321ztA38DjfkEpVpw8+kExaHWMrwwAvw==}
+  /expo-updates@0.24.10(expo@50.0.6):
+    resolution: {integrity: sha512-tFVcwYuIx7tsTFlmHjuhDJG9gy3j86RkkzhAkPH8zbk8q+0iE5NFaSR0P+qrPWg6gakFJMbQM0kTDWcTKxsIrA==}
     hasBin: true
     peerDependencies:
       expo: '*'
