@@ -49,6 +49,8 @@ export class Firehose {
     });
 
     this.firehose.on("message", this.handleMessage.bind(this));
+
+    this.firehose.on("close", () => process.exit(1));
   }
 
   handleMessage(message: SubscribeReposMessage) {
