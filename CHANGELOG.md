@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-11 v1.4.3
+
+- You can now share a post as an image
+- Fixed "only show replies by followed users" option
+- Other minor improvements & bug fixes
+
 ## 2024-2-6 v1.4.2
 
 - Remove invite codes 🎉
