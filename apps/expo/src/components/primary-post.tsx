@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, type ViewStyle } from "react-native";
 import { Link, useRouter } from "expo-router";
 import {
   AppBskyFeedPost,
@@ -27,10 +27,19 @@ import { Translation } from "./translation";
 interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
+  hideBorder?: boolean;
   dataUpdatedAt: number;
+  className?: string;
+  style?: ViewStyle;
 }
 
-export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
+export const PrimaryPost = ({
+  post,
+  hasParent,
+  dataUpdatedAt,
+  className,
+  style,
+}: Props) => {
   const theme = useTheme();
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
@@ -64,12 +73,14 @@ export const PrimaryPost = ({ post, hasParent, dataUpdatedAt }: Props) => {
   return (
     <View
       className={cx(
-        "border-b px-4 pb-4 pt-3",
+        "border-b px-4 py-3",
         hasParent && "border-t",
         theme.dark
           ? "border-neutral-800 bg-black"
           : "border-neutral-200 bg-white",
+        className,
       )}
+      style={style}
     >
       <View className="mb-2 flex-row items-center">
         <PostAvatar profile={post.author} />

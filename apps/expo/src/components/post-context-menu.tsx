@@ -27,7 +27,6 @@ import {
   XOctagonIcon,
 } from "lucide-react-native";
 
-import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { blockAccount, muteAccount } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
@@ -57,7 +56,6 @@ const PostContextMenuButton = ({
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
-  const path = useAbsolutePath();
   const segments = useSegments();
 
   const rkey = post.uri.split("/").pop()!;
@@ -65,8 +63,7 @@ const PostContextMenuButton = ({
   const translate = () => onTranslate?.();
 
   const share = () => {
-    const postPath = `/profile/${post.author.handle}/post/${rkey}`;
-    const url = `https://bsky.app${postPath}`;
+    const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
     const options = ["Share link to post", "Share as image"] as const;
     const icons = [
       <LinkIcon key={0} size={24} color={theme.colors.text} />,
@@ -92,7 +89,7 @@ const PostContextMenuButton = ({
             );
             break;
           case "Share as image":
-            router.push(path(`${postPath}/capture`));
+            router.push(`/capture/${post.author.handle}/${rkey}`);
         }
       },
     );

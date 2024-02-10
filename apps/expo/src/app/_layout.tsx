@@ -371,6 +371,13 @@ const App = () => {
                               gestureEnabled: false,
                             }}
                           />
+                          <Stack.Screen
+                            name="capture/[author]/[post]"
+                            options={{
+                              title: "Share as Image",
+                              presentation: "formSheet",
+                            }}
+                          />
                         </Stack>
                       </ListProvider>
                     </ActionSheetProvider>

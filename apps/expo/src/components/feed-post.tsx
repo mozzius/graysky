@@ -7,7 +7,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
 import { z } from "zod";
 
-import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[handle]/post/[id]";
+import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post]";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { type FilterResult } from "~/lib/hooks/preferences";

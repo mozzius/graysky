@@ -106,7 +106,7 @@ export default function PushNotificationsScreen() {
           }}
         >
           <View
-            className="w-full items-center rounded-xl py-4"
+            className="w-full items-center rounded-xl py-3"
             style={{
               borderCurve: "continuous",
               backgroundColor: theme.colors.primary,
@@ -129,7 +129,7 @@ export default function PushNotificationsScreen() {
           }}
         >
           <View
-            className="w-full items-center rounded-xl bg-neutral-100 py-4 dark:bg-neutral-800"
+            className="w-full items-center rounded-xl bg-neutral-100 py-3 dark:bg-neutral-800"
             style={{ borderCurve: "continuous" }}
           >
             <Text className="text-center text-base font-medium">
