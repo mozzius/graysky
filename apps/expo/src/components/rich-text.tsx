@@ -141,7 +141,7 @@ export const RichText = ({
               accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
-                router.push(`/tag/${encodeURIComponent(tag)}`);
+                router.push(path(`/tag/${encodeURIComponent(tag)}`));
               }}
             >
               {segment.text}
