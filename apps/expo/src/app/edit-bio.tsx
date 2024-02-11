@@ -14,14 +14,14 @@ import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { XIcon } from "lucide-react-native";
+import { ImagePlusIcon, XIcon } from "lucide-react-native";
 
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText } from "~/components/rich-text";
 import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
+import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
-import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { compress, getGalleryPermission } from "~/lib/composer/utils";
 import { cx } from "~/lib/utils/cx";
@@ -158,104 +158,118 @@ export default function EditBio() {
 
   if (self.data) {
     return (
-      <TransparentHeaderUntilScrolled>
-        <KeyboardAwareScrollView
-          className="flex-1"
-          contentInsetAdjustmentBehavior="automatic"
-        >
-          <Stack.Screen
-            options={{
-              headerLeft: cancelButton,
-              headerRight: saveButton,
-              gestureEnabled: !dirty,
-            }}
-          />
-          <View className="relative h-32">
-            <TouchableHighlight
-              onPress={editBanner}
-              accessibilityRole="button"
-              accessibilityLabel="Edit avatar"
+      <KeyboardAwareScrollView
+        className="flex-1"
+        contentInsetAdjustmentBehavior="automatic"
+      >
+        <StatusBar modal />
+        <Stack.Screen
+          options={{
+            headerLeft: cancelButton,
+            headerRight: saveButton,
+            gestureEnabled: !dirty,
+          }}
+        />
+        <View className="relative h-32">
+          <TouchableHighlight
+            onPress={editBanner}
+            accessibilityRole="button"
+            accessibilityLabel="Edit avatar"
+          >
+            <View className="relative h-full w-full bg-blue-500">
+              <Image
+                source={banner?.path ?? self.data.banner}
+                className="h-full w-full"
+                contentFit="cover"
+              />
+              {!banner && (
+                <View className="absolute h-full w-full items-center justify-center bg-black/40">
+                  <ImagePlusIcon color="white" size={32} />
+                </View>
+              )}
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={editAvatar}
+            accessibilityRole="button"
+            accessibilityLabel="Edit avatar"
+          >
+            <View
+              style={{
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.card,
+              }}
+              className="absolute -bottom-12 left-4 h-24 w-24 rounded-full border-2"
             >
-              <View className="h-full w-full bg-blue-500">
+              <View className="relative h-full w-full rounded-full bg-blue-500">
                 <Image
-                  source={banner?.path ?? self.data.banner}
-                  className="h-full w-full"
+                  source={avatar?.path ?? self.data.avatar}
+                  className="h-full w-full rounded-full"
                   contentFit="cover"
                 />
+                {!avatar && (
+                  <View className="absolute h-full w-full items-center justify-center rounded-full bg-black/40">
+                    <ImagePlusIcon color="white" size={32} />
+                  </View>
+                )}
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={editAvatar}
-              accessibilityRole="button"
-              accessibilityLabel="Edit avatar"
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View className="mt-10 flex-1 px-4">
+          <View className="my-4 flex-1">
+            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+              Display name
+            </Text>
+            <View
+              style={{ backgroundColor: theme.colors.card }}
+              className="flex-1 overflow-hidden rounded-lg"
             >
-              <View
-                style={{
-                  backgroundColor: theme.colors.card,
-                  borderColor: theme.colors.card,
-                }}
-                className="absolute -bottom-12 left-4 h-24 w-24 rounded-full border-2"
-              >
-                <View className="h-full w-full rounded-full bg-blue-500">
-                  <Image
-                    source={avatar?.path ?? self.data.avatar}
-                    className="h-full w-full rounded-full"
-                    contentFit="cover"
-                  />
-                </View>
-              </View>
-            </TouchableHighlight>
+              <TextInput
+                value={displayName ?? ""}
+                placeholder="Required"
+                onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
+                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                maxLength={MAX_DISPLAY_NAME}
+              />
+            </View>
           </View>
-          <View className="mt-10 flex-1 px-4">
-            <View className="my-4 flex-1">
-              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Display name
-              </Text>
-              <View
-                style={{ backgroundColor: theme.colors.card }}
-                className="flex-1 overflow-hidden rounded-lg"
+          <View className="mb-4 flex-1">
+            <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
+              Description
+            </Text>
+            <View
+              style={{ backgroundColor: theme.colors.card }}
+              className="flex-1 overflow-hidden rounded-lg"
+            >
+              <TextInput
+                onChange={(evt) => setDescription(evt.nativeEvent.text)}
+                placeholder="Optional"
+                multiline
+                className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
+                maxLength={MAX_DESCRIPTION}
               >
-                <TextInput
-                  value={displayName ?? ""}
-                  placeholder="Required"
-                  onChange={(evt) => setDisplayName(evt.nativeEvent.text)}
-                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  maxLength={MAX_DISPLAY_NAME}
+                <RichText
+                  size="base"
+                  text={rt.text}
+                  facets={rt.facets}
+                  truncate={false}
+                  disableLinks
                 />
-              </View>
-            </View>
-            <View className="mb-4 flex-1">
-              <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Description
-              </Text>
-              <View
-                style={{ backgroundColor: theme.colors.card }}
-                className="flex-1 overflow-hidden rounded-lg"
-              >
-                <TextInput
-                  onChange={(evt) => setDescription(evt.nativeEvent.text)}
-                  placeholder="Optional"
-                  multiline
-                  className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-                  maxLength={MAX_DESCRIPTION}
-                >
-                  <RichText
-                    size="base"
-                    text={rt.text}
-                    facets={rt.facets}
-                    truncate={false}
-                    disableLinks
-                  />
-                </TextInput>
-              </View>
+              </TextInput>
             </View>
           </View>
-        </KeyboardAwareScrollView>
-      </TransparentHeaderUntilScrolled>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 
-  return <QueryWithoutData query={self} />;
+  return (
+    <>
+      <StatusBar modal />
+      <QueryWithoutData query={self} />
+    </>
+  );
 }
 
 async function getImage(aspect: [number, number], circle = false) {
