@@ -4,7 +4,7 @@ import { Drawer } from "react-native-drawer-layout";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
-import { Stack, Tabs, useRouter, useSegments } from "expo-router";
+import { Stack, Tabs, usePathname, useRouter, useSegments } from "expo-router";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -71,6 +71,7 @@ export default function AppLayout() {
 
   const theme = useTheme();
   const segments = useSegments();
+  const pathname = usePathname();
   const router = useRouter();
 
   const homepage = useHomepage();
@@ -184,7 +185,31 @@ export default function AppLayout() {
               tabPress: (evt) => {
                 evt.preventDefault();
                 if (agent?.hasSession) {
-                  router.push("/composer");
+                  if (segments.at(-2) === "profile") {
+                    const actor = pathname.split("/").pop()!;
+                    try {
+                      if (actor.startsWith("did:")) {
+                        if (actor === agent.session?.did)
+                          throw new Error("Cannot mention yourself");
+                        void agent.getProfile({ actor }).then((profile) => {
+                          if (!profile.success)
+                            throw new Error("Failed to fetch profile");
+                          router.push(
+                            `/composer/?initialText=@${profile.data.handle}`,
+                          );
+                        });
+                      } else {
+                        if (actor === agent.session?.handle)
+                          throw new Error("Cannot mention yourself");
+                        router.push(`/composer/?initialText=@${actor}`);
+                      }
+                    } catch (err) {
+                      console.error(err);
+                      router.push("/composer");
+                    }
+                  } else {
+                    router.push("/composer");
+                  }
                 }
               },
             }}
