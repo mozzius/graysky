@@ -111,7 +111,7 @@ export const Notification = ({
         <TouchableHighlight
           onPress={() =>
             actors.length === 1
-              ? router.push(path(`/profile/${actors[0]!.handle}`))
+              ? router.push(path(`/profile/${actors[0]!.did}`))
               : openFollowers(agent.session!.did, actors.length)
           }
         >
@@ -169,7 +169,7 @@ const ProfileList = ({
         <View className="h-8 max-w-[200px] flex-1 flex-row flex-wrap overflow-hidden">
           {actors.slice(0, 5).map((actor, index) => (
             <Link
-              href={path(`/profile/${actor.handle}`)}
+              href={path(`/profile/${actor.did}`)}
               asChild
               key={actor.did}
               accessibilityHint="Opens profile"
@@ -218,7 +218,7 @@ const ProfileList = ({
           className="text-base font-medium"
           onPress={() => {
             if (actors.length === 1) {
-              router.push(path(`/profile/${actors[0]!.handle}`));
+              router.push(path(`/profile/${actors[0]!.did}`));
             } else {
               haptics.selection();
               showAll();

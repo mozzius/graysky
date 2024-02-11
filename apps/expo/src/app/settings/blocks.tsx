@@ -37,7 +37,7 @@ export default function BlockedUsers() {
         profiles={data}
         onProfilePress={(evt) => {
           evt.preventDefault();
-          router.push(`/(feeds)/profile/${evt.person.handle}`);
+          router.push(`/(feeds)/profile/${evt.person.did}`);
         }}
         emptyText="You haven't blocked anyone"
       />

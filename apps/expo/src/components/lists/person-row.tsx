@@ -53,7 +53,7 @@ const PersonRowUnmemoized = ({
         const evt = { preventDefault: () => (preventDefault = true) };
         onPress?.(evt);
         if (!preventDefault) {
-          router.push(path(`/profile/${person.handle}`));
+          router.push(path(`/profile/${person.did}`));
         }
       }}
     >

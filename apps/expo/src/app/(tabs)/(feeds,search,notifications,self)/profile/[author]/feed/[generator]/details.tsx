@@ -138,7 +138,7 @@ const FeedInfo = ({
               <Text className="text-xl font-medium">
                 {info.view.displayName}
               </Text>
-              <Link asChild href={path(`/profile/${info.view.creator.handle}`)}>
+              <Link asChild href={path(`/profile/${info.view.creator.did}`)}>
                 <TouchableOpacity>
                   <Text className="text-base text-neutral-500">
                     By @{info.view.creator.handle}
@@ -277,7 +277,7 @@ const FeedInfo = ({
             <Text className="mx-8 mb-1.5 text-xs uppercase text-neutral-500">
               Creator
             </Text>
-            <Link href={path(`/profile/${info.view.creator.handle}`)} asChild>
+            <Link href={path(`/profile/${info.view.creator.did}`)} asChild>
               <TouchableHighlight className="mx-4 overflow-hidden rounded-lg">
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -338,9 +338,7 @@ const FeedInfo = ({
                       </Fragment>
                     ))}
                   <Link
-                    href={path(
-                      `/profile/${info.view.creator.handle}?tab=feeds`,
-                    )}
+                    href={path(`/profile/${info.view.creator.did}?tab=feeds`)}
                     asChild
                   >
                     <TouchableHighlight>
