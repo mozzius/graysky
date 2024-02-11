@@ -52,6 +52,12 @@ Sentry.init({
       routingInstrumentation,
     }),
   ],
+  ignoreErrors: [
+    // https://graysky.sentry.io/issues/4916862074/?project=4505478653739008&query=is%3Aunresolved&referrer=issue-stream&statsPeriod=14d&stream_index=0
+    "viewNotFoundForReactTag",
+    // https://graysky.sentry.io/issues/4677582595/?project=4505478653739008&query=is%3Aunresolved&referrer=issue-stream&statsPeriod=14d&stream_index=1
+    "nilReactBridge",
+  ],
 });
 
 const useSentryTracing = () => {
