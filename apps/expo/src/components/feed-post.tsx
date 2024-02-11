@@ -409,7 +409,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
         depth: 0,
         parentHeight: 1,
       });
-      return thread.data.thread.parent;
+      return thread.data.thread.parent ?? null;
     },
   });
 

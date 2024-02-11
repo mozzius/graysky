@@ -132,7 +132,11 @@ export const RichText = ({
           ),
         });
       } else if (segment.isTag()) {
-        const tag = segment.tag!.tag;
+        let tag = segment.tag!.tag;
+        // workaround for bad implementations
+        if (tag === segment.text && tag.startsWith("#")) {
+          tag = tag.slice(1);
+        }
         parts.push({
           text: segment.text,
           component: (
