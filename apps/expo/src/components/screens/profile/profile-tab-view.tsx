@@ -18,19 +18,19 @@ import { ProfileLists } from "./profile-lists";
 import { ProfilePosts } from "./profile-posts";
 
 interface Props {
-  handle: string;
+  did: string;
   initial?: string;
   backButton?: boolean;
 }
 
 export const ProfileTabView = ({
-  handle,
+  did,
   initial = "posts",
   backButton,
 }: Props) => {
-  const profile = useProfile(handle);
-  const feeds = useProfileFeeds(handle);
-  const lists = useProfileLists(handle);
+  const profile = useProfile(did);
+  const feeds = useProfileFeeds(did);
+  const lists = useProfileLists(did);
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
 
@@ -77,25 +77,25 @@ export const ProfileTabView = ({
           lazy
         >
           <Tabs.Tab name="posts" label="Posts">
-            <ProfilePosts mode="posts" handle={handle} />
+            <ProfilePosts mode="posts" did={did} />
           </Tabs.Tab>
           <Tabs.Tab name="replies" label="Replies">
-            <ProfilePosts mode="replies" handle={handle} />
+            <ProfilePosts mode="replies" did={did} />
           </Tabs.Tab>
           <Tabs.Tab name="media" label="Media">
-            <ProfilePosts mode="media" handle={handle} />
+            <ProfilePosts mode="media" did={did} />
           </Tabs.Tab>
           <Tabs.Tab name="likes" label="Likes">
-            <ProfilePosts mode="likes" handle={handle} />
+            <ProfilePosts mode="likes" did={did} />
           </Tabs.Tab>
           {numberOfFeeds === 0 ? null : (
             <Tabs.Tab name="feeds" label="Feeds">
-              <ProfileFeeds handle={handle} />
+              <ProfileFeeds did={did} />
             </Tabs.Tab>
           )}
           {numberOfLists === 0 ? null : (
             <Tabs.Tab name="lists" label="Lists">
-              <ProfileLists handle={handle} />
+              <ProfileLists did={did} />
             </Tabs.Tab>
           )}
         </Tabs.Container>

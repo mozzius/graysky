@@ -19,11 +19,11 @@ import { INITIAL_HEADER_HEIGHT } from "./profile-info";
 LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 
 interface Props {
-  handle: string;
+  did: string;
 }
 
-export const ProfileLists = ({ handle }: Props) => {
-  const lists = useProfileLists(handle);
+export const ProfileLists = ({ did }: Props) => {
+  const lists = useProfileLists(did);
 
   const listsData = useMemo(() => {
     if (!lists.data) return [];

@@ -1,6 +1,9 @@
 import { useLocalSearchParams } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 
+import { QueryWithoutData } from "~/components/query-without-data";
 import { ProfileTabView } from "~/components/screens/profile/profile-tab-view";
+import { useAgent } from "~/lib/agent";
 
 export default function ProfilePage() {
   const { author, tab } = useLocalSearchParams<{
@@ -10,5 +13,35 @@ export default function ProfilePage() {
 
   if (!author) return null;
 
-  return <ProfileTabView handle={author} initial={tab} backButton />;
+  if (author.startsWith("did:")) {
+    return <ProfileTabView did={author} initial={tab} />;
+  } else {
+    <ResolveHandle handle={author}>
+      {(did) => <ProfileTabView did={did} initial={tab} />}
+    </ResolveHandle>;
+  }
 }
+
+const ResolveHandle = ({
+  handle,
+  children,
+}: {
+  handle: string;
+  children: (did: string) => React.ReactNode;
+}) => {
+  const agent = useAgent();
+
+  const resolve = useQuery({
+    queryKey: ["resolve", handle],
+    queryFn: async () => {
+      const { data } = await agent.resolveHandle({ handle });
+      return data;
+    },
+  });
+
+  if (resolve.data) {
+    return children(resolve.data.did);
+  }
+
+  return <QueryWithoutData query={resolve} />;
+};

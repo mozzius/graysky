@@ -3,9 +3,9 @@ import { useAgent } from "~/lib/agent";
 
 export default function SelfProfile() {
   const agent = useAgent();
-  const handle = agent.session?.handle;
+  const did = agent.session?.did;
 
-  if (!handle) return null;
+  if (!did) return null;
 
-  return <ProfileTabView handle={handle} />;
+  return <ProfileTabView did={did} />;
 }

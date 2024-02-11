@@ -82,12 +82,12 @@ export const useProfileFeeds = (handle?: string) => {
 
 export const useProfilePosts = (
   mode: "posts" | "replies" | "likes" | "media",
-  handle?: string,
+  did?: string,
 ) => {
   const agent = useAgent();
   const { preferences, contentFilter } = useContentFilter();
 
-  const actor = handle ?? agent.session?.did;
+  const actor = did ?? agent.session?.did;
 
   const timeline = useInfiniteQuery({
     queryKey: ["profile", actor, "feed", mode],
@@ -219,10 +219,10 @@ export const useDefaultHeaderHeight = () => {
   return getDefaultHeaderHeight(layout, false, top > 50 ? top - 5 : top);
 };
 
-export const useProfileLists = (handle?: string) => {
+export const useProfileLists = (did?: string) => {
   const agent = useAgent();
 
-  const actor = handle ?? agent.session?.did;
+  const actor = did ?? agent.session?.did;
 
   const query = useInfiniteQuery({
     queryKey: ["profile", actor, "lists"],

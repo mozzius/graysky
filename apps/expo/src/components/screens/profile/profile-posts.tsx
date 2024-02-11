@@ -27,14 +27,14 @@ export function mergeRefs<T = any>(
 }
 
 interface Props {
-  handle: string;
+  did: string;
   mode: "posts" | "replies" | "likes" | "media";
 }
 
-export const ProfilePosts = ({ handle, mode }: Props) => {
-  const { preferences, timeline, timelineData } = useProfilePosts(mode, handle);
+export const ProfilePosts = ({ did, mode }: Props) => {
+  const { preferences, timeline, timelineData } = useProfilePosts(mode, did);
 
-  const profile = useProfile(handle);
+  const profile = useProfile(did);
 
   const [ref, onScroll] = useTabPressScrollRef<(typeof timelineData)[number]>(
     timeline.refetch,
