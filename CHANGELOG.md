@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented here.
 
+## 2924-2-12 v1.4.4
+
+- Various bug fixes and improvements
+- Fixed misconfigured Over-the-Air updates causing the app to crash on launch
+
 ## 2024-2-11 v1.4.3
 
 - You can now share a post as an image
