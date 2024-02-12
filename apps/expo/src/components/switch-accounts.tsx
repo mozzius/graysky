@@ -55,7 +55,9 @@ export function SwitchAccounts({
     mutationKey: ["switch-accounts"],
     mutationFn: async (session: AtpSessionData) => {
       // HACKFIX - service url gets changed after authenication
+      // reset service URL and pdsUrl when resuming
       // https://github.com/bluesky-social/atproto/issues/1964
+      agent.pdsUrl = undefined;
       agent.api.xrpc.uri = new URL("https://bsky.social");
       const res = await agent.resumeSession(session);
       if (!res.success) throw new Error("Could not resume session");
