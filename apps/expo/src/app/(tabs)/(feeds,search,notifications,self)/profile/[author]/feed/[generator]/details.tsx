@@ -76,8 +76,8 @@ const FeedInfo = ({
   const savedFeeds = useSavedFeeds();
   const queryClient = useQueryClient();
   const theme = useTheme();
-  const { handle, generator } = useLocalSearchParams<{
-    handle: string;
+  const { author, generator } = useLocalSearchParams<{
+    author: string;
     generator: string;
   }>();
   const haptics = useHaptics();
@@ -98,14 +98,14 @@ const FeedInfo = ({
   });
 
   const creator = useQuery({
-    queryKey: ["profile", info.view.creator.handle, "with-some-feeds"],
+    queryKey: ["profile", info.view.creator.did, "with-some-feeds"],
     queryFn: async () => {
       const profile = await agent.getProfile({
-        actor: info.view.creator.handle,
+        actor: info.view.creator.did,
       });
       if (!profile.success) throw new Error("Profile not found");
       const feeds = await agent.app.bsky.feed.getActorFeeds({
-        actor: info.view.creator.handle,
+        actor: info.view.creator.did,
         limit: 6,
       });
       if (!feeds.success) throw new Error("Could not get feeds");
@@ -371,7 +371,7 @@ const FeedInfo = ({
             >
               <TouchableHighlight
                 onPress={() => {
-                  const url = `https://bsky.app/profile/${handle}/feed/${generator}`;
+                  const url = `https://bsky.app/profile/${author}/feed/${generator}`;
                   void Sharing.share(
                     Platform.select({
                       ios: { url },
