@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Alert,
   Platform,
@@ -35,6 +35,7 @@ export default function ShareAsImageScreen() {
   const captureRef = useRef<ViewShot>(null);
   const router = useRouter();
   const theme = useTheme();
+  const [showContextMenu, setShowContextMenu] = useState(true);
 
   const post = useQuery({
     queryKey: ["profile", author, "post", rkey, "no-context"],
@@ -64,6 +65,28 @@ export default function ShareAsImageScreen() {
 
   if (post.data) {
     const { viewer: _, ...anonymizedPost } = post.data.post;
+
+    const handleCaptureImage = () => {
+      setShowContextMenu(false);
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      setTimeout(async () => {
+        try {
+          const uri = await captureRef.current?.capture?.();
+          setShowContextMenu(true);
+          if (!uri) throw new Error("Failed to capture image");
+          await Sharing.shareAsync(uri, {
+            mimeType: "image/jpeg",
+            dialogTitle: `Share ${post.data.post.author.handle}'s post`,
+            UTI: "public.jpeg",
+          });
+          router.push("../");
+        } catch (err) {
+          console.error(err);
+          Alert.alert("Error", "Failed to capture image");
+        }
+      });
+    };
+
     return (
       <>
         <StatusBar modal />
@@ -86,6 +109,8 @@ export default function ShareAsImageScreen() {
                   post={anonymizedPost}
                   dataUpdatedAt={post.dataUpdatedAt}
                   className="overflow-hidden rounded-lg border"
+                  hideContextMenu={!showContextMenu}
+                  hideTranslation
                 />
                 <View className="mt-1 flex-row items-center justify-end gap-x-1.5">
                   <Text className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -102,21 +127,7 @@ export default function ShareAsImageScreen() {
               <TouchableHighlight
                 className="rounded-xl"
                 style={{ borderCurve: "continuous" }}
-                onPress={async () => {
-                  try {
-                    const uri = await captureRef.current?.capture?.();
-                    if (!uri) throw new Error("Failed to capture image");
-                    await Sharing.shareAsync(uri, {
-                      mimeType: "image/jpeg",
-                      dialogTitle: `Share ${post.data.post.author.handle}'s post`,
-                      UTI: "public.jpeg",
-                    });
-                    router.push("../");
-                  } catch (err) {
-                    console.error(err);
-                    Alert.alert("Error", "Failed to capture image");
-                  }
-                }}
+                onPress={handleCaptureImage}
               >
                 <View
                   className="w-full items-center rounded-xl py-3"

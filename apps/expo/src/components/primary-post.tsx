@@ -27,8 +27,9 @@ import { Translation } from "./translation";
 interface Props {
   post: AppBskyFeedDefs.PostView;
   hasParent?: boolean;
-  hideBorder?: boolean;
   dataUpdatedAt: number;
+  hideContextMenu?: boolean;
+  hideTranslation?: boolean;
   className?: string;
   style?: ViewStyle;
 }
@@ -37,6 +38,8 @@ export const PrimaryPost = ({
   post,
   hasParent,
   dataUpdatedAt,
+  hideContextMenu,
+  hideTranslation,
   className,
   style,
 }: Props) => {
@@ -53,8 +56,8 @@ export const PrimaryPost = ({
   const contentLanguages = useContentLanguages();
 
   const needsTranslation = useMemo(
-    () => !isPostInLanguage(post, contentLanguages),
-    [post, contentLanguages],
+    () => !isPostInLanguage(post, contentLanguages) && !hideTranslation,
+    [post, contentLanguages, hideTranslation],
   );
 
   if (!AppBskyFeedPost.isRecord(post.record)) {
@@ -105,17 +108,19 @@ export const PrimaryPost = ({
               </Text>
             </TouchableOpacity>
           </Link>
-          <PostContextMenu
-            post={{ ...post, record: post.record }}
-            showSeeLikes
-            showSeeReposts
-            showCopyText
-            onTranslate={
-              needsTranslation
-                ? undefined
-                : () => setForceShowTranslation(post.uri)
-            }
-          />
+          {!hideContextMenu && (
+            <PostContextMenu
+              post={{ ...post, record: post.record }}
+              showSeeLikes
+              showSeeReposts
+              showCopyText
+              onTranslate={
+                needsTranslation
+                  ? undefined
+                  : () => setForceShowTranslation(post.uri)
+              }
+            />
+          )}
         </View>
       </View>
       {!!post.record.text && (
