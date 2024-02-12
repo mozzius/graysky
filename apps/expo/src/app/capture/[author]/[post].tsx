@@ -21,7 +21,6 @@ import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
-import { produce } from "~/lib/utils/produce";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const appIcon = require("../../../../assets/icon.png") as ImageSource;
@@ -64,9 +63,7 @@ export default function ShareAsImageScreen() {
   });
 
   if (post.data) {
-    const anonymizedPost = produce(post.data.post, (draft) => {
-      delete draft.viewer;
-    });
+    const { viewer: _, ...anonymizedPost } = post.data.post;
     return (
       <>
         <StatusBar modal />

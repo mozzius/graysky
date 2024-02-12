@@ -77,32 +77,12 @@ export const RichText = ({
                 const url = segment.link!.uri;
                 // TODO: better heuristic?
                 if (url.startsWith("https://bsky.app")) {
-                  const path = url.slice("https://bsky.app".length);
-                  router.push(path);
+                  const pathname = url.slice("https://bsky.app".length);
+                  router.push(path(pathname));
                 } else {
                   void openLink(url);
-                  // check link is not deceptive
-                  // TODO: the official app now shortens links - will need new logic
-                  // const realHost = new URL(url).hostname;
-                  // const statedHost = new URL(segment.text).hostname;
-                  // if (realHost === statedHost) {
-                  //   void Linking.openURL(url);
-                  // } else {
-                  //   Alert.alert(
-                  //     "Deceptive link",
-                  //     `This link does not match the stated URL in the text. This will take you to ${realHost}`,
-                  //     [
-                  //       {
-                  //         text: "Cancel",
-                  //         style: "cancel",
-                  //       },
-                  //       {
-                  //         text: "Open anyway",
-                  //         onPress: () => void Linking.openURL(url),
-                  //       },
-                  //     ],
-                  //   );
-                  // }
+                  // TODO: check link is not deceptive
+                  // the official app now shortens links - will need new logic
                 }
               }}
               onLongPress={(evt) => {
