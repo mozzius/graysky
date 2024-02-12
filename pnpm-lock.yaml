@@ -207,8 +207,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       lucide-react-native:
-        specifier: ^0.323.0
-        version: 0.323.0(react-native-svg@14.1.0)(react-native@0.73.4)(react@18.2.0)
+        specifier: ^0.325.0
+        version: 0.325.0(react-native-svg@14.1.0)(react-native@0.73.4)(react@18.2.0)
       metro:
         specifier: ~0.80.5
         version: 0.80.5
@@ -424,8 +424,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
-        specifier: ^0.323.0
-        version: 0.323.0(react@18.2.0)
+        specifier: ^0.325.0
+        version: 0.325.0(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -9755,8 +9755,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.323.0(react-native-svg@14.1.0)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-uohrbse/AynY04fjS9/j11r++VVhCdZPwcaemQ16W/8WdZCR7edF6CdWpftXdc6dWn22GyQjUbZWI/lS3Un+dw==}
+  /lucide-react-native@0.325.0(react-native-svg@14.1.0)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-oivq+sMmW51QFG1HvFVOnSeaO8ut+VHwrBBJt4gmvbpv7qvVBgh4EieMqPKt8zcQVkE3GbEYVa7zS17S9NfCLQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
@@ -9767,8 +9767,8 @@ packages:
       react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.4)(react@18.2.0)
     dev: false
 
-  /lucide-react@0.323.0(react@18.2.0):
-    resolution: {integrity: sha512-rTXZFILl2Y4d1SG9p1Mdcf17AcPvPvpc/egFIzUrp7IUy60MUQo3Oi1mu8LGYXUVwuRZYsSMt3csHRW5mAovJg==}
+  /lucide-react@0.325.0(react@18.2.0):
+    resolution: {integrity: sha512-/H6IPtPMQUwXjHTFylCYBq/j8J3AJKG5Uil3mcm1E58wKkCfoKVzJH7toZU3U20wJrL7dP51dNX3yLgAPod+qQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
