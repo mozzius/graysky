@@ -177,36 +177,34 @@ export const useProfilePosts = (
   const timelineData = useMemo(() => {
     if (!timeline.data) return [];
     const flat = timeline.data.pages.flatMap((page) => page.posts);
-    return flat
-      .map((item) => {
-        const filter = contentFilter(item.post.labels);
-        if (filter?.visibility === "hide") return [];
-        switch (mode) {
-          case "posts":
-          case "likes":
-          case "media":
-            return [{ item, hasReply: false, filter }];
-          case "replies":
-            if (item.reply && !item.reason) {
-              if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
+    return flat.flatMap((item) => {
+      const filter = contentFilter(item.post.labels);
+      if (filter?.visibility === "hide") return [];
+      switch (mode) {
+        case "posts":
+        case "likes":
+        case "media":
+          return [{ item, hasReply: false, filter }];
+        case "replies":
+          if (item.reply && !item.reason) {
+            if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
 
-              const parentFilter = contentFilter(item.reply.parent.labels);
-              if (parentFilter?.visibility === "hide")
-                return [{ item, hasReply: false, filter }];
-              return [
-                {
-                  item: { post: item.reply.parent },
-                  hasReply: true,
-                  filter: parentFilter,
-                },
-                { item, hasReply: false, filter },
-              ];
-            } else {
+            const parentFilter = contentFilter(item.reply.parent.labels);
+            if (parentFilter?.visibility === "hide")
               return [{ item, hasReply: false, filter }];
-            }
-        }
-      })
-      .flat();
+            return [
+              {
+                item: { post: item.reply.parent },
+                hasReply: true,
+                filter: parentFilter,
+              },
+              { item, hasReply: false, filter },
+            ];
+          } else {
+            return [{ item, hasReply: false, filter }];
+          }
+      }
+    });
   }, [timeline, mode, contentFilter]);
 
   return { preferences, timeline, timelineData };

@@ -301,7 +301,9 @@ export const useTimeline = (feed: string) => {
         const isEmbed =
           AppBskyEmbedRecord.isView(item.post.embed) ||
           AppBskyEmbedRecordWithMedia.isView(item.post.embed);
-        const isByUnfollowed = !item.post.author.viewer?.following;
+        const isByUnfollowed =
+          !item.post.author.viewer?.following &&
+          item.post.author.did !== agent.session?.did;
 
         if (feedViewPref.hideReplies && item.reply) {
           return [];
@@ -321,7 +323,10 @@ export const useTimeline = (feed: string) => {
           // reply TO unfollowed
           if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
             const parent = item.reply.parent;
-            if (!parent.author.viewer?.following) {
+            if (
+              !parent.author.viewer?.following &&
+              parent.author.did !== agent.session?.did
+            ) {
               return [];
             }
           }
