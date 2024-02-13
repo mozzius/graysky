@@ -365,7 +365,15 @@ export const useTimeline = (feed: string) => {
         return [{ item, hasReply: false, filter }];
       }
     });
-  }, [timeline, contentFilter, preferences.data, defaultFeed, homepage, feed]);
+  }, [
+    timeline.data,
+    preferences.data,
+    contentFilter,
+    homepage,
+    feed,
+    defaultFeed,
+    agent.session?.did,
+  ]);
 
   return { timeline, data, preferences, contentFilter };
 };
