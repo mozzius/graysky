@@ -5,54 +5,46 @@ FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="NodeJS"
 
-# NodeJS app lives here
-WORKDIR /app
-
 # Set production environment
 ENV NODE_ENV=production
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+RUN corepack enable
+RUN pnpm i -g turbo dotenv-cli
 
-# Install packages needed to build node modules
+FROM base AS builder
+WORKDIR /app
+
+COPY . .
+RUN turbo prune @graysky/push-notifs --docker
+
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
+WORKDIR /app
+
 RUN apt-get update -qq && \
     apt-get install -y python-is-python3 pkg-config build-essential
 
-# Install pnpm
-RUN npm install -g pnpm
-RUN npm install -g dotenv-cli
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+RUN pnpm install --frozen-lockfile
 
-# Copy package.json and lockfile
-COPY --link package.json .
-COPY --link pnpm-lock.yaml .
-COPY --link pnpm-workspace.yaml .
-COPY --link .npmrc .
-# copy patches folder
-COPY --link patches patches
+# Build the project
+COPY --from=builder /app/out/full/ .
+RUN turbo run build --filter=push-notifs
 
-# Install node modules
-RUN pnpm install --frozen-lockfile --production
+FROM base AS runner
+WORKDIR /app
 
-# Copy application code
-COPY --link . .
-
-RUN pnpm db:generate
-
-# Build application
-RUN pnpm run push:build
-
-
-# Final stage for app image
-FROM base
-
-RUN npm install -g pnpm
-RUN npm install -g dotenv-cli
-
-# Copy built application
-COPY --from=build /app /app
-
-RUN apt-get update -y && \
+RUN apt-get update -qq && \
     apt-get install -y openssl ca-certificates
 
-# Start the server by default, this can be overwritten at runtime
+# Copy built application
+COPY .env .env
+COPY --from=installer app .
+
 CMD [ "npm", "run", "push:start" ]

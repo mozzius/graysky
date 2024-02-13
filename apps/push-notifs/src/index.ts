@@ -23,6 +23,8 @@ run(async () => {
   const pushNotifications = new PushNotifications(kv, accounts);
   const rateLimiter = new RateLimiter(kv, RATE_LIMIT, RATE_LIMIT_DURATION);
 
+  console.log("Starting push notifications service");
+
   new Firehose(accounts, async (notification) => {
     try {
       const isBlocking = await cache.isBlocking(
