@@ -31,7 +31,7 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --production
 
 # Build the project
 COPY --from=builder /app/out/full/ .
