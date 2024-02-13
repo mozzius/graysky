@@ -36,10 +36,10 @@ pnpm dev
   - [ ] own domain
   - [x] bsky.social
   - [ ] community handles
-- [ ] Push notifications
+- [x] Push notifications
 - [ ] Drafts
 - [ ] Full lists support
-- [ ] Share post as image
+- [x] Share post as image
 - [ ] Pro features
   - [ ] Polls
   - [ ] Analytics
