@@ -55,12 +55,14 @@ export const useNotifications = () => {
       const token = await getPushToken();
       if (token) {
         try {
-          await agent.app.bsky.notification.registerPush({
-            serviceDid: SERVICE_DID,
-            platform: Platform.OS,
-            token: token.data,
-            appId: "dev.mozzius.graysky",
-          });
+          if (agent.hasSession) {
+            await agent.app.bsky.notification.registerPush({
+              serviceDid: SERVICE_DID,
+              platform: Platform.OS,
+              token: token.data,
+              appId: "dev.mozzius.graysky",
+            });
+          }
         } catch (error) {
           Sentry.captureException(
             new Error("Failed to register push token", { cause: error }),

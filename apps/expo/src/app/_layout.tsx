@@ -350,17 +350,21 @@ const App = () => {
                             name="edit-bio"
                             options={{
                               title: "Edit Profile",
-                              presentation: "modal",
-                              headerTransparent: true,
-                              headerShadowVisible: true,
-                              headerBlurEffect: theme.dark
-                                ? "systemThickMaterialDark"
-                                : "systemChromeMaterialLight",
-                              headerStyle: {
-                                backgroundColor: theme.dark
-                                  ? "rgba(0,0,0,0.4)"
-                                  : "rgba(255,255,255,0.1)",
-                              },
+                              ...Platform.select({
+                                ios: {
+                                  presentation: "modal",
+                                  headerTransparent: true,
+                                  headerShadowVisible: true,
+                                  headerBlurEffect: theme.dark
+                                    ? "systemThickMaterialDark"
+                                    : "systemChromeMaterialLight",
+                                  headerStyle: {
+                                    backgroundColor: theme.dark
+                                      ? "rgba(0,0,0,0.4)"
+                                      : "rgba(255,255,255,0.1)",
+                                  },
+                                },
+                              }),
                             }}
                           />
                           <Stack.Screen

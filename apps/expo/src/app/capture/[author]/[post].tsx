@@ -144,17 +144,19 @@ export default function ShareAsImageScreen() {
             </View>
           </ScrollView>
         </TransparentHeaderUntilScrolled>
-        <Stack.Screen
-          options={{
-            headerRight: () => (
-              <TouchableOpacity onPress={() => router.push("../")}>
-                <Text primary className="text-lg">
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-            ),
-          }}
-        />
+        {Platform.OS === "ios" && (
+          <Stack.Screen
+            options={{
+              headerRight: () => (
+                <TouchableOpacity onPress={() => router.push("../")}>
+                  <Text primary className="text-lg">
+                    Cancel
+                  </Text>
+                </TouchableOpacity>
+              ),
+            }}
+          />
+        )}
       </>
     );
   }
