@@ -995,6 +995,7 @@ msgid "Note: Adult content settings cannot be changed on iOS. Please use the web
 msgstr "注意: iOSではアダルトコンテンツ設定は変更できません。Webアプリをご利用ください。"
 
 #: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:290
 msgid "Notifications"
 msgstr "通知"
 
