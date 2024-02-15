@@ -31,6 +31,7 @@ import {
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+import { Trans } from "@lingui/macro";
 import { DarkTheme, ThemeProvider, useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
@@ -153,7 +154,9 @@ export const ImageViewer = ({
               }}
             >
               <View className="mr-2 rounded-sm bg-black/50 px-1">
-                <Text className="text-xs font-medium text-white">ALT</Text>
+                <Text className="text-xs font-medium text-white">
+                  <Trans>ALT</Trans>
+                </Text>
               </View>
               <Text className="flex-1 text-base text-white" numberOfLines={1}>
                 {images[index]?.alt}
@@ -183,7 +186,7 @@ export const ImageViewer = ({
           <BackButtonOverride dismiss={onPressBackButton} />
           <View className="px-4" style={{ marginBottom: bottom + 16 }}>
             <Text className="mt-2 text-center text-xl font-medium text-white">
-              ALT Text
+              <Trans>ALT Text</Trans>
             </Text>
             <Text className="mb-2 mt-4 text-base text-white" selectable>
               {images[index]?.alt}

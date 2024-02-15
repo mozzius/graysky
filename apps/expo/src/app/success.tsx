@@ -2,6 +2,7 @@ import { TouchableHighlight, View } from "react-native";
 import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon, SparklesIcon } from "lucide-react-native";
 
@@ -25,7 +26,7 @@ export default function SuccessScreen() {
             strokeWidth={1.5}
           />
           <Text className="mt-6 max-w-[210px] text-center text-3xl">
-            Welcome to Graysky Pro!
+            <Trans>Welcome to Graysky Pro!</Trans>
           </Text>
         </Animated.View>
         <Animated.View
@@ -34,7 +35,7 @@ export default function SuccessScreen() {
         >
           <CheckIcon size={20} className="mr-2" color={theme.colors.text} />
           <Text className="text-base">
-            Translations are now powered by DeepL
+            <Trans>Translations are now powered by DeepL</Trans>
           </Text>
         </Animated.View>
         <Animated.View
@@ -43,7 +44,7 @@ export default function SuccessScreen() {
         >
           <CheckIcon size={20} className="mr-2" color={theme.colors.text} />
           <Text className="text-base">
-            You can now change the accent colour
+            <Trans>You can now change the accent colour</Trans>
           </Text>
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(3000)} className="mt-4 h-14">
@@ -64,7 +65,7 @@ export default function SuccessScreen() {
               }}
             >
               <Text className="text-center text-base font-medium text-white">
-                Done
+                <Trans>Done</Trans>
               </Text>
             </View>
           </TouchableHighlight>

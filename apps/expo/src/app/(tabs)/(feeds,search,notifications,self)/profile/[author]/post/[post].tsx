@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import {
   ActivityIndicator,
   RefreshControl,
@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
@@ -285,34 +287,11 @@ const PostThread = ({ contentFilter }: Props) => {
                 />
               )
             ) : item.blocked ? (
-              <View className="flex-1 flex-row items-center p-4">
-                <ShieldXIcon
-                  size={24}
-                  color={theme.colors.text}
-                  className="mr-4"
-                />
-                <ThemedText className="text-base">Blocked post</ThemedText>
-              </View>
+              <BlockedPost />
             ) : item.deleted ? (
-              <View className="flex-1 flex-row items-center p-4">
-                <Trash2Icon
-                  size={24}
-                  color={theme.colors.text}
-                  className="mr-4"
-                />
-                <ThemedText className="text-base">Deleted post</ThemedText>
-              </View>
+              <DeletedPost />
             ) : (
-              <View className="flex-1 flex-row items-center p-4">
-                <ShieldQuestionIcon
-                  size={24}
-                  color={theme.colors.text}
-                  className="mr-4"
-                />
-                <ThemedText className="text-base">
-                  Replying to an post type
-                </ThemedText>
-              </View>
+              <UnknownPost />
             )
           }
         />
@@ -342,12 +321,15 @@ const PostThread = ({ contentFilter }: Props) => {
                 className="ml-3 flex-1 text-lg text-neutral-500 dark:text-neutral-400"
                 numberOfLines={1}
               >
-                {thread.data.main.viewer?.replyDisabled
-                  ? "This thread is locked"
-                  : `Reply to ${
-                      thread.data.main.author.displayName ??
-                      `@${thread.data.main.author.handle}`
-                    }`}
+                {thread.data.main.viewer?.replyDisabled ? (
+                  <Trans>This thread is locked</Trans>
+                ) : (
+                  <Trans>
+                    Reply to{" "}
+                    {thread.data.main.author.displayName ??
+                      `@${thread.data.main.author.handle}`}
+                  </Trans>
+                )}
               </Text>
             </View>
           </TouchableNativeFeedback>
@@ -360,23 +342,62 @@ const PostThread = ({ contentFilter }: Props) => {
 
 export default function PostPage() {
   const { preferences, contentFilter } = useContentFilter();
+  const { _ } = useLingui();
 
   if (preferences.data) {
     return (
       <>
-        <Stack.Screen options={{ headerTitle: "Post" }} />
+        <Stack.Screen options={{ headerTitle: _(msg`Post`) }} />
         <PostThread contentFilter={contentFilter} />
       </>
     );
   }
 
-  // breaks somehow when quick switching accounts
-  // return (
-  //   <>
-  //     <Stack.Screen options={{ headerTitle: "Post" }} />
-  //     <QueryWithoutData query={preferences} />;
-  //   </>
-  // );
-
-  return <Stack.Screen options={{ headerTitle: "Post" }} />;
+  return <Stack.Screen options={{ headerTitle: _(msg`Post`) }} />;
 }
+
+const BlockedPost = memo(() => {
+  const theme = useTheme();
+
+  return (
+    <View className="flex-1 flex-row items-center p-4">
+      <ShieldXIcon size={24} color={theme.colors.text} className="mr-4" />
+      <ThemedText className="text-base">
+        <Trans>Blocked post</Trans>
+      </ThemedText>
+    </View>
+  );
+});
+BlockedPost.displayName = "BlockedPost";
+
+const DeletedPost = memo(() => {
+  const theme = useTheme();
+
+  return (
+    <View className="flex-1 flex-row items-center p-4">
+      <Trash2Icon size={24} color={theme.colors.text} className="mr-4" />
+      <ThemedText className="text-base">
+        <Trans>Deleted post</Trans>
+      </ThemedText>
+    </View>
+  );
+});
+DeletedPost.displayName = "DeletedPost";
+
+const UnknownPost = memo(() => {
+  const theme = useTheme();
+
+  return (
+    <View className="flex-1 flex-row items-center p-4">
+      <ShieldQuestionIcon
+        size={24}
+        color={theme.colors.text}
+        className="mr-4"
+      />
+      <ThemedText className="text-base">
+        <Trans>Replying to some sort of post</Trans>
+      </ThemedText>
+    </View>
+  );
+});
+UnknownPost.displayName = "UnknownPost";

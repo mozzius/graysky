@@ -18,6 +18,8 @@ import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
 import { ImageBackground } from "expo-image";
 import { Stack, useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -46,6 +48,7 @@ export default function Pro() {
   const customerInfo = useCustomerInfo();
   const isPro = useIsPro();
   const agent = useAgent();
+  const { _ } = useLingui();
 
   const [annual, setAnnual] = useState(false);
 
@@ -84,8 +87,8 @@ export default function Pro() {
       console.error(err);
       Sentry.captureException(err, { extra: { annual } });
       showToastable({
-        title: "Could not complete purchase",
-        message: "Something went wrong, please try again later.",
+        title: _(msg`Could not complete purchase`),
+        message: _(msg`Something went wrong, please try again later.`),
         status: "danger",
       });
     },
@@ -102,32 +105,32 @@ export default function Pro() {
   const features = [
     {
       colour: colors.blue[500],
-      title: "Better translations",
-      subtitle: "Translate posts using DeepL",
+      title: _(msg`Better translations`),
+      subtitle: _(msg`Translate posts using DeepL`),
       icon: <LanguagesIcon className="text-white" />,
     },
     // {
     //   colour: "rgb(202, 138, 4)",
-    //   title: "Analytics",
-    //   subtitle: "See how your posts are doing",
+    //   title: _(msg`Analytics`),
+    //   subtitle: _(msg`See how your posts are doing`),
     //   icon: <LineChart className="text-white" />,
     // },
     {
       colour: colors.green[500],
-      title: "Custom themes",
-      subtitle: "Change the accent colour",
+      title: _(msg`Custom themes`),
+      subtitle: _(msg`Change the accent colour`),
       icon: <PaletteIcon className="text-white" />,
     },
     {
       colour: colors.red[500],
-      title: "Support development",
-      subtitle: "Help us keep the lights on",
+      title: _(msg`Support development`),
+      subtitle: _(msg`Help us keep the lights on`),
       icon: <HeartIcon className="text-white" />,
     },
     // {
     //   colour: colors.amber[500],
-    //   title: "And a lot more planned...",
-    //   subtitle: "Analytics, polls, and much more",
+    //   title: _(msg`And a lot more planned...`),
+    //   subtitle: _(msg`Analytics, polls, and much more`),
     //   icon: <MoreHorizontalIcon className="text-white" />,
     // },
   ] satisfies Omit<FeatureItemProps, "index">[];
@@ -160,7 +163,7 @@ export default function Pro() {
               className="mb-8 mt-24 text-center text-6xl font-semibold text-white"
               entering={ZoomIn.delay(500).duration(300)}
             >
-              Graysky Pro
+              <Trans>Graysky Pro</Trans>
             </Animated.Text>
             {features.map((feature, index) => (
               <FeatureItem key={feature.title} {...feature} index={index} />
@@ -175,7 +178,7 @@ export default function Pro() {
                 >
                   <CheckIcon className="mr-2 text-black" size={20} />
                   <Text className="text-center text-base font-medium text-black">
-                    Currently subscribed
+                    <Trans>Currently subscribed</Trans>
                     {customerInfo?.entitlements.active.pro?.periodType &&
                       ` (${customerInfo.entitlements.active.pro.periodType})`}
                   </Text>
@@ -187,7 +190,7 @@ export default function Pro() {
                       void Linking.openURL(customerInfo.managementURL!)
                     }
                   >
-                    Manage my subscription
+                    <Trans>Manage my subscription</Trans>
                   </Text>
                 )}
               </View>
@@ -195,13 +198,15 @@ export default function Pro() {
               <View>
                 <BlurPill active={!annual} onPress={() => setAnnual(false)}>
                   <View className="flex-row justify-between">
-                    <Text className="text-base text-white">Monthly Plan</Text>
                     <Text className="text-base text-white">
-                      {monthlyProduct.priceString} / month
+                      <Trans>Monthly Plan</Trans>
+                    </Text>
+                    <Text className="text-base text-white">
+                      <Trans>{monthlyProduct.priceString} / month</Trans>
                     </Text>
                   </View>
                   <Text className="mt-0.5 text-sm text-white/80">
-                    Billed monthly, cancel anytime
+                    <Trans>Billed monthly, cancel anytime</Trans>
                   </Text>
                 </BlurPill>
                 <BlurPill
@@ -214,23 +219,25 @@ export default function Pro() {
                       <Text className="text-base text-white">Annual Plan</Text>
                       <View className="ml-2 rounded-md bg-green-300">
                         <Text className="py-0.5 pl-1.5 pr-1 text-xs font-bold text-green-950">
-                          Save{" "}
-                          {Math.round(
-                            1000 -
-                              (annualProduct.price /
-                                (monthlyProduct.price * 12)) *
-                                1000,
-                          ) / 10}
-                          %
+                          <Trans>
+                            Save{" "}
+                            {Math.round(
+                              1000 -
+                                (annualProduct.price /
+                                  (monthlyProduct.price * 12)) *
+                                  1000,
+                            ) / 10}
+                            %
+                          </Trans>
                         </Text>
                       </View>
                     </View>
                     <Text className="text-base text-white">
-                      {annualProduct.priceString} / year
+                      <Trans>{annualProduct.priceString} / year</Trans>
                     </Text>
                   </View>
                   <Text className="mt-0.5 text-sm text-white/80">
-                    Billed annually, cancel anytime
+                    <Trans>Billed annually, cancel anytime</Trans>
                   </Text>
                 </BlurPill>
                 <TouchableHighlight
@@ -247,25 +254,25 @@ export default function Pro() {
                       <ActivityIndicator color="white" />
                     ) : (
                       <Text className="text-center text-base font-medium text-white">
-                        Subscribe & pay
+                        <Trans>Subscribe & pay</Trans>
                       </Text>
                     )}
                   </View>
                 </TouchableHighlight>
                 <Text className="mt-3 px-4 text-xs text-neutral-200">
-                  By subscribing, you agree to our{" "}
-                  <Text
-                    className="font-medium text-white underline"
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://graysky.app/terms-and-conditions",
-                      )
-                    }
-                  >
-                    Terms and Conditions
-                  </Text>
                   {Platform.OS === "ios" ? (
-                    <>
+                    <Trans>
+                      By subscribing, you agree to our{" "}
+                      <Text
+                        className="font-medium text-white underline"
+                        onPress={() =>
+                          Linking.openURL(
+                            "https://graysky.app/terms-and-conditions",
+                          )
+                        }
+                      >
+                        Terms and Conditions
+                      </Text>
                       , the{" "}
                       <Text
                         className="font-medium text-white underline"
@@ -277,20 +284,42 @@ export default function Pro() {
                       >
                         Terms of Use (EULA)
                       </Text>
-                      , and our
-                    </>
+                      , and our{" "}
+                      <Text
+                        className="font-medium text-white underline"
+                        onPress={() =>
+                          Linking.openURL("https://graysky.app/privacy-policy")
+                        }
+                      >
+                        Privacy Policy
+                      </Text>
+                      . Subscriptions renew automatically until cancelled.
+                    </Trans>
                   ) : (
-                    " and"
-                  )}{" "}
-                  <Text
-                    className="font-medium text-white underline"
-                    onPress={() =>
-                      Linking.openURL("https://graysky.app/privacy-policy")
-                    }
-                  >
-                    Privacy Policy
-                  </Text>
-                  . Subscriptions renew automatically until cancelled.
+                    <Trans>
+                      By subscribing, you agree to our{" "}
+                      <Text
+                        className="font-medium text-white underline"
+                        onPress={() =>
+                          Linking.openURL(
+                            "https://graysky.app/terms-and-conditions",
+                          )
+                        }
+                      >
+                        Terms and Conditions
+                      </Text>{" "}
+                      and{" "}
+                      <Text
+                        className="font-medium text-white underline"
+                        onPress={() =>
+                          Linking.openURL("https://graysky.app/privacy-policy")
+                        }
+                      >
+                        Privacy Policy
+                      </Text>
+                      . Subscriptions renew automatically until cancelled.
+                    </Trans>
+                  )}
                 </Text>
                 <TouchableOpacity
                   onPress={() => restore.mutate()}
@@ -298,9 +327,11 @@ export default function Pro() {
                   className="mt-0.5 w-full py-2"
                 >
                   <Text className="text-center text-base text-blue-500">
-                    {restore.isPending
-                      ? "Restoring purchases..."
-                      : "Restore purchases"}
+                    {restore.isPending ? (
+                      <Trans>Restoring purchases...</Trans>
+                    ) : (
+                      <Trans>Restore purchases</Trans>
+                    )}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -311,9 +342,11 @@ export default function Pro() {
                 className="w-full py-4"
               >
                 <Text className="text-center text-base text-blue-500">
-                  {restore.isPending
-                    ? "Restoring purchases..."
-                    : "Restore purchases"}
+                  {restore.isPending ? (
+                    <Trans>Restoring purchases...</Trans>
+                  ) : (
+                    <Trans>Restore purchases</Trans>
+                  )}
                 </Text>
               </TouchableOpacity>
             )}

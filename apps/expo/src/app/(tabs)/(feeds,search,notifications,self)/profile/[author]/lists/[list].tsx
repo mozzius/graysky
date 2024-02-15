@@ -17,6 +17,8 @@ import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { AppBskyGraphDefs, type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   useInfiniteQuery,
@@ -49,6 +51,7 @@ export default function ListsScreen() {
     list: string;
   }>();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const uri = `at://${author}/app.bsky.graph.list/${rkey}`;
 
@@ -76,10 +79,10 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="feed" label="Feed">
+          <Tabs.Tab name="feed" label={_(msg`Feed`)}>
             <ListFeed uri={uri} />
           </Tabs.Tab>
-          <Tabs.Tab name="members" label="Members">
+          <Tabs.Tab name="members" label={_(msg`Members`)}>
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>
@@ -97,7 +100,7 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="members" label="Members">
+          <Tabs.Tab name="members" label={_(msg`Members`)}>
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>
@@ -109,9 +112,9 @@ export default function ListsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: "List",
+          title: _(msg`List`),
           headerTitle: "",
-          headerBackTitle: "Back",
+          headerBackTitle: _(msg`Back`),
         }}
       />
       <QueryWithoutData query={list} />
@@ -121,6 +124,8 @@ export default function ListsScreen() {
 
 const useListQuery = (uri: string) => {
   const agent = useAgent();
+  const { _ } = useLingui();
+
   return useInfiniteQuery({
     queryKey: ["list", uri, "info"],
     queryFn: async ({ pageParam }) => {
@@ -128,7 +133,7 @@ const useListQuery = (uri: string) => {
         list: uri,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error("Could not fetch list");
+      if (!res.success) throw new Error(_(msg`Could not fetch list`));
       return res.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -153,6 +158,7 @@ const ListHeader = ({
   const path = useAbsolutePath();
   const savedFeeds = useSavedFeeds();
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
+  const { _ } = useLingui();
 
   const isPinned = savedFeeds.data?.pinned.includes(info.uri);
 
@@ -266,25 +272,25 @@ const ListHeader = ({
   let purposeClass = "bg-neutral-500";
   switch (info.purpose) {
     case AppBskyGraphDefs.MODLIST:
-      purposeText = "Moderation list";
-      actionText = "Subscribe to list";
+      purposeText = _(msg`Moderation list`);
+      actionText = _(msg`Subscribe to list`);
       actionClass = "bg-blue-500";
       if (info.viewer?.muted) {
-        actionText = "Muted list";
+        actionText = _(msg`Muted list`);
         actionClass = "bg-neutral-500";
       }
       if (info.viewer?.blocked) {
-        actionText = "Blocking list";
+        actionText = _(msg`Blocking list`);
         actionClass = "bg-red-500";
       }
       break;
     case AppBskyGraphDefs.CURATELIST:
-      purposeText = "User list";
+      purposeText = _(msg`User list`);
       purposeClass = "bg-blue-500";
-      actionText = "Add to favourites";
+      actionText = _(msg`Add to favourites`);
       actionClass = "bg-blue-500";
       if (isPinned) {
-        actionText = "Unfavorite list";
+        actionText = _(msg`Unfavorite list`);
         actionClass = "bg-neutral-500";
       }
       break;
@@ -409,7 +415,7 @@ const ListHeader = ({
         options={{
           title: info?.name ?? "List",
           headerTitle: "",
-          headerBackTitle: "Back",
+          headerBackTitle: _(msg`Back`),
           headerRight: () => (
             <View className="flex-row">
               {actionText && (
@@ -451,7 +457,7 @@ const ListHeader = ({
             }}
             accessibilityRole="link"
           >
-            by @{info.creator.handle}
+            <Trans>by @{info.creator.handle}</Trans>
           </Text>
         </View>
         <Image
@@ -493,7 +499,7 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
       ListEmptyComponent={
         <View className="flex-1 items-center justify-center p-8">
           <Text className="text-center text-neutral-500 dark:text-neutral-400">
-            This list is empty
+            <Trans>This list is empty</Trans>
           </Text>
         </View>
       }
@@ -537,6 +543,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
   const agent = useAgent();
   const { contentFilter } = useContentFilter();
   const [scrollDir, setScrollDir] = useState(0);
+  const { _ } = useLingui();
 
   const scrollY = Tabs.useCurrentTabScrollY();
 
@@ -547,7 +554,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
         list: uri,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error("Could not fetch list feed");
+      if (!res.success) throw new Error(_(msg`Could not fetch list feed`));
       return res.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -615,7 +622,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center p-8">
               <Text className="text-center text-neutral-500 dark:text-neutral-400">
-                This list is empty
+                <Trans>This list is empty</Trans>
               </Text>
             </View>
           }

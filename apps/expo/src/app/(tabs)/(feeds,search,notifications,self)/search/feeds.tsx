@@ -3,6 +3,8 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
@@ -69,9 +71,13 @@ const FeedSearch = ({ search }: Props) => {
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
-              {search
-                ? "No feeds found - maybe try a different search term?"
-                : "Search for feeds"}
+              {search ? (
+                <Trans>
+                  No feeds found - maybe try a different search term?
+                </Trans>
+              ) : (
+                <Trans>Search for feeds</Trans>
+              )}
             </Text>
           </View>
         }
@@ -91,6 +97,8 @@ const FeedSearch = ({ search }: Props) => {
 };
 
 export default function FeedSearchScreen() {
+  const { _ } = useLingui();
+
   const { q } = useLocalSearchParams() as { q: string };
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
@@ -104,7 +112,7 @@ export default function FeedSearchScreen() {
   }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search feeds",
+    placeholder: _(msg`Search feeds`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
     hideNavigationBar: false,
@@ -114,7 +122,7 @@ export default function FeedSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search Feeds", headerSearchBarOptions }}
+        options={{ title: _(msg`Search Feeds`), headerSearchBarOptions }}
       />
       <FeedSearch search={search} />
     </>

@@ -1,4 +1,5 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import {
   type InfiniteData,
@@ -29,7 +30,9 @@ export const QueryWithoutData = ({ query }: Props) => {
     return (
       <View className="flex-1 items-center justify-center">
         <View className="w-3/4 flex-col items-start">
-          <Text className="mb-2 text-2xl font-medium">An error occurred</Text>
+          <Text className="mb-2 text-2xl font-medium">
+            <Trans>An error occurred</Trans>
+          </Text>
           {query.error instanceof Error && (
             <Text className="text-lg">{query.error.message}</Text>
           )}
@@ -39,7 +42,9 @@ export const QueryWithoutData = ({ query }: Props) => {
             onPress={() => void query.refetch()}
           >
             <RefreshCcwIcon size={20} className="text-white" />
-            <Text className="ml-4 text-xl text-white">Retry</Text>
+            <Text className="ml-4 text-xl text-white">
+              <Trans>Retry</Trans>
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

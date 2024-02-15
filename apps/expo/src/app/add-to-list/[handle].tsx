@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import { ActivityIndicator, Platform, TouchableOpacity } from "react-native";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { type AppBskyGraphDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckIcon, ListPlusIcon, PlusIcon } from "lucide-react-native";
@@ -18,6 +20,7 @@ export default function AddToListScreen() {
   const router = useRouter();
   const agent = useAgent();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const profile = useQuery({
     queryKey: ["profile", handle],
@@ -36,7 +39,7 @@ export default function AddToListScreen() {
       const lists = await agent.app.bsky.graph.getLists({
         actor: agent.session.did,
       });
-      if (!lists.success) throw new Error("Couldn't fetch lists");
+      if (!lists.success) throw new Error(_(msg`Couldn't fetch lists`));
       return lists.data;
     },
   });
@@ -49,7 +52,7 @@ export default function AddToListScreen() {
         ios: (
           <TouchableOpacity onPress={() => router.push("../")}>
             <Text primary className="text-lg font-medium">
-              Done
+              <Trans>Done</Trans>
             </Text>
           </TouchableOpacity>
         ),
@@ -117,16 +120,18 @@ export default function AddToListScreen() {
         <Stack.Screen
           options={{
             headerRight,
-            title: `Add ${
-              profile.data.displayName ?? `@${profile.data.handle}`
-            } to List`,
+            title: _(
+              msg`Add ${
+                profile.data.displayName ?? `@${profile.data.handle}`
+              } to List`,
+            ),
           }}
         />
         <TransparentHeaderUntilScrolled>
           <GroupedList
             groups={[
               {
-                title: "Add to user list",
+                title: _(msg`Add to user list`),
                 options: userLists?.map(renderList),
                 children: userLists?.length === 0 && (
                   <Text className="my-3 text-center text-base text-neutral-500">
@@ -135,20 +140,20 @@ export default function AddToListScreen() {
                 ),
               },
               {
-                title: "Add to moderation list",
+                title: _(msg`Add to moderation list`),
                 options: moderationLists?.map(renderList),
                 children: moderationLists?.length === 0 && (
                   <Text className="my-3 text-center text-base text-neutral-500">
-                    You don{"'"}t have any moderation lists yet.
+                    <Trans>You don{"'"}t have any moderation lists yet.</Trans>
                   </Text>
                 ),
               },
               {
-                title: "Need a new list?",
+                title: _(msg`Need a new list?`),
                 options: [
                   {
                     icon: ListPlusIcon,
-                    title: "Create new list",
+                    title: _(msg`Create new list`),
                     href: "/create-list",
                   },
                 ],

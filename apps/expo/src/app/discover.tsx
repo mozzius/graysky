@@ -2,6 +2,7 @@ import { Fragment, useCallback, useState } from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
@@ -60,7 +61,7 @@ export default function DiscoveryPage() {
         ios: (
           <TouchableOpacity onPress={() => router.push("../")}>
             <Text primary className="text-lg font-medium">
-              Done
+              <Trans>Done</Trans>
             </Text>
           </TouchableOpacity>
         ),

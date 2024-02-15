@@ -282,12 +282,7 @@ export default function NotificationPage() {
 
   return (
     <>
-      <Stack.Screen
-        options={{
-          title: "Notifications",
-          headerLeft,
-        }}
-      />
+      <Stack.Screen options={{ headerLeft }} />
       <Notifications />
     </>
   );

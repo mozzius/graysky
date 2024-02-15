@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { View } from "react-native";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import {
   AtSignIcon,
   BellRingIcon,
@@ -21,6 +23,7 @@ export default function SettingsPage() {
   const agent = useOptionalAgent();
   const isPro = useIsPro();
   const enableNotifications = useEnableNotifications();
+  const { _ } = useLingui();
 
   const groups = useMemo(
     () =>
@@ -28,7 +31,7 @@ export default function SettingsPage() {
         {
           options: [
             {
-              title: "Graysky Pro",
+              title: _(msg`Graysky Pro`),
               href: isPro ? "/settings/pro" : "/pro",
               icon: StarIcon,
             },
@@ -37,27 +40,27 @@ export default function SettingsPage() {
         {
           options: [
             {
-              title: "Account",
+              title: _(msg`Account`),
               href: "/settings/account",
               icon: UserIcon,
             },
             {
-              title: "Moderation",
+              title: _(msg`Moderation`),
               href: "/settings/moderation",
               icon: ShieldIcon,
             },
             {
-              title: "Home feed preferences",
+              title: _(msg`Home feed preferences`),
               href: "/settings/feed",
               icon: NewspaperIcon,
             },
             {
-              title: "Languages",
+              title: _(msg`Languages`),
               href: "/settings/language",
               icon: LanguagesIcon,
             },
             {
-              title: "App settings",
+              title: _(msg`App settings`),
               href: "/settings/app",
               icon: SmartphoneIcon,
             },
@@ -69,7 +72,7 @@ export default function SettingsPage() {
               {
                 options: [
                   {
-                    title: "Push notifications",
+                    title: _(msg`Push notifications`),
                     href: "/push-notifications",
                     icon: BellRingIcon,
                   },
@@ -79,14 +82,14 @@ export default function SettingsPage() {
         {
           options: [
             {
-              title: "About Graysky",
+              title: _(msg`About Graysky`),
               href: "/settings/about",
               icon: AtSignIcon,
             },
           ],
         },
       ] satisfies Groups,
-    [isPro, enableNotifications],
+    [isPro, enableNotifications, _],
   );
 
   return (

@@ -1,4 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
@@ -33,10 +35,11 @@ export interface LikesListRef {
   open: (post: string, limit?: number) => void;
 }
 
-export const LikesList = forwardRef<LikesListRef>((_, ref) => {
+export const LikesList = forwardRef<LikesListRef>((__, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [post, setPost] = useState<string | undefined>();
   const [limit, setLimit] = useState<number | undefined>();
+  const { _ } = useLingui();
 
   const likes = useLikes(post);
 
@@ -48,6 +51,13 @@ export const LikesList = forwardRef<LikesListRef>((_, ref) => {
     },
   }));
 
-  return <PeopleList title="Likes" ref={listRef} data={likes} limit={limit} />;
+  return (
+    <PeopleList
+      title={_(msg`Likes`)}
+      ref={listRef}
+      data={likes}
+      limit={limit}
+    />
+  );
 });
 LikesList.displayName = "LikesList";

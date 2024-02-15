@@ -3,6 +3,8 @@ import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useGlobalSearchParams, useRouter } from "expo-router";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
@@ -26,6 +28,7 @@ export default function ComposerLayout() {
   }>();
   const mostRecentLanguage = useMostRecentLanguage();
   const primaryLanguage = usePrimaryLanguage();
+  const { _ } = useLingui();
 
   const state = useState<ComposerState>({
     labels: [],
@@ -43,7 +46,7 @@ export default function ComposerLayout() {
           <Animated.View entering={FadeIn}>
             <TouchableOpacity onPress={() => router.push("../")}>
               <Text primary className="text-lg font-medium">
-                Done
+                <Trans>Done</Trans>
               </Text>
             </TouchableOpacity>
           </Animated.View>
@@ -66,13 +69,16 @@ export default function ComposerLayout() {
             }),
           }}
         >
-          <Stack.Screen name="index" options={{ title: "New Post" }} />
-          <Stack.Screen name="drafts" options={{ title: "Drafts" }} />
-          <Stack.Screen name="language" options={{ title: "Post Language" }} />
+          <Stack.Screen name="index" options={{ title: _(msg`New Post`) }} />
+          <Stack.Screen name="drafts" options={{ title: _(msg`Drafts`) }} />
+          <Stack.Screen
+            name="language"
+            options={{ title: _(msg`Post Language`) }}
+          />
           <Stack.Screen
             name="content-warning"
             options={{
-              title: "Content Warning",
+              title: _(msg`Content Warning`),
               presentation: "formSheet",
               headerRight,
             }}
@@ -80,7 +86,7 @@ export default function ComposerLayout() {
           <Stack.Screen
             name="threadgate"
             options={{
-              title: "Reply Controls",
+              title: _(msg`Reply Controls`),
               presentation: "formSheet",
               headerRight,
             }}
@@ -88,7 +94,7 @@ export default function ComposerLayout() {
           <Stack.Screen
             name="gifs"
             options={{
-              title: "GIFs",
+              title: _(msg`GIFs`),
               headerSearchBarOptions: {},
               headerLargeTitle: true,
               headerLargeTitleShadowVisible: false,

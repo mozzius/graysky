@@ -1,5 +1,7 @@
 import { useMMKVObject } from "react-native-mmkv";
 import { Redirect } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
@@ -11,6 +13,7 @@ import {
 
 export default function ResumeSession() {
   const [sessions] = useMMKVObject<SavedSession[]>("sessions", store);
+  const { _ } = useLingui();
 
   if (!sessions || sessions.length === 0) {
     return <Redirect href="/sign-in" />;
@@ -21,7 +24,7 @@ export default function ResumeSession() {
       <GroupedList
         groups={[
           {
-            title: "Log back in",
+            title: _(msg`Log back in`),
             children: <SwitchAccounts chevrons showAddAccount />,
           },
         ]}

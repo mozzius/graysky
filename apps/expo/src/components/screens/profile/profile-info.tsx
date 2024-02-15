@@ -24,6 +24,8 @@ import {
   type AppBskyEmbedImages,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -89,6 +91,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const haptics = useHaptics();
   const id = useId();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -122,15 +125,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
     onSuccess: (result) => {
       showToastable({
-        title: result === "followed" ? "Followed user" : "Unfollowed user",
-        message: `You are ${
-          result === "followed" ? "now following" : "no longer following"
-        } @${profile.handle}`,
+        title:
+          result === "followed"
+            ? _(msg`Followed user`)
+            : _(msg`Unfollowed user`),
+        message:
+          result === "followed"
+            ? _(msg`You are now following @${profile.handle}`)
+            : _(msg`You are no longer following @${profile.handle}`),
       });
     },
     onError: () => {
       showToastable({
-        message: "Could not follow user",
+        message: _(msg`Could not follow user`),
         status: "danger",
       });
     },
@@ -504,7 +511,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           className="mr-1 text-neutral-600 dark:text-neutral-300"
                         />
                         <Text className="font-medium text-neutral-600 dark:text-neutral-300">
-                          Following
+                          <Trans>Following</Trans>
                         </Text>
                       </>
                     ) : (
@@ -514,7 +521,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           className="mr-1 text-white dark:text-black"
                         />
                         <Text className="font-medium text-white dark:text-black">
-                          Follow
+                          <Trans>Follow</Trans>
                         </Text>
                       </>
                     )}
@@ -588,20 +595,26 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <View className="mt-3 flex-row" pointerEvents="box-none">
             <TouchableOpacity onPress={() => openFollowers(profile.did)}>
               <Text>
-                <Text className="font-bold">{profile.followersCount}</Text>{" "}
-                Followers
+                <Trans>
+                  <Text className="font-bold">{profile.followersCount}</Text>{" "}
+                  Followers
+                </Trans>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => openFollows(profile.did)}>
               <Text className="ml-4">
-                <Text className="font-bold">{profile.followsCount}</Text>{" "}
-                Following
+                <Trans>
+                  <Text className="font-bold">{profile.followsCount}</Text>{" "}
+                  Following
+                </Trans>
               </Text>
             </TouchableOpacity>
             <View pointerEvents="none">
               <Text className="ml-4">
-                <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
-                Posts
+                <Trans>
+                  <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
+                  Posts
+                </Trans>
               </Text>
             </View>
           </View>
@@ -638,23 +651,32 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 className="mr-1.5 text-neutral-500 dark:text-neutral-400"
               />
               <Text className="text-xs text-neutral-500 dark:text-neutral-400">
-                Joined{" "}
-                {new Intl.DateTimeFormat(locale.languageTag, {
-                  month: "long",
-                  year: "numeric",
-                }).format(profile.createdAt)}
+                <Trans>
+                  Joined{" "}
+                  {new Intl.DateTimeFormat(locale.languageTag, {
+                    month: "long",
+                    year: "numeric",
+                  }).format(profile.createdAt)}
+                </Trans>
               </Text>
             </View>
           )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
-                {profile.viewer.mutedByList
-                  ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
-                  : "You have muted this user"}
+                {profile.viewer.mutedByList ? (
+                  <Trans>
+                    This user is on the &quot;{profile.viewer.mutedByList.name}
+                    &quot; mute list
+                  </Trans>
+                ) : (
+                  <Trans>You have muted this user</Trans>
+                )}
               </Text>
               <TextButton
-                title={profile.viewer.mutedByList ? "View" : "Unmute"}
+                title={
+                  profile.viewer.mutedByList ? _(msg`View`) : _(msg`Unmute`)
+                }
                 onPress={() => {
                   if (profile.viewer?.mutedByList) {
                     const segments = profile.viewer.mutedByList.uri.split("/");
@@ -678,9 +700,14 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           {profile.viewer?.blocking && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
-                {profile.viewer.blockingByList
-                  ? `This user is on the "${profile.viewer.blockingByList.name}" block list`
-                  : "You have blocked this user"}
+                {profile.viewer.blockingByList ? (
+                  <Trans>
+                    This user is on the &quot;
+                    {profile.viewer.blockingByList.name}&quot; block list
+                  </Trans>
+                ) : (
+                  <Trans>You have blocked this user</Trans>
+                )}
               </Text>
               <TextButton
                 title={profile.viewer.blockingByList ? "View" : "Unblock"}
@@ -707,7 +734,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           )}
           {profile.viewer?.blockedBy && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-              <Text className="font-semibold">This user has blocked you</Text>
+              <Text className="font-semibold">
+                <Trans>This user has blocked you</Trans>
+              </Text>
             </View>
           )}
         </View>

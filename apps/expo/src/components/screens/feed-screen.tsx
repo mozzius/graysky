@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { type DefinedUseQueryResult } from "@tanstack/react-query";
@@ -98,10 +99,12 @@ export const FeedScreen = ({ feed }: Props) => {
               {feed === "following" ? (
                 <View className="w-3/4 flex-col items-start">
                   <Text className="mb-2 text-2xl font-medium">
-                    Looks like there&apos;s nothing here yet!
+                    <Trans>Looks like there&apos;s nothing here yet!</Trans>
                   </Text>
                   <Text className="text-lg">
-                    Follow people, and their posts will show up here
+                    <Trans>
+                      Follow people, and their posts will show up here
+                    </Trans>
                   </Text>
                   <Link asChild href="/(tabs)/(search)/search">
                     <TouchableOpacity
@@ -110,7 +113,7 @@ export const FeedScreen = ({ feed }: Props) => {
                     >
                       <SearchIcon size={20} className="text-white" />
                       <Text className="ml-4 text-xl text-white">
-                        Find people to follow
+                        <Trans>Find people to follow</Trans>
                       </Text>
                     </TouchableOpacity>
                   </Link>
@@ -119,7 +122,7 @@ export const FeedScreen = ({ feed }: Props) => {
                 <View className="w-3/4 flex-col items-center">
                   <RssIcon size={64} color={theme.colors.text} />
                   <Text className="mt-8 text-center text-lg">
-                    This feed is empty
+                    <Trans>This feed is empty</Trans>
                   </Text>
                 </View>
               )}

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 
@@ -31,6 +33,7 @@ export default function PostLanguage() {
     hideWhenScrolling: false,
   });
   const [{ languages }, setComposerState] = useComposerState();
+  const { _ } = useLingui();
 
   const selected = languages ?? [mostRecentLanguage ?? primaryLanguage];
 
@@ -79,7 +82,7 @@ export default function PostLanguage() {
                 ]
               : [
                   {
-                    title: "My languages",
+                    title: _(msg`My languages`),
                     options: SELECTABLE_LANGUAGES.filter(
                       (l) =>
                         Boolean(l.code2) && suggestedLangs.includes(l.code2),
@@ -92,7 +95,7 @@ export default function PostLanguage() {
                     })),
                   },
                   {
-                    title: "All languages",
+                    title: _(msg`All languages`),
                     options: SELECTABLE_LANGUAGES.filter((l) =>
                       Boolean(l.code2),
                     ).map((lang) => ({

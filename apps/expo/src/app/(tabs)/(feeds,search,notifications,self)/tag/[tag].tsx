@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { RefreshControl, TouchableOpacity } from "react-native-gesture-handler";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { BskyAgent, type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -40,6 +42,8 @@ export default function TagScreen() {
   const { contentFilter, preferences } = useContentFilter();
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
+  const getModeName = useGetModeName();
+  const { _ } = useLingui();
 
   const [mode, setMode] = useState<(typeof OPTIONS)[number]>("new");
 
@@ -50,7 +54,7 @@ export default function TagScreen() {
         feed: `at://skyfeed:tags/app.bsky.feed.generator/${decodedTag.toLocaleLowerCase()}-${mode}`,
         cursor: pageParam,
       });
-      if (!rawPosts.success) throw new Error("Failed to fetch feed");
+      if (!rawPosts.success) throw new Error(_(msg`Failed to fetch feed`));
       // split to chunks of 25
       const chunks = rawPosts.data.feed.reduce((acc, post, i) => {
         if (i % 25 === 0) acc.push([]);
@@ -63,7 +67,7 @@ export default function TagScreen() {
           const posts = await agent.app.bsky.feed.getPosts({
             uris: chunk.map((post) => post.post),
           });
-          if (!posts.success) throw new Error("Failed to hydrate feed");
+          if (!posts.success) throw new Error(_(msg`Failed to hydrate feed`));
           return posts.data.posts;
         }),
       );
@@ -93,7 +97,7 @@ export default function TagScreen() {
                         "Cancel",
                       ],
                       cancelButtonIndex: OPTIONS.length,
-                      title: "Sort posts by",
+                      title: _(msg`Sort posts by`),
                       ...actionSheetStyles(theme),
                     },
                     (index) => {
@@ -106,7 +110,7 @@ export default function TagScreen() {
                 }}
               >
                 <Text primary className="text-base">
-                  Sort: {getModeName(mode)}
+                  <Trans>Sort: {getModeName(mode)}</Trans>
                 </Text>
               </TouchableOpacity>
             );
@@ -114,7 +118,7 @@ export default function TagScreen() {
         }}
       />
     );
-  }, [mode, decodedTag, theme, showActionSheetWithOptions]);
+  }, [mode, decodedTag, theme, showActionSheetWithOptions, getModeName, _]);
 
   const { refetch } = feed;
 
@@ -171,7 +175,7 @@ export default function TagScreen() {
           ListFooterComponent={
             <ListFooterComponent
               query={feed}
-              text="Powered by Skyfeed"
+              text={_(msg`Powered by Skyfeed`)}
               hideEmptyMessage={data.length === 0}
             />
           }
@@ -180,7 +184,9 @@ export default function TagScreen() {
               <View className="w-3/4 flex-col items-center">
                 <RssIcon size={64} color={theme.colors.text} />
                 <Text className="mt-8 text-center text-lg">
-                  {getModeName(mode)} feed for #{decodedTag} is empty
+                  <Trans>
+                    {getModeName(mode)} feed for #{decodedTag} is empty
+                  </Trans>
                 </Text>
               </View>
             </View>
@@ -198,25 +204,31 @@ export default function TagScreen() {
   );
 }
 
-function getModeName(mode: (typeof OPTIONS)[number]) {
-  switch (mode) {
-    case "new":
-      return "New";
-    case "hn4":
-      return "Hot";
-    case "hn10":
-      return "Rising";
-    case "like10h":
-      return "Top (10h)";
-    case "like24h":
-      return "Top (24h)";
-    case "like3d":
-      return "Top (3d)";
-    case "like7d":
-      return "Top (7d)";
-    case "random":
-      return "Random";
-    default:
-      throw new Error("Invalid mode");
-  }
+function useGetModeName() {
+  const { _ } = useLingui();
+  return useCallback(
+    (mode: (typeof OPTIONS)[number]) => {
+      switch (mode) {
+        case "new":
+          return _(msg`New`);
+        case "hn4":
+          return _(msg`Hot`);
+        case "hn10":
+          return _(msg`Rising`);
+        case "like10h":
+          return _(msg`Top (10h)`);
+        case "like24h":
+          return _(msg`Top (24h)`);
+        case "like3d":
+          return _(msg`Top (3d)`);
+        case "like7d":
+          return _(msg`Top (7d)`);
+        case "random":
+          return _(msg`Random`);
+        default:
+          throw new Error(_(msg`Invalid mode`));
+      }
+    },
+    [_],
+  );
 }

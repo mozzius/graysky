@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "~/components/profile-list";
@@ -10,6 +12,7 @@ import { useRefreshOnFocus } from "~/lib/utils/query";
 export default function BlockedUsers() {
   const agent = useAgent();
   const router = useRouter();
+  const { _ } = useLingui();
 
   const blocks = useInfiniteQuery({
     queryKey: ["blocks"],
@@ -39,7 +42,7 @@ export default function BlockedUsers() {
           evt.preventDefault();
           router.push(`/(feeds)/profile/${evt.person.did}`);
         }}
-        emptyText="You haven't blocked anyone"
+        emptyText={_(msg`You haven't blocked anyone`)}
       />
     );
   }

@@ -12,6 +12,8 @@ import {
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ImagePlusIcon, XIcon } from "lucide-react-native";
@@ -32,15 +34,17 @@ const MAX_DESCRIPTION = 256;
 
 export default function EditBio() {
   const theme = useTheme();
+  const agent = useAgent();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const { _ } = useLingui();
+
+  const self = useSelf();
+
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<CroppedImage | null>(null);
   const [banner, setBanner] = useState<CroppedImage | null>(null);
-  const agent = useAgent();
-  const queryClient = useQueryClient();
-  const router = useRouter();
-
-  const self = useSelf();
 
   useEffect(() => {
     if (self.data) {
@@ -117,7 +121,7 @@ export default function EditBio() {
         {Platform.select({
           ios: (
             <Text className="text-lg font-medium" primary>
-              Cancel
+              <Trans>Cancel</Trans>
             </Text>
           ),
           default: <XIcon color={theme.colors.text} size={24} />,
@@ -137,7 +141,7 @@ export default function EditBio() {
           )}
           primary
         >
-          Save
+          <Trans>Save</Trans>
         </Text>
       </TouchableOpacity>
     ),
@@ -165,6 +169,7 @@ export default function EditBio() {
         <StatusBar modal />
         <Stack.Screen
           options={{
+            headerBackButtonMenuEnabled: false,
             headerLeft: cancelButton,
             headerRight: saveButton,
             gestureEnabled: !dirty,
@@ -174,7 +179,7 @@ export default function EditBio() {
           <TouchableHighlight
             onPress={editBanner}
             accessibilityRole="button"
-            accessibilityLabel="Edit avatar"
+            accessibilityLabel={_(msg`Edit banner`)}
           >
             <View className="relative h-full w-full bg-blue-500">
               <Image
@@ -192,7 +197,7 @@ export default function EditBio() {
           <TouchableHighlight
             onPress={editAvatar}
             accessibilityRole="button"
-            accessibilityLabel="Edit avatar"
+            accessibilityLabel={_(msg`Edit avatar`)}
           >
             <View
               style={{
@@ -219,7 +224,7 @@ export default function EditBio() {
         <View className="mt-10 flex-1 px-4">
           <View className="my-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Display name
+              <Trans>Display name</Trans>
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
@@ -236,7 +241,7 @@ export default function EditBio() {
           </View>
           <View className="mb-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Description
+              <Trans>Description</Trans>
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}

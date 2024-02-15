@@ -5,6 +5,9 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
+import { useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
@@ -27,6 +30,8 @@ export default function ChangeHandle() {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const [handle, setHandle] = useState("");
+  const { _ } = useLingui();
+  const router = useRouter();
 
   const derivedHandle = `${handle.trim()}.bsky.social`;
 
@@ -41,14 +46,17 @@ export default function ChangeHandle() {
       if (err instanceof Error) {
         if (err.message === "Handle already taken") {
           Alert.alert(
-            "Handle already taken",
-            "This handle is already taken. Please choose another.",
+            _(msg`Handle already taken`),
+            _(msg`This handle is already taken. Please choose another.`),
           );
         } else {
-          Alert.alert("Error", err.message);
+          Alert.alert(_(msg`Error`), err.message);
         }
       } else {
-        Alert.alert("Could not change handle", "An unknown error occurred.");
+        Alert.alert(
+          _(msg`Could not change handle`),
+          _(msg`An unknown error occurred.`),
+        );
       }
     },
     onSuccess: () => {
@@ -56,6 +64,7 @@ export default function ChangeHandle() {
       void queryClient.invalidateQueries({
         queryKey: ["resolve-handle", handle],
       });
+      router.push("../");
     },
   });
 
@@ -70,27 +79,27 @@ export default function ChangeHandle() {
       >
         <View className="my-4 flex-1">
           <Text className="mx-4 mb-1.5 mt-2 text-xs uppercase text-neutral-500">
-            Domain
+            <Trans>Domain</Trans>
           </Text>
           <ListGroup
             options={[
               {
-                title: "bsky.social domain",
+                title: _(msg`bsky.social domain`),
                 icon: CheckIcon,
               },
               {
-                title: "Custom domain",
+                title: _(msg`Custom domain`),
                 icon: "SPACE",
                 onPress: () =>
                   Alert.alert(
-                    "Not yet implemented",
-                    "Please use the official app in the meantime. Sorry!",
+                    _(msg`Not yet implemented`),
+                    _(msg`Please use the official app in the meantime. Sorry!`),
                   ),
               },
             ]}
           />
           <Text className="mx-4 mb-1.5 mt-8 text-xs uppercase text-neutral-500">
-            Choose a handle
+            <Trans>Choose a handle</Trans>
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -118,8 +127,10 @@ export default function ChangeHandle() {
               layout={LinearTransition}
             >
               <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                Your handle will be:{" "}
-                <Text className="font-bold">@{derivedHandle}</Text>
+                <Trans>
+                  Your handle will be:{" "}
+                  <Text className="font-bold">@{derivedHandle}</Text>
+                </Trans>
               </Text>
             </Animated.View>
           )}
@@ -149,7 +160,7 @@ export default function ChangeHandle() {
             <TextButton
               disabled={resolveHandle.data !== "available"}
               onPress={() => changeHandle.mutate()}
-              title="Save"
+              title={_(msg`Save`)}
               className="font-medium"
             />
           ) : (

@@ -14,6 +14,7 @@ import {
   BottomSheetFlatList,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import {
   type InfiniteData,
@@ -117,9 +118,11 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                   {limit && !showAll && people.length > limit && (
                     <TouchableOpacity onPress={() => setShowAll(true)}>
                       <Text className="text-center text-neutral-500 dark:text-neutral-400">
-                        {data.hasNextPage
-                          ? "Show all"
-                          : `Show ${people.length - limit} more`}
+                        {data.hasNextPage ? (
+                          <Trans>Show all</Trans>
+                        ) : (
+                          <Trans>Show {people.length - limit} more</Trans>
+                        )}
                       </Text>
                     </TouchableOpacity>
                   )}
@@ -128,7 +131,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
               ListEmptyComponent={
                 <View className="flex-1 items-center justify-center">
                   <Text className="text-center text-neutral-500 dark:text-neutral-400">
-                    There&apos;s nothing here...
+                    <Trans>There&apos;s nothing here...</Trans>
                   </Text>
                 </View>
               }

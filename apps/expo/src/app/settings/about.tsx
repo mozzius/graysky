@@ -2,6 +2,8 @@ import { Linking, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import {
   AtSignIcon,
   GithubIcon,
@@ -21,6 +23,7 @@ const appIcon = require("../../../assets/icon.png") as ImageSource;
 
 export default function AboutPage() {
   const { openLink } = useLinkPress();
+  const { _ } = useLingui();
 
   return (
     <TransparentHeaderUntilScrolled>
@@ -29,21 +32,21 @@ export default function AboutPage() {
           {
             options: [
               {
-                title: "Star us on GitHub!",
+                title: _(msg`Star us on GitHub!`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/mozzius/graysky"),
                 icon: GithubIcon,
                 chevron: true,
               },
               {
-                title: "Sign up for project updates",
+                title: _(msg`Sign up for project updates`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://graysky.app"),
                 icon: MailIcon,
                 chevron: true,
               },
               {
-                title: "Contact",
+                title: _(msg`Contact`),
                 accessibilityRole: "link",
                 onPress: () => Linking.openURL("mailto:hello@graysky.app"),
                 icon: SendIcon,
@@ -52,7 +55,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Created by",
+            title: _(msg`Created by`),
             options: [
               {
                 title: "mozzius.dev",
@@ -61,7 +64,7 @@ export default function AboutPage() {
                 icon: AtSignIcon,
               },
               {
-                title: "Sponsor my work",
+                title: _(msg`Sponsor my work`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/sponsors/mozzius"),
                 icon: HeartIcon,
@@ -70,7 +73,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Contributors",
+            title: _(msg`Contributors`),
             options: [
               {
                 title: "alice.bsky.sh",
@@ -105,7 +108,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Logo designed by",
+            title: _(msg`Logo designed by`),
             options: [
               {
                 title: "roselia.gay",
@@ -116,10 +119,12 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "App info",
+            title: _(msg`App info`),
             options: [
               {
-                title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
+                title: Constants.expoConfig?.version
+                  ? _(msg`Version ${Constants.expoConfig.version}`)
+                  : _(msg`Version unknown`),
                 icon: WrenchIcon,
               },
             ],

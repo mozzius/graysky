@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import {
   CloudyIcon,
@@ -102,7 +103,9 @@ export const DrawerContent = ({ open }: Props) => {
               className="mt-2 w-full flex-row items-center py-2"
             >
               <CloudyIcon color={theme.colors.text} />
-              <Text className="ml-6 text-base font-medium">My feeds</Text>
+              <Text className="ml-6 text-base font-medium">
+                <Trans>My feeds</Trans>
+              </Text>
             </TouchableOpacity>
           </Link>
         )}
@@ -155,7 +158,9 @@ export const DrawerContent = ({ open }: Props) => {
             className="mt-2 w-full flex-row items-center py-2"
           >
             <StarIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
+            <Text className="ml-6 text-base font-medium">
+              <Trans>Graysky Pro</Trans>
+            </Text>
           </TouchableOpacity>
         </Link>
         <TouchableOpacity
@@ -165,7 +170,9 @@ export const DrawerContent = ({ open }: Props) => {
           onPress={() => changeTheme()}
         >
           <ChangeThemeIcon color={theme.colors.text} />
-          <Text className="ml-6 text-base font-medium">Change theme</Text>
+          <Text className="ml-6 text-base font-medium">
+            <Trans>Change theme</Trans>
+          </Text>
         </TouchableOpacity>
         <Link href="/settings" asChild onPress={closeDrawer}>
           <TouchableOpacity
@@ -174,7 +181,9 @@ export const DrawerContent = ({ open }: Props) => {
             className="mt-2 w-full flex-row items-center py-2"
           >
             <SettingsIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">Settings</Text>
+            <Text className="ml-6 text-base font-medium">
+              <Trans>Settings</Trans>
+            </Text>
           </TouchableOpacity>
         </Link>
       </View>
@@ -186,10 +195,16 @@ export const DrawerContent = ({ open }: Props) => {
         onPress={() => logOut()}
       >
         <LogOutIcon color={theme.colors.text} />
-        <Text className="ml-6 text-base font-medium">Sign out</Text>
+        <Text className="ml-6 text-base font-medium">
+          <Trans>Sign out</Trans>
+        </Text>
       </TouchableOpacity>
       <Text className="mt-4 text-neutral-500 dark:text-neutral-400">
-        Version {Constants.expoConfig?.version ?? "unknown"}
+        {Constants.expoConfig?.version ? (
+          <Trans>Version {Constants.expoConfig.version}</Trans>
+        ) : (
+          <Trans>Version unknown</Trans>
+        )}
       </Text>
     </SafeAreaView>
   );

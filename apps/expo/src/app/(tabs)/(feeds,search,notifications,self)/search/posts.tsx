@@ -3,6 +3,8 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
@@ -96,9 +98,13 @@ const PostsSearch = ({ search }: Props) => {
           !query.isPending && (
             <View className="flex-1 items-center justify-center p-8">
               <Text className="text-center text-neutral-500 dark:text-neutral-400">
-                {search
-                  ? "No posts found - maybe try a different search term?"
-                  : "Search for posts"}
+                {search ? (
+                  <Trans>
+                    No posts found - maybe try a different search term?
+                  </Trans>
+                ) : (
+                  <Trans>Search for posts</Trans>
+                )}
               </Text>
             </View>
           )
@@ -111,6 +117,8 @@ const PostsSearch = ({ search }: Props) => {
 };
 
 export default function PostsSearchScreen() {
+  const { _ } = useLingui();
+
   const { q } = useLocalSearchParams() as { q: string };
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
@@ -124,7 +132,7 @@ export default function PostsSearchScreen() {
   }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search posts",
+    placeholder: _(msg`Search posts`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
     hideNavigationBar: false,
@@ -134,7 +142,7 @@ export default function PostsSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search Posts", headerSearchBarOptions }}
+        options={{ title: _(msg`Search Posts`), headerSearchBarOptions }}
       />
       <PostsSearch search={search} />
     </>

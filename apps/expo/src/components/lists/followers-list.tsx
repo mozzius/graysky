@@ -1,4 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
@@ -32,11 +34,12 @@ export interface FollowersListRef {
   open: (actor: string, limit?: number) => void;
 }
 
-export const FollowersList = forwardRef<FollowersListRef>((_, ref) => {
+export const FollowersList = forwardRef<FollowersListRef>((__, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [actor, setActor] = useState<string | undefined>();
   const [limit, setLimit] = useState<number | undefined>();
   const followers = useFollowers(actor);
+  const { _ } = useLingui();
 
   useImperativeHandle(ref, () => ({
     open: (actor, limit) => {
@@ -48,7 +51,7 @@ export const FollowersList = forwardRef<FollowersListRef>((_, ref) => {
 
   return (
     <PeopleList
-      title="Followers"
+      title={_(msg`Followers`)}
       ref={listRef}
       data={followers}
       limit={limit}

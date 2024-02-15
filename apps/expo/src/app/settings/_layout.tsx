@@ -1,6 +1,8 @@
 import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
@@ -11,6 +13,7 @@ export default function SettingsLayout() {
   const theme = useTheme();
   const router = useRouter();
   const canGoBack = useCanGoBack("settings");
+  const { _ } = useLingui();
 
   return (
     <>
@@ -25,7 +28,7 @@ export default function SettingsLayout() {
                   <Animated.View entering={FadeIn}>
                     <TouchableOpacity onPress={() => router.push("../")}>
                       <Text primary className="text-lg font-medium">
-                        Done
+                        <Trans>Done</Trans>
                       </Text>
                     </TouchableOpacity>
                   </Animated.View>
@@ -40,7 +43,7 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="index"
           options={{
-            title: "Settings",
+            title: _(msg`Settings`),
             headerLargeTitle: true,
             headerLargeTitleShadowVisible: false,
             headerLargeStyle: {
@@ -51,85 +54,85 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="pro"
           options={{
-            title: "Pro Settings",
+            title: _(msg`Pro Settings`),
           }}
         />
         <Stack.Screen
           name="account/index"
           options={{
-            title: "Account Settings",
+            title: _(msg`Account Settings`),
           }}
         />
         <Stack.Screen
           name="account/change-handle"
           options={{
-            title: "Change Handle",
+            title: _(msg`Change Handle`),
           }}
         />
         <Stack.Screen
           name="account/change-password"
           options={{
-            title: "Change Password",
+            title: _(msg`Change Password`),
           }}
         />
         <Stack.Screen
           name="account/delete-account"
           options={{
-            title: "Delete Account",
+            title: _(msg`Delete Account`),
           }}
         />
         <Stack.Screen
           name="moderation"
           options={{
-            title: "Moderation",
+            title: _(msg`Moderation`),
           }}
         />
         <Stack.Screen
           name="blocks"
           options={{
-            title: "Blocked Users",
+            title: _(msg`Blocked Users`),
           }}
         />
         <Stack.Screen
           name="mutes"
           options={{
-            title: "Muted Users",
+            title: _(msg`Muted Users`),
           }}
         />
         <Stack.Screen
           name="app"
           options={{
-            title: "App Settings",
+            title: _(msg`App Settings`),
           }}
         />
         <Stack.Screen
           name="feed"
           options={{
-            title: "Home Feed Preferences",
+            title: _(msg`Home Feed Preferences`),
           }}
         />
         <Stack.Screen
           name="about"
           options={{
-            title: "About",
+            title: _(msg`About`),
           }}
         />
         <Stack.Screen
           name="language/index"
           options={{
-            title: "Languages",
+            title: _(msg`Languages`),
           }}
         />
         <Stack.Screen
           name="language/primary"
           options={{
-            title: "Primary Language",
+            title: _(msg`Primary Language`),
           }}
         />
         <Stack.Screen
           name="language/content"
           options={{
-            title: "Content Languages",
+            title: _(msg`Content Languages`),
           }}
         />
       </Stack>

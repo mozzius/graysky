@@ -1,4 +1,6 @@
 import { Alert, Switch } from "react-native";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
@@ -21,6 +23,7 @@ export default function AppSettings() {
   const haptics = useHaptics();
   const gifAutoplay = useGifAutoplay();
   const altText = useAltText();
+  const { _ } = useLingui();
 
   const setAppPreferences = useSetAppPreferences();
 
@@ -29,63 +32,71 @@ export default function AppSettings() {
       <GroupedList
         groups={[
           {
-            title: "General",
+            title: _(msg`General`),
             options: [
               {
-                title: "Manually sort non-favourite feeds",
+                title: _(msg`Manually sort non-favourite feeds`),
                 action: (
                   <Switch
                     value={sortableFeeds}
                     onValueChange={(sortableFeeds) =>
                       setAppPreferences({ sortableFeeds })
                     }
-                    accessibilityHint="Allows you to manually sort non-favourite feeds in the feeds tab"
+                    accessibilityHint={_(
+                      msg`Allows you to manually sort non-favourite feeds in the feeds tab`,
+                    )}
                   />
                 ),
               },
               {
-                title: 'Show "My Lists" above "All Feeds"',
+                title: _(msg`Show "My Lists" above "All Feeds"`),
                 action: (
                   <Switch
                     value={listsAboveFeeds}
                     onValueChange={(listsAboveFeeds) =>
                       setAppPreferences({ listsAboveFeeds })
                     }
-                    accessibilityHint="Show lists above feeds in the feeds tab"
+                    accessibilityHint={_(
+                      msg`Show lists above feeds in the feeds tab`,
+                    )}
                   />
                 ),
               },
               {
-                title: "Show each notification individually",
+                title: _(msg`Show each notification individually`),
                 action: (
                   <Switch
                     value={!groupNotifications}
                     onValueChange={(value) =>
                       setAppPreferences({ groupNotifications: !value })
                     }
-                    accessibilityHint="Show each notification individually in the notification tab"
+                    accessibilityHint={_(
+                      msg`Show each notification individually in the notification tab`,
+                    )}
                   />
                 ),
               },
               {
-                title: "Use in-app browser",
+                title: _(msg`Use in-app browser`),
                 action: (
                   <Switch
                     value={inAppBrowser}
                     onValueChange={(value) =>
                       setAppPreferences({ inAppBrowser: value })
                     }
-                    accessibilityHint="Links will open in the app instead of your device's default browser"
+                    accessibilityHint={_(
+                      msg`Links will open in the app instead of your device's default browser`,
+                    )}
                   />
                 ),
               },
             ],
           },
           {
-            title: "Accessibility",
+            title: _(msg`Accessibility`),
             options: [
               {
-                title: "Disable haptics",
+                title: _(msg`Disable haptics`),
                 action: (
                   <Switch
                     value={!haptics}
@@ -94,17 +105,19 @@ export default function AppSettings() {
                       setAppPreferences({ haptics });
                       if (!haptics) {
                         Alert.alert(
-                          "Haptics disabled",
-                          "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings.",
+                          _(msg`Haptics disabled`),
+                          _(
+                            msg`The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings.`,
+                          ),
                         );
                       }
                     }}
-                    accessibilityHint="Disable haptics (vibrations)"
+                    accessibilityHint={_(msg`Disable haptics (vibrations)`)}
                   />
                 ),
               },
               {
-                title: "Disable GIF autoplay",
+                title: _(msg`Disable GIF autoplay`),
                 action: (
                   <Switch
                     value={!gifAutoplay}
@@ -112,12 +125,12 @@ export default function AppSettings() {
                       const gifAutoplay = !disableGifAutoplay;
                       setAppPreferences({ gifAutoplay });
                     }}
-                    accessibilityHint="Disable GIF autoplay"
+                    accessibilityHint={_(msg`Disable GIF autoplay`)}
                   />
                 ),
               },
               {
-                title: "Mandatory ALT text",
+                title: _(msg`Mandatory ALT text`),
                 action: (
                   <Switch
                     value={altText === "force"}
@@ -125,7 +138,9 @@ export default function AppSettings() {
                       const altText = force ? "force" : "warn";
                       setAppPreferences({ altText });
                     }}
-                    accessibilityHint="Makes adding ALT text to your images mandatory"
+                    accessibilityHint={_(
+                      msg`Makes adding ALT text to your images mandatory`,
+                    )}
                   />
                 ),
               },

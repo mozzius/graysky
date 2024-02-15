@@ -1,5 +1,7 @@
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Link, useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
@@ -30,6 +32,7 @@ export const Notification = ({
   const router = useRouter();
   const path = useAbsolutePath();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   let href: string | undefined;
   if (subject && subject.startsWith("at://")) {
@@ -62,7 +65,7 @@ export const Notification = ({
           >
             <ProfileList
               actors={actors}
-              action="liked your post"
+              action={_(msg`liked your post`)}
               indexedAt={indexedAt}
               showAll={() => subject && openLikes(subject, actors.length)}
             />
@@ -91,7 +94,7 @@ export const Notification = ({
           >
             <ProfileList
               actors={actors}
-              action="reposted your post"
+              action={_(msg`reposted your post`)}
               indexedAt={indexedAt}
               showAll={() => subject && openReposts(subject, actors.length)}
             />
@@ -121,7 +124,7 @@ export const Notification = ({
           >
             <ProfileList
               actors={actors}
-              action="started following you"
+              action={_(msg`started following you`)}
               indexedAt={indexedAt}
               showAll={() => openFollowers(agent.session!.did, actors.length)}
             />
@@ -158,6 +161,7 @@ const ProfileList = ({
   const haptics = useHaptics();
   const router = useRouter();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   if (!actors[0]) return null;
   const timeSinceNotif = timeSince(new Date(indexedAt));
@@ -179,10 +183,12 @@ const ProfileList = ({
                   uri={actor.avatar}
                   alt={
                     // TODO: find a better way to handle this
-                    action === "started following you"
-                      ? `${index === 0 ? "New follower: " : ""}${
-                          actor.displayName
-                        } @${actor.handle}`
+                    action === _(msg`started following you`)
+                      ? _(
+                          index === 0
+                            ? msg`New follower: ${actor.displayName} @${actor.handle}`
+                            : msg`${actor.displayName} @${actor.handle}`,
+                        )
                       : ""
                   }
                   size="smallMedium"

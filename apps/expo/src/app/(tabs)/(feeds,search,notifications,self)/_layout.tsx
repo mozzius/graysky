@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ActivityIndicator, Platform, View } from "react-native";
 import { Stack } from "expo-router";
+import { Trans } from "@lingui/macro";
 import { jwtDecode } from "jwt-decode";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -27,7 +28,9 @@ export default function SubStack({
     return (
       <View className="flex-1 items-center justify-center bg-white dark:bg-black">
         <ActivityIndicator size="large" />
-        <Text className="mt-4 text-center text-base">Connecting...</Text>
+        <Text className="mt-4 text-center text-base">
+          <Trans>Connecting...</Trans>
+        </Text>
       </View>
     );
   }

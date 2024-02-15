@@ -7,6 +7,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
@@ -26,6 +28,7 @@ export default function SignIn() {
   const theme = useTheme();
   const { handle } = useLocalSearchParams<{ handle?: string }>();
   const { openLink, showLinkOptions } = useLinkPress();
+  const { _ } = useLingui();
 
   const [identifier, setIdentifier] = useState(handle ?? "");
   const [password, setPassword] = useState("");
@@ -44,8 +47,8 @@ export default function SignIn() {
     onSuccess: () => router.replace("/(feeds)/feeds"),
     onError: (err) =>
       showToastable({
-        title: "Could not log you in",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: _(msg`Could not log you in`),
+        message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
       }),
   });
@@ -65,7 +68,7 @@ export default function SignIn() {
             <UserIcon size={18} color="rgb(163 163 163)" />
             <TextInput
               className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-              placeholder="Username or email address"
+              placeholder={_(msg`Username or email address`)}
               value={identifier}
               onChangeText={setIdentifier}
               autoCapitalize="none"
@@ -86,7 +89,7 @@ export default function SignIn() {
             <LockIcon size={18} color="rgb(163 163 163)" />
             <TextInput
               className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-              placeholder="App Password"
+              placeholder={_(msg`App Password`)}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -100,7 +103,7 @@ export default function SignIn() {
                   router.push("/reset-password");
                 }
               }}
-              title="Forgot?"
+              title={_(msg`Forgot?`)}
               className="pr-3 text-sm"
             />
           </View>
@@ -120,12 +123,14 @@ export default function SignIn() {
               />
               <View className="ml-3 flex-1">
                 <Text className="text-base font-medium leading-5">
-                  App Passwords
+                  <Trans>App Passwords</Trans>
                 </Text>
                 <Text className="mt-1">
-                  You might want to use an App Password rather than your main
-                  password - this helps keep your account secure, but it{"'"}s
-                  not required.
+                  <Trans>
+                    You might want to use an App Password rather than your main
+                    password - this helps keep your account secure, but it{"'"}s
+                    not required.
+                  </Trans>
                 </Text>
                 <Text
                   className="mt-2"
@@ -138,7 +143,7 @@ export default function SignIn() {
                     showLinkOptions("https://bsky.app/settings/app-passwords")
                   }
                 >
-                  Create one at bsky.app/settings
+                  <Trans>Create one at bsky.app/settings</Trans>
                 </Text>
               </View>
             </Animated.View>
@@ -149,13 +154,13 @@ export default function SignIn() {
           >
             <TextButton
               onPress={() => router.push("/sign-up")}
-              title="Sign up"
+              title={_(msg`Sign up`)}
             />
             {!login.isPending ? (
               <TextButton
                 disabled={!identifier || !password}
                 onPress={() => login.mutate()}
-                title="Log in"
+                title={_(msg`Log in`)}
                 className="font-medium"
               />
             ) : (

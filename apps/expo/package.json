@@ -18,7 +18,9 @@
     "typecheck": "tsc --noEmit",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'"
+    "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'",
+    "extract": "lingui extract",
+    "compile": "lingui compile"
   },
   "dependencies": {
     "@atproto/api": "^0.9.6",
@@ -26,6 +28,7 @@
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "4.6.0",
     "@graysky/api": "0.1.0",
+    "@lingui/react": "^4.7.0",
     "@mattermost/react-native-paste-input": "^0.7.0",
     "@react-native-community/netinfo": "11.2.1",
     "@react-native-community/progress-view": "^1.4.2",
@@ -121,10 +124,13 @@
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
+    "@lingui/cli": "^4.7.0",
+    "@lingui/macro": "^4.7.0",
     "@types/babel__core": "^7.20.5",
     "@types/mime": "^3.0.4",
     "@types/react": "^18.2.55",
     "@types/webpack-env": "^1.18.4",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^8.56.0",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",

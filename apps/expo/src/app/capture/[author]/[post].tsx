@@ -12,6 +12,8 @@ import { Image, type ImageSource } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Sharing from "expo-sharing";
 import { AppBskyFeedDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 
@@ -31,6 +33,7 @@ export default function ShareAsImageScreen() {
     author: string;
   }>();
 
+  const { _ } = useLingui();
   const agent = useAgent();
   const captureRef = useRef<ViewShot>(null);
   const router = useRouter();
@@ -64,7 +67,7 @@ export default function ShareAsImageScreen() {
   });
 
   if (post.data) {
-    const { viewer: _, ...anonymizedPost } = post.data.post;
+    const { viewer: __, ...anonymizedPost } = post.data.post;
 
     const handleCaptureImage = () => {
       setShowContextMenu(false);
@@ -76,13 +79,13 @@ export default function ShareAsImageScreen() {
           if (!uri) throw new Error("Failed to capture image");
           await Sharing.shareAsync(uri, {
             mimeType: "image/jpeg",
-            dialogTitle: `Share ${post.data.post.author.handle}'s post`,
+            dialogTitle: _(msg`Share ${post.data.post.author.handle}'s post`),
             UTI: "public.jpeg",
           });
           router.push("../");
         } catch (err) {
           console.error(err);
-          Alert.alert("Error", "Failed to capture image");
+          Alert.alert(_(msg`Error`), _(msg`Failed to capture image`));
         }
       });
     };
@@ -137,7 +140,7 @@ export default function ShareAsImageScreen() {
                   }}
                 >
                   <Text className="text-center text-base font-medium text-white">
-                    Share image
+                    <Trans>Share image</Trans>
                   </Text>
                 </View>
               </TouchableHighlight>
@@ -150,7 +153,7 @@ export default function ShareAsImageScreen() {
               headerRight: () => (
                 <TouchableOpacity onPress={() => router.push("../")}>
                   <Text primary className="text-lg">
-                    Cancel
+                    <Trans>Cancel</Trans>
                   </Text>
                 </TouchableOpacity>
               ),

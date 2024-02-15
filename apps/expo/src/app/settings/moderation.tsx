@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Platform, Switch, TouchableOpacity, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -25,6 +27,7 @@ type Pref = "show" | "warn" | "hide";
 export default function ModerationSettings() {
   const agent = useAgent();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const { showActionSheetWithOptions } = useActionSheet();
   const [optimisticSwitchValue, setOptimisticSwitchValue] = useState(false);
@@ -36,7 +39,7 @@ export default function ModerationSettings() {
       label,
       visibility,
     }: AppBskyActorDefs.ContentLabelPref) => {
-      if (!preferences.data) throw new Error("No preferences");
+      if (!preferences.data) throw new Error(_(msg`No preferences`));
       const newPref = {
         $type: "app.bsky.actor.defs#contentLabelPref",
         label,
@@ -100,28 +103,30 @@ export default function ModerationSettings() {
         <GroupedList
           groups={[
             {
-              title: "Blocks & Mutes",
+              title: _(msg`Blocks & Mutes`),
               options: [
                 {
-                  title: "Blocked users",
+                  title: _(msg`Blocked users`),
                   href: "/settings/blocks",
                   icon: ShieldXIcon,
                 },
                 {
-                  title: "Muted users",
+                  title: _(msg`Muted users`),
                   href: "/settings/mutes",
                   icon: MegaphoneOffIcon,
                 },
               ],
             },
             {
-              title: "Content filters",
+              title: _(msg`Content filters`),
               children: Platform.OS === "ios" && (
                 <>
                   <View className="px-4 py-3">
                     <Text>
-                      Note: Adult content settings cannot be changed on iOS.
-                      Please use the web app instead.
+                      <Trans>
+                        Note: Adult content settings cannot be changed on iOS.
+                        Please use the web app instead.
+                      </Trans>
                     </Text>
                   </View>
                   <ItemSeparator />
@@ -129,7 +134,7 @@ export default function ModerationSettings() {
               ),
               options: [
                 {
-                  title: "Enable Adult Content",
+                  title: _(msg`Enable Adult Content`),
                   action: (
                     <Switch
                       disabled={Platform.OS === "ios"}

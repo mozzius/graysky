@@ -1,4 +1,5 @@
 import { ActivityIndicator, View } from "react-native";
+import { Trans } from "@lingui/macro";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2Icon, SmileIcon, XCircleIcon } from "lucide-react-native";
 
@@ -7,6 +8,7 @@ import { Text } from "./themed/text";
 
 export const useHandleAvailability = (handle: string) => {
   const agent = useAgent();
+
   return useQuery({
     enabled: handle.length >= 3,
     queryKey: ["resolve-handle", handle],
@@ -44,7 +46,9 @@ export const HandleAvailabilityResult = ({
     return (
       <View className="flex-row items-center">
         <SmileIcon className="mr-1.5 text-green-700" size={14} />
-        <Text className="text-sm text-green-700">That{"'"}s you!</Text>
+        <Text className="text-sm text-green-700">
+          <Trans>That{"'"}s you!</Trans>
+        </Text>
       </View>
     );
   } else if (query.data) {
@@ -53,21 +57,27 @@ export const HandleAvailabilityResult = ({
         return (
           <View className="flex-row items-center">
             <CheckCircle2Icon className="mr-1.5 text-green-700" size={14} />
-            <Text className="text-sm text-green-700">Available</Text>
+            <Text className="text-sm text-green-700">
+              <Trans>Available</Trans>
+            </Text>
           </View>
         );
       case "taken":
         return (
           <View className="flex-row items-center">
             <XCircleIcon className="mr-1.5 text-red-500" size={14} />
-            <Text className="text-sm text-red-500">Handle is taken</Text>
+            <Text className="text-sm text-red-500">
+              <Trans>Handle is taken</Trans>
+            </Text>
           </View>
         );
       case "invalid":
         return (
           <View className="flex-row items-center">
             <XCircleIcon className="mr-1.5 text-red-500" size={14} />
-            <Text className="text-sm text-red-500">Handle is invalid</Text>
+            <Text className="text-sm text-red-500">
+              <Trans>Handle is invalid</Trans>
+            </Text>
           </View>
         );
     }
