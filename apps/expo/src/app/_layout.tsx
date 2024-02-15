@@ -30,7 +30,7 @@ import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
 import { type SavedSession } from "~/components/switch-accounts";
 import { Toastable } from "~/components/toastable/toastable";
-import I18nProvider from "~/i18n/config";
+import I18nProvider, { initializeI18n } from "~/i18n/config";
 import { AgentProvider } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
 import { LogOutProvider } from "~/lib/log-out-context";
@@ -74,6 +74,8 @@ const useSentryTracing = () => {
 };
 
 void SplashScreen.preventAutoHideAsync();
+
+initializeI18n();
 
 const App = () => {
   const segments = useSegments();

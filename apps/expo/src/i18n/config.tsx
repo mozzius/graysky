@@ -6,6 +6,7 @@ import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import {
+  appPreferencesStore,
   useAppLanguage,
   type AppPreferences,
 } from "~/lib/storage/app-preferences";
@@ -51,11 +52,8 @@ export function loadAndActivateLanguage(locale: "en" | "ja") {
   }
 }
 
-export function useLocaleLanguage() {
-  const language = useAppLanguage();
-  useEffect(() => {
-    loadAndActivateLanguage(language);
-  }, [language]);
+export function initializeI18n() {
+  loadAndActivateLanguage(appPreferencesStore.getState().appLanguage);
 }
 
 export default function I18nProvider({
@@ -63,6 +61,11 @@ export default function I18nProvider({
 }: {
   children: React.ReactNode;
 }) {
-  useLocaleLanguage();
+  const language = useAppLanguage();
+
+  useEffect(() => {
+    loadAndActivateLanguage(language);
+  }, [language]);
+
   return <DefaultI18nProvider i18n={i18n}>{children}</DefaultI18nProvider>;
 }
