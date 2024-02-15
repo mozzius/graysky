@@ -43,7 +43,7 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="index"
           options={{
-            title: "Invite Codes",
+            title: "招待コード",
             headerLargeTitle: true,
             headerLargeTitleShadowVisible: false,
             headerLargeStyle: {
@@ -54,7 +54,7 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="invitees"
           options={{
-            title: "Invitees",
+            title: "招待者",
           }}
         />
       </Stack>
@@ -73,7 +73,7 @@ export const useInviteCodes = () => {
       });
       if (!codes.success)
         throw new Error(
-          "Could not get invite codes. This could be because you logged in using an App Password. Please log in using your main password.",
+          "招待コードを取得できませんでした。アプリパスワードを使用してログインをした可能性があります。メインパスワードでログインをしてください。",
         );
       const all = codes.data.codes.sort(
         (a, b) =>

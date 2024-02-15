@@ -35,18 +35,18 @@ export default function Waitlist() {
       if (!resBody.success) {
         throw new Error(
           resBody.error ||
-            "Something went wrong. Check your email and try again.",
+            "何らかのエラーが発生しました。メールを確認して再度お試しください。",
         );
       }
     },
     onError: (err) =>
       showToastable({
-        title: "Error adding to waitlist",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: "キャンセル待ちリストへの追加エラー",
+        message: err instanceof Error ? err.message : "不明なエラー",
         status: "warning",
       }),
     onSuccess: () =>
-      Alert.alert("Success", "You've been added to the waitlist!", [
+      Alert.alert("成功しました", "キャンセル待ちリストに追加されました!", [
         { text: "OK", onPress: () => router.push("/") },
       ]),
   });
@@ -102,7 +102,7 @@ export default function Waitlist() {
             <TextButton
               disabled={!z.string().email().safeParse(email).success}
               onPress={() => submit.mutate()}
-              title="Join waitlist"
+              title="キャンセル待ちリストに参加"
               className="font-medium"
             />
           )}

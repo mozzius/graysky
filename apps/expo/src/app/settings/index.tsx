@@ -37,27 +37,27 @@ export default function SettingsPage() {
         {
           options: [
             {
-              title: "Account",
+              title: "アカウント",
               href: "/settings/account",
               icon: UserIcon,
             },
             {
-              title: "Moderation",
+              title: "モデレーション",
               href: "/settings/moderation",
               icon: ShieldIcon,
             },
             {
-              title: "Home feed preferences",
+              title: "ホームフィードの設定",
               href: "/settings/feed",
               icon: NewspaperIcon,
             },
             {
-              title: "Languages",
+              title: "言語",
               href: "/settings/language",
               icon: LanguagesIcon,
             },
             {
-              title: "App settings",
+              title: "アプリの設定",
               href: "/settings/app",
               icon: SmartphoneIcon,
             },
@@ -69,7 +69,7 @@ export default function SettingsPage() {
               {
                 options: [
                   {
-                    title: "Push notifications",
+                    title: "プッシュ通知",
                     href: "/push-notifications",
                     icon: BellRingIcon,
                   },
@@ -79,7 +79,7 @@ export default function SettingsPage() {
         {
           options: [
             {
-              title: "About Graysky",
+              title: "Grayskyについて",
               href: "/settings/about",
               icon: AtSignIcon,
             },

@@ -61,7 +61,7 @@ export default function GifSearch() {
       setQuery("");
       ref.current?.blur();
     },
-    placeholder: "Search Tenor",
+    placeholder: "テナーを検索",
     hideWhenScrolling: false,
   });
 
@@ -213,8 +213,8 @@ const Gif = ({ item, column }: GifProps) => {
     onError: (err) => {
       Sentry.captureException(err);
       showToastable({
-        title: "Could not select GIF",
-        message: "Please try again",
+        title: "GIFを選択できませんでした",
+        message: "もう一度お試しください",
         status: "warning",
       });
     },

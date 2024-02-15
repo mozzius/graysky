@@ -225,8 +225,8 @@ export default function ComposerScreen() {
                   switch (altTextSetting) {
                     case "force":
                       Alert.alert(
-                        "Missing alt text",
-                        "Please add descriptive alt text to all images before posting.",
+                        "ALTテキストがありません",
+                        "投稿する前にすべての画像に説明となるALTテキストを追加してください。",
                         [{ text: "OK" }],
                       );
                       return;
@@ -235,10 +235,10 @@ export default function ComposerScreen() {
                       const cancel = await new Promise((resolve) => {
                         showActionSheetWithOptions(
                           {
-                            title: "Missing alt text",
+                            title: "ALTテキストがありません",
                             message:
-                              "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.",
-                            options: ["Post anyway", "Go back"],
+                              "画像に説明を追加する事で、Blueskyは障がいのある方にも利用がしやすくなり、すべての人にコンテキストを提供する事ができます。すべての画像にALTテキストを追加する事を強く推奨します。",
+                            options: ["とにかく投稿する", "戻る"],
                             destructiveButtonIndex: 0,
                             cancelButtonIndex: 1,
                             anchor,
@@ -281,7 +281,7 @@ export default function ComposerScreen() {
               ? send.error.message
               : "An unknown error occurred"}
           </Text>
-          <Text className="my-0.5 text-white/90">Please try again</Text>
+          <Text className="my-0.5 text-white/90">再度お試しください</Text>
         </Animated.View>
       )}
       <KeyboardAwareScrollView
@@ -337,8 +337,8 @@ export default function ComposerScreen() {
                 className="relative -top-[3px] w-full max-w-full text-lg leading-6"
                 placeholder={
                   reply.thread.data
-                    ? `Replying to @${reply.thread.data.post.author.handle}`
-                    : `What's on your mind?`
+                    ? `@${reply.thread.data.post.author.handle}に返信`
+                    : `何を考えてるんだい?`
                 }
                 keyboardType={Platform.select({
                   ios: "twitter",
@@ -473,7 +473,7 @@ export default function ComposerScreen() {
                       }}
                     >
                       <PlusIcon color={theme.colors.text} />
-                      <Text className="mt-2 text-center">Add image</Text>
+                      <Text className="mt-2 text-center">画像を追加</Text>
                     </View>
                   </TouchableOpacity>
                 </Animated.View>
@@ -662,7 +662,7 @@ const AddContentWarning = ({ onPress }: { onPress: () => void }) => {
         ) : (
           <>
             <ShieldPlusIcon size={18} color={theme.colors.text} />
-            <Text className="ml-2">Add a content warning</Text>
+            <Text className="ml-2">コンテンツ警告を追加</Text>
           </>
         )}
       </TouchableOpacity>

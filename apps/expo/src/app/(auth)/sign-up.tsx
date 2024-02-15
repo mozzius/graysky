@@ -73,7 +73,7 @@ export default function SignUp() {
     mutationKey: ["create-account"],
     mutationFn: async () => {
       if (password.length < 8) {
-        throw new Error("Password must be at least 8 characters");
+        throw new Error("パスワードは8文字以上です");
       }
       await agent.createAccount({
         email,
@@ -87,8 +87,8 @@ export default function SignUp() {
     onError: (err) => {
       console.error(err);
       showToastable({
-        title: "Could not create account",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: "アカウントを作成できませんでした",
+        message: err instanceof Error ? err.message : "不明なエラー",
         status: "warning",
       });
     },
@@ -136,7 +136,7 @@ export default function SignUp() {
     //           <TextButton
     //             disabled={!code.trim()}
     //             onPress={() => setStage(2)}
-    //             title="Next"
+    //             title="次へ"
     //             className="font-medium"
     //           />
     //         </View>
@@ -245,7 +245,7 @@ export default function SignUp() {
               <TextButton
                 disabled={!email || !password || !dob || getAge(dob) < 18}
                 onPress={() => setStage(2)}
-                title="Next"
+                title="次へ"
                 className="font-medium"
               />
             </View>
@@ -289,16 +289,16 @@ export default function SignUp() {
                   </Text>
                 ) : (
                   <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                    Please enter a phone number that can receive SMS text
-                    messages.
+                    SMSテキストメッセージを受信できる
+                    電話番号を入力してください。
                   </Text>
                 )}
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(1)} title="Back" />
+                  <TextButton onPress={() => setStage(1)} title="戻る" />
                   <TextButton
                     disabled={!phone.trim() || sendText.isPending}
                     onPress={() => sendText.mutate()}
-                    title="Request code"
+                    title="リクエストコード"
                     className="font-medium"
                   />
                 </View>
@@ -306,7 +306,7 @@ export default function SignUp() {
             ) : (
               <View className="mt-4 flex-1">
                 <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                  Verification code
+                  認証コード
                 </Text>
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -328,11 +328,11 @@ export default function SignUp() {
                   </Text>
                 </Text>
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(1)} title="Back" />
+                  <TextButton onPress={() => setStage(1)} title="戻る" />
                   <TextButton
                     disabled={phoneCode.trim().length !== 6}
                     onPress={() => setStage(3)}
-                    title="Next"
+                    title="次へ"
                     className="font-medium"
                   />
                 </View>
@@ -355,7 +355,7 @@ export default function SignUp() {
             />
             <View className="my-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Choose a handle
+                ハンドルを選択
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -363,7 +363,7 @@ export default function SignUp() {
               >
                 <TextInput
                   value={handle}
-                  placeholder="You can change it later"
+                  placeholder="後で変更可能です"
                   autoComplete="username"
                   autoCapitalize="none"
                   onChange={(evt) =>
@@ -402,12 +402,12 @@ export default function SignUp() {
               className="flex-row items-center justify-between pt-2"
               layout={LinearTransition}
             >
-              <TextButton onPress={() => setStage(2)} title="Back" />
+              <TextButton onPress={() => setStage(2)} title="戻る" />
               {!createAccount.isPending ? (
                 <TextButton
                   disabled={resolveHandle.data !== "available"}
                   onPress={() => createAccount.mutate()}
-                  title="Create Account"
+                  title="アカウントを作成"
                   className="font-medium"
                 />
               ) : (

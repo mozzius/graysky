@@ -25,7 +25,7 @@ export default function SuccessScreen() {
             strokeWidth={1.5}
           />
           <Text className="mt-6 max-w-[210px] text-center text-3xl">
-            Welcome to Graysky Pro!
+            Graysky Proへようこそ!
           </Text>
         </Animated.View>
         <Animated.View
@@ -34,7 +34,7 @@ export default function SuccessScreen() {
         >
           <CheckIcon size={20} className="mr-2" color={theme.colors.text} />
           <Text className="text-base">
-            Translations are now powered by DeepL
+            翻訳がDeepL翻訳で行なわれるようになりました
           </Text>
         </Animated.View>
         <Animated.View
@@ -43,7 +43,7 @@ export default function SuccessScreen() {
         >
           <CheckIcon size={20} className="mr-2" color={theme.colors.text} />
           <Text className="text-base">
-            You can now change the accent colour
+            アクセントカラーを変更できます
           </Text>
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(3000)} className="mt-4 h-14">

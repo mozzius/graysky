@@ -66,13 +66,13 @@ export default function ComposerLayout() {
             }),
           }}
         >
-          <Stack.Screen name="index" options={{ title: "New Post" }} />
-          <Stack.Screen name="drafts" options={{ title: "Drafts" }} />
-          <Stack.Screen name="language" options={{ title: "Post Language" }} />
+          <Stack.Screen name="index" options={{ title: "新しい投稿" }} />
+          <Stack.Screen name="drafts" options={{ title: "ドラフト" }} />
+          <Stack.Screen name="language" options={{ title: "投稿の言語" }} />
           <Stack.Screen
             name="content-warning"
             options={{
-              title: "Content Warning",
+              title: "コンテンツ警告",
               presentation: "formSheet",
               headerRight,
             }}
@@ -80,7 +80,7 @@ export default function ComposerLayout() {
           <Stack.Screen
             name="threadgate"
             options={{
-              title: "Reply Controls",
+              title: "返信のコントロール",
               presentation: "formSheet",
               headerRight,
             }}
@@ -88,7 +88,7 @@ export default function ComposerLayout() {
           <Stack.Screen
             name="gifs"
             options={{
-              title: "GIFs",
+              title: "GIF",
               headerSearchBarOptions: {},
               headerLargeTitle: true,
               headerLargeTitleShadowVisible: false,

@@ -55,7 +55,7 @@ export default function InviteCodesScreen() {
             ? {
                 options: [
                   {
-                    title: "See everyone you've invited",
+                    title: "招待をしたすべての人を確認",
                     href: "/codes/invitees",
                   },
                 ],

@@ -35,7 +35,7 @@ export default function ImageModal() {
           actor: source,
         });
 
-        if (!profile.data.avatar) throw new Error("No avatar");
+        if (!profile.data.avatar) throw new Error("アバターなし");
         return [
           {
             alt: profile.data.displayName ?? `@${profile.data.handle}`,
@@ -52,7 +52,7 @@ export default function ImageModal() {
         });
 
         if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {
-          throw new Error("Invalid thread post");
+          throw new Error("無効なスレッド投稿");
         }
 
         if (AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
@@ -66,7 +66,7 @@ export default function ImageModal() {
             return record.data.thread.post.embed.media.embed.images;
           }
         }
-        throw new Error("Invalid embed");
+        throw new Error("無効な埋め込み");
       }
     },
     retry: false,
@@ -92,7 +92,7 @@ export default function ImageModal() {
       />
       {infoVisible && (
         <TouchableOpacity
-          accessibilityLabel="Close image modal"
+          accessibilityLabel="画像モーダルを閉じる"
           accessibilityRole="button"
           onPress={() => router.back()}
           className="absolute left-5 z-10"

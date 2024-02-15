@@ -33,7 +33,7 @@ const FeedSearch = ({ search }: Props) => {
         cursor: pageParam,
       });
 
-      if (!feeds.success) throw new Error("Failed to fetch feeds");
+      if (!feeds.success) throw new Error("フィードの取得ができませんでした");
       return feeds.data;
     },
     placeholderData: keepPreviousData,
@@ -70,8 +70,8 @@ const FeedSearch = ({ search }: Props) => {
           <View className="flex-1 items-center justify-center py-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
               {search
-                ? "No feeds found - maybe try a different search term?"
-                : "Search for feeds"}
+                ? "フィードが見つかりません - 別の検索語を使うと良いかもしれないですよ?"
+                : "フィードの検索"}
             </Text>
           </View>
         }
@@ -114,7 +114,7 @@ export default function FeedSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search Feeds", headerSearchBarOptions }}
+        options={{ title: "フィードを検索", headerSearchBarOptions }}
       />
       <FeedSearch search={search} />
     </>

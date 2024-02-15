@@ -65,7 +65,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
     const lists = savedFeeds.data.lists.filter((x) => x && !x.pinned).length >
       0 && (
       <>
-        <SectionHeader title="My lists" />
+        <SectionHeader title="マイリスト" />
         <NestableDraggableFlatList
           data={
             sortableFeeds
@@ -105,8 +105,8 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <LargeRow
           icon={<CloudIcon size={32} color="white" />}
-          title="Following"
-          subtitle="Posts from people you follow"
+          title="フォロー中"
+          subtitle="フォローしている人からの投稿"
           right={
             <ChevronRightIcon
               size={20}
@@ -116,7 +116,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
         />
         {pinned.length > 0 && (
           <>
-            <SectionHeader title="Favourites" />
+            <SectionHeader title="お気に入り" />
             <NestableDraggableFlatList
               data={pinned
                 .map((uri) => {
@@ -152,7 +152,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
           </>
         )}
         {listsAboveFeeds && lists}
-        <SectionHeader title="All feeds" />
+        <SectionHeader title="すべてのフィード" />
         <NestableDraggableFlatList
           data={
             sortableFeeds
@@ -240,7 +240,7 @@ export default function Page() {
     <>
       <Stack.Screen
         options={{
-          title: "Feeds",
+          title: "フィード",
           headerLargeTitle: true,
           headerLeft,
           headerRight: () => (
@@ -255,7 +255,7 @@ export default function Page() {
                   primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
-                  {editing ? "Done" : "Edit"}
+                  {editing ? "完了" : "編集"}
                 </Text>
               </TouchableOpacity>
               {!editing && (

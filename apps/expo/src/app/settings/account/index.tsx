@@ -21,7 +21,7 @@ export default function AccountSettings() {
       <GroupedList
         groups={[
           !!agent?.session?.email && {
-            title: "Account Details",
+            title: "アカウントの詳細",
             options: [
               {
                 icon: MailIcon,
@@ -30,30 +30,30 @@ export default function AccountSettings() {
             ],
           },
           {
-            title: "Profile Settings",
+            title: "プロフィールの設定",
             options: [
               {
-                title: "Edit Profile",
+                title: "プロフィールを編集",
                 href: "/edit-bio",
                 icon: UserIcon,
               },
               {
-                title: "Change Handle",
+                title: "ハンドルを変更",
                 href: "/settings/account/change-handle",
                 icon: AtSignIcon,
               },
             ],
           },
           {
-            title: "Advanced Settings",
+            title: "高度な設定",
             options: [
               {
-                title: "Change Password",
+                title: "パスワードを変更",
                 icon: LockIcon,
                 href: "/settings/account/change-password",
               },
               {
-                title: "Delete Account",
+                title: "アカウントを削除",
                 icon: UserX,
                 destructive: true,
                 href: "/settings/account/delete-account",
@@ -72,11 +72,11 @@ export const useSelf = () => {
   return useQuery({
     queryKey: ["self"],
     queryFn: async () => {
-      if (!agent?.session) throw new Error("Not logged in");
+      if (!agent?.session) throw new Error("ログインしていません");
       const self = await agent.getProfile({
         actor: agent.session.did,
       });
-      if (!self.success) throw new Error("Could not fetch own profile");
+      if (!self.success) throw new Error("自分のプロフィールを取得できませんでした");
       return self.data;
     },
   });

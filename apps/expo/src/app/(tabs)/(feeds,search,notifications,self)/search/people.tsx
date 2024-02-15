@@ -32,7 +32,7 @@ const PeopleSearch = ({ search }: Props) => {
         term: search,
         cursor: pageParam,
       });
-      if (!profile.success) throw new Error("Search failed");
+      if (!profile.success) throw new Error("検索に失敗しました");
       return profile.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -79,8 +79,8 @@ const PeopleSearch = ({ search }: Props) => {
           <View className="flex-1 items-center justify-center py-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
               {search
-                ? "No users found - maybe try a different search term?"
-                : "Search for users"}
+                ? "ユーザーが見つかりません - 別の検索語を使うと良いかもしれないですよ?"
+                : "ユーザーを検索"}
             </Text>
           </View>
         }
@@ -115,7 +115,7 @@ export default function PeopleSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search People", headerSearchBarOptions }}
+        options={{ title: "人を検索", headerSearchBarOptions }}
       />
       <PeopleSearch search={search} />
     </>

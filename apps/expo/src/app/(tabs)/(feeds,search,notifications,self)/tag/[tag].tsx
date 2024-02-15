@@ -50,7 +50,7 @@ export default function TagScreen() {
         feed: `at://skyfeed:tags/app.bsky.feed.generator/${decodedTag.toLocaleLowerCase()}-${mode}`,
         cursor: pageParam,
       });
-      if (!rawPosts.success) throw new Error("Failed to fetch feed");
+      if (!rawPosts.success) throw new Error("フィードの取得に失敗しました");
       // split to chunks of 25
       const chunks = rawPosts.data.feed.reduce((acc, post, i) => {
         if (i % 25 === 0) acc.push([]);
@@ -63,7 +63,7 @@ export default function TagScreen() {
           const posts = await agent.app.bsky.feed.getPosts({
             uris: chunk.map((post) => post.post),
           });
-          if (!posts.success) throw new Error("Failed to hydrate feed");
+          if (!posts.success) throw new Error("フィードの補給に失敗しました");
           return posts.data.posts;
         }),
       );
@@ -93,7 +93,7 @@ export default function TagScreen() {
                         "Cancel",
                       ],
                       cancelButtonIndex: OPTIONS.length,
-                      title: "Sort posts by",
+                      title: "投稿の並び替え",
                       ...actionSheetStyles(theme),
                     },
                     (index) => {
@@ -203,20 +203,20 @@ function getModeName(mode: (typeof OPTIONS)[number]) {
     case "new":
       return "New";
     case "hn4":
-      return "Hot";
+      return "ホット";
     case "hn10":
-      return "Rising";
+      return "上昇中";
     case "like10h":
-      return "Top (10h)";
+      return "トップ (10時間以内)";
     case "like24h":
-      return "Top (24h)";
+      return "トップ (24時間以内)";
     case "like3d":
-      return "Top (3d)";
+      return "トップ (3日以内)";
     case "like7d":
-      return "Top (7d)";
+      return "トップ (7日以内)";
     case "random":
-      return "Random";
+      return "ランダム";
     default:
-      throw new Error("Invalid mode");
+      throw new Error("無効なモード");
   }
 }

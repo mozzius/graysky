@@ -29,21 +29,21 @@ export default function AboutPage() {
           {
             options: [
               {
-                title: "Star us on GitHub!",
+                title: "GitHubでStarを付けてください!",
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/mozzius/graysky"),
                 icon: GithubIcon,
                 chevron: true,
               },
               {
-                title: "Sign up for project updates",
+                title: "プロジェクトの最新情報を登録する",
                 accessibilityRole: "link",
                 onPress: () => openLink("https://graysky.app"),
                 icon: MailIcon,
                 chevron: true,
               },
               {
-                title: "Contact",
+                title: "連絡先",
                 accessibilityRole: "link",
                 onPress: () => Linking.openURL("mailto:hello@graysky.app"),
                 icon: SendIcon,
@@ -52,7 +52,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Created by",
+            title: "開発者:",
             options: [
               {
                 title: "mozzius.dev",
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 icon: AtSignIcon,
               },
               {
-                title: "Sponsor my work",
+                title: "スポンサーになる",
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/sponsors/mozzius"),
                 icon: HeartIcon,
@@ -70,7 +70,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Contributors",
+            title: "貢献者",
             options: [
               {
                 title: "alice.bsky.sh",
@@ -105,7 +105,7 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Logo designed by",
+            title: "ロゴのデザイン:",
             options: [
               {
                 title: "roselia.gay",
@@ -116,10 +116,10 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "App info",
+            title: "アプリ情報",
             options: [
               {
-                title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
+                title: `バージョン ${Constants.expoConfig?.version ?? "unknown"}`,
                 icon: WrenchIcon,
               },
             ],

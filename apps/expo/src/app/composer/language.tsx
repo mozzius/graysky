@@ -79,7 +79,7 @@ export default function PostLanguage() {
                 ]
               : [
                   {
-                    title: "My languages",
+                    title: "自分の言語",
                     options: SELECTABLE_LANGUAGES.filter(
                       (l) =>
                         Boolean(l.code2) && suggestedLangs.includes(l.code2),
@@ -92,7 +92,7 @@ export default function PostLanguage() {
                     })),
                   },
                   {
-                    title: "All languages",
+                    title: "すべての言語",
                     options: SELECTABLE_LANGUAGES.filter((l) =>
                       Boolean(l.code2),
                     ).map((lang) => ({

@@ -30,10 +30,10 @@ export default function PushNotificationsScreen() {
             size={80}
             strokeWidth={1.5}
           />
-          <Text className="mt-8 text-center text-3xl">Push Notifications</Text>
+          <Text className="mt-8 text-center text-3xl">プッシュ通知</Text>
           <Text className="mt-4 max-w-[510px] text-center text-base">
-            You can receive push notifications for likes, replies, and more!
-            However, there are some caveats you should be aware of.
+            「いいね」や「返信」などのプッシュ通知を受け取る事ができます。
+            ただし、注意すべき点も存在します。
           </Text>
         </View>
         <View className="mt-8 flex-1 flex-col space-y-2">
@@ -44,8 +44,8 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You might receive the same notifications via other Bluesky
-              clients.
+              他のBlueskyクライアントでも同じ通知が
+              届くかもしれません。
             </Text>
           </View>
           <View className="flex-row items-start">
@@ -55,17 +55,17 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may receive notifications from people you have muted.{" "}
+              ミュートをしたユーザーから通知が来る事があります。{" "}
               <Text
                 primary
                 onPress={() =>
                   Alert.alert(
-                    "Notifications from muted users",
-                    "For your privacy, our server can't know who you've muted. This means you may receive notifications from muted users. We're working on a solution to this.",
+                    "ミュートをしたユーザーからの通知",
+                    "プライバシー保護のため、ミュートをしたユーザーをサーバーが知る事はできません。つまり、ミュートをしたユーザーからの通知を受け取る可能性があります。現在、解決策を検討中です。",
                   )
                 }
               >
-                Learn more
+                さらに詳しく
               </Text>
             </Text>
           </View>
@@ -76,18 +76,18 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may receive notifications from people you{"'"}ve blocked or
-              muted via moderation list.{" "}
+              あなたがブロックまたはミュートをした相手からの通知を受け取る事があります。
+              モデレーションリストでミュートをした人からの通知を受け取る事があります。{" "}
               <Text
                 primary
                 onPress={() =>
                   Alert.alert(
-                    "Moderation lists",
-                    "Our server can't currently tell what moderation lists you've subscribed to. This will likely change in the future, as we improve our software.",
+                    "モデレーションリスト",
+                    "私たちのサーバーは現在、購読しているモデレーションリストを知る事ができません。今後、ソフトウェアの改良に伴い、変更される可能性があります。",
                   )
                 }
               >
-                Learn more
+                さらに詳しく
               </Text>
             </Text>
           </View>
@@ -113,7 +113,7 @@ export default function PushNotificationsScreen() {
             }}
           >
             <Text className="text-center text-base font-medium text-white">
-              Enable notifications
+              通知を有効化する
             </Text>
           </View>
         </TouchableHighlight>

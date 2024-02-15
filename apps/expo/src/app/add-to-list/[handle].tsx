@@ -24,7 +24,7 @@ export default function AddToListScreen() {
     queryFn: async () => {
       if (!handle) throw new Error("No DID provided");
       const user = await agent.getProfile({ actor: handle });
-      if (!user.success) throw new Error("Couldn't fetch user");
+      if (!user.success) throw new Error("ユーザーの取得ができませんでした");
       return user.data;
     },
   });
@@ -36,7 +36,7 @@ export default function AddToListScreen() {
       const lists = await agent.app.bsky.graph.getLists({
         actor: agent.session.did,
       });
-      if (!lists.success) throw new Error("Couldn't fetch lists");
+      if (!lists.success) throw new Error("リストの取得ができませんでした");
       return lists.data;
     },
   });
@@ -117,16 +117,16 @@ export default function AddToListScreen() {
         <Stack.Screen
           options={{
             headerRight,
-            title: `Add ${
+            title: `リストに ${
               profile.data.displayName ?? `@${profile.data.handle}`
-            } to List`,
+            } を追加`,
           }}
         />
         <TransparentHeaderUntilScrolled>
           <GroupedList
             groups={[
               {
-                title: "Add to user list",
+                title: "ユーザーリストに追加",
                 options: userLists?.map(renderList),
                 children: userLists?.length === 0 && (
                   <Text className="my-3 text-center text-base text-neutral-500">
@@ -135,7 +135,7 @@ export default function AddToListScreen() {
                 ),
               },
               {
-                title: "Add to moderation list",
+                title: "モデレーションリストに追加",
                 options: moderationLists?.map(renderList),
                 children: moderationLists?.length === 0 && (
                   <Text className="my-3 text-center text-base text-neutral-500">
@@ -144,11 +144,11 @@ export default function AddToListScreen() {
                 ),
               },
               {
-                title: "Need a new list?",
+                title: "新規リストが必要ですか?",
                 options: [
                   {
                     icon: ListPlusIcon,
-                    title: "Create new list",
+                    title: "新規リストを作成",
                     href: "/create-list",
                   },
                 ],

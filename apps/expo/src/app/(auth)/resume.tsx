@@ -21,7 +21,7 @@ export default function ResumeSession() {
       <GroupedList
         groups={[
           {
-            title: "Log back in",
+            title: "ログインをし直す",
             children: <SwitchAccounts chevrons showAddAccount />,
           },
         ]}

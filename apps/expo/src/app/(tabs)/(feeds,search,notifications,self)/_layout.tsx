@@ -27,7 +27,7 @@ export default function SubStack({
     return (
       <View className="flex-1 items-center justify-center bg-white dark:bg-black">
         <ActivityIndicator size="large" />
-        <Text className="mt-4 text-center text-base">Connecting...</Text>
+        <Text className="mt-4 text-center text-base">接続中...</Text>
       </View>
     );
   }

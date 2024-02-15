@@ -144,7 +144,7 @@ const App = () => {
           case "expired":
             saveSession(null);
             showToastable({
-              message: "Sorry! Your session expired. Please log in again.",
+              message: "ごめんなさい!セッションの有効期限が切れました。再度ログインをしてください。",
             });
             break;
         }
@@ -162,7 +162,7 @@ const App = () => {
     retry: 3,
     onError: () => {
       showToastable({
-        message: "Sorry! Your session expired. Please log in again.",
+        message: "ごめんなさい!セッションの有効期限が切れました。再度ログインをしてください。",
       });
       router.replace("/");
     },
@@ -306,7 +306,7 @@ const App = () => {
                           <Stack.Screen
                             name="discover"
                             options={{
-                              title: "Discover Feeds",
+                              title: "Discoverフィード",
                               presentation: "modal",
                               headerLargeTitle: true,
                               headerLargeTitleShadowVisible: false,
@@ -327,7 +327,7 @@ const App = () => {
                           <Stack.Screen
                             name="success"
                             options={{
-                              title: "Purchase Successful",
+                              title: "購入が成功しました",
                               headerShown: false,
                               presentation: "modal",
                             }}
@@ -349,7 +349,7 @@ const App = () => {
                           <Stack.Screen
                             name="edit-bio"
                             options={{
-                              title: "Edit Profile",
+                              title: "プロフィールを編集",
                               presentation: "modal",
                               headerTransparent: true,
                               headerShadowVisible: true,
@@ -366,21 +366,21 @@ const App = () => {
                           <Stack.Screen
                             name="create-list"
                             options={{
-                              title: "Create List",
+                              title: "リストを作成",
                               presentation: "modal",
                             }}
                           />
                           <Stack.Screen
                             name="add-to-list/[handle]"
                             options={{
-                              title: "Add to List",
+                              title: "リストに追加",
                               presentation: "modal",
                             }}
                           />
                           <Stack.Screen
                             name="push-notifications"
                             options={{
-                              title: "Push Notifications",
+                              title: "プッシュ通知",
                               presentation: "modal",
                               headerShown: false,
                               headerTransparent: true,
@@ -390,7 +390,7 @@ const App = () => {
                           <Stack.Screen
                             name="capture/[author]/[post]"
                             options={{
-                              title: "Share as Image",
+                              title: "画像として共有",
                               presentation: "formSheet",
                             }}
                           />

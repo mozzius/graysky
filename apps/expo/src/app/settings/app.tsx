@@ -29,63 +29,63 @@ export default function AppSettings() {
       <GroupedList
         groups={[
           {
-            title: "General",
+            title: "一般",
             options: [
               {
-                title: "Manually sort non-favourite feeds",
+                title: "お気に入り以外のフィードを手動で並べ替える",
                 action: (
                   <Switch
                     value={sortableFeeds}
                     onValueChange={(sortableFeeds) =>
                       setAppPreferences({ sortableFeeds })
                     }
-                    accessibilityHint="Allows you to manually sort non-favourite feeds in the feeds tab"
+                    accessibilityHint="フィードタブでお気に入り以外のフィードを自動で並べ替える事ができるようになります"
                   />
                 ),
               },
               {
-                title: 'Show "My Lists" above "All Feeds"',
+                title: '「すべてのフィード」上に「マイリスト」を表示',
                 action: (
                   <Switch
                     value={listsAboveFeeds}
                     onValueChange={(listsAboveFeeds) =>
                       setAppPreferences({ listsAboveFeeds })
                     }
-                    accessibilityHint="Show lists above feeds in the feeds tab"
+                    accessibilityHint="フィードタブにフィード上のリストを表示"
                   />
                 ),
               },
               {
-                title: "Show each notification individually",
+                title: "各通知を個別に表示",
                 action: (
                   <Switch
                     value={!groupNotifications}
                     onValueChange={(value) =>
                       setAppPreferences({ groupNotifications: !value })
                     }
-                    accessibilityHint="Show each notification individually in the notification tab"
+                    accessibilityHint="通知タブに各通知を個別に表示"
                   />
                 ),
               },
               {
-                title: "Use in-app browser",
+                title: "アプリ内ブラウザを使用する",
                 action: (
                   <Switch
                     value={inAppBrowser}
                     onValueChange={(value) =>
                       setAppPreferences({ inAppBrowser: value })
                     }
-                    accessibilityHint="Links will open in the app instead of your device's default browser"
+                    accessibilityHint="リンクをデバイスのデフォルトブラウザではなく、アプリ内で開きます"
                   />
                 ),
               },
             ],
           },
           {
-            title: "Accessibility",
+            title: "アクセシビリティ",
             options: [
               {
-                title: "Disable haptics",
+                title: "触覚フィードバックを無効化する",
                 action: (
                   <Switch
                     value={!haptics}
@@ -94,17 +94,17 @@ export default function AppSettings() {
                       setAppPreferences({ haptics });
                       if (!haptics) {
                         Alert.alert(
-                          "Haptics disabled",
-                          "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings.",
+                          "触覚フィードバックが無効化されています",
+                          "アプリが触覚フィードバックをトリガーしなくなりましたが、一部のUI要素には引き続き触覚フィードバックが存在する可能性があります。これに敏感な場合は、デバイスのシステムアクセシビリティの設定で触覚フィードバックを無効化してください。",
                         );
                       }
                     }}
-                    accessibilityHint="Disable haptics (vibrations)"
+                    accessibilityHint="触覚フィードバック無効化 (バイブレーション)"
                   />
                 ),
               },
               {
-                title: "Disable GIF autoplay",
+                title: "GIFの自動再生を無効化",
                 action: (
                   <Switch
                     value={!gifAutoplay}
@@ -112,12 +112,12 @@ export default function AppSettings() {
                       const gifAutoplay = !disableGifAutoplay;
                       setAppPreferences({ gifAutoplay });
                     }}
-                    accessibilityHint="Disable GIF autoplay"
+                    accessibilityHint="GIFの自動再生を無効化します"
                   />
                 ),
               },
               {
-                title: "Mandatory ALT text",
+                title: "ALTテキストを必須にする",
                 action: (
                   <Switch
                     value={altText === "force"}
@@ -125,7 +125,7 @@ export default function AppSettings() {
                       const altText = force ? "force" : "warn";
                       setAppPreferences({ altText });
                     }}
-                    accessibilityHint="Makes adding ALT text to your images mandatory"
+                    accessibilityHint="画像のALTテキストの追加を必須にします"
                   />
                 ),
               },

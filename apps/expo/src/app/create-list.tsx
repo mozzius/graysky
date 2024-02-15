@@ -58,10 +58,10 @@ export default function CreateListScreen() {
   }, []);
 
   const handleSelectPurpose = useCallback(() => {
-    const options = ["User list", "Moderation list"];
+    const options = ["User list", "モデレーションリスト"];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
+        options: [...options, "キャンセル"],
         cancelButtonIndex: options.length,
       },
       (index) => {
@@ -147,7 +147,7 @@ export default function CreateListScreen() {
           contentInsetAdjustmentBehavior="automatic"
         >
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            List Avatar
+            リストのアバター
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -168,7 +168,7 @@ export default function CreateListScreen() {
             </TouchableHighlight>
           </View>
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            List name
+            リストの名前
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -183,7 +183,7 @@ export default function CreateListScreen() {
             />
           </View>
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            Description
+            説明
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -191,7 +191,7 @@ export default function CreateListScreen() {
           >
             <TextInput
               onChange={(evt) => setDescription(evt.nativeEvent.text)}
-              placeholder="Optional"
+              placeholder="任意"
               multiline
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
             >
@@ -219,8 +219,8 @@ export default function CreateListScreen() {
                 {purpose === "app.bsky.graph.defs#curatelist"
                   ? "User list"
                   : purpose === "app.bsky.graph.defs#modlist"
-                    ? "Moderation list"
-                    : "Select list purpose"}
+                    ? "モデレーションリスト"
+                    : "目的のリストを選択"}
               </Text>
             </View>
           </TouchableHighlight>
@@ -228,7 +228,7 @@ export default function CreateListScreen() {
             <TextButton
               disabled={!name || !purpose || createList.isPending}
               onPress={createList.mutate}
-              title="Create list"
+              title="リストを作成"
               className="font-medium"
             />
           </View>

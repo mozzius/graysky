@@ -62,8 +62,8 @@ export default function DeleteAccount() {
     onError: (err) => {
       console.error(err);
       showToastable({
-        title: "Could not delete account",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: "アカウントを削除できませんでした",
+        message: err instanceof Error ? err.message : "不明なエラー",
         status: "danger",
       });
     },
@@ -90,12 +90,12 @@ export default function DeleteAccount() {
                 />
                 <View className="ml-3 flex-1">
                   <Text className="text-base font-medium leading-5 text-red-800 dark:text-white">
-                    Warning: Account deletion is permanent
+                    警告: アカウントの削除は永久的です
                   </Text>
                   <Text className="mt-1">
-                    Deleting your Bluesky account will permanently remove all of
-                    your data, including your profile, posts, follows, and
-                    likes. This action cannot be undone.
+                    Blueskyのアカウントを削除すると、すべてが完全に削除されます。
+                    プロフィール、投稿、フォローなどのデータ、いいねなどのデータが削除されます。
+                    この操作は戻す事はできません。
                   </Text>
                 </View>
               </View>
@@ -105,22 +105,22 @@ export default function DeleteAccount() {
                 <TextButton
                   onPress={() =>
                     Alert.alert(
-                      "Double check that you understand",
-                      "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too.",
+                      "理解をしている事をご確認ください",
+                      "確認を押す事で削除しようとしている物は、「Blueskyのアカウント」であり、「Grayskyではない事を理解した」と見なされます。公式アプリからもデータは完全に削除されます。",
                       [
                         {
-                          text: "Cancel",
+                          text: "キャンセル",
                           style: "cancel",
                         },
                         {
-                          text: "Confirm and continue",
+                          text: "確認と続行",
                           onPress: () => sendEmail.mutate(),
                           style: "destructive",
                         },
                       ],
                     )
                   }
-                  title="Send confirmation email"
+                  title="確認のメールを送信"
                   className="text-center font-medium"
                 />
               ) : (
@@ -157,7 +157,7 @@ export default function DeleteAccount() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Deletion Code
+                削除コード
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -173,7 +173,7 @@ export default function DeleteAccount() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Password
+                パスワード
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -193,12 +193,12 @@ export default function DeleteAccount() {
               </View>
             </View>
             <View className="flex-row items-center justify-between pt-2">
-              <TextButton onPress={() => setStage(1)} title="Back" />
+              <TextButton onPress={() => setStage(1)} title="戻る" />
               {!changePassword.isPending ? (
                 <TextButton
                   disabled={!token || !password}
                   onPress={() => changePassword.mutate()}
-                  title="Delete Account"
+                  title="アカウントを削除"
                   className="font-medium text-red-500"
                 />
               ) : (
@@ -216,7 +216,7 @@ export default function DeleteAccount() {
         >
           <CheckCircle2Icon size={64} color={theme.colors.primary} />
           <Text className="mt-8 text-center text-lg font-medium">
-            Account deleted. Goodbye!
+            アカウントは削除されました。さようなら!
           </Text>
         </Animated.View>
       );

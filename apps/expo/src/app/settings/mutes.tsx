@@ -17,7 +17,7 @@ export default function MutedUsers() {
       const mutes = await agent.app.bsky.graph.getMutes({
         cursor: pageParam,
       });
-      if (!mutes.success) throw new Error("Could not fetch mutes");
+      if (!mutes.success) throw new Error("ミュートを取得できませんでした");
       return mutes.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -39,7 +39,7 @@ export default function MutedUsers() {
           evt.preventDefault();
           router.push(`/(feeds)/profile/${evt.person.did}`);
         }}
-        emptyText="You haven't muted anyone"
+        emptyText="誰もミュートにしていません"
       />
     );
   }

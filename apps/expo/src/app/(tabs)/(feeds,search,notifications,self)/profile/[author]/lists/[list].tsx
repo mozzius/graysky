@@ -76,10 +76,10 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="feed" label="Feed">
+          <Tabs.Tab name="feed" label="フィード">
             <ListFeed uri={uri} />
           </Tabs.Tab>
-          <Tabs.Tab name="members" label="Members">
+          <Tabs.Tab name="members" label="メンバー">
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>
@@ -97,7 +97,7 @@ export default function ListsScreen() {
           )}
           allowHeaderOverscroll={Platform.OS === "ios"}
         >
-          <Tabs.Tab name="members" label="Members">
+          <Tabs.Tab name="members" label="メンバー">
             <ListMembers query={list} />
           </Tabs.Tab>
         </Tabs.Container>
@@ -109,9 +109,9 @@ export default function ListsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: "List",
+          title: "リスト",
           headerTitle: "",
-          headerBackTitle: "Back",
+          headerBackTitle: "戻る",
         }}
       />
       <QueryWithoutData query={list} />
@@ -128,7 +128,7 @@ const useListQuery = (uri: string) => {
         list: uri,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error("Could not fetch list");
+      if (!res.success) throw new Error("リストを取得できませんでした");
       return res.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -180,7 +180,7 @@ const ListHeader = ({
             if (info.viewer?.blocked || info.viewer?.muted) {
               showActionSheetWithOptions(
                 {
-                  options: ["Unsubscribe from list", "Cancel"],
+                  options: ["Unsubscribe from list", "キャンセル"],
                   cancelButtonIndex: 1,
                   ...actionSheetStyles(theme),
                 },
@@ -203,11 +203,11 @@ const ListHeader = ({
                 },
               );
             } else {
-              const options = ["Mute all members", "Block all members"];
+              const options = ["Mute all members", "すべてのメンバーをブロック"];
               showActionSheetWithOptions(
                 {
-                  title: `Subscribe to ${info.name}`,
-                  options: [...options, "Cancel"],
+                  title: `${info.name}を購読する`,
+                  options: [...options, "キャンセル"],
                   cancelButtonIndex: options.length,
                   destructiveButtonIndex: [0, 1],
                   ...actionSheetStyles(theme),
@@ -244,7 +244,7 @@ const ListHeader = ({
                 pin: info.uri,
               })
               .then(() =>
-                resolve(!isPinned ? "List favorited" : "List unfavorited"),
+                resolve(!isPinned ? "お気に入りに登録しているリスト" : "お気に入りに登録していないリスト"),
               );
             break;
         }
@@ -302,7 +302,7 @@ const ListHeader = ({
       ] as const;
       showActionSheetWithOptions(
         {
-          options: [...options, "Cancel"],
+          options: [...options, "キャンセル"],
           destructiveButtonIndex: 2,
           cancelButtonIndex: options.length,
           ...actionSheetStyles(theme),
@@ -311,17 +311,17 @@ const ListHeader = ({
           if (buttonIndex === undefined) return;
           const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
           switch (options[buttonIndex]) {
-            case "Delete list":
+            case "リストを削除":
               Alert.alert(
-                "Delete list",
-                "Are you sure you want to delete this list?",
+                "リストを削除",
+                "本当にこのリストを削除しますか?",
                 [
                   {
-                    text: "Cancel",
+                    text: "キャンセル",
                     style: "cancel",
                   },
                   {
-                    text: "Delete",
+                    text: "削除",
                     style: "destructive",
                     onPress: () => {
                       deleteList.mutate();
@@ -338,7 +338,7 @@ const ListHeader = ({
                 }),
               );
               break;
-            case "Change to user list":
+            case "ユーザーリストに変更":
               // unmute and unblock before changing type
               if (info.viewer?.muted) {
                 await agent.unmuteModList(info.uri);
@@ -379,7 +379,7 @@ const ListHeader = ({
     } else {
       showActionSheetWithOptions(
         {
-          options: ["Share", "Cancel"],
+          options: ["共有", "キャンセル"],
           cancelButtonIndex: 1,
           ...actionSheetStyles(theme),
         },
@@ -407,9 +407,9 @@ const ListHeader = ({
     >
       <Stack.Screen
         options={{
-          title: info?.name ?? "List",
+          title: info?.name ?? "リスト",
           headerTitle: "",
-          headerBackTitle: "Back",
+          headerBackTitle: "戻る",
           headerRight: () => (
             <View className="flex-row">
               {actionText && (
@@ -547,7 +547,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
         list: uri,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error("Could not fetch list feed");
+      if (!res.success) throw new Error("リストフィードを取得できませんでした");
       return res.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -641,7 +641,7 @@ const useDeleteList = (handle?: string, rkey?: string) => {
 
   return useMutation({
     mutationFn: async () => {
-      if (!handle || !rkey) throw new Error("Missing route params");
+      if (!handle || !rkey) throw new Error("ルートパラメータが見つかりません");
       await agent.com.atproto.repo.applyWrites({
         repo: handle,
         writes: [
@@ -656,14 +656,14 @@ const useDeleteList = (handle?: string, rkey?: string) => {
     onSuccess: () => {
       router.back();
       showToastable({
-        title: "List deleted",
-        message: "Your list has been deleted",
+        title: "リストを削除しました",
+        message: "リストが削除されました",
       });
     },
     onError: () => {
       showToastable({
-        title: "Error",
-        message: "Could not delete list",
+        title: "エラー",
+        message: "リストを削除できませんでした",
         status: "danger",
       });
     },

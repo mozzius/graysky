@@ -40,7 +40,7 @@ export default function ShareAsImageScreen() {
   const post = useQuery({
     queryKey: ["profile", author, "post", rkey, "no-context"],
     queryFn: async () => {
-      if (!author || !rkey) throw new Error("Invalid author or post");
+      if (!author || !rkey) throw new Error("無効な著者または投稿");
       let did = author;
       if (!did.startsWith("did:")) {
         const { data } = await agent.resolveHandle({ handle: author });
@@ -76,13 +76,13 @@ export default function ShareAsImageScreen() {
           if (!uri) throw new Error("Failed to capture image");
           await Sharing.shareAsync(uri, {
             mimeType: "image/jpeg",
-            dialogTitle: `Share ${post.data.post.author.handle}'s post`,
+            dialogTitle: `${post.data.post.author.handle}の投稿を共有する`,
             UTI: "public.jpeg",
           });
           router.push("../");
         } catch (err) {
           console.error(err);
-          Alert.alert("Error", "Failed to capture image");
+          Alert.alert("Error", "画像のキャプチャに失敗しました");
         }
       });
     };

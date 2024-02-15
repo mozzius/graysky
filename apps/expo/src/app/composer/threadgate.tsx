@@ -18,7 +18,7 @@ export default function ThreadgateScreen() {
       const lists = await agent.app.bsky.graph.getLists({
         actor: agent.session.did,
       });
-      if (!lists.success) throw new Error("Couldn't fetch lists");
+      if (!lists.success) throw new Error("リストの取得ができませんでした");
       return lists.data;
     },
   });
@@ -28,10 +28,10 @@ export default function ThreadgateScreen() {
       <GroupedList
         groups={[
           {
-            title: "Who can reply?",
+            title: "誰が返信できますか?",
             options: [
               {
-                title: "Everyone can reply",
+                title: "誰でも返信可能",
                 icon: threadgate.length === 0 ? CheckIcon : "SPACE",
                 onPress: () =>
                   setComposerState(
@@ -41,7 +41,7 @@ export default function ThreadgateScreen() {
                   ),
               },
               {
-                title: "No one can reply",
+                title: "誰でも返信不可",
                 icon: threadgate.find((gate) => gate.type === "nobody")
                   ? CheckIcon
                   : "SPACE",
@@ -53,7 +53,7 @@ export default function ThreadgateScreen() {
                   ),
               },
               {
-                title: "Specific people can reply",
+                title: "特定の人のみ返信可能",
                 icon:
                   threadgate.length > 0 &&
                   !threadgate.find((gate) => gate.type === "nobody")
@@ -76,10 +76,10 @@ export default function ThreadgateScreen() {
           },
           threadgate.length > 0 &&
             !threadgate.find((gate) => gate.type === "nobody") && {
-              title: "Select one or more options",
+              title: "1つ以上のオプションを選択",
               options: [
                 {
-                  title: "People mentioned in the thread",
+                  title: "スレッドで言及した人",
                   icon: threadgate.find((gate) => gate.type === "mention")
                     ? CheckIcon
                     : "SPACE",
@@ -101,7 +101,7 @@ export default function ThreadgateScreen() {
                     ),
                 },
                 {
-                  title: "People you follow",
+                  title: "フォローをしている人",
                   icon: threadgate.find((gate) => gate.type === "following")
                     ? CheckIcon
                     : "SPACE",
@@ -123,7 +123,7 @@ export default function ThreadgateScreen() {
                     ),
                 },
                 ...(lists.data?.lists?.map((list) => ({
-                  title: `Members of list "${list.name}"`,
+                  title: `"${list.name}"のリスト内のメンバー`,
                   icon: threadgate.find(
                     (gate) => gate.type === "list" && gate.list === list.uri,
                   )

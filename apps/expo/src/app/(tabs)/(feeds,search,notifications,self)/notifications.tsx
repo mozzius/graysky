@@ -41,7 +41,7 @@ function Notifications() {
       const notifs = await agent.listNotifications({
         cursor: pageParam,
       });
-      if (!notifs.success) throw new Error("Failed to fetch notifications");
+      if (!notifs.success) throw new Error("通知の取得に失敗しました");
 
       const grouped: NotificationGroup[] = [];
       const subjects = new Set<string>();
@@ -284,7 +284,7 @@ export default function NotificationPage() {
     <>
       <Stack.Screen
         options={{
-          title: "Notifications",
+          title: "通知",
           headerLeft,
         }}
       />

@@ -47,7 +47,7 @@ export default function AppLayout() {
       if (!agent?.hasSession) return null;
       const unreadCount = await agent.countUnreadNotifications();
       if (!unreadCount.success)
-        throw new Error("Failed to fetch notifications");
+        throw new Error("通知の取得に失敗しました");
       await Notifications.setBadgeCountAsync(
         Math.min(unreadCount.data.count, 30),
       );
@@ -153,7 +153,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(feeds)"
             options={{
-              title: homepage === "feeds" ? "Feeds" : "Skyline",
+              title: homepage === "feeds" ? "フィード" : "Skyline",
               tabBarIcon({ color, size }) {
                 return homepage === "feeds" ? (
                   <CloudyIcon color={color} size={size} />
@@ -166,7 +166,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(search)"
             options={{
-              title: "Search",
+              title: "検索",
               tabBarIcon({ color, size }) {
                 return <SearchIcon color={color} size={size} />;
               },
@@ -175,8 +175,8 @@ export default function AppLayout() {
           <Tabs.Screen
             name="null"
             options={{
-              title: "Post",
-              tabBarAccessibilityLabel: "Create a new post",
+              title: "投稿",
+              tabBarAccessibilityLabel: "新規投稿を作成",
               tabBarIcon({ color, size }) {
                 return <PenBox color={color} size={size} />;
               },
@@ -217,7 +217,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(notifications)"
             options={{
-              title: "Notifications",
+              title: "通知",
               tabBarAccessibilityLabel: `Notifications${
                 notifications.data?.count ? ", new items" : ""
               }`,
@@ -238,7 +238,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(self)"
             options={{
-              title: "Profile",
+              title: "プロフィール",
               headerShown: false,
               tabBarIcon({ color, size }) {
                 return <UserIcon color={color} size={size} />;

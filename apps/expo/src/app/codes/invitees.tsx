@@ -36,7 +36,7 @@ const Invitees = ({ people }: Props) => {
           const res = await agent.app.bsky.actor.getProfiles({
             actors: group.map((x) => x.usedBy),
           });
-          if (!res.success) throw new Error("Could not get profiles");
+          if (!res.success) throw new Error("プロフィールを取得できませんでした");
           return res.data;
         }),
       );

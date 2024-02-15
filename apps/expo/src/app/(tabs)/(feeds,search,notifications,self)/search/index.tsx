@@ -80,7 +80,7 @@ export default function SearchPage() {
     <>
       <Stack.Screen
         options={{
-          title: "Search",
+          title: "検索",
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: false,
           headerLargeStyle: {
@@ -115,7 +115,7 @@ const SearchResults = ({ search }: Props) => {
         term: search,
         limit: MAX_RESULTS,
       });
-      if (!success) throw new Error("Failed to search");
+      if (!success) throw new Error("検索に失敗しました");
       return data;
     },
     placeholderData: keepPreviousData,
@@ -136,18 +136,18 @@ const SearchResults = ({ search }: Props) => {
               options: [
                 {
                   icon: SearchIcon,
-                  title: "Search posts",
+                  title: "投稿を検索",
                   href: path(`/search/posts?q=${encodeURIComponent(search)}`),
                 },
                 {
                   icon: SearchIcon,
-                  title: "Search feeds",
+                  title: "フィードを検索",
                   href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
                 },
                 data.length === 0
                   ? {
                       icon: SearchIcon,
-                      title: "Search users",
+                      title: "ユーザーを検索",
                       href: path(
                         `/search/people?q=${encodeURIComponent(search)}`,
                       ),
@@ -172,7 +172,7 @@ const SearchResults = ({ search }: Props) => {
                       ? [
                           {
                             icon: SearchIcon,
-                            title: "Search all users",
+                            title: "すべてのユーザーを検索",
                             href: path(
                               `/search/people?q=${encodeURIComponent(search)}`,
                             ),
@@ -224,7 +224,7 @@ const Suggestions = () => {
       const result = await agent.getSuggestions({
         cursor: pageParam,
       });
-      if (!result.success) throw new Error("Failed to get suggestions");
+      if (!result.success) throw new Error("提案の取得ができませんでした");
       return result;
     },
     initialPageParam: undefined as string | undefined,
@@ -241,7 +241,7 @@ const Suggestions = () => {
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <View>
-            <Text className="mt-4 px-4 text-lg font-bold">Trending topics</Text>
+            <Text className="mt-4 px-4 text-lg font-bold">トレンドトピック</Text>
             {!trendingTopics.isPending ? (
               trendingTopics.data ? (
                 <View className="flex-col px-4">
@@ -303,7 +303,7 @@ const Suggestions = () => {
                     >
                       <View className="flex-row items-center justify-center py-1">
                         <Text className="text-center">
-                          {showAll ? "Show less" : "Show all"}
+                          {showAll ? "もっと表示" : "すべて表示"}
                         </Text>
                         {showAll ? (
                           <ChevronUpIcon
@@ -324,14 +324,14 @@ const Suggestions = () => {
                 </View>
               ) : (
                 <Text className="mt-1 text-base">
-                  Could not fetch trending topics
+                  トレンドトピックが取得できませんでした
                 </Text>
               )
             ) : (
               <ActivityIndicator className="mt-2" />
             )}
             <Text className="mt-4 px-4 text-lg font-bold">
-              Suggested follows
+              提案されたフォロー
             </Text>
           </View>
         }
@@ -425,7 +425,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 style={{ borderWidth: StyleSheet.hairlineWidth }}
               >
                 <Text className={cx("text-sm", follow.isIdle && "text-white")}>
-                  {follow.isIdle ? "Follow" : "Following"}
+                  {follow.isIdle ? "フォロー" : "フォロー中"}
                 </Text>
               </TouchableOpacity>
             )}

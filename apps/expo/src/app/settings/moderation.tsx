@@ -100,28 +100,28 @@ export default function ModerationSettings() {
         <GroupedList
           groups={[
             {
-              title: "Blocks & Mutes",
+              title: "ブロックとミュート",
               options: [
                 {
-                  title: "Blocked users",
+                  title: "ブロックしたユーザー",
                   href: "/settings/blocks",
                   icon: ShieldXIcon,
                 },
                 {
-                  title: "Muted users",
+                  title: "ミュートをしたユーザー",
                   href: "/settings/mutes",
                   icon: MegaphoneOffIcon,
                 },
               ],
             },
             {
-              title: "Content filters",
+              title: "コンテンツフィルター",
               children: Platform.OS === "ios" && (
                 <>
                   <View className="px-4 py-3">
                     <Text>
-                      Note: Adult content settings cannot be changed on iOS.
-                      Please use the web app instead.
+                      注意: iOSではアダルトコンテンツ設定は変更できません。
+                      Webアプリをご利用ください。
                     </Text>
                   </View>
                   <ItemSeparator />
@@ -129,7 +129,7 @@ export default function ModerationSettings() {
               ),
               options: [
                 {
-                  title: "Enable Adult Content",
+                  title: "アダルトコンテンツを有効化",
                   action: (
                     <Switch
                       disabled={Platform.OS === "ios"}
@@ -161,7 +161,7 @@ export default function ModerationSettings() {
                         action: (
                           <View className="flex-row items-center">
                             <Text className="text-base font-medium capitalize text-neutral-400 dark:text-neutral-300">
-                              {adultContentEnabled ? visibility : "Hide"}
+                              {adultContentEnabled ? visibility : "隠す"}
                             </Text>
                             <ChevronsUpDownIcon
                               size={16}
@@ -182,7 +182,7 @@ export default function ModerationSettings() {
                             showActionSheetWithOptions(
                               {
                                 title: label,
-                                options: [...options.map(capitalise), "Cancel"],
+                                options: [...options.map(capitalise), "キャンセル"],
                                 cancelButtonIndex: options.length,
                                 destructiveButtonIndex: 0,
                                 ...actionSheetStyles(theme),

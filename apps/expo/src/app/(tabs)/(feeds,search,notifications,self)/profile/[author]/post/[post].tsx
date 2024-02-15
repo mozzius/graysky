@@ -65,7 +65,7 @@ const PostThread = ({ contentFilter }: Props) => {
   const thread = useQuery({
     queryKey: ["profile", author, "post", post],
     queryFn: async () => {
-      if (!author || !post) throw Error("Invalid path to post");
+      if (!author || !post) throw Error("投稿のパスが無効です");
       let did = author;
       if (!did.startsWith("did:")) {
         const { data } = await agent.resolveHandle({ handle: author });
@@ -74,7 +74,7 @@ const PostThread = ({ contentFilter }: Props) => {
       const uri = `at://${did}/app.bsky.feed.post/${post}`;
       const postThread = await agent.getPostThread({ uri });
 
-      if (!postThread.success) throw Error("Failed to fetch post thread");
+      if (!postThread.success) throw Error("投稿スレッドの取得に失敗しました");
 
       const thread = postThread.data.thread;
 
@@ -291,7 +291,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   color={theme.colors.text}
                   className="mr-4"
                 />
-                <ThemedText className="text-base">Blocked post</ThemedText>
+                <ThemedText className="text-base">ブロックをした投稿</ThemedText>
               </View>
             ) : item.deleted ? (
               <View className="flex-1 flex-row items-center p-4">
@@ -300,7 +300,7 @@ const PostThread = ({ contentFilter }: Props) => {
                   color={theme.colors.text}
                   className="mr-4"
                 />
-                <ThemedText className="text-base">Deleted post</ThemedText>
+                <ThemedText className="text-base">削除をした投稿</ThemedText>
               </View>
             ) : (
               <View className="flex-1 flex-row items-center p-4">
@@ -364,7 +364,7 @@ export default function PostPage() {
   if (preferences.data) {
     return (
       <>
-        <Stack.Screen options={{ headerTitle: "Post" }} />
+        <Stack.Screen options={{ headerTitle: "投稿" }} />
         <PostThread contentFilter={contentFilter} />
       </>
     );
@@ -373,10 +373,10 @@ export default function PostPage() {
   // breaks somehow when quick switching accounts
   // return (
   //   <>
-  //     <Stack.Screen options={{ headerTitle: "Post" }} />
+  //     <Stack.Screen options={{ headerTitle: "投稿" }} />
   //     <QueryWithoutData query={preferences} />;
   //   </>
   // );
 
-  return <Stack.Screen options={{ headerTitle: "Post" }} />;
+  return <Stack.Screen options={{ headerTitle: "投稿" }} />;
 }

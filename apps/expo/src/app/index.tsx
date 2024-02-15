@@ -42,14 +42,14 @@ export default function LandingPage() {
               className="w-full max-w-xl"
             >
               <LinkButton href="/sign-up" variant="white">
-                Create an account
+                アカウントを作成
               </LinkButton>
               <LinkButton
                 href={sessions?.length ? "/resume" : "/sign-in"}
                 variant="black"
                 className="mt-4"
               >
-                Log in
+                ログイン
               </LinkButton>
             </Animated.View>
           </View>

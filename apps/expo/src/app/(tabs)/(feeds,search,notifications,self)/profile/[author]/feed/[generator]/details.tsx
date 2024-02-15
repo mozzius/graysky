@@ -51,14 +51,14 @@ export default function FeedDetails() {
   if (info.data) {
     return (
       <>
-        <Stack.Screen options={{ title: "Feed Details" }} />
+        <Stack.Screen options={{ title: "フィードの詳細" }} />
         <FeedInfo feed={feed} info={info.data} />
       </>
     );
   } else {
     return (
       <>
-        <Stack.Screen options={{ title: "Feed Details" }} />
+        <Stack.Screen options={{ title: "フィードの詳細" }} />
         <QueryWithoutData query={info} />
       </>
     );
@@ -103,12 +103,12 @@ const FeedInfo = ({
       const profile = await agent.getProfile({
         actor: info.view.creator.did,
       });
-      if (!profile.success) throw new Error("Profile not found");
+      if (!profile.success) throw new Error("プロフィールがありません");
       const feeds = await agent.app.bsky.feed.getActorFeeds({
         actor: info.view.creator.did,
         limit: 6,
       });
-      if (!feeds.success) throw new Error("Could not get feeds");
+      if (!feeds.success) throw new Error("フィードを取得できませんでした");
       return {
         profile: profile.data,
         feeds: feeds.data.feeds,
@@ -188,7 +188,7 @@ const FeedInfo = ({
                       size={18}
                       color={theme.colors.text}
                     />
-                    <Text className="ml-2 text-base">Saved</Text>
+                    <Text className="ml-2 text-base">保存しました</Text>
                   </>
                 ) : (
                   <>
@@ -197,7 +197,7 @@ const FeedInfo = ({
                       size={18}
                       color={theme.colors.primary}
                     />
-                    <Text className="ml-2 text-base">Save</Text>
+                    <Text className="ml-2 text-base">保存</Text>
                   </>
                 )}
               </View>
@@ -347,7 +347,7 @@ const FeedInfo = ({
                         className="flex-row items-center px-4 py-3"
                       >
                         <View className="ml-6 flex-1 flex-row items-center px-3">
-                          <Text className="text-base">View all feeds</Text>
+                          <Text className="text-base">すべてのフィードを表示</Text>
                         </View>
                         <ChevronRightIcon
                           size={20}
@@ -390,7 +390,7 @@ const FeedInfo = ({
                     className="mx-1"
                   />
                   <View className="mx-3 flex-1 flex-row items-center">
-                    <Text className="text-base">Share this feed</Text>
+                    <Text className="text-base">このフィードを共有</Text>
                   </View>
                 </View>
               </TouchableHighlight>

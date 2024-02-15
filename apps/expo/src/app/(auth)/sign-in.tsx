@@ -44,8 +44,8 @@ export default function SignIn() {
     onSuccess: () => router.replace("/(feeds)/feeds"),
     onError: (err) =>
       showToastable({
-        title: "Could not log you in",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: "ログインできませんでした",
+        message: err instanceof Error ? err.message : "不明なエラー",
         status: "warning",
       }),
   });
@@ -65,7 +65,7 @@ export default function SignIn() {
             <UserIcon size={18} color="rgb(163 163 163)" />
             <TextInput
               className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-              placeholder="Username or email address"
+              placeholder="ユーザー名またはメールアドレス"
               value={identifier}
               onChangeText={setIdentifier}
               autoCapitalize="none"
@@ -86,7 +86,7 @@ export default function SignIn() {
             <LockIcon size={18} color="rgb(163 163 163)" />
             <TextInput
               className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-              placeholder="App Password"
+              placeholder="アプリパスワード"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -100,7 +100,7 @@ export default function SignIn() {
                   router.push("/reset-password");
                 }
               }}
-              title="Forgot?"
+              title="忘れましたか?"
               className="pr-3 text-sm"
             />
           </View>
@@ -120,12 +120,11 @@ export default function SignIn() {
               />
               <View className="ml-3 flex-1">
                 <Text className="text-base font-medium leading-5">
-                  App Passwords
+                  アプリパスワード
                 </Text>
                 <Text className="mt-1">
-                  You might want to use an App Password rather than your main
-                  password - this helps keep your account secure, but it{"'"}s
-                  not required.
+                  メインパスワードではなくアプリパスワードを使用する事を推奨します。
+                  -これはアカウントの安全性を保つために役立ちますが、必須ではありません。
                 </Text>
                 <Text
                   className="mt-2"
@@ -138,7 +137,7 @@ export default function SignIn() {
                     showLinkOptions("https://bsky.app/settings/app-passwords")
                   }
                 >
-                  Create one at bsky.app/settings
+                  bsky.app/設定で作成をします
                 </Text>
               </View>
             </Animated.View>
@@ -149,13 +148,13 @@ export default function SignIn() {
           >
             <TextButton
               onPress={() => router.push("/sign-up")}
-              title="Sign up"
+              title="サインアップ"
             />
             {!login.isPending ? (
               <TextButton
                 disabled={!identifier || !password}
                 onPress={() => login.mutate()}
-                title="Log in"
+                title="ログイン"
                 className="font-medium"
               />
             ) : (

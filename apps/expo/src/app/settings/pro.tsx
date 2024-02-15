@@ -23,10 +23,10 @@ export default function ProSettings() {
       <GroupedList
         groups={[
           {
-            title: "Translation provider",
+            title: "翻訳プロバイダー",
             options: [
               {
-                title: "Use DeepL for translations",
+                title: "DeepL翻訳を使用",
                 disabled: !isPro,
                 action: (
                   <Switch
@@ -41,10 +41,10 @@ export default function ProSettings() {
                 ),
               },
             ],
-            footer: "Google Translate is used otherwise.",
+            footer: "それ以外は、Google翻訳を使用します",
           },
           {
-            title: "Accent color",
+            title: "アクセントカラー",
             children: <AccentColourSelect />,
           },
         ]}

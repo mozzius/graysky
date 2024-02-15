@@ -33,7 +33,7 @@ const PostsSearch = ({ search }: Props) => {
         cursor: pageParam,
         limit: 25,
       });
-      if (!posts.success) throw new Error("Could not get posts");
+      if (!posts.success) throw new Error("投稿が取得できませんでした");
       return posts.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -97,8 +97,8 @@ const PostsSearch = ({ search }: Props) => {
             <View className="flex-1 items-center justify-center p-8">
               <Text className="text-center text-neutral-500 dark:text-neutral-400">
                 {search
-                  ? "No posts found - maybe try a different search term?"
-                  : "Search for posts"}
+                  ? "投稿が見つかりません - 別の検索語を使うと良いかもしれないですよ?"
+                  : "投稿を検索"}
               </Text>
             </View>
           )
@@ -124,7 +124,7 @@ export default function PostsSearchScreen() {
   }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search posts",
+    placeholder: "投稿を検索",
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
     hideNavigationBar: false,
@@ -134,7 +134,7 @@ export default function PostsSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search Posts", headerSearchBarOptions }}
+        options={{ title: "投稿を検索", headerSearchBarOptions }}
       />
       <PostsSearch search={search} />
     </>

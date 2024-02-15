@@ -106,14 +106,14 @@ export default function FeedPreferences() {
         <GroupedList
           groups={[
             {
-              title: "Home screen",
+              title: "ホーム画面",
               options: [
                 {
-                  title: "Home screen layout",
+                  title: "ホーム画面のレイアウト",
                   action: (
                     <TouchableOpacity
                       onPress={() => {
-                        const options = ["Feeds list", "A specific feed"];
+                        const options = ["フィードのリスト", "特定のフィード"];
                         const icons = [
                           <CloudyIcon
                             size={24}
@@ -129,7 +129,7 @@ export default function FeedPreferences() {
                         ];
                         showActionSheetWithOptions(
                           {
-                            options: [...options, "Cancel"],
+                            options: [...options, "キャンセル"],
                             icons,
                             cancelButtonIndex: options.length,
                             ...actionSheetStyles(theme),
@@ -152,7 +152,7 @@ export default function FeedPreferences() {
                         primary
                         className="text-base font-medium capitalize"
                       >
-                        {homepage === "feeds" ? "Feeds list" : "Primary feed"}
+                        {homepage === "feeds" ? "Feeds list" : "プライマリフィード"}
                       </Text>
                       <ChevronsUpDownIcon
                         size={16}
@@ -165,7 +165,7 @@ export default function FeedPreferences() {
                 ...(homepage === "skyline"
                   ? [
                       {
-                        title: "Primary feed",
+                        title: "プライマリフィード",
                         action: (
                           <TouchableOpacity
                             disabled={savedFeeds.isPending}
@@ -220,8 +220,8 @@ export default function FeedPreferences() {
                               ];
                               showActionSheetWithOptions(
                                 {
-                                  title: "Select primary feed",
-                                  options: [...options, "Cancel"],
+                                  title: "プライマリフィードを選択",
+                                  options: [...options, "キャンセル"],
                                   icons,
                                   cancelButtonIndex: options.length,
                                   ...actionSheetStyles(theme),
@@ -275,10 +275,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Reply settings",
+              title: "返信の設定",
               options: [
                 {
-                  title: "Show replies",
+                  title: "返信を表示",
                   action: (
                     <LoadingValue query={setPreference} property="hideReplies">
                       <Switch
@@ -294,7 +294,7 @@ export default function FeedPreferences() {
                   ),
                 },
                 {
-                  title: "Only show replies from your follows",
+                  title: "フォローしている人からの返信のみ表示",
                   action: (
                     <LoadingValue
                       query={setPreference}
@@ -318,10 +318,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Repost settings",
+              title: "リポストの設定",
               options: [
                 {
-                  title: "Show reposts",
+                  title: "リポストを表示",
                   action: (
                     <LoadingValue query={setPreference} property="hideReposts">
                       <Switch
@@ -339,10 +339,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Quote post settings",
+              title: "引用ポストの設定",
               options: [
                 {
-                  title: "Show quote posts",
+                  title: "引用ポストを表示",
                   action: (
                     <LoadingValue
                       query={setPreference}

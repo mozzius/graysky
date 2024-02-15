@@ -30,10 +30,10 @@ export default function LanguageSettings() {
       <GroupedList
         groups={[
           {
-            title: "Post languages",
+            title: "投稿の言語",
             options: [
               {
-                title: "Primary language",
+                title: "プライマリの言語",
                 href: "/settings/language/primary",
                 chevron: true,
                 action: (
@@ -43,12 +43,12 @@ export default function LanguageSettings() {
                 ),
               },
             ],
-            footer: `Posts will be translated into ${primaryLanguageLabel}.`,
+            footer: `投稿は${primaryLanguageLabel}に翻訳されます。`,
           },
           {
             options: [
               {
-                title: "My languages",
+                title: "自分の言語",
                 href: "/settings/language/content",
                 chevron: true,
                 action: (
@@ -65,13 +65,13 @@ export default function LanguageSettings() {
               },
             ],
             footer:
-              "If a post is marked as being in one of these languages, it will not be translated.",
+              "投稿がこれらの言語のいずれであるとマークされている場合、翻訳されません。",
           },
           {
-            title: "Translation provider",
+            title: "翻訳プロバイダー",
             options: [
               {
-                title: "Use DeepL for translations",
+                title: "DeepL翻訳を使用する",
                 disabled: !isPro,
                 action: (
                   <Switch
@@ -81,14 +81,14 @@ export default function LanguageSettings() {
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
                       });
                     }}
-                    accessibilityHint="Use DeepL for translations instead of Google Translate"
+                    accessibilityHint="Google翻訳の代わりにDeepL翻訳を翻訳に使用します"
                   />
                 ),
               },
             ],
             footer: isPro
-              ? "Google Translate is used otherwise."
-              : "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise.",
+              ? "それ以外は、Google翻訳を使用します。"
+              : "DeepL翻訳にアクセスするには、Graysky Proを入手してください。それ以外はGoogle翻訳を使用します。",
           },
         ]}
       />

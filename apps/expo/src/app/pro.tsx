@@ -84,8 +84,8 @@ export default function Pro() {
       console.error(err);
       Sentry.captureException(err, { extra: { annual } });
       showToastable({
-        title: "Could not complete purchase",
-        message: "Something went wrong, please try again later.",
+        title: "購入を完了できませんでした",
+        message: "何らか問題が発生しました、後ほどお試しください。",
         status: "danger",
       });
     },
@@ -102,32 +102,32 @@ export default function Pro() {
   const features = [
     {
       colour: colors.blue[500],
-      title: "Better translations",
-      subtitle: "Translate posts using DeepL",
+      title: "より良い翻訳機能",
+      subtitle: "DeepL翻訳を使用して投稿を翻訳",
       icon: <LanguagesIcon className="text-white" />,
     },
     // {
     //   colour: "rgb(202, 138, 4)",
-    //   title: "Analytics",
-    //   subtitle: "See how your posts are doing",
+    //   title: "分析",
+    //   subtitle: "自分の投稿がどうなっているかを確認",
     //   icon: <LineChart className="text-white" />,
     // },
     {
       colour: colors.green[500],
-      title: "Custom themes",
-      subtitle: "Change the accent colour",
+      title: "カスタムテーマ",
+      subtitle: "アクセントカラーを変更",
       icon: <PaletteIcon className="text-white" />,
     },
     {
       colour: colors.red[500],
-      title: "Support development",
-      subtitle: "Help us keep the lights on",
+      title: "開発者をサポート",
+      subtitle: "明かりを灯し続けるためにご協力ください",
       icon: <HeartIcon className="text-white" />,
     },
     // {
     //   colour: colors.amber[500],
-    //   title: "And a lot more planned...",
-    //   subtitle: "Analytics, polls, and much more",
+    //   title: "そして、さらに多くの計画が...",
+    //   subtitle: "分析、世論調査、その他多数",
     //   icon: <MoreHorizontalIcon className="text-white" />,
     // },
   ] satisfies Omit<FeatureItemProps, "index">[];
@@ -187,7 +187,7 @@ export default function Pro() {
                       void Linking.openURL(customerInfo.managementURL!)
                     }
                   >
-                    Manage my subscription
+                    サブスクリプションの管理
                   </Text>
                 )}
               </View>
@@ -201,7 +201,7 @@ export default function Pro() {
                     </Text>
                   </View>
                   <Text className="mt-0.5 text-sm text-white/80">
-                    Billed monthly, cancel anytime
+                    毎月の支払い、いつでも解約可能です
                   </Text>
                 </BlurPill>
                 <BlurPill
@@ -230,7 +230,7 @@ export default function Pro() {
                     </Text>
                   </View>
                   <Text className="mt-0.5 text-sm text-white/80">
-                    Billed annually, cancel anytime
+                    年間の支払い、いつでも解約可能です
                   </Text>
                 </BlurPill>
                 <TouchableHighlight
@@ -247,13 +247,13 @@ export default function Pro() {
                       <ActivityIndicator color="white" />
                     ) : (
                       <Text className="text-center text-base font-medium text-white">
-                        Subscribe & pay
+                        サブスクリプションと支払い
                       </Text>
                     )}
                   </View>
                 </TouchableHighlight>
                 <Text className="mt-3 px-4 text-xs text-neutral-200">
-                  By subscribing, you agree to our{" "}
+                  サブスクリプションをする事で、あなたは私たちの{" "}に同意したものとみなされます。
                   <Text
                     className="font-medium text-white underline"
                     onPress={() =>
@@ -262,7 +262,7 @@ export default function Pro() {
                       )
                     }
                   >
-                    Terms and Conditions
+                    利用規約
                   </Text>
                   {Platform.OS === "ios" ? (
                     <>
@@ -275,9 +275,9 @@ export default function Pro() {
                           )
                         }
                       >
-                        Terms of Use (EULA)
+                        利用規約 (EULA)
                       </Text>
-                      , and our
+                      , そして
                     </>
                   ) : (
                     " and"
@@ -288,9 +288,9 @@ export default function Pro() {
                       Linking.openURL("https://graysky.app/privacy-policy")
                     }
                   >
-                    Privacy Policy
+                    プライバシーポリシー
                   </Text>
-                  . Subscriptions renew automatically until cancelled.
+                  . サブスクリプションはキャンセルされるまで自動的に更新されます。
                 </Text>
                 <TouchableOpacity
                   onPress={() => restore.mutate()}
@@ -299,8 +299,8 @@ export default function Pro() {
                 >
                   <Text className="text-center text-base text-blue-500">
                     {restore.isPending
-                      ? "Restoring purchases..."
-                      : "Restore purchases"}
+                      ? "購入の復元..."
+                      : "購入の復元"}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -312,8 +312,8 @@ export default function Pro() {
               >
                 <Text className="text-center text-base text-blue-500">
                   {restore.isPending
-                    ? "Restoring purchases..."
-                    : "Restore purchases"}
+                    ? "購入を復元しています..."
+                    : "購入を復元しています"}
                 </Text>
               </TouchableOpacity>
             )}

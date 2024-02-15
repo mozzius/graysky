@@ -17,7 +17,7 @@ export default function BlockedUsers() {
       const blocks = await agent.app.bsky.graph.getBlocks({
         cursor: pageParam,
       });
-      if (!blocks.success) throw new Error("Could not fetch blocks");
+      if (!blocks.success) throw new Error("ブロックを取得できませんでした");
       return blocks.data;
     },
     initialPageParam: undefined as string | undefined,
@@ -39,7 +39,7 @@ export default function BlockedUsers() {
           evt.preventDefault();
           router.push(`/(feeds)/profile/${evt.person.did}`);
         }}
-        emptyText="You haven't blocked anyone"
+        emptyText="誰もブロックしていません"
       />
     );
   }

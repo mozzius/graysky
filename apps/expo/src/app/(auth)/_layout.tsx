@@ -43,31 +43,31 @@ export default function AuthLayout() {
         <Stack.Screen
           name="sign-up"
           options={{
-            title: "Sign up",
+            title: "サインアップ",
           }}
         />
         <Stack.Screen
           name="sign-in"
           options={{
-            title: "Log in",
+            title: "ログイン",
           }}
         />
         <Stack.Screen
           name="reset-password"
           options={{
-            title: "Reset password",
+            title: "パスワードをリセット",
           }}
         />
         <Stack.Screen
           name="waitlist"
           options={{
-            title: "Join the waitlist",
+            title: "キャンセル待ちリストに参加",
           }}
         />
         <Stack.Screen
           name="resume"
           options={{
-            title: "Log back in",
+            title: "ログインをし直す",
           }}
         />
       </Stack>

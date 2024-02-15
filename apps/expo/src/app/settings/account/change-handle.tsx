@@ -41,14 +41,14 @@ export default function ChangeHandle() {
       if (err instanceof Error) {
         if (err.message === "Handle already taken") {
           Alert.alert(
-            "Handle already taken",
-            "This handle is already taken. Please choose another.",
+            "ハンドルネームは使われています",
+            "このハンドルネームはすでに使われています。他を選んでください。",
           );
         } else {
           Alert.alert("Error", err.message);
         }
       } else {
-        Alert.alert("Could not change handle", "An unknown error occurred.");
+        Alert.alert("Could not change handle", "不明なエラーが発生しました。");
       }
     },
     onSuccess: () => {
@@ -75,16 +75,16 @@ export default function ChangeHandle() {
           <ListGroup
             options={[
               {
-                title: "bsky.social domain",
+                title: "bsky.social のドメイン",
                 icon: CheckIcon,
               },
               {
-                title: "Custom domain",
+                title: "カスタムドメイン",
                 icon: "SPACE",
                 onPress: () =>
                   Alert.alert(
-                    "Not yet implemented",
-                    "Please use the official app in the meantime. Sorry!",
+                    "未実装",
+                    "ごめんなさい!その間は公式アプリを使ってください。",
                   ),
               },
             ]}
@@ -149,7 +149,7 @@ export default function ChangeHandle() {
             <TextButton
               disabled={resolveHandle.data !== "available"}
               onPress={() => changeHandle.mutate()}
-              title="Save"
+              title="保存"
               className="font-medium"
             />
           ) : (

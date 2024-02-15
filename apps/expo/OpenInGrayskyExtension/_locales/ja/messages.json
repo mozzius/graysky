@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Grayskyで開く",
+    "description": "拡張の名前。"
+  },
+
+  "extensionDescription": {
+    "message": "BlueskyのリンクをGrayskyで開きます。",
+    "description": "拡張の説明。"
+  }
+}

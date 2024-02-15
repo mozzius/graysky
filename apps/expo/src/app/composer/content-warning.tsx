@@ -8,18 +8,18 @@ import { produce } from "~/lib/utils/produce";
 const ADULT_CONTENT_WARNINGS = [
   {
     label: "sexual",
-    title: "Sexual content",
-    description: "This post contains pictures intended for adults.",
+    title: "挑発的なセクシー",
+    description: "この投稿には成人向けの要素が含まれています。",
   },
   {
     label: "nudity",
-    title: "Nudity",
-    description: "This post contains artistic or non-erotic nudity.",
+    title: "ヌード",
+    description: "この投稿には芸術的、非エロティックな要素が含まれています。",
   },
   {
     label: "porn",
-    title: "Pornographic content",
-    description: "This post contains sexual activity or erotic nudity.",
+    title: "ポルノコンテンツ",
+    description: "この投稿には性行為またはエロティックなヌードな要素が含まれています。",
   },
 ];
 
@@ -35,7 +35,7 @@ export default function ContentWarningScreen() {
       <GroupedList
         groups={[
           {
-            title: "Adult content",
+            title: "アダルトコンテンツ",
             options: ADULT_CONTENT_WARNINGS.map((warning) => ({
               title: warning.title,
               icon: labels.includes(warning.label) ? CheckIcon : "SPACE",
@@ -58,10 +58,10 @@ export default function ContentWarningScreen() {
             )?.description,
           },
           // {
-          //   title: "Spoilers",
+          //   title: "ネタバレ",
           //   options: [
           //     {
-          //       title: "Spoilers",
+          //       title: "ネタバレ",
           //       icon: labels.includes(SPOILER_WARNING) ? CheckIcon : "SPACE",
           //       onPress: () => {
           //         setComposerState(
@@ -79,7 +79,7 @@ export default function ContentWarningScreen() {
           //     },
           //   ],
           //   footer: labels.includes(SPOILER_WARNING)
-          //     ? "This content contains discussion about film, TV, etc which gives away plot points."
+          //     ? "このコンテンツには、映画やテレビなどに関する議論が含まれており、ネタバレをしてしまう。"
           //     : undefined,
           // },
         ]}

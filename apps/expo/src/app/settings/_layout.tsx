@@ -40,7 +40,7 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="index"
           options={{
-            title: "Settings",
+            title: "設定",
             headerLargeTitle: true,
             headerLargeTitleShadowVisible: false,
             headerLargeStyle: {
@@ -51,85 +51,85 @@ export default function SettingsLayout() {
         <Stack.Screen
           name="pro"
           options={{
-            title: "Pro Settings",
+            title: "Proの設定",
           }}
         />
         <Stack.Screen
           name="account/index"
           options={{
-            title: "Account Settings",
+            title: "アカウントの設定",
           }}
         />
         <Stack.Screen
           name="account/change-handle"
           options={{
-            title: "Change Handle",
+            title: "ハンドルを変更",
           }}
         />
         <Stack.Screen
           name="account/change-password"
           options={{
-            title: "Change Password",
+            title: "パスワードを変更",
           }}
         />
         <Stack.Screen
           name="account/delete-account"
           options={{
-            title: "Delete Account",
+            title: "アカウントを削除",
           }}
         />
         <Stack.Screen
           name="moderation"
           options={{
-            title: "Moderation",
+            title: "モデレーション",
           }}
         />
         <Stack.Screen
           name="blocks"
           options={{
-            title: "Blocked Users",
+            title: "ブロックをしたユーザー",
           }}
         />
         <Stack.Screen
           name="mutes"
           options={{
-            title: "Muted Users",
+            title: "ミュートをしたユーザー",
           }}
         />
         <Stack.Screen
           name="app"
           options={{
-            title: "App Settings",
+            title: "アプリの設定",
           }}
         />
         <Stack.Screen
           name="feed"
           options={{
-            title: "Home Feed Preferences",
+            title: "ホームフィードの設定",
           }}
         />
         <Stack.Screen
           name="about"
           options={{
-            title: "About",
+            title: "アプリについて",
           }}
         />
         <Stack.Screen
           name="language/index"
           options={{
-            title: "Languages",
+            title: "言語",
           }}
         />
         <Stack.Screen
           name="language/primary"
           options={{
-            title: "Primary Language",
+            title: "プライマリの言語",
           }}
         />
         <Stack.Screen
           name="language/content"
           options={{
-            title: "Content Languages",
+            title: "コンテンツの言語",
           }}
         />
       </Stack>

@@ -18,7 +18,7 @@ export default function Page() {
     <>
       <Stack.Screen
         options={{
-          title: "Feeds",
+          title: "フィード",
           headerRight: () => (
             <View className="flex-row items-center">
               <TouchableOpacity
@@ -26,20 +26,20 @@ export default function Page() {
                   haptics.selection();
                   setEditing((e) => !e);
                 }}
-                accessibilityLabel={editing ? "Stop editing" : "Edit feeds"}
+                accessibilityLabel={editing ? "編集をやめる" : "フィードを編集"}
               >
                 <Text
                   primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
-                  {editing ? "Done" : "Edit"}
+                  {editing ? "完了" : "編集"}
                 </Text>
               </TouchableOpacity>
               {!editing && (
                 <Link href="/discover" asChild>
                   <TouchableOpacity
                     className="ml-4"
-                    accessibilityLabel="Discover feeds"
+                    accessibilityLabel="Discoverフィード"
                     accessibilityRole="link"
                   >
                     <PlusIcon size={24} color={theme.colors.primary} />
