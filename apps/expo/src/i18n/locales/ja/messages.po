@@ -54,16 +54,16 @@ msgid "#{0}"
 msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:602
+#: src/components/screens/profile/profile-info.tsx:600
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> フォロワー"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:610
+#: src/components/screens/profile/profile-info.tsx:608
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> フォロー"
 
-#: src/components/screens/profile/profile-info.tsx:618
+#: src/components/screens/profile/profile-info.tsx:616
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> 投稿"
 
@@ -667,6 +667,7 @@ msgstr "フィードを編集"
 
 #: src/app/_layout.tsx:360
 #: src/app/settings/account/index.tsx:40
+#: src/components/screens/profile/profile-info.tsx:545
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
 
@@ -877,7 +878,7 @@ msgstr "無効なモード"
 msgid "It's currently set to the {current} theme"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:658
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Joined {0}"
 msgstr ""
 
@@ -1565,6 +1566,10 @@ msgstr ""
 msgid "Share post"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:546
+msgid "Share Profile"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
 msgstr "このフィードを共有"
@@ -1751,15 +1756,15 @@ msgstr "この投稿には性行為またはエロティックなヌードな要
 msgid "This thread is locked"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:742
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "This user has blocked you"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:708
+#: src/components/screens/profile/profile-info.tsx:706
 msgid "This user is on the \"{0}\" block list"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:672
+#: src/components/screens/profile/profile-info.tsx:670
 msgid "This user is on the \"{0}\" mute list"
 msgstr ""
 
@@ -1840,7 +1845,7 @@ msgstr ""
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: src/components/screens/profile/profile-info.tsx:682
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Unmute"
 msgstr ""
 
@@ -1912,7 +1917,7 @@ msgstr "バージョン {0}"
 msgid "Version unknown"
 msgstr "バージョン unknown"
 
-#: src/components/screens/profile/profile-info.tsx:682
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "View"
 msgstr ""
 
@@ -1973,11 +1978,11 @@ msgstr "「いいね」や「返信」などのプッシュ通知を受け取る
 msgid "You don't have any moderation lists yet."
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:711
 msgid "You have blocked this user"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:677
+#: src/components/screens/profile/profile-info.tsx:675
 msgid "You have muted this user"
 msgstr ""
 

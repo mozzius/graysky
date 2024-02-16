@@ -542,8 +542,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
                 onPress={() => {
                   const options = [
-                    "Edit Profile",
-                    "Share Profile",
+                    _(msg`Edit Profile`),
+                    _(msg`Share Profile`),
                     _(msg`Cancel`),
                   ];
                   showActionSheetWithOptions(
@@ -553,13 +553,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       ...actionSheetStyles(theme),
                     },
                     (index) => {
-                      if (index === undefined) return;
-                      const option = options[index];
-                      switch (option) {
-                        case "Edit Profile":
+                      switch (index) {
+                        case 0:
                           router.push("/edit-bio");
                           break;
-                        case "Share Profile": {
+                        case 1: {
                           const url = `https://bsky.app/profile/${profile.handle}`;
                           void Share.share(
                             Platform.select({
