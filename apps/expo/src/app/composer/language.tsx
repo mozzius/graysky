@@ -19,6 +19,7 @@ import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
 import { produce } from "~/lib/utils/produce";
 
 export default function PostLanguage() {
+  const { _ } = useLingui();
   const primaryLanguage = usePrimaryLanguage();
   const mostRecentLanguage = useMostRecentLanguage();
   const contentLanguages = useContentLanguages();
@@ -28,12 +29,11 @@ export default function PostLanguage() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search languages",
+    placeholder: _(msg`Search languages`),
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
     hideWhenScrolling: false,
   });
   const [{ languages }, setComposerState] = useComposerState();
-  const { _ } = useLingui();
 
   const selected = languages ?? [mostRecentLanguage ?? primaryLanguage];
 

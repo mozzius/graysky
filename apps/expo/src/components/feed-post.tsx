@@ -2,10 +2,11 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { I18nManager, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
-import { z } from "zod";
 
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post]";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
@@ -246,54 +247,38 @@ const FeedPostInner = ({
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
             (item.reply
-              ? (() => {
-                  // use zod to parse the parent post
-                  // since all we want is author + uri
-                  // don't actually care what specific kind of post it is
-                  const parse = z
-                    .object({
-                      author: z.object({
-                        handle: z.string(),
-                        did: z.string(),
-                        displayName: z.string().optional(),
-                      }),
-                      uri: z.string(),
-                    })
-                    .safeParse(item.reply.parent);
-
-                  if (parse.success) {
-                    return (
-                      <Link
-                        href={path(
-                          `/profile/${
-                            parse.data.author.did
-                          }/post/${parse.data.uri.split("/").pop()}`,
-                        )}
-                        asChild
-                        accessibilityHint="Opens parent post"
-                      >
-                        <TouchableWithoutFeedback>
-                          <View className="flex-row items-center">
-                            <MessageCircleIcon size={12} color="#737373" />
-                            <Text
-                              className={cx(
-                                "ml-1 flex-1",
-                                theme.dark
-                                  ? "text-neutral-400"
-                                  : "text-neutral-500",
-                              )}
-                              numberOfLines={1}
-                            >
-                              replying to{" "}
-                              {parse.data.author.displayName ??
-                                `@${parse.data.author.handle}`}
-                            </Text>
-                          </View>
-                        </TouchableWithoutFeedback>
-                      </Link>
-                    );
-                  } else return null;
-                })()
+              ? AppBskyFeedDefs.isPostView(item.reply.parent) && (
+                  <Link
+                    href={path(
+                      `/profile/${
+                        item.reply.parent.author.did
+                      }/post/${item.reply.parent.uri.split("/").pop()}`,
+                    )}
+                    asChild
+                    accessibilityHint="Opens parent post"
+                  >
+                    <TouchableWithoutFeedback>
+                      <View className="flex-row items-center">
+                        <MessageCircleIcon size={12} color="#737373" />
+                        <Text
+                          className={cx(
+                            "ml-1 flex-1",
+                            theme.dark
+                              ? "text-neutral-400"
+                              : "text-neutral-500",
+                          )}
+                          numberOfLines={1}
+                        >
+                          <Trans>
+                            replying to{" "}
+                            {item.reply.parent.author.displayName ??
+                              `@${item.reply.parent.author.handle}`}
+                          </Trans>
+                        </Text>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Link>
+                )
               : !!item.post.record.reply && (
                   <ReplyParentAuthor uri={item.post.uri} />
                 ))}
@@ -382,8 +367,10 @@ const Reason = ({ item }: Pick<Props, "item">) => {
               )}
               numberOfLines={1}
             >
-              Reposted by{" "}
-              {item.reason.by.displayName || `@${item.reason.by.handle}`}
+              <Trans>
+                Reposted by{" "}
+                {item.reason.by.displayName || `@${item.reason.by.handle}`}
+              </Trans>
             </Text>
           </View>
         </TouchableWithoutFeedback>
@@ -397,6 +384,7 @@ export const FeedPost = memo(FeedPostInner);
 const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const theme = useTheme();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const circleColor = !theme.dark ? "#737373" : "#D4D4D4";
 
@@ -414,15 +402,15 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   });
 
   if (!AppBskyFeedDefs.isThreadViewPost(data)) {
-    let text = "replying to a post that couldn't be fetched";
+    let text = _(msg`replying to a post that couldn't be fetched`);
     if (isPending) {
-      text = "replying to...";
+      text = _(msg`replying to...`);
     }
     if (AppBskyFeedDefs.isBlockedPost(data)) {
-      text = "replying to a blocked user";
+      text = _(msg`replying to a blocked user`);
     }
     if (AppBskyFeedDefs.isNotFoundPost(data)) {
-      text = "replying to a deleted post";
+      text = _(msg`replying to a deleted post`);
     }
 
     return (
@@ -460,8 +448,10 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
             )}
             numberOfLines={1}
           >
-            replying to{" "}
-            {data.post.author.displayName ?? `@${data.post.author.handle}`}
+            <Trans>
+              replying to{" "}
+              {data.post.author.displayName ?? `@${data.post.author.handle}`}
+            </Trans>
           </Text>
         </View>
       </TouchableWithoutFeedback>

@@ -187,7 +187,10 @@ export default function ModerationSettings() {
                             showActionSheetWithOptions(
                               {
                                 title: label,
-                                options: [...options.map(capitalise), "Cancel"],
+                                options: [
+                                  ...options.map(capitalise),
+                                  _(msg`Cancel`),
+                                ],
                                 cancelButtonIndex: options.length,
                                 destructiveButtonIndex: 0,
                                 ...actionSheetStyles(theme),

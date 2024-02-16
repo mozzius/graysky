@@ -27,6 +27,8 @@ import {
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { type PastedFile } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import Sentry from "@sentry/react-native";
@@ -364,6 +366,7 @@ export const useSendPost = ({
 export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
+  const { _ } = useLingui();
 
   const theme = useTheme();
   const router = useRouter();
@@ -381,8 +384,13 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
 
       const options =
         images.length === 0
-          ? ["Take Photo", "Choose from Library", "Search GIFs", "Cancel"]
-          : ["Take Photo", "Choose from Library", "Cancel"];
+          ? [
+              _(msg`Take Photo`),
+              _(msg`Choose from Library`),
+              _(msg`Search GIFs`),
+              _(msg`Cancel`),
+            ]
+          : [_(msg`Take Photo`), _(msg`Choose from Library`), _(msg`Cancel`)];
       const icons =
         images.length === 0
           ? [CameraIcon, ImageIcon, SearchIcon]
@@ -406,7 +414,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
           if (index === undefined) return;
           const selected = options[index];
           switch (selected) {
-            case "Take Photo":
+            case _(msg`Take Photo`):
               if (!(await getCameraPermission())) {
                 return;
               }
@@ -426,7 +434,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
                 }
               });
               break;
-            case "Choose from Library":
+            case _(msg`Choose from Library`):
               if (!(await getGalleryPermission())) {
                 return;
               }
@@ -459,7 +467,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
                 }
               });
               break;
-            case "Search GIFs":
+            case _(msg`Search GIFs`):
               router.push("/composer/gifs");
               break;
           }

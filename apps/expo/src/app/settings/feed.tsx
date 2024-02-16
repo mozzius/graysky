@@ -58,7 +58,7 @@ export default function FeedPreferences() {
   const savedFeeds = useSavedFeeds();
   const { _ } = useLingui();
 
-  let feedName = "Following";
+  let feedName = _(msg`Following`);
   let unknown = false;
 
   if (defaultFeed !== "following") {
@@ -135,7 +135,7 @@ export default function FeedPreferences() {
                         ];
                         showActionSheetWithOptions(
                           {
-                            options: [...options, "Cancel"],
+                            options: [...options, _(msg`Cancel`)],
                             icons,
                             cancelButtonIndex: options.length,
                             ...actionSheetStyles(theme),
@@ -231,7 +231,7 @@ export default function FeedPreferences() {
                               showActionSheetWithOptions(
                                 {
                                   title: _(msg`Select primary feed`),
-                                  options: [...options, "Cancel"],
+                                  options: [...options, _(msg`Cancel`)],
                                   icons,
                                   cancelButtonIndex: options.length,
                                   ...actionSheetStyles(theme),

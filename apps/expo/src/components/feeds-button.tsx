@@ -244,8 +244,8 @@ const SheetContent = ({
         ListHeaderComponent={
           <LargeRow
             icon={<CloudIcon size={32} color="white" />}
-            title="Following"
-            subtitle="Posts from people you follow"
+            title={_(msg`Following`)}
+            subtitle={_(msg`Posts from people you follow`)}
             style={{ backgroundColor: theme.colors.card }}
             onPress={dismiss}
             right={

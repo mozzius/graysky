@@ -61,10 +61,10 @@ export default function CreateListScreen() {
   }, []);
 
   const handleSelectPurpose = useCallback(() => {
-    const options = ["User list", "Moderation list"];
+    const options = [_(msg`User list`), _(msg`Moderation list`)];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
+        options: [...options, _(msg`Cancel`)],
         cancelButtonIndex: options.length,
       },
       (index) => {
@@ -78,7 +78,7 @@ export default function CreateListScreen() {
         }
       },
     );
-  }, [showActionSheetWithOptions]);
+  }, [showActionSheetWithOptions, _]);
 
   const createList = useMutation({
     mutationKey: ["create-list"],

@@ -2,7 +2,8 @@ import { Fragment, useCallback, useState } from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
-import { Trans } from "@lingui/macro";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
@@ -18,12 +19,13 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 // TODO: make this a flashlist and add a cursor to the query
 
 export default function DiscoveryPage() {
+  const { _ } = useLingui();
   const agent = useAgent();
   const theme = useTheme();
   const [search, setSearch] = useState("");
   const router = useRouter();
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search feeds",
+    placeholder: _(msg`Search feeds`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
     hideNavigationBar: false,

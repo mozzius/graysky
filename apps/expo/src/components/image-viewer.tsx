@@ -31,7 +31,8 @@ import {
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { Trans } from "@lingui/macro";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { DarkTheme, ThemeProvider, useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
@@ -229,6 +230,7 @@ const ImageOptionsButton = ({
 }) => {
   const items = useImageOptions();
   const { showActionSheetWithOptions } = useActionSheet();
+  const { _ } = useLingui();
 
   const haptics = useHaptics();
   const theme = useTheme();
@@ -262,13 +264,13 @@ const ImageOptionsButton = ({
     </ContextMenuButton>
   ) : (
     <TouchableOpacity
-      accessibilityLabel="Image options"
+      accessibilityLabel={_(msg`Image options`)}
       accessibilityRole="button"
       onPress={() => {
         haptics.impact();
         showActionSheetWithOptions(
           {
-            options: [...items.map((x) => x.label), "Cancel"],
+            options: [...items.map((x) => x.label), _(msg`Cancel`)],
             icons: [...items.map((x) => x.reactIcon), <></>],
             cancelButtonIndex: items.length,
             ...actionSheetStyles(theme),

@@ -178,7 +178,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     ];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
+        options: [...options, _(msg`Cancel`)],
         icons: [
           ...icons.map((Icon, i) => (
             <Icon key={i} size={24} color={theme.colors.text} />
@@ -541,7 +541,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               <TouchableOpacity
                 className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
                 onPress={() => {
-                  const options = ["Edit Profile", "Share Profile", "Cancel"];
+                  const options = [
+                    "Edit Profile",
+                    "Share Profile",
+                    _(msg`Cancel`),
+                  ];
                   showActionSheetWithOptions(
                     {
                       options,

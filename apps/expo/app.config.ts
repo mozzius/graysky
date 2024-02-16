@@ -56,11 +56,10 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     },
   },
   extra: {
-    eas: process.env.EAS_PROJECT_ID
-      ? {
-          projectId: process.env.EAS_PROJECT_ID,
-        }
-      : undefined,
+    eas: {
+      projectId:
+        process.env.EAS_PROJECT_ID ?? "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
+    },
     revenueCat: {
       ios: process.env.REVENUECAT_API_KEY_IOS,
       android: process.env.REVENUECAT_API_KEY_ANDROID,

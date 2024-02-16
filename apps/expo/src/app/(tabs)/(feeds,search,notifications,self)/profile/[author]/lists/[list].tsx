@@ -25,7 +25,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { MoreHorizontalIcon } from "lucide-react-native";
+import { MoreHorizontalIcon, Share2 } from "lucide-react-native";
 
 import { FeedPost } from "~/components/feed-post";
 import { FeedsButton } from "~/components/feeds-button";
@@ -186,7 +186,7 @@ const ListHeader = ({
             if (info.viewer?.blocked || info.viewer?.muted) {
               showActionSheetWithOptions(
                 {
-                  options: ["Unsubscribe from list", "Cancel"],
+                  options: [_(msg`Unsubscribe from list`), _(msg`Cancel`)],
                   cancelButtonIndex: 1,
                   ...actionSheetStyles(theme),
                 },
@@ -202,43 +202,41 @@ const ListHeader = ({
                       blocked: undefined,
                       muted: undefined,
                     });
-                    resolve("Unsubscribed from list");
+                    resolve(_(msg`Unsubscribed from list`));
                   } else {
                     resolve(null);
                   }
                 },
               );
             } else {
-              const options = ["Mute all members", "Block all members"];
+              const options = [
+                _(msg`Mute all members`),
+                _(msg`Block all members`),
+              ];
               showActionSheetWithOptions(
                 {
-                  title: `Subscribe to ${info.name}`,
-                  options: [...options, "Cancel"],
+                  title: _(msg`Subscribe to ${info.name}`),
+                  options: [...options, _(msg`Cancel`)],
                   cancelButtonIndex: options.length,
                   destructiveButtonIndex: [0, 1],
                   ...actionSheetStyles(theme),
                 },
                 async (buttonIndex) => {
-                  if (buttonIndex === undefined) {
-                    resolve(null);
-                  } else {
-                    const answer = options[buttonIndex];
-                    switch (answer) {
-                      case "Mute all members":
-                        await agent.muteModList(info.uri);
-                        setViewerState({ muted: true });
-                        resolve("List muted");
-                        break;
-                      case "Block all members": {
-                        const block = await agent.blockModList(info.uri);
-                        setViewerState({ blocked: block.uri });
-                        resolve("List blocked");
-                        break;
-                      }
-                      default:
-                        resolve(null);
-                        break;
+                  switch (buttonIndex) {
+                    case 0:
+                      await agent.muteModList(info.uri);
+                      setViewerState({ muted: true });
+                      resolve(_(msg`List muted`));
+                      break;
+                    case 1: {
+                      const block = await agent.blockModList(info.uri);
+                      setViewerState({ blocked: block.uri });
+                      resolve(_(msg`List blocked`));
+                      break;
                     }
+                    default:
+                      resolve(null);
+                      break;
                   }
                 },
               );
@@ -308,7 +306,7 @@ const ListHeader = ({
       ] as const;
       showActionSheetWithOptions(
         {
-          options: [...options, "Cancel"],
+          options: [...options, _(msg`Cancel`)],
           destructiveButtonIndex: 2,
           cancelButtonIndex: options.length,
           ...actionSheetStyles(theme),
@@ -385,21 +383,23 @@ const ListHeader = ({
     } else {
       showActionSheetWithOptions(
         {
-          options: ["Share", "Cancel"],
+          options: [_(msg`Share`), _(msg`Cancel`)],
+          icons: [
+            <Share2 size={24} color={theme.colors.text} key={0} />,
+            <></>,
+          ],
           cancelButtonIndex: 1,
           ...actionSheetStyles(theme),
         },
         (buttonIndex) => {
           const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
-          switch (buttonIndex) {
-            case 0:
-              void Share.share(
-                Platform.select({
-                  ios: { url: bskyUrl },
-                  default: { message: bskyUrl },
-                }),
-              );
-              break;
+          if (buttonIndex === 0) {
+            void Share.share(
+              Platform.select({
+                ios: { url: bskyUrl },
+                default: { message: bskyUrl },
+              }),
+            );
           }
         },
       );

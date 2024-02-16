@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { QuoteIcon, RepeatIcon } from "lucide-react-native";
@@ -129,11 +131,16 @@ export const useHandleRepost = (
 ) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const composer = useComposer();
+  const { _ } = useLingui();
 
   const theme = useTheme();
 
   return () => {
-    const options = [reposted ? "Undo Repost" : "Repost", "Quote", "Cancel"];
+    const options = [
+      reposted ? _(msg`Undo Repost`) : _(msg`Repost`),
+      _(msg`Quote`),
+      _(msg`Cancel`),
+    ];
     const icons = [
       <RepeatIcon key={0} size={24} color={theme.colors.text} />,
       <QuoteIcon key={1} size={24} color={theme.colors.text} />,
@@ -148,13 +155,11 @@ export const useHandleRepost = (
         ...actionSheetStyles(theme),
       },
       (index) => {
-        if (index === undefined) return;
-        switch (options[index]) {
-          case "Repost":
-          case "Undo Repost":
+        switch (index) {
+          case 0:
             toggleRepost();
             break;
-          case "Quote":
+          case 1:
             composer.quote({
               uri: post.uri,
               cid: post.cid,

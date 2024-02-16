@@ -4,7 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { Trans } from "@lingui/macro";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   CloudyIcon,
@@ -42,21 +43,32 @@ export const DrawerContent = ({ open }: Props) => {
   const homepage = useHomepage();
   const colorScheme = useColorScheme();
   const setAppPreferences = useSetAppPreferences();
+  const { _ } = useLingui();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
   const changeTheme = () => {
-    const options = ["Light", "Dark", "System", "Cancel"];
+    const options = [
+      _(msg`Light`),
+      _(msg`Dark`),
+      _(msg`System`),
+      _(msg`Cancel`),
+    ];
     const icons = [
       <SunIcon key={0} size={24} color={theme.colors.text} />,
       <MoonIcon key={1} size={24} color={theme.colors.text} />,
       <SmartphoneIcon key={2} size={24} color={theme.colors.text} />,
       <></>,
     ];
+    const current = {
+      light: _(msg`light`),
+      dark: _(msg`dark`),
+      system: _(msg`system`),
+    }[colorScheme];
     showActionSheetWithOptions(
       {
-        title: "Change theme",
-        message: `It's currently set to the ${colorScheme} theme`,
+        title: _(msg`Change theme`),
+        message: _(msg`It's currently set to the ${current} theme`),
         options,
         icons,
         cancelButtonIndex: options.length - 1,
@@ -67,13 +79,13 @@ export const DrawerContent = ({ open }: Props) => {
         const selected = options[index];
         let colorScheme: ColorSchemeSystem | null = null;
         switch (selected) {
-          case "Light":
+          case _(msg`Light`):
             colorScheme = "light";
             break;
-          case "Dark":
+          case _(msg`Dark`):
             colorScheme = "dark";
             break;
-          case "System":
+          case _(msg`System`):
             colorScheme = "system";
             break;
         }
@@ -165,7 +177,7 @@ export const DrawerContent = ({ open }: Props) => {
         </Link>
         <TouchableOpacity
           accessibilityRole="button"
-          accessibilityLabel="Change theme"
+          accessibilityLabel={_(msg`Change theme`)}
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >

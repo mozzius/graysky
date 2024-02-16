@@ -10,6 +10,8 @@ import {
   type AppBskyFeedDefs,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -57,6 +59,7 @@ const PostContextMenuButton = ({
   const theme = useTheme();
   const haptics = useHaptics();
   const segments = useSegments();
+  const { _ } = useLingui();
 
   const rkey = post.uri.split("/").pop()!;
 
@@ -64,23 +67,24 @@ const PostContextMenuButton = ({
 
   const share = () => {
     const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
-    const options = ["Share link to post", "Share as image"] as const;
     const icons = [
       <LinkIcon key={0} size={24} color={theme.colors.text} />,
       <ImageIcon key={1} size={24} color={theme.colors.text} />,
     ];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
+        options: [
+          _(msg`Share link to post`),
+          _(msg`Share as image`),
+          _(msg`Cancel`),
+        ],
         icons: [...icons, <></>],
-        cancelButtonIndex: options.length,
+        cancelButtonIndex: 2,
         ...actionSheetStyles(theme),
       },
       (index) => {
-        if (index === undefined) return;
-        const option = options[index];
-        switch (option) {
-          case "Share link to post":
+        switch (index) {
+          case 0:
             void Share.share(
               Platform.select({
                 ios: { url },
@@ -88,7 +92,7 @@ const PostContextMenuButton = ({
               }),
             );
             break;
-          case "Share as image":
+          case 1:
             router.push(`/capture/${post.author.handle}/${rkey}`);
         }
       },
@@ -99,36 +103,40 @@ const PostContextMenuButton = ({
     if (!AppBskyFeedPost.isRecord(post.record)) return;
     await Clipboard.setStringAsync(post.record.text);
     showToastable({
-      title: "Copied post text",
-      message: "Post text copied to clipboard",
+      title: _(msg`Copied post text`),
+      message: _(msg`Post text copied to clipboard`),
     });
   };
 
   const delet = () => {
-    Alert.alert("Delete", "Are you sure you want to delete this post?", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      {
-        text: "Delete",
-        style: "destructive",
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onPress: async () => {
-          await agent.deletePost(post.uri);
-          await queryClient.refetchQueries({
-            queryKey: ["profile", post.author.did, "post", post.uri],
-          });
-          showToastable({
-            message: "Post deleted",
-            status: "danger",
-          });
-          if (segments.at(-1) === rkey) {
-            router.back();
-          }
+    Alert.alert(
+      _(msg`Delete`),
+      _(msg`Are you sure you want to delete this post?`),
+      [
+        {
+          text: _(msg`Cancel`),
+          style: "cancel",
         },
-      },
-    ]);
+        {
+          text: _(msg`Delete`),
+          style: "destructive",
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onPress: async () => {
+            await agent.deletePost(post.uri);
+            await queryClient.refetchQueries({
+              queryKey: ["profile", post.author.did, "post", post.uri],
+            });
+            showToastable({
+              message: _(msg`Post deleted`),
+              status: "danger",
+            });
+            if (segments.at(-1) === rkey) {
+              router.back();
+            }
+          },
+        },
+      ],
+    );
   };
 
   const report = () => {
@@ -180,7 +188,7 @@ const PostContextMenuButton = ({
     onTranslate
       ? {
           key: "translate",
-          label: "Translate",
+          label: _(msg`Translate`),
           action: () => translate(),
           icon: "character.book.closed",
           reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
@@ -188,7 +196,7 @@ const PostContextMenuButton = ({
       : [],
     {
       key: "share",
-      label: "Share post",
+      label: _(msg`Share post`),
       action: () => share(),
       icon: "square.and.arrow.up",
       reactIcon: <Share2Icon size={24} color={theme.colors.text} />,
@@ -196,7 +204,7 @@ const PostContextMenuButton = ({
     showCopyText
       ? {
           key: "copy",
-          label: "Copy post text",
+          label: _(msg`Copy post text`),
           action: () => copy(),
           icon: "doc.on.doc",
           reactIcon: <CopyIcon size={24} color={theme.colors.text} />,
@@ -205,7 +213,7 @@ const PostContextMenuButton = ({
     showSeeLikes
       ? {
           key: "likes",
-          label: "See likes",
+          label: _(msg`See likes`),
           action: () => openLikes(post.uri),
           icon: "heart",
           reactIcon: <HeartIcon size={24} color={theme.colors.text} />,
@@ -214,7 +222,7 @@ const PostContextMenuButton = ({
     showSeeReposts
       ? {
           key: "reposts",
-          label: "See reposts",
+          label: _(msg`See reposts`),
           action: () => openReposts(post.uri),
           icon: "arrow.2.squarepath",
           reactIcon: <RepeatIcon size={24} color={theme.colors.text} />,
@@ -223,7 +231,7 @@ const PostContextMenuButton = ({
     post.author.handle === agent.session?.handle
       ? {
           key: "delete",
-          label: "Delete post",
+          label: _(msg`Delete post`),
           action: () => delet(),
           icon: "trash",
           destructive: true,
@@ -234,7 +242,7 @@ const PostContextMenuButton = ({
             ? []
             : {
                 key: "mute",
-                label: "Mute user",
+                label: _(msg`Mute user`),
                 action: () =>
                   muteAccount(
                     agent,
@@ -251,7 +259,7 @@ const PostContextMenuButton = ({
             ? []
             : {
                 key: "block",
-                label: "Block user",
+                label: _(msg`Block user`),
                 action: () =>
                   blockAccount(
                     agent,
@@ -264,7 +272,7 @@ const PostContextMenuButton = ({
               },
           {
             key: "report",
-            label: "Report post",
+            label: _(msg`Report post`),
             action: () => report(),
             icon: "flag",
             reactIcon: <FlagIcon size={24} color={theme.colors.text} />,
@@ -278,7 +286,7 @@ const PostContextMenuButton = ({
     haptics.impact();
     showActionSheetWithOptions(
       {
-        options: [...options.map((x) => x.label), "Cancel"],
+        options: [...options.map((x) => x.label), _(msg`Cancel`)],
         icons: [...options.map((x) => x.reactIcon), <></>],
         cancelButtonIndex: options.length,
         ...actionSheetStyles(theme),
@@ -293,7 +301,7 @@ const PostContextMenuButton = ({
   return Platform.OS === "ios" ? (
     <ContextMenuButton
       isMenuPrimaryAction={true}
-      accessibilityLabel="Post options"
+      accessibilityLabel={_(msg`Post options`)}
       accessibilityRole="button"
       className="px-3 pb-2"
       menuConfig={{
@@ -320,7 +328,7 @@ const PostContextMenuButton = ({
     </ContextMenuButton>
   ) : (
     <TouchableOpacity
-      accessibilityLabel="Post options"
+      accessibilityLabel={_(msg`Post options`)}
       accessibilityRole="button"
       hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
       onPress={showAsActionSheet}
