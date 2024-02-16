@@ -16,6 +16,8 @@ import {
   AppBskyFeedPost,
   AppBskyGraphDefs,
 } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   CheckIcon,
@@ -194,6 +196,7 @@ export const PostEmbed = ({
   const { contentFilter, preferences } = useContentFilter();
   const postHref = `${profileHref}/post/${post.uri.split("/").pop()}`;
   const [hidden, setHidden] = useState(true);
+  const { _ } = useLingui();
 
   const filter = contentFilter(post.labels);
 
@@ -227,7 +230,7 @@ export const PostEmbed = ({
   return (
     <Link href={postHref} asChild>
       <TouchableWithoutFeedback
-        accessibilityHint="Opens embedded post"
+        accessibilityHint={_(msg`Opens embedded post`)}
         className={cx(
           "mt-1.5 flex-1 rounded-lg",
           preferences.isPending && "opacity-0",

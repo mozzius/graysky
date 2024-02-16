@@ -433,7 +433,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         {/* back button */}
         {backButton && (
           <TouchableOpacity
-            accessibilityLabel="Back"
+            accessibilityLabel={_(msg`Back`)}
             accessibilityRole="button"
             onPress={() => router.back()}
             className={cx(

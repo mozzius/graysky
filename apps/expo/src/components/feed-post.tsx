@@ -63,6 +63,7 @@ const FeedPostInner = ({
       !!item.post.author.viewer?.blocked ||
       !!filter,
   );
+  const { _ } = useLingui();
   const [hidden, setHidden] = useState(showWarning);
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
@@ -201,7 +202,7 @@ const FeedPostInner = ({
                   ? `Reply by ${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
                   : `${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
               }
-              accessibilityHint="Opens profile"
+              accessibilityHint={_(msg`Opens profile`)}
               asChild
             >
               <TouchableWithoutFeedback>
@@ -255,7 +256,7 @@ const FeedPostInner = ({
                       }/post/${item.reply.parent.uri.split("/").pop()}`,
                     )}
                     asChild
-                    accessibilityHint="Opens parent post"
+                    accessibilityHint={_(msg`Opens parent post`)}
                   >
                     <TouchableWithoutFeedback>
                       <View className="flex-row items-center">
@@ -289,7 +290,9 @@ const FeedPostInner = ({
               {item.post.record.text && (
                 <>
                   <Link href={postHref} asChild>
-                    <TouchableWithoutFeedback accessibilityHint="Opens post details">
+                    <TouchableWithoutFeedback
+                      accessibilityHint={_(msg`Opens post details`)}
+                    >
                       <View className="mb-0.5 mt-px flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
@@ -344,6 +347,7 @@ const FeedPostInner = ({
 const Reason = ({ item }: Pick<Props, "item">) => {
   const theme = useTheme();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
 
@@ -352,7 +356,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
       <Link
         href={path(`/profile/${item.reason.by.did}`)}
         asChild
-        accessibilityHint="Opens profile"
+        accessibilityHint={_(msg`Opens profile`)}
       >
         <TouchableWithoutFeedback>
           <View className="flex-1 flex-row items-center">
@@ -436,7 +440,7 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
           .pop()}`,
       )}
       asChild
-      accessibilityHint="Opens parent post"
+      accessibilityHint={_(msg`Opens parent post`)}
     >
       <TouchableWithoutFeedback>
         <View className="flex-row items-center">

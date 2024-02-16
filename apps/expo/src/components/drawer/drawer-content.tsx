@@ -111,7 +111,7 @@ export const DrawerContent = ({ open }: Props) => {
           <Link href="/feeds/manage" asChild onPress={closeDrawer}>
             <TouchableOpacity
               accessibilityRole="link"
-              accessibilityLabel="Feeds screen"
+              accessibilityLabel={_(msg`My Feeds screen`)}
               className="mt-2 w-full flex-row items-center py-2"
             >
               <CloudyIcon color={theme.colors.text} />
@@ -166,7 +166,7 @@ export const DrawerContent = ({ open }: Props) => {
         <Link href="/pro" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
-            accessibilityLabel="Pro version"
+            accessibilityLabel={_(msg`Pro version information and purchase`)}
             className="mt-2 w-full flex-row items-center py-2"
           >
             <StarIcon color={theme.colors.text} />
@@ -189,7 +189,7 @@ export const DrawerContent = ({ open }: Props) => {
         <Link href="/settings" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
-            accessibilityLabel="Settings"
+            accessibilityLabel={_(msg`Settings menu`)}
             className="mt-2 w-full flex-row items-center py-2"
           >
             <SettingsIcon color={theme.colors.text} />
@@ -202,7 +202,7 @@ export const DrawerContent = ({ open }: Props) => {
       <View className="grow" />
       <TouchableOpacity
         accessibilityRole="button"
-        accessibilityLabel="Sign out"
+        accessibilityLabel={_(msg`Sign out`)}
         className="w-full flex-row items-center py-2"
         onPress={() => logOut()}
       >

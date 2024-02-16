@@ -8,7 +8,8 @@ import {
   type AppBskyFeedDefs,
   type AppBskyGraphDefs,
 } from "@atproto/api";
-import { Plural, Trans } from "@lingui/macro";
+import { msg, Plural, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
 
@@ -49,6 +50,7 @@ export const PrimaryPost = ({
     string | null
   >(null);
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -91,7 +93,7 @@ export const PrimaryPost = ({
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
-            accessibilityHint="Opens profile"
+            accessibilityHint={_(msg`Opens profile`)}
             accessibilityLabel={`${
               postAuthorDisplayName ?? ""
             } @${postAuthorHandle}`}

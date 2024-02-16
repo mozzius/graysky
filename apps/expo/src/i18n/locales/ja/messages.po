@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/primary-post.tsx:263
+#: src/components/primary-post.tsx:265
 msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
 msgstr ""
 
@@ -193,11 +193,15 @@ msgstr "フィードタブでお気に入り以外のフィードを自動で並
 msgid "Alt"
 msgstr ""
 
-#: src/components/image-viewer.tsx:159
+#: src/components/image-viewer.tsx:160
 msgid "ALT"
 msgstr ""
 
-#: src/components/image-viewer.tsx:190
+#: src/components/embed/image.tsx:219
+msgid "ALT text"
+msgstr ""
+
+#: src/components/image-viewer.tsx:191
 msgid "ALT Text"
 msgstr ""
 
@@ -258,6 +262,7 @@ msgstr ""
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:117
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:418
 #: src/components/screens/change-password-flow.tsx:201
+#: src/components/screens/profile/profile-info.tsx:436
 msgid "Back"
 msgstr "戻る"
 
@@ -341,7 +346,7 @@ msgstr "サブスクリプションをする事で、あなたは私たちの �
 #: src/app/settings/moderation.tsx:192
 #: src/components/drawer/drawer-content.tsx:55
 #: src/components/feed-row.tsx:291
-#: src/components/image-viewer.tsx:273
+#: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:79
 #: src/components/post-context-menu.tsx:117
 #: src/components/post-context-menu.tsx:289
@@ -391,6 +396,10 @@ msgstr "ハンドルを選択"
 #: src/lib/composer/utils.tsx:393
 #: src/lib/composer/utils.tsx:437
 msgid "Choose from Library"
+msgstr ""
+
+#: src/app/images/[post].tsx:98
+msgid "Close image modal"
 msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:123
@@ -866,7 +875,7 @@ msgstr ""
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "投稿がこれらの言語のいずれであるとマークされている場合、翻訳されません。"
 
-#: src/components/image-viewer.tsx:267
+#: src/components/image-viewer.tsx:268
 msgid "Image options"
 msgstr ""
 
@@ -1058,6 +1067,10 @@ msgstr "マイフィード"
 msgid "My Feeds"
 msgstr "マイフィード"
 
+#: src/components/drawer/drawer-content.tsx:114
+msgid "My Feeds screen"
+msgstr ""
+
 #: src/app/composer/language.tsx:85
 #: src/app/settings/language/index.tsx:107
 msgid "My languages"
@@ -1114,7 +1127,7 @@ msgstr ""
 msgid "No users found - maybe try a different search term?"
 msgstr "ユーザーが見つかりません - 別の検索語を使うと良いかもしれないですよ?"
 
-#: src/components/primary-post.tsx:206
+#: src/components/primary-post.tsx:208
 msgid "Nobody can reply"
 msgstr ""
 
@@ -1153,6 +1166,26 @@ msgstr ""
 
 #: src/lib/hooks/link-press.tsx:88
 msgid "Open link"
+msgstr ""
+
+#: src/components/embed/index.tsx:233
+msgid "Opens embedded post"
+msgstr ""
+
+#: src/components/feed-post.tsx:259
+#: src/components/feed-post.tsx:443
+msgid "Opens parent post"
+msgstr ""
+
+#: src/components/feed-post.tsx:294
+msgid "Opens post details"
+msgstr ""
+
+#: src/components/feed-post.tsx:205
+#: src/components/feed-post.tsx:359
+#: src/components/notification/index.tsx:179
+#: src/components/primary-post.tsx:96
+msgid "Opens profile"
 msgstr ""
 
 #: src/app/create-list.tsx:197
@@ -1281,6 +1314,10 @@ msgstr "プライマリの言語"
 msgid "Pro Settings"
 msgstr "Proの設定"
 
+#: src/components/drawer/drawer-content.tsx:169
+msgid "Pro version information and purchase"
+msgstr ""
+
 #: src/app/(tabs)/_layout.tsx:244
 msgid "Profile"
 msgstr "プロフィール"
@@ -1318,6 +1355,10 @@ msgstr "引用ポストの設定"
 msgid "Random"
 msgstr "ランダム"
 
+#: src/components/image-viewer.tsx:146
+msgid "Read full ALT text"
+msgstr ""
+
 #: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Replies"
 msgstr "返信"
@@ -1334,8 +1375,8 @@ msgstr "返信の設定"
 msgid "Reply to {0}"
 msgstr "{0}に返信"
 
-#: src/components/feed-post.tsx:272
-#: src/components/feed-post.tsx:451
+#: src/components/feed-post.tsx:273
+#: src/components/feed-post.tsx:455
 msgid "replying to {0}"
 msgstr "{0}に返信"
 
@@ -1343,15 +1384,15 @@ msgstr "{0}に返信"
 msgid "Replying to @{0}"
 msgstr "@{0}に返信"
 
-#: src/components/feed-post.tsx:410
+#: src/components/feed-post.tsx:414
 msgid "replying to a blocked user"
 msgstr ""
 
-#: src/components/feed-post.tsx:413
+#: src/components/feed-post.tsx:417
 msgid "replying to a deleted post"
 msgstr ""
 
-#: src/components/feed-post.tsx:405
+#: src/components/feed-post.tsx:409
 msgid "replying to a post that couldn't be fetched"
 msgstr ""
 
@@ -1359,7 +1400,7 @@ msgstr ""
 msgid "Replying to some sort of post"
 msgstr ""
 
-#: src/components/feed-post.tsx:407
+#: src/components/feed-post.tsx:411
 msgid "replying to..."
 msgstr ""
 
@@ -1379,7 +1420,7 @@ msgstr "リポストの設定"
 msgid "Reposted by"
 msgstr "リポストしたユーザー"
 
-#: src/components/feed-post.tsx:370
+#: src/components/feed-post.tsx:374
 msgid "Reposted by {0}"
 msgstr "{0}にリポストされた"
 
@@ -1529,6 +1570,10 @@ msgstr ""
 msgid "Settings"
 msgstr "設定"
 
+#: src/components/drawer/drawer-content.tsx:192
+msgid "Settings menu"
+msgstr ""
+
 #: src/app/composer/content-warning.tsx:23
 msgid "Sexual content"
 msgstr "挑発的なセクシー"
@@ -1615,6 +1660,7 @@ msgstr "返信を表示"
 msgid "Show reposts"
 msgstr "リポストを表示"
 
+#: src/components/drawer/drawer-content.tsx:205
 #: src/components/drawer/drawer-content.tsx:211
 #: src/components/switch-accounts.tsx:146
 msgid "Sign out"
@@ -1895,11 +1941,11 @@ msgstr ""
 msgid "Username or email address"
 msgstr "ユーザー名またはメールアドレス"
 
-#: src/components/primary-post.tsx:221
+#: src/components/primary-post.tsx:223
 msgid "Users mentioned in this thread"
 msgstr ""
 
-#: src/components/primary-post.tsx:228
+#: src/components/primary-post.tsx:230
 msgid "Users that <0>{0}</0> follows"
 msgstr ""
 
@@ -1925,6 +1971,10 @@ msgstr ""
 msgid "View all feeds"
 msgstr "すべてのフィードを表示"
 
+#: src/components/embed/image.tsx:216
+msgid "View ALT text"
+msgstr ""
+
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
 msgstr "警告: アカウントの削除は永久的です"
@@ -1946,7 +1996,7 @@ msgid "What's on your mind?"
 msgstr "何を考えてるんだい?"
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:177
+#: src/components/primary-post.tsx:179
 msgid "Who can reply?"
 msgstr "誰が返信できますか?"
 

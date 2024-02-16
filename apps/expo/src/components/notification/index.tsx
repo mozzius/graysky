@@ -176,7 +176,7 @@ const ProfileList = ({
               href={path(`/profile/${actor.did}`)}
               asChild
               key={actor.did}
-              accessibilityHint="Opens profile"
+              accessibilityHint={_(msg`Opens profile`)}
             >
               <TouchableOpacity className="mr-2 rounded-full">
                 <Avatar

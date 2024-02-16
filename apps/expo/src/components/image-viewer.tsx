@@ -64,6 +64,7 @@ export const ImageViewer = ({
   const [index, setIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
 
+  const { _ } = useLingui();
   const haptics = useHaptics();
   const { tag } = useLocalSearchParams<{
     tag?: string;
@@ -142,7 +143,7 @@ export const ImageViewer = ({
         >
           <PlatformSpecificBackdrop>
             <TouchableOpacity
-              accessibilityLabel="Read full ALT text"
+              accessibilityLabel={_(msg`Read full ALT text`)}
               accessibilityRole="button"
               className="flex-1 flex-row items-center px-4 pt-4"
               style={{ paddingBottom: bottom + 8 }}
