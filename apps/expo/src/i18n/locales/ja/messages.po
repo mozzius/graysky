@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-16 22:22\n"
+"PO-Revision-Date: 2024-02-16 23:28\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1998,7 +1998,7 @@ msgstr "Graysky Proへようこそ!"
 
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
-msgstr "何を考えてるんだい?"
+msgstr "何を考えていますか？"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:179
