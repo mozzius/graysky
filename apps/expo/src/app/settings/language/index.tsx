@@ -61,7 +61,7 @@ export default function LanguageSettings() {
                           ...actionSheetStyles(theme),
                         },
                         (index) => {
-                          if (!index || !options[index]) return;
+                          if (index === undefined || !options[index]) return;
                           setAppPreferences({
                             appLanguage: options[index],
                           });
