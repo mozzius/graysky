@@ -1304,11 +1304,11 @@ msgstr "プライマリフィード"
 
 #: src/app/settings/language/index.tsx:90
 msgid "Primary language"
-msgstr "プライマリの言語"
+msgstr "プライマリ言語"
 
 #: src/app/settings/_layout.tsx:129
 msgid "Primary Language"
-msgstr "プライマリの言語"
+msgstr "プライマリ言語"
 
 #: src/app/settings/_layout.tsx:57
 msgid "Pro Settings"
