@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
@@ -62,8 +62,13 @@ export default function I18nProvider({
   children: React.ReactNode;
 }) {
   const language = useAppLanguage();
+  const firstRender = useRef(true);
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     loadAndActivateLanguage(language);
   }, [language]);
 
