@@ -63,7 +63,7 @@ const FeedPostInner = ({
       !!item.post.author.viewer?.blocked ||
       !!filter,
   );
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
   const [hidden, setHidden] = useState(showWarning);
   const [forceShowTranslation, setForceShowTranslation] = useState<
     string | null
@@ -123,7 +123,7 @@ const FeedPostInner = ({
 
   const displayInlineParent = inlineParent || !!item.reason;
 
-  const timeSincePost = timeSince(new Date(item.post.indexedAt));
+  const timeSincePost = timeSince(new Date(item.post.indexedAt), i18n);
 
   const hiddenContent = showWarning && (
     <View
