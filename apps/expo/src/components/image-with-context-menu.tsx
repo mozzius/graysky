@@ -136,7 +136,7 @@ export const useImageOptions = () => {
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occured while trying to copy the image",
+            message: "An error occurred while trying to copy the image",
             status: "danger",
           });
         }
@@ -166,7 +166,7 @@ export const useImageOptions = () => {
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occured while trying to save the image",
+            message: "An error occurred while trying to save the image",
             status: "danger",
           });
         }
@@ -190,7 +190,7 @@ export const useImageOptions = () => {
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occured while trying to share the image",
+            message: "An error occurred while trying to share the image",
             status: "danger",
           });
         }

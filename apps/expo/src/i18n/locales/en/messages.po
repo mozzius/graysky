@@ -206,11 +206,12 @@ msgid "ALT Text"
 msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:78
-msgid "An error occured"
-msgstr ""
+#~ msgid "An error occured"
+#~ msgstr ""
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
+#: src/components/screens/change-password-flow.tsx:78
 #: src/components/translation.tsx:165
 msgid "An error occurred"
 msgstr ""

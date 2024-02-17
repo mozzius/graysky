@@ -75,7 +75,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
       } else {
         console.error(err);
         showToastable({
-          title: _(msg`An error occured`),
+          title: _(msg`An error occurred`),
           message: _(
             msg`Please try again - are you sure your reset code is correct?`,
           ),

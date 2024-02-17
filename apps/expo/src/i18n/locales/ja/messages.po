@@ -211,11 +211,12 @@ msgid "ALT Text"
 msgstr "ALTテキスト"
 
 #: src/components/screens/change-password-flow.tsx:78
-msgid "An error occured"
-msgstr "エラーが発生しました"
+#~ msgid "An error occured"
+#~ msgstr "エラーが発生しました"
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
+#: src/components/screens/change-password-flow.tsx:78
 #: src/components/translation.tsx:165
 msgid "An error occurred"
 msgstr "エラーが発生しました"
@@ -586,7 +587,8 @@ msgstr "削除をした投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+msgstr ""
+"Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
 "プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
@@ -2082,4 +2084,3 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
-
