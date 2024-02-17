@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 00:30\n"
+"PO-Revision-Date: 2024-02-17 01:30\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -273,7 +273,7 @@ msgstr "戻る"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
-msgstr "より良い翻訳機能"
+msgstr "より高精度な翻訳機能"
 
 #: src/app/pro.tsx:240
 msgid "Billed annually, cancel anytime"
@@ -289,7 +289,7 @@ msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:262
 msgid "Block user"
-msgstr ""
+msgstr "ユーザーをブロックする"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
 msgid "Blocked post"
@@ -437,7 +437,7 @@ msgstr "コンテンツ警告"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr "貢献者"
+msgstr "寄付者"
 
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
@@ -453,7 +453,7 @@ msgstr ""
 
 #: src/components/post-context-menu.tsx:207
 msgid "Copy post text"
-msgstr ""
+msgstr "テキストをコピー"
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
@@ -535,11 +535,11 @@ msgstr "bsky.app/設定で作成をします"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
-msgstr "開発者:"
+msgstr "開発者"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
-msgstr ""
+msgstr "作成者"
 
 #: src/app/pro.tsx:181
 msgid "Currently subscribed"
@@ -578,7 +578,7 @@ msgstr "アカウントを削除"
 
 #: src/components/post-context-menu.tsx:234
 msgid "Delete post"
-msgstr ""
+msgstr "ポストを削除"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
@@ -803,7 +803,7 @@ msgstr "一般"
 
 #: src/app/settings/language/index.tsx:151
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します"
+msgstr "DeepL翻訳に使用するにはGraysky Proにアップグレードしてください。それ以外はGoogle翻訳を使用します。"
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
@@ -824,7 +824,7 @@ msgstr "戻る"
 #: src/app/settings/language/index.tsx:149
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します。"
+msgstr "それ以外はGoogle翻訳を使用します。"
 
 #: src/app/pro.tsx:166
 #: src/app/settings/index.tsx:34
@@ -834,7 +834,7 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr "ハンドルネームは使われています"
+msgstr "ハンドルネームはすでに使用されています"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
@@ -894,7 +894,7 @@ msgstr "現在は {current} に設定されています"
 
 #: src/components/screens/profile/profile-info.tsx:656
 msgid "Joined {0}"
-msgstr ""
+msgstr "{0} に登録"
 
 #: src/app/settings/_layout.tsx:123
 #: src/app/settings/index.tsx:58
@@ -972,7 +972,7 @@ msgstr ""
 
 #: src/app/settings/about.tsx:111
 msgid "Logo designed by"
-msgstr "ロゴのデザイン:"
+msgstr "ロゴデザイン"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
@@ -1046,7 +1046,7 @@ msgstr ""
 
 #: src/components/post-context-menu.tsx:245
 msgid "Mute user"
-msgstr ""
+msgstr "ユーザーをミュートする"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 msgid "Muted list"
@@ -1411,7 +1411,7 @@ msgstr ""
 
 #: src/components/post-context-menu.tsx:275
 msgid "Report post"
-msgstr ""
+msgstr "ポストを報告する"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Repost"
@@ -1448,7 +1448,7 @@ msgstr "パスワードをリセット"
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
 msgid "Restore purchases"
-msgstr "購入を復元しています"
+msgstr "購入を復元する"
 
 #: src/app/pro.tsx:331
 #: src/app/pro.tsx:346
@@ -1544,11 +1544,11 @@ msgstr "ユーザーを検索"
 
 #: src/components/post-context-menu.tsx:216
 msgid "See likes"
-msgstr ""
+msgstr "いいねしたユーザー"
 
 #: src/components/post-context-menu.tsx:225
 msgid "See reposts"
-msgstr ""
+msgstr "リポストしたユーザー"
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
@@ -1614,11 +1614,11 @@ msgstr ""
 
 #: src/components/post-context-menu.tsx:199
 msgid "Share post"
-msgstr ""
+msgstr "ポストを共有"
 
 #: src/components/screens/profile/profile-info.tsx:546
 msgid "Share Profile"
-msgstr ""
+msgstr "プロフィールを共有"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
@@ -1647,7 +1647,7 @@ msgstr "通知タブに各通知を個別に表示"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
 msgid "Show less"
-msgstr "もっと表示"
+msgstr "表示件数を減らす"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1845,7 +1845,7 @@ msgstr "トップ (7日以内)"
 
 #: src/components/post-context-menu.tsx:191
 msgid "Translate"
-msgstr ""
+msgstr "翻訳"
 
 #: src/components/translation.tsx:86
 msgid "Translate post"
@@ -1866,7 +1866,7 @@ msgstr ""
 #: src/app/settings/language/index.tsx:128
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
-msgstr "翻訳プロバイダー"
+msgstr "翻訳の提供"
 
 #: src/app/success.tsx:38
 msgid "Translations are now powered by DeepL"
