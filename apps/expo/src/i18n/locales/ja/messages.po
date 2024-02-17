@@ -88,22 +88,6 @@ msgstr "{name} @{0} によるリスト"
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
-msgstr ""
-
-#: src/lib/utils/time.ts:68
-msgid "{secondsAgo}s"
-msgstr ""
-
-#: src/lib/utils/time.ts:18
-msgid "{years} years ago"
-msgstr ""
-
-#: src/lib/utils/time.ts:15
-msgid "{years}y"
-msgstr ""
-
-#: src/lib/utils/time.ts:71
-msgid "{secondsAgo} seconds ago"
 msgstr "{secondsAgo}秒前"
 
 #: src/lib/utils/time.ts:68
@@ -679,7 +663,8 @@ msgstr "削除をした投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+msgstr ""
+"Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
 "プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
@@ -2175,4 +2160,3 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
-
