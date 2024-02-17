@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 11:54\n"
+"PO-Revision-Date: 2024-02-17 14:33\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -44,35 +44,35 @@ msgstr "{0} 件の投稿"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
-msgstr ""
+msgstr "{days}日前"
 
 #: src/lib/utils/time.ts:37
 msgid "{days}d"
-msgstr ""
+msgstr "{days}日"
 
 #: src/lib/utils/time.ts:51
 msgid "{hours} hours ago"
-msgstr ""
+msgstr "{hours}時間前"
 
 #: src/lib/utils/time.ts:48
 msgid "{hours}h"
-msgstr ""
+msgstr "{hours}時間"
 
 #: src/lib/utils/time.ts:62
 msgid "{minutes} minutes ago"
-msgstr ""
+msgstr "{minutes}分前"
 
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
-msgstr ""
+msgstr "{minutes}分"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
-msgstr ""
+msgstr "{months}ヶ月前"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}m"
-msgstr ""
+msgstr "{months}分"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -88,19 +88,19 @@ msgstr "{name} リスト 作者: @{0}"
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
-msgstr ""
+msgstr "{secondsAgo}秒前"
 
 #: src/lib/utils/time.ts:68
 msgid "{secondsAgo}s"
-msgstr ""
+msgstr "{secondsAgo}秒"
 
 #: src/lib/utils/time.ts:18
 msgid "{years} years ago"
-msgstr ""
+msgstr "{years}年前"
 
 #: src/lib/utils/time.ts:15
 msgid "{years}y"
-msgstr ""
+msgstr "{years}年"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
@@ -130,19 +130,19 @@ msgstr "<0>{0}</0> 投稿"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
-msgstr ""
+msgstr "1日前"
 
 #: src/lib/utils/time.ts:50
 msgid "1 hour ago"
-msgstr ""
+msgstr "1時間前"
 
 #: src/lib/utils/time.ts:61
 msgid "1 minute ago"
-msgstr ""
+msgstr "1分前"
 
 #: src/lib/utils/time.ts:28
 msgid "1 month ago"
-msgstr ""
+msgstr "1ヶ月前"
 
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
@@ -150,11 +150,11 @@ msgstr "1 - 3"
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
-msgstr ""
+msgstr "1秒前"
 
 #: src/lib/utils/time.ts:17
 msgid "1 year ago"
-msgstr ""
+msgstr "1年前"
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
@@ -402,7 +402,7 @@ msgstr "by @{0}"
 
 #: src/app/settings/account/delete-account.tsx:115
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
-msgstr "確認を押す事で削除しようとしている物は、「Blueskyのアカウント」であり、「Grayskyではない事を理解した」と見なされます。公式アプリからもデータは完全に削除されます。"
+msgstr "確認を押すことで削除しようとしているものは「Blueskyアカウント」であり、「Grayskyではないことを理解した」と見なされます。公式アプリからもデータは完全に削除されます。"
 
 #: src/app/pro.tsx:299
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
@@ -1092,7 +1092,7 @@ msgstr "\"{0}\" のリスト内のメンバー"
 #: src/app/composer/index.tsx:231
 #: src/app/composer/index.tsx:242
 msgid "Missing alt text"
-msgstr "代替テキストがありません"
+msgstr "ALTテキストがありません"
 
 #: src/app/settings/_layout.tsx:87
 #: src/app/settings/index.tsx:48
@@ -1287,7 +1287,7 @@ msgstr "パスワードの変更に成功しました!"
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
-msgstr "パスワードは8文字以上です"
+msgstr "パスワードは8文字以上でなければいけません"
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
@@ -2068,7 +2068,7 @@ msgstr "Blueskyへようこそ!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Blueskyへようこそ! あなたが来てくれたから興奮してる。"
+msgstr "Blueskyへようこそ！ あなたが来てくれてワクワクしています。"
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
