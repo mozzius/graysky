@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 18:53\n"
+"PO-Revision-Date: 2024-02-17 21:24\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -36,11 +36,11 @@ msgstr "{0} / 年"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
-msgstr "#{decodedTag} の {0} 件のフィードが空です"
+msgstr "#{decodedTag}のうち、{0}件のフィードが空です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "{0} 件の投稿"
+msgstr "{0}件の投稿"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -80,11 +80,11 @@ msgstr "{name} フィード"
 
 #: src/components/feed-row.tsx:96
 msgid "{name} feed by @{0}, {1} likes"
-msgstr "{name} フィードは @{0}, {1} にいいねされました"
+msgstr "{name}フィード 作成者: @{0}、{1}人がいいね"
 
 #: src/components/feed-row.tsx:98
 msgid "{name} list by @{0}"
-msgstr "{name} @{0} によるリスト"
+msgstr "{name} @{0}によるリスト"
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
@@ -108,7 +108,7 @@ msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr ""
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}}other{{4}および、他{5}人が}}</0><1>{6}</1>"
 
 #: src/components/notification/index.tsx:223
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
@@ -563,7 +563,7 @@ msgstr "ミュートを取得できませんでした"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
 msgid "Could not fetch trending topics"
-msgstr "トレンドトピックが取得できませんでした"
+msgstr "トレンドのトピックが取得できませんでした"
 
 #: src/components/screens/profile/profile-info.tsx:140
 msgid "Could not follow user"
@@ -1380,7 +1380,7 @@ msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
 msgid "Powered by Skyfeed"
-msgstr "Powered by Skyfeed"
+msgstr "SkyFeedによる提供"
 
 #: src/app/settings/feed.tsx:164
 #: src/app/settings/feed.tsx:178
@@ -1507,7 +1507,7 @@ msgstr "リポストしたユーザー:"
 
 #: src/components/feed-post.tsx:374
 msgid "Reposted by {0}"
-msgstr "{0} によるリポスト"
+msgstr "{0}によるリポスト"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1731,7 +1731,7 @@ msgstr "通知タブに各通知を個別に表示"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
 msgid "Show less"
-msgstr "表示件数を減らす"
+msgstr "表示を少なくする"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1958,7 +1958,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
 msgid "Trending topics"
-msgstr "トレンドトピック"
+msgstr "トレンドのトピック"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Undo Repost"
