@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 01:30\n"
+"PO-Revision-Date: 2024-02-17 02:33\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -313,7 +313,7 @@ msgstr "ブロックとミュート"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr "bsky.social のドメイン"
+msgstr "bsky.socialドメイン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
@@ -586,7 +586,8 @@ msgstr "削除をした投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr "Blueskyのアカウントを削除すると、すべてが完全に削除されます。プロフィール、投稿、フォローなどのデータ、いいねなどのデータが削除されます。この操作は戻す事はできません。"
+msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+"プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
 msgid "Deletion Code"
@@ -617,23 +618,23 @@ msgstr ""
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/_layout.tsx:317
 msgid "Discover Feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
 msgid "Discover more feeds"
-msgstr ""
+msgstr "さらにフィードを探す"
 
 #: src/app/edit-bio.tsx:227
 msgid "Display name"
-msgstr ""
+msgstr "表示名"
 
 #: src/app/settings/account/change-handle.tsx:82
 msgid "Domain"
-msgstr ""
+msgstr "ドメイン"
 
 #: src/app/push-notifications.tsx:147
 msgid "Don't enable"
@@ -791,7 +792,7 @@ msgstr "フォロー中"
 
 #: src/components/lists/person-row.tsx:47
 msgid "Follows you"
-msgstr "あなたをフォロー"
+msgstr "フォローされています"
 
 #: src/app/(auth)/sign-in.tsx:106
 msgid "Forgot?"
@@ -834,7 +835,7 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr "ハンドルネームはすでに使用されています"
+msgstr "このハンドルはすでに使用されています"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
@@ -842,7 +843,7 @@ msgstr ""
 
 #: src/components/handle-availability.tsx:70
 msgid "Handle is taken"
-msgstr ""
+msgstr "このハンドルは登録されています"
 
 #: src/app/settings/app.tsx:108
 msgid "Haptics disabled"
@@ -925,7 +926,7 @@ msgstr ""
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
-msgstr "リンクをデバイスのデフォルトブラウザではなく、アプリ内で開きます"
+msgstr "リンクをデバイスのデフォルトブラウザではなくアプリ内で開きます"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:115
 msgid "List"
@@ -968,7 +969,7 @@ msgstr ""
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
-msgstr ""
+msgstr "ログインしました"
 
 #: src/app/settings/about.tsx:111
 msgid "Logo designed by"
@@ -1034,7 +1035,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
-msgstr ""
+msgstr "{0} のその他のフィード"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
@@ -1062,7 +1063,7 @@ msgstr "ミュートをしたユーザー"
 
 #: src/components/lists/person-row.tsx:43
 msgid "Mutuals"
-msgstr ""
+msgstr "相互フォロー"
 
 #: src/components/drawer/drawer-content.tsx:119
 msgid "My feeds"
@@ -1146,7 +1147,7 @@ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr "未実装"
+msgstr "まだ実装されていません"
 
 #: src/app/settings/moderation.tsx:126
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
@@ -1247,7 +1248,7 @@ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
-msgstr "ごめんなさい!その間は公式アプリを使ってください。"
+msgstr "申し訳ありません。実装されるまでは公式アプリをご利用ください。"
 
 #: src/app/composer/content-warning.tsx:33
 msgid "Pornographic content"
@@ -1568,7 +1569,7 @@ msgstr "プライマリフィードを選択"
 
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
-msgstr ""
+msgstr "リセットメールを送信する"
 
 #: src/app/settings/_layout.tsx:46
 #: src/components/drawer/drawer-content.tsx:197
@@ -1821,7 +1822,7 @@ msgstr ""
 
 #: src/components/screens/feeds-screen-elements.tsx:26
 msgid "To get started, add some feeds to your home screen."
-msgstr ""
+msgstr "まずはホーム画面にいくつかのフィードを追加してみましょう。"
 
 #: src/components/feed-row.tsx:224
 msgid "Toggle favourite status"
@@ -1982,11 +1983,11 @@ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
-msgstr "警告: アカウントの削除は永久的です"
+msgstr "警告: アカウントは永久に削除されます"
 
 #: src/components/screens/feeds-screen-elements.tsx:23
 msgid "Welcome to Bluesky!"
-msgstr ""
+msgstr "Blueskyへようこそ！"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
@@ -2015,7 +2016,7 @@ msgstr ""
 
 #: src/components/switch-accounts.tsx:85
 msgid "You are now logged in as @{0}"
-msgstr ""
+msgstr "あなたは @{0} でログインをしています"
 
 #: src/app/(auth)/sign-up.tsx:391
 msgid "You can change it later"
@@ -2080,5 +2081,5 @@ msgstr "ここで選択した内容は保存されますが、後から設定で
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
-msgstr ""
+msgstr "あなたのハンドルは次のようになります: <0>@{derivedHandle}</0>"
 
