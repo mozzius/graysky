@@ -200,12 +200,12 @@ export default function DeleteAccount() {
               </View>
             </View>
             <View className="flex-row items-center justify-between pt-2">
-              <TextButton onPress={() => setStage(1)} title="Back" />
+              <TextButton onPress={() => setStage(1)} title={_(msg`Back`)} />
               {!changePassword.isPending ? (
                 <TextButton
                   disabled={!token || !password}
                   onPress={() => changePassword.mutate()}
-                  title="Delete Account"
+                  title={_(msg`Delete Account`)}
                   className="font-medium text-red-500"
                 />
               ) : (

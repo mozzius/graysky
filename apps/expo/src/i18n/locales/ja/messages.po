@@ -343,6 +343,7 @@ msgstr "使用可能です"
 #: src/app/(auth)/sign-up.tsx:432
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:117
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:418
+#: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:436
 msgid "Back"
@@ -649,6 +650,7 @@ msgid "Delete"
 msgstr "削除"
 
 #: src/app/settings/_layout.tsx:81
+#: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
 msgstr "アカウントを削除"
