@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 14:33\n"
+"PO-Revision-Date: 2024-02-17 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1166,7 +1166,7 @@ msgstr "マイリスト"
 
 #: src/app/add-to-list/[handle].tsx:152
 msgid "Need a new list?"
-msgstr "新規リストが必要ですか?"
+msgstr "新規のリストが必要ですか？"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
 msgid "New"
@@ -1842,7 +1842,7 @@ msgstr "写真を撮る"
 
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
-msgstr "それがすべてだよ!"
+msgstr "これで全部です！"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
