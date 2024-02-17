@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-16 23:28\n"
+"PO-Revision-Date: 2024-02-17 00:30\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -151,7 +151,7 @@ msgstr "画像を追加"
 
 #: src/lib/composer/keyboard-accessory.tsx:53
 msgid "Add image or GIF"
-msgstr ""
+msgstr "画像またはGIFを追加"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
@@ -196,19 +196,19 @@ msgstr "フィードタブでお気に入り以外のフィードを自動で並
 
 #: src/app/composer/index.tsx:444
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #: src/components/image-viewer.tsx:160
 msgid "ALT"
-msgstr ""
+msgstr "ALT"
 
 #: src/components/embed/image.tsx:219
 msgid "ALT text"
-msgstr ""
+msgstr "ALTテキスト"
 
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
-msgstr ""
+msgstr "ALTテキスト"
 
 #: src/components/screens/change-password-flow.tsx:78
 msgid "An error occured"
@@ -235,7 +235,7 @@ msgstr "アプリ情報"
 #: src/app/settings/language/index.tsx:46
 #: src/app/settings/language/index.tsx:49
 msgid "App language"
-msgstr ""
+msgstr "アプリの言語"
 
 #: src/app/(auth)/sign-in.tsx:92
 msgid "App Password"
@@ -255,7 +255,7 @@ msgstr "アプリの設定"
 
 #: src/components/post-context-menu.tsx:114
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "本当にこのポストを削除してもよろしいですか？"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
@@ -285,7 +285,7 @@ msgstr "毎月の支払い、いつでも解約可能です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
-msgstr ""
+msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:262
 msgid "Block user"
@@ -390,7 +390,7 @@ msgstr "アクセントカラーを変更"
 #: src/components/drawer/drawer-content.tsx:180
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
-msgstr ""
+msgstr "テーマを変更"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -754,7 +754,7 @@ msgstr "フィード"
 #: src/app/settings/feed.tsx:120
 #: src/app/settings/feed.tsx:162
 msgid "Feeds list"
-msgstr ""
+msgstr "フィードリスト"
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -830,7 +830,7 @@ msgstr "それ以外は、Google翻訳を使用します。"
 #: src/app/settings/index.tsx:34
 #: src/components/drawer/drawer-content.tsx:174
 msgid "Graysky Pro"
-msgstr ""
+msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
@@ -890,7 +890,7 @@ msgstr "無効なモード"
 
 #: src/components/drawer/drawer-content.tsx:71
 msgid "It's currently set to the {current} theme"
-msgstr ""
+msgstr "現在は {current} に設定されています"
 
 #: src/components/screens/profile/profile-info.tsx:656
 msgid "Joined {0}"
@@ -976,7 +976,7 @@ msgstr "ロゴのデザイン:"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
-msgstr ""
+msgstr "ここにはまだ何もないようです！"
 
 #: src/app/settings/app.tsx:142
 msgid "Makes adding ALT text to your images mandatory"
@@ -1749,12 +1749,12 @@ msgstr ""
 
 #: src/components/drawer/drawer-content.tsx:66
 msgid "system"
-msgstr ""
+msgstr "自動"
 
 #: src/components/drawer/drawer-content.tsx:54
 #: src/components/drawer/drawer-content.tsx:88
 msgid "System"
-msgstr ""
+msgstr "自動"
 
 #: src/lib/composer/utils.tsx:388
 #: src/lib/composer/utils.tsx:393
