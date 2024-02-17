@@ -8,19 +8,19 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 16:35\n"
+"PO-Revision-Date: 2024-02-17 16:56\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: graysky\n"
 "X-Crowdin-Project-ID: 648828\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 8\n"
+"X-Crowdin-File: /i18n/apps/expo/src/i18n/locales/en/messages.po\n"
+"X-Crowdin-File-ID: 22\n"
 
 #: src/components/primary-post.tsx:265
 msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-msgstr "{0, plural, one {Users in the list} other {Users in the lists}}"
+msgstr "{0, plural, one {リスト内のユーザー} other {リスト内のユーザー}}"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -202,7 +202,7 @@ msgstr "アカウントの詳細"
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
-msgstr "アカウントの詳細"
+msgstr "アカウントの設定"
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
@@ -351,7 +351,7 @@ msgstr "戻る"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
-msgstr "より良い翻訳機能"
+msgstr "より高精度な翻訳機能"
 
 #: src/app/pro.tsx:240
 msgid "Billed annually, cancel anytime"
@@ -391,7 +391,7 @@ msgstr "ブロックとミュート"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr "bsky.social のドメイン"
+msgstr "bsky.socialドメイン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
@@ -407,11 +407,11 @@ msgstr "確認を押すことで削除しようとしているものは「Bluesk
 
 #: src/app/pro.tsx:299
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0> そして <1>プライバシーポリシー</1>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で、<0>利用規約</0>および<1>プライバシーポリシー</1>に同意したものとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/pro.tsx:264
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0>, the <1>利用規約 (EULA)</1>, そして <2>プライバシーポリシー</2>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利用許諾契約(EULA)</1>および<2>プライバシーポリシー</2>に同意したとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
@@ -515,7 +515,7 @@ msgstr "コンテンツ警告"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr "貢献者"
+msgstr "寄付者"
 
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
@@ -613,7 +613,7 @@ msgstr "bsky.app/設定で作成をします"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
-msgstr "開発者:"
+msgstr "開発者"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
@@ -665,8 +665,7 @@ msgstr "削除をした投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr ""
-"Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
 "プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
@@ -698,11 +697,11 @@ msgstr "投稿を破棄"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/_layout.tsx:317
 msgid "Discover Feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
 msgid "Discover more feeds"
@@ -884,7 +883,7 @@ msgstr "一般"
 
 #: src/app/settings/language/index.tsx:151
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します"
+msgstr "DeepL翻訳に使用するにはGraysky Proにアップグレードしてください。それ以外はGoogle翻訳を使用します。"
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
@@ -905,7 +904,7 @@ msgstr "戻る"
 #: src/app/settings/language/index.tsx:149
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します。"
+msgstr "それ以外はGoogle翻訳を使用します。"
 
 #: src/app/pro.tsx:166
 #: src/app/settings/index.tsx:34
@@ -915,7 +914,7 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr "ハンドルネームは使われています"
+msgstr "このハンドルはすでに使用されています"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
@@ -1006,7 +1005,7 @@ msgstr "リンクをクリップボードにコピーしました"
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
-msgstr "リンクをデバイスのデフォルトブラウザではなく、アプリ内で開きます"
+msgstr "リンクをデバイスのデフォルトブラウザではなくアプリ内で開きます"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:115
 msgid "List"
@@ -1053,7 +1052,7 @@ msgstr "ログイン中"
 
 #: src/app/settings/about.tsx:111
 msgid "Logo designed by"
-msgstr "ロゴのデザイン:"
+msgstr "ロゴデザイン"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
@@ -1227,7 +1226,7 @@ msgstr "理由はわかりません...ごめんなさい :("
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr "未実装"
+msgstr "まだ実装されていません"
 
 #: src/app/settings/moderation.tsx:126
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
@@ -1328,7 +1327,7 @@ msgstr "再度お試しください - リセットコードは正しいですか
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
-msgstr "ごめんなさい!その間は公式アプリを使ってください。"
+msgstr "申し訳ありません。実装されるまでは公式アプリをご利用ください。"
 
 #: src/app/composer/content-warning.tsx:33
 msgid "Pornographic content"
@@ -1390,11 +1389,11 @@ msgstr "プライマリフィード"
 
 #: src/app/settings/language/index.tsx:90
 msgid "Primary language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:129
 msgid "Primary Language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:57
 msgid "Pro Settings"
@@ -1529,7 +1528,7 @@ msgstr "パスワードをリセット"
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
 msgid "Restore purchases"
-msgstr "購入を復元しています"
+msgstr "購入を復元する"
 
 #: src/app/pro.tsx:331
 #: src/app/pro.tsx:346
@@ -1608,7 +1607,7 @@ msgstr "人を検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:126
 msgid "Search People"
-msgstr "人を検索"
+msgstr "ユーザーを検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
@@ -1732,7 +1731,7 @@ msgstr "通知タブに各通知を個別に表示"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
 msgid "Show less"
-msgstr "もっと表示"
+msgstr "表示件数を減らす"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1951,7 +1950,7 @@ msgstr "Googleで翻訳されました"
 #: src/app/settings/language/index.tsx:128
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
-msgstr "翻訳プロバイダー"
+msgstr "翻訳の提供"
 
 #: src/app/success.tsx:38
 msgid "Translations are now powered by DeepL"
@@ -2067,7 +2066,7 @@ msgstr "ALTテキストを表示"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
-msgstr "警告: アカウントの削除は永久的です"
+msgstr "警告: アカウントは永久に削除されます"
 
 #: src/components/screens/feeds-screen-elements.tsx:23
 msgid "Welcome to Bluesky!"
@@ -2083,7 +2082,7 @@ msgstr "Graysky Proへようこそ!"
 
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
-msgstr "何を考えてるんだい?"
+msgstr "何を考えていますか？"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:179
@@ -2148,7 +2147,7 @@ msgstr "他のBlueskyクライアントでも同じ通知が届くかもしれ�
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。-これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
+msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。- これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
@@ -2166,3 +2165,4 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
+
