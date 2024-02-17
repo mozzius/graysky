@@ -127,7 +127,7 @@ export default function DeleteAccount() {
                       ],
                     )
                   }
-                  title="Send confirmation email"
+                  title={_(msg`Send confirmation email`)}
                   className="text-center font-medium"
                 />
               ) : (

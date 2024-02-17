@@ -1638,6 +1638,10 @@ msgstr ""
 msgid "Select primary feed"
 msgstr ""
 
+#: src/app/settings/account/delete-account.tsx:130
+msgid "Send confirmation email"
+msgstr ""
+
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
 msgstr ""

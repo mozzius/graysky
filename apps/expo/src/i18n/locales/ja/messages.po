@@ -1645,6 +1645,10 @@ msgstr "1つ以上のオプションを選択"
 msgid "Select primary feed"
 msgstr "プライマリフィードを選択"
 
+#: src/app/settings/account/delete-account.tsx:130
+msgid "Send confirmation email"
+msgstr ""
+
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
 msgstr "リセットメールを送信する"
