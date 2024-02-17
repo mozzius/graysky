@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 05:32\n"
+"PO-Revision-Date: 2024-02-17 07:12\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/primary-post.tsx:265
 msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-msgstr ""
+msgstr "{0, plural, one {リスト内のユーザー} other {リスト内のユーザー}}"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -44,15 +44,15 @@ msgstr "{0} 件の投稿"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
-msgstr ""
+msgstr "{name} フィード"
 
 #: src/components/feed-row.tsx:96
 msgid "{name} feed by @{0}, {1} likes"
-msgstr ""
+msgstr "{name} フィード 作者: @{0}、いいね: {1}"
 
 #: src/components/feed-row.tsx:98
 msgid "{name} list by @{0}"
-msgstr ""
+msgstr "{name} リスト 作者: @{0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
@@ -86,7 +86,7 @@ msgstr "3 - 3"
 
 #: src/app/(auth)/sign-up.tsx:341
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-msgstr ""
+msgstr "{phone} にコードが送信されました。<0>電話番号を変更してください。</0>"
 
 #: src/app/settings/feed.tsx:121
 msgid "A specific feed"
@@ -122,7 +122,7 @@ msgstr "アカウントの詳細"
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
-msgstr "アカウントの詳細"
+msgstr "アカウントの設定"
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
@@ -134,7 +134,7 @@ msgstr "コンテンツ警告を追加"
 
 #: src/lib/composer/alt-text-editor.tsx:154
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-msgstr "画像に説明を加えます。良質なaltテキストは簡潔かつ精細です。画像自体にテキストがある場合は必ず書き出してください。"
+msgstr "画像に説明を加えます。良質なALTテキストは、簡潔で詳細な情報が記載されています。画像自体にテキストがある場合は必ず書き出してください。"
 
 #: src/components/switch-accounts.tsx:177
 msgid "Add another account"
@@ -255,11 +255,11 @@ msgstr "アプリの設定"
 
 #: src/components/post-context-menu.tsx:114
 msgid "Are you sure you want to delete this post?"
-msgstr "本当にこのポストを削除してもよろしいですか？"
+msgstr "本当にこの投稿を削除してもよろしいですか?"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
-msgstr "使用可能です"
+msgstr "利用可能です"
 
 #: src/app/(auth)/sign-up.tsx:312
 #: src/app/(auth)/sign-up.tsx:351
@@ -329,11 +329,11 @@ msgstr "確認を押す事で削除しようとしている物は、「Bluesky�
 
 #: src/app/pro.tsx:299
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0> そして <1>プライバシーポリシー</1>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で、<0>利用規約</0>および<1>プライバシーポリシー</1>に同意したものとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/pro.tsx:264
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0>, the <1>利用規約 (EULA)</1>, そして <2>プライバシーポリシー</2>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利用許諾契約(EULA)</1>および<2>プライバシーポリシー</2>に同意したとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
@@ -578,7 +578,7 @@ msgstr "アカウントを削除"
 
 #: src/components/post-context-menu.tsx:234
 msgid "Delete post"
-msgstr "ポストを削除"
+msgstr "投稿を削除"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
@@ -883,7 +883,7 @@ msgstr "投稿がこれらの言語のいずれであるとマークされてい
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
-msgstr ""
+msgstr "画像のオプション"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
 msgid "Invalid mode"
@@ -938,11 +938,11 @@ msgstr "リストのアバター"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:234
 msgid "List blocked"
-msgstr ""
+msgstr "ブロックをしたリスト"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:229
 msgid "List muted"
-msgstr ""
+msgstr "ミュートをしたリスト"
 
 #: src/app/create-list.tsx:174
 msgid "List name"
@@ -1039,11 +1039,11 @@ msgstr "{0} の詳細"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
-msgstr ""
+msgstr "最低で8文字が必要です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
-msgstr ""
+msgstr "すべてのメンバーをミュート"
 
 #: src/components/post-context-menu.tsx:245
 msgid "Mute user"
@@ -1075,7 +1075,7 @@ msgstr "マイフィード"
 
 #: src/components/drawer/drawer-content.tsx:114
 msgid "My Feeds screen"
-msgstr ""
+msgstr "マイフィードの画面"
 
 #: src/app/composer/language.tsx:85
 #: src/app/settings/language/index.tsx:107
@@ -1093,7 +1093,7 @@ msgstr "新規リストが必要ですか?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
 msgid "New"
-msgstr ""
+msgstr "新規"
 
 #: src/components/notification/index.tsx:189
 msgid "New follower: {0} @{1}"
@@ -1101,7 +1101,7 @@ msgstr "新しいフォロワー: {0} @{1}"
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
-msgstr ""
+msgstr "新しいパスワード"
 
 #: src/app/composer/_layout.tsx:72
 msgid "New Post"
@@ -1135,15 +1135,15 @@ msgstr "ユーザーが見つかりません - 別の検索語を使うと良い
 
 #: src/components/primary-post.tsx:208
 msgid "Nobody can reply"
-msgstr ""
+msgstr "誰でも返信不可"
 
 #: src/components/feed-row.tsx:221
 msgid "Not favourited"
-msgstr ""
+msgstr "お気に入りに未登録"
 
 #: src/lib/hooks/link-press.tsx:76
 msgid "Not sure why, sorry :("
-msgstr ""
+msgstr "理由はわかりません...ごめんなさい :("
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
@@ -1176,23 +1176,23 @@ msgstr "リンクを開く"
 
 #: src/components/embed/index.tsx:233
 msgid "Opens embedded post"
-msgstr ""
+msgstr "埋め込まれた投稿を開く"
 
 #: src/components/feed-post.tsx:259
 #: src/components/feed-post.tsx:443
 msgid "Opens parent post"
-msgstr ""
+msgstr "親の投稿を開く"
 
 #: src/components/feed-post.tsx:294
 msgid "Opens post details"
-msgstr ""
+msgstr "投稿の詳細を開く"
 
 #: src/components/feed-post.tsx:205
 #: src/components/feed-post.tsx:359
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:96
 msgid "Opens profile"
-msgstr ""
+msgstr "プロフィールを開く"
 
 #: src/app/create-list.tsx:197
 msgid "Optional"
@@ -1205,7 +1205,7 @@ msgstr "パスワード"
 
 #: src/components/screens/change-password-flow.tsx:227
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "パスワードの変更に成功しました!"
 
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
@@ -1214,7 +1214,7 @@ msgstr "パスワードは8文字以上です"
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
-msgstr ""
+msgstr "あなたの前にいる人たち。"
 
 #: src/app/composer/threadgate.tsx:85
 msgid "People mentioned in the thread"
@@ -1244,7 +1244,7 @@ msgstr "もう一度お試しください"
 
 #: src/components/screens/change-password-flow.tsx:80
 msgid "Please try again - are you sure your reset code is correct?"
-msgstr ""
+msgstr "再度お試しください - リセットコードは正しいですか?"
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
@@ -1259,7 +1259,7 @@ msgstr "ポルノコンテンツ"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:356
 #: src/lib/composer/buttons.tsx:72
 msgid "Post"
-msgstr "ポスト"
+msgstr "投稿"
 
 #: src/app/composer/index.tsx:246
 msgid "Post anyway"
@@ -1267,7 +1267,7 @@ msgstr "とにかく投稿する"
 
 #: src/components/post-context-menu.tsx:130
 msgid "Post deleted"
-msgstr ""
+msgstr "投稿を削除しました"
 
 #: src/app/composer/_layout.tsx:76
 msgid "Post Language"
@@ -1280,11 +1280,11 @@ msgstr "投稿の言語"
 #: src/components/post-context-menu.tsx:304
 #: src/components/post-context-menu.tsx:331
 msgid "Post options"
-msgstr ""
+msgstr "投稿のオプション"
 
 #: src/components/post-context-menu.tsx:107
 msgid "Post text copied to clipboard"
-msgstr ""
+msgstr "クリップボードに投稿のテキストをコピーしました"
 
 #: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Posts"
@@ -1322,7 +1322,7 @@ msgstr "Proの設定"
 
 #: src/components/drawer/drawer-content.tsx:169
 msgid "Pro version information and purchase"
-msgstr ""
+msgstr "Proバージョンの情報と購入"
 
 #: src/app/(tabs)/_layout.tsx:244
 msgid "Profile"
@@ -1338,7 +1338,7 @@ msgstr "購入が成功しました"
 
 #: src/app/create-list.tsx:211
 msgid "Purpose"
-msgstr ""
+msgstr "目的"
 
 #: src/app/settings/index.tsx:75
 msgid "Push notifications"
@@ -1351,11 +1351,11 @@ msgstr "プッシュ通知"
 
 #: src/lib/hooks/post-actions.tsx:141
 msgid "Quote"
-msgstr ""
+msgstr "引用"
 
 #: src/app/settings/feed.tsx:352
 msgid "Quote post settings"
-msgstr "引用ポストの設定"
+msgstr "引用の設定"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
 msgid "Random"
@@ -1363,7 +1363,7 @@ msgstr "ランダム"
 
 #: src/components/image-viewer.tsx:146
 msgid "Read full ALT text"
-msgstr ""
+msgstr "完全なALTテキストを読む"
 
 #: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Replies"
@@ -1412,7 +1412,7 @@ msgstr "に返信"
 
 #: src/components/post-context-menu.tsx:275
 msgid "Report post"
-msgstr "ポストを報告する"
+msgstr "投稿を報告する"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Repost"
@@ -1428,7 +1428,7 @@ msgstr "リポストしたユーザー:"
 
 #: src/components/feed-post.tsx:374
 msgid "Reposted by {0}"
-msgstr "{0}にリポストされた"
+msgstr "{0} によるリポスト"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1615,7 +1615,7 @@ msgstr "ポストするリンクを共有"
 
 #: src/components/post-context-menu.tsx:199
 msgid "Share post"
-msgstr "ポストを共有"
+msgstr "投稿を共有"
 
 #: src/components/screens/profile/profile-info.tsx:546
 msgid "Share Profile"
@@ -1656,7 +1656,7 @@ msgstr "フィードタブにフィード上のリストを表示"
 
 #: src/app/settings/feed.tsx:355
 msgid "Show quote posts"
-msgstr "引用ポストを表示"
+msgstr "引用の投稿を表示"
 
 #: src/app/settings/feed.tsx:291
 msgid "Show replies"
@@ -2064,7 +2064,7 @@ msgstr "他のBlueskyクライアントでも同じ通知が届くかもしれ�
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。-これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
+msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。- これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
