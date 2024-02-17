@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 04:32\n"
+"PO-Revision-Date: 2024-02-17 05:32\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,23 +24,23 @@ msgstr ""
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
-msgstr ""
+msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr ""
+msgstr "{0} / 月額"
 
 #: src/app/pro.tsx:236
 msgid "{0} / year"
-msgstr ""
+msgstr "{0} / 年額"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
-msgstr ""
+msgstr "#{decodedTag} の {0} 件のフィードが空です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr ""
+msgstr "{0} 件の投稿"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -56,7 +56,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
-msgstr ""
+msgstr "#{0}"
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:600
@@ -74,15 +74,15 @@ msgstr "<0>{0}</0> 投稿"
 
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
-msgstr ""
+msgstr "1 - 3"
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
-msgstr ""
+msgstr "2 - 3"
 
 #: src/app/(auth)/sign-up.tsx:376
 msgid "3 of 3"
-msgstr ""
+msgstr "3 - 3"
 
 #: src/app/(auth)/sign-up.tsx:341
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
@@ -118,7 +118,7 @@ msgstr "アカウントは削除されました。さようなら!"
 
 #: src/app/settings/account/index.tsx:28
 msgid "Account Details"
-msgstr "アカウントの詳細\""
+msgstr "アカウントの詳細"
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
@@ -138,7 +138,7 @@ msgstr "画像に説明を加えます。良質なaltテキストは簡潔かつ
 
 #: src/components/switch-accounts.tsx:177
 msgid "Add another account"
-msgstr "アカウントを追加"
+msgstr "別のアカウントを追加"
 
 #: src/app/composer/index.tsx:591
 msgid "Add embed for <0>{potential}</0>"
@@ -196,7 +196,7 @@ msgstr "フィードタブでお気に入り以外のフィードを自動で並
 
 #: src/app/composer/index.tsx:444
 msgid "Alt"
-msgstr "Alt"
+msgstr "ALT"
 
 #: src/components/image-viewer.tsx:160
 msgid "ALT"
@@ -259,7 +259,7 @@ msgstr "本当にこのポストを削除してもよろしいですか？"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
-msgstr "利用可能"
+msgstr "使用可能です"
 
 #: src/app/(auth)/sign-up.tsx:312
 #: src/app/(auth)/sign-up.tsx:351
@@ -305,7 +305,7 @@ msgstr "ブロックをしたユーザー"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Blocking list"
-msgstr "ブロックリスト"
+msgstr "ブロッキングリスト"
 
 #: src/app/settings/moderation.tsx:106
 msgid "Blocks & Mutes"
@@ -317,11 +317,11 @@ msgstr "bsky.socialドメイン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
-msgstr "@{0} によって"
+msgstr "by @{0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:150
 msgid "By @{0}"
-msgstr "@{0} によって"
+msgstr "by @{0}"
 
 #: src/app/settings/account/delete-account.tsx:115
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
@@ -409,7 +409,7 @@ msgstr "画像モーダルを閉じる"
 
 #: src/app/settings/account/delete-account.tsx:123
 msgid "Confirm and continue"
-msgstr "確認して続行"
+msgstr "確認と続行"
 
 #: src/components/screens/change-password-flow.tsx:174
 msgid "Confirm Password"
@@ -441,7 +441,7 @@ msgstr "寄付者"
 
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
-msgstr "コピーしたリンク"
+msgstr "リンクをコピーしました"
 
 #: src/components/post-context-menu.tsx:106
 msgid "Copied post text"
@@ -543,7 +543,7 @@ msgstr "作成者"
 
 #: src/app/pro.tsx:181
 msgid "Currently subscribed"
-msgstr "購読中"
+msgstr "現在購読中です"
 
 #: src/app/settings/account/change-handle.tsx:91
 msgid "Custom domain"
@@ -564,7 +564,7 @@ msgstr "ダーク"
 
 #: src/app/(auth)/sign-up.tsx:207
 msgid "Date of Birth"
-msgstr "誕生日"
+msgstr "生年月日"
 
 #: src/components/post-context-menu.tsx:113
 #: src/components/post-context-menu.tsx:121
@@ -666,7 +666,7 @@ msgstr "編集"
 
 #: src/lib/composer/alt-text-editor.tsx:68
 msgid "Edit alt text"
-msgstr "代替テキストを編集"
+msgstr "ALTテキストを編集"
 
 #: src/app/edit-bio.tsx:200
 msgid "Edit avatar"
@@ -689,7 +689,7 @@ msgstr "プロフィールを編集"
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "メールアドレス"
+msgstr "Eメール"
 
 #: src/app/settings/moderation.tsx:137
 msgid "Enable Adult Content"
@@ -772,7 +772,7 @@ msgstr "フォローすると、その投稿がここに表示されます"
 
 #: src/components/screens/profile/profile-info.tsx:130
 msgid "Followed user"
-msgstr "フォロー中のユーザー"
+msgstr "フォローしているユーザー"
 
 #: src/components/lists/followers-list.tsx:54
 msgid "Followers"
@@ -792,7 +792,7 @@ msgstr "フォロー中"
 
 #: src/components/lists/person-row.tsx:47
 msgid "Follows you"
-msgstr "フォローされています"
+msgstr "あなたをフォロー中"
 
 #: src/app/(auth)/sign-in.tsx:106
 msgid "Forgot?"
@@ -843,7 +843,7 @@ msgstr "ハンドルは無効です"
 
 #: src/components/handle-availability.tsx:70
 msgid "Handle is taken"
-msgstr "このハンドルは登録されています"
+msgstr "ハンドルは登録されています"
 
 #: src/app/settings/app.tsx:108
 msgid "Haptics disabled"
@@ -895,7 +895,7 @@ msgstr "現在は {current} に設定されています"
 
 #: src/components/screens/profile/profile-info.tsx:656
 msgid "Joined {0}"
-msgstr "{0} に登録"
+msgstr "{0} が参加しました"
 
 #: src/app/settings/_layout.tsx:123
 #: src/app/settings/index.tsx:58
@@ -922,7 +922,7 @@ msgstr "いいね"
 
 #: src/lib/hooks/link-press.tsx:115
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "リンクをクリップボードにコピーしました"
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
@@ -965,7 +965,7 @@ msgstr "ログイン"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
-msgstr ""
+msgstr "ログアウト"
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
@@ -985,7 +985,7 @@ msgstr "画像のALTテキストの追加を必須にします"
 
 #: src/components/feeds-button.tsx:292
 msgid "Manage my feeds"
-msgstr ""
+msgstr "マイフィードを管理"
 
 #: src/app/pro.tsx:193
 msgid "Manage my subscription"
@@ -997,7 +997,7 @@ msgstr "ALTテキストを必須にする"
 
 #: src/app/settings/app.tsx:38
 msgid "Manually sort non-favourite feeds"
-msgstr "お気に入り以外のフィードを手動で並べ替える"
+msgstr "お気に入り以外のフィードを手動で並び替える"
 
 #: src/components/screens/profile/profile-tab-view.tsx:88
 msgid "Media"
@@ -1010,7 +1010,7 @@ msgstr "メンバー"
 
 #: src/app/composer/threadgate.tsx:129
 msgid "Members of list \"{0}\""
-msgstr "\"{0}\"のリスト内のメンバー"
+msgstr "\"{0}\" のリスト内のメンバー"
 
 #: src/app/composer/index.tsx:231
 #: src/app/composer/index.tsx:242
@@ -1031,11 +1031,11 @@ msgstr "モデレーションリスト"
 
 #: src/app/pro.tsx:202
 msgid "Monthly Plan"
-msgstr ""
+msgstr "月額プラン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
-msgstr "{0} のその他のフィード"
+msgstr "{0} の詳細"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
@@ -1051,7 +1051,7 @@ msgstr "ユーザーをミュートする"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 msgid "Muted list"
-msgstr ""
+msgstr "ミュートをしたリスト"
 
 #: src/app/settings/moderation.tsx:114
 msgid "Muted users"
@@ -1097,7 +1097,7 @@ msgstr ""
 
 #: src/components/notification/index.tsx:189
 msgid "New follower: {0} @{1}"
-msgstr ""
+msgstr "新しいフォロワー: {0} @{1}"
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
@@ -1127,7 +1127,7 @@ msgstr "投稿が見つかりません - 別の検索語を使うと良いかも
 #: src/app/settings/feed.tsx:80
 #: src/app/settings/moderation.tsx:42
 msgid "No preferences"
-msgstr ""
+msgstr "設定なし"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:84
 msgid "No users found - maybe try a different search term?"
@@ -1168,11 +1168,11 @@ msgstr "フォローしている人からの返信のみ表示"
 
 #: src/components/open-drawer-avatar.tsx:15
 msgid "Open drawer menu"
-msgstr ""
+msgstr "ドロワーメニューを開く"
 
 #: src/lib/hooks/link-press.tsx:88
 msgid "Open link"
-msgstr ""
+msgstr "リンクを開く"
 
 #: src/components/embed/index.tsx:233
 msgid "Opens embedded post"
@@ -1226,7 +1226,7 @@ msgstr "フォローをしている人"
 
 #: src/app/(auth)/sign-up.tsx:281
 msgid "Phone number"
-msgstr ""
+msgstr "電話番号"
 
 #: src/app/composer/index.tsx:233
 msgid "Please add descriptive alt text to all images before posting."
@@ -1301,7 +1301,7 @@ msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
 msgid "Powered by Skyfeed"
-msgstr ""
+msgstr "Powered by Skyfeed"
 
 #: src/app/settings/feed.tsx:164
 #: src/app/settings/feed.tsx:178
@@ -1310,11 +1310,11 @@ msgstr "プライマリフィード"
 
 #: src/app/settings/language/index.tsx:90
 msgid "Primary language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:129
 msgid "Primary Language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:57
 msgid "Pro Settings"
@@ -1388,7 +1388,7 @@ msgstr "{0}に返信"
 
 #: src/app/composer/index.tsx:350
 msgid "Replying to @{0}"
-msgstr "@{0}に返信"
+msgstr "@{0} に返信"
 
 #: src/components/feed-post.tsx:414
 msgid "replying to a blocked user"
@@ -1424,7 +1424,7 @@ msgstr "リポストの設定"
 
 #: src/components/lists/reposts-list.tsx:54
 msgid "Reposted by"
-msgstr "リポストしたユーザー"
+msgstr "リポストしたユーザー:"
 
 #: src/components/feed-post.tsx:374
 msgid "Reposted by {0}"
@@ -1432,7 +1432,7 @@ msgstr "{0}にリポストされた"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
-msgstr "あなたの投稿はリポストされました"
+msgstr "あなたの投稿をリポストしました"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
@@ -1474,7 +1474,7 @@ msgstr "保存"
 
 #: src/app/pro.tsx:222
 msgid "Save {0}%"
-msgstr "{0} %割引"
+msgstr " {0}% を保存"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
 msgid "Saved"
@@ -1591,7 +1591,7 @@ msgstr "共有"
 
 #: src/app/capture/[author]/[post].tsx:82
 msgid "Share {0}'s post"
-msgstr "{0}の投稿を共有する"
+msgstr "{0} の投稿を共有する"
 
 #: src/components/post-context-menu.tsx:78
 msgid "Share as image"
@@ -1746,7 +1746,7 @@ msgstr "開発者をサポート"
 
 #: src/app/(tabs)/_layout.tsx:119
 msgid "Switch Accounts"
-msgstr "アカウントの切替"
+msgstr "アカウントを切り替え"
 
 #: src/components/drawer/drawer-content.tsx:66
 msgid "system"
@@ -1765,11 +1765,11 @@ msgstr "写真を撮る"
 
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
-msgstr "以上です。"
+msgstr "それがすべてだよ!"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
-msgstr "それはあなたです!"
+msgstr "それはあなただよ!"
 
 #: src/app/settings/app.tsx:110
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
@@ -1790,7 +1790,7 @@ msgstr "このハンドルネームはすでに使われています。他を選
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:625
 msgid "This list is empty"
-msgstr "このリストは空です。"
+msgstr "このリストは空です"
 
 #: src/app/composer/content-warning.tsx:29
 msgid "This post contains artistic or non-erotic nudity."
@@ -1822,7 +1822,7 @@ msgstr "このユーザーは \"{0}\" のミュートリストに登録されて
 
 #: src/components/screens/feeds-screen-elements.tsx:26
 msgid "To get started, add some feeds to your home screen."
-msgstr "まずはホーム画面にいくつかのフィードを追加してみましょう。"
+msgstr "まずは、ホーム画面にいくつかのフィードを追加してみましょう。"
 
 #: src/components/feed-row.tsx:224
 msgid "Toggle favourite status"
@@ -1850,7 +1850,7 @@ msgstr "翻訳"
 
 #: src/components/translation.tsx:86
 msgid "Translate post"
-msgstr "翻訳"
+msgstr "投稿を翻訳"
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
@@ -1858,11 +1858,11 @@ msgstr "DeepL翻訳を使用して投稿を翻訳"
 
 #: src/components/translation.tsx:146
 msgid "Translated by DeepL"
-msgstr "DeepLによる翻訳"
+msgstr "DeepLで翻訳されました"
 
 #: src/components/translation.tsx:135
 msgid "Translated by Google"
-msgstr "Googleによる翻訳"
+msgstr "Googleで翻訳されました"
 
 #: src/app/settings/language/index.tsx:128
 #: src/app/settings/pro.tsx:29
@@ -1887,7 +1887,7 @@ msgstr "リストのお気に入りを解除"
 
 #: src/components/screens/profile/profile-info.tsx:131
 msgid "Unfollowed user"
-msgstr "ユーザーのフォローをやめる"
+msgstr "フォローを解除したユーザー"
 
 #: src/app/(auth)/sign-in.tsx:51
 #: src/app/(auth)/sign-up.tsx:94
@@ -1925,7 +1925,7 @@ msgstr "DeepL翻訳を使用"
 #: src/app/settings/language/index.tsx:142
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
-msgstr "Google翻訳の代わりにDeepL翻訳を使用する"
+msgstr "Google翻訳の代わりにDeepLを翻訳に使用する"
 
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38
@@ -1949,7 +1949,7 @@ msgstr "ユーザー名またはメールアドレス"
 
 #: src/components/primary-post.tsx:223
 msgid "Users mentioned in this thread"
-msgstr "このスレッドでメンションされたユーザー"
+msgstr "このスレッドで言及したユーザー"
 
 #: src/components/primary-post.tsx:230
 msgid "Users that <0>{0}</0> follows"
@@ -1987,11 +1987,11 @@ msgstr "警告: アカウントは永久に削除されます"
 
 #: src/components/screens/feeds-screen-elements.tsx:23
 msgid "Welcome to Bluesky!"
-msgstr "Blueskyへようこそ！"
+msgstr "Blueskyへようこそ!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Blueskyへようこそ！"
+msgstr "Blueskyへようこそ! あなたが来てくれたから興奮してる。"
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
@@ -2008,11 +2008,11 @@ msgstr "誰が返信できますか?"
 
 #: src/components/screens/profile/profile-info.tsx:135
 msgid "You are no longer following @{0}"
-msgstr "@{0} のフォローを解除しました。"
+msgstr "あなたは @{0} をフォローしていません"
 
 #: src/components/screens/profile/profile-info.tsx:134
 msgid "You are now following @{0}"
-msgstr ""
+msgstr "あなたは @{0} をフォローしています"
 
 #: src/components/switch-accounts.tsx:85
 msgid "You are now logged in as @{0}"
@@ -2032,15 +2032,15 @@ msgstr "「いいね」や「返信」などのプッシュ通知を受け取る
 
 #: src/app/add-to-list/[handle].tsx:147
 msgid "You don't have any moderation lists yet."
-msgstr ""
+msgstr "モデレーションリストはまだありません。"
 
 #: src/components/screens/profile/profile-info.tsx:711
 msgid "You have blocked this user"
-msgstr ""
+msgstr "このユーザーをブロックしました"
 
 #: src/components/screens/profile/profile-info.tsx:675
 msgid "You have muted this user"
-msgstr ""
+msgstr "このユーザーをミュートしました"
 
 #: src/app/settings/blocks.tsx:45
 msgid "You haven't blocked anyone"
@@ -2068,18 +2068,18 @@ msgstr "メインパスワードではなくアプリパスワードを使用す
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
-msgstr ""
+msgstr "あなたは Bluesky の参加待ちの中にいます!"
 
 #: src/components/screens/waiting-room.tsx:68
 msgid "You're in!"
-msgstr ""
+msgstr "君も仲間だね!"
 
 #: src/lib/hooks/link-press.tsx:35
 msgid "Your choice will be saved, but can be changed in settings"
-msgstr "ここで選択した内容は保存されますが、後から設定で変更できます。"
+msgstr "選択した内容は保存されますが、設定で変更することができます。"
 
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
-msgstr "あなたのハンドルは次のようになります: <0>@{derivedHandle}</0>"
+msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
 
