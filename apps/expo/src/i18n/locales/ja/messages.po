@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 16:56\n"
+"PO-Revision-Date: 2024-02-17 17:56\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,11 +28,11 @@ msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / 月額"
+msgstr "{0} / 月"
 
 #: src/app/pro.tsx:236
 msgid "{0} / year"
-msgstr "{0} / 年額"
+msgstr "{0} / 年"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
@@ -284,7 +284,7 @@ msgstr "ALT"
 
 #: src/components/embed/image.tsx:219
 msgid "ALT text"
-msgstr "代替テキスト"
+msgstr "ALTテキスト"
 
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
@@ -573,7 +573,7 @@ msgstr "ユーザーをフォローできませんでした"
 #: src/components/switch-accounts.tsx:71
 #: src/components/switch-accounts.tsx:76
 msgid "Could not log you in"
-msgstr "ログインできませんでした"
+msgstr "サインインできませんでした"
 
 #: src/app/composer/gifs.tsx:219
 msgid "Could not select GIF"
@@ -768,7 +768,7 @@ msgstr "プロフィールを編集"
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "Eメール"
+msgstr "メールアドレス"
 
 #: src/app/settings/moderation.tsx:137
 msgid "Enable Adult Content"
@@ -1005,7 +1005,7 @@ msgstr "リンクをクリップボードにコピーしました"
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
-msgstr "リンクをデバイスのデフォルトブラウザではなくアプリ内で開きます"
+msgstr "リンクをデフォルトのブラウザではなくアプリ内で開きます"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:115
 msgid "List"
@@ -1034,13 +1034,13 @@ msgstr "リスト"
 #: src/app/(auth)/_layout.tsx:67
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
-msgstr "ログインをし直す"
+msgstr "サインインをし直す"
 
 #: src/app/(auth)/_layout.tsx:55
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
-msgstr "ログイン"
+msgstr "サインイン"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
@@ -1048,7 +1048,7 @@ msgstr "ログアウト"
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
-msgstr "ログイン中"
+msgstr "サインインしました"
 
 #: src/app/settings/about.tsx:111
 msgid "Logo designed by"
@@ -1515,7 +1515,7 @@ msgstr "あなたの投稿をリポストしました"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
-msgstr "リクエストコード"
+msgstr "コードをリクエスト"
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1648,7 +1648,7 @@ msgstr "プライマリフィードを選択"
 
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
-msgstr ""
+msgstr "確認のメールを送信"
 
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
@@ -1758,7 +1758,7 @@ msgstr "サインアウト"
 #: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
-msgstr "登録"
+msgstr "新しいアカウントを作成"
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2013,7 +2013,7 @@ msgstr "Google翻訳の代わりにDeepLを翻訳に使用する"
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38
 msgid "Use in-app browser"
-msgstr "アプリ内ブラウザを使用する"
+msgstr "アプリ内のブラウザを使用"
 
 #: src/lib/hooks/link-press.tsx:39
 msgid "Use my default browser"
