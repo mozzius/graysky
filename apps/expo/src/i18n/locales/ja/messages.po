@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 17:56\n"
+"PO-Revision-Date: 2024-02-17 18:53\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -609,7 +609,7 @@ msgstr "新規リストを作成"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
-msgstr "bsky.app/設定で作成をします"
+msgstr "Blueskyアプリの設定から作成"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
@@ -661,7 +661,7 @@ msgstr "投稿を削除"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
-msgstr "削除をした投稿"
+msgstr "削除された投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
@@ -992,7 +992,7 @@ msgstr "ライト"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr "あなたの投稿がいいねされました"
+msgstr "投稿がいいねされました"
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
@@ -1852,7 +1852,7 @@ msgstr "これで全部です！"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
-msgstr "それはあなただよ!"
+msgstr "それはあなたです!"
 
 #: src/app/settings/app.tsx:110
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
@@ -2074,7 +2074,7 @@ msgstr "Blueskyへようこそ!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Blueskyへようこそ！ あなたが来てくれてワクワクしています。"
+msgstr "Blueskyへようこそ! あなたが来てくれてワクワクしています。"
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
@@ -2111,7 +2111,7 @@ msgstr "アクセントカラーを変更できます"
 
 #: src/app/push-notifications.tsx:38
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
-msgstr "「いいね」や「返信」などのプッシュ通知を受け取る事ができます。ただし、注意すべき点も存在します。"
+msgstr "「いいね」や「返信」などのプッシュ通知を受け取る事ができます。ただし、注意すべき点がいくつかあります。"
 
 #: src/app/add-to-list/[handle].tsx:147
 msgid "You don't have any moderation lists yet."
@@ -2139,7 +2139,7 @@ msgstr "ミュートをしたユーザーから通知が来る事があります
 
 #: src/app/push-notifications.tsx:88
 msgid "You may receive notifications from people you've blocked or muted via moderation list. <0>Learn more</0>"
-msgstr "あなたがブロックまたはミュートをした相手からの通知を受け取る事があります。モデレーションリストでミュートをした人からの通知を受け取る事があります。 <0>さらに詳しく</0>"
+msgstr "あなたが「ブロック」または「ミュート」をしたユーザーからの通知を受け取る事があります。「モデレーションリストでミュート」をしたユーザーからの通知を受け取る事があります。 <0>さらに詳しく</0>"
 
 #: src/app/push-notifications.tsx:52
 msgid "You might receive the same notifications via other Bluesky clients."
@@ -2147,7 +2147,7 @@ msgstr "他のBlueskyクライアントでも同じ通知が届くかもしれ�
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。- これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
+msgstr "メインパスワードではなくアプリパスワードを使用する事をおすすめします - これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
