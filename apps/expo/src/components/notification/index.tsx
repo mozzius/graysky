@@ -1,6 +1,6 @@
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { msg } from "@lingui/macro";
+import { msg, Plural, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
@@ -161,10 +161,10 @@ const ProfileList = ({
   const haptics = useHaptics();
   const router = useRouter();
   const path = useAbsolutePath();
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
 
   if (!actors[0]) return null;
-  const timeSinceNotif = timeSince(new Date(indexedAt));
+  const timeSinceNotif = timeSince(new Date(indexedAt), i18n);
 
   return (
     <View className="flex-1">
@@ -220,28 +220,31 @@ const ProfileList = ({
         )}
       </View>
       <Text className="mt-2 text-base">
+        <Trans>
+          <Text
+            className="text-base font-medium"
+            onPress={() => {
+              if (actors.length === 1) {
+                router.push(path(`/profile/${actors[0]!.did}`));
+              } else {
+                haptics.selection();
+                showAll();
+              }
+            }}
+          >
+            <Plural
+              value={actors.length}
+              _1={actors[0].displayName?.trim() || `@${actors[0].handle}`}
+              _2={`${actors[0].displayName?.trim() || `@${actors[0].handle}`} and ${actors[1]?.displayName?.trim() || `@${actors[1]?.handle}`}`}
+              other={`${actors[0].displayName?.trim() || `@${actors[0].handle}`} and ${actors.length - 1} others`}
+            />
+          </Text>
+          <Text className="text-base text-neutral-500 dark:text-neutral-400">
+            {" " + action}
+          </Text>
+        </Trans>
         <Text
-          className="text-base font-medium"
-          onPress={() => {
-            if (actors.length === 1) {
-              router.push(path(`/profile/${actors[0]!.did}`));
-            } else {
-              haptics.selection();
-              showAll();
-            }
-          }}
-        >
-          {actors[0].displayName?.trim() || `@${actors[0].handle}`}
-          {actors.length === 2 &&
-            actors[1] &&
-            ` and ${actors[1].displayName?.trim() || `@${actors[1].handle}`}`}
-          {actors.length > 2 && ` and ${actors.length - 1} others`}
-        </Text>
-        <Text className="text-base text-neutral-500 dark:text-neutral-400">
-          {" " + action}
-        </Text>
-        <Text
-          className="text-base text-neutral-500 dark:text-neutral-400"
+          className="mx-1 text-base text-neutral-500 dark:text-neutral-400"
           accessibilityLabel={timeSinceNotif.accessible}
         >
           {" · "}

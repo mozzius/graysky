@@ -60,6 +60,15 @@ importers:
       '@expo/react-native-action-sheet':
         specifier: ^4.0.1
         version: 4.0.1(react@18.2.0)
+      '@formatjs/intl-getcanonicallocales':
+        specifier: ^2.3.0
+        version: 2.3.0
+      '@formatjs/intl-locale':
+        specifier: ^3.4.5
+        version: 3.4.5
+      '@formatjs/intl-pluralrules':
+        specifier: ^5.2.12
+        version: 5.2.12
       '@gorhom/bottom-sheet':
         specifier: 4.6.0
         version: 4.6.0(@types/react@18.2.55)(react-native-gesture-handler@2.15.0)(react-native-reanimated@3.7.0)(react-native@0.73.4)(react@18.2.0)
@@ -3467,6 +3476,48 @@ packages:
       chalk: 4.1.2
       find-up: 5.0.0
       js-yaml: 4.1.0
+    dev: false
+
+  /@formatjs/ecma402-abstract@1.18.2:
+    resolution: {integrity: sha512-+QoPW4csYALsQIl8GbN14igZzDbuwzcpWrku9nyMXlaqAlwRBgl5V+p0vWMGFqHOw37czNXaP/lEk4wbLgcmtA==}
+    dependencies:
+      '@formatjs/intl-localematcher': 0.5.4
+      tslib: 2.6.2
+    dev: false
+
+  /@formatjs/intl-enumerator@1.4.5:
+    resolution: {integrity: sha512-IbEJHzJO0buoq//RqbLRDettIkZ/WYGOL+8dy5oxzefqlpTsmJFUo5t1sK0/1EoC+eOFiyhdgh5ihCH3Cehc0w==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@formatjs/intl-getcanonicallocales@2.3.0:
+    resolution: {integrity: sha512-BOXbLwqQ7nKua/l7tKqDLRN84WupDXFDhGJQMFvsMVA2dKuOdRaWTxWpL3cJ7qPkoNw11Jf+Xpj4OSPBBvW0eQ==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@formatjs/intl-locale@3.4.5:
+    resolution: {integrity: sha512-obUNTK0Py9sDSTlCXfNQotC7Oy5xd3iBx6dVtzd9YXProkP0NxcRrhlPmfHO9AuYNXdHuarHlozoBxZjOtM4mQ==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.18.2
+      '@formatjs/intl-enumerator': 1.4.5
+      '@formatjs/intl-getcanonicallocales': 2.3.0
+      tslib: 2.6.2
+    dev: false
+
+  /@formatjs/intl-localematcher@0.5.4:
+    resolution: {integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@formatjs/intl-pluralrules@5.2.12:
+    resolution: {integrity: sha512-V/namV1R/FPlsNMcO6U3saOoUqCp6DIPj4BONjj4yW78BU9gRytEJEdifOv+O1cU2Sb7AqOLOju6/qqIRRauLQ==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.18.2
+      '@formatjs/intl-localematcher': 0.5.4
+      tslib: 2.6.2
     dev: false
 
   /@gar/promisify@1.1.3:
