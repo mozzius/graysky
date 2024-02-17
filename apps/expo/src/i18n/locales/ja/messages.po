@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 10:57\n"
+"PO-Revision-Date: 2024-02-17 11:54\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -42,6 +42,38 @@ msgstr "#{decodedTag} の {0} 件のフィードが空です"
 msgid "{0} posts"
 msgstr "{0} 件の投稿"
 
+#: src/lib/utils/time.ts:40
+msgid "{days} days ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:37
+msgid "{days}d"
+msgstr ""
+
+#: src/lib/utils/time.ts:51
+msgid "{hours} hours ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:48
+msgid "{hours}h"
+msgstr ""
+
+#: src/lib/utils/time.ts:62
+msgid "{minutes} minutes ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:59
+msgid "{minutes}m"
+msgstr ""
+
+#: src/lib/utils/time.ts:29
+msgid "{months} months ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:26
+msgid "{months}m"
+msgstr ""
+
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
 msgstr "{name} フィード"
@@ -54,9 +86,33 @@ msgstr "{name} フィード 作者: @{0}、いいね: {1}"
 msgid "{name} list by @{0}"
 msgstr "{name} リスト 作者: @{0}"
 
+#: src/lib/utils/time.ts:71
+msgid "{secondsAgo} seconds ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:68
+msgid "{secondsAgo}s"
+msgstr ""
+
+#: src/lib/utils/time.ts:18
+msgid "{years} years ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:15
+msgid "{years}y"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
 msgstr "#{0}"
+
+#: src/components/notification/index.tsx:223
+msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
+msgstr ""
+
+#: src/components/notification/index.tsx:223
+#~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
+#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:600
@@ -72,9 +128,33 @@ msgstr "<0>{0}</0> フォロー"
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> 投稿"
 
+#: src/lib/utils/time.ts:39
+msgid "1 day ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:50
+msgid "1 hour ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:61
+msgid "1 minute ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:28
+msgid "1 month ago"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
 msgstr "1 - 3"
+
+#: src/lib/utils/time.ts:70
+msgid "1 second ago"
+msgstr ""
+
+#: src/lib/utils/time.ts:17
+msgid "1 year ago"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
@@ -209,10 +289,6 @@ msgstr "ALTテキスト"
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
 msgstr "ALTテキスト"
-
-#: src/components/screens/change-password-flow.tsx:78
-#~ msgid "An error occured"
-#~ msgstr ""
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
