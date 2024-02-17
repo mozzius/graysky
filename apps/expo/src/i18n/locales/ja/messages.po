@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 07:12\n"
+"PO-Revision-Date: 2024-02-17 09:37\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -259,7 +259,7 @@ msgstr "本当にこの投稿を削除してもよろしいですか?"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
-msgstr "利用可能です"
+msgstr "使用可能です"
 
 #: src/app/(auth)/sign-up.tsx:312
 #: src/app/(auth)/sign-up.tsx:351
@@ -1310,11 +1310,11 @@ msgstr "プライマリフィード"
 
 #: src/app/settings/language/index.tsx:90
 msgid "Primary language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:129
 msgid "Primary Language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:57
 msgid "Pro Settings"
