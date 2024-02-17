@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 02:33\n"
+"PO-Revision-Date: 2024-02-17 03:31\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -134,7 +134,7 @@ msgstr "コンテンツ警告を追加"
 
 #: src/lib/composer/alt-text-editor.tsx:154
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-msgstr ""
+msgstr "画像に説明を加えます。良質なaltテキストは簡潔かつ精細です。画像自体にテキストがある場合は必ず書き出してください。"
 
 #: src/components/switch-accounts.tsx:177
 msgid "Add another account"
@@ -401,7 +401,7 @@ msgstr "ハンドルを選択"
 #: src/lib/composer/utils.tsx:393
 #: src/lib/composer/utils.tsx:437
 msgid "Choose from Library"
-msgstr ""
+msgstr "ライブラリから選ぶ"
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -1259,7 +1259,7 @@ msgstr "ポルノコンテンツ"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:356
 #: src/lib/composer/buttons.tsx:72
 msgid "Post"
-msgstr "投稿"
+msgstr "ポスト"
 
 #: src/app/composer/index.tsx:246
 msgid "Post anyway"
@@ -1514,13 +1514,13 @@ msgstr "ユーザーを検索"
 #: src/lib/composer/utils.tsx:390
 #: src/lib/composer/utils.tsx:470
 msgid "Search GIFs"
-msgstr ""
+msgstr "GIFを検索"
 
 #: src/app/composer/language.tsx:32
 #: src/app/settings/language/content.tsx:27
 #: src/app/settings/language/primary.tsx:28
 msgid "Search languages"
-msgstr ""
+msgstr "言語を検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:116
 msgid "Search people"
@@ -1718,7 +1718,7 @@ msgstr "GitHubでStarを付けてください!"
 #: src/components/notification/index.tsx:127
 #: src/components/notification/index.tsx:186
 msgid "started following you"
-msgstr ""
+msgstr "あなたをフォローしました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Stop editing"
@@ -1761,7 +1761,7 @@ msgstr "自動"
 #: src/lib/composer/utils.tsx:393
 #: src/lib/composer/utils.tsx:417
 msgid "Take Photo"
-msgstr ""
+msgstr "写真を撮る"
 
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
