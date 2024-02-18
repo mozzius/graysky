@@ -8,19 +8,19 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 16:35\n"
+"PO-Revision-Date: 2024-02-17 23:12\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: graysky\n"
 "X-Crowdin-Project-ID: 648828\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: messages.po\n"
-"X-Crowdin-File-ID: 8\n"
+"X-Crowdin-File: /i18n/apps/expo/src/i18n/locales/en/messages.po\n"
+"X-Crowdin-File-ID: 22\n"
 
 #: src/components/primary-post.tsx:265
 msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-msgstr "{0, plural, one {Users in the list} other {Users in the lists}}"
+msgstr "{0, plural, one {リスト内のユーザー} other {リスト内のユーザー}}"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -28,19 +28,19 @@ msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / 月額"
+msgstr "{0} / 月"
 
 #: src/app/pro.tsx:236
 msgid "{0} / year"
-msgstr "{0} / 年額"
+msgstr "{0} / 年"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
-msgstr "#{decodedTag} の {0} 件のフィードが空です"
+msgstr "#{decodedTag}のうち、{0}件のフィードが空です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "{0} 件の投稿"
+msgstr "{0}件の投稿"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -80,11 +80,11 @@ msgstr "{name} フィード"
 
 #: src/components/feed-row.tsx:96
 msgid "{name} feed by @{0}, {1} likes"
-msgstr "{name} フィードは @{0}, {1} にいいねされました"
+msgstr "{name}フィード 作成者: @{0}、{1}人がいいね"
 
 #: src/components/feed-row.tsx:98
 msgid "{name} list by @{0}"
-msgstr "{name} @{0} によるリスト"
+msgstr "{name} @{0}によるリスト"
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
@@ -108,7 +108,7 @@ msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr ""
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}}other{{4}および、他{5}人が}}</0><1>{6}</1>"
 
 #: src/components/notification/index.tsx:223
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
@@ -202,7 +202,7 @@ msgstr "アカウントの詳細"
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
-msgstr "アカウントの詳細"
+msgstr "アカウントの設定"
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
@@ -284,7 +284,7 @@ msgstr "ALT"
 
 #: src/components/embed/image.tsx:219
 msgid "ALT text"
-msgstr "代替テキスト"
+msgstr "ALTテキスト"
 
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
@@ -351,7 +351,7 @@ msgstr "戻る"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
-msgstr "より良い翻訳機能"
+msgstr "より高精度な翻訳機能"
 
 #: src/app/pro.tsx:240
 msgid "Billed annually, cancel anytime"
@@ -391,7 +391,7 @@ msgstr "ブロックとミュート"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr "bsky.social のドメイン"
+msgstr "bsky.socialドメイン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
@@ -407,11 +407,11 @@ msgstr "確認を押すことで削除しようとしているものは「Bluesk
 
 #: src/app/pro.tsx:299
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0> そして <1>プライバシーポリシー</1>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で、<0>利用規約</0>および<1>プライバシーポリシー</1>に同意したものとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/pro.tsx:264
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
-msgstr "サブスクリプションをする事で、あなたは私たちの に同意したものとみなされます。 <0>利用規約</0>, the <1>利用規約 (EULA)</1>, そして <2>プライバシーポリシー</2>. サブスクリプションはキャンセルされるまで自動的に更新されます。"
+msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利用許諾契約(EULA)</1>および<2>プライバシーポリシー</2>に同意したとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
@@ -515,7 +515,7 @@ msgstr "コンテンツ警告"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr "貢献者"
+msgstr "寄付者"
 
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
@@ -563,7 +563,7 @@ msgstr "ミュートを取得できませんでした"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
 msgid "Could not fetch trending topics"
-msgstr "トレンドトピックが取得できませんでした"
+msgstr "トレンドのトピックが取得できませんでした"
 
 #: src/components/screens/profile/profile-info.tsx:140
 msgid "Could not follow user"
@@ -573,7 +573,7 @@ msgstr "ユーザーをフォローできませんでした"
 #: src/components/switch-accounts.tsx:71
 #: src/components/switch-accounts.tsx:76
 msgid "Could not log you in"
-msgstr "ログインできませんでした"
+msgstr "サインインできませんでした"
 
 #: src/app/composer/gifs.tsx:219
 msgid "Could not select GIF"
@@ -609,11 +609,11 @@ msgstr "新規リストを作成"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
-msgstr "bsky.app/設定で作成をします"
+msgstr "Blueskyアプリの設定から作成"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
-msgstr "開発者:"
+msgstr "開発者"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
@@ -661,12 +661,11 @@ msgstr "投稿を削除"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
-msgstr "削除をした投稿"
+msgstr "削除された投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr ""
-"Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
 "プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
@@ -698,11 +697,11 @@ msgstr "投稿を破棄"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/_layout.tsx:317
 msgid "Discover Feeds"
-msgstr "Discoverフィード"
+msgstr "フィードを見つける"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
 msgid "Discover more feeds"
@@ -769,7 +768,7 @@ msgstr "プロフィールを編集"
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "Eメール"
+msgstr "メールアドレス"
 
 #: src/app/settings/moderation.tsx:137
 msgid "Enable Adult Content"
@@ -884,7 +883,7 @@ msgstr "一般"
 
 #: src/app/settings/language/index.tsx:151
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します"
+msgstr "DeepL翻訳に使用するにはGraysky Proにアップグレードしてください。それ以外はGoogle翻訳を使用します。"
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
@@ -905,7 +904,7 @@ msgstr "戻る"
 #: src/app/settings/language/index.tsx:149
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
-msgstr "それ以外は、Google翻訳を使用します。"
+msgstr "それ以外はGoogle翻訳を使用します。"
 
 #: src/app/pro.tsx:166
 #: src/app/settings/index.tsx:34
@@ -915,7 +914,7 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr "ハンドルネームは使われています"
+msgstr "このハンドルはすでに使用されています"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
@@ -993,7 +992,7 @@ msgstr "ライト"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr "あなたの投稿がいいねされました"
+msgstr "投稿がいいねされました"
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
@@ -1006,7 +1005,7 @@ msgstr "リンクをクリップボードにコピーしました"
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
-msgstr "リンクをデバイスのデフォルトブラウザではなく、アプリ内で開きます"
+msgstr "リンクをデフォルトのブラウザではなくアプリ内で開きます"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:115
 msgid "List"
@@ -1035,13 +1034,13 @@ msgstr "リスト"
 #: src/app/(auth)/_layout.tsx:67
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
-msgstr "ログインをし直す"
+msgstr "サインインをし直す"
 
 #: src/app/(auth)/_layout.tsx:55
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
-msgstr "ログイン"
+msgstr "サインイン"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
@@ -1049,11 +1048,11 @@ msgstr "ログアウト"
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
-msgstr "ログイン中"
+msgstr "サインインしました"
 
 #: src/app/settings/about.tsx:111
 msgid "Logo designed by"
-msgstr "ロゴのデザイン:"
+msgstr "ロゴデザイン"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
@@ -1227,7 +1226,7 @@ msgstr "理由はわかりません...ごめんなさい :("
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr "未実装"
+msgstr "まだ実装されていません"
 
 #: src/app/settings/moderation.tsx:126
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
@@ -1328,7 +1327,7 @@ msgstr "再度お試しください - リセットコードは正しいですか
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
-msgstr "ごめんなさい!その間は公式アプリを使ってください。"
+msgstr "申し訳ありません。実装されるまでは公式アプリをご利用ください。"
 
 #: src/app/composer/content-warning.tsx:33
 msgid "Pornographic content"
@@ -1381,7 +1380,7 @@ msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
 msgid "Powered by Skyfeed"
-msgstr "Powered by Skyfeed"
+msgstr "SkyFeedによる提供"
 
 #: src/app/settings/feed.tsx:164
 #: src/app/settings/feed.tsx:178
@@ -1390,11 +1389,11 @@ msgstr "プライマリフィード"
 
 #: src/app/settings/language/index.tsx:90
 msgid "Primary language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:129
 msgid "Primary Language"
-msgstr "プライマリ言語"
+msgstr "プライマリの言語"
 
 #: src/app/settings/_layout.tsx:57
 msgid "Pro Settings"
@@ -1508,7 +1507,7 @@ msgstr "リポストしたユーザー:"
 
 #: src/components/feed-post.tsx:374
 msgid "Reposted by {0}"
-msgstr "{0} によるリポスト"
+msgstr "{0}によるリポスト"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1516,7 +1515,7 @@ msgstr "あなたの投稿をリポストしました"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
-msgstr "リクエストコード"
+msgstr "コードをリクエスト"
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1529,7 +1528,7 @@ msgstr "パスワードをリセット"
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
 msgid "Restore purchases"
-msgstr "購入を復元しています"
+msgstr "購入を復元する"
 
 #: src/app/pro.tsx:331
 #: src/app/pro.tsx:346
@@ -1604,11 +1603,11 @@ msgstr "検索の言語"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:116
 msgid "Search people"
-msgstr "人を検索"
+msgstr "ユーザーを検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:126
 msgid "Search People"
-msgstr "人を検索"
+msgstr "ユーザーを検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
@@ -1649,7 +1648,7 @@ msgstr "プライマリフィードを選択"
 
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
-msgstr ""
+msgstr "確認のメールを送信"
 
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
@@ -1732,7 +1731,7 @@ msgstr "通知タブに各通知を個別に表示"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
 msgid "Show less"
-msgstr "もっと表示"
+msgstr "表示を少なくする"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1759,7 +1758,7 @@ msgstr "サインアウト"
 #: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
-msgstr "登録"
+msgstr "新しいアカウントを作成"
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -1853,7 +1852,7 @@ msgstr "これで全部です！"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
-msgstr "それはあなただよ!"
+msgstr "それはあなたです!"
 
 #: src/app/settings/app.tsx:110
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
@@ -1951,7 +1950,7 @@ msgstr "Googleで翻訳されました"
 #: src/app/settings/language/index.tsx:128
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
-msgstr "翻訳プロバイダー"
+msgstr "翻訳の提供"
 
 #: src/app/success.tsx:38
 msgid "Translations are now powered by DeepL"
@@ -1959,7 +1958,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
 msgid "Trending topics"
-msgstr "トレンドトピック"
+msgstr "トレンドのトピック"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Undo Repost"
@@ -2014,7 +2013,7 @@ msgstr "Google翻訳の代わりにDeepLを翻訳に使用する"
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38
 msgid "Use in-app browser"
-msgstr "アプリ内ブラウザを使用する"
+msgstr "アプリ内のブラウザを使用"
 
 #: src/lib/hooks/link-press.tsx:39
 msgid "Use my default browser"
@@ -2067,7 +2066,7 @@ msgstr "ALTテキストを表示"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
-msgstr "警告: アカウントの削除は永久的です"
+msgstr "警告: アカウントは永久に削除されます"
 
 #: src/components/screens/feeds-screen-elements.tsx:23
 msgid "Welcome to Bluesky!"
@@ -2075,7 +2074,7 @@ msgstr "Blueskyへようこそ!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Blueskyへようこそ！ あなたが来てくれてワクワクしています。"
+msgstr "Blueskyへようこそ! あなたが来てくれてワクワクしています。"
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
@@ -2083,7 +2082,7 @@ msgstr "Graysky Proへようこそ!"
 
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
-msgstr "何を考えてるんだい?"
+msgstr "何を考えていますか？"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:179
@@ -2112,7 +2111,7 @@ msgstr "アクセントカラーを変更できます"
 
 #: src/app/push-notifications.tsx:38
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
-msgstr "「いいね」や「返信」などのプッシュ通知を受け取る事ができます。ただし、注意すべき点も存在します。"
+msgstr "「いいね」や「返信」などのプッシュ通知を受け取る事ができます。ただし、注意すべき点がいくつかあります。"
 
 #: src/app/add-to-list/[handle].tsx:147
 msgid "You don't have any moderation lists yet."
@@ -2140,7 +2139,7 @@ msgstr "ミュートをしたユーザーから通知が来る事があります
 
 #: src/app/push-notifications.tsx:88
 msgid "You may receive notifications from people you've blocked or muted via moderation list. <0>Learn more</0>"
-msgstr "あなたがブロックまたはミュートをした相手からの通知を受け取る事があります。モデレーションリストでミュートをした人からの通知を受け取る事があります。 <0>さらに詳しく</0>"
+msgstr "あなたが「ブロック」または「ミュート」をしたユーザーからの通知を受け取る事があります。「モデレーションリストでミュート」をしたユーザーからの通知を受け取る事があります。 <0>さらに詳しく</0>"
 
 #: src/app/push-notifications.tsx:52
 msgid "You might receive the same notifications via other Bluesky clients."
@@ -2148,7 +2147,7 @@ msgstr "他のBlueskyクライアントでも同じ通知が届くかもしれ�
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。-これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
+msgstr "メインパスワードではなくアプリパスワードを使用する事をおすすめします - これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
@@ -2166,3 +2165,4 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
+
