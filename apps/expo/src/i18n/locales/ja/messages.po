@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-17 23:12\n"
+"PO-Revision-Date: 2024-02-18 01:03\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,19 +28,19 @@ msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / 月"
+msgstr "{0} / 月額"
 
 #: src/app/pro.tsx:236
 msgid "{0} / year"
-msgstr "{0} / 年"
+msgstr "{0} / 年額"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
-msgstr "#{decodedTag}のうち、{0}件のフィードが空です"
+msgstr "#{decodedTag} の {0} 件のフィードが空です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "{0}件の投稿"
+msgstr "{0} 件の投稿"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -768,7 +768,7 @@ msgstr "プロフィールを編集"
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "メールアドレス"
+msgstr "Eメール"
 
 #: src/app/settings/moderation.tsx:137
 msgid "Enable Adult Content"
@@ -1852,7 +1852,7 @@ msgstr "これで全部です！"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
-msgstr "それはあなたです!"
+msgstr "それはあなただよ!"
 
 #: src/app/settings/app.tsx:110
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
@@ -2147,7 +2147,7 @@ msgstr "他のBlueskyクライアントでも同じ通知が届くかもしれ�
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "メインパスワードではなくアプリパスワードを使用する事をおすすめします - これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
+msgstr "メインパスワードではなくアプリパスワードを使用する事を推奨します。- これはアカウントの安全性を保つために役立ちますが、必須ではありません。"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
