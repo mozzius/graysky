@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-18 15:53\n"
+"PO-Revision-Date: 2024-02-18 16:48\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1115,7 +1115,7 @@ msgstr "月額プラン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
-msgstr "{0} の詳細"
+msgstr "{0} をもっと見る"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
