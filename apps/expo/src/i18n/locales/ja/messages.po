@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-18 01:03\n"
+"PO-Revision-Date: 2024-02-18 16:48\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,11 +28,11 @@ msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / 月額"
+msgstr "{0} / 月"
 
 #: src/app/pro.tsx:236
 msgid "{0} / year"
-msgstr "{0} / 年額"
+msgstr "{0} / 年"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
@@ -40,7 +40,7 @@ msgstr "#{decodedTag} の {0} 件のフィードが空です"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "{0} 件の投稿"
+msgstr "{0}件の投稿"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -585,7 +585,7 @@ msgstr "リストの取得ができませんでした"
 
 #: src/app/(tabs)/_layout.tsx:182
 msgid "Create a new post"
-msgstr "新規投稿を作成"
+msgstr "新しい投稿を作成"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -732,7 +732,8 @@ msgstr "完了"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
-msgstr "理解をしている事をご確認ください"
+msgstr "理解されているか\n"
+"よくご確認ください"
 
 #: src/app/composer/_layout.tsx:73
 msgid "Drafts"
@@ -1114,7 +1115,7 @@ msgstr "月額プラン"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
-msgstr "{0} の詳細"
+msgstr "{0} をもっと見る"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
@@ -1342,7 +1343,7 @@ msgstr "投稿"
 
 #: src/app/composer/index.tsx:246
 msgid "Post anyway"
-msgstr "とにかく投稿する"
+msgstr "とりあえず投稿する"
 
 #: src/components/post-context-menu.tsx:130
 msgid "Post deleted"
