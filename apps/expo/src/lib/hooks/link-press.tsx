@@ -103,13 +103,16 @@ export const useLinkPress = () => {
           icons,
           ...actionSheetStyles(theme),
         },
-        (index) => {
+        async (index) => {
           switch (index) {
             case 0:
               void openLink(url);
               break;
             case 1:
-              void Clipboard.setUrlAsync(url);
+              await Platform.select({
+                ios: Clipboard.setUrlAsync(url),
+                default: Clipboard.setStringAsync(url) as Promise<unknown>,
+              });
               showToastable({
                 title: _(msg`Copied link`),
                 message: _(msg`Link copied to clipboard`),

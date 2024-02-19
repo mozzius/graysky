@@ -51,7 +51,6 @@ import { KeyboardAccessory } from "~/lib/composer/keyboard-accessory";
 import { useComposerState } from "~/lib/composer/state";
 import { SuggestionList } from "~/lib/composer/suggestion-list";
 import {
-  MAX_IMAGES,
   MAX_LENGTH,
   useExternal,
   useImages,
@@ -123,7 +122,6 @@ export default function ComposerScreen() {
   });
 
   const inputRef = useRef<PasteInputRef>(null!);
-  const anchorRef = useRef<TouchableHighlight>(null);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
   useControlledKeyboard();
@@ -131,7 +129,7 @@ export default function ComposerScreen() {
   const [text, setText] = useState(initialText ?? "");
 
   const { images, imagePicker, addAltText, removeImage, handlePaste } =
-    useImages(anchorRef);
+    useImages();
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
@@ -468,29 +466,6 @@ export default function ComposerScreen() {
                   )}
                 </Animated.View>
               ))}
-              {images.length < MAX_IMAGES && (
-                <Animated.View layout={LinearTransition} className="flex-1">
-                  <TouchableOpacity
-                    onPress={() => {
-                      haptics.impact();
-                      imagePicker.mutate();
-                    }}
-                  >
-                    <View
-                      className="h-44 w-32 items-center justify-center rounded border"
-                      style={{
-                        backgroundColor: theme.colors.card,
-                        borderColor: theme.colors.border,
-                      }}
-                    >
-                      <PlusIcon color={theme.colors.text} />
-                      <Text className="mt-2 text-center">
-                        <Trans>Add image</Trans>
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </Animated.View>
-              )}
               {/* spacer */}
               <View className="w-20" />
             </Animated.ScrollView>
@@ -603,8 +578,8 @@ export default function ComposerScreen() {
       </KeyboardAwareScrollView>
       <KeyboardAccessory
         charCount={rt.graphemeLength}
-        imageButtonRef={anchorRef}
-        onPressImage={() => imagePicker.mutate()}
+        imageCount={images.length}
+        onPressImage={(action) => imagePicker.mutate(action)}
         language={
           languages?.join(", ") ?? mostRecentLanguage ?? primaryLanguage
         }

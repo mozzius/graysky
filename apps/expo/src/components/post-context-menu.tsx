@@ -1,6 +1,5 @@
-import { memo } from "react";
-import { Alert, Platform, Share, TouchableOpacity } from "react-native";
-import { ContextMenuButton } from "react-native-ios-context-menu";
+import { memo, useMemo } from "react";
+import { Alert, Platform, Share, View } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import { useRouter, useSegments } from "expo-router";
@@ -9,95 +8,69 @@ import {
   ComAtprotoModerationDefs,
   type AppBskyFeedDefs,
 } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  CopyIcon,
-  FlagIcon,
-  HeartIcon,
-  ImageIcon,
-  LanguagesIcon,
-  LinkIcon,
-  MegaphoneOffIcon,
-  MoreHorizontalIcon,
-  RepeatIcon,
-  Share2Icon,
-  Trash2Icon,
-  XOctagonIcon,
-} from "lucide-react-native";
+import { MoreHorizontalIcon } from "lucide-react-native";
+import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
-import { useHaptics } from "~/lib/hooks/preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useLists } from "./lists/context";
 
 interface Props {
   post: AppBskyFeedDefs.PostView & { record: AppBskyFeedPost.Record };
-  showSeeLikes?: boolean;
-  showSeeReposts?: boolean;
+  showSeeInfo?: boolean;
   showCopyText?: boolean;
   onTranslate?: () => void;
 }
 
 const PostContextMenuButton = ({
   post,
-  showSeeLikes,
-  showSeeReposts,
+  showSeeInfo,
   showCopyText,
   onTranslate,
 }: Props) => {
-  const { showActionSheetWithOptions } = useActionSheet();
-
   const agent = useAgent();
   const { openLikes, openReposts } = useLists();
   const router = useRouter();
   const queryClient = useQueryClient();
   const theme = useTheme();
-  const haptics = useHaptics();
   const segments = useSegments();
   const { _ } = useLingui();
   const { blockAccount, muteAccount } = useAccountActions();
 
   const rkey = post.uri.split("/").pop()!;
 
+  const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
+
   const translate = () => onTranslate?.();
 
-  const share = () => {
-    const url = `https://bsky.app/profile/${post.author.handle}/post/${rkey}`;
-    const icons = [
-      <LinkIcon key={0} size={24} color={theme.colors.text} />,
-      <ImageIcon key={1} size={24} color={theme.colors.text} />,
-    ];
-    showActionSheetWithOptions(
-      {
-        options: [
-          _(msg`Share link to post`),
-          _(msg`Share as image`),
-          _(msg`Cancel`),
-        ],
-        icons: [...icons, <></>],
-        cancelButtonIndex: 2,
-        ...actionSheetStyles(theme),
-      },
-      (index) => {
-        switch (index) {
-          case 0:
-            void Share.share(
-              Platform.select({
-                ios: { url },
-                default: { message: url },
-              }),
-            );
-            break;
-          case 1:
-            router.push(`/capture/${post.author.handle}/${rkey}`);
-        }
-      },
-    );
+  const share = async (mode: "link" | "capture" | "copy") => {
+    switch (mode) {
+      case "link":
+        void Share.share(
+          Platform.select({
+            ios: { url },
+            default: { message: url },
+          }),
+        );
+        break;
+      case "capture":
+        router.push(`/capture/${post.author.handle}/${rkey}`);
+        break;
+      case "copy":
+        await Platform.select({
+          ios: Clipboard.setUrlAsync(url),
+          default: Clipboard.setStringAsync(url) as Promise<unknown>,
+        });
+        showToastable({
+          title: _(msg`Copied link`),
+          message: _(msg`Post link copied to clipboard`),
+        });
+        break;
+    }
   };
 
   const copy = async () => {
@@ -140,190 +113,190 @@ const PostContextMenuButton = ({
     );
   };
 
-  const report = () => {
+  const report = async (reasonType: ComAtprotoModerationDefs.ReasonType) => {
+    await agent.createModerationReport({
+      reasonType,
+      subject: {
+        $type: "com.atproto.repo.strongRef",
+        uri: post.uri,
+        cid: post.cid,
+      },
+    });
+    showToastable({
+      title: _(msg`Report submitted`),
+      message: _(msg`Thank you for making the skyline a safer place`),
+    });
+  };
+
+  const reportOptions = useMemo(() => {
     // prettier-ignore
-    const reportOptions = [
-        { label: msg`Spam`, value: ComAtprotoModerationDefs.REASONSPAM },
-        { label: msg`Copyright Violation`, value: ComAtprotoModerationDefs.REASONVIOLATION },
-        { label: msg`Misleading`, value: ComAtprotoModerationDefs.REASONMISLEADING },
-        { label: msg`Unwanted Sexual Content`, value: ComAtprotoModerationDefs.REASONSEXUAL },
-        { label: msg`Rude`, value: ComAtprotoModerationDefs.REASONRUDE },
-        { label: msg`Other`, value: ComAtprotoModerationDefs.REASONOTHER },
-        { label: msg`Cancel`, value: "Cancel" },
-      ] as const;
-    showActionSheetWithOptions(
-      {
-        title: _(msg`What is the issue with this post?`),
-        options: reportOptions.map((x) => _(x.label)),
-        cancelButtonIndex: reportOptions.length - 1,
-        ...actionSheetStyles(theme),
-      },
-      async (index) => {
-        if (index === undefined) return;
-        const reason = reportOptions[index]!.value;
-        if (reason === "Cancel") return;
-        await agent.createModerationReport({
-          reasonType: reason,
-          subject: {
-            $type: "com.atproto.repo.strongRef",
-            uri: post.uri,
-            cid: post.cid,
-          },
-        });
-        showToastable({
-          title: _(msg`Report submitted`),
-          message: _(msg`Thank you for making the skyline a safer place`),
-        });
-      },
-    );
-  };
+    return [
+      { label: _(msg`Spam`), value: ComAtprotoModerationDefs.REASONSPAM },
+      { label: _(msg`Illegal and Urgent`), value: ComAtprotoModerationDefs.REASONVIOLATION },
+      { label: _(msg`Unwanted Sexual Content`), value: ComAtprotoModerationDefs.REASONSEXUAL },
+      { label: _(msg`Anti-Social Behavior`), value: ComAtprotoModerationDefs.REASONRUDE },
+      { label: _(msg`Other`), value: ComAtprotoModerationDefs.REASONOTHER },
+    ]
+  }, [_]);
 
-  const options: {
-    key: string;
-    label: string;
-    action: () => void;
-    icon: string;
-    destructive?: boolean;
-    reactIcon: JSX.Element;
-  }[] = [
-    onTranslate
-      ? {
-          key: "translate",
-          label: _(msg`Translate`),
-          action: () => translate(),
-          icon: "character.book.closed",
-          reactIcon: <LanguagesIcon size={24} color={theme.colors.text} />,
-        }
-      : [],
-    {
-      key: "share",
-      label: _(msg`Share post`),
-      action: () => share(),
-      icon: "square.and.arrow.up",
-      reactIcon: <Share2Icon size={24} color={theme.colors.text} />,
-    },
-    showCopyText
-      ? {
-          key: "copy",
-          label: _(msg`Copy post text`),
-          action: () => copy(),
-          icon: "doc.on.doc",
-          reactIcon: <CopyIcon size={24} color={theme.colors.text} />,
-        }
-      : [],
-    showSeeLikes
-      ? {
-          key: "likes",
-          label: _(msg`See likes`),
-          action: () => openLikes(post.uri),
-          icon: "heart",
-          reactIcon: <HeartIcon size={24} color={theme.colors.text} />,
-        }
-      : [],
-    showSeeReposts
-      ? {
-          key: "reposts",
-          label: _(msg`See reposts`),
-          action: () => openReposts(post.uri),
-          icon: "arrow.2.squarepath",
-          reactIcon: <RepeatIcon size={24} color={theme.colors.text} />,
-        }
-      : [],
-    post.author.handle === agent.session?.handle
-      ? {
-          key: "delete",
-          label: _(msg`Delete post`),
-          action: () => delet(),
-          icon: "trash",
-          destructive: true,
-          reactIcon: <Trash2Icon size={24} color={theme.colors.text} />,
-        }
-      : [
-          post.author.viewer?.muted
-            ? []
-            : {
-                key: "mute",
-                label: _(msg`Mute user`),
-                action: () => muteAccount(post.author.did, post.author.handle),
-                icon: "speaker.slash",
-                reactIcon: (
-                  <MegaphoneOffIcon size={24} color={theme.colors.text} />
-                ),
-              },
-          post.author.viewer?.blocking
-            ? []
-            : {
-                key: "block",
-                label: _(msg`Block user`),
-                action: () => blockAccount(post.author.did, post.author.handle),
-                icon: "xmark.octagon",
-                reactIcon: <XOctagonIcon size={24} color={theme.colors.text} />,
-              },
-          {
-            key: "report",
-            label: _(msg`Report post`),
-            action: () => report(),
-            icon: "flag",
-            reactIcon: <FlagIcon size={24} color={theme.colors.text} />,
-          },
-        ],
-  ].flat(2);
-
-  const icon = <MoreHorizontalIcon size={16} color={theme.colors.text} />;
-
-  const showAsActionSheet = () => {
-    haptics.impact();
-    showActionSheetWithOptions(
-      {
-        options: [...options.map((x) => x.label), _(msg`Cancel`)],
-        icons: [...options.map((x) => x.reactIcon), <></>],
-        cancelButtonIndex: options.length,
-        ...actionSheetStyles(theme),
-      },
-      (index) => {
-        if (index === undefined) return;
-        options[index]?.action();
-      },
-    );
-  };
-
-  return Platform.OS === "ios" ? (
-    <ContextMenuButton
-      isMenuPrimaryAction={true}
-      accessibilityLabel={_(msg`Post options`)}
-      accessibilityRole="button"
-      className="px-3 pb-2"
-      menuConfig={{
-        menuTitle: "",
-        menuItems: options.map((x) => ({
-          actionKey: x.key,
-          actionTitle: x.label,
-          icon: {
-            type: "IMAGE_SYSTEM",
-            imageValue: {
-              systemName: x.icon,
-            },
-          },
-          menuOptions: x.destructive ? ["destructive"] : undefined,
-        })),
-      }}
-      onPressMenuItem={(evt) => {
-        const key = evt.nativeEvent.actionKey;
-        const option = options.find((x) => x.key === key);
-        option?.action();
-      }}
-    >
-      {icon}
-    </ContextMenuButton>
-  ) : (
-    <TouchableOpacity
-      accessibilityLabel={_(msg`Post options`)}
-      accessibilityRole="button"
-      hitSlop={{ top: 0, bottom: 20, left: 10, right: 20 }}
-      onPress={showAsActionSheet}
-    >
-      {icon}
-    </TouchableOpacity>
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <View className="-mt-2 px-3 py-2">
+          <MoreHorizontalIcon size={16} color={theme.colors.text} />
+        </View>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Group>
+          {onTranslate && (
+            <DropdownMenu.Item
+              key="translate"
+              textValue={_(msg`Translate post`)}
+              onSelect={translate}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "character.book.closed" }}
+                androidIconName="ic_menu_sort_alphabetically"
+              />
+            </DropdownMenu.Item>
+          )}
+          <DropdownMenu.Sub>
+            <DropdownMenu.SubTrigger key="share" textValue={_(msg`Share post`)}>
+              <DropdownMenu.ItemIcon
+                ios={{ name: "square.and.arrow.up" }}
+                androidIconName="ic_menu_share"
+              />
+            </DropdownMenu.SubTrigger>
+            <DropdownMenu.SubContent>
+              <DropdownMenu.Item
+                key="share link"
+                textValue={_(msg`Share link to post`)}
+                onSelect={() => share("link")}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "link" }}
+                  androidIconName="ic_menu_link"
+                />
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                key="copy link"
+                textValue={_(msg`Copy link to post`)}
+                onSelect={() => share("link")}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "doc.on.doc" }}
+                  androidIconName="ic_menu_copy"
+                />
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                key="share image"
+                textValue={_(msg`Share as image`)}
+                onSelect={() => share("capture")}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "photo" }}
+                  androidIconName="ic_menu_image"
+                />
+              </DropdownMenu.Item>
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
+          {showCopyText && (
+            <DropdownMenu.Item
+              key="copy"
+              textValue={_(msg`Copy post text`)}
+              onSelect={copy}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "doc.on.doc" }}
+                androidIconName="ic_menu_copy"
+              />
+            </DropdownMenu.Item>
+          )}
+        </DropdownMenu.Group>
+        {showSeeInfo && (
+          <DropdownMenu.Group>
+            <DropdownMenu.Item
+              key="see likes"
+              textValue={_(msg`See likes`)}
+              onSelect={() => openLikes(post.uri)}
+            >
+              <DropdownMenu.ItemIcon ios={{ name: "heart" }} />
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              key="see reposts"
+              textValue={_(msg`See reposts`)}
+              onSelect={() => openReposts(post.uri)}
+            >
+              <DropdownMenu.ItemIcon ios={{ name: "repeat" }} />
+            </DropdownMenu.Item>
+          </DropdownMenu.Group>
+        )}
+        {post.author.handle === agent.session?.handle ? (
+          <DropdownMenu.Group>
+            <DropdownMenu.Item
+              key="delete"
+              textValue={_(msg`Delete post`)}
+              onSelect={delet}
+              destructive
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "trash" }}
+                androidIconName="ic_menu_delete"
+              />
+            </DropdownMenu.Item>
+          </DropdownMenu.Group>
+        ) : (
+          <DropdownMenu.Group>
+            <DropdownMenu.Item
+              key="mute"
+              textValue={_(msg`Mute user`)}
+              onSelect={() => muteAccount(post.author.did, post.author.handle)}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "speaker.slash" }}
+                androidIconName="ic_lock_silent_mode"
+              />
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              key="block"
+              textValue={_(msg`Block user`)}
+              onSelect={() => blockAccount(post.author.did, post.author.handle)}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "xmark.octagon" }}
+                androidIconName="ic_menu_blocked_user"
+              />
+            </DropdownMenu.Item>
+            <DropdownMenu.Sub>
+              <DropdownMenu.SubTrigger
+                key="report"
+                textValue={_(msg`Report post`)}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "flag" }}
+                  androidIconName="ic_menu_report_image"
+                />
+              </DropdownMenu.SubTrigger>
+              <DropdownMenu.SubContent>
+                <DropdownMenu.Label>
+                  {_(msg`What's the issue with this post?`)}
+                </DropdownMenu.Label>
+                {reportOptions.map((option) => (
+                  <DropdownMenu.Item
+                    key={option.value}
+                    onSelect={() => report(option.value)}
+                  >
+                    <DropdownMenu.ItemTitle>
+                      {option.label}
+                    </DropdownMenu.ItemTitle>
+                  </DropdownMenu.Item>
+                ))}
+              </DropdownMenu.SubContent>
+            </DropdownMenu.Sub>
+          </DropdownMenu.Group>
+        )}
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };
 

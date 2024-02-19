@@ -332,6 +332,7 @@ const FeedPostInner = ({
             <PostActionRow post={item.post} dataUpdatedAt={dataUpdatedAt}>
               <PostContextMenu
                 post={{ ...item.post, record: item.post.record }}
+                showCopyText
                 onTranslate={
                   needsTranslation
                     ? undefined

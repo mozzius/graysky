@@ -114,8 +114,7 @@ export const PrimaryPost = ({
           {!hideContextMenu && (
             <PostContextMenu
               post={{ ...post, record: post.record }}
-              showSeeLikes
-              showSeeReposts
+              showSeeInfo
               showCopyText
               onTranslate={
                 needsTranslation

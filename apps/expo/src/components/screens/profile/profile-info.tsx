@@ -23,7 +23,6 @@ import {
   type AppBskyActorDefs,
   type AppBskyEmbedImages,
 } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
@@ -32,17 +31,10 @@ import {
   CalendarIcon,
   CheckIcon,
   ChevronLeftIcon,
-  FlagIcon,
-  LanguagesIcon,
-  ListPlusIcon,
-  MegaphoneIcon,
-  MegaphoneOffIcon,
   MoreHorizontalIcon,
   PlusIcon,
-  ShareIcon,
-  ShieldOffIcon,
-  ShieldXIcon,
 } from "lucide-react-native";
+import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
@@ -51,7 +43,6 @@ import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
@@ -78,10 +69,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAgent();
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
-  const { showActionSheetWithOptions } = useActionSheet();
   const [translateBio, setTranslateBio] = useState(false);
-  const { blockAccount, muteAccount, unblockAccount, unmuteAccount } =
-    useAccountActions();
+  const { unblockAccount, unmuteAccount } = useAccountActions();
 
   const queryClient = useQueryClient();
   const theme = useTheme();
@@ -93,33 +82,21 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
     mutationFn: async () => {
-      const updater = (old: AppBskyActorDefs.ProfileView | undefined) => {
-        if (!old) return;
-        return produce(old, (draft) => {
-          if (draft.viewer) {
-            if (draft.viewer.following) {
-              delete draft.viewer.following;
-            } else {
-              draft.viewer.following = "pending";
-            }
-          }
-        });
-      };
-      queryClient.setQueryData(["profile", profile.handle], updater);
-      queryClient.setQueryData(["profile", profile.did], updater);
       if (profile.viewer?.following) {
         await agent.deleteFollow(profile.viewer?.following);
+        await queryClient.invalidateQueries({
+          queryKey: ["profile", profile.did],
+        });
         return "unfollowed";
       } else {
         await agent.follow(profile.did);
+        await queryClient.invalidateQueries({
+          queryKey: ["profile", profile.did],
+        });
         return "followed";
       }
     },
     onMutate: () => haptics.impact(),
-    onSettled: () => {
-      void queryClient.invalidateQueries({ queryKey: ["profile"] });
-      void queryClient.invalidateQueries({ queryKey: ["network"] });
-    },
     onSuccess: (result) => {
       showToastable({
         title:
@@ -155,130 +132,6 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
       );
     }
   }, [profile, queryClient]);
-
-  const handleOptions = () => {
-    const options = [
-      { label: msg`Share profile`, value: "Share profile", icon: ShareIcon },
-      {
-        label: msg`Translate bio`,
-        value: "Translate bio",
-        icon: LanguagesIcon,
-      },
-      { label: msg`Add to list`, value: "Add to list", icon: ListPlusIcon },
-      profile.viewer?.muted
-        ? {
-            label: msg`Unmute account`,
-            value: "Unmute account",
-            icon: MegaphoneIcon,
-          }
-        : {
-            label: msg`Mute account`,
-            value: "Mute account",
-            icon: MegaphoneOffIcon,
-          },
-      profile.viewer?.blocking
-        ? {
-            label: msg`Unblock account`,
-            value: "Unblock account",
-            icon: ShieldOffIcon,
-          }
-        : {
-            label: msg`Block account`,
-            value: "Block account",
-            icon: ShieldXIcon,
-          },
-      { label: msg`Report account`, value: "Report account", icon: FlagIcon },
-      { label: msg`Cancel`, value: "Cancel", icon: null },
-    ] as const;
-    showActionSheetWithOptions(
-      {
-        options: options.map((x) => _(x.label)),
-        icons: options.map((x) =>
-          x.icon ? (
-            <x.icon key={x.value} size={24} color={theme.colors.text} />
-          ) : (
-            <></>
-          ),
-        ),
-        cancelButtonIndex: options.length - 1,
-        ...actionSheetStyles(theme),
-      },
-      (index) => {
-        if (index === undefined) return;
-        const option = options[index]?.value;
-        switch (option) {
-          case "Share profile": {
-            const url = `https://bsky.app/profile/${profile.handle}`;
-            void Share.share(
-              Platform.select({
-                ios: { url },
-                default: { message: url },
-              }),
-            );
-            break;
-          }
-          case "Translate bio":
-            setTranslateBio(true);
-            break;
-          case "Add to list":
-            router.push(`/add-to-list/${profile.did}`);
-            break;
-          case "Mute account":
-            muteAccount(profile.did, profile.handle);
-            break;
-          case "Unmute account":
-            unmuteAccount(profile.did, profile.handle);
-            break;
-          case "Block account":
-            blockAccount(profile.did, profile.handle);
-            break;
-          case "Unblock account":
-            unblockAccount(
-              profile.did,
-              profile.handle,
-              profile.viewer!.blocking!.split("/").pop()!,
-            );
-            break;
-          case "Report account": {
-            // prettier-ignore
-            const reportOptions = [
-              { label: msg`Spam`, value: ComAtprotoModerationDefs.REASONSPAM },
-              { label: msg`Misleading`, value: ComAtprotoModerationDefs.REASONMISLEADING },
-              { label: msg`Other`, value: ComAtprotoModerationDefs.REASONOTHER },
-              { label: msg`Cancel`, value: "Cancel" },
-            ] as const;
-            showActionSheetWithOptions(
-              {
-                title: _(msg`What is the issue with this account?`),
-                options: reportOptions.map((x) => _(x.label)),
-                cancelButtonIndex: reportOptions.length - 1,
-                ...actionSheetStyles(theme),
-              },
-              async (index) => {
-                if (index === undefined) return;
-                const reason = reportOptions[index]!.value;
-                if (reason === "Cancel") return;
-                await agent.createModerationReport({
-                  reasonType: reason,
-                  subject: {
-                    $type: "com.atproto.admin.defs#repoRef",
-                    did: profile.did,
-                  },
-                });
-                showToastable({
-                  title: _(msg`Report submitted`),
-                  message: _(
-                    msg`Thank you for making the skyline a safer place`,
-                  ),
-                });
-              },
-            );
-            break;
-          }
-        }
-      },
-    );
-  };
 
   const { top } = useSafeAreaInsets();
   const headerHeight = useDefaultHeaderHeight();
@@ -514,7 +367,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     disabled={toggleFollow.isPending}
                     onPress={() => toggleFollow.mutate()}
                     className={cx(
-                      "min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
+                      "mr-2 min-w-[120px] flex-row items-center justify-center rounded-full px-2 py-1.5",
                       profile.viewer?.following
                         ? "bg-neutral-200 dark:bg-neutral-700"
                         : "bg-black dark:bg-white",
@@ -522,93 +375,72 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   >
                     {profile.viewer?.following ? (
                       <>
-                        <CheckIcon
-                          size={18}
-                          className="mr-1 text-neutral-600 dark:text-neutral-300"
-                        />
-                        <Text className="font-medium text-neutral-600 dark:text-neutral-300">
+                        {toggleFollow.isPending ? (
+                          <View className="relative w-[18px] items-center justify-center">
+                            <ActivityIndicator
+                              size="small"
+                              color={theme.dark ? "white" : "black"}
+                              className="absolute"
+                            />
+                          </View>
+                        ) : (
+                          <CheckIcon
+                            size={18}
+                            className="text-neutral-600 dark:text-neutral-300"
+                          />
+                        )}
+                        <Text className="ml-2 font-medium text-neutral-600 dark:text-neutral-300">
                           <Trans>Following</Trans>
                         </Text>
                       </>
                     ) : (
                       <>
-                        <PlusIcon
-                          size={18}
-                          className="mr-1 text-white dark:text-black"
-                        />
-                        <Text className="font-medium text-white dark:text-black">
+                        {toggleFollow.isPending ? (
+                          <View className="relative w-[18px] items-center justify-center">
+                            <ActivityIndicator
+                              size="small"
+                              color={theme.dark ? "black" : "white"}
+                              className="absolute"
+                            />
+                          </View>
+                        ) : (
+                          <PlusIcon
+                            size={18}
+                            className="text-white dark:text-black"
+                          />
+                        )}
+                        <Text className="ml-2 font-medium text-white dark:text-black">
                           <Trans>Follow</Trans>
                         </Text>
                       </>
                     )}
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    className="ml-1 rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
-                    onPress={handleOptions}
-                  >
-                    <MoreHorizontalIcon
-                      size={18}
-                      className="text-neutral-600 dark:text-neutral-300"
-                    />
-                  </TouchableOpacity>
+                  <OtherProfileOptions
+                    profile={profile}
+                    onTranslate={() => setTranslateBio(true)}
+                  />
                 </View>
               )
             ) : (
-              <TouchableOpacity
-                className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
-                onPress={() => {
-                  const options = [
-                    _(msg`Edit Profile`),
-                    _(msg`Share Profile`),
-                    _(msg`Cancel`),
-                  ];
-                  showActionSheetWithOptions(
-                    {
-                      options,
-                      cancelButtonIndex: options.length - 1,
-                      ...actionSheetStyles(theme),
-                    },
-                    (index) => {
-                      switch (index) {
-                        case 0:
-                          router.push("/edit-bio");
-                          break;
-                        case 1: {
-                          const url = `https://bsky.app/profile/${profile.handle}`;
-                          void Share.share(
-                            Platform.select({
-                              ios: { url },
-                              default: { message: url },
-                            }),
-                          );
-                          break;
-                        }
-                      }
-                    },
-                  );
-                }}
-              >
-                <MoreHorizontalIcon
-                  size={18}
-                  className="text-neutral-600 dark:text-neutral-300"
-                />
-              </TouchableOpacity>
+              <OwnProfileOptions profile={profile} />
             )}
           </View>
           <View pointerEvents="none" className="mt-1">
             <Text className="text-2xl font-medium">{profile.displayName}</Text>
-            <Text>
+            <View className="flex-row items-center">
               {profile.viewer?.followedBy && (
                 <>
-                  <Text className="bg-neutral-100 px-1 font-semibold dark:bg-neutral-900">
-                    <Text>{" Follows you "}</Text>
-                  </Text>{" "}
+                  <View className="mr-1 rounded bg-neutral-100 px-1.5">
+                    <Text className="font-semibold dark:bg-neutral-900">
+                      <Trans>Follows you</Trans>
+                    </Text>
+                  </View>
                 </>
               )}
               <Text className="text-neutral-500 dark:text-neutral-400">
                 @{profile.handle}
               </Text>
-            </Text>
+            </View>
           </View>
           <View className="mt-3 flex-row" pointerEvents="box-none">
             <TouchableOpacity onPress={() => openFollowers(profile.did)}>
@@ -756,5 +588,197 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         </View>
       </View>
     </View>
+  );
+};
+
+const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
+  const router = useRouter();
+  const { _ } = useLingui();
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
+          <MoreHorizontalIcon
+            size={18}
+            className="text-neutral-600 dark:text-neutral-300"
+          />
+        </View>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Item
+          key="edit-profile"
+          textValue={_(msg`Edit Profile`)}
+          onSelect={() => router.push("/edit-bio")}
+        >
+          <DropdownMenu.ItemIcon
+            ios={{ name: "person.circle" }}
+            androidIconName="ic_menu_edit"
+          />
+        </DropdownMenu.Item>
+        <DropdownMenu.Item
+          key="share-profile"
+          textValue={_(msg`Share profile`)}
+          onSelect={() => {
+            const url = `https://bsky.app/profile/${profile.handle}`;
+            void Share.share(
+              Platform.select({
+                ios: { url },
+                default: { message: url },
+              }),
+            );
+          }}
+        >
+          <DropdownMenu.ItemIcon
+            ios={{ name: "square.and.arrow.up" }}
+            androidIconName="ic_menu_share"
+          />
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+};
+
+interface OtherProfileOptionsProps {
+  profile: AppBskyActorDefs.ProfileViewDetailed;
+  onTranslate: () => void;
+}
+
+const OtherProfileOptions = ({
+  profile,
+  onTranslate,
+}: OtherProfileOptionsProps) => {
+  const { _ } = useLingui();
+  const router = useRouter();
+  const agent = useAgent();
+  const { blockAccount, muteAccount } = useAccountActions();
+
+  // prettier-ignore
+  const reportOptions = [
+    { label: _(msg`Frequently Posts Unwanted Content`), value: ComAtprotoModerationDefs.REASONSPAM },
+    { label: _(msg`Misleading Account`), value: ComAtprotoModerationDefs.REASONMISLEADING },
+    { label: _(msg`Name or Description Violates Community Standards`), value: ComAtprotoModerationDefs.REASONVIOLATION },
+    { label: _(msg`Other`), value: ComAtprotoModerationDefs.REASONOTHER },
+  ] as const;
+
+  const report = async (reasonType: ComAtprotoModerationDefs.ReasonType) => {
+    await agent.createModerationReport({
+      reasonType,
+      subject: {
+        $type: "com.atproto.admin.defs#repoRef",
+        did: profile.did,
+      },
+    });
+    showToastable({
+      title: _(msg`Report submitted`),
+      message: _(msg`Thank you for making the skyline a safer place`),
+    });
+  };
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
+          <MoreHorizontalIcon
+            size={18}
+            className="text-neutral-600 dark:text-neutral-300"
+          />
+        </View>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Group>
+          <DropdownMenu.Item
+            key="share-profile"
+            textValue={_(msg`Share profile`)}
+            onSelect={() => {
+              const url = `https://bsky.app/profile/${profile.handle}`;
+              void Share.share(
+                Platform.select({
+                  ios: { url },
+                  default: { message: url },
+                }),
+              );
+            }}
+          >
+            <DropdownMenu.ItemIcon
+              ios={{ name: "square.and.arrow.up" }}
+              androidIconName="ic_menu_share"
+            />
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            key="translate-bio"
+            textValue={_(msg`Translate bio`)}
+            onSelect={onTranslate}
+          >
+            <DropdownMenu.ItemIcon
+              ios={{ name: "character.book.closed" }}
+              androidIconName="ic_menu_sort_alphabetically"
+            />
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            key="add-to-list"
+            textValue={_(msg`Add to list`)}
+            onSelect={() => router.push(`/add-to-list/${profile.did}`)}
+          >
+            <DropdownMenu.ItemIcon
+              ios={{ name: "text.badge.plus" }}
+              androidIconName="ic_menu_add"
+            />
+          </DropdownMenu.Item>
+        </DropdownMenu.Group>
+        <DropdownMenu.Group>
+          {!profile.viewer?.muted && (
+            <DropdownMenu.Item
+              key="mute"
+              textValue={_(msg`Mute user`)}
+              onSelect={() => muteAccount(profile.did, profile.handle)}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "speaker.slash" }}
+                androidIconName="ic_lock_silent_mode"
+              />
+            </DropdownMenu.Item>
+          )}
+          {!profile.viewer?.blocking && (
+            <DropdownMenu.Item
+              key="block"
+              textValue={_(msg`Block user`)}
+              onSelect={() => blockAccount(profile.did, profile.handle)}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "xmark.octagon" }}
+                androidIconName="ic_menu_blocked_user"
+              />
+            </DropdownMenu.Item>
+          )}
+          <DropdownMenu.Sub>
+            <DropdownMenu.SubTrigger
+              key="report"
+              textValue={_(msg`Report account`)}
+            >
+              <DropdownMenu.ItemIcon
+                ios={{ name: "flag" }}
+                androidIconName="ic_menu_report_image"
+              />
+            </DropdownMenu.SubTrigger>
+            <DropdownMenu.SubContent>
+              <DropdownMenu.Label>
+                {_(msg`What's the issue with this account?`)}
+              </DropdownMenu.Label>
+              {reportOptions.map((option) => (
+                <DropdownMenu.Item
+                  key={option.value}
+                  onSelect={() => report(option.value)}
+                >
+                  <DropdownMenu.ItemTitle>
+                    {option.label}
+                  </DropdownMenu.ItemTitle>
+                </DropdownMenu.Item>
+              ))}
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
+        </DropdownMenu.Group>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };

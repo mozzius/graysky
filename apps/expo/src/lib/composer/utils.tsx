@@ -1,12 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  Alert,
-  findNodeHandle,
-  Image,
-  Keyboard,
-  Platform,
-  type TouchableHighlight,
-} from "react-native";
+import { Alert, Image } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
@@ -26,15 +19,12 @@ import {
   type ComAtprotoLabelDefs,
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { type I18n } from "@lingui/core";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { type PastedFile } from "@mattermost/react-native-paste-input";
-import { useTheme } from "@react-navigation/native";
 import Sentry from "@sentry/react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react-native";
 import RNFetchBlob from "rn-fetch-blob";
 import { z } from "zod";
 
@@ -43,7 +33,6 @@ import {
   useMostRecentLanguage,
   usePrimaryLanguage,
 } from "../storage/app-preferences";
-import { actionSheetStyles } from "../utils/action-sheet";
 import { useComposerState } from "./state";
 
 export const MAX_IMAGES = 4;
@@ -368,118 +357,74 @@ export const useSendPost = ({
   });
 };
 
-export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
+export const useImages = () => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
-  const { showActionSheetWithOptions } = useActionSheet();
   const { _, i18n } = useLingui();
 
-  const theme = useTheme();
   const router = useRouter();
   const searchParams = useLocalSearchParams();
 
   const imagePicker = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (action: "camera" | "gallery") => {
       if (images.length >= MAX_IMAGES) return;
 
-      // hackfix - android crashes if keyboard is open
-      if (Platform.OS === "android") {
-        Keyboard.dismiss();
-        await new Promise((resolve) => setTimeout(resolve, 300));
-      }
+      switch (action) {
+        case "camera":
+          if (!(await getCameraPermission(i18n))) {
+            return;
+          }
+          void ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+            selectionLimit: MAX_IMAGES - images.length,
+            exif: false,
+            quality: 0.7,
+          }).then((result) => {
+            if (!result.canceled) {
+              router.setParams({ ...searchParams, gif: "" });
+              setImages((prev) => [
+                ...prev,
+                ...result.assets.map((a) => ({ asset: a, alt: "" })),
+              ]);
+            }
+          });
+          break;
+        case "gallery":
+          if (!(await getGalleryPermission(i18n))) {
+            return;
+          }
+          void ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+            selectionLimit: MAX_IMAGES - images.length,
+            exif: false,
+            quality: 0.7,
+            orderedSelection: true,
+          }).then((result) => {
+            if (!result.canceled) {
+              router.setParams({ ...searchParams, gif: "" });
 
-      const options =
-        images.length === 0
-          ? [
-              _(msg`Take Photo`),
-              _(msg`Choose from Library`),
-              _(msg`Search GIFs`),
-              _(msg`Cancel`),
-            ]
-          : [_(msg`Take Photo`), _(msg`Choose from Library`), _(msg`Cancel`)];
-      const icons =
-        images.length === 0
-          ? [CameraIcon, ImageIcon, SearchIcon]
-          : [CameraIcon, ImageIcon];
-      showActionSheetWithOptions(
-        {
-          options,
-          icons: [
-            ...icons.map((Icon, i) => (
-              <Icon key={i} size={24} color={theme.colors.text} />
-            )),
-            <></>,
-          ],
-          cancelButtonIndex: options.length - 1,
-          anchor:
-            (anchorRef?.current && findNodeHandle(anchorRef.current)) ??
-            undefined,
-          ...actionSheetStyles(theme),
-        },
-        async (index) => {
-          if (index === undefined) return;
-          const selected = options[index];
-          switch (selected) {
-            case _(msg`Take Photo`):
-              if (!(await getCameraPermission(i18n))) {
-                return;
-              }
-              void ImagePicker.launchCameraAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsMultipleSelection: true,
-                selectionLimit: MAX_IMAGES - images.length,
-                exif: false,
-                quality: 0.7,
-              }).then((result) => {
-                if (!result.canceled) {
-                  router.setParams({ ...searchParams, gif: "" });
-                  setImages((prev) => [
-                    ...prev,
-                    ...result.assets.map((a) => ({ asset: a, alt: "" })),
-                  ]);
-                }
-              });
-              break;
-            case _(msg`Choose from Library`):
-              if (!(await getGalleryPermission(i18n))) {
-                return;
-              }
-              void ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsMultipleSelection: true,
-                selectionLimit: MAX_IMAGES - images.length,
-                exif: false,
-                quality: 0.7,
-                orderedSelection: true,
-              }).then((result) => {
-                if (!result.canceled) {
-                  router.setParams({ ...searchParams, gif: "" });
-
-                  setImages((prev) => {
-                    // max images prop not enforced on android due to the `browse` patch
-                    if (result.assets.length + prev.length > MAX_IMAGES) {
-                      showToastable({
-                        title: _(msg`Too many images selected`),
-                        message: _(
-                          msg`You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
-                        ),
-                      });
-                    }
-                    return [
-                      ...prev,
-                      ...result.assets
-                        .slice(0, MAX_IMAGES - prev.length)
-                        .map((a) => ({ asset: a, alt: "" })),
-                    ];
+              setImages((prev) => {
+                // max images prop not enforced on android due to the `browse` patch
+                if (result.assets.length + prev.length > MAX_IMAGES) {
+                  showToastable({
+                    title: _(msg`Too many images selected`),
+                    message: _(
+                      msg`You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
+                    ),
                   });
                 }
+                return [
+                  ...prev,
+                  ...result.assets
+                    .slice(0, MAX_IMAGES - prev.length)
+                    .map((a) => ({ asset: a, alt: "" })),
+                ];
               });
-              break;
-            case _(msg`Search GIFs`):
-              router.push("/composer/gifs");
-              break;
-          }
-        },
-      );
+            }
+          });
+          break;
+      }
     },
   });
 

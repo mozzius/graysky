@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Platform, Switch, TouchableOpacity, View } from "react-native";
+import { Platform, Switch, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
@@ -11,6 +10,7 @@ import {
   MegaphoneOffIcon,
   ShieldXIcon,
 } from "lucide-react-native";
+import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
@@ -19,17 +19,17 @@ import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { contentLabels, usePreferences } from "~/lib/hooks/preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { produce } from "~/lib/utils/produce";
 
-type Pref = "show" | "warn" | "hide";
+const options = ["show", "warn", "hide"] as const;
+
+type Pref = (typeof options)[number];
 
 export default function ModerationSettings() {
   const agent = useAgent();
   const theme = useTheme();
   const { _ } = useLingui();
 
-  const { showActionSheetWithOptions } = useActionSheet();
   const [optimisticSwitchValue, setOptimisticSwitchValue] = useState(false);
 
   const preferences = usePreferences();
@@ -96,6 +96,12 @@ export default function ModerationSettings() {
     },
     onSettled: () => preferences.refetch(),
   });
+
+  const translateMap = {
+    show: _(msg`Show`),
+    warn: _(msg`Warn`),
+    hide: _(msg`Hide`),
+  } as const;
 
   if (preferences.data) {
     return (
@@ -164,13 +170,17 @@ export default function ModerationSettings() {
                       return {
                         title: label,
                         action: (
-                          <View className="flex-row items-center">
-                            <Text className="text-base font-medium capitalize text-neutral-400 dark:text-neutral-300">
-                              {adultContentEnabled ? visibility : "Hide"}
+                          <View className="flex-row items-center gap-x-1">
+                            <Text className="text-base font-medium text-neutral-400 dark:text-neutral-300">
+                              {
+                                translateMap[
+                                  adultContentEnabled ? visibility : "hide"
+                                ]
+                              }
                             </Text>
                             <ChevronsUpDownIcon
                               size={16}
-                              className="ml-1 text-neutral-400 dark:text-neutral-300"
+                              className="text-neutral-400 dark:text-neutral-300"
                             />
                           </View>
                         ),
@@ -180,46 +190,42 @@ export default function ModerationSettings() {
                     return {
                       title: label,
                       action: (
-                        <TouchableOpacity
-                          disabled={setPreference.isPending}
-                          onPress={() => {
-                            const options = ["show", "warn", "hide"];
-                            showActionSheetWithOptions(
-                              {
-                                title: label,
-                                options: [
-                                  ...options.map(capitalise),
-                                  _(msg`Cancel`),
-                                ],
-                                cancelButtonIndex: options.length,
-                                destructiveButtonIndex: 0,
-                                ...actionSheetStyles(theme),
-                              },
-                              (index) => {
-                                if (index === undefined || index === 3) return;
-                                const selected = options[index];
-                                if (!selected) return;
-                                setPreference.mutate({
-                                  label: key,
-                                  visibility: selected,
-                                });
-                              },
-                            );
-                          }}
-                          className="flex-row items-center"
-                        >
-                          <Text
-                            className="text-base font-medium capitalize"
-                            primary
-                          >
-                            {visibility}
-                          </Text>
-                          <ChevronsUpDownIcon
-                            size={16}
-                            color={theme.colors.primary}
-                            className="ml-1"
-                          />
-                        </TouchableOpacity>
+                        <DropdownMenu.Root>
+                          <DropdownMenu.Trigger>
+                            <View className="flex-row items-center gap-x-1">
+                              <Text
+                                className="text-base font-medium capitalize"
+                                primary
+                              >
+                                {visibility}
+                              </Text>
+                              <ChevronsUpDownIcon
+                                size={16}
+                                color={theme.colors.primary}
+                              />
+                            </View>
+                          </DropdownMenu.Trigger>
+                          <DropdownMenu.Content>
+                            {options.map((option) => (
+                              <DropdownMenu.CheckboxItem
+                                key={option}
+                                value={visibility === option ? "on" : "off"}
+                                onValueChange={(value) =>
+                                  value === "on" &&
+                                  setPreference.mutate({
+                                    label: key,
+                                    visibility: option,
+                                  })
+                                }
+                              >
+                                <DropdownMenu.ItemTitle>
+                                  {translateMap[option]}
+                                </DropdownMenu.ItemTitle>
+                                <DropdownMenu.ItemIndicator />
+                              </DropdownMenu.CheckboxItem>
+                            ))}
+                          </DropdownMenu.Content>
+                        </DropdownMenu.Root>
                       ),
                     };
                   },
@@ -234,5 +240,3 @@ export default function ModerationSettings() {
 
   return <QueryWithoutData query={preferences} />;
 }
-
-const capitalise = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);

@@ -1,16 +1,11 @@
-import { ActivityIndicator, Switch, TouchableOpacity } from "react-native";
+import { ActivityIndicator, Switch, View } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
-import {
-  ChevronsUpDownIcon,
-  CircleDotIcon,
-  CloudIcon,
-  CloudyIcon,
-} from "lucide-react-native";
+import { ChevronsUpDownIcon } from "lucide-react-native";
+import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
 import { QueryWithoutData } from "~/components/query-without-data";
@@ -24,7 +19,6 @@ import {
   useHomepage,
   useSetAppPreferences,
 } from "~/lib/storage/app-preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { produce } from "~/lib/utils/produce";
 
 const defaultFeedViewPref = {
@@ -53,7 +47,7 @@ export default function FeedPreferences() {
   const defaultFeed = useDefaultFeed();
   const homepage = useHomepage();
   const setAppPreferences = useSetAppPreferences();
-  const { showActionSheetWithOptions } = useActionSheet();
+
   const theme = useTheme();
   const savedFeeds = useSavedFeeds();
   const { _ } = useLingui();
@@ -104,6 +98,12 @@ export default function FeedPreferences() {
   if (preferences.data) {
     const feedViewPref = getFeedViewPref(preferences.data);
 
+    const feeds = savedFeeds.data
+      ? savedFeeds.data.pinned
+          .map((pin) => savedFeeds.data.feeds.find((f) => f.uri === pin)!)
+          .filter((x) => x !== undefined)
+      : [];
+
     return (
       <TransparentHeaderUntilScrolled>
         <GroupedList
@@ -114,150 +114,57 @@ export default function FeedPreferences() {
                 {
                   title: _(msg`Home screen layout`),
                   action: (
-                    <TouchableOpacity
-                      onPress={() => {
-                        const options = [
-                          _(msg`Feeds list`),
-                          _(msg`A specific feed`),
-                        ];
-                        const icons = [
-                          <CloudyIcon
-                            size={24}
-                            color={theme.colors.text}
-                            key={0}
-                          />,
-                          <CloudIcon
-                            size={24}
-                            color={theme.colors.text}
-                            key={1}
-                          />,
-                          <></>,
-                        ];
-                        showActionSheetWithOptions(
-                          {
-                            options: [...options, _(msg`Cancel`)],
-                            icons,
-                            cancelButtonIndex: options.length,
-                            ...actionSheetStyles(theme),
-                          },
-                          (index) => {
-                            switch (index) {
-                              case 0:
-                                setAppPreferences({ homepage: "feeds" });
-                                break;
-                              case 1:
-                                setAppPreferences({ homepage: "skyline" });
-                                break;
-                            }
-                          },
-                        );
-                      }}
-                      className="flex-row items-center"
-                    >
-                      <Text
-                        primary
-                        className="text-base font-medium capitalize"
-                      >
-                        {homepage === "feeds" ? (
-                          <Trans>Feeds list</Trans>
-                        ) : (
-                          <Trans>Primary feed</Trans>
-                        )}
-                      </Text>
-                      <ChevronsUpDownIcon
-                        size={16}
-                        color={theme.colors.primary}
-                        className="ml-1"
-                      />
-                    </TouchableOpacity>
+                    <DropdownMenu.Root>
+                      <DropdownMenu.Trigger>
+                        <View className="flex-row items-center gap-x-1">
+                          <Text primary className="text-base font-medium">
+                            {homepage === "feeds" ? (
+                              <Trans>Feeds list</Trans>
+                            ) : (
+                              <Trans>Primary feed</Trans>
+                            )}
+                          </Text>
+                          <ChevronsUpDownIcon
+                            size={16}
+                            color={theme.colors.primary}
+                          />
+                        </View>
+                      </DropdownMenu.Trigger>
+                      <DropdownMenu.Content>
+                        <DropdownMenu.CheckboxItem
+                          key="feeds list"
+                          textValue={_(msg`Feeds list`)}
+                          value={homepage === "feeds" ? "on" : "off"}
+                          onValueChange={(value) =>
+                            value === "on" &&
+                            setAppPreferences({ homepage: "feeds" })
+                          }
+                        >
+                          <DropdownMenu.ItemIndicator />
+                        </DropdownMenu.CheckboxItem>
+                        <DropdownMenu.CheckboxItem
+                          key="specific feed"
+                          textValue={_(msg`Primary feed`)}
+                          value={homepage === "skyline" ? "on" : "off"}
+                          onValueChange={(value) =>
+                            value === "on" &&
+                            setAppPreferences({ homepage: "skyline" })
+                          }
+                        >
+                          <DropdownMenu.ItemIndicator />
+                        </DropdownMenu.CheckboxItem>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Root>
                   ),
                 },
                 ...(homepage === "skyline"
                   ? [
                       {
                         title: _(msg`Primary feed`),
-                        action: (
-                          <TouchableOpacity
-                            disabled={savedFeeds.isPending}
-                            onPress={() => {
-                              const data = savedFeeds.data
-                                ? savedFeeds.data.pinned
-                                    .map(
-                                      (pin) =>
-                                        savedFeeds.data.feeds.find(
-                                          (f) => f.uri === pin,
-                                        )!,
-                                    )
-                                    .filter((x) => x !== undefined)
-                                : [];
-
-                              const options = [
-                                _(msg`Following`),
-                                ...data.map((x) => x.displayName),
-                              ];
-                              const icons = [
-                                defaultFeed === "following" ? (
-                                  <CircleDotIcon
-                                    key={0}
-                                    color={theme.colors.text}
-                                    size={24}
-                                  />
-                                ) : (
-                                  <></>
-                                ),
-                                ...(savedFeeds.data
-                                  ? savedFeeds.data.pinned
-                                      .map(
-                                        (pin) =>
-                                          savedFeeds.data.feeds.find(
-                                            (f) => f.uri === pin,
-                                          )!,
-                                      )
-                                      .filter((x) => x !== undefined)
-                                      .map((x, i) =>
-                                        x.uri === defaultFeed ? (
-                                          <CircleDotIcon
-                                            key={i + 1}
-                                            color={theme.colors.text}
-                                            size={24}
-                                          />
-                                        ) : (
-                                          <></>
-                                        ),
-                                      )
-                                  : []),
-                                <></>,
-                              ];
-                              showActionSheetWithOptions(
-                                {
-                                  title: _(msg`Select primary feed`),
-                                  options: [...options, _(msg`Cancel`)],
-                                  icons,
-                                  cancelButtonIndex: options.length,
-                                  ...actionSheetStyles(theme),
-                                },
-                                (index) => {
-                                  if (
-                                    index === undefined ||
-                                    index === options.length
-                                  )
-                                    return;
-                                  if (index === 0) {
-                                    setAppPreferences({
-                                      defaultFeed: "following",
-                                    });
-                                  } else {
-                                    setAppPreferences({
-                                      defaultFeed: data[index - 1]!.uri,
-                                    });
-                                  }
-                                },
-                              );
-                            }}
-                            className="flex-row items-center"
-                          >
-                            {savedFeeds.isSuccess ? (
-                              <>
+                        action: savedFeeds.isSuccess ? (
+                          <DropdownMenu.Root>
+                            <DropdownMenu.Trigger>
+                              <View className="flex-row items-center gap-x-1">
                                 <Text
                                   style={{
                                     color: unknown
@@ -271,13 +178,51 @@ export default function FeedPreferences() {
                                 <ChevronsUpDownIcon
                                   size={16}
                                   color={theme.colors.primary}
-                                  className="ml-1"
                                 />
-                              </>
-                            ) : (
-                              <ActivityIndicator />
-                            )}
-                          </TouchableOpacity>
+                              </View>
+                            </DropdownMenu.Trigger>
+                            <DropdownMenu.Content>
+                              <DropdownMenu.CheckboxItem
+                                key="following"
+                                textValue={_(msg`Following`)}
+                                value={
+                                  defaultFeed === "following" ? "on" : "off"
+                                }
+                                onValueChange={(value) =>
+                                  value === "on" &&
+                                  setAppPreferences({
+                                    defaultFeed: "following",
+                                  })
+                                }
+                              >
+                                <DropdownMenu.ItemIndicator />
+                              </DropdownMenu.CheckboxItem>
+                              <DropdownMenu.Group>
+                                {feeds.map((feed) => (
+                                  <DropdownMenu.CheckboxItem
+                                    key={feed.uri}
+                                    textValue={feed.displayName}
+                                    value={
+                                      feed.uri === defaultFeed ? "on" : "off"
+                                    }
+                                    onValueChange={(value) =>
+                                      value === "on" &&
+                                      setAppPreferences({
+                                        defaultFeed: feed.uri,
+                                      })
+                                    }
+                                  >
+                                    <DropdownMenu.ItemSubtitle>
+                                      {_(msg`By @${feed.creator.handle}`)}
+                                    </DropdownMenu.ItemSubtitle>
+                                    <DropdownMenu.ItemIndicator />
+                                  </DropdownMenu.CheckboxItem>
+                                ))}
+                              </DropdownMenu.Group>
+                            </DropdownMenu.Content>
+                          </DropdownMenu.Root>
+                        ) : (
+                          <ActivityIndicator />
                         ),
                       },
                     ]
