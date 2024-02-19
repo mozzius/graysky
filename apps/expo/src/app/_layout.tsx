@@ -255,6 +255,9 @@ const App = () => {
     }
   }, [ready]);
 
+  // needs i18n context
+  useSetupQuickActions();
+
   return (
     <GestureHandlerRootView className="flex-1">
       <ThemeProvider value={theme}>
@@ -431,7 +434,6 @@ const getSession = () => {
 function RootLayout() {
   useConfigurePurchases();
   useSentryTracing();
-  useSetupQuickActions();
 
   return (
     <I18nProvider>

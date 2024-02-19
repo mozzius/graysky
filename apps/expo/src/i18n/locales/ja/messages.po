@@ -254,7 +254,7 @@ msgstr "お気に入りに追加"
 msgid "Add to list"
 msgstr ""
 
-#: src/app/_layout.tsx:388
+#: src/app/_layout.tsx:391
 msgid "Add to List"
 msgstr "リストに追加"
 
@@ -670,7 +670,7 @@ msgstr "アカウントを作成"
 msgid "Create list"
 msgstr "リストを作成"
 
-#: src/app/_layout.tsx:381
+#: src/app/_layout.tsx:384
 msgid "Create List"
 msgstr "リストを作成"
 
@@ -771,7 +771,7 @@ msgstr "投稿を破棄"
 msgid "Discover feeds"
 msgstr "フィードを見つける"
 
-#: src/app/_layout.tsx:317
+#: src/app/_layout.tsx:320
 msgid "Discover Feeds"
 msgstr "フィードを見つける"
 
@@ -833,7 +833,7 @@ msgstr "バナーを編集"
 msgid "Edit feeds"
 msgstr "フィードを編集"
 
-#: src/app/_layout.tsx:360
+#: src/app/_layout.tsx:363
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:561
 msgid "Edit Profile"
@@ -1540,7 +1540,7 @@ msgstr "プロフィール"
 msgid "Profile Settings"
 msgstr "プロフィールの設定"
 
-#: src/app/_layout.tsx:338
+#: src/app/_layout.tsx:341
 msgid "Purchase Successful"
 msgstr "購入が成功しました"
 
@@ -1552,7 +1552,7 @@ msgstr "目的"
 msgid "Push notifications"
 msgstr "プッシュ通知"
 
-#: src/app/_layout.tsx:395
+#: src/app/_layout.tsx:398
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "プッシュ通知"
@@ -1832,7 +1832,7 @@ msgstr "{0} の投稿を共有する"
 msgid "Share as image"
 msgstr "画像として共有"
 
-#: src/app/_layout.tsx:405
+#: src/app/_layout.tsx:408
 msgid "Share as Image"
 msgstr "画像として共有"
 

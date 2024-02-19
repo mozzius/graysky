@@ -249,7 +249,7 @@ msgstr ""
 msgid "Add to list"
 msgstr ""
 
-#: src/app/_layout.tsx:388
+#: src/app/_layout.tsx:391
 msgid "Add to List"
 msgstr ""
 
@@ -665,7 +665,7 @@ msgstr ""
 msgid "Create list"
 msgstr ""
 
-#: src/app/_layout.tsx:381
+#: src/app/_layout.tsx:384
 msgid "Create List"
 msgstr ""
 
@@ -764,7 +764,7 @@ msgstr ""
 msgid "Discover feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:317
+#: src/app/_layout.tsx:320
 msgid "Discover Feeds"
 msgstr ""
 
@@ -824,7 +824,7 @@ msgstr ""
 msgid "Edit feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:360
+#: src/app/_layout.tsx:363
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:561
 msgid "Edit Profile"
@@ -1531,7 +1531,7 @@ msgstr ""
 msgid "Profile Settings"
 msgstr ""
 
-#: src/app/_layout.tsx:338
+#: src/app/_layout.tsx:341
 msgid "Purchase Successful"
 msgstr ""
 
@@ -1543,7 +1543,7 @@ msgstr ""
 msgid "Push notifications"
 msgstr ""
 
-#: src/app/_layout.tsx:395
+#: src/app/_layout.tsx:398
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr ""
@@ -1823,7 +1823,7 @@ msgstr ""
 msgid "Share as image"
 msgstr ""
 
-#: src/app/_layout.tsx:405
+#: src/app/_layout.tsx:408
 msgid "Share as Image"
 msgstr ""
 
