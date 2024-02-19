@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/components/primary-post.tsx:265
-msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-msgstr ""
+#~ msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
+#~ msgstr ""
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -1002,6 +1002,11 @@ msgstr ""
 msgid "Help us keep the lights on"
 msgstr ""
 
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:147
+msgid "Hide"
+msgstr ""
+
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
 msgstr ""
@@ -1341,21 +1346,21 @@ msgstr ""
 msgid "Open link"
 msgstr ""
 
-#: src/components/embed/index.tsx:233
+#: src/components/embed/index.tsx:235
 msgid "Opens embedded post"
 msgstr ""
 
-#: src/components/feed-post.tsx:259
-#: src/components/feed-post.tsx:443
+#: src/components/feed-post.tsx:261
+#: src/components/feed-post.tsx:445
 msgid "Opens parent post"
 msgstr ""
 
-#: src/components/feed-post.tsx:294
+#: src/components/feed-post.tsx:296
 msgid "Opens post details"
 msgstr ""
 
-#: src/components/feed-post.tsx:205
-#: src/components/feed-post.tsx:359
+#: src/components/feed-post.tsx:207
+#: src/components/feed-post.tsx:361
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:96
 msgid "Opens profile"
@@ -1576,8 +1581,8 @@ msgstr ""
 msgid "Reply to {0}"
 msgstr ""
 
-#: src/components/feed-post.tsx:273
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:275
+#: src/components/feed-post.tsx:457
 msgid "replying to {0}"
 msgstr ""
 
@@ -1585,15 +1590,15 @@ msgstr ""
 msgid "Replying to @{0}"
 msgstr ""
 
-#: src/components/feed-post.tsx:414
+#: src/components/feed-post.tsx:416
 msgid "replying to a blocked user"
 msgstr ""
 
-#: src/components/feed-post.tsx:417
+#: src/components/feed-post.tsx:419
 msgid "replying to a deleted post"
 msgstr ""
 
-#: src/components/feed-post.tsx:409
+#: src/components/feed-post.tsx:411
 msgid "replying to a post that couldn't be fetched"
 msgstr ""
 
@@ -1601,7 +1606,7 @@ msgstr ""
 msgid "Replying to some sort of post"
 msgstr ""
 
-#: src/components/feed-post.tsx:411
+#: src/components/feed-post.tsx:413
 msgid "replying to..."
 msgstr ""
 
@@ -1630,7 +1635,7 @@ msgstr ""
 msgid "Reposted by"
 msgstr ""
 
-#: src/components/feed-post.tsx:374
+#: src/components/feed-post.tsx:376
 msgid "Reposted by {0}"
 msgstr ""
 
@@ -1856,6 +1861,11 @@ msgstr ""
 msgid "Share via..."
 msgstr ""
 
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:147
+msgid "Show"
+msgstr ""
+
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
 msgstr ""
@@ -2045,11 +2055,21 @@ msgstr ""
 msgid "This post contains sexual activity or erotic nudity."
 msgstr ""
 
+#: src/components/embed/index.tsx:221
+#: src/components/feed-post.tsx:143
+msgid "This post is from someone you have blocked"
+msgstr ""
+
+#: src/components/embed/index.tsx:219
+#: src/components/feed-post.tsx:141
+msgid "This post is from someone you have muted"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:325
 msgid "This thread is locked"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:750
+#: src/components/screens/profile/profile-info.tsx:752
 msgid "This user has blocked you"
 msgstr ""
 
@@ -2126,6 +2146,7 @@ msgstr ""
 msgid "Trending topics"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:727
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2221,6 +2242,14 @@ msgstr ""
 msgid "Username or email address"
 msgstr ""
 
+#: src/components/primary-post.tsx:266
+msgid "Users in the list"
+msgstr ""
+
+#: src/components/primary-post.tsx:268
+msgid "Users in the lists"
+msgstr ""
+
 #: src/components/primary-post.tsx:223
 msgid "Users mentioned in this thread"
 msgstr ""
@@ -2244,6 +2273,7 @@ msgid "Version unknown"
 msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:696
+#: src/components/screens/profile/profile-info.tsx:727
 msgid "View"
 msgstr ""
 

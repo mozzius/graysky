@@ -135,14 +135,16 @@ const FeedPostInner = ({
       )}
     >
       <Text className="my-1 max-w-[75%] font-semibold">
-        {filter
-          ? filter.message
-          : `This post is from someone you have ${
-              item.post.author.viewer?.blocking ? "blocked" : "muted"
-            }.`}
+        {filter ? (
+          filter.message
+        ) : item.post.author.viewer?.muted ? (
+          <Trans>This post is from someone you have muted</Trans>
+        ) : (
+          <Trans>This post is from someone you have blocked</Trans>
+        )}
       </Text>
       <TextButton
-        title={hidden ? "Show" : "Hide"}
+        title={hidden ? _(msg`Show`) : _(msg`Hide`)}
         onPress={() => setHidden((h) => !h)}
       />
     </View>

@@ -8,7 +8,7 @@ import {
   type AppBskyFeedDefs,
   type AppBskyGraphDefs,
 } from "@atproto/api";
-import { msg, Plural, Trans } from "@lingui/macro";
+import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
@@ -262,11 +262,11 @@ const ThreadgateInfo = ({
         ));
         return (
           <Text className="text-base">
-            <Plural
-              one="Users in the list"
-              other="Users in the lists"
-              value={lists.length}
-            />{" "}
+            {lists.length === 1 ? (
+              <Trans>Users in the list</Trans>
+            ) : (
+              <Trans>Users in the lists</Trans>
+            )}{" "}
             {listsList}
           </Text>
         );

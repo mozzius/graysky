@@ -16,7 +16,7 @@ import {
   AppBskyFeedPost,
   AppBskyGraphDefs,
 } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -213,14 +213,16 @@ export const PostEmbed = ({
         )}
       >
         <Text className="my-1 max-w-[75%] font-semibold">
-          {filter
-            ? filter.message
-            : post.author.viewer?.blocking
-              ? "This post has been blocked"
-              : "This post is from someone you have muted"}
+          {filter ? (
+            filter.message
+          ) : post.author.viewer?.muted ? (
+            <Trans>This post is from someone you have muted</Trans>
+          ) : (
+            <Trans>This post is from someone you have blocked</Trans>
+          )}
         </Text>
         <TextButton
-          title={hidden ? "Show" : "Hide"}
+          title={hidden ? _(msg`Show`) : _(msg`Hide`)}
           onPress={() => setHidden((h) => !h)}
         />
       </View>

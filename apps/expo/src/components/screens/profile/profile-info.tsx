@@ -723,7 +723,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 )}
               </Text>
               <TextButton
-                title={profile.viewer.blockingByList ? "View" : "Unblock"}
+                title={
+                  profile.viewer.blockingByList ? _(msg`View`) : _(msg`Unblock`)
+                }
                 onPress={() => {
                   if (profile.viewer?.blockingByList) {
                     const segments =

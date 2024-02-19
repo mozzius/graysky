@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 12:33\n"
+"PO-Revision-Date: 2024-02-19 13:31\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Crowdin-File-ID: 8\n"
 
 #: src/components/primary-post.tsx:265
-msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-msgstr "{0, plural, one {リスト内のユーザー} other {リスト内のユーザー}}"
+#~ msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
+#~ msgstr "{0, plural, one {Users in the list} other {Users in the lists}}"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -120,7 +120,11 @@ msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}}other{{4}および、他{5}人が}}</0><1>{6}</1>"
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}} other{{4}および、他{5}人}}</0><1>{6}</1>"
+
+#: src/components/notification/index.tsx:223
+#~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
+#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:616
@@ -392,11 +396,11 @@ msgstr "より良い翻訳機能"
 
 #: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
-msgstr "年間の支払い、いつでも解約可能です"
+msgstr "年間の支払い、いつでも解約可能です。"
 
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
-msgstr "毎月の支払い、いつでも解約可能です"
+msgstr "毎月の支払い、いつでも解約可能です。"
 
 #: src/components/screens/profile/profile-info.tsx:186
 msgid "Block account"
@@ -408,7 +412,7 @@ msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:257
 msgid "Block user"
-msgstr "ユーザーをブロックする"
+msgstr "ユーザーをブロック"
 
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
@@ -746,7 +750,7 @@ msgstr "説明"
 #: src/app/settings/app.tsx:120
 #: src/app/settings/app.tsx:128
 msgid "Disable GIF autoplay"
-msgstr "GIFの自動再生を無効化する"
+msgstr "GIFの自動再生を無効化"
 
 #: src/app/settings/app.tsx:99
 msgid "Disable haptics"
@@ -1007,6 +1011,11 @@ msgstr "触覚フィードバックが無効化されています"
 msgid "Help us keep the lights on"
 msgstr "明かりを灯し続けるためにご協力ください"
 
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:147
+msgid "Hide"
+msgstr ""
+
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
 msgstr "ホームフィードの設定"
@@ -1045,7 +1054,7 @@ msgstr "無効なモード"
 
 #: src/components/drawer/drawer-content.tsx:71
 msgid "It's currently set to the {current} theme"
-msgstr "現在は {current} に設定されています"
+msgstr "現在は{current}に設定されています"
 
 #: src/components/screens/profile/profile-info.tsx:672
 msgid "Joined {0}"
@@ -1113,7 +1122,7 @@ msgstr "リスト"
 #: src/app/(auth)/_layout.tsx:67
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
-msgstr "サインインを再度する"
+msgstr "サインイン"
 
 #: src/app/(auth)/_layout.tsx:55
 #: src/app/(auth)/sign-in.tsx:163
@@ -1346,21 +1355,21 @@ msgstr "ドロワーメニューを開く"
 msgid "Open link"
 msgstr "リンクを開く"
 
-#: src/components/embed/index.tsx:233
+#: src/components/embed/index.tsx:235
 msgid "Opens embedded post"
 msgstr "埋め込まれた投稿を開く"
 
-#: src/components/feed-post.tsx:259
-#: src/components/feed-post.tsx:443
+#: src/components/feed-post.tsx:261
+#: src/components/feed-post.tsx:445
 msgid "Opens parent post"
 msgstr "親の投稿を開く"
 
-#: src/components/feed-post.tsx:294
+#: src/components/feed-post.tsx:296
 msgid "Opens post details"
 msgstr "投稿の詳細を開く"
 
-#: src/components/feed-post.tsx:205
-#: src/components/feed-post.tsx:359
+#: src/components/feed-post.tsx:207
+#: src/components/feed-post.tsx:361
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:96
 msgid "Opens profile"
@@ -1581,8 +1590,8 @@ msgstr "返信の設定"
 msgid "Reply to {0}"
 msgstr "{0}に返信"
 
-#: src/components/feed-post.tsx:273
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:275
+#: src/components/feed-post.tsx:457
 msgid "replying to {0}"
 msgstr "{0}に返信"
 
@@ -1590,15 +1599,15 @@ msgstr "{0}に返信"
 msgid "Replying to @{0}"
 msgstr "@{0}に返信"
 
-#: src/components/feed-post.tsx:414
+#: src/components/feed-post.tsx:416
 msgid "replying to a blocked user"
 msgstr "ブロックをしたユーザーに返信"
 
-#: src/components/feed-post.tsx:417
+#: src/components/feed-post.tsx:419
 msgid "replying to a deleted post"
 msgstr "削除された投稿に返信"
 
-#: src/components/feed-post.tsx:409
+#: src/components/feed-post.tsx:411
 msgid "replying to a post that couldn't be fetched"
 msgstr "取得できなかった投稿に返信"
 
@@ -1606,7 +1615,7 @@ msgstr "取得できなかった投稿に返信"
 msgid "Replying to some sort of post"
 msgstr "何らかの投稿に返信"
 
-#: src/components/feed-post.tsx:411
+#: src/components/feed-post.tsx:413
 msgid "replying to..."
 msgstr "返信先:"
 
@@ -1635,7 +1644,7 @@ msgstr "リポストの設定"
 msgid "Reposted by"
 msgstr "リポストしたユーザー:"
 
-#: src/components/feed-post.tsx:374
+#: src/components/feed-post.tsx:376
 msgid "Reposted by {0}"
 msgstr "{0}によるリポスト"
 
@@ -1658,7 +1667,7 @@ msgstr "パスワードをリセット"
 #: src/app/pro.tsx:335
 #: src/app/pro.tsx:350
 msgid "Restore purchases"
-msgstr "購入を復元しています"
+msgstr "購入を復元する"
 
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
@@ -1861,6 +1870,11 @@ msgstr "このフィードを共有"
 msgid "Share via..."
 msgstr "共有先..."
 
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:147
+msgid "Show"
+msgstr ""
+
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
 msgstr "「すべてのフィード」上に「マイリスト」を表示"
@@ -2050,11 +2064,21 @@ msgstr "この投稿には成人向けの要素が含まれています。"
 msgid "This post contains sexual activity or erotic nudity."
 msgstr "この投稿には性行為またはエロティックなヌードな要素が含まれています。"
 
+#: src/components/embed/index.tsx:221
+#: src/components/feed-post.tsx:143
+msgid "This post is from someone you have blocked"
+msgstr ""
+
+#: src/components/embed/index.tsx:219
+#: src/components/feed-post.tsx:141
+msgid "This post is from someone you have muted"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:325
 msgid "This thread is locked"
 msgstr "このスレッドはロックされています"
 
-#: src/components/screens/profile/profile-info.tsx:750
+#: src/components/screens/profile/profile-info.tsx:752
 msgid "This user has blocked you"
 msgstr "このユーザーはあなたをブロックしています"
 
@@ -2131,6 +2155,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 msgid "Trending topics"
 msgstr "トレンドのトピック"
 
+#: src/components/screens/profile/profile-info.tsx:727
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2226,6 +2251,14 @@ msgstr "ユーザーリスト"
 msgid "Username or email address"
 msgstr "ユーザー名またはメールアドレス"
 
+#: src/components/primary-post.tsx:266
+msgid "Users in the list"
+msgstr ""
+
+#: src/components/primary-post.tsx:268
+msgid "Users in the lists"
+msgstr ""
+
 #: src/components/primary-post.tsx:223
 msgid "Users mentioned in this thread"
 msgstr "このスレッドで言及したユーザー"
@@ -2249,6 +2282,7 @@ msgid "Version unknown"
 msgstr "バージョン不明"
 
 #: src/components/screens/profile/profile-info.tsx:696
+#: src/components/screens/profile/profile-info.tsx:727
 msgid "View"
 msgstr "表示"
 
