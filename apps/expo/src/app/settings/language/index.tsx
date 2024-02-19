@@ -1,10 +1,10 @@
-import { TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { ChevronsUpDownIcon } from "lucide-react-native";
+import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
 import { Text } from "~/components/themed/text";
@@ -18,19 +18,21 @@ import {
   useSetAppPreferences,
   useTranslationMethod,
 } from "~/lib/storage/app-preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { LANGUAGES } from "~/lib/utils/locale/languages";
+
+const options = ["en", "ja"] as const;
 
 export default function LanguageSettings() {
   const primaryLanguage = usePrimaryLanguage();
   const contentLanguages = useContentLanguages();
   const translationMethod = useTranslationMethod();
   const appLanguage = useAppLanguage();
-  const theme = useTheme();
+
   const setAppPreferences = useSetAppPreferences();
   const isPro = useIsPro();
-  const { showActionSheetWithOptions } = useActionSheet();
+
   const { _ } = useLingui();
+  const theme = useTheme();
 
   const translationService = isPro ? translationMethod : "GOOGLE";
 
@@ -48,37 +50,37 @@ export default function LanguageSettings() {
               {
                 title: _(msg`App language`),
                 action: (
-                  <TouchableOpacity
-                    onPress={() => {
-                      const options = ["en", "ja"] as const;
-                      showActionSheetWithOptions(
-                        {
-                          options: [
-                            ...options.map(languageCodeToName),
-                            _(msg`Cancel`),
-                          ],
-                          cancelButtonIndex: options.length,
-                          ...actionSheetStyles(theme),
-                        },
-                        (index) => {
-                          if (index === undefined || !options[index]) return;
-                          setAppPreferences({
-                            appLanguage: options[index],
-                          });
-                        },
-                      );
-                    }}
-                    className="flex-row items-center"
-                  >
-                    <Text primary className="text-base font-medium capitalize">
-                      {languageCodeToName(appLanguage)}
-                    </Text>
-                    <ChevronsUpDownIcon
-                      size={16}
-                      color={theme.colors.primary}
-                      className="ml-1"
-                    />
-                  </TouchableOpacity>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                      <View className="flex-row items-center gap-x-1">
+                        <Text
+                          primary
+                          className="text-base font-medium capitalize"
+                        >
+                          {languageCodeToName(appLanguage)}
+                        </Text>
+                        <ChevronsUpDownIcon
+                          size={16}
+                          color={theme.colors.primary}
+                        />
+                      </View>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content>
+                      {options.map((lang) => (
+                        <DropdownMenu.CheckboxItem
+                          key={lang}
+                          textValue={languageCodeToName(lang)}
+                          value={appLanguage === lang ? "on" : "off"}
+                          onValueChange={(value) => {
+                            value === "on" &&
+                              setAppPreferences({ appLanguage: lang });
+                          }}
+                        >
+                          <DropdownMenu.ItemIndicator />
+                        </DropdownMenu.CheckboxItem>
+                      ))}
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 ),
               },
             ],
