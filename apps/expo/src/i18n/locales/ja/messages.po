@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 14:00\n"
+"PO-Revision-Date: 2024-02-19 14:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1038,7 +1038,7 @@ msgstr "投稿がこれらの言語のいずれであるとマークされてい
 
 #: src/app/settings/about.tsx:128
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
-msgstr "翻訳の手伝いなどのGrayskyに関する貢献をした事のある方は、@graysky.appまでご連絡ください。あなたをこのリストに追加できるようにします。"
+msgstr "翻訳の手伝いなどのGrayskyに関する貢献をした事のある方は、@graysky.appまでご連絡ください。あなたをこのリストに加える事ができます。"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
