@@ -60,7 +60,7 @@ export default function AboutPage() {
               {
                 title: "mozzius.dev",
                 accessibilityRole: "link",
-                href: "/profile/mozzius.dev",
+                href: "/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep",
                 icon: AtSignIcon,
               },
               {
@@ -78,34 +78,55 @@ export default function AboutPage() {
               {
                 title: "alice.bsky.sh",
                 accessibilityRole: "link",
-                href: "/profile/alice.bsky.sh",
+                href: "/profile/did:plc:by3jhwdqgbtrcc7q4tkkv3cf",
                 icon: AtSignIcon,
               },
               {
                 title: "holden.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/holden.bsky.social",
+                href: "/profile/did:plc:tzq3i67wnarn6x2kbjcprnfx",
                 icon: AtSignIcon,
               },
               {
                 title: "matthewstanciu.com",
                 accessibilityRole: "link",
-                href: "/profile/matthewstanciu.com",
+                href: "/profile/did:plc:ming7lqd64h7zh4da2c6sgxx",
                 icon: AtSignIcon,
               },
               {
                 title: "jcsalterego.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/jcsalterego.bsky.social",
+                href: "/profile/did:plc:vc7f4oafdgxsihk4cry2xpze",
                 icon: AtSignIcon,
               },
               {
                 title: "st-cyr.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/st-cyr.bsky.social",
+                href: "/profile/did:plc:5rcf7fsqqx3ckxps3ir6etsg",
+                icon: AtSignIcon,
+              },
+              {
+                title: "haileyok.com",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:oisofpd7lj26yvgiivf3lxsi",
+                icon: AtSignIcon,
+              },
+              {
+                title: "surfdude29.ispost.ing",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:sflxm2fxohaqpfgahgdlm7rl",
+                icon: AtSignIcon,
+              },
+              {
+                title: "reindex.bsky.social",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:aeh2msk2nvakndnhovbdmzqq",
                 icon: AtSignIcon,
               },
             ],
+            footer: _(
+              msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
+            ),
           },
           {
             title: _(msg`Logo designed by`),

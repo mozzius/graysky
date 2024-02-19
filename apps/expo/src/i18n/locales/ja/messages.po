@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 13:31\n"
+"PO-Revision-Date: 2024-02-19 13:52\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/primary-post.tsx:265
 #~ msgid "{0, plural, one {Users in the list} other {Users in the lists}}"
-#~ msgstr "{0, plural, one {Users in the list} other {Users in the lists}}"
+#~ msgstr ""
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
@@ -121,10 +121,6 @@ msgstr "#{0}"
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}} other{{4}および、他{5}人}}</0><1>{6}</1>"
-
-#: src/components/notification/index.tsx:223
-#~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
-#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:616
@@ -338,7 +334,7 @@ msgstr "不明なエラーが発生しました。"
 msgid "Annual Plan"
 msgstr "年間プラン"
 
-#: src/app/settings/about.tsx:122
+#: src/app/settings/about.tsx:143
 msgid "App info"
 msgstr "アプリの情報"
 
@@ -1014,7 +1010,7 @@ msgstr "明かりを灯し続けるためにご協力ください"
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:147
 msgid "Hide"
-msgstr ""
+msgstr "非表示"
 
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
@@ -1043,6 +1039,10 @@ msgstr "このリンクはどのように開きますか?"
 #: src/app/settings/language/index.tsx:124
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "投稿がこれらの言語のいずれであるとマークされている場合は、翻訳されません。"
+
+#: src/app/settings/about.tsx:128
+msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
+msgstr ""
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1138,7 +1138,7 @@ msgstr "サインアウト"
 msgid "Logged in"
 msgstr "サインイン済み"
 
-#: src/app/settings/about.tsx:111
+#: src/app/settings/about.tsx:132
 msgid "Logo designed by"
 msgstr "ロゴデザイン"
 
@@ -1873,7 +1873,7 @@ msgstr "共有先..."
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:147
 msgid "Show"
-msgstr ""
+msgstr "表示"
 
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
@@ -2067,12 +2067,12 @@ msgstr "この投稿には性行為またはエロティックなヌードな要
 #: src/components/embed/index.tsx:221
 #: src/components/feed-post.tsx:143
 msgid "This post is from someone you have blocked"
-msgstr ""
+msgstr "この投稿はブロックした人からのものです"
 
 #: src/components/embed/index.tsx:219
 #: src/components/feed-post.tsx:141
 msgid "This post is from someone you have muted"
-msgstr ""
+msgstr "この投稿はミュートした人からのものです"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:325
 msgid "This thread is locked"
@@ -2253,11 +2253,11 @@ msgstr "ユーザー名またはメールアドレス"
 
 #: src/components/primary-post.tsx:266
 msgid "Users in the list"
-msgstr ""
+msgstr "リスト内のユーザー"
 
 #: src/components/primary-post.tsx:268
 msgid "Users in the lists"
-msgstr ""
+msgstr "リスト内のユーザー"
 
 #: src/components/primary-post.tsx:223
 msgid "Users mentioned in this thread"
@@ -2271,12 +2271,12 @@ msgstr "<0>{0}</0> がフォローしているユーザー"
 msgid "Verification code"
 msgstr "認証コード"
 
-#: src/app/settings/about.tsx:126
+#: src/app/settings/about.tsx:147
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: src/app/settings/about.tsx:127
+#: src/app/settings/about.tsx:148
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "バージョン不明"
