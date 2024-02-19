@@ -29,7 +29,7 @@ import {
   XOctagonIcon,
 } from "lucide-react-native";
 
-import { blockAccount, muteAccount } from "~/lib/account-actions";
+import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
@@ -60,6 +60,7 @@ const PostContextMenuButton = ({
   const haptics = useHaptics();
   const segments = useSegments();
   const { _ } = useLingui();
+  const { blockAccount, muteAccount } = useAccountActions();
 
   const rkey = post.uri.split("/").pop()!;
 
@@ -243,13 +244,7 @@ const PostContextMenuButton = ({
             : {
                 key: "mute",
                 label: _(msg`Mute user`),
-                action: () =>
-                  muteAccount(
-                    agent,
-                    post.author.handle,
-                    post.author.did,
-                    queryClient,
-                  ),
+                action: () => muteAccount(post.author.did, post.author.handle),
                 icon: "speaker.slash",
                 reactIcon: (
                   <MegaphoneOffIcon size={24} color={theme.colors.text} />
@@ -260,13 +255,7 @@ const PostContextMenuButton = ({
             : {
                 key: "block",
                 label: _(msg`Block user`),
-                action: () =>
-                  blockAccount(
-                    agent,
-                    post.author.handle,
-                    post.author.did,
-                    queryClient,
-                  ),
+                action: () => blockAccount(post.author.did, post.author.handle),
                 icon: "xmark.octagon",
                 reactIcon: <XOctagonIcon size={24} color={theme.colors.text} />,
               },

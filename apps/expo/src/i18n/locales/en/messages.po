@@ -97,6 +97,18 @@ msgstr ""
 msgid "{years}y"
 msgstr ""
 
+#: src/lib/account-actions.ts:97
+msgid "@{handle} has been blocked"
+msgstr ""
+
+#: src/lib/account-actions.ts:143
+msgid "@{handle} has been unblocked"
+msgstr ""
+
+#: src/lib/account-actions.ts:54
+msgid "@{handle} is no longer muted"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
 msgstr ""
@@ -110,16 +122,16 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:600
+#: src/components/screens/profile/profile-info.tsx:616
 msgid "<0>{0}</0> Followers"
 msgstr ""
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:608
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "<0>{0}</0> Following"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:616
+#: src/components/screens/profile/profile-info.tsx:632
 msgid "<0>{0}</0> Posts"
 msgstr ""
 
@@ -232,6 +244,10 @@ msgstr ""
 msgid "Add to favourites"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:167
+msgid "Add to list"
+msgstr ""
+
 #: src/app/_layout.tsx:388
 msgid "Add to List"
 msgstr ""
@@ -325,8 +341,16 @@ msgstr ""
 msgid "App Settings"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:114
+#: src/lib/account-actions.ts:71
+msgid "Are you sure you want to block @{handle}?"
+msgstr ""
+
+#: src/components/post-context-menu.tsx:115
 msgid "Are you sure you want to delete this post?"
+msgstr ""
+
+#: src/lib/account-actions.ts:117
+msgid "Are you sure you want to unblock @{handle}?"
 msgstr ""
 
 #: src/components/handle-availability.tsx:61
@@ -340,7 +364,7 @@ msgstr ""
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:418
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:436
+#: src/components/screens/profile/profile-info.tsx:452
 msgid "Back"
 msgstr ""
 
@@ -356,12 +380,22 @@ msgstr ""
 msgid "Billed monthly, cancel anytime"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:186
+msgid "Block account"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:262
+#: src/components/post-context-menu.tsx:257
 msgid "Block user"
+msgstr ""
+
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+#: src/lib/account-actions.ts:96
+msgid "Blocked"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
@@ -425,11 +459,14 @@ msgstr ""
 #: src/components/drawer/drawer-content.tsx:55
 #: src/components/feed-row.tsx:291
 #: src/components/image-viewer.tsx:274
-#: src/components/post-context-menu.tsx:79
-#: src/components/post-context-menu.tsx:117
-#: src/components/post-context-menu.tsx:289
-#: src/components/screens/profile/profile-info.tsx:181
-#: src/components/screens/profile/profile-info.tsx:547
+#: src/components/post-context-menu.tsx:80
+#: src/components/post-context-menu.tsx:118
+#: src/components/post-context-menu.tsx:278
+#: src/components/screens/profile/profile-info.tsx:191
+#: src/components/screens/profile/profile-info.tsx:248
+#: src/components/screens/profile/profile-info.tsx:563
+#: src/lib/account-actions.ts:74
+#: src/lib/account-actions.ts:120
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:163
 #: src/lib/composer/buttons.tsx:174
@@ -516,7 +553,7 @@ msgstr ""
 msgid "Copied link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:106
+#: src/components/post-context-menu.tsx:107
 msgid "Copied post text"
 msgstr ""
 
@@ -524,7 +561,7 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:207
+#: src/components/post-context-menu.tsx:208
 msgid "Copy post text"
 msgstr ""
 
@@ -560,7 +597,7 @@ msgstr ""
 msgid "Could not fetch trending topics"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:140
+#: src/components/screens/profile/profile-info.tsx:137
 msgid "Could not follow user"
 msgstr ""
 
@@ -639,8 +676,8 @@ msgstr ""
 msgid "Date of Birth"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:113
-#: src/components/post-context-menu.tsx:121
+#: src/components/post-context-menu.tsx:114
+#: src/components/post-context-menu.tsx:122
 msgid "Delete"
 msgstr ""
 
@@ -650,7 +687,7 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:234
+#: src/components/post-context-menu.tsx:235
 msgid "Delete post"
 msgstr ""
 
@@ -755,7 +792,7 @@ msgstr ""
 
 #: src/app/_layout.tsx:360
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:545
+#: src/components/screens/profile/profile-info.tsx:561
 msgid "Edit Profile"
 msgstr ""
 
@@ -835,7 +872,7 @@ msgid "Find people to follow"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:439
-#: src/components/screens/profile/profile-info.tsx:524
+#: src/components/screens/profile/profile-info.tsx:540
 msgid "Follow"
 msgstr ""
 
@@ -843,7 +880,7 @@ msgstr ""
 msgid "Follow people, and their posts will show up here"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:130
+#: src/components/screens/profile/profile-info.tsx:127
 msgid "Followed user"
 msgstr ""
 
@@ -858,7 +895,7 @@ msgstr ""
 #: src/components/feeds-button.tsx:247
 #: src/components/lists/follows-list.tsx:54
 #: src/components/lists/person-row.tsx:45
-#: src/components/screens/profile/profile-info.tsx:514
+#: src/components/screens/profile/profile-info.tsx:530
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
 msgstr ""
@@ -966,7 +1003,7 @@ msgstr ""
 msgid "It's currently set to the {current} theme"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/screens/profile/profile-info.tsx:672
 msgid "Joined {0}"
 msgstr ""
 
@@ -1085,6 +1122,10 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:246
+msgid "Misleading"
+msgstr ""
+
 #: src/app/composer/index.tsx:231
 #: src/app/composer/index.tsx:242
 msgid "Missing alt text"
@@ -1114,12 +1155,20 @@ msgstr ""
 msgid "Must be at least 8 characters"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:175
+msgid "Mute account"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:245
+#: src/components/post-context-menu.tsx:246
 msgid "Mute user"
+msgstr ""
+
+#: src/lib/account-actions.ts:34
+msgid "Muted"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
@@ -1271,6 +1320,10 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:247
+msgid "Other"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
 msgid "Password"
@@ -1338,7 +1391,7 @@ msgstr ""
 msgid "Post anyway"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:130
+#: src/components/post-context-menu.tsx:131
 msgid "Post deleted"
 msgstr ""
 
@@ -1350,12 +1403,12 @@ msgstr ""
 msgid "Post languages"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:304
-#: src/components/post-context-menu.tsx:331
+#: src/components/post-context-menu.tsx:293
+#: src/components/post-context-menu.tsx:320
 msgid "Post options"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:107
+#: src/components/post-context-menu.tsx:108
 msgid "Post text copied to clipboard"
 msgstr ""
 
@@ -1483,8 +1536,16 @@ msgstr ""
 msgid "replying to..."
 msgstr ""
 
-#: src/components/post-context-menu.tsx:275
+#: src/components/screens/profile/profile-info.tsx:190
+msgid "Report account"
+msgstr ""
+
+#: src/components/post-context-menu.tsx:264
 msgid "Report post"
+msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:269
+msgid "Report submitted"
 msgstr ""
 
 #: src/lib/hooks/post-actions.tsx:140
@@ -1616,11 +1677,11 @@ msgstr ""
 msgid "Search users"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:216
+#: src/components/post-context-menu.tsx:217
 msgid "See likes"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:225
+#: src/components/post-context-menu.tsx:226
 msgid "See reposts"
 msgstr ""
 
@@ -1670,7 +1731,7 @@ msgstr ""
 msgid "Share {0}'s post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:78
+#: src/components/post-context-menu.tsx:79
 msgid "Share as image"
 msgstr ""
 
@@ -1686,15 +1747,19 @@ msgstr ""
 msgid "Share link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:77
+#: src/components/post-context-menu.tsx:78
 msgid "Share link to post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:199
+#: src/components/post-context-menu.tsx:200
 msgid "Share post"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:546
+#: src/components/screens/profile/profile-info.tsx:161
+msgid "Share profile"
+msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "Share Profile"
 msgstr ""
 
@@ -1780,6 +1845,10 @@ msgstr ""
 msgid "Sort: {0}"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:245
+msgid "Spam"
+msgstr ""
+
 #: src/app/composer/threadgate.tsx:59
 msgid "Specific people can reply"
 msgstr ""
@@ -1840,6 +1909,10 @@ msgstr ""
 msgid "Take Photo"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:271
+msgid "Thank you for making the skyline a safer place"
+msgstr ""
+
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
 msgstr ""
@@ -1885,15 +1958,15 @@ msgstr ""
 msgid "This thread is locked"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:740
+#: src/components/screens/profile/profile-info.tsx:750
 msgid "This user has blocked you"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:706
+#: src/components/screens/profile/profile-info.tsx:717
 msgid "This user is on the \"{0}\" block list"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:670
+#: src/components/screens/profile/profile-info.tsx:686
 msgid "This user is on the \"{0}\" mute list"
 msgstr ""
 
@@ -1921,8 +1994,12 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:191
+#: src/components/post-context-menu.tsx:192
 msgid "Translate"
+msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:163
+msgid "Translate bio"
 msgstr ""
 
 #: src/components/translation.tsx:86
@@ -1954,6 +2031,19 @@ msgstr ""
 msgid "Trending topics"
 msgstr ""
 
+#: src/lib/account-actions.ts:116
+#: src/lib/account-actions.ts:124
+msgid "Unblock"
+msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:181
+msgid "Unblock account"
+msgstr ""
+
+#: src/lib/account-actions.ts:142
+msgid "Unblocked"
+msgstr ""
+
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Undo Repost"
 msgstr ""
@@ -1962,7 +2052,7 @@ msgstr ""
 msgid "Unfavorite list"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:131
+#: src/components/screens/profile/profile-info.tsx:128
 msgid "Unfollowed user"
 msgstr ""
 
@@ -1974,8 +2064,16 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:696
 msgid "Unmute"
+msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:170
+msgid "Unmute account"
+msgstr ""
+
+#: src/lib/account-actions.ts:53
+msgid "Unmuted"
 msgstr ""
 
 #: src/components/feed-row.tsx:291
@@ -2046,7 +2144,7 @@ msgstr ""
 msgid "Version unknown"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:696
 msgid "View"
 msgstr ""
 
@@ -2083,11 +2181,11 @@ msgstr ""
 msgid "Who can reply?"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:135
+#: src/components/screens/profile/profile-info.tsx:132
 msgid "You are no longer following @{0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:134
+#: src/components/screens/profile/profile-info.tsx:131
 msgid "You are now following @{0}"
 msgstr ""
 
@@ -2111,11 +2209,11 @@ msgstr ""
 msgid "You don't have any moderation lists yet."
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:711
+#: src/components/screens/profile/profile-info.tsx:722
 msgid "You have blocked this user"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:675
+#: src/components/screens/profile/profile-info.tsx:691
 msgid "You have muted this user"
 msgstr ""
 
@@ -2141,6 +2239,10 @@ msgstr ""
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
+msgstr ""
+
+#: src/lib/account-actions.ts:35
+msgid "You will no longer see posts from @{handle}"
 msgstr ""
 
 #: src/components/screens/waiting-room.tsx:80

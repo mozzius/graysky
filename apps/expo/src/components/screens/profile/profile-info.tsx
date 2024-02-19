@@ -47,12 +47,7 @@ import {
 import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
-import {
-  blockAccount,
-  muteAccount,
-  unblockAccount,
-  unmuteAccount,
-} from "~/lib/account-actions";
+import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
@@ -85,6 +80,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();
   const [translateBio, setTranslateBio] = useState(false);
+  const { blockAccount, muteAccount, unblockAccount, unmuteAccount } =
+    useAccountActions();
 
   const queryClient = useQueryClient();
   const theme = useTheme();
@@ -161,36 +158,54 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   const handleOptions = () => {
     const options = [
-      "Share profile",
-      "Translate bio",
-      "Add to list",
-      profile.viewer?.muted ? "Unmute account" : "Mute account",
-      profile.viewer?.blocking ? "Unblock account" : "Block account",
-      "Report account",
+      { label: msg`Share profile`, value: "Share profile", icon: ShareIcon },
+      {
+        label: msg`Translate bio`,
+        value: "Translate bio",
+        icon: LanguagesIcon,
+      },
+      { label: msg`Add to list`, value: "Add to list", icon: ListPlusIcon },
+      profile.viewer?.muted
+        ? {
+            label: msg`Unmute account`,
+            value: "Unmute account",
+            icon: MegaphoneIcon,
+          }
+        : {
+            label: msg`Mute account`,
+            value: "Mute account",
+            icon: MegaphoneOffIcon,
+          },
+      profile.viewer?.blocking
+        ? {
+            label: msg`Unblock account`,
+            value: "Unblock account",
+            icon: ShieldOffIcon,
+          }
+        : {
+            label: msg`Block account`,
+            value: "Block account",
+            icon: ShieldXIcon,
+          },
+      { label: msg`Report account`, value: "Report account", icon: FlagIcon },
+      { label: msg`Cancel`, value: "Cancel", icon: null },
     ] as const;
-    const icons = [
-      ShareIcon,
-      LanguagesIcon,
-      ListPlusIcon,
-      profile.viewer?.muted ? MegaphoneIcon : MegaphoneOffIcon,
-      profile.viewer?.blocking ? ShieldOffIcon : ShieldXIcon,
-      FlagIcon,
-    ];
     showActionSheetWithOptions(
       {
-        options: [...options, _(msg`Cancel`)],
-        icons: [
-          ...icons.map((Icon, i) => (
-            <Icon key={i} size={24} color={theme.colors.text} />
-          )),
-          <></>,
-        ],
-        cancelButtonIndex: options.length,
+        options: options.map((x) => _(x.label)),
+        icons: options.map((x) =>
+          x.icon ? (
+            <x.icon key={x.value} size={24} color={theme.colors.text} />
+          ) : (
+            <></>
+          ),
+        ),
+        cancelButtonIndex: options.length - 1,
         ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;
-        const option = options[index];
+        const option = options[index]?.value;
         switch (option) {
           case "Share profile": {
             const url = `https://bsky.app/profile/${profile.handle}`;
@@ -209,34 +224,33 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             router.push(`/add-to-list/${profile.did}`);
             break;
           case "Mute account":
-            muteAccount(agent, profile.handle, profile.did, queryClient);
+            muteAccount(profile.did, profile.handle);
             break;
           case "Unmute account":
-            unmuteAccount(agent, profile.handle, profile.did, queryClient);
+            unmuteAccount(profile.did, profile.handle);
             break;
           case "Block account":
-            blockAccount(agent, profile.handle, profile.did, queryClient);
+            blockAccount(profile.did, profile.handle);
             break;
           case "Unblock account":
             unblockAccount(
-              agent,
+              profile.did,
               profile.handle,
               profile.viewer!.blocking!.split("/").pop()!,
-              queryClient,
             );
             break;
           case "Report account": {
             // prettier-ignore
             const reportOptions = [
-              { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
-              { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
-              { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
-              { label: "Cancel", value: "Cancel" },
+              { label: msg`Spam`, value: ComAtprotoModerationDefs.REASONSPAM },
+              { label: msg`Misleading`, value: ComAtprotoModerationDefs.REASONMISLEADING },
+              { label: msg`Other`, value: ComAtprotoModerationDefs.REASONOTHER },
+              { label: msg`Cancel`, value: "Cancel" },
             ] as const;
             showActionSheetWithOptions(
               {
                 title: "What is the issue with this account?",
-                options: reportOptions.map((x) => x.label),
+                options: reportOptions.map((x) => _(x.label)),
                 cancelButtonIndex: reportOptions.length - 1,
                 ...actionSheetStyles(theme),
               },
@@ -252,8 +266,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   },
                 });
                 showToastable({
-                  title: "Report submitted",
-                  message: "Thank you for making the skyline a safer place",
+                  title: _(msg`Report submitted`),
+                  message: _(
+                    msg`Thank you for making the skyline a safer place`,
+                  ),
                 });
               },
             );
@@ -688,12 +704,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       ),
                     );
                   } else {
-                    unmuteAccount(
-                      agent,
-                      profile.handle,
-                      profile.did,
-                      queryClient,
-                    );
+                    unmuteAccount(profile.did, profile.handle);
                   }
                 }}
               />
@@ -724,10 +735,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     );
                   } else {
                     unblockAccount(
-                      agent,
+                      profile.did,
                       profile.handle,
                       profile.viewer!.blocking!.split("/").pop()!,
-                      queryClient,
                     );
                   }
                 }}
