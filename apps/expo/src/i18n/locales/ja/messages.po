@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-18 16:48\n"
+"PO-Revision-Date: 2024-02-19 09:38\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -852,7 +852,7 @@ msgstr "フォローすると、その投稿がここに表示されます"
 
 #: src/components/screens/profile/profile-info.tsx:130
 msgid "Followed user"
-msgstr "フォローしているユーザー"
+msgstr "ユーザーをフォローしました"
 
 #: src/components/lists/followers-list.tsx:54
 msgid "Followers"
