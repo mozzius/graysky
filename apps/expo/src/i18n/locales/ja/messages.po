@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 09:38\n"
+"PO-Revision-Date: 2024-02-19 11:13\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -426,7 +426,7 @@ msgstr "ブロックをした投稿"
 
 #: src/app/settings/moderation.tsx:109
 msgid "Blocked users"
-msgstr "ブロックしたユーザー"
+msgstr "ブロックをしたユーザー"
 
 #: src/app/settings/_layout.tsx:93
 msgid "Blocked Users"
@@ -736,8 +736,7 @@ msgstr "削除された投稿"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr ""
-"Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
+msgstr "Blueskyアカウントを削除するとすべてが完全に削除されます。\n"
 "プロフィール、投稿、フォロー、いいねなどのデータが削除されます。この操作を元に戻すことはできません。"
 
 #: src/app/settings/account/delete-account.tsx:167
@@ -752,7 +751,7 @@ msgstr "説明"
 #: src/app/settings/app.tsx:120
 #: src/app/settings/app.tsx:128
 msgid "Disable GIF autoplay"
-msgstr "GIFの自動再生を無効化します"
+msgstr "GIFの自動再生を無効化する"
 
 #: src/app/settings/app.tsx:99
 msgid "Disable haptics"
@@ -804,8 +803,7 @@ msgstr "完了"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
-msgstr ""
-"理解されているか\n"
+msgstr "理解されているか\n"
 "よくご確認ください"
 
 #: src/app/composer/_layout.tsx:73
@@ -842,7 +840,7 @@ msgstr "プロフィールを編集"
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "Eメール"
+msgstr "メールアドレス"
 
 #: src/app/settings/moderation.tsx:137
 msgid "Enable Adult Content"
@@ -1053,7 +1051,7 @@ msgstr "無効なモード"
 
 #: src/components/drawer/drawer-content.tsx:71
 msgid "It's currently set to the {current} theme"
-msgstr "現在は、{current} テーマを設定しています"
+msgstr "現在は{current}が設定されています"
 
 #: src/components/screens/profile/profile-info.tsx:672
 msgid "Joined {0}"
@@ -2294,7 +2292,7 @@ msgstr ""
 
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
-msgstr "何を考えていますか？"
+msgstr "何を考えているんだい?"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:179
@@ -2393,3 +2391,4 @@ msgstr ""
 #: src/lib/composer/utils.tsx:186
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr ""
+
