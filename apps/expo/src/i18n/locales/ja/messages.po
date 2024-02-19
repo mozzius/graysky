@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 14:04\n"
+"PO-Revision-Date: 2024-02-19 14:44\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -574,7 +574,7 @@ msgstr "リンクをコピーしました"
 
 #: src/components/post-context-menu.tsx:107
 msgid "Copied post text"
-msgstr "コピーされた投稿テキスト"
+msgstr "投稿のテキストをコピーしました"
 
 #: src/components/image-with-context-menu.tsx:126
 msgid "Copy Image"
