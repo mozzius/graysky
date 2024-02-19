@@ -332,8 +332,8 @@ msgstr ""
 msgid "App info"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:46
-#: src/app/settings/language/index.tsx:49
+#: src/app/settings/language/index.tsx:48
+#: src/app/settings/language/index.tsx:51
 msgid "App language"
 msgstr ""
 
@@ -466,7 +466,6 @@ msgstr ""
 #: src/app/create-list.tsx:135
 #: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
-#: src/app/settings/language/index.tsx:58
 #: src/components/drawer/drawer-content.tsx:55
 #: src/components/feed-row.tsx:291
 #: src/components/image-viewer.tsx:274
@@ -949,7 +948,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:151
+#: src/app/settings/language/index.tsx:153
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr ""
 
@@ -969,7 +968,7 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:149
+#: src/app/settings/language/index.tsx:151
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
 msgstr ""
@@ -1030,7 +1029,7 @@ msgstr ""
 msgid "How should we open this link?"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:124
+#: src/app/settings/language/index.tsx:126
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr ""
 
@@ -1261,7 +1260,7 @@ msgid "My Feeds screen"
 msgstr ""
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:107
+#: src/app/settings/language/index.tsx:109
 msgid "My languages"
 msgstr ""
 
@@ -1485,7 +1484,7 @@ msgstr ""
 msgid "Post Language"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:87
+#: src/app/settings/language/index.tsx:89
 msgid "Post languages"
 msgstr ""
 
@@ -1515,7 +1514,7 @@ msgstr ""
 msgid "Posts from people you follow"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:101
+#: src/app/settings/language/index.tsx:103
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr ""
 
@@ -1529,7 +1528,7 @@ msgstr ""
 msgid "Primary feed"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:90
+#: src/app/settings/language/index.tsx:92
 msgid "Primary language"
 msgstr ""
 
@@ -1783,6 +1782,10 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
 msgid "Search users"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
+msgid "Search users, posts, feeds"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:220
@@ -2159,7 +2162,7 @@ msgstr ""
 msgid "Translated by Google"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:128
+#: src/app/settings/language/index.tsx:130
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr ""
@@ -2238,12 +2241,12 @@ msgstr ""
 msgid "Unwanted Sexual Content"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:131
+#: src/app/settings/language/index.tsx:133
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:142
+#: src/app/settings/language/index.tsx:144
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr ""

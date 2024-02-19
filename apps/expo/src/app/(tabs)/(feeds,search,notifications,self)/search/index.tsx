@@ -58,7 +58,7 @@ export default function SearchPage() {
   const ref = useRef<SearchBarCommands>(null);
 
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search users, posts, feeds",
+    placeholder: _(msg`Search users, posts, feeds`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     onFocus: () => setIsSearching(true),
     onBlur: () => setIsSearching(false),
