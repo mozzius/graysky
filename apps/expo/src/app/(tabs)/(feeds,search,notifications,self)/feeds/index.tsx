@@ -5,6 +5,8 @@ import {
   NestableScrollContainer,
 } from "react-native-draggable-flatlist";
 import { Link, Stack } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   ChevronRightIcon,
@@ -41,6 +43,7 @@ interface Props {
 
 const FeedsPageUnmemoized = ({ editing }: Props) => {
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const savedFeeds = useSavedFeeds();
   const sortableFeeds = useSortableFeeds();
@@ -65,7 +68,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
     const lists = savedFeeds.data.lists.filter((x) => x && !x.pinned).length >
       0 && (
       <>
-        <SectionHeader title="My lists" />
+        <SectionHeader title={_(msg`My lists`)} />
         <NestableDraggableFlatList
           data={
             sortableFeeds
@@ -105,8 +108,8 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <LargeRow
           icon={<CloudIcon size={32} color="white" />}
-          title="Following"
-          subtitle="Posts from people you follow"
+          title={_(msg`Following`)}
+          subtitle={_(msg`Posts from people you follow`)}
           right={
             <ChevronRightIcon
               size={20}
@@ -116,7 +119,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
         />
         {pinned.length > 0 && (
           <>
-            <SectionHeader title="Favourites" />
+            <SectionHeader title={_(msg`Favourites`)} />
             <NestableDraggableFlatList
               data={pinned
                 .map((uri) => {
@@ -152,7 +155,7 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
           </>
         )}
         {listsAboveFeeds && lists}
-        <SectionHeader title="All feeds" />
+        <SectionHeader title={_(msg`All feeds`)} />
         <NestableDraggableFlatList
           data={
             sortableFeeds
@@ -195,7 +198,9 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
               >
                 <View className="flex-row items-center">
                   <CompassIcon size={20} className="text-blue-500" />
-                  <Text className="ml-3 text-base">Discover more feeds</Text>
+                  <Text className="ml-3 text-base">
+                    <Trans>Discover more feeds</Trans>
+                  </Text>
                 </View>
                 <ChevronRightIcon size={20} className="text-neutral-400" />
               </View>
@@ -217,6 +222,7 @@ export default function Page() {
   const haptics = useHaptics();
   const homepage = useHomepage();
   const defaultFeed = useDefaultFeed();
+  const { _ } = useLingui();
 
   const headerLeft = useCallback(() => <OpenDrawerAvatar />, []);
 
@@ -225,7 +231,7 @@ export default function Page() {
       <>
         <Stack.Screen
           options={{
-            title: "Skyline",
+            title: _(msg`Skyline`),
             headerLargeTitle: false,
             headerLeft,
             headerRight: () => null,
@@ -240,7 +246,7 @@ export default function Page() {
     <>
       <Stack.Screen
         options={{
-          title: "Feeds",
+          title: _(msg`Feeds`),
           headerLargeTitle: true,
           headerLeft,
           headerRight: () => (
@@ -255,7 +261,7 @@ export default function Page() {
                   primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
-                  {editing ? "Done" : "Edit"}
+                  {editing ? <Trans>Done</Trans> : <Trans>Edit</Trans>}
                 </Text>
               </TouchableOpacity>
               {!editing && (

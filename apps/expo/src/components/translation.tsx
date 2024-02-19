@@ -2,6 +2,8 @@
 import { useCallback, useEffect } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import {
@@ -36,6 +38,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
     onMutate: () => haptics.impact(),
   });
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const service = isPro ? translationMethod : "GOOGLE";
 
@@ -80,7 +83,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
               color={theme.colors.primary}
             />
             <Text className="text-base" primary>
-              Translate post
+              <Trans>Translate post</Trans>
             </Text>
           </View>
         </TouchableOpacity>
@@ -129,7 +132,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
                     ? require("../../assets/translated_by-white.png")
                     : require("../../assets/translated_by.png")
                 }
-                alt="Translated by Google"
+                alt={_(msg`Translated by Google`)}
                 style={{ aspectRatio: 7.6 }}
                 className="w-28 max-w-full"
               />
@@ -140,7 +143,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
                   theme.dark ? "text-neutral-200" : "text-neutral-500",
                 )}
               >
-                Translated by DeepL
+                <Trans>Translated by DeepL</Trans>
               </Text>
             )}
           </View>
@@ -159,7 +162,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
               style={{ color: theme.colors.notification }}
               className="text-base"
             >
-              An error occurred
+              <Trans>An error occurred</Trans>
             </Text>
           </View>
         </TouchableOpacity>

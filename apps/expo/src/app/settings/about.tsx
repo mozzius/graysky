@@ -2,6 +2,8 @@ import { Linking, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import {
   AtSignIcon,
   GithubIcon,
@@ -21,6 +23,7 @@ const appIcon = require("../../../assets/icon.png") as ImageSource;
 
 export default function AboutPage() {
   const { openLink } = useLinkPress();
+  const { _ } = useLingui();
 
   return (
     <TransparentHeaderUntilScrolled>
@@ -29,21 +32,21 @@ export default function AboutPage() {
           {
             options: [
               {
-                title: "Star us on GitHub!",
+                title: _(msg`Star us on GitHub!`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/mozzius/graysky"),
                 icon: GithubIcon,
                 chevron: true,
               },
               {
-                title: "Sign up for project updates",
+                title: _(msg`Sign up for project updates`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://graysky.app"),
                 icon: MailIcon,
                 chevron: true,
               },
               {
-                title: "Contact",
+                title: _(msg`Contact`),
                 accessibilityRole: "link",
                 onPress: () => Linking.openURL("mailto:hello@graysky.app"),
                 icon: SendIcon,
@@ -52,16 +55,16 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Created by",
+            title: _(msg`Created by`),
             options: [
               {
                 title: "mozzius.dev",
                 accessibilityRole: "link",
-                href: "/profile/mozzius.dev",
+                href: "/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep",
                 icon: AtSignIcon,
               },
               {
-                title: "Sponsor my work",
+                title: _(msg`Sponsor my work`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/sponsors/mozzius"),
                 icon: HeartIcon,
@@ -70,42 +73,63 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "Contributors",
+            title: _(msg`Contributors`),
             options: [
               {
                 title: "alice.bsky.sh",
                 accessibilityRole: "link",
-                href: "/profile/alice.bsky.sh",
+                href: "/profile/did:plc:by3jhwdqgbtrcc7q4tkkv3cf",
                 icon: AtSignIcon,
               },
               {
                 title: "holden.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/holden.bsky.social",
+                href: "/profile/did:plc:tzq3i67wnarn6x2kbjcprnfx",
                 icon: AtSignIcon,
               },
               {
                 title: "matthewstanciu.com",
                 accessibilityRole: "link",
-                href: "/profile/matthewstanciu.com",
+                href: "/profile/did:plc:ming7lqd64h7zh4da2c6sgxx",
                 icon: AtSignIcon,
               },
               {
                 title: "jcsalterego.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/jcsalterego.bsky.social",
+                href: "/profile/did:plc:vc7f4oafdgxsihk4cry2xpze",
                 icon: AtSignIcon,
               },
               {
                 title: "st-cyr.bsky.social",
                 accessibilityRole: "link",
-                href: "/profile/st-cyr.bsky.social",
+                href: "/profile/did:plc:5rcf7fsqqx3ckxps3ir6etsg",
+                icon: AtSignIcon,
+              },
+              {
+                title: "haileyok.com",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:oisofpd7lj26yvgiivf3lxsi",
+                icon: AtSignIcon,
+              },
+              {
+                title: "surfdude29.ispost.ing",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:sflxm2fxohaqpfgahgdlm7rl",
+                icon: AtSignIcon,
+              },
+              {
+                title: "reindex.bsky.social",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:aeh2msk2nvakndnhovbdmzqq",
                 icon: AtSignIcon,
               },
             ],
+            footer: _(
+              msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
+            ),
           },
           {
-            title: "Logo designed by",
+            title: _(msg`Logo designed by`),
             options: [
               {
                 title: "roselia.gay",
@@ -116,10 +140,12 @@ export default function AboutPage() {
             ],
           },
           {
-            title: "App info",
+            title: _(msg`App info`),
             options: [
               {
-                title: `Version ${Constants.expoConfig?.version ?? "unknown"}`,
+                title: Constants.expoConfig?.version
+                  ? _(msg`Version ${Constants.expoConfig.version}`)
+                  : _(msg`Version unknown`),
                 icon: WrenchIcon,
               },
             ],

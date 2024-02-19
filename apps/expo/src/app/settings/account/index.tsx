@@ -1,3 +1,5 @@
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
@@ -13,6 +15,8 @@ import { useAgent, useOptionalAgent } from "~/lib/agent";
 
 export default function AccountSettings() {
   const agent = useAgent();
+  const { _ } = useLingui();
+
   // preload for other pages
   useSelf();
 
@@ -21,7 +25,7 @@ export default function AccountSettings() {
       <GroupedList
         groups={[
           !!agent?.session?.email && {
-            title: "Account Details",
+            title: _(msg`Account Details`),
             options: [
               {
                 icon: MailIcon,
@@ -30,30 +34,30 @@ export default function AccountSettings() {
             ],
           },
           {
-            title: "Profile Settings",
+            title: _(msg`Profile Settings`),
             options: [
               {
-                title: "Edit Profile",
+                title: _(msg`Edit Profile`),
                 href: "/edit-bio",
                 icon: UserIcon,
               },
               {
-                title: "Change Handle",
+                title: _(msg`Change Handle`),
                 href: "/settings/account/change-handle",
                 icon: AtSignIcon,
               },
             ],
           },
           {
-            title: "Advanced Settings",
+            title: _(msg`Advanced Settings`),
             options: [
               {
-                title: "Change Password",
+                title: _(msg`Change Password`),
                 icon: LockIcon,
                 href: "/settings/account/change-password",
               },
               {
-                title: "Delete Account",
+                title: _(msg`Delete Account`),
                 icon: UserX,
                 destructive: true,
                 href: "/settings/account/delete-account",

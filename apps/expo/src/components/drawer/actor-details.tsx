@@ -2,6 +2,7 @@ import { TouchableWithoutFeedback, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { Trans } from "@lingui/macro";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { useSelf } from "~/app/settings/account";
@@ -45,12 +46,16 @@ const ActorDetailsInner = () => {
       <View className="mt-3 flex-row flex-wrap">
         <TouchableOpacity onPress={() => openFollowers(self.did)}>
           <Text className="mr-4">
-            <Text className="font-bold">{self.followersCount}</Text> Followers
+            <Trans>
+              <Text className="font-bold">{self.followersCount}</Text> Followers
+            </Trans>
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => openFollows(self.did)}>
           <Text>
-            <Text className="font-bold">{self.followsCount}</Text> Following
+            <Trans>
+              <Text className="font-bold">{self.followsCount}</Text> Following
+            </Trans>
           </Text>
         </TouchableOpacity>
       </View>

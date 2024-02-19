@@ -6,6 +6,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Link, Stack } from "expo-router";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { CompassIcon } from "lucide-react-native";
 
@@ -18,9 +19,11 @@ export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {
     <View className="flex-1 items-center justify-center">
       <Stack.Screen options={{ headerRight: () => null }} />
       <View className="w-3/4 flex-col items-start">
-        <Text className="mb-4 text-4xl font-medium">Welcome to Bluesky!</Text>
+        <Text className="mb-4 text-4xl font-medium">
+          <Trans>Welcome to Bluesky!</Trans>
+        </Text>
         <Text className="text-lg">
-          To get started, add some feeds to your home screen.
+          <Trans>To get started, add some feeds to your home screen.</Trans>
         </Text>
         <Link asChild href="/discover" onPress={onPress}>
           <TouchableOpacity
@@ -28,7 +31,9 @@ export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {
             style={{ backgroundColor: theme.colors.primary }}
           >
             <CompassIcon size={20} className="text-white" />
-            <Text className="ml-4 text-xl text-white">Discover feeds</Text>
+            <Text className="ml-4 text-xl text-white">
+              <Trans>Discover feeds</Trans>
+            </Text>
           </TouchableOpacity>
         </Link>
       </View>

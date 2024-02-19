@@ -1,4 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";
@@ -32,11 +34,12 @@ export interface RepostsListRef {
   open: (post: string, limit?: number) => void;
 }
 
-export const RepostsList = forwardRef<RepostsListRef>((_, ref) => {
+export const RepostsList = forwardRef<RepostsListRef>((__, ref) => {
   const listRef = useRef<PeopleListRef>(null);
   const [post, setPost] = useState<string | undefined>();
   const [limit, setLimit] = useState<number | undefined>();
   const reposters = useReposts(post);
+  const { _ } = useLingui();
 
   useImperativeHandle(ref, () => ({
     open: (post, limit) => {
@@ -48,7 +51,7 @@ export const RepostsList = forwardRef<RepostsListRef>((_, ref) => {
 
   return (
     <PeopleList
-      title="Reposted by"
+      title={_(msg`Reposted by`)}
       ref={listRef}
       data={reposters}
       limit={limit}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { PlusIcon } from "lucide-react-native";
 
@@ -13,12 +15,13 @@ export default function Page() {
   const [editing, setEditing] = useState(false);
   const theme = useTheme();
   const haptics = useHaptics();
+  const { _ } = useLingui();
 
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Feeds",
+          title: _(msg`Feeds`),
           headerRight: () => (
             <View className="flex-row items-center">
               <TouchableOpacity
@@ -26,13 +29,15 @@ export default function Page() {
                   haptics.selection();
                   setEditing((e) => !e);
                 }}
-                accessibilityLabel={editing ? "Stop editing" : "Edit feeds"}
+                accessibilityLabel={
+                  editing ? _(msg`Stop editing`) : _(msg`Edit feeds`)
+                }
               >
                 <Text
                   primary
                   className={cx("text-lg", editing && "font-medium")}
                 >
-                  {editing ? "Done" : "Edit"}
+                  {editing ? <Trans>Done</Trans> : <Trans>Edit</Trans>}
                 </Text>
               </TouchableOpacity>
               {!editing && (

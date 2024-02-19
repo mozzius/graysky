@@ -6,6 +6,8 @@ import {
   AppBskyFeedDefs,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import {
   useInfiniteQuery,
   useMutation,
@@ -113,6 +115,7 @@ export const useSavedFeeds = () => {
 
 export const useFeedInfo = (feed: string) => {
   const agent = useAgent();
+  const { _ } = useLingui();
 
   return useQuery({
     queryKey: ["generator", feed],
@@ -121,7 +124,7 @@ export const useFeedInfo = (feed: string) => {
         return {
           view: {
             did: "",
-            displayName: "Following",
+            displayName: _(msg`Following`),
             uri: "",
             cid: "",
             creator: {

@@ -13,6 +13,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
@@ -42,6 +44,7 @@ export function getAge(birthDate: Date): number {
 export default function SignUp() {
   const theme = useTheme();
   const agent = useAgent();
+  const { _ } = useLingui();
 
   const [stage, setStage] = useState<1 | 2 | 3>(1);
   // const [code, setCode] = useState("");
@@ -73,7 +76,7 @@ export default function SignUp() {
     mutationKey: ["create-account"],
     mutationFn: async () => {
       if (password.length < 8) {
-        throw new Error("Password must be at least 8 characters");
+        throw new Error(_(msg`Password must be at least 8 characters`));
       }
       await agent.createAccount({
         email,
@@ -87,8 +90,8 @@ export default function SignUp() {
     onError: (err) => {
       console.error(err);
       showToastable({
-        title: "Could not create account",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: _(msg`Could not create account`),
+        message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
       });
     },
@@ -152,12 +155,16 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">1 of 3</Text>,
+                headerRight: () => (
+                  <Text className="text-base">
+                    <Trans>1 of 3</Trans>
+                  </Text>
+                ),
               }}
             />
             <View className="my-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Email
+                <Trans>Email</Trans>
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -175,7 +182,7 @@ export default function SignUp() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Password
+                <Trans>Password</Trans>
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -189,7 +196,7 @@ export default function SignUp() {
                     value={password}
                     secureTextEntry
                     onChange={(evt) => setPassword(evt.nativeEvent.text)}
-                    placeholder="Must be at least 8 characters"
+                    placeholder={_(msg`Must be at least 8 characters`)}
                     className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                   />
                 </View>
@@ -197,7 +204,7 @@ export default function SignUp() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Date of Birth
+                <Trans>Date of Birth</Trans>
               </Text>
               <TouchableHighlight
                 onPress={() => setDatePickerOpen(true)}
@@ -219,7 +226,7 @@ export default function SignUp() {
                         : new Intl.DateTimeFormat(locale.languageTag, {
                             dateStyle: "long",
                           }).format(new Date(dob))
-                      : "Select date of birth"}
+                      : _(msg`Select date of birth`)}
                   </Text>
                   <DatePicker
                     modal
@@ -245,7 +252,7 @@ export default function SignUp() {
               <TextButton
                 disabled={!email || !password || !dob || getAge(dob) < 18}
                 onPress={() => setStage(2)}
-                title="Next"
+                title={_(msg`Next`)}
                 className="font-medium"
               />
             </View>
@@ -261,13 +268,17 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">2 of 3</Text>,
+                headerRight: () => (
+                  <Text className="text-base">
+                    <Trans>2 of 3</Trans>
+                  </Text>
+                ),
               }}
             />
             {!sendText.isSuccess ? (
               <View className="mt-4 flex-1">
                 <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                  Phone number
+                  <Trans>Phone number</Trans>
                 </Text>
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -275,7 +286,7 @@ export default function SignUp() {
                 >
                   <TextInput
                     value={phone}
-                    placeholder="Enter your phone number"
+                    placeholder={_(msg`Enter your phone number`)}
                     keyboardType="phone-pad"
                     autoComplete="tel"
                     onChange={(evt) => setPhone(evt.nativeEvent.text)}
@@ -289,16 +300,21 @@ export default function SignUp() {
                   </Text>
                 ) : (
                   <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                    Please enter a phone number that can receive SMS text
-                    messages.
+                    <Trans>
+                      Please enter a phone number that can receive SMS text
+                      messages.
+                    </Trans>
                   </Text>
                 )}
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(1)} title="Back" />
+                  <TextButton
+                    onPress={() => setStage(1)}
+                    title={_(msg`Back`)}
+                  />
                   <TextButton
                     disabled={!phone.trim() || sendText.isPending}
                     onPress={() => sendText.mutate()}
-                    title="Request code"
+                    title={_(msg`Request code`)}
                     className="font-medium"
                   />
                 </View>
@@ -306,7 +322,7 @@ export default function SignUp() {
             ) : (
               <View className="mt-4 flex-1">
                 <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                  Verification code
+                  <Trans>Verification code</Trans>
                 </Text>
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -322,17 +338,22 @@ export default function SignUp() {
                   />
                 </View>
                 <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                  A code has been sent to {phone}.{" "}
-                  <Text onPress={() => sendText.reset()} primary>
-                    Change phone number.
-                  </Text>
+                  <Trans>
+                    A code has been sent to {phone}.{" "}
+                    <Text onPress={() => sendText.reset()} primary>
+                      Change phone number.
+                    </Text>
+                  </Trans>
                 </Text>
                 <View className="flex-row items-center justify-between pt-4">
-                  <TextButton onPress={() => setStage(1)} title="Back" />
+                  <TextButton
+                    onPress={() => setStage(1)}
+                    title={_(msg`Back`)}
+                  />
                   <TextButton
                     disabled={phoneCode.trim().length !== 6}
                     onPress={() => setStage(3)}
-                    title="Next"
+                    title={_(msg`Next`)}
                     className="font-medium"
                   />
                 </View>
@@ -350,12 +371,16 @@ export default function SignUp() {
           >
             <Stack.Screen
               options={{
-                headerRight: () => <Text className="text-base">3 of 3</Text>,
+                headerRight: () => (
+                  <Text className="text-base">
+                    <Trans>3 of 3</Trans>
+                  </Text>
+                ),
               }}
             />
             <View className="my-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Choose a handle
+                <Trans>Choose a handle</Trans>
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -363,7 +388,7 @@ export default function SignUp() {
               >
                 <TextInput
                   value={handle}
-                  placeholder="You can change it later"
+                  placeholder={_(msg`You can change it later`)}
                   autoComplete="username"
                   autoCapitalize="none"
                   onChange={(evt) =>
@@ -379,8 +404,10 @@ export default function SignUp() {
                   layout={LinearTransition}
                 >
                   <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                    Your handle will be:{" "}
-                    <Text className="font-bold">@{derivedHandle}</Text>
+                    <Trans>
+                      Your handle will be:{" "}
+                      <Text className="font-bold">@{derivedHandle}</Text>
+                    </Trans>
                   </Text>
                 </Animated.View>
               )}
@@ -402,12 +429,12 @@ export default function SignUp() {
               className="flex-row items-center justify-between pt-2"
               layout={LinearTransition}
             >
-              <TextButton onPress={() => setStage(2)} title="Back" />
+              <TextButton onPress={() => setStage(2)} title={_(msg`Back`)} />
               {!createAccount.isPending ? (
                 <TextButton
                   disabled={resolveHandle.data !== "available"}
                   onPress={() => createAccount.mutate()}
-                  title="Create Account"
+                  title={_(msg`Create Account`)}
                   className="font-medium"
                 />
               ) : (

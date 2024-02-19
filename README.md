@@ -1,5 +1,7 @@
 # Graysky
 
+[![Crowdin](https://badges.crowdin.net/graysky/localized.svg)](https://crowdin.com/project/graysky)
+
 Graysky is a Bluesky client written in React Native.
 
 Get it here: https://graysky.app/download

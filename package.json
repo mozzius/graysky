@@ -15,6 +15,12 @@
     "dev:push": "cd apps/push-notifs && pnpm dev",
     "push:build": "cd apps/push-notifs && pnpm build",
     "push:start": "cd apps/push-notifs && pnpm start",
+    "extract": "cd apps/expo && pnpm extract",
+    "compile": "cd apps/expo && pnpm compile",
+    "crowdin": "crowdin",
+    "sync": "crowdin push && crowdin pull",
+    "sync:sources": "crowdin push",
+    "sync:translations": "crowdin pull",
     "format": "turbo format --continue -- --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "format:fix": "turbo format --continue -- --write --cache --cache-location='node_modules/.cache/.prettiercache' --ignore-path='../../.gitignore'",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
@@ -27,13 +33,13 @@
     "@manypkg/cli": "^0.21.2",
     "eslint": "^8.56.0",
     "prettier": "^3.2.5",
-    "turbo": "^1.12.3",
+    "turbo": "^1.12.4",
     "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.19.0"
   },
-  "packageManager": "pnpm@8.15.1",
+  "packageManager": "pnpm@8.15.3",
   "pnpm": {
     "patchedDependencies": {
       "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
@@ -43,15 +49,10 @@
     "overrides": {
       "sharp": "0.32.6",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
-    },
-    "supportedArchitectures": {
-      "os": [
-        "current"
-      ],
-      "cpu": [
-        "current"
-      ]
     }
   },
-  "prettier": "@graysky/prettier-config"
+  "prettier": "@graysky/prettier-config",
+  "devDependencies": {
+    "@crowdin/cli": "^3.18.0"
+  }
 }

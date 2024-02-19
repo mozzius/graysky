@@ -10,6 +10,8 @@ import {
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -38,6 +40,7 @@ export default function AppLayout() {
   // agent might not be available yet
   const agent = useOptionalAgent();
   const [open, setOpen] = useState(false);
+  const { _ } = useLingui();
 
   useNotifications();
 
@@ -113,7 +116,7 @@ export default function AppLayout() {
       >
         <BackButtonOverride dismiss={dismissSheet} />
         <Text className="my-2 text-center text-xl font-medium">
-          Switch Accounts
+          <Trans>Switch Accounts</Trans>
         </Text>
         <BottomSheetScrollView style={contentContainerStyle}>
           <SwitchAccounts
@@ -153,7 +156,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(feeds)"
             options={{
-              title: homepage === "feeds" ? "Feeds" : "Skyline",
+              title: homepage === "feeds" ? _(msg`Feeds`) : _(msg`Skyline`),
               tabBarIcon({ color, size }) {
                 return homepage === "feeds" ? (
                   <CloudyIcon color={color} size={size} />
@@ -166,7 +169,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(search)"
             options={{
-              title: "Search",
+              title: _(msg`Search`),
               tabBarIcon({ color, size }) {
                 return <SearchIcon color={color} size={size} />;
               },
@@ -175,8 +178,8 @@ export default function AppLayout() {
           <Tabs.Screen
             name="null"
             options={{
-              title: "Post",
-              tabBarAccessibilityLabel: "Create a new post",
+              title: _(msg`Post`),
+              tabBarAccessibilityLabel: _(msg`Create a new post`),
               tabBarIcon({ color, size }) {
                 return <PenBox color={color} size={size} />;
               },
@@ -217,7 +220,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(notifications)"
             options={{
-              title: "Notifications",
+              title: _(msg`Notifications`),
               tabBarAccessibilityLabel: `Notifications${
                 notifications.data?.count ? ", new items" : ""
               }`,
@@ -238,7 +241,7 @@ export default function AppLayout() {
           <Tabs.Screen
             name="(self)"
             options={{
-              title: "Profile",
+              title: _(msg`Profile`),
               headerShown: false,
               tabBarIcon({ color, size }) {
                 return <UserIcon color={color} size={size} />;

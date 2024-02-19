@@ -1,0 +1,5 @@
+project_id: "648828"
+api_token_env: "CROWDIN_PERSONAL_TOKEN"
+files:
+  - source: /apps/expo/src/i18n/locales/en/messages.po
+    translation: /apps/expo/src/i18n/locales/%two_letters_code%/messages.po

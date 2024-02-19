@@ -12,6 +12,8 @@ import { type SearchBarCommands } from "react-native-screens";
 import { showToastable } from "react-native-toastable";
 import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import Sentry from "@sentry/react-native";
 import { MasonryFlashList } from "@shopify/flash-list";
@@ -199,6 +201,7 @@ const Gif = ({ item, column }: GifProps) => {
   const agent = useAgent();
   const { showLinkOptions } = useLinkPress();
   const [, setComposerState] = useComposerState();
+  const { _ } = useLingui();
 
   const select = api.gifs.select.useMutation({
     onMutate: () => haptics.impact(),
@@ -213,8 +216,8 @@ const Gif = ({ item, column }: GifProps) => {
     onError: (err) => {
       Sentry.captureException(err);
       showToastable({
-        title: "Could not select GIF",
-        message: "Please try again",
+        title: _(msg`Could not select GIF`),
+        message: _(msg`Please try again`),
         status: "warning",
       });
     },

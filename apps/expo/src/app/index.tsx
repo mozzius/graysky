@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
 import { StatusBar } from "expo-status-bar";
 import { type AtpSessionData } from "@atproto/api";
+import { Trans } from "@lingui/macro";
 
 import { LinkButton } from "~/components/button";
 
@@ -42,14 +43,14 @@ export default function LandingPage() {
               className="w-full max-w-xl"
             >
               <LinkButton href="/sign-up" variant="white">
-                Create an account
+                <Trans>Create an account</Trans>
               </LinkButton>
               <LinkButton
                 href={sessions?.length ? "/resume" : "/sign-in"}
                 variant="black"
                 className="mt-4"
               >
-                Log in
+                <Trans>Log in</Trans>
               </LinkButton>
             </Animated.View>
           </View>

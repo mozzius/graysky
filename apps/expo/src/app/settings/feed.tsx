@@ -1,6 +1,8 @@
 import { ActivityIndicator, Switch, TouchableOpacity } from "react-native";
 import { AppBskyActorDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import {
@@ -54,8 +56,9 @@ export default function FeedPreferences() {
   const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const savedFeeds = useSavedFeeds();
+  const { _ } = useLingui();
 
-  let feedName = "Following";
+  let feedName = _(msg`Following`);
   let unknown = false;
 
   if (defaultFeed !== "following") {
@@ -74,7 +77,7 @@ export default function FeedPreferences() {
     mutationFn: async (
       feedViewPref: Omit<AppBskyActorDefs.FeedViewPref, "feed">,
     ) => {
-      if (!preferences.data) throw new Error("No preferences");
+      if (!preferences.data) throw new Error(_(msg`No preferences`));
 
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences.data, (draft) => {
@@ -106,14 +109,17 @@ export default function FeedPreferences() {
         <GroupedList
           groups={[
             {
-              title: "Home screen",
+              title: _(msg`Home screen`),
               options: [
                 {
-                  title: "Home screen layout",
+                  title: _(msg`Home screen layout`),
                   action: (
                     <TouchableOpacity
                       onPress={() => {
-                        const options = ["Feeds list", "A specific feed"];
+                        const options = [
+                          _(msg`Feeds list`),
+                          _(msg`A specific feed`),
+                        ];
                         const icons = [
                           <CloudyIcon
                             size={24}
@@ -129,7 +135,7 @@ export default function FeedPreferences() {
                         ];
                         showActionSheetWithOptions(
                           {
-                            options: [...options, "Cancel"],
+                            options: [...options, _(msg`Cancel`)],
                             icons,
                             cancelButtonIndex: options.length,
                             ...actionSheetStyles(theme),
@@ -152,7 +158,11 @@ export default function FeedPreferences() {
                         primary
                         className="text-base font-medium capitalize"
                       >
-                        {homepage === "feeds" ? "Feeds list" : "Primary feed"}
+                        {homepage === "feeds" ? (
+                          <Trans>Feeds list</Trans>
+                        ) : (
+                          <Trans>Primary feed</Trans>
+                        )}
                       </Text>
                       <ChevronsUpDownIcon
                         size={16}
@@ -165,7 +175,7 @@ export default function FeedPreferences() {
                 ...(homepage === "skyline"
                   ? [
                       {
-                        title: "Primary feed",
+                        title: _(msg`Primary feed`),
                         action: (
                           <TouchableOpacity
                             disabled={savedFeeds.isPending}
@@ -182,7 +192,7 @@ export default function FeedPreferences() {
                                 : [];
 
                               const options = [
-                                "Following",
+                                _(msg`Following`),
                                 ...data.map((x) => x.displayName),
                               ];
                               const icons = [
@@ -220,8 +230,8 @@ export default function FeedPreferences() {
                               ];
                               showActionSheetWithOptions(
                                 {
-                                  title: "Select primary feed",
-                                  options: [...options, "Cancel"],
+                                  title: _(msg`Select primary feed`),
+                                  options: [...options, _(msg`Cancel`)],
                                   icons,
                                   cancelButtonIndex: options.length,
                                   ...actionSheetStyles(theme),
@@ -275,10 +285,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Reply settings",
+              title: _(msg`Reply settings`),
               options: [
                 {
-                  title: "Show replies",
+                  title: _(msg`Show replies`),
                   action: (
                     <LoadingValue query={setPreference} property="hideReplies">
                       <Switch
@@ -294,7 +304,7 @@ export default function FeedPreferences() {
                   ),
                 },
                 {
-                  title: "Only show replies from your follows",
+                  title: _(msg`Only show replies from your follows`),
                   action: (
                     <LoadingValue
                       query={setPreference}
@@ -318,10 +328,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Repost settings",
+              title: _(msg`Repost settings`),
               options: [
                 {
-                  title: "Show reposts",
+                  title: _(msg`Show reposts`),
                   action: (
                     <LoadingValue query={setPreference} property="hideReposts">
                       <Switch
@@ -339,10 +349,10 @@ export default function FeedPreferences() {
               ],
             },
             {
-              title: "Quote post settings",
+              title: _(msg`Quote post settings`),
               options: [
                 {
-                  title: "Show quote posts",
+                  title: _(msg`Show quote posts`),
                   action: (
                     <LoadingValue
                       query={setPreference}

@@ -12,6 +12,8 @@ import {
   BottomSheetModal,
   BottomSheetSectionList,
 } from "@gorhom/bottom-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   ChevronRightIcon,
@@ -100,7 +102,9 @@ export const FeedsButton = ({ show = true }: Props) => {
               }}
             >
               <CloudyIcon size={20} color={theme.colors.text} />
-              <Text className="ml-3 mr-2 text-base">My Feeds</Text>
+              <Text className="ml-3 mr-2 text-base">
+                <Trans>My Feeds</Trans>
+              </Text>
             </View>
           </TouchableHighlight>
         </Animated.View>
@@ -141,6 +145,7 @@ const SheetContent = ({
   const homepage = useHomepage();
   const defaultFeed = useDefaultFeed();
   const listsAboveFeeds = useListsAboveFeeds();
+  const { _ } = useLingui();
 
   const { pinned, saved } = useReorderFeeds(feeds);
 
@@ -171,17 +176,17 @@ const SheetContent = ({
 
     const favourites = [
       {
-        title: "Favourites",
+        title: _(msg`Favourites`),
         data: favs,
       },
     ];
     const listsAndFeeds = [
       {
-        title: "All feeds",
+        title: _(msg`All feeds`),
         data: all,
       },
       {
-        title: "My lists",
+        title: _(msg`My lists`),
         data: feeds.data.lists.filter((x) => x && !x.pinned),
       },
     ];
@@ -191,7 +196,7 @@ const SheetContent = ({
     }
 
     return favourites.concat(listsAndFeeds).filter((x) => x.data.length > 0);
-  }, [feeds.data, listsAboveFeeds, pinned, saved, sortableFeeds]);
+  }, [feeds.data, listsAboveFeeds, pinned, saved, sortableFeeds, _]);
 
   if (feeds.data) {
     if (feeds.data.feeds.length === 0) {
@@ -239,8 +244,8 @@ const SheetContent = ({
         ListHeaderComponent={
           <LargeRow
             icon={<CloudIcon size={32} color="white" />}
-            title="Following"
-            subtitle="Posts from people you follow"
+            title={_(msg`Following`)}
+            subtitle={_(msg`Posts from people you follow`)}
             style={{ backgroundColor: theme.colors.card }}
             onPress={dismiss}
             right={
@@ -284,7 +289,7 @@ const SheetContent = ({
                       className="ml-4 text-base"
                       style={{ color: theme.colors.text }}
                     >
-                      Manage my feeds
+                      <Trans>Manage my feeds</Trans>
                     </Text>
                   </View>
                   <ChevronRightIcon size={20} color={theme.colors.text} />

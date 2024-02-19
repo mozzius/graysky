@@ -15,6 +15,8 @@ import Animated, {
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { Stack } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useTheme } from "@react-navigation/native";
 
@@ -48,6 +50,7 @@ export const AltTextEditor = ({
   const frame = useSafeAreaFrame();
   const headerHeight = useHeaderHeight();
   const altTextScrollViewRef = useRef<ScrollView>(null);
+  const { _ } = useLingui();
 
   const handleDone = useCallback(() => {
     setEditingAltText(null);
@@ -62,7 +65,7 @@ export const AltTextEditor = ({
       <BackButtonOverride dismiss={handleDone} />
       <Stack.Screen
         options={{
-          headerTitle: "Edit alt text",
+          headerTitle: _(msg`Edit alt text`),
           headerBackVisible: false,
           headerLeft: () => null,
           headerRight: () => (
@@ -75,7 +78,7 @@ export const AltTextEditor = ({
                 className="absolute right-0"
               >
                 <Text primary className="text-lg font-medium">
-                  Done
+                  <Trans>Done</Trans>
                 </Text>
               </TouchableOpacity>
               <View className="-z-50 opacity-0" pointerEvents="none">
@@ -147,7 +150,9 @@ export const AltTextEditor = ({
               borderColor: theme.colors.border,
             }}
             textAlignVertical="top"
-            placeholder="Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
+            placeholder={_(
+              msg`Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself.`,
+            )}
           />
         </Animated.View>
       </ScrollView>

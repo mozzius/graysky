@@ -3,6 +3,8 @@ import { TouchableHighlight, View } from "react-native";
 import { useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
@@ -29,6 +31,7 @@ const PersonRowUnmemoized = ({
   const Touchable = bottomSheet
     ? BottomSheetTouchableHighlight
     : TouchableHighlight;
+  const { _ } = useLingui();
 
   const { following, followedBy } = person.viewer ?? {};
 
@@ -37,11 +40,11 @@ const PersonRowUnmemoized = ({
 
   if (following && followedBy) {
     mutuals = true;
-    text = "Mutuals";
+    text = _(msg`Mutuals`);
   } else if (following) {
-    text = "Following";
+    text = _(msg`Following`);
   } else if (followedBy) {
-    text = "Follows you";
+    text = _(msg`Follows you`);
   }
 
   const Icon = mutuals ? UsersIcon : UserIcon;

@@ -31,6 +31,8 @@ import {
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { DarkTheme, ThemeProvider, useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
@@ -62,6 +64,7 @@ export const ImageViewer = ({
   const [index, setIndex] = useState(initialIndex);
   const [mounted, setMounted] = useState(false);
 
+  const { _ } = useLingui();
   const haptics = useHaptics();
   const { tag } = useLocalSearchParams<{
     tag?: string;
@@ -140,7 +143,7 @@ export const ImageViewer = ({
         >
           <PlatformSpecificBackdrop>
             <TouchableOpacity
-              accessibilityLabel="Read full ALT text"
+              accessibilityLabel={_(msg`Read full ALT text`)}
               accessibilityRole="button"
               className="flex-1 flex-row items-center px-4 pt-4"
               style={{ paddingBottom: bottom + 8 }}
@@ -153,7 +156,9 @@ export const ImageViewer = ({
               }}
             >
               <View className="mr-2 rounded-sm bg-black/50 px-1">
-                <Text className="text-xs font-medium text-white">ALT</Text>
+                <Text className="text-xs font-medium text-white">
+                  <Trans>ALT</Trans>
+                </Text>
               </View>
               <Text className="flex-1 text-base text-white" numberOfLines={1}>
                 {images[index]?.alt}
@@ -183,7 +188,7 @@ export const ImageViewer = ({
           <BackButtonOverride dismiss={onPressBackButton} />
           <View className="px-4" style={{ marginBottom: bottom + 16 }}>
             <Text className="mt-2 text-center text-xl font-medium text-white">
-              ALT Text
+              <Trans>ALT Text</Trans>
             </Text>
             <Text className="mb-2 mt-4 text-base text-white" selectable>
               {images[index]?.alt}
@@ -226,6 +231,7 @@ const ImageOptionsButton = ({
 }) => {
   const items = useImageOptions();
   const { showActionSheetWithOptions } = useActionSheet();
+  const { _ } = useLingui();
 
   const haptics = useHaptics();
   const theme = useTheme();
@@ -259,13 +265,13 @@ const ImageOptionsButton = ({
     </ContextMenuButton>
   ) : (
     <TouchableOpacity
-      accessibilityLabel="Image options"
+      accessibilityLabel={_(msg`Image options`)}
       accessibilityRole="button"
       onPress={() => {
         haptics.impact();
         showActionSheetWithOptions(
           {
-            options: [...items.map((x) => x.label), "Cancel"],
+            options: [...items.map((x) => x.label), _(msg`Cancel`)],
             icons: [...items.map((x) => x.reactIcon), <></>],
             cancelButtonIndex: items.length,
             ...actionSheetStyles(theme),

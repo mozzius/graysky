@@ -12,6 +12,9 @@ import {
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
+import { type I18n } from "@lingui/core";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ImagePlusIcon, XIcon } from "lucide-react-native";
@@ -32,15 +35,17 @@ const MAX_DESCRIPTION = 256;
 
 export default function EditBio() {
   const theme = useTheme();
+  const agent = useAgent();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const { _, i18n } = useLingui();
+
+  const self = useSelf();
+
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<CroppedImage | null>(null);
   const [banner, setBanner] = useState<CroppedImage | null>(null);
-  const agent = useAgent();
-  const queryClient = useQueryClient();
-  const router = useRouter();
-
-  const self = useSelf();
 
   useEffect(() => {
     if (self.data) {
@@ -117,7 +122,7 @@ export default function EditBio() {
         {Platform.select({
           ios: (
             <Text className="text-lg font-medium" primary>
-              Cancel
+              <Trans>Cancel</Trans>
             </Text>
           ),
           default: <XIcon color={theme.colors.text} size={24} />,
@@ -137,7 +142,7 @@ export default function EditBio() {
           )}
           primary
         >
-          Save
+          <Trans>Save</Trans>
         </Text>
       </TouchableOpacity>
     ),
@@ -145,16 +150,16 @@ export default function EditBio() {
   );
 
   const editAvatar = useCallback(async () => {
-    const image = await getImage([1, 1], true).catch(() => null);
+    const image = await getImage(i18n, [1, 1], true).catch(() => null);
     if (!image) return;
     setAvatar(image);
-  }, []);
+  }, [i18n]);
 
   const editBanner = useCallback(async () => {
-    const image = await getImage([1, 3]).catch(() => null);
+    const image = await getImage(i18n, [1, 3]).catch(() => null);
     if (!image) return;
     setBanner(image);
-  }, []);
+  }, [i18n]);
 
   if (self.data) {
     return (
@@ -165,6 +170,7 @@ export default function EditBio() {
         <StatusBar modal />
         <Stack.Screen
           options={{
+            headerBackButtonMenuEnabled: false,
             headerLeft: cancelButton,
             headerRight: saveButton,
             gestureEnabled: !dirty,
@@ -174,7 +180,7 @@ export default function EditBio() {
           <TouchableHighlight
             onPress={editBanner}
             accessibilityRole="button"
-            accessibilityLabel="Edit avatar"
+            accessibilityLabel={_(msg`Edit banner`)}
           >
             <View className="relative h-full w-full bg-blue-500">
               <Image
@@ -192,7 +198,7 @@ export default function EditBio() {
           <TouchableHighlight
             onPress={editAvatar}
             accessibilityRole="button"
-            accessibilityLabel="Edit avatar"
+            accessibilityLabel={_(msg`Edit avatar`)}
           >
             <View
               style={{
@@ -219,7 +225,7 @@ export default function EditBio() {
         <View className="mt-10 flex-1 px-4">
           <View className="my-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Display name
+              <Trans>Display name</Trans>
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
@@ -236,7 +242,7 @@ export default function EditBio() {
           </View>
           <View className="mb-4 flex-1">
             <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-              Description
+              <Trans>Description</Trans>
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
@@ -272,8 +278,8 @@ export default function EditBio() {
   );
 }
 
-async function getImage(aspect: [number, number], circle = false) {
-  if (!(await getGalleryPermission())) return;
+async function getImage(i18n: I18n, aspect: [number, number], circle = false) {
+  if (!(await getGalleryPermission(i18n))) return;
   const response = await openPicker({
     height: aspect[0] * 1000,
     width: aspect[1] * 1000,

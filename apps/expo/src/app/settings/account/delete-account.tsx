@@ -9,6 +9,8 @@ import {
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { AlertTriangleIcon, CheckCircle2Icon } from "lucide-react-native";
@@ -26,6 +28,7 @@ export default function DeleteAccount() {
   const theme = useTheme();
   const agent = useAgent();
   const router = useRouter();
+  const { _ } = useLingui();
 
   const self = useSelf();
   const logOut = useLogOut();
@@ -62,8 +65,8 @@ export default function DeleteAccount() {
     onError: (err) => {
       console.error(err);
       showToastable({
-        title: "Could not delete account",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: _(msg`Could not delete account`),
+        message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "danger",
       });
     },
@@ -90,12 +93,14 @@ export default function DeleteAccount() {
                 />
                 <View className="ml-3 flex-1">
                   <Text className="text-base font-medium leading-5 text-red-800 dark:text-white">
-                    Warning: Account deletion is permanent
+                    <Trans>Warning: Account deletion is permanent</Trans>
                   </Text>
                   <Text className="mt-1">
-                    Deleting your Bluesky account will permanently remove all of
-                    your data, including your profile, posts, follows, and
-                    likes. This action cannot be undone.
+                    <Trans>
+                      Deleting your Bluesky account will permanently remove all
+                      of your data, including your profile, posts, follows, and
+                      likes. This action cannot be undone.
+                    </Trans>
                   </Text>
                 </View>
               </View>
@@ -105,22 +110,24 @@ export default function DeleteAccount() {
                 <TextButton
                   onPress={() =>
                     Alert.alert(
-                      "Double check that you understand",
-                      "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too.",
+                      _(msg`Double check that you understand`),
+                      _(
+                        msg`By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too.`,
+                      ),
                       [
                         {
-                          text: "Cancel",
+                          text: _(msg`Cancel`),
                           style: "cancel",
                         },
                         {
-                          text: "Confirm and continue",
+                          text: _(msg`Confirm and continue`),
                           onPress: () => sendEmail.mutate(),
                           style: "destructive",
                         },
                       ],
                     )
                   }
-                  title="Send confirmation email"
+                  title={_(msg`Send confirmation email`)}
                   className="text-center font-medium"
                 />
               ) : (
@@ -157,7 +164,7 @@ export default function DeleteAccount() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Deletion Code
+                <Trans>Deletion Code</Trans>
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -165,7 +172,7 @@ export default function DeleteAccount() {
               >
                 <TextInput
                   value={token}
-                  placeholder="ABCDE-ABCDE"
+                  placeholder="XXXXX-XXXXX"
                   onChange={(evt) => setToken(evt.nativeEvent.text)}
                   className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
                 />
@@ -173,7 +180,7 @@ export default function DeleteAccount() {
             </View>
             <View className="mb-4 flex-1">
               <Text className="mx-4 mb-1 mt-4 text-xs uppercase text-neutral-500">
-                Password
+                <Trans>Password</Trans>
               </Text>
               <View
                 style={{ backgroundColor: theme.colors.card }}
@@ -193,12 +200,12 @@ export default function DeleteAccount() {
               </View>
             </View>
             <View className="flex-row items-center justify-between pt-2">
-              <TextButton onPress={() => setStage(1)} title="Back" />
+              <TextButton onPress={() => setStage(1)} title={_(msg`Back`)} />
               {!changePassword.isPending ? (
                 <TextButton
                   disabled={!token || !password}
                   onPress={() => changePassword.mutate()}
-                  title="Delete Account"
+                  title={_(msg`Delete Account`)}
                   className="font-medium text-red-500"
                 />
               ) : (
@@ -216,7 +223,7 @@ export default function DeleteAccount() {
         >
           <CheckCircle2Icon size={64} color={theme.colors.primary} />
           <Text className="mt-8 text-center text-lg font-medium">
-            Account deleted. Goodbye!
+            <Trans>Account deleted. Goodbye!</Trans>
           </Text>
         </Animated.View>
       );

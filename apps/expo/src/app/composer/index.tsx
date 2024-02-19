@@ -24,6 +24,8 @@ import {
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { type PasteInputRef } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -105,6 +107,7 @@ export default function ComposerScreen() {
   const { contentFilter } = useContentFilter();
   const [trucateParent, setTruncateParent] = useState(true);
   const haptics = useHaptics();
+  const { _ } = useLingui();
 
   const [
     { initialText, gif, languages, reply: replyStr, quote: quoteStr },
@@ -225,9 +228,10 @@ export default function ComposerScreen() {
                   switch (altTextSetting) {
                     case "force":
                       Alert.alert(
-                        "Missing alt text",
-                        "Please add descriptive alt text to all images before posting.",
-                        [{ text: "OK" }],
+                        _(msg`Missing alt text`),
+                        _(
+                          msg`Please add descriptive alt text to all images before posting.`,
+                        ),
                       );
                       return;
                     case "warn": {
@@ -235,10 +239,11 @@ export default function ComposerScreen() {
                       const cancel = await new Promise((resolve) => {
                         showActionSheetWithOptions(
                           {
-                            title: "Missing alt text",
-                            message:
-                              "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.",
-                            options: ["Post anyway", "Go back"],
+                            title: _(msg`Missing alt text`),
+                            message: _(
+                              msg`Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images.`,
+                            ),
+                            options: [_(msg`Post anyway`), _(msg`Go back`)],
                             destructiveButtonIndex: 0,
                             cancelButtonIndex: 1,
                             anchor,
@@ -277,11 +282,15 @@ export default function ComposerScreen() {
           layout={LinearTransition}
         >
           <Text className="text-base font-medium leading-5 text-white">
-            {send.error instanceof Error
-              ? send.error.message
-              : "An unknown error occurred"}
+            {send.error instanceof Error ? (
+              send.error.message
+            ) : (
+              <Trans>An unknown error occurred</Trans>
+            )}
           </Text>
-          <Text className="my-0.5 text-white/90">Please try again</Text>
+          <Text className="my-0.5 text-white/90">
+            <Trans>Please try again</Trans>
+          </Text>
         </Animated.View>
       )}
       <KeyboardAwareScrollView
@@ -337,8 +346,10 @@ export default function ComposerScreen() {
                 className="relative -top-[3px] w-full max-w-full text-lg leading-6"
                 placeholder={
                   reply.thread.data
-                    ? `Replying to @${reply.thread.data.post.author.handle}`
-                    : `What's on your mind?`
+                    ? _(
+                        msg`Replying to @${reply.thread.data.post.author.handle}`,
+                      )
+                    : _(msg`What's on your mind?`)
                 }
                 keyboardType={Platform.select({
                   ios: "twitter",
@@ -430,7 +441,7 @@ export default function ComposerScreen() {
                         <PlusIcon size={14} color="white" />
                       )}
                       <Text className="ml-1 text-xs font-bold uppercase text-white">
-                        Alt
+                        <Trans>Alt</Trans>
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -473,7 +484,9 @@ export default function ComposerScreen() {
                       }}
                     >
                       <PlusIcon color={theme.colors.text} />
-                      <Text className="mt-2 text-center">Add image</Text>
+                      <Text className="mt-2 text-center">
+                        <Trans>Add image</Trans>
+                      </Text>
                     </View>
                   </TouchableOpacity>
                 </Animated.View>
@@ -575,7 +588,9 @@ export default function ComposerScreen() {
                           className="rounded-lg border px-3 py-2"
                         >
                           <Text numberOfLines={1} className="text-base">
-                            Add embed for <Text primary>{potential}</Text>
+                            <Trans>
+                              Add embed for <Text primary>{potential}</Text>
+                            </Trans>
                           </Text>
                         </View>
                       </TouchableHighlight>
@@ -662,7 +677,9 @@ const AddContentWarning = ({ onPress }: { onPress: () => void }) => {
         ) : (
           <>
             <ShieldPlusIcon size={18} color={theme.colors.text} />
-            <Text className="ml-2">Add a content warning</Text>
+            <Text className="ml-2">
+              <Trans>Add a content warning</Trans>
+            </Text>
           </>
         )}
       </TouchableOpacity>

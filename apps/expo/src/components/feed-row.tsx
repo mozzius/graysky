@@ -15,6 +15,8 @@ import { Image } from "expo-image";
 import { Link, usePathname, useRouter } from "expo-router";
 import { AppBskyFeedDefs, type AppBskyGraphDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   ChevronRightIcon,
@@ -51,24 +53,23 @@ export const FeedRow = ({
   const theme = useTheme();
   const path = useAbsolutePath();
   const pathname = usePathname();
+  const { _ } = useLingui();
 
   let segment;
   let name;
-  let likes;
   let purpose;
   if (sketchyIsGeneratorView(feed)) {
     segment = "feed";
     name = feed.displayName;
-    likes = `, ${feed.likeCount} likes`;
   } else {
     segment = "lists";
     name = feed.name;
     switch (feed.purpose) {
       case "app.bsky.graph.defs#curatelist":
-        purpose = "User list";
+        purpose = _(msg`User list`);
         break;
       case "app.bsky.graph.defs#modlist":
-        purpose = "Moderation list";
+        purpose = _(msg`Moderation list`);
         break;
     }
   }
@@ -90,8 +91,12 @@ export const FeedRow = ({
       }}
       accessibilityLabel={
         large
-          ? `${name} feed by @${feed.creator.handle}${likes}`
-          : `${name} feed`
+          ? segment === "feed"
+            ? _(
+                msg`${name} feed by @${feed.creator.handle}, ${feed.likeCount} likes`,
+              )
+            : _(msg`${name} list by @${feed.creator.handle}`)
+          : _(msg`${name} feed`)
       }
       accessibilityRole="link"
     >
@@ -188,6 +193,7 @@ export const DraggableFeedRow = ({
   editing: boolean;
   onUnsave: () => void;
 }) => {
+  const { _ } = useLingui();
   const path = useAbsolutePath();
   const href = path(
     `/profile/${feed.creator.did}/${
@@ -211,9 +217,11 @@ export const DraggableFeedRow = ({
         haptics.impact();
         onPressStar();
       }}
-      accessibilityLabel={feed.pinned ? "Favourited" : "Not favourited"}
+      accessibilityLabel={
+        feed.pinned ? _(msg`Favourited`) : _(msg`Not favourited`)
+      }
       accessibilityRole="togglebutton"
-      accessibilityHint="Toggle favourite status"
+      accessibilityHint={_(msg`Toggle favourite status`)}
     >
       <StarIcon
         size={20}
@@ -279,8 +287,8 @@ export const DraggableFeedRow = ({
                     haptics.impact();
                     showActionSheetWithOptions(
                       {
-                        title: "Unsave this feed?",
-                        options: ["Unsave", "Cancel"],
+                        title: _(msg`Unsave this feed?`),
+                        options: [_(msg`Unsave`), _(msg`Cancel`)],
                         cancelButtonIndex: 1,
                         destructiveButtonIndex: 0,
                         ...actionSheetStyles(theme),

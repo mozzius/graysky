@@ -1,3 +1,5 @@
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
 
@@ -10,6 +12,7 @@ import { produce } from "~/lib/utils/produce";
 export default function ThreadgateScreen() {
   const [{ threadgate }, setComposerState] = useComposerState();
   const agent = useAgent();
+  const { _ } = useLingui();
 
   const lists = useQuery({
     queryKey: [agent.session?.did, "lists"],
@@ -28,10 +31,10 @@ export default function ThreadgateScreen() {
       <GroupedList
         groups={[
           {
-            title: "Who can reply?",
+            title: _(msg`Who can reply?`),
             options: [
               {
-                title: "Everyone can reply",
+                title: _(msg`Everyone can reply`),
                 icon: threadgate.length === 0 ? CheckIcon : "SPACE",
                 onPress: () =>
                   setComposerState(
@@ -41,7 +44,7 @@ export default function ThreadgateScreen() {
                   ),
               },
               {
-                title: "No one can reply",
+                title: _(msg`No one can reply`),
                 icon: threadgate.find((gate) => gate.type === "nobody")
                   ? CheckIcon
                   : "SPACE",
@@ -53,7 +56,7 @@ export default function ThreadgateScreen() {
                   ),
               },
               {
-                title: "Specific people can reply",
+                title: _(msg`Specific people can reply`),
                 icon:
                   threadgate.length > 0 &&
                   !threadgate.find((gate) => gate.type === "nobody")
@@ -76,10 +79,10 @@ export default function ThreadgateScreen() {
           },
           threadgate.length > 0 &&
             !threadgate.find((gate) => gate.type === "nobody") && {
-              title: "Select one or more options",
+              title: _(msg`Select one or more options`),
               options: [
                 {
-                  title: "People mentioned in the thread",
+                  title: _(msg`People mentioned in the thread`),
                   icon: threadgate.find((gate) => gate.type === "mention")
                     ? CheckIcon
                     : "SPACE",
@@ -101,7 +104,7 @@ export default function ThreadgateScreen() {
                     ),
                 },
                 {
-                  title: "People you follow",
+                  title: _(msg`People you follow`),
                   icon: threadgate.find((gate) => gate.type === "following")
                     ? CheckIcon
                     : "SPACE",
@@ -123,7 +126,7 @@ export default function ThreadgateScreen() {
                     ),
                 },
                 ...(lists.data?.lists?.map((list) => ({
-                  title: `Members of list "${list.name}"`,
+                  title: _(msg`Members of list "${list.name}"`),
                   icon: threadgate.find(
                     (gate) => gate.type === "list" && gate.list === list.uri,
                   )

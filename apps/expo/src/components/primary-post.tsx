@@ -8,6 +8,8 @@ import {
   type AppBskyFeedDefs,
   type AppBskyGraphDefs,
 } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
 
@@ -48,6 +50,7 @@ export const PrimaryPost = ({
     string | null
   >(null);
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const postAuthorDisplayName = post.author.displayName;
   const postAuthorHandle = post.author.handle;
@@ -90,7 +93,7 @@ export const PrimaryPost = ({
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
-            accessibilityHint="Opens profile"
+            accessibilityHint={_(msg`Opens profile`)}
             accessibilityLabel={`${
               postAuthorDisplayName ?? ""
             } @${postAuthorHandle}`}
@@ -172,7 +175,9 @@ export const PrimaryPost = ({
             className="mt-0.5 shrink-0"
           />
           <View className="ml-3 flex-1">
-            <Text className="text-base font-medium">Who can reply?</Text>
+            <Text className="text-base font-medium">
+              <Trans>Who can reply?</Trans>
+            </Text>
             <ThreadgateInfo
               author={post.author}
               threadgate={threadgate}
@@ -198,7 +203,11 @@ const ThreadgateInfo = ({
   const router = useRouter();
 
   if (!threadgate.allow || threadgate.allow.length === 0) {
-    return <Text className="text-base">Nobody can reply</Text>;
+    return (
+      <Text className="text-base">
+        <Trans>Nobody can reply</Trans>
+      </Text>
+    );
   }
 
   const renderRule = (
@@ -210,17 +219,21 @@ const ThreadgateInfo = ({
     switch (true) {
       case AppBskyFeedThreadgate.isMentionRule(rule): {
         return (
-          <Text className="text-base">Users mentioned in this thread</Text>
+          <Text className="text-base">
+            <Trans>Users mentioned in this thread</Trans>
+          </Text>
         );
       }
       case AppBskyFeedThreadgate.isFollowingRule(rule): {
         return (
           <Text className="text-base">
-            Users that{" "}
-            <Text className="text-base font-medium">
-              {author.displayName ?? `@${author.handle}`}
-            </Text>{" "}
-            follows
+            <Trans>
+              Users that{" "}
+              <Text className="text-base font-medium">
+                {author.displayName ?? `@${author.handle}`}
+              </Text>{" "}
+              follows
+            </Trans>
           </Text>
         );
       }
@@ -228,30 +241,33 @@ const ThreadgateInfo = ({
         if (!lists || lists.length === 0) {
           return null;
         }
+        const listsList = lists.map((list, idx) => (
+          <Fragment key={list.uri}>
+            <Text
+              key={list.uri}
+              className="text-base font-medium"
+              primary
+              onPress={() =>
+                router.push(
+                  path(
+                    `/profile/${author.did}/lists/${list.uri.split("/").pop()}`,
+                  ),
+                )
+              }
+            >
+              {list.name}
+            </Text>
+            {idx < lists.length - 1 && ", "}
+          </Fragment>
+        ));
         return (
           <Text className="text-base">
-            Users in the list{lists.length > 1 && "s"}{" "}
-            {lists.map((list, idx) => (
-              <Fragment key={list.uri}>
-                <Text
-                  key={list.uri}
-                  className="text-base font-medium"
-                  primary
-                  onPress={() =>
-                    router.push(
-                      path(
-                        `/profile/${author.did}/lists/${list.uri
-                          .split("/")
-                          .pop()}`,
-                      ),
-                    )
-                  }
-                >
-                  {list.name}
-                </Text>
-                {idx < lists.length - 1 && ", "}
-              </Fragment>
-            ))}
+            {lists.length === 1 ? (
+              <Trans>Users in the list</Trans>
+            ) : (
+              <Trans>Users in the lists</Trans>
+            )}{" "}
+            {listsList}
           </Text>
         );
       }

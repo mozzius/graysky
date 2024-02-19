@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 
@@ -17,6 +19,7 @@ import { SELECTABLE_LANGUAGES } from "~/lib/utils/locale/languages";
 import { produce } from "~/lib/utils/produce";
 
 export default function PostLanguage() {
+  const { _ } = useLingui();
   const primaryLanguage = usePrimaryLanguage();
   const mostRecentLanguage = useMostRecentLanguage();
   const contentLanguages = useContentLanguages();
@@ -26,7 +29,7 @@ export default function PostLanguage() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search languages",
+    placeholder: _(msg`Search languages`),
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
     hideWhenScrolling: false,
   });
@@ -79,7 +82,7 @@ export default function PostLanguage() {
                 ]
               : [
                   {
-                    title: "My languages",
+                    title: _(msg`My languages`),
                     options: SELECTABLE_LANGUAGES.filter(
                       (l) =>
                         Boolean(l.code2) && suggestedLangs.includes(l.code2),
@@ -92,7 +95,7 @@ export default function PostLanguage() {
                     })),
                   },
                   {
-                    title: "All languages",
+                    title: _(msg`All languages`),
                     options: SELECTABLE_LANGUAGES.filter((l) =>
                       Boolean(l.code2),
                     ).map((lang) => ({

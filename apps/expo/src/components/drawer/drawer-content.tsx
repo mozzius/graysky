@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   CloudyIcon,
@@ -41,21 +43,32 @@ export const DrawerContent = ({ open }: Props) => {
   const homepage = useHomepage();
   const colorScheme = useColorScheme();
   const setAppPreferences = useSetAppPreferences();
+  const { _ } = useLingui();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
   const changeTheme = () => {
-    const options = ["Light", "Dark", "System", "Cancel"];
+    const options = [
+      _(msg`Light`),
+      _(msg`Dark`),
+      _(msg`System`),
+      _(msg`Cancel`),
+    ];
     const icons = [
       <SunIcon key={0} size={24} color={theme.colors.text} />,
       <MoonIcon key={1} size={24} color={theme.colors.text} />,
       <SmartphoneIcon key={2} size={24} color={theme.colors.text} />,
       <></>,
     ];
+    const current = {
+      light: _(msg`light`),
+      dark: _(msg`dark`),
+      system: _(msg`system`),
+    }[colorScheme];
     showActionSheetWithOptions(
       {
-        title: "Change theme",
-        message: `It's currently set to the ${colorScheme} theme`,
+        title: _(msg`Change theme`),
+        message: _(msg`It's currently set to the ${current} theme`),
         options,
         icons,
         cancelButtonIndex: options.length - 1,
@@ -66,13 +79,13 @@ export const DrawerContent = ({ open }: Props) => {
         const selected = options[index];
         let colorScheme: ColorSchemeSystem | null = null;
         switch (selected) {
-          case "Light":
+          case _(msg`Light`):
             colorScheme = "light";
             break;
-          case "Dark":
+          case _(msg`Dark`):
             colorScheme = "dark";
             break;
-          case "System":
+          case _(msg`System`):
             colorScheme = "system";
             break;
         }
@@ -98,11 +111,13 @@ export const DrawerContent = ({ open }: Props) => {
           <Link href="/feeds/manage" asChild onPress={closeDrawer}>
             <TouchableOpacity
               accessibilityRole="link"
-              accessibilityLabel="Feeds screen"
+              accessibilityLabel={_(msg`My Feeds screen`)}
               className="mt-2 w-full flex-row items-center py-2"
             >
               <CloudyIcon color={theme.colors.text} />
-              <Text className="ml-6 text-base font-medium">My feeds</Text>
+              <Text className="ml-6 text-base font-medium">
+                <Trans>My feeds</Trans>
+              </Text>
             </TouchableOpacity>
           </Link>
         )}
@@ -151,45 +166,57 @@ export const DrawerContent = ({ open }: Props) => {
         <Link href="/pro" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
-            accessibilityLabel="Pro version"
+            accessibilityLabel={_(msg`Pro version information and purchase`)}
             className="mt-2 w-full flex-row items-center py-2"
           >
             <StarIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">Graysky Pro</Text>
+            <Text className="ml-6 text-base font-medium">
+              <Trans>Graysky Pro</Trans>
+            </Text>
           </TouchableOpacity>
         </Link>
         <TouchableOpacity
           accessibilityRole="button"
-          accessibilityLabel="Change theme"
+          accessibilityLabel={_(msg`Change theme`)}
           className="mt-2 w-full flex-row items-center py-2"
           onPress={() => changeTheme()}
         >
           <ChangeThemeIcon color={theme.colors.text} />
-          <Text className="ml-6 text-base font-medium">Change theme</Text>
+          <Text className="ml-6 text-base font-medium">
+            <Trans>Change theme</Trans>
+          </Text>
         </TouchableOpacity>
         <Link href="/settings" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
-            accessibilityLabel="Settings"
+            accessibilityLabel={_(msg`Settings menu`)}
             className="mt-2 w-full flex-row items-center py-2"
           >
             <SettingsIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">Settings</Text>
+            <Text className="ml-6 text-base font-medium">
+              <Trans>Settings</Trans>
+            </Text>
           </TouchableOpacity>
         </Link>
       </View>
       <View className="grow" />
       <TouchableOpacity
         accessibilityRole="button"
-        accessibilityLabel="Sign out"
+        accessibilityLabel={_(msg`Sign out`)}
         className="w-full flex-row items-center py-2"
         onPress={() => logOut()}
       >
         <LogOutIcon color={theme.colors.text} />
-        <Text className="ml-6 text-base font-medium">Sign out</Text>
+        <Text className="ml-6 text-base font-medium">
+          <Trans>Sign out</Trans>
+        </Text>
       </TouchableOpacity>
       <Text className="mt-4 text-neutral-500 dark:text-neutral-400">
-        Version {Constants.expoConfig?.version ?? "unknown"}
+        {Constants.expoConfig?.version ? (
+          <Trans>Version {Constants.expoConfig.version}</Trans>
+        ) : (
+          <Trans>Version unknown</Trans>
+        )}
       </Text>
     </SafeAreaView>
   );

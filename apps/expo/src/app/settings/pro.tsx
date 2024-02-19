@@ -1,5 +1,7 @@
 import { Switch } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 
 import { AccentColourSelect } from "~/components/accent-colour-select";
 import { GroupedList } from "~/components/grouped-list";
@@ -15,6 +17,7 @@ export default function ProSettings() {
   const setAppPreferences = useSetAppPreferences();
   const isPro = useIsPro();
   const router = useRouter();
+  const { _ } = useLingui();
 
   if (!isPro) router.back();
 
@@ -23,10 +26,10 @@ export default function ProSettings() {
       <GroupedList
         groups={[
           {
-            title: "Translation provider",
+            title: _(msg`Translation provider`),
             options: [
               {
-                title: "Use DeepL for translations",
+                title: _(msg`Use DeepL for translations`),
                 disabled: !isPro,
                 action: (
                   <Switch
@@ -36,15 +39,17 @@ export default function ProSettings() {
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
                       });
                     }}
-                    accessibilityHint="Use DeepL for translations instead of Google Translate"
+                    accessibilityHint={_(
+                      msg`Use DeepL for translations instead of Google Translate`,
+                    )}
                   />
                 ),
               },
             ],
-            footer: "Google Translate is used otherwise.",
+            footer: _(msg`Google Translate is used otherwise.`),
           },
           {
-            title: "Accent color",
+            title: _(msg`Accent colour`),
             children: <AccentColourSelect />,
           },
         ]}

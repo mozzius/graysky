@@ -3,6 +3,8 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
@@ -78,9 +80,13 @@ const PeopleSearch = ({ search }: Props) => {
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-8">
             <Text className="text-center text-neutral-500 dark:text-neutral-400">
-              {search
-                ? "No users found - maybe try a different search term?"
-                : "Search for users"}
+              {search ? (
+                <Trans>
+                  No users found - maybe try a different search term?
+                </Trans>
+              ) : (
+                <Trans>Search for users</Trans>
+              )}
             </Text>
           </View>
         }
@@ -92,6 +98,8 @@ const PeopleSearch = ({ search }: Props) => {
 };
 
 export default function PeopleSearchScreen() {
+  const { _ } = useLingui();
+
   const { q } = useLocalSearchParams() as { q: string };
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
@@ -105,7 +113,7 @@ export default function PeopleSearchScreen() {
   }, [query]);
 
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search people",
+    placeholder: _(msg`Search people`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
     hideWhenScrolling: false,
     hideNavigationBar: false,
@@ -115,7 +123,7 @@ export default function PeopleSearchScreen() {
   return (
     <>
       <Stack.Screen
-        options={{ title: "Search People", headerSearchBarOptions }}
+        options={{ title: _(msg`Search People`), headerSearchBarOptions }}
       />
       <PeopleSearch search={search} />
     </>

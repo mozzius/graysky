@@ -2,6 +2,8 @@ import { Platform, StyleSheet, TouchableHighlight, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { LanguagesIcon, PaperclipIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
@@ -28,6 +30,7 @@ export const KeyboardAccessory = ({
 }: Props) => {
   const theme = useTheme();
   const haptics = useHaptics();
+  const { _ } = useLingui();
 
   const tooLong = charCount > MAX_LENGTH;
   const progress = (charCount / MAX_LENGTH) * 100;
@@ -47,7 +50,7 @@ export const KeyboardAccessory = ({
         <TouchableHighlight
           ref={imageButtonRef}
           className="rounded-full"
-          accessibilityLabel="Add image or GIF"
+          accessibilityLabel={_(msg`Add image or GIF`)}
           accessibilityRole="button"
           onPress={() => {
             haptics.impact();
@@ -64,13 +67,13 @@ export const KeyboardAccessory = ({
           >
             <PaperclipIcon size={20} color={theme.colors.primary} />
             <Text primary className="ml-2.5 mr-1 font-medium">
-              Add image
+              <Trans>Add image</Trans>
             </Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight
           className="rounded-full"
-          accessibilityLabel="Add image or GIF"
+          accessibilityLabel={_(msg`Change post language`)}
           accessibilityRole="button"
           onPress={() => {
             haptics.impact();

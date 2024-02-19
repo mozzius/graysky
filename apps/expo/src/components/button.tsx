@@ -21,7 +21,6 @@ export const Button = ({
   style,
   ...props
 }: ButtonProps) => {
-  const isChildAString = typeof children === "string";
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -37,22 +36,18 @@ export const Button = ({
       style={[{ borderCurve: "continuous" }, style]}
       {...props}
     >
-      {isChildAString ? (
-        <Text
-          className={cx(
-            "text-base",
-            {
-              black: "text-white",
-              white: "text-black",
-              outline: "text-black dark:text-white",
-            }[variant],
-          )}
-        >
-          {children}
-        </Text>
-      ) : (
-        children
-      )}
+      <Text
+        className={cx(
+          "text-base",
+          {
+            black: "text-white",
+            white: "text-black",
+            outline: "text-black dark:text-white",
+          }[variant],
+        )}
+      >
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 };

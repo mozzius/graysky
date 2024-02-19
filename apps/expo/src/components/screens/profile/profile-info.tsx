@@ -24,6 +24,8 @@ import {
   type AppBskyEmbedImages,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -45,12 +47,7 @@ import {
 import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
-import {
-  blockAccount,
-  muteAccount,
-  unblockAccount,
-  unmuteAccount,
-} from "~/lib/account-actions";
+import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
@@ -83,12 +80,15 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
   const { openFollows, openFollowers } = useLists();
   const { showActionSheetWithOptions } = useActionSheet();
   const [translateBio, setTranslateBio] = useState(false);
+  const { blockAccount, muteAccount, unblockAccount, unmuteAccount } =
+    useAccountActions();
 
   const queryClient = useQueryClient();
   const theme = useTheme();
   const haptics = useHaptics();
   const id = useId();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const toggleFollow = useMutation({
     mutationKey: ["follow", profile.did],
@@ -122,15 +122,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
     onSuccess: (result) => {
       showToastable({
-        title: result === "followed" ? "Followed user" : "Unfollowed user",
-        message: `You are ${
-          result === "followed" ? "now following" : "no longer following"
-        } @${profile.handle}`,
+        title:
+          result === "followed"
+            ? _(msg`Followed user`)
+            : _(msg`Unfollowed user`),
+        message:
+          result === "followed"
+            ? _(msg`You are now following @${profile.handle}`)
+            : _(msg`You are no longer following @${profile.handle}`),
       });
     },
     onError: () => {
       showToastable({
-        message: "Could not follow user",
+        message: _(msg`Could not follow user`),
         status: "danger",
       });
     },
@@ -154,36 +158,54 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
 
   const handleOptions = () => {
     const options = [
-      "Share profile",
-      "Translate bio",
-      "Add to list",
-      profile.viewer?.muted ? "Unmute account" : "Mute account",
-      profile.viewer?.blocking ? "Unblock account" : "Block account",
-      "Report account",
+      { label: msg`Share profile`, value: "Share profile", icon: ShareIcon },
+      {
+        label: msg`Translate bio`,
+        value: "Translate bio",
+        icon: LanguagesIcon,
+      },
+      { label: msg`Add to list`, value: "Add to list", icon: ListPlusIcon },
+      profile.viewer?.muted
+        ? {
+            label: msg`Unmute account`,
+            value: "Unmute account",
+            icon: MegaphoneIcon,
+          }
+        : {
+            label: msg`Mute account`,
+            value: "Mute account",
+            icon: MegaphoneOffIcon,
+          },
+      profile.viewer?.blocking
+        ? {
+            label: msg`Unblock account`,
+            value: "Unblock account",
+            icon: ShieldOffIcon,
+          }
+        : {
+            label: msg`Block account`,
+            value: "Block account",
+            icon: ShieldXIcon,
+          },
+      { label: msg`Report account`, value: "Report account", icon: FlagIcon },
+      { label: msg`Cancel`, value: "Cancel", icon: null },
     ] as const;
-    const icons = [
-      ShareIcon,
-      LanguagesIcon,
-      ListPlusIcon,
-      profile.viewer?.muted ? MegaphoneIcon : MegaphoneOffIcon,
-      profile.viewer?.blocking ? ShieldOffIcon : ShieldXIcon,
-      FlagIcon,
-    ];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
-        icons: [
-          ...icons.map((Icon, i) => (
-            <Icon key={i} size={24} color={theme.colors.text} />
-          )),
-          <></>,
-        ],
-        cancelButtonIndex: options.length,
+        options: options.map((x) => _(x.label)),
+        icons: options.map((x) =>
+          x.icon ? (
+            <x.icon key={x.value} size={24} color={theme.colors.text} />
+          ) : (
+            <></>
+          ),
+        ),
+        cancelButtonIndex: options.length - 1,
         ...actionSheetStyles(theme),
       },
       (index) => {
         if (index === undefined) return;
-        const option = options[index];
+        const option = options[index]?.value;
         switch (option) {
           case "Share profile": {
             const url = `https://bsky.app/profile/${profile.handle}`;
@@ -202,34 +224,33 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             router.push(`/add-to-list/${profile.did}`);
             break;
           case "Mute account":
-            muteAccount(agent, profile.handle, profile.did, queryClient);
+            muteAccount(profile.did, profile.handle);
             break;
           case "Unmute account":
-            unmuteAccount(agent, profile.handle, profile.did, queryClient);
+            unmuteAccount(profile.did, profile.handle);
             break;
           case "Block account":
-            blockAccount(agent, profile.handle, profile.did, queryClient);
+            blockAccount(profile.did, profile.handle);
             break;
           case "Unblock account":
             unblockAccount(
-              agent,
+              profile.did,
               profile.handle,
               profile.viewer!.blocking!.split("/").pop()!,
-              queryClient,
             );
             break;
           case "Report account": {
             // prettier-ignore
             const reportOptions = [
-              { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
-              { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
-              { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
-              { label: "Cancel", value: "Cancel" },
+              { label: msg`Spam`, value: ComAtprotoModerationDefs.REASONSPAM },
+              { label: msg`Misleading`, value: ComAtprotoModerationDefs.REASONMISLEADING },
+              { label: msg`Other`, value: ComAtprotoModerationDefs.REASONOTHER },
+              { label: msg`Cancel`, value: "Cancel" },
             ] as const;
             showActionSheetWithOptions(
               {
-                title: "What is the issue with this account?",
-                options: reportOptions.map((x) => x.label),
+                title: _(msg`What is the issue with this account?`),
+                options: reportOptions.map((x) => _(x.label)),
                 cancelButtonIndex: reportOptions.length - 1,
                 ...actionSheetStyles(theme),
               },
@@ -245,8 +266,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   },
                 });
                 showToastable({
-                  title: "Report submitted",
-                  message: "Thank you for making the skyline a safer place",
+                  title: _(msg`Report submitted`),
+                  message: _(
+                    msg`Thank you for making the skyline a safer place`,
+                  ),
                 });
               },
             );
@@ -426,7 +449,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         {/* back button */}
         {backButton && (
           <TouchableOpacity
-            accessibilityLabel="Back"
+            accessibilityLabel={_(msg`Back`)}
             accessibilityRole="button"
             onPress={() => router.back()}
             className={cx(
@@ -504,7 +527,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           className="mr-1 text-neutral-600 dark:text-neutral-300"
                         />
                         <Text className="font-medium text-neutral-600 dark:text-neutral-300">
-                          Following
+                          <Trans>Following</Trans>
                         </Text>
                       </>
                     ) : (
@@ -514,7 +537,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           className="mr-1 text-white dark:text-black"
                         />
                         <Text className="font-medium text-white dark:text-black">
-                          Follow
+                          <Trans>Follow</Trans>
                         </Text>
                       </>
                     )}
@@ -534,7 +557,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               <TouchableOpacity
                 className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700"
                 onPress={() => {
-                  const options = ["Edit Profile", "Share Profile", "Cancel"];
+                  const options = [
+                    _(msg`Edit Profile`),
+                    _(msg`Share Profile`),
+                    _(msg`Cancel`),
+                  ];
                   showActionSheetWithOptions(
                     {
                       options,
@@ -542,13 +569,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       ...actionSheetStyles(theme),
                     },
                     (index) => {
-                      if (index === undefined) return;
-                      const option = options[index];
-                      switch (option) {
-                        case "Edit Profile":
+                      switch (index) {
+                        case 0:
                           router.push("/edit-bio");
                           break;
-                        case "Share Profile": {
+                        case 1: {
                           const url = `https://bsky.app/profile/${profile.handle}`;
                           void Share.share(
                             Platform.select({
@@ -588,20 +613,26 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           <View className="mt-3 flex-row" pointerEvents="box-none">
             <TouchableOpacity onPress={() => openFollowers(profile.did)}>
               <Text>
-                <Text className="font-bold">{profile.followersCount}</Text>{" "}
-                Followers
+                <Trans>
+                  <Text className="font-bold">{profile.followersCount}</Text>{" "}
+                  Followers
+                </Trans>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => openFollows(profile.did)}>
               <Text className="ml-4">
-                <Text className="font-bold">{profile.followsCount}</Text>{" "}
-                Following
+                <Trans>
+                  <Text className="font-bold">{profile.followsCount}</Text>{" "}
+                  Following
+                </Trans>
               </Text>
             </TouchableOpacity>
             <View pointerEvents="none">
               <Text className="ml-4">
-                <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
-                Posts
+                <Trans>
+                  <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
+                  Posts
+                </Trans>
               </Text>
             </View>
           </View>
@@ -638,23 +669,32 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 className="mr-1.5 text-neutral-500 dark:text-neutral-400"
               />
               <Text className="text-xs text-neutral-500 dark:text-neutral-400">
-                Joined{" "}
-                {new Intl.DateTimeFormat(locale.languageTag, {
-                  month: "long",
-                  year: "numeric",
-                }).format(profile.createdAt)}
+                <Trans>
+                  Joined{" "}
+                  {new Intl.DateTimeFormat(locale.languageTag, {
+                    month: "long",
+                    year: "numeric",
+                  }).format(profile.createdAt)}
+                </Trans>
               </Text>
             </View>
           )}
           {profile.viewer?.muted && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
-                {profile.viewer.mutedByList
-                  ? `This user is on the "${profile.viewer.mutedByList.name}" mute list`
-                  : "You have muted this user"}
+                {profile.viewer.mutedByList ? (
+                  <Trans>
+                    This user is on the &quot;{profile.viewer.mutedByList.name}
+                    &quot; mute list
+                  </Trans>
+                ) : (
+                  <Trans>You have muted this user</Trans>
+                )}
               </Text>
               <TextButton
-                title={profile.viewer.mutedByList ? "View" : "Unmute"}
+                title={
+                  profile.viewer.mutedByList ? _(msg`View`) : _(msg`Unmute`)
+                }
                 onPress={() => {
                   if (profile.viewer?.mutedByList) {
                     const segments = profile.viewer.mutedByList.uri.split("/");
@@ -664,12 +704,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                       ),
                     );
                   } else {
-                    unmuteAccount(
-                      agent,
-                      profile.handle,
-                      profile.did,
-                      queryClient,
-                    );
+                    unmuteAccount(profile.did, profile.handle);
                   }
                 }}
               />
@@ -678,12 +713,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           {profile.viewer?.blocking && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
               <Text className="font-semibold">
-                {profile.viewer.blockingByList
-                  ? `This user is on the "${profile.viewer.blockingByList.name}" block list`
-                  : "You have blocked this user"}
+                {profile.viewer.blockingByList ? (
+                  <Trans>
+                    This user is on the &quot;
+                    {profile.viewer.blockingByList.name}&quot; block list
+                  </Trans>
+                ) : (
+                  <Trans>You have blocked this user</Trans>
+                )}
               </Text>
               <TextButton
-                title={profile.viewer.blockingByList ? "View" : "Unblock"}
+                title={
+                  profile.viewer.blockingByList ? _(msg`View`) : _(msg`Unblock`)
+                }
                 onPress={() => {
                   if (profile.viewer?.blockingByList) {
                     const segments =
@@ -695,10 +737,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                     );
                   } else {
                     unblockAccount(
-                      agent,
+                      profile.did,
                       profile.handle,
                       profile.viewer!.blocking!.split("/").pop()!,
-                      queryClient,
                     );
                   }
                 }}
@@ -707,7 +748,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
           )}
           {profile.viewer?.blockedBy && (
             <View className="mt-3 flex-row items-center justify-between rounded-sm border border-neutral-300 bg-neutral-50 px-2 dark:border-neutral-700 dark:bg-neutral-950">
-              <Text className="font-semibold">This user has blocked you</Text>
+              <Text className="font-semibold">
+                <Trans>This user has blocked you</Trans>
+              </Text>
             </View>
           )}
         </View>

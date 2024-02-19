@@ -20,6 +20,8 @@ import {
   type AtpSessionEvent,
 } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { ThemeProvider } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -28,6 +30,7 @@ import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
 import { type SavedSession } from "~/components/switch-accounts";
 import { Toastable } from "~/components/toastable/toastable";
+import I18nProvider, { initializeI18n } from "~/i18n/config";
 import { AgentProvider } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
 import { LogOutProvider } from "~/lib/log-out-context";
@@ -72,6 +75,8 @@ const useSentryTracing = () => {
 
 void SplashScreen.preventAutoHideAsync();
 
+initializeI18n();
+
 const App = () => {
   const segments = useSegments();
   const router = useRouter();
@@ -81,6 +86,7 @@ const App = () => {
   const [agentUpdate, setAgentUpdate] = useState(0);
   const [session, setSession] = useState(() => getSession());
   const theme = useThemeSetup();
+  const { _ } = useLingui();
 
   const saveSession = useCallback(
     (sess: AtpSessionData | null, agent?: BskyAgent) => {
@@ -144,7 +150,9 @@ const App = () => {
           case "expired":
             saveSession(null);
             showToastable({
-              message: "Sorry! Your session expired. Please log in again.",
+              message: _(
+                msg`Sorry! Your session expired. Please log in again.`,
+              ),
             });
             break;
         }
@@ -162,7 +170,7 @@ const App = () => {
     retry: 3,
     onError: () => {
       showToastable({
-        message: "Sorry! Your session expired. Please log in again.",
+        message: _(msg`Sorry! Your session expired. Please log in again.`),
       });
       router.replace("/");
     },
@@ -247,6 +255,9 @@ const App = () => {
     }
   }, [ready]);
 
+  // needs i18n context
+  useSetupQuickActions();
+
   return (
     <GestureHandlerRootView className="flex-1">
       <ThemeProvider value={theme}>
@@ -306,7 +317,7 @@ const App = () => {
                           <Stack.Screen
                             name="discover"
                             options={{
-                              title: "Discover Feeds",
+                              title: _(msg`Discover Feeds`),
                               presentation: "modal",
                               headerLargeTitle: true,
                               headerLargeTitleShadowVisible: false,
@@ -327,7 +338,7 @@ const App = () => {
                           <Stack.Screen
                             name="success"
                             options={{
-                              title: "Purchase Successful",
+                              title: _(msg`Purchase Successful`),
                               headerShown: false,
                               presentation: "modal",
                             }}
@@ -349,7 +360,7 @@ const App = () => {
                           <Stack.Screen
                             name="edit-bio"
                             options={{
-                              title: "Edit Profile",
+                              title: _(msg`Edit Profile`),
                               ...Platform.select({
                                 ios: {
                                   presentation: "modal",
@@ -370,21 +381,21 @@ const App = () => {
                           <Stack.Screen
                             name="create-list"
                             options={{
-                              title: "Create List",
+                              title: _(msg`Create List`),
                               presentation: "modal",
                             }}
                           />
                           <Stack.Screen
                             name="add-to-list/[handle]"
                             options={{
-                              title: "Add to List",
+                              title: _(msg`Add to List`),
                               presentation: "modal",
                             }}
                           />
                           <Stack.Screen
                             name="push-notifications"
                             options={{
-                              title: "Push Notifications",
+                              title: _(msg`Push Notifications`),
                               presentation: "modal",
                               headerShown: false,
                               headerTransparent: true,
@@ -394,7 +405,7 @@ const App = () => {
                           <Stack.Screen
                             name="capture/[author]/[post]"
                             options={{
-                              title: "Share as Image",
+                              title: _(msg`Share as Image`),
                               presentation: "formSheet",
                             }}
                           />
@@ -423,12 +434,13 @@ const getSession = () => {
 function RootLayout() {
   useConfigurePurchases();
   useSentryTracing();
-  useSetupQuickActions();
 
   return (
-    <TRPCProvider>
-      <App />
-    </TRPCProvider>
+    <I18nProvider>
+      <TRPCProvider>
+        <App />
+      </TRPCProvider>
+    </I18nProvider>
   );
 }
 

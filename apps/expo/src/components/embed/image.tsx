@@ -9,6 +9,8 @@ import {
 import { type ImageStyle } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { type AppBskyEmbedImages } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -206,14 +208,15 @@ interface AltProps {
 }
 
 export const Alt = ({ alt }: AltProps) => {
+  const { _ } = useLingui();
   if (!alt) return null;
   return (
     <View className="absolute bottom-1.5 left-1.5 z-10 rounded">
       <TouchableWithoutFeedback
-        accessibilityLabel="View alt text"
+        accessibilityLabel={_(msg`View ALT text`)}
         className="rounded"
         onPress={() => {
-          Alert.alert("Alt text", alt);
+          Alert.alert(_(msg`ALT text`), alt);
         }}
       >
         <View className="rounded bg-black/60 px-1 py-px">

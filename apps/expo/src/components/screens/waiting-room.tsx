@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Trans } from "@lingui/macro";
 import { ProgressView } from "@react-native-community/progress-view";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { styled } from "nativewind";
@@ -49,7 +50,7 @@ export const WaitingRoom = () => {
       <View className="flex-1 items-center justify-center bg-white dark:bg-black">
         <ActivityIndicator size="large" />
         <Text className="mt-4 text-center text-base">
-          Getting queue position...
+          <Trans>Getting queue position...</Trans>
         </Text>
       </View>
     );
@@ -64,19 +65,19 @@ export const WaitingRoom = () => {
               className="text-center text-6xl font-medium"
               allowFontScaling={false}
             >
-              You{"'"}re in!
+              <Trans>You{"'"}re in!</Trans>
             </Text>
             <Text
               className="mt-4 w-2/3 text-center text-xl"
               maxFontSizeMultiplier={2}
             >
-              Welcome to Bluesky! We{"'"}re excited to have you.
+              <Trans>Welcome to Bluesky! We{"'"}re excited to have you.</Trans>
             </Text>
           </>
         ) : (
           <>
             <Text className="text-center text-xl">
-              You{"'"}re in the queue to join Bluesky!
+              <Trans>You{"'"}re in the queue to join Bluesky!</Trans>
             </Text>
             <Text
               className="mt-8 text-center text-6xl font-medium"
@@ -85,7 +86,7 @@ export const WaitingRoom = () => {
               {queue.data.placeInQueue}
             </Text>
             <Text className="mt-2 text-center text-base">
-              people ahead of you.
+              <Trans>people ahead of you.</Trans>
             </Text>
             {initialQueuePosition !== null && (
               <ProgressBar
@@ -101,11 +102,11 @@ export const WaitingRoom = () => {
       </View>
       {queue.data.activated ? (
         <Button variant="black" onPress={() => logIn()}>
-          Get started
+          <Trans>Get started</Trans>
         </Button>
       ) : (
         <Button variant="outline" onPress={() => logOut()}>
-          Log out
+          <Trans>Log out</Trans>
         </Button>
       )}
       <Confetti run={queue.data.activated} />

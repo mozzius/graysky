@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import { Platform } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { Stack } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
@@ -33,6 +35,7 @@ export const ProfileTabView = ({
   const lists = useProfileLists(did);
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
+  const { _ } = useLingui();
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
   const numberOfLists = lists.data?.pages?.[0]?.lists?.length ?? 0;
@@ -76,25 +79,25 @@ export const ProfileTabView = ({
           allowHeaderOverscroll={Platform.OS === "ios"}
           lazy
         >
-          <Tabs.Tab name="posts" label="Posts">
+          <Tabs.Tab name="posts" label={_(msg`Posts`)}>
             <ProfilePosts mode="posts" did={did} />
           </Tabs.Tab>
-          <Tabs.Tab name="replies" label="Replies">
+          <Tabs.Tab name="replies" label={_(msg`Replies`)}>
             <ProfilePosts mode="replies" did={did} />
           </Tabs.Tab>
-          <Tabs.Tab name="media" label="Media">
+          <Tabs.Tab name="media" label={_(msg`Media`)}>
             <ProfilePosts mode="media" did={did} />
           </Tabs.Tab>
-          <Tabs.Tab name="likes" label="Likes">
+          <Tabs.Tab name="likes" label={_(msg`Likes`)}>
             <ProfilePosts mode="likes" did={did} />
           </Tabs.Tab>
           {numberOfFeeds === 0 ? null : (
-            <Tabs.Tab name="feeds" label="Feeds">
+            <Tabs.Tab name="feeds" label={_(msg`Feeds`)}>
               <ProfileFeeds did={did} />
             </Tabs.Tab>
           )}
           {numberOfLists === 0 ? null : (
-            <Tabs.Tab name="lists" label="Lists">
+            <Tabs.Tab name="lists" label={_(msg`Lists`)}>
               <ProfileLists did={did} />
             </Tabs.Tab>
           )}

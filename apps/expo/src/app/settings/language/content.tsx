@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Stack } from "expo-router";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 
@@ -18,10 +20,11 @@ export default function ContentLanguageSettings() {
   const contentLanguages = useContentLanguages();
   const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const [query, setQuery] = useState("");
   const headerSearchBarOptions = useSearchBarOptions({
-    placeholder: "Search languages",
+    placeholder: _(msg`Search languages`),
     onChangeText: (evt) => setQuery(evt.nativeEvent.text),
     hideWhenScrolling: false,
   });

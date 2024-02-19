@@ -10,6 +10,8 @@ import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -36,12 +38,13 @@ export default function CreateListScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { showActionSheetWithOptions } = useActionSheet();
+  const { _, i18n } = useLingui();
 
   const rt = new RichTextHelper({ text: description });
   rt.detectFacetsWithoutResolution();
 
   const handleChangeAvatar = useCallback(async () => {
-    const permission = await getGalleryPermission();
+    const permission = await getGalleryPermission(i18n);
     if (!permission) return;
 
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -55,13 +58,13 @@ export default function CreateListScreen() {
     if (result?.assets?.[0]) {
       setAvatar(result.assets[0]);
     }
-  }, []);
+  }, [i18n]);
 
   const handleSelectPurpose = useCallback(() => {
-    const options = ["User list", "Moderation list"];
+    const options = [_(msg`User list`), _(msg`Moderation list`)];
     showActionSheetWithOptions(
       {
-        options: [...options, "Cancel"],
+        options: [...options, _(msg`Cancel`)],
         cancelButtonIndex: options.length,
       },
       (index) => {
@@ -75,7 +78,7 @@ export default function CreateListScreen() {
         }
       },
     );
-  }, [showActionSheetWithOptions]);
+  }, [showActionSheetWithOptions, _]);
 
   const createList = useMutation({
     mutationKey: ["create-list"],
@@ -129,7 +132,7 @@ export default function CreateListScreen() {
         ios: (
           <TouchableOpacity onPress={() => router.push("../")}>
             <Text primary className="text-lg">
-              Cancel
+              <Trans>Cancel</Trans>
             </Text>
           </TouchableOpacity>
         ),
@@ -147,7 +150,7 @@ export default function CreateListScreen() {
           contentInsetAdjustmentBehavior="automatic"
         >
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            List Avatar
+            <Trans>List Avatar</Trans>
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -168,7 +171,7 @@ export default function CreateListScreen() {
             </TouchableHighlight>
           </View>
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            List name
+            <Trans>List name</Trans>
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -183,7 +186,7 @@ export default function CreateListScreen() {
             />
           </View>
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            Description
+            <Trans>Description</Trans>
           </Text>
           <View
             style={{ backgroundColor: theme.colors.card }}
@@ -191,7 +194,7 @@ export default function CreateListScreen() {
           >
             <TextInput
               onChange={(evt) => setDescription(evt.nativeEvent.text)}
-              placeholder="Optional"
+              placeholder={_(msg`Optional`)}
               multiline
               className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
             >
@@ -205,7 +208,7 @@ export default function CreateListScreen() {
             </TextInput>
           </View>
           <Text className="mx-4 mb-1.5 mt-6 text-xs uppercase text-neutral-500">
-            Purpose
+            <Trans>Purpose</Trans>
           </Text>
           <TouchableHighlight
             onPress={handleSelectPurpose}
@@ -216,11 +219,13 @@ export default function CreateListScreen() {
               className="flex-1 rounded-lg px-4 py-2.5"
             >
               <Text primary className="text-base">
-                {purpose === "app.bsky.graph.defs#curatelist"
-                  ? "User list"
-                  : purpose === "app.bsky.graph.defs#modlist"
-                    ? "Moderation list"
-                    : "Select list purpose"}
+                {purpose === "app.bsky.graph.defs#curatelist" ? (
+                  <Trans>User list</Trans>
+                ) : purpose === "app.bsky.graph.defs#modlist" ? (
+                  <Trans>Moderation list</Trans>
+                ) : (
+                  <Trans>Select list purpose</Trans>
+                )}
               </Text>
             </View>
           </TouchableHighlight>
@@ -228,7 +233,7 @@ export default function CreateListScreen() {
             <TextButton
               disabled={!name || !purpose || createList.isPending}
               onPress={createList.mutate}
-              title="Create list"
+              title={_(msg`Create list`)}
               className="font-medium"
             />
           </View>

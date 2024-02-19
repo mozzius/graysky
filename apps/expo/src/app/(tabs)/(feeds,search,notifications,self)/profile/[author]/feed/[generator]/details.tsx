@@ -10,6 +10,8 @@ import {
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -43,22 +45,25 @@ export default function FeedDetails() {
     author: string;
     generator: string;
   }>();
+  const { _ } = useLingui();
 
   const feed = `at://${author}/app.bsky.feed.generator/${generator}`;
 
   const info = useFeedInfo(feed);
 
+  const title = _(msg`Feed Details`);
+
   if (info.data) {
     return (
       <>
-        <Stack.Screen options={{ title: "Feed Details" }} />
+        <Stack.Screen options={{ title }} />
         <FeedInfo feed={feed} info={info.data} />
       </>
     );
   } else {
     return (
       <>
-        <Stack.Screen options={{ title: "Feed Details" }} />
+        <Stack.Screen options={{ title }} />
         <QueryWithoutData query={info} />
       </>
     );
@@ -82,6 +87,7 @@ const FeedInfo = ({
   }>();
   const haptics = useHaptics();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const toggleSave = useToggleFeedPref(savedFeeds.data?.preferences);
   const toggleLike = useMutation({
@@ -141,7 +147,7 @@ const FeedInfo = ({
               <Link asChild href={path(`/profile/${info.view.creator.did}`)}>
                 <TouchableOpacity>
                   <Text className="text-base text-neutral-500">
-                    By @{info.view.creator.handle}
+                    <Trans>By @{info.view.creator.handle}</Trans>
                   </Text>
                 </TouchableOpacity>
               </Link>
@@ -188,7 +194,9 @@ const FeedInfo = ({
                       size={18}
                       color={theme.colors.text}
                     />
-                    <Text className="ml-2 text-base">Saved</Text>
+                    <Text className="ml-2 text-base">
+                      <Trans>Saved</Trans>
+                    </Text>
                   </>
                 ) : (
                   <>
@@ -197,7 +205,9 @@ const FeedInfo = ({
                       size={18}
                       color={theme.colors.primary}
                     />
-                    <Text className="ml-2 text-base">Save</Text>
+                    <Text className="ml-2 text-base">
+                      <Trans>Save</Trans>
+                    </Text>
                   </>
                 )}
               </View>
@@ -275,7 +285,7 @@ const FeedInfo = ({
         {creator.data ? (
           <View className="my-4 w-full">
             <Text className="mx-8 mb-1.5 text-xs uppercase text-neutral-500">
-              Creator
+              <Trans>Creator</Trans>
             </Text>
             <Link href={path(`/profile/${info.view.creator.did}`)} asChild>
               <TouchableHighlight className="mx-4 overflow-hidden rounded-lg">
@@ -312,7 +322,7 @@ const FeedInfo = ({
                   className="mx-8 mb-1.5 mt-4 text-xs uppercase text-neutral-500"
                   numberOfLines={1}
                 >
-                  More from {info.view.creator.displayName}
+                  <Trans>More from {info.view.creator.displayName}</Trans>
                 </Text>
                 <View
                   style={{ backgroundColor: theme.colors.card }}
@@ -347,7 +357,9 @@ const FeedInfo = ({
                         className="flex-row items-center px-4 py-3"
                       >
                         <View className="ml-6 flex-1 flex-row items-center px-3">
-                          <Text className="text-base">View all feeds</Text>
+                          <Text className="text-base">
+                            <Trans>View all feeds</Trans>
+                          </Text>
                         </View>
                         <ChevronRightIcon
                           size={20}
@@ -363,7 +375,7 @@ const FeedInfo = ({
               className="mx-8 mb-1.5 mt-4 text-xs uppercase text-neutral-500"
               numberOfLines={1}
             >
-              Share
+              <Trans>Share</Trans>
             </Text>
             <View
               style={{ backgroundColor: theme.colors.card }}
@@ -390,7 +402,9 @@ const FeedInfo = ({
                     className="mx-1"
                   />
                   <View className="mx-3 flex-1 flex-row items-center">
-                    <Text className="text-base">Share this feed</Text>
+                    <Text className="text-base">
+                      <Trans>Share this feed</Trans>
+                    </Text>
                   </View>
                 </View>
               </TouchableHighlight>

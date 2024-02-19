@@ -13,6 +13,8 @@ import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
 import { Link, Stack, useRouter } from "expo-router";
 import { type AppBskyActorDefs } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import {
@@ -49,6 +51,7 @@ export default function SearchPage() {
   const [isSearching, setIsSearching] = useState(false);
   const action = useQuickAction();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const autoFocus = action?.id === "search";
 
@@ -80,7 +83,7 @@ export default function SearchPage() {
     <>
       <Stack.Screen
         options={{
-          title: "Search",
+          title: _(msg`Search`),
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: false,
           headerLargeStyle: {
@@ -104,6 +107,7 @@ interface Props {
 const SearchResults = ({ search }: Props) => {
   const agent = useAgent();
   const path = useAbsolutePath();
+  const { _ } = useLingui();
 
   const MAX_RESULTS = 6;
 
@@ -136,18 +140,18 @@ const SearchResults = ({ search }: Props) => {
               options: [
                 {
                   icon: SearchIcon,
-                  title: "Search posts",
+                  title: _(msg`Search posts`),
                   href: path(`/search/posts?q=${encodeURIComponent(search)}`),
                 },
                 {
                   icon: SearchIcon,
-                  title: "Search feeds",
+                  title: _(msg`Search feeds`),
                   href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
                 },
                 data.length === 0
                   ? {
                       icon: SearchIcon,
-                      title: "Search users",
+                      title: _(msg`Search users`),
                       href: path(
                         `/search/people?q=${encodeURIComponent(search)}`,
                       ),
@@ -172,7 +176,7 @@ const SearchResults = ({ search }: Props) => {
                       ? [
                           {
                             icon: SearchIcon,
-                            title: "Search all users",
+                            title: _(msg`Search all users`),
                             href: path(
                               `/search/people?q=${encodeURIComponent(search)}`,
                             ),
@@ -241,7 +245,9 @@ const Suggestions = () => {
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <View>
-            <Text className="mt-4 px-4 text-lg font-bold">Trending topics</Text>
+            <Text className="mt-4 px-4 text-lg font-bold">
+              <Trans>Trending topics</Trans>
+            </Text>
             {!trendingTopics.isPending ? (
               trendingTopics.data ? (
                 <View className="flex-col px-4">
@@ -277,11 +283,11 @@ const Suggestions = () => {
                                   {tag.name}
                                 </Text>{" "}
                                 <Text className="font-normal text-neutral-400 dark:text-neutral-500">
-                                  #{tag.tag}
+                                  <Trans>#{tag.tag}</Trans>
                                 </Text>
                               </Text>
                               <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
-                                {tag.count} posts
+                                <Trans>{tag.count} posts</Trans>
                               </Text>
                             </View>
                           </Animated.View>
@@ -303,7 +309,11 @@ const Suggestions = () => {
                     >
                       <View className="flex-row items-center justify-center py-1">
                         <Text className="text-center">
-                          {showAll ? "Show less" : "Show all"}
+                          {showAll ? (
+                            <Trans>Show less</Trans>
+                          ) : (
+                            <Trans>Show all</Trans>
+                          )}
                         </Text>
                         {showAll ? (
                           <ChevronUpIcon
@@ -324,14 +334,14 @@ const Suggestions = () => {
                 </View>
               ) : (
                 <Text className="mt-1 text-base">
-                  Could not fetch trending topics
+                  <Trans>Could not fetch trending topics</Trans>
                 </Text>
               )
             ) : (
               <ActivityIndicator className="mt-2" />
             )}
             <Text className="mt-4 px-4 text-lg font-bold">
-              Suggested follows
+              <Trans>Suggested follows</Trans>
             </Text>
           </View>
         }
@@ -424,8 +434,17 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 )}
                 style={{ borderWidth: StyleSheet.hairlineWidth }}
               >
-                <Text className={cx("text-sm", follow.isIdle && "text-white")}>
-                  {follow.isIdle ? "Follow" : "Following"}
+                <Text
+                  className={cx(
+                    "text-sm",
+                    follow.isIdle ? "text-white" : "text-black",
+                  )}
+                >
+                  {follow.isIdle ? (
+                    <Trans>Follow</Trans>
+                  ) : (
+                    <Trans>Following</Trans>
+                  )}
                 </Text>
               </TouchableOpacity>
             )}

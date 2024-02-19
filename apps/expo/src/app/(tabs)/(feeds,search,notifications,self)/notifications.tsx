@@ -6,6 +6,8 @@ import {
   type AppBskyFeedDefs,
   type AppBskyNotificationListNotifications,
 } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -278,13 +280,14 @@ function Notifications() {
 }
 
 export default function NotificationPage() {
+  const { _ } = useLingui();
   const headerLeft = useCallback(() => <OpenDrawerAvatar />, []);
 
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Notifications",
+          title: _(msg`Notifications`),
           headerLeft,
         }}
       />

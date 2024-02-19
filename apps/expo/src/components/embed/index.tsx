@@ -16,6 +16,8 @@ import {
   AppBskyFeedPost,
   AppBskyGraphDefs,
 } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   CheckIcon,
@@ -194,6 +196,7 @@ export const PostEmbed = ({
   const { contentFilter, preferences } = useContentFilter();
   const postHref = `${profileHref}/post/${post.uri.split("/").pop()}`;
   const [hidden, setHidden] = useState(true);
+  const { _ } = useLingui();
 
   const filter = contentFilter(post.labels);
 
@@ -210,14 +213,16 @@ export const PostEmbed = ({
         )}
       >
         <Text className="my-1 max-w-[75%] font-semibold">
-          {filter
-            ? filter.message
-            : post.author.viewer?.blocking
-              ? "This post has been blocked"
-              : "This post is from someone you have muted"}
+          {filter ? (
+            filter.message
+          ) : post.author.viewer?.muted ? (
+            <Trans>This post is from someone you have muted</Trans>
+          ) : (
+            <Trans>This post is from someone you have blocked</Trans>
+          )}
         </Text>
         <TextButton
-          title={hidden ? "Show" : "Hide"}
+          title={hidden ? _(msg`Show`) : _(msg`Hide`)}
           onPress={() => setHidden((h) => !h)}
         />
       </View>
@@ -227,7 +232,7 @@ export const PostEmbed = ({
   return (
     <Link href={postHref} asChild>
       <TouchableWithoutFeedback
-        accessibilityHint="Opens embedded post"
+        accessibilityHint={_(msg`Opens embedded post`)}
         className={cx(
           "mt-1.5 flex-1 rounded-lg",
           preferences.isPending && "opacity-0",

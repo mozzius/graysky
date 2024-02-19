@@ -1,4 +1,5 @@
 import { ActivityIndicator, View } from "react-native";
+import { Trans } from "@lingui/macro";
 import {
   type InfiniteData,
   type UseInfiniteQueryResult,
@@ -30,6 +31,8 @@ export const ListFooterComponent = ({
     !hideEmptyMessage &&
     (query.data?.pages?.length ?? 0) >= 1 ? (
     <View className="py-16">
-      <Text className="text-center">That&apos;s everything!</Text>
+      <Text className="text-center">
+        <Trans>That&apos;s everything!</Trans>
+      </Text>
     </View>
   ) : null;

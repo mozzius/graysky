@@ -5,6 +5,8 @@ import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
@@ -20,6 +22,7 @@ export const useLinkPress = () => {
   const inAppBrowser = useInAppBrowser();
   const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
+  const { _ } = useLingui();
 
   const openLink = useCallback(
     async (url: string) => {
@@ -27,13 +30,14 @@ export const useLinkPress = () => {
         if (inAppBrowser === undefined) {
           showActionSheetWithOptions(
             {
-              title: "How should we open this link?",
-              message:
-                "Your choice will be saved, but can be changed in settings",
+              title: _(msg`How should we open this link?`),
+              message: _(
+                msg`Your choice will be saved, but can be changed in settings`,
+              ),
               options: [
-                "Use in-app browser",
-                "Use my default browser",
-                "Cancel",
+                _(msg`Use in-app browser`),
+                _(msg`Use my default browser`),
+                _(msg`Cancel`),
               ],
               cancelButtonIndex: 2,
               ...actionSheetStyles(theme),
@@ -67,20 +71,24 @@ export const useLinkPress = () => {
         }
       } catch (err) {
         showToastable({
-          title: "Failed to open link",
+          title: _(msg`Failed to open link`),
           message:
-            err instanceof Error ? err.message : "Not sure why, sorry :(",
+            err instanceof Error ? err.message : _(msg`Not sure why, sorry :(`),
           status: "danger",
         });
         Sentry.captureException(err);
       }
     },
-    [inAppBrowser, setAppPreferences, showActionSheetWithOptions, theme],
+    [inAppBrowser, setAppPreferences, showActionSheetWithOptions, theme, _],
   );
 
   const showLinkOptions = useCallback(
     (url: string) => {
-      const options = ["Open link", "Copy link", "Share link"] as const;
+      const options = [
+        _(msg`Open link`),
+        _(msg`Copy link`),
+        _(msg`Share link`),
+      ] as const;
       const icons = [
         <ExternalLinkIcon size={24} color={theme.colors.text} key={0} />,
         <CopyIcon size={24} color={theme.colors.text} key={1} />,
@@ -90,25 +98,24 @@ export const useLinkPress = () => {
       showActionSheetWithOptions(
         {
           title: url,
-          options: [...options, "Cancel"],
+          options: [...options, _(msg`Cancel`)],
           cancelButtonIndex: options.length,
           icons,
           ...actionSheetStyles(theme),
         },
         (index) => {
-          if (index === undefined) return;
-          switch (options[index]) {
-            case "Open link":
+          switch (index) {
+            case 0:
               void openLink(url);
               break;
-            case "Copy link":
+            case 1:
               void Clipboard.setUrlAsync(url);
               showToastable({
-                title: "Copied link",
-                message: "Link copied to clipboard",
+                title: _(msg`Copied link`),
+                message: _(msg`Link copied to clipboard`),
               });
               break;
-            case "Share link":
+            case 2:
               void Share.share(
                 Platform.select({
                   ios: { url },
@@ -120,7 +127,7 @@ export const useLinkPress = () => {
         },
       );
     },
-    [showActionSheetWithOptions, theme, openLink],
+    [showActionSheetWithOptions, theme, openLink, _],
   );
 
   return { openLink, showLinkOptions };

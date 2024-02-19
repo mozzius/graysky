@@ -10,39 +10,42 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { produce } from "../utils/produce";
 import { store } from "./storage";
 
+const availableAppLanguages = z.enum(["en", "ja"]);
+
 export const appPrefsSchema = z.object({
   // feeds
-  sortableFeeds: z.boolean().optional().default(false),
-  listsAboveFeeds: z.boolean().optional().default(false),
-  homepage: z.enum(["feeds", "skyline"]).optional().default("feeds"),
-  defaultFeed: z.string().optional().default("following"),
+  sortableFeeds: z.boolean().default(false),
+  listsAboveFeeds: z.boolean().default(false),
+  homepage: z.enum(["feeds", "skyline"]).default("feeds"),
+  defaultFeed: z.string().default("following"),
   // language
+  appLanguage: availableAppLanguages.default(
+    availableAppLanguages
+      .catch("en")
+      .parse(Localization.getLocales()[0]?.languageCode),
+  ),
   primaryLanguage: z
     .string()
-    .optional()
     .default(Localization.getLocales()[0]?.languageCode ?? "en"),
-  contentLanguages: z
-    .array(z.string())
-    .optional()
-    .default(
-      Localization.getLocales()
-        .filter((l) => l.languageCode)
-        .map((l) => l.languageCode!),
-    ),
+  contentLanguages: z.array(z.string()).default(
+    Localization.getLocales()
+      .filter((l) => l.languageCode)
+      .map((l) => l.languageCode!),
+  ),
   mostRecentLanguage: z.string().optional(),
   // notifications
   enableNotifications: z.boolean().optional(),
-  hasPromptedForNotifications: z.boolean().optional().default(false),
+  hasPromptedForNotifications: z.boolean().default(false),
   // misc
   groupNotifications: z.boolean().default(true),
   copiedCodes: z.array(z.string()).default([]),
-  haptics: z.boolean().optional().default(true),
-  gifAutoplay: z.boolean().optional().default(true),
+  haptics: z.boolean().default(true),
+  gifAutoplay: z.boolean().default(true),
   inAppBrowser: z.boolean().optional(),
-  altText: z.enum(["warn", "hide", "force"]).optional().default("warn"),
+  altText: z.enum(["warn", "hide", "force"]).default("warn"),
   // pro stuff
-  translationMethod: z.enum(["GOOGLE", "DEEPL"]).optional().default("DEEPL"),
-  colorScheme: z.enum(["system", "light", "dark"]).optional().default("system"),
+  translationMethod: z.enum(["GOOGLE", "DEEPL"]).default("DEEPL"),
+  colorScheme: z.enum(["system", "light", "dark"]).default("system"),
   accentColor: z.string().optional(),
 });
 
@@ -92,6 +95,7 @@ export const {
   useHaptics,
   useHomepage,
   useListsAboveFeeds,
+  useAppLanguage,
   usePrimaryLanguage,
   useSortableFeeds,
   useTranslationMethod,

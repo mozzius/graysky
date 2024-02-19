@@ -27,6 +27,7 @@ module.exports = function (api) {
       ],
     ],
     plugins: [
+      "macros",
       ["nativewind/babel", { tailwindConfig: lazyLoadConfig() }],
       "react-native-reanimated/plugin",
     ],

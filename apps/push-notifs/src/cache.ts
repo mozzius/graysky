@@ -7,7 +7,7 @@ export class Cache {
   agent: BskyAgent;
 
   constructor(public kv: KVClient) {
-    this.agent = new BskyAgent({ service: "https://api.bsky.app" });
+    this.agent = new BskyAgent({ service: "https://public.api.bsky.app" });
   }
 
   async getProfile(did: string) {

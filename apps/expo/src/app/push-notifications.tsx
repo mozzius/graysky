@@ -1,6 +1,7 @@
 import { Alert, ScrollView, TouchableHighlight, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { BellRingIcon, DotIcon } from "lucide-react-native";
 
@@ -30,10 +31,14 @@ export default function PushNotificationsScreen() {
             size={80}
             strokeWidth={1.5}
           />
-          <Text className="mt-8 text-center text-3xl">Push Notifications</Text>
+          <Text className="mt-8 text-center text-3xl">
+            <Trans>Push Notifications</Trans>
+          </Text>
           <Text className="mt-4 max-w-[510px] text-center text-base">
-            You can receive push notifications for likes, replies, and more!
-            However, there are some caveats you should be aware of.
+            <Trans>
+              You can receive push notifications for likes, replies, and more!
+              However, there are some caveats you should be aware of.
+            </Trans>
           </Text>
         </View>
         <View className="mt-8 flex-1 flex-col space-y-2">
@@ -44,8 +49,10 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You might receive the same notifications via other Bluesky
-              clients.
+              <Trans>
+                You might receive the same notifications via other Bluesky
+                clients.
+              </Trans>
             </Text>
           </View>
           <View className="flex-row items-start">
@@ -55,18 +62,20 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may receive notifications from people you have muted.{" "}
-              <Text
-                primary
-                onPress={() =>
-                  Alert.alert(
-                    "Notifications from muted users",
-                    "For your privacy, our server can't know who you've muted. This means you may receive notifications from muted users. We're working on a solution to this.",
-                  )
-                }
-              >
-                Learn more
-              </Text>
+              <Trans>
+                You may receive notifications from people you have muted.{" "}
+                <Text
+                  primary
+                  onPress={() =>
+                    Alert.alert(
+                      "Notifications from muted users",
+                      "For your privacy, our server can't know who you've muted. This means you may receive notifications from muted users. We're working on a solution to this.",
+                    )
+                  }
+                >
+                  Learn more
+                </Text>
+              </Trans>
             </Text>
           </View>
           <View className="flex-row items-start">
@@ -76,19 +85,21 @@ export default function PushNotificationsScreen() {
               color={theme.colors.text}
             />
             <Text className="flex-1 text-base">
-              You may receive notifications from people you{"'"}ve blocked or
-              muted via moderation list.{" "}
-              <Text
-                primary
-                onPress={() =>
-                  Alert.alert(
-                    "Moderation lists",
-                    "Our server can't currently tell what moderation lists you've subscribed to. This will likely change in the future, as we improve our software.",
-                  )
-                }
-              >
-                Learn more
-              </Text>
+              <Trans>
+                You may receive notifications from people you{"'"}ve blocked or
+                muted via moderation list.{" "}
+                <Text
+                  primary
+                  onPress={() =>
+                    Alert.alert(
+                      "Moderation lists",
+                      "Our server can't currently tell what moderation lists you've subscribed to. This will likely change in the future, as we improve our software.",
+                    )
+                  }
+                >
+                  Learn more
+                </Text>
+              </Trans>
             </Text>
           </View>
         </View>
@@ -113,7 +124,7 @@ export default function PushNotificationsScreen() {
             }}
           >
             <Text className="text-center text-base font-medium text-white">
-              Enable notifications
+              <Trans>Enable notifications</Trans>
             </Text>
           </View>
         </TouchableHighlight>
@@ -133,7 +144,7 @@ export default function PushNotificationsScreen() {
             style={{ borderCurve: "continuous" }}
           >
             <Text className="text-center text-base font-medium">
-              Don{"'"}t enable
+              <Trans>Don{"'"}t enable</Trans>
             </Text>
           </View>
         </TouchableHighlight>

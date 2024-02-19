@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { Link, useFocusEffect, useRouter } from "expo-router";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
   CheckIcon,
@@ -66,7 +68,9 @@ export const PostButton = ({
           )}
           style={{ backgroundColor: theme.colors.primary }}
         >
-          <Text className="mr-2 text-base font-medium text-white">Post</Text>
+          <Text className="mr-2 text-base font-medium text-white">
+            <Trans>Post</Trans>
+          </Text>
           <SendIcon size={12} className="text-white" />
           {loading && (
             <View
@@ -84,7 +88,6 @@ export const PostButton = ({
 
 export const CancelButton = ({
   hasContent,
-  onSave,
   onCancel,
   disabled,
 }: {
@@ -99,6 +102,7 @@ export const CancelButton = ({
   const ref = useRef<TouchableOpacity>(null);
   const [currentScreen, setCurrentScreen] = useState(false);
   const haptics = useHaptics();
+  const { _ } = useLingui();
 
   useFocusEffect(
     useCallback(() => {
@@ -110,7 +114,7 @@ export const CancelButton = ({
   const handleCancel = useCallback(async () => {
     haptics.impact();
     if (Platform.OS === "android") Keyboard.dismiss();
-    const options = ["Discard post", "Cancel"];
+    const options = [_(msg`Discard post`), _(msg`Cancel`)];
     const icons = [
       <Trash2Icon key={0} size={24} className="text-red-500" />,
       <></>,
@@ -125,25 +129,25 @@ export const CancelButton = ({
           destructiveButtonIndex: 0,
           ...actionSheetStyles(theme),
         },
-        (index) => resolve(options[index!]),
+        (index) => resolve(index),
       );
     });
     switch (selected) {
-      case "Discard post":
+      case 0:
         Platform.select({
           ios: () => router.push("../"),
           default: () =>
             router.canGoBack() ? router.back() : router.replace("/feeds"),
         })();
         break;
-      case "Save to drafts":
-        onSave();
-        break;
+      // case 1:
+      //   onSave();
+      //   break;
       default:
         onCancel();
         break;
     }
-  }, [haptics, onCancel, onSave, router, showActionSheetWithOptions, theme]);
+  }, [haptics, onCancel, router, showActionSheetWithOptions, theme, _]);
 
   if (hasContent) {
     return (
@@ -152,11 +156,11 @@ export const CancelButton = ({
         <TouchableOpacity
           ref={ref}
           disabled={disabled}
-          accessibilityLabel="Discard post"
+          accessibilityLabel={_(msg`Discard post`)}
           onPress={handleCancel}
         >
           <Text primary className="text-lg">
-            Cancel
+            <Trans>Cancel</Trans>
           </Text>
         </TouchableOpacity>
       </>
@@ -167,7 +171,7 @@ export const CancelButton = ({
     <Link href="../" asChild>
       <TouchableOpacity accessibilityRole="link">
         <Text primary className="text-lg">
-          Cancel
+          <Trans>Cancel</Trans>
         </Text>
       </TouchableOpacity>
     </Link>

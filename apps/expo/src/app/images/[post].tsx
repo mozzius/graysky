@@ -9,6 +9,8 @@ import {
   AppBskyEmbedRecordWithMedia,
   AppBskyFeedDefs,
 } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
 
@@ -19,6 +21,7 @@ export default function ImageModal() {
   const agent = useAgent();
   const router = useRouter();
   const [infoVisible, setInfoVisible] = useState(true);
+  const { _ } = useLingui();
   const { post, initial } = useLocalSearchParams() as {
     post: string;
     initial?: string;
@@ -92,7 +95,7 @@ export default function ImageModal() {
       />
       {infoVisible && (
         <TouchableOpacity
-          accessibilityLabel="Close image modal"
+          accessibilityLabel={_(msg`Close image modal`)}
           accessibilityRole="button"
           onPress={() => router.back()}
           className="absolute left-5 z-10"

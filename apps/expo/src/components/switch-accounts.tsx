@@ -10,6 +10,8 @@ import { useMMKVObject } from "react-native-mmkv";
 import { showToastable } from "react-native-toastable";
 import { Link, useRouter } from "expo-router";
 import { type AtpSessionData } from "@atproto/api";
+import { msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
@@ -48,6 +50,7 @@ export function SwitchAccounts({
   const queryClient = useQueryClient();
   const logOut = useLogOut();
   const router = useRouter();
+  const { _ } = useLingui();
 
   const [sessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
 
@@ -65,21 +68,21 @@ export function SwitchAccounts({
     },
     onError: (err, session) => {
       Alert.alert(
-        "Could not log you in",
-        err instanceof Error ? err.message : "Unknown error",
+        _(msg`Could not log you in`),
+        err instanceof Error ? err.message : _(msg`Unknown error`),
       );
       console.error(err);
       showToastable({
-        title: "Could not log you in",
-        message: err instanceof Error ? err.message : "Unknown error",
+        title: _(msg`Could not log you in`),
+        message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
       });
       router.push(`/sign-in?handle=${session.handle}`);
     },
     onSuccess: (data) => {
       showToastable({
-        title: "Logged in",
-        message: `You are now logged in as @${data.handle}`,
+        title: _(msg`Logged in`),
+        message: _(msg`You are now logged in as @${data.handle}`),
         status: "success",
       });
       void queryClient.resetQueries();
@@ -140,7 +143,7 @@ export function SwitchAccounts({
                     }}
                   >
                     <Text primary className="font-medium">
-                      Sign out
+                      <Trans>Sign out</Trans>
                     </Text>
                   </TouchableOpacity>
                 ) : (
@@ -170,7 +173,9 @@ export function SwitchAccounts({
                 />
               </View>
               <View className="ml-3 flex-1">
-                <Text>Add another account</Text>
+                <Text>
+                  <Trans>Add another account</Trans>
+                </Text>
               </View>
             </View>
           </TouchableHighlight>

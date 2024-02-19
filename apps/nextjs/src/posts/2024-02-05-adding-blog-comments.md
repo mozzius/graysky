@@ -20,7 +20,7 @@ Here's the code I used to fetch the comments (slightly simplified for clarity):
 export const CommentSection = async ({ uri }: { uri: string }) => {
   if (!uri) return <p className="text-center">No comments</p>;
 
-  const agent = new BskyAgent({ service: "https://api.bsky.app" });
+  const agent = new BskyAgent({ service: "https://public.api.bsky.app" });
   const response = agent.getPostThread({ uri });
 
   const thread = response.data.thread;
