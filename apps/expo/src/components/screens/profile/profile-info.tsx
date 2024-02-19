@@ -44,7 +44,6 @@ import { useAgent } from "~/lib/agent";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { cx } from "~/lib/utils/cx";
-import { produce } from "~/lib/utils/produce";
 import { useLists } from "../../lists/context";
 import { RichTextWithoutFacets } from "../../rich-text";
 import { Text } from "../../themed/text";
