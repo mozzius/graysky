@@ -123,6 +123,12 @@ export default function AboutPage() {
                 href: "/profile/did:plc:aeh2msk2nvakndnhovbdmzqq",
                 icon: AtSignIcon,
               },
+              {
+                title: "@narooo.com",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:2wlwhbmg2yga6vvei4zpwcjt",
+                icon: AtSignIcon,
+              },
             ],
             footer: _(
               msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
