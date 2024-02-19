@@ -434,7 +434,12 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 )}
                 style={{ borderWidth: StyleSheet.hairlineWidth }}
               >
-                <Text className={cx("text-sm", follow.isIdle && "text-white")}>
+                <Text
+                  className={cx(
+                    "text-sm",
+                    follow.isIdle ? "text-white" : "text-black",
+                  )}
+                >
                   {follow.isIdle ? (
                     <Trans>Follow</Trans>
                   ) : (
