@@ -173,7 +173,7 @@ const getPostThread = async (uri: string) => {
   const params = new URLSearchParams({ uri });
 
   const res = await fetch(
-    "https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?" +
+    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?" +
       params.toString(),
     {
       headers: {

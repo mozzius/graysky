@@ -134,7 +134,8 @@ async function getNicePosts() {
     );
 
     const res = await fetch(
-      "https://api.bsky.app/xrpc/app.bsky.feed.getPosts?" + params.toString(),
+      "https://public.api.bsky.app/xrpc/app.bsky.feed.getPosts?" +
+        params.toString(),
       {
         headers: {
           "Content-Type": "application/json",
