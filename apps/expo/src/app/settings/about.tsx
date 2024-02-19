@@ -118,12 +118,14 @@ export default function AboutPage() {
                 icon: AtSignIcon,
               },
               {
+                // ja translator
                 title: "reindex.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:aeh2msk2nvakndnhovbdmzqq",
                 icon: AtSignIcon,
               },
               {
+                // ja translator
                 title: "@narooo.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:2wlwhbmg2yga6vvei4zpwcjt",
