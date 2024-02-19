@@ -49,14 +49,6 @@
     "overrides": {
       "sharp": "0.32.6",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
-    },
-    "supportedArchitectures": {
-      "os": [
-        "current"
-      ],
-      "cpu": [
-        "current"
-      ]
     }
   },
   "prettier": "@graysky/prettier-config",
