@@ -38,13 +38,13 @@ export default function CreateListScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { showActionSheetWithOptions } = useActionSheet();
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
 
   const rt = new RichTextHelper({ text: description });
   rt.detectFacetsWithoutResolution();
 
   const handleChangeAvatar = useCallback(async () => {
-    const permission = await getGalleryPermission();
+    const permission = await getGalleryPermission(i18n);
     if (!permission) return;
 
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -58,7 +58,7 @@ export default function CreateListScreen() {
     if (result?.assets?.[0]) {
       setAvatar(result.assets[0]);
     }
-  }, []);
+  }, [i18n]);
 
   const handleSelectPurpose = useCallback(() => {
     const options = [_(msg`User list`), _(msg`Moderation list`)];

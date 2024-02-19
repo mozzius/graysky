@@ -27,6 +27,7 @@ import {
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { type I18n } from "@lingui/core";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { type PastedFile } from "@mattermost/react-native-paste-input";
@@ -169,6 +170,7 @@ export const useSendPost = ({
   const primaryLanguage = usePrimaryLanguage();
   const mostRecentLanguage = useMostRecentLanguage();
   const [{ labels, languages, gif, threadgate }] = useComposerState();
+  const { _ } = useLingui();
 
   return useMutation({
     mutationKey: ["send"],
@@ -180,7 +182,9 @@ export const useSendPost = ({
       const rt = await generateRichText(text.trimEnd(), agent);
       if (rt.graphemeLength > MAX_LENGTH) {
         throw new Error(
-          "Your post is too long - there is a character limit of 300 characters",
+          _(
+            msg`Your post is too long - there is a character limit of 300 characters`,
+          ),
         );
       }
 
@@ -191,7 +195,8 @@ export const useSendPost = ({
           const uploaded = await agent.uploadBlob(uri, {
             encoding: "image/jpeg",
           });
-          if (!uploaded.success) throw new Error("Failed to upload image");
+          if (!uploaded.success)
+            throw new Error(_(msg`Failed to upload image`));
           return {
             image: uploaded.data.blob,
             alt: img.alt.trim(),
@@ -241,7 +246,7 @@ export const useSendPost = ({
             encoding,
           });
           if (!thumbUploadRes.success)
-            throw new Error("Failed to upload thumbnail");
+            throw new Error(_(msg`Failed to upload thumbnail`));
           thumb = thumbUploadRes.data.blob;
         }
 
@@ -356,7 +361,7 @@ export const useSendPost = ({
       void queryClient.invalidateQueries({ queryKey: ["profile"] });
       router.push("../");
       showToastable({
-        message: "Post published!",
+        message: _(msg`Post published!`),
       });
     },
     onError: (err) => Sentry.captureException(err),
@@ -366,7 +371,7 @@ export const useSendPost = ({
 export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { showActionSheetWithOptions } = useActionSheet();
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
 
   const theme = useTheme();
   const router = useRouter();
@@ -415,7 +420,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
           const selected = options[index];
           switch (selected) {
             case _(msg`Take Photo`):
-              if (!(await getCameraPermission())) {
+              if (!(await getCameraPermission(i18n))) {
                 return;
               }
               void ImagePicker.launchCameraAsync({
@@ -435,7 +440,7 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
               });
               break;
             case _(msg`Choose from Library`):
-              if (!(await getGalleryPermission())) {
+              if (!(await getGalleryPermission(i18n))) {
                 return;
               }
               void ImagePicker.launchImageLibraryAsync({
@@ -453,8 +458,10 @@ export const useImages = (anchorRef?: React.RefObject<TouchableHighlight>) => {
                     // max images prop not enforced on android due to the `browse` patch
                     if (result.assets.length + prev.length > MAX_IMAGES) {
                       showToastable({
-                        title: "Too many images selected",
-                        message: `You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
+                        title: _(msg`Too many images selected`),
+                        message: _(
+                          msg`You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
+                        ),
                       });
                     }
                     return [
@@ -556,7 +563,7 @@ export const generateRichText = async (text: string, agent: BskyAgent) => {
   return rt;
 };
 
-export const getGalleryPermission = async () => {
+export const getGalleryPermission = async (i18n: I18n) => {
   const canChoosePhoto = await ImagePicker.getMediaLibraryPermissionsAsync();
   if (!canChoosePhoto.granted) {
     if (canChoosePhoto.canAskAgain) {
@@ -564,16 +571,20 @@ export const getGalleryPermission = async () => {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!granted) {
         showToastable({
-          title: "Permission required",
-          message: "Please enable photo gallery access in your settings",
+          title: i18n._(msg`Permission required`),
+          message: i18n._(
+            msg`Please enable photo gallery access in your settings`,
+          ),
           status: "warning",
         });
         return false;
       }
     } else {
       showToastable({
-        title: "Permission required",
-        message: "Please enable photo gallery access in your settings",
+        title: i18n._(msg`Permission required`),
+        message: i18n._(
+          msg`Please enable photo gallery access in your settings`,
+        ),
         status: "warning",
       });
       return false;
@@ -582,23 +593,23 @@ export const getGalleryPermission = async () => {
   return true;
 };
 
-export const getCameraPermission = async () => {
+export const getCameraPermission = async (i18n: I18n) => {
   const canTakePhoto = await ImagePicker.getCameraPermissionsAsync();
   if (!canTakePhoto.granted) {
     if (canTakePhoto.canAskAgain) {
       const { granted } = await ImagePicker.requestCameraPermissionsAsync();
       if (!granted) {
         showToastable({
-          title: "Permission required",
-          message: "Please enable camera access in your settings",
+          title: i18n._(msg`Permission required`),
+          message: i18n._(msg`Please enable camera access in your settings`),
           status: "warning",
         });
         return false;
       }
     } else {
       showToastable({
-        title: "Permission required",
-        message: "Please enable camera access in your settings",
+        title: i18n._(msg`Permission required`),
+        message: i18n._(msg`Please enable camera access in your settings`),
         status: "warning",
       });
       return false;

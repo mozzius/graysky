@@ -249,7 +249,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             ] as const;
             showActionSheetWithOptions(
               {
-                title: "What is the issue with this account?",
+                title: _(msg`What is the issue with this account?`),
                 options: reportOptions.map((x) => _(x.label)),
                 cancelButtonIndex: reportOptions.length - 1,
                 ...actionSheetStyles(theme),

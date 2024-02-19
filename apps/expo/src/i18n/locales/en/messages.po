@@ -25,7 +25,7 @@ msgstr ""
 msgid "{0} / month"
 msgstr ""
 
-#: src/app/pro.tsx:236
+#: src/app/pro.tsx:238
 msgid "{0} / year"
 msgstr ""
 
@@ -180,6 +180,7 @@ msgid "A specific feed"
 msgstr ""
 
 #: src/app/settings/_layout.tsx:117
+#: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr ""
 
@@ -308,12 +309,28 @@ msgstr ""
 msgid "An error occurred"
 msgstr ""
 
+#: src/components/image-with-context-menu.tsx:142
+msgid "An error occurred while trying to copy the image"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:174
+msgid "An error occurred while trying to save the image"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:198
+msgid "An error occurred while trying to share the image"
+msgstr ""
+
 #: src/app/composer/index.tsx:288
 msgid "An unknown error occurred"
 msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:58
 msgid "An unknown error occurred."
+msgstr ""
+
+#: src/app/pro.tsx:220
+msgid "Annual Plan"
 msgstr ""
 
 #: src/app/settings/about.tsx:122
@@ -372,7 +389,7 @@ msgstr ""
 msgid "Better translations"
 msgstr ""
 
-#: src/app/pro.tsx:240
+#: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
 msgstr ""
 
@@ -434,11 +451,11 @@ msgstr ""
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr ""
 
-#: src/app/pro.tsx:299
+#: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr ""
 
-#: src/app/pro.tsx:264
+#: src/app/pro.tsx:266
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr ""
 
@@ -450,7 +467,7 @@ msgstr ""
 #: src/app/capture/[author]/[post].tsx:156
 #: src/app/create-list.tsx:67
 #: src/app/create-list.tsx:135
-#: src/app/edit-bio.tsx:124
+#: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
 #: src/app/settings/feed.tsx:138
 #: src/app/settings/feed.tsx:234
@@ -461,6 +478,7 @@ msgstr ""
 #: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:80
 #: src/components/post-context-menu.tsx:118
+#: src/components/post-context-menu.tsx:152
 #: src/components/post-context-menu.tsx:278
 #: src/components/screens/profile/profile-info.tsx:191
 #: src/components/screens/profile/profile-info.tsx:248
@@ -470,8 +488,8 @@ msgstr ""
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:163
 #: src/lib/composer/buttons.tsx:174
-#: src/lib/composer/utils.tsx:391
-#: src/lib/composer/utils.tsx:393
+#: src/lib/composer/utils.tsx:396
+#: src/lib/composer/utils.tsx:398
 #: src/lib/hooks/link-press.tsx:40
 #: src/lib/hooks/link-press.tsx:101
 #: src/lib/hooks/post-actions.tsx:142
@@ -507,9 +525,9 @@ msgstr ""
 msgid "Choose a handle"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:389
-#: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:437
+#: src/lib/composer/utils.tsx:394
+#: src/lib/composer/utils.tsx:398
+#: src/lib/composer/utils.tsx:442
 msgid "Choose from Library"
 msgstr ""
 
@@ -549,6 +567,10 @@ msgstr ""
 msgid "Contributors"
 msgstr ""
 
+#: src/components/image-with-context-menu.tsx:136
+msgid "Copied image to clipboard"
+msgstr ""
+
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
 msgstr ""
@@ -557,12 +579,20 @@ msgstr ""
 msgid "Copied post text"
 msgstr ""
 
+#: src/components/image-with-context-menu.tsx:126
+msgid "Copy Image"
+msgstr ""
+
 #: src/lib/hooks/link-press.tsx:89
 msgid "Copy link"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:208
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/post-context-menu.tsx:147
+msgid "Copyright Violation"
 msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:57
@@ -579,6 +609,10 @@ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
+msgid "Could not delete list"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:136
@@ -704,7 +738,7 @@ msgid "Deletion Code"
 msgstr ""
 
 #: src/app/create-list.tsx:189
-#: src/app/edit-bio.tsx:244
+#: src/app/edit-bio.tsx:245
 msgid "Description"
 msgstr ""
 
@@ -738,7 +772,7 @@ msgstr ""
 msgid "Discover more feeds"
 msgstr ""
 
-#: src/app/edit-bio.tsx:227
+#: src/app/edit-bio.tsx:228
 msgid "Display name"
 msgstr ""
 
@@ -778,11 +812,11 @@ msgstr ""
 msgid "Edit alt text"
 msgstr ""
 
-#: src/app/edit-bio.tsx:200
+#: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
 msgstr ""
 
-#: src/app/edit-bio.tsx:182
+#: src/app/edit-bio.tsx:183
 msgid "Edit banner"
 msgstr ""
 
@@ -813,6 +847,7 @@ msgstr ""
 msgid "Enter your phone number"
 msgstr ""
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -836,6 +871,14 @@ msgstr ""
 
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:199
+msgid "Failed to upload image"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:249
+msgid "Failed to upload thumbnail"
 msgstr ""
 
 #: src/components/feed-row.tsx:221
@@ -1050,6 +1093,10 @@ msgstr ""
 msgid "List blocked"
 msgstr ""
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:667
+msgid "List deleted"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:229
 msgid "List muted"
 msgstr ""
@@ -1122,6 +1169,7 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
+#: src/components/post-context-menu.tsx:148
 #: src/components/screens/profile/profile-info.tsx:246
 msgid "Misleading"
 msgstr ""
@@ -1226,6 +1274,7 @@ msgid "New Password"
 msgstr ""
 
 #: src/app/composer/_layout.tsx:72
+#: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr ""
 
@@ -1320,6 +1369,7 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:151
 #: src/components/screens/profile/profile-info.tsx:247
 msgid "Other"
 msgstr ""
@@ -1350,12 +1400,31 @@ msgstr ""
 msgid "People you follow"
 msgstr ""
 
+#: src/components/image-with-context-menu.tsx:156
+#: src/lib/composer/utils.tsx:574
+#: src/lib/composer/utils.tsx:584
+#: src/lib/composer/utils.tsx:603
+#: src/lib/composer/utils.tsx:611
+msgid "Permission required"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:281
 msgid "Phone number"
 msgstr ""
 
 #: src/app/composer/index.tsx:233
 msgid "Please add descriptive alt text to all images before posting."
+msgstr ""
+
+#: src/lib/composer/utils.tsx:604
+#: src/lib/composer/utils.tsx:612
+msgid "Please enable camera access in your settings"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:158
+#: src/lib/composer/utils.tsx:576
+#: src/lib/composer/utils.tsx:586
+msgid "Please enable photo gallery access in your settings"
 msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:303
@@ -1406,6 +1475,10 @@ msgstr ""
 #: src/components/post-context-menu.tsx:293
 #: src/components/post-context-menu.tsx:320
 msgid "Post options"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:364
+msgid "Post published!"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:108
@@ -1544,6 +1617,7 @@ msgstr ""
 msgid "Report post"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:174
 #: src/components/screens/profile/profile-info.tsx:269
 msgid "Report submitted"
 msgstr ""
@@ -1580,13 +1654,13 @@ msgstr ""
 msgid "Reset password"
 msgstr ""
 
-#: src/app/pro.tsx:333
-#: src/app/pro.tsx:348
+#: src/app/pro.tsx:335
+#: src/app/pro.tsx:350
 msgid "Restore purchases"
 msgstr ""
 
-#: src/app/pro.tsx:331
-#: src/app/pro.tsx:346
+#: src/app/pro.tsx:333
+#: src/app/pro.tsx:348
 msgid "Restoring purchases..."
 msgstr ""
 
@@ -1599,23 +1673,36 @@ msgstr ""
 msgid "Rising"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:150
+msgid "Rude"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
-#: src/app/edit-bio.tsx:144
+#: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
 msgid "Save"
 msgstr ""
 
-#: src/app/pro.tsx:222
+#: src/app/pro.tsx:224
 msgid "Save {0}%"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:151
+msgid "Save Image"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
 msgid "Saved"
 msgstr ""
 
+#: src/components/image-with-context-menu.tsx:168
+msgid "Saved image to gallery"
+msgstr ""
+
 #: src/app/(tabs)/_layout.tsx:172
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
+#: src/lib/quick-actions.ts:70
 msgid "Search"
 msgstr ""
 
@@ -1645,8 +1732,8 @@ msgstr ""
 msgid "Search for users"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:390
-#: src/lib/composer/utils.tsx:470
+#: src/lib/composer/utils.tsx:395
+#: src/lib/composer/utils.tsx:477
 msgid "Search GIFs"
 msgstr ""
 
@@ -1711,6 +1798,7 @@ msgstr ""
 
 #: src/app/settings/_layout.tsx:46
 #: src/components/drawer/drawer-content.tsx:197
+#: src/lib/quick-actions.ts:82
 msgid "Settings"
 msgstr ""
 
@@ -1740,6 +1828,7 @@ msgid "Share as Image"
 msgstr ""
 
 #: src/app/capture/[author]/[post].tsx:143
+#: src/components/image-with-context-menu.tsx:191
 msgid "Share image"
 msgstr ""
 
@@ -1765,6 +1854,10 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:185
+msgid "Share via..."
 msgstr ""
 
 #: src/app/settings/app.tsx:52
@@ -1845,6 +1938,7 @@ msgstr ""
 msgid "Sort: {0}"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:146
 #: src/components/screens/profile/profile-info.tsx:245
 msgid "Spam"
 msgstr ""
@@ -1870,7 +1964,7 @@ msgstr ""
 msgid "Stop editing"
 msgstr ""
 
-#: src/app/pro.tsx:257
+#: src/app/pro.tsx:259
 msgid "Subscribe & pay"
 msgstr ""
 
@@ -1903,12 +1997,13 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:388
 #: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:417
+#: src/lib/composer/utils.tsx:398
+#: src/lib/composer/utils.tsx:422
 msgid "Take Photo"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:175
 #: src/components/screens/profile/profile-info.tsx:271
 msgid "Thank you for making the skyline a safer place"
 msgstr ""
@@ -1976,6 +2071,10 @@ msgstr ""
 
 #: src/components/feed-row.tsx:224
 msgid "Toggle favourite status"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:461
+msgid "Too many images selected"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
@@ -2092,6 +2191,10 @@ msgstr ""
 msgid "Unsubscribed from list"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:149
+msgid "Unwanted Sexual Content"
+msgstr ""
+
 #: src/app/settings/language/index.tsx:131
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
@@ -2172,6 +2275,14 @@ msgstr ""
 msgid "Welcome to Graysky Pro!"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:252
+msgid "What is the issue with this account?"
+msgstr ""
+
+#: src/components/post-context-menu.tsx:156
+msgid "What is the issue with this post?"
+msgstr ""
+
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
 msgstr ""
@@ -2199,6 +2310,10 @@ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:463
+msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr ""
 
 #: src/app/push-notifications.tsx:38
@@ -2260,4 +2375,12 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:668
+msgid "Your list has been deleted"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:186
+msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr ""

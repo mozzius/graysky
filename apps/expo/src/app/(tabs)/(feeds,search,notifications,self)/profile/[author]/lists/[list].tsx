@@ -645,6 +645,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
 const useDeleteList = (handle?: string, rkey?: string) => {
   const agent = useAgent();
   const router = useRouter();
+  const { _ } = useLingui();
 
   return useMutation({
     mutationFn: async () => {
@@ -663,14 +664,14 @@ const useDeleteList = (handle?: string, rkey?: string) => {
     onSuccess: () => {
       router.back();
       showToastable({
-        title: "List deleted",
-        message: "Your list has been deleted",
+        title: _(msg`List deleted`),
+        message: _(msg`Your list has been deleted`),
       });
     },
     onError: () => {
       showToastable({
-        title: "Error",
-        message: "Could not delete list",
+        title: _(msg`Error`),
+        message: _(msg`Could not delete list`),
         status: "danger",
       });
     },

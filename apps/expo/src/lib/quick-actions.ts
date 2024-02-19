@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { AppState, Platform } from "react-native";
 import * as QuickActions from "expo-quick-actions";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 
 export function useQuickActionCallback(
   callback?: (data: QuickActions.Action) => void | Promise<void>,
@@ -55,6 +57,8 @@ export function useQuickAction() {
 }
 
 export function useSetupQuickActions() {
+  const { _ } = useLingui();
+
   useEffect(() => {
     // use static quick actions on iOS
     if (Platform.OS === "ios") return;
@@ -63,30 +67,30 @@ export function useSetupQuickActions() {
         void QuickActions.setItems([
           {
             id: "search",
-            title: "Search",
+            title: _(msg`Search`),
             params: { href: "/search" },
             icon: "shortcut_search",
           },
           {
             id: "new-post",
-            title: "New Post",
+            title: _(msg`New Post`),
             params: { href: "/composer" },
             icon: "shortcut_compose",
           },
           {
             id: "settings",
-            title: "Settings",
+            title: _(msg`Settings`),
             params: { href: "/settings" },
             icon: "shortcut_settings",
           },
           {
             id: "about",
-            title: "About",
+            title: _(msg`About`),
             params: { href: "/settings/about" },
             icon: "shortcut_about",
           },
         ]);
       }
     });
-  }, []);
+  }, [_]);
 }

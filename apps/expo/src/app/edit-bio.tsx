@@ -12,6 +12,7 @@ import {
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
+import { type I18n } from "@lingui/core";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
@@ -37,7 +38,7 @@ export default function EditBio() {
   const agent = useAgent();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { _ } = useLingui();
+  const { _, i18n } = useLingui();
 
   const self = useSelf();
 
@@ -149,16 +150,16 @@ export default function EditBio() {
   );
 
   const editAvatar = useCallback(async () => {
-    const image = await getImage([1, 1], true).catch(() => null);
+    const image = await getImage(i18n, [1, 1], true).catch(() => null);
     if (!image) return;
     setAvatar(image);
-  }, []);
+  }, [i18n]);
 
   const editBanner = useCallback(async () => {
-    const image = await getImage([1, 3]).catch(() => null);
+    const image = await getImage(i18n, [1, 3]).catch(() => null);
     if (!image) return;
     setBanner(image);
-  }, []);
+  }, [i18n]);
 
   if (self.data) {
     return (
@@ -277,8 +278,8 @@ export default function EditBio() {
   );
 }
 
-async function getImage(aspect: [number, number], circle = false) {
-  if (!(await getGalleryPermission())) return;
+async function getImage(i18n: I18n, aspect: [number, number], circle = false) {
+  if (!(await getGalleryPermission(i18n))) return;
   const response = await openPicker({
     height: aspect[0] * 1000,
     width: aspect[1] * 1000,

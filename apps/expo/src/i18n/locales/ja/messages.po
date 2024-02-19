@@ -30,7 +30,7 @@ msgstr "{0} @{1}"
 msgid "{0} / month"
 msgstr "{0} / 月"
 
-#: src/app/pro.tsx:236
+#: src/app/pro.tsx:238
 msgid "{0} / year"
 msgstr "{0} / 年"
 
@@ -185,6 +185,7 @@ msgid "A specific feed"
 msgstr "特定のフィード"
 
 #: src/app/settings/_layout.tsx:117
+#: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "アプリについて"
 
@@ -313,6 +314,18 @@ msgstr "ALTテキスト"
 msgid "An error occurred"
 msgstr "エラーが発生しました"
 
+#: src/components/image-with-context-menu.tsx:142
+msgid "An error occurred while trying to copy the image"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:174
+msgid "An error occurred while trying to save the image"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:198
+msgid "An error occurred while trying to share the image"
+msgstr ""
+
 #: src/app/composer/index.tsx:288
 msgid "An unknown error occurred"
 msgstr "不明なエラーが発生しました。"
@@ -320,6 +333,10 @@ msgstr "不明なエラーが発生しました。"
 #: src/app/settings/account/change-handle.tsx:58
 msgid "An unknown error occurred."
 msgstr "不明なエラーが発生しました。"
+
+#: src/app/pro.tsx:220
+msgid "Annual Plan"
+msgstr ""
 
 #: src/app/settings/about.tsx:122
 msgid "App info"
@@ -377,7 +394,7 @@ msgstr "戻る"
 msgid "Better translations"
 msgstr "より高精度な翻訳機能"
 
-#: src/app/pro.tsx:240
+#: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
 msgstr "年間の支払い、いつでも解約可能です"
 
@@ -439,11 +456,11 @@ msgstr "by @{0}"
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "確認を押すことで削除しようとしているものは「Blueskyアカウント」であり、「Grayskyではないことを理解した」と見なされます。公式アプリからもデータは完全に削除されます。"
 
-#: src/app/pro.tsx:299
+#: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "サブスクリプションをする事で、<0>利用規約</0>および<1>プライバシーポリシー</1>に同意したものとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
-#: src/app/pro.tsx:264
+#: src/app/pro.tsx:266
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利用許諾契約(EULA)</1>および<2>プライバシーポリシー</2>に同意したとみなされます。サブスクリプションはキャンセルされるまで自動的に更新されます。"
 
@@ -455,7 +472,7 @@ msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利�
 #: src/app/capture/[author]/[post].tsx:156
 #: src/app/create-list.tsx:67
 #: src/app/create-list.tsx:135
-#: src/app/edit-bio.tsx:124
+#: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
 #: src/app/settings/feed.tsx:138
 #: src/app/settings/feed.tsx:234
@@ -466,6 +483,7 @@ msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利�
 #: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:80
 #: src/components/post-context-menu.tsx:118
+#: src/components/post-context-menu.tsx:152
 #: src/components/post-context-menu.tsx:278
 #: src/components/screens/profile/profile-info.tsx:191
 #: src/components/screens/profile/profile-info.tsx:248
@@ -475,8 +493,8 @@ msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利�
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:163
 #: src/lib/composer/buttons.tsx:174
-#: src/lib/composer/utils.tsx:391
-#: src/lib/composer/utils.tsx:393
+#: src/lib/composer/utils.tsx:396
+#: src/lib/composer/utils.tsx:398
 #: src/lib/hooks/link-press.tsx:40
 #: src/lib/hooks/link-press.tsx:101
 #: src/lib/hooks/post-actions.tsx:142
@@ -512,9 +530,9 @@ msgstr "テーマを変更"
 msgid "Choose a handle"
 msgstr "ハンドルを選択"
 
-#: src/lib/composer/utils.tsx:389
-#: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:437
+#: src/lib/composer/utils.tsx:394
+#: src/lib/composer/utils.tsx:398
+#: src/lib/composer/utils.tsx:442
 msgid "Choose from Library"
 msgstr "ライブラリから選択"
 
@@ -554,6 +572,10 @@ msgstr "コンテンツ警告"
 msgid "Contributors"
 msgstr "寄付者"
 
+#: src/components/image-with-context-menu.tsx:136
+msgid "Copied image to clipboard"
+msgstr ""
+
 #: src/lib/hooks/link-press.tsx:114
 msgid "Copied link"
 msgstr "リンクをコピーしました"
@@ -562,6 +584,10 @@ msgstr "リンクをコピーしました"
 msgid "Copied post text"
 msgstr "コピーされた投稿テキスト"
 
+#: src/components/image-with-context-menu.tsx:126
+msgid "Copy Image"
+msgstr ""
+
 #: src/lib/hooks/link-press.tsx:89
 msgid "Copy link"
 msgstr "リンクをコピー"
@@ -569,6 +595,10 @@ msgstr "リンクをコピー"
 #: src/components/post-context-menu.tsx:208
 msgid "Copy post text"
 msgstr "テキストをコピー"
+
+#: src/components/post-context-menu.tsx:147
+msgid "Copyright Violation"
+msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
@@ -585,6 +615,10 @@ msgstr "アカウントを作成できませんでした"
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
 msgstr "アカウントを削除できませんでした"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
+msgid "Could not delete list"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:136
 msgid "Could not fetch list"
@@ -711,7 +745,7 @@ msgid "Deletion Code"
 msgstr "削除コード"
 
 #: src/app/create-list.tsx:189
-#: src/app/edit-bio.tsx:244
+#: src/app/edit-bio.tsx:245
 msgid "Description"
 msgstr "説明"
 
@@ -745,7 +779,7 @@ msgstr "フィードを見つける"
 msgid "Discover more feeds"
 msgstr "さらにフィードを探す"
 
-#: src/app/edit-bio.tsx:227
+#: src/app/edit-bio.tsx:228
 msgid "Display name"
 msgstr "表示名"
 
@@ -787,11 +821,11 @@ msgstr "編集"
 msgid "Edit alt text"
 msgstr "ALTテキストを編集"
 
-#: src/app/edit-bio.tsx:200
+#: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
 msgstr "アバターを編集"
 
-#: src/app/edit-bio.tsx:182
+#: src/app/edit-bio.tsx:183
 msgid "Edit banner"
 msgstr "バナーを編集"
 
@@ -822,6 +856,7 @@ msgstr "アダルトコンテンツを有効化"
 msgid "Enter your phone number"
 msgstr "電話番号を入力"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -846,6 +881,14 @@ msgstr "フィードの補給に失敗しました"
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
 msgstr "リンクが開けませんでした"
+
+#: src/lib/composer/utils.tsx:199
+msgid "Failed to upload image"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:249
+msgid "Failed to upload thumbnail"
+msgstr ""
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
@@ -1059,6 +1102,10 @@ msgstr "リストのアバター"
 msgid "List blocked"
 msgstr "ブロックをしたリスト"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:667
+msgid "List deleted"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:229
 msgid "List muted"
 msgstr "ミュートをしたリスト"
@@ -1131,6 +1178,7 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "\"{0}\" のリスト内のメンバー"
 
+#: src/components/post-context-menu.tsx:148
 #: src/components/screens/profile/profile-info.tsx:246
 msgid "Misleading"
 msgstr ""
@@ -1235,6 +1283,7 @@ msgid "New Password"
 msgstr "新たなパスワード"
 
 #: src/app/composer/_layout.tsx:72
+#: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "新しい投稿"
 
@@ -1329,6 +1378,7 @@ msgstr "プロフィールを開く"
 msgid "Optional"
 msgstr "任意"
 
+#: src/components/post-context-menu.tsx:151
 #: src/components/screens/profile/profile-info.tsx:247
 msgid "Other"
 msgstr ""
@@ -1359,6 +1409,14 @@ msgstr "スレッドで言及した人"
 msgid "People you follow"
 msgstr "フォローをしている人"
 
+#: src/components/image-with-context-menu.tsx:156
+#: src/lib/composer/utils.tsx:574
+#: src/lib/composer/utils.tsx:584
+#: src/lib/composer/utils.tsx:603
+#: src/lib/composer/utils.tsx:611
+msgid "Permission required"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:281
 msgid "Phone number"
 msgstr "電話番号"
@@ -1366,6 +1424,17 @@ msgstr "電話番号"
 #: src/app/composer/index.tsx:233
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "投稿する前にすべての画像に説明となるALTテキストを追加してください。"
+
+#: src/lib/composer/utils.tsx:604
+#: src/lib/composer/utils.tsx:612
+msgid "Please enable camera access in your settings"
+msgstr ""
+
+#: src/components/image-with-context-menu.tsx:158
+#: src/lib/composer/utils.tsx:576
+#: src/lib/composer/utils.tsx:586
+msgid "Please enable photo gallery access in your settings"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:303
 msgid "Please enter a phone number that can receive SMS text messages."
@@ -1416,6 +1485,10 @@ msgstr "投稿の言語"
 #: src/components/post-context-menu.tsx:320
 msgid "Post options"
 msgstr "投稿のオプション"
+
+#: src/lib/composer/utils.tsx:364
+msgid "Post published!"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:108
 msgid "Post text copied to clipboard"
@@ -1553,6 +1626,7 @@ msgstr ""
 msgid "Report post"
 msgstr "投稿を報告する"
 
+#: src/components/post-context-menu.tsx:174
 #: src/components/screens/profile/profile-info.tsx:269
 msgid "Report submitted"
 msgstr ""
@@ -1589,13 +1663,13 @@ msgstr "コードをリセット"
 msgid "Reset password"
 msgstr "パスワードをリセット"
 
-#: src/app/pro.tsx:333
-#: src/app/pro.tsx:348
+#: src/app/pro.tsx:335
+#: src/app/pro.tsx:350
 msgid "Restore purchases"
 msgstr "購入を復元する"
 
-#: src/app/pro.tsx:331
-#: src/app/pro.tsx:346
+#: src/app/pro.tsx:333
+#: src/app/pro.tsx:348
 msgid "Restoring purchases..."
 msgstr "購入を復元しています..."
 
@@ -1608,23 +1682,36 @@ msgstr "再試行"
 msgid "Rising"
 msgstr "急上昇"
 
+#: src/components/post-context-menu.tsx:150
+msgid "Rude"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
-#: src/app/edit-bio.tsx:144
+#: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
 msgid "Save"
 msgstr "保存"
 
-#: src/app/pro.tsx:222
+#: src/app/pro.tsx:224
 msgid "Save {0}%"
 msgstr " {0}% を保存"
+
+#: src/components/image-with-context-menu.tsx:151
+msgid "Save Image"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
 msgid "Saved"
 msgstr "保存しました"
 
+#: src/components/image-with-context-menu.tsx:168
+msgid "Saved image to gallery"
+msgstr ""
+
 #: src/app/(tabs)/_layout.tsx:172
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
+#: src/lib/quick-actions.ts:70
 msgid "Search"
 msgstr "検索"
 
@@ -1654,8 +1741,8 @@ msgstr "投稿を検索"
 msgid "Search for users"
 msgstr "ユーザーを検索"
 
-#: src/lib/composer/utils.tsx:390
-#: src/lib/composer/utils.tsx:470
+#: src/lib/composer/utils.tsx:395
+#: src/lib/composer/utils.tsx:477
 msgid "Search GIFs"
 msgstr "GIFを検索"
 
@@ -1720,6 +1807,7 @@ msgstr "リセットメールを送信する"
 
 #: src/app/settings/_layout.tsx:46
 #: src/components/drawer/drawer-content.tsx:197
+#: src/lib/quick-actions.ts:82
 msgid "Settings"
 msgstr "設定"
 
@@ -1749,6 +1837,7 @@ msgid "Share as Image"
 msgstr "画像として共有"
 
 #: src/app/capture/[author]/[post].tsx:143
+#: src/components/image-with-context-menu.tsx:191
 msgid "Share image"
 msgstr "画像を共有"
 
@@ -1775,6 +1864,10 @@ msgstr "プロフィールを共有"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
 msgstr "このフィードを共有"
+
+#: src/components/image-with-context-menu.tsx:185
+msgid "Share via..."
+msgstr ""
 
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
@@ -1854,6 +1947,7 @@ msgstr "投稿の並び替え"
 msgid "Sort: {0}"
 msgstr "並べ替え: {0}"
 
+#: src/components/post-context-menu.tsx:146
 #: src/components/screens/profile/profile-info.tsx:245
 msgid "Spam"
 msgstr ""
@@ -1879,7 +1973,7 @@ msgstr "あなたをフォローしました"
 msgid "Stop editing"
 msgstr "編集をやめる"
 
-#: src/app/pro.tsx:257
+#: src/app/pro.tsx:259
 msgid "Subscribe & pay"
 msgstr "サブスクリプションと支払い"
 
@@ -1912,12 +2006,13 @@ msgstr "システム"
 msgid "System"
 msgstr "システム"
 
-#: src/lib/composer/utils.tsx:388
 #: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:417
+#: src/lib/composer/utils.tsx:398
+#: src/lib/composer/utils.tsx:422
 msgid "Take Photo"
 msgstr "写真撮影"
 
+#: src/components/post-context-menu.tsx:175
 #: src/components/screens/profile/profile-info.tsx:271
 msgid "Thank you for making the skyline a safer place"
 msgstr ""
@@ -1986,6 +2081,10 @@ msgstr "まずは、ホーム画面にいくつかのフィードを追加して
 #: src/components/feed-row.tsx:224
 msgid "Toggle favourite status"
 msgstr "お気に入りのステータスを切り替え"
+
+#: src/lib/composer/utils.tsx:461
+msgid "Too many images selected"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
 msgid "Top (10h)"
@@ -2101,6 +2200,10 @@ msgstr "リストから購読を解除"
 msgid "Unsubscribed from list"
 msgstr "リストから購読を解除しました"
 
+#: src/components/post-context-menu.tsx:149
+msgid "Unwanted Sexual Content"
+msgstr ""
+
 #: src/app/settings/language/index.tsx:131
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
@@ -2181,6 +2284,14 @@ msgstr "Blueskyへようこそ! あなたが来てくれてワクワクしてい
 msgid "Welcome to Graysky Pro!"
 msgstr "Graysky Proへようこそ!"
 
+#: src/components/screens/profile/profile-info.tsx:252
+msgid "What is the issue with this account?"
+msgstr ""
+
+#: src/components/post-context-menu.tsx:156
+msgid "What is the issue with this post?"
+msgstr ""
+
 #: src/app/composer/index.tsx:352
 msgid "What's on your mind?"
 msgstr "何を考えていますか？"
@@ -2209,6 +2320,10 @@ msgstr "後で変更可能です"
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
 msgstr "アクセントカラーを変更できます"
+
+#: src/lib/composer/utils.tsx:463
+msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
+msgstr ""
 
 #: src/app/push-notifications.tsx:38
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
@@ -2270,3 +2385,11 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:668
+msgid "Your list has been deleted"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:186
+msgid "Your post is too long - there is a character limit of 300 characters"
+msgstr ""

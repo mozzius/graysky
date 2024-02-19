@@ -143,18 +143,18 @@ const PostContextMenuButton = ({
   const report = () => {
     // prettier-ignore
     const reportOptions = [
-        { label: "Spam", value: ComAtprotoModerationDefs.REASONSPAM },
-        { label: "Copyright Violation", value: ComAtprotoModerationDefs.REASONVIOLATION },
-        { label: "Misleading", value: ComAtprotoModerationDefs.REASONMISLEADING },
-        { label: "Unwanted Sexual Content", value: ComAtprotoModerationDefs.REASONSEXUAL },
-        { label: "Rude", value: ComAtprotoModerationDefs.REASONRUDE },
-        { label: "Other", value: ComAtprotoModerationDefs.REASONOTHER },
-        { label: "Cancel", value: "Cancel" },
+        { label: msg`Spam`, value: ComAtprotoModerationDefs.REASONSPAM },
+        { label: msg`Copyright Violation`, value: ComAtprotoModerationDefs.REASONVIOLATION },
+        { label: msg`Misleading`, value: ComAtprotoModerationDefs.REASONMISLEADING },
+        { label: msg`Unwanted Sexual Content`, value: ComAtprotoModerationDefs.REASONSEXUAL },
+        { label: msg`Rude`, value: ComAtprotoModerationDefs.REASONRUDE },
+        { label: msg`Other`, value: ComAtprotoModerationDefs.REASONOTHER },
+        { label: msg`Cancel`, value: "Cancel" },
       ] as const;
     showActionSheetWithOptions(
       {
-        title: "What is the issue with this post?",
-        options: reportOptions.map((x) => x.label),
+        title: _(msg`What is the issue with this post?`),
+        options: reportOptions.map((x) => _(x.label)),
         cancelButtonIndex: reportOptions.length - 1,
         ...actionSheetStyles(theme),
       },
@@ -171,8 +171,8 @@ const PostContextMenuButton = ({
           },
         });
         showToastable({
-          title: "Report submitted",
-          message: "Thank you for making the skyline a safer place",
+          title: _(msg`Report submitted`),
+          message: _(msg`Thank you for making the skyline a safer place`),
         });
       },
     );

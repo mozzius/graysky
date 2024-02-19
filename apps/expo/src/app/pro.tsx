@@ -216,7 +216,9 @@ export default function Pro() {
                 >
                   <View className="flex-row justify-between">
                     <View className="flex-row items-center">
-                      <Text className="text-base text-white">Annual Plan</Text>
+                      <Text className="text-base text-white">
+                        <Trans>Annual Plan</Trans>
+                      </Text>
                       <View className="ml-2 rounded-md bg-green-300">
                         <Text className="py-0.5 pl-1.5 pr-1 text-xs font-bold text-green-950">
                           <Trans>

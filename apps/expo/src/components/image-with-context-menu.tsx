@@ -9,6 +9,8 @@ import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { type AppBskyEmbedImages } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CopyIcon, SaveIcon, Share2Icon } from "lucide-react-native";
@@ -96,6 +98,7 @@ export const ImageWithContextMenu = ({
 
 export const useImageOptions = () => {
   const theme = useTheme();
+  const { _ } = useLingui();
   const { data: canShare } = useQuery({
     queryKey: ["is-sharing-available"],
     queryFn: () => Sharing.isAvailableAsync(),
@@ -120,7 +123,7 @@ export const useImageOptions = () => {
   const items = [
     {
       key: "copy",
-      label: "Copy Image",
+      label: _(msg`Copy Image`),
       reactIcon: <CopyIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         try {
@@ -130,13 +133,13 @@ export const useImageOptions = () => {
           });
           await Clipboard.setImageAsync(base64);
           showToastable({
-            message: "Copied image to clipboard",
+            message: _(msg`Copied image to clipboard`),
             status: "success",
           });
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occurred while trying to copy the image",
+            message: _(msg`An error occurred while trying to copy the image`),
             status: "danger",
           });
         }
@@ -145,13 +148,15 @@ export const useImageOptions = () => {
     },
     {
       key: "save",
-      label: "Save Image",
+      label: _(msg`Save Image`),
       reactIcon: <SaveIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         if (!(await MediaLibrary.requestPermissionsAsync()).granted) {
           showToastable({
-            title: "Permission required",
-            message: "Please enable photo gallery access in your settings",
+            title: _(msg`Permission required`),
+            message: _(
+              msg`Please enable photo gallery access in your settings`,
+            ),
             status: "warning",
           });
           return;
@@ -160,13 +165,13 @@ export const useImageOptions = () => {
           const download = await downloadImage(uri);
           await MediaLibrary.saveToLibraryAsync(download.uri);
           showToastable({
-            message: "Saved image to gallery",
+            message: _(msg`Saved image to gallery`),
             status: "success",
           });
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occurred while trying to save the image",
+            message: _(msg`An error occurred while trying to save the image`),
             status: "danger",
           });
         }
@@ -177,20 +182,20 @@ export const useImageOptions = () => {
   if (canShare) {
     items.push({
       key: "share",
-      label: "Share via...",
+      label: _(msg`Share via...`),
       reactIcon: <Share2Icon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         try {
           const res = await downloadImage(uri);
           await Sharing.shareAsync(res.uri, {
-            dialogTitle: "Share image",
+            dialogTitle: _(msg`Share image`),
             mimeType: res.type,
             UTI: res.type,
           });
         } catch (err) {
           console.error(err);
           showToastable({
-            message: "An error occurred while trying to share the image",
+            message: _(msg`An error occurred while trying to share the image`),
             status: "danger",
           });
         }

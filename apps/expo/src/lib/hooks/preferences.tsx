@@ -10,6 +10,8 @@ import { useHaptics as useHapticsPreference } from "../storage/app-preferences";
 // TODO: Refactor to new Content Moderation API!
 // https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
 
+// also translate when you do this
+
 export const contentLabels = {
   nsfw: {
     label: "Explicit Sexual Images",
