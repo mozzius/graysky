@@ -117,10 +117,6 @@ msgstr ""
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
 msgstr ""
 
-#: src/components/notification/index.tsx:223
-#~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1><2>· {7}</2>"
-#~ msgstr ""
-
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:616
 msgid "<0>{0}</0> Followers"
@@ -914,7 +910,7 @@ msgstr ""
 msgid "Find people to follow"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:439
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
 #: src/components/screens/profile/profile-info.tsx:540
 msgid "Follow"
 msgstr ""
@@ -932,7 +928,7 @@ msgid "Followers"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:111
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:441
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/app/settings/feed.tsx:61
 #: src/app/settings/feed.tsx:195
 #: src/components/feeds-button.tsx:247
