@@ -1,23 +1,34 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-02-20 00:08+0000\n"
+"POT-Creation-Date: 2024-02-15 13:07+0000\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: be\n"
+"Project-Id-Version: graysky\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-02-20 00:20\n"
+"Last-Translator: \n"
+"Language-Team: Belarusian\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
+"X-Crowdin-Project: graysky\n"
+"X-Crowdin-Project-ID: 648828\n"
+"X-Crowdin-Language: be\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 8\n"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
-msgstr ""
+msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr ""
+msgstr "{0} / месяц"
 
 #: src/app/pro.tsx:238
 msgid "{0} / year"
-msgstr ""
+msgstr "{0} / год"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
@@ -101,7 +112,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
-msgstr ""
+msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
@@ -161,6 +172,10 @@ msgstr ""
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr ""
 
+#: src/app/settings/feed.tsx:121
+#~ msgid "A specific feed"
+#~ msgstr ""
+
 #: src/app/settings/_layout.tsx:117
 #: src/lib/quick-actions.ts:88
 msgid "About"
@@ -217,6 +232,10 @@ msgstr ""
 #: src/lib/composer/keyboard-accessory.tsx:65
 msgid "Add image"
 msgstr ""
+
+#: src/lib/composer/keyboard-accessory.tsx:53
+#~ msgid "Add image or GIF"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
@@ -377,6 +396,10 @@ msgstr ""
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
 msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:186
+#~ msgid "Block account"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -560,6 +583,10 @@ msgstr ""
 #: src/components/post-context-menu.tsx:206
 msgid "Copy post text"
 msgstr ""
+
+#: src/components/post-context-menu.tsx:147
+#~ msgid "Copyright Violation"
+#~ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
@@ -1154,6 +1181,11 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
+#: src/components/post-context-menu.tsx:148
+#: src/components/screens/profile/profile-info.tsx:246
+#~ msgid "Misleading"
+#~ msgstr ""
+
 #: src/components/screens/profile/profile-info.tsx:658
 msgid "Misleading Account"
 msgstr ""
@@ -1186,6 +1218,10 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
 msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:175
+#~ msgid "Mute account"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
@@ -1461,6 +1497,11 @@ msgstr ""
 msgid "Post link copied to clipboard"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:293
+#: src/components/post-context-menu.tsx:320
+#~ msgid "Post options"
+#~ msgstr ""
+
 #: src/lib/composer/utils.tsx:353
 msgid "Post published!"
 msgstr ""
@@ -1658,6 +1699,10 @@ msgstr ""
 msgid "Rising"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:150
+#~ msgid "Rude"
+#~ msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
@@ -1768,6 +1813,10 @@ msgstr ""
 msgid "Select one or more options"
 msgstr ""
 
+#: src/app/settings/feed.tsx:233
+#~ msgid "Select primary feed"
+#~ msgstr ""
+
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
 msgstr ""
@@ -1828,6 +1877,10 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:691
 msgid "Share profile"
 msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:562
+#~ msgid "Share Profile"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
@@ -1983,6 +2036,12 @@ msgstr ""
 msgid "Take photo"
 msgstr ""
 
+#: src/lib/composer/utils.tsx:393
+#: src/lib/composer/utils.tsx:398
+#: src/lib/composer/utils.tsx:422
+#~ msgid "Take Photo"
+#~ msgstr ""
+
 #: src/components/post-context-menu.tsx:127
 #: src/components/screens/profile/profile-info.tsx:673
 msgid "Thank you for making the skyline a safer place"
@@ -2083,6 +2142,10 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
+#: src/components/post-context-menu.tsx:192
+#~ msgid "Translate"
+#~ msgstr ""
+
 #: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr ""
@@ -2123,6 +2186,10 @@ msgstr ""
 msgid "Unblock"
 msgstr ""
 
+#: src/components/screens/profile/profile-info.tsx:181
+#~ msgid "Unblock account"
+#~ msgstr ""
+
 #: src/lib/account-actions.ts:142
 msgid "Unblocked"
 msgstr ""
@@ -2150,6 +2217,10 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:527
 msgid "Unmute"
 msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:170
+#~ msgid "Unmute account"
+#~ msgstr ""
 
 #: src/lib/account-actions.ts:53
 msgid "Unmuted"
@@ -2267,6 +2338,14 @@ msgstr ""
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
 msgstr ""
+
+#: src/components/screens/profile/profile-info.tsx:252
+#~ msgid "What is the issue with this account?"
+#~ msgstr ""
+
+#: src/components/post-context-menu.tsx:156
+#~ msgid "What is the issue with this post?"
+#~ msgstr ""
 
 #: src/app/composer/index.tsx:350
 msgid "What's on your mind?"
