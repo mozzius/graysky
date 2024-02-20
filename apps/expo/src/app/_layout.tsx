@@ -305,7 +305,6 @@ const App = () => {
                             options={{
                               headerShown: false,
                               animation: "fade",
-                              fullScreenGestureEnabled: false,
                               customAnimationOnGesture: true,
                             }}
                           />
