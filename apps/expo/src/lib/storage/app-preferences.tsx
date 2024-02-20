@@ -18,6 +18,8 @@ export const availableAppLanguages = [
   "de",
   "be",
   "pt-BR",
+  "nl",
+  "cs",
 ] as const;
 
 const appLanguageSchema = z.enum(availableAppLanguages);

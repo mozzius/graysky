@@ -4,11 +4,13 @@ import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
 import { messages as messagesBe } from "~/i18n/locales/be/messages";
+import { messages as messagesCs } from "~/i18n/locales/cs/messages";
 import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
 import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
+import { messages as messagesNl } from "~/i18n/locales/nl/messages";
 import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
 import {
   appPreferencesStore,
@@ -39,6 +41,12 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "pt-BR": {
       return "Português (BR)";
     }
+    case "nl": {
+      return "Nederlands";
+    }
+    case "cs": {
+      return "Čeština";
+    }
     default:
       throw new Error(`Unknown language code: ${code as string}`);
   }
@@ -68,6 +76,14 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
     }
     case "pt-BR": {
       i18n.loadAndActivate({ locale, messages: messagesPtBR });
+      break;
+    }
+    case "nl": {
+      i18n.loadAndActivate({ locale, messages: messagesNl });
+      break;
+    }
+    case "cs": {
+      i18n.loadAndActivate({ locale, messages: messagesCs });
       break;
     }
     default: {
