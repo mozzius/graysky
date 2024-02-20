@@ -19,6 +19,7 @@ export const availableAppLanguages = [
   "be",
   "pt-BR",
 ] as const;
+
 const appLanguageSchema = z.enum(availableAppLanguages);
 
 let defaultAppLanguage: z.infer<typeof appLanguageSchema> = "en";
