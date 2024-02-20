@@ -389,6 +389,11 @@ msgstr "Jaarlijks gefactureerd, op elk moment annuleren"
 msgid "Billed monthly, cancel anytime"
 msgstr "Maandelijks gefactureerd, op elk moment annuleren"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr ""
@@ -398,8 +403,6 @@ msgstr ""
 msgid "Block user"
 msgstr "Gebruiker blokkeren"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr "Geblokkeerd"

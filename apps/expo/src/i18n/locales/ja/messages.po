@@ -389,6 +389,11 @@ msgstr "年間の支払い、いつでも解約可能です。"
 msgid "Billed monthly, cancel anytime"
 msgstr "毎月の支払い、いつでも解約可能です。"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr "すべてのメンバーをブロック"
@@ -398,8 +403,6 @@ msgstr "すべてのメンバーをブロック"
 msgid "Block user"
 msgstr "ユーザーをブロック"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr "ブロック中"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 10:33\n"
+"PO-Revision-Date: 2024-02-20 19:18\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -323,7 +323,7 @@ msgstr "Abonnement annuel"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
-msgstr ""
+msgstr "Comportement anti-social"
 
 #: src/app/settings/about.tsx:158
 msgid "App info"
@@ -389,6 +389,11 @@ msgstr "Facturation annuelle, annulation à tout moment"
 msgid "Billed monthly, cancel anytime"
 msgstr "Facturation mensuelle, annulation à tout moment"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr "Bloquer tous les membres"
@@ -398,8 +403,6 @@ msgstr "Bloquer tous les membres"
 msgid "Block user"
 msgstr "Bloquer l'utilisateur"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr "Bloqué"
@@ -566,7 +569,7 @@ msgstr "Copier le lien"
 
 #: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
-msgstr ""
+msgstr "Copier le lien vers la publication"
 
 #: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
@@ -931,7 +934,7 @@ msgstr "Oublié ?"
 
 #: src/components/screens/profile/profile-info.tsx:651
 msgid "Frequently Posts Unwanted Content"
-msgstr ""
+msgstr "Publie fréquemment du contenu indésirable"
 
 #: src/app/settings/app.tsx:35
 msgid "General"
@@ -992,7 +995,7 @@ msgstr "Aidez-nous à garder les lumières allumées"
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:147
 msgid "Hide"
-msgstr ""
+msgstr "Masquer"
 
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
@@ -1024,11 +1027,11 @@ msgstr "Si une publication est marquée comme étant dans l'une de ces langues, 
 
 #: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
-msgstr ""
+msgstr "Si vous avez contribué à Graysky, par exemple en aidant à la traduction, veuillez contacter @graysky.app pour que nous puissions vous ajouter à cette liste !"
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
-msgstr ""
+msgstr "Illégal et urgent"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1167,7 +1170,7 @@ msgstr "Membres de la liste \"{0}\""
 
 #: src/components/screens/profile/profile-info.tsx:652
 msgid "Misleading Account"
-msgstr ""
+msgstr "Compte trompeur"
 
 #: src/app/composer/index.tsx:229
 #: src/app/composer/index.tsx:240
@@ -1251,7 +1254,7 @@ msgstr "Mes listes"
 
 #: src/components/screens/profile/profile-info.tsx:653
 msgid "Name or Description Violates Community Standards"
-msgstr ""
+msgstr "Le nom ou la description enfreignent les standards de la communauté"
 
 #: src/app/add-to-list/[handle].tsx:152
 msgid "Need a new list?"
@@ -1470,7 +1473,7 @@ msgstr "Langues de publication"
 
 #: src/components/post-context-menu.tsx:70
 msgid "Post link copied to clipboard"
-msgstr ""
+msgstr "Texte de la publication copié dans le presse-papiers"
 
 #: src/lib/composer/utils.tsx:353
 msgid "Post published!"
@@ -1757,7 +1760,7 @@ msgstr "Cherchez des utilisateurs"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
 msgid "Search users, posts, feeds"
-msgstr ""
+msgstr "Rechercher des utilisateurs, des publications, des flux"
 
 #: src/components/post-context-menu.tsx:202
 msgid "See likes"
@@ -1852,7 +1855,7 @@ msgstr "Partager via..."
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:147
 msgid "Show"
-msgstr ""
+msgstr "Afficher"
 
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
@@ -1992,7 +1995,7 @@ msgstr "Système"
 
 #: src/lib/composer/keyboard-accessory.tsx:72
 msgid "Take photo"
-msgstr ""
+msgstr "Prendre une photo"
 
 #: src/components/post-context-menu.tsx:127
 #: src/components/screens/profile/profile-info.tsx:667
@@ -2043,12 +2046,12 @@ msgstr "Cette publication contient une activité sexuelle ou une nudité érotiq
 #: src/components/embed/index.tsx:221
 #: src/components/feed-post.tsx:143
 msgid "This post is from someone you have blocked"
-msgstr ""
+msgstr "Cette publication provient de quelqu'un que vous avez bloqué"
 
 #: src/components/embed/index.tsx:219
 #: src/components/feed-post.tsx:141
 msgid "This post is from someone you have muted"
-msgstr ""
+msgstr "Ce message provient d'une personne que vous avez mise en sourdine"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:325
 msgid "This thread is locked"
@@ -2218,11 +2221,11 @@ msgstr "Nom d'utilisateur ou adresse courriel"
 
 #: src/components/primary-post.tsx:265
 msgid "Users in the list"
-msgstr ""
+msgstr "Utilisateurs dans la liste"
 
 #: src/components/primary-post.tsx:267
 msgid "Users in the lists"
-msgstr ""
+msgstr "Utilisateurs dans les listes"
 
 #: src/components/primary-post.tsx:222
 msgid "Users mentioned in this thread"
@@ -2261,7 +2264,7 @@ msgstr "Voir le texte ALT"
 
 #: src/app/settings/moderation.tsx:102
 msgid "Warn"
-msgstr ""
+msgstr "Avertir"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
@@ -2285,11 +2288,11 @@ msgstr "Qu’avez-vous en tête ?"
 
 #: src/components/screens/profile/profile-info.tsx:741
 msgid "What's the issue with this account?"
-msgstr ""
+msgstr "Quel est le problème avec ce compte ?"
 
 #: src/components/post-context-menu.tsx:252
 msgid "What's the issue with this post?"
-msgstr ""
+msgstr "Quel est le problème avec cette publication ?"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:178

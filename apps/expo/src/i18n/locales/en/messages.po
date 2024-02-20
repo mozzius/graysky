@@ -384,6 +384,11 @@ msgstr ""
 msgid "Billed monthly, cancel anytime"
 msgstr ""
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr ""
@@ -393,8 +398,6 @@ msgstr ""
 msgid "Block user"
 msgstr ""
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr ""

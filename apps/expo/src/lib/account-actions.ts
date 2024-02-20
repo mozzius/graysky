@@ -67,7 +67,7 @@ export const useBlockAccount = () => {
   return useCallback(
     (did: string, handle: string) => {
       Alert.alert(
-        _(msg`Blocked`),
+        _(msg`Block`),
         _(msg`Are you sure you want to block @${handle}?`),
         [
           {
@@ -75,7 +75,7 @@ export const useBlockAccount = () => {
             style: "cancel",
           },
           {
-            text: _(msg`Blocked`),
+            text: _(msg`Block`),
             style: "destructive",
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onPress: async () => {

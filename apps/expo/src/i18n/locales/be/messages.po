@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 12:33\n"
+"PO-Revision-Date: 2024-02-20 19:18\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -272,7 +272,7 @@ msgstr "Усе мовы"
 
 #: src/app/settings/app.tsx:46
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
-msgstr ""
+msgstr "Дазваляе сартаваць не ўпадабаныя стужкі ва ўкладцы стужак"
 
 #: src/app/composer/index.tsx:442
 msgid "Alt"
@@ -319,7 +319,7 @@ msgstr "Адбылася невядомая памылка."
 
 #: src/app/pro.tsx:220
 msgid "Annual Plan"
-msgstr "Гадавы план"
+msgstr "Штогадовы план"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
@@ -389,6 +389,11 @@ msgstr "Аплата штогод, можна адмяніць у любы мо�
 msgid "Billed monthly, cancel anytime"
 msgstr "Аплата штомесяц, можна адмяніць у любы момант"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr "Заблакіраваць усіх удзельнікаў"
@@ -398,23 +403,21 @@ msgstr "Заблакіраваць усіх удзельнікаў"
 msgid "Block user"
 msgstr "Заблакіраваць карыстальніка"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
 msgid "Blocked post"
-msgstr ""
+msgstr "Допіс заблакіраваны"
 
 #: src/app/settings/moderation.tsx:115
 msgid "Blocked users"
-msgstr ""
+msgstr "Заблакіраваныя карыстальнікі"
 
 #: src/app/settings/_layout.tsx:92
 msgid "Blocked Users"
-msgstr ""
+msgstr "Заблакаваныя карыстальнікі"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Blocking list"
@@ -439,7 +442,7 @@ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:115
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
-msgstr ""
+msgstr "Пасля націскання кнопкі «пацвердзіць і працягнуць» будзе выдалены ваш уліковы запіс з сацыяльнай сеткі Bluesky, дадзеная працэдура аніяк не звязана з Graysky. Вашы даныя будуць выдаленыя назаўсёды ў тым ліку і з афіцыйнай праграмы Bluesky."
 
 #: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
@@ -533,11 +536,11 @@ msgstr ""
 
 #: src/app/settings/_layout.tsx:134
 msgid "Content Languages"
-msgstr ""
+msgstr "Мовы змесціва"
 
 #: src/app/composer/_layout.tsx:81
 msgid "Content Warning"
-msgstr ""
+msgstr "Папярэджанне аб змесціве"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
@@ -598,11 +601,11 @@ msgstr "Не атрымалася загрузіць спіс"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:557
 msgid "Could not fetch list feed"
-msgstr ""
+msgstr "Не атрымалася загрузіць спіс стужак"
 
 #: src/app/settings/mutes.tsx:23
 msgid "Could not fetch mutes"
-msgstr ""
+msgstr "Не атрымалася загрузіць спіс ігнаруемых"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
 msgid "Could not fetch trending topics"
@@ -660,7 +663,7 @@ msgstr "Стваральнік"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
-msgstr ""
+msgstr "Стваральнік"
 
 #: src/app/pro.tsx:181
 msgid "Currently subscribed"
@@ -751,7 +754,7 @@ msgstr "Знайсці больш стужак"
 
 #: src/app/edit-bio.tsx:228
 msgid "Display name"
-msgstr "Бачнае імя"
+msgstr "Імя"
 
 #: src/app/settings/account/change-handle.tsx:82
 msgid "Domain"
@@ -840,23 +843,23 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:57
 msgid "Failed to fetch feed"
-msgstr ""
+msgstr "Не атрымалася загрузіць стужку"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:70
 msgid "Failed to hydrate feed"
-msgstr ""
+msgstr "Не атрымалася правесці гідрацыю стужкі"
 
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
-msgstr ""
+msgstr "Не атрымалася адкрыць спасылку"
 
 #: src/lib/composer/utils.tsx:188
 msgid "Failed to upload image"
-msgstr ""
+msgstr "Не атрымалася запампаваць відарыс"
 
 #: src/lib/composer/utils.tsx:238
 msgid "Failed to upload thumbnail"
-msgstr ""
+msgstr "Не атрымалася запампаваць мініяцюру"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
@@ -898,11 +901,11 @@ msgstr "Падпісацца"
 
 #: src/components/screens/feed-screen.tsx:105
 msgid "Follow people, and their posts will show up here"
-msgstr ""
+msgstr "Падпісвайцеся на людзей, іхнія допісы будуць з’яўляцца тут"
 
 #: src/components/screens/profile/profile-info.tsx:103
 msgid "Followed user"
-msgstr ""
+msgstr "Вы падпісаліся"
 
 #: src/components/lists/followers-list.tsx:54
 msgid "Followers"
@@ -939,7 +942,7 @@ msgstr "Агульнае"
 
 #: src/app/settings/language/index.tsx:152
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr ""
+msgstr "Аформіце падпіску Graysky Pro, каб атрымаць доступ да перакладаў з дапамогай DeepL. Інакш будзе выкарыстоўвацца Google Translate."
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
@@ -970,15 +973,15 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr ""
+msgstr "Ідэнтыфікатар ужо заняты"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
-msgstr ""
+msgstr "Памылковы ідэнтыфікатар"
 
 #: src/components/handle-availability.tsx:70
 msgid "Handle is taken"
-msgstr ""
+msgstr "Ідэнтыфікатар заняты"
 
 #: src/app/settings/app.tsx:108
 msgid "Haptics disabled"
@@ -996,11 +999,11 @@ msgstr "Схаваць"
 
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
-msgstr ""
+msgstr "Налады галоўнага экрана"
 
 #: src/app/settings/_layout.tsx:110
 msgid "Home Feed Preferences"
-msgstr ""
+msgstr "Налады галоўнага экрана"
 
 #: src/app/settings/feed.tsx:112
 msgid "Home screen"
@@ -1008,7 +1011,7 @@ msgstr "Галоўны экран"
 
 #: src/app/settings/feed.tsx:115
 msgid "Home screen layout"
-msgstr ""
+msgstr "Макет галоўнага экрана"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
 msgid "Hot"
@@ -1044,7 +1047,7 @@ msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:503
 msgid "Joined {0}"
-msgstr ""
+msgstr "Далучыўся {0}"
 
 #: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
@@ -1062,12 +1065,12 @@ msgstr "Светлая"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr ""
+msgstr "спадабаўся ваш допіс"
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
 msgid "Likes"
-msgstr ""
+msgstr "Упадабанае"
 
 #: src/lib/hooks/link-press.tsx:118
 msgid "Link copied to clipboard"
@@ -1103,7 +1106,7 @@ msgstr ""
 
 #: src/components/screens/profile/profile-tab-view.tsx:100
 msgid "Lists"
-msgstr ""
+msgstr "Спісы"
 
 #: src/app/(auth)/_layout.tsx:66
 #: src/app/(auth)/resume.tsx:27
@@ -1114,11 +1117,11 @@ msgstr ""
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
-msgstr ""
+msgstr "Увайсці"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
-msgstr ""
+msgstr "Зарэгістравацца"
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
@@ -1126,11 +1129,11 @@ msgstr "Вы ўвайшлі"
 
 #: src/app/settings/about.tsx:147
 msgid "Logo designed by"
-msgstr ""
+msgstr "Дызайн лагатыпа"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
-msgstr ""
+msgstr "Здаецца, тут пакуль нічога няма!"
 
 #: src/app/settings/app.tsx:142
 msgid "Makes adding ALT text to your images mandatory"
@@ -1138,11 +1141,11 @@ msgstr ""
 
 #: src/components/feeds-button.tsx:292
 msgid "Manage my feeds"
-msgstr ""
+msgstr "Кіраванне стужкамі"
 
 #: src/app/pro.tsx:193
 msgid "Manage my subscription"
-msgstr ""
+msgstr "Кіраванне падпіскай"
 
 #: src/app/settings/app.tsx:133
 msgid "Mandatory ALT text"
@@ -1150,7 +1153,7 @@ msgstr ""
 
 #: src/app/settings/app.tsx:38
 msgid "Manually sort non-favourite feeds"
-msgstr ""
+msgstr "Сартаваць не ўпадабаныя стужкі самастойна"
 
 #: src/components/screens/profile/profile-tab-view.tsx:88
 msgid "Media"
@@ -1163,11 +1166,11 @@ msgstr "Удзельнікі"
 
 #: src/app/composer/threadgate.tsx:129
 msgid "Members of list \"{0}\""
-msgstr ""
+msgstr "Удзельнік спісу «{0}»"
 
 #: src/components/screens/profile/profile-info.tsx:652
 msgid "Misleading Account"
-msgstr ""
+msgstr "Падстаўны ўліковы запіс"
 
 #: src/app/composer/index.tsx:229
 #: src/app/composer/index.tsx:240
@@ -1177,7 +1180,7 @@ msgstr "Альтэрнатыўны тэкст адсутнічае"
 #: src/app/settings/_layout.tsx:86
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
-msgstr ""
+msgstr "Мадэрацыя"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:273
 #: src/app/create-list.tsx:64
@@ -1188,7 +1191,7 @@ msgstr ""
 
 #: src/app/pro.tsx:202
 msgid "Monthly Plan"
-msgstr ""
+msgstr "Штомесячны план"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
@@ -1263,7 +1266,7 @@ msgstr "Новае"
 
 #: src/components/notification/index.tsx:189
 msgid "New follower: {0} @{1}"
-msgstr ""
+msgstr "Новы падпісчык: {0} @{1}"
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
@@ -1302,11 +1305,11 @@ msgstr ""
 
 #: src/components/primary-post.tsx:207
 msgid "Nobody can reply"
-msgstr ""
+msgstr "Ніхто не можа адказваць"
 
 #: src/components/feed-row.tsx:221
 msgid "Not favourited"
-msgstr ""
+msgstr "Не абранае"
 
 #: src/lib/hooks/link-press.tsx:76
 msgid "Not sure why, sorry :("
@@ -1314,11 +1317,11 @@ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr ""
+msgstr "Яшчэ не рэалізавана"
 
 #: src/app/settings/moderation.tsx:132
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
-msgstr ""
+msgstr "Заўвага: налады змесціва для дарослых не могуць быць змененыя з iOS. Калі ласка, выкарыстоўвайце вэб-версію."
 
 #: src/app/(tabs)/_layout.tsx:223
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:290
@@ -1335,11 +1338,11 @@ msgstr ""
 
 #: src/components/open-drawer-avatar.tsx:15
 msgid "Open drawer menu"
-msgstr ""
+msgstr "Адкрыць высоўнае меню"
 
 #: src/lib/hooks/link-press.tsx:88
 msgid "Open link"
-msgstr ""
+msgstr "Адкрыць спасылку"
 
 #: src/components/embed/index.tsx:235
 msgid "Opens embedded post"
@@ -2105,7 +2108,7 @@ msgstr ""
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
-msgstr ""
+msgstr "Перакладаць допісы з дапамогай DeepL"
 
 #: src/components/translation.tsx:146
 msgid "Translated by DeepL"
@@ -2113,7 +2116,7 @@ msgstr "Перакладзена з дапамогай DeepL"
 
 #: src/components/translation.tsx:135
 msgid "Translated by Google"
-msgstr ""
+msgstr "Перакладзена з дапамогай Google Translate"
 
 #: src/app/settings/language/index.tsx:129
 #: src/app/settings/pro.tsx:29
@@ -2122,7 +2125,7 @@ msgstr ""
 
 #: src/app/success.tsx:38
 msgid "Translations are now powered by DeepL"
-msgstr ""
+msgstr "Пераклады цяпер працуюць праз DeepL"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
 msgid "Trending topics"
@@ -2148,7 +2151,7 @@ msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:104
 msgid "Unfollowed user"
-msgstr ""
+msgstr "Вы адпісаліся"
 
 #: src/app/(auth)/sign-in.tsx:51
 #: src/app/(auth)/sign-up.tsx:94
@@ -2194,7 +2197,7 @@ msgstr "Выкарыстоўваць DeepL для перакладу"
 #: src/app/settings/language/index.tsx:143
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
-msgstr ""
+msgstr "Выкарыстоўваць DeepL замест Google Translate"
 
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38

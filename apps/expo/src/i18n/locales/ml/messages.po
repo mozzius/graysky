@@ -5,110 +5,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: pt\n"
+"Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-02-20 19:18\n"
 "Last-Translator: \n"
-"Language-Team: Portuguese, Brazilian\n"
+"Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: graysky\n"
 "X-Crowdin-Project-ID: 648828\n"
-"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-Language: ml-IN\n"
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 8\n"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
-msgstr "{0} @{1}"
+msgstr ""
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / mês"
+msgstr "{0} / മാസം"
 
 #: src/app/pro.tsx:238
 msgid "{0} / year"
-msgstr "{0} / ano"
+msgstr "{0} / വർഷം"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
-msgstr "O feed {0} da #{decodedTag} está vazio"
+msgstr "{0} #{decodedTag} ഫീഡ് ശൂന്യമാണ്"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "{0} posts"
+msgstr "{0} / പോസ്റ്റുകൾ"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
-msgstr "Há {days} dias"
+msgstr ""
 
 #: src/lib/utils/time.ts:37
 msgid "{days}d"
-msgstr "{days}d"
+msgstr "{days}ദി"
 
 #: src/lib/utils/time.ts:51
 msgid "{hours} hours ago"
-msgstr "{hours} horas atrás"
+msgstr "{hours} മണിക്കൂറുകൾ മുൻപ്"
 
 #: src/lib/utils/time.ts:48
 msgid "{hours}h"
-msgstr "{hours}h"
+msgstr "{hours}മ"
 
 #: src/lib/utils/time.ts:62
 msgid "{minutes} minutes ago"
-msgstr "{minutes} minutos atrás"
+msgstr "{minutes} മിനിറ്റുകൾ മുൻപ്"
 
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
-msgstr "{minutes}m"
+msgstr "{minutes}മി"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
-msgstr "{months} meses atrás"
+msgstr "{months} മാസങ്ങൾ മുൻപ്"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}m"
-msgstr "{months}m"
+msgstr "{months}മാ"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
-msgstr "Feed {name}"
+msgstr "{name} ഫീഡ്"
 
 #: src/components/feed-row.tsx:96
 msgid "{name} feed by @{0}, {1} likes"
-msgstr "Feed {name} por @{0}, {1} curtidas"
+msgstr "{name} ഫീഡ് @{0},{1} ലൈക്കുകൾ"
 
 #: src/components/feed-row.tsx:98
 msgid "{name} list by @{0}"
-msgstr "Lista {name} por @{0}"
+msgstr "{name} ലിസ്റ്റ് @{0}"
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
-msgstr "{secondsAgo} segundos atrás"
+msgstr "{secondsAgo} സെക്കൻഡുകൾ മുൻപ്"
 
 #: src/lib/utils/time.ts:68
 msgid "{secondsAgo}s"
-msgstr "{secondsAgo}s"
+msgstr "{secondsAgo}സെ"
 
 #: src/lib/utils/time.ts:18
 msgid "{years} years ago"
-msgstr "Há {years} anos"
+msgstr "{years} വർഷങ്ങൾക്ക് മുൻപ്"
 
 #: src/lib/utils/time.ts:15
 msgid "{years}y"
-msgstr "{years}a"
+msgstr "{years}വ"
 
 #: src/lib/account-actions.ts:97
 msgid "@{handle} has been blocked"
-msgstr "@{handle} foi bloqueado"
+msgstr "@{handle} ബ്ലോക്ക് ചെയ്‌തു"
 
 #: src/lib/account-actions.ts:143
 msgid "@{handle} has been unblocked"
-msgstr "@{handle} foi desbloqueado"
+msgstr "@{handle} അൺ ബ്ലോക്ക് ചെയ്‌തു"
 
 #: src/lib/account-actions.ts:54
 msgid "@{handle} is no longer muted"
-msgstr "@{handle} foi dessilenciado"
+msgstr "@{handle} മ്യുട്ട് ചെയ്യപ്പെട്ടിട്ടില്ല"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
@@ -116,255 +116,255 @@ msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr "<0>{0, plural, =1 {{1}} =2 {{2} e {3}} other {{4} e {5} outros}}</0><1>{6}</1>"
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2} കൂടെ {3}} other {{4} കൂടെ {5} മറ്റുള്ളവരും}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:447
 msgid "<0>{0}</0> Followers"
-msgstr "<0>{0}</0> Seguidores"
+msgstr "<0>{0}</0> പിന്തുടരുന്നവർ"
 
 #: src/components/drawer/actor-details.tsx:56
 #: src/components/screens/profile/profile-info.tsx:455
 msgid "<0>{0}</0> Following"
-msgstr "<0>{0}</0> Seguindo"
+msgstr "<0>{0}</0> പിന്തുടരുന്നു"
 
 #: src/components/screens/profile/profile-info.tsx:463
 msgid "<0>{0}</0> Posts"
-msgstr "<0>{0}</0> Posts"
+msgstr "<0>{0}</0> പോസ്റ്റുകൾ"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
-msgstr "Ontem"
+msgstr "1 ദിവസം മുമ്പ്"
 
 #: src/lib/utils/time.ts:50
 msgid "1 hour ago"
-msgstr "Há 1 hora"
+msgstr "1 മണിക്കൂര്‍ മുമ്പ്"
 
 #: src/lib/utils/time.ts:61
 msgid "1 minute ago"
-msgstr "Um minuto atrás"
+msgstr "1 മിനിറ്റ് മുമ്പ്"
 
 #: src/lib/utils/time.ts:28
 msgid "1 month ago"
-msgstr "Um mês atrás"
+msgstr "1 മാസം മുമ്പ്"
 
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
-msgstr "1 de 3"
+msgstr "3 ല് 1"
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
-msgstr "Neste momento"
+msgstr "1 നിമിഷം മുമ്പ്"
 
 #: src/lib/utils/time.ts:17
 msgid "1 year ago"
-msgstr "Há 1 ano"
+msgstr "1 വര്‍ഷം മുൻപ്"
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
-msgstr "2 de 3"
+msgstr "3 ല് 2"
 
 #: src/app/(auth)/sign-up.tsx:376
 msgid "3 of 3"
-msgstr "3 de 3"
+msgstr "3 ല് 3"
 
 #: src/app/(auth)/sign-up.tsx:341
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-msgstr "O código de verificação foi enviado para {phone}. <0>Este não é o meu número.</0>"
+msgstr "{phone} ലേക്ക് ഒരു കോഡ് അയച്ചിട്ടുണ്ട്. <0>ഫോൺ നമ്പർ മാറ്റുക.</0>"
 
 #: src/app/settings/_layout.tsx:116
 #: src/lib/quick-actions.ts:88
 msgid "About"
-msgstr "Sobre"
+msgstr "വിവരങ്ങൾ"
 
 #: src/app/settings/index.tsx:85
 msgid "About Graysky"
-msgstr "Sobre o Graysky"
+msgstr "ഗ്രേ സ്കൈയെ കുറിച്ച്"
 
 #: src/app/settings/pro.tsx:52
 msgid "Accent colour"
-msgstr "Cor de destaque"
+msgstr "ലിപിയുടെ നിറം"
 
 #: src/app/settings/app.tsx:96
 msgid "Accessibility"
-msgstr "Acessibilidade"
+msgstr "പ്രാപ്യത"
 
 #: src/app/settings/index.tsx:43
 msgid "Account"
-msgstr "Conta"
+msgstr "അക്കൗണ്ട്"
 
 #: src/app/settings/account/delete-account.tsx:226
 msgid "Account deleted. Goodbye!"
-msgstr "Sua conta foi excluída. Até mais!"
+msgstr "അക്കൗണ്ട് നശിപ്പിച്ചു. വീണ്ടും കാണാം!"
 
 #: src/app/settings/account/index.tsx:28
 msgid "Account Details"
-msgstr "Detalhes da Conta"
+msgstr "അക്കൗണ്ട് വിവരങ്ങൾ"
 
 #: src/app/settings/_layout.tsx:62
 msgid "Account Settings"
-msgstr "Configurações da Conta"
+msgstr "അക്കൗണ്ട് ക്രമീകരണങ്ങൾ"
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
-msgstr "Adicionar {0} à lista"
+msgstr "ലിസ്റ്റിലേക്ക് {0} ചേർക്കുക"
 
 #: src/app/composer/index.tsx:656
 msgid "Add a content warning"
-msgstr "Adicionar um aviso de conteúdo"
+msgstr "ഉള്ളടക്ക മുന്നറിയിപ്പ് ചേർക്കുക"
 
 #: src/lib/composer/alt-text-editor.tsx:154
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-msgstr "Adicione uma descrição à imagem. Um bom texto alternativo é conciso, mas detalhado. Por favor, também escreva qualquer texto que estiver na própria imagem."
+msgstr "ചിത്രത്തിലേക്ക് ഒരു വിവരണം ചേർക്കുക. നല്ല ബദൽ വാചകം സംക്ഷിപ്തവും എന്നാൽ വിശദവുമാണ്. ചിത്രത്തിൽ തന്നെ ഏതെങ്കിലും വാചകം അതും ഉൾപ്പെടുത്തുക."
 
 #: src/components/switch-accounts.tsx:177
 msgid "Add another account"
-msgstr "Adicionar outra conta"
+msgstr "മറ്റൊരു അക്കൗണ്ട് ചേർക്കുക"
 
 #: src/app/composer/index.tsx:566
 msgid "Add embed for <0>{potential}</0>"
-msgstr ""
+msgstr "<0>{potential}</0> വേണ്ടി എംബെഡ് ചേർക്കുക"
 
 #: src/lib/composer/keyboard-accessory.tsx:65
 msgid "Add image"
-msgstr ""
+msgstr "ചിത്രം ഉൾപ്പെടുത്തുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
-msgstr ""
+msgstr "പ്രിയപ്പെട്ടവയിലേക്ക് ചേർക്കുക"
 
 #: src/components/screens/profile/profile-info.tsx:707
 msgid "Add to list"
-msgstr ""
+msgstr "ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
 #: src/app/_layout.tsx:385
 msgid "Add to List"
-msgstr ""
+msgstr "ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
 #: src/app/add-to-list/[handle].tsx:143
 msgid "Add to moderation list"
-msgstr ""
+msgstr "മോഡറേഷൻ ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
 #: src/app/add-to-list/[handle].tsx:134
 msgid "Add to user list"
-msgstr ""
+msgstr "ഉപയോക്തൃ പട്ടികയിലേക്ക് ചേർക്കുക"
 
 #: src/app/composer/index.tsx:242
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
-msgstr ""
+msgstr "നിങ്ങളുടെ ചിത്രത്തിലേക്ക് ഒരു വിവരണം ചേർക്കുന്നത് വൈകല്യമുള്ള ആളുകൾക്ക് ബ്ലൂ സ്കയെ കൂടുതൽ പ്രാപ്യമാക്കുകയും എല്ലാവർക്കും സന്ദർഭം മനസിലാക്കാൻ സഹായിക്കുകയും ചെയ്യുന്നു. എല്ലാ ചിത്രങ്ങളിലേക്കും ആൾട്ട് ടെക്സ്റ്റ് ചേർക്കാൻ ഞങ്ങൾ ശക്തമായി ശുപാർശ ചെയ്യുന്നു."
 
 #: src/app/composer/content-warning.tsx:47
 msgid "Adult content"
-msgstr ""
+msgstr "മുതിർന്നവർക്കുള്ള ഉള്ളടക്കം"
 
 #: src/app/settings/account/index.tsx:52
 msgid "Advanced Settings"
-msgstr ""
+msgstr "കൂടുതൽ ക്രമീകരണങ്ങൾ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:158
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
-msgstr ""
+msgstr "എല്ലാ ഫീഡുകളും"
 
 #: src/app/composer/language.tsx:98
 msgid "All languages"
-msgstr ""
+msgstr "എല്ലാ ഭാഷകളും"
 
 #: src/app/settings/app.tsx:46
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
-msgstr ""
+msgstr "ഫീഡ്സ് ടാബിൽ ഇഷ്ടമില്ലാത്ത ഫീഡുകൾ സ്വമേധയാ തരംതിരിക്കാൻ നിങ്ങളെ അനുവദിക്കുന്നു"
 
 #: src/app/composer/index.tsx:442
 msgid "Alt"
-msgstr ""
+msgstr "ബദൽ"
 
 #: src/components/image-viewer.tsx:160
 msgid "ALT"
-msgstr ""
+msgstr "ബദൽ"
 
 #: src/components/embed/image.tsx:219
 msgid "ALT text"
-msgstr ""
+msgstr "ബദൽ ടെക്സ്റ്റ്"
 
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
-msgstr ""
+msgstr "ബദൽ ടെക്സ്റ്റ്"
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
 #: src/components/translation.tsx:165
 msgid "An error occurred"
-msgstr ""
+msgstr "ഒരു പിശക് സംഭവിച്ചു"
 
 #: src/components/image-with-context-menu.tsx:142
 msgid "An error occurred while trying to copy the image"
-msgstr ""
+msgstr "ചിത്രം പകർത്താൻ ശ്രമിക്കുമ്പോൾ ഒരു പിശക് സംഭവിച്ചു"
 
 #: src/components/image-with-context-menu.tsx:174
 msgid "An error occurred while trying to save the image"
-msgstr ""
+msgstr "ഇമേജ് സംരക്ഷിക്കാൻ ശ്രമിക്കുമ്പോൾ ഒരു പിശക് സംഭവിച്ചു"
 
 #: src/components/image-with-context-menu.tsx:198
 msgid "An error occurred while trying to share the image"
-msgstr ""
+msgstr "ചിത്രം പങ്കിടാൻ ശ്രമിക്കുമ്പോൾ ഒരു പിശക് സംഭവിച്ചു"
 
 #: src/app/composer/index.tsx:286
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "കാരണം അറിയില്ലാത്ത ഒരു പിശക് സംഭവിച്ചു"
 
 #: src/app/settings/account/change-handle.tsx:58
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "കാരണം അറിയില്ലാത്ത ഒരു പിശക് സംഭവിച്ചു."
 
 #: src/app/pro.tsx:220
 msgid "Annual Plan"
-msgstr "Plano Anual"
+msgstr "വാർഷിക അംഗത്വം"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
-msgstr ""
+msgstr "സാമൂഹ്യവിരുദ്ധ പെരുമാറ്റം"
 
 #: src/app/settings/about.tsx:151
 msgid "App info"
-msgstr ""
+msgstr "ആപ്പ് വിവരം"
 
 #: src/app/settings/language/index.tsx:47
 #: src/app/settings/language/index.tsx:50
 msgid "App language"
-msgstr ""
+msgstr "ആപ്ലിക്കേഷൻ ഭാഷ"
 
 #: src/app/(auth)/sign-in.tsx:92
 msgid "App Password"
-msgstr ""
+msgstr "ആപ്പ് പാസ്‌വേഡ്"
 
 #: src/app/(auth)/sign-in.tsx:126
 msgid "App Passwords"
-msgstr ""
+msgstr "ആപ്പ് പാസ്സ്‌വേർഡുകൾ"
 
 #: src/app/settings/index.tsx:63
 msgid "App settings"
-msgstr ""
+msgstr "ആപ്പ് ക്രമീകരണം"
 
 #: src/app/settings/_layout.tsx:104
 msgid "App Settings"
-msgstr ""
+msgstr "ആപ്പ് ക്രമീകരണം"
 
 #: src/lib/account-actions.ts:71
 msgid "Are you sure you want to block @{handle}?"
-msgstr ""
+msgstr "@{handle} എന്നയാളെ ബ്ലോക്ക് ചെയ്യണമെന്ന് ഉറപ്പാണോ?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "ഈ പോസ്റ്റ് ഇല്ലാതാക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
 
 #: src/lib/account-actions.ts:117
 msgid "Are you sure you want to unblock @{handle}?"
-msgstr ""
+msgstr "@{handle} എന്നയാളെ ബ്ലോക്ക് ചെയ്യണമെന്ന് ഉറപ്പാണോ?"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
-msgstr ""
+msgstr "ലഭ്യമാണ്"
 
 #: src/app/(auth)/sign-up.tsx:312
 #: src/app/(auth)/sign-up.tsx:351
@@ -375,79 +375,79 @@ msgstr ""
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:304
 msgid "Back"
-msgstr "Voltar"
+msgstr "പിന്നോട്ട്"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
-msgstr "Traduções melhores"
+msgstr "മികച്ച പരിഭാഷകൾ"
 
 #: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
-msgstr "Cobrado anualmente, cancele a qualquer momento"
+msgstr "പ്രതിവർഷം ബിൽ ചെയ്യുന്നു, എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കുക"
 
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
-msgstr "Cobrado mensalmente, cancele a qualquer momento"
+msgstr "മാസാമാസം ബിൽ ചെയ്യുന്നു, എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
-msgstr ""
+msgstr "എല്ലാവരെയും ബ്ലോക്ക് ചെയ്യുക"
 
 #: src/components/post-context-menu.tsx:238
 #: src/components/screens/profile/profile-info.tsx:726
 msgid "Block user"
-msgstr ""
+msgstr "ബ്ലോക്ക് യൂസർ"
 
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
-msgstr ""
+msgstr "ബ്ലോക്ക് ചെയ്തു"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
 msgid "Blocked post"
-msgstr ""
+msgstr "പോസ്റ്റ് ബ്ലോക്ക് ചെയ്‌തു"
 
 #: src/app/settings/moderation.tsx:115
 msgid "Blocked users"
-msgstr ""
+msgstr "തടയപ്പെട്ട ഉപയോക്താക്കൾ"
 
 #: src/app/settings/_layout.tsx:92
 msgid "Blocked Users"
-msgstr ""
+msgstr "തടയപ്പെട്ട ഉപയോക്താക്കൾ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Blocking list"
-msgstr ""
+msgstr "ബ്ലോക്ക് ചെയ്തവരുടെ ലിസ്റ്റ്"
 
 #: src/app/settings/moderation.tsx:112
 msgid "Blocks & Mutes"
-msgstr ""
+msgstr "ബ്ലോക്ക് & മ്യുട്ട്"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr ""
+msgstr "bsky.social ഡൊമൈൻ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
-msgstr ""
+msgstr "ബൈ @{0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:150
 #: src/app/settings/feed.tsx:216
 msgid "By @{0}"
-msgstr ""
+msgstr "ബൈ @{0}"
 
 #: src/app/settings/account/delete-account.tsx:115
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
-msgstr ""
+msgstr "സ്ഥിരീകരണം അമർത്തുന്നതിലൂടെ, നിങ്ങൾ ഇല്ലാതാക്കാൻ പോകുന്നത് നിങ്ങളുടെ യഥാർത്ഥ ബ്ലൂ സ്കൈ സോഷ്യൽ അക്കൗണ്ടാണെന്ന് നിങ്ങൾ മനസിലാക്കുന്നു, ഇതിന് ഗ്രേ സ്കയുമായി യാതൊരു ബന്ധവുമില്ല. നിങ്ങളുടെ ഡാറ്റ ഔദ്യോഗിക അപ്ലിക്കേഷനിൽ നിന്ന് സ്ഥിരമായി ഇല്ലാതാക്കപ്പെടും."
 
 #: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0> e <1>Política de Privacidade</1>. Assinaturas são renovadas automaticamente até serem canceladas."
+msgstr "സബ് സ് ക്രൈബ് ചെയ്യുന്നതിലൂടെ, ഞങ്ങളുടെ <0> നിബന്ധനകളും വ്യവസ്ഥകളും</0> <1>പ്രൈവസി പോളിസി</1> എന്നിവ നിങ്ങൾ അംഗീകരിക്കുന്നു. റദ്ദാക്കുന്നതുവരെ സബ്സ്ക്രിപ്ഷനുകൾ സ്വമേധയാ പുതുക്കപ്പെടുന്നു."
 
 #: src/app/pro.tsx:266
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
-msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0>, os <1>Termos de Uso (EULA)</1> e nossa <2>Política de Privacidade</2>. Assinaturas são renovadas automaticamente até serem canceladas."
+msgstr "സബ്സ്ക്രൈബ് ചെയ്യുന്നതിലൂടെ, ഞങ്ങളുടെ <0> വ്യവസ്ഥകളും</0>, <1>ഉപയോഗ നിബന്ധനകൾ (EULA) </1>, ഞങ്ങളുടെ <2>പ്രൈവസി പോളിസി</2> എന്നിവ നിങ്ങൾ അംഗീകരിക്കുന്നു. റദ്ദാക്കുന്നതുവരെ സബ്സ്ക്രിപ്ഷനുകൾ സ്വമേധയാ പുതുക്കപ്പെടുന്നു."
 
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
@@ -472,294 +472,294 @@ msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0>, os <1
 #: src/lib/hooks/link-press.tsx:101
 #: src/lib/hooks/post-actions.tsx:142
 msgid "Cancel"
-msgstr ""
+msgstr "റദ്ദാക്കുക"
 
 #: src/app/settings/_layout.tsx:68
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
-msgstr ""
+msgstr "ഹാൻഡിൽ മാറ്റുക"
 
 #: src/app/settings/_layout.tsx:74
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
-msgstr ""
+msgstr "പാസ്‌വേഡ് മാറ്റുക"
 
 #: src/lib/composer/keyboard-accessory.tsx:107
 msgid "Change post language"
-msgstr ""
+msgstr "പോസ്റ്റ് ഭാഷ മാറ്റുക"
 
 #: src/app/pro.tsx:121
 msgid "Change the accent colour"
-msgstr "Mude a cor dos detalhes"
+msgstr "ആക്‌സെന്റ് നിറം മാറ്റുക"
 
 #: src/components/drawer/drawer-content.tsx:70
 #: src/components/drawer/drawer-content.tsx:180
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
-msgstr ""
+msgstr "തീം മാറ്റുക"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
 msgid "Choose a handle"
-msgstr "Escolher um identificador"
+msgstr "ഒരു ഹാൻഡിൽ തിരഞ്ഞെടുക്കുക"
 
 #: src/lib/composer/keyboard-accessory.tsx:83
 msgid "Choose from Library"
-msgstr ""
+msgstr "ലൈബ്രറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക"
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
-msgstr ""
+msgstr "ഇമേജ് മോഡൽ ക്ലോസ് ചെയ്യുക"
 
 #: src/app/settings/account/delete-account.tsx:123
 msgid "Confirm and continue"
-msgstr ""
+msgstr "സ്ഥിരീകരിക്കുക, തുടരുക"
 
 #: src/components/screens/change-password-flow.tsx:174
 msgid "Confirm Password"
-msgstr ""
+msgstr "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
 msgid "Connecting..."
-msgstr ""
+msgstr "കണക്റ്റുചെയ്യുന്നു..."
 
 #: src/app/settings/about.tsx:49
 msgid "Contact"
-msgstr ""
+msgstr "കാൻറ്റാക്റ്റ്"
 
 #: src/app/settings/moderation.tsx:127
 msgid "Content filters"
-msgstr ""
+msgstr "ഉള്ളടക്കം ഫിൽട്ടറുകൾ"
 
 #: src/app/settings/_layout.tsx:134
 msgid "Content Languages"
-msgstr ""
+msgstr "ഉള്ളടക്ക ഭാഷ"
 
 #: src/app/composer/_layout.tsx:81
 msgid "Content Warning"
-msgstr ""
+msgstr "ഉള്ളടക്ക മുന്നറിയിപ്പ്"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr ""
+msgstr "സംഭാവന ചെയ്തവര്‍"
 
 #: src/components/image-with-context-menu.tsx:136
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "ക്ലിപ്പ്ബോർഡിലേക്ക് ചിത്രം പകർത്തി"
 
 #: src/components/post-context-menu.tsx:69
 #: src/lib/hooks/link-press.tsx:117
 msgid "Copied link"
-msgstr ""
+msgstr "പകർത്തിയ ലിങ്ക്"
 
 #: src/components/post-context-menu.tsx:80
 msgid "Copied post text"
-msgstr ""
+msgstr "പകർത്തിയ പോസ്റ്റ് ടെക്സ്റ്റ്"
 
 #: src/components/image-with-context-menu.tsx:126
 msgid "Copy Image"
-msgstr ""
+msgstr "ചിത്രം പകർത്തുക"
 
 #: src/lib/hooks/link-press.tsx:89
 msgid "Copy link"
-msgstr ""
+msgstr "ലിങ്ക് പകർത്തുക"
 
 #: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
-msgstr ""
+msgstr "പോസ്റ്റിലേക്കുള്ള ലിങ്ക് പകർത്തുക"
 
 #: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
-msgstr ""
+msgstr "പോസ്റ്റിന്റെ ടെക്സ്റ്റ് പകർത്തുക"
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
-msgstr ""
+msgstr "ഹാൻഡിൽ മാറ്റുവാൻ സാധിക്കില്ല"
 
 #: src/app/pro.tsx:90
 msgid "Could not complete purchase"
-msgstr "Não foi possível concluir a compra"
+msgstr "വാങ്ങൽ പൂർത്തിയാക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/(auth)/sign-up.tsx:93
 msgid "Could not create account"
-msgstr "Não foi possível criar conta"
+msgstr "അക്കൗണ്ട് സൃഷ്ടിക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
-msgstr ""
+msgstr "അക്കൗണ്ട് ഇല്ലാതാക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
 msgid "Could not delete list"
-msgstr ""
+msgstr "ലിസ്റ്റ് ഇല്ലാതാക്കുവാന് സാധ്യമായില്ല"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:136
 msgid "Could not fetch list"
-msgstr ""
+msgstr "ലിസ്റ്റ് എടുക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:557
 msgid "Could not fetch list feed"
-msgstr ""
+msgstr "ലിസ്റ്റ് ഫീഡ് എടുക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/settings/mutes.tsx:23
 msgid "Could not fetch mutes"
-msgstr ""
+msgstr "മ്യുട്ട് ചെയ്‌തവരെ എടുക്കാൻ കഴിഞ്ഞില്ല"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
 msgid "Could not fetch trending topics"
-msgstr ""
+msgstr "ട്രെൻഡിംഗ് വിഷയങ്ങൾ കൊണ്ടുവരാൻ കഴിഞ്ഞില്ല"
 
 #: src/components/screens/profile/profile-info.tsx:113
 msgid "Could not follow user"
-msgstr ""
+msgstr "ഉപയോക്താവിനെ ഫോളോ ചെയ്യാൻ കഴിഞ്ഞില്ല"
 
 #: src/app/(auth)/sign-in.tsx:50
 #: src/components/switch-accounts.tsx:71
 #: src/components/switch-accounts.tsx:76
 msgid "Could not log you in"
-msgstr ""
+msgstr "ലോഗിൻ ചെയ്യാൻ കഴിഞ്ഞില്ല"
 
 #: src/app/composer/gifs.tsx:219
 msgid "Could not select GIF"
-msgstr ""
+msgstr "GIF തിരഞ്ഞെടുക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/add-to-list/[handle].tsx:42
 msgid "Couldn't fetch lists"
-msgstr ""
+msgstr "ലിസ്റ്റ് എടുക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/(tabs)/_layout.tsx:182
 msgid "Create a new post"
-msgstr ""
+msgstr "പുതിയ പോസ്റ്റ് ക്രിയേറ്റ് ചെയ്യാം"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
-msgstr "Criar Conta"
+msgstr "അക്കൗണ്ട് സൃഷ്ടിക്കുക"
 
 #: src/app/index.tsx:46
 msgid "Create an account"
-msgstr ""
+msgstr "ഒരു അക്കൗണ്ട് സൃഷ്ടിക്കുക"
 
 #: src/app/create-list.tsx:236
 msgid "Create list"
-msgstr ""
+msgstr "പട്ടിക സൃഷ്ടിക്കുക"
 
 #: src/app/_layout.tsx:378
 msgid "Create List"
-msgstr ""
+msgstr "പട്ടിക സൃഷ്ടിക്കുക"
 
 #: src/app/add-to-list/[handle].tsx:156
 msgid "Create new list"
-msgstr ""
+msgstr "പട്ടിക സൃഷ്ടിക്കുക"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
-msgstr ""
+msgstr "bsky.app/settings ല് ഒരെണ്ണം സൃഷ്ടിക്കുക"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
-msgstr ""
+msgstr "സൃഷ്ടിച്ചത്"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
-msgstr ""
+msgstr "സ്രഷ്ടാവ്"
 
 #: src/app/pro.tsx:181
 msgid "Currently subscribed"
-msgstr "Atualmente inscrito"
+msgstr "നിലവിൽ സബ്സ്ക്രൈബ് ചെയ്‌തിരിക്കുന്നത്‌"
 
 #: src/app/settings/account/change-handle.tsx:91
 msgid "Custom domain"
-msgstr ""
+msgstr "സ്വന്തം ഡൊമൈൻ"
 
 #: src/app/pro.tsx:120
 msgid "Custom themes"
-msgstr "Temas personalizados"
+msgstr "ഇഷ്ടാനുസൃത തീം"
 
 #: src/components/drawer/drawer-content.tsx:65
 msgid "dark"
-msgstr ""
+msgstr "ഇരുണ്ട"
 
 #: src/components/drawer/drawer-content.tsx:53
 #: src/components/drawer/drawer-content.tsx:85
 msgid "Dark"
-msgstr ""
+msgstr "ഇരുണ്ട"
 
 #: src/app/(auth)/sign-up.tsx:207
 msgid "Date of Birth"
-msgstr "Data de Nascimento"
+msgstr "ജനന തീയതി"
 
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
-msgstr ""
+msgstr "ഇല്ലാതാക്കുക"
 
 #: src/app/settings/_layout.tsx:80
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
-msgstr ""
+msgstr "അക്കൗണ്ട് ഇല്ലാതാക്കുക"
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"
-msgstr ""
+msgstr "പോസ്റ്റ് ഇല്ലാതാക്കുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
-msgstr ""
+msgstr "പോസ്റ്റ് ഡിലീറ്റ് ചെയ്യൂ"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr ""
+msgstr "നിങ്ങളുടെ Bluesky അക്കൗണ്ട് ഇല്ലാതാക്കുന്നത് നിങ്ങളുടെ പ്രൊഫൈൽ, പോസ്റ്റുകൾ, ഫോളോവേഴ്സ്, ലൈക്കുകൾ എന്നിവയുൾപ്പെടെ നിങ്ങളുടെ എല്ലാ ഡാറ്റയും ശാശ്വതമായി നീക്കംചെയ്യും. ഈ നടപടി റദ്ദാക്കാൻ കഴിയില്ല."
 
 #: src/app/settings/account/delete-account.tsx:167
 msgid "Deletion Code"
-msgstr ""
+msgstr "ഇല്ലാതാക്കൽ കോഡ്"
 
 #: src/app/create-list.tsx:189
 #: src/app/edit-bio.tsx:245
 msgid "Description"
-msgstr ""
+msgstr "വിവരണം"
 
 #: src/app/settings/app.tsx:120
 #: src/app/settings/app.tsx:128
 msgid "Disable GIF autoplay"
-msgstr ""
+msgstr "GIF ഓട്ടോപ്ലേ പ്രവർത്തനരഹിതമാക്കുക"
 
 #: src/app/settings/app.tsx:99
 msgid "Disable haptics"
-msgstr ""
+msgstr "ഹാപ്റ്റിക്സ് പ്രവർത്തനരഹിതമാക്കുക"
 
 #: src/app/settings/app.tsx:115
 msgid "Disable haptics (vibrations)"
-msgstr ""
+msgstr "ഹാപ്റ്റിക്സ് (വൈബ്രേഷനുകൾ) പ്രവർത്തനരഹിതമാക്കുക"
 
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:159
 msgid "Discard post"
-msgstr ""
+msgstr "പോസ്റ്റ് ഉപേക്ഷിക്കുക"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
-msgstr ""
+msgstr "ഫീഡുകൾ കണ്ടെത്തുക"
 
 #: src/app/_layout.tsx:314
 msgid "Discover Feeds"
-msgstr ""
+msgstr "ഫീഡുകൾ കണ്ടെത്തുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
 msgid "Discover more feeds"
-msgstr ""
+msgstr "കൂടുതൽ ഫീഡുകൾ കണ്ടെത്തുക"
 
 #: src/app/edit-bio.tsx:228
 msgid "Display name"
-msgstr ""
+msgstr "പ്രദർശന നാമം"
 
 #: src/app/settings/account/change-handle.tsx:82
 msgid "Domain"
-msgstr ""
+msgstr "ഡൊമെയ്ൻ"
 
 #: src/app/push-notifications.tsx:147
 msgid "Don't enable"
-msgstr ""
+msgstr "പ്രവർത്തനക്ഷമമാക്കരുത്"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
@@ -770,77 +770,77 @@ msgstr ""
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
-msgstr ""
+msgstr "കഴിഞ്ഞു"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
-msgstr ""
+msgstr "നിങ്ങൾക്ക് മനസ്സിലായോ എന്ന് രണ്ടുതവണ പരിശോധിക്കുക"
 
 #: src/app/composer/_layout.tsx:73
 msgid "Drafts"
-msgstr ""
+msgstr "ഡ്രാഫ്റ്റുകൾ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
-msgstr ""
+msgstr "തിരുത്തുക"
 
 #: src/lib/composer/alt-text-editor.tsx:68
 msgid "Edit alt text"
-msgstr ""
+msgstr "Alt ടെക്സ്റ്റ് എഡിറ്റ് ചെയ്യുക"
 
 #: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
-msgstr ""
+msgstr "അവതാർ എഡിറ്റുചെയ്യുക"
 
 #: src/app/edit-bio.tsx:183
 msgid "Edit banner"
-msgstr ""
+msgstr "ബാനർ എഡിറ്റുചെയ്യുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Edit feeds"
-msgstr ""
+msgstr "ഫീഡുകൾ എഡിറ്റ് ചെയ്യുക"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
-msgstr ""
+msgstr "പ്രൊഫൈല്‍ എഡിറ്റ്‌ ചെയ്യുക"
 
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr "Email"
+msgstr "ഇ-മെയിൽ"
 
 #: src/app/settings/moderation.tsx:143
 msgid "Enable Adult Content"
-msgstr ""
+msgstr "മുതിർന്നവരുടെ ഉള്ളടക്കം പ്രവർത്തനക്ഷമമാക്കുക"
 
 #: src/app/push-notifications.tsx:127
 msgid "Enable notifications"
-msgstr ""
+msgstr "അറിയിപ്പുകൾ പ്രവർത്തനക്ഷമമാക്കുക"
 
 #: src/app/(auth)/sign-up.tsx:289
 msgid "Enter your phone number"
-msgstr "Digite seu número de telefone"
+msgstr "നിങ്ങളുടെ ഫോൺ നമ്പർ നൽകുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
-msgstr ""
+msgstr "പിശക്"
 
 #: src/app/composer/threadgate.tsx:37
 msgid "Everyone can reply"
-msgstr ""
+msgstr "എല്ലാവർക്കും മറുപടി പറയാം"
 
 #: src/app/capture/[author]/[post].tsx:88
 msgid "Failed to capture image"
-msgstr ""
+msgstr "ചിത്രം പകർത്തുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:57
 msgid "Failed to fetch feed"
-msgstr ""
+msgstr "ഫീഡ് കൊണ്ടുവരുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:70
 msgid "Failed to hydrate feed"
@@ -848,65 +848,65 @@ msgstr ""
 
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
-msgstr ""
+msgstr "ലിങ്ക് തുറക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/lib/composer/utils.tsx:188
 msgid "Failed to upload image"
-msgstr ""
+msgstr "ചിത്രം അപ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/lib/composer/utils.tsx:238
 msgid "Failed to upload thumbnail"
-msgstr ""
+msgstr "ചെറുചിത്രം അപ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
-msgstr ""
+msgstr "പ്രിയപ്പെട്ടത്"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:122
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
-msgstr ""
+msgstr "പ്രിയപ്പെട്ടവ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:82
 msgid "Feed"
-msgstr ""
+msgstr "ഫീഡ്"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:54
 msgid "Feed Details"
-msgstr ""
+msgstr "ഫീഡ് വിവരങ്ങൾ"
 
 #: src/app/(tabs)/_layout.tsx:159
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:249
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
-msgstr ""
+msgstr "ഫീഡുകൾ"
 
 #: src/app/settings/feed.tsx:122
 #: src/app/settings/feed.tsx:136
 msgid "Feeds list"
-msgstr ""
+msgstr "ഫീഡുകളുടെ ലിസ്റ്റ്"
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
-msgstr ""
+msgstr "പിന്തുടരാൻ ആളുകളെ കണ്ടെത്തുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
 #: src/components/screens/profile/profile-info.tsx:412
 msgid "Follow"
-msgstr ""
+msgstr "പിന്തുടരുക"
 
 #: src/components/screens/feed-screen.tsx:105
 msgid "Follow people, and their posts will show up here"
-msgstr ""
+msgstr "ആളുകളെ പിന്തുടരുക, അവരുടെ പോസ്റ്റുകൾ ഇവിടെ കാണിക്കും"
 
 #: src/components/screens/profile/profile-info.tsx:103
 msgid "Followed user"
-msgstr ""
+msgstr "ഫോളോ ചെയ്ത ഉപയോക്താവ്"
 
 #: src/components/lists/followers-list.tsx:54
 msgid "Followers"
-msgstr ""
+msgstr "പിന്തുടരുന്നവർ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:111
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
@@ -918,40 +918,40 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
-msgstr ""
+msgstr "പിന്തുടരുന്നു"
 
 #: src/components/lists/person-row.tsx:47
 #: src/components/screens/profile/profile-info.tsx:434
 msgid "Follows you"
-msgstr ""
+msgstr "നിങ്ങളെ പിന്തുടരുന്നു"
 
 #: src/app/(auth)/sign-in.tsx:106
 msgid "Forgot?"
-msgstr ""
+msgstr "മറന്നോ?"
 
 #: src/components/screens/profile/profile-info.tsx:651
 msgid "Frequently Posts Unwanted Content"
-msgstr ""
+msgstr "പലപ്പോഴും അനാവശ്യ ഉള്ളടക്കം പോസ്റ്റുചെയ്യുന്നു"
 
 #: src/app/settings/app.tsx:35
 msgid "General"
-msgstr ""
+msgstr "പൊതുവായ"
 
 #: src/app/settings/language/index.tsx:152
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr ""
+msgstr "DeepL ഉപയോഗിച്ചുള്ള പരിഭാഷകൾക്ക് ഗ്രേ സ്കൈ പ്രോ നേടുക. അല്ലെങ്കിൽ Google Translate ആണ് ഉപയോഗിക്കുന്നത്."
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
-msgstr ""
+msgstr "തുടങ്ങാം"
 
 #: src/components/screens/waiting-room.tsx:53
 msgid "Getting queue position..."
-msgstr ""
+msgstr "ക്യൂ സ്ഥാനം ലഭിക്കുന്നു..."
 
 #: src/app/composer/_layout.tsx:97
 msgid "GIFs"
-msgstr ""
+msgstr "GIF"
 
 #: src/app/composer/index.tsx:244
 msgid "Go back"
@@ -966,7 +966,7 @@ msgstr ""
 #: src/app/settings/index.tsx:34
 #: src/components/drawer/drawer-content.tsx:174
 msgid "Graysky Pro"
-msgstr "Graysky Pro"
+msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
@@ -986,7 +986,7 @@ msgstr ""
 
 #: src/app/pro.tsx:127
 msgid "Help us keep the lights on"
-msgstr "Ajude-nos a manter as luzes acesas"
+msgstr ""
 
 #: src/app/settings/moderation.tsx:103
 #: src/components/embed/index.tsx:225
@@ -1062,7 +1062,7 @@ msgstr ""
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr "curtiu a sua publicação"
+msgstr ""
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
@@ -1142,7 +1142,7 @@ msgstr ""
 
 #: src/app/pro.tsx:193
 msgid "Manage my subscription"
-msgstr "Gerenciar minha assinatura"
+msgstr ""
 
 #: src/app/settings/app.tsx:133
 msgid "Mandatory ALT text"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #: src/app/pro.tsx:202
 msgid "Monthly Plan"
-msgstr "Plano Mensal"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
@@ -1196,7 +1196,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
-msgstr "Deve ter pelo menos 8 caracteres"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
@@ -1263,7 +1263,7 @@ msgstr ""
 
 #: src/components/notification/index.tsx:189
 msgid "New follower: {0} @{1}"
-msgstr "Novo seguidor: {0} @{1}"
+msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
@@ -1277,7 +1277,7 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 msgid "Next"
-msgstr "Avançar"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1359,7 +1359,7 @@ msgstr ""
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:96
 msgid "Opens profile"
-msgstr "Abrir perfil"
+msgstr ""
 
 #: src/app/create-list.tsx:197
 msgid "Optional"
@@ -1373,7 +1373,7 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
 msgid "Password"
-msgstr "Senha"
+msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:227
 msgid "Password changed successfully!"
@@ -1382,7 +1382,7 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
-msgstr "A senha deve ter pelo menos 8 caracteres"
+msgstr ""
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
@@ -1406,7 +1406,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:281
 msgid "Phone number"
-msgstr "Número de telefone"
+msgstr ""
 
 #: src/app/composer/index.tsx:231
 msgid "Please add descriptive alt text to all images before posting."
@@ -1425,7 +1425,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:303
 msgid "Please enter a phone number that can receive SMS text messages."
-msgstr "Por favor, insira um número de telefone que possa receber mensagens de texto SMS."
+msgstr ""
 
 #: src/app/composer/gifs.tsx:220
 #: src/app/composer/index.tsx:290
@@ -1636,11 +1636,11 @@ msgstr ""
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
-msgstr "repostou a sua publicação"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
-msgstr "Solicitar código"
+msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1653,12 +1653,12 @@ msgstr ""
 #: src/app/pro.tsx:335
 #: src/app/pro.tsx:350
 msgid "Restore purchases"
-msgstr "Restaurar compras"
+msgstr ""
 
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
 msgid "Restoring purchases..."
-msgstr "Restaurando compras..."
+msgstr ""
 
 #: src/components/error-boundary.tsx:34
 #: src/components/query-without-data.tsx:46
@@ -1678,7 +1678,7 @@ msgstr ""
 
 #: src/app/pro.tsx:224
 msgid "Save {0}%"
-msgstr "Economize {0}%"
+msgstr ""
 
 #: src/components/image-with-context-menu.tsx:151
 msgid "Save Image"
@@ -1769,7 +1769,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
-msgstr "Selecione a data de nascimento"
+msgstr ""
 
 #: src/app/create-list.tsx:227
 msgid "Select list purpose"
@@ -1917,7 +1917,7 @@ msgstr ""
 
 #: src/app/pro.tsx:91
 msgid "Something went wrong, please try again later."
-msgstr "Algo deu errado, tente novamente mais tarde."
+msgstr ""
 
 #: src/app/_layout.tsx:154
 #: src/app/_layout.tsx:173
@@ -1951,7 +1951,7 @@ msgstr ""
 #: src/components/notification/index.tsx:127
 #: src/components/notification/index.tsx:186
 msgid "started following you"
-msgstr "começou a seguir você"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Stop editing"
@@ -1959,7 +1959,7 @@ msgstr ""
 
 #: src/app/pro.tsx:259
 msgid "Subscribe & pay"
-msgstr "Assinar e pagar"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:218
 msgid "Subscribe to {0}"
@@ -1975,7 +1975,7 @@ msgstr ""
 
 #: src/app/pro.tsx:126
 msgid "Support development"
-msgstr "Apoie o desenvolvimento"
+msgstr ""
 
 #: src/app/(tabs)/_layout.tsx:119
 msgid "Switch Accounts"
@@ -2105,7 +2105,7 @@ msgstr ""
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
-msgstr "Traduzir postagens usando o DeepL"
+msgstr ""
 
 #: src/components/translation.tsx:146
 msgid "Translated by DeepL"
@@ -2156,7 +2156,7 @@ msgstr ""
 #: src/components/switch-accounts.tsx:72
 #: src/components/switch-accounts.tsx:77
 msgid "Unknown error"
-msgstr "Erro desconhecido"
+msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:527
 msgid "Unmute"
@@ -2234,7 +2234,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:325
 msgid "Verification code"
-msgstr "Código de verificação"
+msgstr ""
 
 #: src/app/settings/about.tsx:155
 #: src/components/drawer/drawer-content.tsx:216
@@ -2310,7 +2310,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:391
 msgid "You can change it later"
-msgstr "Você pode alterá-lo mais tarde"
+msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2379,7 +2379,7 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
-msgstr "Seu identificador será: <0>@{derivedHandle}</0>"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:668
 msgid "Your list has been deleted"
