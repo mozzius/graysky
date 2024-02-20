@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 00:59\n"
+"PO-Revision-Date: 2024-02-20 01:20\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -303,27 +303,27 @@ msgstr ""
 #: src/components/screens/change-password-flow.tsx:78
 #: src/components/translation.tsx:165
 msgid "An error occurred"
-msgstr ""
+msgstr "Адбылася памылка"
 
 #: src/components/image-with-context-menu.tsx:142
 msgid "An error occurred while trying to copy the image"
-msgstr ""
+msgstr "Адбылася памылка пры спробе скапіяваць відарыс"
 
 #: src/components/image-with-context-menu.tsx:174
 msgid "An error occurred while trying to save the image"
-msgstr ""
+msgstr "Адбылася памылка пры спробе захаваць відарыс"
 
 #: src/components/image-with-context-menu.tsx:198
 msgid "An error occurred while trying to share the image"
-msgstr ""
+msgstr "Адбылася памылка пры спробе абагуліць відарыс"
 
 #: src/app/composer/index.tsx:286
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "Адбылася невядомая памылка"
 
 #: src/app/settings/account/change-handle.tsx:58
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "Адбылася невядомая памылка."
 
 #: src/app/pro.tsx:220
 msgid "Annual Plan"
@@ -335,12 +335,12 @@ msgstr ""
 
 #: src/app/settings/about.tsx:151
 msgid "App info"
-msgstr ""
+msgstr "Інфармацыя пра праграму"
 
 #: src/app/settings/language/index.tsx:48
 #: src/app/settings/language/index.tsx:51
 msgid "App language"
-msgstr ""
+msgstr "Мова праграмы"
 
 #: src/app/(auth)/sign-in.tsx:92
 msgid "App Password"
@@ -352,23 +352,23 @@ msgstr ""
 
 #: src/app/settings/index.tsx:63
 msgid "App settings"
-msgstr ""
+msgstr "Налады праграмы"
 
 #: src/app/settings/_layout.tsx:105
 msgid "App Settings"
-msgstr ""
+msgstr "Налады праграмы"
 
 #: src/lib/account-actions.ts:71
 msgid "Are you sure you want to block @{handle}?"
-msgstr ""
+msgstr "Вы ўпэўнены, што хочаце заблакіраваць @{handle}?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Вы ўпэўнены, што хочаце выдаліць гэты допіс?"
 
 #: src/lib/account-actions.ts:117
 msgid "Are you sure you want to unblock @{handle}?"
-msgstr ""
+msgstr "Вы ўпэўнены, што хочаце разблакіраваць @{handle}?"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
@@ -383,7 +383,7 @@ msgstr ""
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:304
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
@@ -408,7 +408,7 @@ msgstr ""
 #: src/components/post-context-menu.tsx:262
 #: src/components/screens/profile/profile-info.tsx:744
 msgid "Block user"
-msgstr ""
+msgstr "Заблакіраваць карыстальніка"
 
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
@@ -494,21 +494,21 @@ msgstr ""
 #: src/app/settings/_layout.tsx:75
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
-msgstr ""
+msgstr "Змяніць пароль"
 
 #: src/lib/composer/keyboard-accessory.tsx:107
 msgid "Change post language"
-msgstr ""
+msgstr "Змяніць мову допісу"
 
 #: src/app/pro.tsx:121
 msgid "Change the accent colour"
-msgstr ""
+msgstr "Змяніць дамінуючы колер"
 
 #: src/components/drawer/drawer-content.tsx:70
 #: src/components/drawer/drawer-content.tsx:180
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
-msgstr ""
+msgstr "Змяніць тэму"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -529,15 +529,15 @@ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:174
 msgid "Confirm Password"
-msgstr ""
+msgstr "Пацвярджэнне пароля"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
 msgid "Connecting..."
-msgstr ""
+msgstr "Злучэнне..."
 
 #: src/app/settings/about.tsx:49
 msgid "Contact"
-msgstr ""
+msgstr "Звязацца"
 
 #: src/app/settings/moderation.tsx:127
 msgid "Content filters"
@@ -553,7 +553,7 @@ msgstr ""
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr ""
+msgstr "Удзельнікі"
 
 #: src/components/image-with-context-menu.tsx:136
 msgid "Copied image to clipboard"
@@ -570,19 +570,19 @@ msgstr ""
 
 #: src/components/image-with-context-menu.tsx:126
 msgid "Copy Image"
-msgstr ""
+msgstr "Скапіяваць відарыс"
 
 #: src/lib/hooks/link-press.tsx:89
 msgid "Copy link"
-msgstr ""
+msgstr "Скапіяваць спасылку"
 
 #: src/components/post-context-menu.tsx:183
 msgid "Copy link to post"
-msgstr ""
+msgstr "Скапіяваць спасылку на допіс"
 
 #: src/components/post-context-menu.tsx:206
 msgid "Copy post text"
-msgstr ""
+msgstr "Скапіяваць тэкст допісу"
 
 #: src/components/post-context-menu.tsx:147
 #~ msgid "Copyright Violation"
@@ -598,15 +598,15 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:93
 msgid "Could not create account"
-msgstr ""
+msgstr "Не атрымалася стварыць уліковы запіс"
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
-msgstr ""
+msgstr "Не атрымалася выдаліць уліковы запіс"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
 msgid "Could not delete list"
-msgstr ""
+msgstr "Не атрымалася выдаліць спіс"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:136
 msgid "Could not fetch list"
@@ -626,17 +626,17 @@ msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:113
 msgid "Could not follow user"
-msgstr ""
+msgstr "Не атрымалася падпісацца на карыстальніка"
 
 #: src/app/(auth)/sign-in.tsx:50
 #: src/components/switch-accounts.tsx:71
 #: src/components/switch-accounts.tsx:76
 msgid "Could not log you in"
-msgstr ""
+msgstr "Не атрымалася ўвайсці ва ўліковы запіс"
 
 #: src/app/composer/gifs.tsx:219
 msgid "Could not select GIF"
-msgstr ""
+msgstr "Не атрымалася выбраць GIF"
 
 #: src/app/add-to-list/[handle].tsx:42
 msgid "Couldn't fetch lists"
@@ -644,27 +644,27 @@ msgstr ""
 
 #: src/app/(tabs)/_layout.tsx:182
 msgid "Create a new post"
-msgstr ""
+msgstr "Новы допіс"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
-msgstr ""
+msgstr "Стварыць уліковы запіс"
 
 #: src/app/index.tsx:46
 msgid "Create an account"
-msgstr ""
+msgstr "Стварыць уліковы запіс"
 
 #: src/app/create-list.tsx:236
 msgid "Create list"
-msgstr ""
+msgstr "Стварыць спіс"
 
 #: src/app/_layout.tsx:384
 msgid "Create List"
-msgstr ""
+msgstr "Стварыць спіс"
 
 #: src/app/add-to-list/[handle].tsx:156
 msgid "Create new list"
-msgstr ""
+msgstr "Стварыць новы спіс"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
@@ -684,39 +684,39 @@ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:91
 msgid "Custom domain"
-msgstr ""
+msgstr "Уласны дамен"
 
 #: src/app/pro.tsx:120
 msgid "Custom themes"
-msgstr ""
+msgstr "Карыстальніцкія тэмы"
 
 #: src/components/drawer/drawer-content.tsx:65
 msgid "dark"
-msgstr ""
+msgstr "Цёмная"
 
 #: src/components/drawer/drawer-content.tsx:53
 #: src/components/drawer/drawer-content.tsx:85
 msgid "Dark"
-msgstr ""
+msgstr "Цёмная"
 
 #: src/app/(auth)/sign-up.tsx:207
 msgid "Date of Birth"
-msgstr ""
+msgstr "Дата нараджэння"
 
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
-msgstr ""
+msgstr "Выдаліць"
 
 #: src/app/settings/_layout.tsx:81
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
-msgstr ""
+msgstr "Выдаліць уліковы запіс"
 
 #: src/components/post-context-menu.tsx:238
 msgid "Delete post"
-msgstr ""
+msgstr "Выдаліць допіс"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
@@ -733,20 +733,20 @@ msgstr ""
 #: src/app/create-list.tsx:189
 #: src/app/edit-bio.tsx:245
 msgid "Description"
-msgstr ""
+msgstr "Апісанне"
 
 #: src/app/settings/app.tsx:120
 #: src/app/settings/app.tsx:128
 msgid "Disable GIF autoplay"
-msgstr ""
+msgstr "Адключыць аўтаматычнае прайграванне GIF"
 
 #: src/app/settings/app.tsx:99
 msgid "Disable haptics"
-msgstr ""
+msgstr "Адключыць тактыльны водгук"
 
 #: src/app/settings/app.tsx:115
 msgid "Disable haptics (vibrations)"
-msgstr ""
+msgstr "Адключыць тактыльны водгук (вібрацыю)"
 
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:159
@@ -771,7 +771,7 @@ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:82
 msgid "Domain"
-msgstr ""
+msgstr "Дамен"
 
 #: src/app/push-notifications.tsx:147
 msgid "Don't enable"
@@ -786,7 +786,7 @@ msgstr ""
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
-msgstr ""
+msgstr "Гатова"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
@@ -794,20 +794,20 @@ msgstr ""
 
 #: src/app/composer/_layout.tsx:73
 msgid "Drafts"
-msgstr ""
+msgstr "Чарнавікі"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
-msgstr ""
+msgstr "Змяніць"
 
 #: src/lib/composer/alt-text-editor.tsx:68
 msgid "Edit alt text"
-msgstr ""
+msgstr "Змяніць альтэрнатыўны тэкст"
 
 #: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
-msgstr ""
+msgstr "Змяніць аватар"
 
 #: src/app/edit-bio.tsx:183
 msgid "Edit banner"
