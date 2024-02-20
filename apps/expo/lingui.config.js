@@ -1,6 +1,6 @@
 /** @type {import('@lingui/conf').LinguiConfig} */
 module.exports = {
-  locales: ["en", "ja", "be"],
+  locales: ["en", "ja", "es", "be"],
   catalogs: [
     {
       path: "<rootDir>/src/i18n/locales/{locale}/messages",

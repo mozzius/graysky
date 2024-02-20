@@ -5,6 +5,7 @@ import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
 import { messages as messagesBe } from "~/i18n/locales/be/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
+import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import {
   appPreferencesStore,
@@ -20,6 +21,9 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "ja": {
       return "日本語";
     }
+    case "es": {
+      return "Español";
+    }
     case "be": {
       return "Беларуская";
     }
@@ -32,6 +36,10 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
   switch (locale) {
     case "ja": {
       i18n.loadAndActivate({ locale, messages: messagesJa });
+      break;
+    }
+    case "es": {
+      i18n.loadAndActivate({ locale, messages: messagesEs });
       break;
     }
     case "be": {

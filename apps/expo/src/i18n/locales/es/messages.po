@@ -5,30 +5,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: be\n"
+"Language: es\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-02-20 00:47\n"
 "Last-Translator: \n"
-"Language-Team: Belarusian\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
+"Language-Team: Spanish\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: graysky\n"
 "X-Crowdin-Project-ID: 648828\n"
-"X-Crowdin-Language: be\n"
+"X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 8\n"
 
 #: src/components/notification/index.tsx:190
 msgid "{0} @{1}"
-msgstr "{0} @{1}"
+msgstr ""
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0} / месяц"
+msgstr ""
 
 #: src/app/pro.tsx:238
 msgid "{0} / year"
-msgstr "{0} / год"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
 msgid "{0} feed for #{decodedTag} is empty"
@@ -36,39 +36,39 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr "Допісаў: {0}"
+msgstr ""
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
-msgstr "{days} дзён таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:37
 msgid "{days}d"
-msgstr "{days}дз."
+msgstr ""
 
 #: src/lib/utils/time.ts:51
 msgid "{hours} hours ago"
-msgstr "{hours} гадзін таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:48
 msgid "{hours}h"
-msgstr "{hours}г."
+msgstr ""
 
 #: src/lib/utils/time.ts:62
 msgid "{minutes} minutes ago"
-msgstr "{minutes} хвілін таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
-msgstr "{minutes}хв."
+msgstr ""
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
-msgstr "{months} месяцаў таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:26
 msgid "{months}m"
-msgstr "{months}м."
+msgstr ""
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -84,35 +84,35 @@ msgstr ""
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
-msgstr "{secondsAgo} секунд таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:68
 msgid "{secondsAgo}s"
-msgstr "{secondsAgo}с."
+msgstr ""
 
 #: src/lib/utils/time.ts:18
 msgid "{years} years ago"
-msgstr "{years} год таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:15
 msgid "{years}y"
-msgstr "{years}г."
+msgstr ""
 
 #: src/lib/account-actions.ts:97
 msgid "@{handle} has been blocked"
-msgstr "@{handle} быў заблакіраваны"
+msgstr ""
 
 #: src/lib/account-actions.ts:143
 msgid "@{handle} has been unblocked"
-msgstr "@{handle} быў разблакіраваны"
+msgstr ""
 
 #: src/lib/account-actions.ts:54
 msgid "@{handle} is no longer muted"
-msgstr "@{handle} болей не ігнаруецца"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
-msgstr "#{0}"
+msgstr ""
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
@@ -121,56 +121,56 @@ msgstr ""
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:447
 msgid "<0>{0}</0> Followers"
-msgstr "<0>{0}</0> падпісчыкаў"
+msgstr ""
 
 #: src/components/drawer/actor-details.tsx:56
 #: src/components/screens/profile/profile-info.tsx:455
 msgid "<0>{0}</0> Following"
-msgstr "<0>{0}</0> падпісак"
+msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:463
 msgid "<0>{0}</0> Posts"
-msgstr "<0>{0}</0> допісаў"
+msgstr ""
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
-msgstr "1 дзень таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:50
 msgid "1 hour ago"
-msgstr "1 гадзіну таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:61
 msgid "1 minute ago"
-msgstr "1 хвіліну таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:28
 msgid "1 month ago"
-msgstr "1 месяц таму"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
-msgstr "1 з 3"
+msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
-msgstr "1 секунду таму"
+msgstr ""
 
 #: src/lib/utils/time.ts:17
 msgid "1 year ago"
-msgstr "1 год таму"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
-msgstr "2 з 3"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 msgid "3 of 3"
-msgstr "3 з 3"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць нумар тэлефона.</0>"
+msgstr ""
 
 #: src/app/settings/feed.tsx:121
 #~ msgid "A specific feed"
@@ -179,51 +179,51 @@ msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць 
 #: src/app/settings/_layout.tsx:117
 #: src/lib/quick-actions.ts:88
 msgid "About"
-msgstr "А праграме"
+msgstr ""
 
 #: src/app/settings/index.tsx:85
 msgid "About Graysky"
-msgstr "Пра Graysky"
+msgstr ""
 
 #: src/app/settings/pro.tsx:52
 msgid "Accent colour"
-msgstr "Дамінуючы колер"
+msgstr ""
 
 #: src/app/settings/app.tsx:96
 msgid "Accessibility"
-msgstr "Спецыяльныя магчымасці"
+msgstr ""
 
 #: src/app/settings/index.tsx:43
 msgid "Account"
-msgstr "Уліковы запіс"
+msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:226
 msgid "Account deleted. Goodbye!"
-msgstr "Уліковы запіс выдалены. Да пабачэння!"
+msgstr ""
 
 #: src/app/settings/account/index.tsx:28
 msgid "Account Details"
-msgstr "Звесткі ўліковага запісу"
+msgstr ""
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
-msgstr "Налады ўліковага запісу"
+msgstr ""
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
-msgstr "Дадаць {0} у спіс"
+msgstr ""
 
 #: src/app/composer/index.tsx:656
 msgid "Add a content warning"
-msgstr "Дадаць папярэджанне пра змесціва"
+msgstr ""
 
 #: src/lib/composer/alt-text-editor.tsx:154
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
-msgstr "Дадаць апісанне да відарыса. Кароткае, але падрабязнае апісанне стане добрым альтэрнатыўным тэкстам. Калі відарыс змяшчае надпісы, пераканайцеся, што вы іх прадубліравалі ў тэксце."
+msgstr ""
 
 #: src/components/switch-accounts.tsx:177
 msgid "Add another account"
-msgstr "Дадаць іншы ўліковы запіс"
+msgstr ""
 
 #: src/app/composer/index.tsx:566
 msgid "Add embed for <0>{potential}</0>"
@@ -430,15 +430,15 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Blocking list"
-msgstr "Спіс заблакаваных"
+msgstr ""
 
 #: src/app/settings/moderation.tsx:112
 msgid "Blocks & Mutes"
-msgstr "Заблакіраванае і ігнаруемае"
+msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr "Дамен bsky.social"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:460
 msgid "by @{0}"
@@ -484,7 +484,7 @@ msgstr ""
 #: src/lib/hooks/link-press.tsx:101
 #: src/lib/hooks/post-actions.tsx:142
 msgid "Cancel"
-msgstr "Скасаваць"
+msgstr ""
 
 #: src/app/settings/_layout.tsx:69
 #: src/app/settings/account/index.tsx:45
