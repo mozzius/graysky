@@ -20,7 +20,7 @@ import {
 } from "~/lib/storage/app-preferences";
 import { LANGUAGES } from "~/lib/utils/locale/languages";
 
-const options = ["en", "ja", "es", "be"] as const;
+const options = ["en", "ja", "es", "fr", "be"] as const;
 
 export default function LanguageSettings() {
   const primaryLanguage = usePrimaryLanguage();
