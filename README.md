@@ -15,8 +15,8 @@ pnpm install
 cp .env.example .env
 ```
 
->EAS setup (optional)
->Set EAS_PROJECT_ID, APP_ID, and OWNER in .env
+> EAS setup (optional)
+> Set EAS_PROJECT_ID, APP_ID, and OWNER in .env
 
 In the `/apps/expo` directory, build the dev client using EAS:
 
@@ -40,7 +40,7 @@ pnpm dev
   - [ ] community handles
 - [x] Push notifications
 - [ ] Drafts
-- [ ] Full lists support
+- [x] Full lists support
 - [x] Share post as image
 - [ ] Pro features
   - [ ] Polls
@@ -49,12 +49,12 @@ pnpm dev
 ## Android local APK builds
 
 - Install Android Studio, and the Android SDK
-- Install Oracle Java 11 JDK (`brew install openjdk@11`)
+- Install Azul Zulu OpenJDK (`brew install --cask zulu17`) and then set `JAVA_HOME` to the path of the JDK, which will probably be `/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home`
 - Copy `google-services.json.example` to `google-services.json`, or add your own Firebase config
 - Make Gradle faster in `~/.gradle/gradle.properties`:
 
 ```
-org.gradle.jvmargs=-Xmx20g -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=2g
+org.gradle.jvmargs=-Xmx20g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=2g
 org.gradle.parallel=true
 org.gradle.configureondemand=true
 org.gradle.daemon=false
