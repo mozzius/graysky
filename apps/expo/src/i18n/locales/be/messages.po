@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 09:58\n"
+"PO-Revision-Date: 2024-02-20 10:08\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -443,7 +443,7 @@ msgstr ""
 
 #: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr ""
+msgstr "Падпісваючыся, вы пагаджаецеся з нашымі <0>умовамі</0> і <1>палітыкай прыватнасці</1>. Падпіска будзе падаўжацца аўтаматычна пакуль вы не скасуеце."
 
 #: src/app/pro.tsx:266
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
