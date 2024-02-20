@@ -12,6 +12,7 @@ import { TransparentHeaderUntilScrolled } from "~/components/transparent-header"
 import { languageCodeToName } from "~/i18n/config";
 import { useIsPro } from "~/lib/purchases";
 import {
+  availableAppLanguages,
   useAppLanguage,
   useContentLanguages,
   usePrimaryLanguage,
@@ -19,8 +20,6 @@ import {
   useTranslationMethod,
 } from "~/lib/storage/app-preferences";
 import { LANGUAGES } from "~/lib/utils/locale/languages";
-
-const options = ["en", "ja", "es", "fr", "de", "be"] as const;
 
 export default function LanguageSettings() {
   const primaryLanguage = usePrimaryLanguage();
@@ -66,7 +65,7 @@ export default function LanguageSettings() {
                       </View>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content>
-                      {options.map((lang) => (
+                      {availableAppLanguages.map((lang) => (
                         <DropdownMenu.CheckboxItem
                           key={lang}
                           textValue={languageCodeToName(lang)}

@@ -324,8 +324,8 @@ msgstr ""
 msgid "App info"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:48
-#: src/app/settings/language/index.tsx:51
+#: src/app/settings/language/index.tsx:47
+#: src/app/settings/language/index.tsx:50
 msgid "App language"
 msgstr ""
 
@@ -932,7 +932,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:153
+#: src/app/settings/language/index.tsx:152
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr ""
 
@@ -952,7 +952,7 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:151
+#: src/app/settings/language/index.tsx:150
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
 msgstr ""
@@ -1013,7 +1013,7 @@ msgstr ""
 msgid "How should we open this link?"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:126
+#: src/app/settings/language/index.tsx:125
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr ""
 
@@ -1235,7 +1235,7 @@ msgid "My Feeds screen"
 msgstr ""
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:109
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr ""
 
@@ -1459,7 +1459,7 @@ msgstr ""
 msgid "Post Language"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:89
+#: src/app/settings/language/index.tsx:88
 msgid "Post languages"
 msgstr ""
 
@@ -1484,7 +1484,7 @@ msgstr ""
 msgid "Posts from people you follow"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:103
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr ""
 
@@ -1498,7 +1498,7 @@ msgstr ""
 msgid "Primary feed"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:92
+#: src/app/settings/language/index.tsx:91
 msgid "Primary language"
 msgstr ""
 
@@ -2110,7 +2110,7 @@ msgstr ""
 msgid "Translated by Google"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:130
+#: src/app/settings/language/index.tsx:129
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr ""
@@ -2181,12 +2181,12 @@ msgstr ""
 msgid "Unwanted Sexual Content"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:133
+#: src/app/settings/language/index.tsx:132
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr ""
 
-#: src/app/settings/language/index.tsx:144
+#: src/app/settings/language/index.tsx:143
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr ""

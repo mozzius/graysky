@@ -10,7 +10,30 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { produce } from "../utils/produce";
 import { store } from "./storage";
 
-const availableAppLanguages = z.enum(["en", "ja", "es", "fr", "de", "be"]);
+export const availableAppLanguages = [
+  "en",
+  "ja",
+  "es",
+  "fr",
+  "de",
+  "be",
+  "pt-BR",
+] as const;
+const appLanguageSchema = z.enum(availableAppLanguages);
+
+let defaultAppLanguage: z.infer<typeof appLanguageSchema> = "en";
+
+const localeTag = Localization.getLocales()[0]?.languageTag;
+const localeCode = Localization.getLocales()[0]?.languageCode;
+
+const parseTag = appLanguageSchema.safeParse(localeTag);
+const parseCode = appLanguageSchema.safeParse(localeCode);
+
+if (parseTag.success) {
+  defaultAppLanguage = parseTag.data;
+} else if (parseCode.success) {
+  defaultAppLanguage = parseCode.data;
+}
 
 export const appPrefsSchema = z.object({
   // feeds
@@ -19,11 +42,7 @@ export const appPrefsSchema = z.object({
   homepage: z.enum(["feeds", "skyline"]).default("feeds"),
   defaultFeed: z.string().default("following"),
   // language
-  appLanguage: availableAppLanguages.default(
-    availableAppLanguages
-      .catch("en")
-      .parse(Localization.getLocales()[0]?.languageCode),
-  ),
+  appLanguage: appLanguageSchema.default(defaultAppLanguage),
   primaryLanguage: z
     .string()
     .default(Localization.getLocales()[0]?.languageCode ?? "en"),

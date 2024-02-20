@@ -329,8 +329,8 @@ msgstr "反社会的行為"
 msgid "App info"
 msgstr "アプリの情報"
 
-#: src/app/settings/language/index.tsx:48
-#: src/app/settings/language/index.tsx:51
+#: src/app/settings/language/index.tsx:47
+#: src/app/settings/language/index.tsx:50
 msgid "App language"
 msgstr "アプリの言語"
 
@@ -937,7 +937,7 @@ msgstr "よく投稿される不要なコンテンツ"
 msgid "General"
 msgstr "一般"
 
-#: src/app/settings/language/index.tsx:153
+#: src/app/settings/language/index.tsx:152
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "DeepL翻訳にアクセスするには、Graysky Proを入手してください。それ以外の場合は、Google翻訳が使用されます。"
 
@@ -957,7 +957,7 @@ msgstr "GIF"
 msgid "Go back"
 msgstr "戻る"
 
-#: src/app/settings/language/index.tsx:151
+#: src/app/settings/language/index.tsx:150
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
 msgstr "それ以外の場合は、Google翻訳が使用されます。"
@@ -1018,7 +1018,7 @@ msgstr "ホット"
 msgid "How should we open this link?"
 msgstr "このリンクはどのように開きますか?"
 
-#: src/app/settings/language/index.tsx:126
+#: src/app/settings/language/index.tsx:125
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "投稿がこれらの言語のいずれであるとマークされている場合は、翻訳されません。"
 
@@ -1240,7 +1240,7 @@ msgid "My Feeds screen"
 msgstr "マイフィードの画面"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:109
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr "自分の言語"
 
@@ -1464,7 +1464,7 @@ msgstr "投稿を削除しました"
 msgid "Post Language"
 msgstr "投稿の言語"
 
-#: src/app/settings/language/index.tsx:89
+#: src/app/settings/language/index.tsx:88
 msgid "Post languages"
 msgstr "投稿の言語"
 
@@ -1489,7 +1489,7 @@ msgstr "投稿"
 msgid "Posts from people you follow"
 msgstr "フォローしている人の投稿"
 
-#: src/app/settings/language/index.tsx:103
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
@@ -1503,7 +1503,7 @@ msgstr "SkyFeedによる提供"
 msgid "Primary feed"
 msgstr "プライマリフィード"
 
-#: src/app/settings/language/index.tsx:92
+#: src/app/settings/language/index.tsx:91
 msgid "Primary language"
 msgstr "第一言語"
 
@@ -2115,7 +2115,7 @@ msgstr "DeepLで翻訳されました"
 msgid "Translated by Google"
 msgstr "Googleで翻訳されました"
 
-#: src/app/settings/language/index.tsx:130
+#: src/app/settings/language/index.tsx:129
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "翻訳プロバイダー"
@@ -2186,12 +2186,12 @@ msgstr "リストから購読を解除しました"
 msgid "Unwanted Sexual Content"
 msgstr "望ましくない性的コンテンツ"
 
-#: src/app/settings/language/index.tsx:133
+#: src/app/settings/language/index.tsx:132
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "DeepL翻訳を使用"
 
-#: src/app/settings/language/index.tsx:144
+#: src/app/settings/language/index.tsx:143
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Google翻訳の代わりにDeepLを翻訳に使用する"
