@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 09:53\n"
+"PO-Revision-Date: 2024-02-20 09:58\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -251,7 +251,7 @@ msgstr ""
 
 #: src/app/composer/index.tsx:242
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
-msgstr ""
+msgstr "Наяўнасць апісання да відарысу дапамагае зрабіць Bluesky больш даступным для людзей з абмежаванымі магчымасцямі, а таксама дапаможа ўсім зразумець кантэкст. Мы настойліва раім дадаваць альтэрнатыўны тэкст да ўсіх відарысаў."
 
 #: src/app/composer/content-warning.tsx:47
 msgid "Adult content"
@@ -383,15 +383,15 @@ msgstr "Лепшыя пераклады"
 
 #: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
-msgstr ""
+msgstr "Аплата штогод, можна адмяніць у любы момант"
 
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
-msgstr ""
+msgstr "Аплата штомесяц, можна адмяніць у любы момант"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
-msgstr ""
+msgstr "Заблакіраваць усіх удзельнікаў"
 
 #: src/components/post-context-menu.tsx:238
 #: src/components/screens/profile/profile-info.tsx:726
