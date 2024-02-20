@@ -154,18 +154,12 @@ const PostContextMenuButton = ({
               textValue={_(msg`Translate post`)}
               onSelect={translate}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "character.book.closed" }}
-                androidIconName="ic_menu_sort_alphabetically"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "character.book.closed" }} />
             </DropdownMenu.Item>
           )}
           <DropdownMenu.Sub>
             <DropdownMenu.SubTrigger key="share" textValue={_(msg`Share post`)}>
-              <DropdownMenu.ItemIcon
-                ios={{ name: "square.and.arrow.up" }}
-                androidIconName="ic_menu_share"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "square.and.arrow.up" }} />
             </DropdownMenu.SubTrigger>
             <DropdownMenu.SubContent>
               <DropdownMenu.Item
@@ -173,30 +167,21 @@ const PostContextMenuButton = ({
                 textValue={_(msg`Share link to post`)}
                 onSelect={() => share("link")}
               >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "link" }}
-                  androidIconName="ic_menu_link"
-                />
+                <DropdownMenu.ItemIcon ios={{ name: "link" }} />
               </DropdownMenu.Item>
               <DropdownMenu.Item
                 key="copy link"
                 textValue={_(msg`Copy link to post`)}
                 onSelect={() => share("link")}
               >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "doc.on.doc" }}
-                  androidIconName="ic_menu_copy"
-                />
+                <DropdownMenu.ItemIcon ios={{ name: "doc.on.doc" }} />
               </DropdownMenu.Item>
               <DropdownMenu.Item
                 key="share image"
                 textValue={_(msg`Share as image`)}
                 onSelect={() => share("capture")}
               >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "photo" }}
-                  androidIconName="ic_menu_image"
-                />
+                <DropdownMenu.ItemIcon ios={{ name: "photo" }} />
               </DropdownMenu.Item>
             </DropdownMenu.SubContent>
           </DropdownMenu.Sub>
@@ -206,10 +191,7 @@ const PostContextMenuButton = ({
               textValue={_(msg`Copy post text`)}
               onSelect={copy}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "doc.on.doc" }}
-                androidIconName="ic_menu_copy"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "doc.on.doc" }} />
             </DropdownMenu.Item>
           )}
         </DropdownMenu.Group>
@@ -239,10 +221,7 @@ const PostContextMenuButton = ({
               onSelect={delet}
               destructive
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "trash" }}
-                androidIconName="ic_menu_delete"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "trash" }} />
             </DropdownMenu.Item>
           </DropdownMenu.Group>
         ) : (
@@ -252,30 +231,21 @@ const PostContextMenuButton = ({
               textValue={_(msg`Mute user`)}
               onSelect={() => muteAccount(post.author.did, post.author.handle)}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "speaker.slash" }}
-                androidIconName="ic_lock_silent_mode"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "speaker.slash" }} />
             </DropdownMenu.Item>
             <DropdownMenu.Item
               key="block"
               textValue={_(msg`Block user`)}
               onSelect={() => blockAccount(post.author.did, post.author.handle)}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "xmark.octagon" }}
-                androidIconName="ic_menu_blocked_user"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "xmark.octagon" }} />
             </DropdownMenu.Item>
             <DropdownMenu.Sub>
               <DropdownMenu.SubTrigger
                 key="report"
                 textValue={_(msg`Report post`)}
               >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "flag" }}
-                  androidIconName="ic_menu_report_image"
-                />
+                <DropdownMenu.ItemIcon ios={{ name: "flag" }} />
               </DropdownMenu.SubTrigger>
               <DropdownMenu.SubContent>
                 <DropdownMenu.Label>

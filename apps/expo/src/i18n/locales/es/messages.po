@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 01:30\n"
+"PO-Revision-Date: 2024-02-20 01:55\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -233,11 +233,11 @@ msgstr "Añadir imagen"
 msgid "Add to favourites"
 msgstr "Añadir a favoritos"
 
-#: src/components/screens/profile/profile-info.tsx:719
+#: src/components/screens/profile/profile-info.tsx:707
 msgid "Add to list"
 msgstr ""
 
-#: src/app/_layout.tsx:386
+#: src/app/_layout.tsx:385
 msgid "Add to List"
 msgstr ""
 
@@ -336,11 +336,11 @@ msgstr ""
 
 #: src/app/(auth)/sign-in.tsx:92
 msgid "App Password"
-msgstr ""
+msgstr "Contraseña de aplicación"
 
 #: src/app/(auth)/sign-in.tsx:126
 msgid "App Passwords"
-msgstr ""
+msgstr "Contraseñas de aplicación"
 
 #: src/app/settings/index.tsx:63
 msgid "App settings"
@@ -393,8 +393,8 @@ msgstr "Facturado mensualmente, cancela en cualquier momento"
 msgid "Block all members"
 msgstr "Bloquear a todos los miembros"
 
-#: src/components/post-context-menu.tsx:262
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/post-context-menu.tsx:238
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Block user"
 msgstr "Bloquear usuario"
 
@@ -517,7 +517,7 @@ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:174
 msgid "Confirm Password"
-msgstr ""
+msgstr "Confirmar Contraseña"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
 msgid "Connecting..."
@@ -564,11 +564,11 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:183
+#: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:206
+#: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
 msgstr ""
 
@@ -642,7 +642,7 @@ msgstr "Crear una cuenta"
 msgid "Create list"
 msgstr "Crear lista"
 
-#: src/app/_layout.tsx:379
+#: src/app/_layout.tsx:378
 msgid "Create List"
 msgstr "Crear lista"
 
@@ -656,7 +656,7 @@ msgstr "Crear una en bsky.app/settings"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
 msgid "Creator"
@@ -685,7 +685,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:207
 msgid "Date of Birth"
-msgstr ""
+msgstr "Fecha de nacimiento"
 
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
@@ -698,7 +698,7 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:238
+#: src/components/post-context-menu.tsx:220
 msgid "Delete post"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Discover feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:315
+#: src/app/_layout.tsx:314
 msgid "Discover Feeds"
 msgstr ""
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Edit feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:358
+#: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
@@ -810,7 +810,7 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: src/app/settings/moderation.tsx:143
 msgid "Enable Adult Content"
@@ -927,9 +927,9 @@ msgstr ""
 
 #: src/app/(auth)/sign-in.tsx:106
 msgid "Forgot?"
-msgstr ""
+msgstr "¿La olvidaste?"
 
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:651
 msgid "Frequently Posts Unwanted Content"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgstr ""
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
@@ -1165,7 +1165,7 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:658
+#: src/components/screens/profile/profile-info.tsx:652
 msgid "Misleading Account"
 msgstr ""
 
@@ -1202,8 +1202,8 @@ msgstr ""
 msgid "Mute all members"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:252
-#: src/components/screens/profile/profile-info.tsx:732
+#: src/components/post-context-menu.tsx:231
+#: src/components/screens/profile/profile-info.tsx:717
 msgid "Mute user"
 msgstr ""
 
@@ -1249,7 +1249,7 @@ msgstr ""
 msgid "My lists"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:659
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Name or Description Violates Community Standards"
 msgstr ""
 
@@ -1267,7 +1267,7 @@ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
-msgstr ""
+msgstr "Nueva Contraseña"
 
 #: src/app/composer/_layout.tsx:72
 #: src/lib/quick-actions.ts:76
@@ -1366,23 +1366,23 @@ msgid "Optional"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Other"
 msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: src/components/screens/change-password-flow.tsx:227
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "¡Contraseña cambiada exitosamente!"
 
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
-msgstr ""
+msgstr "Tu contraseña debe tener al menos 8 caracteres"
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
@@ -1431,11 +1431,11 @@ msgstr ""
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"
-msgstr ""
+msgstr "Inténtalo de nuevo"
 
 #: src/components/screens/change-password-flow.tsx:80
 msgid "Please try again - are you sure your reset code is correct?"
-msgstr ""
+msgstr "Inténtalo de nuevo - ¿estás seguro de que tu código de reseteo es correcto?"
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
@@ -1527,7 +1527,7 @@ msgstr ""
 msgid "Profile Settings"
 msgstr ""
 
-#: src/app/_layout.tsx:336
+#: src/app/_layout.tsx:335
 msgid "Purchase Successful"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgstr ""
 msgid "Push notifications"
 msgstr ""
 
-#: src/app/_layout.tsx:393
+#: src/app/_layout.tsx:392
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr ""
@@ -1605,16 +1605,16 @@ msgstr ""
 msgid "replying to..."
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:756
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Report account"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:273
+#: src/components/post-context-menu.tsx:246
 msgid "Report post"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:672
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Report submitted"
 msgstr ""
 
@@ -1644,11 +1644,11 @@ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
-msgstr ""
+msgstr "Código de reseteo"
 
 #: src/app/(auth)/_layout.tsx:60
 msgid "Reset password"
-msgstr ""
+msgstr "Resetear contraseña"
 
 #: src/app/pro.tsx:335
 #: src/app/pro.tsx:350
@@ -1674,7 +1674,7 @@ msgstr ""
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: src/app/pro.tsx:224
 msgid "Save {0}%"
@@ -1759,17 +1759,17 @@ msgstr ""
 msgid "Search users, posts, feeds"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:220
+#: src/components/post-context-menu.tsx:202
 msgid "See likes"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:227
+#: src/components/post-context-menu.tsx:209
 msgid "See reposts"
 msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
-msgstr ""
+msgstr "Seleccione su fecha de nacimiento"
 
 #: src/app/create-list.tsx:227
 msgid "Select list purpose"
@@ -1781,11 +1781,11 @@ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
-msgstr ""
+msgstr "Enviar correo de confirmación"
 
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
-msgstr ""
+msgstr "Enviar correo de reseteo"
 
 #: src/app/settings/_layout.tsx:45
 #: src/components/drawer/drawer-content.tsx:197
@@ -1810,11 +1810,11 @@ msgstr ""
 msgid "Share {0}'s post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:193
+#: src/components/post-context-menu.tsx:181
 msgid "Share as image"
 msgstr ""
 
-#: src/app/_layout.tsx:403
+#: src/app/_layout.tsx:402
 msgid "Share as Image"
 msgstr ""
 
@@ -1827,16 +1827,16 @@ msgstr ""
 msgid "Share link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:173
+#: src/components/post-context-menu.tsx:167
 msgid "Share link to post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:164
+#: src/components/post-context-menu.tsx:161
 msgid "Share post"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:691
+#: src/components/screens/profile/profile-info.tsx:617
+#: src/components/screens/profile/profile-info.tsx:685
 msgid "Share profile"
 msgstr ""
 
@@ -1904,7 +1904,7 @@ msgstr ""
 #: src/app/(auth)/_layout.tsx:48
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
-msgstr ""
+msgstr "Regístrate"
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -1995,7 +1995,7 @@ msgid "Take photo"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:673
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Thank you for making the skyline a safer place"
 msgstr ""
 
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:700
 msgid "Translate bio"
 msgstr ""
 
@@ -2214,7 +2214,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-in.tsx:71
 msgid "Username or email address"
-msgstr ""
+msgstr "Nombre de usuario o dirección de correo electrónico"
 
 #: src/components/primary-post.tsx:265
 msgid "Users in the list"
@@ -2283,11 +2283,11 @@ msgstr ""
 msgid "What's on your mind?"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:765
+#: src/components/screens/profile/profile-info.tsx:741
 msgid "What's the issue with this account?"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:282
+#: src/components/post-context-menu.tsx:252
 msgid "What's the issue with this post?"
 msgstr ""
 
@@ -2358,7 +2358,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr ""
+msgstr "Puede que quieras usar una contraseña de la aplicación en lugar de tu contraseña principal - esto ayuda a mantener tu cuenta segura, pero no es necesario."
 
 #: src/lib/account-actions.ts:35
 msgid "You will no longer see posts from @{handle}"

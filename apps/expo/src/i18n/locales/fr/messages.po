@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 01:24\n"
+"PO-Revision-Date: 2024-02-20 09:53\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -233,11 +233,11 @@ msgstr ""
 msgid "Add to favourites"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:719
+#: src/components/screens/profile/profile-info.tsx:707
 msgid "Add to list"
 msgstr ""
 
-#: src/app/_layout.tsx:386
+#: src/app/_layout.tsx:385
 msgid "Add to List"
 msgstr ""
 
@@ -393,8 +393,8 @@ msgstr ""
 msgid "Block all members"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:262
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/post-context-menu.tsx:238
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Block user"
 msgstr ""
 
@@ -564,11 +564,11 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:183
+#: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:206
+#: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
 msgstr ""
 
@@ -642,7 +642,7 @@ msgstr ""
 msgid "Create list"
 msgstr ""
 
-#: src/app/_layout.tsx:379
+#: src/app/_layout.tsx:378
 msgid "Create List"
 msgstr ""
 
@@ -698,7 +698,7 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:238
+#: src/components/post-context-menu.tsx:220
 msgid "Delete post"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Discover feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:315
+#: src/app/_layout.tsx:314
 msgid "Discover Feeds"
 msgstr ""
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Edit feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:358
+#: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
@@ -929,7 +929,7 @@ msgstr ""
 msgid "Forgot?"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:651
 msgid "Frequently Posts Unwanted Content"
 msgstr ""
 
@@ -1165,7 +1165,7 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:658
+#: src/components/screens/profile/profile-info.tsx:652
 msgid "Misleading Account"
 msgstr ""
 
@@ -1202,8 +1202,8 @@ msgstr ""
 msgid "Mute all members"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:252
-#: src/components/screens/profile/profile-info.tsx:732
+#: src/components/post-context-menu.tsx:231
+#: src/components/screens/profile/profile-info.tsx:717
 msgid "Mute user"
 msgstr ""
 
@@ -1249,7 +1249,7 @@ msgstr ""
 msgid "My lists"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:659
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Name or Description Violates Community Standards"
 msgstr ""
 
@@ -1366,7 +1366,7 @@ msgid "Optional"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Other"
 msgstr ""
 
@@ -1527,7 +1527,7 @@ msgstr ""
 msgid "Profile Settings"
 msgstr ""
 
-#: src/app/_layout.tsx:336
+#: src/app/_layout.tsx:335
 msgid "Purchase Successful"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgstr ""
 msgid "Push notifications"
 msgstr ""
 
-#: src/app/_layout.tsx:393
+#: src/app/_layout.tsx:392
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr ""
@@ -1605,16 +1605,16 @@ msgstr ""
 msgid "replying to..."
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:756
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Report account"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:273
+#: src/components/post-context-menu.tsx:246
 msgid "Report post"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:672
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Report submitted"
 msgstr ""
 
@@ -1759,11 +1759,11 @@ msgstr ""
 msgid "Search users, posts, feeds"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:220
+#: src/components/post-context-menu.tsx:202
 msgid "See likes"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:227
+#: src/components/post-context-menu.tsx:209
 msgid "See reposts"
 msgstr ""
 
@@ -1810,11 +1810,11 @@ msgstr ""
 msgid "Share {0}'s post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:193
+#: src/components/post-context-menu.tsx:181
 msgid "Share as image"
 msgstr ""
 
-#: src/app/_layout.tsx:403
+#: src/app/_layout.tsx:402
 msgid "Share as Image"
 msgstr ""
 
@@ -1827,16 +1827,16 @@ msgstr ""
 msgid "Share link"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:173
+#: src/components/post-context-menu.tsx:167
 msgid "Share link to post"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:164
+#: src/components/post-context-menu.tsx:161
 msgid "Share post"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:691
+#: src/components/screens/profile/profile-info.tsx:617
+#: src/components/screens/profile/profile-info.tsx:685
 msgid "Share profile"
 msgstr ""
 
@@ -1995,7 +1995,7 @@ msgid "Take photo"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:673
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Thank you for making the skyline a safer place"
 msgstr ""
 
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:700
 msgid "Translate bio"
 msgstr ""
 
@@ -2283,11 +2283,11 @@ msgstr ""
 msgid "What's on your mind?"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:765
+#: src/components/screens/profile/profile-info.tsx:741
 msgid "What's the issue with this account?"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:282
+#: src/components/post-context-menu.tsx:252
 msgid "What's the issue with this post?"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 01:24\n"
+"PO-Revision-Date: 2024-02-20 09:53\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -68,7 +68,7 @@ msgstr "{months}ヶ月前"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}m"
-msgstr "{months}分"
+msgstr "{months}ヶ月"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -233,11 +233,11 @@ msgstr "画像を追加"
 msgid "Add to favourites"
 msgstr "お気に入りに追加"
 
-#: src/components/screens/profile/profile-info.tsx:719
+#: src/components/screens/profile/profile-info.tsx:707
 msgid "Add to list"
 msgstr "リストに追加"
 
-#: src/app/_layout.tsx:386
+#: src/app/_layout.tsx:385
 msgid "Add to List"
 msgstr "リストに追加"
 
@@ -393,8 +393,8 @@ msgstr "毎月の支払い、いつでも解約可能です。"
 msgid "Block all members"
 msgstr "すべてのメンバーをブロック"
 
-#: src/components/post-context-menu.tsx:262
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/post-context-menu.tsx:238
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Block user"
 msgstr "ユーザーをブロック"
 
@@ -564,11 +564,11 @@ msgstr "画像をコピー"
 msgid "Copy link"
 msgstr "リンクをコピー"
 
-#: src/components/post-context-menu.tsx:183
+#: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
 msgstr "投稿へのリンクをコピー"
 
-#: src/components/post-context-menu.tsx:206
+#: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
 msgstr "テキストをコピー"
 
@@ -642,7 +642,7 @@ msgstr "アカウントを作成"
 msgid "Create list"
 msgstr "リストを作成"
 
-#: src/app/_layout.tsx:379
+#: src/app/_layout.tsx:378
 msgid "Create List"
 msgstr "リストを作成"
 
@@ -698,7 +698,7 @@ msgstr "削除"
 msgid "Delete Account"
 msgstr "アカウントを削除"
 
-#: src/components/post-context-menu.tsx:238
+#: src/components/post-context-menu.tsx:220
 msgid "Delete post"
 msgstr "投稿を削除"
 
@@ -741,7 +741,7 @@ msgstr "投稿を破棄"
 msgid "Discover feeds"
 msgstr "フィードを見つける"
 
-#: src/app/_layout.tsx:315
+#: src/app/_layout.tsx:314
 msgid "Discover Feeds"
 msgstr "フィードを見つける"
 
@@ -801,7 +801,7 @@ msgstr "バナーを編集"
 msgid "Edit feeds"
 msgstr "フィードを編集"
 
-#: src/app/_layout.tsx:358
+#: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
@@ -929,7 +929,7 @@ msgstr "あなたをフォロー中"
 msgid "Forgot?"
 msgstr "忘れましたか?"
 
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:651
 msgid "Frequently Posts Unwanted Content"
 msgstr "よく投稿される不要なコンテンツ"
 
@@ -1165,7 +1165,7 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "「{0}」のリスト内のメンバー"
 
-#: src/components/screens/profile/profile-info.tsx:658
+#: src/components/screens/profile/profile-info.tsx:652
 msgid "Misleading Account"
 msgstr "誤解を招くアカウント"
 
@@ -1202,8 +1202,8 @@ msgstr "最低でも8文字が必要です"
 msgid "Mute all members"
 msgstr "すべてのメンバーをミュート"
 
-#: src/components/post-context-menu.tsx:252
-#: src/components/screens/profile/profile-info.tsx:732
+#: src/components/post-context-menu.tsx:231
+#: src/components/screens/profile/profile-info.tsx:717
 msgid "Mute user"
 msgstr "ユーザーをミュート"
 
@@ -1249,7 +1249,7 @@ msgstr "自分の言語"
 msgid "My lists"
 msgstr "マイリスト"
 
-#: src/components/screens/profile/profile-info.tsx:659
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Name or Description Violates Community Standards"
 msgstr "名前または説明がコミュニティ規格に違反しています"
 
@@ -1366,7 +1366,7 @@ msgid "Optional"
 msgstr "任意"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Other"
 msgstr "その他"
 
@@ -1527,7 +1527,7 @@ msgstr "プロフィール"
 msgid "Profile Settings"
 msgstr "プロフィールの設定"
 
-#: src/app/_layout.tsx:336
+#: src/app/_layout.tsx:335
 msgid "Purchase Successful"
 msgstr "購入に成功しました"
 
@@ -1539,7 +1539,7 @@ msgstr "目的"
 msgid "Push notifications"
 msgstr "プッシュ通知"
 
-#: src/app/_layout.tsx:393
+#: src/app/_layout.tsx:392
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "プッシュ通知"
@@ -1605,16 +1605,16 @@ msgstr "何らかの投稿に返信"
 msgid "replying to..."
 msgstr "返信先:"
 
-#: src/components/screens/profile/profile-info.tsx:756
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Report account"
 msgstr "アカウントを報告"
 
-#: src/components/post-context-menu.tsx:273
+#: src/components/post-context-menu.tsx:246
 msgid "Report post"
 msgstr "投稿を報告する"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:672
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Report submitted"
 msgstr "アカウントを報告しました"
 
@@ -1759,11 +1759,11 @@ msgstr "ユーザーを検索"
 msgid "Search users, posts, feeds"
 msgstr "ユーザー、ポスト、フィードを検索する"
 
-#: src/components/post-context-menu.tsx:220
+#: src/components/post-context-menu.tsx:202
 msgid "See likes"
 msgstr "いいねを見る"
 
-#: src/components/post-context-menu.tsx:227
+#: src/components/post-context-menu.tsx:209
 msgid "See reposts"
 msgstr "リポストを表示"
 
@@ -1810,11 +1810,11 @@ msgstr "共有"
 msgid "Share {0}'s post"
 msgstr "{0}の投稿を共有する"
 
-#: src/components/post-context-menu.tsx:193
+#: src/components/post-context-menu.tsx:181
 msgid "Share as image"
 msgstr "画像として共有"
 
-#: src/app/_layout.tsx:403
+#: src/app/_layout.tsx:402
 msgid "Share as Image"
 msgstr "画像として共有"
 
@@ -1827,16 +1827,16 @@ msgstr "画像を共有"
 msgid "Share link"
 msgstr "リンクを共有"
 
-#: src/components/post-context-menu.tsx:173
+#: src/components/post-context-menu.tsx:167
 msgid "Share link to post"
 msgstr "投稿のリンクを共有"
 
-#: src/components/post-context-menu.tsx:164
+#: src/components/post-context-menu.tsx:161
 msgid "Share post"
 msgstr "投稿を共有"
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:691
+#: src/components/screens/profile/profile-info.tsx:617
+#: src/components/screens/profile/profile-info.tsx:685
 msgid "Share profile"
 msgstr "プロフィールを共有"
 
@@ -1877,7 +1877,7 @@ msgstr "通知タブに各通知を個別に表示"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
 msgid "Show less"
-msgstr "もっと表示"
+msgstr "表示を少なくする"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1995,7 +1995,7 @@ msgid "Take photo"
 msgstr "写真を撮影"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:673
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Thank you for making the skyline a safer place"
 msgstr "Skylineをより安全な場所にしてくれた事に感謝をします"
 
@@ -2094,7 +2094,7 @@ msgstr "トップ (3日以内)"
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:700
 msgid "Translate bio"
 msgstr "プロフィールを翻訳"
 
@@ -2283,11 +2283,11 @@ msgstr "Graysky Proへようこそ!"
 msgid "What's on your mind?"
 msgstr "何を考えているんだい?"
 
-#: src/components/screens/profile/profile-info.tsx:765
+#: src/components/screens/profile/profile-info.tsx:741
 msgid "What's the issue with this account?"
 msgstr "このアカウントの問題点は何ですか?"
 
-#: src/components/post-context-menu.tsx:282
+#: src/components/post-context-menu.tsx:252
 msgid "What's the issue with this post?"
 msgstr "この投稿の問題点は何ですか?"
 

@@ -610,10 +610,7 @@ const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
           textValue={_(msg`Edit Profile`)}
           onSelect={() => router.push("/edit-bio")}
         >
-          <DropdownMenu.ItemIcon
-            ios={{ name: "person.circle" }}
-            androidIconName="ic_menu_edit"
-          />
+          <DropdownMenu.ItemIcon ios={{ name: "person.circle" }} />
         </DropdownMenu.Item>
         <DropdownMenu.Item
           key="share-profile"
@@ -628,10 +625,7 @@ const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
             );
           }}
         >
-          <DropdownMenu.ItemIcon
-            ios={{ name: "square.and.arrow.up" }}
-            androidIconName="ic_menu_share"
-          />
+          <DropdownMenu.ItemIcon ios={{ name: "square.and.arrow.up" }} />
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
@@ -699,30 +693,21 @@ const OtherProfileOptions = ({
               );
             }}
           >
-            <DropdownMenu.ItemIcon
-              ios={{ name: "square.and.arrow.up" }}
-              androidIconName="ic_menu_share"
-            />
+            <DropdownMenu.ItemIcon ios={{ name: "square.and.arrow.up" }} />
           </DropdownMenu.Item>
           <DropdownMenu.Item
             key="translate-bio"
             textValue={_(msg`Translate bio`)}
             onSelect={onTranslate}
           >
-            <DropdownMenu.ItemIcon
-              ios={{ name: "character.book.closed" }}
-              androidIconName="ic_menu_sort_alphabetically"
-            />
+            <DropdownMenu.ItemIcon ios={{ name: "character.book.closed" }} />
           </DropdownMenu.Item>
           <DropdownMenu.Item
             key="add-to-list"
             textValue={_(msg`Add to list`)}
             onSelect={() => router.push(`/add-to-list/${profile.did}`)}
           >
-            <DropdownMenu.ItemIcon
-              ios={{ name: "text.badge.plus" }}
-              androidIconName="ic_menu_add"
-            />
+            <DropdownMenu.ItemIcon ios={{ name: "text.badge.plus" }} />
           </DropdownMenu.Item>
         </DropdownMenu.Group>
         <DropdownMenu.Group>
@@ -732,10 +717,7 @@ const OtherProfileOptions = ({
               textValue={_(msg`Mute user`)}
               onSelect={() => muteAccount(profile.did, profile.handle)}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "speaker.slash" }}
-                androidIconName="ic_lock_silent_mode"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "speaker.slash" }} />
             </DropdownMenu.Item>
           )}
           {!profile.viewer?.blocking && (
@@ -744,10 +726,7 @@ const OtherProfileOptions = ({
               textValue={_(msg`Block user`)}
               onSelect={() => blockAccount(profile.did, profile.handle)}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "xmark.octagon" }}
-                androidIconName="ic_menu_blocked_user"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "xmark.octagon" }} />
             </DropdownMenu.Item>
           )}
           <DropdownMenu.Sub>
@@ -755,10 +734,7 @@ const OtherProfileOptions = ({
               key="report"
               textValue={_(msg`Report account`)}
             >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "flag" }}
-                androidIconName="ic_menu_report_image"
-              />
+              <DropdownMenu.ItemIcon ios={{ name: "flag" }} />
             </DropdownMenu.SubTrigger>
             <DropdownMenu.SubContent>
               <DropdownMenu.Label>
