@@ -10,7 +10,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { produce } from "../utils/produce";
 import { store } from "./storage";
 
-const availableAppLanguages = z.enum(["en", "ja"]);
+const availableAppLanguages = z.enum(["en", "ja", "be"]);
 
 export const appPrefsSchema = z.object({
   // feeds

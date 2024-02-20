@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
+import { messages as messagesBe } from "~/i18n/locales/be/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import {
@@ -19,30 +20,22 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "ja": {
       return "日本語";
     }
+    case "be": {
+      return "Беларуская";
+    }
     default:
       throw new Error(`Unknown language code: ${code as string}`);
   }
 }
 
-export function languageNameToCode(
-  name: ReturnType<typeof languageCodeToName>,
-) {
-  switch (name) {
-    case "English": {
-      return "en";
-    }
-    case "日本語": {
-      return "ja";
-    }
-    default:
-      throw new Error(`Unknown language name: ${name as string}`);
-  }
-}
-
-export function loadAndActivateLanguage(locale: "en" | "ja") {
+export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
   switch (locale) {
     case "ja": {
       i18n.loadAndActivate({ locale, messages: messagesJa });
+      break;
+    }
+    case "be": {
+      i18n.loadAndActivate({ locale, messages: messagesBe });
       break;
     }
     default: {
