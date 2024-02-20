@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 00:20\n"
+"PO-Revision-Date: 2024-02-20 00:41\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -36,39 +36,39 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "{0} posts"
-msgstr ""
+msgstr "Допісаў: {0}"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
-msgstr ""
+msgstr "{days} дзён таму"
 
 #: src/lib/utils/time.ts:37
 msgid "{days}d"
-msgstr ""
+msgstr "{days}дз."
 
 #: src/lib/utils/time.ts:51
 msgid "{hours} hours ago"
-msgstr ""
+msgstr "{hours} гадзін таму"
 
 #: src/lib/utils/time.ts:48
 msgid "{hours}h"
-msgstr ""
+msgstr "{hours}г."
 
 #: src/lib/utils/time.ts:62
 msgid "{minutes} minutes ago"
-msgstr ""
+msgstr "{minutes} хвілін таму"
 
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
-msgstr ""
+msgstr "{minutes}хв."
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
-msgstr ""
+msgstr "{months} месяцаў таму"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}m"
-msgstr ""
+msgstr "{months}м."
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -84,31 +84,31 @@ msgstr ""
 
 #: src/lib/utils/time.ts:71
 msgid "{secondsAgo} seconds ago"
-msgstr ""
+msgstr "{secondsAgo} секунд таму"
 
 #: src/lib/utils/time.ts:68
 msgid "{secondsAgo}s"
-msgstr ""
+msgstr "{secondsAgo}с."
 
 #: src/lib/utils/time.ts:18
 msgid "{years} years ago"
-msgstr ""
+msgstr "{years} год таму"
 
 #: src/lib/utils/time.ts:15
 msgid "{years}y"
-msgstr ""
+msgstr "{years}г."
 
 #: src/lib/account-actions.ts:97
 msgid "@{handle} has been blocked"
-msgstr ""
+msgstr "@{handle} быў заблакіраваны"
 
 #: src/lib/account-actions.ts:143
 msgid "@{handle} has been unblocked"
-msgstr ""
+msgstr "@{handle} быў разблакіраваны"
 
 #: src/lib/account-actions.ts:54
 msgid "@{handle} is no longer muted"
-msgstr ""
+msgstr "@{handle} болей не ігнаруецца"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "#{0}"
@@ -121,56 +121,56 @@ msgstr ""
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:447
 msgid "<0>{0}</0> Followers"
-msgstr ""
+msgstr "<0>{0}</0> падпісчыкаў"
 
 #: src/components/drawer/actor-details.tsx:56
 #: src/components/screens/profile/profile-info.tsx:455
 msgid "<0>{0}</0> Following"
-msgstr ""
+msgstr "<0>{0}</0> падпісак"
 
 #: src/components/screens/profile/profile-info.tsx:463
 msgid "<0>{0}</0> Posts"
-msgstr ""
+msgstr "<0>{0}</0> допісаў"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
-msgstr ""
+msgstr "1 дзень таму"
 
 #: src/lib/utils/time.ts:50
 msgid "1 hour ago"
-msgstr ""
+msgstr "1 гадзіну таму"
 
 #: src/lib/utils/time.ts:61
 msgid "1 minute ago"
-msgstr ""
+msgstr "1 хвіліну таму"
 
 #: src/lib/utils/time.ts:28
 msgid "1 month ago"
-msgstr ""
+msgstr "1 месяц таму"
 
 #: src/app/(auth)/sign-up.tsx:160
 msgid "1 of 3"
-msgstr ""
+msgstr "1 з 3"
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
-msgstr ""
+msgstr "1 секунду таму"
 
 #: src/lib/utils/time.ts:17
 msgid "1 year ago"
-msgstr ""
+msgstr "1 год таму"
 
 #: src/app/(auth)/sign-up.tsx:273
 msgid "2 of 3"
-msgstr ""
+msgstr "2 з 3"
 
 #: src/app/(auth)/sign-up.tsx:376
 msgid "3 of 3"
-msgstr ""
+msgstr "3 з 3"
 
 #: src/app/(auth)/sign-up.tsx:341
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-msgstr ""
+msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць нумар тэлефона.</0>"
 
 #: src/app/settings/feed.tsx:121
 #~ msgid "A specific feed"
@@ -179,43 +179,43 @@ msgstr ""
 #: src/app/settings/_layout.tsx:117
 #: src/lib/quick-actions.ts:88
 msgid "About"
-msgstr ""
+msgstr "А праграме"
 
 #: src/app/settings/index.tsx:85
 msgid "About Graysky"
-msgstr ""
+msgstr "Пра Graysky"
 
 #: src/app/settings/pro.tsx:52
 msgid "Accent colour"
-msgstr ""
+msgstr "Дамінуючы колер"
 
 #: src/app/settings/app.tsx:96
 msgid "Accessibility"
-msgstr ""
+msgstr "Спецыяльныя магчымасці"
 
 #: src/app/settings/index.tsx:43
 msgid "Account"
-msgstr ""
+msgstr "Уліковы запіс"
 
 #: src/app/settings/account/delete-account.tsx:226
 msgid "Account deleted. Goodbye!"
-msgstr ""
+msgstr "Уліковы запіс выдалены. Да пабачэння!"
 
 #: src/app/settings/account/index.tsx:28
 msgid "Account Details"
-msgstr ""
+msgstr "Звесткі ўліковага запісу"
 
 #: src/app/settings/_layout.tsx:63
 msgid "Account Settings"
-msgstr ""
+msgstr "Налады ўліковага запісу"
 
 #: src/app/add-to-list/[handle].tsx:124
 msgid "Add {0} to List"
-msgstr ""
+msgstr "Дадаць {0} у спіс"
 
 #: src/app/composer/index.tsx:656
 msgid "Add a content warning"
-msgstr ""
+msgstr "Дадаць папярэджанне пра змесціва"
 
 #: src/lib/composer/alt-text-editor.tsx:154
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
