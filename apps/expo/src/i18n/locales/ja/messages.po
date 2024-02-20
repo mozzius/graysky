@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 00:20\n"
+"PO-Revision-Date: 2024-02-20 00:59\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -331,7 +331,7 @@ msgstr "年間プラン"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
-msgstr ""
+msgstr "反社会的行為"
 
 #: src/app/settings/about.tsx:151
 msgid "App info"
@@ -578,7 +578,7 @@ msgstr "リンクをコピー"
 
 #: src/components/post-context-menu.tsx:183
 msgid "Copy link to post"
-msgstr ""
+msgstr "投稿へのリンクをコピー"
 
 #: src/components/post-context-menu.tsx:206
 msgid "Copy post text"
@@ -947,7 +947,7 @@ msgstr "忘れましたか?"
 
 #: src/components/screens/profile/profile-info.tsx:657
 msgid "Frequently Posts Unwanted Content"
-msgstr ""
+msgstr "よく投稿される不要なコンテンツ"
 
 #: src/app/settings/app.tsx:35
 msgid "General"
@@ -1044,7 +1044,7 @@ msgstr "翻訳の手伝いなどのGrayskyに関する貢献をした事のあ�
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
-msgstr ""
+msgstr "違法かつ緊急"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1188,7 +1188,7 @@ msgstr "「{0}」のリスト内のメンバー"
 
 #: src/components/screens/profile/profile-info.tsx:658
 msgid "Misleading Account"
-msgstr ""
+msgstr "誤解を招くアカウント"
 
 #: src/app/composer/index.tsx:229
 #: src/app/composer/index.tsx:240
@@ -1276,7 +1276,7 @@ msgstr "マイリスト"
 
 #: src/components/screens/profile/profile-info.tsx:659
 msgid "Name or Description Violates Community Standards"
-msgstr ""
+msgstr "名前または説明がコミュニティ規格に違反しています"
 
 #: src/app/add-to-list/[handle].tsx:152
 msgid "Need a new list?"
@@ -1495,7 +1495,7 @@ msgstr "投稿の言語"
 
 #: src/components/post-context-menu.tsx:70
 msgid "Post link copied to clipboard"
-msgstr ""
+msgstr "クリップボードにポストのリンクをコピーしました"
 
 #: src/components/post-context-menu.tsx:293
 #: src/components/post-context-menu.tsx:320
@@ -1791,7 +1791,7 @@ msgstr "ユーザーを検索"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
 msgid "Search users, posts, feeds"
-msgstr ""
+msgstr "ユーザー、ポスト、フィードを検索する"
 
 #: src/components/post-context-menu.tsx:220
 msgid "See likes"
@@ -2034,7 +2034,7 @@ msgstr "システム"
 
 #: src/lib/composer/keyboard-accessory.tsx:72
 msgid "Take photo"
-msgstr ""
+msgstr "写真を撮影"
 
 #: src/lib/composer/utils.tsx:393
 #: src/lib/composer/utils.tsx:398
@@ -2321,7 +2321,7 @@ msgstr "ALTテキストを表示"
 
 #: src/app/settings/moderation.tsx:102
 msgid "Warn"
-msgstr ""
+msgstr "警告する"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
@@ -2353,11 +2353,11 @@ msgstr "何を考えているんだい?"
 
 #: src/components/screens/profile/profile-info.tsx:765
 msgid "What's the issue with this account?"
-msgstr ""
+msgstr "このアカウントの問題点は何ですか?"
 
 #: src/components/post-context-menu.tsx:282
 msgid "What's the issue with this post?"
-msgstr ""
+msgstr "この投稿の問題点は何ですか?"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:178

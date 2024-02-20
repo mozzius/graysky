@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 00:47\n"
+"PO-Revision-Date: 2024-02-20 00:59\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: src/lib/composer/keyboard-accessory.tsx:65
 msgid "Add image"
-msgstr ""
+msgstr "Дадаць відарыс"
 
 #: src/lib/composer/keyboard-accessory.tsx:53
 #~ msgid "Add image or GIF"
@@ -239,15 +239,15 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
-msgstr ""
+msgstr "Дадаць у абранае"
 
 #: src/components/screens/profile/profile-info.tsx:719
 msgid "Add to list"
-msgstr ""
+msgstr "Дадаць у спіс"
 
 #: src/app/_layout.tsx:391
 msgid "Add to List"
-msgstr ""
+msgstr "Дадаць у спіс"
 
 #: src/app/add-to-list/[handle].tsx:143
 msgid "Add to moderation list"
@@ -263,20 +263,20 @@ msgstr ""
 
 #: src/app/composer/content-warning.tsx:47
 msgid "Adult content"
-msgstr ""
+msgstr "Змесціва для дарослых"
 
 #: src/app/settings/account/index.tsx:52
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Пашыраныя налады"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:158
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
-msgstr ""
+msgstr "Усе стужкі"
 
 #: src/app/composer/language.tsx:98
 msgid "All languages"
-msgstr ""
+msgstr "Усе мовы"
 
 #: src/app/settings/app.tsx:46
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
