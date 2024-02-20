@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 01:24\n"
+"PO-Revision-Date: 2024-02-20 01:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -172,7 +172,7 @@ msgstr ""
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:117
+#: src/app/settings/_layout.tsx:116
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr ""
@@ -201,7 +201,7 @@ msgstr "Cuenta eliminada. ¡Adiós!"
 msgid "Account Details"
 msgstr "Detalles de cuenta"
 
-#: src/app/settings/_layout.tsx:63
+#: src/app/settings/_layout.tsx:62
 msgid "Account Settings"
 msgstr "Ajustes de cuenta"
 
@@ -237,7 +237,7 @@ msgstr "Añadir a favoritos"
 msgid "Add to list"
 msgstr ""
 
-#: src/app/_layout.tsx:391
+#: src/app/_layout.tsx:386
 msgid "Add to List"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgstr ""
 msgid "App settings"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:105
+#: src/app/settings/_layout.tsx:104
 msgid "App Settings"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr "Publicación bloqueada"
 msgid "Blocked users"
 msgstr "Usuarios bloqueados"
 
-#: src/app/settings/_layout.tsx:93
+#: src/app/settings/_layout.tsx:92
 msgid "Blocked Users"
 msgstr "Usuarios bloqueados"
 
@@ -474,15 +474,15 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app/settings/_layout.tsx:69
+#: src/app/settings/_layout.tsx:68
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
-msgstr ""
+msgstr "Cambiar nombre de usuario"
 
-#: src/app/settings/_layout.tsx:75
+#: src/app/settings/_layout.tsx:74
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: src/lib/composer/keyboard-accessory.tsx:107
 msgid "Change post language"
@@ -496,12 +496,12 @@ msgstr ""
 #: src/components/drawer/drawer-content.tsx:180
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
-msgstr ""
+msgstr "Cambiar tema"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
 msgid "Choose a handle"
-msgstr ""
+msgstr "Elegir un nombre de usuario"
 
 #: src/lib/composer/keyboard-accessory.tsx:83
 msgid "Choose from Library"
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Content filters"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:135
+#: src/app/settings/_layout.tsx:134
 msgid "Content Languages"
 msgstr ""
 
@@ -632,27 +632,27 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
-msgstr ""
+msgstr "Crear cuenta"
 
 #: src/app/index.tsx:46
 msgid "Create an account"
-msgstr ""
+msgstr "Crear una cuenta"
 
 #: src/app/create-list.tsx:236
 msgid "Create list"
-msgstr ""
+msgstr "Crear lista"
 
-#: src/app/_layout.tsx:384
+#: src/app/_layout.tsx:379
 msgid "Create List"
-msgstr ""
+msgstr "Crear lista"
 
 #: src/app/add-to-list/[handle].tsx:156
 msgid "Create new list"
-msgstr ""
+msgstr "Crear una nueva lista"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
-msgstr ""
+msgstr "Crear una en bsky.app/settings"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
@@ -692,7 +692,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:81
+#: src/app/settings/_layout.tsx:80
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Discover feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:320
+#: src/app/_layout.tsx:315
 msgid "Discover Feeds"
 msgstr ""
 
@@ -766,7 +766,7 @@ msgstr ""
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
 #: src/app/discover.tsx:66
-#: src/app/settings/_layout.tsx:31
+#: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Edit feeds"
 msgstr ""
 
-#: src/app/_layout.tsx:363
+#: src/app/_layout.tsx:358
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
@@ -998,7 +998,7 @@ msgstr ""
 msgid "Home feed preferences"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:111
+#: src/app/settings/_layout.tsx:110
 msgid "Home Feed Preferences"
 msgstr ""
 
@@ -1046,7 +1046,7 @@ msgstr ""
 msgid "Joined {0}"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:123
+#: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr ""
@@ -1105,12 +1105,12 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:67
+#: src/app/(auth)/_layout.tsx:66
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:55
+#: src/app/(auth)/_layout.tsx:54
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1174,7 +1174,7 @@ msgstr ""
 msgid "Missing alt text"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:87
+#: src/app/settings/_layout.tsx:86
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr ""
@@ -1219,7 +1219,7 @@ msgstr ""
 msgid "Muted users"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:99
+#: src/app/settings/_layout.tsx:98
 msgid "Muted Users"
 msgstr ""
 
@@ -1507,11 +1507,11 @@ msgstr ""
 msgid "Primary language"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:129
+#: src/app/settings/_layout.tsx:128
 msgid "Primary Language"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:57
+#: src/app/settings/_layout.tsx:56
 msgid "Pro Settings"
 msgstr ""
 
@@ -1527,7 +1527,7 @@ msgstr ""
 msgid "Profile Settings"
 msgstr ""
 
-#: src/app/_layout.tsx:341
+#: src/app/_layout.tsx:336
 msgid "Purchase Successful"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgstr ""
 msgid "Push notifications"
 msgstr ""
 
-#: src/app/_layout.tsx:398
+#: src/app/_layout.tsx:393
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr ""
@@ -1646,7 +1646,7 @@ msgstr ""
 msgid "Reset Code"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:61
+#: src/app/(auth)/_layout.tsx:60
 msgid "Reset password"
 msgstr ""
 
@@ -1787,7 +1787,7 @@ msgstr ""
 msgid "Send reset email"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:46
+#: src/app/settings/_layout.tsx:45
 #: src/components/drawer/drawer-content.tsx:197
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -1814,7 +1814,7 @@ msgstr ""
 msgid "Share as image"
 msgstr ""
 
-#: src/app/_layout.tsx:408
+#: src/app/_layout.tsx:403
 msgid "Share as Image"
 msgstr ""
 
@@ -1901,7 +1901,7 @@ msgstr ""
 msgid "Sign out"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:49
+#: src/app/(auth)/_layout.tsx:48
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
 msgstr ""

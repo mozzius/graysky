@@ -172,7 +172,7 @@ msgstr "3 / 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "{phone} にコードが送信されました。<0>電話番号を変更。</0>"
 
-#: src/app/settings/_layout.tsx:117
+#: src/app/settings/_layout.tsx:116
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "アプリについて"
@@ -201,7 +201,7 @@ msgstr "アカウントは削除されました。さようなら!"
 msgid "Account Details"
 msgstr "アカウントの詳細"
 
-#: src/app/settings/_layout.tsx:63
+#: src/app/settings/_layout.tsx:62
 msgid "Account Settings"
 msgstr "アカウントの設定"
 
@@ -237,7 +237,7 @@ msgstr "お気に入りに追加"
 msgid "Add to list"
 msgstr "リストに追加"
 
-#: src/app/_layout.tsx:391
+#: src/app/_layout.tsx:386
 msgid "Add to List"
 msgstr "リストに追加"
 
@@ -346,7 +346,7 @@ msgstr "アプリパスワード"
 msgid "App settings"
 msgstr "アプリの設定"
 
-#: src/app/settings/_layout.tsx:105
+#: src/app/settings/_layout.tsx:104
 msgid "App Settings"
 msgstr "アプリの設定"
 
@@ -412,7 +412,7 @@ msgstr "ブロックをした投稿"
 msgid "Blocked users"
 msgstr "ブロックをしたユーザー"
 
-#: src/app/settings/_layout.tsx:93
+#: src/app/settings/_layout.tsx:92
 msgid "Blocked Users"
 msgstr "ブロックをしたユーザー"
 
@@ -474,12 +474,12 @@ msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利�
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/app/settings/_layout.tsx:69
+#: src/app/settings/_layout.tsx:68
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "ハンドルを変更"
 
-#: src/app/settings/_layout.tsx:75
+#: src/app/settings/_layout.tsx:74
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "パスワードを変更"
@@ -531,7 +531,7 @@ msgstr "連絡先"
 msgid "Content filters"
 msgstr "コンテンツフィルター"
 
-#: src/app/settings/_layout.tsx:135
+#: src/app/settings/_layout.tsx:134
 msgid "Content Languages"
 msgstr "コンテンツの言語"
 
@@ -642,7 +642,7 @@ msgstr "アカウントを作成"
 msgid "Create list"
 msgstr "リストを作成"
 
-#: src/app/_layout.tsx:384
+#: src/app/_layout.tsx:379
 msgid "Create List"
 msgstr "リストを作成"
 
@@ -692,7 +692,7 @@ msgstr "生年月日"
 msgid "Delete"
 msgstr "削除"
 
-#: src/app/settings/_layout.tsx:81
+#: src/app/settings/_layout.tsx:80
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -741,7 +741,7 @@ msgstr "投稿を破棄"
 msgid "Discover feeds"
 msgstr "フィードを見つける"
 
-#: src/app/_layout.tsx:320
+#: src/app/_layout.tsx:315
 msgid "Discover Feeds"
 msgstr "フィードを見つける"
 
@@ -766,7 +766,7 @@ msgstr "有効化しない"
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
 #: src/app/discover.tsx:66
-#: src/app/settings/_layout.tsx:31
+#: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
@@ -801,7 +801,7 @@ msgstr "バナーを編集"
 msgid "Edit feeds"
 msgstr "フィードを編集"
 
-#: src/app/_layout.tsx:363
+#: src/app/_layout.tsx:358
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
@@ -998,7 +998,7 @@ msgstr "非表示"
 msgid "Home feed preferences"
 msgstr "ホームフィードの設定"
 
-#: src/app/settings/_layout.tsx:111
+#: src/app/settings/_layout.tsx:110
 msgid "Home Feed Preferences"
 msgstr "ホームフィードの設定"
 
@@ -1046,7 +1046,7 @@ msgstr "現在は{current}に設定されています"
 msgid "Joined {0}"
 msgstr "{0}から参加しています"
 
-#: src/app/settings/_layout.tsx:123
+#: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "言語"
@@ -1105,12 +1105,12 @@ msgstr "リストの名前"
 msgid "Lists"
 msgstr "リスト"
 
-#: src/app/(auth)/_layout.tsx:67
+#: src/app/(auth)/_layout.tsx:66
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "サインイン"
 
-#: src/app/(auth)/_layout.tsx:55
+#: src/app/(auth)/_layout.tsx:54
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1174,7 +1174,7 @@ msgstr "誤解を招くアカウント"
 msgid "Missing alt text"
 msgstr "ALTテキストがありません"
 
-#: src/app/settings/_layout.tsx:87
+#: src/app/settings/_layout.tsx:86
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "モデレーション"
@@ -1219,7 +1219,7 @@ msgstr "ミュートをしたリスト"
 msgid "Muted users"
 msgstr "ミュートをしたユーザー"
 
-#: src/app/settings/_layout.tsx:99
+#: src/app/settings/_layout.tsx:98
 msgid "Muted Users"
 msgstr "ミュートをしたユーザー"
 
@@ -1507,11 +1507,11 @@ msgstr "プライマリフィード"
 msgid "Primary language"
 msgstr "第一言語"
 
-#: src/app/settings/_layout.tsx:129
+#: src/app/settings/_layout.tsx:128
 msgid "Primary Language"
 msgstr "第一言語"
 
-#: src/app/settings/_layout.tsx:57
+#: src/app/settings/_layout.tsx:56
 msgid "Pro Settings"
 msgstr "Proの設定"
 
@@ -1527,7 +1527,7 @@ msgstr "プロフィール"
 msgid "Profile Settings"
 msgstr "プロフィールの設定"
 
-#: src/app/_layout.tsx:341
+#: src/app/_layout.tsx:336
 msgid "Purchase Successful"
 msgstr "購入に成功しました"
 
@@ -1539,7 +1539,7 @@ msgstr "目的"
 msgid "Push notifications"
 msgstr "プッシュ通知"
 
-#: src/app/_layout.tsx:398
+#: src/app/_layout.tsx:393
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "プッシュ通知"
@@ -1646,7 +1646,7 @@ msgstr "コードをリクエスト"
 msgid "Reset Code"
 msgstr "リセットコード"
 
-#: src/app/(auth)/_layout.tsx:61
+#: src/app/(auth)/_layout.tsx:60
 msgid "Reset password"
 msgstr "パスワードをリセット"
 
@@ -1787,7 +1787,7 @@ msgstr "確認のメールを送信"
 msgid "Send reset email"
 msgstr "リセットメールを送信"
 
-#: src/app/settings/_layout.tsx:46
+#: src/app/settings/_layout.tsx:45
 #: src/components/drawer/drawer-content.tsx:197
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -1814,7 +1814,7 @@ msgstr "{0}の投稿を共有する"
 msgid "Share as image"
 msgstr "画像として共有"
 
-#: src/app/_layout.tsx:408
+#: src/app/_layout.tsx:403
 msgid "Share as Image"
 msgstr "画像として共有"
 
@@ -1901,7 +1901,7 @@ msgstr "リポストを表示"
 msgid "Sign out"
 msgstr "サインアウト"
 
-#: src/app/(auth)/_layout.tsx:49
+#: src/app/(auth)/_layout.tsx:48
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
 msgstr "サインアップ"

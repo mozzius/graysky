@@ -20,7 +20,6 @@ export default function SettingsLayout() {
       <StatusBar modal />
       <Stack
         screenOptions={{
-          fullScreenGestureEnabled: true,
           ...Platform.select({
             ios: {
               headerRight: () =>

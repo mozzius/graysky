@@ -271,12 +271,7 @@ const App = () => {
                   <LogOutProvider value={logOut}>
                     <ActionSheetProvider>
                       <ListProvider>
-                        <Stack
-                          screenOptions={{
-                            headerShown: true,
-                            fullScreenGestureEnabled: true,
-                          }}
-                        >
+                        <Stack>
                           <Stack.Screen
                             name="index"
                             options={{

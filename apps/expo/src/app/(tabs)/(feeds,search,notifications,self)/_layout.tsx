@@ -53,7 +53,6 @@ export default function SubStack({
           >
             <Stack
               screenOptions={{
-                fullScreenGestureEnabled: true,
                 ...Platform.select({
                   android: {
                     animation: "ios",

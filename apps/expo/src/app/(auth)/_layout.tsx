@@ -34,7 +34,6 @@ export default function AuthLayout() {
       <StatusBar modal />
       <Stack
         screenOptions={{
-          fullScreenGestureEnabled: true,
           headerLeft,
           ...Platform.select({
             android: {
