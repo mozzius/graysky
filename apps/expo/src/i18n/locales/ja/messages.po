@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 00:59\n"
+"PO-Revision-Date: 2024-02-20 01:24\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -172,10 +172,6 @@ msgstr "3 / 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "{phone} にコードが送信されました。<0>電話番号を変更。</0>"
 
-#: src/app/settings/feed.tsx:121
-#~ msgid "A specific feed"
-#~ msgstr ""
-
 #: src/app/settings/_layout.tsx:117
 #: src/lib/quick-actions.ts:88
 msgid "About"
@@ -232,10 +228,6 @@ msgstr "<0>{potential}</0>に埋め込みを追加"
 #: src/lib/composer/keyboard-accessory.tsx:65
 msgid "Add image"
 msgstr "画像を追加"
-
-#: src/lib/composer/keyboard-accessory.tsx:53
-#~ msgid "Add image or GIF"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
@@ -396,10 +388,6 @@ msgstr "年間の支払い、いつでも解約可能です。"
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
 msgstr "毎月の支払い、いつでも解約可能です。"
-
-#: src/components/screens/profile/profile-info.tsx:186
-#~ msgid "Block account"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -583,10 +571,6 @@ msgstr "投稿へのリンクをコピー"
 #: src/components/post-context-menu.tsx:206
 msgid "Copy post text"
 msgstr "テキストをコピー"
-
-#: src/components/post-context-menu.tsx:147
-#~ msgid "Copyright Violation"
-#~ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
@@ -1181,11 +1165,6 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "「{0}」のリスト内のメンバー"
 
-#: src/components/post-context-menu.tsx:148
-#: src/components/screens/profile/profile-info.tsx:246
-#~ msgid "Misleading"
-#~ msgstr ""
-
 #: src/components/screens/profile/profile-info.tsx:658
 msgid "Misleading Account"
 msgstr "誤解を招くアカウント"
@@ -1218,10 +1197,6 @@ msgstr "{0} をもっと見る"
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
 msgstr "最低でも8文字が必要です"
-
-#: src/components/screens/profile/profile-info.tsx:175
-#~ msgid "Mute account"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
@@ -1497,11 +1472,6 @@ msgstr "投稿の言語"
 msgid "Post link copied to clipboard"
 msgstr "クリップボードにポストのリンクをコピーしました"
 
-#: src/components/post-context-menu.tsx:293
-#: src/components/post-context-menu.tsx:320
-#~ msgid "Post options"
-#~ msgstr ""
-
 #: src/lib/composer/utils.tsx:353
 msgid "Post published!"
 msgstr "投稿が公開されました!"
@@ -1699,10 +1669,6 @@ msgstr "再試行"
 msgid "Rising"
 msgstr "急上昇"
 
-#: src/components/post-context-menu.tsx:150
-#~ msgid "Rude"
-#~ msgstr ""
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
@@ -1813,10 +1779,6 @@ msgstr "目的のリストを選択"
 msgid "Select one or more options"
 msgstr "1つ以上のオプションを選択してください"
 
-#: src/app/settings/feed.tsx:233
-#~ msgid "Select primary feed"
-#~ msgstr ""
-
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
 msgstr "確認のメールを送信"
@@ -1877,10 +1839,6 @@ msgstr "投稿を共有"
 #: src/components/screens/profile/profile-info.tsx:691
 msgid "Share profile"
 msgstr "プロフィールを共有"
-
-#: src/components/screens/profile/profile-info.tsx:562
-#~ msgid "Share Profile"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
@@ -2036,12 +1994,6 @@ msgstr "システム"
 msgid "Take photo"
 msgstr "写真を撮影"
 
-#: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:398
-#: src/lib/composer/utils.tsx:422
-#~ msgid "Take Photo"
-#~ msgstr ""
-
 #: src/components/post-context-menu.tsx:127
 #: src/components/screens/profile/profile-info.tsx:673
 msgid "Thank you for making the skyline a safer place"
@@ -2142,10 +2094,6 @@ msgstr "トップ (3日以内)"
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 
-#: src/components/post-context-menu.tsx:192
-#~ msgid "Translate"
-#~ msgstr ""
-
 #: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr "プロフィールを翻訳"
@@ -2186,10 +2134,6 @@ msgstr "トレンドのトピック"
 msgid "Unblock"
 msgstr "ブロックを解除"
 
-#: src/components/screens/profile/profile-info.tsx:181
-#~ msgid "Unblock account"
-#~ msgstr ""
-
 #: src/lib/account-actions.ts:142
 msgid "Unblocked"
 msgstr "ブロックを解除しました"
@@ -2217,10 +2161,6 @@ msgstr "不明なエラー"
 #: src/components/screens/profile/profile-info.tsx:527
 msgid "Unmute"
 msgstr "ミュートを解除"
-
-#: src/components/screens/profile/profile-info.tsx:170
-#~ msgid "Unmute account"
-#~ msgstr ""
 
 #: src/lib/account-actions.ts:53
 msgid "Unmuted"
@@ -2338,14 +2278,6 @@ msgstr "Blueskyへようこそ! あなたが来てくれてワクワクしてい
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
 msgstr "Graysky Proへようこそ!"
-
-#: src/components/screens/profile/profile-info.tsx:252
-#~ msgid "What is the issue with this account?"
-#~ msgstr ""
-
-#: src/components/post-context-menu.tsx:156
-#~ msgid "What is the issue with this post?"
-#~ msgstr ""
 
 #: src/app/composer/index.tsx:350
 msgid "What's on your mind?"

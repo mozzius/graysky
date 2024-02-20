@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 01:20\n"
+"PO-Revision-Date: 2024-02-20 01:24\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -172,10 +172,6 @@ msgstr "3 з 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць нумар тэлефона.</0>"
 
-#: src/app/settings/feed.tsx:121
-#~ msgid "A specific feed"
-#~ msgstr ""
-
 #: src/app/settings/_layout.tsx:117
 #: src/lib/quick-actions.ts:88
 msgid "About"
@@ -232,10 +228,6 @@ msgstr ""
 #: src/lib/composer/keyboard-accessory.tsx:65
 msgid "Add image"
 msgstr "Дадаць відарыс"
-
-#: src/lib/composer/keyboard-accessory.tsx:53
-#~ msgid "Add image or GIF"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
 msgid "Add to favourites"
@@ -396,10 +388,6 @@ msgstr ""
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
 msgstr ""
-
-#: src/components/screens/profile/profile-info.tsx:186
-#~ msgid "Block account"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -583,10 +571,6 @@ msgstr "Скапіяваць спасылку на допіс"
 #: src/components/post-context-menu.tsx:206
 msgid "Copy post text"
 msgstr "Скапіяваць тэкст допісу"
-
-#: src/components/post-context-menu.tsx:147
-#~ msgid "Copyright Violation"
-#~ msgstr ""
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
@@ -811,44 +795,44 @@ msgstr "Змяніць аватар"
 
 #: src/app/edit-bio.tsx:183
 msgid "Edit banner"
-msgstr ""
+msgstr "Змяніць банер"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Edit feeds"
-msgstr ""
+msgstr "Рэдагаваць стужкі"
 
 #: src/app/_layout.tsx:363
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit Profile"
-msgstr ""
+msgstr "Рэдагаваць профіль"
 
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr ""
+msgstr "Электронная пошта"
 
 #: src/app/settings/moderation.tsx:143
 msgid "Enable Adult Content"
-msgstr ""
+msgstr "Паказваць змесціва для дарослых"
 
 #: src/app/push-notifications.tsx:127
 msgid "Enable notifications"
-msgstr ""
+msgstr "Уключыць апавяшчэнні"
 
 #: src/app/(auth)/sign-up.tsx:289
 msgid "Enter your phone number"
-msgstr ""
+msgstr "Увядзіце ваш нумар тэлефону"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
-msgstr ""
+msgstr "Памылка"
 
 #: src/app/composer/threadgate.tsx:37
 msgid "Everyone can reply"
-msgstr ""
+msgstr "Усе могуць адказваць"
 
 #: src/app/capture/[author]/[post].tsx:88
 msgid "Failed to capture image"
@@ -1181,11 +1165,6 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
-#: src/components/post-context-menu.tsx:148
-#: src/components/screens/profile/profile-info.tsx:246
-#~ msgid "Misleading"
-#~ msgstr ""
-
 #: src/components/screens/profile/profile-info.tsx:658
 msgid "Misleading Account"
 msgstr ""
@@ -1218,10 +1197,6 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
 msgstr ""
-
-#: src/components/screens/profile/profile-info.tsx:175
-#~ msgid "Mute account"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:213
 msgid "Mute all members"
@@ -1497,11 +1472,6 @@ msgstr ""
 msgid "Post link copied to clipboard"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:293
-#: src/components/post-context-menu.tsx:320
-#~ msgid "Post options"
-#~ msgstr ""
-
 #: src/lib/composer/utils.tsx:353
 msgid "Post published!"
 msgstr ""
@@ -1699,10 +1669,6 @@ msgstr ""
 msgid "Rising"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:150
-#~ msgid "Rude"
-#~ msgstr ""
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
@@ -1813,10 +1779,6 @@ msgstr ""
 msgid "Select one or more options"
 msgstr ""
 
-#: src/app/settings/feed.tsx:233
-#~ msgid "Select primary feed"
-#~ msgstr ""
-
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
 msgstr ""
@@ -1877,10 +1839,6 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:691
 msgid "Share profile"
 msgstr ""
-
-#: src/components/screens/profile/profile-info.tsx:562
-#~ msgid "Share Profile"
-#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
 msgid "Share this feed"
@@ -2036,12 +1994,6 @@ msgstr ""
 msgid "Take photo"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:393
-#: src/lib/composer/utils.tsx:398
-#: src/lib/composer/utils.tsx:422
-#~ msgid "Take Photo"
-#~ msgstr ""
-
 #: src/components/post-context-menu.tsx:127
 #: src/components/screens/profile/profile-info.tsx:673
 msgid "Thank you for making the skyline a safer place"
@@ -2142,10 +2094,6 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:192
-#~ msgid "Translate"
-#~ msgstr ""
-
 #: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr ""
@@ -2186,10 +2134,6 @@ msgstr ""
 msgid "Unblock"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:181
-#~ msgid "Unblock account"
-#~ msgstr ""
-
 #: src/lib/account-actions.ts:142
 msgid "Unblocked"
 msgstr ""
@@ -2217,10 +2161,6 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:527
 msgid "Unmute"
 msgstr ""
-
-#: src/components/screens/profile/profile-info.tsx:170
-#~ msgid "Unmute account"
-#~ msgstr ""
 
 #: src/lib/account-actions.ts:53
 msgid "Unmuted"
@@ -2338,14 +2278,6 @@ msgstr ""
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
 msgstr ""
-
-#: src/components/screens/profile/profile-info.tsx:252
-#~ msgid "What is the issue with this account?"
-#~ msgstr ""
-
-#: src/components/post-context-menu.tsx:156
-#~ msgid "What is the issue with this post?"
-#~ msgstr ""
 
 #: src/app/composer/index.tsx:350
 msgid "What's on your mind?"
