@@ -8,7 +8,7 @@ msgstr ""
 "Language: pt\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 19:18\n"
+"PO-Revision-Date: 2024-02-20 19:56\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese, Brazilian\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -325,7 +325,7 @@ msgstr "Plano Anual"
 msgid "Anti-Social Behavior"
 msgstr ""
 
-#: src/app/settings/about.tsx:151
+#: src/app/settings/about.tsx:158
 msgid "App info"
 msgstr ""
 
@@ -389,6 +389,11 @@ msgstr "Cobrado anualmente, cancele a qualquer momento"
 msgid "Billed monthly, cancel anytime"
 msgstr "Cobrado mensalmente, cancele a qualquer momento"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr ""
@@ -398,8 +403,6 @@ msgstr ""
 msgid "Block user"
 msgstr ""
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr ""
@@ -1022,7 +1025,7 @@ msgstr ""
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr ""
 
-#: src/app/settings/about.tsx:136
+#: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr ""
 
@@ -1124,7 +1127,7 @@ msgstr ""
 msgid "Logged in"
 msgstr ""
 
-#: src/app/settings/about.tsx:140
+#: src/app/settings/about.tsx:147
 msgid "Logo designed by"
 msgstr ""
 
@@ -2236,12 +2239,12 @@ msgstr ""
 msgid "Verification code"
 msgstr "Código de verificação"
 
-#: src/app/settings/about.tsx:155
+#: src/app/settings/about.tsx:162
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr ""
 
-#: src/app/settings/about.tsx:156
+#: src/app/settings/about.tsx:163
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 19:18\n"
+"PO-Revision-Date: 2024-02-20 19:56\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -325,7 +325,7 @@ msgstr "വാർഷിക അംഗത്വം"
 msgid "Anti-Social Behavior"
 msgstr "സാമൂഹ്യവിരുദ്ധ പെരുമാറ്റം"
 
-#: src/app/settings/about.tsx:151
+#: src/app/settings/about.tsx:158
 msgid "App info"
 msgstr "ആപ്പ് വിവരം"
 
@@ -389,6 +389,11 @@ msgstr "പ്രതിവർഷം ബിൽ ചെയ്യുന്നു, �
 msgid "Billed monthly, cancel anytime"
 msgstr "മാസാമാസം ബിൽ ചെയ്യുന്നു, എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കുക"
 
+#: src/lib/account-actions.ts:70
+#: src/lib/account-actions.ts:78
+msgid "Block"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
 msgstr "എല്ലാവരെയും ബ്ലോക്ക് ചെയ്യുക"
@@ -398,8 +403,6 @@ msgstr "എല്ലാവരെയും ബ്ലോക്ക് ചെയ്�
 msgid "Block user"
 msgstr "ബ്ലോക്ക് യൂസർ"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
 msgstr "ബ്ലോക്ക് ചെയ്തു"
@@ -1022,7 +1025,7 @@ msgstr ""
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr ""
 
-#: src/app/settings/about.tsx:136
+#: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr ""
 
@@ -1124,7 +1127,7 @@ msgstr ""
 msgid "Logged in"
 msgstr ""
 
-#: src/app/settings/about.tsx:140
+#: src/app/settings/about.tsx:147
 msgid "Logo designed by"
 msgstr ""
 
@@ -2236,12 +2239,12 @@ msgstr ""
 msgid "Verification code"
 msgstr ""
 
-#: src/app/settings/about.tsx:155
+#: src/app/settings/about.tsx:162
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr ""
 
-#: src/app/settings/about.tsx:156
+#: src/app/settings/about.tsx:163
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 19:18\n"
+"PO-Revision-Date: 2024-02-20 19:56\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -392,7 +392,7 @@ msgstr "Аплата штомесяц, можна адмяніць у любы �
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
 msgid "Block"
-msgstr ""
+msgstr "Заблакаваць"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -405,7 +405,7 @@ msgstr "Заблакіраваць карыстальніка"
 
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
-msgstr ""
+msgstr "Заблакавана"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
 msgid "Blocked post"
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:234
 msgid "List blocked"
-msgstr ""
+msgstr "Спіс заблакаваны"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:667
 msgid "List deleted"
@@ -1258,7 +1258,7 @@ msgstr ""
 
 #: src/app/add-to-list/[handle].tsx:152
 msgid "Need a new list?"
-msgstr ""
+msgstr "Патрэбны новы спіс?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
 msgid "New"
@@ -1376,28 +1376,28 @@ msgstr ""
 #: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/components/screens/change-password-flow.tsx:227
 msgid "Password changed successfully!"
-msgstr ""
+msgstr "Пароль зменены паспяхова!"
 
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
-msgstr ""
+msgstr "Пароль мае змяшчаць прынамсі 8 сімвалаў"
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
-msgstr ""
+msgstr "людзей паперад вас."
 
 #: src/app/composer/threadgate.tsx:85
 msgid "People mentioned in the thread"
-msgstr ""
+msgstr "Людзі, узгаданыя ў гутарцы"
 
 #: src/app/composer/threadgate.tsx:107
 msgid "People you follow"
-msgstr ""
+msgstr "Людзі, на якіх вы падпісаны"
 
 #: src/components/image-with-context-menu.tsx:156
 #: src/lib/composer/utils.tsx:519
@@ -1405,7 +1405,7 @@ msgstr ""
 #: src/lib/composer/utils.tsx:548
 #: src/lib/composer/utils.tsx:556
 msgid "Permission required"
-msgstr ""
+msgstr "Патрабуецца дазвол"
 
 #: src/app/(auth)/sign-up.tsx:281
 msgid "Phone number"
@@ -1413,40 +1413,40 @@ msgstr "Нумар тэлефона"
 
 #: src/app/composer/index.tsx:231
 msgid "Please add descriptive alt text to all images before posting."
-msgstr ""
+msgstr "Калі ласка, дадайце апісальны альтэрнатыўны тэкст перад публікацыяй."
 
 #: src/lib/composer/utils.tsx:549
 #: src/lib/composer/utils.tsx:557
 msgid "Please enable camera access in your settings"
-msgstr ""
+msgstr "Калі ласка, дазвольце карыстанне камерай у наладах"
 
 #: src/components/image-with-context-menu.tsx:158
 #: src/lib/composer/utils.tsx:521
 #: src/lib/composer/utils.tsx:531
 msgid "Please enable photo gallery access in your settings"
-msgstr ""
+msgstr "Калі ласка, дазвольце доступ да галерэі ў наладах"
 
 #: src/app/(auth)/sign-up.tsx:303
 msgid "Please enter a phone number that can receive SMS text messages."
-msgstr ""
+msgstr "Калі ласка, увядзіце нумар тэлефона, каб атрымаць SMS."
 
 #: src/app/composer/gifs.tsx:220
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"
-msgstr ""
+msgstr "Калі ласка, паспрабуйце яшчэ раз"
 
 #: src/components/screens/change-password-flow.tsx:80
 msgid "Please try again - are you sure your reset code is correct?"
-msgstr ""
+msgstr "Калі ласка, паспрабуйце яшчэ раз. Вы ўпэўненыя, што код правільны?"
 
 #: src/app/settings/account/change-handle.tsx:96
 msgid "Please use the official app in the meantime. Sorry!"
-msgstr ""
+msgstr "Калі ласка, скарыстайцеся афіцыйнай праграмай — гэта часова. Выбачаемся!"
 
 #: src/app/composer/content-warning.tsx:33
 msgid "Pornographic content"
-msgstr ""
+msgstr "Парнаграфічны кантэнт"
 
 #: src/app/(tabs)/_layout.tsx:181
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:350
@@ -1457,7 +1457,7 @@ msgstr "Допіс"
 
 #: src/app/composer/index.tsx:244
 msgid "Post anyway"
-msgstr ""
+msgstr "Усё адно апублікаваць"
 
 #: src/components/post-context-menu.tsx:104
 msgid "Post deleted"
@@ -1490,11 +1490,11 @@ msgstr "Допісы"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
 #: src/components/feeds-button.tsx:248
 msgid "Posts from people you follow"
-msgstr ""
+msgstr "Допісы ад людзей, на якіх вы падпісаны"
 
 #: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
-msgstr ""
+msgstr "Допісы будуць перакладацца на {primaryLanguageLabel}."
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
 msgid "Powered by Skyfeed"
@@ -1504,15 +1504,15 @@ msgstr ""
 #: src/app/settings/feed.tsx:147
 #: src/app/settings/feed.tsx:163
 msgid "Primary feed"
-msgstr ""
+msgstr "Асноўная стужка"
 
 #: src/app/settings/language/index.tsx:91
 msgid "Primary language"
-msgstr ""
+msgstr "Асноўная мова"
 
 #: src/app/settings/_layout.tsx:128
 msgid "Primary Language"
-msgstr ""
+msgstr "Асноўная мова"
 
 #: src/app/settings/_layout.tsx:56
 msgid "Pro Settings"
@@ -1536,7 +1536,7 @@ msgstr "Паспяховая купля"
 
 #: src/app/create-list.tsx:211
 msgid "Purpose"
-msgstr ""
+msgstr "Тып"
 
 #: src/app/settings/index.tsx:75
 msgid "Push notifications"
@@ -1561,7 +1561,7 @@ msgstr "Выпадкова"
 
 #: src/components/image-viewer.tsx:146
 msgid "Read full ALT text"
-msgstr ""
+msgstr "Прачытаць поўны альтэрнатыўны тэкст"
 
 #: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Replies"
@@ -1577,36 +1577,36 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:327
 msgid "Reply to {0}"
-msgstr ""
+msgstr "Адказ {0}"
 
 #: src/components/feed-post.tsx:275
 #: src/components/feed-post.tsx:458
 msgid "replying to {0}"
-msgstr ""
+msgstr "у адказ {0}"
 
 #: src/app/composer/index.tsx:348
 msgid "Replying to @{0}"
-msgstr ""
+msgstr "У адказ @{0}"
 
 #: src/components/feed-post.tsx:417
 msgid "replying to a blocked user"
-msgstr ""
+msgstr "адказ заблакіраванаму карыстальніку"
 
 #: src/components/feed-post.tsx:420
 msgid "replying to a deleted post"
-msgstr ""
+msgstr "у адказ на выдалены допіс"
 
 #: src/components/feed-post.tsx:412
 msgid "replying to a post that couldn't be fetched"
-msgstr ""
+msgstr "у адказ на допіс, які не атрымалася загрузіць"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:398
 msgid "Replying to some sort of post"
-msgstr ""
+msgstr "У адказ на нейкі допіс"
 
 #: src/components/feed-post.tsx:414
 msgid "replying to..."
-msgstr ""
+msgstr "у адказ на..."
 
 #: src/components/screens/profile/profile-info.tsx:735
 msgid "Report account"
@@ -2046,7 +2046,7 @@ msgstr ""
 #: src/components/embed/index.tsx:221
 #: src/components/feed-post.tsx:143
 msgid "This post is from someone you have blocked"
-msgstr ""
+msgstr "Гэты допіс апублікаваны кімсьці, каго вы заблакіравалі"
 
 #: src/components/embed/index.tsx:219
 #: src/components/feed-post.tsx:141
@@ -2059,7 +2059,7 @@ msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:583
 msgid "This user has blocked you"
-msgstr ""
+msgstr "Гэты карыстальнік заблакіраваў вас"
 
 #: src/components/screens/profile/profile-info.tsx:548
 msgid "This user is on the \"{0}\" block list"
@@ -2333,7 +2333,7 @@ msgstr ""
 
 #: src/components/screens/profile/profile-info.tsx:553
 msgid "You have blocked this user"
-msgstr ""
+msgstr "Вы заблакіравалі гэтага карыстальніка"
 
 #: src/components/screens/profile/profile-info.tsx:522
 msgid "You have muted this user"
@@ -2341,7 +2341,7 @@ msgstr ""
 
 #: src/app/settings/blocks.tsx:45
 msgid "You haven't blocked anyone"
-msgstr ""
+msgstr "Вы нікога не заблакавалі"
 
 #: src/app/settings/mutes.tsx:45
 msgid "You haven't muted anyone"
