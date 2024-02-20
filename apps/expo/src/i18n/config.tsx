@@ -4,6 +4,7 @@ import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
 import { messages as messagesBe } from "~/i18n/locales/be/messages";
+import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
 import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
@@ -28,6 +29,9 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "fr": {
       return "Français";
     }
+    case "de": {
+      return "Deutsch";
+    }
     case "be": {
       return "Беларуская";
     }
@@ -48,6 +52,10 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
     }
     case "fr": {
       i18n.loadAndActivate({ locale, messages: messagesFr });
+      break;
+    }
+    case "de": {
+      i18n.loadAndActivate({ locale, messages: messagesDe });
       break;
     }
     case "be": {
