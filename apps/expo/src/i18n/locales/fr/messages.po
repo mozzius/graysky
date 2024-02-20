@@ -325,7 +325,7 @@ msgstr "Abonnement annuel"
 msgid "Anti-Social Behavior"
 msgstr ""
 
-#: src/app/settings/about.tsx:151
+#: src/app/settings/about.tsx:158
 msgid "App info"
 msgstr "Informations sur l'application"
 
@@ -1022,7 +1022,7 @@ msgstr "Comment devons-nous ouvrir ce lien ?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Si une publication est marquée comme étant dans l'une de ces langues, elle ne sera pas traduite."
 
-#: src/app/settings/about.tsx:136
+#: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr ""
 
@@ -1124,7 +1124,7 @@ msgstr "Se déconnecter"
 msgid "Logged in"
 msgstr "Connecté"
 
-#: src/app/settings/about.tsx:140
+#: src/app/settings/about.tsx:147
 msgid "Logo designed by"
 msgstr "Logo conçu par"
 
@@ -2236,12 +2236,12 @@ msgstr "Personnes que <0>{0}</0> suit"
 msgid "Verification code"
 msgstr "Code de vérification"
 
-#: src/app/settings/about.tsx:155
+#: src/app/settings/about.tsx:162
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: src/app/settings/about.tsx:156
+#: src/app/settings/about.tsx:163
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Version inconnue"

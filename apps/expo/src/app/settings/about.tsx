@@ -131,6 +131,13 @@ export default function AboutPage() {
                 href: "/profile/did:plc:2wlwhbmg2yga6vvei4zpwcjt",
                 icon: AtSignIcon,
               },
+              {
+                // fr translator
+                title: "@yanyannoche.bsky.social",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:5on2afqpkkltppdaongk2ywo",
+                icon: AtSignIcon,
+              },
             ],
             footer: _(
               msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
