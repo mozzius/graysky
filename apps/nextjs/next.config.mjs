@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { withSentryConfig } from "@sentry/nextjs";
 
 /**
@@ -17,13 +15,6 @@ const config = {
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
-  // https://prismaio.notion.site/Prisma-Vercel-Edge-Functions-and-Middleware-9e6f2a3bdb2a409caa9f8e4dba9e9bae?pvs=25#59b5ec12b25d44129cb8b6e60447cc31
-  webpack(config) {
-    config.experiments ??= {};
-    config.experiments.asyncWebAssembly = true;
-
-    return config;
-  },
 };
 
 export default withSentryConfig(
