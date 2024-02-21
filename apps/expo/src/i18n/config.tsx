@@ -4,14 +4,14 @@ import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
 import { messages as messagesBe } from "~/i18n/locales/be/messages";
-import { messages as messagesCs } from "~/i18n/locales/cs/messages";
-import { messages as messagesDe } from "~/i18n/locales/de/messages";
+// import { messages as messagesCs } from "~/i18n/locales/cs/messages";
+// import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
-import { messages as messagesEs } from "~/i18n/locales/es/messages";
+// import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
-import { messages as messagesNl } from "~/i18n/locales/nl/messages";
-import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
+// import { messages as messagesNl } from "~/i18n/locales/nl/messages";
+// import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
 import {
   appPreferencesStore,
   useAppLanguage,
@@ -26,27 +26,28 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "ja": {
       return "日本語";
     }
-    case "es": {
-      return "Español";
-    }
     case "fr": {
       return "Français";
     }
-    case "de": {
-      return "Deutsch";
-    }
+
     case "be": {
       return "Беларуская";
     }
-    case "pt-BR": {
-      return "Português (BR)";
-    }
-    case "nl": {
-      return "Nederlands";
-    }
-    case "cs": {
-      return "Čeština";
-    }
+    // case "es": {
+    //   return "Español";
+    // }
+    // case "de": {
+    //   return "Deutsch";
+    // }
+    // case "pt-BR": {
+    //   return "Português (BR)";
+    // }
+    // case "nl": {
+    //   return "Nederlands";
+    // }
+    // case "cs": {
+    //   return "Čeština";
+    // }
     default:
       throw new Error(`Unknown language code: ${code as string}`);
   }
@@ -58,34 +59,34 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
       i18n.loadAndActivate({ locale, messages: messagesJa });
       break;
     }
-    case "es": {
-      i18n.loadAndActivate({ locale, messages: messagesEs });
-      break;
-    }
     case "fr": {
       i18n.loadAndActivate({ locale, messages: messagesFr });
-      break;
-    }
-    case "de": {
-      i18n.loadAndActivate({ locale, messages: messagesDe });
       break;
     }
     case "be": {
       i18n.loadAndActivate({ locale, messages: messagesBe });
       break;
     }
-    case "pt-BR": {
-      i18n.loadAndActivate({ locale, messages: messagesPtBR });
-      break;
-    }
-    case "nl": {
-      i18n.loadAndActivate({ locale, messages: messagesNl });
-      break;
-    }
-    case "cs": {
-      i18n.loadAndActivate({ locale, messages: messagesCs });
-      break;
-    }
+    // case "es": {
+    //   i18n.loadAndActivate({ locale, messages: messagesEs });
+    //   break;
+    // }
+    // case "de": {
+    //   i18n.loadAndActivate({ locale, messages: messagesDe });
+    //   break;
+    // }
+    // case "pt-BR": {
+    //   i18n.loadAndActivate({ locale, messages: messagesPtBR });
+    //   break;
+    // }
+    // case "nl": {
+    //   i18n.loadAndActivate({ locale, messages: messagesNl });
+    //   break;
+    // }
+    // case "cs": {
+    //   i18n.loadAndActivate({ locale, messages: messagesCs });
+    //   break;
+    // }
     default: {
       i18n.loadAndActivate({ locale, messages: messagesEn });
       break;
