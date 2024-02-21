@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-21 00:19\n"
+"PO-Revision-Date: 2024-02-21 23:19\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -323,7 +323,7 @@ msgstr "Abonnement annuel"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
-msgstr "Comportement anti-social"
+msgstr "Comportement antisocial"
 
 #: src/app/settings/about.tsx:158
 msgid "App info"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-21 00:19\n"
+"PO-Revision-Date: 2024-02-21 23:19\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -52,7 +52,7 @@ msgstr "{hours} гадзін таму"
 
 #: src/lib/utils/time.ts:48
 msgid "{hours}h"
-msgstr "{hours} г."
+msgstr "{hours} гадз."
 
 #: src/lib/utils/time.ts:62
 msgid "{minutes} minutes ago"
@@ -116,7 +116,7 @@ msgstr "#{0}"
 
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr "<0>{0, plural, =1 {{1}} =2 {{2} і {3}} other {{4} і {5} іншых}}</0><1>{6}</1>"
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2} і {3}} other {{4} і {5} іншым}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:447
@@ -272,7 +272,7 @@ msgstr "Усе мовы"
 
 #: src/app/settings/app.tsx:46
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
-msgstr "Дазваляе сартаваць не ўпадабаныя стужкі ва ўкладцы стужак"
+msgstr "Дазваляе сартаваць не абраныя стужкі ва ўкладцы стужак"
 
 #: src/app/composer/index.tsx:442
 msgid "Alt"
@@ -446,11 +446,11 @@ msgstr "Пасля націскання кнопкі «пацвердзіць і
 
 #: src/app/pro.tsx:301
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
-msgstr "Падпісваючыся, вы пагаджаецеся з нашымі <0>умовамі</0> і <1>палітыкай прыватнасці</1>. Падпіска будзе падаўжацца аўтаматычна пакуль вы не скасуеце."
+msgstr "Падпісваючыся, вы пагаджаецеся з нашымі <0>умовамі</0> і <1>палітыкай прыватнасці</1>. Падпіска будзе падаўжацца аўтаматычна, пакуль вы не скасуеце."
 
 #: src/app/pro.tsx:266
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
-msgstr "Падпісваючыся, вы пагаджаецеся з <0>Умовамі</0>, <1>Умовамі карыстання (EULA)</1>, <2>Палітыкай прыватнасці</2>. Падпіска будзе падаўжацца аўтаматычна пакуль вы не скасуеце."
+msgstr "Падпісваючыся, вы пагаджаецеся з <0>Умовамі</0>, <1>Умовамі карыстання (EULA)</1>, <2>Палітыкай прыватнасці</2>. Падпіска будзе падаўжацца аўтаматычна, пакуль вы не скасуеце."
 
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
@@ -493,7 +493,7 @@ msgstr "Змяніць мову допісу"
 
 #: src/app/pro.tsx:121
 msgid "Change the accent colour"
-msgstr "Змяніць дамінуючы колер"
+msgstr "Змяняйце дамінуючы колер"
 
 #: src/components/drawer/drawer-content.tsx:70
 #: src/components/drawer/drawer-content.tsx:180
@@ -679,7 +679,7 @@ msgstr "Карыстальніцкія тэмы"
 
 #: src/components/drawer/drawer-content.tsx:65
 msgid "dark"
-msgstr "Цёмная"
+msgstr "цёмная"
 
 #: src/components/drawer/drawer-content.tsx:53
 #: src/components/drawer/drawer-content.tsx:85
@@ -786,11 +786,11 @@ msgstr "Чарнавікі"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
-msgstr "Змяніць"
+msgstr "Рэдагаваць"
 
 #: src/lib/composer/alt-text-editor.tsx:68
 msgid "Edit alt text"
-msgstr "Змяніць альтэрнатыўны тэкст"
+msgstr "Рэдагаванне"
 
 #: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
@@ -847,7 +847,7 @@ msgstr "Не атрымалася загрузіць стужку"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:70
 msgid "Failed to hydrate feed"
-msgstr "Не атрымалася правесці гідрацыю стужкі"
+msgstr "Не атрымалася правесці гідратацыю стужкі"
 
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
@@ -1027,7 +1027,7 @@ msgstr "Калі на допісу стаіць моўная адзнака лю
 
 #: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
-msgstr "Калі вы рабілі ўнёсак у развіццё graysky, напрыклад дапамагалі з перакладам, калі ласка, напішыце @graysky.app. каб мы дадалі вас у спіс!"
+msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (напрыклад: дапамагалі з перакладам), калі ласка, напішыце @graysky.app, каб мы дадалі вас у спіс!"
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
@@ -1056,7 +1056,7 @@ msgstr "Мовы"
 
 #: src/components/drawer/drawer-content.tsx:64
 msgid "light"
-msgstr "Светлая"
+msgstr "светлая"
 
 #: src/components/drawer/drawer-content.tsx:52
 #: src/components/drawer/drawer-content.tsx:82
@@ -1153,7 +1153,7 @@ msgstr "Абавязковы альтэрнатыўны тэкст"
 
 #: src/app/settings/app.tsx:38
 msgid "Manually sort non-favourite feeds"
-msgstr "Сартаваць не ўпадабаныя стужкі самастойна"
+msgstr "Сартаваць не абраныя стужкі ўручную"
 
 #: src/components/screens/profile/profile-tab-view.tsx:88
 msgid "Media"
@@ -1236,7 +1236,7 @@ msgstr "Мае стужкі"
 
 #: src/components/feeds-button.tsx:106
 msgid "My Feeds"
-msgstr "Мае Стужкі"
+msgstr "Мае стужкі"
 
 #: src/components/drawer/drawer-content.tsx:114
 msgid "My Feeds screen"
@@ -1317,7 +1317,7 @@ msgstr "Не ўпэўнены чаму, прабачце :("
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr "Яшчэ не рэалізавана"
+msgstr "Яшчэ не зроблена"
 
 #: src/app/settings/moderation.tsx:132
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
@@ -1635,7 +1635,7 @@ msgstr "Пашырылі"
 
 #: src/components/feed-post.tsx:377
 msgid "Reposted by {0}"
-msgstr "Пашыраны {0}"
+msgstr "Пашырыў {0}"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1643,7 +1643,7 @@ msgstr "пашырыў ваш допіс"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
-msgstr "Запытаць код"
+msgstr "Атрымаць код"
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1681,7 +1681,7 @@ msgstr "Захаваць"
 
 #: src/app/pro.tsx:224
 msgid "Save {0}%"
-msgstr "Захаваць {0}%"
+msgstr "Выгада {0}%"
 
 #: src/components/image-with-context-menu.tsx:151
 msgid "Save Image"
@@ -1929,7 +1929,7 @@ msgstr "Выбачце! Тэрмін дзеяння сеанса скончыў�
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:100
 msgid "Sort posts by"
-msgstr "Сартаваць допісы па"
+msgstr "Сартаванне допісаў:"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:113
 msgid "Sort: {0}"
@@ -1978,7 +1978,7 @@ msgstr "На каго падпісацца"
 
 #: src/app/pro.tsx:126
 msgid "Support development"
-msgstr "Падтрымаць распрацоўку"
+msgstr "Падтрымка распрацоўкі"
 
 #: src/app/(tabs)/_layout.tsx:119
 msgid "Switch Accounts"
@@ -2108,7 +2108,7 @@ msgstr "Перакласці допіс"
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
-msgstr "Перакладаць допісы з дапамогай DeepL"
+msgstr "Пераклады допісаў з дапамогай DeepL"
 
 #: src/components/translation.tsx:146
 msgid "Translated by DeepL"
@@ -2171,11 +2171,11 @@ msgstr "Не ігнаруецца"
 
 #: src/components/feed-row.tsx:291
 msgid "Unsave"
-msgstr "Выдаліць з захаваных"
+msgstr "Выдаліць"
 
 #: src/components/feed-row.tsx:290
 msgid "Unsave this feed?"
-msgstr "Выдаліць гэтую стужку з захаваных?"
+msgstr "Выдаліць гэтую стужку?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
 msgid "Unsubscribe from list"
@@ -2217,7 +2217,7 @@ msgstr "Спіс карыстальнікаў"
 
 #: src/app/(auth)/sign-in.tsx:71
 msgid "Username or email address"
-msgstr "Імя карыстальніка або адрас электроннай пошты"
+msgstr "Ідэнтыфікатар або email"
 
 #: src/components/primary-post.tsx:265
 msgid "Users in the list"
@@ -2325,7 +2325,7 @@ msgstr "Вы можаце дадаць да {MAX_IMAGES} відарысаў, а�
 
 #: src/app/push-notifications.tsx:38
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
-msgstr "Вы можаце атрымліваць push-апавяшчэнні калі нехта ўпадабаў, пашырыў і г.д. ваш допіс! Але, варта ўлічваць вось што:"
+msgstr "Вы можаце атрымліваць push-апавяшчэнні, калі нехта ўпадабаў, пашырыў і г.д. ваш допіс! Але, варта ўлічваць вось што:"
 
 #: src/app/add-to-list/[handle].tsx:147
 msgid "You don't have any moderation lists yet."
@@ -2349,7 +2349,7 @@ msgstr "Вы нікога не ігнаруеце"
 
 #: src/app/push-notifications.tsx:65
 msgid "You may receive notifications from people you have muted. <0>Learn more</0>"
-msgstr "Вы можаце атрымліваць апавяшчэнні ад людзей, якіх вы ігнаруеце. <0>Даведацца больш</0>"
+msgstr "Вы можаце атрымліваць апавяшчэнні ад людзей, якіх ігнаруеце. <0>Даведацца больш</0>"
 
 #: src/app/push-notifications.tsx:88
 msgid "You may receive notifications from people you've blocked or muted via moderation list. <0>Learn more</0>"
@@ -2365,7 +2365,7 @@ msgstr "Магчыма, вы захочаце скарыстацца парол�
 
 #: src/lib/account-actions.ts:35
 msgid "You will no longer see posts from @{handle}"
-msgstr "Вы болей не будзеце бачыць допісы, пашыраныя @{handle}"
+msgstr "Вы болей не будзеце бачыць допісы ад @{handle}"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
