@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 19:56\n"
+"PO-Revision-Date: 2024-02-21 00:19\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -392,7 +392,7 @@ msgstr "Facturation mensuelle, annulation à tout moment"
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
 msgid "Block"
-msgstr ""
+msgstr "Bloquer"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -512,7 +512,7 @@ msgstr "Sélectionner dans la bibliothèque"
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
-msgstr ""
+msgstr "Fermer l'image superposée"
 
 #: src/app/settings/account/delete-account.tsx:123
 msgid "Confirm and continue"
