@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-22 v1.4.6
+
+- French, German, Belarusian, Czech, and Malayalam translations (thank you to everyone who contributed!)
+- Improved screen transition fluidity
+- Bug fixes and improvements
+
+## 2024-2-19 v1.4.5
+
+- Added Japanese translation
+- Bug fixes and improvements
+- Added Android notification icon
+
 ## 2024-2-12 v1.4.4
 
 - Various bug fixes and improvements
