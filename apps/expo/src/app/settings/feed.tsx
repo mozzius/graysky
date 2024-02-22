@@ -56,7 +56,7 @@ export default function FeedPreferences() {
     msg({
       id: "following.feed",
       message: "Following",
-      comment: "The name of the main feed.",
+      comment: "'Following' - The name of the main feed",
     }),
   );
 

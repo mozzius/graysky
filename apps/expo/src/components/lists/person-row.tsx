@@ -46,7 +46,7 @@ const PersonRowUnmemoized = ({
       msg({
         id: "following.action",
         message: "Following",
-        comment: "Following a user",
+        comment: "'Following' - following a user",
       }),
     );
   } else if (followedBy) {

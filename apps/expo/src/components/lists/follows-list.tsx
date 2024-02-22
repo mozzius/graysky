@@ -55,7 +55,7 @@ export const FollowsList = forwardRef<FollowsListRef>((__, ref) => {
         msg({
           id: "following.list",
           message: "Following",
-          comment: "List of follows",
+          comment: "'Following' - List of follows",
         }),
       )}
       ref={listRef}

@@ -248,7 +248,7 @@ const SheetContent = ({
               msg({
                 id: "following.feed",
                 message: "Following",
-                comment: "The name of the main feed.",
+                comment: "'Following' - The name of the main feed",
               }),
             )}
             subtitle={_(msg`Posts from people you follow`)}

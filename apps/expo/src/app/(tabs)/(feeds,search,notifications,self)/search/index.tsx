@@ -443,7 +443,10 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                   {follow.isIdle ? (
                     <Trans>Follow</Trans>
                   ) : (
-                    <Trans id="following.action" comment="Following a user">
+                    <Trans
+                      id="following.action"
+                      comment="'Following' - following a user"
+                    >
                       Following
                     </Trans>
                   )}

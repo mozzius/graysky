@@ -67,8 +67,12 @@ msgid "{months} months ago"
 msgstr "{months} മാസം മുൻപ്"
 
 #: src/lib/utils/time.ts:26
-msgid "{months}m"
-msgstr "{months}mo"
+#~ msgid "{months}m"
+#~ msgstr "{months}mo"
+
+#: src/lib/utils/time.ts:26
+msgid "{months}M"
+msgstr ""
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -917,9 +921,9 @@ msgstr "ഫോളോ ചെയ്ത ഉപയോക്താവ്"
 msgid "Followers"
 msgstr "പിന്തുടരുന്നവർ"
 
-#. The name of the main feed.
-#. The name of the main feed.
-#. The name of the main feed.
+#. 'Following' - The name of the main feed
+#. 'Following' - The name of the main feed
+#. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
 #: src/app/settings/feed.tsx:56
@@ -927,9 +931,9 @@ msgstr "പിന്തുടരുന്നവർ"
 msgid "following.feed"
 msgstr ""
 
-#. Following a user
-#. Following a user
-#. Following a user
+#. 'Following' - following a user
+#. 'Following' - following a user
+#. 'Following' - following a user
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/lists/person-row.tsx:46
@@ -937,7 +941,7 @@ msgstr ""
 msgid "following.action"
 msgstr ""
 
-#. List of follows
+#. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
