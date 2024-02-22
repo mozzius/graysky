@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-21 23:19\n"
+"PO-Revision-Date: 2024-02-22 09:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -591,7 +591,7 @@ msgstr "Le compte n'a pas pu être créé"
 msgid "Could not delete account"
 msgstr "Impossible de supprimer le compte"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "Could not delete list"
 msgstr "Impossible de supprimer la liste"
 
@@ -827,7 +827,7 @@ msgstr "Activer les notifications"
 msgid "Enter your phone number"
 msgstr "Entrez votre numéro de téléphone"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:675
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -940,7 +940,7 @@ msgstr "Publie fréquemment du contenu indésirable"
 msgid "General"
 msgstr "Général"
 
-#: src/app/settings/language/index.tsx:152
+#: src/app/settings/language/index.tsx:161
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Obtenez Graysky Pro pour accéder aux traductions DeepL. Autrement, Google Translate est utilisé."
 
@@ -960,7 +960,7 @@ msgstr "GIFs"
 msgid "Go back"
 msgstr "Retour"
 
-#: src/app/settings/language/index.tsx:150
+#: src/app/settings/language/index.tsx:159
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
 msgstr "Autrement, Google Translate est utilisé."
@@ -1021,7 +1021,7 @@ msgstr "Populaires"
 msgid "How should we open this link?"
 msgstr "Comment devons-nous ouvrir ce lien ?"
 
-#: src/app/settings/language/index.tsx:125
+#: src/app/settings/language/index.tsx:134
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Si une publication est marquée comme étant dans l'une de ces langues, elle ne sera pas traduite."
 
@@ -1092,7 +1092,7 @@ msgstr "Avatar de la liste"
 msgid "List blocked"
 msgstr "Liste bloquée"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:667
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:669
 msgid "List deleted"
 msgstr "Liste supprimée"
 
@@ -1243,7 +1243,7 @@ msgid "My Feeds screen"
 msgstr "Écran de mes flux"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:108
+#: src/app/settings/language/index.tsx:111
 msgid "My languages"
 msgstr "Mes langues"
 
@@ -1492,7 +1492,7 @@ msgstr "Publications"
 msgid "Posts from people you follow"
 msgstr "Publications des personnes que vous suivez"
 
-#: src/app/settings/language/index.tsx:102
+#: src/app/settings/language/index.tsx:105
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Les publications seront traduites en {primaryLanguageLabel}."
 
@@ -2027,7 +2027,7 @@ msgid "This handle is already taken. Please choose another."
 msgstr "Ce pseudo est déjà pris. Veuillez en choisir un autre."
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:625
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:627
 msgid "This list is empty"
 msgstr "Cette liste est vide"
 
@@ -2118,7 +2118,7 @@ msgstr "Traduit par DeepL"
 msgid "Translated by Google"
 msgstr "Traduit par Google"
 
-#: src/app/settings/language/index.tsx:129
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "Fournisseur de traduction"
@@ -2189,12 +2189,12 @@ msgstr "Désabonné de la liste"
 msgid "Unwanted Sexual Content"
 msgstr "Contenu sexuel non désiré"
 
-#: src/app/settings/language/index.tsx:132
+#: src/app/settings/language/index.tsx:141
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "Utiliser DeepL pour les traductions"
 
-#: src/app/settings/language/index.tsx:143
+#: src/app/settings/language/index.tsx:152
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Utiliser DeepL pour les traductions à la place de Google Translate"
@@ -2384,7 +2384,7 @@ msgstr "Votre choix sera enregistré, mais peut être modifié dans les paramèt
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Votre pseudo sera : <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:668
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:670
 msgid "Your list has been deleted"
 msgstr "Votre liste a été supprimée"
 

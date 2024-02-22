@@ -591,7 +591,7 @@ msgstr "Не атрымалася стварыць уліковы запіс"
 msgid "Could not delete account"
 msgstr "Не атрымалася выдаліць уліковы запіс"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:674
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "Could not delete list"
 msgstr "Не атрымалася выдаліць спіс"
 
@@ -827,7 +827,7 @@ msgstr "Уключыць апавяшчэнні"
 msgid "Enter your phone number"
 msgstr "Увядзіце ваш нумар тэлефону"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:675
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -940,7 +940,7 @@ msgstr "Частыя публікацыі непажаданага змесці�
 msgid "General"
 msgstr "Агульнае"
 
-#: src/app/settings/language/index.tsx:152
+#: src/app/settings/language/index.tsx:161
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Аформіце падпіску Graysky Pro, каб атрымаць доступ да перакладаў з дапамогай DeepL. Інакш будзе выкарыстоўвацца Google Translate."
 
@@ -960,7 +960,7 @@ msgstr "GIF"
 msgid "Go back"
 msgstr "Вярнуцца"
 
-#: src/app/settings/language/index.tsx:150
+#: src/app/settings/language/index.tsx:159
 #: src/app/settings/pro.tsx:49
 msgid "Google Translate is used otherwise."
 msgstr "Інакш будзе выкарыстоўвацца Google Translate."
@@ -1021,7 +1021,7 @@ msgstr "Папулярнае"
 msgid "How should we open this link?"
 msgstr "Як вы жадаеце адкрыць гэтую спасылку?"
 
-#: src/app/settings/language/index.tsx:125
+#: src/app/settings/language/index.tsx:134
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Калі на допісу стаіць моўная адзнака любой з гэтых моў, ён не будзе перакладацца."
 
@@ -1092,7 +1092,7 @@ msgstr "Аватар спіса"
 msgid "List blocked"
 msgstr "Спіс заблакіраваны"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:667
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:669
 msgid "List deleted"
 msgstr "Спіс выдалены"
 
@@ -1243,7 +1243,7 @@ msgid "My Feeds screen"
 msgstr "Экран маіх стужак"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:108
+#: src/app/settings/language/index.tsx:111
 msgid "My languages"
 msgstr "Мае мовы"
 
@@ -1492,7 +1492,7 @@ msgstr "Допісы"
 msgid "Posts from people you follow"
 msgstr "Допісы ад людзей, на якіх вы падпісаны"
 
-#: src/app/settings/language/index.tsx:102
+#: src/app/settings/language/index.tsx:105
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Допісы будуць перакладацца на {primaryLanguageLabel}."
 
@@ -2027,7 +2027,7 @@ msgid "This handle is already taken. Please choose another."
 msgstr "Гэты ідэнтыфікатар ужо заняты. Калі ласка, абярыце іншы."
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:625
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:627
 msgid "This list is empty"
 msgstr "Гэты спіс пусты"
 
@@ -2118,7 +2118,7 @@ msgstr "Перакладзена праз DeepL"
 msgid "Translated by Google"
 msgstr "Перакладзена праз Google"
 
-#: src/app/settings/language/index.tsx:129
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "Сэрвіс перакладу"
@@ -2189,12 +2189,12 @@ msgstr "Вы адпісаліся ад спісу"
 msgid "Unwanted Sexual Content"
 msgstr "Непажаданае змесціва сексуальнага характару"
 
-#: src/app/settings/language/index.tsx:132
+#: src/app/settings/language/index.tsx:141
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "Выкарыстоўваць DeepL для перакладу"
 
-#: src/app/settings/language/index.tsx:143
+#: src/app/settings/language/index.tsx:152
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Выкарыстоўваць DeepL замест Google Translate"
@@ -2384,7 +2384,7 @@ msgstr "Ваш выбар будзе захаваны, але можа быць 
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Ваш новы ідэнтыфікатар будзе: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:668
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:670
 msgid "Your list has been deleted"
 msgstr "Ваш спіс быў выдалены"
 

@@ -92,7 +92,10 @@ export default function LanguageSettings() {
                 href: "/settings/language/primary",
                 chevron: true,
                 action: (
-                  <Text className="text-base text-neutral-500">
+                  <Text
+                    className="text-base text-neutral-500"
+                    numberOfLines={1}
+                  >
                     {primaryLanguageLabel}
                   </Text>
                 ),
@@ -109,14 +112,20 @@ export default function LanguageSettings() {
                 href: "/settings/language/content",
                 chevron: true,
                 action: (
-                  <Text className="text-base text-neutral-500">
-                    {contentLanguages
-                      .map(
-                        (contentLang) =>
-                          LANGUAGES.find((lang) => lang.code2 === contentLang)
-                            ?.name ?? contentLang,
-                      )
-                      .join(", ")}
+                  <Text
+                    className="text-base text-neutral-500"
+                    numberOfLines={1}
+                  >
+                    {contentLanguages.length > 2
+                      ? contentLanguages.length
+                      : contentLanguages
+                          .map(
+                            (contentLang) =>
+                              LANGUAGES.find(
+                                (lang) => lang.code2 === contentLang,
+                              )?.name ?? contentLang,
+                          )
+                          .join(", ")}
                   </Text>
                 ),
               },
