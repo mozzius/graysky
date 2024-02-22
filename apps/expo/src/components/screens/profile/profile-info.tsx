@@ -444,8 +444,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               </Text>
             </View>
           </View>
-          <View className="mt-3 flex-row" pointerEvents="box-none">
-            <TouchableOpacity onPress={() => openFollowers(profile.did)}>
+          <View className="mt-1 flex-row flex-wrap" pointerEvents="box-none">
+            <TouchableOpacity
+              onPress={() => openFollowers(profile.did)}
+              className="mr-4 mt-1"
+            >
               <Text>
                 <Trans>
                   <Text className="font-bold">{profile.followersCount}</Text>{" "}
@@ -453,16 +456,19 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                 </Trans>
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => openFollows(profile.did)}>
-              <Text className="ml-4">
+            <TouchableOpacity
+              onPress={() => openFollows(profile.did)}
+              className="mr-4 mt-1"
+            >
+              <Text>
                 <Trans>
                   <Text className="font-bold">{profile.followsCount}</Text>{" "}
                   Following
                 </Trans>
               </Text>
             </TouchableOpacity>
-            <View pointerEvents="none">
-              <Text className="ml-4">
+            <View pointerEvents="none" className="mt-1">
+              <Text>
                 <Trans>
                   <Text className="font-bold">{profile.postsCount ?? 0}</Text>{" "}
                   Posts
