@@ -23,7 +23,7 @@ export const timeSince = (date: Date, i18n: I18n) => {
   if (interval > 1) {
     const months = Math.floor(interval);
     return {
-      visible: t(i18n)`${months}m`,
+      visible: t(i18n)`${months}M`,
       accessible: plural(months, {
         one: t(i18n)`1 month ago`,
         other: t(i18n)`${months} months ago`,

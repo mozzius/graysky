@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 10:48\n"
+"PO-Revision-Date: 2024-02-22 12:00\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -117,7 +117,7 @@ msgstr "#{0}"
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr ""
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2} und {3}} other {{4} und {5} weitere}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:450
@@ -136,7 +136,7 @@ msgstr "<0>{0}</0> Beiträge"
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
-msgstr ""
+msgstr "<0>ein Bluesky Beitrag, via</0><1/><2>graysky.app</2>"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: cs\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-21 23:19\n"
+"PO-Revision-Date: 2024-02-22 11:55\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
@@ -136,7 +136,7 @@ msgstr "<0>{0}</0> Příspěvků"
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
-msgstr ""
+msgstr "<0>příspěvek bluesky, via</0><1/><2>graysky.app</2>"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
@@ -398,7 +398,7 @@ msgstr "Vyúčtováno měsíčně, zrušte kdykoliv"
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
 msgid "Block"
-msgstr ""
+msgstr "Blokovat"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:214
 msgid "Block all members"
@@ -925,7 +925,7 @@ msgstr "Sledující"
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 msgid "following.feed"
-msgstr ""
+msgstr "sledovaní.kanál"
 
 #. Following a user
 #. Following a user
@@ -935,13 +935,13 @@ msgstr ""
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 msgid "following.action"
-msgstr ""
+msgstr "sledovaní.akce"
 
 #. List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr ""
+msgstr "sledovaní.seznam"
 
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
@@ -2216,202 +2216,202 @@ msgstr "Nechtěný sexuální obsah"
 #: src/app/settings/language/index.tsx:141
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
-msgstr "Použít DeepL pro překlady"
+msgstr "Použít pro překlady DeepL"
 
 #: src/app/settings/language/index.tsx:152
 #: src/app/settings/pro.tsx:43
 msgid "Use DeepL for translations instead of Google Translate"
-msgstr ""
+msgstr "Použít pro překlady DeepL namísto Google Translate"
 
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38
 msgid "Use in-app browser"
-msgstr ""
+msgstr "Použít prohlížeč v aplikaci"
 
 #: src/lib/hooks/link-press.tsx:39
 msgid "Use my default browser"
-msgstr ""
+msgstr "Použít můj výchozí prohlížeč"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:286
 #: src/app/create-list.tsx:64
 #: src/app/create-list.tsx:223
 #: src/components/feed-row.tsx:69
 msgid "User list"
-msgstr ""
+msgstr "Seznam uživatelů"
 
 #: src/app/(auth)/sign-in.tsx:71
 msgid "Username or email address"
-msgstr ""
+msgstr "Uživatelské jméno nebo e-mail"
 
 #: src/components/primary-post.tsx:265
 msgid "Users in the list"
-msgstr ""
+msgstr "Uživatelé v seznamu"
 
 #: src/components/primary-post.tsx:267
 msgid "Users in the lists"
-msgstr ""
+msgstr "Uživatelé v seznamech"
 
 #: src/components/primary-post.tsx:222
 msgid "Users mentioned in this thread"
-msgstr ""
+msgstr "Uživatelé zmínění v tomto vlákně"
 
 #: src/components/primary-post.tsx:229
 msgid "Users that <0>{0}</0> follows"
-msgstr ""
+msgstr "Uživatelé, které sleduje <0>{0}</0>"
 
 #: src/app/(auth)/sign-up.tsx:325
 msgid "Verification code"
-msgstr ""
+msgstr "Ověřovací kód"
 
 #: src/app/settings/about.tsx:162
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
-msgstr ""
+msgstr "Verze {0}"
 
 #: src/app/settings/about.tsx:163
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
-msgstr ""
+msgstr "Verze neznámá"
 
 #: src/components/screens/profile/profile-info.tsx:530
 #: src/components/screens/profile/profile-info.tsx:561
 msgid "View"
-msgstr ""
+msgstr "Zobrazit"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
 msgid "View all feeds"
-msgstr ""
+msgstr "Zobrazit všechny kanály"
 
 #: src/components/embed/image.tsx:216
 msgid "View ALT text"
-msgstr ""
+msgstr "Zobrazit ALT text"
 
 #: src/app/settings/moderation.tsx:102
 msgid "Warn"
-msgstr ""
+msgstr "Upozornění"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"
-msgstr ""
+msgstr "Upozornění: Odstranění účtu je trvalé"
 
 #: src/components/screens/feeds-screen-elements.tsx:23
 msgid "Welcome to Bluesky!"
-msgstr ""
+msgstr "Vítejte na Bluesky!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr ""
+msgstr "Vítejte na Bluesky! Jsme rádi, že jste tu."
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
-msgstr ""
+msgstr "Vítejte na Graysky Pro!"
 
 #: src/app/composer/index.tsx:350
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Co se vám honí hlavou?"
 
 #: src/components/screens/profile/profile-info.tsx:744
 msgid "What's the issue with this account?"
-msgstr ""
+msgstr "Jaký je s tímto účtem problém?"
 
 #: src/components/post-context-menu.tsx:252
 msgid "What's the issue with this post?"
-msgstr ""
+msgstr "Jaký je s tímto příspěvkem problém?"
 
 #: src/app/composer/threadgate.tsx:34
 #: src/components/primary-post.tsx:178
 msgid "Who can reply?"
-msgstr ""
+msgstr "Kdo může odpovídat?"
 
 #: src/components/screens/profile/profile-info.tsx:108
 msgid "You are no longer following @{0}"
-msgstr ""
+msgstr "Nyní už nesledujete @{0}"
 
 #: src/components/screens/profile/profile-info.tsx:107
 msgid "You are now following @{0}"
-msgstr ""
+msgstr "Nyní sledujete @{0}"
 
 #: src/components/switch-accounts.tsx:85
 msgid "You are now logged in as @{0}"
-msgstr ""
+msgstr "Nyní jste přihlášen jako @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
 msgid "You can change it later"
-msgstr ""
+msgstr "Můžete to změnit později"
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
-msgstr ""
+msgstr "Nyní můžete změnit barvu zvýraznění"
 
 #: src/lib/composer/utils.tsx:413
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
-msgstr ""
+msgstr "Můžete připojit pouze {MAX_IMAGES} obrázků, další obrázky budou ignorovány"
 
 #: src/app/push-notifications.tsx:38
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
-msgstr ""
+msgstr "Můžete dostávat push notifikace na \"líbí se mi\", odpovědi a více! Je však nutné si uvědomit určitá omezení."
 
 #: src/app/add-to-list/[handle].tsx:147
 msgid "You don't have any moderation lists yet."
-msgstr ""
+msgstr "Zatím nemáte žádné moderační seznamy."
 
 #: src/components/screens/profile/profile-info.tsx:556
 msgid "You have blocked this user"
-msgstr ""
+msgstr "Zablokovali jste tohoto uživatele"
 
 #: src/components/screens/profile/profile-info.tsx:525
 msgid "You have muted this user"
-msgstr ""
+msgstr "Ztlumili jste tohoto uživatele"
 
 #: src/app/settings/blocks.tsx:45
 msgid "You haven't blocked anyone"
-msgstr ""
+msgstr "Nikoho jste nezablokovali"
 
 #: src/app/settings/mutes.tsx:45
 msgid "You haven't muted anyone"
-msgstr ""
+msgstr "Nikoho jste neztlumili"
 
 #: src/app/push-notifications.tsx:65
 msgid "You may receive notifications from people you have muted. <0>Learn more</0>"
-msgstr ""
+msgstr "Můžete dostávat oznámení od lidí, které jste ztlumili. <0>Více informací</0>"
 
 #: src/app/push-notifications.tsx:88
 msgid "You may receive notifications from people you've blocked or muted via moderation list. <0>Learn more</0>"
-msgstr ""
+msgstr "Můžete dostávat oznámení od lidí, které jste zablokovali nebo ztlumili přes moderační seznam. <0>Další informace</0>"
 
 #: src/app/push-notifications.tsx:52
 msgid "You might receive the same notifications via other Bluesky clients."
-msgstr ""
+msgstr "Stejná oznámení můžete dostávat prostřednictvím jiných klientů Bluesky."
 
 #: src/app/(auth)/sign-in.tsx:129
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr ""
+msgstr "Možná budete chtít použít spíše 'Heslo aplikace' než vaše hlavní heslo - pomáhá to udržovat váš účet v bezpečí, ale není to nutné."
 
 #: src/lib/account-actions.ts:35
 msgid "You will no longer see posts from @{handle}"
-msgstr ""
+msgstr "Již neuvidíte příspěvky od @{handle}"
 
 #: src/components/screens/waiting-room.tsx:80
 msgid "You're in the queue to join Bluesky!"
-msgstr ""
+msgstr "Jste ve frontě, abyste se mohli připojit k Bluesky!"
 
 #: src/components/screens/waiting-room.tsx:68
 msgid "You're in!"
-msgstr ""
+msgstr "A jste tu!"
 
 #: src/lib/hooks/link-press.tsx:35
 msgid "Your choice will be saved, but can be changed in settings"
-msgstr ""
+msgstr "Váš výběr bude uložen, ale lze ho změnit v nastavení"
 
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
-msgstr ""
+msgstr "Vaše uživatelské jméno bude: <0>@{derivedHandle}</0>"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:670
 msgid "Your list has been deleted"
-msgstr ""
+msgstr "Váš seznam byl odstraněn"
 
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
-msgstr ""
+msgstr "Váš příspěvek je příliš dlouhý - limit je zde 300 znaků"

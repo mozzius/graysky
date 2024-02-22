@@ -13,13 +13,14 @@ import { store } from "./storage";
 export const availableAppLanguages = [
   "en",
   "ja",
+  "de",
   "fr",
   "be",
+  "cs",
+  "ml",
   // "es",
-  // "de",
   // "pt-BR",
   // "nl",
-  // "cs",
 ] as const;
 
 const appLanguageSchema = z.enum(availableAppLanguages);
