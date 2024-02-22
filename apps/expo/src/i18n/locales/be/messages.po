@@ -34,7 +34,7 @@ msgstr "{0} / год"
 msgid "{0} feed for #{decodedTag} is empty"
 msgstr "{0} стужка для #{decodedTag} пуста"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "Допісаў: {0}"
 
@@ -625,7 +625,7 @@ msgstr "Не атрымалася загрузіць спіс стужак"
 msgid "Could not fetch mutes"
 msgstr "Не атрымалася загрузіць спіс ігнараваных"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:339
 msgid "Could not fetch trending topics"
 msgstr "Не атрымалася загрузіць трэндавыя тэмы"
 
@@ -919,7 +919,7 @@ msgstr "Спіс стужак"
 msgid "Find people to follow"
 msgstr "Знайсці людзей, каб падпісацца"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "Падпісацца"
@@ -953,7 +953,7 @@ msgstr "Падпіскі"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:448
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1746,12 +1746,12 @@ msgstr "Відарыс захаваны ў галерэю"
 msgid "Search"
 msgstr "Пошук"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
 msgid "Search all users"
 msgstr "Шукаць сярод усіх карыстальнікаў"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:148
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:28
 msgid "Search feeds"
 msgstr "Пошук стужак"
@@ -1790,7 +1790,7 @@ msgstr "Пошук людзей"
 msgid "Search People"
 msgstr "Пошук людзей"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Пошук допісаў"
@@ -1799,7 +1799,7 @@ msgstr "Пошук допісаў"
 msgid "Search Posts"
 msgstr "Поошук допісаў"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
 msgid "Search users"
 msgstr "Пошук карыстальнікаў"
 
@@ -1912,7 +1912,7 @@ msgstr "Паказваць «Мае спісы» вышэй за «Усе сту
 msgid "Show {0} more"
 msgstr "Паказаць яшчэ {0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:317
 #: src/components/lists/people-list.tsx:122
 msgid "Show all"
 msgstr "Паказаць усё"
@@ -1925,7 +1925,7 @@ msgstr "Паказваць усе апавяшчэнні паасобку"
 msgid "Show each notification individually in the notification tab"
 msgstr "Паказваць усе апавяшчэнні паасобку ва ўкладцы апавяшчэнняў"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 msgid "Show less"
 msgstr "Схаваць"
 
@@ -2019,7 +2019,7 @@ msgstr "Падпісацца на {0}"
 msgid "Subscribe to list"
 msgstr "Падпісацца на ліст"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:344
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:346
 msgid "Suggested follows"
 msgstr "На каго падпісацца"
 
@@ -2174,7 +2174,7 @@ msgstr "Сэрвіс перакладу"
 msgid "Translations are now powered by DeepL"
 msgstr "Пераклады цяпер працуюць праз DeepL"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:251
 msgid "Trending topics"
 msgstr "Трэндавыя тэмы"
 

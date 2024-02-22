@@ -34,7 +34,7 @@ msgstr "{0} / rok"
 msgid "{0} feed for #{decodedTag} is empty"
 msgstr "{0} kanál #{decodedTag} je prázdný"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} příspěvků"
 
@@ -625,7 +625,7 @@ msgstr "Nepodařilo se načíst kanál seznamu"
 msgid "Could not fetch mutes"
 msgstr "Nepodařilo se načíst skryté"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:339
 msgid "Could not fetch trending topics"
 msgstr "Nepodařilo se načíst populární témata"
 
@@ -919,7 +919,7 @@ msgstr "Seznam kanálů"
 msgid "Find people to follow"
 msgstr "Najít lidi ke sledování"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "Sledovat"
@@ -953,7 +953,7 @@ msgstr "Sledovaní"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:448
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1746,12 +1746,12 @@ msgstr "Obrázek uložen do galerie"
 msgid "Search"
 msgstr "Hledat"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
 msgid "Search all users"
 msgstr "Prohledat uživatele"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:148
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:28
 msgid "Search feeds"
 msgstr "Prohledat kanály"
@@ -1790,7 +1790,7 @@ msgstr "Hledat lidi"
 msgid "Search People"
 msgstr "Hledat lidi"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Prohledat příspěvky"
@@ -1799,7 +1799,7 @@ msgstr "Prohledat příspěvky"
 msgid "Search Posts"
 msgstr "Prohledat příspěvky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
 msgid "Search users"
 msgstr "Prohledat uživatele"
 
@@ -1912,7 +1912,7 @@ msgstr "Zobrazit \"Moje seznamy\" nad \"Všechny kanály\""
 msgid "Show {0} more"
 msgstr "Zobrazit {0} více"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:317
 #: src/components/lists/people-list.tsx:122
 msgid "Show all"
 msgstr "Zobrazit vše"
@@ -1925,7 +1925,7 @@ msgstr "Zobrazit každé oznámení jednotlivě"
 msgid "Show each notification individually in the notification tab"
 msgstr "Zobrazit každé oznámení jednotlivě na kartě oznámení"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 msgid "Show less"
 msgstr "Zobrazit méně"
 
@@ -2019,7 +2019,7 @@ msgstr "Přihlásit se k odběru {0}"
 msgid "Subscribe to list"
 msgstr "Přihlásit se k odběru seznamu"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:344
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:346
 msgid "Suggested follows"
 msgstr "Navržené účty ke sledování"
 
@@ -2174,7 +2174,7 @@ msgstr "Poskytovatel překladu"
 msgid "Translations are now powered by DeepL"
 msgstr "Překlady jsou nyní poháněné překladačem DeepL"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:251
 msgid "Trending topics"
 msgstr "Populární témata"
 

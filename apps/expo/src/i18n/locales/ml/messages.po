@@ -34,7 +34,7 @@ msgstr "{0} / വർഷം"
 msgid "{0} feed for #{decodedTag} is empty"
 msgstr "{0} #{decodedTag} ഫീഡ് ശൂന്യമാണ്"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} / പോസ്റ്റുകൾ"
 
@@ -625,7 +625,7 @@ msgstr "ലിസ്റ്റ് ഫീഡ് എടുക്കുവാൻ സ
 msgid "Could not fetch mutes"
 msgstr "മ്യുട്ട് ചെയ്‌തവരെ എടുക്കാൻ കഴിഞ്ഞില്ല"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:339
 msgid "Could not fetch trending topics"
 msgstr "ട്രെൻഡിംഗ് വിഷയങ്ങൾ കൊണ്ടുവരാൻ കഴിഞ്ഞില്ല"
 
@@ -919,7 +919,7 @@ msgstr "ഫീഡുകളുടെ ലിസ്റ്റ്"
 msgid "Find people to follow"
 msgstr "പിന്തുടരാൻ ആളുകളെ കണ്ടെത്തുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "പിന്തുടരുക"
@@ -953,7 +953,7 @@ msgstr "നിങ്ങൾ പിന്തുടരുന്നവർ"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:448
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1746,12 +1746,12 @@ msgstr "ചിത്രം ഗാലറിയിൽ സൂക്ഷിച്ച�
 msgid "Search"
 msgstr "തിരയുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
 msgid "Search all users"
 msgstr "എല്ലാ ഉപയോക്താക്കളെയും തിരയുക"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:148
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:28
 msgid "Search feeds"
 msgstr "ഫീഡുകൾ തിരയുക"
@@ -1790,7 +1790,7 @@ msgstr "ആളുകളെ തിരയുക"
 msgid "Search People"
 msgstr "ആളുകളെ തിരയുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "പോസ്റ്റുകൾക്കായി തിരയുക"
@@ -1799,7 +1799,7 @@ msgstr "പോസ്റ്റുകൾക്കായി തിരയുക"
 msgid "Search Posts"
 msgstr "പോസ്റ്റുകൾക്കായി തിരയുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
 msgid "Search users"
 msgstr "ഉപയോക്താക്കൾക്കായി തിരയുക"
 
@@ -1912,7 +1912,7 @@ msgstr "\"എല്ലാ ഫീഡുകൾക്കും\" മുകളിൽ
 msgid "Show {0} more"
 msgstr "{0} കൂടുതൽ കാണിക്കുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:317
 #: src/components/lists/people-list.tsx:122
 msgid "Show all"
 msgstr "എല്ലാം കാണിക്കുക"
@@ -1925,7 +1925,7 @@ msgstr "ഓരോ അറിയിപ്പും വെവ്വേറെ കാ
 msgid "Show each notification individually in the notification tab"
 msgstr "അറിയിപ്പ് ടാബിൽ ഓരോ അറിയിപ്പും വ്യക്തിഗതമായി കാണിക്കുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 msgid "Show less"
 msgstr "കുറച്ച് കാണിക്കുക"
 
@@ -2019,7 +2019,7 @@ msgstr "സബ്‌സ്‌ക്രൈബുചെയ്യുക {0}"
 msgid "Subscribe to list"
 msgstr "ലിസ്റ്റിലേക്ക് സബ്സ്ക്രൈബ് ചെയ്യുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:344
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:346
 msgid "Suggested follows"
 msgstr "താല്പര്യം ഉണ്ടെങ്കിൽ പിന്തുടരാവുന്നവർ"
 
@@ -2174,7 +2174,7 @@ msgstr "വിവർത്തന ദാതാവ്"
 msgid "Translations are now powered by DeepL"
 msgstr "വിവർത്തനങ്ങൾ ഇപ്പോൾ DeepL ആണ് നൽകുന്നത്"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:251
 msgid "Trending topics"
 msgstr "ചൂടൻ ചർച്ചകൾ"
 

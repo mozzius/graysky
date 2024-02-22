@@ -34,7 +34,7 @@ msgstr "{0} / Jahr"
 msgid "{0} feed for #{decodedTag} is empty"
 msgstr "{0} Feed für #{decodedTag} ist leer"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} Beiträge"
 
@@ -625,7 +625,7 @@ msgstr "Listen-Feed konnte nicht abgerufen werden"
 msgid "Could not fetch mutes"
 msgstr "Mutes konnte nicht abgerufen werden"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:337
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:339
 msgid "Could not fetch trending topics"
 msgstr "Angesagte Themen konnten nicht abgerufen werden"
 
@@ -919,7 +919,7 @@ msgstr "Feed-Liste"
 msgid "Find people to follow"
 msgstr "Finde andere Benutzer, um ihnen zu folgen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "Folgen"
@@ -953,7 +953,7 @@ msgstr "Following"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:448
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1746,12 +1746,12 @@ msgstr "Bild in Galerie gespeichert"
 msgid "Search"
 msgstr "Suche"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
 msgid "Search all users"
 msgstr "Benutzersuche"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:148
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:28
 msgid "Search feeds"
 msgstr "Feeds Suche"
@@ -1790,7 +1790,7 @@ msgstr "Suche Personen"
 msgid "Search People"
 msgstr "Suche Personen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:143
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Suche nach Beiträgen"
@@ -1799,7 +1799,7 @@ msgstr "Suche nach Beiträgen"
 msgid "Search Posts"
 msgstr "Suche nach Beiträgen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
 msgid "Search users"
 msgstr "Suche Benutzer"
 
@@ -1912,7 +1912,7 @@ msgstr "Zeige \"Meine Listen\" oberhalb von \"Alle Feeds\""
 msgid "Show {0} more"
 msgstr "Zeige {0} mehr"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:317
 #: src/components/lists/people-list.tsx:122
 msgid "Show all"
 msgstr "Alles anzeigen"
@@ -1925,7 +1925,7 @@ msgstr "Jede Benachrichtigung einzeln anzeigen"
 msgid "Show each notification individually in the notification tab"
 msgstr "Zeige jede Benachrichtigung einzeln im Benachrichtigungs-Tab"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 msgid "Show less"
 msgstr "Weniger anzeigen"
 
@@ -2019,7 +2019,7 @@ msgstr "Abonniere {0}"
 msgid "Subscribe to list"
 msgstr "Abonniere die Liste"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:344
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:346
 msgid "Suggested follows"
 msgstr "Folgeempfehlungen"
 
@@ -2174,7 +2174,7 @@ msgstr "Übersetzungsanbieter"
 msgid "Translations are now powered by DeepL"
 msgstr "Übersetzungen werden jetzt von DeepL durchgeführt"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:251
 msgid "Trending topics"
 msgstr "Beliebte Themen"
 

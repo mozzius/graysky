@@ -133,60 +133,62 @@ const SearchResults = ({ search }: Props) => {
   if (searchResults.data) {
     return (
       <KeyboardAvoidingView behavior="padding" className="flex-1">
-        <GroupedList
-          contentInsetAdjustmentBehavior="automatic"
-          groups={[
-            {
-              options: [
-                {
-                  icon: SearchIcon,
-                  title: _(msg`Search posts`),
-                  href: path(`/search/posts?q=${encodeURIComponent(search)}`),
-                },
-                {
-                  icon: SearchIcon,
-                  title: _(msg`Search feeds`),
-                  href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
-                },
-                data.length === 0
-                  ? {
-                      icon: SearchIcon,
-                      title: _(msg`Search users`),
-                      href: path(
-                        `/search/people?q=${encodeURIComponent(search)}`,
-                      ),
-                    }
-                  : [],
-              ].flat(),
-            },
-            data.length > 0
-              ? {
-                  children: data.slice(0, 5).map((item, i, arr) => (
-                    <Fragment key={item.did}>
-                      <PersonRow person={item} />
-                      {i !== arr.length - 1 ? (
-                        <ItemSeparator iconWidth="w-10" />
-                      ) : (
-                        data.length === MAX_RESULTS && <ItemSeparator />
-                      )}
-                    </Fragment>
-                  )),
-                  options:
-                    data.length === MAX_RESULTS
-                      ? [
-                          {
-                            icon: SearchIcon,
-                            title: _(msg`Search all users`),
-                            href: path(
-                              `/search/people?q=${encodeURIComponent(search)}`,
-                            ),
-                          },
-                        ]
-                      : [],
-                }
-              : [],
-          ].flat()}
-        />
+        <Animated.View entering={FadeInUp} className="flex-1">
+          <GroupedList
+            contentInsetAdjustmentBehavior="automatic"
+            groups={[
+              {
+                options: [
+                  {
+                    icon: SearchIcon,
+                    title: _(msg`Search posts`),
+                    href: path(`/search/posts?q=${encodeURIComponent(search)}`),
+                  },
+                  {
+                    icon: SearchIcon,
+                    title: _(msg`Search feeds`),
+                    href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
+                  },
+                  data.length === 0
+                    ? {
+                        icon: SearchIcon,
+                        title: _(msg`Search users`),
+                        href: path(
+                          `/search/people?q=${encodeURIComponent(search)}`,
+                        ),
+                      }
+                    : [],
+                ].flat(),
+              },
+              data.length > 0
+                ? {
+                    children: data.slice(0, 5).map((item, i, arr) => (
+                      <Fragment key={item.did}>
+                        <PersonRow person={item} />
+                        {i !== arr.length - 1 ? (
+                          <ItemSeparator iconWidth="w-10" />
+                        ) : (
+                          data.length === MAX_RESULTS && <ItemSeparator />
+                        )}
+                      </Fragment>
+                    )),
+                    options:
+                      data.length === MAX_RESULTS
+                        ? [
+                            {
+                              icon: SearchIcon,
+                              title: _(msg`Search all users`),
+                              href: path(
+                                `/search/people?q=${encodeURIComponent(search)}`,
+                              ),
+                            },
+                          ]
+                        : [],
+                  }
+                : [],
+            ].flat()}
+          />
+        </Animated.View>
       </KeyboardAvoidingView>
     );
   }
