@@ -463,6 +463,7 @@ msgstr "Al suscribirte, aceptas nuestros <0>Términos y Condiciones</0>, <1>Tér
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
 #: src/app/capture/[author]/[post].tsx:161
 #: src/app/create-list.tsx:67
 #: src/app/create-list.tsx:135

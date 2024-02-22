@@ -94,7 +94,7 @@ export default function TagScreen() {
                     {
                       options: [
                         ...OPTIONS.map((mode) => getModeName(mode)),
-                        "Cancel",
+                        _(msg`Cancel`),
                       ],
                       cancelButtonIndex: OPTIONS.length,
                       title: _(msg`Sort posts by`),
