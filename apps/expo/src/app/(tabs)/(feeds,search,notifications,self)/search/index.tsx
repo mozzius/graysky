@@ -283,7 +283,7 @@ const Suggestions = () => {
                                   {tag.name}
                                 </Text>{" "}
                                 <Text className="font-normal text-neutral-400 dark:text-neutral-500">
-                                  <Trans>#{tag.tag}</Trans>
+                                  #{tag.tag}
                                 </Text>
                               </Text>
                               <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
