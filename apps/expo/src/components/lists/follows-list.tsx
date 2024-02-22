@@ -51,7 +51,13 @@ export const FollowsList = forwardRef<FollowsListRef>((__, ref) => {
 
   return (
     <PeopleList
-      title={_(msg`Following`)}
+      title={_(
+        msg({
+          id: "following.list",
+          message: "Following",
+          comment: "List of follows",
+        }),
+      )}
       ref={listRef}
       data={followers}
       limit={limit}

@@ -389,7 +389,12 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                           />
                         )}
                         <Text className="ml-2 font-medium text-neutral-600 dark:text-neutral-300">
-                          <Trans>Following</Trans>
+                          <Trans
+                            id="following.action"
+                            comment="Following a user"
+                          >
+                            Following
+                          </Trans>
                         </Text>
                       </>
                     ) : (

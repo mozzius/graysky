@@ -42,7 +42,13 @@ const PersonRowUnmemoized = ({
     mutuals = true;
     text = _(msg`Mutuals`);
   } else if (following) {
-    text = _(msg`Following`);
+    text = _(
+      msg({
+        id: "following.action",
+        message: "Following",
+        comment: "Following a user",
+      }),
+    );
   } else if (followedBy) {
     text = _(msg`Follows you`);
   }

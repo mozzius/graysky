@@ -52,7 +52,15 @@ export default function FeedPreferences() {
   const savedFeeds = useSavedFeeds();
   const { _ } = useLingui();
 
-  let feedName = _(msg`Following`);
+  const followingFeedName = _(
+    msg({
+      id: "following.feed",
+      message: "Following",
+      comment: "The name of the main feed.",
+    }),
+  );
+
+  let feedName = followingFeedName;
   let unknown = false;
 
   if (defaultFeed !== "following") {
@@ -184,7 +192,7 @@ export default function FeedPreferences() {
                             <DropdownMenu.Content>
                               <DropdownMenu.CheckboxItem
                                 key="following"
-                                textValue={_(msg`Following`)}
+                                textValue={followingFeedName}
                                 value={
                                   defaultFeed === "following" ? "on" : "off"
                                 }

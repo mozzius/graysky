@@ -119,16 +119,16 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:447
+#: src/components/screens/profile/profile-info.tsx:450
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> folgen mir"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:455
+#: src/components/screens/profile/profile-info.tsx:458
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> folge ich"
 
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:466
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> Beiträge"
 
@@ -233,7 +233,7 @@ msgstr "Bild hinzufügen"
 msgid "Add to favourites"
 msgstr "Zu Favoriten hinzufügen"
 
-#: src/components/screens/profile/profile-info.tsx:707
+#: src/components/screens/profile/profile-info.tsx:710
 msgid "Add to list"
 msgstr "Zur Liste hinzufügen"
 
@@ -261,7 +261,7 @@ msgstr "Inhalt für Erwachsene"
 msgid "Advanced Settings"
 msgstr "Erweiterte Einstellungen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:158
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "Alle Feeds"
@@ -399,7 +399,7 @@ msgid "Block all members"
 msgstr "Alle Mitglieder blockieren"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:729
 msgid "Block user"
 msgstr "Benutzer blockieren"
 
@@ -436,7 +436,7 @@ msgid "by @{0}"
 msgstr "von @{0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:150
-#: src/app/settings/feed.tsx:216
+#: src/app/settings/feed.tsx:224
 msgid "By @{0}"
 msgstr "Von @{0}"
 
@@ -748,7 +748,7 @@ msgstr "Feeds entdecken"
 msgid "Discover Feeds"
 msgstr "Feeds entdecken"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
 msgid "Discover more feeds"
 msgstr "Weitere Feeds entdecken"
 
@@ -764,7 +764,7 @@ msgstr "Domain"
 msgid "Don't enable"
 msgstr "Nicht aktivieren"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -783,7 +783,7 @@ msgstr "Überprüfe, ob Du verstanden hast"
 msgid "Drafts"
 msgstr "Entwürfe"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -806,7 +806,7 @@ msgstr "Feeds bearbeiten"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:610
+#: src/components/screens/profile/profile-info.tsx:613
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
 
@@ -865,7 +865,7 @@ msgstr "Fehler beim Hochladen des Thumbnails"
 msgid "Favourited"
 msgstr "Als Favorit markiert"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:122
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "Favoriten"
@@ -879,14 +879,14 @@ msgid "Feed Details"
 msgstr "Feed-Details"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
 msgstr "Feeds"
 
-#: src/app/settings/feed.tsx:122
-#: src/app/settings/feed.tsx:136
+#: src/app/settings/feed.tsx:130
+#: src/app/settings/feed.tsx:144
 msgid "Feeds list"
 msgstr "Feed-Liste"
 
@@ -895,7 +895,7 @@ msgid "Find people to follow"
 msgstr "Finde andere Benutzer, um ihnen zu folgen"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
-#: src/components/screens/profile/profile-info.tsx:412
+#: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "Folgen"
 
@@ -911,20 +911,38 @@ msgstr "Benutzer, denen ich folge"
 msgid "Followers"
 msgstr "Benutzer, die mir folgen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:111
+#. The name of the main feed.
+#. The name of the main feed.
+#. The name of the main feed.
+#. js-lingui-explicit-id
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/settings/feed.tsx:56
+#: src/components/feeds-button.tsx:248
+msgid "following.feed"
+msgstr ""
+
+#. Following a user
+#. Following a user
+#. Following a user
+#. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
-#: src/app/settings/feed.tsx:55
-#: src/app/settings/feed.tsx:187
-#: src/components/feeds-button.tsx:247
-#: src/components/lists/follows-list.tsx:54
-#: src/components/lists/person-row.tsx:45
+#: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
+msgid "following.action"
+msgstr ""
+
+#. List of follows
+#. js-lingui-explicit-id
+#: src/components/lists/follows-list.tsx:55
+msgid "following.list"
+msgstr ""
+
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
 msgstr "Folge ich"
 
-#: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:434
+#: src/components/lists/person-row.tsx:53
+#: src/components/screens/profile/profile-info.tsx:438
 msgid "Follows you"
 msgstr "Folgt mir"
 
@@ -932,7 +950,7 @@ msgstr "Folgt mir"
 msgid "Forgot?"
 msgstr "Vergessen?"
 
-#: src/components/screens/profile/profile-info.tsx:651
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Frequently Posts Unwanted Content"
 msgstr "Häufig Beiträge unerwünschter Inhalte"
 
@@ -1005,11 +1023,11 @@ msgstr "Home Feed Einstellungen"
 msgid "Home Feed Preferences"
 msgstr "Home Feed Einstellungen"
 
-#: src/app/settings/feed.tsx:112
+#: src/app/settings/feed.tsx:120
 msgid "Home screen"
 msgstr "Startbildschirm"
 
-#: src/app/settings/feed.tsx:115
+#: src/app/settings/feed.tsx:123
 msgid "Home screen layout"
 msgstr "Startbildschirm-Layout"
 
@@ -1045,7 +1063,7 @@ msgstr "Ungültiger Modus"
 msgid "It's currently set to the {current} theme"
 msgstr "Derzeit ist das {current} Theme aktiviert"
 
-#: src/components/screens/profile/profile-info.tsx:503
+#: src/components/screens/profile/profile-info.tsx:506
 msgid "Joined {0}"
 msgstr "Am {0} beigetreten"
 
@@ -1139,7 +1157,7 @@ msgstr "Hier scheint es nichts zu geben!"
 msgid "Makes adding ALT text to your images mandatory"
 msgstr "Macht das Hinzufügen von ALT-Text zu Ihren Bildern zwingend erforderlich"
 
-#: src/components/feeds-button.tsx:292
+#: src/components/feeds-button.tsx:298
 msgid "Manage my feeds"
 msgstr "Meine Feeds verwalten"
 
@@ -1168,7 +1186,7 @@ msgstr "Mitglieder"
 msgid "Members of list \"{0}\""
 msgstr "Mitglieder der Liste {0}"
 
-#: src/components/screens/profile/profile-info.tsx:652
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Misleading Account"
 msgstr "Irreführendes Konto"
 
@@ -1206,7 +1224,7 @@ msgid "Mute all members"
 msgstr "Alle Mitglieder stumm schalten"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:717
+#: src/components/screens/profile/profile-info.tsx:720
 msgid "Mute user"
 msgstr "Benutzer stumm schalten"
 
@@ -1252,7 +1270,7 @@ msgstr "Meine Sprache"
 msgid "My lists"
 msgstr "Meine Listen"
 
-#: src/components/screens/profile/profile-info.tsx:653
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Name or Description Violates Community Standards"
 msgstr "Name oder Beschreibung verletzt Gemeinschaftsstandards"
 
@@ -1294,7 +1312,7 @@ msgstr "Niemand kann antworten"
 msgid "No posts found - maybe try a different search term?"
 msgstr "Keine Beiträge gefunden - vielleicht versuchst Du einen anderen Suchbegriff?"
 
-#: src/app/settings/feed.tsx:74
+#: src/app/settings/feed.tsx:82
 #: src/app/settings/moderation.tsx:42
 msgid "No preferences"
 msgstr "Keine Einstellungen"
@@ -1332,7 +1350,7 @@ msgstr "Mitteilungen"
 msgid "Nudity"
 msgstr "Nacktheit"
 
-#: src/app/settings/feed.tsx:252
+#: src/app/settings/feed.tsx:260
 msgid "Only show replies from your follows"
 msgstr "Zeige nur Antworten von jenen, denen ich folge"
 
@@ -1369,7 +1387,7 @@ msgid "Optional"
 msgstr "Optional"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:657
 msgid "Other"
 msgstr "Andere"
 
@@ -1487,8 +1505,8 @@ msgstr "Post Text in die Zwischenablage kopiert"
 msgid "Posts"
 msgstr "Posts"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
-#: src/components/feeds-button.tsx:248
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "Posts von jenen, denn du folgst"
 
@@ -1500,9 +1518,9 @@ msgstr "Posts werden übersetzt in {primaryLanguageLabel}."
 msgid "Powered by Skyfeed"
 msgstr "Unterstützt von Skyfeed"
 
-#: src/app/settings/feed.tsx:124
-#: src/app/settings/feed.tsx:147
-#: src/app/settings/feed.tsx:163
+#: src/app/settings/feed.tsx:132
+#: src/app/settings/feed.tsx:155
+#: src/app/settings/feed.tsx:171
 msgid "Primary feed"
 msgstr "Hauptfeed"
 
@@ -1551,7 +1569,7 @@ msgstr "Push Benachrichtigungen"
 msgid "Quote"
 msgstr "Zitat"
 
-#: src/app/settings/feed.tsx:297
+#: src/app/settings/feed.tsx:305
 msgid "Quote post settings"
 msgstr "Beitragseinstellungen für Zitate"
 
@@ -1571,7 +1589,7 @@ msgstr "Antworten"
 msgid "Reply Controls"
 msgstr "Antwort-Steuerelemente"
 
-#: src/app/settings/feed.tsx:233
+#: src/app/settings/feed.tsx:241
 msgid "Reply settings"
 msgstr "Antwort-Einstellungen"
 
@@ -1608,7 +1626,7 @@ msgstr "Antworten auf eine Art von Beitrag"
 msgid "replying to..."
 msgstr "antworten auf..."
 
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:738
 msgid "Report account"
 msgstr "Konto melden"
 
@@ -1617,7 +1635,7 @@ msgid "Report post"
 msgstr "Post melden"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Report submitted"
 msgstr "Bericht gesendet"
 
@@ -1625,7 +1643,7 @@ msgstr "Bericht gesendet"
 msgid "Repost"
 msgstr "Repost"
 
-#: src/app/settings/feed.tsx:276
+#: src/app/settings/feed.tsx:284
 msgid "Repost settings"
 msgstr "Repost Einstellungen"
 
@@ -1838,8 +1856,8 @@ msgstr "Link zum Beitrag teilen"
 msgid "Share post"
 msgstr "Beitrag teilen"
 
-#: src/components/screens/profile/profile-info.tsx:617
-#: src/components/screens/profile/profile-info.tsx:685
+#: src/components/screens/profile/profile-info.tsx:620
+#: src/components/screens/profile/profile-info.tsx:688
 msgid "Share profile"
 msgstr "Profil teilen"
 
@@ -1886,15 +1904,15 @@ msgstr "Weniger anzeigen"
 msgid "Show lists above feeds in the feeds tab"
 msgstr "Listen oberhalb von Feeds im Feeds Tab anzeigen"
 
-#: src/app/settings/feed.tsx:300
+#: src/app/settings/feed.tsx:308
 msgid "Show quote posts"
 msgstr "Zitat Beiträge anzeigen"
 
-#: src/app/settings/feed.tsx:236
+#: src/app/settings/feed.tsx:244
 msgid "Show replies"
 msgstr "Antworten anzeigen"
 
-#: src/app/settings/feed.tsx:279
+#: src/app/settings/feed.tsx:287
 msgid "Show reposts"
 msgstr "Reposts ansehen"
 
@@ -1914,7 +1932,7 @@ msgid "Sign up for project updates"
 msgstr "Für Projektupdates registrieren"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:234
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -1998,7 +2016,7 @@ msgid "Take photo"
 msgstr "Foto aufnehmen"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:670
 msgid "Thank you for making the skyline a safer place"
 msgstr "Vielen Dank, dass Du die Skyline sicherer gemacht hast"
 
@@ -2057,15 +2075,15 @@ msgstr "Dieser Beitrag ist von jemandem, den Du stummgeschaltet hast"
 msgid "This thread is locked"
 msgstr "Dieser Thread ist gesperrt"
 
-#: src/components/screens/profile/profile-info.tsx:583
+#: src/components/screens/profile/profile-info.tsx:586
 msgid "This user has blocked you"
 msgstr "Dieser Benutzer hat Dich blockiert"
 
-#: src/components/screens/profile/profile-info.tsx:548
+#: src/components/screens/profile/profile-info.tsx:551
 msgid "This user is on the \"{0}\" block list"
 msgstr "Dieser Benutzer ist auf der \"{0}\" Blockliste"
 
-#: src/components/screens/profile/profile-info.tsx:517
+#: src/components/screens/profile/profile-info.tsx:520
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Dieser Benutzer ist auf der \"{0}\" Stummschaltung-Liste"
 
@@ -2097,7 +2115,7 @@ msgstr "Top (3 Tage)"
 msgid "Top (7d)"
 msgstr "Neueste (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:700
+#: src/components/screens/profile/profile-info.tsx:703
 msgid "Translate bio"
 msgstr "Bio übersetzen"
 
@@ -2131,7 +2149,7 @@ msgstr "Übersetzungen werden jetzt von DeepL durchgeführt"
 msgid "Trending topics"
 msgstr "Beliebte Themen"
 
-#: src/components/screens/profile/profile-info.tsx:558
+#: src/components/screens/profile/profile-info.tsx:561
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2161,7 +2179,7 @@ msgstr "Benutzer nicht mehr gefolgt"
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/components/screens/profile/profile-info.tsx:527
+#: src/components/screens/profile/profile-info.tsx:530
 msgid "Unmute"
 msgstr "Stummschaltung aufheben"
 
@@ -2249,8 +2267,8 @@ msgstr "Version {0}"
 msgid "Version unknown"
 msgstr "Version unbekannt"
 
-#: src/components/screens/profile/profile-info.tsx:527
-#: src/components/screens/profile/profile-info.tsx:558
+#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:561
 msgid "View"
 msgstr "Ansicht"
 
@@ -2286,7 +2304,7 @@ msgstr "Willkommen bei Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Was machst du gerade?"
 
-#: src/components/screens/profile/profile-info.tsx:741
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "What's the issue with this account?"
 msgstr "Was ist das Problem mit diesem Konto?"
 
@@ -2331,11 +2349,11 @@ msgstr "Du kannst Push-Benachrichtigungen für Liks, Antworten und mehr erhalten
 msgid "You don't have any moderation lists yet."
 msgstr "Du hast noch keine Moderationslisten."
 
-#: src/components/screens/profile/profile-info.tsx:553
+#: src/components/screens/profile/profile-info.tsx:556
 msgid "You have blocked this user"
 msgstr "Du hast diesen Benutzer geblockt"
 
-#: src/components/screens/profile/profile-info.tsx:522
+#: src/components/screens/profile/profile-info.tsx:525
 msgid "You have muted this user"
 msgstr "Du hast diesen Nutzer stummgeschaltet"
 

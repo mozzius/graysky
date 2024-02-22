@@ -108,7 +108,13 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <LargeRow
           icon={<CloudIcon size={32} color="white" />}
-          title={_(msg`Following`)}
+          title={_(
+            msg({
+              id: "following.feed",
+              message: "Following",
+              comment: "The name of the main feed.",
+            }),
+          )}
           subtitle={_(msg`Posts from people you follow`)}
           right={
             <ChevronRightIcon

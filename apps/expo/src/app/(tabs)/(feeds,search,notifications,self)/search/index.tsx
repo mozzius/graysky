@@ -443,7 +443,9 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                   {follow.isIdle ? (
                     <Trans>Follow</Trans>
                   ) : (
-                    <Trans>Following</Trans>
+                    <Trans id="following.action" comment="Following a user">
+                      Following
+                    </Trans>
                   )}
                 </Text>
               </TouchableOpacity>

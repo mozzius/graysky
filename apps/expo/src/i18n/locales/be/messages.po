@@ -119,16 +119,16 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2} і {3}} other {{4} і {5} іншым}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:447
+#: src/components/screens/profile/profile-info.tsx:450
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> падпісчыкаў"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:455
+#: src/components/screens/profile/profile-info.tsx:458
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> падпісак"
 
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:466
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> допісаў"
 
@@ -233,7 +233,7 @@ msgstr "Дадаць відарыс"
 msgid "Add to favourites"
 msgstr "Дадаць у абранае"
 
-#: src/components/screens/profile/profile-info.tsx:707
+#: src/components/screens/profile/profile-info.tsx:710
 msgid "Add to list"
 msgstr "Дадаць у спіс"
 
@@ -261,7 +261,7 @@ msgstr "Змесціва для дарослых"
 msgid "Advanced Settings"
 msgstr "Пашыраныя налады"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:158
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "Усе стужкі"
@@ -399,7 +399,7 @@ msgid "Block all members"
 msgstr "Заблакіраваць усіх удзельнікаў"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:729
 msgid "Block user"
 msgstr "Заблакіраваць карыстальніка"
 
@@ -436,7 +436,7 @@ msgid "by @{0}"
 msgstr "ад @{0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:150
-#: src/app/settings/feed.tsx:216
+#: src/app/settings/feed.tsx:224
 msgid "By @{0}"
 msgstr "Ад @{0}"
 
@@ -748,7 +748,7 @@ msgstr "Пошук стужак"
 msgid "Discover Feeds"
 msgstr "Пошук стужак"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:202
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
 msgid "Discover more feeds"
 msgstr "Знайсці больш стужак"
 
@@ -764,7 +764,7 @@ msgstr "Дамен"
 msgid "Don't enable"
 msgstr "Не ўключаць"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -783,7 +783,7 @@ msgstr "Пераканайцеся, што вы зразумелі"
 msgid "Drafts"
 msgstr "Чарнавікі"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:264
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Рэдагаваць"
@@ -806,7 +806,7 @@ msgstr "Рэдагаваць стужкі"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:610
+#: src/components/screens/profile/profile-info.tsx:613
 msgid "Edit Profile"
 msgstr "Рэдагаваць профіль"
 
@@ -865,7 +865,7 @@ msgstr "Не атрымалася запампаваць мініяцюру"
 msgid "Favourited"
 msgstr "Абранае"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:122
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "Абраныя"
@@ -879,14 +879,14 @@ msgid "Feed Details"
 msgstr "Звесткі пра стужку"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:249
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
 msgstr "Стужкі"
 
-#: src/app/settings/feed.tsx:122
-#: src/app/settings/feed.tsx:136
+#: src/app/settings/feed.tsx:130
+#: src/app/settings/feed.tsx:144
 msgid "Feeds list"
 msgstr "Спіс стужак"
 
@@ -895,7 +895,7 @@ msgid "Find people to follow"
 msgstr "Знайсці людзей, каб падпісацца"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:444
-#: src/components/screens/profile/profile-info.tsx:412
+#: src/components/screens/profile/profile-info.tsx:417
 msgid "Follow"
 msgstr "Падпісацца"
 
@@ -911,20 +911,38 @@ msgstr "Вы падпісаліся"
 msgid "Followers"
 msgstr "Падпісчыкі"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:111
+#. The name of the main feed.
+#. The name of the main feed.
+#. The name of the main feed.
+#. js-lingui-explicit-id
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/settings/feed.tsx:56
+#: src/components/feeds-button.tsx:248
+msgid "following.feed"
+msgstr ""
+
+#. Following a user
+#. Following a user
+#. Following a user
+#. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
-#: src/app/settings/feed.tsx:55
-#: src/app/settings/feed.tsx:187
-#: src/components/feeds-button.tsx:247
-#: src/components/lists/follows-list.tsx:54
-#: src/components/lists/person-row.tsx:45
+#: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
+msgid "following.action"
+msgstr ""
+
+#. List of follows
+#. js-lingui-explicit-id
+#: src/components/lists/follows-list.tsx:55
+msgid "following.list"
+msgstr ""
+
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
 msgstr "Падпіскі"
 
-#: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:434
+#: src/components/lists/person-row.tsx:53
+#: src/components/screens/profile/profile-info.tsx:438
 msgid "Follows you"
 msgstr "Падпісаны(-а) на вас"
 
@@ -932,7 +950,7 @@ msgstr "Падпісаны(-а) на вас"
 msgid "Forgot?"
 msgstr "Забыліся?"
 
-#: src/components/screens/profile/profile-info.tsx:651
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Frequently Posts Unwanted Content"
 msgstr "Частыя публікацыі непажаданага змесціва"
 
@@ -1005,11 +1023,11 @@ msgstr "Налады галоўнага экрана"
 msgid "Home Feed Preferences"
 msgstr "Налады галоўнага экрана"
 
-#: src/app/settings/feed.tsx:112
+#: src/app/settings/feed.tsx:120
 msgid "Home screen"
 msgstr "Галоўны экран"
 
-#: src/app/settings/feed.tsx:115
+#: src/app/settings/feed.tsx:123
 msgid "Home screen layout"
 msgstr "Макет галоўнага экрана"
 
@@ -1045,7 +1063,7 @@ msgstr "Памылковы рэжым"
 msgid "It's currently set to the {current} theme"
 msgstr "Бягучая тэма: {current}"
 
-#: src/components/screens/profile/profile-info.tsx:503
+#: src/components/screens/profile/profile-info.tsx:506
 msgid "Joined {0}"
 msgstr "Рэгістрацыя: {0}"
 
@@ -1139,7 +1157,7 @@ msgstr "Здаецца, тут пакуль нічога няма!"
 msgid "Makes adding ALT text to your images mandatory"
 msgstr "Робіць дадаванне альтэрнатыўнага тэксту да вашых відарысаў абавязковым"
 
-#: src/components/feeds-button.tsx:292
+#: src/components/feeds-button.tsx:298
 msgid "Manage my feeds"
 msgstr "Кіраванне стужкамі"
 
@@ -1168,7 +1186,7 @@ msgstr "Удзельнікі"
 msgid "Members of list \"{0}\""
 msgstr "Удзельнік спісу «{0}»"
 
-#: src/components/screens/profile/profile-info.tsx:652
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Misleading Account"
 msgstr "Падстаўны ўліковы запіс"
 
@@ -1206,7 +1224,7 @@ msgid "Mute all members"
 msgstr "Ігнараваць усіх удзельнікаў"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:717
+#: src/components/screens/profile/profile-info.tsx:720
 msgid "Mute user"
 msgstr "Ігнараваць карыстальніка"
 
@@ -1252,7 +1270,7 @@ msgstr "Мае мовы"
 msgid "My lists"
 msgstr "Мае спісы"
 
-#: src/components/screens/profile/profile-info.tsx:653
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Name or Description Violates Community Standards"
 msgstr "Імя або апісанне парушае Правілы супольнасці"
 
@@ -1294,7 +1312,7 @@ msgstr "Ніхто не можа адказваць"
 msgid "No posts found - maybe try a different search term?"
 msgstr "Ніводнага допісу не знойдзена. Мабыць, паспрабуйце іншы запыт?"
 
-#: src/app/settings/feed.tsx:74
+#: src/app/settings/feed.tsx:82
 #: src/app/settings/moderation.tsx:42
 msgid "No preferences"
 msgstr "Няма параметраў"
@@ -1332,7 +1350,7 @@ msgstr "Апавяшчэнні"
 msgid "Nudity"
 msgstr "Аголенасць"
 
-#: src/app/settings/feed.tsx:252
+#: src/app/settings/feed.tsx:260
 msgid "Only show replies from your follows"
 msgstr "Паказваць адказы толькі з падпісак"
 
@@ -1369,7 +1387,7 @@ msgid "Optional"
 msgstr "Не абавязкова"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:657
 msgid "Other"
 msgstr "Іншае"
 
@@ -1487,8 +1505,8 @@ msgstr "Тэкст допісу скапіяваны ў буфер абмену"
 msgid "Posts"
 msgstr "Допісы"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
-#: src/components/feeds-button.tsx:248
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "Допісы ад людзей, на якіх вы падпісаны"
 
@@ -1500,9 +1518,9 @@ msgstr "Допісы будуць перакладацца на {primaryLanguage
 msgid "Powered by Skyfeed"
 msgstr "На платформе Skyfeed"
 
-#: src/app/settings/feed.tsx:124
-#: src/app/settings/feed.tsx:147
-#: src/app/settings/feed.tsx:163
+#: src/app/settings/feed.tsx:132
+#: src/app/settings/feed.tsx:155
+#: src/app/settings/feed.tsx:171
 msgid "Primary feed"
 msgstr "Асноўная стужка"
 
@@ -1551,7 +1569,7 @@ msgstr "Push-апавяшчэнні"
 msgid "Quote"
 msgstr "Цытата"
 
-#: src/app/settings/feed.tsx:297
+#: src/app/settings/feed.tsx:305
 msgid "Quote post settings"
 msgstr "Налада цытат"
 
@@ -1571,7 +1589,7 @@ msgstr "Адказы"
 msgid "Reply Controls"
 msgstr "Налады адказаў"
 
-#: src/app/settings/feed.tsx:233
+#: src/app/settings/feed.tsx:241
 msgid "Reply settings"
 msgstr "Налады адказаў"
 
@@ -1608,7 +1626,7 @@ msgstr "У адказ на нейкі допіс"
 msgid "replying to..."
 msgstr "у адказ на..."
 
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:738
 msgid "Report account"
 msgstr "Паскардзіцца на ўліковы запіс"
 
@@ -1617,7 +1635,7 @@ msgid "Report post"
 msgstr "Паскардзіцца на допіс"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Report submitted"
 msgstr "Скарга прынята"
 
@@ -1625,7 +1643,7 @@ msgstr "Скарга прынята"
 msgid "Repost"
 msgstr "Пашырыць"
 
-#: src/app/settings/feed.tsx:276
+#: src/app/settings/feed.tsx:284
 msgid "Repost settings"
 msgstr "Налады пашыраных допісаў"
 
@@ -1838,8 +1856,8 @@ msgstr "Абагуліць спасылку на допіс"
 msgid "Share post"
 msgstr "Абагуліць допіс"
 
-#: src/components/screens/profile/profile-info.tsx:617
-#: src/components/screens/profile/profile-info.tsx:685
+#: src/components/screens/profile/profile-info.tsx:620
+#: src/components/screens/profile/profile-info.tsx:688
 msgid "Share profile"
 msgstr "Абагуліць профіль"
 
@@ -1886,15 +1904,15 @@ msgstr "Схаваць"
 msgid "Show lists above feeds in the feeds tab"
 msgstr "Паказваць спісы над стужкамі ва ўкладцы стужак"
 
-#: src/app/settings/feed.tsx:300
+#: src/app/settings/feed.tsx:308
 msgid "Show quote posts"
 msgstr "Паказваць цытаты"
 
-#: src/app/settings/feed.tsx:236
+#: src/app/settings/feed.tsx:244
 msgid "Show replies"
 msgstr "Паказаць адказы"
 
-#: src/app/settings/feed.tsx:279
+#: src/app/settings/feed.tsx:287
 msgid "Show reposts"
 msgstr "Паказваць пашыраныя допісы"
 
@@ -1914,7 +1932,7 @@ msgid "Sign up for project updates"
 msgstr "Падпішыцеся на абнаўленні праекту"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:234
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -1998,7 +2016,7 @@ msgid "Take photo"
 msgstr "Зрабіць фота"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:670
 msgid "Thank you for making the skyline a safer place"
 msgstr "Дзякуй, што дапамагаеце захоўваць захоўваць бяспеку"
 
@@ -2057,15 +2075,15 @@ msgstr "Вы ігнаруеце аўтара гэтага допісу"
 msgid "This thread is locked"
 msgstr "Гэтая гутарка заблакіравана"
 
-#: src/components/screens/profile/profile-info.tsx:583
+#: src/components/screens/profile/profile-info.tsx:586
 msgid "This user has blocked you"
 msgstr "Гэты карыстальнік заблакіраваў вас"
 
-#: src/components/screens/profile/profile-info.tsx:548
+#: src/components/screens/profile/profile-info.tsx:551
 msgid "This user is on the \"{0}\" block list"
 msgstr "Карыстальнік знаходзіцца ў спісе заблакіраваных «{0}»"
 
-#: src/components/screens/profile/profile-info.tsx:517
+#: src/components/screens/profile/profile-info.tsx:520
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Карыстальнік знаходзіцца ў спісе ігнараваных «{0}»"
 
@@ -2097,7 +2115,7 @@ msgstr "Топ (3 дн.)"
 msgid "Top (7d)"
 msgstr "Топ (7 дз.)"
 
-#: src/components/screens/profile/profile-info.tsx:700
+#: src/components/screens/profile/profile-info.tsx:703
 msgid "Translate bio"
 msgstr "Перакласці апісанне профілю"
 
@@ -2131,7 +2149,7 @@ msgstr "Пераклады цяпер працуюць праз DeepL"
 msgid "Trending topics"
 msgstr "Трэндавыя тэмы"
 
-#: src/components/screens/profile/profile-info.tsx:558
+#: src/components/screens/profile/profile-info.tsx:561
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2161,7 +2179,7 @@ msgstr "Вы адпісаліся"
 msgid "Unknown error"
 msgstr "Невядомая памылка"
 
-#: src/components/screens/profile/profile-info.tsx:527
+#: src/components/screens/profile/profile-info.tsx:530
 msgid "Unmute"
 msgstr "Не ігнараваць"
 
@@ -2249,8 +2267,8 @@ msgstr "Версія {0}"
 msgid "Version unknown"
 msgstr "Версія невядомая"
 
-#: src/components/screens/profile/profile-info.tsx:527
-#: src/components/screens/profile/profile-info.tsx:558
+#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:561
 msgid "View"
 msgstr "Выгляд"
 
@@ -2286,7 +2304,7 @@ msgstr "Вітаем з набыццём Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Пра што думаеце?"
 
-#: src/components/screens/profile/profile-info.tsx:741
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "What's the issue with this account?"
 msgstr "Што не так з уліковым запісам?"
 
@@ -2331,11 +2349,11 @@ msgstr "Вы можаце атрымліваць push-апавяшчэнні, к
 msgid "You don't have any moderation lists yet."
 msgstr "У вас яшчэ няма спісаў мадэрацыі."
 
-#: src/components/screens/profile/profile-info.tsx:553
+#: src/components/screens/profile/profile-info.tsx:556
 msgid "You have blocked this user"
 msgstr "Вы заблакіравалі гэтага карыстальніка"
 
-#: src/components/screens/profile/profile-info.tsx:522
+#: src/components/screens/profile/profile-info.tsx:525
 msgid "You have muted this user"
 msgstr "Вы ігнаруеце гэтага карыстальніка"
 
