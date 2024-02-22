@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 12:40\n"
+"PO-Revision-Date: 2024-02-22 14:44\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -67,12 +67,8 @@ msgid "{months} months ago"
 msgstr "{months} മാസം മുൻപ്"
 
 #: src/lib/utils/time.ts:26
-#~ msgid "{months}m"
-#~ msgstr ""
-
-#: src/lib/utils/time.ts:26
 msgid "{months}M"
-msgstr ""
+msgstr "{months}M"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -140,7 +136,7 @@ msgstr "<0>{0}</0> പോസ്റ്റുകൾ"
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
-msgstr ""
+msgstr "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
@@ -189,7 +185,7 @@ msgstr "വിവരങ്ങൾ"
 
 #: src/app/settings/index.tsx:85
 msgid "About Graysky"
-msgstr "ഗ്രേ സ്കൈയെ കുറിച്ച്"
+msgstr "ഗ്രേസ്കൈയെ കുറിച്ച്"
 
 #: src/app/settings/pro.tsx:52
 msgid "Accent colour"
@@ -538,7 +534,7 @@ msgstr "കണക്റ്റുചെയ്യുന്നു..."
 
 #: src/app/settings/about.tsx:49
 msgid "Contact"
-msgstr "കോൺടാക്റ്റ്"
+msgstr "ബന്ധപ്പെടുക"
 
 #: src/app/settings/moderation.tsx:127
 msgid "Content filters"
@@ -924,13 +920,16 @@ msgstr "പിന്തുടരുന്നവർ"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
+#. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
+#: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr ""
+msgstr "നിങ്ങൾ പിന്തുടരുന്നവർ"
 
+#. 'Following' - following a user
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -938,21 +937,19 @@ msgstr ""
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
+#: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr ""
+msgstr "പിന്തുടരുന്നു"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr ""
-
-#: src/lib/hooks/feeds.ts:127
-msgid "Following"
-msgstr "പിന്തുടരുന്നു"
+msgstr "നിങ്ങൾ പിന്തുടരുന്നവർ"
 
 #: src/components/lists/person-row.tsx:53
 #: src/components/screens/profile/profile-info.tsx:438
+#: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "നിങ്ങളെ പിന്തുടരുന്നു"
 
@@ -1055,7 +1052,7 @@ msgstr "ഒരു പോസ്റ്റ് ഈ ഭാഷകളിലൊന്ന
 
 #: src/app/settings/about.tsx:143
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
-msgstr "നിങ്ങൾ ഗ്രേസ്കൈയിലേക്ക് സംഭാവന ചെയ്തിട്ടുണ്ടെങ്കിൽ, ഉദാഹരണത്തിന് വിവർത്തനങ്ങളിൽ സഹായിക്കുക, ദയവായി @graysky.app-ലേക്ക് ബന്ധപ്പെടുക, അതുവഴി ഞങ്ങൾക്ക് നിങ്ങളെ ഈ ലിസ്റ്റിലേക്ക് ചേർക്കാനാകും!"
+msgstr "നിങ്ങൾ ഗ്രേസ്കൈയിലേക്ക് സംഭാവന ചെയ്തിട്ടുണ്ടെങ്കിൽ, ഉദാഹരണത്തിന് വിവർത്തനങ്ങളിൽ സഹായിക്കുക പോലുള്ളവ, ദയവായി @graysky.app-ലേക്ക് ബന്ധപ്പെടുക, അതുവഴി ഞങ്ങൾക്ക് നിങ്ങളെ ഈ ലിസ്റ്റിലേക്ക് ചേർക്കാനാകും!"
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
@@ -1075,7 +1072,7 @@ msgstr "ഇത് നിലവിൽ {current} തീമിലേക്ക് �
 
 #: src/components/screens/profile/profile-info.tsx:506
 msgid "Joined {0}"
-msgstr "{0} ചേർന്നു"
+msgstr "{0} - ൽ ചേർന്നു"
 
 #: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
@@ -1236,7 +1233,7 @@ msgstr "എല്ലാവരെയും മ്യുട്ട് ചെയ്�
 #: src/components/post-context-menu.tsx:231
 #: src/components/screens/profile/profile-info.tsx:720
 msgid "Mute user"
-msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ഉപയോക്താവ്"
+msgstr "ഉപയോക്താവിനെ മ്യുട്ട് ചെയ്യുക"
 
 #: src/lib/account-actions.ts:34
 msgid "Muted"
@@ -1255,6 +1252,7 @@ msgid "Muted Users"
 msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ഉപയോക്താക്കൾ"
 
 #: src/components/lists/person-row.tsx:43
+#: src/lib/composer/suggestion-list.tsx:49
 msgid "Mutuals"
 msgstr "പരസ്പരബന്ധം"
 
@@ -1456,7 +1454,7 @@ msgstr "നിങ്ങളുടെ ക്രമീകരണങ്ങളിൽ �
 
 #: src/app/(auth)/sign-up.tsx:303
 msgid "Please enter a phone number that can receive SMS text messages."
-msgstr "SMS വാചക സന്ദേശങ്ങൾ സ്വീകരിക്കാൻ കഴിയുന്ന ഒരു ഫോൺ നമ്പർ നൽകുക."
+msgstr "SMS സന്ദേശങ്ങൾ സ്വീകരിക്കാൻ കഴിയുന്ന ഒരു ഫോൺ നമ്പർ നൽകുക."
 
 #: src/app/composer/gifs.tsx:220
 #: src/app/composer/index.tsx:290
@@ -1518,7 +1516,7 @@ msgstr "പോസ്റ്റുകൾ"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
-msgstr "നിങ്ങൾ പിന്തുടരുന്ന ആളുകളിൽ നിന്നുള്ള പോസ്റ്റുകൾ"
+msgstr "നിങ്ങൾ പിന്തുടരുന്നവരിൽ നിന്നുള്ള പോസ്റ്റുകൾ"
 
 #: src/app/settings/language/index.tsx:105
 msgid "Posts will be translated into {primaryLanguageLabel}."
@@ -1605,7 +1603,7 @@ msgstr "മറുപടി ക്രമീകരണങ്ങൾ"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:327
 msgid "Reply to {0}"
-msgstr "{0} എന്നതിന് മറുപടി നൽകുക"
+msgstr "{0} എന്നയാൾക്ക് മറുപടി നൽകുക"
 
 #: src/components/feed-post.tsx:275
 #: src/components/feed-post.tsx:458
@@ -1614,7 +1612,7 @@ msgstr "{0} എന്നതിന് മറുപടി നൽകുകയാണ
 
 #: src/app/composer/index.tsx:348
 msgid "Replying to @{0}"
-msgstr "{0} എന്നതിന് മറുപടി നൽകുകയാണ്"
+msgstr "{0} എന്നയാൾക്ക് മറുപടി നൽകുകയാണ്"
 
 #: src/components/feed-post.tsx:417
 msgid "replying to a blocked user"
@@ -1800,7 +1798,7 @@ msgstr "റീപോസ്റ്റുകൾ കാണിക്കുക"
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
-msgstr "ജനനത്തീയതി തിരഞ്ഞെടുക്കുക"
+msgstr "ജനന തീയതി തിരഞ്ഞെടുക്കുക"
 
 #: src/app/create-list.tsx:227
 msgid "Select list purpose"
@@ -2032,7 +2030,7 @@ msgstr "സ്കൈലൈൻ സുരക്ഷിതമായ സ്ഥലമ�
 
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
-msgstr "അതാണ് എല്ലാം!"
+msgstr "കഴിഞ്ഞു!"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
@@ -2157,7 +2155,7 @@ msgstr "വിവർത്തനങ്ങൾ ഇപ്പോൾ DeepL ആണ് 
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
 msgid "Trending topics"
-msgstr "ചൂടൻ പ്രമേയങ്ങൾ"
+msgstr "ചൂടൻ ചർച്ചകൾ"
 
 #: src/components/screens/profile/profile-info.tsx:561
 #: src/lib/account-actions.ts:116
@@ -2304,7 +2302,7 @@ msgstr "Bluesky-ലേക്ക് സ്വാഗതം!"
 
 #: src/components/screens/waiting-room.tsx:74
 msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Bluesky-ലേക്ക് സ്വാഗതം! നിങ്ങൾ ഇവിടെ എത്തിയതിൽ ഞങ്ങൾ ആവേശഭരിതരാണ്."
+msgstr "ബ്ലൂസ്കൈയിലേക്ക് സ്വാഗതം! നിങ്ങൾ ഇവിടെ എത്തിയതിൽ ഞങ്ങൾ ആവേശഭരിതരാണ്."
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"

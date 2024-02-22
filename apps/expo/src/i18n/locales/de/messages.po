@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 12:40\n"
+"PO-Revision-Date: 2024-02-22 14:52\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -67,12 +67,8 @@ msgid "{months} months ago"
 msgstr "vor {months} Monaten"
 
 #: src/lib/utils/time.ts:26
-#~ msgid "{months}m"
-#~ msgstr ""
-
-#: src/lib/utils/time.ts:26
 msgid "{months}M"
-msgstr ""
+msgstr "{months}M"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -924,13 +920,16 @@ msgstr "Benutzer, die mir folgen"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
+#. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
+#: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr "Following Feed"
+msgstr "Following"
 
+#. 'Following' - following a user
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -938,21 +937,19 @@ msgstr "Following Feed"
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:446
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
+#: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr ""
+msgstr "Folge ich"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr ""
-
-#: src/lib/hooks/feeds.ts:127
-msgid "Following"
 msgstr "Folge ich"
 
 #: src/components/lists/person-row.tsx:53
 #: src/components/screens/profile/profile-info.tsx:438
+#: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "Folgt mir"
 
@@ -1255,6 +1252,7 @@ msgid "Muted Users"
 msgstr "Stummgeschaltete Benutzer"
 
 #: src/components/lists/person-row.tsx:43
+#: src/lib/composer/suggestion-list.tsx:49
 msgid "Mutuals"
 msgstr "Gemeinsam"
 
