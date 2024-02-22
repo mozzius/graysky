@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 15:50\n"
+"PO-Revision-Date: 2024-02-22 16:36\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -116,23 +116,23 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}} other{{4}および、他{5}人}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:450
+#: src/components/screens/profile/profile-info.tsx:453
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> フォロワー"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:458
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> フォロー"
 
-#: src/components/screens/profile/profile-info.tsx:466
+#: src/components/screens/profile/profile-info.tsx:472
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> 投稿"
 
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
-msgstr ""
+msgstr "<0>Blueskyの投稿は</0><1/><2>graysky.appでされました</2>"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
@@ -235,7 +235,7 @@ msgstr "画像を追加"
 msgid "Add to favourites"
 msgstr "お気に入りに追加"
 
-#: src/components/screens/profile/profile-info.tsx:710
+#: src/components/screens/profile/profile-info.tsx:716
 msgid "Add to list"
 msgstr "リストに追加"
 
@@ -327,7 +327,7 @@ msgstr "年間プラン"
 msgid "Anti-Social Behavior"
 msgstr "反社会的行為"
 
-#: src/app/settings/about.tsx:158
+#: src/app/settings/about.tsx:186
 msgid "App info"
 msgstr "アプリ情報"
 
@@ -358,7 +358,7 @@ msgstr "@{handle}をブロックしてもよろしいですか?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:321
 msgid "Are you sure you want to delete this list?"
-msgstr ""
+msgstr "このリストを削除してもよろしいですか?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:729
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Block user"
 msgstr "ユーザーをブロック"
 
@@ -512,12 +512,12 @@ msgstr "テーマを変更"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:302
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
 msgid "Change to moderation list"
-msgstr ""
+msgstr "モデレーションリストの変更"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
 msgid "Change to user list"
-msgstr ""
+msgstr "ユーザーリストの変更"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -831,7 +831,7 @@ msgstr "フィードを編集"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:613
+#: src/components/screens/profile/profile-info.tsx:619
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
 
@@ -976,7 +976,7 @@ msgstr "あなたをフォロー中"
 msgid "Forgot?"
 msgstr "忘れましたか?"
 
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Frequently Posts Unwanted Content"
 msgstr "よく投稿される不要なコンテンツ"
 
@@ -1069,7 +1069,7 @@ msgstr "このリンクはどのように開きますか?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "投稿がこれらの言語のいずれであるとマークされている場合は、翻訳されません。"
 
-#: src/app/settings/about.tsx:143
+#: src/app/settings/about.tsx:171
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "翻訳の手伝いなどのGrayskyに関する貢献をした事のある方は、@graysky.appまでご連絡ください。あなたをこのリストに加える事ができます。"
 
@@ -1089,7 +1089,7 @@ msgstr "無効なモード"
 msgid "It's currently set to the {current} theme"
 msgstr "現在は{current}に設定されています"
 
-#: src/components/screens/profile/profile-info.tsx:506
+#: src/components/screens/profile/profile-info.tsx:512
 msgid "Joined {0}"
 msgstr "{0}から参加しています"
 
@@ -1171,7 +1171,7 @@ msgstr "サインアウト"
 msgid "Logged in"
 msgstr "サインイン済み"
 
-#: src/app/settings/about.tsx:147
+#: src/app/settings/about.tsx:175
 msgid "Logo designed by"
 msgstr "ロゴデザイン"
 
@@ -1212,7 +1212,7 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "「{0}」のリスト内のメンバー"
 
-#: src/components/screens/profile/profile-info.tsx:655
+#: src/components/screens/profile/profile-info.tsx:661
 msgid "Misleading Account"
 msgstr "誤解を招くアカウント"
 
@@ -1250,7 +1250,7 @@ msgid "Mute all members"
 msgstr "すべてのメンバーをミュート"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Mute user"
 msgstr "ユーザーをミュート"
 
@@ -1297,7 +1297,7 @@ msgstr "自分の言語"
 msgid "My lists"
 msgstr "マイリスト"
 
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/screens/profile/profile-info.tsx:662
 msgid "Name or Description Violates Community Standards"
 msgstr "名前または説明がルールに違反"
 
@@ -1414,7 +1414,7 @@ msgid "Optional"
 msgstr "任意"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:663
 msgid "Other"
 msgstr "その他"
 
@@ -1653,7 +1653,7 @@ msgstr "何らかの投稿に返信"
 msgid "replying to..."
 msgstr "返信先:"
 
-#: src/components/screens/profile/profile-info.tsx:738
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "Report account"
 msgstr "アカウントを報告"
 
@@ -1662,7 +1662,7 @@ msgid "Report post"
 msgstr "投稿を報告する"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:669
+#: src/components/screens/profile/profile-info.tsx:675
 msgid "Report submitted"
 msgstr "アカウントを報告しました"
 
@@ -1885,8 +1885,8 @@ msgstr "投稿のリンクを共有"
 msgid "Share post"
 msgstr "投稿を共有"
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:688
+#: src/components/screens/profile/profile-info.tsx:626
+#: src/components/screens/profile/profile-info.tsx:694
 msgid "Share profile"
 msgstr "プロフィールを共有"
 
@@ -2045,7 +2045,7 @@ msgid "Take photo"
 msgstr "写真を撮影"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:670
+#: src/components/screens/profile/profile-info.tsx:676
 msgid "Thank you for making the skyline a safer place"
 msgstr "Skylineをより安全な場所にしてくれた事に感謝をします"
 
@@ -2104,15 +2104,15 @@ msgstr "この投稿はミュートした人からのものです"
 msgid "This thread is locked"
 msgstr "このスレッドはロックされています"
 
-#: src/components/screens/profile/profile-info.tsx:586
+#: src/components/screens/profile/profile-info.tsx:592
 msgid "This user has blocked you"
 msgstr "このユーザーはあなたをブロックしています"
 
-#: src/components/screens/profile/profile-info.tsx:551
+#: src/components/screens/profile/profile-info.tsx:557
 msgid "This user is on the \"{0}\" block list"
 msgstr "このユーザーは、「{0}」のブロックリストに登録されています"
 
-#: src/components/screens/profile/profile-info.tsx:520
+#: src/components/screens/profile/profile-info.tsx:526
 msgid "This user is on the \"{0}\" mute list"
 msgstr "このユーザーは、「{0}」のミュートリストに登録されています"
 
@@ -2144,7 +2144,7 @@ msgstr "トップ (3日以内)"
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 
-#: src/components/screens/profile/profile-info.tsx:703
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr "プロフィールを翻訳"
 
@@ -2178,7 +2178,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 msgid "Trending topics"
 msgstr "トレンドのトピック"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:567
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2208,7 +2208,7 @@ msgstr "フォローを解除したユーザー"
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "Unmute"
 msgstr "ミュートを解除"
 
@@ -2286,18 +2286,18 @@ msgstr "<0>{0}</0> がフォローしているユーザー"
 msgid "Verification code"
 msgstr "認証コード"
 
-#: src/app/settings/about.tsx:162
+#: src/app/settings/about.tsx:190
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: src/app/settings/about.tsx:163
+#: src/app/settings/about.tsx:191
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "バージョン不明"
 
-#: src/components/screens/profile/profile-info.tsx:530
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "View"
 msgstr "表示"
 
@@ -2333,7 +2333,7 @@ msgstr "Graysky Proへようこそ!"
 msgid "What's on your mind?"
 msgstr "何を考えているんだい?"
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:750
 msgid "What's the issue with this account?"
 msgstr "このアカウントの問題点は何ですか?"
 
@@ -2378,11 +2378,11 @@ msgstr "「いいね」や「返信」などのプッシュ通知の表示がで
 msgid "You don't have any moderation lists yet."
 msgstr "モデレーションリストはまだありません。"
 
-#: src/components/screens/profile/profile-info.tsx:556
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "You have blocked this user"
 msgstr "このユーザーをブロック中"
 
-#: src/components/screens/profile/profile-info.tsx:525
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "You have muted this user"
 msgstr "このユーザーをミュート中"
 

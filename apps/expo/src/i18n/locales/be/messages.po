@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 15:50\n"
+"PO-Revision-Date: 2024-02-22 16:36\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -116,16 +116,16 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2} і {3}} other {{4} і {5} іншым}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:450
+#: src/components/screens/profile/profile-info.tsx:453
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> падпісчыкаў"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:458
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> падпісак"
 
-#: src/components/screens/profile/profile-info.tsx:466
+#: src/components/screens/profile/profile-info.tsx:472
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> допісаў"
 
@@ -235,7 +235,7 @@ msgstr "Дадаць відарыс"
 msgid "Add to favourites"
 msgstr "Дадаць у абранае"
 
-#: src/components/screens/profile/profile-info.tsx:710
+#: src/components/screens/profile/profile-info.tsx:716
 msgid "Add to list"
 msgstr "Дадаць у спіс"
 
@@ -327,7 +327,7 @@ msgstr "Штогадовы план"
 msgid "Anti-Social Behavior"
 msgstr "Асацыяльныя паводзіны"
 
-#: src/app/settings/about.tsx:158
+#: src/app/settings/about.tsx:186
 msgid "App info"
 msgstr "Інфармацыя пра праграму"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "Заблакіраваць усіх удзельнікаў"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:729
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Block user"
 msgstr "Заблакіраваць карыстальніка"
 
@@ -831,7 +831,7 @@ msgstr "Рэдагаваць стужкі"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:613
+#: src/components/screens/profile/profile-info.tsx:619
 msgid "Edit Profile"
 msgstr "Рэдагаваць профіль"
 
@@ -976,7 +976,7 @@ msgstr "Падпісаны(-а) на вас"
 msgid "Forgot?"
 msgstr "Забыліся?"
 
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Frequently Posts Unwanted Content"
 msgstr "Частыя публікацыі непажаданага змесціва"
 
@@ -1069,7 +1069,7 @@ msgstr "Як вы жадаеце адкрыць гэтую спасылку?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Калі на допісу стаіць моўная адзнака любой з гэтых моў, ён не будзе перакладацца."
 
-#: src/app/settings/about.tsx:143
+#: src/app/settings/about.tsx:171
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (напрыклад: дапамагалі з перакладам), калі ласка, напішыце @graysky.app, каб мы дадалі вас у спіс!"
 
@@ -1089,7 +1089,7 @@ msgstr "Памылковы рэжым"
 msgid "It's currently set to the {current} theme"
 msgstr "Бягучая тэма: {current}"
 
-#: src/components/screens/profile/profile-info.tsx:506
+#: src/components/screens/profile/profile-info.tsx:512
 msgid "Joined {0}"
 msgstr "Рэгістрацыя: {0}"
 
@@ -1171,7 +1171,7 @@ msgstr "Зарэгістравацца"
 msgid "Logged in"
 msgstr "Вы ўвайшлі"
 
-#: src/app/settings/about.tsx:147
+#: src/app/settings/about.tsx:175
 msgid "Logo designed by"
 msgstr "Дызайн лагатыпа"
 
@@ -1212,7 +1212,7 @@ msgstr "Удзельнікі"
 msgid "Members of list \"{0}\""
 msgstr "Удзельнік спісу «{0}»"
 
-#: src/components/screens/profile/profile-info.tsx:655
+#: src/components/screens/profile/profile-info.tsx:661
 msgid "Misleading Account"
 msgstr "Падстаўны ўліковы запіс"
 
@@ -1250,7 +1250,7 @@ msgid "Mute all members"
 msgstr "Ігнараваць усіх удзельнікаў"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Mute user"
 msgstr "Ігнараваць карыстальніка"
 
@@ -1297,7 +1297,7 @@ msgstr "Мае мовы"
 msgid "My lists"
 msgstr "Мае спісы"
 
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/screens/profile/profile-info.tsx:662
 msgid "Name or Description Violates Community Standards"
 msgstr "Імя або апісанне парушае Правілы супольнасці"
 
@@ -1414,7 +1414,7 @@ msgid "Optional"
 msgstr "Не абавязкова"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:663
 msgid "Other"
 msgstr "Іншае"
 
@@ -1653,7 +1653,7 @@ msgstr "У адказ на нейкі допіс"
 msgid "replying to..."
 msgstr "у адказ на..."
 
-#: src/components/screens/profile/profile-info.tsx:738
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "Report account"
 msgstr "Паскардзіцца на ўліковы запіс"
 
@@ -1662,7 +1662,7 @@ msgid "Report post"
 msgstr "Паскардзіцца на допіс"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:669
+#: src/components/screens/profile/profile-info.tsx:675
 msgid "Report submitted"
 msgstr "Скарга прынята"
 
@@ -1885,8 +1885,8 @@ msgstr "Абагуліць спасылку на допіс"
 msgid "Share post"
 msgstr "Абагуліць допіс"
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:688
+#: src/components/screens/profile/profile-info.tsx:626
+#: src/components/screens/profile/profile-info.tsx:694
 msgid "Share profile"
 msgstr "Абагуліць профіль"
 
@@ -2045,7 +2045,7 @@ msgid "Take photo"
 msgstr "Зрабіць фота"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:670
+#: src/components/screens/profile/profile-info.tsx:676
 msgid "Thank you for making the skyline a safer place"
 msgstr "Дзякуй, што дапамагаеце захоўваць захоўваць бяспеку"
 
@@ -2104,15 +2104,15 @@ msgstr "Вы ігнаруеце аўтара гэтага допісу"
 msgid "This thread is locked"
 msgstr "Гэтая гутарка заблакіравана"
 
-#: src/components/screens/profile/profile-info.tsx:586
+#: src/components/screens/profile/profile-info.tsx:592
 msgid "This user has blocked you"
 msgstr "Гэты карыстальнік заблакіраваў вас"
 
-#: src/components/screens/profile/profile-info.tsx:551
+#: src/components/screens/profile/profile-info.tsx:557
 msgid "This user is on the \"{0}\" block list"
 msgstr "Карыстальнік знаходзіцца ў спісе заблакіраваных «{0}»"
 
-#: src/components/screens/profile/profile-info.tsx:520
+#: src/components/screens/profile/profile-info.tsx:526
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Карыстальнік знаходзіцца ў спісе ігнараваных «{0}»"
 
@@ -2144,7 +2144,7 @@ msgstr "Топ (3 дн.)"
 msgid "Top (7d)"
 msgstr "Топ (7 дз.)"
 
-#: src/components/screens/profile/profile-info.tsx:703
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr "Перакласці апісанне профілю"
 
@@ -2178,7 +2178,7 @@ msgstr "Пераклады цяпер працуюць праз DeepL"
 msgid "Trending topics"
 msgstr "Трэндавыя тэмы"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:567
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2208,7 +2208,7 @@ msgstr "Вы адпісаліся"
 msgid "Unknown error"
 msgstr "Невядомая памылка"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "Unmute"
 msgstr "Не ігнараваць"
 
@@ -2286,18 +2286,18 @@ msgstr "Карыстальнік, на якога падпісаны <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код пацвярджэння"
 
-#: src/app/settings/about.tsx:162
+#: src/app/settings/about.tsx:190
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:163
+#: src/app/settings/about.tsx:191
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невядомая"
 
-#: src/components/screens/profile/profile-info.tsx:530
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "View"
 msgstr "Выгляд"
 
@@ -2333,7 +2333,7 @@ msgstr "Вітаем з набыццём Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Пра што думаеце?"
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:750
 msgid "What's the issue with this account?"
 msgstr "Што не так з уліковым запісам?"
 
@@ -2378,11 +2378,11 @@ msgstr "Вы можаце атрымліваць push-апавяшчэнні, к
 msgid "You don't have any moderation lists yet."
 msgstr "У вас яшчэ няма спісаў мадэрацыі."
 
-#: src/components/screens/profile/profile-info.tsx:556
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "You have blocked this user"
 msgstr "Вы заблакіравалі гэтага карыстальніка"
 
-#: src/components/screens/profile/profile-info.tsx:525
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "You have muted this user"
 msgstr "Вы ігнаруеце гэтага карыстальніка"
 

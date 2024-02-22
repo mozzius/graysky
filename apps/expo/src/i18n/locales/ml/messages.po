@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 15:50\n"
+"PO-Revision-Date: 2024-02-22 16:36\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -116,16 +116,16 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2} കൂടെ {3}} other {{4} കൂടെ {5} മറ്റുള്ളവരും}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:450
+#: src/components/screens/profile/profile-info.tsx:453
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> പിന്തുടരുന്നവർ"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:458
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> പിന്തുടരുന്നു"
 
-#: src/components/screens/profile/profile-info.tsx:466
+#: src/components/screens/profile/profile-info.tsx:472
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> പോസ്റ്റുകൾ"
 
@@ -235,7 +235,7 @@ msgstr "ചിത്രം ഉൾപ്പെടുത്തുക"
 msgid "Add to favourites"
 msgstr "പ്രിയപ്പെട്ടവയിലേക്ക് ചേർക്കുക"
 
-#: src/components/screens/profile/profile-info.tsx:710
+#: src/components/screens/profile/profile-info.tsx:716
 msgid "Add to list"
 msgstr "ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
@@ -327,7 +327,7 @@ msgstr "വാർഷിക പ്ലാൻ"
 msgid "Anti-Social Behavior"
 msgstr "സാമൂഹ്യവിരുദ്ധ പെരുമാറ്റം"
 
-#: src/app/settings/about.tsx:158
+#: src/app/settings/about.tsx:186
 msgid "App info"
 msgstr "ആപ്പ് വിവരം"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "എല്ലാവരെയും ബ്ലോക്ക് ചെയ്യുക"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:729
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Block user"
 msgstr "ഉപയോക്താവിനെ ബ്ലോക്ക് ചെയ്യുക"
 
@@ -831,7 +831,7 @@ msgstr "ഫീഡുകൾ എഡിറ്റ് ചെയ്യുക"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:613
+#: src/components/screens/profile/profile-info.tsx:619
 msgid "Edit Profile"
 msgstr "പ്രൊഫൈല്‍ എഡിറ്റ്‌ ചെയ്യുക"
 
@@ -976,7 +976,7 @@ msgstr "നിങ്ങളെ പിന്തുടരുന്നു"
 msgid "Forgot?"
 msgstr "മറന്നോ?"
 
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Frequently Posts Unwanted Content"
 msgstr "പലപ്പോഴും അനാവശ്യ ഉള്ളടക്കം പോസ്റ്റുചെയ്യുന്നു"
 
@@ -1069,7 +1069,7 @@ msgstr "ഈ ലിങ്ക് എങ്ങനെ തുറക്കണം?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "ഒരു പോസ്റ്റ് ഈ ഭാഷകളിലൊന്നിലാണെന്ന് അടയാളപ്പെടുത്തിയാൽ, അത് വിവർത്തനം ചെയ്യപ്പെടില്ല."
 
-#: src/app/settings/about.tsx:143
+#: src/app/settings/about.tsx:171
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "നിങ്ങൾ ഗ്രേസ്കൈയിലേക്ക് സംഭാവന ചെയ്തിട്ടുണ്ടെങ്കിൽ, ഉദാഹരണത്തിന് വിവർത്തനങ്ങളിൽ സഹായിക്കുക പോലുള്ളവ, ദയവായി @graysky.app-ലേക്ക് ബന്ധപ്പെടുക, അതുവഴി ഞങ്ങൾക്ക് നിങ്ങളെ ഈ ലിസ്റ്റിലേക്ക് ചേർക്കാനാകും!"
 
@@ -1089,7 +1089,7 @@ msgstr "ശൈലി അസാധുവാണ്"
 msgid "It's currently set to the {current} theme"
 msgstr "ഇത് നിലവിൽ {current} തീമിലേക്ക് സജ്ജീകരിച്ചിരിക്കുന്നു"
 
-#: src/components/screens/profile/profile-info.tsx:506
+#: src/components/screens/profile/profile-info.tsx:512
 msgid "Joined {0}"
 msgstr "{0} - ൽ ചേർന്നു"
 
@@ -1171,7 +1171,7 @@ msgstr "ലോഗ് ഔട്ട് ചെയ്യുക"
 msgid "Logged in"
 msgstr "പ്രവേശിച്ചിരിക്കുന്നു"
 
-#: src/app/settings/about.tsx:147
+#: src/app/settings/about.tsx:175
 msgid "Logo designed by"
 msgstr "ലോഗോ രൂപകൽപന ചെയ്തത്"
 
@@ -1212,7 +1212,7 @@ msgstr "അംഗങ്ങൾ"
 msgid "Members of list \"{0}\""
 msgstr "\"{0}\" ലിസ്റ്റിലെ അംഗങ്ങൾ"
 
-#: src/components/screens/profile/profile-info.tsx:655
+#: src/components/screens/profile/profile-info.tsx:661
 msgid "Misleading Account"
 msgstr "തെറ്റിദ്ധരിപ്പിക്കുന്ന അക്കൗണ്ട്"
 
@@ -1250,7 +1250,7 @@ msgid "Mute all members"
 msgstr "എല്ലാവരെയും മ്യുട്ട് ചെയ്യുക"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Mute user"
 msgstr "ഉപയോക്താവിനെ മ്യുട്ട് ചെയ്യുക"
 
@@ -1297,7 +1297,7 @@ msgstr "എൻ്റെ ഭാഷ"
 msgid "My lists"
 msgstr "എൻ്റെ ലിസ്റ്റുകൾ"
 
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/screens/profile/profile-info.tsx:662
 msgid "Name or Description Violates Community Standards"
 msgstr "പേരോ വിവരണമോ കമ്മ്യൂണിറ്റി മാനദണ്ഡങ്ങൾ ലംഘിക്കുന്നു"
 
@@ -1414,7 +1414,7 @@ msgid "Optional"
 msgstr "ഓപ്ഷണൽ"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:663
 msgid "Other"
 msgstr "മറ്റുള്ളവ"
 
@@ -1653,7 +1653,7 @@ msgstr "ഏതെങ്കിലും തരത്തിലുള്ള പോ�
 msgid "replying to..."
 msgstr "മറുപടി നൽകുന്നു..."
 
-#: src/components/screens/profile/profile-info.tsx:738
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "Report account"
 msgstr "അക്കൗണ്ട് റിപ്പോർട്ട് ചെയ്യുക"
 
@@ -1662,7 +1662,7 @@ msgid "Report post"
 msgstr "പോസ്റ്റ് റിപ്പോർട്ട് ചെയ്യൂ"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:669
+#: src/components/screens/profile/profile-info.tsx:675
 msgid "Report submitted"
 msgstr "റിപ്പോർട്ട് ബോധിപ്പിച്ചിട്ടുണ്ട്"
 
@@ -1885,8 +1885,8 @@ msgstr "പോസ്റ്റിനുള്ള ലിങ്ക് പങ്ക�
 msgid "Share post"
 msgstr "പോസ്റ്റ് പങ്കിടുക"
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:688
+#: src/components/screens/profile/profile-info.tsx:626
+#: src/components/screens/profile/profile-info.tsx:694
 msgid "Share profile"
 msgstr "പ്രൊഫൈൽ പങ്കിടുക"
 
@@ -2045,7 +2045,7 @@ msgid "Take photo"
 msgstr "ഫോട്ടോ എടുക്കുക"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:670
+#: src/components/screens/profile/profile-info.tsx:676
 msgid "Thank you for making the skyline a safer place"
 msgstr "സ്കൈലൈൻ സുരക്ഷിതമായ സ്ഥലമാക്കിയതിന് നന്ദി"
 
@@ -2104,15 +2104,15 @@ msgstr "ഈ പോസ്റ്റ് നിങ്ങൾ മ്യുട്ട്
 msgid "This thread is locked"
 msgstr "ഈ ത്രെഡ് ലോക്ക് ചെയ്തിരിക്കുന്നു"
 
-#: src/components/screens/profile/profile-info.tsx:586
+#: src/components/screens/profile/profile-info.tsx:592
 msgid "This user has blocked you"
 msgstr "ഈ ഉപയോക്താവ് നിങ്ങളെ ബ്ലോക്ക് ചെയ്തു"
 
-#: src/components/screens/profile/profile-info.tsx:551
+#: src/components/screens/profile/profile-info.tsx:557
 msgid "This user is on the \"{0}\" block list"
 msgstr "ഈ ഉപയോക്താവ് \"{0}\" ബ്ലോക്ക് ലിസ്റ്റിലാണ്"
 
-#: src/components/screens/profile/profile-info.tsx:520
+#: src/components/screens/profile/profile-info.tsx:526
 msgid "This user is on the \"{0}\" mute list"
 msgstr "ഈ ഉപയോക്താവ് \"{0}\" മ്യുട്ട് ലിസ്റ്റിലാണ്"
 
@@ -2144,7 +2144,7 @@ msgstr "ടോപ്പ് (3 ദിവസം)"
 msgid "Top (7d)"
 msgstr "ടോപ്പ് (7ദിവസം)"
 
-#: src/components/screens/profile/profile-info.tsx:703
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr "ബയോ വിവർത്തനം ചെയ്യുക"
 
@@ -2178,7 +2178,7 @@ msgstr "വിവർത്തനങ്ങൾ ഇപ്പോൾ DeepL ആണ് 
 msgid "Trending topics"
 msgstr "ചൂടൻ ചർച്ചകൾ"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:567
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2208,7 +2208,7 @@ msgstr "ഉപയോക്തവിനെ പിന്തുടരുന്ന�
 msgid "Unknown error"
 msgstr "അജ്ഞാത പിശക്"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "Unmute"
 msgstr "അൺമ്യൂട്ട് ചെയ്യുക"
 
@@ -2286,18 +2286,18 @@ msgstr "<0>{0}</0> പിന്തുടരുന്ന ഉപയോക്താ
 msgid "Verification code"
 msgstr "പരിശോധിച്ചുറപ്പിക്കൽ കോഡ്"
 
-#: src/app/settings/about.tsx:162
+#: src/app/settings/about.tsx:190
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "പതിപ്പ് {0}"
 
-#: src/app/settings/about.tsx:163
+#: src/app/settings/about.tsx:191
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "പതിപ്പ് അജ്ഞാതമാണ്"
 
-#: src/components/screens/profile/profile-info.tsx:530
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "View"
 msgstr "കാണുക"
 
@@ -2333,7 +2333,7 @@ msgstr "ഗ്രേസ്കൈ പ്രോയിലേക്ക് സ്വ�
 msgid "What's on your mind?"
 msgstr "നിങ്ങളുടെ മനസ്സിൽ എന്താണ്?"
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:750
 msgid "What's the issue with this account?"
 msgstr "ഈ അക്കൗണ്ടിന് എന്താണ് പ്രശ്നം?"
 
@@ -2378,11 +2378,11 @@ msgstr "ലൈക്കുകൾക്കും മറുപടികൾക്�
 msgid "You don't have any moderation lists yet."
 msgstr "നിങ്ങൾക്ക് ഇതുവരെ മോഡറേഷൻ ലിസ്റ്റുകളൊന്നുമില്ല."
 
-#: src/components/screens/profile/profile-info.tsx:556
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "You have blocked this user"
 msgstr "നിങ്ങള്‍ ഈ വ്യക്തിയെ ബ്ലോക്ക്‌ ചെയ്തിരിക്കുന്നു"
 
-#: src/components/screens/profile/profile-info.tsx:525
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "You have muted this user"
 msgstr "നിങ്ങൾ ഈ ഉപയോക്താവിനെ മ്യൂട്ട് ആക്കി"
 

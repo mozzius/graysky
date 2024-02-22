@@ -8,7 +8,7 @@ msgstr ""
 "Language: cs\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 15:50\n"
+"PO-Revision-Date: 2024-02-22 16:36\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
@@ -116,16 +116,16 @@ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><
 msgstr "<0>{0, plural, =1 {{1}} =2 {{2} a {3}} other {{4} a {5} dalších}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:450
+#: src/components/screens/profile/profile-info.tsx:453
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> Sledujících"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:458
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> Sledovaných"
 
-#: src/components/screens/profile/profile-info.tsx:466
+#: src/components/screens/profile/profile-info.tsx:472
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> Příspěvků"
 
@@ -235,7 +235,7 @@ msgstr "Přidat obrázek"
 msgid "Add to favourites"
 msgstr "Přidat mezi oblíbené"
 
-#: src/components/screens/profile/profile-info.tsx:710
+#: src/components/screens/profile/profile-info.tsx:716
 msgid "Add to list"
 msgstr "Přidat do seznamu"
 
@@ -327,7 +327,7 @@ msgstr "Roční tarif"
 msgid "Anti-Social Behavior"
 msgstr "Asociální chování"
 
-#: src/app/settings/about.tsx:158
+#: src/app/settings/about.tsx:186
 msgid "App info"
 msgstr "Info o aplikaci"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "Blokovat všechny členy"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:729
+#: src/components/screens/profile/profile-info.tsx:735
 msgid "Block user"
 msgstr "Blokovat uživatele"
 
@@ -831,7 +831,7 @@ msgstr "Upravit kanály"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:613
+#: src/components/screens/profile/profile-info.tsx:619
 msgid "Edit Profile"
 msgstr "Upravit profil"
 
@@ -976,7 +976,7 @@ msgstr "Sledují Vás"
 msgid "Forgot?"
 msgstr "Zapomněl/a jste?"
 
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Frequently Posts Unwanted Content"
 msgstr "Často sdílí příspěvky s nechtěným obsahem"
 
@@ -1069,7 +1069,7 @@ msgstr "Jak bychom měli otevřít tento odkaz?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Pokud je příspěvek označen jako v jednom z těchto jazyků, nebude přeložen."
 
-#: src/app/settings/about.tsx:143
+#: src/app/settings/about.tsx:171
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Pokud jste přispěli projektu Graysky, například pomocí s překlady, kontaktujte prosím @graysky.app, abychom Vás mohli přidat do tohoto seznamu!"
 
@@ -1089,7 +1089,7 @@ msgstr "Neplatný režim"
 msgid "It's currently set to the {current} theme"
 msgstr "Nyní je nastaveno téma {current}"
 
-#: src/components/screens/profile/profile-info.tsx:506
+#: src/components/screens/profile/profile-info.tsx:512
 msgid "Joined {0}"
 msgstr "Připojili se {0}"
 
@@ -1171,7 +1171,7 @@ msgstr "Odhlásit se"
 msgid "Logged in"
 msgstr "Přihlášen/a"
 
-#: src/app/settings/about.tsx:147
+#: src/app/settings/about.tsx:175
 msgid "Logo designed by"
 msgstr "Logo navrženo"
 
@@ -1212,7 +1212,7 @@ msgstr "Členové"
 msgid "Members of list \"{0}\""
 msgstr "Členové seznamu \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:655
+#: src/components/screens/profile/profile-info.tsx:661
 msgid "Misleading Account"
 msgstr "Zavádějící účet"
 
@@ -1250,7 +1250,7 @@ msgid "Mute all members"
 msgstr "Ztlumit všechny členy"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:726
 msgid "Mute user"
 msgstr "Ztlumit uživatele"
 
@@ -1297,7 +1297,7 @@ msgstr "Moje jazyky"
 msgid "My lists"
 msgstr "Moje seznamy"
 
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/screens/profile/profile-info.tsx:662
 msgid "Name or Description Violates Community Standards"
 msgstr "Jméno nebo popis porušuje zásady komunity"
 
@@ -1414,7 +1414,7 @@ msgid "Optional"
 msgstr "Volitelné"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:663
 msgid "Other"
 msgstr "Ostatní"
 
@@ -1653,7 +1653,7 @@ msgstr "Odpovídá na nějaký druh příspěvku"
 msgid "replying to..."
 msgstr "odpovídá..."
 
-#: src/components/screens/profile/profile-info.tsx:738
+#: src/components/screens/profile/profile-info.tsx:744
 msgid "Report account"
 msgstr "Nahlásit účet"
 
@@ -1662,7 +1662,7 @@ msgid "Report post"
 msgstr "Nahlásit příspěvek"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:669
+#: src/components/screens/profile/profile-info.tsx:675
 msgid "Report submitted"
 msgstr "Nahlášení odesláno"
 
@@ -1885,8 +1885,8 @@ msgstr "Sdílet odkaz na příspěvek"
 msgid "Share post"
 msgstr "Sdílet příspěvek"
 
-#: src/components/screens/profile/profile-info.tsx:620
-#: src/components/screens/profile/profile-info.tsx:688
+#: src/components/screens/profile/profile-info.tsx:626
+#: src/components/screens/profile/profile-info.tsx:694
 msgid "Share profile"
 msgstr "Sdílet profil"
 
@@ -2045,7 +2045,7 @@ msgid "Take photo"
 msgstr "Pořídit snímek"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:670
+#: src/components/screens/profile/profile-info.tsx:676
 msgid "Thank you for making the skyline a safer place"
 msgstr "Děkujeme, že děláte skyline bezpečnějším místem"
 
@@ -2104,15 +2104,15 @@ msgstr "Tento příspěvek je od někoho, koho jste ztlumili"
 msgid "This thread is locked"
 msgstr "Toto vlákno je uzamčeno"
 
-#: src/components/screens/profile/profile-info.tsx:586
+#: src/components/screens/profile/profile-info.tsx:592
 msgid "This user has blocked you"
 msgstr "Tento uživatel Vás zablokoval"
 
-#: src/components/screens/profile/profile-info.tsx:551
+#: src/components/screens/profile/profile-info.tsx:557
 msgid "This user is on the \"{0}\" block list"
 msgstr "Tento uživatel je na seznamu blokovaných \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:520
+#: src/components/screens/profile/profile-info.tsx:526
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Tento uživatel je na seznamu ztlumených \"{0}\""
 
@@ -2144,7 +2144,7 @@ msgstr "Top (3d)"
 msgid "Top (7d)"
 msgstr "Top (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:703
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Translate bio"
 msgstr "Přeložit bio"
 
@@ -2178,7 +2178,7 @@ msgstr "Překlady jsou nyní poháněné překladačem DeepL"
 msgid "Trending topics"
 msgstr "Populární témata"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:567
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2208,7 +2208,7 @@ msgstr "Sledování uživatele bylo zrušeno"
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "Unmute"
 msgstr "Zrušit ztlumení"
 
@@ -2286,18 +2286,18 @@ msgstr "Uživatelé, které sleduje <0>{0}</0>"
 msgid "Verification code"
 msgstr "Ověřovací kód"
 
-#: src/app/settings/about.tsx:162
+#: src/app/settings/about.tsx:190
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: src/app/settings/about.tsx:163
+#: src/app/settings/about.tsx:191
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Verze neznámá"
 
-#: src/components/screens/profile/profile-info.tsx:530
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "View"
 msgstr "Zobrazit"
 
@@ -2333,7 +2333,7 @@ msgstr "Vítejte na Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Co se vám honí hlavou?"
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:750
 msgid "What's the issue with this account?"
 msgstr "Jaký je s tímto účtem problém?"
 
@@ -2378,11 +2378,11 @@ msgstr "Můžete dostávat push notifikace na \"líbí se mi\", odpovědi a víc
 msgid "You don't have any moderation lists yet."
 msgstr "Zatím nemáte žádné moderační seznamy."
 
-#: src/components/screens/profile/profile-info.tsx:556
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "You have blocked this user"
 msgstr "Zablokovali jste tohoto uživatele"
 
-#: src/components/screens/profile/profile-info.tsx:525
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "You have muted this user"
 msgstr "Ztlumili jste tohoto uživatele"
 
