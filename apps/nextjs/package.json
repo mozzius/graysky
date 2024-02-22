@@ -12,13 +12,13 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@atproto/api": "^0.10.0",
+    "@atproto/api": "^0.10.1",
     "@atproto/identity": "^0.3.2",
     "@atproto/xrpc-server": "^0.4.2",
     "@graysky/api": "0.1.0",
     "@graysky/db": "0.1.0",
     "@graysky/tailwind-config": "0.1.0",
-    "@sentry/nextjs": "^7.102.0",
+    "@sentry/nextjs": "^7.102.1",
     "@tanstack/react-query": "^5.22.2",
     "@trpc/client": "next",
     "@trpc/next": "next",
