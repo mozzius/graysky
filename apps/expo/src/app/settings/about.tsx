@@ -126,14 +126,14 @@ export default function AboutPage() {
               },
               {
                 // ja translator
-                title: "@narooo.com",
+                title: "narooo.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:2wlwhbmg2yga6vvei4zpwcjt",
                 icon: AtSignIcon,
               },
               {
                 // fr translator
-                title: "@yanyannoche.bsky.social",
+                title: "yanyannoche.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:5on2afqpkkltppdaongk2ywo",
                 icon: AtSignIcon,
