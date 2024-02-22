@@ -132,6 +132,11 @@ msgstr ""
 msgid "<0>{0}</0> Posts"
 msgstr ""
 
+#. be very careful not to leave spaces between the elements
+#: src/app/capture/[author]/[post].tsx:119
+msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
+msgstr ""
+
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
 msgstr ""
@@ -457,7 +462,7 @@ msgstr "Al suscribirte, aceptas nuestros <0>Términos y Condiciones</0>, <1>Tér
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
-#: src/app/capture/[author]/[post].tsx:156
+#: src/app/capture/[author]/[post].tsx:161
 #: src/app/create-list.tsx:67
 #: src/app/create-list.tsx:135
 #: src/app/edit-bio.tsx:125
@@ -1839,7 +1844,7 @@ msgstr ""
 msgid "Share as Image"
 msgstr ""
 
-#: src/app/capture/[author]/[post].tsx:143
+#: src/app/capture/[author]/[post].tsx:148
 #: src/components/image-with-context-menu.tsx:191
 msgid "Share image"
 msgstr ""

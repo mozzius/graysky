@@ -115,14 +115,19 @@ export default function ShareAsImageScreen() {
                   hideContextMenu={!showContextMenu}
                   hideTranslation
                 />
-                <View className="mt-1 flex-row items-center justify-end gap-x-1.5">
-                  <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-                    a bluesky post, via
-                  </Text>
-                  <Image className="h-3 w-3 rounded" source={appIcon} />
-                  <Text className="text-sm text-neutral-500 dark:text-neutral-400">
-                    graysky.app
-                  </Text>
+                <View className="mt-1 flex-row items-center justify-end">
+                  <Trans comment="be very careful not to leave spaces between the elements">
+                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                      a bluesky post, via
+                    </Text>
+                    <Image
+                      className="ml-2 mr-1 h-3 w-3 rounded"
+                      source={appIcon}
+                    />
+                    <Text className="text-sm text-neutral-500 dark:text-neutral-400">
+                      graysky.app
+                    </Text>
+                  </Trans>
                 </View>
               </View>
             </ViewShot>
