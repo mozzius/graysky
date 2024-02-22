@@ -8,7 +8,7 @@ msgstr ""
 "Language: cs\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 11:55\n"
+"PO-Revision-Date: 2024-02-22 12:42\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
@@ -68,11 +68,11 @@ msgstr "Před {months} měsíci"
 
 #: src/lib/utils/time.ts:26
 #~ msgid "{months}m"
-#~ msgstr "{months}m"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:26
 msgid "{months}M"
-msgstr ""
+msgstr "{months}měs"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -503,7 +503,7 @@ msgstr "Změnit jazyk příspěvku"
 
 #: src/app/pro.tsx:121
 msgid "Change the accent colour"
-msgstr "Změnit barvu zvýraznění"
+msgstr "Změňte barvu zvýraznění"
 
 #: src/components/drawer/drawer-content.tsx:70
 #: src/components/drawer/drawer-content.tsx:180
@@ -929,7 +929,7 @@ msgstr "Sledující"
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 msgid "following.feed"
-msgstr "sledovaní.kanál"
+msgstr "kanál.sledovaných"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -939,13 +939,13 @@ msgstr "sledovaní.kanál"
 #: src/components/lists/person-row.tsx:46
 #: src/components/screens/profile/profile-info.tsx:392
 msgid "following.action"
-msgstr "sledovaní.akce"
+msgstr "akce.sledovaných"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr "sledovaní.seznam"
+msgstr "seznam.sledovaných"
 
 #: src/lib/hooks/feeds.ts:127
 msgid "Following"
@@ -970,7 +970,7 @@ msgstr "Obecné"
 
 #: src/app/settings/language/index.tsx:161
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
-msgstr "Získejte Graysky Pro pro přístup k překladům DeepL. V ostatních případech je využíván Google Translate."
+msgstr "Pořiďte si Graysky Pro pro přístup k překladům DeepL. V ostatních případech je využíván Google Translate."
 
 #: src/components/screens/waiting-room.tsx:105
 msgid "Get started"
@@ -1601,7 +1601,7 @@ msgstr "Ovládací prvky odpovědi"
 
 #: src/app/settings/feed.tsx:241
 msgid "Reply settings"
-msgstr "Nastavení odpovědi"
+msgstr "Nastavení odpovědí"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:327
 msgid "Reply to {0}"
@@ -1792,7 +1792,7 @@ msgstr "Prohledat uživatele, příspěvky, kanály"
 
 #: src/components/post-context-menu.tsx:202
 msgid "See likes"
-msgstr "Zobrazit oblíbené"
+msgstr "Zobrazit 'Líbí se mi'"
 
 #: src/components/post-context-menu.tsx:209
 msgid "See reposts"
@@ -2136,7 +2136,7 @@ msgstr "Přeložit příspěvek"
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
-msgstr "Přeložit příspěvky pomocí DeepL"
+msgstr "Přeložte příspěvky pomocí DeepL"
 
 #: src/components/translation.tsx:146
 msgid "Translated by DeepL"

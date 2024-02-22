@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 12:00\n"
+"PO-Revision-Date: 2024-02-22 12:40\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -68,7 +68,7 @@ msgstr "vor {months} Monaten"
 
 #: src/lib/utils/time.ts:26
 #~ msgid "{months}m"
-#~ msgstr "{months}m"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:26
 msgid "{months}M"
@@ -435,7 +435,7 @@ msgstr "Blockliste"
 
 #: src/app/settings/moderation.tsx:112
 msgid "Blocks & Mutes"
-msgstr "Blockieren & Stumm schalten"
+msgstr "Blockierte & Stummgeschaltete"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
@@ -783,7 +783,7 @@ msgstr "Nicht aktivieren"
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
-msgstr "Erfolgt"
+msgstr "OK"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
@@ -929,7 +929,7 @@ msgstr "Benutzer, die mir folgen"
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 msgid "following.feed"
-msgstr ""
+msgstr "Following Feed"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -1039,7 +1039,7 @@ msgstr "Startbildschirm"
 
 #: src/app/settings/feed.tsx:123
 msgid "Home screen layout"
-msgstr "Startbildschirm-Layout"
+msgstr "Startbildschirm Ansicht"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
 msgid "Hot"
@@ -1093,12 +1093,12 @@ msgstr "Hell"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr "gefällt dein Beitrag"
+msgstr "gefällt Dein Beitrag"
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
 msgid "Likes"
-msgstr "Anzahl \"Gefällt mir\""
+msgstr "Likes"
 
 #: src/lib/hooks/link-press.tsx:118
 msgid "Link copied to clipboard"
@@ -1248,11 +1248,11 @@ msgstr "Stummschaltungsliste"
 
 #: src/app/settings/moderation.tsx:120
 msgid "Muted users"
-msgstr "Stumm geschaltete Benutzer"
+msgstr "Stummgeschaltete Benutzer"
 
 #: src/app/settings/_layout.tsx:98
 msgid "Muted Users"
-msgstr "Stumm geschaltete Benutzer"
+msgstr "Stummgeschaltete Benutzer"
 
 #: src/components/lists/person-row.tsx:43
 msgid "Mutuals"
@@ -1667,7 +1667,7 @@ msgstr "Reposted von {0}"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
-msgstr "deinen Beitrag neu veröffentlicht"
+msgstr "hat Deinen Beitrag geteilt"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
@@ -1916,7 +1916,7 @@ msgstr "Listen oberhalb von Feeds im Feeds Tab anzeigen"
 
 #: src/app/settings/feed.tsx:308
 msgid "Show quote posts"
-msgstr "Zitat Beiträge anzeigen"
+msgstr "Zitierte Beiträge anzeigen"
 
 #: src/app/settings/feed.tsx:244
 msgid "Show replies"
@@ -1924,7 +1924,7 @@ msgstr "Antworten anzeigen"
 
 #: src/app/settings/feed.tsx:287
 msgid "Show reposts"
-msgstr "Reposts ansehen"
+msgstr "Reposts anzeigen"
 
 #: src/components/drawer/drawer-content.tsx:205
 #: src/components/drawer/drawer-content.tsx:211

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 11:55\n"
+"PO-Revision-Date: 2024-02-22 12:40\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -68,7 +68,7 @@ msgstr "{months} മാസം മുൻപ്"
 
 #: src/lib/utils/time.ts:26
 #~ msgid "{months}m"
-#~ msgstr "{months}mo"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:26
 msgid "{months}M"
