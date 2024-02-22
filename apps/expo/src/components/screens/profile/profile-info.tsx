@@ -428,13 +428,11 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             <Text className="text-2xl font-medium">{profile.displayName}</Text>
             <View className="flex-row items-center">
               {profile.viewer?.followedBy && (
-                <>
-                  <View className="mr-1 rounded bg-neutral-100 px-1.5">
-                    <Text className="font-semibold dark:bg-neutral-900">
-                      <Trans>Follows you</Trans>
-                    </Text>
-                  </View>
-                </>
+                <View className="mr-1 rounded bg-neutral-100 px-1.5 dark:bg-neutral-800">
+                  <Text className="font-medium">
+                    <Trans>Follows you</Trans>
+                  </Text>
+                </View>
               )}
               <Text className="text-neutral-500 dark:text-neutral-400">
                 @{profile.handle}

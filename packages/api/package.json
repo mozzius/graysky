@@ -2,7 +2,7 @@
   "name": "@graysky/api",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.9.8",
+    "@atproto/api": "^0.10.0",
     "@atproto/identity": "^0.3.2",
     "@atproto/xrpc-server": "^0.4.2",
     "@graysky/db": "0.1.0",
