@@ -612,6 +612,8 @@ const ListFeed = ({ uri }: { uri: string }) => {
               dataUpdatedAt={query.dataUpdatedAt}
             />
           )}
+          onEndReachedThreshold={2}
+          onEndReached={() => query.fetchNextPage()}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
