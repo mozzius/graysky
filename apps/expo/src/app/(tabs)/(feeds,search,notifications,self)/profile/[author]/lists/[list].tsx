@@ -61,7 +61,7 @@ export default function ListsScreen() {
 
   const renderHeader = useCallback(() => {
     if (!info) return null;
-    return <ListHeader info={info} handle={author} rkey={rkey} />;
+    return <ListHeader info={info} author={author} rkey={rkey} />;
   }, [info, author, rkey]);
 
   if (list.data) {
@@ -143,11 +143,11 @@ const useListQuery = (uri: string) => {
 
 const ListHeader = ({
   info,
-  handle,
+  author,
   rkey,
 }: {
   info: AppBskyGraphDefs.ListView;
-  handle?: string;
+  author?: string;
   rkey?: string;
 }) => {
   const router = useRouter();
@@ -162,7 +162,7 @@ const ListHeader = ({
 
   const isPinned = savedFeeds.data?.pinned.includes(info.uri);
 
-  const deleteList = useDeleteList(handle, rkey);
+  const deleteList = useDeleteList(author, rkey);
 
   const setViewerState = (viewer: AppBskyGraphDefs.ListViewerState) => {
     queryClient.setQueryData(
@@ -299,10 +299,10 @@ const ListHeader = ({
     if (info.creator.did === agent.session?.did) {
       const options = [
         info.purpose === AppBskyGraphDefs.CURATELIST
-          ? "Change to moderation list"
-          : "Change to user list",
-        "Share",
-        "Delete list",
+          ? _(msg`Change to moderation list`)
+          : _(msg`Change to user list`),
+        _(msg`Share`),
+        _(msg`Delete list`),
       ] as const;
       showActionSheetWithOptions(
         {
@@ -313,19 +313,19 @@ const ListHeader = ({
         },
         async (buttonIndex) => {
           if (buttonIndex === undefined) return;
-          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${author}/lists/${rkey}`;
           switch (options[buttonIndex]) {
-            case "Delete list":
+            case _(msg`Delete list`):
               Alert.alert(
-                "Delete list",
-                "Are you sure you want to delete this list?",
+                _(msg`Delete list`),
+                _(msg`Are you sure you want to delete this list?`),
                 [
                   {
-                    text: "Cancel",
+                    text: _(msg`Cancel`),
                     style: "cancel",
                   },
                   {
-                    text: "Delete",
+                    text: _(msg`Delete`),
                     style: "destructive",
                     onPress: () => {
                       deleteList.mutate();
@@ -334,7 +334,7 @@ const ListHeader = ({
                 ],
               );
               break;
-            case "Share":
+            case _(msg`Share`):
               void Share.share(
                 Platform.select({
                   ios: { url: bskyUrl },
@@ -342,7 +342,7 @@ const ListHeader = ({
                 }),
               );
               break;
-            case "Change to user list":
+            case _(msg`Change to user list`):
               // unmute and unblock before changing type
               if (info.viewer?.muted) {
                 await agent.unmuteModList(info.uri);
@@ -351,7 +351,7 @@ const ListHeader = ({
                 await agent.unblockModList(info.uri);
               }
             // eslint-disable-next-line no-fallthrough
-            case "Change to moderation list": {
+            case _(msg`Change to moderation list`): {
               const collection = "app.bsky.graph.list";
               const repo = agent.session!.did;
               const rkey = info.uri.split("/").pop()!;
@@ -392,7 +392,7 @@ const ListHeader = ({
           ...actionSheetStyles(theme),
         },
         (buttonIndex) => {
-          const bskyUrl = `https://bsky.app/profile/${handle}/lists/${rkey}`;
+          const bskyUrl = `https://bsky.app/profile/${author}/lists/${rkey}`;
           if (buttonIndex === 0) {
             void Share.share(
               Platform.select({

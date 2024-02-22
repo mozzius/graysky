@@ -356,6 +356,10 @@ msgstr "Paramètres de l'application"
 msgid "Are you sure you want to block @{handle}?"
 msgstr "Êtes-vous sûr.e de vouloir bloquer @{handle} ?"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:321
+msgid "Are you sure you want to delete this list?"
+msgstr ""
+
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
 msgstr "Êtes-vous sûr.e de vouloir supprimer cette publication ?"
@@ -458,6 +462,7 @@ msgstr "En vous abonnant, vous acceptez nos <0>Conditions Générales</0>, les <
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
 #: src/app/capture/[author]/[post].tsx:161
@@ -503,6 +508,16 @@ msgstr "Changer la couleur d'accentuation"
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
 msgstr "Changer de thème"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:302
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
+msgid "Change to moderation list"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
+msgid "Change to user list"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -693,6 +708,7 @@ msgstr "Sombre"
 msgid "Date of Birth"
 msgstr "Date de naissance"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
@@ -703,6 +719,12 @@ msgstr "Supprimer"
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
 msgstr "Supprimer le compte"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:305
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:320
+msgid "Delete list"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"
@@ -1828,6 +1850,8 @@ msgid "Sexual content"
 msgstr "Contenu à caractère sexuel"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:304
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:337
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
 msgid "Share"
 msgstr "Partager"

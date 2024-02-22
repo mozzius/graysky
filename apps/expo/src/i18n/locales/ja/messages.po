@@ -356,6 +356,10 @@ msgstr "アプリの設定"
 msgid "Are you sure you want to block @{handle}?"
 msgstr "@{handle}をブロックしてもよろしいですか?"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:321
+msgid "Are you sure you want to delete this list?"
+msgstr ""
+
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
 msgstr "この投稿を削除してよろしいですか?"
@@ -458,6 +462,7 @@ msgstr "サブスクリプションをする事で<0>利用規約</0>、<1>利�
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:189
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
 #: src/app/capture/[author]/[post].tsx:161
@@ -503,6 +508,16 @@ msgstr "アクセントカラーを変更"
 #: src/components/drawer/drawer-content.tsx:186
 msgid "Change theme"
 msgstr "テーマを変更"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:302
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
+msgid "Change to moderation list"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
+msgid "Change to user list"
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -693,6 +708,7 @@ msgstr "ダーク"
 msgid "Date of Birth"
 msgstr "生年月日"
 
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
@@ -703,6 +719,12 @@ msgstr "削除"
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
 msgstr "アカウントを削除"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:305
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:320
+msgid "Delete list"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"
@@ -1828,6 +1850,8 @@ msgid "Sexual content"
 msgstr "性的"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:304
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:337
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:386
 msgid "Share"
 msgstr "共有"
