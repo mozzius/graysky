@@ -639,7 +639,7 @@ msgstr "Не атрымалася падпісацца на карыстальн
 msgid "Could not log you in"
 msgstr "Не атрымалася ўвайсці ва ўліковы запіс"
 
-#: src/app/composer/gifs.tsx:219
+#: src/app/composer/gifs.tsx:225
 msgid "Could not select GIF"
 msgstr "Не атрымалася выбраць GIF"
 
@@ -1475,7 +1475,7 @@ msgstr "Калі ласка, дазвольце доступ да галерэі
 msgid "Please enter a phone number that can receive SMS text messages."
 msgstr "Калі ласка, увядзіце нумар тэлефона, каб атрымаць SMS."
 
-#: src/app/composer/gifs.tsx:220
+#: src/app/composer/gifs.tsx:226
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"

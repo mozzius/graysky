@@ -643,7 +643,7 @@ msgstr ""
 msgid "Could not log you in"
 msgstr ""
 
-#: src/app/composer/gifs.tsx:219
+#: src/app/composer/gifs.tsx:225
 msgid "Could not select GIF"
 msgstr ""
 
@@ -1479,7 +1479,7 @@ msgstr ""
 msgid "Please enter a phone number that can receive SMS text messages."
 msgstr "Introduzca un número de teléfono que pueda recibir mensajes de texto."
 
-#: src/app/composer/gifs.tsx:220
+#: src/app/composer/gifs.tsx:226
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"

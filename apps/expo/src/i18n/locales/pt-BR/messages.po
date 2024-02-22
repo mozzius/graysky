@@ -639,7 +639,7 @@ msgstr "Não foi possível seguir o usuário"
 msgid "Could not log you in"
 msgstr "Não foi possível fazer login"
 
-#: src/app/composer/gifs.tsx:219
+#: src/app/composer/gifs.tsx:225
 msgid "Could not select GIF"
 msgstr "Não foi possível selecionar o GIF"
 
@@ -1475,7 +1475,7 @@ msgstr ""
 msgid "Please enter a phone number that can receive SMS text messages."
 msgstr "Por favor, insira um número de telefone que possa receber mensagens de texto SMS."
 
-#: src/app/composer/gifs.tsx:220
+#: src/app/composer/gifs.tsx:226
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"

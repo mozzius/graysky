@@ -639,7 +639,7 @@ msgstr "ユーザーをフォローできませんでした"
 msgid "Could not log you in"
 msgstr "サインインできませんでした"
 
-#: src/app/composer/gifs.tsx:219
+#: src/app/composer/gifs.tsx:225
 msgid "Could not select GIF"
 msgstr "GIFを選択できませんでした"
 
@@ -1475,7 +1475,7 @@ msgstr "設定でフォトギャラリーへのアクセスを許可してくだ
 msgid "Please enter a phone number that can receive SMS text messages."
 msgstr "SMSテキストメッセージを受信できる電話番号を入力してください。"
 
-#: src/app/composer/gifs.tsx:220
+#: src/app/composer/gifs.tsx:226
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"

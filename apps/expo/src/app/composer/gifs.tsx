@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
 import { showToastable } from "react-native-toastable";
@@ -111,19 +112,24 @@ export default function GifSearch() {
             contentInsetAdjustmentBehavior="automatic"
             className="px-4"
           >
-            {trendingTerms.data.results.slice(0, 6).map((term) => (
-              <TouchableOpacity
-                onPress={() => {
-                  setQuery(term);
-                  ref.current?.setText(term);
-                  ref.current?.blur();
-                }}
+            {trendingTerms.data.results.slice(0, 6).map((term, i) => (
+              <Animated.View
+                className="flex-1"
                 key={term}
-                className="w-full flex-1 border-b px-2 py-3"
-                style={{ borderColor: theme.colors.border }}
+                entering={FadeInUp.delay(i * 100)}
               >
-                <Text className="text-lg">{term}</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setQuery(term);
+                    ref.current?.setText(term);
+                    ref.current?.blur();
+                  }}
+                  className="w-full flex-1 border-b px-2 py-3"
+                  style={{ borderColor: theme.colors.border }}
+                >
+                  <Text className="text-lg">{term}</Text>
+                </TouchableOpacity>
+              </Animated.View>
             ))}
           </ScrollView>
         </View>

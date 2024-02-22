@@ -639,7 +639,7 @@ msgstr "ഉപയോക്താവിനെ ഫോളോ ചെയ്യാൻ 
 msgid "Could not log you in"
 msgstr "ലോഗിൻ ചെയ്യാൻ കഴിഞ്ഞില്ല"
 
-#: src/app/composer/gifs.tsx:219
+#: src/app/composer/gifs.tsx:225
 msgid "Could not select GIF"
 msgstr "GIF തിരഞ്ഞെടുക്കുവാൻ സാധ്യമായില്ല"
 
@@ -1475,7 +1475,7 @@ msgstr "നിങ്ങളുടെ ക്രമീകരണങ്ങളിൽ �
 msgid "Please enter a phone number that can receive SMS text messages."
 msgstr "SMS സന്ദേശങ്ങൾ സ്വീകരിക്കാൻ കഴിയുന്ന ഒരു ഫോൺ നമ്പർ നൽകുക."
 
-#: src/app/composer/gifs.tsx:220
+#: src/app/composer/gifs.tsx:226
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"
