@@ -114,6 +114,7 @@ msgstr "@{handle} ist nicht mehr stumm"
 msgid "#{0}"
 msgstr "#{0}"
 
+#. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
 msgstr ""

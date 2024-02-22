@@ -220,7 +220,7 @@ const ProfileList = ({
         )}
       </View>
       <Text className="mt-2 text-base">
-        <Trans>
+        <Trans comment="This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'">
           <Text
             className="text-base font-medium"
             onPress={() => {
