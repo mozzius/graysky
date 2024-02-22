@@ -6,6 +6,8 @@ import Animated, {
   LinearTransition,
 } from "react-native-reanimated";
 import { type AppBskyActorDefs } from "@atproto/api";
+import { msg } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { UserIcon, UsersIcon } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
@@ -17,6 +19,8 @@ interface Props {
 }
 
 export const SuggestionList = ({ suggestions, onInsertHandle }: Props) => {
+  const { _ } = useLingui();
+
   return (
     <Animated.View
       entering={FadeInDown}
@@ -42,11 +46,17 @@ export const SuggestionList = ({ suggestions, onInsertHandle }: Props) => {
 
           if (following && followedBy) {
             mutuals = true;
-            text = "Mutuals";
+            text = _(msg`Mutuals`);
           } else if (following) {
-            text = "Following";
+            text = _(
+              msg({
+                id: "following.action",
+                message: "Following",
+                comment: "'Following' - following a user",
+              }),
+            );
           } else if (followedBy) {
-            text = "Follows you";
+            text = _(msg`Follows you`);
           }
 
           const Icon = mutuals ? UsersIcon : UserIcon;

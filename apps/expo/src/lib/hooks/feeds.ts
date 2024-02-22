@@ -124,7 +124,13 @@ export const useFeedInfo = (feed: string) => {
         return {
           view: {
             did: "",
-            displayName: _(msg`Following`),
+            displayName: _(
+              msg({
+                id: "following.feed",
+                message: "Following",
+                comment: "'Following' - The name of the main feed",
+              }),
+            ),
             uri: "",
             cid: "",
             creator: {
