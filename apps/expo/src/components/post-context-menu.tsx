@@ -165,14 +165,14 @@ const PostContextMenuButton = ({
               <DropdownMenu.Item
                 key="share link"
                 textValue={_(msg`Share link to post`)}
-                onSelect={() => share("copy")}
+                onSelect={() => share("link")}
               >
                 <DropdownMenu.ItemIcon ios={{ name: "link" }} />
               </DropdownMenu.Item>
               <DropdownMenu.Item
                 key="copy link"
                 textValue={_(msg`Copy link to post`)}
-                onSelect={() => share("link")}
+                onSelect={() => share("copy")}
               >
                 <DropdownMenu.ItemIcon ios={{ name: "doc.on.doc" }} />
               </DropdownMenu.Item>
