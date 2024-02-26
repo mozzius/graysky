@@ -31,7 +31,7 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@manypkg/cli": "^0.21.2",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "turbo": "^1.12.4",
     "typescript": "^5.3.3"
@@ -39,7 +39,7 @@
   "engines": {
     "node": ">=18.19.0"
   },
-  "packageManager": "pnpm@8.15.3",
+  "packageManager": "pnpm@8.15.4",
   "pnpm": {
     "patchedDependencies": {
       "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",

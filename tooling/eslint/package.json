@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@next/eslint-plugin-next": "^14.1.0",
-    "@types/eslint": "^8.56.2",
+    "@types/eslint": "^8.56.3",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "eslint-config-prettier": "^9.1.0",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {
