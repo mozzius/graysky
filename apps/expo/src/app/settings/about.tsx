@@ -166,6 +166,13 @@ export default function AboutPage() {
                 href: "/profile/did:plc:wmy6jwdxbkizrbhegvegy3xs",
                 icon: AtSignIcon,
               },
+              {
+                // pt-BR translator
+                title: "deck.blue",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:w342borqxtyo2pul67ec2pwt",
+                icon: AtSignIcon,
+              },
             ],
             footer: _(
               msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,

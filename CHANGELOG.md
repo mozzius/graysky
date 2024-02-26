@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-26 v1.4.7
+
+- Portuguese (Brazil) translation (thank you @gildaswise!)
+- Fixed bug where a bad external thumbnail would prevent sending a post
+- Fixed limit on number of inline tags in a post
+
 ## 2024-2-22 v1.4.6
 
 - French, German, Belarusian, Czech, and Malayalam translations (thank you to everyone who contributed!)
