@@ -946,7 +946,7 @@ msgstr "Seguidores"
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr "following.feed"
+msgstr "Seguindo"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -958,13 +958,13 @@ msgstr "following.feed"
 #: src/components/screens/profile/profile-info.tsx:392
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr "following.action"
+msgstr "Seguindo"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr "following.list"
+msgstr "Seguindo"
 
 #: src/components/lists/person-row.tsx:53
 #: src/components/screens/profile/profile-info.tsx:438

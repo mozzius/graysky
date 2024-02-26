@@ -52,10 +52,7 @@ export default function LanguageSettings() {
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger>
                       <View className="flex-row items-center gap-x-1">
-                        <Text
-                          primary
-                          className="text-base font-medium capitalize"
-                        >
+                        <Text primary className="text-base font-medium">
                           {languageCodeToName(appLanguage)}
                         </Text>
                         <ChevronsUpDownIcon

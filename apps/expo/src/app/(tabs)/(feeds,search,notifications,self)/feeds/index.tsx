@@ -104,6 +104,14 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
       </>
     );
 
+    const allFeedsData = sortableFeeds
+      ? saved
+          .map((uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!)
+          .filter((x) => x && !x.pinned)
+      : savedFeeds.data.feeds
+          .filter((feed) => !feed.pinned)
+          .sort((a, b) => a.displayName.localeCompare(b.displayName));
+
     return (
       <NestableScrollContainer contentInsetAdjustmentBehavior="automatic">
         <LargeRow
@@ -161,39 +169,33 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
           </>
         )}
         {listsAboveFeeds && lists}
-        <SectionHeader title={_(msg`All feeds`)} />
-        <NestableDraggableFlatList
-          data={
-            sortableFeeds
-              ? saved
-                  .map(
-                    (uri) => savedFeeds.data.feeds.find((f) => f.uri === uri)!,
-                  )
-                  .filter((x) => x && !x.pinned)
-              : savedFeeds.data.feeds
-                  .filter((feed) => !feed.pinned)
-                  .sort((a, b) => a.displayName.localeCompare(b.displayName))
-          }
-          keyExtractor={(item) => item.uri}
-          style={{ backgroundColor: theme.dark ? "black" : "white" }}
-          onDragEnd={({ data }) => {
-            reorderRest.mutate(data.map((item) => item.uri));
-          }}
-          renderItem={({ item, drag }) => (
-            <DraggableFeedRow
-              feed={item}
-              drag={sortableFeeds ? drag : undefined}
-              onPressStar={() => {
-                toggleFeed.mutate({ pin: item.uri });
+        {allFeedsData.length > 0 && (
+          <>
+            <SectionHeader title={_(msg`All feeds`)} />
+            <NestableDraggableFlatList
+              data={allFeedsData}
+              keyExtractor={(item) => item.uri}
+              style={{ backgroundColor: theme.dark ? "black" : "white" }}
+              onDragEnd={({ data }) => {
+                reorderRest.mutate(data.map((item) => item.uri));
               }}
-              editing={editing}
-              onUnsave={handleUnsave(item.uri)}
+              renderItem={({ item, drag }) => (
+                <DraggableFeedRow
+                  feed={item}
+                  drag={sortableFeeds ? drag : undefined}
+                  onPressStar={() => {
+                    toggleFeed.mutate({ pin: item.uri });
+                  }}
+                  editing={editing}
+                  onUnsave={handleUnsave(item.uri)}
+                />
+              )}
+              ItemSeparatorComponent={() => (
+                <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
+              )}
             />
-          )}
-          ItemSeparatorComponent={() => (
-            <ItemSeparator iconWidth="w-6" containerClassName="pr-4" />
-          )}
-        />
+          </>
+        )}
         {!listsAboveFeeds && lists}
         <View className="p-6">
           <Link href="/discover" asChild>
