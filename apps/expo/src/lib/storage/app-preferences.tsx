@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { type MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
+import * as NavigationBar from "expo-navigation-bar";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
 import { z } from "zod";
@@ -149,9 +150,24 @@ export const useThemeSetup = () => {
     }
   }, [colorSchemePreference, currentColorScheme]);
 
+  // sync nativewind
   useEffect(() => {
     setColorScheme(colorSchemePreference);
   }, [colorSchemePreference, setColorScheme]);
+
+  // sync navbar
+  // TODO - investigate this being per-page
+  // certain screens would look nicer with the dark style
+  // (landing screen, image lightbox, etc)
+  useEffect(() => {
+    if (colorScheme === "light") {
+      void NavigationBar.setButtonStyleAsync("dark");
+      void NavigationBar.setBackgroundColorAsync(DefaultTheme.colors.card);
+    } else {
+      void NavigationBar.setButtonStyleAsync("light");
+      void NavigationBar.setBackgroundColorAsync(DarkTheme.colors.card);
+    }
+  }, [colorScheme]);
 
   return useMemo(() => {
     const base = colorScheme === "dark" ? DarkTheme : DefaultTheme;

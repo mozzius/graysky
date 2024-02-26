@@ -180,6 +180,9 @@ importers:
       expo-media-library:
         specifier: ^15.9.1
         version: 15.9.1(expo@50.0.7)
+      expo-navigation-bar:
+        specifier: ^2.8.1
+        version: 2.8.1(expo@50.0.7)
       expo-notifications:
         specifier: ^0.27.6
         version: 0.27.6(expo@50.0.7)
@@ -8848,6 +8851,18 @@ packages:
     resolution: {integrity: sha512-GTUb81vcPaF+5MtlBI1u9IjrZbGdF1ZUwz3u8Gc+rOLBblkZ7pYsj2mU/tu+k0khTckI9vcH4ZBksXWvE1ncjQ==}
     dependencies:
       invariant: 2.2.4
+    dev: false
+
+  /expo-navigation-bar@2.8.1(expo@50.0.7):
+    resolution: {integrity: sha512-aT5G+7SUsXDVPsRwp8fF940ycka1ABb4g3QKvTZN3YP6kMWvsiYEmRqMIJVy0zUr/i6bxBG1ZergkXimWrFt3w==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@react-native/normalize-color': 2.1.0
+      debug: 4.3.4
+      expo: 50.0.7(@babel/core@7.23.9)(@react-native/babel-preset@0.73.21)
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /expo-notifications@0.27.6(expo@50.0.7):
