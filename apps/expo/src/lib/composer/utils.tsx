@@ -209,37 +209,42 @@ export const useSendPost = ({
 
       // upload thumbnail
 
-      if (
-        external &&
-        external.type === "external" &&
-        external.view.external.thumb
-      ) {
-        const thumbUrl = external.view.external.thumb;
-        let thumb: BlobRef | undefined;
+      try {
+        if (
+          external &&
+          external.type === "external" &&
+          external.view.external.thumb
+        ) {
+          const thumbUrl = external.view.external.thumb;
+          let thumb: BlobRef | undefined;
 
-        const thumbUri = await downloadThumbnail(thumbUrl);
-        let encoding;
-        if (thumbUri.endsWith(".png")) {
-          encoding = "image/png";
-        } else if (thumbUri.endsWith(".jpeg") || thumbUri.endsWith(".jpg")) {
-          encoding = "image/jpeg";
-        } else {
-          console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
-          Sentry.captureMessage(
-            `Unknown thumbnail extension, skipping: ${thumbUri}`,
-            { level: "warning" },
-          );
-        }
-        if (encoding) {
-          const thumbUploadRes = await agent.uploadBlob(thumbUri, {
-            encoding,
-          });
-          if (!thumbUploadRes.success)
-            throw new Error(_(msg`Failed to upload thumbnail`));
-          thumb = thumbUploadRes.data.blob;
-        }
+          const thumbUri = await downloadThumbnail(thumbUrl);
+          let encoding;
+          if (thumbUri.endsWith(".png")) {
+            encoding = "image/png";
+          } else if (thumbUri.endsWith(".jpeg") || thumbUri.endsWith(".jpg")) {
+            encoding = "image/jpeg";
+          } else {
+            console.warn(`Unknown thumbnail extension, skipping: ${thumbUri}`);
+            Sentry.captureMessage(
+              `Unknown thumbnail extension, skipping: ${thumbUri}`,
+              { level: "warning" },
+            );
+          }
+          if (encoding) {
+            const thumbUploadRes = await agent.uploadBlob(thumbUri, {
+              encoding,
+            });
+            if (thumbUploadRes.success) {
+              thumb = thumbUploadRes.data.blob;
+            }
+          }
 
-        external.main.external.thumb = thumb;
+          external.main.external.thumb = thumb;
+        }
+      } catch (err) {
+        console.error("thumbnail upload failed", err);
+        Sentry.captureException(err);
       }
 
       let mergedEmbed: AppBskyFeedPost.Record["embed"];
@@ -288,19 +293,6 @@ export const useSendPost = ({
         mergedEmbed = external.main;
       }
 
-      const tags: string[] = [];
-
-      for (const segment of rt.segments()) {
-        if (segment.isTag() && segment.tag?.tag) {
-          tags.push(
-            // remove #s - should be fixed upstream probably
-            segment.tag.tag.startsWith("#")
-              ? segment.tag.tag.slice(1)
-              : segment.tag.tag,
-          );
-        }
-      }
-
       let selfLabels: ComAtprotoLabelDefs.SelfLabels | undefined;
       if (labels?.length) {
         selfLabels = {
@@ -312,7 +304,6 @@ export const useSendPost = ({
       const post = await agent.post({
         text: rt.text,
         facets: rt.facets,
-        tags: tags.length > 0 ? tags : undefined,
         reply,
         embed: mergedEmbed,
         langs: languages ?? [mostRecentLanguage ?? primaryLanguage],
