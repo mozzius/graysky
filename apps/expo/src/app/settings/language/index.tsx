@@ -140,6 +140,7 @@ export default function LanguageSettings() {
                 action: (
                   <Switch
                     value={translationService === "DEEPL"}
+                    disabled={!isPro}
                     onValueChange={(useDeepL) => {
                       setAppPreferences({
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",

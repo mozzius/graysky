@@ -34,6 +34,7 @@ export default function ProSettings() {
                 action: (
                   <Switch
                     value={translationMethod === "DEEPL"}
+                    disabled={!isPro}
                     onValueChange={(useDeepL) => {
                       setAppPreferences({
                         translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
