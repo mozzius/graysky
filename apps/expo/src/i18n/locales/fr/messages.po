@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 16:36\n"
+"PO-Revision-Date: 2024-02-26 10:10\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -132,7 +132,7 @@ msgstr "<0>{0}</0> Publications"
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
-msgstr ""
+msgstr "<0>une publication Bluesky, via</0><1/><2>graysky.app</2>"
 
 #: src/lib/utils/time.ts:39
 msgid "1 day ago"
@@ -358,7 +358,7 @@ msgstr "Êtes-vous sûr.e de vouloir bloquer @{handle} ?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:321
 msgid "Are you sure you want to delete this list?"
-msgstr ""
+msgstr "Êtes-vous sûr·e de vouloir supprimer cette liste ?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
@@ -512,12 +512,12 @@ msgstr "Changer de thème"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:302
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
 msgid "Change to moderation list"
-msgstr ""
+msgstr "Changer pour la liste de modération"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
 msgid "Change to user list"
-msgstr ""
+msgstr "Changer pour la liste des utilisateurs"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -724,7 +724,7 @@ msgstr "Supprimer le compte"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:320
 msgid "Delete list"
-msgstr ""
+msgstr "Supprimer la liste"
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 16:36\n"
+"PO-Revision-Date: 2024-02-26 10:10\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -68,7 +68,7 @@ msgstr "{months} месяцаў таму"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}M"
-msgstr "{months}М"
+msgstr "{months} мес."
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -358,7 +358,7 @@ msgstr "Вы ўпэўнены, што хочаце заблакіраваць @{
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:321
 msgid "Are you sure you want to delete this list?"
-msgstr ""
+msgstr "Вы ўпэўнены, што хочаце выдаліць гэты спіс?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
@@ -512,12 +512,12 @@ msgstr "Змяніць тэму"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:302
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
 msgid "Change to moderation list"
-msgstr ""
+msgstr "Зрабіць спісам мадэрацыі"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
 msgid "Change to user list"
-msgstr ""
+msgstr "Зрабіць спісам карыстальнікаў"
 
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
@@ -724,7 +724,7 @@ msgstr "Выдаліць уліковы запіс"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:320
 msgid "Delete list"
-msgstr ""
+msgstr "Выдаліць спіс"
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"
@@ -1075,7 +1075,7 @@ msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (�
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
-msgstr "Незаконнае ці неадкладнае"
+msgstr "Незаконнае і неадкладнае"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1109,7 +1109,7 @@ msgstr "Светлая"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
-msgstr "спадабаўся ваш допіс"
+msgstr "упадабаў ваш допіс"
 
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
@@ -1594,7 +1594,7 @@ msgstr "Push-апавяшчэнні"
 
 #: src/lib/hooks/post-actions.tsx:141
 msgid "Quote"
-msgstr "Цытата"
+msgstr "Цытаваць"
 
 #: src/app/settings/feed.tsx:305
 msgid "Quote post settings"
@@ -1680,7 +1680,7 @@ msgstr "Пашырылі"
 
 #: src/components/feed-post.tsx:377
 msgid "Reposted by {0}"
-msgstr "Пашырыў {0}"
+msgstr "Пашырыў (-ла) {0}"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1988,7 +1988,7 @@ msgstr "Спам"
 
 #: src/app/composer/threadgate.tsx:59
 msgid "Specific people can reply"
-msgstr "Вызначаныя людзі можа адказваць"
+msgstr "Вызначаныя людзі могуць адказваць"
 
 #: src/app/settings/about.tsx:67
 msgid "Sponsor my work"

@@ -12,7 +12,7 @@ import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import { messages as messagesMl } from "~/i18n/locales/ml/messages";
 // import { messages as messagesNl } from "~/i18n/locales/nl/messages";
-// import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
+import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
 import {
   appPreferencesStore,
   useAppLanguage,
@@ -42,11 +42,11 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "ml": {
       return "മലയാളം";
     }
+    case "pt-BR": {
+      return "Português (BR)";
+    }
     // case "es": {
     //   return "Español";
-    // }
-    // case "pt-BR": {
-    //   return "Português (BR)";
     // }
     // case "nl": {
     //   return "Nederlands";
@@ -82,12 +82,12 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
       i18n.loadAndActivate({ locale, messages: messagesMl });
       break;
     }
+    case "pt-BR": {
+      i18n.loadAndActivate({ locale, messages: messagesPtBR });
+      break;
+    }
     // case "es": {
     //   i18n.loadAndActivate({ locale, messages: messagesEs });
-    //   break;
-    // }
-    // case "pt-BR": {
-    //   i18n.loadAndActivate({ locale, messages: messagesPtBR });
     //   break;
     // }
     // case "nl": {

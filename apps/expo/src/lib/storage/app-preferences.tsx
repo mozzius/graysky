@@ -18,8 +18,8 @@ export const availableAppLanguages = [
   "be",
   "cs",
   "ml",
+  "pt-BR",
   // "es",
-  // "pt-BR",
   // "nl",
 ] as const;
 
