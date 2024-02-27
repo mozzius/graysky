@@ -3,7 +3,7 @@ import { Alert, Image } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import {
   AppBskyFeedDefs,
   AppBskyFeedPost,
@@ -352,9 +352,6 @@ export const useImages = () => {
   const [images, setImages] = useState<ImageWithAlt[]>([]);
   const { _, i18n } = useLingui();
 
-  const router = useRouter();
-  const searchParams = useLocalSearchParams();
-
   const imagePicker = useMutation({
     mutationFn: async (action: "camera" | "gallery") => {
       if (images.length >= MAX_IMAGES) return;
@@ -372,7 +369,6 @@ export const useImages = () => {
             quality: 0.7,
           }).then((result) => {
             if (!result.canceled) {
-              router.setParams({ ...searchParams, gif: "" });
               setImages((prev) => [
                 ...prev,
                 ...result.assets.map((a) => ({ asset: a, alt: "" })),
@@ -393,8 +389,6 @@ export const useImages = () => {
             orderedSelection: true,
           }).then((result) => {
             if (!result.canceled) {
-              router.setParams({ ...searchParams, gif: "" });
-
               setImages((prev) => {
                 // max images prop not enforced on android due to the `browse` patch
                 if (result.assets.length + prev.length > MAX_IMAGES) {

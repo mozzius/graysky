@@ -7,11 +7,9 @@ import { messages as messagesBe } from "~/i18n/locales/be/messages";
 import { messages as messagesCs } from "~/i18n/locales/cs/messages";
 import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
-// import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import { messages as messagesMl } from "~/i18n/locales/ml/messages";
-// import { messages as messagesNl } from "~/i18n/locales/nl/messages";
 import { messages as messagesPt } from "~/i18n/locales/pt/messages";
 import {
   appPreferencesStore,
