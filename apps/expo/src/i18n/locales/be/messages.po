@@ -183,7 +183,7 @@ msgstr "А праграме"
 msgid "About Graysky"
 msgstr "Пра Graysky"
 
-#: src/app/settings/pro.tsx:52
+#: src/app/settings/pro.tsx:53
 msgid "Accent colour"
 msgstr "Дамінуючы колер"
 
@@ -263,7 +263,7 @@ msgstr "Змесціва для дарослых"
 msgid "Advanced Settings"
 msgstr "Пашыраныя налады"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:174
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "Усе стужкі"
@@ -327,7 +327,7 @@ msgstr "Штогадовы план"
 msgid "Anti-Social Behavior"
 msgstr "Асацыяльныя паводзіны"
 
-#: src/app/settings/about.tsx:186
+#: src/app/settings/about.tsx:193
 msgid "App info"
 msgstr "Інфармацыя пра праграму"
 
@@ -773,7 +773,7 @@ msgstr "Пошук стужак"
 msgid "Discover Feeds"
 msgstr "Пошук стужак"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:210
 msgid "Discover more feeds"
 msgstr "Знайсці больш стужак"
 
@@ -789,7 +789,7 @@ msgstr "Дамен"
 msgid "Don't enable"
 msgstr "Не ўключаць"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -808,7 +808,7 @@ msgstr "Пераканайцеся, што вы зразумелі"
 msgid "Drafts"
 msgstr "Чарнавікі"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Рэдагаваць"
@@ -883,14 +883,14 @@ msgid "Failed to upload image"
 msgstr "Не атрымалася запампаваць відарыс"
 
 #: src/lib/composer/utils.tsx:238
-msgid "Failed to upload thumbnail"
-msgstr "Не атрымалася запампаваць мініяцюру"
+#~ msgid "Failed to upload thumbnail"
+#~ msgstr "Не атрымалася запампаваць мініяцюру"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
 msgstr "Абранае"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "Абраныя"
@@ -904,7 +904,7 @@ msgid "Feed Details"
 msgstr "Звесткі пра стужку"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
@@ -941,7 +941,7 @@ msgstr "Падпісчыкі"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:120
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
@@ -984,7 +984,7 @@ msgstr "Частыя публікацыі непажаданага змесці�
 msgid "General"
 msgstr "Агульнае"
 
-#: src/app/settings/language/index.tsx:161
+#: src/app/settings/language/index.tsx:159
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Аформіце падпіску Graysky Pro, каб атрымаць доступ да перакладаў з дапамогай DeepL. Інакш будзе выкарыстоўвацца Google Translate."
 
@@ -1004,8 +1004,8 @@ msgstr "GIF"
 msgid "Go back"
 msgstr "Вярнуцца"
 
-#: src/app/settings/language/index.tsx:159
-#: src/app/settings/pro.tsx:49
+#: src/app/settings/language/index.tsx:157
+#: src/app/settings/pro.tsx:50
 msgid "Google Translate is used otherwise."
 msgstr "Інакш будзе выкарыстоўвацца Google Translate."
 
@@ -1065,11 +1065,11 @@ msgstr "Папулярнае"
 msgid "How should we open this link?"
 msgstr "Як вы жадаеце адкрыць гэтую спасылку?"
 
-#: src/app/settings/language/index.tsx:134
+#: src/app/settings/language/index.tsx:131
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Калі на допісу стаіць моўная адзнака любой з гэтых моў, ён не будзе перакладацца."
 
-#: src/app/settings/about.tsx:171
+#: src/app/settings/about.tsx:178
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (напрыклад: дапамагалі з перакладам), калі ласка, напішыце @graysky.app, каб мы дадалі вас у спіс!"
 
@@ -1171,7 +1171,7 @@ msgstr "Зарэгістравацца"
 msgid "Logged in"
 msgstr "Вы ўвайшлі"
 
-#: src/app/settings/about.tsx:175
+#: src/app/settings/about.tsx:182
 msgid "Logo designed by"
 msgstr "Дызайн лагатыпа"
 
@@ -1288,7 +1288,7 @@ msgid "My Feeds screen"
 msgstr "Экран маіх стужак"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:111
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr "Мае мовы"
 
@@ -1445,10 +1445,10 @@ msgid "People you follow"
 msgstr "Людзі, на якіх вы падпісаны"
 
 #: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:519
-#: src/lib/composer/utils.tsx:529
-#: src/lib/composer/utils.tsx:548
-#: src/lib/composer/utils.tsx:556
+#: src/lib/composer/utils.tsx:510
+#: src/lib/composer/utils.tsx:520
+#: src/lib/composer/utils.tsx:539
+#: src/lib/composer/utils.tsx:547
 msgid "Permission required"
 msgstr "Патрабуецца дазвол"
 
@@ -1460,14 +1460,14 @@ msgstr "Нумар тэлефона"
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "Калі ласка, дадайце апісальны альтэрнатыўны тэкст перад публікацыяй."
 
-#: src/lib/composer/utils.tsx:549
-#: src/lib/composer/utils.tsx:557
+#: src/lib/composer/utils.tsx:540
+#: src/lib/composer/utils.tsx:548
 msgid "Please enable camera access in your settings"
 msgstr "Калі ласка, дазвольце карыстанне камерай у наладах"
 
 #: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:521
-#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:512
+#: src/lib/composer/utils.tsx:522
 msgid "Please enable photo gallery access in your settings"
 msgstr "Калі ласка, дазвольце доступ да галерэі ў наладах"
 
@@ -1512,7 +1512,7 @@ msgstr "Допіс выдалены"
 msgid "Post Language"
 msgstr "Мова допісу"
 
-#: src/app/settings/language/index.tsx:88
+#: src/app/settings/language/index.tsx:85
 msgid "Post languages"
 msgstr "Мовы допісу"
 
@@ -1520,7 +1520,7 @@ msgstr "Мовы допісу"
 msgid "Post link copied to clipboard"
 msgstr "Спасылка на допіс скапіявана ў буфер абмену"
 
-#: src/lib/composer/utils.tsx:353
+#: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "Допіс апублікаваны!"
 
@@ -1532,12 +1532,12 @@ msgstr "Тэкст допісу скапіяваны ў буфер абмену"
 msgid "Posts"
 msgstr "Допісы"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "Допісы ад людзей, на якіх вы падпісаны"
 
-#: src/app/settings/language/index.tsx:105
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Допісы будуць перакладацца на {primaryLanguageLabel}."
 
@@ -1551,7 +1551,7 @@ msgstr "На платформе Skyfeed"
 msgid "Primary feed"
 msgstr "Асноўная стужка"
 
-#: src/app/settings/language/index.tsx:91
+#: src/app/settings/language/index.tsx:88
 msgid "Primary language"
 msgstr "Асноўная мова"
 
@@ -1961,7 +1961,7 @@ msgid "Sign up for project updates"
 msgstr "Падпішыцеся на абнаўленні праекту"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:242
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -2124,7 +2124,7 @@ msgstr "Каб пачаць, дадайце пару стужак на гало�
 msgid "Toggle favourite status"
 msgstr "Пераключае статус абранага"
 
-#: src/lib/composer/utils.tsx:411
+#: src/lib/composer/utils.tsx:402
 msgid "Too many images selected"
 msgstr "Выбрана зашмат відарысаў"
 
@@ -2165,7 +2165,7 @@ msgstr "Перакладзена праз DeepL"
 msgid "Translated by Google"
 msgstr "Перакладзена праз Google"
 
-#: src/app/settings/language/index.tsx:138
+#: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "Сэрвіс перакладу"
@@ -2236,13 +2236,13 @@ msgstr "Вы адпісаліся ад спісу"
 msgid "Unwanted Sexual Content"
 msgstr "Непажаданае змесціва сексуальнага характару"
 
-#: src/app/settings/language/index.tsx:141
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "Выкарыстоўваць DeepL для перакладу"
 
-#: src/app/settings/language/index.tsx:152
-#: src/app/settings/pro.tsx:43
+#: src/app/settings/language/index.tsx:150
+#: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Выкарыстоўваць DeepL замест Google Translate"
 
@@ -2286,12 +2286,12 @@ msgstr "Карыстальнік, на якога падпісаны <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код пацвярджэння"
 
-#: src/app/settings/about.tsx:190
+#: src/app/settings/about.tsx:197
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:191
+#: src/app/settings/about.tsx:198
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невядомая"
@@ -2366,7 +2366,7 @@ msgstr "Вы зможаце змяніць яго пазней"
 msgid "You can now change the accent colour"
 msgstr "Цяпер вы можаце змяніць дамінуючы колер"
 
-#: src/lib/composer/utils.tsx:413
+#: src/lib/composer/utils.tsx:404
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "Вы можаце дадаць да {MAX_IMAGES} відарысаў, астатнія будуць праігнараваныя"
 

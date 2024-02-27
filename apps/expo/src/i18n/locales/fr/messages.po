@@ -183,7 +183,7 @@ msgstr "À propos"
 msgid "About Graysky"
 msgstr "À propos de Graysky"
 
-#: src/app/settings/pro.tsx:52
+#: src/app/settings/pro.tsx:53
 msgid "Accent colour"
 msgstr "Couleur accentuée"
 
@@ -263,7 +263,7 @@ msgstr "Contenu adulte"
 msgid "Advanced Settings"
 msgstr "Paramètres avancés"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:174
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "Tous les flux"
@@ -327,7 +327,7 @@ msgstr "Abonnement annuel"
 msgid "Anti-Social Behavior"
 msgstr "Comportement antisocial"
 
-#: src/app/settings/about.tsx:186
+#: src/app/settings/about.tsx:193
 msgid "App info"
 msgstr "Informations sur l'application"
 
@@ -773,7 +773,7 @@ msgstr "Découvrir des flux"
 msgid "Discover Feeds"
 msgstr "Trouver des flux"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:210
 msgid "Discover more feeds"
 msgstr "Découvrir plus de flux"
 
@@ -789,7 +789,7 @@ msgstr "Domaine"
 msgid "Don't enable"
 msgstr "Ne pas activer"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -808,7 +808,7 @@ msgstr "Vérifiez deux fois que vous comprenez"
 msgid "Drafts"
 msgstr "Brouillons"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Modifier"
@@ -883,14 +883,14 @@ msgid "Failed to upload image"
 msgstr "Échec de l'envoi de l'image"
 
 #: src/lib/composer/utils.tsx:238
-msgid "Failed to upload thumbnail"
-msgstr "Échec de l'envoi de la miniature"
+#~ msgid "Failed to upload thumbnail"
+#~ msgstr "Échec de l'envoi de la miniature"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
 msgstr "Ajouté aux favoris"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "Favoris"
@@ -904,7 +904,7 @@ msgid "Feed Details"
 msgstr "Détails du flux"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
@@ -941,7 +941,7 @@ msgstr "Abonnés"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:120
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
@@ -984,7 +984,7 @@ msgstr "Publie fréquemment du contenu indésirable"
 msgid "General"
 msgstr "Général"
 
-#: src/app/settings/language/index.tsx:161
+#: src/app/settings/language/index.tsx:159
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Obtenez Graysky Pro pour accéder aux traductions DeepL. Autrement, Google Translate est utilisé."
 
@@ -1004,8 +1004,8 @@ msgstr "GIFs"
 msgid "Go back"
 msgstr "Retour"
 
-#: src/app/settings/language/index.tsx:159
-#: src/app/settings/pro.tsx:49
+#: src/app/settings/language/index.tsx:157
+#: src/app/settings/pro.tsx:50
 msgid "Google Translate is used otherwise."
 msgstr "Autrement, Google Translate est utilisé."
 
@@ -1065,11 +1065,11 @@ msgstr "Populaires"
 msgid "How should we open this link?"
 msgstr "Comment devons-nous ouvrir ce lien ?"
 
-#: src/app/settings/language/index.tsx:134
+#: src/app/settings/language/index.tsx:131
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Si une publication est marquée comme étant dans l'une de ces langues, elle ne sera pas traduite."
 
-#: src/app/settings/about.tsx:171
+#: src/app/settings/about.tsx:178
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Si vous avez contribué à Graysky, par exemple en aidant à la traduction, veuillez contacter @graysky.app pour que nous puissions vous ajouter à cette liste !"
 
@@ -1171,7 +1171,7 @@ msgstr "Se déconnecter"
 msgid "Logged in"
 msgstr "Connecté"
 
-#: src/app/settings/about.tsx:175
+#: src/app/settings/about.tsx:182
 msgid "Logo designed by"
 msgstr "Logo conçu par"
 
@@ -1288,7 +1288,7 @@ msgid "My Feeds screen"
 msgstr "Écran de mes flux"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:111
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr "Mes langues"
 
@@ -1445,10 +1445,10 @@ msgid "People you follow"
 msgstr "Personne que vous suivez"
 
 #: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:519
-#: src/lib/composer/utils.tsx:529
-#: src/lib/composer/utils.tsx:548
-#: src/lib/composer/utils.tsx:556
+#: src/lib/composer/utils.tsx:510
+#: src/lib/composer/utils.tsx:520
+#: src/lib/composer/utils.tsx:539
+#: src/lib/composer/utils.tsx:547
 msgid "Permission required"
 msgstr "Permission requise"
 
@@ -1460,14 +1460,14 @@ msgstr "Numéro de téléphone"
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "Veuillez ajouter une description alternative à toutes les images avant de publier."
 
-#: src/lib/composer/utils.tsx:549
-#: src/lib/composer/utils.tsx:557
+#: src/lib/composer/utils.tsx:540
+#: src/lib/composer/utils.tsx:548
 msgid "Please enable camera access in your settings"
 msgstr "Veuillez autoriser l'accès à l'appareil photo dans vos paramètres"
 
 #: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:521
-#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:512
+#: src/lib/composer/utils.tsx:522
 msgid "Please enable photo gallery access in your settings"
 msgstr "Veuillez activer l'accès à la galerie de photos dans vos paramètres"
 
@@ -1512,7 +1512,7 @@ msgstr "Publication supprimée"
 msgid "Post Language"
 msgstr "Langue de publication"
 
-#: src/app/settings/language/index.tsx:88
+#: src/app/settings/language/index.tsx:85
 msgid "Post languages"
 msgstr "Langues de publication"
 
@@ -1520,7 +1520,7 @@ msgstr "Langues de publication"
 msgid "Post link copied to clipboard"
 msgstr "Texte de la publication copié dans le presse-papiers"
 
-#: src/lib/composer/utils.tsx:353
+#: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "Message Publié !"
 
@@ -1532,12 +1532,12 @@ msgstr "Texte du message copié dans le presse-papiers"
 msgid "Posts"
 msgstr "Publications"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "Publications des personnes que vous suivez"
 
-#: src/app/settings/language/index.tsx:105
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Les publications seront traduites en {primaryLanguageLabel}."
 
@@ -1551,7 +1551,7 @@ msgstr "Propulsé par Skyfeed"
 msgid "Primary feed"
 msgstr "Flux principal"
 
-#: src/app/settings/language/index.tsx:91
+#: src/app/settings/language/index.tsx:88
 msgid "Primary language"
 msgstr "Langue principale"
 
@@ -1961,7 +1961,7 @@ msgid "Sign up for project updates"
 msgstr "S'inscrire pour les mises à jour du projet"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:242
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -2124,7 +2124,7 @@ msgstr "Pour commencer, ajoutez quelques flux à votre écran d'accueil."
 msgid "Toggle favourite status"
 msgstr "Activer/désactiver le statut de favori"
 
-#: src/lib/composer/utils.tsx:411
+#: src/lib/composer/utils.tsx:402
 msgid "Too many images selected"
 msgstr "Trop d'images ont été sélectionnées"
 
@@ -2165,7 +2165,7 @@ msgstr "Traduit par DeepL"
 msgid "Translated by Google"
 msgstr "Traduit par Google"
 
-#: src/app/settings/language/index.tsx:138
+#: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "Fournisseur de traduction"
@@ -2236,13 +2236,13 @@ msgstr "Désabonné de la liste"
 msgid "Unwanted Sexual Content"
 msgstr "Contenu sexuel non désiré"
 
-#: src/app/settings/language/index.tsx:141
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "Utiliser DeepL pour les traductions"
 
-#: src/app/settings/language/index.tsx:152
-#: src/app/settings/pro.tsx:43
+#: src/app/settings/language/index.tsx:150
+#: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Utiliser DeepL pour les traductions à la place de Google Translate"
 
@@ -2286,12 +2286,12 @@ msgstr "Personnes que <0>{0}</0> suit"
 msgid "Verification code"
 msgstr "Code de vérification"
 
-#: src/app/settings/about.tsx:190
+#: src/app/settings/about.tsx:197
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: src/app/settings/about.tsx:191
+#: src/app/settings/about.tsx:198
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Version inconnue"
@@ -2366,7 +2366,7 @@ msgstr "Vous pourrez le modifier ultérieurement"
 msgid "You can now change the accent colour"
 msgstr "Vous pouvez maintenant changer la couleur d'accentuation"
 
-#: src/lib/composer/utils.tsx:413
+#: src/lib/composer/utils.tsx:404
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "Vous ne pouvez joindre que {MAX_IMAGES} images; les images supplémentaires seront ignorées"
 

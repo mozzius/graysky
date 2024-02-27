@@ -183,7 +183,7 @@ msgstr "O nás"
 msgid "About Graysky"
 msgstr "O Graysky"
 
-#: src/app/settings/pro.tsx:52
+#: src/app/settings/pro.tsx:53
 msgid "Accent colour"
 msgstr "Barva zvýraznění"
 
@@ -263,7 +263,7 @@ msgstr "Obsah pro dospělé"
 msgid "Advanced Settings"
 msgstr "Pokročilé nastavení"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:174
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "Všechny kanály"
@@ -327,7 +327,7 @@ msgstr "Roční tarif"
 msgid "Anti-Social Behavior"
 msgstr "Asociální chování"
 
-#: src/app/settings/about.tsx:186
+#: src/app/settings/about.tsx:193
 msgid "App info"
 msgstr "Info o aplikaci"
 
@@ -773,7 +773,7 @@ msgstr "Objevit kanály"
 msgid "Discover Feeds"
 msgstr "Objevit kanály"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:210
 msgid "Discover more feeds"
 msgstr "Objevit další kanály"
 
@@ -789,7 +789,7 @@ msgstr "Doména"
 msgid "Don't enable"
 msgstr "Nepovolovat"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -808,7 +808,7 @@ msgstr "Dvakrát zkontrolujte, zda rozumíte"
 msgid "Drafts"
 msgstr "Koncepty"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Upravit"
@@ -883,14 +883,14 @@ msgid "Failed to upload image"
 msgstr "Nepodařilo se nahrát obrázek"
 
 #: src/lib/composer/utils.tsx:238
-msgid "Failed to upload thumbnail"
-msgstr "Nepodařilo se nahrát náhled"
+#~ msgid "Failed to upload thumbnail"
+#~ msgstr "Nepodařilo se nahrát náhled"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
 msgstr "Oblíbené"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "Oblíbené"
@@ -904,7 +904,7 @@ msgid "Feed Details"
 msgstr "Podrobnosti kanálu"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
@@ -941,7 +941,7 @@ msgstr "Sledující"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:120
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
@@ -984,7 +984,7 @@ msgstr "Často sdílí příspěvky s nechtěným obsahem"
 msgid "General"
 msgstr "Obecné"
 
-#: src/app/settings/language/index.tsx:161
+#: src/app/settings/language/index.tsx:159
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Pořiďte si Graysky Pro pro přístup k překladům DeepL. V ostatních případech je využíván Google Translate."
 
@@ -1004,8 +1004,8 @@ msgstr "GIFy"
 msgid "Go back"
 msgstr "Jít zpět"
 
-#: src/app/settings/language/index.tsx:159
-#: src/app/settings/pro.tsx:49
+#: src/app/settings/language/index.tsx:157
+#: src/app/settings/pro.tsx:50
 msgid "Google Translate is used otherwise."
 msgstr "V ostatních případech je využíván Google Translate."
 
@@ -1065,11 +1065,11 @@ msgstr "Populární"
 msgid "How should we open this link?"
 msgstr "Jak bychom měli otevřít tento odkaz?"
 
-#: src/app/settings/language/index.tsx:134
+#: src/app/settings/language/index.tsx:131
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Pokud je příspěvek označen jako v jednom z těchto jazyků, nebude přeložen."
 
-#: src/app/settings/about.tsx:171
+#: src/app/settings/about.tsx:178
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Pokud jste přispěli projektu Graysky, například pomocí s překlady, kontaktujte prosím @graysky.app, abychom Vás mohli přidat do tohoto seznamu!"
 
@@ -1171,7 +1171,7 @@ msgstr "Odhlásit se"
 msgid "Logged in"
 msgstr "Přihlášen/a"
 
-#: src/app/settings/about.tsx:175
+#: src/app/settings/about.tsx:182
 msgid "Logo designed by"
 msgstr "Logo navrženo"
 
@@ -1288,7 +1288,7 @@ msgid "My Feeds screen"
 msgstr "Obrazovka mých kanálů"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:111
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr "Moje jazyky"
 
@@ -1445,10 +1445,10 @@ msgid "People you follow"
 msgstr "Lidé, které sledujete"
 
 #: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:519
-#: src/lib/composer/utils.tsx:529
-#: src/lib/composer/utils.tsx:548
-#: src/lib/composer/utils.tsx:556
+#: src/lib/composer/utils.tsx:510
+#: src/lib/composer/utils.tsx:520
+#: src/lib/composer/utils.tsx:539
+#: src/lib/composer/utils.tsx:547
 msgid "Permission required"
 msgstr "Vyžadováno oprávnění"
 
@@ -1460,14 +1460,14 @@ msgstr "Telefonní číslo"
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "Prosím, přidejte popisný alt text ke všem obrázkům před odesláním."
 
-#: src/lib/composer/utils.tsx:549
-#: src/lib/composer/utils.tsx:557
+#: src/lib/composer/utils.tsx:540
+#: src/lib/composer/utils.tsx:548
 msgid "Please enable camera access in your settings"
 msgstr "Prosím, povolte přístup k fotoaparátu v nastavení"
 
 #: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:521
-#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:512
+#: src/lib/composer/utils.tsx:522
 msgid "Please enable photo gallery access in your settings"
 msgstr "Prosím, povolte přístup k fotogalerii v nastavení"
 
@@ -1512,7 +1512,7 @@ msgstr "Příspěvek odstraněn"
 msgid "Post Language"
 msgstr "Jazyk příspěvku"
 
-#: src/app/settings/language/index.tsx:88
+#: src/app/settings/language/index.tsx:85
 msgid "Post languages"
 msgstr "Jazyky příspěvku"
 
@@ -1520,7 +1520,7 @@ msgstr "Jazyky příspěvku"
 msgid "Post link copied to clipboard"
 msgstr "Odkaz příspěvku zkopírován do schránky"
 
-#: src/lib/composer/utils.tsx:353
+#: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "Příspěvek byl zveřejněn!"
 
@@ -1532,12 +1532,12 @@ msgstr "Text příspěvku zkopírován do schránky"
 msgid "Posts"
 msgstr "Příspěvky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "Příspěvky od lidí, které sledujete"
 
-#: src/app/settings/language/index.tsx:105
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Příspěvky budou přeloženy do {primaryLanguageLabel}."
 
@@ -1551,7 +1551,7 @@ msgstr "Běží přes Skyfeed"
 msgid "Primary feed"
 msgstr "Hlavní kanál"
 
-#: src/app/settings/language/index.tsx:91
+#: src/app/settings/language/index.tsx:88
 msgid "Primary language"
 msgstr "Hlavní jazyk"
 
@@ -1961,7 +1961,7 @@ msgid "Sign up for project updates"
 msgstr "Odebírejte novinky o projektu"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:242
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -2124,7 +2124,7 @@ msgstr "Chcete-li začít, přidejte na domovskou obrazovku nějaké kanály."
 msgid "Toggle favourite status"
 msgstr "Přepnout stav oblíbených"
 
-#: src/lib/composer/utils.tsx:411
+#: src/lib/composer/utils.tsx:402
 msgid "Too many images selected"
 msgstr "Příliš mnoho vybraných obrázků"
 
@@ -2165,7 +2165,7 @@ msgstr "Přeloženo pomocí DeepL"
 msgid "Translated by Google"
 msgstr "Přeloženo pomocí Google"
 
-#: src/app/settings/language/index.tsx:138
+#: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "Poskytovatel překladu"
@@ -2236,13 +2236,13 @@ msgstr "Odebírání kanálu ukončeno"
 msgid "Unwanted Sexual Content"
 msgstr "Nechtěný sexuální obsah"
 
-#: src/app/settings/language/index.tsx:141
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "Použít pro překlady DeepL"
 
-#: src/app/settings/language/index.tsx:152
-#: src/app/settings/pro.tsx:43
+#: src/app/settings/language/index.tsx:150
+#: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Použít pro překlady DeepL namísto Google Translate"
 
@@ -2286,12 +2286,12 @@ msgstr "Uživatelé, které sleduje <0>{0}</0>"
 msgid "Verification code"
 msgstr "Ověřovací kód"
 
-#: src/app/settings/about.tsx:190
+#: src/app/settings/about.tsx:197
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: src/app/settings/about.tsx:191
+#: src/app/settings/about.tsx:198
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Verze neznámá"
@@ -2366,7 +2366,7 @@ msgstr "Můžete to změnit později"
 msgid "You can now change the accent colour"
 msgstr "Nyní můžete změnit barvu zvýraznění"
 
-#: src/lib/composer/utils.tsx:413
+#: src/lib/composer/utils.tsx:404
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "Můžete připojit pouze {MAX_IMAGES} obrázků, další obrázky budou ignorovány"
 

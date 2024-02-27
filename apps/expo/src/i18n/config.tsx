@@ -12,7 +12,7 @@ import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import { messages as messagesMl } from "~/i18n/locales/ml/messages";
 // import { messages as messagesNl } from "~/i18n/locales/nl/messages";
-import { messages as messagesPtBR } from "~/i18n/locales/pt-BR/messages";
+import { messages as messagesPt } from "~/i18n/locales/pt/messages";
 import {
   appPreferencesStore,
   useAppLanguage,
@@ -51,6 +51,9 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     // case "nl": {
     //   return "Nederlands";
     // }
+    // case "uk": {
+    //   return "Українська";
+    // }
     default:
       throw new Error(`Unknown language code: ${code as string}`);
   }
@@ -83,7 +86,7 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
       break;
     }
     case "pt-BR": {
-      i18n.loadAndActivate({ locale, messages: messagesPtBR });
+      i18n.loadAndActivate({ locale, messages: messagesPt });
       break;
     }
     // case "es": {
@@ -92,6 +95,10 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
     // }
     // case "nl": {
     //   i18n.loadAndActivate({ locale, messages: messagesNl });
+    //   break;
+    // }
+    // case "uk": {
+    //   i18n.loadAndActivate({ locale, messages: messagesUk });
     //   break;
     // }
     default: {

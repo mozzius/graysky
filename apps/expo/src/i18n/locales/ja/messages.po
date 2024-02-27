@@ -183,7 +183,7 @@ msgstr "アプリについて"
 msgid "About Graysky"
 msgstr "Grayskyについて"
 
-#: src/app/settings/pro.tsx:52
+#: src/app/settings/pro.tsx:53
 msgid "Accent colour"
 msgstr "アクセントカラー"
 
@@ -263,7 +263,7 @@ msgstr "アダルトコンテンツ"
 msgid "Advanced Settings"
 msgstr "高度な設定"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:174
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
 msgstr "すべてのフィード"
@@ -327,7 +327,7 @@ msgstr "年間プラン"
 msgid "Anti-Social Behavior"
 msgstr "反社会的行為"
 
-#: src/app/settings/about.tsx:186
+#: src/app/settings/about.tsx:193
 msgid "App info"
 msgstr "アプリ情報"
 
@@ -773,7 +773,7 @@ msgstr "フィードを見つける"
 msgid "Discover Feeds"
 msgstr "フィードを見つける"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:208
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:210
 msgid "Discover more feeds"
 msgstr "さらにフィードを見つける"
 
@@ -789,7 +789,7 @@ msgstr "ドメイン"
 msgid "Don't enable"
 msgstr "有効化しない"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
@@ -808,7 +808,7 @@ msgstr "理解をしているか再確認してください"
 msgid "Drafts"
 msgstr "ドラフト"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:270
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "編集"
@@ -883,14 +883,14 @@ msgid "Failed to upload image"
 msgstr "画像のアップロードに失敗しました"
 
 #: src/lib/composer/utils.tsx:238
-msgid "Failed to upload thumbnail"
-msgstr "サムネイルのアップロードに失敗しました"
+#~ msgid "Failed to upload thumbnail"
+#~ msgstr "サムネイルのアップロードに失敗しました"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
 msgstr "お気に入り"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
 msgstr "お気に入り"
@@ -904,7 +904,7 @@ msgid "Feed Details"
 msgstr "フィードの詳細"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
@@ -941,7 +941,7 @@ msgstr "フォロワー"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:112
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:120
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
@@ -984,7 +984,7 @@ msgstr "よく投稿される不要なコンテンツ"
 msgid "General"
 msgstr "一般"
 
-#: src/app/settings/language/index.tsx:161
+#: src/app/settings/language/index.tsx:159
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "DeepL翻訳にアクセスするには、Graysky Proを入手してください。それ以外の場合は、Google翻訳が使用されます。"
 
@@ -1004,8 +1004,8 @@ msgstr "GIF"
 msgid "Go back"
 msgstr "戻る"
 
-#: src/app/settings/language/index.tsx:159
-#: src/app/settings/pro.tsx:49
+#: src/app/settings/language/index.tsx:157
+#: src/app/settings/pro.tsx:50
 msgid "Google Translate is used otherwise."
 msgstr "それ以外の場合は、Google翻訳が使用されます。"
 
@@ -1065,11 +1065,11 @@ msgstr "ホット"
 msgid "How should we open this link?"
 msgstr "このリンクはどのように開きますか?"
 
-#: src/app/settings/language/index.tsx:134
+#: src/app/settings/language/index.tsx:131
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "投稿がこれらの言語のいずれであるとマークされている場合は、翻訳されません。"
 
-#: src/app/settings/about.tsx:171
+#: src/app/settings/about.tsx:178
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "翻訳の手伝いなどのGrayskyに関する貢献をした事のある方は、@graysky.appまでご連絡ください。あなたをこのリストに加える事ができます。"
 
@@ -1171,7 +1171,7 @@ msgstr "サインアウト"
 msgid "Logged in"
 msgstr "サインイン済み"
 
-#: src/app/settings/about.tsx:175
+#: src/app/settings/about.tsx:182
 msgid "Logo designed by"
 msgstr "ロゴデザイン"
 
@@ -1288,7 +1288,7 @@ msgid "My Feeds screen"
 msgstr "マイフィードの画面"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:111
+#: src/app/settings/language/index.tsx:108
 msgid "My languages"
 msgstr "自分の言語"
 
@@ -1445,10 +1445,10 @@ msgid "People you follow"
 msgstr "フォローをしている人"
 
 #: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:519
-#: src/lib/composer/utils.tsx:529
-#: src/lib/composer/utils.tsx:548
-#: src/lib/composer/utils.tsx:556
+#: src/lib/composer/utils.tsx:510
+#: src/lib/composer/utils.tsx:520
+#: src/lib/composer/utils.tsx:539
+#: src/lib/composer/utils.tsx:547
 msgid "Permission required"
 msgstr "権限の許可が必要です"
 
@@ -1460,14 +1460,14 @@ msgstr "電話番号"
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "投稿する前にすべての画像に説明となるALTテキストを追加してください。"
 
-#: src/lib/composer/utils.tsx:549
-#: src/lib/composer/utils.tsx:557
+#: src/lib/composer/utils.tsx:540
+#: src/lib/composer/utils.tsx:548
 msgid "Please enable camera access in your settings"
 msgstr "設定でカメラへのアクセスを許可してください"
 
 #: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:521
-#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:512
+#: src/lib/composer/utils.tsx:522
 msgid "Please enable photo gallery access in your settings"
 msgstr "設定でフォトギャラリーへのアクセスを許可してください"
 
@@ -1512,7 +1512,7 @@ msgstr "投稿を削除しました"
 msgid "Post Language"
 msgstr "投稿の言語"
 
-#: src/app/settings/language/index.tsx:88
+#: src/app/settings/language/index.tsx:85
 msgid "Post languages"
 msgstr "投稿の言語"
 
@@ -1520,7 +1520,7 @@ msgstr "投稿の言語"
 msgid "Post link copied to clipboard"
 msgstr "クリップボードに投稿のリンクをコピーしました"
 
-#: src/lib/composer/utils.tsx:353
+#: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "投稿が公開されました!"
 
@@ -1532,12 +1532,12 @@ msgstr "クリップボードに投稿のテキストをコピーしました"
 msgid "Posts"
 msgstr "投稿"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:118
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
 msgstr "フォローしている人の投稿"
 
-#: src/app/settings/language/index.tsx:105
+#: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
@@ -1551,7 +1551,7 @@ msgstr "SkyFeedによる提供"
 msgid "Primary feed"
 msgstr "プライマリフィード"
 
-#: src/app/settings/language/index.tsx:91
+#: src/app/settings/language/index.tsx:88
 msgid "Primary language"
 msgstr "第一言語"
 
@@ -1961,7 +1961,7 @@ msgid "Sign up for project updates"
 msgstr "プロジェクトの最新情報を登録する"
 
 #: src/app/(tabs)/_layout.tsx:159
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:240
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:242
 msgid "Skyline"
 msgstr "Skyline"
 
@@ -2124,7 +2124,7 @@ msgstr "まずは、ホーム画面にいくつかのフィードを追加して
 msgid "Toggle favourite status"
 msgstr "お気に入りのステータスを切り替え"
 
-#: src/lib/composer/utils.tsx:411
+#: src/lib/composer/utils.tsx:402
 msgid "Too many images selected"
 msgstr "選択した画像が多すぎます"
 
@@ -2165,7 +2165,7 @@ msgstr "DeepLで翻訳されました"
 msgid "Translated by Google"
 msgstr "Googleで翻訳されました"
 
-#: src/app/settings/language/index.tsx:138
+#: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "翻訳プロバイダー"
@@ -2236,13 +2236,13 @@ msgstr "リストから購読を解除しました"
 msgid "Unwanted Sexual Content"
 msgstr "望ましくない性的コンテンツ"
 
-#: src/app/settings/language/index.tsx:141
+#: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "DeepL翻訳を使用"
 
-#: src/app/settings/language/index.tsx:152
-#: src/app/settings/pro.tsx:43
+#: src/app/settings/language/index.tsx:150
+#: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "Google翻訳の代わりにDeepLを翻訳に使用する"
 
@@ -2286,12 +2286,12 @@ msgstr "<0>{0}</0> がフォローしているユーザー"
 msgid "Verification code"
 msgstr "認証コード"
 
-#: src/app/settings/about.tsx:190
+#: src/app/settings/about.tsx:197
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: src/app/settings/about.tsx:191
+#: src/app/settings/about.tsx:198
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "バージョン不明"
@@ -2366,7 +2366,7 @@ msgstr "後で変更可能です"
 msgid "You can now change the accent colour"
 msgstr "アクセントカラーを変更できます"
 
-#: src/lib/composer/utils.tsx:413
+#: src/lib/composer/utils.tsx:404
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "添付できる画像は{MAX_IMAGES}枚までです。それ以上の画像は無視されます。"
 
