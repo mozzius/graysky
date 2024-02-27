@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-26 10:10\n"
+"PO-Revision-Date: 2024-02-27 23:17\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -427,7 +427,7 @@ msgstr "ブロックをしたユーザー"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
 msgid "Blocking list"
-msgstr "ブロッキングリスト"
+msgstr "リストでブロック中"
 
 #: src/app/settings/moderation.tsx:112
 msgid "Blocks & Mutes"
@@ -1134,7 +1134,7 @@ msgstr "リストのアバター"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:238
 msgid "List blocked"
-msgstr "ブロックをしたリスト"
+msgstr "リストでブロックをしました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "List deleted"
@@ -1142,7 +1142,7 @@ msgstr "リストは削除されました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:233
 msgid "List muted"
-msgstr "ミュートをしたリスト"
+msgstr "リストでミュートをしました"
 
 #: src/app/create-list.tsx:174
 msgid "List name"
@@ -1260,7 +1260,7 @@ msgstr "ミュート中"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Muted list"
-msgstr "ミュートをしたリスト"
+msgstr "リストでミュート中"
 
 #: src/app/settings/moderation.tsx:120
 msgid "Muted users"
