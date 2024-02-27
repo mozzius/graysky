@@ -40,7 +40,7 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "ml": {
       return "മലയാളം";
     }
-    case "pt": {
+    case "pt-BR": {
       return "Português (BR)";
     }
     // case "es": {
@@ -83,7 +83,7 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
       i18n.loadAndActivate({ locale, messages: messagesMl });
       break;
     }
-    case "pt": {
+    case "pt-BR": {
       i18n.loadAndActivate({ locale, messages: messagesPt });
       break;
     }
