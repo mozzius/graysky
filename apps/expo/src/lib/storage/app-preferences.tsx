@@ -48,7 +48,10 @@ export const appPrefsSchema = z.object({
   homepage: z.enum(["feeds", "skyline"]).default("feeds"),
   defaultFeed: z.string().default("following"),
   // language
-  appLanguage: appLanguageSchema.default(defaultAppLanguage),
+  appLanguage: appLanguageSchema
+    // transform pt-BR to pt
+    .or(z.literal("pt-BR").transform(() => "pt"))
+    .default(defaultAppLanguage),
   primaryLanguage: z
     .string()
     .default(Localization.getLocales()[0]?.languageCode ?? "en"),
