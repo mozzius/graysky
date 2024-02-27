@@ -41,7 +41,7 @@ import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAccountActions } from "~/lib/account-actions";
 import { useAgent } from "~/lib/agent";
-import { useHaptics } from "~/lib/hooks/preferences";
+import { useHaptics, useProfileModeration } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { cx } from "~/lib/utils/cx";
 import { useLists } from "../../lists/context";
@@ -238,6 +238,8 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     };
   });
 
+  const moderation = useProfileModeration(profile);
+
   return (
     <View className="relative" pointerEvents="box-none">
       <Animated.View
@@ -255,6 +257,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             alt=""
             className="flex-1"
             pointerEvents="none"
+            blurRadius={moderation.blur ? 90 : 0}
           >
             {Platform.select({
               ios: (
@@ -340,6 +343,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   });
                 }}
                 cachePolicy="memory-disk"
+                blurRadius={moderation.blur ? 90 : 0}
               />
             </TouchableOpacity>
           </Link>

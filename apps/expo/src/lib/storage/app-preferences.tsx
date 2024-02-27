@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { Platform } from "react-native";
 import { type MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
 import * as NavigationBar from "expo-navigation-bar";
@@ -160,12 +161,14 @@ export const useThemeSetup = () => {
   // certain screens would look nicer with the dark style
   // (landing screen, image lightbox, etc)
   useEffect(() => {
-    if (colorScheme === "light") {
-      void NavigationBar.setButtonStyleAsync("dark");
-      void NavigationBar.setBackgroundColorAsync(DefaultTheme.colors.card);
-    } else {
-      void NavigationBar.setButtonStyleAsync("light");
-      void NavigationBar.setBackgroundColorAsync(DarkTheme.colors.card);
+    if (Platform.OS === "android") {
+      if (colorScheme === "light") {
+        void NavigationBar.setButtonStyleAsync("dark");
+        void NavigationBar.setBackgroundColorAsync(DefaultTheme.colors.card);
+      } else {
+        void NavigationBar.setButtonStyleAsync("light");
+        void NavigationBar.setBackgroundColorAsync(DarkTheme.colors.card);
+      }
     }
   }, [colorScheme]);
 

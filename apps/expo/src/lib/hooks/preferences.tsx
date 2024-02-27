@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
 import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "../agent";
@@ -64,8 +65,6 @@ export const contentLabels = {
   },
 };
 
-export const adultContentLabels = ["nsfw", "nudity", "suggestive", "gore"];
-
 const PreferencesContext = createContext<ReturnType<
   typeof usePreferencesQuery
 > | null>(null);
@@ -106,6 +105,86 @@ export type FilterResult = {
   visibility: "warn" | "hide";
   message: string;
 } | null;
+
+export const useHaptics = () => {
+  const haptics = useHapticsPreference();
+
+  return useMemo(
+    () => ({
+      impact: (type?: Haptics.ImpactFeedbackStyle) => {
+        if (haptics) {
+          void Haptics.impactAsync(
+            type ??
+              Platform.select({
+                android: Haptics.ImpactFeedbackStyle.Light,
+                default: Haptics.ImpactFeedbackStyle.Medium,
+              }),
+          );
+        }
+      },
+      notification: (type?: Haptics.NotificationFeedbackType) => {
+        if (haptics) {
+          void Haptics.notificationAsync(type);
+        }
+      },
+      selection: () => {
+        if (haptics) {
+          void Haptics.selectionAsync();
+        }
+      },
+    }),
+    [haptics],
+  );
+};
+
+// ====== MODERATION ======
+
+export const useProfileModeration = (
+  profile: AppBskyActorDefs.ProfileViewBasic,
+) => {
+  const { _ } = useLingui();
+  return useMemo(() => {
+    let blur = false;
+
+    // very simple - doesn't take into account user moderation prefs
+    // basically, if any of the labels are in the list, blur the profile/banner
+    // separately, we should label the profile
+
+    if (profile.labels) {
+      for (const label of profile.labels) {
+        if (
+          [
+            "porn",
+            "sexual",
+            "nudity",
+            "nsfl",
+            "corpse",
+            "gore",
+            "torture",
+            "self-harm",
+            "intolerant-race",
+            "intolerant-gender",
+            "intolerant-sexual",
+            "intolerant-religion",
+            "intolerant",
+            "icon-intolerant",
+            "threat",
+            "spam",
+            "impersonation",
+            "scam",
+          ].includes(label.val)
+        ) {
+          blur = true;
+          break;
+        }
+      }
+    }
+
+    return { blur };
+  }, [profile]);
+};
+
+// ====== LEGACY MODERATION ======
 
 export const useContentFilter = () => {
   const preferences = usePreferences();
@@ -175,35 +254,4 @@ export const useContentFilter = () => {
     preferences,
     contentFilter,
   };
-};
-
-export const useHaptics = () => {
-  const haptics = useHapticsPreference();
-
-  return useMemo(
-    () => ({
-      impact: (type?: Haptics.ImpactFeedbackStyle) => {
-        if (haptics) {
-          void Haptics.impactAsync(
-            type ??
-              Platform.select({
-                android: Haptics.ImpactFeedbackStyle.Light,
-                default: Haptics.ImpactFeedbackStyle.Medium,
-              }),
-          );
-        }
-      },
-      notification: (type?: Haptics.NotificationFeedbackType) => {
-        if (haptics) {
-          void Haptics.notificationAsync(type);
-        }
-      },
-      selection: () => {
-        if (haptics) {
-          void Haptics.selectionAsync();
-        }
-      },
-    }),
-    [haptics],
-  );
 };

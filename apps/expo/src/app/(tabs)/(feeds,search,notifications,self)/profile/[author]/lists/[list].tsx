@@ -38,7 +38,11 @@ import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds, useTabPressScrollRef } from "~/lib/hooks";
 import { useToggleFeedPref } from "~/lib/hooks/feeds";
-import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
+import {
+  useContentFilter,
+  useProfileModeration,
+  type FilterResult,
+} from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
@@ -509,6 +513,9 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
 
 const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
   const theme = useTheme();
+
+  const moderation = useProfileModeration(item.subject);
+
   return (
     <Link asChild href={`/profile/${item.subject.did}`}>
       <TouchableHighlight
@@ -523,7 +530,7 @@ const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
             theme.dark ? "bg-black" : "bg-white",
           )}
         >
-          <PostAvatar profile={item.subject} />
+          <PostAvatar profile={item.subject} moderation={moderation} />
           <View className="ml-2 flex-1">
             {item.subject.displayName && (
               <Text className="text-base font-medium">

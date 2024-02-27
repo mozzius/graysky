@@ -79,10 +79,10 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
           <View className="flex-row items-center">
             <SparklesIcon
               className="mr-1.5"
-              size={16}
+              size={14}
               color={theme.colors.primary}
             />
-            <Text className="text-base" primary>
+            <Text className="text-sm" primary>
               <Trans>Translate post</Trans>
             </Text>
           </View>
@@ -155,12 +155,12 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
           <View className="flex-row items-center">
             <AlertTriangleIcon
               className="mr-1.5"
-              size={16}
+              size={14}
               color={theme.colors.notification}
             />
             <Text
               style={{ color: theme.colors.notification }}
-              className="text-base"
+              className="text-sm"
             >
               <Trans>An error occurred</Trans>
             </Text>

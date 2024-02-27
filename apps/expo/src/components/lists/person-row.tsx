@@ -9,7 +9,8 @@ import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
-import { Avatar } from "../avatar";
+import { useProfileModeration } from "~/lib/hooks/preferences";
+import { PostAvatar } from "../post-avatar";
 import { Text } from "../themed/text";
 
 interface Props {
@@ -55,6 +56,8 @@ const PersonRowUnmemoized = ({
 
   const Icon = mutuals ? UsersIcon : UserIcon;
 
+  const moderation = useProfileModeration(person);
+
   return (
     <Touchable
       onPress={() => {
@@ -71,7 +74,11 @@ const PersonRowUnmemoized = ({
         className="flex-row items-center px-4 py-2"
       >
         <View className="mr-3 h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800">
-          <Avatar size="medium" uri={person.avatar} alt={person.displayName} />
+          <PostAvatar
+            profile={person}
+            moderation={moderation}
+            avatarSize="reduced"
+          />
         </View>
         <View className="flex-1">
           {person.displayName && (
