@@ -12,9 +12,6 @@ patchedDependencies:
   expo-image-picker@14.7.1:
     hash: 5nub3vfu3z76pr6gfqxa6jfucq
     path: patches/expo-image-picker@14.7.1.patch
-  react-native-svg@14.1.0:
-    hash: l2klev45ajjdxvjutvuscfgooi
-    path: patches/react-native-svg@14.1.0.patch
   react-native@0.73.4:
     hash: aossek6uuciii6j4rrppwjfu7i
     path: patches/react-native@0.73.4.patch
@@ -82,8 +79,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0(react-native@0.73.4)(react@18.2.0)
       '@react-native-community/netinfo':
-        specifier: 11.3.0
-        version: 11.3.0(react-native@0.73.4)
+        specifier: 11.3.1
+        version: 11.3.1(react-native@0.73.4)
       '@react-native-community/progress-view':
         specifier: ^1.4.2
         version: 1.4.2(react-native@0.73.4)(react@18.2.0)
@@ -314,7 +311,7 @@ importers:
         version: 3.29.0(react-native@0.73.4)(react@18.2.0)
       react-native-svg:
         specifier: 14.1.0
-        version: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.4)(react@18.2.0)
+        version: 14.1.0(react-native@0.73.4)(react@18.2.0)
       react-native-toastable:
         specifier: ^0.4.1
         version: 0.4.1(react-native@0.73.4)(react@18.2.0)
@@ -4857,8 +4854,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@react-native-community/netinfo@11.3.0(react-native@0.73.4):
-    resolution: {integrity: sha512-mR9iqUi0GzuC8ut+goI/lLkgG+a2OViI1mjSdXHKZnkfdJVjHblyWX3xoA8GE4GH8X4r0X/PNM3Vvyf2FH9mVg==}
+  /@react-native-community/netinfo@11.3.1(react-native@0.73.4):
+    resolution: {integrity: sha512-UBnJxyV0b7i9Moa97Av+HKho1ByzX0DtbJXzUQS5E3xhQs6P2D/Os0iw3ouy7joY1TVd6uIhplPbr7l1SJNaNQ==}
     peerDependencies:
       react-native: '>=0.59'
     dependencies:
@@ -10909,7 +10906,7 @@ packages:
     dependencies:
       react: 18.2.0
       react-native: 0.73.4(patch_hash=aossek6uuciii6j4rrppwjfu7i)(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
-      react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.4)(react@18.2.0)
+      react-native-svg: 14.1.0(react-native@0.73.4)(react@18.2.0)
     dev: false
 
   /lucide-react@0.341.0(react@18.2.0):
@@ -13246,7 +13243,7 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-native: 0.73.4(patch_hash=aossek6uuciii6j4rrppwjfu7i)(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
-      react-native-svg: 14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.4)(react@18.2.0)
+      react-native-svg: 14.1.0(react-native@0.73.4)(react@18.2.0)
     dev: false
 
   /react-native-collapsible-tab-view@6.2.1(@shopify/flash-list@1.6.3)(react-native-pager-view@6.2.3)(react-native-reanimated@3.7.1)(react-native@0.73.4)(react@18.2.0):
@@ -13483,7 +13480,7 @@ packages:
       warn-once: 0.1.1
     dev: false
 
-  /react-native-svg@14.1.0(patch_hash=l2klev45ajjdxvjutvuscfgooi)(react-native@0.73.4)(react@18.2.0):
+  /react-native-svg@14.1.0(react-native@0.73.4)(react@18.2.0):
     resolution: {integrity: sha512-HeseElmEk+AXGwFZl3h56s0LtYD9HyGdrpg8yd9QM26X+d7kjETrRQ9vCjtxuT5dCZEIQ5uggU1dQhzasnsCWA==}
     peerDependencies:
       react: '*'
@@ -13494,7 +13491,6 @@ packages:
       react: 18.2.0
       react-native: 0.73.4(patch_hash=aossek6uuciii6j4rrppwjfu7i)(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     dev: false
-    patched: true
 
   /react-native-toastable@0.4.1(react-native@0.73.4)(react@18.2.0):
     resolution: {integrity: sha512-v/Yykf0pYx0YJR5DXRjHEQIyu2yW/EB4+uG+y1DiQFQ7EjIr0SPkE6e7D6bxiu4PWM5ComawbQicHGMsmx2svw==}
