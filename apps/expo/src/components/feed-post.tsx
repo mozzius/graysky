@@ -11,7 +11,10 @@ import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
 import { type Posts } from "~/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post]";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
-import { type FilterResult } from "~/lib/hooks/preferences";
+import {
+  useProfileModeration,
+  type FilterResult,
+} from "~/lib/hooks/preferences";
 import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
@@ -117,6 +120,8 @@ const FeedPostInner = ({
     [item.post, contentLanguages],
   );
 
+  const moderation = useProfileModeration(item.post.author);
+
   if (!AppBskyFeedPost.isRecord(item.post.record)) {
     return null;
   }
@@ -175,7 +180,11 @@ const FeedPostInner = ({
           accessibilityElementsHidden={true}
           importantForAccessibility="no-hide-descendants"
         >
-          <PostAvatar profile={item.post.author} avatarSize={avatarSize} />
+          <PostAvatar
+            profile={item.post.author}
+            avatarSize={avatarSize}
+            moderation={moderation}
+          />
           <Link href={postHref} asChild>
             <TouchableWithoutFeedback>
               <View

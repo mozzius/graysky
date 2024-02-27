@@ -14,6 +14,7 @@ import { useTheme } from "@react-navigation/native";
 import { MessagesSquareIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
+import { useProfileModeration } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
@@ -63,6 +64,8 @@ export const PrimaryPost = ({
     [post, contentLanguages, hideTranslation],
   );
 
+  const moderation = useProfileModeration(post.author);
+
   if (!AppBskyFeedPost.isRecord(post.record)) {
     return null;
   }
@@ -89,7 +92,7 @@ export const PrimaryPost = ({
       style={style}
     >
       <View className="mb-2 flex-row items-center">
-        <PostAvatar profile={post.author} />
+        <PostAvatar profile={post.author} moderation={moderation} />
         <View className="justify ml-3 flex-1 flex-row items-center">
           <Link
             href={profileHref}
