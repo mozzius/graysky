@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-2-29 v1.4.8
+
+- Fixed bug preventing attaching images to posts
+- Added blur effect to profiles marked as spam or nsfw
+- Sync navigation bar colour with theme
+
 ## 2024-2-26 v1.4.7
 
 - Portuguese (Brazil) translation (thank you @gildaswise!)
