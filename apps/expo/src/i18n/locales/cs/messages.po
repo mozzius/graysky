@@ -30,10 +30,6 @@ msgstr "{0} / měsíc"
 msgid "{0} / year"
 msgstr "{0} / rok"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "{0} kanál #{decodedTag} je prázdný"
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} příspěvků"
@@ -61,6 +57,10 @@ msgstr "Před {minutes} minutami"
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
 msgstr "{minutes}min"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "{modeName} kanál #{decodedTag} je prázdný"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -1057,7 +1057,7 @@ msgstr "Domovská obrazovka"
 msgid "Home screen layout"
 msgstr "Rozložení domovské obrazovky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "Populární"
 
@@ -1081,7 +1081,7 @@ msgstr "Nelegální a naléhavé"
 msgid "Image options"
 msgstr "Možnosti obrázku"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "Neplatný režim"
 
@@ -1305,7 +1305,7 @@ msgstr "Jméno nebo popis porušuje zásady komunity"
 msgid "Need a new list?"
 msgstr "Potřebujete nový seznam?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "Nové"
 
@@ -1541,7 +1541,7 @@ msgstr "Příspěvky od lidí, které sledujete"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Příspěvky budou přeloženy do {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "Běží přes Skyfeed"
 
@@ -1600,7 +1600,7 @@ msgstr "Citovat"
 msgid "Quote post settings"
 msgstr "Nastavení citovaného příspěvku"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "Náhodné"
 
@@ -1713,7 +1713,7 @@ msgstr "Obnovuji transakce..."
 msgid "Retry"
 msgstr "Opakovat"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "Na vzestupu"
 
@@ -2128,19 +2128,19 @@ msgstr "Přepnout stav oblíbených"
 msgid "Too many images selected"
 msgstr "Příliš mnoho vybraných obrázků"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "Top (10h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "Top (24h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "Top (3d)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "Top (7d)"
 

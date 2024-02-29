@@ -30,10 +30,6 @@ msgstr "{0} / മാസം"
 msgid "{0} / year"
 msgstr "{0} / വർഷം"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "{0} #{decodedTag} ഫീഡ് ശൂന്യമാണ്"
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} / പോസ്റ്റുകൾ"
@@ -61,6 +57,10 @@ msgstr "{minutes} മിനിറ്റുകൾ മുൻപ്"
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
 msgstr "{minutes}m"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "{modeName} #{decodedTag} ഫീഡ് ശൂന്യമാണ്"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -1057,7 +1057,7 @@ msgstr "ഹോം സ്ക്രീൻ"
 msgid "Home screen layout"
 msgstr "ഹോം സ്ക്രീൻ ലേഔട്ട്"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "ഹോട്ട്"
 
@@ -1081,7 +1081,7 @@ msgstr "നിയമവിരുദ്ധവും അടിയന്തിര�
 msgid "Image options"
 msgstr "ഇമേജ് ഓപ്ഷനുകൾ"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "ശൈലി അസാധുവാണ്"
 
@@ -1305,7 +1305,7 @@ msgstr "പേരോ വിവരണമോ കമ്മ്യൂണിറ്റ�
 msgid "Need a new list?"
 msgstr "ഒരു പുതിയ ലിസ്റ്റ് വേണോ?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "പുതിയത്"
 
@@ -1541,7 +1541,7 @@ msgstr "നിങ്ങൾ പിന്തുടരുന്നവരിൽ ന�
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "പോസ്റ്റുകൾ {primaryLanguageLabel} എന്നതിലേക്ക് വിവർത്തനം ചെയ്യപ്പെടും."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "സ്കൈഫീഡ് നൽകുന്നത്"
 
@@ -1600,7 +1600,7 @@ msgstr "ക്വോട്ട് ചെയ്യുക"
 msgid "Quote post settings"
 msgstr "ക്വോട്ട് പോസ്റ്റ് ക്രമീകരണങ്ങൾ"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "ക്രമരഹിതമായ"
 
@@ -1713,7 +1713,7 @@ msgstr "വാങ്ങലുകൾ പുനസ്ഥാപിക്കുന�
 msgid "Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "ഉയരുന്ന"
 
@@ -2128,19 +2128,19 @@ msgstr "പ്രിയപ്പെട്ട സ്റ്റാറ്റസ് �
 msgid "Too many images selected"
 msgstr "വളരെയധികം ചിത്രങ്ങൾ തിരഞ്ഞെടുത്തു"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "ടോപ്പ്(10 മണിക്കൂർ)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "ടോപ്പ് (24 മണിക്കൂർ)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "ടോപ്പ് (3 ദിവസം)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "ടോപ്പ് (7ദിവസം)"
 

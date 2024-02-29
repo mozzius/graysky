@@ -30,10 +30,6 @@ msgstr "{0} / месяц"
 msgid "{0} / year"
 msgstr "{0} / год"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "{0} стужка для #{decodedTag} пуста"
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "Допісаў: {0}"
@@ -61,6 +57,10 @@ msgstr "{minutes} хвілін таму"
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
 msgstr "{minutes} хв."
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "{modeName} стужка для #{decodedTag} пуста"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -1057,7 +1057,7 @@ msgstr "Галоўны экран"
 msgid "Home screen layout"
 msgstr "Макет галоўнага экрана"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "Папулярнае"
 
@@ -1081,7 +1081,7 @@ msgstr "Незаконнае і неадкладнае"
 msgid "Image options"
 msgstr "Параметры відарыса"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "Памылковы рэжым"
 
@@ -1305,7 +1305,7 @@ msgstr "Імя або апісанне парушае Правілы супол�
 msgid "Need a new list?"
 msgstr "Патрэбны новы спіс?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "Новае"
 
@@ -1541,7 +1541,7 @@ msgstr "Допісы ад людзей, на якіх вы падпісаны"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Допісы будуць перакладацца на {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "На платформе Skyfeed"
 
@@ -1600,7 +1600,7 @@ msgstr "Цытаваць"
 msgid "Quote post settings"
 msgstr "Налада цытат"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "Выпадкова"
 
@@ -1713,7 +1713,7 @@ msgstr "Аднаўленне купляў..."
 msgid "Retry"
 msgstr "Паўтарыць"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "Набіраюць папулярнасць"
 
@@ -2128,19 +2128,19 @@ msgstr "Пераключае статус абранага"
 msgid "Too many images selected"
 msgstr "Выбрана зашмат відарысаў"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "Топ (10 гадз.)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "Топ (24 гадз.)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "Топ (3 дн.)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "Топ (7 дз.)"
 

@@ -149,6 +149,7 @@ export default function TagScreen() {
   }
 
   if (feed.data) {
+    const modeName = getModeName(mode);
     return (
       <>
         {screenOpts}
@@ -185,7 +186,7 @@ export default function TagScreen() {
                 <RssIcon size={64} color={theme.colors.text} />
                 <Text className="mt-8 text-center text-lg">
                   <Trans>
-                    {getModeName(mode)} feed for #{decodedTag} is empty
+                    {modeName} feed for #{decodedTag} is empty
                   </Trans>
                 </Text>
               </View>

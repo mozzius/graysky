@@ -30,8 +30,8 @@ msgstr ""
 msgid "{0} / year"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292

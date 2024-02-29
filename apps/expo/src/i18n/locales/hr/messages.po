@@ -30,9 +30,9 @@ msgstr "{0} / mjesečno"
 msgid "{0} / year"
 msgstr "{0} / godina"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "{0} feed za #{decodedTag} je prazna"
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "{modeName} feed za #{decodedTag} je prazna"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"

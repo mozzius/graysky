@@ -30,10 +30,6 @@ msgstr "{0} / Monat"
 msgid "{0} / year"
 msgstr "{0} / Jahr"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "{0} Feed für #{decodedTag} ist leer"
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0} Beiträge"
@@ -61,6 +57,10 @@ msgstr "vor {minutes} Minuten"
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
 msgstr "{minutes}Min"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "{modeName} Feed für #{decodedTag} ist leer"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -1057,7 +1057,7 @@ msgstr "Startbildschirm"
 msgid "Home screen layout"
 msgstr "Startbildschirm Ansicht"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "Angesagt"
 
@@ -1081,7 +1081,7 @@ msgstr ""
 msgid "Image options"
 msgstr "Bild-Optionen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "Ungültiger Modus"
 
@@ -1305,7 +1305,7 @@ msgstr "Name oder Beschreibung verletzt Gemeinschaftsstandards"
 msgid "Need a new list?"
 msgstr "Eine neue Liste anlegen?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "Neu"
 
@@ -1541,7 +1541,7 @@ msgstr "Neue Beiträge von Personen, denen du folgst"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Posts werden übersetzt in {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "Unterstützt von Skyfeed"
 
@@ -1600,7 +1600,7 @@ msgstr "Zitat"
 msgid "Quote post settings"
 msgstr "Beitragseinstellungen für Zitate"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "Zufällig"
 
@@ -1713,7 +1713,7 @@ msgstr "Käufe werden wiederhergestellt..."
 msgid "Retry"
 msgstr "Wiederholen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "Aufsteigend"
 
@@ -2128,19 +2128,19 @@ msgstr "Favoriten Status umschalten"
 msgid "Too many images selected"
 msgstr "Zu viele Bilder ausgewählt"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "Top (10h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "Top (24h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "Top (3 Tage)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "Neueste (7d)"
 

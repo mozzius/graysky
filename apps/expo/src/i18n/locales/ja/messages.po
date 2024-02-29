@@ -30,10 +30,6 @@ msgstr "{0} / 月"
 msgid "{0} / year"
 msgstr "{0} / 年"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr "#{decodedTag}のうち、{0}件のフィードが空です"
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr "{0}件の投稿"
@@ -61,6 +57,10 @@ msgstr "{minutes}分前"
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
 msgstr "{minutes}分"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
+msgstr "#{decodedTag}のうち、{modeName}件のフィードが空です"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -1057,7 +1057,7 @@ msgstr "ホーム画面"
 msgid "Home screen layout"
 msgstr "ホーム画面のレイアウト"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "ホット"
 
@@ -1081,7 +1081,7 @@ msgstr "違法かつ緊急"
 msgid "Image options"
 msgstr "画像のオプション"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "無効なモード"
 
@@ -1305,7 +1305,7 @@ msgstr "名前または説明がルールに違反"
 msgid "Need a new list?"
 msgstr "新規リストが必要ですか?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "新規"
 
@@ -1541,7 +1541,7 @@ msgstr "フォローしている人の投稿"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "投稿は{primaryLanguageLabel}に翻訳されます。"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "SkyFeedによる提供"
 
@@ -1600,7 +1600,7 @@ msgstr "引用"
 msgid "Quote post settings"
 msgstr "引用の設定"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "ランダム"
 
@@ -1713,7 +1713,7 @@ msgstr "購入を復元しています..."
 msgid "Retry"
 msgstr "再試行"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "急上昇"
 
@@ -2128,19 +2128,19 @@ msgstr "お気に入りのステータスを切り替え"
 msgid "Too many images selected"
 msgstr "選択した画像が多すぎます"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "トップ (10時間以内)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "トップ (24時間以内)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "トップ (3日以内)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 

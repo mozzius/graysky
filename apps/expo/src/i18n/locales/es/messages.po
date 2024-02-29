@@ -30,10 +30,6 @@ msgstr ""
 msgid "{0} / year"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:187
-msgid "{0} feed for #{decodedTag} is empty"
-msgstr ""
-
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
 msgstr ""
@@ -60,6 +56,10 @@ msgstr ""
 
 #: src/lib/utils/time.ts:59
 msgid "{minutes}m"
+msgstr ""
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+msgid "{modeName} feed for #{decodedTag} is empty"
 msgstr ""
 
 #: src/lib/utils/time.ts:29
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "Home screen layout"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgstr ""
 msgid "Image options"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr ""
 
@@ -1305,7 +1305,7 @@ msgstr ""
 msgid "Need a new list?"
 msgstr "¿Necesitas una lista nueva?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr ""
 
@@ -1541,7 +1541,7 @@ msgstr "Publicaciones de gente que sigues"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Las publicaciones serán traducidas a {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:178
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Quote post settings"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr ""
 
@@ -1713,7 +1713,7 @@ msgstr ""
 msgid "Retry"
 msgstr "Intentar de nuevo"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr ""
 
@@ -2128,19 +2128,19 @@ msgstr ""
 msgid "Too many images selected"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr ""
 
