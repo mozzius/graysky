@@ -413,8 +413,8 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@atproto/xrpc-server':
-        specifier: ^0.4.2
-        version: 0.4.2
+        specifier: ^0.4.3
+        version: 0.4.3
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -595,8 +595,8 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2
       '@atproto/xrpc-server':
-        specifier: ^0.4.2
-        version: 0.4.2
+        specifier: ^0.4.3
+        version: 0.4.3
       '@graysky/db':
         specifier: 0.1.0
         version: link:../db
@@ -886,6 +886,16 @@ packages:
       zod: 3.22.4
     dev: false
 
+  /@atproto/lexicon@0.3.2:
+    resolution: {integrity: sha512-kmGCkrRwpWIqmn/KO4BZwUf8Nmfndk3XvFC06V0ygCWc42g6+t4QP/6ywNW4PgqfZY0Q5aW4EuDfD7KjAFkFtQ==}
+    dependencies:
+      '@atproto/common-web': 0.2.3
+      '@atproto/syntax': 0.2.0
+      iso-datestring-validator: 2.2.2
+      multiformats: 9.9.0
+      zod: 3.22.4
+    dev: false
+
   /@atproto/nsid@0.1.1:
     resolution: {integrity: sha512-fTsHfiq2NF+Zm3P1XzeBrHh9BYoy5dEzGev3sY69nhemcKnfsbj/agnIN2ekSOAlyj0Bj405/3BHQSQeiDbz1w==}
     deprecated: This package is now deprecated. Please use @atproto/syntax, which provides the same interfaces.
@@ -899,6 +909,12 @@ packages:
       '@atproto/common-web': 0.2.3
     dev: false
 
+  /@atproto/syntax@0.2.0:
+    resolution: {integrity: sha512-K+9jl6mtxC9ytlR7msSiP9jVNqtdxEBSt0kOfsC924lqGwuD8nlUAMi1GSMgAZJGg/Rd+0MKXh789heTdeL3HQ==}
+    dependencies:
+      '@atproto/common-web': 0.2.3
+    dev: false
+
   /@atproto/uri@0.1.1:
     resolution: {integrity: sha512-6l5Q0ajGHnecOd2ACuvXVpvZGK7gE+Y78y/oq29WdjWPvTeg7fBzcXlDXcZMOvBqhDJIigmAO2YCKmxqc4wJ1g==}
     deprecated: This package is now deprecated. Please use @atproto/syntax, which provides the same interfaces.
@@ -906,12 +922,12 @@ packages:
       '@atproto/syntax': 0.1.5
     dev: false
 
-  /@atproto/xrpc-server@0.4.2:
-    resolution: {integrity: sha512-/m8rmFQFqFJ7WaVskPx27DLPeQfRCeEBMCdNxtyJZXElQZJMgcX5382SxAqsI3fVaW3EVwcQp0VuTNFOKFgHVg==}
+  /@atproto/xrpc-server@0.4.3:
+    resolution: {integrity: sha512-JJLtKfCGGDP7/62Hw37DJU7mryUBS+lGYbiC+rswNG0RApfY7T4a8q3KdWlHb2F1NCoMjndhjkB31OucTWHzVw==}
     dependencies:
       '@atproto/common': 0.3.3
       '@atproto/crypto': 0.3.0
-      '@atproto/lexicon': 0.3.1
+      '@atproto/lexicon': 0.3.2
       cbor-x: 1.5.8
       express: 4.18.2
       http-errors: 2.0.0
