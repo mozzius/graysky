@@ -327,7 +327,7 @@ msgstr "വാർഷിക പ്ലാൻ"
 msgid "Anti-Social Behavior"
 msgstr "സാമൂഹ്യവിരുദ്ധ പെരുമാറ്റം"
 
-#: src/app/settings/about.tsx:193
+#: src/app/settings/about.tsx:200
 msgid "App info"
 msgstr "ആപ്പ് വിവരം"
 
@@ -1065,7 +1065,7 @@ msgstr "ഈ ലിങ്ക് എങ്ങനെ തുറക്കണം?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "ഒരു പോസ്റ്റ് ഈ ഭാഷകളിലൊന്നിലാണെന്ന് അടയാളപ്പെടുത്തിയാൽ, അത് വിവർത്തനം ചെയ്യപ്പെടില്ല."
 
-#: src/app/settings/about.tsx:178
+#: src/app/settings/about.tsx:185
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "നിങ്ങൾ ഗ്രേസ്കൈയിലേക്ക് സംഭാവന ചെയ്തിട്ടുണ്ടെങ്കിൽ, ഉദാഹരണത്തിന് വിവർത്തനങ്ങളിൽ സഹായിക്കുക പോലുള്ളവ, ദയവായി @graysky.app-ലേക്ക് ബന്ധപ്പെടുക, അതുവഴി ഞങ്ങൾക്ക് നിങ്ങളെ ഈ ലിസ്റ്റിലേക്ക് ചേർക്കാനാകും!"
 
@@ -1167,7 +1167,7 @@ msgstr "ലോഗ് ഔട്ട് ചെയ്യുക"
 msgid "Logged in"
 msgstr "പ്രവേശിച്ചിരിക്കുന്നു"
 
-#: src/app/settings/about.tsx:182
+#: src/app/settings/about.tsx:189
 msgid "Logo designed by"
 msgstr "ലോഗോ രൂപകൽപന ചെയ്തത്"
 
@@ -2282,12 +2282,12 @@ msgstr "<0>{0}</0> പിന്തുടരുന്ന ഉപയോക്താ
 msgid "Verification code"
 msgstr "പരിശോധിച്ചുറപ്പിക്കൽ കോഡ്"
 
-#: src/app/settings/about.tsx:197
+#: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "പതിപ്പ് {0}"
 
-#: src/app/settings/about.tsx:198
+#: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "പതിപ്പ് അജ്ഞാതമാണ്"

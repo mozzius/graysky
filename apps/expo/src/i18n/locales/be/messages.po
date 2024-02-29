@@ -327,7 +327,7 @@ msgstr "Штогадовы план"
 msgid "Anti-Social Behavior"
 msgstr "Асацыяльныя паводзіны"
 
-#: src/app/settings/about.tsx:193
+#: src/app/settings/about.tsx:200
 msgid "App info"
 msgstr "Інфармацыя пра праграму"
 
@@ -1065,7 +1065,7 @@ msgstr "Як вы жадаеце адкрыць гэтую спасылку?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Калі на допісу стаіць моўная адзнака любой з гэтых моў, ён не будзе перакладацца."
 
-#: src/app/settings/about.tsx:178
+#: src/app/settings/about.tsx:185
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (напрыклад: дапамагалі з перакладам), калі ласка, напішыце @graysky.app, каб мы дадалі вас у спіс!"
 
@@ -1167,7 +1167,7 @@ msgstr "Зарэгістравацца"
 msgid "Logged in"
 msgstr "Вы ўвайшлі"
 
-#: src/app/settings/about.tsx:182
+#: src/app/settings/about.tsx:189
 msgid "Logo designed by"
 msgstr "Дызайн лагатыпа"
 
@@ -2282,12 +2282,12 @@ msgstr "Карыстальнік, на якога падпісаны <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код пацвярджэння"
 
-#: src/app/settings/about.tsx:197
+#: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:198
+#: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невядомая"

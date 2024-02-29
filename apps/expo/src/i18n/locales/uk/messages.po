@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-02-29 12:53\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -327,7 +327,7 @@ msgstr "Річна підписка"
 msgid "Anti-Social Behavior"
 msgstr "Антисоціальна поведінка"
 
-#: src/app/settings/about.tsx:193
+#: src/app/settings/about.tsx:200
 msgid "App info"
 msgstr "Про застосунок"
 
@@ -942,7 +942,7 @@ msgstr "Підписники"
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr ""
+msgstr "Підписки"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -954,13 +954,13 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:396
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr ""
+msgstr "Ви підписані"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr ""
+msgstr "Підписки"
 
 #: src/components/lists/person-row.tsx:54
 #: src/components/screens/profile/profile-info.tsx:442
@@ -1065,7 +1065,7 @@ msgstr "Як ви хочете відкрити це посилання?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Якщо допис позначено як такий, що написаний однією з цих мов, він не буде перекладений."
 
-#: src/app/settings/about.tsx:178
+#: src/app/settings/about.tsx:185
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Якщо ви зробили свій внесок у розвиток Graysky, наприклад, допомогли з перекладами, будь ласка, напишіть нам на @graysky.app, щоб ми могли додати вас до цього списку!"
 
@@ -1167,7 +1167,7 @@ msgstr "Вийти"
 msgid "Logged in"
 msgstr "Вхід виконано"
 
-#: src/app/settings/about.tsx:182
+#: src/app/settings/about.tsx:189
 msgid "Logo designed by"
 msgstr "Логотип розроблений"
 
@@ -2282,12 +2282,12 @@ msgstr "Користувачі, на яких підписаний <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код перевірки"
 
-#: src/app/settings/about.tsx:197
+#: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:198
+#: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невідома"

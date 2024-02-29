@@ -327,7 +327,7 @@ msgstr "Roční tarif"
 msgid "Anti-Social Behavior"
 msgstr "Asociální chování"
 
-#: src/app/settings/about.tsx:193
+#: src/app/settings/about.tsx:200
 msgid "App info"
 msgstr "Info o aplikaci"
 
@@ -1065,7 +1065,7 @@ msgstr "Jak bychom měli otevřít tento odkaz?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Pokud je příspěvek označen jako v jednom z těchto jazyků, nebude přeložen."
 
-#: src/app/settings/about.tsx:178
+#: src/app/settings/about.tsx:185
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Pokud jste přispěli projektu Graysky, například pomocí s překlady, kontaktujte prosím @graysky.app, abychom Vás mohli přidat do tohoto seznamu!"
 
@@ -1167,7 +1167,7 @@ msgstr "Odhlásit se"
 msgid "Logged in"
 msgstr "Přihlášen/a"
 
-#: src/app/settings/about.tsx:182
+#: src/app/settings/about.tsx:189
 msgid "Logo designed by"
 msgstr "Logo navrženo"
 
@@ -2282,12 +2282,12 @@ msgstr "Uživatelé, které sleduje <0>{0}</0>"
 msgid "Verification code"
 msgstr "Ověřovací kód"
 
-#: src/app/settings/about.tsx:197
+#: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: src/app/settings/about.tsx:198
+#: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Verze neznámá"

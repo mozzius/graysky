@@ -173,6 +173,13 @@ export default function AboutPage() {
                 href: "/profile/did:plc:w342borqxtyo2pul67ec2pwt",
                 icon: AtSignIcon,
               },
+              {
+                // uk translator
+                title: "cpthorn1100.bsky.social",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:3loo4eggng7s7njjox2qbdcv",
+                icon: AtSignIcon,
+              },
             ],
             footer: _(
               msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
