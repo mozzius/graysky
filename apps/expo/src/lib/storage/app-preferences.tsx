@@ -159,15 +159,18 @@ export const useThemeSetup = () => {
   // sync navbar
   // TODO - investigate this being per-page
   // certain screens would look nicer with the dark style
+  // or perhaps transparent navbar
   // (landing screen, image lightbox, etc)
   useEffect(() => {
     if (Platform.OS === "android") {
       if (colorScheme === "light") {
         void NavigationBar.setButtonStyleAsync("dark");
         void NavigationBar.setBackgroundColorAsync(DefaultTheme.colors.card);
+        void NavigationBar.setBorderColorAsync(DefaultTheme.colors.card);
       } else {
         void NavigationBar.setButtonStyleAsync("light");
         void NavigationBar.setBackgroundColorAsync(DarkTheme.colors.card);
+        void NavigationBar.setBorderColorAsync(DarkTheme.colors.card);
       }
     }
   }, [colorScheme]);
