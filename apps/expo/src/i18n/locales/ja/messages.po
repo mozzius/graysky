@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-27 23:17\n"
+"PO-Revision-Date: 2024-02-29 11:10\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -113,7 +113,7 @@ msgstr "@{handle}のミュートを解除しました"
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-msgstr "<0>{0, plural, =1 {{1}} =2 {{2}および{3}} other{{4}および、他{5}人}}</0><1>{6}</1>"
+msgstr "<0>{0, plural, =1 {{1}} =2 {{2} と {3}} other{{4} および、他 {5} 人}}</0><1>{6}</1>"
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:457
@@ -881,10 +881,6 @@ msgstr "リンクが開けませんでした"
 #: src/lib/composer/utils.tsx:188
 msgid "Failed to upload image"
 msgstr "画像のアップロードに失敗しました"
-
-#: src/lib/composer/utils.tsx:238
-#~ msgid "Failed to upload thumbnail"
-#~ msgstr "サムネイルのアップロードに失敗しました"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
@@ -2110,11 +2106,11 @@ msgstr "このユーザーはあなたをブロックしています"
 
 #: src/components/screens/profile/profile-info.tsx:561
 msgid "This user is on the \"{0}\" block list"
-msgstr "このユーザーは、「{0}」のブロックリストに登録されています"
+msgstr "「{0}」のモデレーションリストでブロック中"
 
 #: src/components/screens/profile/profile-info.tsx:530
 msgid "This user is on the \"{0}\" mute list"
-msgstr "このユーザーは、「{0}」のミュートリストに登録されています"
+msgstr "「{0}」のモデレーションリストでミュート中"
 
 #: src/components/screens/feeds-screen-elements.tsx:26
 msgid "To get started, add some feeds to your home screen."
@@ -2226,11 +2222,11 @@ msgstr "このフィードを保存しなくてもよろしいですか?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
 msgid "Unsubscribe from list"
-msgstr "リストから購読を解除"
+msgstr "リストの購読を解除"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:209
 msgid "Unsubscribed from list"
-msgstr "リストから購読を解除しました"
+msgstr "リストの購読を解除しました"
 
 #: src/components/post-context-menu.tsx:136
 msgid "Unwanted Sexual Content"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-26 10:10\n"
+"PO-Revision-Date: 2024-02-29 11:10\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -881,10 +881,6 @@ msgstr "Link konnte nicht geöffnet werden"
 #: src/lib/composer/utils.tsx:188
 msgid "Failed to upload image"
 msgstr "Fehler beim Hochladen des Bildes"
-
-#: src/lib/composer/utils.tsx:238
-#~ msgid "Failed to upload thumbnail"
-#~ msgstr "Fehler beim Hochladen des Thumbnails"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"

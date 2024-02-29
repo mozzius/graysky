@@ -877,10 +877,6 @@ msgstr ""
 msgid "Failed to upload image"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:238
-#~ msgid "Failed to upload thumbnail"
-#~ msgstr ""
-
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
 msgstr ""
