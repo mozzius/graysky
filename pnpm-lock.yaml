@@ -52,8 +52,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.1
-        version: 0.10.1
+        specifier: ^0.10.3
+        version: 0.10.3
       '@expo/metro-config':
         specifier: ^0.17.4
         version: 0.17.4(@react-native/babel-preset@0.73.21)
@@ -407,8 +407,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.1
-        version: 0.10.1
+        specifier: ^0.10.3
+        version: 0.10.3
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -540,8 +540,8 @@ importers:
   apps/push-notifs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.1
-        version: 0.10.1
+        specifier: ^0.10.3
+        version: 0.10.3
       '@graysky/db':
         specifier: 0.1.0
         version: link:../../packages/db
@@ -589,8 +589,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.1
-        version: 0.10.1
+        specifier: ^0.10.3
+        version: 0.10.3
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -774,13 +774,13 @@ packages:
       '@jridgewell/gen-mapping': 0.3.4
       '@jridgewell/trace-mapping': 0.3.23
 
-  /@atproto/api@0.10.1:
-    resolution: {integrity: sha512-yYb20+54MV1qDWyleRXPHqP2sFZdZh7c+W5cCEtZBDoGFDZQo4qOamy8P1arZGVh/vTz4Ho2aM+kdnxkv3/Gsw==}
+  /@atproto/api@0.10.3:
+    resolution: {integrity: sha512-eNP/6YLor48SUD38Jn5C7xocQL9XzW+BbYat2whWerKsFMn6Kfkk5O3fW1pvcc6NKtKVTo7/4ixMAS+dG2o/Yg==}
     dependencies:
       '@atproto/common-web': 0.2.3
-      '@atproto/lexicon': 0.3.1
-      '@atproto/syntax': 0.1.5
-      '@atproto/xrpc': 0.4.1
+      '@atproto/lexicon': 0.3.2
+      '@atproto/syntax': 0.2.0
+      '@atproto/xrpc': 0.4.2
       multiformats: 9.9.0
       tlds: 1.250.0
       typed-emitter: 2.1.0
@@ -946,6 +946,13 @@ packages:
     resolution: {integrity: sha512-EMRGiu6oDvFL03Hk2rG/WCL3QK0GjZs9psH80JVf8z2nfdsGON6yn0hw3jvRB26CBXqi58U8Uicyq8Ej5pVTAA==}
     dependencies:
       '@atproto/lexicon': 0.3.1
+      zod: 3.22.4
+    dev: false
+
+  /@atproto/xrpc@0.4.2:
+    resolution: {integrity: sha512-x4x2QB4nWmLjIpz2Ue9n/QVbVyJkk6tQMhvmDQaVFF89E3FcVI4rxF4uhzSxaLpbNtyVQBNEEmNHOr5EJLeHVA==}
+    dependencies:
+      '@atproto/lexicon': 0.3.2
       zod: 3.22.4
     dev: false
 
