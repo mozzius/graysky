@@ -289,8 +289,8 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2(expo@50.0.7)(react-native@0.73.4)(react@18.2.0)
       react-native-keyboard-controller:
-        specifier: ^1.11.1
-        version: 1.11.1(react-native-reanimated@3.7.1)(react-native@0.73.4)(react@18.2.0)
+        specifier: ^1.11.2
+        version: 1.11.2(react-native-reanimated@3.7.1)(react-native@0.73.4)(react@18.2.0)
       react-native-mmkv:
         specifier: ^2.12.1
         version: 2.12.1(react-native@0.73.4)(react@18.2.0)
@@ -13419,8 +13419,8 @@ packages:
       react-native: 0.73.4(patch_hash=aossek6uuciii6j4rrppwjfu7i)(@babel/core@7.24.0)(@babel/preset-env@7.24.0)(react@18.2.0)
     dev: false
 
-  /react-native-keyboard-controller@1.11.1(react-native-reanimated@3.7.1)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-lRpMREeIPdK+WqkuJQ5RiXv1ZsV47EUYyqaFfgAfNUxfOoBsshUwYSg5XNIEYmDGDsGtYbo0d3/Qrg+crDNLcw==}
+  /react-native-keyboard-controller@1.11.2(react-native-reanimated@3.7.1)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-QeAABQCHH+nzZ45sQqiz3ALg/CFA+AmHJRZHvgieQ2ET6zjpUkjh3fqCk2V1g2F2pBpbEtzEnnGR8ojdYeh4Yg==}
     peerDependencies:
       react: '*'
       react-native: '*'
