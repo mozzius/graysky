@@ -26,7 +26,7 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
-    "@atproto/api": "^0.10.3",
+    "@atproto/api": "^0.10.4",
     "@graysky/db": "0.1.0",
     "atproto-firehose": "^0.2.2",
     "cron": "^3.1.6",

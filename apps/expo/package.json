@@ -23,7 +23,7 @@
     "compile": "lingui compile"
   },
   "dependencies": {
-    "@atproto/api": "^0.10.3",
+    "@atproto/api": "^0.10.4",
     "@expo/metro-config": "^0.17.5",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@formatjs/intl-getcanonicallocales": "^2.3.0",
