@@ -11,7 +11,7 @@
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/node": "^20.11.22",
+    "@types/node": "^20.11.24",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "tsx": "^4.7.1",
