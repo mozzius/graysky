@@ -1,0 +1,2 @@
+bundletool build-apks --bundle=$1.aab --output=$1.apks --mode=universal --ks=github-keystore.jks --ks-key-alias=github
+[ -f "$1.apks" ] && mv $1.apks $1.zip && unzip $1.zip "universal.apk" && mv universal.apk $1.apk && rm $1.zip
