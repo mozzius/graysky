@@ -49,8 +49,8 @@ pnpm dev
 ## AndroidローカルAPKのビルド
 
 - Android StudioとAndroid SDKをインストール
-- Azul Zulu OpenJDKをインストール (`brew install --cask zulu17`) `JAVA_HOME` をJDKのパス `/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home`に設定します。
-- `google-services.json.example`を`google-services.json`にコピーか独自のFirebase構成を追加します
+- Azul Zulu OpenJDKをインストール (`brew install --cask zulu17`) `JAVA_HOME` をJDKのパス `/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home`に設定
+- `google-services.json.example`を`google-services.json`にコピーか独自のFirebaseの構成を追加
 - `~/.gradle/gradle.properties`でGradleを高速化:
 
 ```
