@@ -52,8 +52,8 @@ importers:
   apps/expo:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.3
-        version: 0.10.3
+        specifier: ^0.10.4
+        version: 0.10.4
       '@expo/metro-config':
         specifier: ^0.17.5
         version: 0.17.5(@react-native/babel-preset@0.73.21)
@@ -407,8 +407,8 @@ importers:
   apps/nextjs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.3
-        version: 0.10.3
+        specifier: ^0.10.4
+        version: 0.10.4
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -540,8 +540,8 @@ importers:
   apps/push-notifs:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.3
-        version: 0.10.3
+        specifier: ^0.10.4
+        version: 0.10.4
       '@graysky/db':
         specifier: 0.1.0
         version: link:../../packages/db
@@ -589,8 +589,8 @@ importers:
   packages/api:
     dependencies:
       '@atproto/api':
-        specifier: ^0.10.3
-        version: 0.10.3
+        specifier: ^0.10.4
+        version: 0.10.4
       '@atproto/identity':
         specifier: ^0.3.2
         version: 0.3.2
@@ -774,8 +774,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.4
       '@jridgewell/trace-mapping': 0.3.23
 
-  /@atproto/api@0.10.3:
-    resolution: {integrity: sha512-eNP/6YLor48SUD38Jn5C7xocQL9XzW+BbYat2whWerKsFMn6Kfkk5O3fW1pvcc6NKtKVTo7/4ixMAS+dG2o/Yg==}
+  /@atproto/api@0.10.4:
+    resolution: {integrity: sha512-9gwZt4v4pngfD4mgsET9i9Ym0PpMSzftTzqBjCbFpObx15zMkFemYnLUnyT/NEww2u/aRxjAe2TeBnU0dIbbuQ==}
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/lexicon': 0.3.2
@@ -792,7 +792,7 @@ packages:
     dependencies:
       '@atproto/common-web': 0.2.3
       '@atproto/uri': 0.1.1
-      '@atproto/xrpc': 0.4.1
+      '@atproto/xrpc': 0.4.2
       tlds: 1.250.0
       typed-emitter: 2.1.0
     dev: false
@@ -876,16 +876,6 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@atproto/lexicon@0.3.1:
-    resolution: {integrity: sha512-yLy6GUNP4pn0mGUIyUHvN0UeBza0S03AgjTXVR6KliC4ut2+7SjNMe4cI4G1M8/bJMaccC6ooQSm2kvwiOdr3A==}
-    dependencies:
-      '@atproto/common-web': 0.2.3
-      '@atproto/syntax': 0.1.5
-      iso-datestring-validator: 2.2.2
-      multiformats: 9.9.0
-      zod: 3.22.4
-    dev: false
-
   /@atproto/lexicon@0.3.2:
     resolution: {integrity: sha512-kmGCkrRwpWIqmn/KO4BZwUf8Nmfndk3XvFC06V0ygCWc42g6+t4QP/6ywNW4PgqfZY0Q5aW4EuDfD7KjAFkFtQ==}
     dependencies:
@@ -940,13 +930,6 @@ packages:
       - bufferutil
       - supports-color
       - utf-8-validate
-    dev: false
-
-  /@atproto/xrpc@0.4.1:
-    resolution: {integrity: sha512-EMRGiu6oDvFL03Hk2rG/WCL3QK0GjZs9psH80JVf8z2nfdsGON6yn0hw3jvRB26CBXqi58U8Uicyq8Ej5pVTAA==}
-    dependencies:
-      '@atproto/lexicon': 0.3.1
-      zod: 3.22.4
     dev: false
 
   /@atproto/xrpc@0.4.2:
