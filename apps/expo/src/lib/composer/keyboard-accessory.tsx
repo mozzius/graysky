@@ -50,64 +50,70 @@ export const KeyboardAccessory = ({
       }}
     >
       <View className="flex-1 flex-row items-center justify-start gap-2">
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <View
-              className="h-9 flex-row items-center justify-center rounded-full px-2.5"
-              style={{
-                backgroundColor: theme.dark
-                  ? colors.neutral[800]
-                  : theme.colors.background,
-              }}
-            >
-              <PaperclipIcon size={20} color={theme.colors.primary} />
-              <Text primary className="ml-2.5 mr-1 font-medium">
-                <Trans>Add image</Trans>
-              </Text>
-            </View>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content>
-            <DropdownMenu.Item
-              key="camera"
-              textValue={_(msg`Take photo`)}
-              onSelect={() => onPressImage("camera")}
-              disabled={imageCount >= MAX_IMAGES}
-            >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "camera" }}
-                androidIconName="ic_menu_camera"
-              />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item
-              key="gallery"
-              textValue={_(msg`Choose from Library`)}
-              onSelect={() => onPressImage("gallery")}
-              disabled={imageCount >= MAX_IMAGES}
-            >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "photo" }}
-                androidIconName="ic_menu_gallery"
-              />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item
-              key="gifs"
-              textValue={_(msg`Search GIFs`)}
-              onSelect={() => router.push("/composer/gifs")}
-              disabled={imageCount > 0}
-            >
-              <DropdownMenu.ItemIcon
-                ios={{ name: "magnifyingglass" }}
-                androidIconName="ic_menu_search"
-              />
-            </DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
+        <View>
+          <DropdownMenu.Root
+            onOpenWillChange={(willOpen) => {
+              if (willOpen) haptics.selection();
+            }}
+          >
+            <DropdownMenu.Trigger>
+              <View
+                className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+                style={{
+                  backgroundColor: theme.dark
+                    ? colors.neutral[800]
+                    : theme.colors.background,
+                }}
+              >
+                <PaperclipIcon size={20} color={theme.colors.primary} />
+                <Text primary className="ml-2.5 mr-1 font-medium">
+                  <Trans>Add image</Trans>
+                </Text>
+              </View>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item
+                key="camera"
+                textValue={_(msg`Take photo`)}
+                onSelect={() => onPressImage("camera")}
+                disabled={imageCount >= MAX_IMAGES}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "camera" }}
+                  androidIconName="ic_menu_camera"
+                />
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                key="gallery"
+                textValue={_(msg`Choose from Library`)}
+                onSelect={() => onPressImage("gallery")}
+                disabled={imageCount >= MAX_IMAGES}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "photo" }}
+                  androidIconName="ic_menu_gallery"
+                />
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                key="gifs"
+                textValue={_(msg`Search GIFs`)}
+                onSelect={() => router.push("/composer/gifs")}
+                disabled={imageCount > 0}
+              >
+                <DropdownMenu.ItemIcon
+                  ios={{ name: "magnifyingglass" }}
+                  androidIconName="ic_menu_search"
+                />
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </View>
         <TouchableHighlight
           className="rounded-full"
           accessibilityLabel={_(msg`Change post language`)}
           accessibilityRole="button"
           onPress={() => {
-            haptics.impact();
+            haptics.selection();
             onPressLanguage();
           }}
         >
