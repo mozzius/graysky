@@ -119,7 +119,7 @@
     "tailwind-merge": "^2.2.1",
     "zeego": "^1.9.1",
     "zod": "^3.22.4",
-    "zustand": "^4.5.1"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
