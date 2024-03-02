@@ -106,14 +106,14 @@ importers:
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.24.0)(react-native@0.73.4)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.24.1
-        version: 5.24.1(react@18.2.0)
+        specifier: ^5.24.2
+        version: 5.24.2(react@18.2.0)
       '@trpc/client':
         specifier: next
         version: 11.0.0-next-beta.297(@trpc/server@11.0.0-next-beta.297)
       '@trpc/react-query':
         specifier: next
-        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
+        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
         specifier: next
         version: 11.0.0-next-beta.297
@@ -428,17 +428,17 @@ importers:
         specifier: ^7.104.0
         version: 7.104.0(next@14.1.1)(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.24.1
-        version: 5.24.1(react@18.2.0)
+        specifier: ^5.24.2
+        version: 5.24.2(react@18.2.0)
       '@trpc/client':
         specifier: next
         version: 11.0.0-next-beta.297(@trpc/server@11.0.0-next-beta.297)
       '@trpc/next':
         specifier: next
-        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/react-query@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/react-query@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/react-query':
         specifier: next
-        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
+        version: 11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
         specifier: next
         version: 11.0.0-next-beta.297
@@ -5773,16 +5773,16 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
-  /@tanstack/query-core@5.24.1:
-    resolution: {integrity: sha512-DZ6Nx9p7BhjkG50ayJ+MKPgff+lMeol7QYXkvuU5jr2ryW/4ok5eanaS9W5eooA4xN0A/GPHdLGOZGzArgf5Cg==}
+  /@tanstack/query-core@5.24.2:
+    resolution: {integrity: sha512-GD1z7Ehl5bBLBZkt+imENuGvfk/hf+I2FihsQvtC4rOTF1rW+FDYCO8Ds5vwnO5Bcshr73/mS3BhWPSwc1bogA==}
     dev: false
 
-  /@tanstack/react-query@5.24.1(react@18.2.0):
-    resolution: {integrity: sha512-4+09JEdO4d6+Gc8Y/g2M/MuxDK5IY0QV8+2wL2304wPKJgJ54cBbULd3nciJ5uvh/as8rrxx6s0mtIwpRuGd1g==}
+  /@tanstack/react-query@5.24.2(react@18.2.0):
+    resolution: {integrity: sha512-3DgDWb36gQdcPjmDbSfk7HcWhMRhaPezE8cmLlCudFYBkWRNjb3oFivL4S7YhDkncoGJuBC3oIVEbOrAkLXWLA==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.24.1
+      '@tanstack/query-core': 5.24.2
       react: 18.2.0
     dev: false
 
@@ -5794,7 +5794,7 @@ packages:
       '@trpc/server': 11.0.0-next-beta.297
     dev: false
 
-  /@trpc/next@11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/react-query@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0):
+  /@trpc/next@11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/react-query@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(next@14.1.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-J2bJQxnjQ7pQUga6TGyXN/OvgSG9d1dgHBHnb9lqovnYEg1smUrBXElZK9odjka8fJk9u3T7uZSzxqZ85Ja4ZA==}
     peerDependencies:
       '@tanstack/react-query': ^5.0.0
@@ -5810,16 +5810,16 @@ packages:
       '@trpc/react-query':
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.24.1(react@18.2.0)
+      '@tanstack/react-query': 5.24.2(react@18.2.0)
       '@trpc/client': 11.0.0-next-beta.297(@trpc/server@11.0.0-next-beta.297)
-      '@trpc/react-query': 11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
+      '@trpc/react-query': 11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server': 11.0.0-next-beta.297
       next: 14.1.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@trpc/react-query@11.0.0-next-beta.297(@tanstack/react-query@5.24.1)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0):
+  /@trpc/react-query@11.0.0-next-beta.297(@tanstack/react-query@5.24.2)(@trpc/client@11.0.0-next-beta.297)(@trpc/server@11.0.0-next-beta.297)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-b9gTNqH640hS4G1KEufS4pjXNlgr08lhtoZPYs2OTzwGmaOSFSGVcDQAEEwwFqg4wvxWUBsVRsoBuZ0JzrOHxA==}
     peerDependencies:
       '@tanstack/react-query': ^5.0.0
@@ -5828,7 +5828,7 @@ packages:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
     dependencies:
-      '@tanstack/react-query': 5.24.1(react@18.2.0)
+      '@tanstack/react-query': 5.24.2(react@18.2.0)
       '@trpc/client': 11.0.0-next-beta.297(@trpc/server@11.0.0-next-beta.297)
       '@trpc/server': 11.0.0-next-beta.297
       react: 18.2.0
