@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-3-2 v1.4.9
+
+- Added Ukrainian translation (thank you @cpthorn1100.bsky.social!)
+- Fixed navigation bar border colour
+- Various minor bug fixes and improvements
+
 ## 2024-2-29 v1.4.8
 
 - Fixed bug preventing attaching images to posts
