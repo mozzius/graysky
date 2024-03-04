@@ -2,7 +2,7 @@
   "name": "@graysky/eslint-config",
   "version": "0.1.0",
   "dependencies": {
-    "@next/eslint-plugin-next": "^14.1.1",
+    "@next/eslint-plugin-next": "^14.1.2",
     "@types/eslint": "^8.56.5",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
