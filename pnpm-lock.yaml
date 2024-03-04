@@ -268,8 +268,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1(@shopify/flash-list@1.6.3)(react-native-pager-view@6.2.3)(react-native-reanimated@3.7.2)(react-native@0.73.4)(react@18.2.0)
       react-native-date-picker:
-        specifier: ^4.3.7
-        version: 4.3.7(react-native@0.73.4)(react@18.2.0)
+        specifier: ^4.4.0
+        version: 4.4.0(react-native@0.73.4)(react@18.2.0)
       react-native-draggable-flatlist:
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.24.0)(react-native-gesture-handler@2.15.0)(react-native-reanimated@3.7.2)(react-native@0.73.4)
@@ -13280,8 +13280,8 @@ packages:
       use-deep-compare: /use-deep-compare-dequal-update@2.0.0(react@18.2.0)
     dev: false
 
-  /react-native-date-picker@4.3.7(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-0FunP9uDdRHH7VmGTdwUvDQMC9heifxvrNLiASxaO5tv6imvcE7U/Ic2btfQPUYCxs46BEZXpT6HeqXlHf07kQ==}
+  /react-native-date-picker@4.4.0(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-Axx3byihwwhKRLRVjPAr/UaEysapkRcKmjjM8/05UaVm4Q0xDn2RFUcRdy1QAahhRcjLjlVYhepxvU5bdgy7ZQ==}
     peerDependencies:
       react: '>= 17.0.1'
       react-native: '>= 0.64.3'
