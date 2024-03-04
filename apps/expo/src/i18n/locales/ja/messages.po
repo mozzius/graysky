@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -211,7 +211,7 @@ msgstr "アカウントの設定"
 msgid "Add {0} to List"
 msgstr "リストに {0} を追加"
 
-#: src/app/composer/index.tsx:656
+#: src/app/composer/index.tsx:658
 msgid "Add a content warning"
 msgstr "コンテンツの警告を追加"
 
@@ -223,7 +223,7 @@ msgstr "画像に説明を追加します。 優れたALTテキストは、簡�
 msgid "Add another account"
 msgstr "別のアカウントを追加"
 
-#: src/app/composer/index.tsx:566
+#: src/app/composer/index.tsx:568
 msgid "Add embed for <0>{potential}</0>"
 msgstr "<0>{potential}</0>に埋め込みを追加"
 
@@ -235,7 +235,7 @@ msgstr "画像を追加"
 msgid "Add to favourites"
 msgstr "お気に入りに追加"
 
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:721
 msgid "Add to list"
 msgstr "リストに追加"
 
@@ -276,7 +276,7 @@ msgstr "すべての言語"
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr "フィードタブでお気に入り以外のフィードを自動で並べ替える事ができるようになります"
 
-#: src/app/composer/index.tsx:442
+#: src/app/composer/index.tsx:444
 msgid "Alt"
 msgstr "ALT"
 
@@ -295,7 +295,7 @@ msgstr "ALTテキスト"
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/translation.tsx:163
 msgid "An error occurred"
 msgstr "エラーが発生しました"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:739
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "Block user"
 msgstr "ユーザーをブロック"
 
@@ -609,7 +609,7 @@ msgstr "アカウントを作成できませんでした"
 msgid "Could not delete account"
 msgstr "アカウントを削除できませんでした"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
 msgid "Could not delete list"
 msgstr "リストを削除できませんでした"
 
@@ -617,7 +617,7 @@ msgstr "リストを削除できませんでした"
 msgid "Could not fetch list"
 msgstr "リストを取得できませんでした"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
 msgid "Could not fetch list feed"
 msgstr "リストを取得できませんでした"
 
@@ -659,7 +659,7 @@ msgstr "アカウントを作成"
 msgid "Create an account"
 msgstr "アカウントを作成"
 
-#: src/app/create-list.tsx:236
+#: src/app/create-list.tsx:238
 msgid "Create list"
 msgstr "リストを作成"
 
@@ -679,7 +679,7 @@ msgstr "Blueskyアプリの設定から作成"
 msgid "Created by"
 msgstr "開発者"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:284
 msgid "Creator"
 msgstr "作成者"
 
@@ -831,7 +831,7 @@ msgstr "フィードを編集"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:623
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
 msgstr "プロフィールを編集"
 
@@ -852,7 +852,7 @@ msgstr "通知を有効化する"
 msgid "Enter your phone number"
 msgstr "電話番号を入力"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "あなたをフォロー中"
 msgid "Forgot?"
 msgstr "忘れましたか?"
 
-#: src/components/screens/profile/profile-info.tsx:664
+#: src/components/screens/profile/profile-info.tsx:665
 msgid "Frequently Posts Unwanted Content"
 msgstr "よく投稿される不要なコンテンツ"
 
@@ -1085,7 +1085,7 @@ msgstr "無効なモード"
 msgid "It's currently set to the {current} theme"
 msgstr "現在は{current}に設定されています"
 
-#: src/components/screens/profile/profile-info.tsx:516
+#: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
 msgstr "{0}から参加しています"
 
@@ -1132,7 +1132,7 @@ msgstr "リストのアバター"
 msgid "List blocked"
 msgstr "リストでブロックをしました"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
 msgid "List deleted"
 msgstr "リストは削除されました"
 
@@ -1208,7 +1208,7 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "「{0}」のリスト内のメンバー"
 
-#: src/components/screens/profile/profile-info.tsx:665
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Misleading Account"
 msgstr "誤解を招くアカウント"
 
@@ -1224,7 +1224,7 @@ msgstr "モデレーション"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:225
+#: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
 msgid "Moderation list"
 msgstr "モデレーションリスト"
@@ -1233,7 +1233,7 @@ msgstr "モデレーションリスト"
 msgid "Monthly Plan"
 msgstr "月額プラン"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:321
 msgid "More from {0}"
 msgstr "{0} をもっと見る"
 
@@ -1246,7 +1246,7 @@ msgid "Mute all members"
 msgstr "すべてのメンバーをミュート"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:730
+#: src/components/screens/profile/profile-info.tsx:731
 msgid "Mute user"
 msgstr "ユーザーをミュート"
 
@@ -1293,7 +1293,7 @@ msgstr "自分の言語"
 msgid "My lists"
 msgstr "マイリスト"
 
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Name or Description Violates Community Standards"
 msgstr "名前または説明がルールに違反"
 
@@ -1344,7 +1344,7 @@ msgstr "設定なし"
 msgid "No users found - maybe try a different search term?"
 msgstr "ユーザーが見つかりません - 別の検索ワードを使うと良いかもしれないですよ?"
 
-#: src/components/primary-post.tsx:210
+#: src/components/primary-post.tsx:209
 msgid "Nobody can reply"
 msgstr "返信不可"
 
@@ -1390,7 +1390,7 @@ msgid "Opens embedded post"
 msgstr "埋め込まれた投稿を開く"
 
 #: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:457
 msgid "Opens parent post"
 msgstr "親の投稿を開く"
 
@@ -1399,7 +1399,7 @@ msgid "Opens post details"
 msgstr "投稿の詳細を開く"
 
 #: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:371
+#: src/components/feed-post.tsx:373
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:99
 msgid "Opens profile"
@@ -1410,7 +1410,7 @@ msgid "Optional"
 msgstr "任意"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Other"
 msgstr "その他"
 
@@ -1575,7 +1575,7 @@ msgstr "プロフィールの設定"
 msgid "Purchase Successful"
 msgstr "購入に成功しました"
 
-#: src/app/create-list.tsx:211
+#: src/app/create-list.tsx:213
 msgid "Purpose"
 msgstr "目的"
 
@@ -1621,7 +1621,7 @@ msgid "Reply to {0}"
 msgstr "{0}に返信"
 
 #: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:467
+#: src/components/feed-post.tsx:469
 msgid "replying to {0}"
 msgstr "{0}に返信"
 
@@ -1629,15 +1629,15 @@ msgstr "{0}に返信"
 msgid "Replying to @{0}"
 msgstr "@{0}に返信"
 
-#: src/components/feed-post.tsx:426
+#: src/components/feed-post.tsx:428
 msgid "replying to a blocked user"
 msgstr "ブロックをしたユーザーに返信"
 
-#: src/components/feed-post.tsx:429
+#: src/components/feed-post.tsx:431
 msgid "replying to a deleted post"
 msgstr "削除された投稿に返信"
 
-#: src/components/feed-post.tsx:421
+#: src/components/feed-post.tsx:423
 msgid "replying to a post that couldn't be fetched"
 msgstr "取得できなかった投稿に返信"
 
@@ -1645,11 +1645,11 @@ msgstr "取得できなかった投稿に返信"
 msgid "Replying to some sort of post"
 msgstr "何らかの投稿に返信"
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:425
 msgid "replying to..."
 msgstr "返信先:"
 
-#: src/components/screens/profile/profile-info.tsx:748
+#: src/components/screens/profile/profile-info.tsx:749
 msgid "Report account"
 msgstr "アカウントを報告"
 
@@ -1658,7 +1658,7 @@ msgid "Report post"
 msgstr "投稿を報告する"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Report submitted"
 msgstr "アカウントを報告しました"
 
@@ -1674,7 +1674,7 @@ msgstr "リポストの設定"
 msgid "Reposted by"
 msgstr "リポストしたユーザー:"
 
-#: src/components/feed-post.tsx:386
+#: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
 msgstr "{0}によるリポスト"
 
@@ -1713,7 +1713,7 @@ msgstr "再試行"
 msgid "Rising"
 msgstr "急上昇"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:205
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
@@ -1728,7 +1728,7 @@ msgstr " {0}%の割引"
 msgid "Save Image"
 msgstr "画像を保存"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:194
 msgid "Saved"
 msgstr "保存しました"
 
@@ -1815,7 +1815,7 @@ msgstr "リポストを表示"
 msgid "Select date of birth"
 msgstr "生年月日を選択してください"
 
-#: src/app/create-list.tsx:227
+#: src/app/create-list.tsx:229
 msgid "Select list purpose"
 msgstr "目的のリストを選択"
 
@@ -1845,7 +1845,7 @@ msgstr "設定メニュー"
 msgid "Sexual content"
 msgstr "性的"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
@@ -1881,12 +1881,12 @@ msgstr "投稿のリンクを共有"
 msgid "Share post"
 msgstr "投稿を共有"
 
-#: src/components/screens/profile/profile-info.tsx:630
-#: src/components/screens/profile/profile-info.tsx:698
+#: src/components/screens/profile/profile-info.tsx:631
+#: src/components/screens/profile/profile-info.tsx:699
 msgid "Share profile"
 msgstr "プロフィールを共有"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:402
 msgid "Share this feed"
 msgstr "このフィードを共有"
 
@@ -2041,7 +2041,7 @@ msgid "Take photo"
 msgstr "写真を撮影"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:681
 msgid "Thank you for making the skyline a safer place"
 msgstr "Skylineをより安全な場所にしてくれた事に感謝をします"
 
@@ -2069,8 +2069,8 @@ msgstr "このフィードは空です"
 msgid "This handle is already taken. Please choose another."
 msgstr "このハンドルはすでに使用されています。他を選択してください。"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
 msgid "This list is empty"
 msgstr "このリストは空です"
 
@@ -2100,15 +2100,15 @@ msgstr "この投稿はミュートした人からのものです"
 msgid "This thread is locked"
 msgstr "このスレッドはロックされています"
 
-#: src/components/screens/profile/profile-info.tsx:596
+#: src/components/screens/profile/profile-info.tsx:597
 msgid "This user has blocked you"
 msgstr "このユーザーはあなたをブロックしています"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "This user is on the \"{0}\" block list"
 msgstr "「{0}」のモデレーションリストでブロック中"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "This user is on the \"{0}\" mute list"
 msgstr "「{0}」のモデレーションリストでミュート中"
 
@@ -2140,7 +2140,7 @@ msgstr "トップ (3日以内)"
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:714
 msgid "Translate bio"
 msgstr "プロフィールを翻訳"
 
@@ -2153,11 +2153,11 @@ msgstr "投稿を翻訳"
 msgid "Translate posts using DeepL"
 msgstr "DeepL翻訳を使用して投稿を翻訳"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:144
 msgid "Translated by DeepL"
 msgstr "DeepLで翻訳されました"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:133
 msgid "Translated by Google"
 msgstr "Googleで翻訳されました"
 
@@ -2174,7 +2174,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 msgid "Trending topics"
 msgstr "トレンドのトピック"
 
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:572
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2204,7 +2204,7 @@ msgstr "フォローを解除したユーザー"
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: src/components/screens/profile/profile-info.tsx:540
+#: src/components/screens/profile/profile-info.tsx:541
 msgid "Unmute"
 msgstr "ミュートを解除"
 
@@ -2253,7 +2253,7 @@ msgstr "デフォルトのブラウザを使用する"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:223
+#: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
 msgid "User list"
 msgstr "ユーザーリスト"
@@ -2262,19 +2262,19 @@ msgstr "ユーザーリスト"
 msgid "Username or email address"
 msgstr "ユーザー名またはメールアドレス"
 
-#: src/components/primary-post.tsx:268
+#: src/components/primary-post.tsx:267
 msgid "Users in the list"
 msgstr "リスト内のユーザー"
 
-#: src/components/primary-post.tsx:270
+#: src/components/primary-post.tsx:269
 msgid "Users in the lists"
 msgstr "リスト内のユーザー"
 
-#: src/components/primary-post.tsx:225
+#: src/components/primary-post.tsx:224
 msgid "Users mentioned in this thread"
 msgstr "このスレッドで言及したユーザー"
 
-#: src/components/primary-post.tsx:232
+#: src/components/primary-post.tsx:231
 msgid "Users that <0>{0}</0> follows"
 msgstr "<0>{0}</0> がフォローしているユーザー"
 
@@ -2292,12 +2292,12 @@ msgstr "バージョン {0}"
 msgid "Version unknown"
 msgstr "バージョン不明"
 
-#: src/components/screens/profile/profile-info.tsx:540
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:541
+#: src/components/screens/profile/profile-info.tsx:572
 msgid "View"
 msgstr "表示"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:357
 msgid "View all feeds"
 msgstr "すべてのフィードを表示"
 
@@ -2329,7 +2329,7 @@ msgstr "Graysky Proへようこそ!"
 msgid "What's on your mind?"
 msgstr "何を考えているんだい?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:755
 msgid "What's the issue with this account?"
 msgstr "このアカウントの問題点は何ですか?"
 
@@ -2338,7 +2338,7 @@ msgid "What's the issue with this post?"
 msgstr "この投稿の問題点は何ですか?"
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:181
+#: src/components/primary-post.tsx:180
 msgid "Who can reply?"
 msgstr "誰が返信できますか?"
 
@@ -2374,11 +2374,11 @@ msgstr "「いいね」や「返信」などのプッシュ通知の表示がで
 msgid "You don't have any moderation lists yet."
 msgstr "モデレーションリストはまだありません。"
 
-#: src/components/screens/profile/profile-info.tsx:566
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
 msgstr "このユーザーをブロック中"
 
-#: src/components/screens/profile/profile-info.tsx:535
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
 msgstr "このユーザーをミュート中"
 
@@ -2427,7 +2427,7 @@ msgstr "選択した内容は保存されますが、設定で変更すること
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "あなたのハンドル: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"
 msgstr "あなたのリストは削除されました"
 

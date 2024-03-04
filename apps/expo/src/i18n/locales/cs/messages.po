@@ -8,7 +8,7 @@ msgstr ""
 "Language: cs\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
@@ -211,7 +211,7 @@ msgstr "Nastavení účtu"
 msgid "Add {0} to List"
 msgstr "Přidat {0} do seznamu"
 
-#: src/app/composer/index.tsx:656
+#: src/app/composer/index.tsx:658
 msgid "Add a content warning"
 msgstr "Přidat varování o obsahu"
 
@@ -223,7 +223,7 @@ msgstr "Přidejte k obrázku popis. Dobrý alt text je stručný, ale podrobný.
 msgid "Add another account"
 msgstr "Přidat další účet"
 
-#: src/app/composer/index.tsx:566
+#: src/app/composer/index.tsx:568
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Přidat vložení pro <0>{potential}</0>"
 
@@ -235,7 +235,7 @@ msgstr "Přidat obrázek"
 msgid "Add to favourites"
 msgstr "Přidat mezi oblíbené"
 
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:721
 msgid "Add to list"
 msgstr "Přidat do seznamu"
 
@@ -276,7 +276,7 @@ msgstr "Všechny jazyky"
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr "Umožňuje ručně třídit neoblíbené kanály v záložce kanálů"
 
-#: src/app/composer/index.tsx:442
+#: src/app/composer/index.tsx:444
 msgid "Alt"
 msgstr "Alt"
 
@@ -295,7 +295,7 @@ msgstr "ALT text"
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/translation.tsx:163
 msgid "An error occurred"
 msgstr "Došlo k chybě"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "Blokovat všechny členy"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:739
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "Block user"
 msgstr "Blokovat uživatele"
 
@@ -609,7 +609,7 @@ msgstr "Nepodařilo se vytvořit účet"
 msgid "Could not delete account"
 msgstr "Nepodařilo se odstranit účet"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
 msgid "Could not delete list"
 msgstr "Nepodařilo se odstranit seznam"
 
@@ -617,7 +617,7 @@ msgstr "Nepodařilo se odstranit seznam"
 msgid "Could not fetch list"
 msgstr "Nepodařilo se načíst seznam"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
 msgid "Could not fetch list feed"
 msgstr "Nepodařilo se načíst kanál seznamu"
 
@@ -659,7 +659,7 @@ msgstr "Vytvořit účet"
 msgid "Create an account"
 msgstr "Vytvořit účet"
 
-#: src/app/create-list.tsx:236
+#: src/app/create-list.tsx:238
 msgid "Create list"
 msgstr "Vytvořit seznam"
 
@@ -679,7 +679,7 @@ msgstr "Vytvořit v bsky.app/settings"
 msgid "Created by"
 msgstr "Vytvořil/a"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:284
 msgid "Creator"
 msgstr "Autor/ka"
 
@@ -831,7 +831,7 @@ msgstr "Upravit kanály"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:623
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
 msgstr "Upravit profil"
 
@@ -852,7 +852,7 @@ msgstr "Povolit oznámení"
 msgid "Enter your phone number"
 msgstr "Zadejte své telefonní číslo"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "Sledují Vás"
 msgid "Forgot?"
 msgstr "Zapomněl/a jste?"
 
-#: src/components/screens/profile/profile-info.tsx:664
+#: src/components/screens/profile/profile-info.tsx:665
 msgid "Frequently Posts Unwanted Content"
 msgstr "Často sdílí příspěvky s nechtěným obsahem"
 
@@ -1085,7 +1085,7 @@ msgstr "Neplatný režim"
 msgid "It's currently set to the {current} theme"
 msgstr "Nyní je nastaveno téma {current}"
 
-#: src/components/screens/profile/profile-info.tsx:516
+#: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
 msgstr "Připojili se {0}"
 
@@ -1132,7 +1132,7 @@ msgstr "Avatar seznamu"
 msgid "List blocked"
 msgstr "Seznam zablokován"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
 msgid "List deleted"
 msgstr "Seznam odstraněn"
 
@@ -1208,7 +1208,7 @@ msgstr "Členové"
 msgid "Members of list \"{0}\""
 msgstr "Členové seznamu \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:665
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Misleading Account"
 msgstr "Zavádějící účet"
 
@@ -1224,7 +1224,7 @@ msgstr "Moderování"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:225
+#: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
 msgid "Moderation list"
 msgstr "Moderační seznam"
@@ -1233,7 +1233,7 @@ msgstr "Moderační seznam"
 msgid "Monthly Plan"
 msgstr "Měsíční tarif"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:321
 msgid "More from {0}"
 msgstr "Více od {0}"
 
@@ -1246,7 +1246,7 @@ msgid "Mute all members"
 msgstr "Ztlumit všechny členy"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:730
+#: src/components/screens/profile/profile-info.tsx:731
 msgid "Mute user"
 msgstr "Ztlumit uživatele"
 
@@ -1293,7 +1293,7 @@ msgstr "Moje jazyky"
 msgid "My lists"
 msgstr "Moje seznamy"
 
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Name or Description Violates Community Standards"
 msgstr "Jméno nebo popis porušuje zásady komunity"
 
@@ -1344,7 +1344,7 @@ msgstr "Bez preferencí"
 msgid "No users found - maybe try a different search term?"
 msgstr "Nenalezeni žádní uživatelé - možná zkuste jiný vyhledávací výraz?"
 
-#: src/components/primary-post.tsx:210
+#: src/components/primary-post.tsx:209
 msgid "Nobody can reply"
 msgstr "Nikdo nemůže odpovědět"
 
@@ -1390,7 +1390,7 @@ msgid "Opens embedded post"
 msgstr "Otevře vložený příspěvek"
 
 #: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:457
 msgid "Opens parent post"
 msgstr "Otevře nadřazený příspěvek"
 
@@ -1399,7 +1399,7 @@ msgid "Opens post details"
 msgstr "Otevře detaily příspěvku"
 
 #: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:371
+#: src/components/feed-post.tsx:373
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:99
 msgid "Opens profile"
@@ -1410,7 +1410,7 @@ msgid "Optional"
 msgstr "Volitelné"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Other"
 msgstr "Ostatní"
 
@@ -1575,7 +1575,7 @@ msgstr "Nastavení profilu"
 msgid "Purchase Successful"
 msgstr "Platba byla úspěšná"
 
-#: src/app/create-list.tsx:211
+#: src/app/create-list.tsx:213
 msgid "Purpose"
 msgstr "Účel"
 
@@ -1621,7 +1621,7 @@ msgid "Reply to {0}"
 msgstr "Odpovědět {0}"
 
 #: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:467
+#: src/components/feed-post.tsx:469
 msgid "replying to {0}"
 msgstr "odpovídá {0}"
 
@@ -1629,15 +1629,15 @@ msgstr "odpovídá {0}"
 msgid "Replying to @{0}"
 msgstr "Odpovídá @{0}"
 
-#: src/components/feed-post.tsx:426
+#: src/components/feed-post.tsx:428
 msgid "replying to a blocked user"
 msgstr "odpovídá blokovanému uživateli"
 
-#: src/components/feed-post.tsx:429
+#: src/components/feed-post.tsx:431
 msgid "replying to a deleted post"
 msgstr "odpovídá na odstraněný příspěvek"
 
-#: src/components/feed-post.tsx:421
+#: src/components/feed-post.tsx:423
 msgid "replying to a post that couldn't be fetched"
 msgstr "odpovídá na příspěvek, který nemohl být načten"
 
@@ -1645,11 +1645,11 @@ msgstr "odpovídá na příspěvek, který nemohl být načten"
 msgid "Replying to some sort of post"
 msgstr "Odpovídá na nějaký druh příspěvku"
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:425
 msgid "replying to..."
 msgstr "odpovídá..."
 
-#: src/components/screens/profile/profile-info.tsx:748
+#: src/components/screens/profile/profile-info.tsx:749
 msgid "Report account"
 msgstr "Nahlásit účet"
 
@@ -1658,7 +1658,7 @@ msgid "Report post"
 msgstr "Nahlásit příspěvek"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Report submitted"
 msgstr "Nahlášení odesláno"
 
@@ -1674,7 +1674,7 @@ msgstr "Nastavení přesdílení"
 msgid "Reposted by"
 msgstr "Přesdíleno"
 
-#: src/components/feed-post.tsx:386
+#: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
 msgstr "Přesdíleno {0}"
 
@@ -1713,7 +1713,7 @@ msgstr "Opakovat"
 msgid "Rising"
 msgstr "Na vzestupu"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:205
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
@@ -1728,7 +1728,7 @@ msgstr "Uložit {0}%"
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:194
 msgid "Saved"
 msgstr "Uloženo"
 
@@ -1815,7 +1815,7 @@ msgstr "Zobrazit přesdílené"
 msgid "Select date of birth"
 msgstr "Vyberte datum narození"
 
-#: src/app/create-list.tsx:227
+#: src/app/create-list.tsx:229
 msgid "Select list purpose"
 msgstr "Vyberte účel seznamu"
 
@@ -1845,7 +1845,7 @@ msgstr "Menu nastavení"
 msgid "Sexual content"
 msgstr "Sexuální obsah"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
@@ -1881,12 +1881,12 @@ msgstr "Sdílet odkaz na příspěvek"
 msgid "Share post"
 msgstr "Sdílet příspěvek"
 
-#: src/components/screens/profile/profile-info.tsx:630
-#: src/components/screens/profile/profile-info.tsx:698
+#: src/components/screens/profile/profile-info.tsx:631
+#: src/components/screens/profile/profile-info.tsx:699
 msgid "Share profile"
 msgstr "Sdílet profil"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:402
 msgid "Share this feed"
 msgstr "Sdílet tento kanál"
 
@@ -2041,7 +2041,7 @@ msgid "Take photo"
 msgstr "Pořídit snímek"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:681
 msgid "Thank you for making the skyline a safer place"
 msgstr "Děkujeme, že děláte skyline bezpečnějším místem"
 
@@ -2069,8 +2069,8 @@ msgstr "Tento kanál je prázdný"
 msgid "This handle is already taken. Please choose another."
 msgstr "Toto uživatelské jméno je již použito. Vyberte si prosím jiné."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
 msgid "This list is empty"
 msgstr "Tento seznam je prázdný"
 
@@ -2100,15 +2100,15 @@ msgstr "Tento příspěvek je od někoho, koho jste ztlumili"
 msgid "This thread is locked"
 msgstr "Toto vlákno je uzamčeno"
 
-#: src/components/screens/profile/profile-info.tsx:596
+#: src/components/screens/profile/profile-info.tsx:597
 msgid "This user has blocked you"
 msgstr "Tento uživatel Vás zablokoval"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "This user is on the \"{0}\" block list"
 msgstr "Tento uživatel je na seznamu blokovaných \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Tento uživatel je na seznamu ztlumených \"{0}\""
 
@@ -2140,7 +2140,7 @@ msgstr "Top (3d)"
 msgid "Top (7d)"
 msgstr "Top (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:714
 msgid "Translate bio"
 msgstr "Přeložit bio"
 
@@ -2153,11 +2153,11 @@ msgstr "Přeložit příspěvek"
 msgid "Translate posts using DeepL"
 msgstr "Přeložte příspěvky pomocí DeepL"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:144
 msgid "Translated by DeepL"
 msgstr "Přeloženo pomocí DeepL"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:133
 msgid "Translated by Google"
 msgstr "Přeloženo pomocí Google"
 
@@ -2174,7 +2174,7 @@ msgstr "Překlady jsou nyní poháněné překladačem DeepL"
 msgid "Trending topics"
 msgstr "Populární témata"
 
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:572
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2204,7 +2204,7 @@ msgstr "Sledování uživatele bylo zrušeno"
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: src/components/screens/profile/profile-info.tsx:540
+#: src/components/screens/profile/profile-info.tsx:541
 msgid "Unmute"
 msgstr "Zrušit ztlumení"
 
@@ -2253,7 +2253,7 @@ msgstr "Použít můj výchozí prohlížeč"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:223
+#: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
 msgid "User list"
 msgstr "Seznam uživatelů"
@@ -2262,19 +2262,19 @@ msgstr "Seznam uživatelů"
 msgid "Username or email address"
 msgstr "Uživatelské jméno nebo e-mail"
 
-#: src/components/primary-post.tsx:268
+#: src/components/primary-post.tsx:267
 msgid "Users in the list"
 msgstr "Uživatelé v seznamu"
 
-#: src/components/primary-post.tsx:270
+#: src/components/primary-post.tsx:269
 msgid "Users in the lists"
 msgstr "Uživatelé v seznamech"
 
-#: src/components/primary-post.tsx:225
+#: src/components/primary-post.tsx:224
 msgid "Users mentioned in this thread"
 msgstr "Uživatelé zmínění v tomto vlákně"
 
-#: src/components/primary-post.tsx:232
+#: src/components/primary-post.tsx:231
 msgid "Users that <0>{0}</0> follows"
 msgstr "Uživatelé, které sleduje <0>{0}</0>"
 
@@ -2292,12 +2292,12 @@ msgstr "Verze {0}"
 msgid "Version unknown"
 msgstr "Verze neznámá"
 
-#: src/components/screens/profile/profile-info.tsx:540
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:541
+#: src/components/screens/profile/profile-info.tsx:572
 msgid "View"
 msgstr "Zobrazit"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:357
 msgid "View all feeds"
 msgstr "Zobrazit všechny kanály"
 
@@ -2329,7 +2329,7 @@ msgstr "Vítejte na Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Co se vám honí hlavou?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:755
 msgid "What's the issue with this account?"
 msgstr "Jaký je s tímto účtem problém?"
 
@@ -2338,7 +2338,7 @@ msgid "What's the issue with this post?"
 msgstr "Jaký je s tímto příspěvkem problém?"
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:181
+#: src/components/primary-post.tsx:180
 msgid "Who can reply?"
 msgstr "Kdo může odpovídat?"
 
@@ -2374,11 +2374,11 @@ msgstr "Můžete dostávat push notifikace na \"líbí se mi\", odpovědi a víc
 msgid "You don't have any moderation lists yet."
 msgstr "Zatím nemáte žádné moderační seznamy."
 
-#: src/components/screens/profile/profile-info.tsx:566
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
 msgstr "Zablokovali jste tohoto uživatele"
 
-#: src/components/screens/profile/profile-info.tsx:535
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
 msgstr "Ztlumili jste tohoto uživatele"
 
@@ -2427,7 +2427,7 @@ msgstr "Váš výběr bude uložen, ale lze ho změnit v nastavení"
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Vaše uživatelské jméno bude: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"
 msgstr "Váš seznam byl odstraněn"
 

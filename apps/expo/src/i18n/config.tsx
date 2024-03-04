@@ -8,6 +8,7 @@ import { messages as messagesCs } from "~/i18n/locales/cs/messages";
 import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
+import { messages as messagesHr } from "~/i18n/locales/hr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
 import { messages as messagesMl } from "~/i18n/locales/ml/messages";
 import { messages as messagesPt } from "~/i18n/locales/pt/messages";
@@ -46,6 +47,9 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     }
     case "uk": {
       return "Українська";
+    }
+    case "hr": {
+      return "Hrvatski";
     }
     // case "ar": {
     //   return "العربية";
@@ -93,6 +97,10 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
     }
     case "uk": {
       i18n.loadAndActivate({ locale, messages: messagesUk });
+      break;
+    }
+    case "hr": {
+      i18n.loadAndActivate({ locale, messages: messagesHr });
       break;
     }
     // case "ar": {

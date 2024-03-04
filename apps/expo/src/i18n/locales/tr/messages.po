@@ -8,7 +8,7 @@ msgstr ""
 "Language: tr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Turkish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Add embed for <0>{potential}</0>"
 msgstr ""
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
 msgstr ""
 
@@ -327,7 +327,7 @@ msgstr ""
 msgid "Anti-Social Behavior"
 msgstr ""
 
-#: src/app/settings/about.tsx:193
+#: src/app/settings/about.tsx:200
 msgid "App info"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr ""
 
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Choose a handle"
 msgstr ""
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr ""
 
@@ -1065,7 +1065,7 @@ msgstr ""
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr ""
 
-#: src/app/settings/about.tsx:178
+#: src/app/settings/about.tsx:185
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr ""
 
@@ -1167,7 +1167,7 @@ msgstr ""
 msgid "Logged in"
 msgstr ""
 
-#: src/app/settings/about.tsx:182
+#: src/app/settings/about.tsx:189
 msgid "Logo designed by"
 msgstr ""
 
@@ -1768,7 +1768,7 @@ msgstr ""
 msgid "Search for users"
 msgstr ""
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr ""
 
@@ -2036,7 +2036,7 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr ""
 
@@ -2282,12 +2282,12 @@ msgstr ""
 msgid "Verification code"
 msgstr ""
 
-#: src/app/settings/about.tsx:197
+#: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr ""
 
-#: src/app/settings/about.tsx:198
+#: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr ""

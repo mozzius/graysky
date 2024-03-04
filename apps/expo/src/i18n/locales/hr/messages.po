@@ -8,7 +8,7 @@ msgstr ""
 "Language: hr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 12:20\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Croatian\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -211,7 +211,7 @@ msgstr "Postavke računa"
 msgid "Add {0} to List"
 msgstr "Dodaj {0} na listu"
 
-#: src/app/composer/index.tsx:656
+#: src/app/composer/index.tsx:658
 msgid "Add a content warning"
 msgstr "Dodajte upozorenje o sadržaju"
 
@@ -223,7 +223,7 @@ msgstr "Dodajte opis slike. Dobar alternativni tekst je sažet i detaljan. Obave
 msgid "Add another account"
 msgstr "Dodajte drugi račun"
 
-#: src/app/composer/index.tsx:566
+#: src/app/composer/index.tsx:568
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Dodaj post na web <0>{potential}</0>"
 
@@ -235,7 +235,7 @@ msgstr "Dodaj sliku"
 msgid "Add to favourites"
 msgstr "Dodaj u favorite"
 
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:721
 msgid "Add to list"
 msgstr "Dodaj na listu"
 
@@ -249,128 +249,128 @@ msgstr "Dodaj na moderiranu listu"
 
 #: src/app/add-to-list/[handle].tsx:134
 msgid "Add to user list"
-msgstr ""
+msgstr "Dodaj na korisnikovu listu"
 
 #: src/app/composer/index.tsx:242
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
-msgstr ""
+msgstr "Dodavanje opisa vašoj slici čini Bluesky pristupačniji osobama s invaliditetom i pomaže dati kontekst svima. Toplo preporučujemo dodavanje alternativnog teksta svim slikama."
 
 #: src/app/composer/content-warning.tsx:47
 msgid "Adult content"
-msgstr ""
+msgstr "Sadržaj za odrasle"
 
 #: src/app/settings/account/index.tsx:52
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Napredne postavke"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:174
 #: src/components/feeds-button.tsx:185
 msgid "All feeds"
-msgstr ""
+msgstr "Svi feedovi"
 
 #: src/app/composer/language.tsx:98
 msgid "All languages"
-msgstr ""
+msgstr "Svi jezici"
 
 #: src/app/settings/app.tsx:46
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
-msgstr ""
+msgstr "Omogućuje vam ručno sortiranje neomiljenih feedova na feed tabu"
 
-#: src/app/composer/index.tsx:442
+#: src/app/composer/index.tsx:444
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #: src/components/image-viewer.tsx:160
 msgid "ALT"
-msgstr ""
+msgstr "ALT"
 
 #: src/components/embed/image.tsx:219
 msgid "ALT text"
-msgstr ""
+msgstr "ALT tekst"
 
 #: src/components/image-viewer.tsx:191
 msgid "ALT Text"
-msgstr ""
+msgstr "ALT Tekst"
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/translation.tsx:163
 msgid "An error occurred"
-msgstr ""
+msgstr "Došlo je do greške"
 
 #: src/components/image-with-context-menu.tsx:142
 msgid "An error occurred while trying to copy the image"
-msgstr ""
+msgstr "Pojavila se greška prilikom pokušaja kopiranja slike"
 
 #: src/components/image-with-context-menu.tsx:174
 msgid "An error occurred while trying to save the image"
-msgstr ""
+msgstr "Pojavila se greška prilikom pokušaja spremanja slike"
 
 #: src/components/image-with-context-menu.tsx:198
 msgid "An error occurred while trying to share the image"
-msgstr ""
+msgstr "Pojavila se greška prilikom pokušaja djeljenja slike"
 
 #: src/app/composer/index.tsx:286
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "Došlo je do nepoznate greške"
 
 #: src/app/settings/account/change-handle.tsx:58
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "Došlo je do nepoznate greške."
 
 #: src/app/pro.tsx:220
 msgid "Annual Plan"
-msgstr ""
+msgstr "Godišnji plan"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Anti-Social Behavior"
-msgstr ""
+msgstr "Antisocijalno ponašanje"
 
 #: src/app/settings/about.tsx:200
 msgid "App info"
-msgstr ""
+msgstr "Informacije o aplikaciji"
 
 #: src/app/settings/language/index.tsx:47
 #: src/app/settings/language/index.tsx:50
 msgid "App language"
-msgstr ""
+msgstr "Jezik aplikacije"
 
 #: src/app/(auth)/sign-in.tsx:92
 msgid "App Password"
-msgstr ""
+msgstr "Lozinka aplikacije"
 
 #: src/app/(auth)/sign-in.tsx:126
 msgid "App Passwords"
-msgstr ""
+msgstr "Lozinka aplikacije"
 
 #: src/app/settings/index.tsx:63
 msgid "App settings"
-msgstr ""
+msgstr "Postavke aplikacije"
 
 #: src/app/settings/_layout.tsx:104
 msgid "App Settings"
-msgstr ""
+msgstr "Postavke aplikacije"
 
 #: src/lib/account-actions.ts:71
 msgid "Are you sure you want to block @{handle}?"
-msgstr ""
+msgstr "Sigurno želite blokirati @{handle}?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:325
 msgid "Are you sure you want to delete this list?"
-msgstr ""
+msgstr "Jeste li sigurni da želite izbrisati ovaj popis?"
 
 #: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Jeste li sigurni da želite izbrisati ovu objavu?"
 
 #: src/lib/account-actions.ts:117
 msgid "Are you sure you want to unblock @{handle}?"
-msgstr ""
+msgstr "Sigurno želite odblokirati @{handle}?"
 
 #: src/components/handle-availability.tsx:61
 msgid "Available"
-msgstr ""
+msgstr "Dostupno"
 
 #: src/app/(auth)/sign-up.tsx:312
 #: src/app/(auth)/sign-up.tsx:351
@@ -381,70 +381,70 @@ msgstr ""
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:307
 msgid "Back"
-msgstr ""
+msgstr "Natrag"
 
 #: src/app/pro.tsx:108
 msgid "Better translations"
-msgstr ""
+msgstr "Bolji prijevod"
 
 #: src/app/pro.tsx:242
 msgid "Billed annually, cancel anytime"
-msgstr ""
+msgstr "Naplaćuje se godišnje, otkažite bilo kada"
 
 #: src/app/pro.tsx:209
 msgid "Billed monthly, cancel anytime"
-msgstr ""
+msgstr "Naplaćuje se mjesečno, otkažite bilo kada"
 
 #: src/lib/account-actions.ts:70
 #: src/lib/account-actions.ts:78
 msgid "Block"
-msgstr ""
+msgstr "Blokiraj"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:218
 msgid "Block all members"
-msgstr ""
+msgstr "Blokiraj sve korisnike"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:739
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "Block user"
-msgstr ""
+msgstr "Blokiraj korisnika"
 
 #: src/lib/account-actions.ts:96
 msgid "Blocked"
-msgstr ""
+msgstr "Blokirani"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:366
 msgid "Blocked post"
-msgstr ""
+msgstr "Blokirani post"
 
 #: src/app/settings/moderation.tsx:115
 msgid "Blocked users"
-msgstr ""
+msgstr "Blokirani korisnici"
 
 #: src/app/settings/_layout.tsx:92
 msgid "Blocked Users"
-msgstr ""
+msgstr "Blokirani korisnici"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
 msgid "Blocking list"
-msgstr ""
+msgstr "Lista blokiranih"
 
 #: src/app/settings/moderation.tsx:112
 msgid "Blocks & Mutes"
-msgstr ""
+msgstr "Blokirani i utišani"
 
 #: src/app/settings/account/change-handle.tsx:87
 msgid "bsky.social domain"
-msgstr ""
+msgstr "bsky.social domena"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:464
 msgid "by @{0}"
-msgstr ""
+msgstr "od {0}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:150
 #: src/app/settings/feed.tsx:224
 msgid "By @{0}"
-msgstr ""
+msgstr "Od {0}"
 
 #: src/app/settings/account/delete-account.tsx:115
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
@@ -483,21 +483,21 @@ msgstr "Pretplatom se slažete s našim <0>Uvjetima i odredbama</0>, <1>Uvjetima
 #: src/lib/hooks/link-press.tsx:101
 #: src/lib/hooks/post-actions.tsx:142
 msgid "Cancel"
-msgstr ""
+msgstr "Odustani"
 
 #: src/app/settings/_layout.tsx:68
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
-msgstr ""
+msgstr "Promijeni ime"
 
 #: src/app/settings/_layout.tsx:74
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
-msgstr ""
+msgstr "Promijeni lozinku"
 
 #: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
-msgstr ""
+msgstr "Primijeni jezik objave"
 
 #: src/app/pro.tsx:121
 msgid "Change the accent colour"
@@ -538,15 +538,15 @@ msgstr "Potvrdi i nastavi"
 
 #: src/components/screens/change-password-flow.tsx:174
 msgid "Confirm Password"
-msgstr ""
+msgstr "Potvrdi lozinku"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
 msgid "Connecting..."
-msgstr ""
+msgstr "Povezivanje..."
 
 #: src/app/settings/about.tsx:49
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: src/app/settings/moderation.tsx:127
 msgid "Content filters"
@@ -558,11 +558,11 @@ msgstr "Jezik sadržaja"
 
 #: src/app/composer/_layout.tsx:81
 msgid "Content Warning"
-msgstr ""
+msgstr "Upozorenje za sadržaj"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr ""
+msgstr "Doprinositelji"
 
 #: src/components/image-with-context-menu.tsx:136
 msgid "Copied image to clipboard"
@@ -609,7 +609,7 @@ msgstr "Nije bilo moguće kreirati korisnički račun"
 msgid "Could not delete account"
 msgstr "Nije bilo moguće obrisati korisnički račun"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
 msgid "Could not delete list"
 msgstr "Nije bilo moguće obrisati listu"
 
@@ -617,7 +617,7 @@ msgstr "Nije bilo moguće obrisati listu"
 msgid "Could not fetch list"
 msgstr "Nije bilo moguće dohvatiti listu"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
 msgid "Could not fetch list feed"
 msgstr "Nije bilo moguće dohvatiti feed liste"
 
@@ -659,7 +659,7 @@ msgstr "Napravi račun"
 msgid "Create an account"
 msgstr "Napravi račun"
 
-#: src/app/create-list.tsx:236
+#: src/app/create-list.tsx:238
 msgid "Create list"
 msgstr "Stvori popis"
 
@@ -679,7 +679,7 @@ msgstr "Kreirajte novi na bsky.app/settings"
 msgid "Created by"
 msgstr "Kreirao korisnik"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:284
 msgid "Creator"
 msgstr "Kreator"
 
@@ -689,105 +689,105 @@ msgstr "Trenutno pretplaćen"
 
 #: src/app/settings/account/change-handle.tsx:91
 msgid "Custom domain"
-msgstr ""
+msgstr "Vlastita domena"
 
 #: src/app/pro.tsx:120
 msgid "Custom themes"
-msgstr ""
+msgstr "Prilagođena tema"
 
 #: src/components/drawer/drawer-content.tsx:65
 msgid "dark"
-msgstr ""
+msgstr "mrak"
 
 #: src/components/drawer/drawer-content.tsx:53
 #: src/components/drawer/drawer-content.tsx:85
 msgid "Dark"
-msgstr ""
+msgstr "Mrak"
 
 #: src/app/(auth)/sign-up.tsx:207
 msgid "Date of Birth"
-msgstr ""
+msgstr "Datum rođenja"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
-msgstr ""
+msgstr "Izbriši"
 
 #: src/app/settings/_layout.tsx:80
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
-msgstr ""
+msgstr "Izbriši račun"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:322
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
 msgid "Delete list"
-msgstr ""
+msgstr "Izbriši popis"
 
 #: src/components/post-context-menu.tsx:220
 msgid "Delete post"
-msgstr ""
+msgstr "Obriši objavu"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:380
 msgid "Deleted post"
-msgstr ""
+msgstr "Objava je izbrisana"
 
 #: src/app/settings/account/delete-account.tsx:99
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr ""
+msgstr "Brisanjem vašeg Bluesky računa trajno će se ukloniti svi vaši podaci, uključujući vaš profil, objave, praćenja i lajkovi. Ova radnja se ne može poništiti."
 
 #: src/app/settings/account/delete-account.tsx:167
 msgid "Deletion Code"
-msgstr ""
+msgstr "Kod za brisanje"
 
 #: src/app/create-list.tsx:189
 #: src/app/edit-bio.tsx:245
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: src/app/settings/app.tsx:120
 #: src/app/settings/app.tsx:128
 msgid "Disable GIF autoplay"
-msgstr ""
+msgstr "Onemogući automatsku reprodukciju GIF-a"
 
 #: src/app/settings/app.tsx:99
 msgid "Disable haptics"
-msgstr ""
+msgstr "Onemogući opipljivost"
 
 #: src/app/settings/app.tsx:115
 msgid "Disable haptics (vibrations)"
-msgstr ""
+msgstr "Onemogući opipljivost (vibracije)"
 
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:159
 msgid "Discard post"
-msgstr ""
+msgstr "Odustani od objave"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
-msgstr ""
+msgstr "Pronađite feedove"
 
 #: src/app/_layout.tsx:314
 msgid "Discover Feeds"
-msgstr ""
+msgstr "Pronađite Feedove"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:210
 msgid "Discover more feeds"
-msgstr ""
+msgstr "Pronađite još feedova"
 
 #: src/app/edit-bio.tsx:228
 msgid "Display name"
-msgstr ""
+msgstr "Prikaži ime"
 
 #: src/app/settings/account/change-handle.tsx:82
 msgid "Domain"
-msgstr ""
+msgstr "Domena"
 
 #: src/app/push-notifications.tsx:147
 msgid "Don't enable"
-msgstr ""
+msgstr "Nemoj omogućiti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
@@ -798,118 +798,118 @@ msgstr ""
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
-msgstr ""
+msgstr "Gotovo"
 
 #: src/app/settings/account/delete-account.tsx:113
 msgid "Double check that you understand"
-msgstr ""
+msgstr "Još jednom provjerite razumijete li"
 
 #: src/app/composer/_layout.tsx:73
 msgid "Drafts"
-msgstr ""
+msgstr "Skice"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:272
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #: src/lib/composer/alt-text-editor.tsx:68
 msgid "Edit alt text"
-msgstr ""
+msgstr "Uredi alt tekst"
 
 #: src/app/edit-bio.tsx:201
 msgid "Edit avatar"
-msgstr ""
+msgstr "Uredi avatar"
 
 #: src/app/edit-bio.tsx:183
 msgid "Edit banner"
-msgstr ""
+msgstr "Uredi baner"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Edit feeds"
-msgstr ""
+msgstr "Uredi feed"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:623
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
-msgstr ""
+msgstr "Uredi profil"
 
 #: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
-msgstr ""
+msgstr "E-pošta"
 
 #: src/app/settings/moderation.tsx:143
 msgid "Enable Adult Content"
-msgstr ""
+msgstr "Omogući sadržaj za odrasle"
 
 #: src/app/push-notifications.tsx:127
 msgid "Enable notifications"
-msgstr ""
+msgstr "Omogući obavijesti"
 
 #: src/app/(auth)/sign-up.tsx:289
 msgid "Enter your phone number"
-msgstr ""
+msgstr "Unesite broj svog mobilnog telefona"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
-msgstr ""
+msgstr "Greška"
 
 #: src/app/composer/threadgate.tsx:37
 msgid "Everyone can reply"
-msgstr ""
+msgstr "Svi mogu odgovoriti"
 
 #: src/app/capture/[author]/[post].tsx:88
 msgid "Failed to capture image"
-msgstr ""
+msgstr "Snimanje slike nije uspjelo"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:57
 msgid "Failed to fetch feed"
-msgstr ""
+msgstr "Greška prilikom učitavanja feeda"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:70
 msgid "Failed to hydrate feed"
-msgstr ""
+msgstr "Greška prilikom učitavanja feeda"
 
 #: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
-msgstr ""
+msgstr "Greška prilikom otvaranja linka"
 
 #: src/lib/composer/utils.tsx:188
 msgid "Failed to upload image"
-msgstr ""
+msgstr "Greška prilikom snimanja slike"
 
 #: src/components/feed-row.tsx:221
 msgid "Favourited"
-msgstr ""
+msgstr "Favoriti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
 #: src/components/feeds-button.tsx:179
 msgid "Favourites"
-msgstr ""
+msgstr "Favoriti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:86
 msgid "Feed"
-msgstr ""
+msgstr "Feed"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:54
 msgid "Feed Details"
-msgstr ""
+msgstr "Detalji feeda"
 
 #: src/app/(tabs)/_layout.tsx:159
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:95
 msgid "Feeds"
-msgstr ""
+msgstr "Feedovi"
 
 #: src/app/settings/feed.tsx:130
 #: src/app/settings/feed.tsx:144
 msgid "Feeds list"
-msgstr ""
+msgstr "Lista feedova"
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -926,11 +926,11 @@ msgstr "Zaprati korisnike, a njihove objave će se prikazivati ovdje"
 
 #: src/components/screens/profile/profile-info.tsx:103
 msgid "Followed user"
-msgstr ""
+msgstr "Korisik se prati"
 
 #: src/components/lists/followers-list.tsx:54
 msgid "Followers"
-msgstr ""
+msgstr "Pratitelji"
 
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
@@ -942,7 +942,7 @@ msgstr ""
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr ""
+msgstr "praćena.lista"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -954,13 +954,13 @@ msgstr ""
 #: src/components/screens/profile/profile-info.tsx:396
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr ""
+msgstr "pratitelji.akcije"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr ""
+msgstr "pratitelji.lista"
 
 #: src/components/lists/person-row.tsx:54
 #: src/components/screens/profile/profile-info.tsx:442
@@ -972,7 +972,7 @@ msgstr "Vas prati"
 msgid "Forgot?"
 msgstr "Zaboravili ste nešto?"
 
-#: src/components/screens/profile/profile-info.tsx:664
+#: src/components/screens/profile/profile-info.tsx:665
 msgid "Frequently Posts Unwanted Content"
 msgstr "Često objavljuje neželjeni sadržaj"
 
@@ -994,11 +994,11 @@ msgstr "Dohvaćanje pozicije u redu čekanja..."
 
 #: src/app/composer/_layout.tsx:97
 msgid "GIFs"
-msgstr ""
+msgstr "GIFovi"
 
 #: src/app/composer/index.tsx:244
 msgid "Go back"
-msgstr ""
+msgstr "Idi natrag"
 
 #: src/app/settings/language/index.tsx:157
 #: src/app/settings/pro.tsx:50
@@ -1055,7 +1055,7 @@ msgstr "Raspored početnog zaslona"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
-msgstr ""
+msgstr "U trendu"
 
 #: src/lib/hooks/link-press.tsx:33
 msgid "How should we open this link?"
@@ -1085,23 +1085,23 @@ msgstr "Nevažeći način rada"
 msgid "It's currently set to the {current} theme"
 msgstr "Trenutno je postavljena na {current} temu"
 
-#: src/components/screens/profile/profile-info.tsx:516
+#: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
 msgstr "Pridružio se {0}"
 
 #: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
 msgid "Languages"
-msgstr ""
+msgstr "Jezici"
 
 #: src/components/drawer/drawer-content.tsx:64
 msgid "light"
-msgstr ""
+msgstr "svijetla"
 
 #: src/components/drawer/drawer-content.tsx:52
 #: src/components/drawer/drawer-content.tsx:82
 msgid "Light"
-msgstr ""
+msgstr "Svijetla"
 
 #: src/components/notification/index.tsx:68
 msgid "liked your post"
@@ -1110,11 +1110,11 @@ msgstr "se sviđa vaša objava"
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
 msgid "Likes"
-msgstr ""
+msgstr "Lajkovi"
 
 #: src/lib/hooks/link-press.tsx:118
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "Poveznica je spremljena u međuspremnik"
 
 #: src/app/settings/app.tsx:88
 msgid "Links will open in the app instead of your device's default browser"
@@ -1122,7 +1122,7 @@ msgstr "Veze će se otvoriti u aplikaciji umjesto u zadanom pregledniku vašeg u
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:119
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: src/app/create-list.tsx:153
 msgid "List Avatar"
@@ -1132,7 +1132,7 @@ msgstr "Lista Avatar"
 msgid "List blocked"
 msgstr "Lista blokiranih"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
 msgid "List deleted"
 msgstr "Lista obrisanih"
 
@@ -1151,235 +1151,235 @@ msgstr "Liste"
 #: src/app/(auth)/_layout.tsx:66
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
-msgstr ""
+msgstr "Prijavite se ponovno"
 
 #: src/app/(auth)/_layout.tsx:54
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
-msgstr ""
+msgstr "Prijavi se"
 
 #: src/components/screens/waiting-room.tsx:109
 msgid "Log out"
-msgstr ""
+msgstr "Odjavi se"
 
 #: src/components/switch-accounts.tsx:84
 msgid "Logged in"
-msgstr ""
+msgstr "Prijavljen"
 
 #: src/app/settings/about.tsx:189
 msgid "Logo designed by"
-msgstr ""
+msgstr "Logo je dizajnirao"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
-msgstr ""
+msgstr "Čini se da ovdje još nema ničega!"
 
 #: src/app/settings/app.tsx:142
 msgid "Makes adding ALT text to your images mandatory"
-msgstr ""
+msgstr "Učini dodavanje ALT teksta vašim slikama obaveznim"
 
 #: src/components/feeds-button.tsx:298
 msgid "Manage my feeds"
-msgstr ""
+msgstr "Upravljaj mojim feedovima"
 
 #: src/app/pro.tsx:193
 msgid "Manage my subscription"
-msgstr ""
+msgstr "Upravljaj pretplatom"
 
 #: src/app/settings/app.tsx:133
 msgid "Mandatory ALT text"
-msgstr ""
+msgstr "Obvezan ALT tekst"
 
 #: src/app/settings/app.tsx:38
 msgid "Manually sort non-favourite feeds"
-msgstr ""
+msgstr "Ručno sortiraj ne-omiljene feedove"
 
 #: src/components/screens/profile/profile-tab-view.tsx:88
 msgid "Media"
-msgstr ""
+msgstr "Mediji"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:89
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:107
 msgid "Members"
-msgstr ""
+msgstr "Članovi"
 
 #: src/app/composer/threadgate.tsx:129
 msgid "Members of list \"{0}\""
-msgstr ""
+msgstr "Član liste \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:665
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Misleading Account"
-msgstr ""
+msgstr "Račun koji dovodi u zabludu"
 
 #: src/app/composer/index.tsx:229
 #: src/app/composer/index.tsx:240
 msgid "Missing alt text"
-msgstr ""
+msgstr "Nedostaje alt tekst"
 
 #: src/app/settings/_layout.tsx:86
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
-msgstr ""
+msgstr "Upravljanje"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:225
+#: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
 msgid "Moderation list"
-msgstr ""
+msgstr "Moderirana lista"
 
 #: src/app/pro.tsx:202
 msgid "Monthly Plan"
-msgstr ""
+msgstr "Mjesečni plan"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:321
 msgid "More from {0}"
-msgstr ""
+msgstr "Više od {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
-msgstr ""
+msgstr "Mora biti najmanje 8 znakova"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:217
 msgid "Mute all members"
-msgstr ""
+msgstr "Utišaj sve članove"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:730
+#: src/components/screens/profile/profile-info.tsx:731
 msgid "Mute user"
-msgstr ""
+msgstr "Utišaj korisnika"
 
 #: src/lib/account-actions.ts:34
 msgid "Muted"
-msgstr ""
+msgstr "Utišano"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 msgid "Muted list"
-msgstr ""
+msgstr "Lista utišanih"
 
 #: src/app/settings/moderation.tsx:120
 msgid "Muted users"
-msgstr ""
+msgstr "Utišani korisnici"
 
 #: src/app/settings/_layout.tsx:98
 msgid "Muted Users"
-msgstr ""
+msgstr "Utišani korisnici"
 
 #: src/components/lists/person-row.tsx:44
 #: src/lib/composer/suggestion-list.tsx:49
 msgid "Mutuals"
-msgstr ""
+msgstr "Zajednički"
 
 #: src/components/drawer/drawer-content.tsx:119
 msgid "My feeds"
-msgstr ""
+msgstr "Moj feed"
 
 #: src/components/feeds-button.tsx:106
 msgid "My Feeds"
-msgstr ""
+msgstr "Moj feed"
 
 #: src/components/drawer/drawer-content.tsx:114
 msgid "My Feeds screen"
-msgstr ""
+msgstr "Moj feed zaslon"
 
 #: src/app/composer/language.tsx:85
 #: src/app/settings/language/index.tsx:108
 msgid "My languages"
-msgstr ""
+msgstr "Moji jezici"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:71
 #: src/components/feeds-button.tsx:189
 msgid "My lists"
-msgstr ""
+msgstr "Moj popis"
 
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Name or Description Violates Community Standards"
 msgstr "Naziv ili opis krše standarde zajednice"
 
 #: src/app/add-to-list/[handle].tsx:152
 msgid "Need a new list?"
-msgstr ""
+msgstr "Trebate novu listu?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
-msgstr ""
+msgstr "Novi"
 
 #: src/components/notification/index.tsx:189
 msgid "New follower: {0} @{1}"
-msgstr ""
+msgstr "Novi pratitelj: {0} @{1}"
 
 #: src/components/screens/change-password-flow.tsx:153
 msgid "New Password"
-msgstr ""
+msgstr "Nova lozinka"
 
 #: src/app/composer/_layout.tsx:72
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
-msgstr ""
+msgstr "Nova objava"
 
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 msgid "Next"
-msgstr ""
+msgstr "Dalje"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
-msgstr ""
+msgstr "Feed nije pronađen - pokušajte s drugim pojmom za pretraživanje?"
 
 #: src/app/composer/threadgate.tsx:47
 msgid "No one can reply"
-msgstr ""
+msgstr "Nitko ne može odgovoriti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:102
 msgid "No posts found - maybe try a different search term?"
-msgstr ""
+msgstr "Post nije pronađen - pokušajte s drugim pojmom za pretraživanje?"
 
 #: src/app/settings/feed.tsx:82
 #: src/app/settings/moderation.tsx:42
 msgid "No preferences"
-msgstr ""
+msgstr "Bez preferencija"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:84
 msgid "No users found - maybe try a different search term?"
-msgstr ""
+msgstr "Korisnik nije pronađen - pokušajte s drugim pojmom za pretraživanje?"
 
-#: src/components/primary-post.tsx:210
+#: src/components/primary-post.tsx:209
 msgid "Nobody can reply"
-msgstr ""
+msgstr "Nitko ne može odgovoriti"
 
 #: src/components/feed-row.tsx:221
 msgid "Not favourited"
-msgstr ""
+msgstr "Nemoj favorizirati"
 
 #: src/lib/hooks/link-press.tsx:76
 msgid "Not sure why, sorry :("
-msgstr ""
+msgstr "Nisam siguran zašto, oprosti :("
 
 #: src/app/settings/account/change-handle.tsx:95
 msgid "Not yet implemented"
-msgstr ""
+msgstr "Još nije implementirano"
 
 #: src/app/settings/moderation.tsx:132
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
-msgstr ""
+msgstr "Napomena: Postavke sadržaja za odrasle ne mogu se promijeniti na iOS-u. Umjesto toga upotrijebite web aplikaciju."
 
 #: src/app/(tabs)/_layout.tsx:223
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:290
 msgid "Notifications"
-msgstr ""
+msgstr "Obavijesti"
 
 #: src/app/composer/content-warning.tsx:28
 msgid "Nudity"
-msgstr ""
+msgstr "Golotinja"
 
 #: src/app/settings/feed.tsx:260
 msgid "Only show replies from your follows"
-msgstr ""
+msgstr "Prikaži samo odgovore od mojih pratitelja"
 
 #: src/components/open-drawer-avatar.tsx:15
 msgid "Open drawer menu"
-msgstr ""
+msgstr "Otvori izbornik ladice"
 
 #: src/lib/hooks/link-press.tsx:88
 msgid "Open link"
@@ -1390,7 +1390,7 @@ msgid "Opens embedded post"
 msgstr "Otvari ugrađeni post"
 
 #: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:457
 msgid "Opens parent post"
 msgstr "Otvori povezanu objavu"
 
@@ -1399,7 +1399,7 @@ msgid "Opens post details"
 msgstr "Otvori detalje objave"
 
 #: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:371
+#: src/components/feed-post.tsx:373
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:99
 msgid "Opens profile"
@@ -1410,9 +1410,9 @@ msgid "Optional"
 msgstr "Neobavezno"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Other"
-msgstr ""
+msgstr "Ostalo"
 
 #: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
@@ -1426,7 +1426,7 @@ msgstr "Lozinka je uspješno promijenjena!"
 #: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
-msgstr ""
+msgstr "Lozinka mora sadržavati minimalno 8 znakova"
 
 #: src/components/screens/waiting-room.tsx:89
 msgid "people ahead of you."
@@ -1475,7 +1475,7 @@ msgstr "Unesite telefonski broj na koji možete primati SMS poruke."
 #: src/app/composer/index.tsx:290
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"
-msgstr ""
+msgstr "Molimo pokušajte ponovno"
 
 #: src/components/screens/change-password-flow.tsx:80
 msgid "Please try again - are you sure your reset code is correct?"
@@ -1514,290 +1514,290 @@ msgstr "Jezik objave"
 
 #: src/components/post-context-menu.tsx:70
 msgid "Post link copied to clipboard"
-msgstr ""
+msgstr "Poveznica objave je spremljena u međuspremnik"
 
 #: src/lib/composer/utils.tsx:344
 msgid "Post published!"
-msgstr ""
+msgstr "Post je objavljen!"
 
 #: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
-msgstr ""
+msgstr "Tekst objave spremljen je u međuspremnik"
 
 #: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Posts"
-msgstr ""
+msgstr "Objave"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/components/feeds-button.tsx:254
 msgid "Posts from people you follow"
-msgstr ""
+msgstr "Objave od korisnika koje pratite"
 
 #: src/app/settings/language/index.tsx:102
 msgid "Posts will be translated into {primaryLanguageLabel}."
-msgstr ""
+msgstr "Objave će biti prevedene na {primaryLanguageLabel}."
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
-msgstr ""
+msgstr "Pokreće Skyfeed"
 
 #: src/app/settings/feed.tsx:132
 #: src/app/settings/feed.tsx:155
 #: src/app/settings/feed.tsx:171
 msgid "Primary feed"
-msgstr ""
+msgstr "Primarni feed"
 
 #: src/app/settings/language/index.tsx:88
 msgid "Primary language"
-msgstr ""
+msgstr "Primarni jezik"
 
 #: src/app/settings/_layout.tsx:128
 msgid "Primary Language"
-msgstr ""
+msgstr "Primarni jezik"
 
 #: src/app/settings/_layout.tsx:56
 msgid "Pro Settings"
-msgstr ""
+msgstr "Pro postavke"
 
 #: src/components/drawer/drawer-content.tsx:169
 msgid "Pro version information and purchase"
-msgstr ""
+msgstr "Informacije o Pro verziji i kupnji"
 
 #: src/app/(tabs)/_layout.tsx:244
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: src/app/settings/account/index.tsx:37
 msgid "Profile Settings"
-msgstr ""
+msgstr "Postavke profila"
 
 #: src/app/_layout.tsx:335
 msgid "Purchase Successful"
-msgstr ""
+msgstr "Uspješna kupnja"
 
-#: src/app/create-list.tsx:211
+#: src/app/create-list.tsx:213
 msgid "Purpose"
-msgstr ""
+msgstr "Svrha"
 
 #: src/app/settings/index.tsx:75
 msgid "Push notifications"
-msgstr ""
+msgstr "Push obavijesti"
 
 #: src/app/_layout.tsx:392
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
-msgstr ""
+msgstr "Push obavijesti"
 
 #: src/lib/hooks/post-actions.tsx:141
 msgid "Quote"
-msgstr ""
+msgstr "Citat"
 
 #: src/app/settings/feed.tsx:305
 msgid "Quote post settings"
-msgstr ""
+msgstr "Postavke citirajućih objava"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
-msgstr ""
+msgstr "Nasumično"
 
 #: src/components/image-viewer.tsx:146
 msgid "Read full ALT text"
-msgstr ""
+msgstr "Pročitajte cijeli ALT tekst"
 
 #: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Replies"
-msgstr ""
+msgstr "Odgovori"
 
 #: src/app/composer/_layout.tsx:89
 msgid "Reply Controls"
-msgstr ""
+msgstr "Kontrola odgovora"
 
 #: src/app/settings/feed.tsx:241
 msgid "Reply settings"
-msgstr ""
+msgstr "Postavke odgovora"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:327
 msgid "Reply to {0}"
-msgstr ""
+msgstr "Odgovori {0}"
 
 #: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:467
+#: src/components/feed-post.tsx:469
 msgid "replying to {0}"
-msgstr ""
+msgstr "odgovori {0}"
 
 #: src/app/composer/index.tsx:348
 msgid "Replying to @{0}"
-msgstr ""
+msgstr "Odgovori @{0}"
 
-#: src/components/feed-post.tsx:426
+#: src/components/feed-post.tsx:428
 msgid "replying to a blocked user"
-msgstr ""
+msgstr "odgovori blokiranom korisniku"
 
-#: src/components/feed-post.tsx:429
+#: src/components/feed-post.tsx:431
 msgid "replying to a deleted post"
-msgstr ""
+msgstr "odgovori izbrisanoj objavi"
 
-#: src/components/feed-post.tsx:421
+#: src/components/feed-post.tsx:423
 msgid "replying to a post that couldn't be fetched"
-msgstr ""
+msgstr "odgovori na objavu koja se nije mogla prikazati"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:398
 msgid "Replying to some sort of post"
-msgstr ""
+msgstr "Odgovori na neki oblik objave"
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:425
 msgid "replying to..."
-msgstr ""
+msgstr "odgovori..."
 
-#: src/components/screens/profile/profile-info.tsx:748
+#: src/components/screens/profile/profile-info.tsx:749
 msgid "Report account"
-msgstr ""
+msgstr "Prijavi račun"
 
 #: src/components/post-context-menu.tsx:246
 msgid "Report post"
 msgstr "Prijavi objavu"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Report submitted"
-msgstr ""
+msgstr "Prijava podnesena"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Repost"
-msgstr ""
+msgstr "Ponovi objavu"
 
 #: src/app/settings/feed.tsx:284
 msgid "Repost settings"
-msgstr ""
+msgstr "Postavke ponovljene objave"
 
 #: src/components/lists/reposts-list.tsx:54
 msgid "Reposted by"
-msgstr ""
+msgstr "Ponovna objava od"
 
-#: src/components/feed-post.tsx:386
+#: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
-msgstr ""
+msgstr "Ponovna objava od {0}"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
-msgstr ""
+msgstr "objavio je tvoju objavu"
 
 #: src/app/(auth)/sign-up.tsx:317
 msgid "Request code"
-msgstr ""
+msgstr "Zatraži kod"
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
-msgstr ""
+msgstr "Resetirajte kod"
 
 #: src/app/(auth)/_layout.tsx:60
 msgid "Reset password"
-msgstr ""
+msgstr "Resetiraj lozinku"
 
 #: src/app/pro.tsx:335
 #: src/app/pro.tsx:350
 msgid "Restore purchases"
-msgstr ""
+msgstr "Obnovi kupovinu"
 
 #: src/app/pro.tsx:333
 #: src/app/pro.tsx:348
 msgid "Restoring purchases..."
-msgstr ""
+msgstr "Obnovi kupovinu..."
 
 #: src/components/error-boundary.tsx:34
 #: src/components/query-without-data.tsx:46
 msgid "Retry"
-msgstr ""
+msgstr "Pokušaj ponovo"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
-msgstr ""
+msgstr "Rastuće"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:205
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
 msgid "Save"
-msgstr ""
+msgstr "Spremi"
 
 #: src/app/pro.tsx:224
 msgid "Save {0}%"
-msgstr ""
+msgstr "Spremanje {0}%"
 
 #: src/components/image-with-context-menu.tsx:151
 msgid "Save Image"
-msgstr ""
+msgstr "Spremi sliku"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:194
 msgid "Saved"
-msgstr ""
+msgstr "Spremljeno"
 
 #: src/components/image-with-context-menu.tsx:168
 msgid "Saved image to gallery"
-msgstr ""
+msgstr "Spremi sliku u galeriju"
 
 #: src/app/(tabs)/_layout.tsx:172
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
-msgstr ""
+msgstr "Traži"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
 msgid "Search all users"
-msgstr ""
+msgstr "Pretraži sve korisnike"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:28
 msgid "Search feeds"
-msgstr ""
+msgstr "Pretraži feedove"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:125
 msgid "Search Feeds"
-msgstr ""
+msgstr "Pretraži feedove"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:79
 msgid "Search for feeds"
-msgstr ""
+msgstr "Pretraži feedove"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:106
 msgid "Search for posts"
-msgstr ""
+msgstr "Pretraži objave"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:88
 msgid "Search for users"
-msgstr ""
+msgstr "Pretraži korisnike"
 
 #: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
-msgstr ""
+msgstr "Pretraži GIF-ove"
 
 #: src/app/composer/language.tsx:32
 #: src/app/settings/language/content.tsx:27
 #: src/app/settings/language/primary.tsx:28
 msgid "Search languages"
-msgstr ""
+msgstr "Pretraži jezike"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:116
 msgid "Search people"
-msgstr ""
+msgstr "Pretraži ljude"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:126
 msgid "Search People"
-msgstr ""
+msgstr "Pretraži ljude"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
-msgstr ""
+msgstr "Pretraži objave"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:145
 msgid "Search Posts"
-msgstr ""
+msgstr "Pretraži objave"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
 msgid "Search users"
-msgstr ""
+msgstr "Pretraži korisnike"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
 msgid "Search users, posts, feeds"
@@ -1805,19 +1805,19 @@ msgstr "Traži korisnike, objave, feedove"
 
 #: src/components/post-context-menu.tsx:202
 msgid "See likes"
-msgstr ""
+msgstr "Vidi lajkove"
 
 #: src/components/post-context-menu.tsx:209
 msgid "See reposts"
-msgstr ""
+msgstr "Pogledaj ponovljene objave"
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
-msgstr ""
+msgstr "Odaberi datum rođenja"
 
-#: src/app/create-list.tsx:227
+#: src/app/create-list.tsx:229
 msgid "Select list purpose"
-msgstr ""
+msgstr "Odaberi svrhu liste"
 
 #: src/app/composer/threadgate.tsx:82
 msgid "Select one or more options"
@@ -1825,7 +1825,7 @@ msgstr "Odaberite jednu ili više opcija"
 
 #: src/app/settings/account/delete-account.tsx:130
 msgid "Send confirmation email"
-msgstr ""
+msgstr "Pošalji email za provjeru"
 
 #: src/components/screens/change-password-flow.tsx:118
 msgid "Send reset email"
@@ -1839,26 +1839,26 @@ msgstr "Postavke"
 
 #: src/components/drawer/drawer-content.tsx:192
 msgid "Settings menu"
-msgstr ""
+msgstr "Izbornik postavki"
 
 #: src/app/composer/content-warning.tsx:23
 msgid "Sexual content"
-msgstr ""
+msgstr "Seksualni sadržaj"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
 msgid "Share"
-msgstr ""
+msgstr "Podijeli"
 
 #: src/app/capture/[author]/[post].tsx:82
 msgid "Share {0}'s post"
-msgstr ""
+msgstr "Podijeli objavu korisnika {0}"
 
 #: src/components/post-context-menu.tsx:181
 msgid "Share as image"
-msgstr ""
+msgstr "Podijeli kao sliku"
 
 #: src/app/_layout.tsx:402
 msgid "Share as Image"
@@ -1881,12 +1881,12 @@ msgstr "Podijeli linku u objavu"
 msgid "Share post"
 msgstr "Podijeli objavu"
 
-#: src/components/screens/profile/profile-info.tsx:630
-#: src/components/screens/profile/profile-info.tsx:698
+#: src/components/screens/profile/profile-info.tsx:631
+#: src/components/screens/profile/profile-info.tsx:699
 msgid "Share profile"
 msgstr "Podijeli profil"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:402
 msgid "Share this feed"
 msgstr "Podijeli ovaj feed"
 
@@ -1898,7 +1898,7 @@ msgstr "Podijelite putem..."
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:152
 msgid "Show"
-msgstr ""
+msgstr "Prikaži"
 
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
@@ -1919,11 +1919,11 @@ msgstr "Pokaži svaku obavijest individualno"
 
 #: src/app/settings/app.tsx:74
 msgid "Show each notification individually in the notification tab"
-msgstr ""
+msgstr "Prikaži svaku obavijest zasebno u tabu obavijesti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 msgid "Show less"
-msgstr ""
+msgstr "Prikaži manje"
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -1935,11 +1935,11 @@ msgstr "Prikaži spomenutu objavu"
 
 #: src/app/settings/feed.tsx:244
 msgid "Show replies"
-msgstr ""
+msgstr "Pokaži odgovore"
 
 #: src/app/settings/feed.tsx:287
 msgid "Show reposts"
-msgstr ""
+msgstr "Pogledaj ponovljene objave"
 
 #: src/components/drawer/drawer-content.tsx:205
 #: src/components/drawer/drawer-content.tsx:211
@@ -1950,7 +1950,7 @@ msgstr "Odjavi se"
 #: src/app/(auth)/_layout.tsx:48
 #: src/app/(auth)/sign-in.tsx:157
 msgid "Sign up"
-msgstr ""
+msgstr "Prijavite se"
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -1963,7 +1963,7 @@ msgstr "Skyline"
 
 #: src/app/pro.tsx:91
 msgid "Something went wrong, please try again later."
-msgstr ""
+msgstr "Nešto je pošlo po zlu. Pokušajte ponovno."
 
 #: src/app/_layout.tsx:154
 #: src/app/_layout.tsx:173
@@ -2001,7 +2001,7 @@ msgstr "je počeo/la pratiti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Stop editing"
-msgstr ""
+msgstr "Prekini uređivanje"
 
 #: src/app/pro.tsx:259
 msgid "Subscribe & pay"
@@ -2021,180 +2021,180 @@ msgstr "Korisnike koje možete pratiti"
 
 #: src/app/pro.tsx:126
 msgid "Support development"
-msgstr ""
+msgstr "Podržite razvoj"
 
 #: src/app/(tabs)/_layout.tsx:119
 msgid "Switch Accounts"
-msgstr ""
+msgstr "Promijeni račun"
 
 #: src/components/drawer/drawer-content.tsx:66
 msgid "system"
-msgstr ""
+msgstr "sustav"
 
 #: src/components/drawer/drawer-content.tsx:54
 #: src/components/drawer/drawer-content.tsx:88
 msgid "System"
-msgstr ""
+msgstr "Sustav"
 
 #: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
-msgstr ""
+msgstr "Snimi fotografiju"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:681
 msgid "Thank you for making the skyline a safer place"
-msgstr ""
+msgstr "Hvala vam što skyline činite sigurnijim mjestom"
 
 #: src/components/list-footer.tsx:35
 msgid "That's everything!"
-msgstr ""
+msgstr "To je sve!"
 
 #: src/components/handle-availability.tsx:50
 msgid "That's you!"
-msgstr ""
+msgstr "To si ti!"
 
 #: src/app/settings/app.tsx:110
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
-msgstr ""
+msgstr "Aplikacija više neće pokretati povratne dodirne informacije, no neki elementi korisničkog sučelja mogu i dalje imati dodirne informacije. Ako ste osjetljivi na ovo, onemogućite dodirne opcije u postavkama pristupačnosti sustava vašeg uređaja."
 
 #: src/components/lists/people-list.tsx:134
 msgid "There's nothing here..."
-msgstr ""
+msgstr "Ovdje nema ničega..."
 
 #: src/components/screens/feed-screen.tsx:125
 msgid "This feed is empty"
-msgstr ""
+msgstr "Ovaj feed je prazan"
 
 #: src/app/settings/account/change-handle.tsx:50
 msgid "This handle is already taken. Please choose another."
-msgstr ""
+msgstr "Ovo korisničko ime je zauzeto. Molimo odaberite drugo."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
 msgid "This list is empty"
-msgstr ""
+msgstr "Ova lista je prazna"
 
 #: src/app/composer/content-warning.tsx:29
 msgid "This post contains artistic or non-erotic nudity."
-msgstr ""
+msgstr "Ova objava sadrži umjetničku ili neerotsku golotinju."
 
 #: src/app/composer/content-warning.tsx:24
 msgid "This post contains pictures intended for adults."
-msgstr ""
+msgstr "Ova objava sadrži slike namijenjene odraslima."
 
 #: src/app/composer/content-warning.tsx:35
 msgid "This post contains sexual activity or erotic nudity."
-msgstr ""
+msgstr "Ova objava sadrži seksualnu aktivnost ili erotsku golotinju."
 
 #: src/components/embed/index.tsx:221
 #: src/components/feed-post.tsx:148
 msgid "This post is from someone you have blocked"
-msgstr ""
+msgstr "Objava je on nekoga koga ste blokirali"
 
 #: src/components/embed/index.tsx:219
 #: src/components/feed-post.tsx:146
 msgid "This post is from someone you have muted"
-msgstr ""
+msgstr "Objava je od nekoga koga ste utišali"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:325
 msgid "This thread is locked"
-msgstr ""
+msgstr "Ova nit je zaključana"
 
-#: src/components/screens/profile/profile-info.tsx:596
+#: src/components/screens/profile/profile-info.tsx:597
 msgid "This user has blocked you"
-msgstr ""
+msgstr "Ovaj korisnik vas je blokirao"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "This user is on the \"{0}\" block list"
-msgstr ""
+msgstr "Ovaj korisnik je na \"{0}\" blokiranoj listi"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "This user is on the \"{0}\" mute list"
-msgstr ""
+msgstr "Ovaj korisnik je na \"{0}\" utišanoj listi"
 
 #: src/components/screens/feeds-screen-elements.tsx:26
 msgid "To get started, add some feeds to your home screen."
-msgstr ""
+msgstr "Za početak dodajte neki feed na početni zaslon."
 
 #: src/components/feed-row.tsx:224
 msgid "Toggle favourite status"
-msgstr ""
+msgstr "Uključi/isključi status favorita"
 
 #: src/lib/composer/utils.tsx:396
 msgid "Too many images selected"
-msgstr ""
+msgstr "Odabrano je previše slika"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
-msgstr ""
+msgstr "Top (10h)"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
-msgstr ""
+msgstr "Top (24h)"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
-msgstr ""
+msgstr "Top (3d)"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
-msgstr ""
+msgstr "Top (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:714
 msgid "Translate bio"
-msgstr ""
+msgstr "Prevedi biografiju"
 
 #: src/components/post-context-menu.tsx:154
 #: src/components/translation.tsx:86
 msgid "Translate post"
-msgstr ""
+msgstr "Prevedi objavu"
 
 #: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
-msgstr ""
+msgstr "Prevedi objavu koristeći DeepL"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:144
 msgid "Translated by DeepL"
-msgstr ""
+msgstr "Preveo DeepL"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:133
 msgid "Translated by Google"
-msgstr ""
+msgstr "Preveo Google"
 
 #: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
-msgstr ""
+msgstr "Pružatelj usluga prijevoda"
 
 #: src/app/success.tsx:38
 msgid "Translations are now powered by DeepL"
-msgstr ""
+msgstr "Prijevode sada pokreće DeepL"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:251
 msgid "Trending topics"
-msgstr ""
+msgstr "Popularne teme"
 
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:572
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
-msgstr ""
+msgstr "Odblokiraj"
 
 #: src/lib/account-actions.ts:142
 msgid "Unblocked"
-msgstr ""
+msgstr "Odblokirano"
 
 #: src/lib/hooks/post-actions.tsx:140
 msgid "Undo Repost"
-msgstr ""
+msgstr "Poništi ponovnu objavu"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:295
 msgid "Unfavorite list"
-msgstr ""
+msgstr "Neomiljeni popis"
 
 #: src/components/screens/profile/profile-info.tsx:104
 msgid "Unfollowed user"
-msgstr ""
+msgstr "Korisnik je otpraćen"
 
 #: src/app/(auth)/sign-in.tsx:51
 #: src/app/(auth)/sign-up.tsx:94
@@ -2202,45 +2202,45 @@ msgstr ""
 #: src/components/switch-accounts.tsx:72
 #: src/components/switch-accounts.tsx:77
 msgid "Unknown error"
-msgstr ""
+msgstr "Nepoznata greška"
 
-#: src/components/screens/profile/profile-info.tsx:540
+#: src/components/screens/profile/profile-info.tsx:541
 msgid "Unmute"
-msgstr ""
+msgstr "Ponovno uključi"
 
 #: src/lib/account-actions.ts:53
 msgid "Unmuted"
-msgstr ""
+msgstr "Ponovno uključi"
 
 #: src/components/feed-row.tsx:291
 msgid "Unsave"
-msgstr ""
+msgstr "Poništi spremanje"
 
 #: src/components/feed-row.tsx:290
 msgid "Unsave this feed?"
-msgstr ""
+msgstr "Poništi spremanje feeda?"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
 msgid "Unsubscribe from list"
-msgstr ""
+msgstr "Odjavi se s popisa"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:209
 msgid "Unsubscribed from list"
-msgstr ""
+msgstr "Odjavi se s liste"
 
 #: src/components/post-context-menu.tsx:136
 msgid "Unwanted Sexual Content"
-msgstr ""
+msgstr "Neželjeni seksualni sadržaj"
 
 #: src/app/settings/language/index.tsx:138
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
-msgstr ""
+msgstr "Koristi DeepL za prijevod"
 
 #: src/app/settings/language/index.tsx:150
 #: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
-msgstr ""
+msgstr "Koristi DeepL za prijevod umjesto Google Translate"
 
 #: src/app/settings/app.tsx:80
 #: src/lib/hooks/link-press.tsx:38
@@ -2253,51 +2253,51 @@ msgstr "Koristi moj zadani preglednik"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:223
+#: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
 msgid "User list"
-msgstr ""
+msgstr "Lista korisnika"
 
 #: src/app/(auth)/sign-in.tsx:71
 msgid "Username or email address"
-msgstr ""
+msgstr "Korisničko ime ili e-mail adresa"
 
-#: src/components/primary-post.tsx:268
+#: src/components/primary-post.tsx:267
 msgid "Users in the list"
-msgstr ""
+msgstr "Korisnici na popisu"
 
-#: src/components/primary-post.tsx:270
+#: src/components/primary-post.tsx:269
 msgid "Users in the lists"
-msgstr ""
+msgstr "Korisnici na popisu"
 
-#: src/components/primary-post.tsx:225
+#: src/components/primary-post.tsx:224
 msgid "Users mentioned in this thread"
-msgstr ""
+msgstr "Korisnici spomenuti u ovoj niti"
 
-#: src/components/primary-post.tsx:232
+#: src/components/primary-post.tsx:231
 msgid "Users that <0>{0}</0> follows"
 msgstr "Korisnik koji <0>{0}</0> prati"
 
 #: src/app/(auth)/sign-up.tsx:325
 msgid "Verification code"
-msgstr ""
+msgstr "Kod za provjeru"
 
 #: src/app/settings/about.tsx:204
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
-msgstr ""
+msgstr "Verzija {0}"
 
 #: src/app/settings/about.tsx:205
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Nepoznata verzija"
 
-#: src/components/screens/profile/profile-info.tsx:540
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:541
+#: src/components/screens/profile/profile-info.tsx:572
 msgid "View"
-msgstr ""
+msgstr "Pogledaj"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:357
 msgid "View all feeds"
 msgstr "Pregledaj sve feedove"
 
@@ -2329,7 +2329,7 @@ msgstr "Dobrodošli u Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Što vam je na umu?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:755
 msgid "What's the issue with this account?"
 msgstr "Koji je problem s ovim računom?"
 
@@ -2338,7 +2338,7 @@ msgid "What's the issue with this post?"
 msgstr "Koji je problem s ovom objavom?"
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:181
+#: src/components/primary-post.tsx:180
 msgid "Who can reply?"
 msgstr "Tko može odgovoriti?"
 
@@ -2374,11 +2374,11 @@ msgstr "Možete primati push obavijesti za lajkove, odgovore i još mnogo toga! 
 msgid "You don't have any moderation lists yet."
 msgstr "Još nemate nijedan popis za moderiranje."
 
-#: src/components/screens/profile/profile-info.tsx:566
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
-msgstr ""
+msgstr "Blokirao si ovog korisnika"
 
-#: src/components/screens/profile/profile-info.tsx:535
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
 msgstr "Utišali ste ovog korisnika"
 
@@ -2427,7 +2427,7 @@ msgstr "Vaš izbor će biti spremljen, ali se može promijeniti u postavkama"
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Vaša ime će biti: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"
 msgstr "Vaša lista je obrisana"
 

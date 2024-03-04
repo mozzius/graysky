@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -211,7 +211,7 @@ msgstr "Ajustes de cuenta"
 msgid "Add {0} to List"
 msgstr ""
 
-#: src/app/composer/index.tsx:656
+#: src/app/composer/index.tsx:658
 msgid "Add a content warning"
 msgstr "Añade una advertencia de contenido"
 
@@ -223,7 +223,7 @@ msgstr "Añade una descripción a la imagen. Un buen texto alternativo es concis
 msgid "Add another account"
 msgstr "Agregar otra cuenta"
 
-#: src/app/composer/index.tsx:566
+#: src/app/composer/index.tsx:568
 msgid "Add embed for <0>{potential}</0>"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgstr "Añadir imagen"
 msgid "Add to favourites"
 msgstr "Añadir a favoritos"
 
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:721
 msgid "Add to list"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr ""
 
-#: src/app/composer/index.tsx:442
+#: src/app/composer/index.tsx:444
 msgid "Alt"
 msgstr ""
 
@@ -295,7 +295,7 @@ msgstr "Texto alternativo"
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/translation.tsx:163
 msgid "An error occurred"
 msgstr "Ocurrió un error"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "Bloquear a todos los miembros"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:739
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "Block user"
 msgstr "Bloquear usuario"
 
@@ -609,7 +609,7 @@ msgstr "No se pudo crear la cuenta"
 msgid "Could not delete account"
 msgstr "No se pudo eliminar la cuenta"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
 msgid "Could not delete list"
 msgstr "No se pudo eliminar la lista"
 
@@ -617,7 +617,7 @@ msgstr "No se pudo eliminar la lista"
 msgid "Could not fetch list"
 msgstr "No se puede obtener la lista"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
 msgid "Could not fetch list feed"
 msgstr "No se pudo obtener la lista de feeds"
 
@@ -659,7 +659,7 @@ msgstr "Crear cuenta"
 msgid "Create an account"
 msgstr "Crear una cuenta"
 
-#: src/app/create-list.tsx:236
+#: src/app/create-list.tsx:238
 msgid "Create list"
 msgstr "Crear lista"
 
@@ -679,7 +679,7 @@ msgstr "Crear una en bsky.app/settings"
 msgid "Created by"
 msgstr "Creado por"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:284
 msgid "Creator"
 msgstr ""
 
@@ -831,7 +831,7 @@ msgstr "Editar feeds"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:623
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
 msgstr ""
 
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Enter your phone number"
 msgstr "Introduzca su número de teléfono"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "Te sigue"
 msgid "Forgot?"
 msgstr "¿La olvidaste?"
 
-#: src/components/screens/profile/profile-info.tsx:664
+#: src/components/screens/profile/profile-info.tsx:665
 msgid "Frequently Posts Unwanted Content"
 msgstr ""
 
@@ -1085,7 +1085,7 @@ msgstr ""
 msgid "It's currently set to the {current} theme"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:516
+#: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
 msgstr ""
 
@@ -1132,7 +1132,7 @@ msgstr ""
 msgid "List blocked"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
 msgid "List deleted"
 msgstr ""
 
@@ -1208,7 +1208,7 @@ msgstr ""
 msgid "Members of list \"{0}\""
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:665
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Misleading Account"
 msgstr ""
 
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:225
+#: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
 msgid "Moderation list"
 msgstr "Lista de moderación"
@@ -1233,7 +1233,7 @@ msgstr "Lista de moderación"
 msgid "Monthly Plan"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:321
 msgid "More from {0}"
 msgstr ""
 
@@ -1246,7 +1246,7 @@ msgid "Mute all members"
 msgstr "Silenciar a todos los miembros"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:730
+#: src/components/screens/profile/profile-info.tsx:731
 msgid "Mute user"
 msgstr ""
 
@@ -1293,7 +1293,7 @@ msgstr ""
 msgid "My lists"
 msgstr "Mis listas"
 
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Name or Description Violates Community Standards"
 msgstr ""
 
@@ -1344,7 +1344,7 @@ msgstr ""
 msgid "No users found - maybe try a different search term?"
 msgstr "No se ha encontrado ningún resultado - Intenta de nuevo con otros términos"
 
-#: src/components/primary-post.tsx:210
+#: src/components/primary-post.tsx:209
 msgid "Nobody can reply"
 msgstr ""
 
@@ -1390,7 +1390,7 @@ msgid "Opens embedded post"
 msgstr ""
 
 #: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:457
 msgid "Opens parent post"
 msgstr ""
 
@@ -1399,7 +1399,7 @@ msgid "Opens post details"
 msgstr ""
 
 #: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:371
+#: src/components/feed-post.tsx:373
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:99
 msgid "Opens profile"
@@ -1410,7 +1410,7 @@ msgid "Optional"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Other"
 msgstr ""
 
@@ -1575,7 +1575,7 @@ msgstr ""
 msgid "Purchase Successful"
 msgstr ""
 
-#: src/app/create-list.tsx:211
+#: src/app/create-list.tsx:213
 msgid "Purpose"
 msgstr ""
 
@@ -1621,7 +1621,7 @@ msgid "Reply to {0}"
 msgstr ""
 
 #: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:467
+#: src/components/feed-post.tsx:469
 msgid "replying to {0}"
 msgstr "respondiendo a {0}"
 
@@ -1629,15 +1629,15 @@ msgstr "respondiendo a {0}"
 msgid "Replying to @{0}"
 msgstr ""
 
-#: src/components/feed-post.tsx:426
+#: src/components/feed-post.tsx:428
 msgid "replying to a blocked user"
 msgstr ""
 
-#: src/components/feed-post.tsx:429
+#: src/components/feed-post.tsx:431
 msgid "replying to a deleted post"
 msgstr ""
 
-#: src/components/feed-post.tsx:421
+#: src/components/feed-post.tsx:423
 msgid "replying to a post that couldn't be fetched"
 msgstr ""
 
@@ -1645,11 +1645,11 @@ msgstr ""
 msgid "Replying to some sort of post"
 msgstr ""
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:425
 msgid "replying to..."
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:748
+#: src/components/screens/profile/profile-info.tsx:749
 msgid "Report account"
 msgstr ""
 
@@ -1658,7 +1658,7 @@ msgid "Report post"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Report submitted"
 msgstr ""
 
@@ -1674,7 +1674,7 @@ msgstr ""
 msgid "Reposted by"
 msgstr ""
 
-#: src/components/feed-post.tsx:386
+#: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
 msgstr ""
 
@@ -1713,7 +1713,7 @@ msgstr "Intentar de nuevo"
 msgid "Rising"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:205
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
@@ -1728,7 +1728,7 @@ msgstr ""
 msgid "Save Image"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:194
 msgid "Saved"
 msgstr ""
 
@@ -1815,7 +1815,7 @@ msgstr ""
 msgid "Select date of birth"
 msgstr "Seleccione su fecha de nacimiento"
 
-#: src/app/create-list.tsx:227
+#: src/app/create-list.tsx:229
 msgid "Select list purpose"
 msgstr ""
 
@@ -1845,7 +1845,7 @@ msgstr ""
 msgid "Sexual content"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
@@ -1881,12 +1881,12 @@ msgstr ""
 msgid "Share post"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:630
-#: src/components/screens/profile/profile-info.tsx:698
+#: src/components/screens/profile/profile-info.tsx:631
+#: src/components/screens/profile/profile-info.tsx:699
 msgid "Share profile"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:402
 msgid "Share this feed"
 msgstr ""
 
@@ -2041,7 +2041,7 @@ msgid "Take photo"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:681
 msgid "Thank you for making the skyline a safer place"
 msgstr ""
 
@@ -2069,8 +2069,8 @@ msgstr "Este feed está vacío"
 msgid "This handle is already taken. Please choose another."
 msgstr "Este nombre de usuario ya está en uso. Elige otro."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
 msgid "This list is empty"
 msgstr "Esta lista está vacía"
 
@@ -2100,15 +2100,15 @@ msgstr "Esta publicación es de alguien que has silenciado"
 msgid "This thread is locked"
 msgstr "Este hilo está cerrado"
 
-#: src/components/screens/profile/profile-info.tsx:596
+#: src/components/screens/profile/profile-info.tsx:597
 msgid "This user has blocked you"
 msgstr "Este usuario te ha bloqueado"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "This user is on the \"{0}\" block list"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "This user is on the \"{0}\" mute list"
 msgstr ""
 
@@ -2140,7 +2140,7 @@ msgstr ""
 msgid "Top (7d)"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:714
 msgid "Translate bio"
 msgstr "Traducir biografía"
 
@@ -2153,11 +2153,11 @@ msgstr "Traducir publicación"
 msgid "Translate posts using DeepL"
 msgstr "Traducir publicaciones usando DeepL"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:144
 msgid "Translated by DeepL"
 msgstr "Traducido por DeepL"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:133
 msgid "Translated by Google"
 msgstr "Traducido por Google"
 
@@ -2174,7 +2174,7 @@ msgstr ""
 msgid "Trending topics"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:572
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2204,7 +2204,7 @@ msgstr ""
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: src/components/screens/profile/profile-info.tsx:540
+#: src/components/screens/profile/profile-info.tsx:541
 msgid "Unmute"
 msgstr ""
 
@@ -2253,7 +2253,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:223
+#: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
 msgid "User list"
 msgstr "Lista de usuarios"
@@ -2262,19 +2262,19 @@ msgstr "Lista de usuarios"
 msgid "Username or email address"
 msgstr "Nombre de usuario o dirección de correo electrónico"
 
-#: src/components/primary-post.tsx:268
+#: src/components/primary-post.tsx:267
 msgid "Users in the list"
 msgstr ""
 
-#: src/components/primary-post.tsx:270
+#: src/components/primary-post.tsx:269
 msgid "Users in the lists"
 msgstr ""
 
-#: src/components/primary-post.tsx:225
+#: src/components/primary-post.tsx:224
 msgid "Users mentioned in this thread"
 msgstr ""
 
-#: src/components/primary-post.tsx:232
+#: src/components/primary-post.tsx:231
 msgid "Users that <0>{0}</0> follows"
 msgstr ""
 
@@ -2292,12 +2292,12 @@ msgstr ""
 msgid "Version unknown"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:540
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:541
+#: src/components/screens/profile/profile-info.tsx:572
 msgid "View"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:357
 msgid "View all feeds"
 msgstr "Ver todos los feeds"
 
@@ -2329,7 +2329,7 @@ msgstr "¡Bienvenido a Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "¿En qué estás pensando?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:755
 msgid "What's the issue with this account?"
 msgstr ""
 
@@ -2338,7 +2338,7 @@ msgid "What's the issue with this post?"
 msgstr ""
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:181
+#: src/components/primary-post.tsx:180
 msgid "Who can reply?"
 msgstr "¿Quién puede responder?"
 
@@ -2374,11 +2374,11 @@ msgstr "Puedes recibir notificaciones sobre me gustas, respuestas y mucho más. 
 msgid "You don't have any moderation lists yet."
 msgstr "Aún no tienes ninguna lista de moderación."
 
-#: src/components/screens/profile/profile-info.tsx:566
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
 msgstr "Has bloqueado a este usuario"
 
-#: src/components/screens/profile/profile-info.tsx:535
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
 msgstr "Has silenciado a este usuario"
 
@@ -2427,7 +2427,7 @@ msgstr ""
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Tu nombre de usuario será: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"
 msgstr "Tu lista ha sido eliminada"
 

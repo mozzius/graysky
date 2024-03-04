@@ -8,7 +8,7 @@ msgstr ""
 "Language: ar\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 11:19\n"
+"PO-Revision-Date: 2024-03-04 14:23\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
@@ -211,7 +211,7 @@ msgstr "إعدادات الحساب"
 msgid "Add {0} to List"
 msgstr "إضافة {0} إلى القائمة"
 
-#: src/app/composer/index.tsx:656
+#: src/app/composer/index.tsx:658
 msgid "Add a content warning"
 msgstr "إضافة تحذير من المحتوى"
 
@@ -223,7 +223,7 @@ msgstr "أضف وصفًا للصورة. يعتبر النص البديل الج�
 msgid "Add another account"
 msgstr "إضافة حساب آخر"
 
-#: src/app/composer/index.tsx:566
+#: src/app/composer/index.tsx:568
 msgid "Add embed for <0>{potential}</0>"
 msgstr "إضافة مضمنة لـ <0>{potential}</0>"
 
@@ -235,7 +235,7 @@ msgstr "أضف صورة"
 msgid "Add to favourites"
 msgstr "الإضافة للمفضلة"
 
-#: src/components/screens/profile/profile-info.tsx:720
+#: src/components/screens/profile/profile-info.tsx:721
 msgid "Add to list"
 msgstr "أضف إلى القائمة"
 
@@ -276,7 +276,7 @@ msgstr "جميع اللغات"
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr "يسمح لك بفرز التغذية غير المفضلة يدوياً في علامة التبويب الخلاصات"
 
-#: src/app/composer/index.tsx:442
+#: src/app/composer/index.tsx:444
 msgid "Alt"
 msgstr "مفتاح Alt"
 
@@ -295,7 +295,7 @@ msgstr "نص ALT"
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
 #: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/translation.tsx:163
 msgid "An error occurred"
 msgstr "حدث خطأ ما"
 
@@ -405,7 +405,7 @@ msgid "Block all members"
 msgstr "حظر جميع الأعضاء"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:739
+#: src/components/screens/profile/profile-info.tsx:740
 msgid "Block user"
 msgstr "حظر مستخدم"
 
@@ -609,7 +609,7 @@ msgstr "تعذر إنشاء الحساب"
 msgid "Could not delete account"
 msgstr "لم نستطع إزالة حسابك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
 msgid "Could not delete list"
 msgstr "تعذر حذف القائمة"
 
@@ -617,7 +617,7 @@ msgstr "تعذر حذف القائمة"
 msgid "Could not fetch list"
 msgstr "القائمة غير متاحة حاليا"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
 msgid "Could not fetch list feed"
 msgstr "تعذر إحضار موجز القائمة"
 
@@ -659,7 +659,7 @@ msgstr "إنشاء حساب"
 msgid "Create an account"
 msgstr "إنشاء حساب"
 
-#: src/app/create-list.tsx:236
+#: src/app/create-list.tsx:238
 msgid "Create list"
 msgstr "إنشاء قائمة"
 
@@ -679,7 +679,7 @@ msgstr "إنشاء واحد في bsky.app/إعدادات"
 msgid "Created by"
 msgstr "أنشئ من طرف"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:284
 msgid "Creator"
 msgstr "مبتكر"
 
@@ -831,7 +831,7 @@ msgstr "تحرير التغذية"
 
 #: src/app/_layout.tsx:357
 #: src/app/settings/account/index.tsx:40
-#: src/components/screens/profile/profile-info.tsx:623
+#: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
 msgstr "تعديل الملف التعريف"
 
@@ -852,7 +852,7 @@ msgstr "فَعِل الإشعارات"
 msgid "Enter your phone number"
 msgstr "أدخل رقم جوالك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -972,7 +972,7 @@ msgstr "يتابعك"
 msgid "Forgot?"
 msgstr "نسيت؟"
 
-#: src/components/screens/profile/profile-info.tsx:664
+#: src/components/screens/profile/profile-info.tsx:665
 msgid "Frequently Posts Unwanted Content"
 msgstr "تكرار نشر المحتوى غير المرغوب فيه"
 
@@ -1085,7 +1085,7 @@ msgstr "الوضع غير صالح"
 msgid "It's currently set to the {current} theme"
 msgstr "تم تعيينه حاليا إلى السمة {current}"
 
-#: src/components/screens/profile/profile-info.tsx:516
+#: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
 msgstr "انضم {0}"
 
@@ -1132,7 +1132,7 @@ msgstr "قائمة الصورة الرمزية"
 msgid "List blocked"
 msgstr "قائمة محظورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
 msgid "List deleted"
 msgstr "القائمة تم حذفها"
 
@@ -1208,7 +1208,7 @@ msgstr "الأعضاء"
 msgid "Members of list \"{0}\""
 msgstr "أعضاء القائمة\"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:665
+#: src/components/screens/profile/profile-info.tsx:666
 msgid "Misleading Account"
 msgstr "حساب مضلل"
 
@@ -1224,7 +1224,7 @@ msgstr "المُشرف"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:225
+#: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
 msgid "Moderation list"
 msgstr "قائمة الإشراف"
@@ -1233,7 +1233,7 @@ msgstr "قائمة الإشراف"
 msgid "Monthly Plan"
 msgstr "خطة شهرية"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:321
 msgid "More from {0}"
 msgstr "المزيد من {0}"
 
@@ -1246,7 +1246,7 @@ msgid "Mute all members"
 msgstr "حظر جميع الأعضاء"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:730
+#: src/components/screens/profile/profile-info.tsx:731
 msgid "Mute user"
 msgstr "كتم المستخدم"
 
@@ -1293,7 +1293,7 @@ msgstr "لغتي"
 msgid "My lists"
 msgstr "قائمتي"
 
-#: src/components/screens/profile/profile-info.tsx:666
+#: src/components/screens/profile/profile-info.tsx:667
 msgid "Name or Description Violates Community Standards"
 msgstr "الاسم أو الوصف يخالف معايير المجتمع"
 
@@ -1344,7 +1344,7 @@ msgstr "ليس لدي أي تفضيل"
 msgid "No users found - maybe try a different search term?"
 msgstr "لم يتم العثور على مستخدمين - ربما تجرب مصطلح بحث مختلف؟"
 
-#: src/components/primary-post.tsx:210
+#: src/components/primary-post.tsx:209
 msgid "Nobody can reply"
 msgstr "لا أحد يستطيع الرد"
 
@@ -1390,7 +1390,7 @@ msgid "Opens embedded post"
 msgstr "فتح المشاركة المضمنة"
 
 #: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:455
+#: src/components/feed-post.tsx:457
 msgid "Opens parent post"
 msgstr "فتح المشاركة الأصلية"
 
@@ -1399,7 +1399,7 @@ msgid "Opens post details"
 msgstr "فتح تفاصيل المنشور"
 
 #: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:371
+#: src/components/feed-post.tsx:373
 #: src/components/notification/index.tsx:179
 #: src/components/primary-post.tsx:99
 msgid "Opens profile"
@@ -1410,7 +1410,7 @@ msgid "Optional"
 msgstr "إختياري"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:667
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Other"
 msgstr "آخرى"
 
@@ -1575,7 +1575,7 @@ msgstr "إعدادات الملف الشخصي"
 msgid "Purchase Successful"
 msgstr "نجحت علمية الشراء"
 
-#: src/app/create-list.tsx:211
+#: src/app/create-list.tsx:213
 msgid "Purpose"
 msgstr "الغرض"
 
@@ -1621,7 +1621,7 @@ msgid "Reply to {0}"
 msgstr "الرد على {0}"
 
 #: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:467
+#: src/components/feed-post.tsx:469
 msgid "replying to {0}"
 msgstr "الردّ على {0}"
 
@@ -1629,15 +1629,15 @@ msgstr "الردّ على {0}"
 msgid "Replying to @{0}"
 msgstr "الردّ على {0}"
 
-#: src/components/feed-post.tsx:426
+#: src/components/feed-post.tsx:428
 msgid "replying to a blocked user"
 msgstr "الرد على المستخدم المحظور"
 
-#: src/components/feed-post.tsx:429
+#: src/components/feed-post.tsx:431
 msgid "replying to a deleted post"
 msgstr "الرد على منشور محذوف"
 
-#: src/components/feed-post.tsx:421
+#: src/components/feed-post.tsx:423
 msgid "replying to a post that couldn't be fetched"
 msgstr "الرد على منشور لا يمكن إحضاره"
 
@@ -1645,11 +1645,11 @@ msgstr "الرد على منشور لا يمكن إحضاره"
 msgid "Replying to some sort of post"
 msgstr "الرد على نوع من المشاركة"
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:425
 msgid "replying to..."
 msgstr "الردّ على..."
 
-#: src/components/screens/profile/profile-info.tsx:748
+#: src/components/screens/profile/profile-info.tsx:749
 msgid "Report account"
 msgstr "الإبلاغ عن الحساب"
 
@@ -1658,7 +1658,7 @@ msgid "Report post"
 msgstr "الإبلاغ عن المنشور"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:680
 msgid "Report submitted"
 msgstr "تم إرسال البلاغ"
 
@@ -1674,7 +1674,7 @@ msgstr "إعدادات إعادة النشر"
 msgid "Reposted by"
 msgstr "أُعيد نشرها بواسطة"
 
-#: src/components/feed-post.tsx:386
+#: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
 msgstr "أعيد نشرها بواسطة {0}"
 
@@ -1713,7 +1713,7 @@ msgstr "حاول مجددًا"
 msgid "Rising"
 msgstr "صاعد"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:205
 #: src/app/edit-bio.tsx:145
 #: src/app/settings/account/change-handle.tsx:163
 #: src/components/screens/change-password-flow.tsx:209
@@ -1728,7 +1728,7 @@ msgstr "حفظ {0}%"
 msgid "Save Image"
 msgstr "حفظ الصورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:194
 msgid "Saved"
 msgstr "تم الحفظ"
 
@@ -1815,7 +1815,7 @@ msgstr "رؤية المنشورات المعاد نشرها"
 msgid "Select date of birth"
 msgstr "يرجى اختيار تاريخ الميلاد"
 
-#: src/app/create-list.tsx:227
+#: src/app/create-list.tsx:229
 msgid "Select list purpose"
 msgstr "حدد الغرض من القائمة"
 
@@ -1845,7 +1845,7 @@ msgstr "قائمة الإعدادات"
 msgid "Sexual content"
 msgstr "محتوى جنسي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:378
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
@@ -1881,12 +1881,12 @@ msgstr "شارك رابط المنشور"
 msgid "Share post"
 msgstr "مُشاركة المنشور"
 
-#: src/components/screens/profile/profile-info.tsx:630
-#: src/components/screens/profile/profile-info.tsx:698
+#: src/components/screens/profile/profile-info.tsx:631
+#: src/components/screens/profile/profile-info.tsx:699
 msgid "Share profile"
 msgstr "مشاركة الملف الشخصي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:406
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:402
 msgid "Share this feed"
 msgstr "مشاركة هذه الخلاصة"
 
@@ -2041,7 +2041,7 @@ msgid "Take photo"
 msgstr "إلتقط صورة"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:680
+#: src/components/screens/profile/profile-info.tsx:681
 msgid "Thank you for making the skyline a safer place"
 msgstr "نشكرك على جعل خط السماء مكانا أكثر أمانا"
 
@@ -2069,8 +2069,8 @@ msgstr "هذه التغذية فارغة"
 msgid "This handle is already taken. Please choose another."
 msgstr "هذا البريد الإلكتروني موجود بالفعل. الرجاء إدخال بريد إلكتروني آخر."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
 msgid "This list is empty"
 msgstr "هذه القائمة فارغة"
 
@@ -2100,15 +2100,15 @@ msgstr "هذه المشاركة من شخص قمت بحظره"
 msgid "This thread is locked"
 msgstr "هذا الموضوع مغلق"
 
-#: src/components/screens/profile/profile-info.tsx:596
+#: src/components/screens/profile/profile-info.tsx:597
 msgid "This user has blocked you"
 msgstr "قام هذا المستخدم بحظرك"
 
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "This user is on the \"{0}\" block list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "This user is on the \"{0}\" mute list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
@@ -2140,7 +2140,7 @@ msgstr "أعلى (3د)"
 msgid "Top (7d)"
 msgstr "أعلى (3د)"
 
-#: src/components/screens/profile/profile-info.tsx:713
+#: src/components/screens/profile/profile-info.tsx:714
 msgid "Translate bio"
 msgstr "ترجمة النبذة التعريفية"
 
@@ -2153,11 +2153,11 @@ msgstr "ترجمة المنشور"
 msgid "Translate posts using DeepL"
 msgstr "ترجمة المشاركات باستخدام الـ DeepL"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:144
 msgid "Translated by DeepL"
 msgstr "مترجم بواسطة DeepL"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:133
 msgid "Translated by Google"
 msgstr "تمت ترجمتها بواسطة جوجل"
 
@@ -2174,7 +2174,7 @@ msgstr "الترجمات الآن مدعومة من طرف DeepL"
 msgid "Trending topics"
 msgstr "المواضيع الشائعة"
 
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:572
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2204,7 +2204,7 @@ msgstr "المستخدمون الذين اتابعهم"
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
-#: src/components/screens/profile/profile-info.tsx:540
+#: src/components/screens/profile/profile-info.tsx:541
 msgid "Unmute"
 msgstr "إلغاء كتم الصوت"
 
@@ -2253,7 +2253,7 @@ msgstr "استخدم متصفحي الافتراضي"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 #: src/app/create-list.tsx:64
-#: src/app/create-list.tsx:223
+#: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
 msgid "User list"
 msgstr "قائمة المستخدمين"
@@ -2262,19 +2262,19 @@ msgstr "قائمة المستخدمين"
 msgid "Username or email address"
 msgstr "إسم المستخدم او البريد الالكتروني"
 
-#: src/components/primary-post.tsx:268
+#: src/components/primary-post.tsx:267
 msgid "Users in the list"
 msgstr "المستخدمون في القائمة"
 
-#: src/components/primary-post.tsx:270
+#: src/components/primary-post.tsx:269
 msgid "Users in the lists"
 msgstr "المستخدمون في القائمة"
 
-#: src/components/primary-post.tsx:225
+#: src/components/primary-post.tsx:224
 msgid "Users mentioned in this thread"
 msgstr "الأشخاص المشار إليهم في الموضوع"
 
-#: src/components/primary-post.tsx:232
+#: src/components/primary-post.tsx:231
 msgid "Users that <0>{0}</0> follows"
 msgstr "المستخدمين الذين يتبعون <0>{0}</0>"
 
@@ -2292,12 +2292,12 @@ msgstr "الإصدار {0}"
 msgid "Version unknown"
 msgstr "نسخة غير معروفة"
 
-#: src/components/screens/profile/profile-info.tsx:540
-#: src/components/screens/profile/profile-info.tsx:571
+#: src/components/screens/profile/profile-info.tsx:541
+#: src/components/screens/profile/profile-info.tsx:572
 msgid "View"
 msgstr "شاهد"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:361
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:357
 msgid "View all feeds"
 msgstr "مشاهدة جميع الخلاصات"
 
@@ -2329,7 +2329,7 @@ msgstr "مرحبا بكم في Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "فِيمَ تُفكِّر؟"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:755
 msgid "What's the issue with this account?"
 msgstr "ما هي المشكلة في هذا الحساب؟"
 
@@ -2338,7 +2338,7 @@ msgid "What's the issue with this post?"
 msgstr "ما هي المشكلة مع هذا المنشور؟"
 
 #: src/app/composer/threadgate.tsx:34
-#: src/components/primary-post.tsx:181
+#: src/components/primary-post.tsx:180
 msgid "Who can reply?"
 msgstr "من يستطيع الرد؟"
 
@@ -2374,11 +2374,11 @@ msgstr "يمكنك الآن تلقي إشعارات فورية للإعجابا�
 msgid "You don't have any moderation lists yet."
 msgstr "ليس لديك أي قوائم إدارة حتى الآن."
 
-#: src/components/screens/profile/profile-info.tsx:566
+#: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
 msgstr "لقد قمت بحظر هذا المستخدم"
 
-#: src/components/screens/profile/profile-info.tsx:535
+#: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
 msgstr "لقد قمت بكتم هذا المستخدم"
 
@@ -2427,7 +2427,7 @@ msgstr "سيتم حفظ اختيارك، ولكن يمكن تغييرها في �
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "سيكون اسم المستخدم الخاص بك: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"
 msgstr "تم حذف قائمتك"
 

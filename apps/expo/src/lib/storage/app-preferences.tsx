@@ -22,6 +22,7 @@ export const availableAppLanguages = [
   "ml",
   "pt-BR",
   "uk",
+  "hr",
   // "ar",
   // "es",
   // "nl",
