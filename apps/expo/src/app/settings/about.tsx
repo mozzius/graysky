@@ -180,6 +180,13 @@ export default function AboutPage() {
                 href: "/profile/did:plc:3loo4eggng7s7njjox2qbdcv",
                 icon: AtSignIcon,
               },
+              {
+                // hr translator
+                title: "mattmarenic.com",
+                accessibilityRole: "link",
+                href: "/profile/did:plc:5fd357reo5rjbjbf6n3iji2s",
+                icon: AtSignIcon,
+              },
             ],
             footer: _(
               msg`If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!`,
