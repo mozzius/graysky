@@ -227,7 +227,7 @@ msgstr "Přidat další účet"
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Přidat vložení pro <0>{potential}</0>"
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
 msgstr "Přidat obrázek"
 
@@ -495,7 +495,7 @@ msgstr "Změnit uživatelské jméno"
 msgid "Change Password"
 msgstr "Změnit heslo"
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr "Změnit jazyk příspěvku"
 
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Choose a handle"
 msgstr "Vybrat uživatelské jméno"
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "Vybrat z knihovny"
 
@@ -1768,7 +1768,7 @@ msgstr "Vyhledat příspěvky"
 msgid "Search for users"
 msgstr "Vyhledat uživatele"
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr "Hledat GIFy"
 
@@ -2036,7 +2036,7 @@ msgstr "systém"
 msgid "System"
 msgstr "Systém"
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr "Pořídit snímek"
 

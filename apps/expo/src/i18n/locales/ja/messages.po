@@ -227,7 +227,7 @@ msgstr "別のアカウントを追加"
 msgid "Add embed for <0>{potential}</0>"
 msgstr "<0>{potential}</0>に埋め込みを追加"
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
 msgstr "画像を追加"
 
@@ -495,7 +495,7 @@ msgstr "ハンドルを変更"
 msgid "Change Password"
 msgstr "パスワードを変更"
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr "投稿の言語を変更"
 
@@ -524,7 +524,7 @@ msgstr "ユーザーリストの変更"
 msgid "Choose a handle"
 msgstr "ハンドルを選択"
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "ライブラリから選択"
 
@@ -1768,7 +1768,7 @@ msgstr "投稿を検索"
 msgid "Search for users"
 msgstr "ユーザーを検索"
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr "GIFを検索"
 
@@ -2036,7 +2036,7 @@ msgstr "システム"
 msgid "System"
 msgstr "システム"
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr "写真を撮影"
 

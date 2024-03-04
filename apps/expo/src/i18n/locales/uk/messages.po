@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-01 17:21\n"
+"PO-Revision-Date: 2024-03-04 12:20\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -24,11 +24,11 @@ msgstr "{0} @{1}"
 
 #: src/app/pro.tsx:205
 msgid "{0} / month"
-msgstr "{0}/ на місяць"
+msgstr "{0} на місяць"
 
 #: src/app/pro.tsx:238
 msgid "{0} / year"
-msgstr "{0}/ на рік"
+msgstr "{0} на рік"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
@@ -76,7 +76,7 @@ msgstr "Стрічка {name}"
 
 #: src/components/feed-row.tsx:96
 msgid "{name} feed by @{0}, {1} likes"
-msgstr "Стрічка {name} від @{0}, {1} подобається"
+msgstr "Стрічка {name} від @{0}, {1} уподобань"
 
 #: src/components/feed-row.tsx:98
 msgid "{name} list by @{0}"
@@ -201,7 +201,7 @@ msgstr "Обліковий запис видалено. До побачення!
 
 #: src/app/settings/account/index.tsx:28
 msgid "Account Details"
-msgstr "Подробиці облікового запису"
+msgstr "Деталі облікового запису"
 
 #: src/app/settings/_layout.tsx:62
 msgid "Account Settings"
@@ -227,9 +227,9 @@ msgstr "Додати інший обліковий запис"
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Додати вставку для <0>{potential}</0>"
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
-msgstr "Додати зображення"
+msgstr "Зображення"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:292
 msgid "Add to favourites"
@@ -495,7 +495,7 @@ msgstr "Змінити псевдонім"
 msgid "Change Password"
 msgstr "Змінити пароль"
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr "Змінити мову допису"
 
@@ -524,7 +524,7 @@ msgstr "Перетворити на список користувачів"
 msgid "Choose a handle"
 msgstr "Обрати псевдонім"
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "Обрати з бібліотеки"
 
@@ -763,7 +763,7 @@ msgstr "Вимкнути тактильні ефекти (вібрацію)"
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:159
 msgid "Discard post"
-msgstr "Скасувати допис"
+msgstr "Видалити допис"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
@@ -897,7 +897,7 @@ msgstr "Стрічка"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:54
 msgid "Feed Details"
-msgstr "Подробиці стрічки"
+msgstr "Деталі стрічки"
 
 #: src/app/(tabs)/_layout.tsx:159
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:257
@@ -1035,7 +1035,7 @@ msgstr "Допоможіть нам платити за світло"
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:152
 msgid "Hide"
-msgstr "Приховати"
+msgstr "Приховувати"
 
 #: src/app/settings/index.tsx:53
 msgid "Home feed preferences"
@@ -1071,7 +1071,7 @@ msgstr "Якщо ви зробили свій внесок у розвиток G
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
-msgstr "Незаконно і терміново"
+msgstr "Незаконно і невідкладно"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1083,11 +1083,11 @@ msgstr "Неприпустимий режим"
 
 #: src/components/drawer/drawer-content.tsx:71
 msgid "It's currently set to the {current} theme"
-msgstr "Наразі він налаштований на тему {current}"
+msgstr "Поточна тема: {current}"
 
 #: src/components/screens/profile/profile-info.tsx:516
 msgid "Joined {0}"
-msgstr "Приєднався {0}"
+msgstr "Реєстрація: {0}"
 
 #: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
@@ -1096,7 +1096,7 @@ msgstr "Мови"
 
 #: src/components/drawer/drawer-content.tsx:64
 msgid "light"
-msgstr "Світла"
+msgstr "світла"
 
 #: src/components/drawer/drawer-content.tsx:52
 #: src/components/drawer/drawer-content.tsx:82
@@ -1110,7 +1110,7 @@ msgstr "сподобався ваш допис"
 #: src/components/lists/likes-list.tsx:56
 #: src/components/screens/profile/profile-tab-view.tsx:91
 msgid "Likes"
-msgstr "Подобається"
+msgstr "Уподобання"
 
 #: src/lib/hooks/link-press.tsx:118
 msgid "Link copied to clipboard"
@@ -1197,7 +1197,7 @@ msgstr "Вручну сортувати неулюблені стрічки"
 
 #: src/components/screens/profile/profile-tab-view.tsx:88
 msgid "Media"
-msgstr "Мультимедіа"
+msgstr "Медіа"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:89
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:107
@@ -1235,7 +1235,7 @@ msgstr "Місячна підписка"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:325
 msgid "More from {0}"
-msgstr "Більше з {0}"
+msgstr "Більше від {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 msgid "Must be at least 8 characters"
@@ -1494,7 +1494,7 @@ msgstr "Порнографічний вміст"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:356
 #: src/lib/composer/buttons.tsx:72
 msgid "Post"
-msgstr "Опублікувати"
+msgstr "Допис"
 
 #: src/app/composer/index.tsx:244
 msgid "Post anyway"
@@ -1768,7 +1768,7 @@ msgstr "Пошук дописів"
 msgid "Search for users"
 msgstr "Пошук користувачів"
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr "Пошук GIF"
 
@@ -1898,11 +1898,11 @@ msgstr "Поширити через..."
 #: src/components/embed/index.tsx:225
 #: src/components/feed-post.tsx:152
 msgid "Show"
-msgstr "Показати"
+msgstr "Показувати"
 
 #: src/app/settings/app.tsx:52
 msgid "Show \"My Lists\" above \"All Feeds\""
-msgstr "Показати \"Мої списки\" вище за \"Всі стрічки\""
+msgstr "Показувати \"Мої списки\" вище за \"Всі стрічки\""
 
 #: src/components/lists/people-list.tsx:124
 msgid "Show {0} more"
@@ -1992,7 +1992,7 @@ msgstr "Спонсорувати мою роботу"
 
 #: src/app/settings/about.tsx:35
 msgid "Star us on GitHub!"
-msgstr "Поставте нам зірочку на Github!"
+msgstr "Поставте нам зірочку на GitHub!"
 
 #: src/components/notification/index.tsx:127
 #: src/components/notification/index.tsx:186
@@ -2005,7 +2005,7 @@ msgstr "Завершити редагування"
 
 #: src/app/pro.tsx:259
 msgid "Subscribe & pay"
-msgstr "Підписатися & оплатити"
+msgstr "Підписатися та оплатити"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:222
 msgid "Subscribe to {0}"
@@ -2029,14 +2029,14 @@ msgstr "Змінити обліковий запис"
 
 #: src/components/drawer/drawer-content.tsx:66
 msgid "system"
-msgstr "система"
+msgstr "системна"
 
 #: src/components/drawer/drawer-content.tsx:54
 #: src/components/drawer/drawer-content.tsx:88
 msgid "System"
-msgstr "Система"
+msgstr "Системна"
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr "Зробити світлину"
 
@@ -2307,7 +2307,7 @@ msgstr "Перегляд ALT тексту"
 
 #: src/app/settings/moderation.tsx:102
 msgid "Warn"
-msgstr "Попередити"
+msgstr "Попереджувати"
 
 #: src/app/settings/account/delete-account.tsx:96
 msgid "Warning: Account deletion is permanent"

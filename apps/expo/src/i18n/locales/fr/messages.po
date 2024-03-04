@@ -227,7 +227,7 @@ msgstr "Ajouter un autre compte"
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Ajouter une intégration pour <0>{potential}</0>"
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
 msgstr "Ajouter une image"
 
@@ -495,7 +495,7 @@ msgstr "Changer de pseudo"
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr "Changer la langue de publication"
 
@@ -524,7 +524,7 @@ msgstr "Changer pour la liste des utilisateurs"
 msgid "Choose a handle"
 msgstr "Choisir un pseudo"
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "Sélectionner dans la bibliothèque"
 
@@ -1768,7 +1768,7 @@ msgstr "Rechercher des publications"
 msgid "Search for users"
 msgstr "Rechercher des utilisateurs"
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr "Rechercher des GIFs"
 
@@ -2036,7 +2036,7 @@ msgstr "système"
 msgid "System"
 msgstr "Système"
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr "Prendre une photo"
 

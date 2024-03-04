@@ -227,7 +227,7 @@ msgstr "മറ്റൊരു അക്കൗണ്ട് ചേർക്കു�
 msgid "Add embed for <0>{potential}</0>"
 msgstr "<0>{potential}</0> വേണ്ടി എംബെഡ് ചേർക്കുക"
 
-#: src/lib/composer/keyboard-accessory.tsx:65
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Add image"
 msgstr "ചിത്രം ഉൾപ്പെടുത്തുക"
 
@@ -495,7 +495,7 @@ msgstr "ഹാൻഡിൽ മാറ്റുക"
 msgid "Change Password"
 msgstr "പാസ്‌വേഡ് മാറ്റുക"
 
-#: src/lib/composer/keyboard-accessory.tsx:107
+#: src/lib/composer/keyboard-accessory.tsx:113
 msgid "Change post language"
 msgstr "പോസ്റ്റ് ഭാഷ മാറ്റുക"
 
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Choose a handle"
 msgstr "ഒരു ഹാൻഡിൽ തിരഞ്ഞെടുക്കുക"
 
-#: src/lib/composer/keyboard-accessory.tsx:83
+#: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "ലൈബ്രറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക"
 
@@ -1768,7 +1768,7 @@ msgstr "പോസ്റ്റുകൾക്കായി തിരയുക"
 msgid "Search for users"
 msgstr "ഉപയോക്താക്കൾക്കായി തിരയുക"
 
-#: src/lib/composer/keyboard-accessory.tsx:94
+#: src/lib/composer/keyboard-accessory.tsx:99
 msgid "Search GIFs"
 msgstr "GIF-കൾ തിരയുക"
 
@@ -2036,7 +2036,7 @@ msgstr "സിസ്റ്റം"
 msgid "System"
 msgstr "സിസ്റ്റം"
 
-#: src/lib/composer/keyboard-accessory.tsx:72
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Take photo"
 msgstr "ഫോട്ടോ എടുക്കുക"
 
