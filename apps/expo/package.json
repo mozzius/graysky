@@ -136,7 +136,7 @@
     "@lingui/macro": "^4.7.1",
     "@types/babel__core": "^7.20.5",
     "@types/mime": "^3.0.4",
-    "@types/react": "^18.2.61",
+    "@types/react": "^18.2.62",
     "@types/webpack-env": "^1.18.4",
     "babel-plugin-macros": "^3.1.0",
     "eslint": "^8.57.0",
