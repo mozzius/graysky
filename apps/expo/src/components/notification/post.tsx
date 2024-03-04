@@ -10,7 +10,6 @@ import { useContentFilter } from "~/lib/hooks/preferences";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
-import { Text } from "../themed/text";
 import { NotificationItem } from "./item";
 
 interface Props {
@@ -48,13 +47,12 @@ export const PostNotification = ({
       return (
         <View className="mt-0.5 flex-1">
           {item.post.record.text && (
-            <Text className="text-neutral-500 dark:text-neutral-400">
-              <RichText
-                text={item.post.record.text}
-                facets={item.post.record.facets}
-                size="sm"
-              />
-            </Text>
+            <RichText
+              className="text-neutral-500 dark:text-neutral-400"
+              text={item.post.record.text}
+              facets={item.post.record.facets}
+              size="sm"
+            />
           )}
           {embedImage && (
             <Embed

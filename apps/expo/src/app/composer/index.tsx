@@ -368,6 +368,8 @@ export default function ComposerScreen() {
                   facets={rt.facets}
                   truncate={false}
                   disableLinks
+                  selectable={false}
+                  uiTextView={false}
                 />
               </PasteableTextInput>
             </View>

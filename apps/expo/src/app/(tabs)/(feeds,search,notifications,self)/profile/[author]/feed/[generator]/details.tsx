@@ -28,7 +28,7 @@ import { Avatar } from "~/components/avatar";
 import { FeedRow } from "~/components/feed-row";
 import { ItemSeparator } from "~/components/item-separator";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { RichText, RichTextWithoutFacets } from "~/components/rich-text";
+import { RichText } from "~/components/rich-text";
 import { Text } from "~/components/themed/text";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
@@ -154,16 +154,12 @@ const FeedInfo = ({
             </View>
           </View>
           {info.view.description && (
-            <Text className="mt-4 w-full text-base">
-              {info.view.descriptionFacets ? (
-                <RichText
-                  text={info.view.description}
-                  facets={info.view.descriptionFacets}
-                />
-              ) : (
-                <RichTextWithoutFacets text={info.view.description} />
-              )}
-            </Text>
+            <View className="mt-4">
+              <RichText
+                text={info.view.description}
+                facets={info.view.descriptionFacets}
+              />
+            </View>
           )}
           <View
             className={cx(

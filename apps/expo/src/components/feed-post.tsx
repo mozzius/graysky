@@ -303,12 +303,14 @@ const FeedPostInner = ({
                   <Link href={postHref} asChild>
                     <TouchableWithoutFeedback
                       accessibilityHint={_(msg`Opens post details`)}
+                      className="w-full"
                     >
                       <View className="mb-0.5 mt-px flex-1 lg:pr-24">
                         <RichText
                           text={item.post.record.text}
                           facets={item.post.record.facets}
                           numberOfLines={numberOfLines}
+                          selectable={false}
                         />
                       </View>
                     </TouchableWithoutFeedback>

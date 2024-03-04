@@ -204,6 +204,8 @@ export default function CreateListScreen() {
                 facets={rt.facets}
                 truncate={false}
                 disableLinks
+                selectable={false}
+                uiTextView={false}
               />
             </TextInput>
           </View>

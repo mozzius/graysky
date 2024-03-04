@@ -20,7 +20,7 @@ import {
 } from "~/lib/storage/app-preferences";
 import { api } from "~/lib/utils/api";
 import { cx } from "~/lib/utils/cx";
-import { RichTextWithoutFacets } from "./rich-text";
+import { RichText } from "./rich-text";
 import { Text } from "./themed/text";
 
 interface Props {
@@ -104,9 +104,7 @@ export const Translation = ({ text, uri, forceShow }: Props) => {
               : "border-blue-300 bg-blue-50",
           )}
         >
-          <Text className="text-base">
-            <RichTextWithoutFacets text={translate.data.text} />
-          </Text>
+          <RichText text={translate.data.text} detectFacets />
           <View className="mt-1 flex-row items-center justify-between">
             <View className="flex-row items-center">
               <LanguagesIcon

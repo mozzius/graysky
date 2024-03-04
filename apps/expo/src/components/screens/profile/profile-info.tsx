@@ -45,7 +45,7 @@ import { useHaptics, useProfileModeration } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { cx } from "~/lib/utils/cx";
 import { useLists } from "../../lists/context";
-import { RichTextWithoutFacets } from "../../rich-text";
+import { RichText } from "../../rich-text";
 import { Text } from "../../themed/text";
 import { useDefaultHeaderHeight } from "./hooks";
 
@@ -487,9 +487,10 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               profile.viewer?.muted
             ) && (
               <View className="mt-3" pointerEvents="box-none">
-                <RichTextWithoutFacets
+                <RichText
                   text={profile.description.trim()}
                   size="sm"
+                  detectFacets
                 />
               </View>
             )}

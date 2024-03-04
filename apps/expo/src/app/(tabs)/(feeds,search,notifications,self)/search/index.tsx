@@ -37,7 +37,7 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { PersonRow } from "~/components/lists/person-row";
 import { OpenDrawerAvatar } from "~/components/open-drawer-avatar";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { RichTextWithoutFacets } from "~/components/rich-text";
+import { RichText } from "~/components/rich-text";
 import { Text } from "~/components/themed/text";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAgent } from "~/lib/agent";
@@ -458,7 +458,7 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
           </View>
           {item.description && (
             <View className="mt-4">
-              <RichTextWithoutFacets text={item.description} size="sm" />
+              <RichText text={item.description} size="sm" detectFacets />
             </View>
           )}
         </View>

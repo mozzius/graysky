@@ -471,11 +471,7 @@ const ListHeader = ({
       </View>
       {info.description && (
         <View className="my-2 flex-1">
-          <RichText
-            text={info.description}
-            facets={info.descriptionFacets}
-            size="base"
-          />
+          <RichText text={info.description} facets={info.descriptionFacets} />
         </View>
       )}
     </View>

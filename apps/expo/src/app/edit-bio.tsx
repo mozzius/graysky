@@ -261,6 +261,8 @@ export default function EditBio() {
                   facets={rt.facets}
                   truncate={false}
                   disableLinks
+                  selectable={false}
+                  uiTextView={false}
                 />
               </TextInput>
             </View>

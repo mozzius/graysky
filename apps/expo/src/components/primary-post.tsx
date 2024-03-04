@@ -135,7 +135,6 @@ export const PrimaryPost = ({
               text={post.record.text}
               facets={post.record.facets}
               size="lg"
-              selectable
             />
           </View>
           {(needsTranslation || forceShowTranslation) && (

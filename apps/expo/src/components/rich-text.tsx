@@ -1,11 +1,12 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, memo, useMemo } from "react";
+import { type StyleProp, type TextStyle } from "react-native";
 import { useRouter } from "expo-router";
 import { RichText as RichTextHelper, type Facet } from "@atproto/api";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { cx } from "~/lib/utils/cx";
-import { Text } from "./themed/text";
+import { SelectableText } from "./themed/text";
 
 interface Props {
   text: string;
@@ -16,9 +17,12 @@ interface Props {
   disableLinks?: boolean;
   className?: string;
   selectable?: boolean;
+  uiTextView?: boolean;
+  detectFacets?: boolean;
+  style?: StyleProp<TextStyle>;
 }
 
-export const RichText = ({
+const RichTextInner = ({
   text,
   facets,
   size = "base",
@@ -26,24 +30,20 @@ export const RichText = ({
   truncate = true,
   disableLinks,
   className,
-  selectable,
+  selectable = true,
+  uiTextView = true,
+  detectFacets,
+  style,
 }: Props) => {
   const router = useRouter();
   const { openLink, showLinkOptions } = useLinkPress();
   const path = useAbsolutePath();
 
-  const classNames = cx(
-    {
-      "text-sm": size === "sm",
-      "text-base leading-[22px]": size === "base",
-      "text-lg leading-6": size === "lg",
-      "text-xl leading-7": size === "xl",
-    },
-    className,
-  );
-
   const segments = useMemo(() => {
     const rt = new RichTextHelper({ text, facets });
+    if (detectFacets) {
+      rt.detectFacetsWithoutResolution();
+    }
     const parts = [];
     for (const segment of rt.segments()) {
       if (segment.isLink()) {
@@ -68,8 +68,8 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text
-              className={cx("text-blue-500", classNames)}
+            <SelectableText
+              className="text-blue-500"
               accessibilityRole="link"
               onPress={(evt) => {
                 if (disableLinks) return;
@@ -90,25 +90,29 @@ export const RichText = ({
                 evt.stopPropagation();
                 showLinkOptions(segment.link!.uri);
               }}
+              selectable={selectable}
+              uiTextView={uiTextView}
             >
               {textToShow}
-            </Text>
+            </SelectableText>
           ),
         });
       } else if (segment.isMention()) {
         parts.push({
           text: segment.text,
           component: (
-            <Text
-              className={cx("text-blue-500", classNames)}
+            <SelectableText
+              className="text-blue-500"
               accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
                 router.push(path(`/profile/${segment.mention!.did}`));
               }}
+              selectable={selectable}
+              uiTextView={uiTextView}
             >
               {segment.text}
-            </Text>
+            </SelectableText>
           ),
         });
       } else if (segment.isTag()) {
@@ -120,22 +124,28 @@ export const RichText = ({
         parts.push({
           text: segment.text,
           component: (
-            <Text
-              className={cx("text-blue-500", classNames)}
+            <SelectableText
+              className="text-blue-500"
               accessibilityRole="link"
               onPress={(evt) => {
                 evt.stopPropagation();
                 router.push(path(`/tag/${encodeURIComponent(tag)}`));
               }}
+              selectable={selectable}
+              uiTextView={uiTextView}
             >
               {segment.text}
-            </Text>
+            </SelectableText>
           ),
         });
       } else {
         parts.push({
           text: segment.text,
-          component: <Text className={classNames}>{segment.text}</Text>,
+          component: (
+            <SelectableText selectable={selectable} uiTextView={uiTextView}>
+              {segment.text}
+            </SelectableText>
+          ),
         });
       }
     }
@@ -146,7 +156,7 @@ export const RichText = ({
       parts.push({
         text: text.slice(reconstructed.length),
         component: (
-          <Text className={classNames}>{text.slice(reconstructed.length)}</Text>
+          <SelectableText>{text.slice(reconstructed.length)}</SelectableText>
         ),
       });
     }
@@ -155,38 +165,39 @@ export const RichText = ({
     text,
     facets,
     truncate,
-    classNames,
     disableLinks,
     router,
     openLink,
     showLinkOptions,
     path,
+    detectFacets,
+    selectable,
+    uiTextView,
   ]);
 
   if (!segments) return null;
 
   return (
-    <Text
-      className={classNames}
+    <SelectableText
+      className={cx(
+        {
+          "text-sm": size === "sm",
+          "text-base leading-[22px]": size === "base",
+          "text-lg leading-6": size === "lg",
+          "text-xl leading-7": size === "xl",
+        },
+        className,
+      )}
+      style={style}
       numberOfLines={numberOfLines}
       selectable={selectable}
+      uiTextView={uiTextView}
     >
       {segments.map(({ text, component }, i) => (
         <Fragment key={`${i}+${text}`}>{component}</Fragment>
       ))}
-    </Text>
+    </SelectableText>
   );
 };
 
-export const RichTextWithoutFacets = ({
-  text,
-  ...props
-}: Omit<Props, "facets">) => {
-  const data = useMemo(() => {
-    const rt = new RichTextHelper({ text });
-    rt.detectFacetsWithoutResolution();
-    return rt.facets;
-  }, [text]);
-
-  return <RichText text={text} facets={data} {...props} />;
-};
+export const RichText = memo(RichTextInner);
