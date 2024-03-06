@@ -100,8 +100,8 @@ importers:
         specifier: ^6.1.14
         version: 6.1.14(react-native@0.73.4)(react@18.2.0)
       '@sentry/react-native':
-        specifier: 5.19.1
-        version: 5.19.1(expo@50.0.8)(react-native@0.73.4)(react@18.2.0)
+        specifier: 5.19.2
+        version: 5.19.2(expo@50.0.8)(react-native@0.73.4)(react@18.2.0)
       '@shopify/flash-list':
         specifier: 1.6.3
         version: 1.6.3(@babel/runtime@7.24.0)(react-native@0.73.4)(react@18.2.0)
@@ -5595,8 +5595,8 @@ packages:
       '@sentry/utils': 7.105.0
     dev: false
 
-  /@sentry/react-native@5.19.1(expo@50.0.8)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-i2vfbvTkohsXvvMMCozeVOrwS07zVtvwYsvooEZOvQIgq/c41QQ4LmbZK7efLrfUsxkk3MsISwMVma+MncqTHA==}
+  /@sentry/react-native@5.19.2(expo@50.0.8)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-XVkDTySw7b4Oz74+EhOVMiRYcSNbS5W1b20Ljt5LhlwKHX9Zd+DTGDb6hpDerRLBqqfKbF1uzyYhpj6TxI9nRA==}
     hasBin: true
     peerDependencies:
       expo: '>=49.0.0'
