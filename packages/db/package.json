@@ -8,7 +8,7 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "dotenv-cli": "^7.3.0",
+    "dotenv-cli": "^7.4.0",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "prisma": "^5.10.2",

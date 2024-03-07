@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 14:23\n"
+"PO-Revision-Date: 2024-03-07 22:55\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -327,7 +327,7 @@ msgstr "Штогадовы план"
 msgid "Anti-Social Behavior"
 msgstr "Асацыяльныя паводзіны"
 
-#: src/app/settings/about.tsx:200
+#: src/app/settings/about.tsx:207
 msgid "App info"
 msgstr "Інфармацыя пра праграму"
 
@@ -1065,7 +1065,7 @@ msgstr "Як вы жадаеце адкрыць гэтую спасылку?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Калі на допісу стаіць моўная адзнака любой з гэтых моў, ён не будзе перакладацца."
 
-#: src/app/settings/about.tsx:185
+#: src/app/settings/about.tsx:192
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Калі вы зрабілі ўнёсак у развіццё graysky (напрыклад: дапамагалі з перакладам), калі ласка, напішыце @graysky.app, каб мы дадалі вас у спіс!"
 
@@ -1167,7 +1167,7 @@ msgstr "Зарэгістравацца"
 msgid "Logged in"
 msgstr "Вы ўвайшлі"
 
-#: src/app/settings/about.tsx:189
+#: src/app/settings/about.tsx:196
 msgid "Logo designed by"
 msgstr "Дызайн лагатыпа"
 
@@ -2282,12 +2282,12 @@ msgstr "Карыстальнік, на якога падпісаны <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код пацвярджэння"
 
-#: src/app/settings/about.tsx:204
+#: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:205
+#: src/app/settings/about.tsx:212
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невядомая"

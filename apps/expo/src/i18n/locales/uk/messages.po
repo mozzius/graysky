@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 14:23\n"
+"PO-Revision-Date: 2024-03-07 22:55\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -327,7 +327,7 @@ msgstr "Річна підписка"
 msgid "Anti-Social Behavior"
 msgstr "Антисоціальна поведінка"
 
-#: src/app/settings/about.tsx:200
+#: src/app/settings/about.tsx:207
 msgid "App info"
 msgstr "Про застосунок"
 
@@ -763,7 +763,7 @@ msgstr "Вимкнути тактильні ефекти (вібрацію)"
 #: src/lib/composer/buttons.tsx:117
 #: src/lib/composer/buttons.tsx:159
 msgid "Discard post"
-msgstr "Видалити допис"
+msgstr "Видалити чернетку"
 
 #: src/components/screens/feeds-screen-elements.tsx:35
 msgid "Discover feeds"
@@ -966,7 +966,7 @@ msgstr "Підписки"
 #: src/components/screens/profile/profile-info.tsx:442
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
-msgstr "Підписаний на вас"
+msgstr "Підписаний(-на) на вас"
 
 #: src/app/(auth)/sign-in.tsx:106
 msgid "Forgot?"
@@ -1065,7 +1065,7 @@ msgstr "Як ви хочете відкрити це посилання?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Якщо допис позначено як такий, що написаний однією з цих мов, він не буде перекладений."
 
-#: src/app/settings/about.tsx:185
+#: src/app/settings/about.tsx:192
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Якщо ви зробили свій внесок у розвиток Graysky, наприклад, допомогли з перекладами, будь ласка, напишіть нам на @graysky.app, щоб ми могли додати вас до цього списку!"
 
@@ -1087,7 +1087,7 @@ msgstr "Поточна тема: {current}"
 
 #: src/components/screens/profile/profile-info.tsx:517
 msgid "Joined {0}"
-msgstr "Реєстрація: {0}"
+msgstr "Дата приєднання: {0}"
 
 #: src/app/settings/_layout.tsx:122
 #: src/app/settings/index.tsx:58
@@ -1167,7 +1167,7 @@ msgstr "Вийти"
 msgid "Logged in"
 msgstr "Вхід виконано"
 
-#: src/app/settings/about.tsx:189
+#: src/app/settings/about.tsx:196
 msgid "Logo designed by"
 msgstr "Логотип розроблений"
 
@@ -1672,11 +1672,11 @@ msgstr "Налаштування репостів"
 
 #: src/components/lists/reposts-list.tsx:54
 msgid "Reposted by"
-msgstr "Репост зроблений"
+msgstr "Репост від"
 
 #: src/components/feed-post.tsx:388
 msgid "Reposted by {0}"
-msgstr "Репост зроблений {0}"
+msgstr "Репост від {0}"
 
 #: src/components/notification/index.tsx:97
 msgid "reposted your post"
@@ -1997,7 +1997,7 @@ msgstr "Поставте нам зірочку на GitHub!"
 #: src/components/notification/index.tsx:127
 #: src/components/notification/index.tsx:186
 msgid "started following you"
-msgstr "підписався на вас"
+msgstr "підписались на вас"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Stop editing"
@@ -2282,12 +2282,12 @@ msgstr "Користувачі, на яких підписаний <0>{0}</0>"
 msgid "Verification code"
 msgstr "Код перевірки"
 
-#: src/app/settings/about.tsx:204
+#: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: src/app/settings/about.tsx:205
+#: src/app/settings/about.tsx:212
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Версія невідома"

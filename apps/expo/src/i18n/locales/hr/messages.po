@@ -8,7 +8,7 @@ msgstr ""
 "Language: hr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 14:23\n"
+"PO-Revision-Date: 2024-03-07 22:55\n"
 "Last-Translator: \n"
 "Language-Team: Croatian\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -32,7 +32,7 @@ msgstr "{0} / godina"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 msgid "{0} posts"
-msgstr "{0} postovi"
+msgstr "{0} objava"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -60,7 +60,7 @@ msgstr "{minutes}m"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
 msgid "{modeName} feed for #{decodedTag} is empty"
-msgstr "{modeName} feed za #{decodedTag} je prazna"
+msgstr "{modeName} feed za #{decodedTag} je prazan"
 
 #: src/lib/utils/time.ts:29
 msgid "{months} months ago"
@@ -68,7 +68,7 @@ msgstr "prije {months} mjeseca"
 
 #: src/lib/utils/time.ts:26
 msgid "{months}M"
-msgstr "{months}M"
+msgstr "{months}mj"
 
 #: src/components/feed-row.tsx:99
 msgid "{name} feed"
@@ -127,7 +127,7 @@ msgstr "<0>{0}</0> Pratite"
 
 #: src/components/screens/profile/profile-info.tsx:476
 msgid "<0>{0}</0> Posts"
-msgstr "<0>{0}</0> Objava"
+msgstr "<0>{0}</0> Objavi"
 
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
@@ -181,7 +181,7 @@ msgstr "Više o"
 
 #: src/app/settings/index.tsx:85
 msgid "About Graysky"
-msgstr "Više o Graysky-u"
+msgstr "Više o aplikaciji Graysky"
 
 #: src/app/settings/pro.tsx:53
 msgid "Accent colour"
@@ -327,7 +327,7 @@ msgstr "Godišnji plan"
 msgid "Anti-Social Behavior"
 msgstr "Antisocijalno ponašanje"
 
-#: src/app/settings/about.tsx:200
+#: src/app/settings/about.tsx:207
 msgid "App info"
 msgstr "Informacije o aplikaciji"
 
@@ -488,7 +488,7 @@ msgstr "Odustani"
 #: src/app/settings/_layout.tsx:68
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
-msgstr "Promijeni ime"
+msgstr "Promijeni korisničko ime"
 
 #: src/app/settings/_layout.tsx:74
 #: src/app/settings/account/index.tsx:55
@@ -522,11 +522,11 @@ msgstr "Promjene na korisnikovoj listi"
 #: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
 msgid "Choose a handle"
-msgstr "Izaberi ime"
+msgstr "Izaberi korisničko ime"
 
 #: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
-msgstr "Odaberite iz biblioteke"
+msgstr "Odaberite iz galerije"
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -562,7 +562,7 @@ msgstr "Upozorenje za sadržaj"
 
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
-msgstr "Doprinositelji"
+msgstr "Doprinjeli"
 
 #: src/components/image-with-context-menu.tsx:136
 msgid "Copied image to clipboard"
@@ -587,7 +587,7 @@ msgstr "Kopiraj poveznicu"
 
 #: src/components/post-context-menu.tsx:174
 msgid "Copy link to post"
-msgstr "Kopiraj link u objavu"
+msgstr "Kopiraj link objave"
 
 #: src/components/post-context-menu.tsx:191
 msgid "Copy post text"
@@ -595,7 +595,7 @@ msgstr "Kopiraj tekst objave"
 
 #: src/app/settings/account/change-handle.tsx:57
 msgid "Could not change handle"
-msgstr "Nismo uspjeli promijeniti ime"
+msgstr "Nismo uspjeli promijeniti korisničko ime"
 
 #: src/app/pro.tsx:90
 msgid "Could not complete purchase"
@@ -653,11 +653,11 @@ msgstr "Stvori novi post"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
-msgstr "Napravi račun"
+msgstr "Napravite račun"
 
 #: src/app/index.tsx:46
 msgid "Create an account"
-msgstr "Napravi račun"
+msgstr "Napravite račun"
 
 #: src/app/create-list.tsx:238
 msgid "Create list"
@@ -669,7 +669,7 @@ msgstr "Novi Popis"
 
 #: src/app/add-to-list/[handle].tsx:156
 msgid "Create new list"
-msgstr "Stvori novi popis"
+msgstr "Napravite novi popis"
 
 #: src/app/(auth)/sign-in.tsx:146
 msgid "Create one at bsky.app/settings"
@@ -942,7 +942,7 @@ msgstr "Pratitelji"
 #: src/components/feeds-button.tsx:248
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
-msgstr "praćena.lista"
+msgstr "sve koje pratim"
 
 #. 'Following' - following a user
 #. 'Following' - following a user
@@ -954,13 +954,13 @@ msgstr "praćena.lista"
 #: src/components/screens/profile/profile-info.tsx:396
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
-msgstr "pratitelji.akcije"
+msgstr "pratitelji"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
 #: src/components/lists/follows-list.tsx:55
 msgid "following.list"
-msgstr "pratitelji.lista"
+msgstr "lista pratitelja"
 
 #: src/components/lists/person-row.tsx:54
 #: src/components/screens/profile/profile-info.tsx:442
@@ -1013,15 +1013,15 @@ msgstr "Graysky Pro"
 
 #: src/app/settings/account/change-handle.tsx:49
 msgid "Handle already taken"
-msgstr "Ime je već zauzeto"
+msgstr "Korisničko ime je već zauzeto"
 
 #: src/components/handle-availability.tsx:79
 msgid "Handle is invalid"
-msgstr "Ime ima grešku"
+msgstr "Korisničko ime ima grešku"
 
 #: src/components/handle-availability.tsx:70
 msgid "Handle is taken"
-msgstr "Ime je zauzeto"
+msgstr "Korisničko ime je zauzeto"
 
 #: src/app/settings/app.tsx:108
 msgid "Haptics disabled"
@@ -1065,13 +1065,13 @@ msgstr "Kako želite da otvorimo ovu poveznicu?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Ako je objava označena ne nekom od ovih jezika, neće biti prevedena."
 
-#: src/app/settings/about.tsx:185
+#: src/app/settings/about.tsx:192
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Ako ste doprinijeli aplikaciji Graysky, npr. pomažući s prijevodima, obratite se na @graysky.app kako bismo vas mogli dodati na ovaj popis!"
 
 #: src/components/post-context-menu.tsx:135
 msgid "Illegal and Urgent"
-msgstr "Ilegalno i Hitno"
+msgstr "Ilegalno i hitno"
 
 #: src/components/image-viewer.tsx:268
 msgid "Image options"
@@ -1167,9 +1167,9 @@ msgstr "Odjavi se"
 msgid "Logged in"
 msgstr "Prijavljen"
 
-#: src/app/settings/about.tsx:189
+#: src/app/settings/about.tsx:196
 msgid "Logo designed by"
-msgstr "Logo je dizajnirao"
+msgstr "Logo dizajnirao"
 
 #: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
@@ -1494,7 +1494,7 @@ msgstr "Pornografski sadržaj"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:356
 #: src/lib/composer/buttons.tsx:72
 msgid "Post"
-msgstr "Objava"
+msgstr "Objavi"
 
 #: src/app/composer/index.tsx:244
 msgid "Post anyway"
@@ -1590,7 +1590,7 @@ msgstr "Push obavijesti"
 
 #: src/lib/hooks/post-actions.tsx:141
 msgid "Quote"
-msgstr "Citat"
+msgstr "Citiraj"
 
 #: src/app/settings/feed.tsx:305
 msgid "Quote post settings"
@@ -1875,7 +1875,7 @@ msgstr "Podijeli poveznicu"
 
 #: src/components/post-context-menu.tsx:167
 msgid "Share link to post"
-msgstr "Podijeli linku u objavu"
+msgstr "Podijeli poveznicu"
 
 #: src/components/post-context-menu.tsx:161
 msgid "Share post"
@@ -1997,7 +1997,7 @@ msgstr "Ocijenite nas na GitHub-u!"
 #: src/components/notification/index.tsx:127
 #: src/components/notification/index.tsx:186
 msgid "started following you"
-msgstr "je počeo/la pratiti"
+msgstr "vas je počeo/la pratiti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:33
 msgid "Stop editing"
@@ -2282,12 +2282,12 @@ msgstr "Korisnik koji <0>{0}</0> prati"
 msgid "Verification code"
 msgstr "Kod za provjeru"
 
-#: src/app/settings/about.tsx:204
+#: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Verzija {0}"
 
-#: src/app/settings/about.tsx:205
+#: src/app/settings/about.tsx:212
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Nepoznata verzija"
@@ -2376,7 +2376,7 @@ msgstr "Još nemate nijedan popis za moderiranje."
 
 #: src/components/screens/profile/profile-info.tsx:567
 msgid "You have blocked this user"
-msgstr "Blokirao si ovog korisnika"
+msgstr "Blokirali ste ovog korisnika"
 
 #: src/components/screens/profile/profile-info.tsx:536
 msgid "You have muted this user"
@@ -2425,7 +2425,7 @@ msgstr "Vaš izbor će biti spremljen, ali se može promijeniti u postavkama"
 #: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
-msgstr "Vaša ime će biti: <0>@{derivedHandle}</0>"
+msgstr "Vaša korisničko ime će biti: <0>@{derivedHandle}</0>"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
 msgid "Your list has been deleted"

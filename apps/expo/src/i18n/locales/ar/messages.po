@@ -8,7 +8,7 @@ msgstr ""
 "Language: ar\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 14:23\n"
+"PO-Revision-Date: 2024-03-07 22:55\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
@@ -327,7 +327,7 @@ msgstr "الخطة السنوية"
 msgid "Anti-Social Behavior"
 msgstr "السلوك المعادي للمجتمع"
 
-#: src/app/settings/about.tsx:200
+#: src/app/settings/about.tsx:207
 msgid "App info"
 msgstr "معلومات عن التطبيق"
 
@@ -1065,7 +1065,7 @@ msgstr "بأي تطبيق نفتح هذا الرابط؟"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "إذا تم وضع علامة على وظيفة على أنها موجودة بإحدى هاتين اللغتين، فلن يتم ترجمتها."
 
-#: src/app/settings/about.tsx:185
+#: src/app/settings/about.tsx:192
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "إذا كنت قد ساهمت في Graysky، على سبيل المثال المساعدة في الترجمة، يرجى الوصول إلى @graysky.app حتى نتمكن من إضافتك إلى هذه القائمة!"
 
@@ -1167,7 +1167,7 @@ msgstr "الخروج"
 msgid "Logged in"
 msgstr "تم تسجيل الدخول"
 
-#: src/app/settings/about.tsx:189
+#: src/app/settings/about.tsx:196
 msgid "Logo designed by"
 msgstr "الشعار مصمم بواسطة"
 
@@ -2282,12 +2282,12 @@ msgstr "المستخدمين الذين يتبعون <0>{0}</0>"
 msgid "Verification code"
 msgstr "يرجى إدخال رمز التحقق"
 
-#: src/app/settings/about.tsx:204
+#: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "الإصدار {0}"
 
-#: src/app/settings/about.tsx:205
+#: src/app/settings/about.tsx:212
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "نسخة غير معروفة"

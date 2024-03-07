@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-04 14:23\n"
+"PO-Revision-Date: 2024-03-07 22:55\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -327,7 +327,7 @@ msgstr "Jährliche Zahlung"
 msgid "Anti-Social Behavior"
 msgstr "Unsoziales Verhalten"
 
-#: src/app/settings/about.tsx:200
+#: src/app/settings/about.tsx:207
 msgid "App info"
 msgstr "Info zur Anwendung"
 
@@ -1065,7 +1065,7 @@ msgstr "Wie sollen wir diesen Link öffnen?"
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "Wenn ein Beitrag als in einer dieser Sprachen markiert ist, wird er nicht übersetzt."
 
-#: src/app/settings/about.tsx:185
+#: src/app/settings/about.tsx:192
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "Wenn Sie zu Graysky beigetragen haben, zum Beispiel bei Übersetzungen geholfen haben, wenden Sie sich bitte an @graysky.app damit wir Sie zu dieser Liste hinzufügen können!"
 
@@ -1167,7 +1167,7 @@ msgstr "Abmelden"
 msgid "Logged in"
 msgstr "Angemeldet"
 
-#: src/app/settings/about.tsx:189
+#: src/app/settings/about.tsx:196
 msgid "Logo designed by"
 msgstr "Logo erstellt von"
 
@@ -2282,12 +2282,12 @@ msgstr "Benutzer, denen <0>{0}</0> folgt"
 msgid "Verification code"
 msgstr "Verifizierungscode"
 
-#: src/app/settings/about.tsx:204
+#: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:216
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: src/app/settings/about.tsx:205
+#: src/app/settings/about.tsx:212
 #: src/components/drawer/drawer-content.tsx:218
 msgid "Version unknown"
 msgstr "Version unbekannt"
