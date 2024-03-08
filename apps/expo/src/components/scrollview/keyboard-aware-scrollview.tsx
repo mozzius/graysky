@@ -6,6 +6,7 @@ import {
 } from "react-native-keyboard-controller";
 import Reanimated, {
   interpolate,
+  runOnJS,
   scrollTo,
   useAnimatedReaction,
   useAnimatedRef,
@@ -63,6 +64,7 @@ interface KeyboardAwareScrollViewProps extends ScrollViewProps {
 const KeyboardAwareScrollView = ({
   children,
   bottomOffset = 0,
+  onScroll: onScrollProp,
   ...rest
 }: KeyboardAwareScrollViewProps) => {
   const scrollViewAnimatedRef = useAnimatedRef<Reanimated.ScrollView>();
@@ -77,10 +79,21 @@ const KeyboardAwareScrollView = ({
 
   const { height } = useWindowDimensions();
 
+  const onScrollCallback = useCallback(
+    (y: number) => {
+      if (onScrollProp) {
+        // @ts-expect-error partial native event
+        onScrollProp({ nativeEvent: { contentOffset: { y } } });
+      }
+    },
+    [onScrollProp],
+  );
+
   const onScroll = useAnimatedScrollHandler(
     {
       onScroll: (e) => {
         position.value = e.contentOffset.y;
+        runOnJS(onScrollCallback)(e.contentOffset.y);
       },
     },
     [],
