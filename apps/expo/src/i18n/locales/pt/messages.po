@@ -22,11 +22,11 @@ msgstr ""
 msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
-#: src/app/pro.tsx:205
+#: src/app/pro.tsx:206
 msgid "{0} / month"
 msgstr "{0} / mês"
 
-#: src/app/pro.tsx:238
+#: src/app/pro.tsx:239
 msgid "{0} / year"
 msgstr "{0} / ano"
 
@@ -239,7 +239,7 @@ msgstr "Adicionar aos favoritos"
 msgid "Add to list"
 msgstr "Adicionar à lista"
 
-#: src/app/_layout.tsx:385
+#: src/app/_layout.tsx:393
 msgid "Add to List"
 msgstr "Adicionar à Lista"
 
@@ -319,7 +319,7 @@ msgstr "Ocorreu um erro desconhecido"
 msgid "An unknown error occurred."
 msgstr "Ocorreu um erro desconhecido."
 
-#: src/app/pro.tsx:220
+#: src/app/pro.tsx:221
 msgid "Annual Plan"
 msgstr "Plano Anual"
 
@@ -383,15 +383,15 @@ msgstr "Disponível"
 msgid "Back"
 msgstr "Voltar"
 
-#: src/app/pro.tsx:108
+#: src/app/pro.tsx:109
 msgid "Better translations"
 msgstr "Traduções melhores"
 
-#: src/app/pro.tsx:242
+#: src/app/pro.tsx:243
 msgid "Billed annually, cancel anytime"
 msgstr "Cobrado anualmente, cancele a qualquer momento"
 
-#: src/app/pro.tsx:209
+#: src/app/pro.tsx:210
 msgid "Billed monthly, cancel anytime"
 msgstr "Cobrado mensalmente, cancele a qualquer momento"
 
@@ -450,11 +450,11 @@ msgstr "Por @{0}"
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "Ao pressionar confirmar você entende que irá sua conta do Bluesky será realmente apagada, e que isso não tem nenhuma relação com o Graysky. Seus dados também serão permanentemente excluídos do aplicativo oficial."
 
-#: src/app/pro.tsx:301
+#: src/app/pro.tsx:302
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0> e <1>Política de Privacidade</1>. Assinaturas são renovadas automaticamente até serem canceladas."
 
-#: src/app/pro.tsx:266
+#: src/app/pro.tsx:267
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0>, os <1>Termos de Uso (EULA)</1> e nossa <2>Política de Privacidade</2>. Assinaturas são renovadas automaticamente até serem canceladas."
 
@@ -470,7 +470,7 @@ msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0>, os <1
 #: src/app/create-list.tsx:135
 #: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
-#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:58
 #: src/components/feed-row.tsx:291
 #: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:91
@@ -499,13 +499,13 @@ msgstr "Alterar Senha"
 msgid "Change post language"
 msgstr "Alterar idioma da publicação"
 
-#: src/app/pro.tsx:121
+#: src/app/pro.tsx:122
 msgid "Change the accent colour"
 msgstr "Mude a cor de destaque"
 
-#: src/components/drawer/drawer-content.tsx:70
-#: src/components/drawer/drawer-content.tsx:180
-#: src/components/drawer/drawer-content.tsx:186
+#: src/components/drawer/drawer-content.tsx:73
+#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:203
 msgid "Change theme"
 msgstr "Alterar tema"
 
@@ -527,6 +527,10 @@ msgstr "Escolher um identificador"
 #: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "Escolher da Galeria"
+
+#: src/app/pro.tsx:127
+msgid "Circle graph"
+msgstr ""
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -597,7 +601,7 @@ msgstr "Copiar texto da publicação"
 msgid "Could not change handle"
 msgstr "Não foi possível mudar o identificador"
 
-#: src/app/pro.tsx:90
+#: src/app/pro.tsx:91
 msgid "Could not complete purchase"
 msgstr "Não foi possível concluir a compra"
 
@@ -663,7 +667,7 @@ msgstr "Criar uma conta"
 msgid "Create list"
 msgstr "Criar lista"
 
-#: src/app/_layout.tsx:378
+#: src/app/_layout.tsx:386
 msgid "Create List"
 msgstr "Criar Lista"
 
@@ -683,7 +687,7 @@ msgstr "Criado por"
 msgid "Creator"
 msgstr "Criador"
 
-#: src/app/pro.tsx:181
+#: src/app/pro.tsx:182
 msgid "Currently subscribed"
 msgstr "Atualmente inscrito"
 
@@ -691,16 +695,16 @@ msgstr "Atualmente inscrito"
 msgid "Custom domain"
 msgstr "Domínio personalizado"
 
-#: src/app/pro.tsx:120
+#: src/app/pro.tsx:121
 msgid "Custom themes"
 msgstr "Temas personalizados"
 
-#: src/components/drawer/drawer-content.tsx:65
+#: src/components/drawer/drawer-content.tsx:68
 msgid "dark"
 msgstr "escuro"
 
-#: src/components/drawer/drawer-content.tsx:53
-#: src/components/drawer/drawer-content.tsx:85
+#: src/components/drawer/drawer-content.tsx:56
+#: src/components/drawer/drawer-content.tsx:88
 msgid "Dark"
 msgstr "Escuro"
 
@@ -829,7 +833,7 @@ msgstr "Editar banner"
 msgid "Edit feeds"
 msgstr "Editar feeds"
 
-#: src/app/_layout.tsx:357
+#: src/app/_layout.tsx:365
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
@@ -910,6 +914,10 @@ msgstr "Feeds"
 #: src/app/settings/feed.tsx:144
 msgid "Feeds list"
 msgstr "Lista de Feeds"
+
+#: src/app/circle.tsx:261
+msgid "Fetch connections"
+msgstr ""
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -1005,9 +1013,9 @@ msgstr "Voltar"
 msgid "Google Translate is used otherwise."
 msgstr "Caso contrário, o Google Tradutor será usado."
 
-#: src/app/pro.tsx:166
+#: src/app/pro.tsx:167
 #: src/app/settings/index.tsx:34
-#: src/components/drawer/drawer-content.tsx:174
+#: src/components/drawer/drawer-content.tsx:177
 msgid "Graysky Pro"
 msgstr "Graysky Pro"
 
@@ -1027,7 +1035,7 @@ msgstr "Nome de usuário já utilizado"
 msgid "Haptics disabled"
 msgstr "Vibrações desativadas"
 
-#: src/app/pro.tsx:127
+#: src/app/pro.tsx:134
 msgid "Help us keep the lights on"
 msgstr "Ajude-nos a manter as luzes acesas"
 
@@ -1081,7 +1089,7 @@ msgstr "Opções de imagem"
 msgid "Invalid mode"
 msgstr "Modo inválido"
 
-#: src/components/drawer/drawer-content.tsx:71
+#: src/components/drawer/drawer-content.tsx:74
 msgid "It's currently set to the {current} theme"
 msgstr "Atualmente está definido para o tema {current}"
 
@@ -1094,12 +1102,12 @@ msgstr "Entrou em {0}"
 msgid "Languages"
 msgstr "Idiomas"
 
-#: src/components/drawer/drawer-content.tsx:64
+#: src/components/drawer/drawer-content.tsx:67
 msgid "light"
 msgstr "claro"
 
-#: src/components/drawer/drawer-content.tsx:52
-#: src/components/drawer/drawer-content.tsx:82
+#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:85
 msgid "Light"
 msgstr "Claro"
 
@@ -1183,7 +1191,7 @@ msgstr "Obriga a adição de texto alternativo em imagens"
 msgid "Manage my feeds"
 msgstr "Gerenciar meus feeds"
 
-#: src/app/pro.tsx:193
+#: src/app/pro.tsx:194
 msgid "Manage my subscription"
 msgstr "Gerenciar minha assinatura"
 
@@ -1229,7 +1237,7 @@ msgstr "Moderação"
 msgid "Moderation list"
 msgstr "Lista de moderação"
 
-#: src/app/pro.tsx:202
+#: src/app/pro.tsx:203
 msgid "Monthly Plan"
 msgstr "Plano Mensal"
 
@@ -1271,7 +1279,19 @@ msgstr "Usuários Silenciados"
 msgid "Mutuals"
 msgstr "Mutuais"
 
-#: src/components/drawer/drawer-content.tsx:119
+#: src/components/drawer/drawer-content.tsx:190
+msgid "My circle"
+msgstr ""
+
+#: src/app/_layout.tsx:335
+msgid "My Circle"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:185
+msgid "My circle of friends"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:122
 msgid "My feeds"
 msgstr "Meus feeds"
 
@@ -1279,7 +1299,7 @@ msgstr "Meus feeds"
 msgid "My Feeds"
 msgstr "Meus Feeds"
 
-#: src/components/drawer/drawer-content.tsx:114
+#: src/components/drawer/drawer-content.tsx:117
 msgid "My Feeds screen"
 msgstr "Meus Feeds"
 
@@ -1500,6 +1520,10 @@ msgstr "Postar"
 msgid "Post anyway"
 msgstr "Postar mesmo assim"
 
+#: src/app/circle.tsx:259
+msgid "Post circle"
+msgstr ""
+
 #: src/components/post-context-menu.tsx:104
 msgid "Post deleted"
 msgstr "Post excluído"
@@ -1519,6 +1543,10 @@ msgstr "Link copiado para a área de transferência"
 #: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "Publicado!"
+
+#: src/app/circle.tsx:223
+msgid "Post text (optional)"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
@@ -1559,7 +1587,7 @@ msgstr "Idioma Principal"
 msgid "Pro Settings"
 msgstr "Modo Pro"
 
-#: src/components/drawer/drawer-content.tsx:169
+#: src/components/drawer/drawer-content.tsx:172
 msgid "Pro version information and purchase"
 msgstr "Informações sobre modo Pro e compra"
 
@@ -1571,7 +1599,7 @@ msgstr "Perfil"
 msgid "Profile Settings"
 msgstr "Configurações do Perfil"
 
-#: src/app/_layout.tsx:335
+#: src/app/_layout.tsx:343
 msgid "Purchase Successful"
 msgstr "Compra concluída"
 
@@ -1583,7 +1611,7 @@ msgstr "Propósito"
 msgid "Push notifications"
 msgstr "Notificações"
 
-#: src/app/_layout.tsx:392
+#: src/app/_layout.tsx:400
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "Notificações"
@@ -1694,13 +1722,13 @@ msgstr "Código de verificação"
 msgid "Reset password"
 msgstr "Redefinir senha"
 
-#: src/app/pro.tsx:335
-#: src/app/pro.tsx:350
+#: src/app/pro.tsx:336
+#: src/app/pro.tsx:351
 msgid "Restore purchases"
 msgstr "Restaurar compras"
 
-#: src/app/pro.tsx:333
-#: src/app/pro.tsx:348
+#: src/app/pro.tsx:334
+#: src/app/pro.tsx:349
 msgid "Restoring purchases..."
 msgstr "Restaurando compras..."
 
@@ -1720,7 +1748,7 @@ msgstr "Em alta"
 msgid "Save"
 msgstr "Salvar"
 
-#: src/app/pro.tsx:224
+#: src/app/pro.tsx:225
 msgid "Save {0}%"
 msgstr "Economize {0}%"
 
@@ -1811,6 +1839,10 @@ msgstr "Ver curtidas"
 msgid "See reposts"
 msgstr "Ver reposts"
 
+#: src/app/pro.tsx:128
+msgid "See your closest connections"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
 msgstr "Selecione a data de nascimento"
@@ -1832,12 +1864,12 @@ msgid "Send reset email"
 msgstr "Enviar email de verificação"
 
 #: src/app/settings/_layout.tsx:45
-#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/components/drawer/drawer-content.tsx:192
+#: src/components/drawer/drawer-content.tsx:209
 msgid "Settings menu"
 msgstr "Configurações"
 
@@ -1860,7 +1892,7 @@ msgstr "Compartilhar post de {0}"
 msgid "Share as image"
 msgstr "Compartilhar como imagem"
 
-#: src/app/_layout.tsx:402
+#: src/app/_layout.tsx:410
 msgid "Share as Image"
 msgstr "Compartilhar como Imagem"
 
@@ -1941,8 +1973,8 @@ msgstr "Mostrar respostas"
 msgid "Show reposts"
 msgstr "Mostrar reposts"
 
-#: src/components/drawer/drawer-content.tsx:205
-#: src/components/drawer/drawer-content.tsx:211
+#: src/components/drawer/drawer-content.tsx:222
+#: src/components/drawer/drawer-content.tsx:228
 #: src/components/switch-accounts.tsx:146
 msgid "Sign out"
 msgstr "Sair"
@@ -1961,7 +1993,7 @@ msgstr "Increva-se para atualizações do projeto"
 msgid "Skyline"
 msgstr "Skyline"
 
-#: src/app/pro.tsx:91
+#: src/app/pro.tsx:92
 msgid "Something went wrong, please try again later."
 msgstr "Algo deu errado, tente novamente mais tarde."
 
@@ -2003,7 +2035,7 @@ msgstr "começou a seguir você"
 msgid "Stop editing"
 msgstr "Parar edição"
 
-#: src/app/pro.tsx:259
+#: src/app/pro.tsx:260
 msgid "Subscribe & pay"
 msgstr "Assinar e pagar"
 
@@ -2019,7 +2051,7 @@ msgstr "Inscrever-se na lista"
 msgid "Suggested follows"
 msgstr "Quem seguir"
 
-#: src/app/pro.tsx:126
+#: src/app/pro.tsx:133
 msgid "Support development"
 msgstr "Apoie o desenvolvimento"
 
@@ -2027,12 +2059,12 @@ msgstr "Apoie o desenvolvimento"
 msgid "Switch Accounts"
 msgstr "Trocar de Conta"
 
-#: src/components/drawer/drawer-content.tsx:66
+#: src/components/drawer/drawer-content.tsx:69
 msgid "system"
 msgstr "sistema"
 
-#: src/components/drawer/drawer-content.tsx:54
-#: src/components/drawer/drawer-content.tsx:88
+#: src/components/drawer/drawer-content.tsx:57
+#: src/components/drawer/drawer-content.tsx:91
 msgid "System"
 msgstr "Sistema"
 
@@ -2149,7 +2181,7 @@ msgstr "Traduzir bio"
 msgid "Translate post"
 msgstr "Traduzir post"
 
-#: src/app/pro.tsx:109
+#: src/app/pro.tsx:110
 msgid "Translate posts using DeepL"
 msgstr "Traduzir postagens usando o DeepL"
 
@@ -2283,12 +2315,12 @@ msgid "Verification code"
 msgstr "Código de verificação"
 
 #: src/app/settings/about.tsx:211
-#: src/components/drawer/drawer-content.tsx:216
+#: src/components/drawer/drawer-content.tsx:233
 msgid "Version {0}"
 msgstr "Versão {0}"
 
 #: src/app/settings/about.tsx:212
-#: src/components/drawer/drawer-content.tsx:218
+#: src/components/drawer/drawer-content.tsx:235
 msgid "Version unknown"
 msgstr "Versão desconhecida"
 

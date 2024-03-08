@@ -22,11 +22,11 @@ msgstr ""
 msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
-#: src/app/pro.tsx:205
+#: src/app/pro.tsx:206
 msgid "{0} / month"
 msgstr "{0} / месяц"
 
-#: src/app/pro.tsx:238
+#: src/app/pro.tsx:239
 msgid "{0} / year"
 msgstr "{0} / год"
 
@@ -239,7 +239,7 @@ msgstr "Дадаць у абранае"
 msgid "Add to list"
 msgstr "Дадаць у спіс"
 
-#: src/app/_layout.tsx:385
+#: src/app/_layout.tsx:393
 msgid "Add to List"
 msgstr "Дадаць у спіс"
 
@@ -319,7 +319,7 @@ msgstr "Адбылася невядомая памылка"
 msgid "An unknown error occurred."
 msgstr "Адбылася невядомая памылка."
 
-#: src/app/pro.tsx:220
+#: src/app/pro.tsx:221
 msgid "Annual Plan"
 msgstr "Штогадовы план"
 
@@ -383,15 +383,15 @@ msgstr "Даступна"
 msgid "Back"
 msgstr "Назад"
 
-#: src/app/pro.tsx:108
+#: src/app/pro.tsx:109
 msgid "Better translations"
 msgstr "Лепшыя пераклады"
 
-#: src/app/pro.tsx:242
+#: src/app/pro.tsx:243
 msgid "Billed annually, cancel anytime"
 msgstr "Аплата штогод, можна адмяніць у любы момант"
 
-#: src/app/pro.tsx:209
+#: src/app/pro.tsx:210
 msgid "Billed monthly, cancel anytime"
 msgstr "Аплата штомесяц, можна адмяніць у любы момант"
 
@@ -450,11 +450,11 @@ msgstr "Ад @{0}"
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "Пасля націскання кнопкі «пацвердзіць і працягнуць» будзе выдалены ваш уліковы запіс з сацыяльнай сеткі Bluesky, дадзеная працэдура аніяк не звязана з Graysky. Вашы даныя будуць выдаленыя назаўсёды ў тым ліку і з афіцыйнай праграмы Bluesky."
 
-#: src/app/pro.tsx:301
+#: src/app/pro.tsx:302
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "Падпісваючыся, вы пагаджаецеся з нашымі <0>умовамі</0> і <1>палітыкай прыватнасці</1>. Падпіска будзе падаўжацца аўтаматычна, пакуль вы не скасуеце."
 
-#: src/app/pro.tsx:266
+#: src/app/pro.tsx:267
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "Падпісваючыся, вы пагаджаецеся з <0>Умовамі</0>, <1>Умовамі карыстання (EULA)</1>, <2>Палітыкай прыватнасці</2>. Падпіска будзе падаўжацца аўтаматычна, пакуль вы не скасуеце."
 
@@ -470,7 +470,7 @@ msgstr "Падпісваючыся, вы пагаджаецеся з <0>Умов
 #: src/app/create-list.tsx:135
 #: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
-#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:58
 #: src/components/feed-row.tsx:291
 #: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:91
@@ -499,13 +499,13 @@ msgstr "Змяніць пароль"
 msgid "Change post language"
 msgstr "Змяніць мову допісу"
 
-#: src/app/pro.tsx:121
+#: src/app/pro.tsx:122
 msgid "Change the accent colour"
 msgstr "Змяняйце дамінуючы колер"
 
-#: src/components/drawer/drawer-content.tsx:70
-#: src/components/drawer/drawer-content.tsx:180
-#: src/components/drawer/drawer-content.tsx:186
+#: src/components/drawer/drawer-content.tsx:73
+#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:203
 msgid "Change theme"
 msgstr "Змяніць тэму"
 
@@ -527,6 +527,10 @@ msgstr "Выберыце ідэнтыфікатар"
 #: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "Выбраць з галерэі"
+
+#: src/app/pro.tsx:127
+msgid "Circle graph"
+msgstr ""
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -597,7 +601,7 @@ msgstr "Скапіяваць тэкст допісу"
 msgid "Could not change handle"
 msgstr "Не атрымалася змяніць ідэнтыфікатар"
 
-#: src/app/pro.tsx:90
+#: src/app/pro.tsx:91
 msgid "Could not complete purchase"
 msgstr "Не атрымалася завяршыць куплю"
 
@@ -663,7 +667,7 @@ msgstr "Стварыць уліковы запіс"
 msgid "Create list"
 msgstr "Стварыць спіс"
 
-#: src/app/_layout.tsx:378
+#: src/app/_layout.tsx:386
 msgid "Create List"
 msgstr "Стварыць спіс"
 
@@ -683,7 +687,7 @@ msgstr "Стваральнік"
 msgid "Creator"
 msgstr "Стваральнік"
 
-#: src/app/pro.tsx:181
+#: src/app/pro.tsx:182
 msgid "Currently subscribed"
 msgstr "Вы падпісаны"
 
@@ -691,16 +695,16 @@ msgstr "Вы падпісаны"
 msgid "Custom domain"
 msgstr "Уласны дамен"
 
-#: src/app/pro.tsx:120
+#: src/app/pro.tsx:121
 msgid "Custom themes"
 msgstr "Карыстальніцкія тэмы"
 
-#: src/components/drawer/drawer-content.tsx:65
+#: src/components/drawer/drawer-content.tsx:68
 msgid "dark"
 msgstr "цёмная"
 
-#: src/components/drawer/drawer-content.tsx:53
-#: src/components/drawer/drawer-content.tsx:85
+#: src/components/drawer/drawer-content.tsx:56
+#: src/components/drawer/drawer-content.tsx:88
 msgid "Dark"
 msgstr "Цёмная"
 
@@ -829,7 +833,7 @@ msgstr "Змяніць банер"
 msgid "Edit feeds"
 msgstr "Рэдагаваць стужкі"
 
-#: src/app/_layout.tsx:357
+#: src/app/_layout.tsx:365
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
@@ -910,6 +914,10 @@ msgstr "Стужкі"
 #: src/app/settings/feed.tsx:144
 msgid "Feeds list"
 msgstr "Спіс стужак"
+
+#: src/app/circle.tsx:261
+msgid "Fetch connections"
+msgstr ""
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -1005,9 +1013,9 @@ msgstr "Вярнуцца"
 msgid "Google Translate is used otherwise."
 msgstr "Інакш будзе выкарыстоўвацца Google Translate."
 
-#: src/app/pro.tsx:166
+#: src/app/pro.tsx:167
 #: src/app/settings/index.tsx:34
-#: src/components/drawer/drawer-content.tsx:174
+#: src/components/drawer/drawer-content.tsx:177
 msgid "Graysky Pro"
 msgstr "Graysky Pro"
 
@@ -1027,7 +1035,7 @@ msgstr "Ідэнтыфікатар заняты"
 msgid "Haptics disabled"
 msgstr "Тактыльны водгук адключаны"
 
-#: src/app/pro.tsx:127
+#: src/app/pro.tsx:134
 msgid "Help us keep the lights on"
 msgstr "Дапамажыце нам не згубіць матывацыю"
 
@@ -1081,7 +1089,7 @@ msgstr "Параметры відарыса"
 msgid "Invalid mode"
 msgstr "Памылковы рэжым"
 
-#: src/components/drawer/drawer-content.tsx:71
+#: src/components/drawer/drawer-content.tsx:74
 msgid "It's currently set to the {current} theme"
 msgstr "Бягучая тэма: {current}"
 
@@ -1094,12 +1102,12 @@ msgstr "Рэгістрацыя: {0}"
 msgid "Languages"
 msgstr "Мовы"
 
-#: src/components/drawer/drawer-content.tsx:64
+#: src/components/drawer/drawer-content.tsx:67
 msgid "light"
 msgstr "светлая"
 
-#: src/components/drawer/drawer-content.tsx:52
-#: src/components/drawer/drawer-content.tsx:82
+#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:85
 msgid "Light"
 msgstr "Светлая"
 
@@ -1183,7 +1191,7 @@ msgstr "Робіць дадаванне альтэрнатыўнага тэкс�
 msgid "Manage my feeds"
 msgstr "Кіраванне стужкамі"
 
-#: src/app/pro.tsx:193
+#: src/app/pro.tsx:194
 msgid "Manage my subscription"
 msgstr "Кіраванне падпіскай"
 
@@ -1229,7 +1237,7 @@ msgstr "Мадэрацыя"
 msgid "Moderation list"
 msgstr "Спіс мадэрацыі"
 
-#: src/app/pro.tsx:202
+#: src/app/pro.tsx:203
 msgid "Monthly Plan"
 msgstr "Штомесячны план"
 
@@ -1271,7 +1279,19 @@ msgstr "Ігнараваныя карыстальнікі"
 msgid "Mutuals"
 msgstr "Узаемныя падпісчыкі"
 
-#: src/components/drawer/drawer-content.tsx:119
+#: src/components/drawer/drawer-content.tsx:190
+msgid "My circle"
+msgstr ""
+
+#: src/app/_layout.tsx:335
+msgid "My Circle"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:185
+msgid "My circle of friends"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:122
 msgid "My feeds"
 msgstr "Мае стужкі"
 
@@ -1279,7 +1299,7 @@ msgstr "Мае стужкі"
 msgid "My Feeds"
 msgstr "Мае стужкі"
 
-#: src/components/drawer/drawer-content.tsx:114
+#: src/components/drawer/drawer-content.tsx:117
 msgid "My Feeds screen"
 msgstr "Экран маіх стужак"
 
@@ -1500,6 +1520,10 @@ msgstr "Допіс"
 msgid "Post anyway"
 msgstr "Усё адно апублікаваць"
 
+#: src/app/circle.tsx:259
+msgid "Post circle"
+msgstr ""
+
 #: src/components/post-context-menu.tsx:104
 msgid "Post deleted"
 msgstr "Допіс выдалены"
@@ -1519,6 +1543,10 @@ msgstr "Спасылка на допіс скапіявана ў буфер аб
 #: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "Допіс апублікаваны!"
+
+#: src/app/circle.tsx:223
+msgid "Post text (optional)"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
@@ -1559,7 +1587,7 @@ msgstr "Асноўная мова"
 msgid "Pro Settings"
 msgstr "Налады Pro"
 
-#: src/components/drawer/drawer-content.tsx:169
+#: src/components/drawer/drawer-content.tsx:172
 msgid "Pro version information and purchase"
 msgstr "Інфармацыя пра Pro версію і купля"
 
@@ -1571,7 +1599,7 @@ msgstr "Профіль"
 msgid "Profile Settings"
 msgstr "Налады профілю"
 
-#: src/app/_layout.tsx:335
+#: src/app/_layout.tsx:343
 msgid "Purchase Successful"
 msgstr "Паспяховая купля"
 
@@ -1583,7 +1611,7 @@ msgstr "Тып"
 msgid "Push notifications"
 msgstr "Push-апавяшчэнні"
 
-#: src/app/_layout.tsx:392
+#: src/app/_layout.tsx:400
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "Push-апавяшчэнні"
@@ -1694,13 +1722,13 @@ msgstr "Код для скіду пароля"
 msgid "Reset password"
 msgstr "Скінуць пароль"
 
-#: src/app/pro.tsx:335
-#: src/app/pro.tsx:350
+#: src/app/pro.tsx:336
+#: src/app/pro.tsx:351
 msgid "Restore purchases"
 msgstr "Аднавіць куплі"
 
-#: src/app/pro.tsx:333
-#: src/app/pro.tsx:348
+#: src/app/pro.tsx:334
+#: src/app/pro.tsx:349
 msgid "Restoring purchases..."
 msgstr "Аднаўленне купляў..."
 
@@ -1720,7 +1748,7 @@ msgstr "Набіраюць папулярнасць"
 msgid "Save"
 msgstr "Захаваць"
 
-#: src/app/pro.tsx:224
+#: src/app/pro.tsx:225
 msgid "Save {0}%"
 msgstr "Выгада {0}%"
 
@@ -1811,6 +1839,10 @@ msgstr "Паглядзець, хто ўпадабаў"
 msgid "See reposts"
 msgstr "Паглядзець, хто пашырыў"
 
+#: src/app/pro.tsx:128
+msgid "See your closest connections"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
 msgstr "Выберыце дату нараджэння"
@@ -1832,12 +1864,12 @@ msgid "Send reset email"
 msgstr "Адправіць ліст для скіду пароля"
 
 #: src/app/settings/_layout.tsx:45
-#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
 msgstr "Налады"
 
-#: src/components/drawer/drawer-content.tsx:192
+#: src/components/drawer/drawer-content.tsx:209
 msgid "Settings menu"
 msgstr "Меню налад"
 
@@ -1860,7 +1892,7 @@ msgstr "Абагуліць допіс {0}"
 msgid "Share as image"
 msgstr "Абагуліць у выглядзе відарыса"
 
-#: src/app/_layout.tsx:402
+#: src/app/_layout.tsx:410
 msgid "Share as Image"
 msgstr "Абагуліць у выглядзе відарыса"
 
@@ -1941,8 +1973,8 @@ msgstr "Паказаць адказы"
 msgid "Show reposts"
 msgstr "Паказваць пашыраныя допісы"
 
-#: src/components/drawer/drawer-content.tsx:205
-#: src/components/drawer/drawer-content.tsx:211
+#: src/components/drawer/drawer-content.tsx:222
+#: src/components/drawer/drawer-content.tsx:228
 #: src/components/switch-accounts.tsx:146
 msgid "Sign out"
 msgstr "Выйсці"
@@ -1961,7 +1993,7 @@ msgstr "Падпішыцеся на абнаўленні праекту"
 msgid "Skyline"
 msgstr "Skyline"
 
-#: src/app/pro.tsx:91
+#: src/app/pro.tsx:92
 msgid "Something went wrong, please try again later."
 msgstr "На жаль, адбылася памылка. Калі ласка, паспрабуйце яшчэ раз."
 
@@ -2003,7 +2035,7 @@ msgstr "падпісаўся на вас"
 msgid "Stop editing"
 msgstr "Спыніць рэдагаванне"
 
-#: src/app/pro.tsx:259
+#: src/app/pro.tsx:260
 msgid "Subscribe & pay"
 msgstr "Падпісацца і аплаціць"
 
@@ -2019,7 +2051,7 @@ msgstr "Падпісацца на ліст"
 msgid "Suggested follows"
 msgstr "На каго падпісацца"
 
-#: src/app/pro.tsx:126
+#: src/app/pro.tsx:133
 msgid "Support development"
 msgstr "Падтрымка распрацоўкі"
 
@@ -2027,12 +2059,12 @@ msgstr "Падтрымка распрацоўкі"
 msgid "Switch Accounts"
 msgstr "Пераключэнне Уліковых Запісаў"
 
-#: src/components/drawer/drawer-content.tsx:66
+#: src/components/drawer/drawer-content.tsx:69
 msgid "system"
 msgstr "сістэмная"
 
-#: src/components/drawer/drawer-content.tsx:54
-#: src/components/drawer/drawer-content.tsx:88
+#: src/components/drawer/drawer-content.tsx:57
+#: src/components/drawer/drawer-content.tsx:91
 msgid "System"
 msgstr "Сістэмная"
 
@@ -2149,7 +2181,7 @@ msgstr "Перакласці апісанне профілю"
 msgid "Translate post"
 msgstr "Перакласці допіс"
 
-#: src/app/pro.tsx:109
+#: src/app/pro.tsx:110
 msgid "Translate posts using DeepL"
 msgstr "Пераклады допісаў з дапамогай DeepL"
 
@@ -2283,12 +2315,12 @@ msgid "Verification code"
 msgstr "Код пацвярджэння"
 
 #: src/app/settings/about.tsx:211
-#: src/components/drawer/drawer-content.tsx:216
+#: src/components/drawer/drawer-content.tsx:233
 msgid "Version {0}"
 msgstr "Версія {0}"
 
 #: src/app/settings/about.tsx:212
-#: src/components/drawer/drawer-content.tsx:218
+#: src/components/drawer/drawer-content.tsx:235
 msgid "Version unknown"
 msgstr "Версія невядомая"
 

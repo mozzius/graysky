@@ -12,7 +12,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import Purchases from "react-native-purchases";
-import Animated, { ZoomIn } from "react-native-reanimated";
+import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
@@ -24,6 +24,7 @@ import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
+  CircleDotDashedIcon,
   HeartIcon,
   LanguagesIcon,
   // LineChart,
@@ -122,17 +123,17 @@ export default function Pro() {
       icon: <PaletteIcon className="text-white" />,
     },
     {
+      colour: colors.amber[500],
+      title: _(msg`Circle graph`),
+      subtitle: _(msg`See your closest connections`),
+      icon: <CircleDotDashedIcon className="text-white" />,
+    },
+    {
       colour: colors.red[500],
       title: _(msg`Support development`),
       subtitle: _(msg`Help us keep the lights on`),
       icon: <HeartIcon className="text-white" />,
     },
-    // {
-    //   colour: colors.amber[500],
-    //   title: _(msg`And a lot more planned...`),
-    //   subtitle: _(msg`Analytics, polls, and much more`),
-    //   icon: <MoreHorizontalIcon className="text-white" />,
-    // },
   ] satisfies Omit<FeatureItemProps, "index">[];
 
   const annualProduct = offerings.data?.current?.annual?.product;
@@ -160,7 +161,7 @@ export default function Pro() {
         <View className="flex-1 bg-black/40">
           <ScrollView fadingEdgeLength={20} indicatorStyle="white">
             <Animated.Text
-              className="mb-8 mt-24 text-center text-6xl font-semibold text-white"
+              className="mb-6 mt-16 text-center text-5xl font-semibold text-white"
               entering={ZoomIn.delay(500).duration(300)}
             >
               <Trans>Graysky Pro</Trans>
@@ -375,8 +376,8 @@ const FeatureItem = ({
   index,
 }: FeatureItemProps) => (
   <Animated.View
-    className="flex-row items-center px-8 py-3"
-    entering={ZoomIn.delay(750 + index * 300)}
+    className="mx-auto max-w-md flex-row items-center px-8 py-3"
+    entering={FadeInDown.delay(750 + index * 300)}
   >
     <View
       className="h-10 w-10 items-center justify-center rounded"

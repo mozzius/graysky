@@ -22,11 +22,11 @@ msgstr ""
 msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
-#: src/app/pro.tsx:205
+#: src/app/pro.tsx:206
 msgid "{0} / month"
 msgstr "{0} / മാസം"
 
-#: src/app/pro.tsx:238
+#: src/app/pro.tsx:239
 msgid "{0} / year"
 msgstr "{0} / വർഷം"
 
@@ -239,7 +239,7 @@ msgstr "പ്രിയപ്പെട്ടവയിലേക്ക് ചേ�
 msgid "Add to list"
 msgstr "ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
-#: src/app/_layout.tsx:385
+#: src/app/_layout.tsx:393
 msgid "Add to List"
 msgstr "ലിസ്റ്റിലേക്ക് ചേർക്കുക"
 
@@ -319,7 +319,7 @@ msgstr "കാരണം അറിയില്ലാത്ത ഒരു പിശ
 msgid "An unknown error occurred."
 msgstr "കാരണം അറിയില്ലാത്ത ഒരു പിശക് സംഭവിച്ചു."
 
-#: src/app/pro.tsx:220
+#: src/app/pro.tsx:221
 msgid "Annual Plan"
 msgstr "വാർഷിക പ്ലാൻ"
 
@@ -383,15 +383,15 @@ msgstr "ലഭ്യമാണ്"
 msgid "Back"
 msgstr "പിന്നോട്ട്"
 
-#: src/app/pro.tsx:108
+#: src/app/pro.tsx:109
 msgid "Better translations"
 msgstr "മികച്ച പരിഭാഷകൾ"
 
-#: src/app/pro.tsx:242
+#: src/app/pro.tsx:243
 msgid "Billed annually, cancel anytime"
 msgstr "പ്രതിവർഷം ബിൽ ചെയ്യുന്നു, എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കുക"
 
-#: src/app/pro.tsx:209
+#: src/app/pro.tsx:210
 msgid "Billed monthly, cancel anytime"
 msgstr "മാസാമാസം ബിൽ ചെയ്യുന്നു, എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കുക"
 
@@ -450,11 +450,11 @@ msgstr "@{0} മുഖേന"
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "സ്ഥിരീകരണം അമർത്തുന്നതിലൂടെ, നിങ്ങൾ ഇല്ലാതാക്കാൻ പോകുന്നത് നിങ്ങളുടെ യഥാർത്ഥ ബ്ലൂ സ്കൈ സോഷ്യൽ അക്കൗണ്ടാണെന്ന് നിങ്ങൾ മനസിലാക്കുന്നു, ഇതിന് ഗ്രേ സ്കയുമായി യാതൊരു ബന്ധവുമില്ല. നിങ്ങളുടെ ഡാറ്റ ഔദ്യോഗിക അപ്ലിക്കേഷനിൽ നിന്ന് സ്ഥിരമായി ഇല്ലാതാക്കപ്പെടും."
 
-#: src/app/pro.tsx:301
+#: src/app/pro.tsx:302
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "സബ്സ്ക്രൈബ് ചെയ്യുന്നതിലൂടെ, ഞങ്ങളുടെ <0> നിബന്ധനകളും വ്യവസ്ഥകളും</0> <1>പ്രൈവസി പോളിസി</1> എന്നിവ നിങ്ങൾ അംഗീകരിക്കുന്നു. റദ്ദാക്കുന്നതുവരെ സബ്സ്ക്രിപ്ഷനുകൾ സ്വമേധയാ പുതുക്കപ്പെടുന്നു."
 
-#: src/app/pro.tsx:266
+#: src/app/pro.tsx:267
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "സബ്സ്ക്രൈബ് ചെയ്യുന്നതിലൂടെ, ഞങ്ങളുടെ <0> വ്യവസ്ഥകളും</0>, <1>ഉപയോഗ നിബന്ധനകൾ (EULA) </1>, ഞങ്ങളുടെ <2>പ്രൈവസി പോളിസി</2> എന്നിവ നിങ്ങൾ അംഗീകരിക്കുന്നു. റദ്ദാക്കുന്നതുവരെ സബ്സ്ക്രിപ്ഷനുകൾ സ്വമേധയാ പുതുക്കപ്പെടുന്നു."
 
@@ -470,7 +470,7 @@ msgstr "സബ്സ്ക്രൈബ് ചെയ്യുന്നതില�
 #: src/app/create-list.tsx:135
 #: src/app/edit-bio.tsx:125
 #: src/app/settings/account/delete-account.tsx:119
-#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:58
 #: src/components/feed-row.tsx:291
 #: src/components/image-viewer.tsx:274
 #: src/components/post-context-menu.tsx:91
@@ -499,13 +499,13 @@ msgstr "പാസ്‌വേഡ് മാറ്റുക"
 msgid "Change post language"
 msgstr "പോസ്റ്റ് ഭാഷ മാറ്റുക"
 
-#: src/app/pro.tsx:121
+#: src/app/pro.tsx:122
 msgid "Change the accent colour"
 msgstr "ആക്‌സെന്റ് നിറം മാറ്റുക"
 
-#: src/components/drawer/drawer-content.tsx:70
-#: src/components/drawer/drawer-content.tsx:180
-#: src/components/drawer/drawer-content.tsx:186
+#: src/components/drawer/drawer-content.tsx:73
+#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:203
 msgid "Change theme"
 msgstr "തീം മാറ്റുക"
 
@@ -527,6 +527,10 @@ msgstr "ഒരു ഹാൻഡിൽ തിരഞ്ഞെടുക്കുക"
 #: src/lib/composer/keyboard-accessory.tsx:88
 msgid "Choose from Library"
 msgstr "ലൈബ്രറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക"
+
+#: src/app/pro.tsx:127
+msgid "Circle graph"
+msgstr ""
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -597,7 +601,7 @@ msgstr "പോസ്റ്റിന്റെ ടെക്സ്റ്റ് പ�
 msgid "Could not change handle"
 msgstr "ഹാൻഡിൽ മാറ്റുവാൻ സാധിക്കില്ല"
 
-#: src/app/pro.tsx:90
+#: src/app/pro.tsx:91
 msgid "Could not complete purchase"
 msgstr "വാങ്ങൽ പൂർത്തിയാക്കുവാൻ സാധ്യമായില്ല"
 
@@ -663,7 +667,7 @@ msgstr "ഒരു അക്കൗണ്ട് സൃഷ്ടിക്കുക"
 msgid "Create list"
 msgstr "പട്ടിക സൃഷ്ടിക്കുക"
 
-#: src/app/_layout.tsx:378
+#: src/app/_layout.tsx:386
 msgid "Create List"
 msgstr "പട്ടിക സൃഷ്ടിക്കുക"
 
@@ -683,7 +687,7 @@ msgstr "സൃഷ്ടിച്ചത്"
 msgid "Creator"
 msgstr "സ്രഷ്ടാവ്"
 
-#: src/app/pro.tsx:181
+#: src/app/pro.tsx:182
 msgid "Currently subscribed"
 msgstr "നിലവിൽ സബ്സ്ക്രൈബ് ചെയ്‌തിരിക്കുന്നത്‌"
 
@@ -691,16 +695,16 @@ msgstr "നിലവിൽ സബ്സ്ക്രൈബ് ചെയ്‌ത�
 msgid "Custom domain"
 msgstr "സ്വന്തം ഡൊമൈൻ"
 
-#: src/app/pro.tsx:120
+#: src/app/pro.tsx:121
 msgid "Custom themes"
 msgstr "ഇഷ്ടാനുസൃത തീം"
 
-#: src/components/drawer/drawer-content.tsx:65
+#: src/components/drawer/drawer-content.tsx:68
 msgid "dark"
 msgstr "ഇരുണ്ട"
 
-#: src/components/drawer/drawer-content.tsx:53
-#: src/components/drawer/drawer-content.tsx:85
+#: src/components/drawer/drawer-content.tsx:56
+#: src/components/drawer/drawer-content.tsx:88
 msgid "Dark"
 msgstr "ഇരുണ്ട"
 
@@ -829,7 +833,7 @@ msgstr "ബാനർ എഡിറ്റുചെയ്യുക"
 msgid "Edit feeds"
 msgstr "ഫീഡുകൾ എഡിറ്റ് ചെയ്യുക"
 
-#: src/app/_layout.tsx:357
+#: src/app/_layout.tsx:365
 #: src/app/settings/account/index.tsx:40
 #: src/components/screens/profile/profile-info.tsx:624
 msgid "Edit Profile"
@@ -910,6 +914,10 @@ msgstr "ഫീഡുകൾ"
 #: src/app/settings/feed.tsx:144
 msgid "Feeds list"
 msgstr "ഫീഡുകളുടെ ലിസ്റ്റ്"
+
+#: src/app/circle.tsx:261
+msgid "Fetch connections"
+msgstr ""
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -1005,9 +1013,9 @@ msgstr "തിരിച്ചുപോവുക"
 msgid "Google Translate is used otherwise."
 msgstr "അല്ലെങ്കിൽ ഗൂഗിൾ ട്രാൻസ്‌ലേഷൻ ഉപയോഗിക്കും."
 
-#: src/app/pro.tsx:166
+#: src/app/pro.tsx:167
 #: src/app/settings/index.tsx:34
-#: src/components/drawer/drawer-content.tsx:174
+#: src/components/drawer/drawer-content.tsx:177
 msgid "Graysky Pro"
 msgstr "ഗ്രേസ്കൈ പ്രോ"
 
@@ -1027,7 +1035,7 @@ msgstr "ഹാൻഡിൽ എടുത്തിട്ടുണ്ട്"
 msgid "Haptics disabled"
 msgstr "ഹാപ്റ്റിക്സ് അപ്രാപ്തമാക്കി"
 
-#: src/app/pro.tsx:127
+#: src/app/pro.tsx:134
 msgid "Help us keep the lights on"
 msgstr "സുഗമമായ പ്രവർത്തനത്തിന് ഞങ്ങളെ സഹായിക്കൂ"
 
@@ -1081,7 +1089,7 @@ msgstr "ഇമേജ് ഓപ്ഷനുകൾ"
 msgid "Invalid mode"
 msgstr "ശൈലി അസാധുവാണ്"
 
-#: src/components/drawer/drawer-content.tsx:71
+#: src/components/drawer/drawer-content.tsx:74
 msgid "It's currently set to the {current} theme"
 msgstr "ഇത് നിലവിൽ {current} തീമിലേക്ക് സജ്ജീകരിച്ചിരിക്കുന്നു"
 
@@ -1094,12 +1102,12 @@ msgstr "{0} - ൽ ചേർന്നു"
 msgid "Languages"
 msgstr "ഭാഷ"
 
-#: src/components/drawer/drawer-content.tsx:64
+#: src/components/drawer/drawer-content.tsx:67
 msgid "light"
 msgstr "ലൈറ്റ്"
 
-#: src/components/drawer/drawer-content.tsx:52
-#: src/components/drawer/drawer-content.tsx:82
+#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:85
 msgid "Light"
 msgstr "ലൈറ്റ്"
 
@@ -1183,7 +1191,7 @@ msgstr "നിങ്ങളുടെ ചിത്രങ്ങളിൽ ALT ടെ
 msgid "Manage my feeds"
 msgstr "എൻ്റെ ഫീഡുകൾ നിയന്ത്രിക്കുക"
 
-#: src/app/pro.tsx:193
+#: src/app/pro.tsx:194
 msgid "Manage my subscription"
 msgstr "സബ്സ്‌ക്രിപ്ഷനുകൾ മാനേജുചെയ്യുക"
 
@@ -1229,7 +1237,7 @@ msgstr "മോഡറേഷൻ"
 msgid "Moderation list"
 msgstr "മോഡറേഷൻ ലിസ്റ്റ്"
 
-#: src/app/pro.tsx:202
+#: src/app/pro.tsx:203
 msgid "Monthly Plan"
 msgstr "പ്രതിമാസ പ്ലാൻ"
 
@@ -1271,7 +1279,19 @@ msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ഉപയ�
 msgid "Mutuals"
 msgstr "പരസ്പരബന്ധം"
 
-#: src/components/drawer/drawer-content.tsx:119
+#: src/components/drawer/drawer-content.tsx:190
+msgid "My circle"
+msgstr ""
+
+#: src/app/_layout.tsx:335
+msgid "My Circle"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:185
+msgid "My circle of friends"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:122
 msgid "My feeds"
 msgstr "എൻ്റെ ഫീഡുകൾ"
 
@@ -1279,7 +1299,7 @@ msgstr "എൻ്റെ ഫീഡുകൾ"
 msgid "My Feeds"
 msgstr "എൻ്റെ ഫീഡുകൾ"
 
-#: src/components/drawer/drawer-content.tsx:114
+#: src/components/drawer/drawer-content.tsx:117
 msgid "My Feeds screen"
 msgstr "എൻ്റെ ഫീഡുകൾ സ്ക്രീൻ"
 
@@ -1500,6 +1520,10 @@ msgstr "പോസ്റ്റ്"
 msgid "Post anyway"
 msgstr "എന്തായാലും പോസ്റ്റ് ചെയ്യൂ"
 
+#: src/app/circle.tsx:259
+msgid "Post circle"
+msgstr ""
+
 #: src/components/post-context-menu.tsx:104
 msgid "Post deleted"
 msgstr "പോസ്റ്റ് ഇല്ലാതാക്കി"
@@ -1519,6 +1543,10 @@ msgstr "പോസ്റ്റ് ലിങ്ക് ക്ലിപ്പ്ബ�
 #: src/lib/composer/utils.tsx:344
 msgid "Post published!"
 msgstr "പോസ്റ്റ് പബ്ലിഷ് ചെയ്തു!"
+
+#: src/app/circle.tsx:223
+msgid "Post text (optional)"
+msgstr ""
 
 #: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
@@ -1559,7 +1587,7 @@ msgstr "പ്രാഥമിക ഭാഷ"
 msgid "Pro Settings"
 msgstr "പ്രോ ക്രമീകരണങ്ങൾ"
 
-#: src/components/drawer/drawer-content.tsx:169
+#: src/components/drawer/drawer-content.tsx:172
 msgid "Pro version information and purchase"
 msgstr "പ്രോ പതിപ്പ് വിവരങ്ങളും വാങ്ങലും"
 
@@ -1571,7 +1599,7 @@ msgstr "പ്രൊഫൈൽ"
 msgid "Profile Settings"
 msgstr "പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ"
 
-#: src/app/_layout.tsx:335
+#: src/app/_layout.tsx:343
 msgid "Purchase Successful"
 msgstr "വാങ്ങൽ വിജയിച്ചു"
 
@@ -1583,7 +1611,7 @@ msgstr "ഉദ്ദേശം"
 msgid "Push notifications"
 msgstr "പുഷ് അറിയിപ്പുകൾ"
 
-#: src/app/_layout.tsx:392
+#: src/app/_layout.tsx:400
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "പുഷ് അറിയിപ്പുകൾ"
@@ -1694,13 +1722,13 @@ msgstr "കോഡ് പുനഃസജ്ജമാക്കുക"
 msgid "Reset password"
 msgstr "പാസ്‌വേഡ് പുനഃക്രമീകരിക്കുക"
 
-#: src/app/pro.tsx:335
-#: src/app/pro.tsx:350
+#: src/app/pro.tsx:336
+#: src/app/pro.tsx:351
 msgid "Restore purchases"
 msgstr "വാങ്ങലുകൾ പുനഃസ്ഥാപിക്കുക"
 
-#: src/app/pro.tsx:333
-#: src/app/pro.tsx:348
+#: src/app/pro.tsx:334
+#: src/app/pro.tsx:349
 msgid "Restoring purchases..."
 msgstr "വാങ്ങലുകൾ പുനസ്ഥാപിക്കുന്നു..."
 
@@ -1720,7 +1748,7 @@ msgstr "ഉയരുന്ന"
 msgid "Save"
 msgstr "സൂക്ഷിക്കുക"
 
-#: src/app/pro.tsx:224
+#: src/app/pro.tsx:225
 msgid "Save {0}%"
 msgstr "സൂക്ഷിക്കുക {0}%"
 
@@ -1811,6 +1839,10 @@ msgstr "ലൈക്കുകൾ കാണുക"
 msgid "See reposts"
 msgstr "റീപോസ്റ്റുകൾ കാണിക്കുക"
 
+#: src/app/pro.tsx:128
+msgid "See your closest connections"
+msgstr ""
+
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
 msgstr "ജനന തീയതി തിരഞ്ഞെടുക്കുക"
@@ -1832,12 +1864,12 @@ msgid "Send reset email"
 msgstr "റീസെറ്റ് ഇമെയിൽ അയയ്ക്കുക"
 
 #: src/app/settings/_layout.tsx:45
-#: src/components/drawer/drawer-content.tsx:197
+#: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
 msgstr "ക്രമീകരണങ്ങള്‍"
 
-#: src/components/drawer/drawer-content.tsx:192
+#: src/components/drawer/drawer-content.tsx:209
 msgid "Settings menu"
 msgstr "ക്രമീകരണ മെനു"
 
@@ -1860,7 +1892,7 @@ msgstr "{0}-ൻ്റെ പോസ്റ്റ് പങ്കിടുക"
 msgid "Share as image"
 msgstr "ചിത്രമായി പങ്കിടുക"
 
-#: src/app/_layout.tsx:402
+#: src/app/_layout.tsx:410
 msgid "Share as Image"
 msgstr "ചിത്രമായി പങ്കിടുക"
 
@@ -1941,8 +1973,8 @@ msgstr "മറുപടികൾ കാണിക്കുക"
 msgid "Show reposts"
 msgstr "റീപോസ്റ്റുകൾ കാണിക്കുക"
 
-#: src/components/drawer/drawer-content.tsx:205
-#: src/components/drawer/drawer-content.tsx:211
+#: src/components/drawer/drawer-content.tsx:222
+#: src/components/drawer/drawer-content.tsx:228
 #: src/components/switch-accounts.tsx:146
 msgid "Sign out"
 msgstr "സൈൻ ഔട്ട്"
@@ -1961,7 +1993,7 @@ msgstr "പ്രോജക്റ്റ് അപ്‌ഡേറ്റുകൾ�
 msgid "Skyline"
 msgstr "സ്കൈലൈൻ"
 
-#: src/app/pro.tsx:91
+#: src/app/pro.tsx:92
 msgid "Something went wrong, please try again later."
 msgstr "എന്തോ കുഴപ്പം സംഭവിച്ചു. പിന്നീട് വീണ്ടും ശ്രമിക്കുക."
 
@@ -2003,7 +2035,7 @@ msgstr "നിങ്ങളെ പിന്തുടരാൻ തുടങ്ങ�
 msgid "Stop editing"
 msgstr "എഡിറ്റിംഗ് നിർത്തുക"
 
-#: src/app/pro.tsx:259
+#: src/app/pro.tsx:260
 msgid "Subscribe & pay"
 msgstr "സബ്‌സ്‌ക്രൈബ് ചെയ്‌ത് പണമടയ്‌ക്കുക"
 
@@ -2019,7 +2051,7 @@ msgstr "ലിസ്റ്റിലേക്ക് സബ്സ്ക്രൈ�
 msgid "Suggested follows"
 msgstr "താല്പര്യം ഉണ്ടെങ്കിൽ പിന്തുടരാവുന്നവർ"
 
-#: src/app/pro.tsx:126
+#: src/app/pro.tsx:133
 msgid "Support development"
 msgstr "വികസനത്തെ പിന്തുണയ്ക്കുക"
 
@@ -2027,12 +2059,12 @@ msgstr "വികസനത്തെ പിന്തുണയ്ക്കുക"
 msgid "Switch Accounts"
 msgstr "അക്കൗണ്ടുകൾ മാറുക"
 
-#: src/components/drawer/drawer-content.tsx:66
+#: src/components/drawer/drawer-content.tsx:69
 msgid "system"
 msgstr "സിസ്റ്റം"
 
-#: src/components/drawer/drawer-content.tsx:54
-#: src/components/drawer/drawer-content.tsx:88
+#: src/components/drawer/drawer-content.tsx:57
+#: src/components/drawer/drawer-content.tsx:91
 msgid "System"
 msgstr "സിസ്റ്റം"
 
@@ -2149,7 +2181,7 @@ msgstr "ബയോ വിവർത്തനം ചെയ്യുക"
 msgid "Translate post"
 msgstr "പോസ്റ്റ് വിവർത്തനം ചെയ്യുക"
 
-#: src/app/pro.tsx:109
+#: src/app/pro.tsx:110
 msgid "Translate posts using DeepL"
 msgstr "DeepL ഉപയോഗിച്ച് പോസ്റ്റുകൾ വിവർത്തനം ചെയ്യുക"
 
@@ -2283,12 +2315,12 @@ msgid "Verification code"
 msgstr "പരിശോധിച്ചുറപ്പിക്കൽ കോഡ്"
 
 #: src/app/settings/about.tsx:211
-#: src/components/drawer/drawer-content.tsx:216
+#: src/components/drawer/drawer-content.tsx:233
 msgid "Version {0}"
 msgstr "പതിപ്പ് {0}"
 
 #: src/app/settings/about.tsx:212
-#: src/components/drawer/drawer-content.tsx:218
+#: src/components/drawer/drawer-content.tsx:235
 msgid "Version unknown"
 msgstr "പതിപ്പ് അജ്ഞാതമാണ്"
 

@@ -330,6 +330,14 @@ const App = () => {
                             }}
                           />
                           <Stack.Screen
+                            name="circle"
+                            options={{
+                              title: _(msg`My Circle`),
+                              headerTransparent: true,
+                              presentation: "modal",
+                            }}
+                          />
+                          <Stack.Screen
                             name="success"
                             options={{
                               title: _(msg`Purchase Successful`),

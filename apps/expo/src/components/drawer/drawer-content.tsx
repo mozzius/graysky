@@ -8,6 +8,7 @@ import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import {
+  CircleDotDashedIcon,
   CloudyIcon,
   LogOutIcon,
   MoonIcon,
@@ -19,6 +20,7 @@ import {
 import { type ColorSchemeSystem } from "nativewind/dist/style-sheet/color-scheme";
 
 import { useLogOut } from "~/lib/log-out-context";
+import { useIsPro } from "~/lib/purchases";
 import {
   useColorScheme,
   useHomepage,
@@ -44,6 +46,7 @@ export const DrawerContent = ({ open }: Props) => {
   const colorScheme = useColorScheme();
   const setAppPreferences = useSetAppPreferences();
   const { _ } = useLingui();
+  const isPro = useIsPro();
 
   const closeDrawer = useCallback(() => setOpenDrawer(false), [setOpenDrawer]);
 
@@ -175,6 +178,20 @@ export const DrawerContent = ({ open }: Props) => {
             </Text>
           </TouchableOpacity>
         </Link>
+        {isPro && (
+          <Link href="/circle" asChild onPress={closeDrawer}>
+            <TouchableOpacity
+              accessibilityRole="link"
+              accessibilityLabel={_(msg`My circle of friends`)}
+              className="mt-2 w-full flex-row items-center py-2"
+            >
+              <CircleDotDashedIcon color={theme.colors.text} />
+              <Text className="ml-6 text-base font-medium">
+                <Trans>My circle</Trans>
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        )}
         <TouchableOpacity
           accessibilityRole="button"
           accessibilityLabel={_(msg`Change theme`)}
