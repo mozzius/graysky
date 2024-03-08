@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented here.
 
+## 2024-3-2 v1.5.0
+
+- New Pro feature: Circle graph! See your closest connections
+- Added Croatian translation (thank you @mattmarenic.com!)
+- Various minor bug fixes and improvements
+
+
 ## 2024-3-2 v1.4.9
 
 - Added Ukrainian translation (thank you @cpthorn1100.bsky.social!)
