@@ -105,6 +105,8 @@ export const useCustomerInfo = () => {
 export const useIsPro = () => {
   const info = useCustomerInfo();
 
+  if (__DEV__) return true;
+
   return info?.entitlements.active?.Pro?.isActive ?? false;
 };
 

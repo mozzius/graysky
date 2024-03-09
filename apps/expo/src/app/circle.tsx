@@ -30,6 +30,7 @@ import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
+import { usePrimaryLanguage } from "~/lib/storage/app-preferences";
 import { useSelf } from "./settings/account";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -42,6 +43,7 @@ export default function MyCircle() {
   const captureRef = useRef<ViewShot>(null!);
   const router = useRouter();
   const { _ } = useLingui();
+  const primaryLanguage = usePrimaryLanguage();
   const [text, setText] = useState("");
 
   const friends = useMutation({
@@ -127,6 +129,7 @@ export default function MyCircle() {
             },
           ],
         },
+        langs: [primaryLanguage],
       });
     },
     onSuccess: () => {
@@ -210,7 +213,6 @@ export default function MyCircle() {
         {friends.isSuccess && (
           <Animated.View className="mt-2 flex-1 px-4" layout={LinearTransition}>
             <TextInput
-              value={text}
               onChange={(evt) => setText(evt.nativeEvent.text)}
               multiline
               className="min-h-[80px] flex-1 rounded-md p-2 text-base leading-5"
