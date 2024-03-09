@@ -252,7 +252,11 @@ const ListHeader = ({
                 pin: info.uri,
               })
               .then(() =>
-                resolve(!isPinned ? "List favorited" : "List unfavorited"),
+                resolve(
+                  !isPinned
+                    ? _(msg`List favourited`)
+                    : _(msg`List unfavourited`),
+                ),
               );
             break;
         }
