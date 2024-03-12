@@ -19,6 +19,12 @@ export const Media = () => {
         author="Sarah Perez"
         date="Oct 12, 2023"
       />
+      <Article
+        href="https://techcrunch.com/2024/03/12/bluesky-scoops-up-the-developer-of-popular-third-party-app-graysky"
+        title="Bluesky scoops up the developer of popular third-party app, Graysky"
+        author="Sarah Perez"
+        date="Mar 12, 2024"
+      />
     </div>
   );
 };
