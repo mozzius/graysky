@@ -229,8 +229,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       lucide-react-native:
-        specifier: ^0.352.0
-        version: 0.352.0(react-native-svg@15.1.0)(react-native@0.73.4)(react@18.2.0)
+        specifier: ^0.363.0
+        version: 0.363.0(react-native-svg@15.1.0)(react-native@0.73.4)(react@18.2.0)
       metro:
         specifier: ~0.80.6
         version: 0.80.6
@@ -11183,8 +11183,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react-native@0.352.0(react-native-svg@15.1.0)(react-native@0.73.4)(react@18.2.0):
-    resolution: {integrity: sha512-OHSGXe0ev5eUle2U/myJJkNcH1aae0xiG+UcL9n1bxwIS5vFplOWPP98KtzwsWk0Ry8gcdBEPapm0KktvRKTGQ==}
+  /lucide-react-native@0.363.0(react-native-svg@15.1.0)(react-native@0.73.4)(react@18.2.0):
+    resolution: {integrity: sha512-PvKtX6vhaES+IcIwYHL7qCCJwcUAnbHtvwfuVhYRYHPpnslksdr0ay1UMf35Fhx8Ky6c9Wp2ieOD1AxfiuHyGw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
       react-native: '*'
