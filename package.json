@@ -30,20 +30,19 @@
   "dependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
-    "@manypkg/cli": "^0.21.2",
-    "eslint": "^8.57.0",
+    "@manypkg/cli": "^0.21.3",
+    "eslint": "^9.0.0",
     "prettier": "^3.2.5",
-    "turbo": "^1.12.5",
-    "typescript": "^5.4.2"
+    "turbo": "^1.13.2",
+    "typescript": "^5.4.4"
   },
   "engines": {
     "node": ">=18.19.0"
   },
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@8.15.6",
   "pnpm": {
     "patchedDependencies": {
       "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
-      "react-native@0.73.4": "patches/react-native@0.73.4.patch",
       "react-native-svg@15.1.0": "patches/react-native-svg@15.1.0.patch"
     },
     "overrides": {
@@ -53,6 +52,6 @@
   },
   "prettier": "@graysky/prettier-config",
   "devDependencies": {
-    "@crowdin/cli": "^3.18.0"
+    "@crowdin/cli": "^3.19.2"
   }
 }

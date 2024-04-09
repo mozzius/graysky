@@ -185,7 +185,10 @@ export default function MyCircle() {
             {friends.isPending ? (
               <ActivityIndicator size="large" />
             ) : (
-              <Avatar className="h-[25%] w-[25%]" uri={self.data?.avatar} />
+              <Avatar
+                className="h-[25%] w-[25%] rounded-[999px]"
+                uri={self.data?.avatar}
+              />
             )}
             {/* position avatars in a circle around the central one */}
             {friends.data?.map((friend, index, arr) => {

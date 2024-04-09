@@ -2,9 +2,9 @@
   "name": "@graysky/api",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.10.5",
-    "@atproto/identity": "^0.3.2",
-    "@atproto/xrpc-server": "^0.4.3",
+    "@atproto/api": "^0.12.2",
+    "@atproto/identity": "^0.4.0",
+    "@atproto/xrpc-server": "^0.5.1",
     "@graysky/db": "0.1.0",
     "@trpc/client": "next",
     "@trpc/server": "next",
@@ -20,9 +20,9 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.4"
   },
   "eslintConfig": {
     "root": true,

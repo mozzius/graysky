@@ -231,7 +231,7 @@ msgstr "Přidat vložení pro <0>{potential}</0>"
 msgid "Add image"
 msgstr "Přidat obrázek"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:292
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:296
 msgid "Add to favourites"
 msgstr "Přidat mezi oblíbené"
 
@@ -356,7 +356,7 @@ msgstr "Nastavení aplikace"
 msgid "Are you sure you want to block @{handle}?"
 msgstr "Opravdu chcete blokovat @{handle}?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:329
 msgid "Are you sure you want to delete this list?"
 msgstr ""
 
@@ -376,7 +376,7 @@ msgstr "Dostupné"
 #: src/app/(auth)/sign-up.tsx:351
 #: src/app/(auth)/sign-up.tsx:432
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:121
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:422
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:307
@@ -425,7 +425,7 @@ msgstr "Blokovaní uživatelé"
 msgid "Blocked Users"
 msgstr "Blokovaní uživatelé"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:289
 msgid "Blocking list"
 msgstr "Seznam blokovaných"
 
@@ -437,7 +437,7 @@ msgstr "Bloky & skrytí"
 msgid "bsky.social domain"
 msgstr "doména bsky.social"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:464
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:468
 msgid "by @{0}"
 msgstr "vytvořil/a @{0}"
 
@@ -461,9 +461,9 @@ msgstr "Přihlášením souhlasíte s našimi <0>Obchodními podmínkami</0>, <1
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:317
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
 #: src/app/capture/[author]/[post].tsx:161
 #: src/app/create-list.tsx:67
@@ -509,13 +509,13 @@ msgstr "Změňte barvu zvýraznění"
 msgid "Change theme"
 msgstr "Změnit motiv"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:306
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:358
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:310
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:362
 msgid "Change to moderation list"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:307
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:349
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:311
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:353
 msgid "Change to user list"
 msgstr ""
 
@@ -613,7 +613,7 @@ msgstr "Nepodařilo se vytvořit účet"
 msgid "Could not delete account"
 msgstr "Nepodařilo se odstranit účet"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
 msgid "Could not delete list"
 msgstr "Nepodařilo se odstranit seznam"
 
@@ -621,7 +621,7 @@ msgstr "Nepodařilo se odstranit seznam"
 msgid "Could not fetch list"
 msgstr "Nepodařilo se načíst seznam"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
 msgid "Could not fetch list feed"
 msgstr "Nepodařilo se načíst kanál seznamu"
 
@@ -712,7 +712,7 @@ msgstr "Tmavý"
 msgid "Date of Birth"
 msgstr "Datum narození"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
@@ -724,9 +724,9 @@ msgstr "Odstranit"
 msgid "Delete Account"
 msgstr "Odstranit účet"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:322
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:326
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
 msgid "Delete list"
 msgstr ""
 
@@ -856,7 +856,7 @@ msgstr "Povolit oznámení"
 msgid "Enter your phone number"
 msgstr "Zadejte své telefonní číslo"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -915,7 +915,7 @@ msgstr "Kanály"
 msgid "Feeds list"
 msgstr "Seznam kanálů"
 
-#: src/app/circle.tsx:261
+#: src/app/circle.tsx:263
 msgid "Fetch connections"
 msgstr ""
 
@@ -1140,9 +1140,13 @@ msgstr "Avatar seznamu"
 msgid "List blocked"
 msgstr "Seznam zablokován"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "List deleted"
 msgstr "Seznam odstraněn"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:257
+msgid "List favourited"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:233
 msgid "List muted"
@@ -1151,6 +1155,10 @@ msgstr "Seznam ztlumený"
 #: src/app/create-list.tsx:174
 msgid "List name"
 msgstr "Název seznamu"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
+msgid "List unfavourited"
+msgstr ""
 
 #: src/components/screens/profile/profile-tab-view.tsx:100
 msgid "Lists"
@@ -1230,7 +1238,7 @@ msgstr "Chybějící alt text"
 msgid "Moderation"
 msgstr "Moderování"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 #: src/app/create-list.tsx:64
 #: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
@@ -1262,7 +1270,7 @@ msgstr "Ztlumit uživatele"
 msgid "Muted"
 msgstr "Ztlumeno"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
 msgid "Muted list"
 msgstr "Seznam ztlumených"
 
@@ -1520,7 +1528,7 @@ msgstr "Příspěvek"
 msgid "Post anyway"
 msgstr "Přesto odeslat"
 
-#: src/app/circle.tsx:259
+#: src/app/circle.tsx:261
 msgid "Post circle"
 msgstr ""
 
@@ -1544,7 +1552,7 @@ msgstr "Odkaz příspěvku zkopírován do schránky"
 msgid "Post published!"
 msgstr "Příspěvek byl zveřejněn!"
 
-#: src/app/circle.tsx:223
+#: src/app/circle.tsx:225
 msgid "Post text (optional)"
 msgstr ""
 
@@ -1878,9 +1886,9 @@ msgid "Sexual content"
 msgstr "Sexuální obsah"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:312
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
 msgid "Share"
 msgstr "Sdílet"
 
@@ -2043,7 +2051,7 @@ msgstr "Předplatit a zaplatit"
 msgid "Subscribe to {0}"
 msgstr "Přihlásit se k odběru {0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:278
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:282
 msgid "Subscribe to list"
 msgstr "Přihlásit se k odběru seznamu"
 
@@ -2101,8 +2109,8 @@ msgstr "Tento kanál je prázdný"
 msgid "This handle is already taken. Please choose another."
 msgstr "Toto uživatelské jméno je již použito. Vyberte si prosím jiné."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
 msgid "This list is empty"
 msgstr "Tento seznam je prázdný"
 
@@ -2220,7 +2228,7 @@ msgstr "Odblokováno"
 msgid "Undo Repost"
 msgstr "Zrušit přesdílení"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:295
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:299
 msgid "Unfavorite list"
 msgstr "Odebrat seznam z oblíbených"
 
@@ -2283,7 +2291,7 @@ msgstr "Použít prohlížeč v aplikaci"
 msgid "Use my default browser"
 msgstr "Použít můj výchozí prohlížeč"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:294
 #: src/app/create-list.tsx:64
 #: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
@@ -2459,7 +2467,7 @@ msgstr "Váš výběr bude uložen, ale lze ho změnit v nastavení"
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Vaše uživatelské jméno bude: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
 msgid "Your list has been deleted"
 msgstr "Váš seznam byl odstraněn"
 

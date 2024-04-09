@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useRef } from "react";
+import { I18nManager } from "react-native";
 import { i18n } from "@lingui/core";
 import { I18nProvider as DefaultI18nProvider } from "@lingui/react";
 
+import { messages as messagesAr } from "~/i18n/locales/ar/messages";
 import { messages as messagesBe } from "~/i18n/locales/be/messages";
 import { messages as messagesCs } from "~/i18n/locales/cs/messages";
 import { messages as messagesDe } from "~/i18n/locales/de/messages";
 import { messages as messagesEn } from "~/i18n/locales/en/messages";
+import { messages as messagesEs } from "~/i18n/locales/es/messages";
 import { messages as messagesFr } from "~/i18n/locales/fr/messages";
 import { messages as messagesHr } from "~/i18n/locales/hr/messages";
 import { messages as messagesJa } from "~/i18n/locales/ja/messages";
@@ -51,12 +54,12 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
     case "hr": {
       return "Hrvatski";
     }
-    // case "ar": {
-    //   return "العربية";
-    // }
-    // case "es": {
-    //   return "Español";
-    // }
+    case "es": {
+      return "Español";
+    }
+    case "ar": {
+      return "العربية";
+    }
     // case "nl": {
     //   return "Nederlands";
     // }
@@ -66,6 +69,11 @@ export function languageCodeToName(code: AppPreferences["appLanguage"]) {
 }
 
 export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
+  if (locale === "ar") {
+    I18nManager.forceRTL(true);
+  } else {
+    I18nManager.forceRTL(false);
+  }
   switch (locale) {
     case "ja": {
       i18n.loadAndActivate({ locale, messages: messagesJa });
@@ -103,14 +111,14 @@ export function loadAndActivateLanguage(locale: AppPreferences["appLanguage"]) {
       i18n.loadAndActivate({ locale, messages: messagesHr });
       break;
     }
-    // case "ar": {
-    //   i18n.loadAndActivate({ locale, messages: messagesAr });
-    //   break;
-    // }
-    // case "es": {
-    //   i18n.loadAndActivate({ locale, messages: messagesEs });
-    //   break;
-    // }
+    case "es": {
+      i18n.loadAndActivate({ locale, messages: messagesEs });
+      break;
+    }
+    case "ar": {
+      i18n.loadAndActivate({ locale, messages: messagesAr });
+      break;
+    }
     // case "nl": {
     //   i18n.loadAndActivate({ locale, messages: messagesNl });
     //   break;

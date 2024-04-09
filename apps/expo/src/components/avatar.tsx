@@ -34,7 +34,7 @@ const AvatarUnmemoized = ({ self, ...props }: Props) => {
       fallback={
         <View
           className={cx(
-            "rounded-full",
+            "rounded-[999px]",
             theme.dark ? "bg-neutral-800" : "bg-neutral-200",
             {
               "h-4 w-4": props.size === "extraSmall",
@@ -85,7 +85,7 @@ const AvatarInner = ({
   const theme = useTheme();
 
   const className = cx(
-    "rounded-full object-cover items-center justify-center",
+    "rounded-[999px] object-cover items-center justify-center",
     theme.dark ? "bg-neutral-800" : "bg-neutral-200",
     {
       "h-4 w-4": size === "extraSmall",

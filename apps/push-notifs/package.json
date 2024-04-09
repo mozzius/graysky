@@ -11,11 +11,11 @@
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/node": "^20.11.25",
-    "eslint": "^8.57.0",
+    "@types/node": "^20.12.6",
+    "eslint": "^9.0.0",
     "prettier": "^3.2.5",
-    "tsx": "^4.7.1",
-    "typescript": "^5.4.2"
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.4"
   },
   "eslintConfig": {
     "root": true,
@@ -26,13 +26,13 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
-    "@atproto/api": "^0.10.5",
+    "@atproto/api": "^0.12.2",
     "@graysky/db": "0.1.0",
     "atproto-firehose": "^0.2.2",
-    "cron": "^3.1.6",
-    "dotenv-cli": "^7.4.0",
-    "esbuild": "^0.20.1",
-    "expo-server-sdk": "^3.7.0",
+    "cron": "^3.1.7",
+    "dotenv-cli": "^7.4.1",
+    "esbuild": "^0.20.2",
+    "expo-server-sdk": "^3.9.0",
     "redis": "^4.6.13"
   }
 }

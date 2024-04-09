@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-08 16:06\n"
+"PO-Revision-Date: 2024-04-09 22:06\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -231,7 +231,7 @@ msgstr "Ajouter une intégration pour <0>{potential}</0>"
 msgid "Add image"
 msgstr "Ajouter une image"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:292
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:296
 msgid "Add to favourites"
 msgstr "Ajouter aux favoris"
 
@@ -356,7 +356,7 @@ msgstr "Paramètres de l'application"
 msgid "Are you sure you want to block @{handle}?"
 msgstr "Êtes-vous sûr.e de vouloir bloquer @{handle} ?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:325
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:329
 msgid "Are you sure you want to delete this list?"
 msgstr "Êtes-vous sûr·e de vouloir supprimer cette liste ?"
 
@@ -376,7 +376,7 @@ msgstr "Disponible"
 #: src/app/(auth)/sign-up.tsx:351
 #: src/app/(auth)/sign-up.tsx:432
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:121
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:422
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
 #: src/components/screens/profile/profile-info.tsx:307
@@ -425,7 +425,7 @@ msgstr "Utilisateurs bloqués"
 msgid "Blocked Users"
 msgstr "Utilisateurs bloqués"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:289
 msgid "Blocking list"
 msgstr "Liste des utilisateurs bloqués"
 
@@ -437,7 +437,7 @@ msgstr "Blocages & Muets"
 msgid "bsky.social domain"
 msgstr "Domaine bsky.social"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:464
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:468
 msgid "by @{0}"
 msgstr "par @{0}"
 
@@ -461,9 +461,9 @@ msgstr "En vous abonnant, vous acceptez nos <0>Conditions Générales</0>, les <
 #: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:317
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
 #: src/app/capture/[author]/[post].tsx:161
 #: src/app/create-list.tsx:67
@@ -509,13 +509,13 @@ msgstr "Changer la couleur d'accentuation"
 msgid "Change theme"
 msgstr "Changer de thème"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:306
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:358
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:310
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:362
 msgid "Change to moderation list"
 msgstr "Changer pour la liste de modération"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:307
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:349
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:311
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:353
 msgid "Change to user list"
 msgstr "Changer pour la liste des utilisateurs"
 
@@ -530,7 +530,7 @@ msgstr "Sélectionner dans la bibliothèque"
 
 #: src/app/pro.tsx:127
 msgid "Circle graph"
-msgstr ""
+msgstr "Graphique circulaire"
 
 #: src/app/images/[post].tsx:98
 msgid "Close image modal"
@@ -613,7 +613,7 @@ msgstr "Le compte n'a pas pu être créé"
 msgid "Could not delete account"
 msgstr "Impossible de supprimer le compte"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
 msgid "Could not delete list"
 msgstr "Impossible de supprimer la liste"
 
@@ -621,7 +621,7 @@ msgstr "Impossible de supprimer la liste"
 msgid "Could not fetch list"
 msgstr "Impossible de récupérer la liste"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:560
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
 msgid "Could not fetch list feed"
 msgstr "Impossible de récupérer le flux de la liste"
 
@@ -712,7 +712,7 @@ msgstr "Sombre"
 msgid "Date of Birth"
 msgstr "Date de naissance"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
 #: src/components/post-context-menu.tsx:95
 msgid "Delete"
@@ -724,9 +724,9 @@ msgstr "Supprimer"
 msgid "Delete Account"
 msgstr "Supprimer le compte"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:309
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:322
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:326
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
 msgid "Delete list"
 msgstr "Supprimer la liste"
 
@@ -856,7 +856,7 @@ msgstr "Activer les notifications"
 msgid "Enter your phone number"
 msgstr "Entrez votre numéro de téléphone"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -915,9 +915,9 @@ msgstr "Flux"
 msgid "Feeds list"
 msgstr "Liste des flux"
 
-#: src/app/circle.tsx:261
+#: src/app/circle.tsx:263
 msgid "Fetch connections"
-msgstr ""
+msgstr "Récupérer les connexions"
 
 #: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
@@ -1140,9 +1140,13 @@ msgstr "Avatar de la liste"
 msgid "List blocked"
 msgstr "Liste bloquée"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:672
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "List deleted"
 msgstr "Liste supprimée"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:257
+msgid "List favourited"
+msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:233
 msgid "List muted"
@@ -1151,6 +1155,10 @@ msgstr "Liste mise en sourdine"
 #: src/app/create-list.tsx:174
 msgid "List name"
 msgstr "Nom de la liste"
+
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
+msgid "List unfavourited"
+msgstr ""
 
 #: src/components/screens/profile/profile-tab-view.tsx:100
 msgid "Lists"
@@ -1230,7 +1238,7 @@ msgstr "Texte alternatif manquant"
 msgid "Moderation"
 msgstr "Modération"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:277
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
 #: src/app/create-list.tsx:64
 #: src/app/create-list.tsx:227
 #: src/components/feed-row.tsx:72
@@ -1262,7 +1270,7 @@ msgstr "Mettre l'utilisateur en sourdine"
 msgid "Muted"
 msgstr "En sourdine"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
 msgid "Muted list"
 msgstr "Liste des mis en sourdine"
 
@@ -1281,15 +1289,15 @@ msgstr "Mutuels"
 
 #: src/components/drawer/drawer-content.tsx:190
 msgid "My circle"
-msgstr ""
+msgstr "Mon cercle"
 
 #: src/app/_layout.tsx:335
 msgid "My Circle"
-msgstr ""
+msgstr "Mon Cercle"
 
 #: src/components/drawer/drawer-content.tsx:185
 msgid "My circle of friends"
-msgstr ""
+msgstr "Mon cercle d'amis"
 
 #: src/components/drawer/drawer-content.tsx:122
 msgid "My feeds"
@@ -1520,9 +1528,9 @@ msgstr "Publier"
 msgid "Post anyway"
 msgstr "Publier quand-même"
 
-#: src/app/circle.tsx:259
+#: src/app/circle.tsx:261
 msgid "Post circle"
-msgstr ""
+msgstr "Publier le cercle"
 
 #: src/components/post-context-menu.tsx:104
 msgid "Post deleted"
@@ -1544,9 +1552,9 @@ msgstr "Texte de la publication copié dans le presse-papiers"
 msgid "Post published!"
 msgstr "Message Publié !"
 
-#: src/app/circle.tsx:223
+#: src/app/circle.tsx:225
 msgid "Post text (optional)"
-msgstr ""
+msgstr "Publier le texte (optionnel)"
 
 #: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
@@ -1841,7 +1849,7 @@ msgstr "Voir les republications"
 
 #: src/app/pro.tsx:128
 msgid "See your closest connections"
-msgstr ""
+msgstr "Voir vos contacts les plus proches"
 
 #: src/app/(auth)/sign-up.tsx:229
 msgid "Select date of birth"
@@ -1878,9 +1886,9 @@ msgid "Sexual content"
 msgstr "Contenu à caractère sexuel"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:374
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:308
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:341
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:390
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:312
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
 msgid "Share"
 msgstr "Partager"
 
@@ -2043,7 +2051,7 @@ msgstr "S'abonner et payer"
 msgid "Subscribe to {0}"
 msgstr "S'abonner à {0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:278
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:282
 msgid "Subscribe to list"
 msgstr "S'abonner à la liste"
 
@@ -2101,8 +2109,8 @@ msgstr "Ce flux est vide"
 msgid "This handle is already taken. Please choose another."
 msgstr "Ce pseudo est déjà pris. Veuillez en choisir un autre."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:502
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:630
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
 msgid "This list is empty"
 msgstr "Cette liste est vide"
 
@@ -2220,7 +2228,7 @@ msgstr "Débloqué"
 msgid "Undo Repost"
 msgstr "Annuler la republication"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:295
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:299
 msgid "Unfavorite list"
 msgstr "Retirer la liste des favoris"
 
@@ -2283,7 +2291,7 @@ msgstr "Utiliser le navigateur intégré"
 msgid "Use my default browser"
 msgstr "Utiliser mon navigateur par défaut"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:294
 #: src/app/create-list.tsx:64
 #: src/app/create-list.tsx:225
 #: src/components/feed-row.tsx:69
@@ -2459,7 +2467,7 @@ msgstr "Votre choix sera enregistré, mais peut être modifié dans les paramèt
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Votre pseudo sera : <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:673
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
 msgid "Your list has been deleted"
 msgstr "Votre liste a été supprimée"
 
