@@ -7,9 +7,9 @@ import { Firehose, type Notification } from "./firehose";
 import { PushNotifications } from "./push-notifications";
 import { RateLimiter } from "./rate-limiter";
 
-// 5 notifications every 20 minutes
-const RATE_LIMIT = 5;
-const RATE_LIMIT_DURATION = 20;
+// 10 notifications every 30 minutes
+const RATE_LIMIT = 10;
+const RATE_LIMIT_DURATION = 30;
 
 const accounts = new Accounts();
 
