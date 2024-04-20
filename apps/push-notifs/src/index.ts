@@ -1,5 +1,4 @@
 import { AppBskyGraphDefs } from "@atproto/api";
-import { CronJob } from "cron";
 
 import { Accounts } from "./accounts";
 import { Cache } from "./cache";
@@ -13,9 +12,6 @@ const RATE_LIMIT = 10;
 const RATE_LIMIT_DURATION = 30;
 
 const accounts = new Accounts();
-
-// kill process every day
-new CronJob("0 0 * * *", () => process.exit(0)).start();
 
 // iife
 const run = (fn: () => unknown) => fn();

@@ -38,19 +38,34 @@ export type Notification =
     };
 
 export class Firehose {
-  firehose: XrpcEventStreamClient;
+  firehose?: XrpcEventStreamClient;
+  reconnectTimeout = 1000;
 
   constructor(
     public accounts: Accounts,
     public queueNotification: (notification: Notification) => unknown,
   ) {
+    this.connect();
+  }
+
+  connect() {
     this.firehose = subscribeRepos("wss://bsky.network", {
       decodeRepoOps: true,
     });
 
     this.firehose.on("message", this.handleMessage.bind(this));
 
-    this.firehose.on("close", () => process.exit(1));
+    this.firehose.on("error", (err) => {
+      console.error("Firehose error", err);
+    });
+
+    this.firehose.on("close", () => {
+      console.error("Firehose closed");
+
+      setTimeout(() => {
+        this.connect();
+      }, this.reconnectTimeout);
+    });
   }
 
   handleMessage(message: SubscribeReposMessage) {
