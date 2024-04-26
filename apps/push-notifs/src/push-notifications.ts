@@ -2,7 +2,7 @@ import Expo, { type ExpoPushSuccessTicket } from "expo-server-sdk";
 import { CronJob } from "cron";
 
 import { type Accounts } from "./accounts";
-import { type KVClient } from "./db";
+import { type Redis } from "./db";
 
 export class PushNotifications {
   expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
@@ -11,7 +11,7 @@ export class PushNotifications {
   key = "unsent-queue";
 
   constructor(
-    public kv: KVClient,
+    public kv: Redis,
     public accounts: Accounts,
   ) {
     const everyFiveSeconds = "*/5 * * * * *";
@@ -21,18 +21,18 @@ export class PushNotifications {
   }
 
   async queue(did: string, message: { title: string; body: string }) {
-    await this.kv.rPush(this.key, JSON.stringify({ did, message }));
+    await this.kv.client.rPush(this.key, JSON.stringify({ did, message }));
   }
 
   async consumeQueue() {
-    const len = await this.kv.lLen(this.key);
+    const len = await this.kv.client.lLen(this.key);
     if (len === 0) {
       return;
     }
 
     console.log(`Sending ${len} messages`);
 
-    const messages = await this.kv.lPopCount(this.key, len);
+    const messages = await this.kv.client.lPopCount(this.key, len);
 
     if (!messages) return; // should never happen
 

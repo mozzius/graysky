@@ -1,8 +1,8 @@
-import { type KVClient } from "./db";
+import { type Redis } from "./db";
 
 export class RateLimiter {
   constructor(
-    public kv: KVClient,
+    public kv: Redis,
     public rateLimit: number,
     public rateLimitDuration: number,
   ) {}
@@ -14,9 +14,9 @@ export class RateLimiter {
    */
   async checkRateLimit(token: string) {
     const key = `rate-limit:${token}`;
-    const count = await this.kv.get(key);
+    const count = await this.kv.client.get(key);
     if (count === null) {
-      await this.kv.set(key, "1", {
+      await this.kv.client.set(key, "1", {
         EX: 60 * this.rateLimitDuration,
       });
       return { exceeded: false, count: 0 };
@@ -26,7 +26,7 @@ export class RateLimiter {
       return { exceeded: true, count: parseInt(count, 10) };
     }
 
-    await this.kv.incr(key);
+    await this.kv.client.incr(key);
     return { exceeded: false, count: parseInt(count, 10) + 1 };
   }
 }

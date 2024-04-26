@@ -14,10 +14,28 @@ if (process.env.REDIS_URL) {
   };
 }
 
-export const getRedisClient = async () => {
-  return await createClient(options)
-    .on("error", (err) => console.log("Redis Client Error", err))
-    .connect();
-};
+export class Redis {
+  constructor(public client: KVClient) {}
+
+  async connect() {
+    this.client = createClient(options);
+    this.client.on("error", (err) => {
+      console.error("Redis error", err);
+      this.connect();
+    });
+    await this.client.connect();
+  }
+
+  static async create() {
+    const client = createClient(options);
+    const instance = new Redis(client);
+    client.on("error", (err) => {
+      console.error("Redis error", err);
+      instance.connect();
+    });
+    await client.connect();
+    return instance;
+  }
+}
 
 export type KVClient = ReturnType<typeof createClient>;

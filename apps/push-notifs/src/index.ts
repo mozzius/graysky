@@ -2,7 +2,7 @@ import { AppBskyGraphDefs } from "@atproto/api";
 
 import { Accounts } from "./accounts";
 import { Cache } from "./cache";
-import { getRedisClient } from "./db";
+import { Redis } from "./db";
 import { Firehose, type Notification } from "./firehose";
 import { PushNotifications } from "./push-notifications";
 import { RateLimiter } from "./rate-limiter";
@@ -17,7 +17,7 @@ const accounts = new Accounts();
 const run = (fn: () => unknown) => fn();
 
 run(async () => {
-  const kv = await getRedisClient();
+  const kv = await Redis.create();
 
   const cache = new Cache(kv);
   const pushNotifications = new PushNotifications(kv, accounts);

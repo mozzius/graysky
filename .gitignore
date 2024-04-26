@@ -53,3 +53,5 @@ yarn-error.log*
 Graysky.app
 
 *.zip
+
+crytography/venv
