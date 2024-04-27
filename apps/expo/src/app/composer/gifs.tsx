@@ -241,7 +241,7 @@ const Gif = ({ item, column }: GifProps) => {
             throw new Error("No session when trying to select a gif");
           select.mutate({
             id: item.id,
-            assetUrl: item.media_formats.mp4.url,
+            assetUrl: item.media_formats.gif.url,
             previewUrl: item.media_formats.gifpreview.url,
             description: item.content_description,
             token: agent.session.accessJwt,

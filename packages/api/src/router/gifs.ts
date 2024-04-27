@@ -75,10 +75,11 @@ export const gifsRouter = createTRPCRouter({
       const blobRef = (await uploadRes.json()) as { blob: BlobRef };
 
       const title = input.description ?? "Tenor GIF";
-      const description =
-        "Posted from Graysky - get the app to view and post GIFs!";
+      const description = `ALT: ${input.description}`;
 
-      const uri = `https://tenor.com/view/${input.id}`;
+      const uri = input.assetUrl;
+
+      // const uri = `https://tenor.com/view/${input.id}`;
 
       // const assetPath = new URL(input.assetUrl).pathname;
 
@@ -129,7 +130,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "nanomp4,tinymp4,mp4,gifpreview",
+          mediafilter: "nanomp4,tinymp4,mp4,gifpreview,gif",
         });
       }),
     featured: publicProcedure
@@ -145,7 +146,7 @@ export const gifsRouter = createTRPCRouter({
           locale: input.locale,
           limit: input.limit,
           pos: input.cursor,
-          mediafilter: "nanomp4,tinymp4,mp4,gifpreview",
+          mediafilter: "nanomp4,tinymp4,mp4,gifpreview,gif",
         });
       }),
     categories: publicProcedure
