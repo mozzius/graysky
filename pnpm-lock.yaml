@@ -85,8 +85,8 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(react-native@0.73.6)(react@18.2.0)
       '@react-native-community/slider':
-        specifier: ^4.5.0
-        version: 4.5.0
+        specifier: ^4.5.2
+        version: 4.5.2
       '@react-native-menu/menu':
         specifier: ^0.9.1
         version: 0.9.1(react-native@0.73.6)(react@18.2.0)
@@ -5062,8 +5062,8 @@ packages:
       react-native: 0.73.6(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(react@18.2.0)
     dev: false
 
-  /@react-native-community/slider@4.5.0:
-    resolution: {integrity: sha512-pyUvNTvu5IfCI5abzqRfO/dd3A009RC66RXZE6t0gyOwI/j0QDlq9VZRv3rjkpuIvNTnsYj+m5BHlh0DkSYUyA==}
+  /@react-native-community/slider@4.5.2:
+    resolution: {integrity: sha512-DbFyCyI7rwl0FkBkp0lzEVp+5mNfS5qU/nM2sK2aSguWhj0Odkt1aKHP2iW/ljruOhgS/O4dEixXlne4OdZJDQ==}
     dev: false
 
   /@react-native-menu/menu@0.9.1(react-native@0.73.6)(react@18.2.0):
