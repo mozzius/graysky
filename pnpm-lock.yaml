@@ -295,8 +295,8 @@ importers:
         specifier: 6.3.0
         version: 6.3.0(react-native@0.73.6)(react@18.2.0)
       react-native-purchases:
-        specifier: ^7.26.0
-        version: 7.26.0(react-native@0.73.6)(react@18.2.0)
+        specifier: ^7.27.4
+        version: 7.27.4(react-native@0.73.6)(react@18.2.0)
       react-native-reanimated:
         specifier: ~3.8.1
         version: 3.8.1(@babel/core@7.24.4)(react-native@0.73.6)(react@18.2.0)
@@ -5461,8 +5461,8 @@ packages:
       web-streams-polyfill: 3.3.2
     dev: false
 
-  /@revenuecat/purchases-typescript-internal@10.3.2:
-    resolution: {integrity: sha512-0MqcyY1ZNLdbBfz684v7LK0gHZdrPIisIqBrb7QH/t5GAZU3fhP/B5ABrvMRTj7bdYEMEwiPAm431RaDwMWX+A==}
+  /@revenuecat/purchases-typescript-internal@10.9.0:
+    resolution: {integrity: sha512-cHODQiU/3s1d0/+Weuwt3zsGhF7e7zVWYfog0A/FAt4OkKqX2YRY1VDlTq6eA0FE1nif3/xwrhvfQVlMvUKe3g==}
     dev: false
 
   /@rollup/plugin-commonjs@24.0.0(rollup@2.78.0):
@@ -13935,13 +13935,13 @@ packages:
       react-native: 0.73.6(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(react@18.2.0)
     dev: false
 
-  /react-native-purchases@7.26.0(react-native@0.73.6)(react@18.2.0):
-    resolution: {integrity: sha512-mwQVlFx8Ryg3YxPKtaMhmTSU1F6YoYlVngKbhnEOgi1Zyk3bV+hP3uJAl7EfGVubvJQn0lUeRUIh4FZdbx0j1Q==}
+  /react-native-purchases@7.27.4(react-native@0.73.6)(react@18.2.0):
+    resolution: {integrity: sha512-EEMO+ltPVPrRe+v/VkdvDZ9TFJ2Wz4+KYJcPggyEPhlh3Ld+bkNfrtbiri/Hczu0PI76DzggON9xAcnv3OCPHw==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '*'
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 10.3.2
+      '@revenuecat/purchases-typescript-internal': 10.9.0
       react: 18.2.0
       react-native: 0.73.6(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(react@18.2.0)
     dev: false
