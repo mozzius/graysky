@@ -176,8 +176,9 @@ const getPostThread = async (uri: string) => {
     "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?" +
       params.toString(),
     {
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       cache: "no-store",
     },
