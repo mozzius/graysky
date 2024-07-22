@@ -35,7 +35,7 @@ RUN pnpm install --frozen-lockfile --production
 
 # Build the project
 COPY --from=builder /app/out/full/ .
-RUN turbo run build --filter=push-notifs
+RUN turbo run build --filter=@graysky/push-notifs
 
 FROM base AS runner
 WORKDIR /app

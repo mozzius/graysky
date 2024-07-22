@@ -30,11 +30,11 @@
   "dependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
-    "@manypkg/cli": "^0.21.3",
-    "eslint": "^9.0.0",
-    "prettier": "^3.2.5",
-    "turbo": "^1.13.2",
-    "typescript": "^5.4.4"
+    "@manypkg/cli": "^0.21.4",
+    "eslint": "^9.7.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.9",
+    "typescript": "^5.5.3"
   },
   "engines": {
     "node": ">=18.19.0"
