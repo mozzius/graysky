@@ -149,13 +149,13 @@ export default function SignIn() {
             </Animated.View>
           )}
           <Animated.View
-            className="flex-row items-center justify-between pt-1"
+            className="flex-row items-center justify-end pt-1"
             layout={LinearTransition}
           >
-            <TextButton
+            {/* <TextButton
               onPress={() => router.push("/sign-up")}
               title={_(msg`Sign up`)}
-            />
+            /> */}
             {!login.isPending ? (
               <TextButton
                 disabled={!identifier || !password}

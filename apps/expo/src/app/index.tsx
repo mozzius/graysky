@@ -42,9 +42,9 @@ export default function LandingPage() {
               entering={FadeInDown.delay(500)}
               className="w-full max-w-xl"
             >
-              <LinkButton href="/sign-up" variant="white">
+              {/* <LinkButton href="/sign-up" variant="white">
                 <Trans>Create an account</Trans>
-              </LinkButton>
+              </LinkButton> */}
               <LinkButton
                 href={sessions?.length ? "/resume" : "/sign-in"}
                 variant="black"
