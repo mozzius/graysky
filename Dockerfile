@@ -47,4 +47,4 @@ RUN apt-get update -qq && \
 COPY .env .env
 COPY --from=installer app .
 
-CMD [ "npm", "run", "push:start" ]
+CMD [ "pnpm", "run", "push:start" ]
