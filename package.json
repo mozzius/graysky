@@ -46,7 +46,7 @@
       "react-native-svg@15.1.0": "patches/react-native-svg@15.1.0.patch"
     },
     "overrides": {
-      "sharp": "0.32.6",
+      "sharp": "0.33.5",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
     }
   },
