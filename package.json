@@ -51,6 +51,6 @@
   },
   "prettier": "@graysky/prettier-config",
   "devDependencies": {
-    "@crowdin/cli": "^3.19.2"
+    "@crowdin/cli": "^4.1.2"
   }
 }

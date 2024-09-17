@@ -15,7 +15,7 @@ import {
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import {
-  BskyAgent,
+  AtpAgent,
   type AtpSessionData,
   type AtpSessionEvent,
 } from "@atproto/api";
@@ -41,7 +41,7 @@ import { store } from "~/lib/storage/storage";
 import { TRPCProvider } from "~/lib/utils/api";
 import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 
-const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+const routingInstrumentation = Sentry.reactNavigationIntegration();
 
 Sentry.init({
   enabled: !__DEV__,
@@ -89,7 +89,7 @@ const App = () => {
   const { _ } = useLingui();
 
   const saveSession = useCallback(
-    (sess: AtpSessionData | null, agent?: BskyAgent) => {
+    (sess: AtpSessionData | null, agent?: AtpAgent) => {
       setSession(sess);
       if (sess) {
         store.set("session", JSON.stringify(sess));
@@ -137,8 +137,7 @@ const App = () => {
   );
 
   const agent = useMemo(() => {
-    BskyAgent.configure({ fetch: fetchHandler });
-    return new BskyAgent({
+    return new AtpAgent({
       service: "https://bsky.social",
       persistSession(evt: AtpSessionEvent, sess?: AtpSessionData) {
         switch (evt) {

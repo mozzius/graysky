@@ -9,7 +9,7 @@
     "@trpc/client": "next",
     "@trpc/server": "next",
     "@vercel/analytics": "^1.2.2",
-    "@vercel/kv": "^1.0.1",
+    "@vercel/kv": "^2.0.0",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",
     "sharp": "0.32.6",
