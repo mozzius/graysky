@@ -384,6 +384,7 @@ export const useImages = () => {
             exif: false,
             quality: 0.7,
             orderedSelection: true,
+            legacy: true,
           }).then((result) => {
             if (!result.canceled) {
               setImages((prev) => {

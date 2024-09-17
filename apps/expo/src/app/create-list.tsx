@@ -54,6 +54,7 @@ export default function CreateListScreen() {
       allowsEditing: true,
       exif: false,
       quality: 0.7,
+      legacy: true,
     });
 
     if (result?.assets?.[0]) {
