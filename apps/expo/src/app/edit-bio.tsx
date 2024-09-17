@@ -28,6 +28,7 @@ import { TextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";
 import { compress, getGalleryPermission } from "~/lib/composer/utils";
 import { cx } from "~/lib/utils/cx";
+import { uploadBlob } from "~/lib/utils/upload-blob";
 import { useSelf } from "./settings/account";
 
 const MAX_DISPLAY_NAME = 64;
@@ -49,8 +50,8 @@ export default function EditBio() {
 
   useEffect(() => {
     if (self.data) {
-      setDisplayName((d) => (d === null ? self.data.displayName ?? "" : d));
-      setDescription((d) => (d === null ? self.data.description ?? "" : d));
+      setDisplayName((d) => (d === null ? (self.data.displayName ?? "") : d));
+      setDescription((d) => (d === null ? (self.data.description ?? "") : d));
     }
   }, [self.data]);
 
@@ -63,26 +64,25 @@ export default function EditBio() {
       await agent.upsertProfile(async (old) => {
         let newBanner, newAvatar;
         if (banner) {
-          const uploadedBanner = await agent.uploadBlob(
+          const uploadedBanner = await uploadBlob(
+            agent,
             await compress({
               uri: banner.path,
               needsResize: false,
             }),
-            {
-              encoding: "image/jpeg",
-            },
+            "image/jpeg",
           );
           newBanner = uploadedBanner.data.blob;
         }
         if (avatar) {
-          const uploadedAvatar = await agent.uploadBlob(
+          const uploadedAvatar = await uploadBlob(
+            agent,
             await compress({
               uri: avatar.path,
               needsResize: false,
             }),
-            {
-              encoding: "image/jpeg",
-            },
+
+            "image/jpeg",
           );
           newAvatar = uploadedAvatar.data.blob;
         }

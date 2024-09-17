@@ -31,6 +31,7 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { usePrimaryLanguage } from "~/lib/storage/app-preferences";
+import { uploadBlob } from "~/lib/utils/upload-blob";
 import { useSelf } from "./settings/account";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -100,9 +101,7 @@ export default function MyCircle() {
         to: tempPath,
       });
 
-      const blob = await agent.uploadBlob(tempPath, {
-        encoding: "image/jpeg",
-      });
+      const blob = await uploadBlob(agent, tempPath, "image/jpeg");
 
       const rt = new RichTextHelper({ text });
       await rt.detectFacets(agent);

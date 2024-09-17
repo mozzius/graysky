@@ -33,6 +33,7 @@ import {
   useMostRecentLanguage,
   usePrimaryLanguage,
 } from "../storage/app-preferences";
+import { uploadBlob } from "../utils/upload-blob";
 import { useComposerState } from "./state";
 
 export const MAX_IMAGES = 4;
@@ -181,9 +182,7 @@ export const useSendPost = ({
         images.map(async (img) => {
           const uri = await compressToMaxSize(img);
 
-          const uploaded = await agent.uploadBlob(uri, {
-            encoding: "image/jpeg",
-          });
+          const uploaded = await uploadBlob(agent, uri, "image/jpeg");
           if (!uploaded.success)
             throw new Error(_(msg`Failed to upload image`));
           return {
@@ -232,9 +231,7 @@ export const useSendPost = ({
             );
           }
           if (encoding) {
-            const thumbUploadRes = await agent.uploadBlob(thumbUri, {
-              encoding,
-            });
+            const thumbUploadRes = await uploadBlob(agent, thumbUri, encoding);
             if (thumbUploadRes.success) {
               thumb = thumbUploadRes.data.blob;
             }

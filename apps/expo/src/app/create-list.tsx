@@ -23,6 +23,7 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { compress, getGalleryPermission } from "~/lib/composer/utils";
+import { uploadBlob } from "~/lib/utils/upload-blob";
 
 export default function CreateListScreen() {
   const theme = useTheme();
@@ -92,14 +93,13 @@ export default function CreateListScreen() {
       let avatarUrl;
 
       if (avatar) {
-        const uploadedAvatar = await agent.uploadBlob(
+        const uploadedAvatar = await uploadBlob(
+          agent,
           await compress({
             uri: avatar.uri,
             needsResize: false,
           }),
-          {
-            encoding: "image/jpeg",
-          },
+          "image/jpeg",
         );
         avatarUrl = uploadedAvatar.data.blob;
       }
