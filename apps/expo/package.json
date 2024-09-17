@@ -30,7 +30,7 @@
     "@expo/metro-config": "^0.18.11",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@formatjs/intl-getcanonicallocales": "^2.3.0",
-    "@formatjs/intl-locale": "^4.0.0",
+    "@formatjs/intl-locale": "^3.4.5",
     "@formatjs/intl-pluralrules": "^5.2.12",
     "@gorhom/bottom-sheet": "4.6.4",
     "@graysky/api": "0.1.0",
