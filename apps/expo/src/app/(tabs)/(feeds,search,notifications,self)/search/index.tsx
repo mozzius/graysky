@@ -220,7 +220,7 @@ const Suggestions = () => {
       const json = (await response.json()) as {
         tags: TrendingTopic[];
       };
-      return json.tags;
+      return json.tags.filter((tag) => !isBannedTag(tag.name));
     },
   });
 
@@ -466,3 +466,9 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
     </Link>
   );
 };
+
+function isBannedTag(tag: string) {
+  return tag
+    .toLocaleLowerCase()
+    .match(/(porn)|(nsfw)|(award)|(troconud)|(sdv)|(followback)/i);
+}
