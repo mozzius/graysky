@@ -39,7 +39,6 @@ import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { useThemeSetup } from "~/lib/storage/app-preferences";
 import { store } from "~/lib/storage/storage";
 import { TRPCProvider } from "~/lib/utils/api";
-import { fetchHandler } from "~/lib/utils/polyfills/fetch-polyfill";
 
 const routingInstrumentation = Sentry.reactNavigationIntegration();
 

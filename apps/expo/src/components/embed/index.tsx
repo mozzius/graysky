@@ -12,6 +12,7 @@ import {
   AppBskyEmbedImages,
   AppBskyEmbedRecord,
   AppBskyEmbedRecordWithMedia,
+  AppBskyEmbedVideo,
   AppBskyFeedDefs,
   AppBskyFeedPost,
   AppBskyGraphDefs,
@@ -35,6 +36,7 @@ import { TextButton } from "../text-button";
 import { Text } from "../themed/text";
 import { ExternalEmbed } from "./external";
 import { ImageEmbed } from "./image";
+import { VideoEmbed } from "./video";
 
 interface Props {
   uri: string;
@@ -156,6 +158,11 @@ export const Embed = ({
           />
         </View>
       );
+    }
+
+    // Case 5: Video
+    if (AppBskyEmbedVideo.isView(content)) {
+      return <VideoEmbed video={content} />;
     }
 
     throw new Error("Unsupported embed type");

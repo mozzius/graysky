@@ -9,7 +9,7 @@
     "build:dev-client:ios": "eas build --platform ios --profile development",
     "build:dev-client:ios-simulator": "./scripts/build-ios-devclient.sh",
     "build:dev-client:android": "./scripts/build-android-devclient.sh",
-    "prebuild": "expo prebuild",
+    "prebuild": "DEV_CLIENT=true expo prebuild --clean",
     "start": "expo start",
     "aab-to-apk": "./scripts/aab-to-apk.sh",
     "clean": "git clean -xdf .expo .turbo node_modules",
@@ -20,7 +20,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "android": "expo run:android",
-    "ios": "expo run:ios",
+    "ios": "DEV_CLIENT=true expo run:ios",
     "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'",
     "extract": "lingui extract",
     "compile": "lingui compile"
