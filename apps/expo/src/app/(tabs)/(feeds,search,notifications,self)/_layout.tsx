@@ -52,6 +52,7 @@ export default function SubStack({
             )}
           >
             <Stack
+              initialRouteName={getInitialRouteName(segment)}
               screenOptions={{
                 ...Platform.select({
                   android: {
@@ -65,3 +66,18 @@ export default function SubStack({
       );
   }
 }
+
+const getInitialRouteName = (
+  segment: "(feeds)" | "(search)" | "(notifications)" | "(self)",
+) => {
+  switch (segment) {
+    case "(feeds)":
+      return "feeds/index";
+    case "(search)":
+      return "search/index";
+    case "(notifications)":
+      return "notifications";
+    case "(self)":
+      return "self";
+  }
+};
