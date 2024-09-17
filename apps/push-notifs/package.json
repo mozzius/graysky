@@ -11,7 +11,7 @@
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/node": "^20.12.6",
+    "@types/node": "^22.5.5",
     "eslint": "^9.0.0",
     "prettier": "^3.2.5",
     "tsx": "^4.7.2",
@@ -26,7 +26,7 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
-    "@atproto/api": "^0.12.2",
+    "@atproto/api": "^0.13.7",
     "@graysky/db": "0.1.0",
     "atproto-firehose": "^0.2.2",
     "cron": "^3.1.7",

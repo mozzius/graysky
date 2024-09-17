@@ -2,9 +2,9 @@
   "name": "@graysky/api",
   "version": "0.1.0",
   "dependencies": {
-    "@atproto/api": "^0.12.2",
+    "@atproto/api": "^0.13.7",
     "@atproto/identity": "^0.4.0",
-    "@atproto/xrpc-server": "^0.5.1",
+    "@atproto/xrpc-server": "^0.6.4",
     "@graysky/db": "0.1.0",
     "@trpc/client": "next",
     "@trpc/server": "next",
