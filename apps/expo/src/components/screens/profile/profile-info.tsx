@@ -621,7 +621,7 @@ const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
       <DropdownMenu.Content>
         <DropdownMenu.Item
           key="edit-profile"
-          textValue={_(msg`Edit Profile`)}
+          textValue={_(msg`Edit profile`)}
           onSelect={() => router.push("/edit-bio")}
         >
           <DropdownMenu.ItemIcon ios={{ name: "person.circle" }} />

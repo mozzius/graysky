@@ -117,7 +117,7 @@ export default function AppSettings() {
                 ),
               },
               {
-                title: _(msg`Disable autoplay for GIFs and videos`),
+                title: _(msg`Disable GIF autoplay`),
                 action: (
                   <Switch
                     value={!gifAutoplay}
@@ -125,9 +125,7 @@ export default function AppSettings() {
                       const gifAutoplay = !disableGifAutoplay;
                       setAppPreferences({ gifAutoplay });
                     }}
-                    accessibilityHint={_(
-                      msg`Disable autoplay for GIFs and videos`,
-                    )}
+                    accessibilityHint={_(msg`Disable GIF autoplay`)}
                   />
                 ),
               },

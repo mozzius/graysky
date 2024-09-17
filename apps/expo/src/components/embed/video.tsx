@@ -14,7 +14,6 @@ import { useLingui } from "@lingui/react";
 import { PlayIcon, Volume2Icon, VolumeXIcon } from "lucide-react-native";
 
 import { useThrottledValue } from "~/lib/hooks/throttled-value";
-import { useGifAutoplay } from "~/lib/storage/app-preferences";
 
 export const VideoEmbed = ({ video }: { video: AppBskyEmbedVideo.View }) => {
   const { _ } = useLingui();
@@ -29,7 +28,6 @@ export const VideoEmbed = ({ video }: { video: AppBskyEmbedVideo.View }) => {
   const [muted, setMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const autoplay = useGifAutoplay();
 
   const showOverlay =
     !isActive ||
@@ -51,72 +49,79 @@ export const VideoEmbed = ({ video }: { video: AppBskyEmbedVideo.View }) => {
   }
 
   return (
-    <View
-      className="mt-1.5 overflow-hidden rounded-lg bg-black"
-      style={{ aspectRatio }}
-    >
-      <View className="relative flex-1">
-        <BlueskyVideoView
-          url={video.playlist}
-          autoplay={autoplay}
-          beginMuted={autoplay ? muted : false}
-          onActiveChange={(e) => {
-            setIsActive(e.nativeEvent.isActive);
-          }}
-          onLoadingChange={(e) => {
-            setIsLoading(e.nativeEvent.isLoading);
-          }}
-          onMutedChange={(e) => {
-            setMuted(e.nativeEvent.isMuted);
-          }}
-          onStatusChange={(e) => {
-            setStatus(e.nativeEvent.status);
-            setIsPlaying(e.nativeEvent.status === "playing");
-          }}
-          onTimeRemainingChange={(e) => {
-            setTimeRemaining(e.nativeEvent.timeRemaining);
-          }}
-          ref={ref}
-          accessibilityLabel={
-            video.alt ? _(msg`Video: ${video.alt}`) : _(msg`Video`)
-          }
-          accessibilityHint=""
-        />
-        <VideoControls
-          muted={muted}
-          enterFullscreen={() => {
-            ref.current?.enterFullscreen();
-          }}
-          toggleMuted={() => {
-            ref.current?.toggleMuted();
-          }}
-          isPlaying={isPlaying}
-          timeRemaining={timeRemaining}
-        />
-      </View>
-      <ImageBackground
-        source={{ uri: video.thumbnail }}
-        accessibilityIgnoresInvertColors
-        className="absolute bottom-0 left-0 right-0 top-0 bg-transparent"
-        style={{ display: showOverlay ? "flex" : "none" }}
-        cachePolicy="memory-disk" // Preferring memory cache helps to avoid flicker when re-displaying on android
+    <View className="mt-1.5">
+      <View
+        className="overflow-hidden rounded-lg bg-black"
+        style={{ aspectRatio }}
       >
-        <TouchableOpacity
-          className="flex-1 content-center justify-center"
-          onPress={() => {
-            ref.current?.togglePlayback();
-          }}
-          accessibilityLabel={_(msg`Play video`)}
+        <View className="relative flex-1">
+          <BlueskyVideoView
+            url={video.playlist}
+            autoplay={false}
+            beginMuted={false}
+            onActiveChange={(e) => {
+              setIsActive(e.nativeEvent.isActive);
+            }}
+            onLoadingChange={(e) => {
+              setIsLoading(e.nativeEvent.isLoading);
+            }}
+            onMutedChange={(e) => {
+              setMuted(e.nativeEvent.isMuted);
+            }}
+            onStatusChange={(e) => {
+              setStatus(e.nativeEvent.status);
+              setIsPlaying(e.nativeEvent.status === "playing");
+            }}
+            onTimeRemainingChange={(e) => {
+              setTimeRemaining(e.nativeEvent.timeRemaining);
+            }}
+            ref={ref}
+            accessibilityLabel={
+              video.alt ? _(msg`Video: ${video.alt}`) : _(msg`Video`)
+            }
+            accessibilityHint=""
+          />
+          <VideoControls
+            muted={muted}
+            enterFullscreen={() => {
+              ref.current?.enterFullscreen();
+            }}
+            toggleMuted={() => {
+              ref.current?.toggleMuted();
+            }}
+            isPlaying={isPlaying}
+            timeRemaining={timeRemaining}
+          />
+        </View>
+        <ImageBackground
+          source={{ uri: video.thumbnail }}
+          accessibilityIgnoresInvertColors
+          className="absolute bottom-0 left-0 right-0 top-0 bg-transparent"
+          style={{ display: showOverlay ? "flex" : "none" }}
+          cachePolicy="memory-disk" // Preferring memory cache helps to avoid flicker when re-displaying on android
         >
-          {showSpinner ? (
-            <ActivityIndicator size="large" color="white" />
-          ) : (
-            <View className="mx-auto w-max rounded-full bg-black/60 p-4">
-              <PlayIcon size={32} color="white" fill="white" strokeWidth={5} />
-            </View>
-          )}
-        </TouchableOpacity>
-      </ImageBackground>
+          <TouchableOpacity
+            className="flex-1 content-center justify-center"
+            onPress={() => {
+              ref.current?.togglePlayback();
+            }}
+            accessibilityLabel={_(msg`Play video`)}
+          >
+            {showSpinner ? (
+              <ActivityIndicator size="large" color="white" />
+            ) : (
+              <View className="mx-auto w-max rounded-full bg-black/60 p-4">
+                <PlayIcon
+                  size={32}
+                  color="white"
+                  fill="white"
+                  strokeWidth={5}
+                />
+              </View>
+            )}
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
     </View>
   );
 };
@@ -135,12 +140,6 @@ function VideoControls({
 }) {
   const { _ } = useLingui();
 
-  // show countdown when:
-  // 1. timeRemaining is a number - was seeing NaNs
-  // 2. duration is greater than 0 - means metadata has loaded
-  // 3. we're less than 5 second into the video
-  const showTime = !isNaN(timeRemaining);
-
   return (
     <View className="absolute bottom-0 left-0 right-0 top-0">
       <Pressable
@@ -150,8 +149,7 @@ function VideoControls({
         accessibilityHint={_(msg`Tap to enter full screen`)}
         accessibilityRole="button"
       />
-      {showTime && <TimeIndicator time={timeRemaining} />}
-
+      <TimeIndicator time={timeRemaining} />
       <ControlButton
         onPress={toggleMuted}
         label={
@@ -211,12 +209,7 @@ function TimeIndicator({ time }: { time: number }) {
     >
       <Text
         className="text-xs font-bold text-white"
-        style={[
-          {
-            fontVariant: ["tabular-nums"],
-            lineHeight: 1.25,
-          },
-        ]}
+        style={{ fontVariant: ["tabular-nums"] }}
       >
         {`${minutes}:${seconds}`}
       </Text>
