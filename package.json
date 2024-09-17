@@ -44,6 +44,9 @@
     "overrides": {
       "sharp": "0.32.6",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
+    },
+    "patchedDependencies": {
+      "react-native-svg@15.7.1": "patches/react-native-svg@15.7.1.patch"
     }
   },
   "prettier": "@graysky/prettier-config",

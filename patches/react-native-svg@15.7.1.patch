@@ -1,0 +1,78 @@
+diff --git a/lib/commonjs/lib/extract/extractProps.js b/lib/commonjs/lib/extract/extractProps.js
+index 1a5aaf9194e57f78f1fadeb97ca58a4c6ef33acc..c04f8a171c823c1ecaf665755b694e17bfbffb73 100644
+--- a/lib/commonjs/lib/extract/extractProps.js
++++ b/lib/commonjs/lib/extract/extractProps.js
+@@ -105,7 +105,7 @@ function extractProps(props, ref) {
+       console.warn('Invalid `clipPath` prop, expected a clipPath like "#id", but got: "' + clipPath + '"');
+     }
+   }
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(_util.idPattern);
+     if (matched) {
+       extracted.mask = matched[1];
+diff --git a/lib/commonjs/lib/extract/extractProps.windows.js b/lib/commonjs/lib/extract/extractProps.windows.js
+index 858c1d9256e5c46234fb521d53e55581b7c6f112..3badcead60597deec7061d3459ae1e324c6670a3 100644
+--- a/lib/commonjs/lib/extract/extractProps.windows.js
++++ b/lib/commonjs/lib/extract/extractProps.windows.js
+@@ -92,7 +92,7 @@ function extractProps(props, ref) {
+       console.warn('Invalid `clipPath` prop, expected a clipPath like "#id", but got: "' + clipPath + '"');
+     }
+   }
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(_util.idPattern);
+     if (matched) {
+       extracted.mask = matched[1];
+diff --git a/lib/module/lib/extract/extractProps.js b/lib/module/lib/extract/extractProps.js
+index 1826217a185a5f3e9ef152c16251be4465f4f86b..65f765cfb411a4d5512a6ea96106d2dbfed2b5e4 100644
+--- a/lib/module/lib/extract/extractProps.js
++++ b/lib/module/lib/extract/extractProps.js
+@@ -95,7 +95,7 @@ export default function extractProps(props, ref) {
+       console.warn('Invalid `clipPath` prop, expected a clipPath like "#id", but got: "' + clipPath + '"');
+     }
+   }
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(idPattern);
+     if (matched) {
+       extracted.mask = matched[1];
+diff --git a/lib/module/lib/extract/extractProps.windows.js b/lib/module/lib/extract/extractProps.windows.js
+index 49c61b6838d2283c3d7a4409f23b52a73e67e5aa..9c1b4b110e9b80dc0ac21ae9b97bdb1088bcb45d 100644
+--- a/lib/module/lib/extract/extractProps.windows.js
++++ b/lib/module/lib/extract/extractProps.windows.js
+@@ -82,7 +82,7 @@ export default function extractProps(props, ref) {
+       console.warn('Invalid `clipPath` prop, expected a clipPath like "#id", but got: "' + clipPath + '"');
+     }
+   }
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(idPattern);
+     if (matched) {
+       extracted.mask = matched[1];
+diff --git a/src/lib/extract/extractProps.ts b/src/lib/extract/extractProps.ts
+index 090041e49938f71f282a332a0b8e9df7f8e86524..f5853bec32a8c198005be814ea566e81691f2579 100644
+--- a/src/lib/extract/extractProps.ts
++++ b/src/lib/extract/extractProps.ts
+@@ -147,7 +147,7 @@ export default function extractProps(
+     }
+   }
+ 
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(idPattern);
+ 
+     if (matched) {
+diff --git a/src/lib/extract/extractProps.windows.ts b/src/lib/extract/extractProps.windows.ts
+index 2a949a8e3ea720519686cee4e039d11e3f4f0487..316492696003c8ae7f6a06d94c97ce0f0e4ff24d 100644
+--- a/src/lib/extract/extractProps.windows.ts
++++ b/src/lib/extract/extractProps.windows.ts
+@@ -127,7 +127,7 @@ export default function extractProps(
+     }
+   }
+ 
+-  if (mask) {
++  if (typeof mask === 'string') {
+     const matched = mask.match(idPattern);
+ 
+     if (matched) {
