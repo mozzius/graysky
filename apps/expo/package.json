@@ -9,6 +9,8 @@
     "build:dev-client:ios": "eas build --platform ios --profile development",
     "build:dev-client:ios-simulator": "./scripts/build-ios-devclient.sh",
     "build:dev-client:android": "./scripts/build-android-devclient.sh",
+    "prebuild": "expo prebuild",
+    "start": "expo start",
     "aab-to-apk": "./scripts/aab-to-apk.sh",
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start",
