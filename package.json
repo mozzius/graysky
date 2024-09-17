@@ -41,10 +41,6 @@
   },
   "packageManager": "pnpm@9.6.0",
   "pnpm": {
-    "patchedDependencies": {
-      "expo-image-picker@14.7.1": "patches/expo-image-picker@14.7.1.patch",
-      "react-native-svg@15.1.0": "patches/react-native-svg@15.1.0.patch"
-    },
     "overrides": {
       "sharp": "0.32.6",
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
