@@ -6,7 +6,6 @@ import {
   Platform,
   Pressable,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { Link, useFocusEffect, useRouter } from "expo-router";
@@ -101,7 +100,7 @@ export const CancelButton = ({
   const theme = useTheme();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const ref = useRef<TouchableOpacity>(null);
+  const ref = useRef<View>(null);
   const [currentScreen, setCurrentScreen] = useState(false);
   const haptics = useHaptics();
   const { _ } = useLingui();
@@ -126,7 +125,7 @@ export const CancelButton = ({
         {
           options,
           icons,
-          anchor: (ref?.current && findNodeHandle(ref.current)) ?? undefined,
+          anchor: (ref.current && findNodeHandle(ref.current)) ?? undefined,
           cancelButtonIndex: options.length - 1,
           destructiveButtonIndex: 0,
           ...actionSheetStyles(theme),
@@ -153,10 +152,9 @@ export const CancelButton = ({
 
   if (hasContent) {
     return (
-      <>
+      <View ref={ref}>
         {currentScreen && <BackButtonOverride dismiss={handleCancel} />}
         <TouchableOpacity
-          ref={ref}
           disabled={disabled}
           accessibilityLabel={_(msg`Discard post`)}
           onPress={handleCancel}
@@ -165,7 +163,7 @@ export const CancelButton = ({
             <Trans>Cancel</Trans>
           </Text>
         </TouchableOpacity>
-      </>
+      </View>
     );
   }
 
