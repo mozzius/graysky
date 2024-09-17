@@ -4,6 +4,7 @@ import {
   findNodeHandle,
   Keyboard,
   Platform,
+  Pressable,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -37,7 +38,7 @@ export const PostButton = ({
   disabled: boolean;
 }) => {
   const theme = useTheme();
-  const ref = useRef<TouchableWithoutFeedback>(null);
+  const ref = useRef<View>(null);
   const [{ threadgate }] = useComposerState();
 
   return (
@@ -54,34 +55,35 @@ export const PostButton = ({
           )}
         </TouchableOpacity>
       </Link>
-      <TouchableWithoutFeedback
-        ref={ref}
-        disabled={disabled}
-        onPress={() =>
-          onPress((ref?.current && findNodeHandle(ref.current)) ?? undefined)
-        }
-      >
-        <View
-          className={cx(
-            "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
-            disabled && !loading && "opacity-50",
-          )}
-          style={{ backgroundColor: theme.colors.primary }}
+      <View ref={ref}>
+        <Pressable
+          disabled={disabled}
+          onPress={() =>
+            onPress((ref.current && findNodeHandle(ref.current)) ?? undefined)
+          }
         >
-          <Text className="mr-2 text-base font-medium text-white">
-            <Trans>Post</Trans>
-          </Text>
-          <SendIcon size={12} className="text-white" />
-          {loading && (
-            <View
-              className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center"
-              style={{ backgroundColor: theme.colors.primary }}
-            >
-              <ActivityIndicator size="small" color="white" />
-            </View>
-          )}
-        </View>
-      </TouchableWithoutFeedback>
+          <View
+            className={cx(
+              "relative flex-row items-center overflow-hidden rounded-full px-4 py-1",
+              disabled && !loading && "opacity-50",
+            )}
+            style={{ backgroundColor: theme.colors.primary }}
+          >
+            <Text className="mr-2 text-base font-medium text-white">
+              <Trans>Post</Trans>
+            </Text>
+            <SendIcon size={12} className="text-white" />
+            {loading && (
+              <View
+                className="absolute bottom-0 left-0 right-0 top-0 items-center justify-center"
+                style={{ backgroundColor: theme.colors.primary }}
+              >
+                <ActivityIndicator size="small" color="white" />
+              </View>
+            )}
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 };
