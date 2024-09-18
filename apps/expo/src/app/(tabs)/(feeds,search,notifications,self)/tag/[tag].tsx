@@ -154,6 +154,7 @@ export default function TagScreen() {
       <>
         {screenOpts}
         <FlashList
+          removeClippedSubviews
           data={data}
           contentInsetAdjustmentBehavior="automatic"
           renderItem={({ item: { item, filter } }) => (

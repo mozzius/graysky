@@ -162,7 +162,7 @@ export const Embed = ({
 
     // Case 5: Video
     if (AppBskyEmbedVideo.isView(content)) {
-      return <VideoEmbed video={content} />;
+      return <VideoEmbed key={content.playlist} video={content} />;
     }
 
     throw new Error("Unsupported embed type");

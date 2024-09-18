@@ -244,6 +244,7 @@ function Notifications() {
           }}
         />
         <FlashList<NotificationGroup>
+          removeClippedSubviews
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           onScroll={onScroll}

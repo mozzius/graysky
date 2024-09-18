@@ -55,6 +55,7 @@ const PeopleSearch = ({ search }: Props) => {
   if (query.data) {
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
+        removeClippedSubviews
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}
         onScroll={onScroll}

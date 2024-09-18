@@ -64,6 +64,7 @@ const PostsSearch = ({ search }: Props) => {
   if (query.data) {
     return (
       <FlashList<{ item: AppBskyFeedDefs.PostView; filter: FilterResult }>
+        removeClippedSubviews
         estimatedItemSize={264}
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}

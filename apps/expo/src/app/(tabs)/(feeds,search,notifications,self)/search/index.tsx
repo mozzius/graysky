@@ -241,6 +241,7 @@ const Suggestions = () => {
     const data = suggestions.data.pages.flatMap((page) => page.data.actors);
     return (
       <FlashList<AppBskyActorDefs.ProfileView>
+        removeClippedSubviews
         ref={ref}
         data={data}
         estimatedItemSize={173}

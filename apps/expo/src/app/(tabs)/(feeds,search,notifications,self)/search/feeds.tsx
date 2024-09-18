@@ -53,6 +53,7 @@ const FeedSearch = ({ search }: Props) => {
   if (query.data) {
     return (
       <FlashList<AppBskyFeedDefs.GeneratorView>
+        removeClippedSubviews
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}
         onScroll={onScroll}

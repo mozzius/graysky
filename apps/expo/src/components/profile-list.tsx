@@ -25,6 +25,7 @@ export const ProfileList = ({
 
   return (
     <FlashList<AppBskyActorDefs.ProfileView>
+      removeClippedSubviews
       data={profiles}
       renderItem={({ item }) => (
         <PersonRow

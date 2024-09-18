@@ -64,6 +64,7 @@ export const FeedScreen = ({ feed }: Props) => {
     return (
       <Wrapper info={info} scrollDir={scrollDir}>
         <FlashList<TimelineItem>
+          removeClippedSubviews
           ref={ref}
           onScroll={onScroll}
           data={data}
