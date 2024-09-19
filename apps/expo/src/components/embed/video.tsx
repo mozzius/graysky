@@ -183,7 +183,7 @@ function ControlButton({
   return (
     <Pressable
       onPress={onPress}
-      className="absolute bottom-1 right-1 h-[21px] w-[21px] content-center justify-center rounded-full bg-black/50 pl-[3px]"
+      className="absolute bottom-1 right-1 h-[22px] w-[22px] content-center justify-center rounded-full bg-black/50 pl-1"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
       accessibilityRole="button"
