@@ -349,10 +349,7 @@ export default function ComposerScreen() {
                       )
                     : _(msg`What's on your mind?`)
                 }
-                keyboardType={Platform.select({
-                  ios: "twitter",
-                  default: "default",
-                })}
+                keyboardType="default"
                 verticalAlign="middle"
                 textAlignVertical="center"
                 autoFocus
