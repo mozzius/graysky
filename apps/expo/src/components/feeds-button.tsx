@@ -131,7 +131,10 @@ export const FeedsButton = ({ show = true }: Props) => {
         <BackButtonOverride dismiss={dismiss} />
         <ErrorBoundary
           fallbackRender={({ error, resetErrorBoundary }) => (
-            <ErrorBoundaryDisplay error={error} retry={resetErrorBoundary} />
+            <ErrorBoundaryDisplay
+              error={error}
+              retry={() => Promise.resolve(resetErrorBoundary())}
+            />
           )}
         >
           <SheetContent feeds={savedFeeds} dismiss={dismiss} />
