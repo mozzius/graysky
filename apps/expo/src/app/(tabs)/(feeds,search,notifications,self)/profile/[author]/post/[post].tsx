@@ -248,6 +248,7 @@ const PostThread = ({ contentFilter }: Props) => {
     return (
       <>
         <FlashList<Posts>
+          removeClippedSubviews
           ref={ref}
           onScroll={onScroll}
           data={thread.data.posts}

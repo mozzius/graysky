@@ -38,6 +38,7 @@ export const ProfileLists = ({ did }: Props) => {
 
   return (
     <Tabs.FlashList<(typeof listsData)[number]>
+      removeClippedSubviews
       ref={ref}
       onScroll={onScroll}
       data={listsData}

@@ -44,6 +44,7 @@ export const ProfileFeeds = ({ did }: Props) => {
   } else {
     return (
       <Tabs.FlashList<(typeof feedsData)[number]>
+        removeClippedSubviews
         ref={ref}
         onScroll={onScroll}
         data={feedsData}

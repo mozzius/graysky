@@ -489,6 +489,7 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
 
   return (
     <Tabs.FlashList<AppBskyGraphDefs.ListItemView>
+      removeClippedSubviews
       data={data}
       renderItem={({ item }) => <ListMemberItem item={item} />}
       onEndReachedThreshold={2}
@@ -608,6 +609,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
           item: AppBskyFeedDefs.FeedViewPost;
           filter: FilterResult;
         }>
+          removeClippedSubviews
           estimatedItemSize={264}
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}

@@ -51,6 +51,7 @@ export const ProfilePosts = ({ did, mode }: Props) => {
   } else {
     return (
       <Tabs.FlashList<(typeof timelineData)[number]>
+        removeClippedSubviews
         ref={ref}
         onScroll={onScroll}
         data={preferences.data ? timelineData : []}
