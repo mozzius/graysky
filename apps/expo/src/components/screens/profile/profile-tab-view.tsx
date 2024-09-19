@@ -77,6 +77,7 @@ export const ProfileTabView = ({
           )}
           renderHeader={renderProfileInfo}
           allowHeaderOverscroll={Platform.OS === "ios"}
+          pagerProps={{ style: { backgroundColor: "red" } }}
           lazy
         >
           <Tabs.Tab name="posts" label={_(msg`Posts`)}>

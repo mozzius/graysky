@@ -1,0 +1,45 @@
+diff --git a/lib/commonjs/Container.js b/lib/commonjs/Container.js
+index 87c672777103bd770225dca9517374c713c5d491..7e7f1a80f476646bd9e128cf2fb7f497c55f29f9 100644
+--- a/lib/commonjs/Container.js
++++ b/lib/commonjs/Container.js
+@@ -337,7 +337,10 @@ const Container = /*#__PURE__*/_react.default.memo( /*#__PURE__*/_react.default.
+     style: [pagerProps === null || pagerProps === void 0 ? void 0 : pagerProps.style, _reactNative.StyleSheet.absoluteFill]
+   }), tabNamesArray.map((tabName, i) => {
+     return /*#__PURE__*/_react.default.createElement(_reactNative.View, {
+-      key: i
++      key: i,
++      // collapsable={false} style={{height: '100%', width: '100%'}}
++      collapsable: false,
++      style: {height: '100%', width: '100%'}
+     }, /*#__PURE__*/_react.default.createElement(_Context.TabNameContext.Provider, {
+       value: tabName
+     }, /*#__PURE__*/_react.default.createElement(_Lazy.Lazy, {
+diff --git a/lib/module/Container.js b/lib/module/Container.js
+index 1a4121342a29929c03eaac5e585e402e38dab569..8872c6c50a40fa977c3a66348d5279427b505d8d 100644
+--- a/lib/module/Container.js
++++ b/lib/module/Container.js
+@@ -304,7 +304,10 @@ export const Container = /*#__PURE__*/React.memo( /*#__PURE__*/React.forwardRef(
+     style: [pagerProps === null || pagerProps === void 0 ? void 0 : pagerProps.style, StyleSheet.absoluteFill]
+   }), tabNamesArray.map((tabName, i) => {
+     return /*#__PURE__*/React.createElement(View, {
+-      key: i
++      key: i,
++      // collapsable={false} style={{height: '100%', width: '100%'}}
++      collapsable: false,
++      style: {height: '100%', width: '100%'}
+     }, /*#__PURE__*/React.createElement(TabNameContext.Provider, {
+       value: tabName
+     }, /*#__PURE__*/React.createElement(Lazy, {
+diff --git a/src/Container.tsx b/src/Container.tsx
+index bf9729a329c7fdf1ac3de0af086a06e739c00127..a723bda46675da6d548f1d13eabe86519775b8a8 100644
+--- a/src/Container.tsx
++++ b/src/Container.tsx
+@@ -436,7 +436,7 @@ export const Container = React.memo(
+             >
+               {tabNamesArray.map((tabName, i) => {
+                 return (
+-                  <View key={i}>
++                  <View key={i} collapsable={false} style={{height: '100%', width: '100%'}}>
+                     <TabNameContext.Provider value={tabName}>
+                       <Lazy
+                         startMounted={lazy ? undefined : true}

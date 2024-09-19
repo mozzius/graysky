@@ -109,7 +109,7 @@
     "react-native-ios-utilities": "^4.4.5",
     "react-native-keyboard-controller": "^1.11.6",
     "react-native-mmkv": "^2.12.2",
-    "react-native-pager-view": "6.3.0",
+    "react-native-pager-view": "6.4.1",
     "react-native-purchases": "^8.2.1",
     "react-native-reanimated": "~3.15.2",
     "react-native-safari-extension": "^1.1.0",
