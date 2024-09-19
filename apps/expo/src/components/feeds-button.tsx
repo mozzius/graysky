@@ -36,6 +36,7 @@ import {
 } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
+import { ErrorBoundaryDisplay } from "./error-boundary";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
@@ -129,11 +130,9 @@ export const FeedsButton = ({ show = true }: Props) => {
       >
         <BackButtonOverride dismiss={dismiss} />
         <ErrorBoundary
-          fallback={
-            <View className="align-center w-full justify-center py-12">
-              <Text className="text-center text-xl">An error occurred :(</Text>
-            </View>
-          }
+          fallbackRender={({ error, resetErrorBoundary }) => (
+            <ErrorBoundaryDisplay error={error} retry={resetErrorBoundary} />
+          )}
         >
           <SheetContent feeds={savedFeeds} dismiss={dismiss} />
         </ErrorBoundary>
