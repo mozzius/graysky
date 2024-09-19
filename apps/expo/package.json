@@ -51,6 +51,7 @@
     "@trpc/server": "next",
     "bcp-47-match": "^2.0.3",
     "clsx": "^2.1.1",
+    "deprecated-react-native-prop-types": "^5.0.0",
     "dotenv": "^16.4.5",
     "expo": "51.0.32",
     "expo-application": "~5.9.1",
