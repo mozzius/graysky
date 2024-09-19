@@ -52,10 +52,6 @@ import { useDefaultHeaderHeight } from "./hooks";
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
 export const INITIAL_HEADER_HEIGHT = 90;
-const AVATAR_PLATFORM_ADJUST = Platform.select({
-  android: 60,
-  default: 0,
-});
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -189,11 +185,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
         [
           -size * 1.75,
           -size / 2,
-          (headerHeight +
-            statusBarHeight +
-            (top > 50 ? -5 : 10) +
-            AVATAR_PLATFORM_ADJUST) /
-            2 -
+          (headerHeight + statusBarHeight + (top > 50 ? -5 : -10)) / 2 -
             size / 2,
         ],
         {
@@ -278,9 +270,12 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               className={cx(
                 "absolute",
                 backButton ? "left-28" : "left-16",
-                Platform.OS === "ios" ? "top-1/2 -translate-y-1/2" : "top-2",
+                Platform.OS === "ios" && "top-1/2 -translate-y-1/2",
               )}
-              style={animatedOpacitysStyle}
+              style={[
+                animatedOpacitysStyle,
+                Platform.OS === "android" && { top: statusBarHeight + 8 },
+              ]}
               pointerEvents="none"
             >
               <Text className="text-sm font-bold text-white" numberOfLines={1}>

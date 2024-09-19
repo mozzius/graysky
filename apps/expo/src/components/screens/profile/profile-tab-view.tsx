@@ -58,10 +58,12 @@ export const ProfileTabView = ({
             // however, this needs be set to false for the dev client to work
             //
             // sigh
-            ...(!__DEV__ &&
-              Platform.OS === "ios" && {
-                statusBarStyle: "light",
-              }),
+            ...Platform.select({
+              ios: __DEV__ ? {} : { statusBarStyle: "light" },
+              android: { statusBarStyle: "light" },
+            }),
+            statusBarTranslucent: true,
+            statusBarColor: "transparent",
           }}
         />
         <Tabs.Container
