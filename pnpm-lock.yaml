@@ -76,8 +76,8 @@ importers:
         specifier: ^4.11.4
         version: 4.11.4(react@18.2.0)
       '@mattermost/react-native-paste-input':
-        specifier: ^0.8.0
-        version: 0.8.0(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2))(react@18.2.0)
+        specifier: ^0.7.1
+        version: 0.7.1(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2))(react@18.2.0)
       '@react-native-community/netinfo':
         specifier: 11.4.0
         version: 11.4.0(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2))
@@ -2377,8 +2377,8 @@ packages:
     resolution: {integrity: sha512-SkAyKAByB9l93Slyg8AUHGuM2kjvWioUTCckT/03J09jYnfEzMO/wSXmEhnKGYs6qx9De8TH4yJCl0Y9lRgnyQ==}
     engines: {node: '>=14.18.0'}
 
-  '@mattermost/react-native-paste-input@0.8.0':
-    resolution: {integrity: sha512-Tn+9gmq/Z+xr+sUlbnggUFBDYadSvDJotFgILQaXYjjff0huxnDrfGLPYGS07iXW8fokgPVaLEtsyuf1YxrC6w==}
+  '@mattermost/react-native-paste-input@0.7.1':
+    resolution: {integrity: sha512-kY8LKtqRX2T/rtn/HNrzTitijuATvyzd6yl5WNWOsszmyzNcssKStjjCTBup04CyMxfwutUU1CWrYUb3hQO7oA==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -11438,7 +11438,7 @@ snapshots:
       jju: 1.4.0
       read-yaml-file: 1.1.0
 
-  '@mattermost/react-native-paste-input@0.8.0(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2))(react@18.2.0)':
+  '@mattermost/react-native-paste-input@0.7.1(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2))(react@18.2.0)':
     dependencies:
       react: 18.2.0
       react-native: 0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.7)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(typescript@5.6.2)
