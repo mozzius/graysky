@@ -21,6 +21,7 @@ import {
   CloudIcon,
   CloudyIcon,
 } from "lucide-react-native";
+import { ErrorBoundary } from "react-error-boundary";
 import colors from "tailwindcss/colors";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
@@ -127,7 +128,15 @@ export const FeedsButton = ({ show = true }: Props) => {
         animateOnMount={!reducedMotion}
       >
         <BackButtonOverride dismiss={dismiss} />
-        <SheetContent feeds={savedFeeds} dismiss={dismiss} />
+        <ErrorBoundary
+          fallback={
+            <View className="align-center w-full justify-center py-12">
+              <Text className="text-center text-xl">An error occurred :(</Text>
+            </View>
+          }
+        >
+          <SheetContent feeds={savedFeeds} dismiss={dismiss} />
+        </ErrorBoundary>
       </BottomSheetModal>
     </>
   );
