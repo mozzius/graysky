@@ -36,7 +36,7 @@ import {
 } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { BackButtonOverride } from "./back-button-override";
-import { ErrorBoundaryDisplay } from "./error-boundary";
+import { ErrorBoundary as ErrorBoundaryDisplay } from "./error-boundary";
 import { FeedRow } from "./feed-row";
 import { ItemSeparator } from "./item-separator";
 import { QueryWithoutData } from "./query-without-data";
