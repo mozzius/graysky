@@ -12,8 +12,6 @@ services:
   app:
     build: .
     container_name: graysky-push-notifs
-    ports:
-      - "3000:3000"
     environment:
       - REDIS_URL=redis://redis:6379
     depends_on:
