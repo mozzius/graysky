@@ -43,6 +43,8 @@ WORKDIR /app
 RUN apt-get update -qq && \
     apt-get install -y openssl ca-certificates
 
+ENV REDIS_URL=${REDIS_URL}
+
 # Copy built application
 COPY .env .env
 COPY --from=installer app .
