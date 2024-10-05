@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1
+#
+# This is for the push notification service, not the app itself!
 
 ARG NODE_VERSION=18.19.0
 FROM node:${NODE_VERSION}-slim as base
-
-LABEL fly_launch_runtime="NodeJS"
 
 # Set production environment
 ENV NODE_ENV=production
