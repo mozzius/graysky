@@ -20,7 +20,7 @@ export class Cache {
 
     if (!profile.success) throw new Error("Failed to get profile");
 
-    const name = profile.data.displayName ?? profile.data.handle;
+    const name = profile.data.displayName?.trim() || profile.data.handle;
 
     await this.kv.client.set(`profile:${did}`, name);
 
