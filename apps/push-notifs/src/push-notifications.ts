@@ -6,8 +6,16 @@ import { type Redis } from "./db";
 
 export class PushNotifications {
   expo = new Expo({ accessToken: process.env.EXPO_ACCESS_TOKEN });
-  incomingTickets: { ticket: ExpoPushSuccessTicket; token: string }[] = [];
-  ticketsToBeChecked: { ticket: ExpoPushSuccessTicket; token: string }[] = [];
+  incomingTickets: {
+    ticket: ExpoPushSuccessTicket;
+    token: string;
+    message: any;
+  }[] = [];
+  ticketsToBeChecked: {
+    ticket: ExpoPushSuccessTicket;
+    token: string;
+    message: any;
+  }[] = [];
   key = "unsent-queue";
 
   constructor(
@@ -68,6 +76,7 @@ export class PushNotifications {
             this.incomingTickets.push({
               ticket: ticket,
               token: message.to as string,
+              message: message,
             });
           }
         }
@@ -110,7 +119,13 @@ export class PushNotifications {
 
           badTickets++;
 
-          console.error(receipt.details?.error, receipt.message);
+          const message = tickets.find((t) => t.ticket.id === id)?.message;
+
+          console.error(
+            receipt.details?.error,
+            receipt.message,
+            message ? `\n\n${JSON.stringify(message, null, 2)}` : "",
+          );
 
           switch (receipt.details?.error) {
             case "InvalidCredentials":
@@ -135,7 +150,7 @@ export class PushNotifications {
     }
 
     console.log(
-      `Good tickets: ${goodTickets}, bad tickets: ${badTickets}, failure rate: ${(badTickets / (goodTickets + badTickets)) * 100}%`,
+      `Good tickets: ${goodTickets}, bad tickets: ${badTickets}, failure rate: ${Math.round((badTickets / (goodTickets + badTickets)) * 100)}%`,
     );
   }
 }
