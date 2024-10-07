@@ -1,13 +1,13 @@
-import { AppBskyFeedDefs, AppBskyFeedPost, BskyAgent } from "@atproto/api";
+import { AppBskyFeedDefs, AppBskyFeedPost, AtpAgent } from "@atproto/api";
 
 import { type Redis } from "./db";
 import { getPds } from "./utils/pds";
 
 export class Cache {
-  agent: BskyAgent;
+  agent: AtpAgent;
 
   constructor(public kv: Redis) {
-    this.agent = new BskyAgent({ service: "https://public.api.bsky.app" });
+    this.agent = new AtpAgent({ service: "https://public.api.bsky.app" });
   }
 
   async getProfile(did: string) {
@@ -89,7 +89,7 @@ export class Cache {
     let cursor;
 
     // appview doesn't have listRecords
-    const pdsSpecificAgent = new BskyAgent({
+    const pdsSpecificAgent = new AtpAgent({
       service: await getPds(did),
     });
 
