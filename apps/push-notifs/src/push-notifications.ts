@@ -87,9 +87,14 @@ export class PushNotifications {
 
     if (tickets.length === 0) return;
 
+    console.log(`Checking ${tickets.length} tickets`);
+
     const chunks = this.expo.chunkPushNotificationReceiptIds(
       tickets.map((ticket) => ticket.ticket.id),
     );
+
+    let goodTickets = 0,
+      badTickets = 0;
 
     for (const chunk of chunks) {
       try {
@@ -98,7 +103,12 @@ export class PushNotifications {
         );
 
         for (const [id, receipt] of receipts) {
-          if (receipt.status === "ok") continue;
+          if (receipt.status === "ok") {
+            goodTickets++;
+            continue;
+          }
+
+          badTickets++;
 
           console.error(receipt.details?.error, receipt.message);
 
@@ -123,5 +133,9 @@ export class PushNotifications {
         console.error(error);
       }
     }
+
+    console.log(
+      `Good tickets: ${goodTickets}, bad tickets: ${badTickets}, failure rate: ${(badTickets / (goodTickets + badTickets)) * 100}%`,
+    );
   }
 }
