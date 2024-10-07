@@ -1,4 +1,4 @@
-import { AppBskyGraphDefs } from "@atproto/api";
+import { AppBskyGraphDefs, AtUri } from "@atproto/api";
 
 import { Accounts } from "./accounts";
 import { Cache } from "./cache";
@@ -60,20 +60,20 @@ run(async () => {
         case "reply":
         case "quote":
         case "mention": {
-          const [did, slug, rkey] = notification.uri.split("/").slice(2);
+          const { host, collection, rkey } = new AtUri(notification.uri);
           const [name, post] = await Promise.all([
             cache.getProfile(notification.creator),
-            slug === "app.bsky.feed.post"
+            collection === "app.bsky.feed.post"
               ? cache.getContextPost(notification.uri)
               : cache.getContextFeed(notification.uri),
           ]);
 
           message.title = getTitle(name, notification);
           message.body = post;
-          if (slug === "app.bsky.feed.post") {
-            message.data.path = `/profile/${did}/post/${rkey}`;
-          } else if (slug === "app.bsky.feed.generator") {
-            message.data.path = `/profile/${did}/feed/${rkey}`;
+          if (collection === "app.bsky.feed.post") {
+            message.data.path = `/profile/${host}/post/${rkey}`;
+          } else if (collection === "app.bsky.feed.generator") {
+            message.data.path = `/profile/${host}/feed/${rkey}`;
           }
           break;
         }
