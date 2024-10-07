@@ -112,20 +112,18 @@ export class PushNotifications {
         );
 
         for (const [id, receipt] of receipts) {
+          let message = tickets.find((t) => t.ticket.id === id)?.message;
+          message = message ? `\n${JSON.stringify(message, null, 2)}` : "";
+
           if (receipt.status === "ok") {
             goodTickets++;
+            console.log("OK :)", message);
             continue;
           }
 
           badTickets++;
 
-          const message = tickets.find((t) => t.ticket.id === id)?.message;
-
-          console.error(
-            receipt.details?.error,
-            receipt.message,
-            message ? `\n\n${JSON.stringify(message, null, 2)}` : "",
-          );
+          console.error(receipt.details?.error, receipt.message, message);
 
           switch (receipt.details?.error) {
             case "InvalidCredentials":
