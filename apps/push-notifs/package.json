@@ -26,8 +26,11 @@
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
+    "@atcute/bluesky": "^1.0.7",
+    "@atcute/client": "^2.0.3",
     "@atproto/api": "^0.13.11",
     "@graysky/db": "0.1.0",
+    "@skyware/jetstream": "^0.2.0",
     "atproto-firehose": "^0.2.2",
     "cron": "^3.1.7",
     "dotenv-cli": "^7.4.1",

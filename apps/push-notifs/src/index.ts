@@ -1,3 +1,5 @@
+import "@atcute/bluesky/lexicons";
+
 import { AppBskyGraphDefs, AtUri } from "@atproto/api";
 
 import { Accounts } from "./accounts";

@@ -3,10 +3,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
+      "~/*": ["./src/*"]
     },
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "types": ["@atcute/bluesky/lexicons"]
   },
   "include": ["*.ts", "*.js", "src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
