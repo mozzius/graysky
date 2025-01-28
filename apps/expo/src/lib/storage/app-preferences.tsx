@@ -169,11 +169,13 @@ export const useThemeSetup = () => {
       if (colorScheme === "light") {
         void NavigationBar.setButtonStyleAsync("dark");
         void NavigationBar.setBackgroundColorAsync(DefaultTheme.colors.card);
-        void NavigationBar.setBorderColorAsync(DefaultTheme.colors.card);
+        if (Platform.Version >= 28)
+          void NavigationBar.setBorderColorAsync(DefaultTheme.colors.card);
       } else {
         void NavigationBar.setButtonStyleAsync("light");
         void NavigationBar.setBackgroundColorAsync(DarkTheme.colors.card);
-        void NavigationBar.setBorderColorAsync(DarkTheme.colors.card);
+        if (Platform.Version >= 28)
+          void NavigationBar.setBorderColorAsync(DarkTheme.colors.card);
       }
     }
   }, [colorScheme]);
