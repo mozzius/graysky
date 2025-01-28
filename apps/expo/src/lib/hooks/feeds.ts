@@ -168,11 +168,13 @@ export const useToggleFeedPref = (
 
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences, (draft) => {
+          let hasPref;
           for (const pref of draft) {
             if (
               AppBskyActorDefs.isSavedFeedsPref(pref) &&
               AppBskyActorDefs.validateSavedFeedsPref(pref).success
             ) {
+              hasPref = true;
               if (save) {
                 if (pref.saved.includes(save)) {
                   pref.pinned = pref.pinned.filter((f) => f !== save);
@@ -188,6 +190,13 @@ export const useToggleFeedPref = (
                 }
               }
             }
+          }
+          if (!hasPref) {
+            draft.push({
+              $type: "app.bsky.actor.defs#savedFeedsPref",
+              pinned: pin ? [pin] : [],
+              saved: save ? [save] : [],
+            });
           }
         }),
       });
