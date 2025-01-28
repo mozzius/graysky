@@ -211,7 +211,11 @@ const SheetContent = ({
 
   if (feeds.data) {
     if (feeds.data.feeds.length === 0) {
-      return <NoFeeds />;
+      return (
+        <View className="h-[60%]">
+          <NoFeeds onPress={dismiss} />
+        </View>
+      );
     }
 
     return (

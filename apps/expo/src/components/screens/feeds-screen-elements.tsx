@@ -17,7 +17,6 @@ export const NoFeeds = ({ onPress }: { onPress?: () => void }) => {
   const theme = useTheme();
   return (
     <View className="flex-1 items-center justify-center">
-      <Stack.Screen options={{ headerRight: () => null }} />
       <View className="w-3/4 flex-col items-start">
         <Text className="mb-4 text-4xl font-medium">
           <Trans>Welcome to Bluesky!</Trans>

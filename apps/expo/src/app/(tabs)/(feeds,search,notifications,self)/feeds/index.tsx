@@ -62,7 +62,12 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
       savedFeeds.data.feeds.length === 0 &&
       savedFeeds.data.lists.length === 0
     ) {
-      return <NoFeeds />;
+      return (
+        <>
+          <Stack.Screen options={{ headerRight: () => null }} />
+          <NoFeeds />
+        </>
+      );
     }
 
     const lists = savedFeeds.data.lists.filter((x) => x && !x.pinned).length >
