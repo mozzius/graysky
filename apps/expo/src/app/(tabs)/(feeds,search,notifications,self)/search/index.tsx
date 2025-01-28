@@ -217,8 +217,6 @@ const Suggestions = () => {
     },
   });
 
-  console.log(trendingTopics.data);
-
   const suggestions = useInfiniteQuery({
     queryKey: ["network"],
     queryFn: async ({ pageParam }) => {
@@ -250,7 +248,7 @@ const Suggestions = () => {
                     <Trans>Trending topics</Trans>
                   </Text>
                   <View className="flex-row flex-wrap gap-2 px-4 py-2">
-                    {trendingTopics.data.map((tag, i) => (
+                    {trendingTopics.data.map((tag) => (
                       <Link
                         key={tag.topic}
                         asChild
@@ -263,7 +261,7 @@ const Suggestions = () => {
                       >
                         <TouchableHighlight className="rounded-full">
                           <View
-                            className="flex-row rounded-full px-2 py-1"
+                            className="flex-row rounded-full px-3 py-1"
                             style={{
                               backgroundColor: theme.colors.card,
                               borderWidth: StyleSheet.hairlineWidth,
