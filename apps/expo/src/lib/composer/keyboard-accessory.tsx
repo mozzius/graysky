@@ -52,7 +52,7 @@ export const KeyboardAccessory = ({
       <View className="flex-1 flex-row items-center justify-start gap-2">
         <View>
           <DropdownMenu.Root
-            onOpenWillChange={(willOpen) => {
+            onOpenChange={(willOpen) => {
               if (willOpen) haptics.selection();
             }}
           >

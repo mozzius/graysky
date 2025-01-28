@@ -56,7 +56,7 @@ export const INITIAL_HEADER_HEIGHT = 90;
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  profile: AppBskyActorDefs.ProfileViewDetailed & { createdAt?: Date };
+  profile: AppBskyActorDefs.ProfileViewDetailed;
   backButton?: boolean;
 }
 
@@ -514,7 +514,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
                   {new Intl.DateTimeFormat(locale.languageTag, {
                     month: "long",
                     year: "numeric",
-                  }).format(profile.createdAt)}
+                  }).format(new Date(profile.createdAt))}
                 </Trans>
               </Text>
             </View>
@@ -746,7 +746,11 @@ const OtherProfileOptions = ({
               <DropdownMenu.ItemIcon ios={{ name: "flag" }} />
             </DropdownMenu.SubTrigger>
             <DropdownMenu.SubContent>
-              <DropdownMenu.Label>
+              <DropdownMenu.Label
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                placeholder={undefined}
+              >
                 {_(msg`What's the issue with this account?`)}
               </DropdownMenu.Label>
               {reportOptions.map((option) => (

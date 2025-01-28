@@ -38,7 +38,7 @@ export const PostActionRow = ({
   );
 
   const composer = useComposer();
-  const anchorRef = useRef<TouchableOpacity>(null!);
+  const anchorRef = useRef<View>(null!);
 
   const handleRepost = useHandleRepost(
     post,

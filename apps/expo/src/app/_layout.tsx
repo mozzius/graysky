@@ -49,11 +49,6 @@ Sentry.init({
   dsn:
     (Constants.expoConfig?.extra?.sentry as string) ??
     "https://76421919ff114625bfd275af5f843452@o4505343214878720.ingest.sentry.io/4505478653739008",
-  integrations: [
-    new Sentry.ReactNativeTracing({
-      routingInstrumentation,
-    }),
-  ],
   ignoreErrors: [
     // https://graysky.sentry.io/issues/4916862074/?project=4505478653739008&query=is%3Aunresolved&referrer=issue-stream&statsPeriod=14d&stream_index=0
     "viewNotFoundForReactTag",

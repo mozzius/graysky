@@ -248,7 +248,11 @@ const PostContextMenuButton = ({
                 <DropdownMenu.ItemIcon ios={{ name: "flag" }} />
               </DropdownMenu.SubTrigger>
               <DropdownMenu.SubContent>
-                <DropdownMenu.Label>
+                <DropdownMenu.Label
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  placeholder={undefined}
+                >
                   {_(msg`What's the issue with this post?`)}
                 </DropdownMenu.Label>
                 {reportOptions.map((option) => (

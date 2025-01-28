@@ -25,11 +25,7 @@ export const useProfile = (handle?: string) => {
 
   const query = useQuery({
     queryKey: ["profile", actor],
-    queryFn: async (): Promise<
-      AppBskyActorDefs.ProfileViewDetailed & {
-        createdAt?: Date;
-      }
-    > => {
+    queryFn: async (): Promise<AppBskyActorDefs.ProfileViewDetailed> => {
       // Gets actor profile
       if (!actor) throw new Error("Not logged in");
       const did = actor.startsWith("did:")
@@ -38,18 +34,18 @@ export const useProfile = (handle?: string) => {
       const profile = await agent.getProfile({ actor: did });
       if (!profile.success) throw new Error("Profile not found");
 
-      // Get actor creation date based on his audit log creation date
-      const res = await fetch(`https://plc.directory/${did}/log/audit`);
-      if (res.ok) {
-        const profileAuditLog = (await res.json()) as AuditLog;
+      // // Get actor creation date based on his audit log creation date
+      // const res = await fetch(`https://plc.directory/${did}/log/audit`);
+      // if (res.ok) {
+      //   const profileAuditLog = (await res.json()) as AuditLog;
 
-        if (profileAuditLog[0]?.createdAt) {
-          return {
-            ...profile.data,
-            createdAt: new Date(profileAuditLog[0].createdAt),
-          };
-        }
-      }
+      //   if (profileAuditLog[0]?.createdAt) {
+      //     return {
+      //       ...profile.data,
+      //       createdAt: new Date(profileAuditLog[0].createdAt).toISOString(),
+      //     };
+      //   }
+      // }
       return profile.data;
     },
   });
