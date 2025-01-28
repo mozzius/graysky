@@ -12,7 +12,7 @@ import {
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
 import { Link, Stack, useRouter } from "expo-router";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { AppBskyUnspeccedDefs, type AppBskyActorDefs } from "@atproto/api";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
@@ -202,27 +202,22 @@ export interface TrendingTopic {
   count: number;
 }
 
-const TIMEFRAME = 360; // 6 hours, in minutes
-
 const Suggestions = () => {
   const agent = useAgent();
   const theme = useTheme();
   const path = useAbsolutePath();
-  const [showAll, setShowAll] = useState(false);
   const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
 
   const trendingTopics = useQuery({
-    queryKey: ["trending-topics", TIMEFRAME],
+    queryKey: ["trending-topics"],
     queryFn: async () => {
-      const response = await fetch(
-        `https://skyfeed-trending-tags.b-cdn.net/xrpc/app.skyfeed.feed.getTrendingTags?minutes=${TIMEFRAME}`,
-      );
-      const json = (await response.json()) as {
-        tags: TrendingTopic[];
-      };
-      return json.tags.filter((tag) => !isBannedTag(tag.name));
+      const trending = await agent.app.bsky.unspecced.getTrendingTopics();
+      if (!trending.success) throw new Error("Failed to get trending topics");
+      return trending.data.topics;
     },
   });
+
+  console.log(trendingTopics.data);
 
   const suggestions = useInfiniteQuery({
     queryKey: ["network"],
@@ -248,95 +243,47 @@ const Suggestions = () => {
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <View>
-            <Text className="mt-4 px-4 text-lg font-bold">
-              <Trans>Trending topics</Trans>
-            </Text>
             {!trendingTopics.isPending ? (
               trendingTopics.data ? (
-                <View className="flex-col px-4">
-                  {trendingTopics.data
-                    .slice(0, showAll ? 20 : 3)
-                    .map((tag, i) => (
+                <>
+                  <Text className="mt-4 px-4 text-lg font-bold">
+                    <Trans>Trending topics</Trans>
+                  </Text>
+                  <View className="flex-row flex-wrap gap-2 px-4 py-2">
+                    {trendingTopics.data.map((tag, i) => (
                       <Link
-                        key={tag.name}
+                        key={tag.topic}
                         asChild
-                        href={path(`/tag/${encodeURIComponent(tag.tag)}`)}
+                        href={path(
+                          tag.link.replace(
+                            "trending.bsky.app",
+                            "did:plc:qrz3lhbyuxbeilrc6nekdqme",
+                          ),
+                        )}
                       >
-                        <TouchableHighlight className="mt-2 flex-1 rounded-lg">
-                          <Animated.View
-                            entering={
-                              i >= 3 ? FadeInUp.delay(50 * i) : undefined
-                            }
-                            exiting={
-                              i >= 3
-                                ? FadeOutUp.delay(50 * (17 - i))
-                                : undefined
-                            }
-                            className="flex-1 flex-row rounded-lg px-4 py-2"
+                        <TouchableHighlight className="rounded-full">
+                          <View
+                            className="flex-row rounded-full px-2 py-1"
                             style={{
                               backgroundColor: theme.colors.card,
                               borderWidth: StyleSheet.hairlineWidth,
                               borderColor: theme.colors.border,
                             }}
                           >
-                            <Text className="text-base">{i + 1}.</Text>
-                            <View className="ml-1 flex-1 flex-col">
-                              <Text className="text-base" numberOfLines={1}>
-                                <Text className="font-semibold">
-                                  {tag.name}
-                                </Text>{" "}
-                                <Text className="font-normal text-neutral-400 dark:text-neutral-500">
-                                  #{tag.tag}
-                                </Text>
-                              </Text>
-                              <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
-                                <Trans>{tag.count} posts</Trans>
-                              </Text>
-                            </View>
-                          </Animated.View>
+                            <Text
+                              className="text-sm font-semibold"
+                              numberOfLines={1}
+                            >
+                              {tag.topic}
+                            </Text>
+                          </View>
                         </TouchableHighlight>
                       </Link>
                     ))}
-                  {trendingTopics.data.length > 3 && (
-                    <TouchableOpacity
-                      onPress={() => {
-                        setShowAll((s) => !s);
-                        if (showAll) {
-                          ref.current?.scrollToOffset({
-                            animated: true,
-                            offset: 0,
-                          });
-                        }
-                      }}
-                      className="mt-2"
-                    >
-                      <View className="flex-row items-center justify-center py-1">
-                        <Text className="text-center">
-                          {showAll ? (
-                            <Trans>Show less</Trans>
-                          ) : (
-                            <Trans>Show all</Trans>
-                          )}
-                        </Text>
-                        {showAll ? (
-                          <ChevronUpIcon
-                            className="ml-2"
-                            color={theme.colors.text}
-                            size={16}
-                          />
-                        ) : (
-                          <ChevronDownIcon
-                            className="ml-2"
-                            color={theme.colors.text}
-                            size={16}
-                          />
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                  )}
-                </View>
+                  </View>
+                </>
               ) : (
-                <Text className="mt-1 text-base">
+                <Text className="mt-1 px-4 text-base">
                   <Trans>Could not fetch trending topics</Trans>
                 </Text>
               )
