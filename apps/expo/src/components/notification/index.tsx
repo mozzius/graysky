@@ -232,12 +232,19 @@ const ProfileList = ({
               }
             }}
           >
-            <Plural
-              value={actors.length}
-              _1={actors[0].displayName?.trim() || `@${actors[0].handle}`}
-              _2={`${actors[0].displayName?.trim() || `@${actors[0].handle}`} and ${actors[1]?.displayName?.trim() || `@${actors[1]?.handle}`}`}
-              other={`${actors[0].displayName?.trim() || `@${actors[0].handle}`} and ${actors.length - 1} others`}
-            />
+            {actors.length === 1 ? (
+              actors[0].displayName?.trim() || `@${actors[0].handle}`
+            ) : actors.length === 2 ? (
+              <Trans>
+                {actors[0].displayName?.trim() || `@${actors[0].handle}`} and{" "}
+                {actors[1]?.displayName?.trim() || `@${actors[1]?.handle}`}
+              </Trans>
+            ) : (
+              <Trans>
+                {actors[0].displayName?.trim() || `@${actors[0].handle}`} and{" "}
+                {actors.length - 1} others
+              </Trans>
+            )}
           </Text>
           <Text className="text-base text-neutral-500 dark:text-neutral-400">
             {" " + action}

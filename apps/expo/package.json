@@ -26,7 +26,7 @@
     "compile": "lingui compile"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.7",
+    "@atproto/api": "^0.13.31",
     "@expo/metro-config": "^0.18.11",
     "@expo/react-native-action-sheet": "^4.0.1",
     "@formatjs/intl-getcanonicallocales": "^2.3.0",
@@ -105,8 +105,8 @@
     "react-native-drawer-layout": "4.0.0-alpha.5",
     "react-native-gesture-handler": "~2.19.0",
     "react-native-image-crop-picker": "0.41.2",
-    "react-native-ios-context-menu": "^2.5.1",
-    "react-native-ios-utilities": "^4.4.5",
+    "react-native-ios-context-menu": "^3.1.0",
+    "react-native-ios-utilities": "^5.1.1",
     "react-native-keyboard-controller": "^1.11.6",
     "react-native-mmkv": "^2.12.2",
     "react-native-pager-view": "6.4.1",
@@ -121,16 +121,16 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-view-shot": "^3.8.0",
     "rn-fetch-blob": "^0.12.0",
-    "superjson": "2.2.1",
-    "tailwind-merge": "^2.2.2",
-    "zeego": "^1.10.0",
-    "zod": "^3.22.4",
+    "superjson": "2.2.2",
+    "tailwind-merge": "^2.6.0",
+    "zeego": "^2.0.4",
+    "zod": "^3.24.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/preset-env": "^7.24.4",
-    "@babel/runtime": "^7.24.4",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@babel/runtime": "^7.26.7",
     "@expo/config-plugins": "^8.0.8",
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
@@ -146,7 +146,7 @@
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "tailwindcss": "3.3.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.7.3"
   },
   "eslintConfig": {
     "root": true,

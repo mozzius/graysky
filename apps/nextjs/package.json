@@ -12,7 +12,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.7",
+    "@atproto/api": "^0.13.31",
     "@atproto/identity": "^0.4.0",
     "@atproto/xrpc-server": "^0.6.4",
     "@graysky/api": "0.1.0",
