@@ -23,7 +23,8 @@
     "ios": "DEV_CLIENT=true expo run:ios",
     "zip-extension": "cd OpenInGrayskyExtension && zip -r ../OpenInGrayskyExtension.zip . -x '**/.DS_Store'",
     "extract": "lingui extract",
-    "compile": "lingui compile"
+    "compile": "lingui compile",
+    "postinstall": "lingui extract && lingui compile"
   },
   "dependencies": {
     "@atproto/api": "^0.13.31",
