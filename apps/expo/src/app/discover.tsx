@@ -82,7 +82,7 @@ export default function DiscoveryPage() {
         <Stack.Screen options={{ headerSearchBarOptions, headerRight }} />
         <View
           style={{ backgroundColor: theme.colors.card }}
-          className="my-4 overflow-hidden rounded-lg"
+          className="my-2 overflow-hidden rounded-lg"
         >
           {recommended.data.map((feed, i, arr) => (
             <Fragment key={feed.uri}>

@@ -191,7 +191,7 @@ export default function AppLayout() {
               tabBarIcon: () =>
                 Platform.select({
                   ios: {
-                    sfSymbol: "square.and.pencil",
+                    sfSymbol: "plus",
                   },
                   android: require("../../../assets/tabs/square-pen.svg"),
                 }),
