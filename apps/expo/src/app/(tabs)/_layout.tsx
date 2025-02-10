@@ -14,14 +14,7 @@ import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import {
-  BellIcon,
-  CloudIcon,
-  CloudyIcon,
-  PenBox,
-  SearchIcon,
-  UserIcon,
-} from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { BackButtonOverride } from "~/components/back-button-override";
 import { Tabs } from "~/components/bottom-tabs";
@@ -140,7 +133,6 @@ export default function AppLayout() {
         onClose={onClose}
         renderDrawerContent={renderDrawerContent}
         drawerType="slide"
-        statusBarAnimation="slide"
         drawerStyle={{
           width: Math.min(dimensions.width * 0.8, 400),
           backgroundColor: theme.colors.card,
@@ -148,7 +140,22 @@ export default function AppLayout() {
         swipeEdgeWidth={dimensions.width}
         swipeEnabled={segments.length === 3}
       >
-        <Tabs sidebarAdaptable>
+        <Tabs
+          sidebarAdaptable
+          tabBarStyle={
+            Platform.OS === "android"
+              ? { backgroundColor: theme.colors.card }
+              : undefined
+          }
+          activeIndicatorColor={theme.colors.background}
+          tabBarActiveTintColor={
+            Platform.OS === "android"
+              ? theme.dark
+                ? colors.neutral[400]
+                : colors.neutral[600]
+              : undefined
+          }
+        >
           <Tabs.Screen
             name="(feeds)"
             options={{

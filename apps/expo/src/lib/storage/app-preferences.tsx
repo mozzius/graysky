@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { Platform } from "react-native";
+import { Appearance } from "react-native";
 import { type MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
-import * as NavigationBar from "expo-navigation-bar";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
 import { z } from "zod";
@@ -157,6 +156,9 @@ export const useThemeSetup = () => {
   // sync nativewind
   useEffect(() => {
     setColorScheme(colorSchemePreference);
+    if (colorSchemePreference !== "system") {
+      Appearance.setColorScheme(colorSchemePreference);
+    }
   }, [colorSchemePreference, setColorScheme]);
 
   return useMemo(() => {

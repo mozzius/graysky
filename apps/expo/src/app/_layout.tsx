@@ -254,9 +254,9 @@ const App = () => {
   return (
     <GestureHandlerRootView className="flex-1">
       <ThemeProvider value={theme}>
+        <StatusBar force />
         <KeyboardProvider>
           <SafeAreaProvider>
-            <StatusBar />
             {agent.hasSession && <QuickActions />}
             <CustomerInfoProvider>
               <AgentProvider agent={agent} update={agentUpdate}>

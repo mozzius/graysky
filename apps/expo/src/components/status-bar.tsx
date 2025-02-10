@@ -1,13 +1,16 @@
 import { Platform } from "react-native";
 import { SystemBars } from "react-native-edge-to-edge";
-import { useTheme } from "@react-navigation/native";
+import { useIsFocused, useTheme } from "@react-navigation/native";
 
 interface Props {
   modal?: boolean;
+  force?: boolean;
 }
 
-export const StatusBar = ({ modal }: Props) => {
-  const theme = useTheme();
+export const StatusBar = ({ modal, force }: Props) => {
+  const isFocused = useIsFocused();
+
+  if (!isFocused && !force) return null;
 
   if (modal && Platform.OS === "ios") {
     if (Platform.isPad) {
@@ -17,6 +20,6 @@ export const StatusBar = ({ modal }: Props) => {
       return <SystemBars style="light" />;
     }
   } else {
-    return <SystemBars style={theme.dark ? "light" : "dark"} />;
+    return <SystemBars style="auto" />;
   }
 };

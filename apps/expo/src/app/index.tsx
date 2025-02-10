@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
 import { type AtpSessionData } from "@atproto/api";
 import { Trans } from "@lingui/macro";
+import { useIsFocused } from "@react-navigation/native";
 
 import { LinkButton } from "~/components/button";
 
@@ -14,10 +15,11 @@ const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
 
 export default function LandingPage() {
   const [sessions] = useMMKVObject<AtpSessionData[]>("sessions");
+  const isFocused = useIsFocused();
 
   return (
     <View className="flex-1 bg-[#3B4245]">
-      <SystemBars style="light" />
+      {isFocused && <SystemBars style="light" />}
       <ImageBackground className="flex-1" source={background}>
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <View>

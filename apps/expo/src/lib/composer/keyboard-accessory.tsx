@@ -165,6 +165,7 @@ export const KeyboardAccessory = ({
       className="h-12 w-full"
       offset={{
         closed: -bottom,
+        opened: Platform.select({ android: -bottom, ios: 0 }),
       }}
     >
       {content}
