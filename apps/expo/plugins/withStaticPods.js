@@ -1,13 +1,13 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { ConfigPlugin } from "@expo/config-plugins";
-import { withDangerousMod } from "@expo/config-plugins/build/plugins/withDangerousMod.js";
-import {
+const { promises: fs } = require("node:fs");
+const path = require("node:path");
+const {
+  withDangerousMod,
+} = require("@expo/config-plugins/build/plugins/withDangerousMod.js");
+const {
   mergeContents,
-  MergeResults,
-} from "@expo/config-plugins/build/utils/generateCode.js";
+} = require("@expo/config-plugins/build/utils/generateCode.js");
 
-export function addPreInstall(src: string): MergeResults {
+function addPreInstall(src) {
   return mergeContents({
     tag: "add-pre-install",
     src,
@@ -27,7 +27,7 @@ export function addPreInstall(src: string): MergeResults {
   });
 }
 
-const withPreInstall: ConfigPlugin = (config) => {
+const withPreInstall = (config) => {
   return withDangerousMod(config, [
     "ios",
     async (config) => {
@@ -36,13 +36,13 @@ const withPreInstall: ConfigPlugin = (config) => {
         "Podfile",
       );
       const contents = await fs.readFile(filePath, "utf-8");
-      let results: MergeResults;
+      let results;
       if (contents.indexOf("pod.name.eql?('react-native-paste-input')") > -1) {
         return config;
       } else {
         try {
           results = addPreInstall(contents);
-        } catch (error: any) {
+        } catch (error) {
           if (error.code === "ERR_NO_MATCH") {
             throw new Error(
               `Cannot add pre_install hook to project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`,
@@ -60,9 +60,9 @@ const withPreInstall: ConfigPlugin = (config) => {
   ]);
 };
 
-const initPlugin: ConfigPlugin = (config) => {
+const initPlugin = (config) => {
   config = withPreInstall(config);
   return config;
 };
 
-export default initPlugin;
+module.exports = initPlugin;

@@ -1,7 +1,7 @@
 // Learn more: https://docs.expo.dev/guides/monorepos/
 // const { getDefaultConfig } = require("@expo/metro-config"); // replaced by:
-import path from "node:path";
-import { getSentryExpoConfig } from "@sentry/react-native/metro";
+const { getSentryExpoConfig } = require("@sentry/react-native/metro");
+const path = require("path");
 
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, "../..");
@@ -22,7 +22,6 @@ if (config.resolver) {
 }
 
 // inline requires for better performance
-// @ts-expect-error idk man
 config.transformer.getTransformOptions = async () => ({
   transform: {
     inlineRequires: true,
