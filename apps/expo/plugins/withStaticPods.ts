@@ -9,19 +9,20 @@ import {
 
 export function addPreInstall(src: string): MergeResults {
   return mergeContents({
-    tag: "add-hack-for-static",
+    tag: "add-pre-install",
     src,
     newSrc: `
-    # Hack for static framework
+  pre_install do |installer|
     installer.pod_targets.each do |pod|
       if pod.name.eql?('react-native-paste-input')
         def pod.build_type
           Pod::BuildType.static_library
         end
       end
-    end`,
-    anchor: /react_native_post_install/,
-    offset: 0,
+    end
+  end`,
+    anchor: /use_expo_modules!/,
+    offset: 1,
     comment: "#",
   });
 }
@@ -44,7 +45,7 @@ const withPreInstall: ConfigPlugin = (config) => {
         } catch (error: any) {
           if (error.code === "ERR_NO_MATCH") {
             throw new Error(
-              `Cannot add Hack for static framework to project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`,
+              `Cannot add pre_install hook to project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`,
             );
           }
           throw error;
