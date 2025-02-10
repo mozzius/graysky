@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import {
   AppBskyEmbedImages,
   AppBskyEmbedRecordWithMedia,
@@ -15,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
 
 import { ImageViewer } from "~/components/image-viewer";
+import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
 
 export default function ImageModal() {
@@ -86,13 +86,7 @@ export default function ImageModal() {
 
   return (
     <View className="relative flex-1 bg-black">
-      <StatusBar
-        style={Platform.select({
-          ios: "inverted",
-          android: "light",
-        })}
-        backgroundColor="black"
-      />
+      <StatusBar style="light" applyToNavigationBar />
       {infoVisible && (
         <TouchableOpacity
           accessibilityLabel={_(msg`Close image modal`)}

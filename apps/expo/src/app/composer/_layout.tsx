@@ -62,11 +62,6 @@ export default function ComposerLayout() {
         <Stack
           screenOptions={{
             customAnimationOnGesture: true,
-            ...Platform.select({
-              android: {
-                animation: "ios",
-              },
-            }),
           }}
         >
           <Stack.Screen name="index" options={{ title: _(msg`New Post`) }} />

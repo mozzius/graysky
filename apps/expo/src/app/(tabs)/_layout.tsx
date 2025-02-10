@@ -4,7 +4,7 @@ import { Drawer } from "react-native-drawer-layout";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
-import { Stack, Tabs, usePathname, useRouter, useSegments } from "expo-router";
+import { Stack, usePathname, useRouter, useSegments } from "expo-router";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -14,16 +14,10 @@ import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
-import {
-  BellIcon,
-  CloudIcon,
-  CloudyIcon,
-  PenBox,
-  SearchIcon,
-  UserIcon,
-} from "lucide-react-native";
+import colors from "tailwindcss/colors";
 
 import { BackButtonOverride } from "~/components/back-button-override";
+import { Tabs } from "~/components/bottom-tabs";
 import { DrawerProvider } from "~/components/drawer/context";
 import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
@@ -139,7 +133,6 @@ export default function AppLayout() {
         onClose={onClose}
         renderDrawerContent={renderDrawerContent}
         drawerType="slide"
-        statusBarAnimation="slide"
         drawerStyle={{
           width: Math.min(dimensions.width * 0.8, 400),
           backgroundColor: theme.colors.card,
@@ -148,41 +141,67 @@ export default function AppLayout() {
         swipeEnabled={segments.length === 3}
       >
         <Tabs
-          screenOptions={{
-            headerShown: false,
-            tabBarShowLabel: Platform.select({ android: false, ios: true }),
-          }}
+          sidebarAdaptable
+          tabBarStyle={
+            Platform.OS === "android"
+              ? { backgroundColor: theme.colors.card }
+              : undefined
+          }
+          activeIndicatorColor={theme.colors.background}
+          tabBarActiveTintColor={
+            Platform.OS === "android"
+              ? theme.dark
+                ? colors.neutral[400]
+                : colors.neutral[600]
+              : undefined
+          }
         >
           <Tabs.Screen
             name="(feeds)"
             options={{
               title: homepage === "feeds" ? _(msg`Feeds`) : _(msg`Skyline`),
-              tabBarIcon({ color, size }) {
-                return homepage === "feeds" ? (
-                  <CloudyIcon color={color} size={size} />
-                ) : (
-                  <CloudIcon color={color} size={size} />
-                );
-              },
+              tabBarIcon:
+                homepage === "feeds"
+                  ? () =>
+                      Platform.select({
+                        ios: {
+                          sfSymbol: "cloud",
+                        },
+                        android: require("../../../assets/tabs/cloudy.svg"),
+                      })
+                  : () =>
+                      Platform.select({
+                        ios: {
+                          sfSymbol: "cloud",
+                        },
+                        android: require("../../../assets/tabs/cloud.svg"),
+                      }),
             }}
           />
           <Tabs.Screen
             name="(search)"
             options={{
               title: _(msg`Search`),
-              tabBarIcon({ color, size }) {
-                return <SearchIcon color={color} size={size} />;
-              },
+              tabBarIcon: () =>
+                Platform.select({
+                  ios: {
+                    sfSymbol: "magnifyingglass",
+                  },
+                  android: require("../../../assets/tabs/search.svg"),
+                }),
             }}
           />
           <Tabs.Screen
             name="null"
             options={{
               title: _(msg`Post`),
-              tabBarAccessibilityLabel: _(msg`Create a new post`),
-              tabBarIcon({ color, size }) {
-                return <PenBox color={color} size={size} />;
-              },
+              tabBarIcon: () =>
+                Platform.select({
+                  ios: {
+                    sfSymbol: "plus",
+                  },
+                  android: require("../../../assets/tabs/square-pen.svg"),
+                }),
             }}
             listeners={{
               tabPress: (evt) => {
@@ -221,31 +240,31 @@ export default function AppLayout() {
             name="(notifications)"
             options={{
               title: _(msg`Notifications`),
-              tabBarAccessibilityLabel: `Notifications${
-                notifications.data?.count ? ", new items" : ""
-              }`,
               tabBarBadge: notifications.data?.count
                 ? notifications.data.count > 30
                   ? "30+"
-                  : notifications.data.count
+                  : String(notifications.data.count)
                 : undefined,
-              tabBarBadgeStyle: {
-                fontSize: 12,
-                backgroundColor: theme.colors.primary,
-              },
-              tabBarIcon({ color, size }) {
-                return <BellIcon color={color} size={size} />;
-              },
+              tabBarIcon: () =>
+                Platform.select({
+                  ios: {
+                    sfSymbol: "bell",
+                  },
+                  android: require("../../../assets/tabs/bell.svg"),
+                }),
             }}
           />
           <Tabs.Screen
             name="(self)"
             options={{
               title: _(msg`Profile`),
-              headerShown: false,
-              tabBarIcon({ color, size }) {
-                return <UserIcon color={color} size={size} />;
-              },
+              tabBarIcon: () =>
+                Platform.select({
+                  ios: {
+                    sfSymbol: "person",
+                  },
+                  android: require("../../../assets/tabs/user.svg"),
+                }),
             }}
             listeners={{
               tabLongPress: () => {

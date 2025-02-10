@@ -7,7 +7,7 @@ import { Avatar } from "./avatar";
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewBasic;
-  moderation: ModerationUI;
+  moderation: { blur: boolean };
   avatarSize?: "normal" | "reduced";
 }
 

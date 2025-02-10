@@ -270,12 +270,9 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               className={cx(
                 "absolute",
                 backButton ? "left-28" : "left-16",
-                Platform.OS === "ios" && "top-1/2 -translate-y-1/2",
+                "top-1/2 -translate-y-1/2",
               )}
-              style={[
-                animatedOpacitysStyle,
-                Platform.OS === "android" && { top: statusBarHeight + 8 },
-              ]}
+              style={[animatedOpacitysStyle]}
               pointerEvents="none"
             >
               <Text className="text-sm font-bold text-white" numberOfLines={1}>
@@ -303,10 +300,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             accessibilityRole="button"
             onPress={() => router.back()}
             className={cx(
-              "absolute left-4 z-30 items-center justify-center rounded-full p-1.5",
-              Platform.OS === "android"
-                ? "mt-2.5 bg-neutral-800"
-                : "bg-black/60",
+              "absolute left-4 z-30 items-center justify-center rounded-full bg-black/60 p-1.5",
             )}
             style={{ top: statusBarHeight }}
           >
@@ -343,7 +337,6 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             </TouchableOpacity>
           </Link>
         </Animated.View>
-        {}
       </Animated.View>
       <View
         pointerEvents="box-none"

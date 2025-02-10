@@ -35,11 +35,6 @@ export default function AuthLayout() {
       <Stack
         screenOptions={{
           headerLeft,
-          ...Platform.select({
-            android: {
-              animation: "ios",
-            },
-          }),
         }}
       >
         <Stack.Screen

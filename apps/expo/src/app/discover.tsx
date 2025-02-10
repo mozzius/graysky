@@ -15,6 +15,7 @@ import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { cx } from "~/lib/utils/cx";
 
 // TODO: make this a flashlist and add a cursor to the query
 
@@ -82,7 +83,13 @@ export default function DiscoveryPage() {
         <Stack.Screen options={{ headerSearchBarOptions, headerRight }} />
         <View
           style={{ backgroundColor: theme.colors.card }}
-          className="my-4 overflow-hidden rounded-lg"
+          className={cx(
+            "overflow-hidden rounded-lg",
+            Platform.select({
+              ios: "my-1",
+              android: "my-4",
+            }),
+          )}
         >
           {recommended.data.map((feed, i, arr) => (
             <Fragment key={feed.uri}>
@@ -106,6 +113,7 @@ export default function DiscoveryPage() {
   return (
     <>
       <Stack.Screen options={{ headerSearchBarOptions, headerRight }} />
+      <StatusBar modal />
       <QueryWithoutData query={recommended} />
     </>
   );

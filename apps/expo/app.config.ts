@@ -72,11 +72,22 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     typedRoutes: false, // too much string interpolation :(
   },
   plugins: [
+    "./plugins/withStaticPods.js",
+    [
+      "react-native-edge-to-edge",
+      {
+        android: {
+          parentTheme: "Material3",
+        },
+      },
+    ],
     [
       "expo-build-properties",
       {
         ios: {
           deploymentTarget: "14.0",
+          useFrameworks: "static",
+          ccacheEnabled: true,
         },
       },
     ],

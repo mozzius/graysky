@@ -1,27 +1,37 @@
+import { useCallback } from "react";
 import { Platform } from "react-native";
-import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import { useTheme } from "@react-navigation/native";
+import { SystemBars } from "react-native-edge-to-edge";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface Props {
+  style?: "light" | "dark" | "auto";
   modal?: boolean;
+  applyToNavigationBar?: boolean;
 }
 
-export const StatusBar = ({ modal }: Props) => {
-  const theme = useTheme();
+export const StatusBar = ({ style, modal, applyToNavigationBar }: Props) => {
+  useFocusEffect(
+    useCallback(() => {
+      let statusBarStyle: "light" | "dark" | "auto" = style ?? "auto";
+      if (modal) {
+        if (Platform.OS === "ios" ? Platform.isPad : true) {
+          // use whatever the underlying screen is using
+          return;
+        } else {
+          statusBarStyle = style ?? "light";
+        }
+      }
+      const entry = SystemBars.pushStackEntry({
+        style: {
+          statusBar: statusBarStyle,
+          navigationBar: applyToNavigationBar ? statusBarStyle : undefined,
+        },
+      });
+      return () => {
+        SystemBars.popStackEntry(entry);
+      };
+    }, []),
+  );
 
-  if (modal && Platform.OS === "ios") {
-    if (Platform.isPad) {
-      // use whatever the underlying screen is using
-      return null;
-    } else {
-      return <ExpoStatusBar style="light" />;
-    }
-  } else {
-    return (
-      <ExpoStatusBar
-        style={theme.dark ? "light" : "dark"}
-        backgroundColor={theme.colors.card}
-      />
-    );
-  }
+  return null;
 };

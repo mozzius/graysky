@@ -3,11 +3,11 @@ import { useMMKVObject } from "react-native-mmkv";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
-import { StatusBar } from "expo-status-bar";
 import { type AtpSessionData } from "@atproto/api";
 import { Trans } from "@lingui/macro";
 
 import { LinkButton } from "~/components/button";
+import { StatusBar } from "~/components/status-bar";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
@@ -17,7 +17,7 @@ export default function LandingPage() {
 
   return (
     <View className="flex-1 bg-[#3B4245]">
-      <StatusBar style="light" translucent backgroundColor="transparent" />
+      <StatusBar style="light" applyToNavigationBar />
       <ImageBackground className="flex-1" source={background}>
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <View>

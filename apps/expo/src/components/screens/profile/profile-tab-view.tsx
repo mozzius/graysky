@@ -6,6 +6,7 @@ import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 
+import { StatusBar } from "~/components/status-bar";
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 import { QueryWithoutData } from "../../query-without-data";
 import {
@@ -54,18 +55,9 @@ export const ProfileTabView = ({
           options={{
             headerShown: false,
             title: profile.data.displayName ?? `@${profile.data.handle}`,
-            // needs UIViewControllerBasedStatusBarAppearance set to true in Info.plist
-            // however, this needs be set to false for the dev client to work
-            //
-            // sigh
-            ...Platform.select({
-              ios: __DEV__ ? {} : { statusBarStyle: "light" },
-              android: { statusBarStyle: "light" },
-            }),
-            statusBarTranslucent: true,
-            statusBarColor: "transparent",
           }}
         />
+        <StatusBar style="light" />
         <Tabs.Container
           minHeaderHeight={headerHeight}
           initialTabName={initial}
@@ -113,9 +105,10 @@ export const ProfileTabView = ({
       <Stack.Screen
         options={{
           headerTitle: "",
-          headerTransparent: true,
+          headerShown: false,
         }}
       />
+      <StatusBar style="light" />
       <QueryWithoutData query={profile} />
     </>
   );

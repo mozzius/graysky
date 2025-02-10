@@ -8,7 +8,7 @@ msgstr ""
 "Language: ar\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-09 22:06\n"
+"PO-Revision-Date: 2025-02-10 12:51\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 #~ msgid "{0} posts"
-#~ msgstr "منشورات {0}"
+#~ msgstr ""
 
 #: src/components/notification/index.tsx:243
 msgid "{2} and {3} others"
@@ -121,19 +121,19 @@ msgstr "@{handle} لم يعد مكتوماً"
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-#~ msgstr "<0>{0, plural, zero {} one {{4} و {5} آخرين} two {{4} و {5} آخرين} few {{4} و {5} آخرين} many {{4} و {5} آخرين}=1 {{1}} =2 {{2} و {3}} other {{4} و {5} آخرين}}</0><1>{6}</1>"
+#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:452
+#: src/components/screens/profile/profile-info.tsx:445
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> متابِعون"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:456
 msgid "<0>{0}</0> Following"
 msgstr "متابعة <0>{0}</0>"
 
-#: src/components/screens/profile/profile-info.tsx:471
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> المشاركات"
 
@@ -248,7 +248,7 @@ msgstr "أضف صورة"
 msgid "Add to favourites"
 msgstr "الإضافة للمفضلة"
 
-#: src/components/screens/profile/profile-info.tsx:716
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Add to list"
 msgstr "أضف إلى القائمة"
 
@@ -392,7 +392,7 @@ msgstr "موجود"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:302
+#: src/components/screens/profile/profile-info.tsx:299
 msgid "Back"
 msgstr "الرجوع"
 
@@ -418,7 +418,7 @@ msgid "Block all members"
 msgstr "حظر جميع الأعضاء"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:728
 msgid "Block user"
 msgstr "حظر مستخدم"
 
@@ -545,7 +545,7 @@ msgstr "اختر من المكتبة"
 msgid "Circle graph"
 msgstr "رسم بياني للدائرة"
 
-#: src/app/images/[post].tsx:98
+#: src/app/images/[post].tsx:92
 msgid "Close image modal"
 msgstr "أغلق نافذة عرض الصورة"
 
@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "القائمة غير متاحة حاليا"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "أنشئي منشورًا جديدًا"
+#~ msgid "Create a new post"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -674,7 +674,7 @@ msgstr "إنشاء حساب"
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
-#~ msgstr "إنشاء حساب"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:239
 msgid "Create list"
@@ -846,7 +846,7 @@ msgstr "تحرير اللافتة"
 msgid "Edit feeds"
 msgstr "تحرير التغذية"
 
-#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:612
 msgid "Edit profile"
 msgstr ""
 
@@ -919,7 +919,7 @@ msgstr "موجز"
 msgid "Feed Details"
 msgstr "تفاصيل الموجز"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -940,7 +940,7 @@ msgid "Find people to follow"
 msgstr "ابحث عن أشخاص لِمُتابعتهم"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:392
-#: src/components/screens/profile/profile-info.tsx:416
+#: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "تابِع"
 
@@ -975,7 +975,7 @@ msgstr "متابعة.موجز"
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
 #: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:391
+#: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "متابعة.الإجراء"
@@ -987,7 +987,7 @@ msgid "following.list"
 msgstr "قائمة المتابعة"
 
 #: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:437
+#: src/components/screens/profile/profile-info.tsx:430
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "يتابعك"
@@ -996,7 +996,7 @@ msgstr "يتابعك"
 msgid "Forgot?"
 msgstr "نسيت؟"
 
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Frequently Posts Unwanted Content"
 msgstr "تكرار نشر المحتوى غير المرغوب فيه"
 
@@ -1109,7 +1109,7 @@ msgstr "الوضع غير صالح"
 msgid "It's currently set to the {current} theme"
 msgstr "تم تعيينه حاليا إلى السمة {current}"
 
-#: src/components/screens/profile/profile-info.tsx:512
+#: src/components/screens/profile/profile-info.tsx:505
 msgid "Joined {0}"
 msgstr "انضم {0}"
 
@@ -1240,7 +1240,7 @@ msgstr "الأعضاء"
 msgid "Members of list \"{0}\""
 msgstr "أعضاء القائمة\"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:661
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Misleading Account"
 msgstr "حساب مضلل"
 
@@ -1283,7 +1283,7 @@ msgid "Mute all members"
 msgstr "حظر جميع الأعضاء"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:719
 msgid "Mute user"
 msgstr "كتم المستخدم"
 
@@ -1342,7 +1342,7 @@ msgstr "لغتي"
 msgid "My lists"
 msgstr "قائمتي"
 
-#: src/components/screens/profile/profile-info.tsx:662
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Name or Description Violates Community Standards"
 msgstr "الاسم أو الوصف يخالف معايير المجتمع"
 
@@ -1413,7 +1413,7 @@ msgstr "لم تنفذ حتى الآن"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "ملاحظة: لا يمكن تغيير إعدادات المحتوى للبالغين على نظام iOS. الرجاء استخدام تطبيق الويب بدلاً من ذلك."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "الإشعارات"
@@ -1459,7 +1459,7 @@ msgid "Optional"
 msgstr "إختياري"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:663
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Other"
 msgstr "آخرى"
 
@@ -1542,7 +1542,7 @@ msgstr "الرجاء استخدام التطبيق الرسمي في هذه ال
 msgid "Pornographic content"
 msgstr "المحتوى الإباحي"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "إعدادات متقدمة"
 msgid "Pro version information and purchase"
 msgstr "معلومات الإصدار الاحترافي والشراء"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "الملف الشخصي"
 
@@ -1710,7 +1710,7 @@ msgstr "الرد على نوع من المشاركة"
 msgid "replying to..."
 msgstr "الردّ على..."
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:737
 msgid "Report account"
 msgstr "الإبلاغ عن الحساب"
 
@@ -1719,7 +1719,7 @@ msgid "Report post"
 msgstr "الإبلاغ عن المنشور"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:675
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Report submitted"
 msgstr "تم إرسال البلاغ"
 
@@ -1797,7 +1797,7 @@ msgstr "تم الحفظ"
 msgid "Saved image to gallery"
 msgstr "حفظ الصورة في معرض الصور"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1946,8 +1946,8 @@ msgstr "شارك رابط المنشور"
 msgid "Share post"
 msgstr "مُشاركة المنشور"
 
-#: src/components/screens/profile/profile-info.tsx:626
-#: src/components/screens/profile/profile-info.tsx:694
+#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:687
 msgid "Share profile"
 msgstr "مشاركة الملف الشخصي"
 
@@ -1987,7 +1987,7 @@ msgstr "إظهار كل إشعار على حدة في علامة التبويب 
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 #~ msgid "Show less"
-#~ msgstr "أظهِر أقل"
+#~ msgstr ""
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
@@ -2019,7 +2019,7 @@ msgstr "تسجيل"
 msgid "Sign up for project updates"
 msgstr "تسجيل للحصول على تحديثات المشروع"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "السماء"
@@ -2086,7 +2086,7 @@ msgstr "المتابعة المقترحة"
 msgid "Support development"
 msgstr "دعم تطوير التطبيق"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "تبديل الحسابات"
 
@@ -2112,7 +2112,7 @@ msgid "Tap to toggle sound"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:676
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Thank you for making the skyline a safer place"
 msgstr "نشكرك على جعل خط السماء مكانا أكثر أمانا"
 
@@ -2171,15 +2171,15 @@ msgstr "هذه المشاركة من شخص قمت بحظره"
 msgid "This thread is locked"
 msgstr "هذا الموضوع مغلق"
 
-#: src/components/screens/profile/profile-info.tsx:592
+#: src/components/screens/profile/profile-info.tsx:585
 msgid "This user has blocked you"
 msgstr "قام هذا المستخدم بحظرك"
 
-#: src/components/screens/profile/profile-info.tsx:557
+#: src/components/screens/profile/profile-info.tsx:550
 msgid "This user is on the \"{0}\" block list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:526
+#: src/components/screens/profile/profile-info.tsx:519
 msgid "This user is on the \"{0}\" mute list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
@@ -2211,7 +2211,7 @@ msgstr "أعلى (3د)"
 msgid "Top (7d)"
 msgstr "أعلى (3د)"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:702
 msgid "Translate bio"
 msgstr "ترجمة النبذة التعريفية"
 
@@ -2245,7 +2245,7 @@ msgstr "الترجمات الآن مدعومة من طرف DeepL"
 msgid "Trending topics"
 msgstr "المواضيع الشائعة"
 
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:560
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2280,7 +2280,7 @@ msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:529
 msgid "Unmute"
 msgstr "إلغاء كتم الصوت"
 
@@ -2377,8 +2377,8 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:529
+#: src/components/screens/profile/profile-info.tsx:560
 msgid "View"
 msgstr "شاهد"
 
@@ -2414,7 +2414,7 @@ msgstr "مرحبا بكم في Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "فِيمَ تُفكِّر؟"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:747
 msgid "What's the issue with this account?"
 msgstr "ما هي المشكلة في هذا الحساب؟"
 
@@ -2459,11 +2459,11 @@ msgstr "يمكنك الآن تلقي إشعارات فورية للإعجابا�
 msgid "You don't have any moderation lists yet."
 msgstr "ليس لديك أي قوائم إدارة حتى الآن."
 
-#: src/components/screens/profile/profile-info.tsx:562
+#: src/components/screens/profile/profile-info.tsx:555
 msgid "You have blocked this user"
 msgstr "لقد قمت بحظر هذا المستخدم"
 
-#: src/components/screens/profile/profile-info.tsx:531
+#: src/components/screens/profile/profile-info.tsx:524
 msgid "You have muted this user"
 msgstr "لقد قمت بكتم هذا المستخدم"
 

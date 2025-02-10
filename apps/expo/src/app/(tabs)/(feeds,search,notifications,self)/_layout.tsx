@@ -53,13 +53,7 @@ export default function SubStack({
           >
             <Stack
               initialRouteName={getInitialRouteName(segment)}
-              screenOptions={{
-                ...Platform.select({
-                  android: {
-                    animation: "ios",
-                  },
-                }),
-              }}
+              screenOptions={{}}
             />
           </ErrorBoundary>
         </AbsolutePathProvider>
