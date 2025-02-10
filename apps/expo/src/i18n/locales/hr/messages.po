@@ -124,16 +124,16 @@ msgstr "@{handle} više nije utišan"
 #~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:452
+#: src/components/screens/profile/profile-info.tsx:445
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> Pratitelja"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:456
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> Pratite"
 
-#: src/components/screens/profile/profile-info.tsx:471
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> Objavi"
 
@@ -248,7 +248,7 @@ msgstr "Dodaj sliku"
 msgid "Add to favourites"
 msgstr "Dodaj u favorite"
 
-#: src/components/screens/profile/profile-info.tsx:716
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Add to list"
 msgstr "Dodaj na listu"
 
@@ -392,7 +392,7 @@ msgstr "Dostupno"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:302
+#: src/components/screens/profile/profile-info.tsx:299
 msgid "Back"
 msgstr "Natrag"
 
@@ -418,7 +418,7 @@ msgid "Block all members"
 msgstr "Blokiraj sve korisnike"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:728
 msgid "Block user"
 msgstr "Blokiraj korisnika"
 
@@ -545,7 +545,7 @@ msgstr "Odaberite iz galerije"
 msgid "Circle graph"
 msgstr ""
 
-#: src/app/images/[post].tsx:98
+#: src/app/images/[post].tsx:92
 msgid "Close image modal"
 msgstr "Zatvori model slike"
 
@@ -846,7 +846,7 @@ msgstr "Uredi baner"
 msgid "Edit feeds"
 msgstr "Uredi feed"
 
-#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:612
 msgid "Edit profile"
 msgstr ""
 
@@ -940,7 +940,7 @@ msgid "Find people to follow"
 msgstr "Pronađi korisnike koje ćeš pratiti"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:392
-#: src/components/screens/profile/profile-info.tsx:416
+#: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "Prati"
 
@@ -975,7 +975,7 @@ msgstr "sve koje pratim"
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
 #: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:391
+#: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "pratitelji"
@@ -987,7 +987,7 @@ msgid "following.list"
 msgstr "lista pratitelja"
 
 #: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:437
+#: src/components/screens/profile/profile-info.tsx:430
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "Vas prati"
@@ -996,7 +996,7 @@ msgstr "Vas prati"
 msgid "Forgot?"
 msgstr "Zaboravili ste nešto?"
 
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Frequently Posts Unwanted Content"
 msgstr "Često objavljuje neželjeni sadržaj"
 
@@ -1109,7 +1109,7 @@ msgstr "Nevažeći način rada"
 msgid "It's currently set to the {current} theme"
 msgstr "Trenutno je postavljena na {current} temu"
 
-#: src/components/screens/profile/profile-info.tsx:512
+#: src/components/screens/profile/profile-info.tsx:505
 msgid "Joined {0}"
 msgstr "Pridružio se {0}"
 
@@ -1240,7 +1240,7 @@ msgstr "Članovi"
 msgid "Members of list \"{0}\""
 msgstr "Član liste \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:661
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Misleading Account"
 msgstr "Račun koji dovodi u zabludu"
 
@@ -1283,7 +1283,7 @@ msgid "Mute all members"
 msgstr "Utišaj sve članove"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:719
 msgid "Mute user"
 msgstr "Utišaj korisnika"
 
@@ -1342,7 +1342,7 @@ msgstr "Moji jezici"
 msgid "My lists"
 msgstr "Moj popis"
 
-#: src/components/screens/profile/profile-info.tsx:662
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Name or Description Violates Community Standards"
 msgstr "Naziv ili opis krše standarde zajednice"
 
@@ -1459,7 +1459,7 @@ msgid "Optional"
 msgstr "Neobavezno"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:663
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Other"
 msgstr "Ostalo"
 
@@ -1710,7 +1710,7 @@ msgstr "Odgovori na neki oblik objave"
 msgid "replying to..."
 msgstr "odgovori..."
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:737
 msgid "Report account"
 msgstr "Prijavi račun"
 
@@ -1719,7 +1719,7 @@ msgid "Report post"
 msgstr "Prijavi objavu"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:675
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Report submitted"
 msgstr "Prijava podnesena"
 
@@ -1946,8 +1946,8 @@ msgstr "Podijeli poveznicu"
 msgid "Share post"
 msgstr "Podijeli objavu"
 
-#: src/components/screens/profile/profile-info.tsx:626
-#: src/components/screens/profile/profile-info.tsx:694
+#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:687
 msgid "Share profile"
 msgstr "Podijeli profil"
 
@@ -2112,7 +2112,7 @@ msgid "Tap to toggle sound"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:676
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Thank you for making the skyline a safer place"
 msgstr "Hvala vam što skyline činite sigurnijim mjestom"
 
@@ -2171,15 +2171,15 @@ msgstr "Objava je od nekoga koga ste utišali"
 msgid "This thread is locked"
 msgstr "Ova nit je zaključana"
 
-#: src/components/screens/profile/profile-info.tsx:592
+#: src/components/screens/profile/profile-info.tsx:585
 msgid "This user has blocked you"
 msgstr "Ovaj korisnik vas je blokirao"
 
-#: src/components/screens/profile/profile-info.tsx:557
+#: src/components/screens/profile/profile-info.tsx:550
 msgid "This user is on the \"{0}\" block list"
 msgstr "Ovaj korisnik je na \"{0}\" blokiranoj listi"
 
-#: src/components/screens/profile/profile-info.tsx:526
+#: src/components/screens/profile/profile-info.tsx:519
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Ovaj korisnik je na \"{0}\" utišanoj listi"
 
@@ -2211,7 +2211,7 @@ msgstr "Top (3d)"
 msgid "Top (7d)"
 msgstr "Top (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:702
 msgid "Translate bio"
 msgstr "Prevedi biografiju"
 
@@ -2245,7 +2245,7 @@ msgstr "Prijevode sada pokreće DeepL"
 msgid "Trending topics"
 msgstr "Popularne teme"
 
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:560
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2280,7 +2280,7 @@ msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:529
 msgid "Unmute"
 msgstr "Ponovno uključi"
 
@@ -2377,8 +2377,8 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:529
+#: src/components/screens/profile/profile-info.tsx:560
 msgid "View"
 msgstr "Pogledaj"
 
@@ -2414,7 +2414,7 @@ msgstr "Dobrodošli u Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "Što vam je na umu?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:747
 msgid "What's the issue with this account?"
 msgstr "Koji je problem s ovim računom?"
 
@@ -2459,11 +2459,11 @@ msgstr "Možete primati push obavijesti za lajkove, odgovore i još mnogo toga! 
 msgid "You don't have any moderation lists yet."
 msgstr "Još nemate nijedan popis za moderiranje."
 
-#: src/components/screens/profile/profile-info.tsx:562
+#: src/components/screens/profile/profile-info.tsx:555
 msgid "You have blocked this user"
 msgstr "Blokirali ste ovog korisnika"
 
-#: src/components/screens/profile/profile-info.tsx:531
+#: src/components/screens/profile/profile-info.tsx:524
 msgid "You have muted this user"
 msgstr "Utišali ste ovog korisnika"
 

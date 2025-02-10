@@ -73,7 +73,14 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     "./plugins/withStaticPods.js",
-    "react-native-bottom-tabs",
+    [
+      "react-native-edge-to-edge",
+      {
+        android: {
+          parentTheme: "Material3",
+        },
+      },
+    ],
     [
       "expo-build-properties",
       {

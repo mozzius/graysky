@@ -207,9 +207,6 @@ importers:
       expo-splash-screen:
         specifier: ~0.27.5
         version: 0.27.7(encoding@0.1.13)(expo-modules-autolinking@1.11.2)(expo@51.0.32(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(bufferutil@4.0.9)(encoding@0.1.13))
-      expo-status-bar:
-        specifier: ~1.12.1
-        version: 1.12.1
       expo-system-ui:
         specifier: ~3.0.7
         version: 3.0.7(expo@51.0.32(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(bufferutil@4.0.9)(encoding@0.1.13))
@@ -285,6 +282,9 @@ importers:
       react-native-drawer-layout:
         specifier: 4.0.0-alpha.5
         version: 4.0.0-alpha.5(react-native-gesture-handler@2.19.0(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1))(react-native-reanimated@3.15.5(@babel/core@7.26.7)(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1))(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1)
+      react-native-edge-to-edge:
+        specifier: ^1.4.3
+        version: 1.4.3(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1)
       react-native-gesture-handler:
         specifier: ~2.19.0
         version: 2.19.0(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1)
@@ -7971,6 +7971,12 @@ packages:
       react-native: '>= 0.72.0'
       react-native-gesture-handler: '>= 2.0.0'
       react-native-reanimated: '>= 2.0.0'
+
+  react-native-edge-to-edge@1.4.3:
+    resolution: {integrity: sha512-fYchwiQ2D/8NzcvJK1sD9Cm25GFQfsLgYmGpohoSpRxwBwR5UCL0wUf4scoQgYncRh9Hmc2t8ml/sikTwMM3ng==}
+    peerDependencies:
+      react: '>=18.2.0'
+      react-native: '>=0.74.0'
 
   react-native-gesture-handler@2.19.0:
     resolution: {integrity: sha512-Cc6DnSnn5hhgiuJOtlOJmXkbBBOZkW9UnJJG+DrWPq2jJuNvM4g5qq2plsywhxQj9xT7FyXZwVVblaXabfGZvQ==}
@@ -18537,6 +18543,11 @@ snapshots:
       react-native-gesture-handler: 2.19.0(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1)
       react-native-reanimated: 3.15.5(@babel/core@7.26.7)(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1)
       use-latest-callback: 0.1.11(react@18.3.1)
+
+  react-native-edge-to-edge@1.4.3(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-native: 0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)
 
   react-native-gesture-handler@2.19.0(react-native@0.75.3(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3))(react@18.3.1):
     dependencies:

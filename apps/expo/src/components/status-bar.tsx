@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { SystemBars } from "react-native-edge-to-edge";
 import { useTheme } from "@react-navigation/native";
 
 interface Props {
@@ -14,14 +14,9 @@ export const StatusBar = ({ modal }: Props) => {
       // use whatever the underlying screen is using
       return null;
     } else {
-      return <ExpoStatusBar style="light" />;
+      return <SystemBars style="light" />;
     }
   } else {
-    return (
-      <ExpoStatusBar
-        style={theme.dark ? "light" : "dark"}
-        backgroundColor={theme.colors.card}
-      />
-    );
+    return <SystemBars style={theme.dark ? "light" : "dark"} />;
   }
 };

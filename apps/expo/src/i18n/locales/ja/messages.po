@@ -124,16 +124,16 @@ msgstr "@{handle}のミュートを解除しました"
 #~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:452
+#: src/components/screens/profile/profile-info.tsx:445
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> フォロワー"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:456
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> フォロー"
 
-#: src/components/screens/profile/profile-info.tsx:471
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> 投稿"
 
@@ -248,7 +248,7 @@ msgstr "画像を追加"
 msgid "Add to favourites"
 msgstr "お気に入りに追加"
 
-#: src/components/screens/profile/profile-info.tsx:716
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Add to list"
 msgstr "リストに追加"
 
@@ -392,7 +392,7 @@ msgstr "使用可能です"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:302
+#: src/components/screens/profile/profile-info.tsx:299
 msgid "Back"
 msgstr "戻る"
 
@@ -418,7 +418,7 @@ msgid "Block all members"
 msgstr "すべてのメンバーをブロック"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:728
 msgid "Block user"
 msgstr "ユーザーをブロック"
 
@@ -545,7 +545,7 @@ msgstr "ライブラリから選択"
 msgid "Circle graph"
 msgstr "サークルグラフ"
 
-#: src/app/images/[post].tsx:98
+#: src/app/images/[post].tsx:92
 msgid "Close image modal"
 msgstr "画像モーダルを閉じる"
 
@@ -846,7 +846,7 @@ msgstr "バナーを編集"
 msgid "Edit feeds"
 msgstr "フィードを編集"
 
-#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:612
 msgid "Edit profile"
 msgstr ""
 
@@ -940,7 +940,7 @@ msgid "Find people to follow"
 msgstr "フォローする人を見つけよう"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:392
-#: src/components/screens/profile/profile-info.tsx:416
+#: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "フォロー"
 
@@ -975,7 +975,7 @@ msgstr "フォロー中"
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
 #: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:391
+#: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "フォロー中"
@@ -987,7 +987,7 @@ msgid "following.list"
 msgstr "フォロー中"
 
 #: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:437
+#: src/components/screens/profile/profile-info.tsx:430
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "あなたをフォロー中"
@@ -996,7 +996,7 @@ msgstr "あなたをフォロー中"
 msgid "Forgot?"
 msgstr "忘れましたか?"
 
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Frequently Posts Unwanted Content"
 msgstr "よく投稿される不要なコンテンツ"
 
@@ -1109,7 +1109,7 @@ msgstr "無効なモード"
 msgid "It's currently set to the {current} theme"
 msgstr "現在は{current}に設定されています"
 
-#: src/components/screens/profile/profile-info.tsx:512
+#: src/components/screens/profile/profile-info.tsx:505
 msgid "Joined {0}"
 msgstr "{0}から参加しています"
 
@@ -1240,7 +1240,7 @@ msgstr "メンバー"
 msgid "Members of list \"{0}\""
 msgstr "「{0}」のリスト内のメンバー"
 
-#: src/components/screens/profile/profile-info.tsx:661
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Misleading Account"
 msgstr "誤解を招くアカウント"
 
@@ -1283,7 +1283,7 @@ msgid "Mute all members"
 msgstr "すべてのメンバーをミュート"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:719
 msgid "Mute user"
 msgstr "ユーザーをミュート"
 
@@ -1342,7 +1342,7 @@ msgstr "自分の言語"
 msgid "My lists"
 msgstr "マイリスト"
 
-#: src/components/screens/profile/profile-info.tsx:662
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Name or Description Violates Community Standards"
 msgstr "名前または説明がルールに違反"
 
@@ -1459,7 +1459,7 @@ msgid "Optional"
 msgstr "任意"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:663
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Other"
 msgstr "その他"
 
@@ -1710,7 +1710,7 @@ msgstr "何らかの投稿に返信"
 msgid "replying to..."
 msgstr "返信先:"
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:737
 msgid "Report account"
 msgstr "アカウントを報告"
 
@@ -1719,7 +1719,7 @@ msgid "Report post"
 msgstr "投稿を報告する"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:675
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Report submitted"
 msgstr "アカウントを報告しました"
 
@@ -1946,8 +1946,8 @@ msgstr "投稿のリンクを共有"
 msgid "Share post"
 msgstr "投稿を共有"
 
-#: src/components/screens/profile/profile-info.tsx:626
-#: src/components/screens/profile/profile-info.tsx:694
+#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:687
 msgid "Share profile"
 msgstr "プロフィールを共有"
 
@@ -2112,7 +2112,7 @@ msgid "Tap to toggle sound"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:676
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Thank you for making the skyline a safer place"
 msgstr "Skylineをより安全な場所にしてくれた事に感謝をします"
 
@@ -2171,15 +2171,15 @@ msgstr "この投稿はミュートした人からのものです"
 msgid "This thread is locked"
 msgstr "このスレッドはロックされています"
 
-#: src/components/screens/profile/profile-info.tsx:592
+#: src/components/screens/profile/profile-info.tsx:585
 msgid "This user has blocked you"
 msgstr "このユーザーはあなたをブロックしています"
 
-#: src/components/screens/profile/profile-info.tsx:557
+#: src/components/screens/profile/profile-info.tsx:550
 msgid "This user is on the \"{0}\" block list"
 msgstr "「{0}」のモデレーションリストでブロック中"
 
-#: src/components/screens/profile/profile-info.tsx:526
+#: src/components/screens/profile/profile-info.tsx:519
 msgid "This user is on the \"{0}\" mute list"
 msgstr "「{0}」のモデレーションリストでミュート中"
 
@@ -2211,7 +2211,7 @@ msgstr "トップ (3日以内)"
 msgid "Top (7d)"
 msgstr "トップ (7日以内)"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:702
 msgid "Translate bio"
 msgstr "プロフィールを翻訳"
 
@@ -2245,7 +2245,7 @@ msgstr "翻訳がDeepL翻訳で行なわれるようになりました"
 msgid "Trending topics"
 msgstr "トレンドのトピック"
 
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:560
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2280,7 +2280,7 @@ msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:529
 msgid "Unmute"
 msgstr "ミュートを解除"
 
@@ -2377,8 +2377,8 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:529
+#: src/components/screens/profile/profile-info.tsx:560
 msgid "View"
 msgstr "表示"
 
@@ -2414,7 +2414,7 @@ msgstr "Graysky Proへようこそ!"
 msgid "What's on your mind?"
 msgstr "何を考えているんだい?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:747
 msgid "What's the issue with this account?"
 msgstr "このアカウントの問題点は何ですか?"
 
@@ -2459,11 +2459,11 @@ msgstr "「いいね」や「返信」などのプッシュ通知の表示がで
 msgid "You don't have any moderation lists yet."
 msgstr "モデレーションリストはまだありません。"
 
-#: src/components/screens/profile/profile-info.tsx:562
+#: src/components/screens/profile/profile-info.tsx:555
 msgid "You have blocked this user"
 msgstr "このユーザーをブロック中"
 
-#: src/components/screens/profile/profile-info.tsx:531
+#: src/components/screens/profile/profile-info.tsx:524
 msgid "You have muted this user"
 msgstr "このユーザーをミュート中"
 

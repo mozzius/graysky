@@ -10,5 +10,5 @@
     "types": ["nativewind/types"]
   },
   "include": ["expo-plugins", "*.ts", "*.js", "index.tsx", "src"],
-  "exclude": ["node_modules", "metro.config.ts"]
+  "exclude": ["node_modules", "metro.config.js"]
 }

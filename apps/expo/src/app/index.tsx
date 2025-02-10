@@ -1,9 +1,9 @@
 import { View, type ImageSourcePropType } from "react-native";
+import { SystemBars } from "react-native-edge-to-edge";
 import { useMMKVObject } from "react-native-mmkv";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "expo-image";
-import { StatusBar } from "expo-status-bar";
 import { type AtpSessionData } from "@atproto/api";
 import { Trans } from "@lingui/macro";
 
@@ -17,7 +17,7 @@ export default function LandingPage() {
 
   return (
     <View className="flex-1 bg-[#3B4245]">
-      <StatusBar style="light" translucent backgroundColor="transparent" />
+      <SystemBars style="light" />
       <ImageBackground className="flex-1" source={background}>
         <SafeAreaView className="flex-1 items-stretch justify-between p-4">
           <View>

@@ -124,16 +124,16 @@ msgstr "@{handle} ya no está silenciado"
 #~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:452
+#: src/components/screens/profile/profile-info.tsx:445
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> Seguidores"
 
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:463
+#: src/components/screens/profile/profile-info.tsx:456
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> Siguiendo"
 
-#: src/components/screens/profile/profile-info.tsx:471
+#: src/components/screens/profile/profile-info.tsx:464
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> Posts"
 
@@ -248,7 +248,7 @@ msgstr "Añadir imagen"
 msgid "Add to favourites"
 msgstr "Agregar a mis favoritos"
 
-#: src/components/screens/profile/profile-info.tsx:716
+#: src/components/screens/profile/profile-info.tsx:709
 msgid "Add to list"
 msgstr "Añadir a una lista"
 
@@ -392,7 +392,7 @@ msgstr "Disponible"
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
 #: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:302
+#: src/components/screens/profile/profile-info.tsx:299
 msgid "Back"
 msgstr "Volver"
 
@@ -418,7 +418,7 @@ msgid "Block all members"
 msgstr "Bloquear a todos los miembros"
 
 #: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:735
+#: src/components/screens/profile/profile-info.tsx:728
 msgid "Block user"
 msgstr "Bloquear usuario"
 
@@ -545,7 +545,7 @@ msgstr "Elegir de la galería"
 msgid "Circle graph"
 msgstr "Círculo de interacción"
 
-#: src/app/images/[post].tsx:98
+#: src/app/images/[post].tsx:92
 msgid "Close image modal"
 msgstr "Cerrar ventana de imagen"
 
@@ -846,7 +846,7 @@ msgstr "Editar portada"
 msgid "Edit feeds"
 msgstr "Editar feeds"
 
-#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:612
 msgid "Edit profile"
 msgstr ""
 
@@ -940,7 +940,7 @@ msgid "Find people to follow"
 msgstr "Encuentra gente a quien seguir"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:392
-#: src/components/screens/profile/profile-info.tsx:416
+#: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "Seguir"
 
@@ -975,7 +975,7 @@ msgstr "Siguiendo"
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
 #: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:391
+#: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "Siguiendo"
@@ -987,7 +987,7 @@ msgid "following.list"
 msgstr "Siguiendo"
 
 #: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:437
+#: src/components/screens/profile/profile-info.tsx:430
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "Te sigue"
@@ -996,7 +996,7 @@ msgstr "Te sigue"
 msgid "Forgot?"
 msgstr "¿La olvidaste?"
 
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:653
 msgid "Frequently Posts Unwanted Content"
 msgstr "Publica contenido no deseado frecuentemente"
 
@@ -1109,7 +1109,7 @@ msgstr "Modo inválido"
 msgid "It's currently set to the {current} theme"
 msgstr "Tema actual: {current}"
 
-#: src/components/screens/profile/profile-info.tsx:512
+#: src/components/screens/profile/profile-info.tsx:505
 msgid "Joined {0}"
 msgstr "Se unió en {0}"
 
@@ -1240,7 +1240,7 @@ msgstr "Miembros"
 msgid "Members of list \"{0}\""
 msgstr "Miembros de la lista \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:661
+#: src/components/screens/profile/profile-info.tsx:654
 msgid "Misleading Account"
 msgstr "Cuenta engañosa"
 
@@ -1283,7 +1283,7 @@ msgid "Mute all members"
 msgstr "Silenciar a todos los miembros"
 
 #: src/components/post-context-menu.tsx:231
-#: src/components/screens/profile/profile-info.tsx:726
+#: src/components/screens/profile/profile-info.tsx:719
 msgid "Mute user"
 msgstr "Silenciar usuario"
 
@@ -1342,7 +1342,7 @@ msgstr "Mis idiomas"
 msgid "My lists"
 msgstr "Mis listas"
 
-#: src/components/screens/profile/profile-info.tsx:662
+#: src/components/screens/profile/profile-info.tsx:655
 msgid "Name or Description Violates Community Standards"
 msgstr "Su nombre o biografía viola las normas comunitarias"
 
@@ -1459,7 +1459,7 @@ msgid "Optional"
 msgstr "Opcional"
 
 #: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:663
+#: src/components/screens/profile/profile-info.tsx:656
 msgid "Other"
 msgstr "Otra razón"
 
@@ -1710,7 +1710,7 @@ msgstr "Respondiendo a algún tipo de post"
 msgid "replying to..."
 msgstr "respondiendo a..."
 
-#: src/components/screens/profile/profile-info.tsx:744
+#: src/components/screens/profile/profile-info.tsx:737
 msgid "Report account"
 msgstr "Reportar cuenta"
 
@@ -1719,7 +1719,7 @@ msgid "Report post"
 msgstr "Reportar post"
 
 #: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:675
+#: src/components/screens/profile/profile-info.tsx:668
 msgid "Report submitted"
 msgstr "Reporte enviado"
 
@@ -1946,8 +1946,8 @@ msgstr "Compartir enlace al post"
 msgid "Share post"
 msgstr "Compartir"
 
-#: src/components/screens/profile/profile-info.tsx:626
-#: src/components/screens/profile/profile-info.tsx:694
+#: src/components/screens/profile/profile-info.tsx:619
+#: src/components/screens/profile/profile-info.tsx:687
 msgid "Share profile"
 msgstr "Compartir perfil"
 
@@ -2112,7 +2112,7 @@ msgid "Tap to toggle sound"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:676
+#: src/components/screens/profile/profile-info.tsx:669
 msgid "Thank you for making the skyline a safer place"
 msgstr "Gracias por hacer el Skyline un lugar más seguro"
 
@@ -2171,15 +2171,15 @@ msgstr "Este post es de alguien que has silenciado"
 msgid "This thread is locked"
 msgstr "Este hilo está cerrado"
 
-#: src/components/screens/profile/profile-info.tsx:592
+#: src/components/screens/profile/profile-info.tsx:585
 msgid "This user has blocked you"
 msgstr "Este usuario te ha bloqueado"
 
-#: src/components/screens/profile/profile-info.tsx:557
+#: src/components/screens/profile/profile-info.tsx:550
 msgid "This user is on the \"{0}\" block list"
 msgstr "Este usuario está en la lista de bloqueo \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:526
+#: src/components/screens/profile/profile-info.tsx:519
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Este usuario está en la lista de silencio \"{0}\""
 
@@ -2211,7 +2211,7 @@ msgstr "Top (3d)"
 msgid "Top (7d)"
 msgstr "Top (7d)"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:702
 msgid "Translate bio"
 msgstr "Traducir biografía"
 
@@ -2245,7 +2245,7 @@ msgstr "Las traducciones ahora serán hechas por DeepL"
 msgid "Trending topics"
 msgstr "Tendencias"
 
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:560
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2280,7 +2280,7 @@ msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
+#: src/components/screens/profile/profile-info.tsx:529
 msgid "Unmute"
 msgstr "Desilenciar"
 
@@ -2377,8 +2377,8 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:536
-#: src/components/screens/profile/profile-info.tsx:567
+#: src/components/screens/profile/profile-info.tsx:529
+#: src/components/screens/profile/profile-info.tsx:560
 msgid "View"
 msgstr "Ver"
 
@@ -2414,7 +2414,7 @@ msgstr "¡Te damos la bienvenida a Graysky Pro!"
 msgid "What's on your mind?"
 msgstr "¿En qué estás pensando?"
 
-#: src/components/screens/profile/profile-info.tsx:754
+#: src/components/screens/profile/profile-info.tsx:747
 msgid "What's the issue with this account?"
 msgstr "¿Cuál es el problema con esta cuenta?"
 
@@ -2459,11 +2459,11 @@ msgstr "Puedes recibir notificaciones Push sobre me gustas, respuestas y mucho m
 msgid "You don't have any moderation lists yet."
 msgstr "Aún no tienes ninguna lista de moderación."
 
-#: src/components/screens/profile/profile-info.tsx:562
+#: src/components/screens/profile/profile-info.tsx:555
 msgid "You have blocked this user"
 msgstr "Has bloqueado a este usuario"
 
-#: src/components/screens/profile/profile-info.tsx:531
+#: src/components/screens/profile/profile-info.tsx:524
 msgid "You have muted this user"
 msgstr "Has silenciado a este usuario"
 
