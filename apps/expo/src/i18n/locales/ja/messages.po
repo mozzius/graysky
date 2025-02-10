@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "リストの取得ができませんでした"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "新規投稿を作成"
+#~ msgid "Create a new post"
+#~ msgstr "新規投稿を作成"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "フィード"
 msgid "Feed Details"
 msgstr "フィードの詳細"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "未実装"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "注意: iOSではアダルトコンテンツ設定は変更できません。Webアプリをご利用ください。"
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "通知"
@@ -1542,7 +1542,7 @@ msgstr "その間は、公式アプリを使用してください。ごめんな
 msgid "Pornographic content"
 msgstr "ポルノ"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "Proの設定"
 msgid "Pro version information and purchase"
 msgstr "Proバージョンの情報と購入"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "プロフィール"
 
@@ -1797,7 +1797,7 @@ msgstr "保存しました"
 msgid "Saved image to gallery"
 msgstr "画像をギャラリーに保存しました"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "サインアップ"
 msgid "Sign up for project updates"
 msgstr "プロジェクトの最新情報を登録する"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "提案されたフォロー"
 msgid "Support development"
 msgstr "開発者をサポート"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "アカウントを切り替え"
 

@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "القائمة غير متاحة حاليا"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "أنشئي منشورًا جديدًا"
+#~ msgid "Create a new post"
+#~ msgstr "أنشئي منشورًا جديدًا"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "موجز"
 msgid "Feed Details"
 msgstr "تفاصيل الموجز"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "لم تنفذ حتى الآن"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "ملاحظة: لا يمكن تغيير إعدادات المحتوى للبالغين على نظام iOS. الرجاء استخدام تطبيق الويب بدلاً من ذلك."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "الإشعارات"
@@ -1542,7 +1542,7 @@ msgstr "الرجاء استخدام التطبيق الرسمي في هذه ال
 msgid "Pornographic content"
 msgstr "المحتوى الإباحي"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "إعدادات متقدمة"
 msgid "Pro version information and purchase"
 msgstr "معلومات الإصدار الاحترافي والشراء"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "الملف الشخصي"
 
@@ -1797,7 +1797,7 @@ msgstr "تم الحفظ"
 msgid "Saved image to gallery"
 msgstr "حفظ الصورة في معرض الصور"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "تسجيل"
 msgid "Sign up for project updates"
 msgstr "تسجيل للحصول على تحديثات المشروع"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "السماء"
@@ -2086,7 +2086,7 @@ msgstr "المتابعة المقترحة"
 msgid "Support development"
 msgstr "دعم تطوير التطبيق"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "تبديل الحسابات"
 

@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "Nepodařilo se načíst seznamy"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "Vytvořit nový příspěvek"
+#~ msgid "Create a new post"
+#~ msgstr "Vytvořit nový příspěvek"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "Kanál"
 msgid "Feed Details"
 msgstr "Podrobnosti kanálu"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "Zatím neimplementováno"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Poznámka: Nastavení obsahu pro dospělé nelze změnit na iOS. Použijte prosím webovou aplikaci."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Oznámení"
@@ -1542,7 +1542,7 @@ msgstr "Použijte prosím prozatím oficiální aplikaci. Omlouváme se!"
 msgid "Pornographic content"
 msgstr "Pornografický obsah"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "Pro nastavení"
 msgid "Pro version information and purchase"
 msgstr "Informace o verzi Pro a platbě"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "Profil"
 
@@ -1797,7 +1797,7 @@ msgstr "Uloženo"
 msgid "Saved image to gallery"
 msgstr "Obrázek uložen do galerie"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "Registrace"
 msgid "Sign up for project updates"
 msgstr "Odebírejte novinky o projektu"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "Navržené účty ke sledování"
 msgid "Support development"
 msgstr "Podpora vývoje"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "Přepnout účet"
 

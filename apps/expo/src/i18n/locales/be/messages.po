@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "Не атрымалася загрузіць спісы"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "Новы допіс"
+#~ msgid "Create a new post"
+#~ msgstr "Новы допіс"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "Стужка"
 msgid "Feed Details"
 msgstr "Звесткі пра стужку"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "Яшчэ не зроблена"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Заўвага: налады змесціва для дарослых не могуць быць змененыя з iOS. Калі ласка, выкарыстоўвайце вэб-версію."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Апавяшчэнні"
@@ -1542,7 +1542,7 @@ msgstr "Калі ласка, скарыстайцеся афіцыйнай пр�
 msgid "Pornographic content"
 msgstr "Парнаграфічны кантэнт"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "Налады Pro"
 msgid "Pro version information and purchase"
 msgstr "Інфармацыя пра Pro версію і купля"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "Профіль"
 
@@ -1797,7 +1797,7 @@ msgstr "Захавана"
 msgid "Saved image to gallery"
 msgstr "Відарыс захаваны ў галерэю"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "Зарэгістравацца"
 msgid "Sign up for project updates"
 msgstr "Падпішыцеся на абнаўленні праекту"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "На каго падпісацца"
 msgid "Support development"
 msgstr "Падтрымка распрацоўкі"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "Пераключэнне Уліковых Запісаў"
 

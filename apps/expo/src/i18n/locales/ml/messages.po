@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "ലിസ്റ്റ് എടുക്കുവാൻ സാധ്യമായില്ല"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "പുതിയ പോസ്റ്റ് ക്രിയേറ്റ് ചെയ്യാം"
+#~ msgid "Create a new post"
+#~ msgstr "പുതിയ പോസ്റ്റ് ക്രിയേറ്റ് ചെയ്യാം"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "ഫീഡ്"
 msgid "Feed Details"
 msgstr "ഫീഡ് വിവരങ്ങൾ"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "ഇതുവരെ നടപ്പാക്കിയിട്ടില�
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "ശ്രദ്ധിക്കുക: iOS-ൽ മുതിർന്നവർക്കുള്ള ഉള്ളടക്ക ക്രമീകരണങ്ങൾ മാറ്റാൻ കഴിയില്ല. പകരം വെബ് ആപ്പ് ഉപയോഗിക്കുക."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "അറിയിപ്പുകൾ"
@@ -1542,7 +1542,7 @@ msgstr "അതിനിടയിൽ ദയവായി ഔദ്യോഗിക 
 msgid "Pornographic content"
 msgstr "അശ്ലീല ഉള്ളടക്കം"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "പ്രോ ക്രമീകരണങ്ങൾ"
 msgid "Pro version information and purchase"
 msgstr "പ്രോ പതിപ്പ് വിവരങ്ങളും വാങ്ങലും"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "പ്രൊഫൈൽ"
 
@@ -1797,7 +1797,7 @@ msgstr "സൂക്ഷിച്ചു"
 msgid "Saved image to gallery"
 msgstr "ചിത്രം ഗാലറിയിൽ സൂക്ഷിച്ചു"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "സൈൻ അപ്പ് ചെയ്യുക"
 msgid "Sign up for project updates"
 msgstr "പ്രോജക്റ്റ് അപ്‌ഡേറ്റുകൾക്കായി സൈൻ അപ്പ് ചെയ്യുക"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "സ്കൈലൈൻ"
@@ -2086,7 +2086,7 @@ msgstr "താല്പര്യം ഉണ്ടെങ്കിൽ പിന്�
 msgid "Support development"
 msgstr "വികസനത്തെ പിന്തുണയ്ക്കുക"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "അക്കൗണ്ടുകൾ മാറുക"
 

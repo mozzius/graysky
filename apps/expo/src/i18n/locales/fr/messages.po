@@ -665,8 +665,8 @@ msgid "Couldn't fetch lists"
 msgstr "Impossible de récupérer les listes"
 
 #: src/app/(tabs)/_layout.tsx:182
-msgid "Create a new post"
-msgstr "Créez une nouvelle publication"
+#~ msgid "Create a new post"
+#~ msgstr "Créez une nouvelle publication"
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -919,7 +919,7 @@ msgstr "Flux"
 msgid "Feed Details"
 msgstr "Détails du flux"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:97
@@ -1413,7 +1413,7 @@ msgstr "Pas encore implémenté"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Remarque : les paramètres de contenu pour adultes ne peuvent pas être modifiés sur iOS. Veuillez utiliser l'application web à la place."
 
-#: src/app/(tabs)/_layout.tsx:223
+#: src/app/(tabs)/_layout.tsx:235
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Notifications"
@@ -1542,7 +1542,7 @@ msgstr "Veuillez utiliser l'application officielle en attendant. Désolé !"
 msgid "Pornographic content"
 msgstr "Contenu pornographique"
 
-#: src/app/(tabs)/_layout.tsx:181
+#: src/app/(tabs)/_layout.tsx:190
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1624,7 +1624,7 @@ msgstr "Paramètres pro."
 msgid "Pro version information and purchase"
 msgstr "Informations sur la version Pro et achat"
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:253
 msgid "Profile"
 msgstr "Profil"
 
@@ -1797,7 +1797,7 @@ msgstr "Sauvegardé"
 msgid "Saved image to gallery"
 msgstr "Image enregistrée dans la galerie"
 
-#: src/app/(tabs)/_layout.tsx:172
+#: src/app/(tabs)/_layout.tsx:177
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -2019,7 +2019,7 @@ msgstr "S'inscrire"
 msgid "Sign up for project updates"
 msgstr "S'inscrire pour les mises à jour du projet"
 
-#: src/app/(tabs)/_layout.tsx:159
+#: src/app/(tabs)/_layout.tsx:155
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "Suggestion de personnes à suivre"
 msgid "Support development"
 msgstr "Soutenir le développement"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "Changer de compte"
 
