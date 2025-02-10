@@ -178,7 +178,7 @@ export default function AppLayout() {
               tabBarIcon: () =>
                 Platform.select({
                   ios: {
-                    sfSymbol: "magngifyingglass",
+                    sfSymbol: "magnifyingglass",
                   },
                   android: require("../../../assets/tabs/search.svg"),
                 }),
