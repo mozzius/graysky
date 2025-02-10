@@ -8,7 +8,7 @@ msgstr ""
 "Language: ar\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-09 22:06\n"
+"PO-Revision-Date: 2025-02-10 12:51\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 #~ msgid "{0} posts"
-#~ msgstr "منشورات {0}"
+#~ msgstr ""
 
 #: src/components/notification/index.tsx:243
 msgid "{2} and {3} others"
@@ -121,7 +121,7 @@ msgstr "@{handle} لم يعد مكتوماً"
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-#~ msgstr "<0>{0, plural, zero {} one {{4} و {5} آخرين} two {{4} و {5} آخرين} few {{4} و {5} آخرين} many {{4} و {5} آخرين}=1 {{1}} =2 {{2} و {3}} other {{4} و {5} آخرين}}</0><1>{6}</1>"
+#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:452
@@ -666,7 +666,7 @@ msgstr "القائمة غير متاحة حاليا"
 
 #: src/app/(tabs)/_layout.tsx:182
 #~ msgid "Create a new post"
-#~ msgstr "أنشئي منشورًا جديدًا"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -674,7 +674,7 @@ msgstr "إنشاء حساب"
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
-#~ msgstr "إنشاء حساب"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:239
 msgid "Create list"
@@ -1987,7 +1987,7 @@ msgstr "إظهار كل إشعار على حدة في علامة التبويب 
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 #~ msgid "Show less"
-#~ msgstr "أظهِر أقل"
+#~ msgstr ""
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"

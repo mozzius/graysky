@@ -8,7 +8,7 @@ msgstr ""
 "Language: ml\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-08 16:06\n"
+"PO-Revision-Date: 2025-02-10 12:51\n"
 "Last-Translator: \n"
 "Language-Team: Malayalam\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 #~ msgid "{0} posts"
-#~ msgstr "{0} / പോസ്റ്റുകൾ"
+#~ msgstr ""
 
 #: src/components/notification/index.tsx:243
 msgid "{2} and {3} others"
@@ -121,7 +121,7 @@ msgstr "@{handle} ഇനി മ്യുട്ട് ചെയ്യപ്പെ
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
-#~ msgstr "<0>{0, plural, =1 {{1}} =2 {{2} കൂടെ {3}} other {{4} കൂടെ {5} മറ്റുള്ളവരും}}</0><1>{6}</1>"
+#~ msgstr ""
 
 #: src/components/drawer/actor-details.tsx:49
 #: src/components/screens/profile/profile-info.tsx:452
@@ -666,7 +666,7 @@ msgstr "ലിസ്റ്റ് എടുക്കുവാൻ സാധ്യ�
 
 #: src/app/(tabs)/_layout.tsx:182
 #~ msgid "Create a new post"
-#~ msgstr "പുതിയ പോസ്റ്റ് ക്രിയേറ്റ് ചെയ്യാം"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:437
 msgid "Create Account"
@@ -674,7 +674,7 @@ msgstr "അക്കൗണ്ട് സൃഷ്ടിക്കുക"
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
-#~ msgstr "ഒരു അക്കൗണ്ട് സൃഷ്ടിക്കുക"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:239
 msgid "Create list"
@@ -1987,7 +1987,7 @@ msgstr "അറിയിപ്പ് ടാബിൽ ഓരോ അറിയിപ
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:315
 #~ msgid "Show less"
-#~ msgstr "കുറച്ച് കാണിക്കുക"
+#~ msgstr ""
 
 #: src/app/settings/app.tsx:60
 msgid "Show lists above feeds in the feeds tab"
