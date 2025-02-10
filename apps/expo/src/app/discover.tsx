@@ -1,11 +1,10 @@
 import { Fragment, useCallback, useState } from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
-import { SystemBars } from "react-native-edge-to-edge";
 import { Stack, useRouter } from "expo-router";
 import { AppBskyActorDefs } from "@atproto/api";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react-native";
 
@@ -16,6 +15,7 @@ import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { cx } from "~/lib/utils/cx";
 
 // TODO: make this a flashlist and add a cursor to the query
 
@@ -25,7 +25,6 @@ export default function DiscoveryPage() {
   const theme = useTheme();
   const [search, setSearch] = useState("");
   const router = useRouter();
-  const isFocused = useIsFocused();
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: _(msg`Search feeds`),
     onChangeText: (evt) => setSearch(evt.nativeEvent.text),
@@ -80,11 +79,17 @@ export default function DiscoveryPage() {
         className="flex-1 px-4"
         contentInsetAdjustmentBehavior="automatic"
       >
-        {/* {isFocused && <SystemBars style="light" />} */}
+        <StatusBar modal />
         <Stack.Screen options={{ headerSearchBarOptions, headerRight }} />
         <View
           style={{ backgroundColor: theme.colors.card }}
-          className="my-2 overflow-hidden rounded-lg"
+          className={cx(
+            "overflow-hidden rounded-lg",
+            Platform.select({
+              ios: "my-1",
+              android: "my-4",
+            }),
+          )}
         >
           {recommended.data.map((feed, i, arr) => (
             <Fragment key={feed.uri}>
@@ -108,6 +113,7 @@ export default function DiscoveryPage() {
   return (
     <>
       <Stack.Screen options={{ headerSearchBarOptions, headerRight }} />
+      <StatusBar modal />
       <QueryWithoutData query={recommended} />
     </>
   );

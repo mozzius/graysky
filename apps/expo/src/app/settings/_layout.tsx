@@ -33,9 +33,6 @@ export default function SettingsLayout() {
                   </Animated.View>
                 ),
             },
-            android: {
-              animation: "ios",
-            },
           }),
         }}
       >

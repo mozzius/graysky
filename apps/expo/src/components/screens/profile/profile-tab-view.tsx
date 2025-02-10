@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { Platform } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
-import { SystemBars } from "react-native-edge-to-edge";
 import { Stack } from "expo-router";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
 
+import { StatusBar } from "~/components/status-bar";
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";
 import { QueryWithoutData } from "../../query-without-data";
 import {
@@ -37,7 +37,6 @@ export const ProfileTabView = ({
   const theme = useTheme();
   const headerHeight = useDefaultHeaderHeight();
   const { _ } = useLingui();
-  const isFocused = useIsFocused();
 
   const numberOfFeeds = feeds.data?.pages?.[0]?.feeds?.length ?? 0;
   const numberOfLists = lists.data?.pages?.[0]?.lists?.length ?? 0;
@@ -58,7 +57,7 @@ export const ProfileTabView = ({
             title: profile.data.displayName ?? `@${profile.data.handle}`,
           }}
         />
-        {isFocused && <SystemBars style="light" />}
+        <StatusBar style="light" />
         <Tabs.Container
           minHeaderHeight={headerHeight}
           initialTabName={initial}
@@ -109,7 +108,7 @@ export const ProfileTabView = ({
           headerShown: false,
         }}
       />
-      {isFocused && <SystemBars style="light" />}
+      <StatusBar style="light" />
       <QueryWithoutData query={profile} />
     </>
   );

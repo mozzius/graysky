@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { SystemBars } from "react-native-edge-to-edge";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -15,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
 
 import { ImageViewer } from "~/components/image-viewer";
+import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
 
 export default function ImageModal() {
@@ -86,7 +86,7 @@ export default function ImageModal() {
 
   return (
     <View className="relative flex-1 bg-black">
-      <SystemBars style="light" />
+      <StatusBar style="light" applyToNavigationBar />
       {infoVisible && (
         <TouchableOpacity
           accessibilityLabel={_(msg`Close image modal`)}

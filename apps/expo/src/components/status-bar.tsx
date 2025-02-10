@@ -1,25 +1,37 @@
+import { useCallback } from "react";
 import { Platform } from "react-native";
 import { SystemBars } from "react-native-edge-to-edge";
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface Props {
+  style?: "light" | "dark" | "auto";
   modal?: boolean;
-  force?: boolean;
+  applyToNavigationBar?: boolean;
 }
 
-export const StatusBar = ({ modal, force }: Props) => {
-  const isFocused = useIsFocused();
+export const StatusBar = ({ style, modal, applyToNavigationBar }: Props) => {
+  useFocusEffect(
+    useCallback(() => {
+      let statusBarStyle: "light" | "dark" | "auto" = style ?? "auto";
+      if (modal) {
+        if (Platform.OS === "ios" ? Platform.isPad : true) {
+          // use whatever the underlying screen is using
+          return;
+        } else {
+          statusBarStyle = style ?? "light";
+        }
+      }
+      const entry = SystemBars.pushStackEntry({
+        style: {
+          statusBar: statusBarStyle,
+          navigationBar: applyToNavigationBar ? statusBarStyle : undefined,
+        },
+      });
+      return () => {
+        SystemBars.popStackEntry(entry);
+      };
+    }, []),
+  );
 
-  if (!isFocused && !force) return null;
-
-  if (modal && Platform.OS === "ios") {
-    if (Platform.isPad) {
-      // use whatever the underlying screen is using
-      return null;
-    } else {
-      return <SystemBars style="light" />;
-    }
-  } else {
-    return <SystemBars style="auto" />;
-  }
+  return null;
 };
