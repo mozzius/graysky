@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this (???)
+import "ts-node/register";
+
 import type { ConfigContext, ExpoConfig } from "@expo/config";
 import dotenv from "dotenv";
 
@@ -72,11 +74,15 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     typedRoutes: false, // too much string interpolation :(
   },
   plugins: [
+    "./plugins/withStaticPods.ts",
+    "react-native-bottom-tabs",
     [
       "expo-build-properties",
       {
         ios: {
           deploymentTarget: "14.0",
+          useFrameworks: "static",
+          ccacheEnabled: true,
         },
       },
     ],
