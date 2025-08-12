@@ -8,11 +8,11 @@
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "dotenv-cli": "^7.4.1",
-    "eslint": "^9.0.0",
-    "prettier": "^3.2.5",
+    "dotenv-cli": "^10.0.0",
+    "eslint": "^9.33.0",
+    "prettier": "^3.6.2",
     "prisma": "^5.12.1",
-    "typescript": "^5.4.4"
+    "typescript": "^5.9.2"
   },
   "eslintConfig": {
     "extends": [

@@ -187,7 +187,7 @@ msgstr "3 з 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць нумар тэлефона.</0>"
 
-#: src/app/settings/_layout.tsx:116
+#: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "А праграме"
@@ -216,7 +216,7 @@ msgstr "Уліковы запіс выдалены. Да пабачэння!"
 msgid "Account Details"
 msgstr "Звесткі ўліковага запісу"
 
-#: src/app/settings/_layout.tsx:62
+#: src/app/settings/_layout.tsx:59
 msgid "Account Settings"
 msgstr "Налады ўліковага запісу"
 
@@ -361,7 +361,7 @@ msgstr "Паролі праграм"
 msgid "App settings"
 msgstr "Налады праграмы"
 
-#: src/app/settings/_layout.tsx:104
+#: src/app/settings/_layout.tsx:101
 msgid "App Settings"
 msgstr "Налады праграмы"
 
@@ -434,7 +434,7 @@ msgstr "Допіс заблакіраваны"
 msgid "Blocked users"
 msgstr "Заблакіраваныя карыстальнікі"
 
-#: src/app/settings/_layout.tsx:92
+#: src/app/settings/_layout.tsx:89
 msgid "Blocked Users"
 msgstr "Заблакіраваныя карыстальнікі"
 
@@ -498,12 +498,12 @@ msgstr "Падпісваючыся, вы пагаджаецеся з <0>Умов
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: src/app/settings/_layout.tsx:68
+#: src/app/settings/_layout.tsx:65
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "Змяніць ідэнтыфікатар"
 
-#: src/app/settings/_layout.tsx:74
+#: src/app/settings/_layout.tsx:71
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "Змяніць пароль"
@@ -569,11 +569,11 @@ msgstr "Звязацца"
 msgid "Content filters"
 msgstr "Фільтрацыя змесціва"
 
-#: src/app/settings/_layout.tsx:134
+#: src/app/settings/_layout.tsx:131
 msgid "Content Languages"
 msgstr "Мовы змесціва"
 
-#: src/app/composer/_layout.tsx:81
+#: src/app/composer/_layout.tsx:76
 msgid "Content Warning"
 msgstr "Папярэджанне аб змесціве"
 
@@ -731,7 +731,7 @@ msgstr "Дата нараджэння"
 msgid "Delete"
 msgstr "Выдаліць"
 
-#: src/app/settings/_layout.tsx:80
+#: src/app/settings/_layout.tsx:77
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -810,7 +810,7 @@ msgstr "Не ўключаць"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
-#: src/app/discover.tsx:66
+#: src/app/discover.tsx:67
 #: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
@@ -821,7 +821,7 @@ msgstr "Гатова"
 msgid "Double check that you understand"
 msgstr "Пераканайцеся, што вы зразумелі"
 
-#: src/app/composer/_layout.tsx:73
+#: src/app/composer/_layout.tsx:68
 msgid "Drafts"
 msgstr "Чарнавікі"
 
@@ -919,10 +919,10 @@ msgstr "Стужка"
 msgid "Feed Details"
 msgstr "Звесткі пра стужку"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:164
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
-#: src/components/screens/profile/profile-tab-view.tsx:97
+#: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "Стужкі"
 
@@ -1008,15 +1008,15 @@ msgstr "Агульнае"
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Аформіце падпіску Graysky Pro, каб атрымаць доступ да перакладаў з дапамогай DeepL. Інакш будзе выкарыстоўвацца Google Translate."
 
-#: src/components/screens/waiting-room.tsx:105
+#: src/components/screens/waiting-room.tsx:84
 msgid "Get started"
 msgstr "Пачаць"
 
-#: src/components/screens/waiting-room.tsx:53
+#: src/components/screens/waiting-room.tsx:41
 msgid "Getting queue position..."
 msgstr "Загрузка пазіцыі ў чарзе..."
 
-#: src/app/composer/_layout.tsx:97
+#: src/app/composer/_layout.tsx:92
 msgid "GIFs"
 msgstr "GIF"
 
@@ -1065,7 +1065,7 @@ msgstr "Хаваць"
 msgid "Home feed preferences"
 msgstr "Налады галоўнага экрана"
 
-#: src/app/settings/_layout.tsx:110
+#: src/app/settings/_layout.tsx:107
 msgid "Home Feed Preferences"
 msgstr "Налады галоўнага экрана"
 
@@ -1113,7 +1113,7 @@ msgstr "Бягучая тэма: {current}"
 msgid "Joined {0}"
 msgstr "Рэгістрацыя: {0}"
 
-#: src/app/settings/_layout.tsx:122
+#: src/app/settings/_layout.tsx:119
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "Мовы"
@@ -1132,7 +1132,7 @@ msgid "liked your post"
 msgstr "упадабаў ваш допіс"
 
 #: src/components/lists/likes-list.tsx:56
-#: src/components/screens/profile/profile-tab-view.tsx:93
+#: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr "Упадабанае"
 
@@ -1176,22 +1176,22 @@ msgstr "Назва спіса"
 msgid "List unfavourited"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:102
+#: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
 msgstr "Спісы"
 
-#: src/app/(auth)/_layout.tsx:66
+#: src/app/(auth)/_layout.tsx:61
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Увайсці зноў"
 
-#: src/app/(auth)/_layout.tsx:54
+#: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
 msgstr "Увайсці"
 
-#: src/components/screens/waiting-room.tsx:109
+#: src/components/screens/waiting-room.tsx:88
 msgid "Log out"
 msgstr "Зарэгістравацца"
 
@@ -1227,7 +1227,7 @@ msgstr "Абавязковы альтэрнатыўны тэкст"
 msgid "Manually sort non-favourite feeds"
 msgstr "Сартаваць не абраныя стужкі ўручную"
 
-#: src/components/screens/profile/profile-tab-view.tsx:90
+#: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Media"
 msgstr "Медыя"
 
@@ -1249,7 +1249,7 @@ msgstr "Падстаўны ўліковы запіс"
 msgid "Missing alt text"
 msgstr "Альтэрнатыўны тэкст адсутнічае"
 
-#: src/app/settings/_layout.tsx:86
+#: src/app/settings/_layout.tsx:83
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "Мадэрацыя"
@@ -1299,7 +1299,7 @@ msgstr "Ігнараваны спіс"
 msgid "Muted users"
 msgstr "Ігнараваныя карыстальнікі"
 
-#: src/app/settings/_layout.tsx:98
+#: src/app/settings/_layout.tsx:95
 msgid "Muted Users"
 msgstr "Ігнараваныя карыстальнікі"
 
@@ -1362,7 +1362,7 @@ msgstr "Новы падпісчык: {0} @{1}"
 msgid "New Password"
 msgstr "Новы пароль"
 
-#: src/app/composer/_layout.tsx:72
+#: src/app/composer/_layout.tsx:67
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "Новы допіс"
@@ -1413,7 +1413,7 @@ msgstr "Яшчэ не зроблена"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Заўвага: налады змесціва для дарослых не могуць быць змененыя з iOS. Калі ласка, выкарыстоўвайце вэб-версію."
 
-#: src/app/(tabs)/_layout.tsx:235
+#: src/app/(tabs)/_layout.tsx:244
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Апавяшчэнні"
@@ -1477,7 +1477,7 @@ msgstr "Пароль зменены паспяхова!"
 msgid "Password must be at least 8 characters"
 msgstr "Пароль мае змяшчаць прынамсі 8 сімвалаў"
 
-#: src/components/screens/waiting-room.tsx:89
+#: src/components/screens/waiting-room.tsx:77
 msgid "people ahead of you."
 msgstr "людзей паперад вас."
 
@@ -1542,7 +1542,7 @@ msgstr "Калі ласка, скарыстайцеся афіцыйнай пр�
 msgid "Pornographic content"
 msgstr "Парнаграфічны кантэнт"
 
-#: src/app/(tabs)/_layout.tsx:190
+#: src/app/(tabs)/_layout.tsx:199
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1561,7 +1561,7 @@ msgstr "Апублікаваць кола"
 msgid "Post deleted"
 msgstr "Допіс выдалены"
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:71
 msgid "Post Language"
 msgstr "Мова допісу"
 
@@ -1585,7 +1585,7 @@ msgstr "Тэкст допісу (не абавязкова)"
 msgid "Post text copied to clipboard"
 msgstr "Тэкст допісу скапіяваны ў буфер абмену"
 
-#: src/components/screens/profile/profile-tab-view.tsx:84
+#: src/components/screens/profile/profile-tab-view.tsx:76
 msgid "Posts"
 msgstr "Допісы"
 
@@ -1612,11 +1612,11 @@ msgstr "Асноўная стужка"
 msgid "Primary language"
 msgstr "Асноўная мова"
 
-#: src/app/settings/_layout.tsx:128
+#: src/app/settings/_layout.tsx:125
 msgid "Primary Language"
 msgstr "Асноўная мова"
 
-#: src/app/settings/_layout.tsx:56
+#: src/app/settings/_layout.tsx:53
 msgid "Pro Settings"
 msgstr "Налады Pro"
 
@@ -1624,7 +1624,7 @@ msgstr "Налады Pro"
 msgid "Pro version information and purchase"
 msgstr "Інфармацыя пра Pro версію і купля"
 
-#: src/app/(tabs)/_layout.tsx:253
+#: src/app/(tabs)/_layout.tsx:262
 msgid "Profile"
 msgstr "Профіль"
 
@@ -1665,11 +1665,11 @@ msgstr "Выпадкова"
 msgid "Read full ALT text"
 msgstr "Прачытаць поўны альтэрнатыўны тэкст"
 
-#: src/components/screens/profile/profile-tab-view.tsx:87
+#: src/components/screens/profile/profile-tab-view.tsx:79
 msgid "Replies"
 msgstr "Адказы"
 
-#: src/app/composer/_layout.tsx:89
+#: src/app/composer/_layout.tsx:84
 msgid "Reply Controls"
 msgstr "Налады адказаў"
 
@@ -1751,7 +1751,7 @@ msgstr "Атрымаць код"
 msgid "Reset Code"
 msgstr "Код для скіду пароля"
 
-#: src/app/(auth)/_layout.tsx:60
+#: src/app/(auth)/_layout.tsx:55
 msgid "Reset password"
 msgstr "Скінуць пароль"
 
@@ -1797,7 +1797,7 @@ msgstr "Захавана"
 msgid "Saved image to gallery"
 msgstr "Відарыс захаваны ў галерэю"
 
-#: src/app/(tabs)/_layout.tsx:177
+#: src/app/(tabs)/_layout.tsx:186
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1809,7 +1809,7 @@ msgstr "Шукаць сярод усіх карыстальнікаў"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/discover.tsx:28
+#: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "Пошук стужак"
 
@@ -1896,7 +1896,7 @@ msgstr "Адправіць ліст з пацвярджэннем"
 msgid "Send reset email"
 msgstr "Адправіць ліст для скіду пароля"
 
-#: src/app/settings/_layout.tsx:45
+#: src/app/settings/_layout.tsx:42
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -2011,7 +2011,7 @@ msgstr "Паказваць пашыраныя допісы"
 msgid "Sign out"
 msgstr "Выйсці"
 
-#: src/app/(auth)/_layout.tsx:48
+#: src/app/(auth)/_layout.tsx:43
 msgid "Sign up"
 msgstr "Зарэгістравацца"
 
@@ -2019,7 +2019,7 @@ msgstr "Зарэгістравацца"
 msgid "Sign up for project updates"
 msgstr "Падпішыцеся на абнаўленні праекту"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:164
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "На каго падпісацца"
 msgid "Support development"
 msgstr "Падтрымка распрацоўкі"
 
-#: src/app/(tabs)/_layout.tsx:120
+#: src/app/(tabs)/_layout.tsx:113
 msgid "Switch Accounts"
 msgstr "Пераключэнне Уліковых Запісаў"
 
@@ -2402,7 +2402,7 @@ msgstr "Увага: уліковы запіс выдаляецца назаўс�
 msgid "Welcome to Bluesky!"
 msgstr "Вітаем у Bluesky!"
 
-#: src/components/screens/waiting-room.tsx:74
+#: src/components/screens/waiting-room.tsx:62
 msgid "Welcome to Bluesky! We're excited to have you."
 msgstr "Вітаем у Bluesky! Мы ў захапленні, што вы з намі."
 
@@ -2495,11 +2495,11 @@ msgstr "Магчыма, вы захочаце скарыстацца парол�
 msgid "You will no longer see posts from @{handle}"
 msgstr "Вы болей не будзеце бачыць допісы ад @{handle}"
 
-#: src/components/screens/waiting-room.tsx:80
+#: src/components/screens/waiting-room.tsx:68
 msgid "You're in the queue to join Bluesky!"
 msgstr "Вы ў чарзе, каб далучыцца да Bluesky!"
 
-#: src/components/screens/waiting-room.tsx:68
+#: src/components/screens/waiting-room.tsx:56
 msgid "You're in!"
 msgstr "Вы з намі!"
 

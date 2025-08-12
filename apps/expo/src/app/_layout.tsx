@@ -298,7 +298,7 @@ const App = () => {
                             options={{
                               headerShown: false,
                               animation: "fade",
-                              customAnimationOnGesture: true,
+                              animationMatchesGesture: true,
                             }}
                           />
                           <Stack.Screen

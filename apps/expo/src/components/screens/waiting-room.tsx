@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Trans } from "@lingui/macro";
-import { ProgressView } from "@react-native-community/progress-view";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { styled } from "nativewind";
 
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
@@ -12,13 +10,8 @@ import { Button } from "../button";
 import { Confetti } from "../confetti";
 import { Text } from "../themed/text";
 
-const ProgressBar = styled(ProgressView);
-
 export const WaitingRoom = () => {
   const agent = useAgent();
-  const [initialQueuePosition, setInitialQueuePosition] = useState<
-    number | null
-  >(null);
   const logOut = useLogOut();
 
   const queue = useQuery({
@@ -33,11 +26,6 @@ export const WaitingRoom = () => {
   });
 
   const placeInQueue = queue.data?.placeInQueue;
-
-  useEffect(() => {
-    if (typeof placeInQueue !== "number") return;
-    setInitialQueuePosition((pos) => pos ?? placeInQueue);
-  }, [placeInQueue]);
 
   const { mutate: logIn } = useMutation({
     mutationFn: async () => {
@@ -88,15 +76,6 @@ export const WaitingRoom = () => {
             <Text className="mt-2 text-center text-base">
               <Trans>people ahead of you.</Trans>
             </Text>
-            {initialQueuePosition !== null && (
-              <ProgressBar
-                className="mt-8 w-3/4"
-                progress={
-                  (initialQueuePosition - (placeInQueue ?? 0)) /
-                  initialQueuePosition
-                }
-              />
-            )}
           </>
         )}
       </View>

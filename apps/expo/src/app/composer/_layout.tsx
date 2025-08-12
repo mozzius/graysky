@@ -61,7 +61,7 @@ export default function ComposerLayout() {
         <StatusBar modal />
         <Stack
           screenOptions={{
-            customAnimationOnGesture: true,
+            animationMatchesGesture: true,
           }}
         >
           <Stack.Screen name="index" options={{ title: _(msg`New Post`) }} />

@@ -138,6 +138,7 @@ export default function AppLayout() {
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={dimensions.width}
+        // @ts-expect-error hmm
         swipeEnabled={segments.length === 3}
       >
         <Tabs
@@ -155,6 +156,7 @@ export default function AppLayout() {
                 : colors.neutral[600]
               : undefined
           }
+          minimizeBehavior="onScrollDown"
         >
           <Tabs.Screen
             name="(feeds)"

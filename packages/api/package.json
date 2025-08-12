@@ -6,23 +6,23 @@
     "@atproto/identity": "^0.4.0",
     "@atproto/xrpc-server": "^0.6.4",
     "@graysky/db": "0.1.0",
-    "@trpc/client": "next",
-    "@trpc/server": "next",
-    "@vercel/analytics": "^1.2.2",
+    "@trpc/client": "^11.4.4",
+    "@trpc/server": "^11.4.4",
+    "@vercel/analytics": "^1.5.0",
     "@vercel/kv": "^2.0.0",
     "encoding": "^0.1.13",
     "lande": "^1.0.10",
-    "sharp": "0.32.6",
-    "superjson": "2.2.1",
+    "sharp": "0.34.3",
+    "superjson": "2.2.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^9.0.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.4"
+    "eslint": "^9.33.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
   },
   "eslintConfig": {
     "root": true,

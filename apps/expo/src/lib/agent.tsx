@@ -1,12 +1,10 @@
 import { createContext, useContext, useMemo } from "react";
-import { type BskyAgent } from "@atproto/api";
+import { type AtpAgent } from "@atproto/api";
 
-const agentContext = createContext<{ agent: BskyAgent | null; update: number }>(
-  {
-    agent: null,
-    update: 0,
-  },
-);
+const agentContext = createContext<{ agent: AtpAgent | null; update: number }>({
+  agent: null,
+  update: 0,
+});
 
 export default agentContext;
 
@@ -25,7 +23,7 @@ export const AgentProvider = ({
   agent,
   children,
   update,
-}: React.PropsWithChildren<{ agent: BskyAgent | null; update: number }>) => {
+}: React.PropsWithChildren<{ agent: AtpAgent | null; update: number }>) => {
   const combined = useMemo(() => ({ agent, update }), [agent, update]);
   return (
     <agentContext.Provider value={combined}>{children}</agentContext.Provider>

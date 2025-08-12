@@ -30,11 +30,11 @@
   "dependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
-    "@manypkg/cli": "^0.21.4",
-    "eslint": "^9.7.0",
-    "prettier": "^3.3.3",
-    "turbo": "^2.0.9",
-    "typescript": "^5.5.3"
+    "@manypkg/cli": "^0.25.0",
+    "eslint": "^9.33.0",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.5",
+    "typescript": "^5.9.2"
   },
   "engines": {
     "node": ">=18.19.0"
@@ -46,12 +46,11 @@
       "use-deep-compare": "npm:use-deep-compare-dequal-update@2.0.0"
     },
     "patchedDependencies": {
-      "react-native-svg@15.7.1": "patches/react-native-svg@15.7.1.patch",
       "react-native-collapsible-tab-view": "patches/react-native-collapsible-tab-view.patch"
     }
   },
   "prettier": "@graysky/prettier-config",
   "devDependencies": {
-    "@crowdin/cli": "^4.1.2"
+    "@crowdin/cli": "^4.9.1"
   }
 }
