@@ -187,7 +187,7 @@ msgstr "3 з 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "Код надіслано на {phone}. <0>Змінити номер телефону.</0>"
 
-#: src/app/settings/_layout.tsx:116
+#: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "Про програму"
@@ -216,7 +216,7 @@ msgstr "Обліковий запис видалено. До побачення!
 msgid "Account Details"
 msgstr "Деталі облікового запису"
 
-#: src/app/settings/_layout.tsx:62
+#: src/app/settings/_layout.tsx:59
 msgid "Account Settings"
 msgstr "Налаштування облікового запису"
 
@@ -361,7 +361,7 @@ msgstr "Паролі застосунку"
 msgid "App settings"
 msgstr "Налаштування застосунку"
 
-#: src/app/settings/_layout.tsx:104
+#: src/app/settings/_layout.tsx:101
 msgid "App Settings"
 msgstr "Налаштування застосунку"
 
@@ -434,7 +434,7 @@ msgstr "Заблокований допис"
 msgid "Blocked users"
 msgstr "Заблоковані користувачі"
 
-#: src/app/settings/_layout.tsx:92
+#: src/app/settings/_layout.tsx:89
 msgid "Blocked Users"
 msgstr "Заблоковані користувачі"
 
@@ -498,12 +498,12 @@ msgstr "Підписуючись, ви погоджуєтеся з нашими 
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/app/settings/_layout.tsx:68
+#: src/app/settings/_layout.tsx:65
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "Змінити псевдонім"
 
-#: src/app/settings/_layout.tsx:74
+#: src/app/settings/_layout.tsx:71
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "Змінити пароль"
@@ -569,11 +569,11 @@ msgstr "Контактувати"
 msgid "Content filters"
 msgstr "Фільтри вмісту"
 
-#: src/app/settings/_layout.tsx:134
+#: src/app/settings/_layout.tsx:131
 msgid "Content Languages"
 msgstr "Мови вмісту"
 
-#: src/app/composer/_layout.tsx:81
+#: src/app/composer/_layout.tsx:76
 msgid "Content Warning"
 msgstr "Попередження про вміст"
 
@@ -731,7 +731,7 @@ msgstr "Дата народження"
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/app/settings/_layout.tsx:80
+#: src/app/settings/_layout.tsx:77
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -810,7 +810,7 @@ msgstr "Не вмикати"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
-#: src/app/discover.tsx:66
+#: src/app/discover.tsx:67
 #: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
@@ -821,7 +821,7 @@ msgstr "Готово"
 msgid "Double check that you understand"
 msgstr "Перевірте ще раз, чи ви все зрозуміли"
 
-#: src/app/composer/_layout.tsx:73
+#: src/app/composer/_layout.tsx:68
 msgid "Drafts"
 msgstr "Чернетки"
 
@@ -919,10 +919,10 @@ msgstr "Стрічка"
 msgid "Feed Details"
 msgstr "Деталі стрічки"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
-#: src/components/screens/profile/profile-tab-view.tsx:97
+#: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "Стрічки"
 
@@ -1016,7 +1016,7 @@ msgstr "З чого почати"
 msgid "Getting queue position..."
 msgstr "Отримання розташування у черзі..."
 
-#: src/app/composer/_layout.tsx:97
+#: src/app/composer/_layout.tsx:92
 msgid "GIFs"
 msgstr "GIF зображення"
 
@@ -1065,7 +1065,7 @@ msgstr "Приховувати"
 msgid "Home feed preferences"
 msgstr "Налаштування домашньої стрічки"
 
-#: src/app/settings/_layout.tsx:110
+#: src/app/settings/_layout.tsx:107
 msgid "Home Feed Preferences"
 msgstr "Налаштування домашньої стрічки"
 
@@ -1113,7 +1113,7 @@ msgstr "Поточна тема: {current}"
 msgid "Joined {0}"
 msgstr "Дата приєднання: {0}"
 
-#: src/app/settings/_layout.tsx:122
+#: src/app/settings/_layout.tsx:119
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "Мови"
@@ -1132,7 +1132,7 @@ msgid "liked your post"
 msgstr "сподобався ваш допис"
 
 #: src/components/lists/likes-list.tsx:56
-#: src/components/screens/profile/profile-tab-view.tsx:93
+#: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr "Вподобання"
 
@@ -1176,16 +1176,16 @@ msgstr "Назва списку"
 msgid "List unfavourited"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:102
+#: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
 msgstr "Списки"
 
-#: src/app/(auth)/_layout.tsx:66
+#: src/app/(auth)/_layout.tsx:61
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Увійдіть знову"
 
-#: src/app/(auth)/_layout.tsx:54
+#: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1227,7 +1227,7 @@ msgstr "Обов'язковий ALT текст"
 msgid "Manually sort non-favourite feeds"
 msgstr "Вручну сортувати неулюблені стрічки"
 
-#: src/components/screens/profile/profile-tab-view.tsx:90
+#: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Media"
 msgstr "Медіа"
 
@@ -1249,7 +1249,7 @@ msgstr "Оманливий обліковий запис"
 msgid "Missing alt text"
 msgstr "Відсутній alt текст"
 
-#: src/app/settings/_layout.tsx:86
+#: src/app/settings/_layout.tsx:83
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "Модерація"
@@ -1299,7 +1299,7 @@ msgstr "Список ігнорованих"
 msgid "Muted users"
 msgstr "Ігноровані користувачі"
 
-#: src/app/settings/_layout.tsx:98
+#: src/app/settings/_layout.tsx:95
 msgid "Muted Users"
 msgstr "Ігноровані користувачі"
 
@@ -1362,7 +1362,7 @@ msgstr "Новий підписник: {0} @{1}"
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: src/app/composer/_layout.tsx:72
+#: src/app/composer/_layout.tsx:67
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "Новий допис"
@@ -1413,7 +1413,7 @@ msgstr "Ще не реалізовано"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Примітка: Налаштування вмісту для дорослих не можна змінити на iOS. Будь ласка, використовуйте веб-додаток."
 
-#: src/app/(tabs)/_layout.tsx:235
+#: src/app/(tabs)/_layout.tsx:242
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Сповіщення"
@@ -1542,7 +1542,7 @@ msgstr "Будь ласка, використовуйте офіційний з�
 msgid "Pornographic content"
 msgstr "Порнографічний вміст"
 
-#: src/app/(tabs)/_layout.tsx:190
+#: src/app/(tabs)/_layout.tsx:197
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1561,7 +1561,7 @@ msgstr "Опублікувати коло"
 msgid "Post deleted"
 msgstr "Допис видалено"
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:71
 msgid "Post Language"
 msgstr "Мова допису"
 
@@ -1585,7 +1585,7 @@ msgstr "Текст публікації (необов'язково)"
 msgid "Post text copied to clipboard"
 msgstr "Текст допису скопійовано в буфер обміну"
 
-#: src/components/screens/profile/profile-tab-view.tsx:84
+#: src/components/screens/profile/profile-tab-view.tsx:76
 msgid "Posts"
 msgstr "Дописи"
 
@@ -1612,11 +1612,11 @@ msgstr "Основна стрічка"
 msgid "Primary language"
 msgstr "Основна мова"
 
-#: src/app/settings/_layout.tsx:128
+#: src/app/settings/_layout.tsx:125
 msgid "Primary Language"
 msgstr "Основна мова"
 
-#: src/app/settings/_layout.tsx:56
+#: src/app/settings/_layout.tsx:53
 msgid "Pro Settings"
 msgstr "Налаштування Pro"
 
@@ -1624,7 +1624,7 @@ msgstr "Налаштування Pro"
 msgid "Pro version information and purchase"
 msgstr "Інформація про версію Pro та покупка"
 
-#: src/app/(tabs)/_layout.tsx:253
+#: src/app/(tabs)/_layout.tsx:260
 msgid "Profile"
 msgstr "Профіль"
 
@@ -1665,11 +1665,11 @@ msgstr "Випадкове"
 msgid "Read full ALT text"
 msgstr "Читати повний ALT текст"
 
-#: src/components/screens/profile/profile-tab-view.tsx:87
+#: src/components/screens/profile/profile-tab-view.tsx:79
 msgid "Replies"
 msgstr "Відповіді"
 
-#: src/app/composer/_layout.tsx:89
+#: src/app/composer/_layout.tsx:84
 msgid "Reply Controls"
 msgstr "Елементи керування відповідями"
 
@@ -1751,7 +1751,7 @@ msgstr "Надіслати запит на код"
 msgid "Reset Code"
 msgstr "Код для скидання"
 
-#: src/app/(auth)/_layout.tsx:60
+#: src/app/(auth)/_layout.tsx:55
 msgid "Reset password"
 msgstr "Скинути пароль"
 
@@ -1797,7 +1797,7 @@ msgstr "Збережено"
 msgid "Saved image to gallery"
 msgstr "Зображення збережено в галерею"
 
-#: src/app/(tabs)/_layout.tsx:177
+#: src/app/(tabs)/_layout.tsx:184
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1809,7 +1809,7 @@ msgstr "Пошук всіх користувачів"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/discover.tsx:28
+#: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "Пошук стрічок"
 
@@ -1896,7 +1896,7 @@ msgstr "Надіслати підтвердження електронною п�
 msgid "Send reset email"
 msgstr "Надіслати електронний лист для скидання"
 
-#: src/app/settings/_layout.tsx:45
+#: src/app/settings/_layout.tsx:42
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -2011,7 +2011,7 @@ msgstr "Показувати репости"
 msgid "Sign out"
 msgstr "Вийти"
 
-#: src/app/(auth)/_layout.tsx:48
+#: src/app/(auth)/_layout.tsx:43
 msgid "Sign up"
 msgstr "Зареєструватися"
 
@@ -2019,7 +2019,7 @@ msgstr "Зареєструватися"
 msgid "Sign up for project updates"
 msgstr "Підпишіться на новини про оновлення проєкту"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Небосхил"
@@ -2086,7 +2086,7 @@ msgstr "Рекомендовані підписки"
 msgid "Support development"
 msgstr "Підтримати розробку"
 
-#: src/app/(tabs)/_layout.tsx:120
+#: src/app/(tabs)/_layout.tsx:113
 msgid "Switch Accounts"
 msgstr "Змінити обліковий запис"
 

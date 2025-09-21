@@ -187,7 +187,7 @@ msgstr "3 van 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "Er is een code verzonden naar {phone}. <0>Wijzig telefoonnummer.</0>"
 
-#: src/app/settings/_layout.tsx:116
+#: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "Over"
@@ -216,7 +216,7 @@ msgstr "Account verwijderd. Tot ziens!"
 msgid "Account Details"
 msgstr "Profielgegevens"
 
-#: src/app/settings/_layout.tsx:62
+#: src/app/settings/_layout.tsx:59
 msgid "Account Settings"
 msgstr "Profiel Instellingen"
 
@@ -361,7 +361,7 @@ msgstr "App Wachtwoorden"
 msgid "App settings"
 msgstr "App instellingen"
 
-#: src/app/settings/_layout.tsx:104
+#: src/app/settings/_layout.tsx:101
 msgid "App Settings"
 msgstr "App Instellingen"
 
@@ -434,7 +434,7 @@ msgstr "Geblokkeerd bericht"
 msgid "Blocked users"
 msgstr "Geblokkeerde gebruikers"
 
-#: src/app/settings/_layout.tsx:92
+#: src/app/settings/_layout.tsx:89
 msgid "Blocked Users"
 msgstr "Geblokkeerde gebruikers"
 
@@ -498,12 +498,12 @@ msgstr ""
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/app/settings/_layout.tsx:68
+#: src/app/settings/_layout.tsx:65
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "Gebruikersnaam wijzigen"
 
-#: src/app/settings/_layout.tsx:74
+#: src/app/settings/_layout.tsx:71
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
@@ -569,11 +569,11 @@ msgstr "Contact"
 msgid "Content filters"
 msgstr "Inhoudsfilters"
 
-#: src/app/settings/_layout.tsx:134
+#: src/app/settings/_layout.tsx:131
 msgid "Content Languages"
 msgstr ""
 
-#: src/app/composer/_layout.tsx:81
+#: src/app/composer/_layout.tsx:76
 msgid "Content Warning"
 msgstr "Inhoudswaarschuwing"
 
@@ -731,7 +731,7 @@ msgstr "Geboortedatum"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: src/app/settings/_layout.tsx:80
+#: src/app/settings/_layout.tsx:77
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -810,7 +810,7 @@ msgstr ""
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
-#: src/app/discover.tsx:66
+#: src/app/discover.tsx:67
 #: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Double check that you understand"
 msgstr ""
 
-#: src/app/composer/_layout.tsx:73
+#: src/app/composer/_layout.tsx:68
 msgid "Drafts"
 msgstr ""
 
@@ -919,10 +919,10 @@ msgstr "Feed"
 msgid "Feed Details"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
-#: src/components/screens/profile/profile-tab-view.tsx:97
+#: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -1016,7 +1016,7 @@ msgstr "Aan de slag"
 msgid "Getting queue position..."
 msgstr "Wachtrijpositie ophalen..."
 
-#: src/app/composer/_layout.tsx:97
+#: src/app/composer/_layout.tsx:92
 msgid "GIFs"
 msgstr "GIF's"
 
@@ -1065,7 +1065,7 @@ msgstr "Verbergen"
 msgid "Home feed preferences"
 msgstr "Voorkeuren home feed"
 
-#: src/app/settings/_layout.tsx:110
+#: src/app/settings/_layout.tsx:107
 msgid "Home Feed Preferences"
 msgstr "Voorkeuren Home Feed"
 
@@ -1113,7 +1113,7 @@ msgstr ""
 msgid "Joined {0}"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:122
+#: src/app/settings/_layout.tsx:119
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr ""
@@ -1132,7 +1132,7 @@ msgid "liked your post"
 msgstr ""
 
 #: src/components/lists/likes-list.tsx:56
-#: src/components/screens/profile/profile-tab-view.tsx:93
+#: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr ""
 
@@ -1176,16 +1176,16 @@ msgstr ""
 msgid "List unfavourited"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:102
+#: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:66
+#: src/app/(auth)/_layout.tsx:61
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:54
+#: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1227,7 +1227,7 @@ msgstr ""
 msgid "Manually sort non-favourite feeds"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:90
+#: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Media"
 msgstr ""
 
@@ -1249,7 +1249,7 @@ msgstr ""
 msgid "Missing alt text"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:86
+#: src/app/settings/_layout.tsx:83
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr ""
@@ -1299,7 +1299,7 @@ msgstr ""
 msgid "Muted users"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:98
+#: src/app/settings/_layout.tsx:95
 msgid "Muted Users"
 msgstr ""
 
@@ -1362,7 +1362,7 @@ msgstr ""
 msgid "New Password"
 msgstr ""
 
-#: src/app/composer/_layout.tsx:72
+#: src/app/composer/_layout.tsx:67
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr ""
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:235
+#: src/app/(tabs)/_layout.tsx:242
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr ""
@@ -1542,7 +1542,7 @@ msgstr ""
 msgid "Pornographic content"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:190
+#: src/app/(tabs)/_layout.tsx:197
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1561,7 +1561,7 @@ msgstr ""
 msgid "Post deleted"
 msgstr ""
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:71
 msgid "Post Language"
 msgstr ""
 
@@ -1585,7 +1585,7 @@ msgstr ""
 msgid "Post text copied to clipboard"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:84
+#: src/components/screens/profile/profile-tab-view.tsx:76
 msgid "Posts"
 msgstr ""
 
@@ -1612,11 +1612,11 @@ msgstr ""
 msgid "Primary language"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:128
+#: src/app/settings/_layout.tsx:125
 msgid "Primary Language"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:56
+#: src/app/settings/_layout.tsx:53
 msgid "Pro Settings"
 msgstr ""
 
@@ -1624,7 +1624,7 @@ msgstr ""
 msgid "Pro version information and purchase"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:253
+#: src/app/(tabs)/_layout.tsx:260
 msgid "Profile"
 msgstr ""
 
@@ -1665,11 +1665,11 @@ msgstr ""
 msgid "Read full ALT text"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:87
+#: src/components/screens/profile/profile-tab-view.tsx:79
 msgid "Replies"
 msgstr ""
 
-#: src/app/composer/_layout.tsx:89
+#: src/app/composer/_layout.tsx:84
 msgid "Reply Controls"
 msgstr ""
 
@@ -1751,7 +1751,7 @@ msgstr ""
 msgid "Reset Code"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:60
+#: src/app/(auth)/_layout.tsx:55
 msgid "Reset password"
 msgstr ""
 
@@ -1797,7 +1797,7 @@ msgstr ""
 msgid "Saved image to gallery"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:177
+#: src/app/(tabs)/_layout.tsx:184
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1809,7 +1809,7 @@ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/discover.tsx:28
+#: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr ""
 
@@ -1896,7 +1896,7 @@ msgstr ""
 msgid "Send reset email"
 msgstr ""
 
-#: src/app/settings/_layout.tsx:45
+#: src/app/settings/_layout.tsx:42
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -2011,7 +2011,7 @@ msgstr ""
 msgid "Sign out"
 msgstr ""
 
-#: src/app/(auth)/_layout.tsx:48
+#: src/app/(auth)/_layout.tsx:43
 msgid "Sign up"
 msgstr ""
 
@@ -2019,7 +2019,7 @@ msgstr ""
 msgid "Sign up for project updates"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr ""
@@ -2086,7 +2086,7 @@ msgstr ""
 msgid "Support development"
 msgstr ""
 
-#: src/app/(tabs)/_layout.tsx:120
+#: src/app/(tabs)/_layout.tsx:113
 msgid "Switch Accounts"
 msgstr ""
 

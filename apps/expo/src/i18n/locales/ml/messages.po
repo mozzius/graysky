@@ -187,7 +187,7 @@ msgstr "3 ല് 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "{phone} ലേക്ക് ഒരു കോഡ് അയച്ചിട്ടുണ്ട്. <0>ഫോൺ നമ്പർ മാറ്റുക.</0>"
 
-#: src/app/settings/_layout.tsx:116
+#: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "വിവരങ്ങൾ"
@@ -216,7 +216,7 @@ msgstr "അക്കൗണ്ട് നശിപ്പിച്ചു. വീണ
 msgid "Account Details"
 msgstr "അക്കൗണ്ട് വിവരങ്ങൾ"
 
-#: src/app/settings/_layout.tsx:62
+#: src/app/settings/_layout.tsx:59
 msgid "Account Settings"
 msgstr "അക്കൗണ്ട് ക്രമീകരണങ്ങൾ"
 
@@ -361,7 +361,7 @@ msgstr "ആപ്പ് പാസ്സ്‌വേർഡുകൾ"
 msgid "App settings"
 msgstr "ആപ്പ് ക്രമീകരണം"
 
-#: src/app/settings/_layout.tsx:104
+#: src/app/settings/_layout.tsx:101
 msgid "App Settings"
 msgstr "ആപ്പ് ക്രമീകരണം"
 
@@ -434,7 +434,7 @@ msgstr "പോസ്റ്റ് ബ്ലോക്ക് ചെയ്‌തു"
 msgid "Blocked users"
 msgstr "ബ്ലോക്ക് ചെയ്യപ്പെട്ടവർ"
 
-#: src/app/settings/_layout.tsx:92
+#: src/app/settings/_layout.tsx:89
 msgid "Blocked Users"
 msgstr "ബ്ലോക്ക് ചെയ്യപ്പെട്ടവർ"
 
@@ -498,12 +498,12 @@ msgstr "സബ്സ്ക്രൈബ് ചെയ്യുന്നതില�
 msgid "Cancel"
 msgstr "റദ്ദാക്കുക"
 
-#: src/app/settings/_layout.tsx:68
+#: src/app/settings/_layout.tsx:65
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "ഹാൻഡിൽ മാറ്റുക"
 
-#: src/app/settings/_layout.tsx:74
+#: src/app/settings/_layout.tsx:71
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "പാസ്‌വേഡ് മാറ്റുക"
@@ -569,11 +569,11 @@ msgstr "ബന്ധപ്പെടുക"
 msgid "Content filters"
 msgstr "ഉള്ളടക്ക ഫിൽട്ടറുകൾ"
 
-#: src/app/settings/_layout.tsx:134
+#: src/app/settings/_layout.tsx:131
 msgid "Content Languages"
 msgstr "ഉള്ളടക്ക ഭാഷ"
 
-#: src/app/composer/_layout.tsx:81
+#: src/app/composer/_layout.tsx:76
 msgid "Content Warning"
 msgstr "ഉള്ളടക്ക മുന്നറിയിപ്പ്"
 
@@ -731,7 +731,7 @@ msgstr "ജനന തീയതി"
 msgid "Delete"
 msgstr "ഇല്ലാതാക്കുക"
 
-#: src/app/settings/_layout.tsx:80
+#: src/app/settings/_layout.tsx:77
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -810,7 +810,7 @@ msgstr "പ്രവർത്തനക്ഷമമാക്കരുത്"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
-#: src/app/discover.tsx:66
+#: src/app/discover.tsx:67
 #: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
@@ -821,7 +821,7 @@ msgstr "ചെയ്‌തു"
 msgid "Double check that you understand"
 msgstr "നിങ്ങൾക്ക് മനസ്സിലായോ എന്ന് രണ്ടുതവണ പരിശോധിക്കുക"
 
-#: src/app/composer/_layout.tsx:73
+#: src/app/composer/_layout.tsx:68
 msgid "Drafts"
 msgstr "ഡ്രാഫ്റ്റുകൾ"
 
@@ -919,10 +919,10 @@ msgstr "ഫീഡ്"
 msgid "Feed Details"
 msgstr "ഫീഡ് വിവരങ്ങൾ"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
-#: src/components/screens/profile/profile-tab-view.tsx:97
+#: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "ഫീഡുകൾ"
 
@@ -1016,7 +1016,7 @@ msgstr "തുടങ്ങാം"
 msgid "Getting queue position..."
 msgstr "ക്യൂ സ്ഥാനം ലഭിക്കുന്നു..."
 
-#: src/app/composer/_layout.tsx:97
+#: src/app/composer/_layout.tsx:92
 msgid "GIFs"
 msgstr "GIF-കൾ"
 
@@ -1065,7 +1065,7 @@ msgstr "മറയ്ക്കുക"
 msgid "Home feed preferences"
 msgstr "ഹോം ഫീഡ് മുൻഗണനകൾ"
 
-#: src/app/settings/_layout.tsx:110
+#: src/app/settings/_layout.tsx:107
 msgid "Home Feed Preferences"
 msgstr "ഹോം ഫീഡ് മുൻഗണനകൾ"
 
@@ -1113,7 +1113,7 @@ msgstr "ഇത് നിലവിൽ {current} തീമിലേക്ക് �
 msgid "Joined {0}"
 msgstr "{0} - ൽ ചേർന്നു"
 
-#: src/app/settings/_layout.tsx:122
+#: src/app/settings/_layout.tsx:119
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "ഭാഷ"
@@ -1132,7 +1132,7 @@ msgid "liked your post"
 msgstr "നിങ്ങളുടെ പോസ്റ്റ് ലൈക്ക് ചെയ്തു"
 
 #: src/components/lists/likes-list.tsx:56
-#: src/components/screens/profile/profile-tab-view.tsx:93
+#: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr "ലൈക്കുകൾ"
 
@@ -1176,16 +1176,16 @@ msgstr "ലിസ്റ്റ് നാമം"
 msgid "List unfavourited"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:102
+#: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
 msgstr "ലിസ്റ്റുകൾ"
 
-#: src/app/(auth)/_layout.tsx:66
+#: src/app/(auth)/_layout.tsx:61
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "തിരികെ ലോഗിൻ ചെയ്യുക"
 
-#: src/app/(auth)/_layout.tsx:54
+#: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1227,7 +1227,7 @@ msgstr "നിർബന്ധിത ALT ടെക്സ്റ്റ്"
 msgid "Manually sort non-favourite feeds"
 msgstr "പ്രിയപ്പെട്ടതല്ലാത്ത ഫീഡുകൾ സ്വമേധയാ അടുക്കുക"
 
-#: src/components/screens/profile/profile-tab-view.tsx:90
+#: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Media"
 msgstr "മീഡിയ"
 
@@ -1249,7 +1249,7 @@ msgstr "തെറ്റിദ്ധരിപ്പിക്കുന്ന അ�
 msgid "Missing alt text"
 msgstr "ഇതര വാചകം വിട്ടുപോയിരിക്കുന്നു"
 
-#: src/app/settings/_layout.tsx:86
+#: src/app/settings/_layout.tsx:83
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "മോഡറേഷൻ"
@@ -1299,7 +1299,7 @@ msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ലിസ�
 msgid "Muted users"
 msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ഉപയോക്താക്കൾ"
 
-#: src/app/settings/_layout.tsx:98
+#: src/app/settings/_layout.tsx:95
 msgid "Muted Users"
 msgstr "മ്യുട്ട് ചെയ്യപ്പെട്ട ഉപയോക്താക്കൾ"
 
@@ -1362,7 +1362,7 @@ msgstr "പുതിയ അനുയായി: {0} @{1}"
 msgid "New Password"
 msgstr "പുതിയ പാസ്വേഡ്"
 
-#: src/app/composer/_layout.tsx:72
+#: src/app/composer/_layout.tsx:67
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "പുതിയ പോസ്റ്റ്"
@@ -1413,7 +1413,7 @@ msgstr "ഇതുവരെ നടപ്പാക്കിയിട്ടില�
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "ശ്രദ്ധിക്കുക: iOS-ൽ മുതിർന്നവർക്കുള്ള ഉള്ളടക്ക ക്രമീകരണങ്ങൾ മാറ്റാൻ കഴിയില്ല. പകരം വെബ് ആപ്പ് ഉപയോഗിക്കുക."
 
-#: src/app/(tabs)/_layout.tsx:235
+#: src/app/(tabs)/_layout.tsx:242
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "അറിയിപ്പുകൾ"
@@ -1542,7 +1542,7 @@ msgstr "അതിനിടയിൽ ദയവായി ഔദ്യോഗിക 
 msgid "Pornographic content"
 msgstr "അശ്ലീല ഉള്ളടക്കം"
 
-#: src/app/(tabs)/_layout.tsx:190
+#: src/app/(tabs)/_layout.tsx:197
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1561,7 +1561,7 @@ msgstr ""
 msgid "Post deleted"
 msgstr "പോസ്റ്റ് ഇല്ലാതാക്കി"
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:71
 msgid "Post Language"
 msgstr "പോസ്റ്റ് ഭാഷ"
 
@@ -1585,7 +1585,7 @@ msgstr ""
 msgid "Post text copied to clipboard"
 msgstr "പോസ്റ്റ് ടെക്സ്റ്റ് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
 
-#: src/components/screens/profile/profile-tab-view.tsx:84
+#: src/components/screens/profile/profile-tab-view.tsx:76
 msgid "Posts"
 msgstr "പോസ്റ്റുകൾ"
 
@@ -1612,11 +1612,11 @@ msgstr "പ്രാഥമിക ഫീഡ്"
 msgid "Primary language"
 msgstr "പ്രാഥമിക ഭാഷ"
 
-#: src/app/settings/_layout.tsx:128
+#: src/app/settings/_layout.tsx:125
 msgid "Primary Language"
 msgstr "പ്രാഥമിക ഭാഷ"
 
-#: src/app/settings/_layout.tsx:56
+#: src/app/settings/_layout.tsx:53
 msgid "Pro Settings"
 msgstr "പ്രോ ക്രമീകരണങ്ങൾ"
 
@@ -1624,7 +1624,7 @@ msgstr "പ്രോ ക്രമീകരണങ്ങൾ"
 msgid "Pro version information and purchase"
 msgstr "പ്രോ പതിപ്പ് വിവരങ്ങളും വാങ്ങലും"
 
-#: src/app/(tabs)/_layout.tsx:253
+#: src/app/(tabs)/_layout.tsx:260
 msgid "Profile"
 msgstr "പ്രൊഫൈൽ"
 
@@ -1665,11 +1665,11 @@ msgstr "ക്രമരഹിതമായ"
 msgid "Read full ALT text"
 msgstr "മുഴുവൻ ALT വാചകം വായിക്കുക"
 
-#: src/components/screens/profile/profile-tab-view.tsx:87
+#: src/components/screens/profile/profile-tab-view.tsx:79
 msgid "Replies"
 msgstr "മറുപടികൾ"
 
-#: src/app/composer/_layout.tsx:89
+#: src/app/composer/_layout.tsx:84
 msgid "Reply Controls"
 msgstr "മറുപടി നിയന്ത്രണങ്ങൾ"
 
@@ -1751,7 +1751,7 @@ msgstr "കോഡ് അഭ്യർത്ഥിക്കുക"
 msgid "Reset Code"
 msgstr "കോഡ് പുനഃസജ്ജമാക്കുക"
 
-#: src/app/(auth)/_layout.tsx:60
+#: src/app/(auth)/_layout.tsx:55
 msgid "Reset password"
 msgstr "പാസ്‌വേഡ് പുനഃക്രമീകരിക്കുക"
 
@@ -1797,7 +1797,7 @@ msgstr "സൂക്ഷിച്ചു"
 msgid "Saved image to gallery"
 msgstr "ചിത്രം ഗാലറിയിൽ സൂക്ഷിച്ചു"
 
-#: src/app/(tabs)/_layout.tsx:177
+#: src/app/(tabs)/_layout.tsx:184
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1809,7 +1809,7 @@ msgstr "എല്ലാ ഉപയോക്താക്കളെയും തി�
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/discover.tsx:28
+#: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "ഫീഡുകൾ തിരയുക"
 
@@ -1896,7 +1896,7 @@ msgstr "സ്ഥിരീകരണ ഇമെയിൽ അയയ്ക്കു�
 msgid "Send reset email"
 msgstr "റീസെറ്റ് ഇമെയിൽ അയയ്ക്കുക"
 
-#: src/app/settings/_layout.tsx:45
+#: src/app/settings/_layout.tsx:42
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -2011,7 +2011,7 @@ msgstr "റീപോസ്റ്റുകൾ കാണിക്കുക"
 msgid "Sign out"
 msgstr "സൈൻ ഔട്ട്"
 
-#: src/app/(auth)/_layout.tsx:48
+#: src/app/(auth)/_layout.tsx:43
 msgid "Sign up"
 msgstr "സൈൻ അപ്പ് ചെയ്യുക"
 
@@ -2019,7 +2019,7 @@ msgstr "സൈൻ അപ്പ് ചെയ്യുക"
 msgid "Sign up for project updates"
 msgstr "പ്രോജക്റ്റ് അപ്‌ഡേറ്റുകൾക്കായി സൈൻ അപ്പ് ചെയ്യുക"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "സ്കൈലൈൻ"
@@ -2086,7 +2086,7 @@ msgstr "താല്പര്യം ഉണ്ടെങ്കിൽ പിന്�
 msgid "Support development"
 msgstr "വികസനത്തെ പിന്തുണയ്ക്കുക"
 
-#: src/app/(tabs)/_layout.tsx:120
+#: src/app/(tabs)/_layout.tsx:113
 msgid "Switch Accounts"
 msgstr "അക്കൗണ്ടുകൾ മാറുക"
 

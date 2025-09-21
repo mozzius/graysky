@@ -187,7 +187,7 @@ msgstr "3 de 3"
 msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 msgstr "O código de verificação foi enviado para {phone}. <0>Este não é o meu número.</0>"
 
-#: src/app/settings/_layout.tsx:116
+#: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "Sobre"
@@ -216,7 +216,7 @@ msgstr "Sua conta foi excluída. Até mais!"
 msgid "Account Details"
 msgstr "Detalhes da Conta"
 
-#: src/app/settings/_layout.tsx:62
+#: src/app/settings/_layout.tsx:59
 msgid "Account Settings"
 msgstr "Configurações da Conta"
 
@@ -361,7 +361,7 @@ msgstr "Senhas de Aplicativo"
 msgid "App settings"
 msgstr "Configurações do aplicativo"
 
-#: src/app/settings/_layout.tsx:104
+#: src/app/settings/_layout.tsx:101
 msgid "App Settings"
 msgstr "Configurações do Aplicativo"
 
@@ -434,7 +434,7 @@ msgstr "Publicação bloqueada"
 msgid "Blocked users"
 msgstr "Usuários bloqueados"
 
-#: src/app/settings/_layout.tsx:92
+#: src/app/settings/_layout.tsx:89
 msgid "Blocked Users"
 msgstr "Usuários Bloqueados"
 
@@ -498,12 +498,12 @@ msgstr "Ao assinar, você concorda com nossos <0>Termos e Condições</0>, os <1
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app/settings/_layout.tsx:68
+#: src/app/settings/_layout.tsx:65
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "Alterar Identificador"
 
-#: src/app/settings/_layout.tsx:74
+#: src/app/settings/_layout.tsx:71
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "Alterar Senha"
@@ -569,11 +569,11 @@ msgstr "Contato"
 msgid "Content filters"
 msgstr "Filtros de conteúdo"
 
-#: src/app/settings/_layout.tsx:134
+#: src/app/settings/_layout.tsx:131
 msgid "Content Languages"
 msgstr "Idiomas de Conteúdo"
 
-#: src/app/composer/_layout.tsx:81
+#: src/app/composer/_layout.tsx:76
 msgid "Content Warning"
 msgstr "Aviso de Conteúdo"
 
@@ -731,7 +731,7 @@ msgstr "Data de Nascimento"
 msgid "Delete"
 msgstr "Excluir"
 
-#: src/app/settings/_layout.tsx:80
+#: src/app/settings/_layout.tsx:77
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -810,7 +810,7 @@ msgstr "Não habilitar"
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
 #: src/app/composer/_layout.tsx:49
-#: src/app/discover.tsx:66
+#: src/app/discover.tsx:67
 #: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
@@ -821,7 +821,7 @@ msgstr "Feito"
 msgid "Double check that you understand"
 msgstr "Verifique se você está ciente"
 
-#: src/app/composer/_layout.tsx:73
+#: src/app/composer/_layout.tsx:68
 msgid "Drafts"
 msgstr "Rascunhos"
 
@@ -919,10 +919,10 @@ msgstr "Feed"
 msgid "Feed Details"
 msgstr "Detalhes do Feed"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
-#: src/components/screens/profile/profile-tab-view.tsx:97
+#: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -1016,7 +1016,7 @@ msgstr "Começar"
 msgid "Getting queue position..."
 msgstr "Obtendo posição na fila..."
 
-#: src/app/composer/_layout.tsx:97
+#: src/app/composer/_layout.tsx:92
 msgid "GIFs"
 msgstr "GIFs"
 
@@ -1065,7 +1065,7 @@ msgstr "Ocultar"
 msgid "Home feed preferences"
 msgstr "Preferências do feed inicial"
 
-#: src/app/settings/_layout.tsx:110
+#: src/app/settings/_layout.tsx:107
 msgid "Home Feed Preferences"
 msgstr "Preferências do Feed Inicial"
 
@@ -1113,7 +1113,7 @@ msgstr "Atualmente está definido para o tema {current}"
 msgid "Joined {0}"
 msgstr "Entrou em {0}"
 
-#: src/app/settings/_layout.tsx:122
+#: src/app/settings/_layout.tsx:119
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "Idiomas"
@@ -1132,7 +1132,7 @@ msgid "liked your post"
 msgstr "curtiu a sua publicação"
 
 #: src/components/lists/likes-list.tsx:56
-#: src/components/screens/profile/profile-tab-view.tsx:93
+#: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr "Curtidas"
 
@@ -1176,16 +1176,16 @@ msgstr "Nome da lista"
 msgid "List unfavourited"
 msgstr ""
 
-#: src/components/screens/profile/profile-tab-view.tsx:102
+#: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
 msgstr "Listas"
 
-#: src/app/(auth)/_layout.tsx:66
+#: src/app/(auth)/_layout.tsx:61
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Iniciar sessão novamente"
 
-#: src/app/(auth)/_layout.tsx:54
+#: src/app/(auth)/_layout.tsx:49
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1227,7 +1227,7 @@ msgstr "Forçar texto alternativo"
 msgid "Manually sort non-favourite feeds"
 msgstr "Ordenar manualmente os feeds não-favoritos"
 
-#: src/components/screens/profile/profile-tab-view.tsx:90
+#: src/components/screens/profile/profile-tab-view.tsx:82
 msgid "Media"
 msgstr "Mídia"
 
@@ -1249,7 +1249,7 @@ msgstr "Conta Suspeita"
 msgid "Missing alt text"
 msgstr "Texto alternativo faltando"
 
-#: src/app/settings/_layout.tsx:86
+#: src/app/settings/_layout.tsx:83
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "Moderação"
@@ -1299,7 +1299,7 @@ msgstr "Lista silenciada"
 msgid "Muted users"
 msgstr "Usuários silenciados"
 
-#: src/app/settings/_layout.tsx:98
+#: src/app/settings/_layout.tsx:95
 msgid "Muted Users"
 msgstr "Usuários Silenciados"
 
@@ -1362,7 +1362,7 @@ msgstr "Novo seguidor: {0} @{1}"
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: src/app/composer/_layout.tsx:72
+#: src/app/composer/_layout.tsx:67
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "Novo Post"
@@ -1413,7 +1413,7 @@ msgstr "Ainda não implementado"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Nota: Configurações de conteúdo adulto não podem ser alteradas no iOS. Por favor, utilize o site."
 
-#: src/app/(tabs)/_layout.tsx:235
+#: src/app/(tabs)/_layout.tsx:242
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
 msgid "Notifications"
 msgstr "Notificações"
@@ -1542,7 +1542,7 @@ msgstr "Por favor, use o app oficial por enquanto. Desculpe!"
 msgid "Pornographic content"
 msgstr "Conteúdo pornográfico"
 
-#: src/app/(tabs)/_layout.tsx:190
+#: src/app/(tabs)/_layout.tsx:197
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
 #: src/lib/composer/buttons.tsx:72
@@ -1561,7 +1561,7 @@ msgstr ""
 msgid "Post deleted"
 msgstr "Post excluído"
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:71
 msgid "Post Language"
 msgstr "Idioma do post"
 
@@ -1585,7 +1585,7 @@ msgstr ""
 msgid "Post text copied to clipboard"
 msgstr "Texto copiado para a área de transferência"
 
-#: src/components/screens/profile/profile-tab-view.tsx:84
+#: src/components/screens/profile/profile-tab-view.tsx:76
 msgid "Posts"
 msgstr "Posts"
 
@@ -1612,11 +1612,11 @@ msgstr "Feed principal"
 msgid "Primary language"
 msgstr "Idioma principal"
 
-#: src/app/settings/_layout.tsx:128
+#: src/app/settings/_layout.tsx:125
 msgid "Primary Language"
 msgstr "Idioma Principal"
 
-#: src/app/settings/_layout.tsx:56
+#: src/app/settings/_layout.tsx:53
 msgid "Pro Settings"
 msgstr "Modo Pro"
 
@@ -1624,7 +1624,7 @@ msgstr "Modo Pro"
 msgid "Pro version information and purchase"
 msgstr "Informações sobre modo Pro e compra"
 
-#: src/app/(tabs)/_layout.tsx:253
+#: src/app/(tabs)/_layout.tsx:260
 msgid "Profile"
 msgstr "Perfil"
 
@@ -1665,11 +1665,11 @@ msgstr "Aleatório"
 msgid "Read full ALT text"
 msgstr "Mostrar texto alternativo"
 
-#: src/components/screens/profile/profile-tab-view.tsx:87
+#: src/components/screens/profile/profile-tab-view.tsx:79
 msgid "Replies"
 msgstr "Respostas"
 
-#: src/app/composer/_layout.tsx:89
+#: src/app/composer/_layout.tsx:84
 msgid "Reply Controls"
 msgstr "Controle quem pode responder"
 
@@ -1751,7 +1751,7 @@ msgstr "Solicitar código"
 msgid "Reset Code"
 msgstr "Código de verificação"
 
-#: src/app/(auth)/_layout.tsx:60
+#: src/app/(auth)/_layout.tsx:55
 msgid "Reset password"
 msgstr "Redefinir senha"
 
@@ -1797,7 +1797,7 @@ msgstr "Salvo"
 msgid "Saved image to gallery"
 msgstr "Imagem salva na galeria"
 
-#: src/app/(tabs)/_layout.tsx:177
+#: src/app/(tabs)/_layout.tsx:184
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1809,7 +1809,7 @@ msgstr "Buscar em todos os usuários"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/discover.tsx:28
+#: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "Buscar feeds"
 
@@ -1896,7 +1896,7 @@ msgstr "Enviar email de confirmação"
 msgid "Send reset email"
 msgstr "Enviar email de verificação"
 
-#: src/app/settings/_layout.tsx:45
+#: src/app/settings/_layout.tsx:42
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -2011,7 +2011,7 @@ msgstr "Mostrar reposts"
 msgid "Sign out"
 msgstr "Sair"
 
-#: src/app/(auth)/_layout.tsx:48
+#: src/app/(auth)/_layout.tsx:43
 msgid "Sign up"
 msgstr "Cadastre-se"
 
@@ -2019,7 +2019,7 @@ msgstr "Cadastre-se"
 msgid "Sign up for project updates"
 msgstr "Increva-se para atualizações do projeto"
 
-#: src/app/(tabs)/_layout.tsx:155
+#: src/app/(tabs)/_layout.tsx:162
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2086,7 +2086,7 @@ msgstr "Quem seguir"
 msgid "Support development"
 msgstr "Apoie o desenvolvimento"
 
-#: src/app/(tabs)/_layout.tsx:120
+#: src/app/(tabs)/_layout.tsx:113
 msgid "Switch Accounts"
 msgstr "Trocar de Conta"
 
