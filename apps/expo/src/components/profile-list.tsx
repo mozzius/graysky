@@ -33,7 +33,6 @@ export const ProfileList = ({
           onPress={(evt) => onProfilePress?.({ ...evt, person: item })}
         />
       )}
-      estimatedItemSize={61}
       ItemSeparatorComponent={() => (
         <ItemSeparator
           iconWidth="w-10"

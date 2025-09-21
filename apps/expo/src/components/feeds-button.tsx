@@ -221,7 +221,11 @@ const SheetContent = ({
     return (
       <BottomSheetSectionList
         sections={sections}
-        renderItem={({ item }) => {
+        renderItem={({
+          item,
+        }: {
+          item: (typeof sections)[number]["data"][number];
+        }) => {
           const itemPathname = path(
             `/profile/${item.creator.did}/feed/${item.uri.split("/").pop()}`,
           );
@@ -252,10 +256,14 @@ const SheetContent = ({
             />
           );
         }}
-        keyExtractor={(item) => item.uri}
-        renderSectionHeader={({ section }) => (
-          <SectionHeader title={section.title} />
-        )}
+        keyExtractor={(item: (typeof sections)[number]["data"][number]) =>
+          item.uri
+        }
+        renderSectionHeader={({
+          section,
+        }: {
+          section: (typeof sections)[number];
+        }) => <SectionHeader title={section.title} />}
         ListHeaderComponent={
           <LargeRow
             icon={<CloudIcon size={32} color="white" />}

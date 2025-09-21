@@ -10,7 +10,7 @@ export const useCanGoBack = (name: string) => {
     // we want to do navigation.getState().routes.length > 1
     // however this is the layout so we need to go find the child route
     setCanGoBack(
-      (navigation.getState().routes.find((x) => x.name === name)?.state?.routes
+      (navigation.getState()?.routes.find((x) => x.name === name)?.state?.routes
         ?.length ?? 1) > 1,
     );
   }, [pathname, navigation, name]);

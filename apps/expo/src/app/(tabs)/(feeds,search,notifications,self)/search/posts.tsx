@@ -65,7 +65,6 @@ const PostsSearch = ({ search }: Props) => {
     return (
       <FlashList<{ item: AppBskyFeedDefs.PostView; filter: FilterResult }>
         removeClippedSubviews
-        estimatedItemSize={264}
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}
         onScroll={onScroll}
@@ -124,7 +123,7 @@ export default function PostsSearchScreen() {
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
 
-  const ref = useRef<SearchBarCommands>(null);
+  const ref = useRef<SearchBarCommands>(null!);
 
   useEffect(() => {
     setTimeout(() => {

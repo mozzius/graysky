@@ -1,0 +1,39 @@
+diff --git a/react-native-ios-utilities.podspec b/react-native-ios-utilities.podspec
+index 887db118ce17a1c087d3cd18dec556a6afc773ef..609ca82042f8dc613f7bdd23d8f7f74a2534a681 100644
+--- a/react-native-ios-utilities.podspec
++++ b/react-native-ios-utilities.podspec
+@@ -28,7 +28,11 @@ use_hermes = ENV['USE_HERMES'] == nil || ENV['USE_HERMES'] == '1'
+ fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+ 
+ folly_version = '2022.05.16.00'
+-folly_compiler_flags = get_folly_config()[:compiler_flags]
++folly_compiler_flags = (get_folly_config()[:compiler_flags] || '').strip
++base_flags = "-DREACT_NATIVE_TARGET_VERSION=#{reactNativeTargetVersion}"
++
++compiler_flags = base_flags.dup
++
+ 
+ linkage = ENV['USE_FRAMEWORKS']
+ reactNativeTargetVersionOverride = ENV['REACT_NATIVE_TARGET_VERSION']
+@@ -47,7 +51,9 @@ if reactNativeTargetVersionOverride
+ end
+ 
+ fabric_compiler_flags = '-DRN_FABRIC_ENABLED -DRCT_NEW_ARCH_ENABLED'
+-compiler_flags = folly_compiler_flags + ' ' + "-DREACT_NATIVE_TARGET_VERSION=#{reactNativeTargetVersion}"
++if ENV['RCT_USE_RN_DEP'] != '1'
++  compiler_flags = [folly_compiler_flags, base_flags].reject(&:empty?).join(' ')
++end
+ 
+ if use_hermes
+   compiler_flags << ' -DUSE_HERMES'
+@@ -165,7 +171,9 @@ Pod::Spec.new do |s|
+ 
+   if fabric_enabled
+     s.dependency 'React-RCTFabric'
+-    s.dependency 'RCT-Folly', folly_version
++    if ENV['RCT_USE_RN_DEP'] != '1'
++      s.dependency 'RCT-Folly', folly_version
++    end
+   end
+ 
+   s.dependency 'DGSwiftUtilities', '~> 0.46'

@@ -4,6 +4,7 @@ import {
   Alert,
   Keyboard,
   Platform,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -26,7 +27,6 @@ import {
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
-import { type PasteInputRef } from "@mattermost/react-native-paste-input";
 import { useTheme } from "@react-navigation/native";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
@@ -121,15 +121,14 @@ export default function ComposerScreen() {
     end: 0,
   });
 
-  const inputRef = useRef<PasteInputRef>(null!);
+  const inputRef = useRef<TextInput>(null!);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
   useControlledKeyboard();
 
   const [text, setText] = useState(initialText ?? "");
 
-  const { images, imagePicker, addAltText, removeImage, handlePaste } =
-    useImages();
+  const { images, imagePicker, addAltText, removeImage } = useImages();
 
   const [editingAltText, setEditingAltText] = useState<number | null>(null);
 
@@ -357,7 +356,7 @@ export default function ComposerScreen() {
                   selectionRef.current = evt.nativeEvent.selection;
                 }}
                 scrollEnabled={false}
-                onPaste={handlePaste}
+                // onPaste={handlePaste}
               >
                 <RichText
                   size="lg"

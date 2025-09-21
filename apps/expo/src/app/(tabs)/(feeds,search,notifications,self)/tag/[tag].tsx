@@ -173,7 +173,6 @@ export default function TagScreen() {
               tintColor={tintColor}
             />
           }
-          estimatedItemSize={171}
           ListFooterComponent={
             <ListFooterComponent
               query={feed}

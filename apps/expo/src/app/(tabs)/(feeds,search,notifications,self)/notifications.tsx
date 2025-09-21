@@ -256,7 +256,6 @@ function Notifications() {
               dataUpdatedAt={notifications.dataUpdatedAt}
             />
           )}
-          estimatedItemSize={105}
           onEndReachedThreshold={2}
           onEndReached={() => notifications.fetchNextPage()}
           refreshControl={

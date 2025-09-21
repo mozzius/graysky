@@ -16,7 +16,7 @@ import { AppBskyUnspeccedDefs, type AppBskyActorDefs } from "@atproto/api";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
-import { FlashList } from "@shopify/flash-list";
+import { FlashList, FlashListRef } from "@shopify/flash-list";
 import {
   keepPreviousData,
   useInfiniteQuery,
@@ -55,7 +55,7 @@ export default function SearchPage() {
 
   const autoFocus = action?.id === "search";
 
-  const ref = useRef<SearchBarCommands>(null);
+  const ref = useRef<SearchBarCommands>(null!);
 
   const headerSearchBarOptions = useSearchBarOptions({
     placeholder: _(msg`Search users, posts, feeds`),
@@ -206,7 +206,7 @@ const Suggestions = () => {
   const agent = useAgent();
   const theme = useTheme();
   const path = useAbsolutePath();
-  const ref = useRef<FlashList<AppBskyActorDefs.ProfileView>>(null);
+  const ref = useRef<FlashListRef<AppBskyActorDefs.ProfileView>>(null);
 
   const trendingTopics = useQuery({
     queryKey: ["trending-topics"],
@@ -237,7 +237,6 @@ const Suggestions = () => {
         removeClippedSubviews
         ref={ref}
         data={data}
-        estimatedItemSize={173}
         renderItem={({ item }) => <SuggestionCard item={item} />}
         ListHeaderComponent={
           <View>

@@ -138,6 +138,7 @@ export default function AppLayout() {
           backgroundColor: theme.colors.card,
         }}
         swipeEdgeWidth={dimensions.width}
+        // @ts-expect-error
         swipeEnabled={segments.length === 3}
       >
         <Tabs
@@ -202,10 +203,11 @@ export default function AppLayout() {
                   },
                   android: require("../../../assets/tabs/square-pen.svg"),
                 }),
+              preventsDefault: true,
+              role: "search",
             }}
             listeners={{
               tabPress: (evt) => {
-                evt.preventDefault();
                 if (agent?.hasSession) {
                   if (segments.at(-2) === "profile") {
                     const actor = pathname.split("/").pop()!;

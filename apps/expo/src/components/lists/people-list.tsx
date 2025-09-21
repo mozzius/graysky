@@ -102,14 +102,18 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
             <BottomSheetFlatList
               style={contentContainerStyle}
               data={people.slice(0, showAll ? undefined : limit)}
-              renderItem={({ item }) => (
+              renderItem={({
+                item,
+              }: {
+                item: AppBskyActorDefs.ProfileView;
+              }) => (
                 <PersonRow
                   bottomSheet
                   person={item}
                   onPress={() => bottomSheetRef.current?.close()}
                 />
               )}
-              keyExtractor={(item) => item.did}
+              keyExtractor={(item: AppBskyActorDefs.ProfileView) => item.did}
               ItemSeparatorComponent={() => (
                 <ItemSeparator iconWidth="w-10" containerClassName="pr-4" />
               )}

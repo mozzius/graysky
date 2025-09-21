@@ -66,7 +66,7 @@ msgstr "vor {minutes} Minuten"
 msgid "{minutes}m"
 msgstr "{minutes}Min"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:189
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
 msgid "{modeName} feed for #{decodedTag} is empty"
 msgstr "{modeName} Feed für #{decodedTag} ist leer"
 
@@ -164,8 +164,8 @@ msgid "1 month ago"
 msgstr "Vor einem Monat"
 
 #: src/app/(auth)/sign-up.tsx:160
-msgid "1 of 3"
-msgstr "1 von 3"
+#~ msgid "1 of 3"
+#~ msgstr "1 von 3"
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -176,16 +176,16 @@ msgid "1 year ago"
 msgstr "Vor einem Jahr"
 
 #: src/app/(auth)/sign-up.tsx:273
-msgid "2 of 3"
-msgstr "2 von 3"
+#~ msgid "2 of 3"
+#~ msgstr "2 von 3"
 
 #: src/app/(auth)/sign-up.tsx:376
-msgid "3 of 3"
-msgstr "3 von 3"
+#~ msgid "3 of 3"
+#~ msgstr "3 von 3"
 
 #: src/app/(auth)/sign-up.tsx:341
-msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-msgstr "Ein Code wurde an {phone} gesendet. <0>Telefonnummer ändern.</0>"
+#~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
+#~ msgstr "Ein Code wurde an {phone} gesendet. <0>Telefonnummer ändern.</0>"
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -224,7 +224,7 @@ msgstr "Konto Einstellungen"
 msgid "Add {0} to List"
 msgstr "{0} zu Liste hinzufügen"
 
-#: src/app/composer/index.tsx:655
+#: src/app/composer/index.tsx:654
 msgid "Add a content warning"
 msgstr "Inhaltswarnung hinzufügen"
 
@@ -236,7 +236,7 @@ msgstr "Fügen Sie dem Bild eine Beschreibung hinzu. Gute Alt-Texte sind kompakt
 msgid "Add another account"
 msgstr "Weiteres Benutzerkonto hinzufügen"
 
-#: src/app/composer/index.tsx:565
+#: src/app/composer/index.tsx:564
 msgid "Add embed for <0>{potential}</0>"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgstr "Zu Favoriten hinzufügen"
 msgid "Add to list"
 msgstr "Zur Liste hinzufügen"
 
-#: src/app/_layout.tsx:386
+#: src/app/_layout.tsx:387
 msgid "Add to List"
 msgstr "Zur Liste hinzufügen"
 
@@ -264,7 +264,7 @@ msgstr "Zur Moderationsliste hinzufügen"
 msgid "Add to user list"
 msgstr "Zur Benutzerliste hinzufügen"
 
-#: src/app/composer/index.tsx:242
+#: src/app/composer/index.tsx:241
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
 msgstr "Das Hinzufügen einer Beschreibung zu Ihrem Bild macht Bluesky für Menschen mit Behinderungen zugänglicher und hilft jedem Kontext zu geben. Wir empfehlen dringend, Alt-Text zu allen Bildern hinzuzufügen."
 
@@ -289,7 +289,7 @@ msgstr "Alle Sprachen"
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr "Erlaubt es Ihnen, nicht favorisierte Feeds manuell im Feeds Tab zu sortieren"
 
-#: src/app/composer/index.tsx:441
+#: src/app/composer/index.tsx:440
 msgid "Alt"
 msgstr "Alt"
 
@@ -324,7 +324,7 @@ msgstr "Ein Fehler trat beim Speichern vom Bild auf"
 msgid "An error occurred while trying to share the image"
 msgstr "Ein Fehler trat bei der Bildweiterleitung auf"
 
-#: src/app/composer/index.tsx:286
+#: src/app/composer/index.tsx:285
 msgid "An unknown error occurred"
 msgstr "Ein unbekannter Fehler trat auf"
 
@@ -385,9 +385,6 @@ msgstr "Bist Du sicher, dass Du den Benutzer {handle} entblocken möchtest?"
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/app/(auth)/sign-up.tsx:312
-#: src/app/(auth)/sign-up.tsx:351
-#: src/app/(auth)/sign-up.tsx:432
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:121
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
 #: src/app/settings/account/delete-account.tsx:203
@@ -426,7 +423,7 @@ msgstr "Benutzer blockieren"
 msgid "Blocked"
 msgstr "Blockiert"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:367
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:368
 msgid "Blocked post"
 msgstr "Blockierter Post"
 
@@ -532,7 +529,6 @@ msgstr "In Moderationsliste ändern"
 msgid "Change to user list"
 msgstr "In Benutzerliste ändern"
 
-#: src/app/(auth)/sign-up.tsx:383
 #: src/app/settings/account/change-handle.tsx:102
 msgid "Choose a handle"
 msgstr "Wählen Sie ein Handle"
@@ -619,14 +615,14 @@ msgid "Could not complete purchase"
 msgstr "Kauf konnte nicht abgeschlossen werden"
 
 #: src/app/(auth)/sign-up.tsx:93
-msgid "Could not create account"
-msgstr "Konto konnte nicht erstellt werden"
+#~ msgid "Could not create account"
+#~ msgstr "Konto konnte nicht erstellt werden"
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
 msgstr "Konto konnte nicht gelöscht werden"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:685
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
 msgid "Could not delete list"
 msgstr "Liste konnte nicht gelöscht werden"
 
@@ -634,7 +630,7 @@ msgstr "Liste konnte nicht gelöscht werden"
 msgid "Could not fetch list"
 msgstr "Liste konnte nicht abgerufen werden"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:565
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
 msgid "Could not fetch list feed"
 msgstr "Listen-Feed konnte nicht abgerufen werden"
 
@@ -642,7 +638,7 @@ msgstr "Listen-Feed konnte nicht abgerufen werden"
 msgid "Could not fetch mutes"
 msgstr "Mutes konnte nicht abgerufen werden"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:285
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:284
 msgid "Could not fetch trending topics"
 msgstr "Angesagte Themen konnten nicht abgerufen werden"
 
@@ -656,7 +652,7 @@ msgstr "Konnte Benutzer nicht folgen"
 msgid "Could not log you in"
 msgstr "Anmeldung fehlgeschlagen"
 
-#: src/app/composer/gifs.tsx:225
+#: src/app/composer/gifs.tsx:218
 msgid "Could not select GIF"
 msgstr "GIF konnte nicht ausgewählt werden"
 
@@ -669,8 +665,8 @@ msgstr "Listen konnten nicht abgerufen werden"
 #~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:437
-msgid "Create Account"
-msgstr "Benutzerkonto erstellen"
+#~ msgid "Create Account"
+#~ msgstr "Benutzerkonto erstellen"
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -680,7 +676,7 @@ msgstr "Benutzerkonto erstellen"
 msgid "Create list"
 msgstr "Liste erstellen"
 
-#: src/app/_layout.tsx:379
+#: src/app/_layout.tsx:380
 msgid "Create List"
 msgstr "Liste erstellen"
 
@@ -722,8 +718,8 @@ msgid "Dark"
 msgstr "Dunkel"
 
 #: src/app/(auth)/sign-up.tsx:207
-msgid "Date of Birth"
-msgstr "Geburtsdatum"
+#~ msgid "Date of Birth"
+#~ msgstr "Geburtsdatum"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -747,7 +743,7 @@ msgstr "Liste löschen"
 msgid "Delete post"
 msgstr "Post löschen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:381
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:382
 msgid "Deleted post"
 msgstr "Gelöschter Post"
 
@@ -786,7 +782,7 @@ msgstr "Post verwerfen"
 msgid "Discover feeds"
 msgstr "Feeds entdecken"
 
-#: src/app/_layout.tsx:307
+#: src/app/_layout.tsx:308
 msgid "Discover Feeds"
 msgstr "Feeds entdecken"
 
@@ -850,12 +846,11 @@ msgstr "Feeds bearbeiten"
 msgid "Edit profile"
 msgstr ""
 
-#: src/app/_layout.tsx:358
+#: src/app/_layout.tsx:359
 #: src/app/settings/account/index.tsx:40
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
 
-#: src/app/(auth)/sign-up.tsx:167
 #: src/components/screens/change-password-flow.tsx:98
 msgid "Email"
 msgstr "Email"
@@ -869,10 +864,10 @@ msgid "Enable notifications"
 msgstr "Benachrichtigungen aktivieren"
 
 #: src/app/(auth)/sign-up.tsx:289
-msgid "Enter your phone number"
-msgstr "Telefonnummer eingeben"
+#~ msgid "Enter your phone number"
+#~ msgstr "Telefonnummer eingeben"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:684
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
 #: src/app/settings/account/change-handle.tsx:53
 msgid "Error"
@@ -898,7 +893,7 @@ msgstr ""
 msgid "Failed to open link"
 msgstr "Link konnte nicht geöffnet werden"
 
-#: src/lib/composer/utils.tsx:187
+#: src/lib/composer/utils.tsx:186
 msgid "Failed to upload image"
 msgstr "Fehler beim Hochladen des Bildes"
 
@@ -919,7 +914,7 @@ msgstr "Feed"
 msgid "Feed Details"
 msgstr "Feed-Details"
 
-#: src/app/(tabs)/_layout.tsx:162
+#: src/app/(tabs)/_layout.tsx:163
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:89
@@ -935,16 +930,16 @@ msgstr "Feed-Liste"
 msgid "Fetch connections"
 msgstr ""
 
-#: src/components/screens/feed-screen.tsx:117
+#: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
 msgstr "Finde andere Benutzer, um ihnen zu folgen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:392
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:391
 #: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "Folgen"
 
-#: src/components/screens/feed-screen.tsx:106
+#: src/components/screens/feed-screen.tsx:105
 msgid "Follow people, and their posts will show up here"
 msgstr "Folgen Sie Menschen, und deren Beiträge werden hier angezeigt"
 
@@ -963,7 +958,7 @@ msgstr "Benutzer, die mir folgen"
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:125
 #: src/app/settings/feed.tsx:56
-#: src/components/feeds-button.tsx:263
+#: src/components/feeds-button.tsx:271
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
 msgstr "Following"
@@ -973,7 +968,7 @@ msgstr "Following"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:393
 #: src/components/lists/person-row.tsx:47
 #: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1008,11 +1003,11 @@ msgstr "Allgemein"
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "Buche Graysky Pro für den Zugriff auf DeepL-Übersetzungen. Anderenfalls wird Google Translate verwendet."
 
-#: src/components/screens/waiting-room.tsx:105
+#: src/components/screens/waiting-room.tsx:102
 msgid "Get started"
 msgstr "Los geht's"
 
-#: src/components/screens/waiting-room.tsx:53
+#: src/components/screens/waiting-room.tsx:49
 msgid "Getting queue position..."
 msgstr "Lade Warteschlange Position..."
 
@@ -1020,7 +1015,7 @@ msgstr "Lade Warteschlange Position..."
 msgid "GIFs"
 msgstr "GIFs"
 
-#: src/app/composer/index.tsx:244
+#: src/app/composer/index.tsx:243
 msgid "Go back"
 msgstr "Zurück"
 
@@ -1077,7 +1072,7 @@ msgstr "Startbildschirm"
 msgid "Home screen layout"
 msgstr "Startbildschirm Ansicht"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
 msgid "Hot"
 msgstr "Angesagt"
 
@@ -1101,7 +1096,7 @@ msgstr ""
 msgid "Image options"
 msgstr "Bild-Optionen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:231
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
 msgid "Invalid mode"
 msgstr "Ungültiger Modus"
 
@@ -1156,7 +1151,7 @@ msgstr "Listen-Avatar"
 msgid "List blocked"
 msgstr "Liste blockiert"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "List deleted"
 msgstr "Liste gelöscht"
 
@@ -1180,18 +1175,18 @@ msgstr ""
 msgid "Lists"
 msgstr "Listen"
 
-#: src/app/(auth)/_layout.tsx:61
+#: src/app/(auth)/_layout.tsx:55
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Erneut anmelden"
 
-#: src/app/(auth)/_layout.tsx:49
+#: src/app/(auth)/_layout.tsx:43
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
 msgstr "Anmelden"
 
-#: src/components/screens/waiting-room.tsx:109
+#: src/components/screens/waiting-room.tsx:106
 msgid "Log out"
 msgstr "Abmelden"
 
@@ -1203,7 +1198,7 @@ msgstr "Angemeldet"
 msgid "Logo designed by"
 msgstr "Logo erstellt von"
 
-#: src/components/screens/feed-screen.tsx:103
+#: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
 msgstr "Hier scheint es nichts zu geben!"
 
@@ -1211,7 +1206,7 @@ msgstr "Hier scheint es nichts zu geben!"
 msgid "Makes adding ALT text to your images mandatory"
 msgstr "Macht das Hinzufügen von ALT-Text zu Ihren Bildern zwingend erforderlich"
 
-#: src/components/feeds-button.tsx:313
+#: src/components/feeds-button.tsx:321
 msgid "Manage my feeds"
 msgstr "Meine Feeds verwalten"
 
@@ -1244,8 +1239,8 @@ msgstr "Mitglieder der Liste {0}"
 msgid "Misleading Account"
 msgstr "Irreführendes Konto"
 
-#: src/app/composer/index.tsx:229
-#: src/app/composer/index.tsx:240
+#: src/app/composer/index.tsx:228
+#: src/app/composer/index.tsx:239
 msgid "Missing alt text"
 msgstr "Alt-Text fehlt"
 
@@ -1270,8 +1265,8 @@ msgid "More from {0}"
 msgstr "Mehr von {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
-msgid "Must be at least 8 characters"
-msgstr "Mindestens 8 Zeiten erforderlich"
+#~ msgid "Must be at least 8 characters"
+#~ msgstr "Mindestens 8 Zeiten erforderlich"
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
@@ -1312,7 +1307,7 @@ msgstr "Gemeinsam"
 msgid "My circle"
 msgstr ""
 
-#: src/app/_layout.tsx:328
+#: src/app/_layout.tsx:329
 msgid "My Circle"
 msgstr ""
 
@@ -1350,7 +1345,7 @@ msgstr "Name oder Beschreibung verletzt Gemeinschaftsstandards"
 msgid "Need a new list?"
 msgstr "Eine neue Liste anlegen?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
 msgid "New"
 msgstr "Neu"
 
@@ -1369,10 +1364,10 @@ msgstr "Neuer Post"
 
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
-msgid "Next"
-msgstr "Weiter"
+#~ msgid "Next"
+#~ msgstr "Weiter"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:76
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
 msgstr "Keine Feeds gefunden - vielleicht versuchst Du einen anderen Suchbegriff?"
 
@@ -1380,7 +1375,7 @@ msgstr "Keine Feeds gefunden - vielleicht versuchst Du einen anderen Suchbegriff
 msgid "No one can reply"
 msgstr "Niemand kann antworten"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:103
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:102
 msgid "No posts found - maybe try a different search term?"
 msgstr "Keine Beiträge gefunden - vielleicht versuchst Du einen anderen Suchbegriff?"
 
@@ -1389,7 +1384,7 @@ msgstr "Keine Beiträge gefunden - vielleicht versuchst Du einen anderen Suchbeg
 msgid "No preferences"
 msgstr "Keine Einstellungen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:85
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:84
 msgid "No users found - maybe try a different search term?"
 msgstr "Keine Benutzer gefunden - vielleicht versuchen Sie einen anderen Suchbegriff?"
 
@@ -1413,8 +1408,8 @@ msgstr "Noch nicht implementiert"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Hinweis: Einstellungen für Erwachseneninhalte können auf iOS nicht geändert werden. Bitte verwenden Sie stattdessen die Web-App."
 
-#: src/app/(tabs)/_layout.tsx:242
-#: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:291
+#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:290
 msgid "Notifications"
 msgstr "Mitteilungen"
 
@@ -1463,7 +1458,6 @@ msgstr "Optional"
 msgid "Other"
 msgstr "Andere"
 
-#: src/app/(auth)/sign-up.tsx:185
 #: src/app/settings/account/delete-account.tsx:183
 msgid "Password"
 msgstr "Passwort"
@@ -1472,12 +1466,11 @@ msgstr "Passwort"
 msgid "Password changed successfully!"
 msgstr "Passwort erfolgreich geändert!"
 
-#: src/app/(auth)/sign-up.tsx:79
 #: src/components/screens/change-password-flow.tsx:60
 msgid "Password must be at least 8 characters"
 msgstr "Passwort muss min. 8 Zeichen haben"
 
-#: src/components/screens/waiting-room.tsx:89
+#: src/components/screens/waiting-room.tsx:85
 msgid "people ahead of you."
 msgstr "Leute vor dir."
 
@@ -1490,42 +1483,42 @@ msgid "People you follow"
 msgstr "Personen, denen du folgst"
 
 #: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:502
-#: src/lib/composer/utils.tsx:512
-#: src/lib/composer/utils.tsx:531
-#: src/lib/composer/utils.tsx:539
+#: src/lib/composer/utils.tsx:501
+#: src/lib/composer/utils.tsx:511
+#: src/lib/composer/utils.tsx:530
+#: src/lib/composer/utils.tsx:538
 msgid "Permission required"
 msgstr "Zugriff erforderlich"
 
 #: src/app/(auth)/sign-up.tsx:281
-msgid "Phone number"
-msgstr "Telefonnummer"
+#~ msgid "Phone number"
+#~ msgstr "Telefonnummer"
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
 msgstr ""
 
-#: src/app/composer/index.tsx:231
+#: src/app/composer/index.tsx:230
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "Bitte füge beschreibenden Alt-Text zu allen Bildern hinzu, bevor Sie posten."
 
-#: src/lib/composer/utils.tsx:532
-#: src/lib/composer/utils.tsx:540
+#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:539
 msgid "Please enable camera access in your settings"
 msgstr "Bitte aktiviere den Kamera-Zugriff in Deinen Telefon-Einstellungen"
 
 #: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:504
-#: src/lib/composer/utils.tsx:514
+#: src/lib/composer/utils.tsx:503
+#: src/lib/composer/utils.tsx:513
 msgid "Please enable photo gallery access in your settings"
 msgstr "Bitte aktiviere den Zugriff auf die Fotogalerie in Deinen Telefon-Einstellungen"
 
 #: src/app/(auth)/sign-up.tsx:303
-msgid "Please enter a phone number that can receive SMS text messages."
-msgstr "Bitte gib eine Telefonnummer ein, die SMS empfangen kann."
+#~ msgid "Please enter a phone number that can receive SMS text messages."
+#~ msgstr "Bitte gib eine Telefonnummer ein, die SMS empfangen kann."
 
-#: src/app/composer/gifs.tsx:226
-#: src/app/composer/index.tsx:290
+#: src/app/composer/gifs.tsx:219
+#: src/app/composer/index.tsx:289
 #: src/components/screens/change-password-flow.tsx:72
 msgid "Please try again"
 msgstr "Bitte nochmals versuchen"
@@ -1542,14 +1535,14 @@ msgstr "Bitte nutze die offizielle Anwendung während dessen. Sorry!"
 msgid "Pornographic content"
 msgstr "Pornographischer Inhalt"
 
-#: src/app/(tabs)/_layout.tsx:197
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:351
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
+#: src/app/(tabs)/_layout.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:352
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:358
 #: src/lib/composer/buttons.tsx:72
 msgid "Post"
 msgstr "Post"
 
-#: src/app/composer/index.tsx:244
+#: src/app/composer/index.tsx:243
 msgid "Post anyway"
 msgstr "Trotzdem posten"
 
@@ -1573,7 +1566,7 @@ msgstr "Post Sprachen"
 msgid "Post link copied to clipboard"
 msgstr "Link zum Post in die Zwischenablage kopiert"
 
-#: src/lib/composer/utils.tsx:341
+#: src/lib/composer/utils.tsx:340
 msgid "Post published!"
 msgstr "Post veröffentlicht!"
 
@@ -1590,7 +1583,7 @@ msgid "Posts"
 msgstr "Posts"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:131
-#: src/components/feeds-button.tsx:269
+#: src/components/feeds-button.tsx:277
 msgid "Posts from people you follow"
 msgstr "Neue Beiträge von Personen, denen du folgst"
 
@@ -1598,7 +1591,7 @@ msgstr "Neue Beiträge von Personen, denen du folgst"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Posts werden übersetzt in {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:180
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "Powered by Skyfeed"
 msgstr "Unterstützt von Skyfeed"
 
@@ -1624,7 +1617,7 @@ msgstr "Pro Einstellungen"
 msgid "Pro version information and purchase"
 msgstr "Pro Versionsinformation und Kauf"
 
-#: src/app/(tabs)/_layout.tsx:260
+#: src/app/(tabs)/_layout.tsx:262
 msgid "Profile"
 msgstr "Profil"
 
@@ -1632,7 +1625,7 @@ msgstr "Profil"
 msgid "Profile Settings"
 msgstr "Profileinstellungen"
 
-#: src/app/_layout.tsx:336
+#: src/app/_layout.tsx:337
 msgid "Purchase Successful"
 msgstr "Kauf erfolgreich"
 
@@ -1644,7 +1637,7 @@ msgstr "Zweck"
 msgid "Push notifications"
 msgstr "Push Benachrichtigungen"
 
-#: src/app/_layout.tsx:393
+#: src/app/_layout.tsx:394
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "Push Benachrichtigungen"
@@ -1657,7 +1650,7 @@ msgstr "Zitat"
 msgid "Quote post settings"
 msgstr "Beitragseinstellungen für Zitate"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:229
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
 msgid "Random"
 msgstr "Zufällig"
 
@@ -1677,7 +1670,7 @@ msgstr "Antwort-Steuerelemente"
 msgid "Reply settings"
 msgstr "Antwort-Einstellungen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:328
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:329
 msgid "Reply to {0}"
 msgstr "Antwort auf {0}"
 
@@ -1686,7 +1679,7 @@ msgstr "Antwort auf {0}"
 msgid "replying to {0}"
 msgstr "antworten auf {0}"
 
-#: src/app/composer/index.tsx:348
+#: src/app/composer/index.tsx:347
 msgid "Replying to @{0}"
 msgstr "Antworten auf @{0}"
 
@@ -1702,7 +1695,7 @@ msgstr "antworten auf einen gelöschten Beitrag"
 msgid "replying to a post that couldn't be fetched"
 msgstr "antworten auf einen Beitrag, der nicht abgerufen werden konnte"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:399
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:400
 msgid "Replying to some sort of post"
 msgstr "Antworten auf eine Art von Beitrag"
 
@@ -1744,14 +1737,14 @@ msgid "reposted your post"
 msgstr "hat Deinen Beitrag geteilt"
 
 #: src/app/(auth)/sign-up.tsx:317
-msgid "Request code"
-msgstr "Code anfordern"
+#~ msgid "Request code"
+#~ msgstr "Code anfordern"
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
 msgstr "Code zurücksetzen"
 
-#: src/app/(auth)/_layout.tsx:55
+#: src/app/(auth)/_layout.tsx:49
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
@@ -1770,7 +1763,7 @@ msgstr "Käufe werden wiederhergestellt..."
 msgid "Retry"
 msgstr "Wiederholen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
 msgid "Rising"
 msgstr "Aufsteigend"
 
@@ -1797,7 +1790,7 @@ msgstr "Gespeichert"
 msgid "Saved image to gallery"
 msgstr "Bild in Galerie gespeichert"
 
-#: src/app/(tabs)/_layout.tsx:184
+#: src/app/(tabs)/_layout.tsx:185
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
 #: src/lib/quick-actions.ts:70
 msgid "Search"
@@ -1807,25 +1800,25 @@ msgstr "Suche"
 msgid "Search all users"
 msgstr "Benutzersuche"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
 #: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "Feeds Suche"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:126
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:125
 msgid "Search Feeds"
 msgstr "Feeds suchen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:80
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:79
 msgid "Search for feeds"
 msgstr "Nach Feeds suchen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:107
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:106
 msgid "Search for posts"
 msgstr "Nach Beiträgen suchen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:89
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:88
 msgid "Search for users"
 msgstr "Nach Benutzern suchen"
 
@@ -1839,20 +1832,20 @@ msgstr "Suche GIFs"
 msgid "Search languages"
 msgstr "Sprachen suchen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:117
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:116
 msgid "Search people"
 msgstr "Suche Personen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:127
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:126
 msgid "Search People"
 msgstr "Suche Personen"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:136
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Suche nach Beiträgen"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:146
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:145
 msgid "Search Posts"
 msgstr "Suche nach Beiträgen"
 
@@ -1877,8 +1870,8 @@ msgid "See your closest connections"
 msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:229
-msgid "Select date of birth"
-msgstr "Geburtsdatum auswählen"
+#~ msgid "Select date of birth"
+#~ msgstr "Geburtsdatum auswählen"
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -1925,7 +1918,7 @@ msgstr "{0}'s Post teilen"
 msgid "Share as image"
 msgstr "Als Bild teilen"
 
-#: src/app/_layout.tsx:403
+#: src/app/_layout.tsx:404
 msgid "Share as Image"
 msgstr "Als Bild teilen"
 
@@ -1969,11 +1962,11 @@ msgstr "Zeigen"
 msgid "Show \"My Lists\" above \"All Feeds\""
 msgstr "Zeige \"Meine Listen\" oberhalb von \"Alle Feeds\""
 
-#: src/components/lists/people-list.tsx:124
+#: src/components/lists/people-list.tsx:128
 msgid "Show {0} more"
 msgstr "Zeige {0} mehr"
 
-#: src/components/lists/people-list.tsx:122
+#: src/components/lists/people-list.tsx:126
 msgid "Show all"
 msgstr "Alles anzeigen"
 
@@ -2012,14 +2005,14 @@ msgid "Sign out"
 msgstr "Abmelden"
 
 #: src/app/(auth)/_layout.tsx:43
-msgid "Sign up"
-msgstr "Anmelden"
+#~ msgid "Sign up"
+#~ msgstr "Anmelden"
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
 msgstr "Für Projektupdates registrieren"
 
-#: src/app/(tabs)/_layout.tsx:162
+#: src/app/(tabs)/_layout.tsx:163
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
 msgid "Skyline"
 msgstr "Skyline"
@@ -2078,7 +2071,7 @@ msgstr "Abonniere {0}"
 msgid "Subscribe to list"
 msgstr "Abonniere die Liste"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:291
 msgid "Suggested follows"
 msgstr "Folgeempfehlungen"
 
@@ -2128,11 +2121,11 @@ msgstr "Dankeschön!"
 msgid "The app won't trigger haptic feedback manually anymore, however some UI elements may still have haptics. If you are sensitive to this, please disable haptics in your device's system accessibility settings."
 msgstr "Die App löst keine haptische Rückmeldung mehr manuell aus, allerdings können einige Bildschirmelemente noch haptisch sein. Wenn Du dafür sensibel bist, deaktiviere bitte die Haptik in den Systemeinstellungen."
 
-#: src/components/lists/people-list.tsx:134
+#: src/components/lists/people-list.tsx:138
 msgid "There's nothing here..."
 msgstr "Es gibt hier nichts..."
 
-#: src/components/screens/feed-screen.tsx:126
+#: src/components/screens/feed-screen.tsx:125
 msgid "This feed is empty"
 msgstr "Dieser Feed ist leer"
 
@@ -2140,8 +2133,8 @@ msgstr "Dieser Feed ist leer"
 msgid "This handle is already taken. Please choose another."
 msgstr "Dieser Benutzername ist bereits vergeben. Bitte wähle einen anderen."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:507
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:636
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
 msgid "This list is empty"
 msgstr "Diese Liste ist leer"
 
@@ -2167,7 +2160,7 @@ msgstr "Dieser Beitrag stammt von jemandem, den Du blockiert hast"
 msgid "This post is from someone you have muted"
 msgstr "Dieser Beitrag ist von jemandem, den Du stummgeschaltet hast"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:326
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:327
 msgid "This thread is locked"
 msgstr "Dieser Thread ist gesperrt"
 
@@ -2191,23 +2184,23 @@ msgstr "Um loszulegen, füge einige Feeds Deinem Startbildschirm hinzu."
 msgid "Toggle favourite status"
 msgstr "Favoriten Status umschalten"
 
-#: src/lib/composer/utils.tsx:394
+#: src/lib/composer/utils.tsx:393
 msgid "Too many images selected"
 msgstr "Zu viele Bilder ausgewählt"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
 msgid "Top (10h)"
 msgstr "Top (10h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
 msgid "Top (24h)"
 msgstr "Top (24h)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:225
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
 msgid "Top (3d)"
 msgstr "Top (3 Tage)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:227
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
 msgid "Top (7d)"
 msgstr "Neueste (7d)"
 
@@ -2241,7 +2234,7 @@ msgstr "Übersetzungsanbieter"
 msgid "Translations are now powered by DeepL"
 msgstr "Übersetzungen werden jetzt von DeepL durchgeführt"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:248
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:247
 msgid "Trending topics"
 msgstr "Beliebte Themen"
 
@@ -2268,7 +2261,6 @@ msgid "Unfollowed user"
 msgstr "Benutzer nicht mehr gefolgt"
 
 #: src/app/(auth)/sign-in.tsx:51
-#: src/app/(auth)/sign-up.tsx:94
 #: src/app/settings/account/delete-account.tsx:69
 #: src/components/switch-accounts.tsx:72
 #: src/components/switch-accounts.tsx:77
@@ -2355,8 +2347,8 @@ msgid "Users that <0>{0}</0> follows"
 msgstr "Benutzer, denen <0>{0}</0> folgt"
 
 #: src/app/(auth)/sign-up.tsx:325
-msgid "Verification code"
-msgstr "Verifizierungscode"
+#~ msgid "Verification code"
+#~ msgstr "Verifizierungscode"
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2402,7 +2394,7 @@ msgstr "Warnung: Das Löschen des Kontos ist entgültig"
 msgid "Welcome to Bluesky!"
 msgstr "Willkommen bei Bluesky!"
 
-#: src/components/screens/waiting-room.tsx:74
+#: src/components/screens/waiting-room.tsx:70
 msgid "Welcome to Bluesky! We're excited to have you."
 msgstr "Willkommen bei Bluesky! Wir freuen uns über Sie."
 
@@ -2410,7 +2402,7 @@ msgstr "Willkommen bei Bluesky! Wir freuen uns über Sie."
 msgid "Welcome to Graysky Pro!"
 msgstr "Willkommen bei Graysky Pro!"
 
-#: src/app/composer/index.tsx:350
+#: src/app/composer/index.tsx:349
 msgid "What's on your mind?"
 msgstr "Was machst du gerade?"
 
@@ -2440,14 +2432,14 @@ msgid "You are now logged in as @{0}"
 msgstr "Du bist jetzt eingeloggt als @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
-msgid "You can change it later"
-msgstr "Du kannst es später ändern"
+#~ msgid "You can change it later"
+#~ msgstr "Du kannst es später ändern"
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
 msgstr "Sie können nun die Akzentfarbe ändern"
 
-#: src/lib/composer/utils.tsx:396
+#: src/lib/composer/utils.tsx:395
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "Sie können nur bis zu {MAX_IMAGES} Bilder anhängen, zusätzliche Bilder werden ignoriert"
 
@@ -2495,11 +2487,11 @@ msgstr "Du kannst ein abweichendes Passwort für die App verwenden. Das sorgt f�
 msgid "You will no longer see posts from @{handle}"
 msgstr "Du wirst keine Beiträge mehr von @{handle} sehen"
 
-#: src/components/screens/waiting-room.tsx:80
+#: src/components/screens/waiting-room.tsx:76
 msgid "You're in the queue to join Bluesky!"
 msgstr "Du bist in der Warteschlange um Bluesky beizutreten!"
 
-#: src/components/screens/waiting-room.tsx:68
+#: src/components/screens/waiting-room.tsx:64
 msgid "You're in!"
 msgstr "Du bist drin!"
 
@@ -2507,15 +2499,14 @@ msgstr "Du bist drin!"
 msgid "Your choice will be saved, but can be changed in settings"
 msgstr "Deine Auswahl wird gespeichert, kann aber in den Einstellungen geändert werden"
 
-#: src/app/(auth)/sign-up.tsx:407
 #: src/app/settings/account/change-handle.tsx:130
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Dein Handle lautet: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:679
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
 msgid "Your list has been deleted"
 msgstr "Deine Liste wurde gelöscht"
 
-#: src/lib/composer/utils.tsx:176
+#: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Dein Beitrag ist zu lang - es gibt eine Zeichenbegrenzung von 300 Zeichen"

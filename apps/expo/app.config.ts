@@ -43,6 +43,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
         process.env.DEV_CLIENT === "true" ? false : true,
       CADisableMinimumFrameDurationOnPhone: true,
       UIBackgroundModes: ["remote-notification"],
+      // UIDesignRequiresCompatibility: true,
     },
   },
   android: {
@@ -85,7 +86,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       "expo-build-properties",
       {
         ios: {
-          deploymentTarget: "14.0",
+          deploymentTarget: "15.1",
           useFrameworks: "static",
           ccacheEnabled: true,
         },

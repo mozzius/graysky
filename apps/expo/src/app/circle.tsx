@@ -8,7 +8,7 @@ import {
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import ViewShot from "react-native-view-shot";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageSource } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import {

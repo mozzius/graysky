@@ -494,7 +494,6 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
       renderItem={({ item }) => <ListMemberItem item={item} />}
       onEndReachedThreshold={2}
       onEndReached={() => query.fetchNextPage()}
-      estimatedItemSize={140}
       ListFooterComponent={
         <ListFooterComponent
           query={query}
@@ -610,7 +609,6 @@ const ListFeed = ({ uri }: { uri: string }) => {
           filter: FilterResult;
         }>
           removeClippedSubviews
-          estimatedItemSize={264}
           contentInsetAdjustmentBehavior="automatic"
           ref={ref}
           data={data}

@@ -11,9 +11,9 @@ export const BackButtonOverride = ({ dismiss }: Props) => {
       if (dismiss) dismiss();
       return true;
     }
-    BackHandler.addEventListener("hardwareBackPress", onBackButton);
+    const sub = BackHandler.addEventListener("hardwareBackPress", onBackButton);
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", onBackButton);
+      sub.remove();
     };
   }, [dismiss]);
 

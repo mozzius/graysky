@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
-import { type FlashList } from "@shopify/flash-list";
+import { FlashListRef } from "@shopify/flash-list";
 
 interface Options {
   largeHeader?: boolean;
@@ -17,7 +17,7 @@ interface Options {
 }
 
 export const useTabPressScroll = <T>(
-  ref: React.RefObject<FlashList<T> | FlatList<T>>,
+  ref: React.RefObject<FlashListRef<T> | FlatList<T> | null>,
   callback: () => unknown = () => {},
   { largeHeader, setScrollDir }: Options = {},
 ) => {
@@ -91,7 +91,7 @@ export const useTabPressScrollRef = <T>(
   callback: () => unknown = () => {},
   options: Options = {},
 ) => {
-  const ref = useRef<FlashList<T>>(null);
+  const ref = useRef<FlashListRef<T>>(null);
 
   const onScroll = useTabPressScroll(ref, callback, options);
 

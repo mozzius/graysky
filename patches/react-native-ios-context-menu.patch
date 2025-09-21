@@ -1,0 +1,98 @@
+diff --git a/react-native-ios-context-menu.podspec b/react-native-ios-context-menu.podspec
+index 94dec157fd2e77254747661b4958939b7ae88280..ba31e3cf519c57e9110ba3d3bc664089b0badcc3 100644
+--- a/react-native-ios-context-menu.podspec
++++ b/react-native-ios-context-menu.podspec
+@@ -28,7 +28,10 @@ use_hermes = ENV['USE_HERMES'] == nil || ENV['USE_HERMES'] == '1'
+ fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+ 
+ folly_version = '2022.05.16.00'
+-folly_compiler_flags = get_folly_config()[:compiler_flags]
++folly_compiler_flags = (get_folly_config()[:compiler_flags] || '').strip
++base_flags = "-DREACT_NATIVE_TARGET_VERSION=#{reactNativeTargetVersion}"
++
++compiler_flags = base_flags.dup
+ 
+ linkage = ENV['USE_FRAMEWORKS']
+ reactNativeTargetVersionOverride = ENV['REACT_NATIVE_TARGET_VERSION']
+@@ -41,12 +44,14 @@ puts " - linkage: #{linkage}"
+ puts " - hermes enabled: #{use_hermes}"
+ puts "\n"
+ 
+-if reactNativeTargetVersionOverride 
++if reactNativeTargetVersionOverride
+   reactNativeTargetVersion = reactNativeTargetVersionOverride.to_i
+ end
+ 
+ fabric_compiler_flags = '-DRN_FABRIC_ENABLED -DRCT_NEW_ARCH_ENABLED'
+-compiler_flags = folly_compiler_flags + ' ' + "-DREACT_NATIVE_TARGET_VERSION=#{reactNativeTargetVersion}"
++if ENV['RCT_USE_RN_DEP'] != '1'
++  compiler_flags = [folly_compiler_flags, base_flags].reject(&:empty?).join(' ')
++end
+ 
+ if use_hermes
+   compiler_flags << ' -DUSE_HERMES'
+@@ -74,7 +79,7 @@ Pod::Spec.new do |s|
+   s.header_dir       = 'react-native-ios-context-menu'
+ 
+   header_search_paths = [
+-    '"$(PODS_ROOT)/Headers/Private/React-Core"', 
++    '"$(PODS_ROOT)/Headers/Private/React-Core"',
+     # '"$(PODS_ROOT)/boost"',
+     '"$(PODS_ROOT)/DoubleConversion"',
+     # '"$(PODS_ROOT)/RCT-Folly"',
+@@ -93,7 +98,7 @@ Pod::Spec.new do |s|
+       '"$(PODS_ROOT)/Headers/Public/ReactCommon"',
+       '"${PODS_CONFIGURATION_BUILD_DIR}/React-jserrorhandler/React_jserrorhandler.framework/Headers"',
+       '"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector/jsinspector_modern.framework/Headers"',
+-      
++
+       '"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly/folly.framework/Headers"',
+       '"${PODS_CONFIGURATION_BUILD_DIR}/fmt/fmt.framework/Headers"',
+       '"${PODS_CONFIGURATION_BUILD_DIR}/React-utils/React_utils.framework/Headers"',
+@@ -101,7 +106,7 @@ Pod::Spec.new do |s|
+       '"${PODS_CONFIGURATION_BUILD_DIR}/React-rendererdebug/React_rendererdebug.framework/Headers"',
+     ])
+   end
+-  
++
+ 
+   # Swift/Objective-C compatibility
+   s.pod_target_xcconfig = {
+@@ -120,7 +125,7 @@ Pod::Spec.new do |s|
+     '"${PODS_CONFIGURATION_BUILD_DIR}/react-native-ios-context-menu/Swift Compatibility Header"',
+     '"$(PODS_ROOT)/Headers/Private/React-bridging/react/bridging"',
+     '"$(PODS_CONFIGURATION_BUILD_DIR)/React-bridging/react_bridging.framework/Headers"',
+-    '"$(PODS_ROOT)/Headers/Private/Yoga"', 
++    '"$(PODS_ROOT)/Headers/Private/Yoga"',
+   ]
+ 
+   if fabric_enabled && ENV['USE_FRAMEWORKS']
+@@ -132,7 +137,7 @@ Pod::Spec.new do |s|
+     user_header_search_paths << "\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core\""
+     user_header_search_paths << "\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTFabric/RCTFabric.framework/Headers\""
+   end
+-  
++
+   s.user_target_xcconfig = {
+     "HEADER_SEARCH_PATHS" => user_header_search_paths,
+   }
+@@ -156,7 +161,9 @@ Pod::Spec.new do |s|
+ 
+   if fabric_enabled
+     s.dependency 'React-RCTFabric'
+-    s.dependency 'RCT-Folly', folly_version
++    if ENV['RCT_USE_RN_DEP'] != '1'
++      s.dependency 'RCT-Folly', folly_version
++    end
+   end
+ 
+   s.dependency 'react-native-ios-utilities'
+@@ -164,7 +171,7 @@ Pod::Spec.new do |s|
+   s.dependency 'ContextMenuAuxiliaryPreview', '~> 0.5'
+ 
+   exclude_files = ['ios/Tests/']
+-  
++
+   if !fabric_enabled
+     exclude_files.append('ios/Fabric/')
+     exclude_files.append('common/cpp/fabric/')

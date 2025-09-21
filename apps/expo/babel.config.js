@@ -23,13 +23,14 @@ module.exports = function (api) {
         "babel-preset-expo",
         {
           lazyImports: true,
+          unstable_transformImportMeta: true,
         },
       ],
     ],
     plugins: [
       "macros",
       ["nativewind/babel", { tailwindConfig: lazyLoadConfig() }],
-      "react-native-reanimated/plugin",
+      "react-native-worklets/plugin",
     ],
   };
 };

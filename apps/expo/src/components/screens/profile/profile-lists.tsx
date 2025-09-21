@@ -47,7 +47,6 @@ export const ProfileLists = ({ did }: Props) => {
       )}
       onEndReachedThreshold={2}
       onEndReached={() => lists.fetchNextPage()}
-      estimatedItemSize={91}
       ListFooterComponent={<ListFooterComponent query={lists} />}
       refreshControl={
         <RefreshControl

@@ -192,6 +192,7 @@ const App = () => {
   // redirect depending on login state
   useEffect(() => {
     if (resumeSession.isPending) return;
+    // @ts-expect-error
     const atRoot = segments.length === 0;
     const inAuthGroup = segments[0] === "(auth)";
 
@@ -298,7 +299,7 @@ const App = () => {
                             options={{
                               headerShown: false,
                               animation: "fade",
-                              customAnimationOnGesture: true,
+                              animationMatchesGesture: true,
                             }}
                           />
                           <Stack.Screen
@@ -427,6 +428,7 @@ const getSession = () => {
 };
 
 function RootLayout() {
+  console.log("ROOT LAYOUT");
   useConfigurePurchases();
   useSentryTracing();
 

@@ -13,7 +13,7 @@ LogBox.ignoreLogs(["FlashList only supports padding related props"]);
 // vendored react-merge-refs due to import issues
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mergeRefs<T = any>(
-  refs: (React.MutableRefObject<T> | React.LegacyRef<T>)[],
+  refs: (React.MutableRefObject<T> | React.Ref<T>)[],
 ): React.RefCallback<T> {
   return (value) => {
     refs.forEach((ref) => {
@@ -66,7 +66,6 @@ export const ProfilePosts = ({ did, mode }: Props) => {
         )}
         onEndReachedThreshold={2}
         onEndReached={() => timeline.fetchNextPage()}
-        estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={timeline} />}
         refreshControl={
           <RefreshControl

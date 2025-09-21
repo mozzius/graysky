@@ -22,7 +22,6 @@ import {
 import { type I18n } from "@lingui/core";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
-import { type PastedFile } from "@mattermost/react-native-paste-input";
 import Sentry from "@sentry/react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import RNFetchBlob from "rn-fetch-blob";
@@ -431,57 +430,57 @@ export const useImages = () => {
     [setImages],
   );
 
-  const handlePaste = useCallback(
-    async (err: string | null, files: PastedFile[]) => {
-      if (images.length >= MAX_IMAGES) return;
+  // const handlePaste = useCallback(
+  //   async (err: string | null, files: PastedFile[]) => {
+  //     if (images.length >= MAX_IMAGES) return;
 
-      if (err) {
-        console.error(err);
-        return;
-      }
-      const uris = files.map((f) => f.uri);
-      const uri = uris.find((uri) => /\.(jpg|jpeg|png).*$/.test(uri));
+  //     if (err) {
+  //       console.error(err);
+  //       return;
+  //     }
+  //     const uris = files.map((f) => f.uri);
+  //     const uri = uris.find((uri) => /\.(jpg|jpeg|png).*$/.test(uri));
 
-      if (uri) {
-        try {
-          const { width, height } = await new Promise<{
-            width: number;
-            height: number;
-          }>((resolve, reject) => {
-            Image.getSize(
-              uri,
-              (width, height) => {
-                resolve({ width, height });
-              },
-              reject,
-            );
-          });
-          setImages((prev) => [
-            ...prev,
-            {
-              asset: {
-                uri,
-                width,
-                height,
-              },
-              alt: "",
-            },
-          ]);
-        } catch (err) {
-          Sentry.captureException(err);
-          return;
-        }
-      }
-    },
-    [images.length],
-  );
+  //     if (uri) {
+  //       try {
+  //         const { width, height } = await new Promise<{
+  //           width: number;
+  //           height: number;
+  //         }>((resolve, reject) => {
+  //           Image.getSize(
+  //             uri,
+  //             (width, height) => {
+  //               resolve({ width, height });
+  //             },
+  //             reject,
+  //           );
+  //         });
+  //         setImages((prev) => [
+  //           ...prev,
+  //           {
+  //             asset: {
+  //               uri,
+  //               width,
+  //               height,
+  //             },
+  //             alt: "",
+  //           },
+  //         ]);
+  //       } catch (err) {
+  //         Sentry.captureException(err);
+  //         return;
+  //       }
+  //     }
+  //   },
+  //   [images.length],
+  // );
 
   return {
     images,
     imagePicker,
     removeImage,
     addAltText,
-    handlePaste,
+    // handlePaste,
   };
 };
 

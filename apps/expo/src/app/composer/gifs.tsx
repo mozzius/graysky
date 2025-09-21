@@ -17,7 +17,7 @@ import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
 import Sentry from "@sentry/react-native";
-import { MasonryFlashList } from "@shopify/flash-list";
+import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData } from "@tanstack/react-query";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
@@ -49,7 +49,7 @@ const useDebounce = <T,>(value: T, delay: number) => {
 };
 
 export default function GifSearch() {
-  const ref = useRef<SearchBarCommands>(null);
+  const ref = useRef<SearchBarCommands>(null!);
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const { width } = useSafeAreaFrame();
@@ -148,16 +148,13 @@ export default function GifSearch() {
     return (
       <View className="flex-1" style={{ backgroundColor: theme.colors.card }}>
         <Stack.Screen options={{ headerSearchBarOptions }} />
-        <MasonryFlashList
+        <FlashList
+          masonry
           data={gifQuery.data.pages.flatMap((page) => page.results)}
           contentInsetAdjustmentBehavior="automatic"
           numColumns={2}
           overrideItemLayout={(layout, item) => {
-            const aspectRatio =
-              item.media_formats.tinymp4.dims[0]! /
-              item.media_formats.tinymp4.dims[1]!;
             layout.span = (width - 16) / 2;
-            layout.size = (layout.span - 4) / aspectRatio + 8;
           }}
           onEndReachedThreshold={2}
           onEndReached={() => gifQuery.fetchNextPage()}
@@ -168,16 +165,13 @@ export default function GifSearch() {
               tintColor={tintColor}
             />
           }
-          estimatedItemSize={200}
           ListFooterComponent={<ListFooterComponent query={gifQuery} />}
           contentContainerStyle={{
             paddingHorizontal: 16,
             paddingTop: Platform.select({ ios: 0, default: 16 }),
           }}
           optimizeItemArrangement
-          renderItem={({ item, columnIndex }) => (
-            <Gif item={item} column={columnIndex} />
-          )}
+          renderItem={({ item }) => <Gif item={item} />}
           drawDistance={0}
         />
       </View>
@@ -198,10 +192,9 @@ export default function GifSearch() {
 
 interface GifProps {
   item: TenorResponse;
-  column: number;
 }
 
-const Gif = ({ item, column }: GifProps) => {
+const Gif = ({ item }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
   const agent = useAgent();
@@ -233,7 +226,7 @@ const Gif = ({ item, column }: GifProps) => {
     item.media_formats.tinymp4.dims[0]! / item.media_formats.tinymp4.dims[1]!;
 
   return (
-    <View className={cx("mb-2 flex-1", column === 0 ? "pr-1" : "pl-1")}>
+    <View className="mb-2 flex-1 px-1">
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
         onPress={() => {

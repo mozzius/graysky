@@ -361,7 +361,7 @@ export default function Pro() {
 }
 
 interface FeatureItemProps {
-  icon: React.ReactElement;
+  icon: React.ReactElement<any>;
   title: string;
   subtitle: string;
   colour: string;

@@ -12,7 +12,7 @@ import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
-import { FlashList } from "@shopify/flash-list";
+import { FlashList, FlashListRef } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 import {
   LockIcon,
@@ -60,7 +60,7 @@ const PostThread = ({ contentFilter }: Props) => {
   }>();
 
   const agent = useAgent();
-  const ref = useRef<FlashList<Posts>>(null);
+  const ref = useRef<FlashListRef<Posts>>(null);
   const theme = useTheme();
   const composer = useComposer();
 
@@ -245,14 +245,15 @@ const PostThread = ({ contentFilter }: Props) => {
   const onScroll = useTabPressScroll<Posts>(ref);
 
   if (thread.data) {
+    const posts = thread.data.posts;
     return (
       <>
         <FlashList<Posts>
           removeClippedSubviews
           ref={ref}
           onScroll={onScroll}
-          data={thread.data.posts}
-          estimatedItemSize={150}
+          data={posts}
+          initialScrollIndex={posts.findIndex((post) => post.primary) ?? 0}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

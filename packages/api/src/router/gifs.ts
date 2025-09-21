@@ -64,6 +64,7 @@ export const gifsRouter = createTRPCRouter({
         "https://bsky.social/xrpc/com.atproto.repo.uploadBlob",
         {
           method: "POST",
+          // @ts-expect-error
           body: image,
           headers: {
             "Content-Type": "image/jpeg",

@@ -5,7 +5,7 @@ import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { Trans } from "@lingui/macro";
 import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { type DefinedUseQueryResult } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { RssIcon, SearchIcon } from "lucide-react-native";
 
 import { useTabPressScrollRef } from "~/lib/hooks";
@@ -88,7 +88,6 @@ export const FeedScreen = ({ feed }: Props) => {
               tintColor={tintColor}
             />
           }
-          estimatedItemSize={171}
           ListFooterComponent={
             <ListFooterComponent
               query={timeline}
@@ -146,7 +145,7 @@ const Wrapper = ({
   children,
   scrollDir,
 }: {
-  info: DefinedUseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
+  info: UseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
   children: React.ReactNode;
   scrollDir: number;
 }) => {
@@ -154,7 +153,7 @@ const Wrapper = ({
     <>
       <Stack.Screen
         options={{
-          title: info.data.view.displayName,
+          title: info.data?.view.displayName,
         }}
       />
       {children}

@@ -72,7 +72,6 @@ const PeopleSearch = ({ search }: Props) => {
             backgroundColor={theme.dark ? "black" : "white"}
           />
         )}
-        estimatedItemSize={56}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
@@ -105,7 +104,7 @@ export default function PeopleSearchScreen() {
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
 
-  const ref = useRef<SearchBarCommands>(null);
+  const ref = useRef<SearchBarCommands>(null!);
 
   useEffect(() => {
     setTimeout(() => {

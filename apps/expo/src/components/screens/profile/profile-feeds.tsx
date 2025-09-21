@@ -53,7 +53,6 @@ export const ProfileFeeds = ({ did }: Props) => {
         )}
         onEndReachedThreshold={2}
         onEndReached={() => feeds.fetchNextPage()}
-        estimatedItemSize={100}
         ListFooterComponent={<ListFooterComponent query={feeds} />}
         refreshControl={
           <RefreshControl

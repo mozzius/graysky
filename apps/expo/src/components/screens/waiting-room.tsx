@@ -2,17 +2,13 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Trans } from "@lingui/macro";
-import { ProgressView } from "@react-native-community/progress-view";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { styled } from "nativewind";
 
 import { useAgent } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
 import { Button } from "../button";
 import { Confetti } from "../confetti";
 import { Text } from "../themed/text";
-
-const ProgressBar = styled(ProgressView);
 
 export const WaitingRoom = () => {
   const agent = useAgent();
@@ -41,7 +37,7 @@ export const WaitingRoom = () => {
 
   const { mutate: logIn } = useMutation({
     mutationFn: async () => {
-      await agent.refreshSession();
+      await agent.sessionManager.refreshSession();
     },
   });
 
@@ -88,7 +84,8 @@ export const WaitingRoom = () => {
             <Text className="mt-2 text-center text-base">
               <Trans>people ahead of you.</Trans>
             </Text>
-            {initialQueuePosition !== null && (
+            {/* broken dep, fix eventually */}
+            {/*{initialQueuePosition !== null && (
               <ProgressBar
                 className="mt-8 w-3/4"
                 progress={
@@ -96,7 +93,7 @@ export const WaitingRoom = () => {
                   initialQueuePosition
                 }
               />
-            )}
+            )}*/}
           </>
         )}
       </View>

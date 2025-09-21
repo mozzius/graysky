@@ -59,7 +59,6 @@ const FeedSearch = ({ search }: Props) => {
         onScroll={onScroll}
         data={data}
         renderItem={({ item }) => <FeedRow feed={item} large />}
-        estimatedItemSize={82}
         ItemSeparatorComponent={() => (
           <ItemSeparator
             iconWidth="w-10"
@@ -104,7 +103,7 @@ export default function FeedSearchScreen() {
   const query = decodeURIComponent(q || "");
   const [search, setSearch] = useState(query);
 
-  const ref = useRef<SearchBarCommands>(null);
+  const ref = useRef<SearchBarCommands>(null!);
 
   useEffect(() => {
     setTimeout(() => {

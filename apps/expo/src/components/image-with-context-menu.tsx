@@ -4,7 +4,7 @@ import { ContextMenuView } from "react-native-ios-context-menu";
 import Animated from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";

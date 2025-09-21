@@ -20,6 +20,8 @@ Notifications.setNotificationHandler({
       shouldShowAlert: true,
       shouldPlaySound: false,
       shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true,
     }),
 });
 
@@ -72,7 +74,11 @@ export const useNotifications = () => {
     })();
     // handle notifications that are received, both in the foreground or background
     Notifications.addNotificationReceivedListener((event) => {
-      if (event.request.trigger.type === "push") {
+      if (
+        event.request.trigger &&
+        "type" in event.request.trigger &&
+        event.request.trigger.type === "push"
+      ) {
         // refresh notifications in the background
         void queryClient.invalidateQueries({
           queryKey: ["notifications", "unread"],
