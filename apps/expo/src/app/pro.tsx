@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Linking,
   Platform,
+  Pressable,
   ScrollView,
   Text,
   TouchableHighlight,
@@ -38,6 +39,7 @@ import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
 import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/purchases";
 import { cx } from "~/lib/utils/cx";
+import { isIOS26 } from "~/lib/utils/version";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
@@ -145,16 +147,25 @@ export default function Pro() {
       <Stack.Screen
         options={{
           headerTransparent: true,
-          headerRight: () => (
-            <TouchableHighlight
-              className="rounded-full"
-              onPress={() => router.push("../")}
-            >
-              <View className="flex-1 rounded-full bg-neutral-800 p-2">
-                <XIcon className="text-white" size={18} strokeWidth={3} />
-              </View>
-            </TouchableHighlight>
-          ),
+          headerLeft: isIOS26
+            ? () => (
+                <Pressable onPress={() => router.dismiss()} className="ml-1.5">
+                  <XIcon size={24} color="white" />
+                </Pressable>
+              )
+            : undefined,
+          headerRight: isIOS26
+            ? undefined
+            : () => (
+                <TouchableHighlight
+                  className="rounded-full"
+                  onPress={() => router.push("../")}
+                >
+                  <View className="flex-1 rounded-full bg-neutral-800 p-2">
+                    <XIcon className="text-white" size={18} strokeWidth={3} />
+                  </View>
+                </TouchableHighlight>
+              ),
         }}
       />
       <ImageBackground className="flex-1" source={background} blurRadius={4}>

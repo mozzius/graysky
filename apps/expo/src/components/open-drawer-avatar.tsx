@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 
@@ -11,7 +11,10 @@ export const OpenDrawerAvatar = () => {
   return (
     <TouchableOpacity
       onPress={() => openDrawer()}
-      className="mr-3"
+      className={Platform.select({
+        ios: "ml-1",
+        android: "mr-3",
+      })}
       accessibilityHint={_(msg`Open drawer menu`)}
     >
       <Avatar self size="small" />

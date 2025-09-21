@@ -45,6 +45,7 @@ import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
 import { useQuickAction } from "~/lib/quick-actions";
 import { cx } from "~/lib/utils/cx";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -85,9 +86,10 @@ export default function SearchPage() {
         options={{
           title: _(msg`Search`),
           headerLargeTitle: true,
-          headerLargeTitleShadowVisible: false,
+          headerLargeTitleShadowVisible: !isIOS26,
+          headerTransparent: isIOS26,
           headerLargeStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: isIOS26 ? "transparent" : theme.colors.background,
           },
           headerLeft,
           headerSearchBarOptions,

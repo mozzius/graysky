@@ -1,10 +1,12 @@
 import { useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Pressable,
   StyleSheet,
   TouchableHighlight,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import ViewShot from "react-native-view-shot";
@@ -24,7 +26,6 @@ import { XIcon } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
 import { RichText } from "~/components/rich-text";
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
@@ -32,6 +33,7 @@ import { TransparentHeaderUntilScrolled } from "~/components/transparent-header"
 import { useAgent } from "~/lib/agent";
 import { usePrimaryLanguage } from "~/lib/storage/app-preferences";
 import { uploadBlob } from "~/lib/utils/upload-blob";
+import { isIOS26 } from "~/lib/utils/version";
 import { useSelf } from "./settings/account";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -157,19 +159,35 @@ export default function MyCircle() {
         <Stack.Screen
           options={{
             headerTransparent: true,
-            headerRight: () => (
-              <TouchableHighlight
-                className="rounded-full"
-                onPress={() => router.push("../")}
-              >
-                <View
-                  className="flex-1 rounded-full p-2"
-                  style={{ backgroundColor: theme.colors.background }}
-                >
-                  <XIcon color={theme.colors.text} size={18} strokeWidth={3} />
-                </View>
-              </TouchableHighlight>
-            ),
+            headerLeft: isIOS26
+              ? () => (
+                  <Pressable
+                    onPress={() => router.dismiss()}
+                    className="ml-1.5"
+                  >
+                    <XIcon size={24} color={theme.colors.text} />
+                  </Pressable>
+                )
+              : undefined,
+            headerRight: isIOS26
+              ? undefined
+              : () => (
+                  <TouchableHighlight
+                    className="rounded-full"
+                    onPress={() => router.push("../")}
+                  >
+                    <View
+                      className="flex-1 rounded-full p-2"
+                      style={{ backgroundColor: theme.colors.background }}
+                    >
+                      <XIcon
+                        color={theme.colors.text}
+                        size={18}
+                        strokeWidth={3}
+                      />
+                    </View>
+                  </TouchableHighlight>
+                ),
           }}
         />
         <ViewShot

@@ -44,7 +44,7 @@ export const ListGroup = ({ children, options = [] }: ListProps) => {
         "flex-1 overflow-hidden",
         Platform.select({
           android: "rounded-none",
-          default: "rounded-lg",
+          default: "rounded-2xl",
         }),
       )}
     >

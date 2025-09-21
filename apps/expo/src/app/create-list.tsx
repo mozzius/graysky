@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
@@ -16,7 +17,6 @@ import { useTheme } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { RichText } from "~/components/rich-text";
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";

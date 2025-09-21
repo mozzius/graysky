@@ -9,6 +9,7 @@ import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useCanGoBack } from "~/lib/hooks/can-go-back";
 import { useRefreshOnFocus } from "~/lib/utils/query";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function SettingsLayout() {
   const theme = useTheme();
@@ -41,9 +42,12 @@ export default function SettingsLayout() {
           options={{
             title: "Invite Codes",
             headerLargeTitle: true,
-            headerLargeTitleShadowVisible: false,
+            headerLargeTitleShadowVisible: !isIOS26,
+            headerTransparent: isIOS26,
             headerLargeStyle: {
-              backgroundColor: theme.colors.background,
+              backgroundColor: isIOS26
+                ? "transparent"
+                : theme.colors.background,
             },
           }}
         />

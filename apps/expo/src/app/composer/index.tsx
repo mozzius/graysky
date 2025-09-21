@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, {
   FadeInDown,
   FadeOut,
@@ -41,7 +42,6 @@ import { Avatar } from "~/components/avatar";
 import { Embed } from "~/components/embed";
 import { FeedPost } from "~/components/feed-post";
 import { RichText } from "~/components/rich-text";
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { Text } from "~/components/themed/text";
 import { PasteableTextInput } from "~/components/themed/text-input";
 import { useAgent } from "~/lib/agent";

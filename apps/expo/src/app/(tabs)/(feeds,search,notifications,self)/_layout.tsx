@@ -10,6 +10,7 @@ import { WaitingRoom } from "~/components/screens/waiting-room";
 import { Text } from "~/components/themed/text";
 import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function SubStack({
   segment,
@@ -53,7 +54,9 @@ export default function SubStack({
           >
             <Stack
               initialRouteName={getInitialRouteName(segment)}
-              screenOptions={{}}
+              screenOptions={{
+                headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
+              }}
             />
           </ErrorBoundary>
         </AbsolutePathProvider>

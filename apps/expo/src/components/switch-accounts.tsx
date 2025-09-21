@@ -94,7 +94,7 @@ export function SwitchAccounts({
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
-      className="flex-1 overflow-hidden rounded-lg"
+      className="flex-1 overflow-hidden rounded-2xl"
     >
       {sessions
         .sort((a) => {

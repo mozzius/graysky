@@ -1,13 +1,15 @@
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, Pressable, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
 import { msg, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { useTheme } from "@react-navigation/native";
+import { XIcon } from "lucide-react-native";
 
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useCanGoBack } from "~/lib/hooks/can-go-back";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function SettingsLayout() {
   const theme = useTheme();
@@ -20,18 +22,18 @@ export default function SettingsLayout() {
       <StatusBar modal />
       <Stack
         screenOptions={{
+          headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
           ...Platform.select({
             ios: {
-              headerRight: () =>
-                canGoBack || (
-                  <Animated.View entering={FadeIn}>
-                    <TouchableOpacity onPress={() => router.push("../")}>
-                      <Text primary className="text-lg font-medium">
-                        <Trans>Done</Trans>
-                      </Text>
-                    </TouchableOpacity>
-                  </Animated.View>
-                ),
+              headerLeft: () =>
+                !canGoBack ? (
+                  <Pressable
+                    onPress={() => router.dismiss()}
+                    className="ml-1.5"
+                  >
+                    <XIcon size={24} color={theme.colors.text} />
+                  </Pressable>
+                ) : undefined,
             },
           }),
         }}
@@ -41,9 +43,12 @@ export default function SettingsLayout() {
           options={{
             title: _(msg`Settings`),
             headerLargeTitle: true,
-            headerLargeTitleShadowVisible: false,
+            headerLargeTitleShadowVisible: !isIOS26,
+            headerTransparent: isIOS26,
             headerLargeStyle: {
-              backgroundColor: theme.colors.background,
+              backgroundColor: isIOS26
+                ? "transparent"
+                : theme.colors.background,
             },
           }}
         />

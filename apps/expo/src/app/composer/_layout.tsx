@@ -17,6 +17,7 @@ import {
   useMostRecentLanguage,
   usePrimaryLanguage,
 } from "~/lib/storage/app-preferences";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function ComposerLayout() {
   const theme = useTheme();
@@ -61,10 +62,17 @@ export default function ComposerLayout() {
         <StatusBar modal />
         <Stack
           screenOptions={{
+            headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
             animationMatchesGesture: true,
+            contentStyle: {
+              height: "100%",
+            },
           }}
         >
-          <Stack.Screen name="index" options={{ title: _(msg`New Post`) }} />
+          <Stack.Screen
+            name="index"
+            options={{ title: _(msg`New Post`), headerTitle: "" }}
+          />
           <Stack.Screen name="drafts" options={{ title: _(msg`Drafts`) }} />
           <Stack.Screen
             name="language"
@@ -92,9 +100,10 @@ export default function ComposerLayout() {
               title: _(msg`GIFs`),
               headerSearchBarOptions: {},
               headerLargeTitle: true,
-              headerLargeTitleShadowVisible: false,
+              headerLargeTitleShadowVisible: !isIOS26,
+              headerTransparent: isIOS26,
               headerLargeStyle: {
-                backgroundColor: theme.colors.card,
+                backgroundColor: isIOS26 ? "transparent" : theme.colors.card,
               },
               presentation: "modal",
               headerRight,

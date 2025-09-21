@@ -143,6 +143,7 @@ export default function AppLayout() {
       >
         <Tabs
           sidebarAdaptable
+          labeled={Platform.OS !== "ios"}
           tabBarStyle={
             Platform.OS === "android"
               ? { backgroundColor: theme.colors.card }
@@ -199,7 +200,7 @@ export default function AppLayout() {
               tabBarIcon: () =>
                 Platform.select({
                   ios: {
-                    sfSymbol: "plus",
+                    sfSymbol: "square.and.pencil",
                   },
                   android: require("../../../assets/tabs/square-pen.svg"),
                 }),

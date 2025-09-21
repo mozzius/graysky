@@ -7,6 +7,8 @@ import {
 import { Stack } from "expo-router";
 import { useTheme } from "@react-navigation/native";
 
+import { isIOS26 } from "~/lib/utils/version";
+
 interface Props {
   children: React.ReactElement<{
     onScroll: (evt: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -19,6 +21,24 @@ export const TransparentHeaderUntilScrolled = ({ children }: Props) => {
   const { dark } = useTheme();
 
   if (Platform.OS !== "ios") return children;
+
+  if (isIOS26) {
+    return (
+      <>
+        <Stack.Screen
+          options={{
+            headerTransparent: true,
+            headerShadowVisible: false,
+            headerBlurEffect: undefined,
+            headerStyle: {
+              backgroundColor: "transparent",
+            },
+          }}
+        />
+        {children}
+      </>
+    );
+  }
 
   return (
     <>

@@ -9,6 +9,7 @@ import {
   openPicker,
   type Image as CroppedImage,
 } from "react-native-image-crop-picker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { RichText as RichTextHelper } from "@atproto/api";
@@ -21,7 +22,6 @@ import { ImagePlusIcon, XIcon } from "lucide-react-native";
 
 import { QueryWithoutData } from "~/components/query-without-data";
 import { RichText } from "~/components/rich-text";
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";

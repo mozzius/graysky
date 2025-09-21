@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -14,7 +15,6 @@ import { useMutation } from "@tanstack/react-query";
 import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
 import { z } from "zod";
 
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ActivityIndicator, Alert, Platform, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -18,7 +19,6 @@ import {
   useHandleAvailability,
 } from "~/components/handle-availability";
 import { ItemSeparator } from "~/components/item-separator";
-import KeyboardAwareScrollView from "~/components/scrollview/keyboard-aware-scrollview";
 import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";

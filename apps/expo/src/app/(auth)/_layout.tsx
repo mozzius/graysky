@@ -1,31 +1,26 @@
-import { Platform, TouchableOpacity } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import { Platform, Pressable } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
+import { useTheme } from "@react-navigation/native";
+import { XIcon } from "lucide-react-native";
 
 import { StatusBar } from "~/components/status-bar";
-import { Text } from "~/components/themed/text";
 import { useCanGoBack } from "~/lib/hooks/can-go-back";
+import { isIOS26 } from "~/lib/utils/version";
 
 export default function AuthLayout() {
   const router = useRouter();
   const canGoBack = useCanGoBack("(auth)");
   const { _ } = useLingui();
+  const theme = useTheme();
 
   const headerLeft =
     Platform.OS === "ios" && !canGoBack
       ? () => (
-          <Animated.View entering={FadeIn}>
-            <TouchableOpacity
-              onPress={() => router.push("../")}
-              accessibilityRole="link"
-            >
-              <Text primary className="text-lg">
-                <Trans>Cancel</Trans>
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
+          <Pressable onPress={() => router.dismiss()} className="ml-1.5">
+            <XIcon size={24} color={theme.colors.text} />
+          </Pressable>
         )
       : undefined;
 
@@ -34,7 +29,11 @@ export default function AuthLayout() {
       <StatusBar modal />
       <Stack
         screenOptions={{
+          headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
           headerLeft,
+          contentStyle: {
+            height: "100%",
+          },
         }}
       >
         <Stack.Screen

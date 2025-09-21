@@ -25,7 +25,7 @@ export const Button = ({
     <TouchableOpacity
       onPress={onPress}
       className={cx(
-        "items-center justify-center rounded-sm px-4 py-2.5",
+        "items-center justify-center rounded-md px-4 py-2.5",
         {
           black: "bg-neutral-950",
           white: "bg-white",

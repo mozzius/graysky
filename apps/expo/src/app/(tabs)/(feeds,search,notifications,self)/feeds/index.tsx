@@ -36,6 +36,7 @@ import {
   useSortableFeeds,
 } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
+import { isIOS26 } from "~/lib/utils/version";
 
 interface Props {
   editing: boolean;
@@ -261,6 +262,7 @@ export default function Page() {
         options={{
           title: _(msg`Feeds`),
           headerLargeTitle: true,
+          headerTransparent: isIOS26,
           headerLeft,
           headerRight: () => (
             <View className="flex-row items-center">
@@ -272,14 +274,14 @@ export default function Page() {
               >
                 <Text
                   primary
-                  className={cx("text-lg", editing && "font-medium")}
+                  className={cx("mx-3 text-lg", editing && "font-medium")}
                 >
                   {editing ? <Trans>Done</Trans> : <Trans>Edit</Trans>}
                 </Text>
               </TouchableOpacity>
               {!editing && (
                 <Link href="/discover" asChild>
-                  <TouchableOpacity className="ml-4">
+                  <TouchableOpacity className="mr-3">
                     <PlusIcon size={24} color={theme.colors.primary} />
                   </TouchableOpacity>
                 </Link>

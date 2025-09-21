@@ -39,6 +39,7 @@ import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import { useThemeSetup } from "~/lib/storage/app-preferences";
 import { store } from "~/lib/storage/storage";
 import { TRPCProvider } from "~/lib/utils/api";
+import { isIOS26 } from "~/lib/utils/version";
 
 const routingInstrumentation = Sentry.reactNavigationIntegration();
 
@@ -278,6 +279,9 @@ const App = () => {
                             options={{
                               headerShown: false,
                               presentation: "formSheet",
+                              contentStyle: {
+                                height: "100%",
+                              },
                             }}
                           />
                           <Stack.Screen
@@ -308,9 +312,12 @@ const App = () => {
                               title: _(msg`Discover Feeds`),
                               presentation: "modal",
                               headerLargeTitle: true,
-                              headerLargeTitleShadowVisible: false,
+                              headerLargeTitleShadowVisible: !isIOS26,
+                              headerTransparent: isIOS26,
                               headerLargeStyle: {
-                                backgroundColor: theme.colors.background,
+                                backgroundColor: isIOS26
+                                  ? "transparent"
+                                  : theme.colors.background,
                               },
                               headerSearchBarOptions: {},
                             }}
@@ -346,6 +353,9 @@ const App = () => {
                               ...Platform.select({
                                 ios: {
                                   presentation: "formSheet",
+                                  contentStyle: {
+                                    height: "100%",
+                                  },
                                 },
                                 android: {
                                   animation: "fade_from_bottom",
@@ -428,7 +438,6 @@ const getSession = () => {
 };
 
 function RootLayout() {
-  console.log("ROOT LAYOUT");
   useConfigurePurchases();
   useSentryTracing();
 
