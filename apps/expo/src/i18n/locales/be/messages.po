@@ -8,7 +8,7 @@ msgstr ""
 "Language: be\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: Belarusian\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n%100>=11 && n%100<=14 ? 2 : 3);\n"
@@ -165,7 +165,7 @@ msgstr "1 месяц таму"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 з 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "1 год таму"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 з 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 з 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "Код быў дасланы на нумар {phone}. <0>Змяніць нумар тэлефона.</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "Не атрымалася завяршыць куплю"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "Не атрымалася стварыць уліковы запіс"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "Не атрымалася загрузіць спісы"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "Стварыць уліковы запіс"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "Цёмная"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "Дата нараджэння"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -865,7 +865,7 @@ msgstr "Уключыць апавяшчэнні"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "Увядзіце ваш нумар тэлефону"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -1266,7 +1266,7 @@ msgstr "Больш ад {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 #~ msgid "Must be at least 8 characters"
-#~ msgstr "Мае змяшчаць прынамсі 8 сімвалаў"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
@@ -1365,7 +1365,7 @@ msgstr "Новы допіс"
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 #~ msgid "Next"
-#~ msgstr "Далей"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1492,7 +1492,7 @@ msgstr "Патрабуецца дазвол"
 
 #: src/app/(auth)/sign-up.tsx:281
 #~ msgid "Phone number"
-#~ msgstr "Нумар тэлефона"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
@@ -1515,7 +1515,7 @@ msgstr "Калі ласка, дазвольце доступ да галерэі
 
 #: src/app/(auth)/sign-up.tsx:303
 #~ msgid "Please enter a phone number that can receive SMS text messages."
-#~ msgstr "Калі ласка, увядзіце нумар тэлефона, каб атрымаць SMS."
+#~ msgstr ""
 
 #: src/app/composer/gifs.tsx:219
 #: src/app/composer/index.tsx:289
@@ -1738,7 +1738,7 @@ msgstr "пашырыў ваш допіс"
 
 #: src/app/(auth)/sign-up.tsx:317
 #~ msgid "Request code"
-#~ msgstr "Атрымаць код"
+#~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1871,7 +1871,7 @@ msgstr "Паглядзіце свае найбліжэйшыя сувязі"
 
 #: src/app/(auth)/sign-up.tsx:229
 #~ msgid "Select date of birth"
-#~ msgstr "Выберыце дату нараджэння"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -2006,7 +2006,7 @@ msgstr "Выйсці"
 
 #: src/app/(auth)/_layout.tsx:43
 #~ msgid "Sign up"
-#~ msgstr "Зарэгістравацца"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2348,7 +2348,7 @@ msgstr "Карыстальнік, на якога падпісаны <0>{0}</0>"
 
 #: src/app/(auth)/sign-up.tsx:325
 #~ msgid "Verification code"
-#~ msgstr "Код пацвярджэння"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2433,7 +2433,7 @@ msgstr "Вы ўвайшлі як @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
 #~ msgid "You can change it later"
-#~ msgstr "Вы зможаце змяніць яго пазней"
+#~ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2510,3 +2510,4 @@ msgstr "Ваш спіс быў выдалены"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Ваш допіс задоўгі. Максімальная дапушчальная даўжыня — 300 сімвалаў"
+

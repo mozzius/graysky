@@ -8,7 +8,7 @@ msgstr ""
 "Language: nl\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: Dutch\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -165,7 +165,7 @@ msgstr "1 maand geleden"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 van 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "1 jaar geleden"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 van 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 van 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "Er is een code verzonden naar {phone}. <0>Wijzig telefoonnummer.</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "Kan aankoop niet voltooien"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "Account aanmaken is mislukt"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "Kan lijsten niet ophalen"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "Account aanmaken"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "Donker"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "Geboortedatum"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -865,7 +865,7 @@ msgstr "Notificaties inschakelen"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "Vul uw telefoonnummer in"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -2510,3 +2510,4 @@ msgstr ""
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr ""
+

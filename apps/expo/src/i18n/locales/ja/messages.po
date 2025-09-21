@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -32,7 +32,7 @@ msgstr "{0} / 年"
 
 #: src/components/notification/index.tsx:238
 msgid "{0} and {1}"
-msgstr ""
+msgstr "{0} と {1}"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
 #~ msgid "{0} posts"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: src/components/notification/index.tsx:243
 msgid "{2} and {3} others"
-msgstr ""
+msgstr "{2} と {3} とその他"
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -140,7 +140,7 @@ msgstr "<0>{0}</0> 投稿"
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
 #: src/components/notification/index.tsx:223
 msgid "<0>{4}</0><1>{5}</1>"
-msgstr ""
+msgstr "<0>{4}</0><1>{5}</1>"
 
 #. be very careful not to leave spaces between the elements
 #: src/app/capture/[author]/[post].tsx:119
@@ -165,7 +165,7 @@ msgstr "1ヶ月前"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 / 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "1年前"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 / 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 / 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "{phone} にコードが送信されました。<0>電話番号を変更。</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "購入を完了できませんでした"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "アカウントを作成できませんでした"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "リストの取得ができませんでした"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "アカウントを作成"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "ダーク"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "生年月日"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -844,7 +844,7 @@ msgstr "フィードを編集"
 
 #: src/components/screens/profile/profile-info.tsx:612
 msgid "Edit profile"
-msgstr ""
+msgstr "プロフィールを編集"
 
 #: src/app/_layout.tsx:359
 #: src/app/settings/account/index.tsx:40
@@ -865,7 +865,7 @@ msgstr "通知を有効化する"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "電話番号を入力"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -1157,7 +1157,7 @@ msgstr "リストは削除されました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:257
 msgid "List favourited"
-msgstr ""
+msgstr "リストをお気に入りに追加しました"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:233
 msgid "List muted"
@@ -1169,7 +1169,7 @@ msgstr "リストの名前"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
 msgid "List unfavourited"
-msgstr ""
+msgstr "リストのお気に入りを解除しました"
 
 #: src/components/screens/profile/profile-tab-view.tsx:94
 msgid "Lists"
@@ -1266,12 +1266,12 @@ msgstr "{0} をもっと見る"
 
 #: src/app/(auth)/sign-up.tsx:199
 #~ msgid "Must be at least 8 characters"
-#~ msgstr "最低でも8文字が必要です"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
 msgid "Mute"
-msgstr ""
+msgstr "ミュート"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:217
 msgid "Mute all members"
@@ -1365,7 +1365,7 @@ msgstr "新しい投稿"
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 #~ msgid "Next"
-#~ msgstr "次へ"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1492,11 +1492,11 @@ msgstr "権限の許可が必要です"
 
 #: src/app/(auth)/sign-up.tsx:281
 #~ msgid "Phone number"
-#~ msgstr "電話番号"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
-msgstr ""
+msgstr "動画を再生"
 
 #: src/app/composer/index.tsx:230
 msgid "Please add descriptive alt text to all images before posting."
@@ -1515,7 +1515,7 @@ msgstr "設定でフォトギャラリーへのアクセスを許可してくだ
 
 #: src/app/(auth)/sign-up.tsx:303
 #~ msgid "Please enter a phone number that can receive SMS text messages."
-#~ msgstr "SMSテキストメッセージを受信できる電話番号を入力してください。"
+#~ msgstr ""
 
 #: src/app/composer/gifs.tsx:219
 #: src/app/composer/index.tsx:289
@@ -1738,7 +1738,7 @@ msgstr "あなたの投稿をリポストしました"
 
 #: src/app/(auth)/sign-up.tsx:317
 #~ msgid "Request code"
-#~ msgstr "コードをリクエスト"
+#~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1871,7 +1871,7 @@ msgstr "ユーザーとの最も近い繋がりを確認"
 
 #: src/app/(auth)/sign-up.tsx:229
 #~ msgid "Select date of birth"
-#~ msgstr "生年月日を選択してください"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -2006,7 +2006,7 @@ msgstr "サインアウト"
 
 #: src/app/(auth)/_layout.tsx:43
 #~ msgid "Sign up"
-#~ msgstr "サインアップ"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2098,11 +2098,11 @@ msgstr "写真を撮影"
 
 #: src/components/embed/video.tsx:149
 msgid "Tap to enter full screen"
-msgstr ""
+msgstr "タップでフルスクリーン"
 
 #: src/components/embed/video.tsx:160
 msgid "Tap to toggle sound"
-msgstr ""
+msgstr "タップでサウンドを切り替え"
 
 #: src/components/post-context-menu.tsx:127
 #: src/components/screens/profile/profile-info.tsx:669
@@ -2270,7 +2270,7 @@ msgstr "不明なエラー"
 #: src/components/embed/video.tsx:157
 msgctxt "video"
 msgid "Unmute"
-msgstr ""
+msgstr "ミュートを解除"
 
 #: src/components/screens/profile/profile-info.tsx:529
 msgid "Unmute"
@@ -2348,7 +2348,7 @@ msgstr "<0>{0}</0> がフォローしているユーザー"
 
 #: src/app/(auth)/sign-up.tsx:325
 #~ msgid "Verification code"
-#~ msgstr "認証コード"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2363,11 +2363,11 @@ msgstr "バージョン不明"
 #: src/components/embed/video.tsx:80
 #: src/components/embed/video.tsx:148
 msgid "Video"
-msgstr ""
+msgstr "動画"
 
 #: src/components/embed/video.tsx:80
 msgid "Video: {0}"
-msgstr ""
+msgstr "動画: {0}"
 
 #: src/components/screens/profile/profile-info.tsx:529
 #: src/components/screens/profile/profile-info.tsx:560
@@ -2433,7 +2433,7 @@ msgstr "あなたは @{0} でサインインをしています"
 
 #: src/app/(auth)/sign-up.tsx:391
 #~ msgid "You can change it later"
-#~ msgstr "後で変更可能です"
+#~ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2510,3 +2510,4 @@ msgstr "あなたのリストは削除されました"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "投稿の文字数が多すぎます - 最大の文字数は300文字までです"
+

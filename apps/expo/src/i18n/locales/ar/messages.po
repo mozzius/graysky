@@ -8,7 +8,7 @@ msgstr ""
 "Language: ar\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
@@ -165,7 +165,7 @@ msgstr "قبل شهر واحد"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 من 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "منذ عام"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 من 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 من 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "تم إرسال رمز التحقق إلى {phone}. <0>تحديث رقم الهاتف</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "تعذر إتمام عملية الشراء"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "تعذر إنشاء الحساب"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "القائمة غير متاحة حاليا"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "إنشاء حساب"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "داكن"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "تاريخ الميلاد"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -865,7 +865,7 @@ msgstr "فَعِل الإشعارات"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "أدخل رقم جوالك"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -1266,7 +1266,7 @@ msgstr "المزيد من {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 #~ msgid "Must be at least 8 characters"
-#~ msgstr "يجب أن تحتوي كلمة المرور على 8 خانات على الأقل"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
@@ -1365,7 +1365,7 @@ msgstr "منشور جديد"
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 #~ msgid "Next"
-#~ msgstr "التالي"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1492,7 +1492,7 @@ msgstr "مطلوب إعطاء الإذن"
 
 #: src/app/(auth)/sign-up.tsx:281
 #~ msgid "Phone number"
-#~ msgstr "رقم الجوال"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
@@ -1515,7 +1515,7 @@ msgstr "الرجاء تمكين الوصول إلى الكاميرا في الإ
 
 #: src/app/(auth)/sign-up.tsx:303
 #~ msgid "Please enter a phone number that can receive SMS text messages."
-#~ msgstr "الرجاء إدخال رقم الجوال يمكن أن يتلقى رسائل نصية SMS."
+#~ msgstr ""
 
 #: src/app/composer/gifs.tsx:219
 #: src/app/composer/index.tsx:289
@@ -1738,7 +1738,7 @@ msgstr "إعادة نشر مشاركتك"
 
 #: src/app/(auth)/sign-up.tsx:317
 #~ msgid "Request code"
-#~ msgstr "كود الطلب"
+#~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1871,7 +1871,7 @@ msgstr "شاهد أوثق اتصالاتك"
 
 #: src/app/(auth)/sign-up.tsx:229
 #~ msgid "Select date of birth"
-#~ msgstr "يرجى اختيار تاريخ الميلاد"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -2006,7 +2006,7 @@ msgstr "تسجيل الخروج"
 
 #: src/app/(auth)/_layout.tsx:43
 #~ msgid "Sign up"
-#~ msgstr "تسجيل"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2348,7 +2348,7 @@ msgstr "المستخدمين الذين يتبعون <0>{0}</0>"
 
 #: src/app/(auth)/sign-up.tsx:325
 #~ msgid "Verification code"
-#~ msgstr "يرجى إدخال رمز التحقق"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2433,7 +2433,7 @@ msgstr "أنت الآن مسجل الدخول كـ @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
 #~ msgid "You can change it later"
-#~ msgstr "بإمكانك تعديله لاحقًا"
+#~ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2510,3 +2510,4 @@ msgstr "تم حذف قائمتك"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "مشاركتك طويلة جدًا - هناك حد للحرف يصل إلى 300 حرف"
+

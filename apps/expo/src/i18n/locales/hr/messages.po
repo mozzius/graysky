@@ -8,7 +8,7 @@ msgstr ""
 "Language: hr\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: Croatian\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -165,7 +165,7 @@ msgstr "prije mjesec dana"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 od 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "prije 1 godine"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 od 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 od 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "Kod je poslan na {phone}. <0>Promijenite telefonski broj.</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "Narudžba nije mogla biti izvršena"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "Nije bilo moguće kreirati korisnički račun"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "Nije bilo moguće dohvatiti listu"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "Napravite račun"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "Mrak"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "Datum rođenja"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -865,7 +865,7 @@ msgstr "Omogući obavijesti"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "Unesite broj svog mobilnog telefona"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -1266,7 +1266,7 @@ msgstr "Više od {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 #~ msgid "Must be at least 8 characters"
-#~ msgstr "Mora biti najmanje 8 znakova"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
@@ -1365,7 +1365,7 @@ msgstr "Nova objava"
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 #~ msgid "Next"
-#~ msgstr "Dalje"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1492,7 +1492,7 @@ msgstr "Potrebno dopuštenje"
 
 #: src/app/(auth)/sign-up.tsx:281
 #~ msgid "Phone number"
-#~ msgstr "Broj telefona"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
@@ -1515,7 +1515,7 @@ msgstr "Omogućite pristup foto galeriji u svojim postavkama"
 
 #: src/app/(auth)/sign-up.tsx:303
 #~ msgid "Please enter a phone number that can receive SMS text messages."
-#~ msgstr "Unesite telefonski broj na koji možete primati SMS poruke."
+#~ msgstr ""
 
 #: src/app/composer/gifs.tsx:219
 #: src/app/composer/index.tsx:289
@@ -1738,7 +1738,7 @@ msgstr "objavio je tvoju objavu"
 
 #: src/app/(auth)/sign-up.tsx:317
 #~ msgid "Request code"
-#~ msgstr "Zatraži kod"
+#~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1871,7 +1871,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:229
 #~ msgid "Select date of birth"
-#~ msgstr "Odaberi datum rođenja"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -2006,7 +2006,7 @@ msgstr "Odjavi se"
 
 #: src/app/(auth)/_layout.tsx:43
 #~ msgid "Sign up"
-#~ msgstr "Prijavite se"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2348,7 +2348,7 @@ msgstr "Korisnik koji <0>{0}</0> prati"
 
 #: src/app/(auth)/sign-up.tsx:325
 #~ msgid "Verification code"
-#~ msgstr "Kod za provjeru"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2433,7 +2433,7 @@ msgstr "Prijavili ste se kao @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
 #~ msgid "You can change it later"
-#~ msgstr "Promjene možete napraviti i kasnije"
+#~ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2510,3 +2510,4 @@ msgstr "Vaša lista je obrisana"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Vaša objava je predugačka - postoji ograničenje od 300 znakova"
+

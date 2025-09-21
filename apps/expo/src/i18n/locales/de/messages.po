@@ -8,7 +8,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: graysky\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-10 12:51\n"
+"PO-Revision-Date: 2025-09-21 14:10\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -165,7 +165,7 @@ msgstr "Vor einem Monat"
 
 #: src/app/(auth)/sign-up.tsx:160
 #~ msgid "1 of 3"
-#~ msgstr "1 von 3"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:70
 msgid "1 second ago"
@@ -177,15 +177,15 @@ msgstr "Vor einem Jahr"
 
 #: src/app/(auth)/sign-up.tsx:273
 #~ msgid "2 of 3"
-#~ msgstr "2 von 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:376
 #~ msgid "3 of 3"
-#~ msgstr "3 von 3"
+#~ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:341
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
-#~ msgstr "Ein Code wurde an {phone} gesendet. <0>Telefonnummer ändern.</0>"
+#~ msgstr ""
 
 #: src/app/settings/_layout.tsx:113
 #: src/lib/quick-actions.ts:88
@@ -616,7 +616,7 @@ msgstr "Kauf konnte nicht abgeschlossen werden"
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
-#~ msgstr "Konto konnte nicht erstellt werden"
+#~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:68
 msgid "Could not delete account"
@@ -666,7 +666,7 @@ msgstr "Listen konnten nicht abgerufen werden"
 
 #: src/app/(auth)/sign-up.tsx:437
 #~ msgid "Create Account"
-#~ msgstr "Benutzerkonto erstellen"
+#~ msgstr ""
 
 #: src/app/index.tsx:46
 #~ msgid "Create an account"
@@ -719,7 +719,7 @@ msgstr "Dunkel"
 
 #: src/app/(auth)/sign-up.tsx:207
 #~ msgid "Date of Birth"
-#~ msgstr "Geburtsdatum"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 #: src/components/post-context-menu.tsx:87
@@ -865,7 +865,7 @@ msgstr "Benachrichtigungen aktivieren"
 
 #: src/app/(auth)/sign-up.tsx:289
 #~ msgid "Enter your phone number"
-#~ msgstr "Telefonnummer eingeben"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 #: src/app/capture/[author]/[post].tsx:88
@@ -1266,7 +1266,7 @@ msgstr "Mehr von {0}"
 
 #: src/app/(auth)/sign-up.tsx:199
 #~ msgid "Must be at least 8 characters"
-#~ msgstr "Mindestens 8 Zeiten erforderlich"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:158
 msgctxt "video"
@@ -1365,7 +1365,7 @@ msgstr "Neuer Post"
 #: src/app/(auth)/sign-up.tsx:255
 #: src/app/(auth)/sign-up.tsx:356
 #~ msgid "Next"
-#~ msgstr "Weiter"
+#~ msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:75
 msgid "No feeds found - maybe try a different search term?"
@@ -1492,7 +1492,7 @@ msgstr "Zugriff erforderlich"
 
 #: src/app/(auth)/sign-up.tsx:281
 #~ msgid "Phone number"
-#~ msgstr "Telefonnummer"
+#~ msgstr ""
 
 #: src/components/embed/video.tsx:108
 msgid "Play video"
@@ -1515,7 +1515,7 @@ msgstr "Bitte aktiviere den Zugriff auf die Fotogalerie in Deinen Telefon-Einste
 
 #: src/app/(auth)/sign-up.tsx:303
 #~ msgid "Please enter a phone number that can receive SMS text messages."
-#~ msgstr "Bitte gib eine Telefonnummer ein, die SMS empfangen kann."
+#~ msgstr ""
 
 #: src/app/composer/gifs.tsx:219
 #: src/app/composer/index.tsx:289
@@ -1738,7 +1738,7 @@ msgstr "hat Deinen Beitrag geteilt"
 
 #: src/app/(auth)/sign-up.tsx:317
 #~ msgid "Request code"
-#~ msgstr "Code anfordern"
+#~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:137
 msgid "Reset Code"
@@ -1871,7 +1871,7 @@ msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:229
 #~ msgid "Select date of birth"
-#~ msgstr "Geburtsdatum auswählen"
+#~ msgstr ""
 
 #: src/app/create-list.tsx:230
 msgid "Select list purpose"
@@ -2006,7 +2006,7 @@ msgstr "Abmelden"
 
 #: src/app/(auth)/_layout.tsx:43
 #~ msgid "Sign up"
-#~ msgstr "Anmelden"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:42
 msgid "Sign up for project updates"
@@ -2348,7 +2348,7 @@ msgstr "Benutzer, denen <0>{0}</0> folgt"
 
 #: src/app/(auth)/sign-up.tsx:325
 #~ msgid "Verification code"
-#~ msgstr "Verifizierungscode"
+#~ msgstr ""
 
 #: src/app/settings/about.tsx:211
 #: src/components/drawer/drawer-content.tsx:233
@@ -2433,7 +2433,7 @@ msgstr "Du bist jetzt eingeloggt als @{0}"
 
 #: src/app/(auth)/sign-up.tsx:391
 #~ msgid "You can change it later"
-#~ msgstr "Du kannst es später ändern"
+#~ msgstr ""
 
 #: src/app/success.tsx:47
 msgid "You can now change the accent colour"
@@ -2510,3 +2510,4 @@ msgstr "Deine Liste wurde gelöscht"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Dein Beitrag ist zu lang - es gibt eine Zeichenbegrenzung von 300 Zeichen"
+
