@@ -88,7 +88,6 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
         ios: {
           deploymentTarget: "15.1",
           useFrameworks: "static",
-          ccacheEnabled: true,
         },
       },
     ],

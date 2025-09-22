@@ -6,7 +6,6 @@ import {
   RichText,
   type AppBskyFeedGetPostThread,
 } from "@atproto/api";
-import * as Sentry from "@sentry/nextjs";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react";
 
 interface Props {
@@ -57,7 +56,7 @@ export const CommentSection = async ({ uri }: Props) => {
       </div>
     );
   } catch (err) {
-    Sentry.captureException(err);
+    console.error(err);
     return <p className="text-center">Error loading comments</p>;
   }
 };

@@ -22,11 +22,11 @@ msgstr ""
 msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
-#: src/app/pro.tsx:206
+#: src/app/pro.tsx:217
 msgid "{0} / month"
 msgstr "{0} / měsíc"
 
-#: src/app/pro.tsx:239
+#: src/app/pro.tsx:250
 msgid "{0} / year"
 msgstr "{0} / rok"
 
@@ -187,7 +187,7 @@ msgstr "Před 1 rokem"
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 #~ msgstr ""
 
-#: src/app/settings/_layout.tsx:113
+#: src/app/settings/_layout.tsx:118
 #: src/lib/quick-actions.ts:88
 msgid "About"
 msgstr "O nás"
@@ -216,7 +216,7 @@ msgstr "Účet odstraněn. Sbohem!"
 msgid "Account Details"
 msgstr "Detaily účtu"
 
-#: src/app/settings/_layout.tsx:59
+#: src/app/settings/_layout.tsx:64
 msgid "Account Settings"
 msgstr "Nastavení účtu"
 
@@ -252,7 +252,7 @@ msgstr "Přidat mezi oblíbené"
 msgid "Add to list"
 msgstr "Přidat do seznamu"
 
-#: src/app/_layout.tsx:387
+#: src/app/_layout.tsx:397
 msgid "Add to List"
 msgstr "Přidat do Seznamu"
 
@@ -276,7 +276,7 @@ msgstr "Obsah pro dospělé"
 msgid "Advanced Settings"
 msgstr "Pokročilé nastavení"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:180
 #: src/components/feeds-button.tsx:196
 msgid "All feeds"
 msgstr "Všechny kanály"
@@ -332,7 +332,7 @@ msgstr "Došlo k neznámé chybě"
 msgid "An unknown error occurred."
 msgstr "Došlo k neznámé chybě."
 
-#: src/app/pro.tsx:221
+#: src/app/pro.tsx:232
 msgid "Annual Plan"
 msgstr "Roční tarif"
 
@@ -361,7 +361,7 @@ msgstr "Hesla aplikace"
 msgid "App settings"
 msgstr "Nastavení aplikace"
 
-#: src/app/settings/_layout.tsx:101
+#: src/app/settings/_layout.tsx:106
 msgid "App Settings"
 msgstr "Nastavení aplikace"
 
@@ -393,15 +393,15 @@ msgstr "Dostupné"
 msgid "Back"
 msgstr "Zpět"
 
-#: src/app/pro.tsx:109
+#: src/app/pro.tsx:111
 msgid "Better translations"
 msgstr "Lepší překlad"
 
-#: src/app/pro.tsx:243
+#: src/app/pro.tsx:254
 msgid "Billed annually, cancel anytime"
 msgstr "Vyúčtováno ročně, zrušte kdykoliv"
 
-#: src/app/pro.tsx:210
+#: src/app/pro.tsx:221
 msgid "Billed monthly, cancel anytime"
 msgstr "Vyúčtováno měsíčně, zrušte kdykoliv"
 
@@ -431,7 +431,7 @@ msgstr "Blokovaný příspěvek"
 msgid "Blocked users"
 msgstr "Blokovaní uživatelé"
 
-#: src/app/settings/_layout.tsx:89
+#: src/app/settings/_layout.tsx:94
 msgid "Blocked Users"
 msgstr "Blokovaní uživatelé"
 
@@ -460,15 +460,14 @@ msgstr "Vytvořil/a @{0}"
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "Stisknutím potvrzení rozumíte, že tímto odstraňujete Váš skutečný účet Bluesky, toto nemá nic společného s Graysky. Vaše data budou trvale smazána i z oficiální aplikace."
 
-#: src/app/pro.tsx:302
+#: src/app/pro.tsx:313
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "Přihlášením souhlasíte s našimi <0>Obchodními podmínkami</0> a <1>Zásadami ochrany osobních údajů</1>. Předplatné se obnovují automaticky až do zrušení."
 
-#: src/app/pro.tsx:267
+#: src/app/pro.tsx:278
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "Přihlášením souhlasíte s našimi <0>Obchodními podmínkami</0>, <1>Licenční smlouvou (EULA)</1> a <2>Zásadami ochrany osobních údajů</2>. Předplatné se obnovují automaticky až do zrušení."
 
-#: src/app/(auth)/_layout.tsx:25
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:317
@@ -495,12 +494,12 @@ msgstr "Přihlášením souhlasíte s našimi <0>Obchodními podmínkami</0>, <1
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/app/settings/_layout.tsx:65
+#: src/app/settings/_layout.tsx:70
 #: src/app/settings/account/index.tsx:45
 msgid "Change Handle"
 msgstr "Změnit uživatelské jméno"
 
-#: src/app/settings/_layout.tsx:71
+#: src/app/settings/_layout.tsx:76
 #: src/app/settings/account/index.tsx:55
 msgid "Change Password"
 msgstr "Změnit heslo"
@@ -509,7 +508,7 @@ msgstr "Změnit heslo"
 msgid "Change post language"
 msgstr "Změnit jazyk příspěvku"
 
-#: src/app/pro.tsx:122
+#: src/app/pro.tsx:124
 msgid "Change the accent colour"
 msgstr "Změňte barvu zvýraznění"
 
@@ -537,7 +536,7 @@ msgstr "Vybrat uživatelské jméno"
 msgid "Choose from Library"
 msgstr "Vybrat z knihovny"
 
-#: src/app/pro.tsx:127
+#: src/app/pro.tsx:129
 msgid "Circle graph"
 msgstr ""
 
@@ -553,7 +552,7 @@ msgstr "Potvrdit a pokračovat"
 msgid "Confirm Password"
 msgstr "Potvrdit heslo"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
+#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:33
 msgid "Connecting..."
 msgstr "Připojování..."
 
@@ -565,11 +564,11 @@ msgstr "Kontakt"
 msgid "Content filters"
 msgstr "Filtry obsahu"
 
-#: src/app/settings/_layout.tsx:131
+#: src/app/settings/_layout.tsx:136
 msgid "Content Languages"
 msgstr "Jazyky obsahu"
 
-#: src/app/composer/_layout.tsx:76
+#: src/app/composer/_layout.tsx:84
 msgid "Content Warning"
 msgstr "Varování o obsahu"
 
@@ -610,7 +609,7 @@ msgstr "Kopírovat text příspěvku"
 msgid "Could not change handle"
 msgstr "Nepodařilo se změnit uživatelské jméno"
 
-#: src/app/pro.tsx:91
+#: src/app/pro.tsx:93
 msgid "Could not complete purchase"
 msgstr "Nepodařilo se dokončit nákup"
 
@@ -638,7 +637,7 @@ msgstr "Nepodařilo se načíst kanál seznamu"
 msgid "Could not fetch mutes"
 msgstr "Nepodařilo se načíst skryté"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:284
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:286
 msgid "Could not fetch trending topics"
 msgstr "Nepodařilo se načíst populární témata"
 
@@ -676,7 +675,7 @@ msgstr "Nepodařilo se načíst seznamy"
 msgid "Create list"
 msgstr "Vytvořit seznam"
 
-#: src/app/_layout.tsx:380
+#: src/app/_layout.tsx:390
 msgid "Create List"
 msgstr "Vytvořit seznam"
 
@@ -696,7 +695,7 @@ msgstr "Vytvořil/a"
 msgid "Creator"
 msgstr "Autor/ka"
 
-#: src/app/pro.tsx:182
+#: src/app/pro.tsx:193
 msgid "Currently subscribed"
 msgstr "Aktuálně odebíráno"
 
@@ -704,7 +703,7 @@ msgstr "Aktuálně odebíráno"
 msgid "Custom domain"
 msgstr "Vlastní doména"
 
-#: src/app/pro.tsx:121
+#: src/app/pro.tsx:123
 msgid "Custom themes"
 msgstr "Vlastní motivy"
 
@@ -727,7 +726,7 @@ msgstr "Tmavý"
 msgid "Delete"
 msgstr "Odstranit"
 
-#: src/app/settings/_layout.tsx:77
+#: src/app/settings/_layout.tsx:82
 #: src/app/settings/account/delete-account.tsx:208
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
@@ -782,11 +781,11 @@ msgstr "Zahodit příspěvek"
 msgid "Discover feeds"
 msgstr "Objevit kanály"
 
-#: src/app/_layout.tsx:308
+#: src/app/_layout.tsx:312
 msgid "Discover Feeds"
 msgstr "Objevit kanály"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:216
 msgid "Discover more feeds"
 msgstr "Objevit další kanály"
 
@@ -802,12 +801,11 @@ msgstr "Doména"
 msgid "Don't enable"
 msgstr "Nepovolovat"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:277
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:279
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 #: src/app/add-to-list/[handle].tsx:55
-#: src/app/composer/_layout.tsx:49
+#: src/app/composer/_layout.tsx:50
 #: src/app/discover.tsx:67
-#: src/app/settings/_layout.tsx:30
 #: src/app/success.tsx:68
 #: src/lib/composer/alt-text-editor.tsx:81
 msgid "Done"
@@ -817,11 +815,11 @@ msgstr "Hotovo"
 msgid "Double check that you understand"
 msgstr "Dvakrát zkontrolujte, zda rozumíte"
 
-#: src/app/composer/_layout.tsx:68
+#: src/app/composer/_layout.tsx:76
 msgid "Drafts"
 msgstr "Koncepty"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:277
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:279
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:40
 msgid "Edit"
 msgstr "Upravit"
@@ -846,7 +844,7 @@ msgstr "Upravit kanály"
 msgid "Edit profile"
 msgstr ""
 
-#: src/app/_layout.tsx:359
+#: src/app/_layout.tsx:369
 #: src/app/settings/account/index.tsx:40
 msgid "Edit Profile"
 msgstr "Upravit profil"
@@ -901,7 +899,7 @@ msgstr "Nepodařilo se nahrát obrázek"
 msgid "Favourited"
 msgstr "Oblíbené"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:141
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:142
 #: src/components/feeds-button.tsx:190
 msgid "Favourites"
 msgstr "Oblíbené"
@@ -914,8 +912,8 @@ msgstr "Kanál"
 msgid "Feed Details"
 msgstr "Podrobnosti kanálu"
 
-#: src/app/(tabs)/_layout.tsx:163
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:262
+#: src/app/(tabs)/_layout.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:263
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:24
 #: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
@@ -926,7 +924,7 @@ msgstr "Kanály"
 msgid "Feeds list"
 msgstr "Seznam kanálů"
 
-#: src/app/circle.tsx:265
+#: src/app/circle.tsx:283
 msgid "Fetch connections"
 msgstr ""
 
@@ -934,7 +932,7 @@ msgstr ""
 msgid "Find people to follow"
 msgstr "Najít lidi ke sledování"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:391
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:393
 #: src/components/screens/profile/profile-info.tsx:409
 msgid "Follow"
 msgstr "Sledovat"
@@ -956,7 +954,7 @@ msgstr "Sledující"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:125
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:126
 #: src/app/settings/feed.tsx:56
 #: src/components/feeds-button.tsx:271
 #: src/lib/hooks/feeds.ts:128
@@ -968,7 +966,7 @@ msgstr "Sledovaní"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:393
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:395
 #: src/components/lists/person-row.tsx:47
 #: src/components/screens/profile/profile-info.tsx:384
 #: src/lib/composer/suggestion-list.tsx:52
@@ -1011,7 +1009,7 @@ msgstr "Začněte"
 msgid "Getting queue position..."
 msgstr "Získávám pozici ve frontě..."
 
-#: src/app/composer/_layout.tsx:92
+#: src/app/composer/_layout.tsx:100
 msgid "GIFs"
 msgstr "GIFy"
 
@@ -1024,7 +1022,7 @@ msgstr "Jít zpět"
 msgid "Google Translate is used otherwise."
 msgstr "V ostatních případech je využíván Google Translate."
 
-#: src/app/pro.tsx:167
+#: src/app/pro.tsx:178
 #: src/app/settings/index.tsx:34
 #: src/components/drawer/drawer-content.tsx:177
 msgid "Graysky Pro"
@@ -1046,7 +1044,7 @@ msgstr "Uživatelské jméno je použito"
 msgid "Haptics disabled"
 msgstr "Haptika vypnuta"
 
-#: src/app/pro.tsx:134
+#: src/app/pro.tsx:136
 msgid "Help us keep the lights on"
 msgstr "Pomozte nám udržet projekt aktuální"
 
@@ -1060,7 +1058,7 @@ msgstr "Skrýt"
 msgid "Home feed preferences"
 msgstr "Nastavení domácího kanálu"
 
-#: src/app/settings/_layout.tsx:107
+#: src/app/settings/_layout.tsx:112
 msgid "Home Feed Preferences"
 msgstr "Nastavení domácího kanálu"
 
@@ -1108,7 +1106,7 @@ msgstr "Nyní je nastaveno téma {current}"
 msgid "Joined {0}"
 msgstr "Připojili se {0}"
 
-#: src/app/settings/_layout.tsx:119
+#: src/app/settings/_layout.tsx:124
 #: src/app/settings/index.tsx:58
 msgid "Languages"
 msgstr "Jazyky"
@@ -1175,12 +1173,12 @@ msgstr ""
 msgid "Lists"
 msgstr "Seznamy"
 
-#: src/app/(auth)/_layout.tsx:55
+#: src/app/(auth)/_layout.tsx:54
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Znovu se přihlásit"
 
-#: src/app/(auth)/_layout.tsx:43
+#: src/app/(auth)/_layout.tsx:42
 #: src/app/(auth)/sign-in.tsx:163
 #: src/app/index.tsx:53
 msgid "Log in"
@@ -1210,7 +1208,7 @@ msgstr "Nastaví přidávání ALT textu k obrázkům jako povinné"
 msgid "Manage my feeds"
 msgstr "Spravovat mé kanály"
 
-#: src/app/pro.tsx:194
+#: src/app/pro.tsx:205
 msgid "Manage my subscription"
 msgstr "Spravovat mé předplatné"
 
@@ -1244,7 +1242,7 @@ msgstr "Zavádějící účet"
 msgid "Missing alt text"
 msgstr "Chybějící alt text"
 
-#: src/app/settings/_layout.tsx:83
+#: src/app/settings/_layout.tsx:88
 #: src/app/settings/index.tsx:48
 msgid "Moderation"
 msgstr "Moderování"
@@ -1256,7 +1254,7 @@ msgstr "Moderování"
 msgid "Moderation list"
 msgstr "Moderační seznam"
 
-#: src/app/pro.tsx:203
+#: src/app/pro.tsx:214
 msgid "Monthly Plan"
 msgstr "Měsíční tarif"
 
@@ -1294,7 +1292,7 @@ msgstr "Seznam ztlumených"
 msgid "Muted users"
 msgstr "Ztlumení uživatelé"
 
-#: src/app/settings/_layout.tsx:95
+#: src/app/settings/_layout.tsx:100
 msgid "Muted Users"
 msgstr "Ztlumení uživatelé"
 
@@ -1307,7 +1305,7 @@ msgstr "Vzájemní přátelé"
 msgid "My circle"
 msgstr ""
 
-#: src/app/_layout.tsx:329
+#: src/app/_layout.tsx:336
 msgid "My Circle"
 msgstr ""
 
@@ -1332,7 +1330,7 @@ msgstr "Obrazovka mých kanálů"
 msgid "My languages"
 msgstr "Moje jazyky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:76
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:77
 #: src/components/feeds-button.tsx:200
 msgid "My lists"
 msgstr "Moje seznamy"
@@ -1357,7 +1355,7 @@ msgstr "Nový sledující: {0} @{1}"
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: src/app/composer/_layout.tsx:67
+#: src/app/composer/_layout.tsx:74
 #: src/lib/quick-actions.ts:76
 msgid "New Post"
 msgstr "Nový příspěvek"
@@ -1408,7 +1406,7 @@ msgstr "Zatím neimplementováno"
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Poznámka: Nastavení obsahu pro dospělé nelze změnit na iOS. Použijte prosím webovou aplikaci."
 
-#: src/app/(tabs)/_layout.tsx:244
+#: src/app/(tabs)/_layout.tsx:245
 #: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:290
 msgid "Notifications"
 msgstr "Oznámení"
@@ -1421,7 +1419,7 @@ msgstr "Nahota"
 msgid "Only show replies from your follows"
 msgstr "Zobrazit pouze odpovědi od svých sledovaných"
 
-#: src/components/open-drawer-avatar.tsx:15
+#: src/components/open-drawer-avatar.tsx:18
 msgid "Open drawer menu"
 msgstr "Otevřít menu"
 
@@ -1535,7 +1533,7 @@ msgstr "Použijte prosím prozatím oficiální aplikaci. Omlouváme se!"
 msgid "Pornographic content"
 msgstr "Pornografický obsah"
 
-#: src/app/(tabs)/_layout.tsx:198
+#: src/app/(tabs)/_layout.tsx:199
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:352
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:358
 #: src/lib/composer/buttons.tsx:72
@@ -1546,7 +1544,7 @@ msgstr "Příspěvek"
 msgid "Post anyway"
 msgstr "Přesto odeslat"
 
-#: src/app/circle.tsx:263
+#: src/app/circle.tsx:281
 msgid "Post circle"
 msgstr ""
 
@@ -1554,7 +1552,7 @@ msgstr ""
 msgid "Post deleted"
 msgstr "Příspěvek odstraněn"
 
-#: src/app/composer/_layout.tsx:71
+#: src/app/composer/_layout.tsx:79
 msgid "Post Language"
 msgstr "Jazyk příspěvku"
 
@@ -1570,7 +1568,7 @@ msgstr "Odkaz příspěvku zkopírován do schránky"
 msgid "Post published!"
 msgstr "Příspěvek byl zveřejněn!"
 
-#: src/app/circle.tsx:227
+#: src/app/circle.tsx:245
 msgid "Post text (optional)"
 msgstr ""
 
@@ -1582,7 +1580,7 @@ msgstr "Text příspěvku zkopírován do schránky"
 msgid "Posts"
 msgstr "Příspěvky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:131
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:132
 #: src/components/feeds-button.tsx:277
 msgid "Posts from people you follow"
 msgstr "Příspěvky od lidí, které sledujete"
@@ -1605,11 +1603,11 @@ msgstr "Hlavní kanál"
 msgid "Primary language"
 msgstr "Hlavní jazyk"
 
-#: src/app/settings/_layout.tsx:125
+#: src/app/settings/_layout.tsx:130
 msgid "Primary Language"
 msgstr "Hlavní jazyk"
 
-#: src/app/settings/_layout.tsx:53
+#: src/app/settings/_layout.tsx:58
 msgid "Pro Settings"
 msgstr "Pro nastavení"
 
@@ -1617,7 +1615,7 @@ msgstr "Pro nastavení"
 msgid "Pro version information and purchase"
 msgstr "Informace o verzi Pro a platbě"
 
-#: src/app/(tabs)/_layout.tsx:262
+#: src/app/(tabs)/_layout.tsx:263
 msgid "Profile"
 msgstr "Profil"
 
@@ -1625,7 +1623,7 @@ msgstr "Profil"
 msgid "Profile Settings"
 msgstr "Nastavení profilu"
 
-#: src/app/_layout.tsx:337
+#: src/app/_layout.tsx:344
 msgid "Purchase Successful"
 msgstr "Platba byla úspěšná"
 
@@ -1637,7 +1635,7 @@ msgstr "Účel"
 msgid "Push notifications"
 msgstr "Push notifikace"
 
-#: src/app/_layout.tsx:394
+#: src/app/_layout.tsx:404
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "Push notifikace"
@@ -1662,7 +1660,7 @@ msgstr "Přečíst celý ALT text"
 msgid "Replies"
 msgstr "Odpovědi"
 
-#: src/app/composer/_layout.tsx:84
+#: src/app/composer/_layout.tsx:92
 msgid "Reply Controls"
 msgstr "Ovládací prvky odpovědí"
 
@@ -1744,17 +1742,17 @@ msgstr "přesdílel/a váš příspěvek"
 msgid "Reset Code"
 msgstr "Obnovit kód"
 
-#: src/app/(auth)/_layout.tsx:49
+#: src/app/(auth)/_layout.tsx:48
 msgid "Reset password"
 msgstr "Obnovit heslo"
 
-#: src/app/pro.tsx:336
-#: src/app/pro.tsx:351
+#: src/app/pro.tsx:347
+#: src/app/pro.tsx:362
 msgid "Restore purchases"
 msgstr "Obnovit transakce"
 
-#: src/app/pro.tsx:334
-#: src/app/pro.tsx:349
+#: src/app/pro.tsx:345
+#: src/app/pro.tsx:360
 msgid "Restoring purchases..."
 msgstr "Obnovuji transakce..."
 
@@ -1774,7 +1772,7 @@ msgstr "Na vzestupu"
 msgid "Save"
 msgstr "Uložit"
 
-#: src/app/pro.tsx:225
+#: src/app/pro.tsx:236
 msgid "Save {0}%"
 msgstr "Uložit {0}%"
 
@@ -1790,18 +1788,18 @@ msgstr "Uloženo"
 msgid "Saved image to gallery"
 msgstr "Obrázek uložen do galerie"
 
-#: src/app/(tabs)/_layout.tsx:185
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:86
+#: src/app/(tabs)/_layout.tsx:186
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:87
 #: src/lib/quick-actions.ts:70
 msgid "Search"
 msgstr "Hledat"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:180
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:182
 msgid "Search all users"
 msgstr "Prohledat uživatele"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:115
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:151
 #: src/app/discover.tsx:29
 msgid "Search feeds"
 msgstr "Prohledat kanály"
@@ -1840,7 +1838,7 @@ msgstr "Hledat lidi"
 msgid "Search People"
 msgstr "Hledat lidi"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:144
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:146
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Prohledat příspěvky"
@@ -1849,11 +1847,11 @@ msgstr "Prohledat příspěvky"
 msgid "Search Posts"
 msgstr "Prohledat příspěvky"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:157
 msgid "Search users"
 msgstr "Prohledat uživatele"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:62
 msgid "Search users, posts, feeds"
 msgstr "Prohledat uživatele, příspěvky, kanály"
 
@@ -1865,7 +1863,7 @@ msgstr "Zobrazit 'Líbí se mi'"
 msgid "See reposts"
 msgstr "Zobrazit přesdílené"
 
-#: src/app/pro.tsx:128
+#: src/app/pro.tsx:130
 msgid "See your closest connections"
 msgstr ""
 
@@ -1889,7 +1887,7 @@ msgstr "Odeslat ověřovací e-mail"
 msgid "Send reset email"
 msgstr "Odeslat obnovující e-mail"
 
-#: src/app/settings/_layout.tsx:42
+#: src/app/settings/_layout.tsx:44
 #: src/components/drawer/drawer-content.tsx:214
 #: src/lib/quick-actions.ts:82
 msgid "Settings"
@@ -1918,7 +1916,7 @@ msgstr "Sdílet příspěvek {0}"
 msgid "Share as image"
 msgstr "Sdílet jako obrázek"
 
-#: src/app/_layout.tsx:404
+#: src/app/_layout.tsx:414
 msgid "Share as Image"
 msgstr "Sdílet jako obrázek"
 
@@ -2012,17 +2010,17 @@ msgstr "Odhlásit se"
 msgid "Sign up for project updates"
 msgstr "Odebírejte novinky o projektu"
 
-#: src/app/(tabs)/_layout.tsx:163
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:247
+#: src/app/(tabs)/_layout.tsx:164
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:248
 msgid "Skyline"
 msgstr "Skyline"
 
-#: src/app/pro.tsx:92
+#: src/app/pro.tsx:94
 msgid "Something went wrong, please try again later."
 msgstr "Něco se pokazilo, zkuste to prosím později."
 
-#: src/app/_layout.tsx:147
-#: src/app/_layout.tsx:166
+#: src/app/_layout.tsx:148
+#: src/app/_layout.tsx:167
 msgid "Sorry! Your session expired. Please log in again."
 msgstr "Omlouváme se! Vaše relace vypršela. Přihlaste se prosím znovu."
 
@@ -2059,7 +2057,7 @@ msgstr "Vás začal/a sledovat"
 msgid "Stop editing"
 msgstr "Ukončit úpravy"
 
-#: src/app/pro.tsx:260
+#: src/app/pro.tsx:271
 msgid "Subscribe & pay"
 msgstr "Předplatit a zaplatit"
 
@@ -2071,11 +2069,11 @@ msgstr "Přihlásit se k odběru {0}"
 msgid "Subscribe to list"
 msgstr "Přihlásit se k odběru seznamu"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:291
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:293
 msgid "Suggested follows"
 msgstr "Navržené účty ke sledování"
 
-#: src/app/pro.tsx:133
+#: src/app/pro.tsx:135
 msgid "Support development"
 msgstr "Podpora vývoje"
 
@@ -2213,7 +2211,7 @@ msgstr "Přeložit bio"
 msgid "Translate post"
 msgstr "Přeložit příspěvek"
 
-#: src/app/pro.tsx:110
+#: src/app/pro.tsx:112
 msgid "Translate posts using DeepL"
 msgstr "Přeložte příspěvky pomocí DeepL"
 
@@ -2234,7 +2232,7 @@ msgstr "Poskytovatel překladu"
 msgid "Translations are now powered by DeepL"
 msgstr "Překlady jsou nyní poháněné překladačem DeepL"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:247
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:249
 msgid "Trending topics"
 msgstr "Populární témata"
 
@@ -2510,4 +2508,3 @@ msgstr "Váš seznam byl odstraněn"
 #: src/lib/composer/utils.tsx:175
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Váš příspěvek je příliš dlouhý - limit je zde 300 znaků"
-

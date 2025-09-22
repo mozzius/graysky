@@ -6,7 +6,7 @@
   "build": {
     "development-simulator": {
       "developmentClient": true,
-      "node": "18.19.0",
+      "node": "20.19.4",
       "ios": {
         "simulator": true
       },
@@ -17,7 +17,7 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "node": "18.19.0",
+      "node": "20.19.4",
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -27,7 +27,7 @@
     },
     "preview": {
       "distribution": "internal",
-      "node": "18.19.0",
+      "node": "20.19.4",
       "channel": "preview",
       "ios": {
         "resourceClass": "m-medium"
@@ -35,7 +35,7 @@
     },
     "production": {
       "autoIncrement": true,
-      "node": "18.19.0",
+      "node": "20.19.4",
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
@@ -43,7 +43,7 @@
     },
     "production-apk": {
       "autoIncrement": true,
-      "node": "18.19.0",
+      "node": "20.19.4",
       "channel": "production",
       "ios": {
         "resourceClass": "m-medium"
