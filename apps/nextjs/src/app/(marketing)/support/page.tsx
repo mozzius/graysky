@@ -1,6 +1,6 @@
 export default function SupportPage() {
   return (
-    <div className="container mx-auto pt-8">
+    <div className="container mx-auto max-w-4xl pt-8">
       <h1 className="text-2xl">Support</h1>
       <p className="mt-4">
         If you need help, email us at{" "}
