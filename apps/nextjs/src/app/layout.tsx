@@ -2,8 +2,6 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { Providers } from "./providers";
-
 import "~/styles/globals.css";
 
 const inter = Inter({
@@ -39,7 +37,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head />
       <body>
-        <Providers>{children}</Providers>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>

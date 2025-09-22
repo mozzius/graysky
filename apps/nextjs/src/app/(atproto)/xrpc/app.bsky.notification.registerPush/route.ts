@@ -24,7 +24,8 @@ export async function POST(req: NextRequest) {
     const { iss: did, aud } = await verifyJwt(
       token,
       SERVICE_DID,
-      async (did: string) => didResolver.resolveAtprotoKey(did),
+      null,
+      async (did: string) => didResolver.resolveAtprotoKey(did)
     );
 
     if (aud !== SERVICE_DID) throw new AuthRequiredError("invalid audience");

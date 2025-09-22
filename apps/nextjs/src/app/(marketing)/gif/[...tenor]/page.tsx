@@ -4,27 +4,33 @@ import Link from "next/link";
 
 import poweredByTenor from "./tenor.svg";
 
-export const generateMetadata = ({
+export const generateMetadata = async ({
   searchParams,
 }: {
-  searchParams: { title?: string };
-}) => ({
-  title: searchParams.title
-    ? decodeURIComponent(searchParams.title) + " - Graysky"
-    : "GIF - Graysky",
-  description: "If you send this link via Graysky, you get a nice preview",
-});
+  params: Promise<{ tenor: string[] }>;
+  searchParams: Promise<{ title?: string }>;
+}) => {
+  const resolvedSearchParams = await searchParams;
+  return {
+    title: resolvedSearchParams.title
+      ? decodeURIComponent(resolvedSearchParams.title) + " - Graysky"
+      : "GIF - Graysky",
+    description: "If you send this link via Graysky, you get a nice preview",
+  };
+};
 
-export default function GifScreen({
+export default async function GifScreen({
   params,
   searchParams,
 }: {
-  params: { tenor: string[] };
-  searchParams: { title?: string };
+  params: Promise<{ tenor: string[] }>;
+  searchParams: Promise<{ title?: string }>;
 }) {
-  const tenorUrl = `https://media.tenor.com/${params.tenor.join("/")}`;
-  const title = searchParams.title
-    ? decodeURIComponent(searchParams.title)
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const tenorUrl = `https://media.tenor.com/${resolvedParams.tenor.join("/")}`;
+  const title = resolvedSearchParams.title
+    ? decodeURIComponent(resolvedSearchParams.title)
     : "GIF";
 
   return (

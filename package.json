@@ -32,6 +32,7 @@
     "@graysky/prettier-config": "0.1.0",
     "@manypkg/cli": "^0.21.4",
     "eslint": "^9.36.0",
+    "eslint-plugin-turbo": "^2.5.6",
     "prettier": "^3.3.3",
     "turbo": "^2.5.6",
     "typescript": "^5.9.2"

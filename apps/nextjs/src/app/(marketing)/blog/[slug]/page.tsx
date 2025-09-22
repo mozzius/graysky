@@ -9,10 +9,11 @@ import { getAllPosts, getPostById } from "../utils";
 import { CommentSection } from "./comment-section";
 
 export default async function BlogPost({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const { content, title, date, author, atUri } = await getPostById(slug);
   const formatter = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "long",
@@ -56,10 +57,11 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const { title, author, date } = await getPostById(slug);
   const formatter = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "long",

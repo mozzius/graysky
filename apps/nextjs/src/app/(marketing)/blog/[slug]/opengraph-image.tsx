@@ -13,12 +13,17 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { slug: string } }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   try {
     // this probably means that we need to make a build twice for each new blog post
-    const blogDataPromise = fetch(
-      `https://graysky.app/blog/${params.slug}/info`,
-    ).then((res) => res.json() as Promise<BlogData>);
+    const blogDataPromise = fetch(`https://graysky.app/blog/${slug}/info`).then(
+      (res) => res.json() as Promise<BlogData>,
+    );
 
     const imagePromise = fetch(
       new URL("~/assets/graysky.jpg", import.meta.url),

@@ -14,11 +14,12 @@ import { Post } from "./_components/post";
 export default async function LandingPage({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     error?: boolean;
     success?: boolean;
-  };
+  }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const posts = await getNicePosts();
   return (
     <>
@@ -95,7 +96,7 @@ export default async function LandingPage({
           <h3 className="px-4 pb-4 text-center text-xl font-medium">
             Get project updates!
           </h3>
-          <EmailInput {...searchParams} />
+          <EmailInput {...resolvedSearchParams} />
         </div>
       </section>
     </>

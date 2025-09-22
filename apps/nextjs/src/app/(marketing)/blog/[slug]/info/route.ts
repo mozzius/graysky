@@ -8,9 +8,9 @@ import { getPostById } from "../../utils";
 
 export const GET = async (
   _request: NextRequest,
-  context: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) => {
-  const slug = context.params.slug;
+  const slug = (await params).slug;
 
   // discard content
   const { content: _, ...data } = await getPostById(slug);
