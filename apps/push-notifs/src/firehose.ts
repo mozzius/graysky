@@ -1,87 +1,86 @@
-import {
-  AppBskyEmbedRecord,
-  AppBskyFeedLike,
-  AppBskyFeedPost,
-  AppBskyFeedRepost,
-  AppBskyGraphFollow,
-  AppBskyRichtextFacet,
-  type AppBskyFeedDefs,
-} from "@atproto/api";
-import {
-  ComAtprotoSyncSubscribeRepos,
-  subscribeRepos,
-  type SubscribeReposMessage,
-  type XrpcEventStreamClient,
-} from "atproto-firehose";
+import { type AtUriString, type DidString } from "@atproto/lex";
+import { isCreate, JetstreamV1, type TypedEventV1For } from "@bsky/jetstream";
 
 import { type Accounts } from "./accounts";
+import { app } from "./lexicons";
 import { getDidFromUri } from "./utils/uri";
 
 export type Notification =
   | {
       type: "follow";
-      creator: string;
-      subject: string;
+      creator: DidString;
+      subject: DidString;
     }
   | {
       type: "reply" | "quote" | "mention";
-      creator: string;
-      subject: string;
-      uri: string;
+      creator: DidString;
+      subject: DidString;
+      uri: AtUriString;
       text: string;
     }
   | {
       type: "like" | "repost";
-      creator: string;
-      subject: string;
-      uri: string;
+      creator: DidString;
+      subject: DidString;
+      uri: AtUriString;
     };
 
+// The public jetstream*.bsky.network hosts speak the v1 wire
+const JETSTREAM_URL =
+  process.env.JETSTREAM_URL ?? "https://jetstream2.us-east.bsky.network";
+
+const RESTART_TIMEOUT = 1000;
+
+const COLLECTIONS = [
+  app.bsky.feed.post,
+  app.bsky.feed.like,
+  app.bsky.feed.repost,
+  app.bsky.graph.follow,
+] as const;
+
+type JetstreamEvent = TypedEventV1For<typeof COLLECTIONS>;
+
 export class Firehose {
-  firehose?: XrpcEventStreamClient;
-  reconnectTimeout = 1000;
+  jetstream = new JetstreamV1(JETSTREAM_URL);
 
   constructor(
     public accounts: Accounts,
     public queueNotification: (notification: Notification) => unknown,
   ) {
-    this.connect();
+    void this.run();
   }
 
-  connect() {
-    this.firehose = subscribeRepos("wss://bsky.network", {
-      decodeRepoOps: true,
-    });
+  async run() {
+    try {
+      // Passing lexicons as the collection filter validates and types the
+      // records for us. The stream reconnects on its own, so this loop only
+      // ends on a fatal error.
+      const stream = this.jetstream.live({
+        collections: COLLECTIONS,
+        onError: (err) => {
+          console.error("Jetstream error", err);
+        },
+      });
 
-    this.firehose.on("message", this.handleMessage.bind(this));
+      for await (const evt of stream) {
+        this.handleEvent(evt);
+      }
+    } catch (err) {
+      console.error("Jetstream closed", err);
+    }
 
-    this.firehose.on("error", (err) => {
-      console.error("Firehose error", err);
-    });
-
-    this.firehose.on("close", () => {
-      console.error("Firehose closed");
-
-      setTimeout(() => {
-        this.connect();
-      }, this.reconnectTimeout);
-    });
+    setTimeout(() => {
+      void this.run();
+    }, RESTART_TIMEOUT);
   }
 
-  handleMessage(message: SubscribeReposMessage) {
-    if (!ComAtprotoSyncSubscribeRepos.isCommit(message)) return;
-
-    const op = message.ops[0];
-
-    // Get the creator DID
-    if (op?.payload == null || op?.action !== "create") return;
-
+  handleEvent(evt: JetstreamEvent) {
     // Get the creator
-    const creator = message.repo;
+    const creator = evt.did;
 
-    if (AppBskyGraphFollow.isRecord(op.payload)) {
+    if (isCreate(evt, app.bsky.graph.follow)) {
       // See if the target is subscribed
-      const subject = op.payload.subject;
+      const subject = evt.commit.record.subject;
 
       // If the subject is the creator or we don't have the subject subscribed, return
       if (subject === creator || !this.accounts.isRelevantAccount(subject))
@@ -93,24 +92,17 @@ export class Firehose {
         creator,
         subject,
       });
-    } else if (AppBskyFeedPost.isRecord(op.payload)) {
+    } else if (isCreate(evt, app.bsky.feed.post)) {
+      const record = evt.commit.record;
+
       // Create the post URI
-      const postUri = `at://${creator}/${op.path}`;
+      const postUri: AtUriString = `at://${creator}/${evt.commit.collection}/${evt.commit.rkey}`;
 
       // Check if the post is a reply or not
-      if (op.payload.reply != null) {
-        // Get both the root and the parent URIs
-        const rootUri = (op.payload?.reply as AppBskyFeedDefs.ReplyRef)?.root
-          .uri as string | undefined;
-        const parentUri = (op.payload?.reply as AppBskyFeedDefs.ReplyRef)
-          ?.parent.uri as string | undefined;
-
-        // I'm pretty sure here these can't be null, but just to make TS happy
-        if (rootUri == null || parentUri == null) return;
-
-        //   // Get the DIDs from those URIs
-        const rootSubject = getDidFromUri(rootUri);
-        const parentSubject = getDidFromUri(parentUri);
+      if (record.reply != null) {
+        // Get the DIDs from the root and parent URIs
+        const rootSubject = getDidFromUri(record.reply.root.uri);
+        const parentSubject = getDidFromUri(record.reply.parent.uri);
 
         if (
           rootSubject !== creator &&
@@ -121,7 +113,7 @@ export class Firehose {
             creator,
             subject: rootSubject,
             uri: postUri,
-            text: op.payload.text ?? "",
+            text: record.text,
           });
         } else if (
           parentSubject !== creator &&
@@ -132,12 +124,12 @@ export class Firehose {
             creator,
             subject: parentSubject,
             uri: postUri,
-            text: op.payload.text ?? "",
+            text: record.text,
           });
         }
-      } else if (op.payload.embed != null) {
-        if (AppBskyEmbedRecord.isMain(op.payload.embed)) {
-          const subject = getDidFromUri(op.payload.embed.record.uri);
+      } else if (record.embed != null) {
+        if (app.bsky.embed.record.$isTypeOf(record.embed)) {
+          const subject = getDidFromUri(record.embed.record.uri);
           if (subject === creator || !this.accounts.isRelevantAccount(subject))
             return;
           this.queueNotification({
@@ -145,18 +137,18 @@ export class Firehose {
             creator,
             subject,
             uri: postUri,
-            text: op.payload.text ?? "",
+            text: record.text,
           });
         }
-      } else if (op.payload.facets != null) {
+      } else if (record.facets != null) {
         // We need to store the subjects we have already notified
-        const notified: string[] = [];
+        const notified: DidString[] = [];
 
         // Loop through the available facets and the features of those facets
-        for (const facet of op.payload.facets) {
+        for (const facet of record.facets) {
           for (const feature of facet.features) {
             //   If we find a mention...
-            if (AppBskyRichtextFacet.isMention(feature)) {
+            if (app.bsky.richtext.facet.mention.isTypeOf(feature)) {
               const subject = feature.did;
               // Check if the creator is subscribed. If not, we will move on to the next one.
               // Also, if we have already notified this subject, continue. In case two different users are mentioned in the same post.
@@ -171,7 +163,7 @@ export class Firehose {
                 type: "mention",
                 creator,
                 subject,
-                text: op.payload.text ?? "",
+                text: record.text,
                 uri: postUri,
               });
               notified.push(subject);
@@ -179,25 +171,27 @@ export class Firehose {
           }
         }
       }
-    } else if (AppBskyFeedLike.isRecord(op.payload)) {
-      const subject = getDidFromUri(op.payload.subject.uri);
+    } else if (isCreate(evt, app.bsky.feed.like)) {
+      const uri = evt.commit.record.subject.uri;
+      const subject = getDidFromUri(uri);
       if (subject === creator || !this.accounts.isRelevantAccount(subject))
         return;
       this.queueNotification({
         type: "like",
         creator,
         subject,
-        uri: op.payload.subject.uri,
+        uri,
       });
-    } else if (AppBskyFeedRepost.isRecord(op.payload)) {
-      const subject = getDidFromUri(op.payload.subject.uri);
+    } else if (isCreate(evt, app.bsky.feed.repost)) {
+      const uri = evt.commit.record.subject.uri;
+      const subject = getDidFromUri(uri);
       if (subject === creator || !this.accounts.isRelevantAccount(subject))
         return;
       this.queueNotification({
         type: "repost",
         creator,
         subject,
-        uri: op.payload.subject.uri,
+        uri,
       });
     }
   }

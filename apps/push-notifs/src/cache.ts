@@ -1,26 +1,25 @@
-import { AppBskyFeedDefs, AppBskyFeedPost, AtpAgent } from "@atproto/api";
+import { Client, type AtUriString, type DidString } from "@atproto/lex";
 
 import { type Redis } from "./db";
+import { app } from "./lexicons";
 import { getPds } from "./utils/pds";
 
 export class Cache {
-  agent: AtpAgent;
+  client: Client;
 
   constructor(public kv: Redis) {
-    this.agent = new AtpAgent({ service: "https://public.api.bsky.app" });
+    this.client = new Client("https://public.api.bsky.app");
   }
 
-  async getProfile(did: string) {
+  async getProfile(did: DidString) {
     const cached = await this.kv.client.get(`profile:${did}`);
     if (cached) return cached;
 
-    const profile = await this.agent.getProfile({
+    const profile = await this.client.call(app.bsky.actor.getProfile, {
       actor: did,
     });
 
-    if (!profile.success) throw new Error("Failed to get profile");
-
-    const name = profile.data.displayName?.trim() || profile.data.handle;
+    const name = profile.displayName?.trim() || profile.handle;
 
     await this.kv.client.set(`profile:${did}`, name);
 
@@ -30,24 +29,22 @@ export class Cache {
     return name;
   }
 
-  async getContextPost(uri: string) {
+  async getContextPost(uri: AtUriString) {
     const cached = await this.kv.client.get(`post:${uri}`);
     if (cached) return cached;
 
-    const thread = await this.agent.getPostThread({
+    const { thread } = await this.client.call(app.bsky.feed.getPostThread, {
       uri,
       depth: 0,
       parentHeight: 0,
     });
 
-    if (!thread.success) throw new Error("Failed to get post");
-
     let content = "";
 
-    if (AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) {
-      const post = thread.data.thread.post;
+    if (app.bsky.feed.defs.threadViewPost.isTypeOf(thread)) {
+      const post = thread.post;
 
-      if (AppBskyFeedPost.isRecord(post.record)) {
+      if (app.bsky.feed.post.$matches(post.record)) {
         content = post.record.text;
       }
     }
@@ -60,17 +57,15 @@ export class Cache {
     return content;
   }
 
-  async getContextFeed(uri: string) {
+  async getContextFeed(uri: AtUriString) {
     const cached = await this.kv.client.get(`feed:${uri}`);
     if (cached) return cached;
 
-    const generator = await this.agent.app.bsky.feed.getFeedGenerator({
+    const generator = await this.client.call(app.bsky.feed.getFeedGenerator, {
       feed: uri,
     });
 
-    if (!generator.success) throw new Error("Failed to get feed");
-
-    const name = generator.data.view.displayName;
+    const name = generator.view.displayName;
 
     await this.kv.client.set(`feed:${uri}`, name);
 
@@ -80,29 +75,21 @@ export class Cache {
     return name;
   }
 
-  async isBlocking(did: string, target: string) {
+  async isBlocking(did: DidString, target: DidString) {
     const hasCache = await this.kv.client.exists(`blocking:${did}`);
     if (hasCache)
       return await this.kv.client.sIsMember(`blocking:${did}`, target);
 
     const allBlocks: string[] = [];
-    let cursor;
 
     // appview doesn't have listRecords
-    const pdsSpecificAgent = new AtpAgent({
-      service: await getPds(did),
-    });
+    const pdsSpecificClient = new Client(await getPds(did));
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const records = await pdsSpecificAgent.app.bsky.graph.block.list({
-        repo: did,
-        limit: 100,
-        cursor,
-      });
-      allBlocks.push(...records.records.map((r) => r.value.subject));
-      cursor = records.cursor;
-      if (!cursor) break;
+    for await (const record of pdsSpecificClient.listAll(app.bsky.graph.block, {
+      repo: did,
+      limit: 100,
+    })) {
+      if (record.valid) allBlocks.push(record.value.subject);
     }
 
     await this.kv.client.sAdd(
