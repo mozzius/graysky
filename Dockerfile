@@ -10,7 +10,7 @@ ENV NODE_ENV=production
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
 RUN pnpm i -g turbo dotenv-cli
 
 FROM base AS builder
