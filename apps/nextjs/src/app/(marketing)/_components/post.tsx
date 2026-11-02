@@ -1,10 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import {
+  AppBskyFeedPost,
+  asPredicate,
+  type AppBskyFeedDefs,
+} from "@atproto/api";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react";
 
 interface Props {
   data: AppBskyFeedDefs.PostView;
 }
+
+const isPostRecord = asPredicate(AppBskyFeedPost.validateRecord);
 
 export const Post = ({ data: post }: Props) => {
   return (
@@ -34,7 +40,7 @@ export const Post = ({ data: post }: Props) => {
           </p>
         </div>
       </div>
-      {AppBskyFeedPost.isRecord(post.record) && (
+      {isPostRecord(post.record) && (
         <p className="text-sm opacity-90">{post.record.text}</p>
       )}
       <div className="flex w-3/4 flex-row items-center justify-between opacity-60">

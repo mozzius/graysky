@@ -3,27 +3,27 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "@atproto/api": "^0.13.31",
-    "@atproto/identity": "^0.4.10",
-    "@atproto/xrpc-server": "^0.10.4",
+    "@atproto/api": "^0.30.0",
+    "@atproto/identity": "^0.5.20",
+    "@atproto/xrpc-server": "^0.13.7",
     "@graysky/db": "0.1.0",
-    "@trpc/client": "^11.8.1",
-    "@trpc/server": "^11.8.1",
-    "@vercel/analytics": "^1.6.1",
+    "@trpc/client": "^11.22.1",
+    "@trpc/server": "^11.22.1",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/kv": "^3.0.0",
-    "encoding": "^0.1.13",
+    "encoding": "^0.1.14",
     "lande": "^1.0.10",
     "sharp": "0.32.6",
     "superjson": "2.2.6",
-    "zod": "^3.24.1"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/prettier-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "eslint": "^9.39.2",
-    "prettier": "^3.7.4",
-    "typescript": "^5.9.3"
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3"
   },
   "license": "MIT",
   "main": "./index.ts",
