@@ -2,9 +2,9 @@ import { useCallback } from "react";
 import { Platform } from "react-native";
 import { MaterialTabBar, Tabs } from "react-native-collapsible-tab-view";
 import { Stack } from "expo-router";
-import { msg } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 
 import { StatusBar } from "~/components/status-bar";
 import { createTopTabsScreenOptions } from "~/lib/utils/top-tabs";

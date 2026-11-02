@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useFocusEffect } from "expo-router";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 
 export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
   const firstTimeRef = useRef(true);
@@ -21,9 +21,9 @@ export function useUserRefresh<T>(refetch: () => Promise<T>) {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    return refetch().finally(() => setRefreshing(false));
+    await refetch().finally(() => setRefreshing(false));
   }, [refetch]);
 
   // this doesn't work for some reason

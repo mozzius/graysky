@@ -1,6 +1,6 @@
 import { useMMKVObject } from "react-native-mmkv";
 import { Redirect } from "expo-router";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { GroupedList } from "~/components/grouped-list";

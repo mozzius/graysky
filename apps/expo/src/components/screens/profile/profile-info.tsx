@@ -18,14 +18,15 @@ import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
 import { Image, ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   ComAtprotoModerationDefs,
   type AppBskyActorDefs,
   type AppBskyEmbedImages,
 } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   CalendarIcon,
@@ -34,8 +35,8 @@ import {
   MoreHorizontalIcon,
   PlusIcon,
 } from "lucide-react-native";
-import * as DropdownMenu from "zeego/dropdown-menu";
 
+import { Menu } from "~/components/menu";
 import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
@@ -597,40 +598,43 @@ const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
   const { _ } = useLingui();
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
-          <MoreHorizontalIcon
-            size={18}
-            className="text-neutral-600 dark:text-neutral-300"
-          />
-        </View>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item
-          key="edit-profile"
-          textValue={_(msg`Edit profile`)}
-          onSelect={() => router.push("/edit-bio")}
-        >
-          <DropdownMenu.ItemIcon ios={{ name: "person.circle" }} />
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          key="share-profile"
-          textValue={_(msg`Share profile`)}
-          onSelect={() => {
-            const url = `https://bsky.app/profile/${profile.handle}`;
-            void Share.share(
-              Platform.select({
-                ios: { url },
-                default: { message: url },
-              }),
-            );
-          }}
-        >
-          <DropdownMenu.ItemIcon ios={{ name: "square.and.arrow.up" }} />
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+    <Menu
+      accessibilityLabel={_(msg`Profile options`)}
+      groups={[
+        {
+          key: "own",
+          items: [
+            {
+              key: "edit-profile",
+              label: _(msg`Edit profile`),
+              icon: "person.circle",
+              onSelect: () => router.push("/edit-bio"),
+            },
+            {
+              key: "share-profile",
+              label: _(msg`Share profile`),
+              icon: "square.and.arrow.up",
+              onSelect: () => {
+                const url = `https://bsky.app/profile/${profile.handle}`;
+                void Share.share(
+                  Platform.select({
+                    ios: { url },
+                    default: { message: url },
+                  }),
+                );
+              },
+            },
+          ],
+        },
+      ]}
+    >
+      <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
+        <MoreHorizontalIcon
+          size={18}
+          className="text-neutral-600 dark:text-neutral-300"
+        />
+      </View>
+    </Menu>
   );
 };
 
@@ -671,95 +675,90 @@ const OtherProfileOptions = ({
   };
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
-          <MoreHorizontalIcon
-            size={18}
-            className="text-neutral-600 dark:text-neutral-300"
-          />
-        </View>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.Group>
-          <DropdownMenu.Item
-            key="share-profile"
-            textValue={_(msg`Share profile`)}
-            onSelect={() => {
-              const url = `https://bsky.app/profile/${profile.handle}`;
-              void Share.share(
-                Platform.select({
-                  ios: { url },
-                  default: { message: url },
-                }),
-              );
-            }}
-          >
-            <DropdownMenu.ItemIcon ios={{ name: "square.and.arrow.up" }} />
-          </DropdownMenu.Item>
-          <DropdownMenu.Item
-            key="translate-bio"
-            textValue={_(msg`Translate bio`)}
-            onSelect={onTranslate}
-          >
-            <DropdownMenu.ItemIcon ios={{ name: "character.book.closed" }} />
-          </DropdownMenu.Item>
-          <DropdownMenu.Item
-            key="add-to-list"
-            textValue={_(msg`Add to list`)}
-            onSelect={() => router.push(`/add-to-list/${profile.did}`)}
-          >
-            <DropdownMenu.ItemIcon ios={{ name: "text.badge.plus" }} />
-          </DropdownMenu.Item>
-        </DropdownMenu.Group>
-        <DropdownMenu.Group>
-          {!profile.viewer?.muted && (
-            <DropdownMenu.Item
-              key="mute"
-              textValue={_(msg`Mute user`)}
-              onSelect={() => muteAccount(profile.did, profile.handle)}
-            >
-              <DropdownMenu.ItemIcon ios={{ name: "speaker.slash" }} />
-            </DropdownMenu.Item>
-          )}
-          {!profile.viewer?.blocking && (
-            <DropdownMenu.Item
-              key="block"
-              textValue={_(msg`Block user`)}
-              onSelect={() => blockAccount(profile.did, profile.handle)}
-            >
-              <DropdownMenu.ItemIcon ios={{ name: "xmark.octagon" }} />
-            </DropdownMenu.Item>
-          )}
-          <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger
-              key="report"
-              textValue={_(msg`Report account`)}
-            >
-              <DropdownMenu.ItemIcon ios={{ name: "flag" }} />
-            </DropdownMenu.SubTrigger>
-            <DropdownMenu.SubContent>
-              <DropdownMenu.Label
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-                placeholder={undefined}
-              >
-                {_(msg`What's the issue with this account?`)}
-              </DropdownMenu.Label>
-              {reportOptions.map((option) => (
-                <DropdownMenu.Item
-                  key={option.value}
-                  onSelect={() => report(option.value)}
-                >
-                  <DropdownMenu.ItemTitle>
-                    {option.label}
-                  </DropdownMenu.ItemTitle>
-                </DropdownMenu.Item>
-              ))}
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Sub>
-        </DropdownMenu.Group>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+    <Menu
+      accessibilityLabel={_(msg`Profile options`)}
+      groups={[
+        {
+          key: "main",
+          items: [
+            {
+              key: "share-profile",
+              label: _(msg`Share profile`),
+              icon: "square.and.arrow.up",
+              onSelect: () => {
+                const url = `https://bsky.app/profile/${profile.handle}`;
+                void Share.share(
+                  Platform.select({
+                    ios: { url },
+                    default: { message: url },
+                  }),
+                );
+              },
+            },
+            {
+              key: "translate-bio",
+              label: _(msg`Translate bio`),
+              icon: "character.book.closed",
+              onSelect: onTranslate,
+            },
+            {
+              key: "add-to-list",
+              label: _(msg`Add to list`),
+              icon: "text.badge.plus",
+              onSelect: () => router.push(`/add-to-list/${profile.did}`),
+            },
+          ],
+        },
+        {
+          key: "moderation",
+          items: [
+            ...(!profile.viewer?.muted
+              ? [
+                  {
+                    key: "mute",
+                    label: _(msg`Mute user`),
+                    icon: "speaker.slash",
+                    onSelect: () => muteAccount(profile.did, profile.handle),
+                  } as const,
+                ]
+              : []),
+            ...(!profile.viewer?.blocking
+              ? [
+                  {
+                    key: "block",
+                    label: _(msg`Block user`),
+                    icon: "xmark.octagon",
+                    onSelect: () => blockAccount(profile.did, profile.handle),
+                  } as const,
+                ]
+              : []),
+            {
+              type: "submenu",
+              key: "report",
+              label: _(msg`Report account`),
+              icon: "flag",
+              groups: [
+                {
+                  key: "reasons",
+                  title: _(msg`What's the issue with this account?`),
+                  items: reportOptions.map((option) => ({
+                    key: option.value,
+                    label: option.label,
+                    onSelect: () => void report(option.value),
+                  })),
+                },
+              ],
+            },
+          ],
+        },
+      ]}
+    >
+      <View className="rounded-full bg-neutral-200 p-1.5 dark:bg-neutral-700">
+        <MoreHorizontalIcon
+          size={18}
+          className="text-neutral-600 dark:text-neutral-300"
+        />
+      </View>
+    </Menu>
   );
 };

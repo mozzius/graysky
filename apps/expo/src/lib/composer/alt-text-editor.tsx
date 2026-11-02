@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  type ScrollViewInstance,
 } from "react-native";
 import { AvoidSoftInputView } from "react-native-avoid-softinput";
 import Animated, {
@@ -15,10 +16,10 @@ import Animated, {
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { Stack } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { useHeaderHeight, useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 
 import { BackButtonOverride } from "~/components/back-button-override";
 import { Text } from "~/components/themed/text";
@@ -49,7 +50,7 @@ export const AltTextEditor = ({
   const [expandPreview, setExpandPreview] = useState(false);
   const frame = useSafeAreaFrame();
   const headerHeight = useHeaderHeight();
-  const altTextScrollViewRef = useRef<ScrollView>(null);
+  const altTextScrollViewRef = useRef<ScrollViewInstance>(null);
   const { _ } = useLingui();
 
   const handleDone = useCallback(() => {

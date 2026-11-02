@@ -8,7 +8,7 @@ import {
   AppBskyEmbedRecordWithMedia,
   AppBskyFeedDefs,
 } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
@@ -60,10 +60,8 @@ export default function ImageModal() {
         } else if (
           AppBskyEmbedRecordWithMedia.isView(record.data.thread.post.embed)
         ) {
-          if (
-            AppBskyEmbedImages.isView(record.data.thread.post.embed.media.embed)
-          ) {
-            return record.data.thread.post.embed.media.embed.images;
+          if (AppBskyEmbedImages.isView(record.data.thread.post.embed.media)) {
+            return record.data.thread.post.embed.media.images;
           }
         }
         throw new Error("Invalid embed");

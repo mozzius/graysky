@@ -7,6 +7,7 @@ import {
 } from "@atproto/api";
 
 import { useContentFilter } from "~/lib/hooks/preferences";
+import { dangerousIsType } from "~/lib/utils/types";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
@@ -35,7 +36,13 @@ export const PostNotification = ({
     if (inline) {
       if (filter) return null;
 
-      if (!AppBskyFeedPost.isRecord(item.post.record)) return null;
+      if (
+        !dangerousIsType<AppBskyFeedPost.Record>(
+          item.post.record,
+          AppBskyFeedPost.isRecord,
+        )
+      )
+        return null;
 
       const embedImage =
         item.post.embed && AppBskyEmbedImages.isView(item.post.embed)
@@ -70,7 +77,7 @@ export const PostNotification = ({
     return (
       <FeedPost
         filter={filter}
-        item={item}
+        item={{ post: item.post }}
         inlineParent
         unread={unread}
         dataUpdatedAt={dataUpdatedAt}

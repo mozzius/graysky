@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
-  type TextInput,
+  type TextInputInstance,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, {
@@ -21,15 +21,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image } from "expo-image";
 import { Stack, useNavigation, useRouter } from "expo-router";
+import { useHeaderHeight, useTheme } from "expo-router/react-navigation";
 import {
   RichText as RichTextHelper,
   type AppBskyEmbedRecord,
 } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   CheckIcon,
@@ -123,7 +123,7 @@ export default function ComposerScreen() {
     end: 0,
   });
 
-  const inputRef = useRef<TextInput>(null!);
+  const inputRef = useRef<TextInputInstance>(null!);
   const keyboardMaxHeight = useKeyboardMaxHeight();
 
   useControlledKeyboard();
@@ -368,7 +368,7 @@ export default function ComposerScreen() {
               className="flex-1"
             >
               <FeedPost
-                item={reply.thread.data}
+                item={{ post: reply.thread.data.post }}
                 dataUpdatedAt={0}
                 filter={contentFilter(reply.thread.data.post.labels)}
                 hasReply
@@ -410,7 +410,6 @@ export default function ComposerScreen() {
                     : _(msg`What's on your mind?`)
                 }
                 keyboardType="default"
-                verticalAlign="middle"
                 textAlignVertical="center"
                 autoFocus
                 onSelectionChange={(evt) => {

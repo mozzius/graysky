@@ -5,7 +5,11 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
-import { DarkTheme, DefaultTheme, useTheme } from "@react-navigation/native";
+import {
+  DarkTheme,
+  DefaultTheme,
+  useTheme,
+} from "expo-router/react-navigation";
 import { CheckIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 

@@ -1,6 +1,5 @@
-import { LogBox } from "react-native";
+import { LogBox, RefreshControl } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
-import { RefreshControl } from "react-native-gesture-handler";
 
 import { ListFooterComponent } from "~/components/list-footer";
 import { useTabPressScrollRef } from "~/lib/hooks";

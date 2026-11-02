@@ -6,7 +6,7 @@ import Animated, {
   LinearTransition,
 } from "react-native-reanimated";
 import { type AppBskyActorDefs } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { UserIcon, UsersIcon } from "lucide-react-native";
 

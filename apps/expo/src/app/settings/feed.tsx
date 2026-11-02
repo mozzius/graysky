@@ -1,13 +1,14 @@
 import { ActivityIndicator, Switch, View } from "react-native";
-import { AppBskyActorDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { AppBskyActorDefs, type $Typed } from "@atproto/api";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import { ChevronsUpDownIcon } from "lucide-react-native";
-import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
+import { Menu } from "~/components/menu";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
@@ -29,7 +30,7 @@ const defaultFeedViewPref = {
   hideQuotePosts: false,
   $type: "app.bsky.actor.defs#feedViewPref",
   feed: "home",
-} as AppBskyActorDefs.FeedViewPref;
+} satisfies $Typed<AppBskyActorDefs.FeedViewPref>;
 
 export const getFeedViewPref = (preferences?: AppBskyActorDefs.Preferences) => {
   if (!preferences) return defaultFeedViewPref;
@@ -77,25 +78,22 @@ export default function FeedPreferences() {
 
   const setPreference = useMutation({
     mutationFn: async (
-      feedViewPref: Omit<AppBskyActorDefs.FeedViewPref, "feed">,
+      feedViewPref: Partial<Omit<AppBskyActorDefs.FeedViewPref, "feed">>,
     ) => {
       if (!preferences.data) throw new Error(_(msg`No preferences`));
 
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences.data, (draft) => {
-          const index = draft.findIndex(
+          const existing = draft.find(
             (x) => AppBskyActorDefs.isFeedViewPref(x) && x.feed === "home",
           );
-          if (index === -1) {
+          if (existing && AppBskyActorDefs.isFeedViewPref(existing)) {
+            Object.assign(existing, feedViewPref);
+          } else {
             draft.push({
               ...defaultFeedViewPref,
               ...feedViewPref,
             });
-          } else {
-            draft[index] = {
-              ...draft[index],
-              ...feedViewPref,
-            };
           }
         }),
       });
@@ -122,47 +120,47 @@ export default function FeedPreferences() {
                 {
                   title: _(msg`Home screen layout`),
                   action: (
-                    <DropdownMenu.Root>
-                      <DropdownMenu.Trigger>
-                        <View className="flex-row items-center gap-x-1">
-                          <Text primary className="text-base font-medium">
-                            {homepage === "feeds" ? (
-                              <Trans>Feeds list</Trans>
-                            ) : (
-                              <Trans>Primary feed</Trans>
-                            )}
-                          </Text>
-                          <ChevronsUpDownIcon
-                            size={16}
-                            color={theme.colors.primary}
-                          />
-                        </View>
-                      </DropdownMenu.Trigger>
-                      <DropdownMenu.Content>
-                        <DropdownMenu.CheckboxItem
-                          key="feeds list"
-                          textValue={_(msg`Feeds list`)}
-                          value={homepage === "feeds" ? "on" : "off"}
-                          onValueChange={(value) =>
-                            value === "on" &&
-                            setAppPreferences({ homepage: "feeds" })
-                          }
-                        >
-                          <DropdownMenu.ItemIndicator />
-                        </DropdownMenu.CheckboxItem>
-                        <DropdownMenu.CheckboxItem
-                          key="specific feed"
-                          textValue={_(msg`Primary feed`)}
-                          value={homepage === "skyline" ? "on" : "off"}
-                          onValueChange={(value) =>
-                            value === "on" &&
-                            setAppPreferences({ homepage: "skyline" })
-                          }
-                        >
-                          <DropdownMenu.ItemIndicator />
-                        </DropdownMenu.CheckboxItem>
-                      </DropdownMenu.Content>
-                    </DropdownMenu.Root>
+                    <Menu
+                      groups={[
+                        {
+                          key: "layout",
+                          items: [
+                            {
+                              type: "toggle",
+                              key: "feeds list",
+                              label: _(msg`Feeds list`),
+                              checked: homepage === "feeds",
+                              onCheckedChange: (checked) =>
+                                checked &&
+                                setAppPreferences({ homepage: "feeds" }),
+                            },
+                            {
+                              type: "toggle",
+                              key: "specific feed",
+                              label: _(msg`Primary feed`),
+                              checked: homepage === "skyline",
+                              onCheckedChange: (checked) =>
+                                checked &&
+                                setAppPreferences({ homepage: "skyline" }),
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <View className="flex-row items-center gap-x-1">
+                        <Text primary className="text-base font-medium">
+                          {homepage === "feeds" ? (
+                            <Trans>Feeds list</Trans>
+                          ) : (
+                            <Trans>Primary feed</Trans>
+                          )}
+                        </Text>
+                        <ChevronsUpDownIcon
+                          size={16}
+                          color={theme.colors.primary}
+                        />
+                      </View>
+                    </Menu>
                   ),
                 },
                 ...(homepage === "skyline"
@@ -170,65 +168,58 @@ export default function FeedPreferences() {
                       {
                         title: _(msg`Primary feed`),
                         action: savedFeeds.isSuccess ? (
-                          <DropdownMenu.Root>
-                            <DropdownMenu.Trigger>
-                              <View className="flex-row items-center gap-x-1">
-                                <Text
-                                  style={{
-                                    color: unknown
-                                      ? theme.colors.notification
-                                      : theme.colors.primary,
-                                  }}
-                                  className="text-base font-medium"
-                                >
-                                  {unknown ? "Unknown" : feedName}
-                                </Text>
-                                <ChevronsUpDownIcon
-                                  size={16}
-                                  color={theme.colors.primary}
-                                />
-                              </View>
-                            </DropdownMenu.Trigger>
-                            <DropdownMenu.Content>
-                              <DropdownMenu.CheckboxItem
-                                key="following"
-                                textValue={followingFeedName}
-                                value={
-                                  defaultFeed === "following" ? "on" : "off"
-                                }
-                                onValueChange={(value) =>
-                                  value === "on" &&
-                                  setAppPreferences({
-                                    defaultFeed: "following",
-                                  })
-                                }
-                              >
-                                <DropdownMenu.ItemIndicator />
-                              </DropdownMenu.CheckboxItem>
-                              <DropdownMenu.Group>
-                                {feeds.map((feed) => (
-                                  <DropdownMenu.CheckboxItem
-                                    key={feed.uri}
-                                    textValue={feed.displayName}
-                                    value={
-                                      feed.uri === defaultFeed ? "on" : "off"
-                                    }
-                                    onValueChange={(value) =>
-                                      value === "on" &&
+                          <Menu
+                            groups={[
+                              {
+                                key: "following",
+                                items: [
+                                  {
+                                    type: "toggle",
+                                    key: "following",
+                                    label: followingFeedName,
+                                    checked: defaultFeed === "following",
+                                    onCheckedChange: (checked) =>
+                                      checked &&
                                       setAppPreferences({
-                                        defaultFeed: feed.uri,
-                                      })
-                                    }
-                                  >
-                                    <DropdownMenu.ItemSubtitle>
-                                      {_(msg`By @${feed.creator.handle}`)}
-                                    </DropdownMenu.ItemSubtitle>
-                                    <DropdownMenu.ItemIndicator />
-                                  </DropdownMenu.CheckboxItem>
-                                ))}
-                              </DropdownMenu.Group>
-                            </DropdownMenu.Content>
-                          </DropdownMenu.Root>
+                                        defaultFeed: "following",
+                                      }),
+                                  },
+                                ],
+                              },
+                              {
+                                key: "feeds",
+                                items: feeds.map((feed) => ({
+                                  type: "toggle",
+                                  key: feed.uri,
+                                  label: feed.displayName,
+                                  subtitle: _(msg`By @${feed.creator.handle}`),
+                                  checked: feed.uri === defaultFeed,
+                                  onCheckedChange: (checked) =>
+                                    checked &&
+                                    setAppPreferences({
+                                      defaultFeed: feed.uri,
+                                    }),
+                                })),
+                              },
+                            ]}
+                          >
+                            <View className="flex-row items-center gap-x-1">
+                              <Text
+                                style={{
+                                  color: unknown
+                                    ? theme.colors.notification
+                                    : theme.colors.primary,
+                                }}
+                                className="text-base font-medium"
+                              >
+                                {unknown ? "Unknown" : feedName}
+                              </Text>
+                              <ChevronsUpDownIcon
+                                size={16}
+                                color={theme.colors.primary}
+                              />
+                            </View>
+                          </Menu>
                         ) : (
                           <ActivityIndicator />
                         ),
@@ -351,7 +342,7 @@ const LoadingValue = ({
   query: UseMutationResult<
     void,
     unknown,
-    Omit<AppBskyActorDefs.FeedViewPref, "feed">,
+    Partial<Omit<AppBskyActorDefs.FeedViewPref, "feed">>,
     unknown
   >;
 }) => {

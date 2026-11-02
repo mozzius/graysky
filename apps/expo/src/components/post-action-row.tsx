@@ -3,10 +3,11 @@ import {
   findNodeHandle,
   TouchableOpacity,
   View,
+  type HostInstance,
   type ViewStyle,
 } from "react-native";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyFeedDefs } from "@atproto/api";
-import { useTheme } from "@react-navigation/native";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
@@ -38,7 +39,7 @@ export const PostActionRow = ({
   );
 
   const composer = useComposer();
-  const anchorRef = useRef<View>(null!);
+  const anchorRef = useRef<HostInstance>(null!);
 
   const handleRepost = useHandleRepost(
     post,

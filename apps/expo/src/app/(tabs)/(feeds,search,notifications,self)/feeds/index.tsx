@@ -5,9 +5,10 @@ import {
   NestableScrollContainer,
 } from "react-native-draggable-flatlist";
 import { Link, Stack } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   ChevronRightIcon,
   CloudIcon,
@@ -83,8 +84,8 @@ const FeedsPageUnmemoized = ({ editing }: Props) => {
           data={
             sortableFeeds
               ? saved
-                  .map(
-                    (uri) => savedFeeds.data.lists.find((f) => f.uri === uri)!,
+                  .map((uri) =>
+                    savedFeeds.data.lists.find((f) => f.uri === uri)!,
                   )
                   .filter((x) => x && !x.pinned)
               : savedFeeds.data.lists

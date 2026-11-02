@@ -1,10 +1,11 @@
 import { memo, useEffect, useMemo, useState } from "react";
 import { I18nManager, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { MessageCircleIcon, RepeatIcon } from "lucide-react-native";
 
@@ -19,6 +20,7 @@ import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
+import { dangerousIsType } from "~/lib/utils/types";
 import { Embed } from "./embed";
 import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
@@ -61,11 +63,7 @@ const FeedPostInner = ({
   background,
   extraPadding,
 }: Props) => {
-  const showWarning = Boolean(
-    !!item.post.author.viewer?.blocking ||
-    !!item.post.author.viewer?.blocked ||
-    !!filter,
-  );
+  const showWarning = Boolean(!!item.post.author.viewer?.blocking || !!filter);
   const { _, i18n } = useLingui();
   const [hidden, setHidden] = useState(showWarning);
   const [forceShowTranslation, setForceShowTranslation] = useState<
@@ -122,7 +120,12 @@ const FeedPostInner = ({
 
   const moderation = useProfileModeration(item.post.author);
 
-  if (!AppBskyFeedPost.isRecord(item.post.record)) {
+  if (
+    !dangerousIsType<AppBskyFeedPost.Record>(
+      item.post.record,
+      AppBskyFeedPost.isRecord,
+    )
+  ) {
     return null;
   }
 
@@ -409,12 +412,15 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const agent = useAgent();
   const { data, isPending } = useQuery({
     queryKey: ["post", uri],
-    queryFn: async () => {
+    queryFn: async (): Promise<
+      AppBskyFeedDefs.ThreadViewPost["parent"] | null
+    > => {
       const thread = await agent.getPostThread({
         uri,
         depth: 0,
         parentHeight: 1,
       });
+      if (!AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) return null;
       return thread.data.thread.parent ?? null;
     },
   });

@@ -1,11 +1,11 @@
 import { memo } from "react";
 import { TouchableHighlight, View } from "react-native";
 import { useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyActorDefs } from "@atproto/api";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { ChevronRightIcon, UserIcon, UsersIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
@@ -14,7 +14,7 @@ import { PostAvatar } from "../post-avatar";
 import { Text } from "../themed/text";
 
 interface Props {
-  person: AppBskyActorDefs.ProfileView;
+  person: AppBskyActorDefs.ProfileView | AppBskyActorDefs.ProfileViewDetailed;
   onPress?: (evt: { preventDefault: () => void }) => void;
   bottomSheet?: boolean;
   backgroundColor?: string;

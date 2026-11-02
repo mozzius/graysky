@@ -7,11 +7,11 @@ import {
   View,
 } from "react-native";
 import { type ImageStyle } from "expo-image";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { cx } from "~/lib/utils/cx";
@@ -184,7 +184,6 @@ const Image = ({
   style,
 }: ImageProps) => {
   const tag = useId();
-  const router = useRouter();
   const link = `${href}?initial=${index}&tag=${tag}`;
   return (
     <Link href={link} asChild>
@@ -196,7 +195,6 @@ const Image = ({
           className={className}
           style={style}
           useCappedAspectRatio={useCappedAspectRatio}
-          onPressMenuPreview={() => router.push(link)}
         />
       </TouchableWithoutFeedback>
     </Link>

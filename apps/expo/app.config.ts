@@ -1,13 +1,14 @@
 // eslint-disable-next-line import/consistent-type-specifier-style -- EAS can't understand this (???)
 import type { ConfigContext, ExpoConfig } from "@expo/config";
-import dotenv from "dotenv";
 
 import { version } from "./package.json";
 
-// for development
-dotenv.config({
-  path: "../../.env",
-});
+// for development. doesn't override existing vars, same as dotenv did
+try {
+  process.loadEnvFile("../../.env");
+} catch {
+  // no .env file (e.g. on EAS)
+}
 
 const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
@@ -18,11 +19,6 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",
-  splash: {
-    image: "./assets/graysky.jpg",
-    resizeMode: "cover",
-    backgroundColor: "#888888",
-  },
   updates: {
     fallbackToCacheTimeout: 0,
     url: "https://u.expo.dev/7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
@@ -74,22 +70,22 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     reactCompiler: true,
   },
   plugins: [
-    "./plugins/withStaticPods.js",
-    [
-      "react-native-edge-to-edge",
-      {
-        android: {
-          parentTheme: "Material3",
-        },
-      },
-    ],
     [
       "expo-build-properties",
       {
         ios: {
-          deploymentTarget: "15.1",
+          deploymentTarget: "16.4",
           useFrameworks: "static",
         },
+      },
+    ],
+    [
+      // top-level `splash` was removed from the expo config in sdk 58
+      "expo-splash-screen",
+      {
+        image: "./assets/graysky.jpg",
+        resizeMode: "cover",
+        backgroundColor: "#888888",
       },
     ],
     "expo-localization",

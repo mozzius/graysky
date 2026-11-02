@@ -11,11 +11,11 @@ import Animated, { FadeInUp } from "react-native-reanimated";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
 import { showToastable } from "react-native-toastable";
-import { ResizeMode, Video } from "expo-av";
 import { Stack, useRouter } from "expo-router";
-import { msg } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { useVideoPlayer, VideoView } from "expo-video";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import Sentry from "@sentry/react-native";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData } from "@tanstack/react-query";
@@ -32,7 +32,6 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
-import { cx } from "~/lib/utils/cx";
 import { produce } from "~/lib/utils/produce";
 import { useUserRefresh } from "~/lib/utils/query";
 
@@ -153,7 +152,7 @@ export default function GifSearch() {
           data={gifQuery.data.pages.flatMap((page) => page.results)}
           contentInsetAdjustmentBehavior="automatic"
           numColumns={2}
-          overrideItemLayout={(layout, item) => {
+          overrideItemLayout={(layout) => {
             layout.span = (width - 16) / 2;
           }}
           onEndReachedThreshold={2}
@@ -239,18 +238,37 @@ const Gif = ({ item }: GifProps) => {
         onLongPress={() => showLinkOptions(item.url)}
         style={{ aspectRatio }}
       >
-        <Video
-          accessibilityLabel={item.content_description}
+        <GifPreview
           key={item.media_formats.tinymp4.url}
-          source={{ uri: item.media_formats.tinymp4.url }}
-          pointerEvents="none"
-          className="w-full flex-1 rounded-lg bg-neutral-50 dark:bg-neutral-950"
-          resizeMode={ResizeMode.COVER}
-          isMuted
-          isLooping
-          shouldPlay
+          uri={item.media_formats.tinymp4.url}
+          description={item.content_description}
         />
       </TouchableHighlight>
     </View>
+  );
+};
+
+const GifPreview = ({
+  uri,
+  description,
+}: {
+  uri: string;
+  description: string;
+}) => {
+  const player = useVideoPlayer(uri, (player) => {
+    player.loop = true;
+    player.muted = true;
+    player.play();
+  });
+
+  return (
+    <VideoView
+      player={player}
+      accessibilityLabel={description}
+      pointerEvents="none"
+      nativeControls={false}
+      contentFit="cover"
+      className="w-full flex-1 rounded-lg bg-neutral-50 dark:bg-neutral-950"
+    />
   );
 };

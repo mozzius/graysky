@@ -9,10 +9,11 @@ import {
 import { useMMKVObject } from "react-native-mmkv";
 import { showToastable } from "react-native-toastable";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AtpSessionData } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 

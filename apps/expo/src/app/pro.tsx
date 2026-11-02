@@ -3,13 +3,11 @@ import {
   ActivityIndicator,
   Linking,
   Platform,
-  Pressable,
   ScrollView,
   Text,
   TouchableHighlight,
   TouchableOpacity,
   View,
-  type ImageSourcePropType,
   type ViewStyle,
 } from "react-native";
 import Purchases from "react-native-purchases";
@@ -17,10 +15,11 @@ import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import { BlurView } from "expo-blur";
-import { ImageBackground } from "expo-image";
+import { ImageBackground, type ImageSource } from "expo-image";
 import { Stack, useRouter } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import * as Sentry from "@sentry/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -42,7 +41,7 @@ import { cx } from "~/lib/utils/cx";
 import { isIOS26 } from "~/lib/utils/version";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
+const background = require("../../assets/graysky.jpg") as ImageSource;
 
 export default function Pro() {
   const offerings = useOfferings();
@@ -376,7 +375,7 @@ export default function Pro() {
 }
 
 interface FeatureItemProps {
-  icon: React.ReactElement<any>;
+  icon: React.ReactElement;
   title: string;
   subtitle: string;
   colour: string;

@@ -7,14 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import ViewShot from "react-native-view-shot";
+import ViewShot, { type ViewShotRef } from "react-native-view-shot";
 import { Image, type ImageSource } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import * as Sharing from "expo-sharing";
 import { AppBskyFeedDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 
 import { PrimaryPost } from "~/components/primary-post";
@@ -36,7 +37,7 @@ export default function ShareAsImageScreen() {
 
   const { _ } = useLingui();
   const agent = useAgent();
-  const captureRef = useRef<ViewShot>(null);
+  const captureRef = useRef<ViewShotRef>(null);
   const router = useRouter();
   const theme = useTheme();
   const [showContextMenu, setShowContextMenu] = useState(true);

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import {
   Alert,
   Platform,
+  RefreshControl,
   Share,
   TouchableHighlight,
   TouchableOpacity,
@@ -10,16 +11,16 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 import * as Tabs from "react-native-collapsible-tab-view";
-import { RefreshControl } from "react-native-gesture-handler";
 import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { AppBskyGraphDefs, type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   useInfiniteQuery,
   useMutation,

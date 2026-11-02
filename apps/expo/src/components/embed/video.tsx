@@ -9,7 +9,7 @@ import {
 import { ImageBackground } from "expo-image";
 import { type AppBskyEmbedVideo } from "@atproto/api";
 import { BlueskyVideoView } from "@haileyok/bluesky-video";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { PlayIcon, Volume2Icon, VolumeXIcon } from "lucide-react-native";
 

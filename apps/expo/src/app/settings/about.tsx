@@ -2,14 +2,14 @@ import { Linking, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
 import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import {
   AtSignIcon,
-  GithubIcon,
   HeartIcon,
   MailIcon,
   SendIcon,
+  StarIcon,
   WrenchIcon,
 } from "lucide-react-native";
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
                 title: _(msg`Star us on GitHub!`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/mozzius/graysky"),
-                icon: GithubIcon,
+                icon: StarIcon,
                 chevron: true,
               },
               {

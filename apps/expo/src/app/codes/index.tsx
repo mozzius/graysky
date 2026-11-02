@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 import { CheckIcon, CopyIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { Appearance } from "react-native";
 import { type MMKV } from "react-native-mmkv";
 import * as Localization from "expo-localization";
-import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { DarkTheme, DefaultTheme } from "expo-router/react-navigation";
 import { useColorScheme as useNativeWindColorScheme } from "nativewind";
 import { z } from "zod";
 import { create, useStore } from "zustand";
@@ -107,7 +107,9 @@ function createSelectorHooks() {
       },
     ),
   ) as Required<{
-    [K in keyof AppPreferences as `use${Capitalize<K>}`]: () => AppPreferences[K];
+    [
+      K in keyof AppPreferences as `use${Capitalize<K>}`
+    ]: () => AppPreferences[K];
   }>;
 }
 
@@ -135,7 +137,7 @@ export const {
 
 export const useSetAppPreferences = () => {
   return useCallback((change: Partial<AppPreferences>) => {
-    return appPreferencesStore.setState(change);
+    appPreferencesStore.setState(change);
   }, []);
 };
 

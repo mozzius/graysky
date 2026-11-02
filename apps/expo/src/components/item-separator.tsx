@@ -1,12 +1,12 @@
-import { Platform, View } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { Platform, View, type ColorValue } from "react-native";
+import { useTheme } from "expo-router/react-navigation";
 
 import { cx } from "~/lib/utils/cx";
 
 interface Props {
   iconWidth?: string;
   containerClassName?: string;
-  backgroundColor?: string;
+  backgroundColor?: ColorValue;
 }
 
 export const ItemSeparator = ({

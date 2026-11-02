@@ -1,5 +1,5 @@
+import { type Theme } from "expo-router/react-navigation";
 import { type ActionSheetOptions } from "@expo/react-native-action-sheet";
-import { type Theme } from "@react-navigation/native";
 
 export const actionSheetStyles = (theme: Theme) =>
   ({

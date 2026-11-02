@@ -12,10 +12,11 @@ import {
 import Animated, { FadeInUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
 import { Link, Stack, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyActorDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { FlashList, type FlashListRef } from "@shopify/flash-list";
 import {
   keepPreviousData,

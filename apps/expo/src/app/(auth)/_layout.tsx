@@ -1,5 +1,5 @@
 import { Stack, useRouter } from "expo-router";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { StatusBar } from "~/components/status-bar";

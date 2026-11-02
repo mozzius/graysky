@@ -6,7 +6,7 @@ import {
   AppBskyFeedDefs,
   type AppBskyFeedGetFeedGenerator,
 } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import {
   useInfiniteQuery,
@@ -96,12 +96,12 @@ export const useSavedFeeds = () => {
 
       return {
         feeds: generators.data.feeds.map((feed) => ({
-          $type: "app.bsky.feed.defs#generatorView",
+          $type: "app.bsky.feed.defs#generatorView" as const,
           ...feed,
           pinned: feeds.pinned.includes(feed.uri),
         })),
         lists: lists.map((list) => ({
-          $type: "app.bsky.graph.defs#listView",
+          $type: "app.bsky.graph.defs#listView" as const,
           ...list,
           pinned: feeds.pinned.includes(list.uri),
         })),

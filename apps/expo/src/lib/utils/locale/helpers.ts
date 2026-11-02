@@ -46,7 +46,9 @@ export function getPostLanguage(
     hasProp(post.record, "langs") &&
     Array.isArray(post.record.langs)
   ) {
-    candidates = post.record.langs;
+    candidates = post.record.langs.filter(
+      (lang): lang is string => typeof lang === "string",
+    );
   }
 
   // if there's only one declared language, use that

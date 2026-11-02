@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Stack } from "expo-router";
-import { msg } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { CheckIcon } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";

@@ -7,10 +7,11 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import { ResizeMode, Video } from "expo-av";
+import { useEventListener } from "expo";
 import { Image } from "expo-image";
+import { useTheme } from "expo-router/react-navigation";
+import { useVideoPlayer, VideoView } from "expo-video";
 import { type AppBskyEmbedExternal } from "@atproto/api";
-import { useTheme } from "@react-navigation/native";
 import { LinkIcon, NewspaperIcon } from "lucide-react-native";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
@@ -199,7 +200,6 @@ const Gif = ({
   const [aspectRatio, setAspectRatio] = useState(1);
   const gifAutoplay = useGifAutoplay();
   const [playing, setPlaying] = useState(gifAutoplay);
-  const videoRef = useRef<Video>(null);
   const imageRef = useRef<Image>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -278,46 +278,99 @@ const Gif = ({
               onError={() => setError(true)}
             />
           ) : (
-            <Video
-              ref={videoRef}
-              resizeMode={ResizeMode.COVER}
-              shouldPlay={playing}
-              source={{ uri }}
-              isLooping
-              isMuted
-              usePoster
-              style={{ flex: 1, aspectRatio }}
-              onPlaybackStatusUpdate={(status) => {
-                if (status.isLoaded) {
-                  setLoading(false);
-                  setError(false);
-                  if (videoRef.current) {
-                    if (gifAutoplay) {
-                      if (!status.isPlaying) void videoRef.current.playAsync();
-                    }
-                    if (!status.isLooping) {
-                      void videoRef.current.setIsLoopingAsync(true);
-                    }
-                  }
-                } else if (status.error) {
-                  setLoading(false);
-                  setError(true);
-                  console.error(status.error);
-                } else {
-                  setLoading(true);
-                  setError(false);
-                }
-              }}
-              posterSource={{ uri: thumb }}
-              onReadyForDisplay={({ naturalSize }) =>
-                setAspectRatio(naturalSize.width / naturalSize.height)
-              }
-              accessibilityLabel={title}
+            <GifVideo
+              uri={uri}
+              thumb={thumb}
+              title={title}
+              playing={playing}
+              aspectRatio={aspectRatio}
+              onAspectRatio={setAspectRatio}
+              onLoading={setLoading}
+              onError={setError}
             />
           )}
         </View>
       </>
     </TouchableHighlight>
+  );
+};
+
+interface GifVideoProps {
+  uri: string;
+  thumb?: string;
+  title: string;
+  playing: boolean;
+  aspectRatio: number;
+  onAspectRatio: (aspectRatio: number) => void;
+  onLoading: (loading: boolean) => void;
+  onError: (error: boolean) => void;
+}
+
+const GifVideo = ({
+  uri,
+  thumb,
+  title,
+  playing,
+  aspectRatio,
+  onAspectRatio,
+  onLoading,
+  onError,
+}: GifVideoProps) => {
+  const [hasFirstFrame, setHasFirstFrame] = useState(false);
+  const player = useVideoPlayer(uri, (player) => {
+    player.loop = true;
+    player.muted = true;
+  });
+
+  useEffect(() => {
+    if (playing) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  }, [player, playing]);
+
+  useEventListener(player, "statusChange", ({ status, error }) => {
+    switch (status) {
+      case "readyToPlay":
+        onLoading(false);
+        onError(false);
+        break;
+      case "error":
+        onLoading(false);
+        onError(true);
+        console.error(error);
+        break;
+      default:
+        onLoading(true);
+        onError(false);
+    }
+  });
+
+  useEventListener(player, "sourceLoad", ({ availableVideoTracks }) => {
+    const size = availableVideoTracks[0]?.size;
+    if (size?.width && size.height) onAspectRatio(size.width / size.height);
+  });
+
+  return (
+    <View style={{ flex: 1, aspectRatio }}>
+      <VideoView
+        player={player}
+        contentFit="cover"
+        nativeControls={false}
+        style={StyleSheet.absoluteFill}
+        accessibilityLabel={title}
+        onFirstFrameRender={() => setHasFirstFrame(true)}
+      />
+      {/* expo-video has no poster, so show the thumbnail until it starts */}
+      {!hasFirstFrame && thumb && (
+        <Image
+          source={thumb}
+          contentFit="cover"
+          style={StyleSheet.absoluteFill}
+        />
+      )}
+    </View>
   );
 };
 

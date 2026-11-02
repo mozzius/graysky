@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { showToastable } from "react-native-toastable";
+import * as FileSystem from "expo-file-system/legacy";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
@@ -9,6 +10,7 @@ import {
   AppBskyFeedPost,
   AppBskyRichtextFacet,
   RichText,
+  type $Typed,
   type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
   type AppBskyEmbedRecord,
@@ -20,11 +22,10 @@ import {
   type ComAtprotoRepoStrongRef,
 } from "@atproto/api";
 import { type I18n } from "@lingui/core";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import Sentry from "@sentry/react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import RNFetchBlob from "rn-fetch-blob";
 import { z } from "zod";
 
 import { useAgent } from "../agent";
@@ -32,6 +33,7 @@ import {
   useMostRecentLanguage,
   usePrimaryLanguage,
 } from "../storage/app-preferences";
+import { dangerousIsType } from "../utils/types";
 import { uploadBlob } from "../utils/upload-blob";
 import { useComposerState } from "./state";
 
@@ -56,7 +58,12 @@ const replyRefSchema = z.object({
   parent: strongRefSchema,
 });
 const getReplyRef = (post: AppBskyFeedDefs.PostView) => {
-  if (AppBskyFeedPost.isRecord(post.record)) {
+  if (
+    dangerousIsType<AppBskyFeedPost.Record>(
+      post.record,
+      AppBskyFeedPost.isRecord,
+    )
+  ) {
     return post.record.reply;
   }
 };
@@ -111,10 +118,10 @@ export const useReply = (reply?: string) => {
 
 export const useQuote = (quote?: string) => {
   const ref = quote
-    ? {
+    ? ({
         $type: "app.bsky.embed.record",
         record: strongRefSchema.parse(JSON.parse(decodeURIComponent(quote))),
-      }
+      } satisfies $Typed<AppBskyEmbedRecord.Main>)
     : undefined;
 
   const thread = useContextualPost(ref?.record.uri);
@@ -151,7 +158,7 @@ export const useSendPost = ({
   images: ImageWithAlt[];
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
   reply?: AppBskyFeedPost.ReplyRef;
-  quote?: AppBskyEmbedRecord.Main;
+  quote?: $Typed<AppBskyEmbedRecord.Main>;
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -199,13 +206,14 @@ export const useSendPost = ({
 
       const media =
         uploadedImages.length > 0
-          ? {
+          ? ({
               $type: "app.bsky.embed.images",
               images: uploadedImages,
-            }
+            } satisfies $Typed<AppBskyEmbedImages.Main>)
           : undefined;
 
-      // upload thumbnail
+      // upload thumbnail. `external` is query data, so copy rather than mutate
+      let embed = external;
 
       try {
         if (external?.type === "external" && external.view.external.thumb) {
@@ -232,7 +240,13 @@ export const useSendPost = ({
             }
           }
 
-          external.main.external.thumb = thumb;
+          embed = {
+            ...external,
+            main: {
+              ...external.main,
+              external: { ...external.main.external, thumb },
+            },
+          };
         }
       } catch (err) {
         console.error("thumbnail upload failed", err);
@@ -253,39 +267,39 @@ export const useSendPost = ({
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
             media: gif.main,
-          } satisfies AppBskyEmbedRecordWithMedia.Main;
+          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
         } else if (media) {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
             media,
-          } satisfies AppBskyEmbedRecordWithMedia.Main;
-        } else if (external?.type === "external") {
+          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
+        } else if (embed?.type === "external") {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
-            media: external.main,
-          } satisfies AppBskyEmbedRecordWithMedia.Main;
+            media: embed.main,
+          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
         } else {
           mergedEmbed = quote;
         }
       } else if (gif?.main) {
         mergedEmbed = gif.main;
       } else if (media) {
-        if (external?.type === "record") {
+        if (embed?.type === "record") {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
-            record: external.main,
+            record: embed.main,
             media,
-          } satisfies AppBskyEmbedRecordWithMedia.Main;
+          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
         } else {
           mergedEmbed = media;
         }
-      } else if (external) {
-        mergedEmbed = external.main;
+      } else if (embed) {
+        mergedEmbed = embed.main;
       }
 
-      let selfLabels: ComAtprotoLabelDefs.SelfLabels | undefined;
+      let selfLabels: $Typed<ComAtprotoLabelDefs.SelfLabels> | undefined;
       if (labels?.length) {
         selfLabels = {
           $type: "com.atproto.label.defs#selfLabels",
@@ -303,11 +317,7 @@ export const useSendPost = ({
       });
 
       if (threadgate.length > 0) {
-        const allow: (
-          | AppBskyFeedThreadgate.MentionRule
-          | AppBskyFeedThreadgate.FollowingRule
-          | AppBskyFeedThreadgate.ListRule
-        )[] = [];
+        const allow: NonNullable<AppBskyFeedThreadgate.Record["allow"]> = [];
         if (!threadgate.find((v) => v.type === "nobody")) {
           for (const rule of threadgate) {
             if (rule.type === "mention") {
@@ -633,13 +643,13 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
     queryFn: async (): Promise<
       | {
           type: "record";
-          view: AppBskyEmbedRecord.View;
-          main: AppBskyEmbedRecord.Main;
+          view: $Typed<AppBskyEmbedRecord.View>;
+          main: $Typed<AppBskyEmbedRecord.Main>;
         }
       | {
           type: "external";
-          view: AppBskyEmbedExternal.View;
-          main: AppBskyEmbedExternal.Main;
+          view: $Typed<AppBskyEmbedExternal.View>;
+          main: $Typed<AppBskyEmbedExternal.Main>;
         }
       | null
     > => {
@@ -715,7 +725,10 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
               type: "record",
               view: {
                 $type: "app.bsky.embed.record#view",
-                record: generator.data.view,
+                record: {
+                  ...generator.data.view,
+                  $type: "app.bsky.feed.defs#generatorView",
+                },
               } satisfies AppBskyEmbedRecord.View,
               main: {
                 $type: "app.bsky.embed.record",
@@ -765,7 +778,6 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
               title,
               description,
               thumb: image,
-              url: selectedEmbed,
             } satisfies AppBskyEmbedExternal.ViewExternal,
           } satisfies AppBskyEmbedExternal.View,
           main: {
@@ -777,7 +789,6 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
               description,
               // thumb is filled in later
               thumb: undefined,
-              url: selectedEmbed,
             } satisfies AppBskyEmbedExternal.External,
           } satisfies AppBskyEmbedExternal.Main,
         };
@@ -808,18 +819,10 @@ const downloadThumbnail = async (url: string) => {
     throw new Error(`Invalid url: ${url}`, { cause: err });
   }
 
-  let downloadRes;
+  if (!FileSystem.cacheDirectory) throw new Error("No cache directory");
+  const localUri = `${FileSystem.cacheDirectory}thumb-${Date.now()}.${appendExt}`;
   try {
-    const downloadResPromise = RNFetchBlob.config({
-      fileCache: true,
-      appendExt,
-    }).fetch("GET", url);
-    downloadRes = await downloadResPromise;
-
-    let localUri = downloadRes.path();
-    if (!localUri.startsWith("file://")) {
-      localUri = `file://${localUri}`;
-    }
+    await FileSystem.downloadAsync(url, localUri);
 
     return await compress({
       uri: localUri,
@@ -827,8 +830,6 @@ const downloadThumbnail = async (url: string) => {
       width: MAX_DIMENSION / 2,
     });
   } finally {
-    if (downloadRes) {
-      downloadRes.flush();
-    }
+    await FileSystem.deleteAsync(localUri, { idempotent: true });
   }
 };

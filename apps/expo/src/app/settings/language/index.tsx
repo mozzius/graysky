@@ -1,12 +1,12 @@
 import { View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
-import { msg } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { ChevronsUpDownIcon } from "lucide-react-native";
-import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
+import { Menu } from "~/components/menu";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { languageCodeToName } from "~/i18n/config";
@@ -49,34 +49,31 @@ export default function LanguageSettings() {
               {
                 title: _(msg`App language`),
                 action: (
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger>
-                      <View className="flex-row items-center gap-x-1">
-                        <Text primary className="text-base font-medium">
-                          {languageCodeToName(appLanguage)}
-                        </Text>
-                        <ChevronsUpDownIcon
-                          size={16}
-                          color={theme.colors.primary}
-                        />
-                      </View>
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content>
-                      {availableAppLanguages.map((lang) => (
-                        <DropdownMenu.CheckboxItem
-                          key={lang}
-                          textValue={languageCodeToName(lang)}
-                          value={appLanguage === lang ? "on" : "off"}
-                          onValueChange={(value) => {
-                            value === "on" &&
-                              setAppPreferences({ appLanguage: lang });
-                          }}
-                        >
-                          <DropdownMenu.ItemIndicator />
-                        </DropdownMenu.CheckboxItem>
-                      ))}
-                    </DropdownMenu.Content>
-                  </DropdownMenu.Root>
+                  <Menu
+                    groups={[
+                      {
+                        key: "languages",
+                        items: availableAppLanguages.map((lang) => ({
+                          type: "toggle",
+                          key: lang,
+                          label: languageCodeToName(lang),
+                          checked: appLanguage === lang,
+                          onCheckedChange: (checked) =>
+                            checked && setAppPreferences({ appLanguage: lang }),
+                        })),
+                      },
+                    ]}
+                  >
+                    <View className="flex-row items-center gap-x-1">
+                      <Text primary className="text-base font-medium">
+                        {languageCodeToName(appLanguage)}
+                      </Text>
+                      <ChevronsUpDownIcon
+                        size={16}
+                        color={theme.colors.primary}
+                      />
+                    </View>
+                  </Menu>
                 ),
               },
             ],

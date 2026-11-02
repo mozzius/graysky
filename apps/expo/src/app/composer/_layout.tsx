@@ -2,10 +2,11 @@ import { useMemo, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useGlobalSearchParams, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";

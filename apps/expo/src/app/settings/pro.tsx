@@ -1,6 +1,6 @@
 import { Switch } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { AccentColourSelect } from "~/components/accent-colour-select";

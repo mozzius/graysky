@@ -1,6 +1,6 @@
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";

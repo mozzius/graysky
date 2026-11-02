@@ -1,11 +1,11 @@
 import { defaultAgent } from "../agent";
 
 interface DidDocument {
-  service?: Array<{
+  service?: {
     id: string;
     type: string;
     serviceEndpoint: string;
-  }>;
+  }[];
 }
 
 /**

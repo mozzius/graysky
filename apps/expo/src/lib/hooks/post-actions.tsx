@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyFeedDefs } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
 import { QuoteIcon, RepeatIcon } from "lucide-react-native";
 

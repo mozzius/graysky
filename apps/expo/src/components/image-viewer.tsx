@@ -8,7 +8,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
-import { ContextMenuButton } from "react-native-ios-context-menu";
 import Animated, {
   FadeInDown,
   FadeInUp,
@@ -24,22 +23,22 @@ import {
 import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
+import { DarkTheme, ThemeProvider } from "expo-router/react-navigation";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { DarkTheme, ThemeProvider, useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react-native";
 
+import { Menu } from "~/components/menu";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useHaptics } from "~/lib/hooks/preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { BackButtonOverride } from "./back-button-override";
 import { useImageOptions } from "./image-with-context-menu";
 import { Translation } from "./translation";
@@ -123,7 +122,7 @@ export const ImageViewer = ({
         initialIndex={initialIndex}
         keyExtractor={(_, i) => i}
         onIndexChange={(index) => setIndex(index)}
-        renderItem={(props) => (
+        renderItem={(props: RenderItemInfo<AppBskyEmbedImages.ViewImage>) => (
           <SafeAreaView className="flex-1 items-center justify-center">
             <ImageWithFallback
               {...props}
@@ -227,65 +226,31 @@ const ImageOptionsButton = ({
   image: AppBskyEmbedImages.ViewImage;
   style: StyleProp<ViewStyle>;
   className?: string;
-  children: React.ReactNode;
+  children: React.ReactElement;
 }) => {
   const items = useImageOptions();
-  const { showActionSheetWithOptions } = useActionSheet();
   const { _ } = useLingui();
-
   const haptics = useHaptics();
-  const theme = useTheme();
 
-  return Platform.OS === "ios" ? (
-    <ContextMenuButton
-      isMenuPrimaryAction={true}
-      accessibilityLabel="Image options"
-      accessibilityRole="button"
-      menuConfig={{
-        menuTitle: "",
-        menuItems: items.map((item) => ({
-          actionKey: item.key,
-          actionTitle: item.label,
-          icon: {
-            iconType: "SYSTEM",
-            iconValue: item.icon,
-          },
-        })),
-      }}
-      onPressMenuItem={(evt) => {
-        const item = items.find(
-          (item) => item.key === evt.nativeEvent.actionKey,
-        );
-        if (!item) return;
-        void item.action(image.fullsize);
-      }}
-      style={style}
-    >
-      {children}
-    </ContextMenuButton>
-  ) : (
-    <TouchableOpacity
+  return (
+    <Menu
       accessibilityLabel={_(msg`Image options`)}
-      accessibilityRole="button"
-      onPress={() => {
-        haptics.impact();
-        showActionSheetWithOptions(
-          {
-            options: [...items.map((x) => x.label), _(msg`Cancel`)],
-            icons: [...items.map((x) => x.reactIcon), <></>],
-            cancelButtonIndex: items.length,
-            ...actionSheetStyles(theme),
-          },
-          (index) => {
-            if (index === undefined) return;
-            void items[index]?.action(image.fullsize);
-          },
-        );
-      }}
+      onOpen={() => haptics.impact()}
       style={style}
+      groups={[
+        {
+          key: "image",
+          items: items.map((item) => ({
+            key: item.key,
+            label: item.label,
+            icon: item.icon,
+            onSelect: () => void item.action(image.fullsize),
+          })),
+        },
+      ]}
     >
       {children}
-    </TouchableOpacity>
+    </Menu>
   );
 };
 
