@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "@atproto/api": "^0.30.0",
+    "@atproto/lex": "^0.3.14",
     "@atproto/identity": "^0.5.20",
     "@atproto/xrpc-server": "^0.13.7",
+    "@bsky/sdk": "^1.3.0",
     "@graysky/db": "0.1.0",
     "@trpc/client": "^11.22.1",
     "@trpc/server": "^11.22.1",

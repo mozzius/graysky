@@ -2,10 +2,8 @@ import { useCallback, useState } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
 import { Trans } from "@lingui/react/macro";
 import { FlashList } from "@shopify/flash-list";
-import { type UseQueryResult } from "@tanstack/react-query";
 import { RssIcon, SearchIcon } from "lucide-react-native";
 
 import { useTabPressScrollRef } from "~/lib/hooks";
@@ -142,15 +140,13 @@ export const FeedScreen = ({ feed }: Props) => {
   );
 };
 
-const Wrapper = ({
-  info,
-  children,
-  scrollDir,
-}: {
-  info: UseQueryResult<AppBskyFeedGetFeedGenerator.OutputSchema>;
+interface WrapperProps {
+  info: ReturnType<typeof useFeedInfo>;
   children: React.ReactNode;
   scrollDir: number;
-}) => {
+}
+
+const Wrapper = ({ info, children, scrollDir }: WrapperProps) => {
   return (
     <>
       <Stack.Screen

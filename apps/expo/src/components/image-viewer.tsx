@@ -17,7 +17,7 @@ import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { DarkTheme, ThemeProvider } from "expo-router/react-navigation";
-import { type AppBskyEmbedImages } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -39,7 +39,7 @@ import { Translation } from "./translation";
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  images: AppBskyEmbedImages.ViewImage[];
+  images: app.bsky.embed.images.ViewImage[];
   initialIndex?: number;
   onClose: () => void;
   infoVisible: boolean;
@@ -114,7 +114,9 @@ export const ImageViewer = ({
         initialIndex={initialIndex}
         keyExtractor={(_, i) => i}
         onIndexChange={(index) => setIndex(index)}
-        renderItem={(props: RenderItemInfo<AppBskyEmbedImages.ViewImage>) => (
+        renderItem={(
+          props: RenderItemInfo<app.bsky.embed.images.ViewImage>,
+        ) => (
           <SafeAreaView className="flex-1 items-center justify-center">
             <ImageWithFallback
               {...props}
@@ -214,7 +216,7 @@ const ImageOptionsButton = ({
   image,
   children,
 }: {
-  image: AppBskyEmbedImages.ViewImage;
+  image: app.bsky.embed.images.ViewImage;
   children: React.ReactElement;
 }) => {
   const items = useImageOptions();
@@ -245,7 +247,7 @@ const ImageOptionsButton = ({
 const ImageWithFallback = ({
   item,
   setImageDimensions, // tag,
-}: RenderItemInfo<AppBskyEmbedImages.ViewImage> & { tag?: string }) => {
+}: RenderItemInfo<app.bsky.embed.images.ViewImage> & { tag?: string }) => {
   const queryClient = useQueryClient();
   const frame = useSafeAreaFrame();
   const insets = useSafeAreaInsets();

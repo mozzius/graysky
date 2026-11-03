@@ -1,7 +1,7 @@
 import { Fragment, memo, useMemo } from "react";
 import { type StyleProp, type TextStyle } from "react-native";
 import { useRouter } from "expo-router";
-import { RichText as RichTextHelper, type Facet } from "@atproto/api";
+import { RichText as RichTextHelper, type Facet } from "@bsky/sdk/richtext";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useLinkPress } from "~/lib/hooks/link-press";

@@ -4,7 +4,7 @@ import { Tabs } from "react-native-collapsible-tab-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyGraphDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { CheckIcon, ChevronRightIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
@@ -69,17 +69,17 @@ const ListItem = ({
   purpose,
   viewer,
   // dataUpdatedAt is only passed to re-render when the query refreshes
-}: AppBskyGraphDefs.ListView & { dataUpdatedAt: number }) => {
+}: app.bsky.graph.defs.ListView & { dataUpdatedAt: number }) => {
   const theme = useTheme();
   const path = useAbsolutePath();
   const href = path(`/profile/${creator.did}/lists/${uri.split("/").pop()}`);
   let purposeText = "List";
   let purposeClass = "bg-neutral-500";
   switch (purpose) {
-    case AppBskyGraphDefs.MODLIST:
+    case "app.bsky.graph.defs#modlist":
       purposeText = "Moderation list";
       break;
-    case AppBskyGraphDefs.CURATELIST:
+    case "app.bsky.graph.defs#curatelist":
       purposeText = "User list";
       purposeClass = "bg-blue-500";
       break;

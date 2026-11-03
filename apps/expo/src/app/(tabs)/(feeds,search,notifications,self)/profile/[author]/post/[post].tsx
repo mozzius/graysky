@@ -9,7 +9,8 @@ import {
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useHeaderHeight, useTheme } from "expo-router/react-navigation";
-import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import { type AtUriString, type HandleString } from "@atproto/lex";
+import { app, com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -32,12 +33,13 @@ import { useAgent } from "~/lib/agent";
 import { useComposer } from "~/lib/composer/utils";
 import { useTabPressScroll } from "~/lib/hooks";
 import { useContentFilter, type FilterResult } from "~/lib/hooks/preferences";
+import { isType } from "~/lib/utils/types";
 import { isIOS26 } from "~/lib/utils/version";
 
 export type Posts =
   | {
       viewable: true;
-      post: AppBskyFeedDefs.PostView;
+      post: app.bsky.feed.defs.PostView;
       primary: boolean;
       hasParent: boolean;
       hasReply: boolean;
@@ -52,7 +54,7 @@ export type Posts =
     };
 
 interface Props {
-  contentFilter: (labels?: ComAtprotoLabelDefs.Label[]) => FilterResult;
+  contentFilter: (labels?: com.atproto.label.defs.Label[]) => FilterResult;
 }
 
 const PostThread = ({ contentFilter }: Props) => {
@@ -74,17 +76,19 @@ const PostThread = ({ contentFilter }: Props) => {
       if (!author || !post) throw Error("Invalid path to post");
       let did = author;
       if (!did.startsWith("did:")) {
-        const { data } = await agent.resolveHandle({ handle: author });
-        did = data.did;
+        const resolved = await agent.call(com.atproto.identity.resolveHandle, {
+          handle: author as HandleString,
+        });
+        did = resolved.did;
       }
       const uri = `at://${did}/app.bsky.feed.post/${post}`;
-      const postThread = await agent.getPostThread({ uri });
+      const postThread = await agent.call(app.bsky.feed.getPostThread, {
+        uri: uri as AtUriString,
+      });
 
-      if (!postThread.success) throw Error("Failed to fetch post thread");
+      const thread = postThread.thread;
 
-      const thread = postThread.data.thread;
-
-      if (AppBskyFeedDefs.isBlockedPost(thread)) {
+      if (isType(app.bsky.feed.defs.blockedPost, thread)) {
         return {
           index: 0,
           main: null,
@@ -98,7 +102,7 @@ const PostThread = ({ contentFilter }: Props) => {
           ] as Posts[],
         };
       }
-      if (AppBskyFeedDefs.isNotFoundPost(thread)) {
+      if (isType(app.bsky.feed.defs.notFoundPost, thread)) {
         return {
           index: 0,
           main: null,
@@ -112,7 +116,7 @@ const PostThread = ({ contentFilter }: Props) => {
           ] as Posts[],
         };
       }
-      if (!AppBskyFeedDefs.isThreadViewPost(thread))
+      if (!isType(app.bsky.feed.defs.threadViewPost, thread))
         throw Error("Post not found");
 
       const posts: Posts[] = [];
@@ -122,8 +126,8 @@ const PostThread = ({ contentFilter }: Props) => {
 
       let ancestor = thread;
       while (ancestor.parent) {
-        if (!AppBskyFeedDefs.isThreadViewPost(ancestor.parent)) {
-          if (AppBskyFeedDefs.isBlockedPost(ancestor.parent)) {
+        if (!isType(app.bsky.feed.defs.threadViewPost, ancestor.parent)) {
+          if (isType(app.bsky.feed.defs.blockedPost, ancestor.parent)) {
             ancestors.push({
               viewable: false,
               blocked: true,
@@ -131,7 +135,7 @@ const PostThread = ({ contentFilter }: Props) => {
               deleted: false,
             });
           }
-          if (AppBskyFeedDefs.isNotFoundPost(ancestor.parent)) {
+          if (isType(app.bsky.feed.defs.notFoundPost, ancestor.parent)) {
             ancestors.push({
               deleted: true,
               primary: false,
@@ -176,8 +180,8 @@ const PostThread = ({ contentFilter }: Props) => {
 
       if (thread.replies) {
         for (const reply of thread.replies) {
-          if (!AppBskyFeedDefs.isThreadViewPost(reply)) {
-            if (AppBskyFeedDefs.isBlockedPost(reply)) {
+          if (!isType(app.bsky.feed.defs.threadViewPost, reply)) {
+            if (isType(app.bsky.feed.defs.blockedPost, reply)) {
               posts.push({
                 viewable: false,
                 blocked: true,
@@ -185,7 +189,7 @@ const PostThread = ({ contentFilter }: Props) => {
                 deleted: false,
               });
             }
-            if (AppBskyFeedDefs.isNotFoundPost(reply)) {
+            if (isType(app.bsky.feed.defs.notFoundPost, reply)) {
               posts.push({
                 deleted: true,
                 primary: false,
@@ -213,7 +217,7 @@ const PostThread = ({ contentFilter }: Props) => {
             let child;
             child = reply.replies[0];
             while (child) {
-              if (!AppBskyFeedDefs.isThreadViewPost(child)) break;
+              if (!isType(app.bsky.feed.defs.threadViewPost, child)) break;
 
               const replyFilter = contentFilter(child.post.labels);
 

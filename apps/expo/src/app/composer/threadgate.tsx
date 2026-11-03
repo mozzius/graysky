@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -17,14 +18,12 @@ export default function ThreadgateScreen() {
   const { _ } = useLingui();
 
   const lists = useQuery({
-    queryKey: [agent.session?.did, "lists"],
+    queryKey: [agent.did, "lists"],
     queryFn: async () => {
-      if (!agent.session) return null;
-      const lists = await agent.app.bsky.graph.getLists({
-        actor: agent.session.did,
+      if (!agent.did) return null;
+      return await agent.call(app.bsky.graph.getLists, {
+        actor: agent.did,
       });
-      if (!lists.success) throw new Error("Couldn't fetch lists");
-      return lists.data;
     },
   });
 

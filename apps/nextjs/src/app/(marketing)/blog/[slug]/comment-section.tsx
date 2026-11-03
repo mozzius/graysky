@@ -1,19 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import {
-  AppBskyFeedDefs,
-  AppBskyFeedPost,
-  asPredicate,
-  RichText,
-  type AppBskyFeedGetPostThread,
-} from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
+import { RichText } from "@bsky/sdk/richtext";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react";
+
+import { createPublicClient } from "~/lib/bsky";
 
 interface Props {
   uri?: string;
 }
 
-const isPostRecord = asPredicate(AppBskyFeedPost.validateRecord);
+const isPostRecord = (record: unknown): record is app.bsky.feed.post.Main =>
+  app.bsky.feed.post.$matches(record, { strict: false });
+
+const isThreadViewPost = (value: {
+  $type?: string;
+}): value is app.bsky.feed.defs.ThreadViewPost =>
+  value.$type === app.bsky.feed.defs.threadViewPost.$type;
 
 export const CommentSection = async ({ uri }: Props) => {
   if (!uri) return <p className="text-center">No comments</p>;
@@ -52,7 +56,7 @@ export const CommentSection = async ({ uri }: Props) => {
         </p>
         <div className="mt-10 space-y-8">
           {thread.replies.sort(sortByLikes).map((reply) => {
-            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
+            if (!isThreadViewPost(reply)) return null;
             return <Comment key={reply.post.uri} comment={reply} />;
           })}
         </div>
@@ -64,7 +68,11 @@ export const CommentSection = async ({ uri }: Props) => {
   }
 };
 
-const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
+const Comment = ({
+  comment,
+}: {
+  comment: app.bsky.feed.defs.ThreadViewPost;
+}) => {
   const author = comment.post.author;
   const avatarClassName = "h-4 w-4 shrink-0 rounded-full bg-gray-300";
 
@@ -145,7 +153,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
       {comment.replies && comment.replies.length > 0 && (
         <div className="border-l-2 border-neutral-600 pl-2">
           {comment.replies.sort(sortByLikes).map((reply) => {
-            if (!AppBskyFeedDefs.isThreadViewPost(reply)) return null;
+            if (!isThreadViewPost(reply)) return null;
             return <Comment key={reply.post.uri} comment={reply} />;
           })}
         </div>
@@ -154,7 +162,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
   );
 };
 
-const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
+const Actions = ({ post }: { post: app.bsky.feed.defs.PostView }) => (
   <div className="mt-2 flex w-full max-w-[150px] flex-row items-center justify-between opacity-60">
     <div className="flex flex-row items-center gap-1.5">
       <MessageSquareIcon color="white" size={14} />
@@ -172,41 +180,22 @@ const Actions = ({ post }: { post: AppBskyFeedDefs.PostView }) => (
 );
 
 const getPostThread = async (uri: string) => {
-  const params = new URLSearchParams({ uri });
-
-  const res = await fetch(
-    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?" +
-      params.toString(),
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    },
+  const data = await createPublicClient({ cache: "no-store" }).call(
+    app.bsky.feed.getPostThread,
+    { uri: uri as AtUriString },
   );
 
-  if (!res.ok) {
-    console.error(await res.text());
-    throw new Error("Failed to fetch post thread");
-  }
-
-  const data = (await res.json()) as AppBskyFeedGetPostThread.OutputSchema;
-
-  if (!AppBskyFeedDefs.isThreadViewPost(data.thread)) {
+  if (!isThreadViewPost(data.thread)) {
     throw new Error("Could not find thread");
   }
 
   return data.thread;
 };
 
-type Reply = NonNullable<AppBskyFeedDefs.ThreadViewPost["replies"]>[number];
+type Reply = NonNullable<app.bsky.feed.defs.ThreadViewPost["replies"]>[number];
 
 const sortByLikes = (a: Reply, b: Reply) => {
-  if (
-    !AppBskyFeedDefs.isThreadViewPost(a) ||
-    !AppBskyFeedDefs.isThreadViewPost(b)
-  ) {
+  if (!isThreadViewPost(a) || !isThreadViewPost(b)) {
     // blocked/deleted posts are just ignored, so don't sort
     return 0;
   }

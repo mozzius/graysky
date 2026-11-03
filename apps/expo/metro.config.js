@@ -37,18 +37,48 @@ if (config.resolver) {
   const resolveRequest = config.resolver.resolveRequest;
   config.resolver.resolveRequest = (context, moduleName, platform) => {
     const resolve = resolveRequest ?? context.resolveRequest;
-    return resolve(
-      context,
-      vendoredNavigation[moduleName] ?? moduleName,
-      platform,
-    );
+    try {
+      return resolve(
+        context,
+        vendoredNavigation[moduleName] ?? moduleName,
+        platform,
+      );
+    } catch (err) {
+      // 5. ESM packages import relative files with a `.js` extension, which
+      // stops metro from picking platform specific files. e.g.
+      // @atproto/oauth-client-expo imports "./expo-oauth-client.js", which
+      // only exists as expo-oauth-client.native.js / .web.js
+      if (moduleName.startsWith(".") && moduleName.endsWith(".js")) {
+        return resolve(context, moduleName.slice(0, -3), platform);
+      }
+      throw err;
+    }
   };
 }
+
+// core-js (pulled in by @atproto/oauth-client-expo) depends on its modules
+// running in order. with inline requires, internals/inspect-source runs after
+// make-built-in has replaced Function.prototype.toString, captures the
+// replacement, and the two call each other until the stack overflows
+const listFiles = (dir) =>
+  require("fs")
+    .readdirSync(dir, { withFileTypes: true })
+    .flatMap((entry) => {
+      const file = path.join(dir, entry.name);
+      if (entry.isDirectory()) return listFiles(file);
+      return entry.name.endsWith(".js") ? [file] : [];
+    });
+const coreJsDir = path.dirname(
+  require.resolve("core-js/package.json", { paths: [projectRoot] }),
+);
+const inlineRequiresBlockList = Object.fromEntries(
+  listFiles(coreJsDir).map((file) => [file, true]),
+);
 
 // inline requires for better performance
 config.transformer.getTransformOptions = async () => ({
   transform: {
-    inlineRequires: true,
+    inlineRequires: { blockList: inlineRequiresBlockList },
   },
 });
 

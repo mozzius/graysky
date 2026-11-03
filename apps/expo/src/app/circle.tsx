@@ -14,10 +14,13 @@ import { Image, type ImageSource } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import {
-  AppBskyFeedLike,
-  RichText as RichTextHelper,
-  type BskyAgent,
-} from "@atproto/api";
+  type AtIdentifierString,
+  type Client,
+  type NsidString,
+} from "@atproto/lex";
+import { post } from "@bsky/sdk";
+import { app, com } from "@bsky/sdk/lexicons";
+import { RichText as RichTextHelper } from "@bsky/sdk/richtext";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -32,7 +35,7 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { usePrimaryLanguage } from "~/lib/storage/app-preferences";
-import { dangerousIsType } from "~/lib/utils/types";
+import { isType } from "~/lib/utils/types";
 import { uploadBlob } from "~/lib/utils/upload-blob";
 import { isIOS26 } from "~/lib/utils/version";
 import { useSelf } from "./settings/account";
@@ -68,14 +71,14 @@ export default function MyCircle() {
         potentialFriends[did] = (potentialFriends[did] || 0) + count * 6;
       }
 
-      const profiles = await agent.getProfiles({
+      const profiles = await agent.call(app.bsky.actor.getProfiles, {
         actors: Object.entries(potentialFriends)
           .sort(([, a], [, b]) => b - a)
           .slice(0, 25)
-          .map(([did]) => did),
+          .map(([did]) => did as AtIdentifierString),
       });
 
-      return profiles.data.profiles
+      return profiles.profiles
         .filter(
           (profile) =>
             !(
@@ -109,7 +112,7 @@ export default function MyCircle() {
       const rt = new RichTextHelper({ text });
       await rt.detectFacets(agent);
 
-      await agent.post({
+      await agent.call(post, {
         text: rt.text,
         facets: rt.facets,
         labels: {
@@ -120,7 +123,7 @@ export default function MyCircle() {
           $type: "app.bsky.embed.images",
           images: [
             {
-              image: blob.data.blob,
+              image: blob,
               alt:
                 "Circle of friends\n\n" +
                 friends.data?.map((friend) => "@" + friend.handle).join("\n"),
@@ -293,19 +296,22 @@ export default function MyCircle() {
   );
 }
 
-async function getNotifications(agent: BskyAgent) {
+async function getNotifications(agent: Client) {
   let isOlderThanAWeek = false;
   let cursor: string | undefined;
 
   const potentialFriends: Record<string, number> = {};
 
   do {
-    const notifications = await agent.app.bsky.notification.listNotifications({
-      cursor,
-      limit: 100,
-    });
-    cursor = notifications.data.cursor;
-    for (const notification of notifications.data.notifications) {
+    const notifications = await agent.call(
+      app.bsky.notification.listNotifications,
+      {
+        cursor,
+        limit: 100,
+      },
+    );
+    cursor = notifications.cursor;
+    for (const notification of notifications.notifications) {
       const date = notification?.indexedAt;
       if (
         date &&
@@ -342,27 +348,22 @@ async function getNotifications(agent: BskyAgent) {
   return potentialFriends;
 }
 
-async function getRecords(agent: BskyAgent, collection: string) {
+async function getRecords(agent: Client, collection: NsidString) {
   let isOlderThanAWeek = false;
   let cursor: string | undefined;
 
   const potentialFriends: Record<string, number> = {};
 
   do {
-    const records = await agent.com.atproto.repo.listRecords({
+    const records = await agent.call(com.atproto.repo.listRecords, {
       collection,
       repo: agent.assertDid,
       cursor,
       limit: 100,
     });
-    cursor = records.data.cursor;
-    for (const record of records.data.records) {
-      if (
-        dangerousIsType<AppBskyFeedLike.Record>(
-          record.value,
-          AppBskyFeedLike.isRecord,
-        )
-      ) {
+    cursor = records.cursor;
+    for (const record of records.records) {
+      if (isType(app.bsky.feed.like, record.value)) {
         const date = record.value.createdAt;
         if (
           date &&

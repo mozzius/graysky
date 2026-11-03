@@ -35,7 +35,7 @@ import {
 import colors from "tailwindcss/colors";
 
 import { StatusBar } from "~/components/status-bar";
-import { useAgent } from "~/lib/agent";
+import { useSession } from "~/lib/agent";
 import { useCustomerInfo, useIsPro, useOfferings } from "~/lib/purchases";
 import { cx } from "~/lib/utils/cx";
 import { isIOS26 } from "~/lib/utils/version";
@@ -49,7 +49,7 @@ export default function Pro() {
   const router = useRouter();
   const customerInfo = useCustomerInfo();
   const isPro = useIsPro();
-  const agent = useAgent();
+  const session = useSession();
   const { _ } = useLingui();
 
   const [annual, setAnnual] = useState(false);
@@ -72,7 +72,7 @@ export default function Pro() {
             throw Error("No monthly package");
           plan = offerings.data.current.monthly;
         }
-        await Purchases.setDisplayName(agent.session?.handle ?? null);
+        await Purchases.setDisplayName(session?.handle ?? null);
         const { customerInfo } = await Purchases.purchasePackage(plan);
         queryClient.setQueryData(["purchases", "info"], customerInfo);
       } catch (err) {

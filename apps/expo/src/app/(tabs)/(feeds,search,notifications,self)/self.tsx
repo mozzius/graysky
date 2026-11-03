@@ -3,7 +3,7 @@ import { useAgent } from "~/lib/agent";
 
 export default function SelfProfile() {
   const agent = useAgent();
-  const did = agent.session?.did;
+  const did = agent.did;
 
   if (!did) return null;
 

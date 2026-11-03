@@ -14,11 +14,8 @@ import Animated, {
 import { Image } from "expo-image";
 import { Link, usePathname, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import {
-  AppBskyFeedDefs,
-  type $Typed,
-  type AppBskyGraphDefs,
-} from "@atproto/api";
+import { type $Typed } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -34,10 +31,11 @@ import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { cx } from "~/lib/utils/cx";
+import { isType } from "~/lib/utils/types";
 import { Text } from "./themed/text";
 
 interface Props {
-  feed: AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView;
+  feed: app.bsky.feed.defs.GeneratorView | app.bsky.graph.defs.ListView;
   children?: React.ReactNode;
   large?: boolean;
   onPress?: () => void;
@@ -190,7 +188,8 @@ export const DraggableFeedRow = ({
   onUnsave,
 }: {
   feed: (
-    $Typed<AppBskyFeedDefs.GeneratorView> | $Typed<AppBskyGraphDefs.ListView>
+    | $Typed<app.bsky.feed.defs.GeneratorView>
+    | $Typed<app.bsky.graph.defs.ListView>
   ) & {
     pinned: boolean;
   };
@@ -203,7 +202,7 @@ export const DraggableFeedRow = ({
   const path = useAbsolutePath();
   const href = path(
     `/profile/${feed.creator.did}/${
-      AppBskyFeedDefs.isGeneratorView(feed) ? "feed" : "lists"
+      isType(app.bsky.feed.defs.generatorView, feed) ? "feed" : "lists"
     }/${feed.uri.split("/").pop()}`,
   );
 
@@ -319,7 +318,7 @@ export const DraggableFeedRow = ({
               <Image
                 source={{ uri: feed.avatar }}
                 alt={
-                  AppBskyFeedDefs.isGeneratorView(feed)
+                  isType(app.bsky.feed.defs.generatorView, feed)
                     ? feed.displayName
                     : feed.name
                 }
@@ -327,7 +326,7 @@ export const DraggableFeedRow = ({
               />
               <View className="flex-1 px-3">
                 <Text className="text-base">
-                  {AppBskyFeedDefs.isGeneratorView(feed)
+                  {isType(app.bsky.feed.defs.generatorView, feed)
                     ? feed.displayName
                     : feed.name}
                 </Text>
@@ -364,7 +363,7 @@ export const DraggableFeedRow = ({
 
 // no $type, so we need to make a sketchy guess based on ATURI
 function sketchyIsGeneratorView(
-  feed: AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView,
-): feed is AppBskyFeedDefs.GeneratorView {
+  feed: app.bsky.feed.defs.GeneratorView | app.bsky.graph.defs.ListView,
+): feed is app.bsky.feed.defs.GeneratorView {
   return feed.uri.includes("app.bsky.feed.generator");
 }

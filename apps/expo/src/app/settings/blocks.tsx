@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -17,11 +18,9 @@ export default function BlockedUsers() {
   const blocks = useInfiniteQuery({
     queryKey: ["blocks"],
     queryFn: async ({ pageParam }) => {
-      const blocks = await agent.app.bsky.graph.getBlocks({
+      return await agent.call(app.bsky.graph.getBlocks, {
         cursor: pageParam,
       });
-      if (!blocks.success) throw new Error("Could not fetch blocks");
-      return blocks.data;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,

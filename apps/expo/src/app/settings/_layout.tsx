@@ -83,18 +83,6 @@ export default function SettingsLayout() {
           }}
         />
         <Stack.Screen
-          name="account/change-password"
-          options={{
-            title: _(msg`Change Password`),
-          }}
-        />
-        <Stack.Screen
-          name="account/delete-account"
-          options={{
-            title: _(msg`Delete Account`),
-          }}
-        />
-        <Stack.Screen
           name="moderation"
           options={{
             title: _(msg`Moderation`),

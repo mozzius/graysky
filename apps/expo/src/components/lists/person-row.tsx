@@ -2,7 +2,7 @@ import { memo } from "react";
 import { TouchableHighlight, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { TouchableHighlight as BottomSheetTouchableHighlight } from "@gorhom/bottom-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -14,7 +14,8 @@ import { PostAvatar } from "../post-avatar";
 import { Text } from "../themed/text";
 
 interface Props {
-  person: AppBskyActorDefs.ProfileView | AppBskyActorDefs.ProfileViewDetailed;
+  person:
+    app.bsky.actor.defs.ProfileView | app.bsky.actor.defs.ProfileViewDetailed;
   onPress?: (evt: { preventDefault: () => void }) => void;
   bottomSheet?: boolean;
   backgroundColor?: string;

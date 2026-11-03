@@ -1,21 +1,35 @@
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
-  LockIcon,
+  ExternalLinkIcon,
   MailIcon,
   UserIcon,
-  UserX,
 } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent, useOptionalAgent } from "~/lib/agent";
+import { useOptionalAgent, useSession, type SessionInfo } from "~/lib/agent";
+import { useLinkPress } from "~/lib/hooks/link-press";
+
+/**
+ * password, email and account deletion aren't available to oauth apps, so
+ * send people to their account provider for those
+ */
+function getAccountManagementUrl(session: SessionInfo) {
+  const issuer = new URL(session.issuer);
+  if (issuer.hostname === "bsky.social") {
+    return "https://bsky.app/settings/account";
+  }
+  return new URL("/account", issuer).toString();
+}
 
 export default function AccountSettings() {
-  const agent = useAgent();
+  const session = useSession();
   const { _ } = useLingui();
+  const { openLink } = useLinkPress();
 
   // preload for other pages
   useSelf();
@@ -24,12 +38,12 @@ export default function AccountSettings() {
     <TransparentHeaderUntilScrolled>
       <GroupedList
         groups={[
-          !!agent?.session?.email && {
+          !!session?.email && {
             title: _(msg`Account Details`),
             options: [
               {
                 icon: MailIcon,
-                title: agent.session.email,
+                title: session.email,
               },
             ],
           },
@@ -48,21 +62,18 @@ export default function AccountSettings() {
               },
             ],
           },
-          {
-            title: _(msg`Advanced Settings`),
+          !!session && {
+            title: _(msg`Account Management`),
             options: [
               {
-                title: _(msg`Change Password`),
-                icon: LockIcon,
-                href: "/settings/account/change-password",
-              },
-              {
-                title: _(msg`Delete Account`),
-                icon: UserX,
-                destructive: true,
-                href: "/settings/account/delete-account",
+                title: _(msg`Manage Account`),
+                icon: ExternalLinkIcon,
+                onPress: () => openLink(getAccountManagementUrl(session)),
               },
             ],
+            footer: _(
+              msg`Your password, email address and account deletion are managed by your account provider.`,
+            ),
           },
         ]}
       />
@@ -76,12 +87,10 @@ export const useSelf = () => {
   return useQuery({
     queryKey: ["self"],
     queryFn: async () => {
-      if (!agent?.session) throw new Error("Not logged in");
-      const self = await agent.getProfile({
-        actor: agent.session.did,
+      if (!agent?.did) throw new Error("Not logged in");
+      return await agent.call(app.bsky.actor.getProfile, {
+        actor: agent.did,
       });
-      if (!self.success) throw new Error("Could not fetch own profile");
-      return self.data;
     },
   });
 };

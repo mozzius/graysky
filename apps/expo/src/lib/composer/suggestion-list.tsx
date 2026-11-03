@@ -5,7 +5,7 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { UserIcon, UsersIcon } from "lucide-react-native";
@@ -14,7 +14,7 @@ import { Avatar } from "~/components/avatar";
 import { Text } from "~/components/themed/text";
 
 interface Props {
-  suggestions: AppBskyActorDefs.ProfileViewBasic[];
+  suggestions: app.bsky.actor.defs.ProfileViewBasic[];
   onInsertHandle: (handle: string) => void;
 }
 

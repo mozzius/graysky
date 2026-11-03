@@ -2,7 +2,8 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { I18nManager, TouchableWithoutFeedback, View } from "react-native";
 import { Link } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -20,7 +21,7 @@ import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
 import { timeSince } from "~/lib/utils/time";
-import { dangerousIsType } from "~/lib/utils/types";
+import { isType } from "~/lib/utils/types";
 import { Embed } from "./embed";
 import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
@@ -31,7 +32,7 @@ import { Text } from "./themed/text";
 import { Translation } from "./translation";
 
 interface Props {
-  item: AppBskyFeedDefs.FeedViewPost;
+  item: app.bsky.feed.defs.FeedViewPost;
   isReply?: boolean;
   hasReply?: boolean;
   unread?: boolean;
@@ -105,7 +106,7 @@ const FeedPostInner = ({
         } satisfies {
           posts: Posts[];
           index: number;
-          main: AppBskyFeedDefs.PostView;
+          main: app.bsky.feed.defs.PostView;
         };
       }
     });
@@ -120,12 +121,7 @@ const FeedPostInner = ({
 
   const moderation = useProfileModeration(item.post.author);
 
-  if (
-    !dangerousIsType<AppBskyFeedPost.Record>(
-      item.post.record,
-      AppBskyFeedPost.isRecord,
-    )
-  ) {
+  if (!isType(app.bsky.feed.post, item.post.record)) {
     return null;
   }
 
@@ -262,7 +258,7 @@ const FeedPostInner = ({
           {/* inline "replying to so-and-so" */}
           {displayInlineParent &&
             (item.reply
-              ? AppBskyFeedDefs.isPostView(item.reply.parent) && (
+              ? isType(app.bsky.feed.defs.postView, item.reply.parent) && (
                   <Link
                     href={path(
                       `/profile/${
@@ -366,7 +362,7 @@ const Reason = ({ item }: Pick<Props, "item">) => {
   const path = useAbsolutePath();
   const { _ } = useLingui();
 
-  if (!AppBskyFeedDefs.isReasonRepost(item.reason)) return null;
+  if (!isType(app.bsky.feed.defs.reasonRepost, item.reason)) return null;
 
   return (
     <View className="mb-1 ml-12 flex-1">
@@ -413,27 +409,28 @@ const ReplyParentAuthor = ({ uri }: { uri: string }) => {
   const { data, isPending } = useQuery({
     queryKey: ["post", uri],
     queryFn: async (): Promise<
-      AppBskyFeedDefs.ThreadViewPost["parent"] | null
+      app.bsky.feed.defs.ThreadViewPost["parent"] | null
     > => {
-      const thread = await agent.getPostThread({
-        uri,
+      const thread = await agent.call(app.bsky.feed.getPostThread, {
+        uri: uri as AtUriString,
         depth: 0,
         parentHeight: 1,
       });
-      if (!AppBskyFeedDefs.isThreadViewPost(thread.data.thread)) return null;
-      return thread.data.thread.parent ?? null;
+      if (!isType(app.bsky.feed.defs.threadViewPost, thread.thread))
+        return null;
+      return thread.thread.parent ?? null;
     },
   });
 
-  if (!AppBskyFeedDefs.isThreadViewPost(data)) {
+  if (!isType(app.bsky.feed.defs.threadViewPost, data)) {
     let text = _(msg`replying to a post that couldn't be fetched`);
     if (isPending) {
       text = _(msg`replying to...`);
     }
-    if (AppBskyFeedDefs.isBlockedPost(data)) {
+    if (isType(app.bsky.feed.defs.blockedPost, data)) {
       text = _(msg`replying to a blocked user`);
     }
-    if (AppBskyFeedDefs.isNotFoundPost(data)) {
+    if (isType(app.bsky.feed.defs.notFoundPost, data)) {
       text = _(msg`replying to a deleted post`);
     }
 

@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
-import { type $Typed, type AppBskyEmbedExternal } from "@atproto/api";
+import { type $Typed } from "@atproto/lex";
+import { type app } from "@bsky/sdk/lexicons";
 
 export type ThreadgateSetting =
   | { type: "nobody" }
@@ -9,8 +10,8 @@ export type ThreadgateSetting =
 
 export interface ComposerState {
   gif?: {
-    view: $Typed<AppBskyEmbedExternal.View>;
-    main: $Typed<AppBskyEmbedExternal.Main>;
+    view: $Typed<app.bsky.embed.external.View>;
+    main: $Typed<app.bsky.embed.external.Main>;
   };
   languages: string[];
   reply?: string;

@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  AppBskyActorDefs,
-  AppBskyEmbedRecord,
-  AppBskyEmbedRecordWithMedia,
-  AppBskyFeedDefs,
-  type AppBskyFeedGetFeedGenerator,
-} from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import {
@@ -23,6 +18,7 @@ import {
   useHomepage,
 } from "../storage/app-preferences";
 import { produce } from "../utils/produce";
+import { isType } from "../utils/types";
 import { useContentFilter, useHaptics } from "./preferences";
 
 export const useSavedFeeds = () => {
@@ -31,20 +27,17 @@ export const useSavedFeeds = () => {
   return useQuery({
     queryKey: ["feeds", "saved"],
     queryFn: async () => {
-      const prefs = await agent.app.bsky.actor.getPreferences();
-      if (!prefs.success) throw new Error("Could not fetch feeds");
-      const feeds = prefs.data.preferences.find(
-        (pref) =>
-          AppBskyActorDefs.isSavedFeedsPref(pref) &&
-          AppBskyActorDefs.validateSavedFeedsPref(pref).success,
-      ) as AppBskyActorDefs.SavedFeedsPref | undefined;
+      const { preferences } = await agent.call(app.bsky.actor.getPreferences);
+      const feeds = preferences.find((pref) =>
+        isType(app.bsky.actor.defs.savedFeedsPref, pref),
+      ) as app.bsky.actor.defs.SavedFeedsPref | undefined;
       if (!feeds || feeds.saved.length === 0)
         return {
           feeds: [],
           lists: [],
           pinned: [],
           saved: [],
-          preferences: prefs.data.preferences,
+          preferences,
         };
 
       const allUris = [...new Set([...feeds.pinned, ...feeds.saved])];
@@ -55,16 +48,12 @@ export const useSavedFeeds = () => {
       );
       const generators =
         feedGeneratorsUris.length === 0
-          ? { success: true, data: { feeds: [] } }
-          : await agent.app.bsky.feed.getFeedGenerators({
+          ? { feeds: [] }
+          : await agent.call(app.bsky.feed.getFeedGenerators, {
               feeds: feedGeneratorsUris,
             });
 
-      if (!generators.success) {
-        throw new Error("Could not fetch saved feeds");
-      }
-
-      const myLists = await agent.app.bsky.graph.getLists({
+      const myLists = await agent.call(app.bsky.graph.getLists, {
         actor: agent.assertDid,
       });
 
@@ -75,27 +64,26 @@ export const useSavedFeeds = () => {
         ) =>
           x.includes("app.bsky.graph.list") &&
           // ...that we haven't already fetched
-          !myLists.data.lists.find((list) => list.uri === x),
+          !myLists.lists.find((list) => list.uri === x),
       );
 
       const otherLists = await Promise.allSettled(
         listUris.map(async (uri) => {
-          const list = await agent.app.bsky.graph.getList({
+          const list = await agent.call(app.bsky.graph.getList, {
             list: uri,
             limit: 1,
           });
-          if (!list.success) throw new Error("Could not fetch list");
-          return list.data.list;
+          return list.list;
         }),
       );
 
       const lists = [
-        ...myLists.data.lists,
+        ...myLists.lists,
         ...otherLists.flatMap((x) => (x.status === "fulfilled" ? x.value : [])),
       ];
 
       return {
-        feeds: generators.data.feeds.map((feed) => ({
+        feeds: generators.feeds.map((feed) => ({
           $type: "app.bsky.feed.defs#generatorView" as const,
           ...feed,
           pinned: feeds.pinned.includes(feed.uri),
@@ -107,7 +95,7 @@ export const useSavedFeeds = () => {
         })),
         pinned: feeds.pinned,
         saved: feeds.saved,
-        preferences: prefs.data.preferences,
+        preferences,
       };
     },
   });
@@ -138,22 +126,22 @@ export const useFeedInfo = (feed: string) => {
               handle: "",
             },
             indexedAt: "",
-          },
+            // not a real generator view, but close enough for the bits we
+            // display. the empty strings aren't valid dids/uris, hence the cast
+          } as unknown as app.bsky.feed.defs.GeneratorView,
           isOnline: true,
           isValid: true,
-        } satisfies AppBskyFeedGetFeedGenerator.OutputSchema;
+        };
       }
-      const gen = await agent.app.bsky.feed.getFeedGenerator({
-        feed,
+      return await agent.call(app.bsky.feed.getFeedGenerator, {
+        feed: feed as AtUriString,
       });
-      if (!gen.success) throw new Error("Failed to get generator");
-      return gen.data;
     },
   });
 };
 
 export const useToggleFeedPref = (
-  preferences?: AppBskyActorDefs.Preferences,
+  preferences?: app.bsky.actor.defs.Preferences,
 ) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -166,27 +154,27 @@ export const useToggleFeedPref = (
       if (!save && !pin) throw new Error("Must provide save or pin");
       if (save && pin) throw new Error("Cannot provide both save and pin");
 
-      await agent.app.bsky.actor.putPreferences({
+      const saveUri = save as AtUriString | undefined;
+      const pinUri = pin as AtUriString | undefined;
+
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(preferences, (draft) => {
           let hasPref;
           for (const pref of draft) {
-            if (
-              AppBskyActorDefs.isSavedFeedsPref(pref) &&
-              AppBskyActorDefs.validateSavedFeedsPref(pref).success
-            ) {
+            if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
               hasPref = true;
-              if (save) {
-                if (pref.saved.includes(save)) {
-                  pref.pinned = pref.pinned.filter((f) => f !== save);
-                  pref.saved = pref.saved.filter((f) => f !== save);
+              if (saveUri) {
+                if (pref.saved.includes(saveUri)) {
+                  pref.pinned = pref.pinned.filter((f) => f !== saveUri);
+                  pref.saved = pref.saved.filter((f) => f !== saveUri);
                 } else {
-                  pref.saved.push(save);
+                  pref.saved.push(saveUri);
                 }
-              } else if (pin) {
-                if (pref.pinned.includes(pin)) {
-                  pref.pinned = pref.pinned.filter((f) => f !== pin);
+              } else if (pinUri) {
+                if (pref.pinned.includes(pinUri)) {
+                  pref.pinned = pref.pinned.filter((f) => f !== pinUri);
                 } else {
-                  pref.pinned.push(pin);
+                  pref.pinned.push(pinUri);
                 }
               }
             }
@@ -194,8 +182,8 @@ export const useToggleFeedPref = (
           if (!hasPref) {
             draft.push({
               $type: "app.bsky.actor.defs#savedFeedsPref",
-              pinned: pin ? [pin] : [],
-              saved: save ? [save] : [],
+              pinned: pinUri ? [pinUri] : [],
+              saved: saveUri ? [saveUri] : [],
             });
           }
         }),
@@ -211,8 +199,12 @@ export const useReorderFeeds = (
 ) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
-  const [pinned, setPinned] = useState(savedFeeds.data?.pinned ?? []);
-  const [saved, setSaved] = useState(savedFeeds.data?.saved ?? []);
+  const [pinned, setPinned] = useState<AtUriString[]>(
+    savedFeeds.data?.pinned ?? [],
+  );
+  const [saved, setSaved] = useState<AtUriString[]>(
+    savedFeeds.data?.saved ?? [],
+  );
 
   const stringifiedPinned = savedFeeds.data?.pinned
     ? savedFeeds.data.pinned.join()
@@ -222,21 +214,23 @@ export const useReorderFeeds = (
     : null;
 
   useEffect(() => {
-    if (stringifiedPinned) setPinned(stringifiedPinned.split(","));
+    if (stringifiedPinned)
+      setPinned(stringifiedPinned.split(",") as AtUriString[]);
   }, [stringifiedPinned]);
 
   useEffect(() => {
-    if (stringifiedSaved) setSaved(stringifiedSaved.split(","));
+    if (stringifiedSaved)
+      setSaved(stringifiedSaved.split(",") as AtUriString[]);
   }, [stringifiedSaved]);
 
   const reorderFavs = useMutation({
-    mutationFn: async (pins: string[]) => {
+    mutationFn: async (pins: AtUriString[]) => {
       if (!savedFeeds.data) return;
       setPinned(pins);
-      await agent.app.bsky.actor.putPreferences({
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(savedFeeds.data.preferences, (draft) => {
           for (const pref of draft) {
-            if (AppBskyActorDefs.isSavedFeedsPref(pref)) {
+            if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
               pref.pinned = pins;
             }
           }
@@ -248,14 +242,14 @@ export const useReorderFeeds = (
   });
 
   const reorderRest = useMutation({
-    mutationFn: async (uris: string[]) => {
+    mutationFn: async (uris: AtUriString[]) => {
       if (!savedFeeds.data) return;
       const saved = [...pinned, ...uris];
       setSaved(saved);
-      await agent.app.bsky.actor.putPreferences({
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(savedFeeds.data.preferences, (draft) => {
           for (const pref of draft) {
-            if (AppBskyActorDefs.isSavedFeedsPref(pref)) {
+            if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
               pref.saved = saved;
             }
           }
@@ -282,21 +276,20 @@ export const useTimeline = (feed: string) => {
       let cursor;
       let posts = [];
       if (feed === "following") {
-        const timeline = await agent.getTimeline({
+        const result = await agent.call(app.bsky.feed.getTimeline, {
           cursor: pageParam,
         });
-        if (!timeline.success) throw new Error("Failed to fetch feed");
-        ({ cursor, feed: posts } = timeline.data);
+        ({ cursor, feed: posts } = result);
       } else {
-        const timeline = await agent.app.bsky.feed.getFeed(
+        const result = await agent.call(
+          app.bsky.feed.getFeed,
           {
-            feed,
+            feed: feed as AtUriString,
             cursor: pageParam,
           },
           { headers: { "Accept-Language": contentLanguages.join(",") } },
         );
-        if (!timeline.success) throw new Error("Failed to fetch feed");
-        ({ cursor, feed: posts } = timeline.data);
+        ({ cursor, feed: posts } = result);
       }
       return { posts, cursor };
     },
@@ -317,11 +310,11 @@ export const useTimeline = (feed: string) => {
 
       if (homepage === "feeds" ? feed === "following" : feed === defaultFeed) {
         const isEmbed =
-          AppBskyEmbedRecord.isView(item.post.embed) ||
-          AppBskyEmbedRecordWithMedia.isView(item.post.embed);
+          isType(app.bsky.embed.record.view, item.post.embed) ||
+          isType(app.bsky.embed.recordWithMedia.view, item.post.embed);
         const isByUnfollowed =
           !item.post.author.viewer?.following &&
-          item.post.author.did !== agent.session?.did;
+          item.post.author.did !== agent.did;
 
         if (feedViewPref.hideReplies && item.reply) {
           return [];
@@ -339,11 +332,11 @@ export const useTimeline = (feed: string) => {
             return [];
           }
           // reply TO unfollowed
-          if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+          if (isType(app.bsky.feed.defs.postView, item.reply.parent)) {
             const parent = item.reply.parent;
             if (
               !parent.author.viewer?.following &&
-              parent.author.did !== agent.session?.did
+              parent.author.did !== agent.did
             ) {
               return [];
             }
@@ -355,8 +348,8 @@ export const useTimeline = (feed: string) => {
 
       if (
         item.reply &&
-        (AppBskyFeedDefs.isBlockedPost(item.reply.parent) ||
-          AppBskyFeedDefs.isBlockedPost(item.reply.root))
+        (isType(app.bsky.feed.defs.blockedPost, item.reply.parent) ||
+          isType(app.bsky.feed.defs.blockedPost, item.reply.root))
       ) {
         return [];
       }
@@ -364,7 +357,7 @@ export const useTimeline = (feed: string) => {
       // mini threads
 
       if (item.reply && !item.reason) {
-        if (AppBskyFeedDefs.isPostView(item.reply.parent)) {
+        if (isType(app.bsky.feed.defs.postView, item.reply.parent)) {
           if (item.reply.parent.author.viewer?.muted) return [];
           const parentFilter = contentFilter(item.reply.parent.labels);
           if (parentFilter?.visibility === "hide") return [];
@@ -390,7 +383,7 @@ export const useTimeline = (feed: string) => {
     homepage,
     feed,
     defaultFeed,
-    agent.session?.did,
+    agent.did,
   ]);
 
   return { timeline, data, preferences, contentFilter };

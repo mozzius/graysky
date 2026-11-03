@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Platform, Switch, View } from "react-native";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyActorDefs } from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -21,6 +21,7 @@ import { TransparentHeaderUntilScrolled } from "~/components/transparent-header"
 import { useAgent } from "~/lib/agent";
 import { contentLabels, usePreferences } from "~/lib/hooks/preferences";
 import { produce } from "~/lib/utils/produce";
+import { isType } from "~/lib/utils/types";
 
 const options = ["show", "warn", "hide"] as const;
 
@@ -39,18 +40,20 @@ export default function ModerationSettings() {
     mutationFn: async ({
       label,
       visibility,
-    }: AppBskyActorDefs.ContentLabelPref) => {
+    }: app.bsky.actor.defs.ContentLabelPref) => {
       if (!preferences.data) throw new Error(_(msg`No preferences`));
       const newPref = {
         $type: "app.bsky.actor.defs#contentLabelPref",
         label,
         visibility,
-      } satisfies AppBskyActorDefs.ContentLabelPref;
+      } satisfies app.bsky.actor.defs.ContentLabelPref;
 
-      await agent.app.bsky.actor.putPreferences({
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(preferences.data, (draft) => {
           const index = draft.findIndex(
-            (x) => AppBskyActorDefs.isContentLabelPref(x) && x.label === label,
+            (x) =>
+              isType(app.bsky.actor.defs.contentLabelPref, x) &&
+              x.label === label,
           );
           if (index === -1) {
             draft.push(newPref);
@@ -64,7 +67,7 @@ export default function ModerationSettings() {
   });
 
   const adultContentPref = preferences.data?.find((x) =>
-    AppBskyActorDefs.isAdultContentPref(x),
+    isType(app.bsky.actor.defs.adultContentPref, x),
   )?.enabled;
 
   const hasAdultContentPref = adultContentPref !== undefined;
@@ -79,12 +82,15 @@ export default function ModerationSettings() {
     mutationFn: async () => {
       if (!preferences.data) throw new Error("No preferences");
       setOptimisticSwitchValue(!adultContentEnabled);
-      await agent.app.bsky.actor.putPreferences({
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(preferences.data, (draft) => {
           const existing = draft.find((x) =>
-            AppBskyActorDefs.isAdultContentPref(x),
+            isType(app.bsky.actor.defs.adultContentPref, x),
           );
-          if (existing && AppBskyActorDefs.isAdultContentPref(existing)) {
+          if (
+            existing &&
+            isType(app.bsky.actor.defs.adultContentPref, existing)
+          ) {
             existing.enabled = !existing.enabled;
           } else {
             draft.push({
@@ -157,7 +163,9 @@ export default function ModerationSettings() {
                 ...Object.entries(contentLabels).map(
                   ([key, { label, defaultValue, adult }]) => {
                     let visibility = preferences.data
-                      .filter(AppBskyActorDefs.isContentLabelPref)
+                      .filter((x) =>
+                        isType(app.bsky.actor.defs.contentLabelPref, x),
+                      )
                       .find((x) => x.label === key)?.visibility as Pref;
 
                     if (!["show", "warn", "hide"].includes(visibility)) {

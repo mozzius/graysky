@@ -1,31 +1,39 @@
 import * as FileSystem from "expo-file-system/legacy";
-import { type AtpAgent, type ComAtprotoRepoUploadBlob } from "@atproto/api";
+import { type BlobRef, type Client } from "@atproto/lex";
 
 /**
+ * upload a blob to the user's PDS
+ *
  * @param encoding Allows overriding the blob's type
+ * @returns the uploaded blob ref, to be used in a record
  */
 export async function uploadBlob(
-  agent: AtpAgent,
+  agent: Client,
   input: string | Blob,
-  encoding?: string,
-): Promise<ComAtprotoRepoUploadBlob.Response> {
+  encoding?: `${string}/${string}`,
+): Promise<BlobRef> {
+  const upload = async (blob: Blob) => {
+    const res = await agent.uploadBlob(blob, { encoding });
+    return res.body.blob;
+  };
+
   if (typeof input === "string" && input.startsWith("file:")) {
     const blob = await asBlob(input);
-    return agent.uploadBlob(blob, { encoding });
+    return upload(blob);
   }
 
   if (typeof input === "string" && input.startsWith("/")) {
     const blob = await asBlob(`file://${input}`);
-    return agent.uploadBlob(blob, { encoding });
+    return upload(blob);
   }
 
   if (typeof input === "string" && input.startsWith("data:")) {
     const blob = await fetch(input).then((r) => r.blob());
-    return agent.uploadBlob(blob, { encoding });
+    return upload(blob);
   }
 
   if (input instanceof Blob) {
-    return agent.uploadBlob(input, { encoding });
+    return upload(input);
   }
 
   throw new TypeError(`Invalid uploadBlob input: ${typeof input}`);

@@ -1,4 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -13,15 +15,14 @@ const useReposts = (post?: string) => {
     queryKey: ["reposts", post],
     queryFn: async ({ pageParam }) => {
       if (!post) return { people: [], cursor: undefined };
-      if (!agent.hasSession) throw new Error("Not logged in");
-      const followers = await agent.getRepostedBy({
-        uri: post,
+      if (!agent.did) throw new Error("Not logged in");
+      const followers = await agent.call(app.bsky.feed.getRepostedBy, {
+        uri: post as AtUriString,
         cursor: pageParam,
       });
-      if (!followers.success) throw new Error("Could not fetch follows");
       return {
-        people: followers.data.repostedBy,
-        cursor: followers.data.cursor,
+        people: followers.repostedBy,
+        cursor: followers.cursor,
       };
     },
     enabled: !!post,

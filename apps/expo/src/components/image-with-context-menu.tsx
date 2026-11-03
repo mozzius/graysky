@@ -8,7 +8,7 @@ import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import { useTheme } from "expo-router/react-navigation";
 import * as Sharing from "expo-sharing";
-import { type AppBskyEmbedImages } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ import { ContextMenu, type MenuIcon } from "~/components/menu";
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  image: AppBskyEmbedImages.ViewImage;
+  image: app.bsky.embed.images.ViewImage;
   depth: number;
   className?: string;
   style?: ImageStyle | ImageStyle[];

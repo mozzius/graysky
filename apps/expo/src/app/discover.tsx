@@ -2,7 +2,7 @@ import { Fragment, useCallback, useState } from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyActorDefs } from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -16,7 +16,9 @@ import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { getPopularFeedGenerators } from "~/lib/unspecced";
 import { cx } from "~/lib/utils/cx";
+import { isType } from "~/lib/utils/types";
 import { isIOS26 } from "~/lib/utils/version";
 
 // TODO: make this a flashlist and add a cursor to the query
@@ -37,13 +39,10 @@ export default function DiscoveryPage() {
   const saved = useQuery({
     queryKey: ["feeds", "saved", "plain"],
     queryFn: async () => {
-      const prefs = await agent.app.bsky.actor.getPreferences();
-      if (!prefs.success) throw new Error("Could not fetch feeds");
-      const feeds = prefs.data.preferences.find(
-        (pref) =>
-          AppBskyActorDefs.isSavedFeedsPref(pref) &&
-          AppBskyActorDefs.validateSavedFeedsPref(pref).success,
-      ) as AppBskyActorDefs.SavedFeedsPref | undefined;
+      const prefs = await agent.call(app.bsky.actor.getPreferences);
+      const feeds = prefs.preferences.find((pref) =>
+        isType(app.bsky.actor.defs.savedFeedsPref, pref),
+      ) as app.bsky.actor.defs.SavedFeedsPref | undefined;
       return feeds?.saved ?? [];
     },
   });
@@ -51,11 +50,10 @@ export default function DiscoveryPage() {
   const recommended = useQuery({
     queryKey: ["feeds", "discover", search],
     queryFn: async () => {
-      const popular = await agent.app.bsky.unspecced.getPopularFeedGenerators({
+      const popular = await agent.call(getPopularFeedGenerators, {
         query: search || undefined,
       });
-      if (!popular.success) throw new Error("Failed to fetch popular feeds");
-      return popular.data.feeds;
+      return popular.feeds;
     },
     placeholderData: keepPreviousData,
   });

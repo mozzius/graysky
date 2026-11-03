@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { ImageBackground } from "expo-image";
-import { type AppBskyEmbedVideo } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { BlueskyVideoView } from "@haileyok/bluesky-video";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -15,7 +15,7 @@ import { PlayIcon, Volume2Icon, VolumeXIcon } from "lucide-react-native";
 
 import { useThrottledValue } from "~/lib/hooks/throttled-value";
 
-export const VideoEmbed = ({ video }: { video: AppBskyEmbedVideo.View }) => {
+export const VideoEmbed = ({ video }: { video: app.bsky.embed.video.View }) => {
   const { _ } = useLingui();
   const ref = useRef<BlueskyVideoView>(null);
 

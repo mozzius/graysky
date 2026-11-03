@@ -12,7 +12,12 @@ import { Image, type ImageSource } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import * as Sharing from "expo-sharing";
-import { AppBskyFeedDefs } from "@atproto/api";
+import {
+  type AtUriString,
+  type DidString,
+  type HandleString,
+} from "@atproto/lex";
+import { app, com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -24,6 +29,7 @@ import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
+import { isType } from "~/lib/utils/types";
 import { isIOS26 } from "~/lib/utils/version";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -46,25 +52,29 @@ export default function ShareAsImageScreen() {
     queryKey: ["profile", author, "post", rkey, "no-context"],
     queryFn: async () => {
       if (!author || !rkey) throw new Error("Invalid author or post");
-      let did = author;
-      if (!did.startsWith("did:")) {
-        const { data } = await agent.resolveHandle({ handle: author });
-        did = data.did;
+      let did: DidString;
+      if (author.startsWith("did:")) {
+        did = author as DidString;
+      } else {
+        const resolved = await agent.call(com.atproto.identity.resolveHandle, {
+          handle: author as HandleString,
+        });
+        did = resolved.did;
       }
-      const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
-      const postThread = await agent.getPostThread({
+      const uri = `at://${did}/app.bsky.feed.post/${rkey}` as AtUriString;
+      const postThread = await agent.call(app.bsky.feed.getPostThread, {
         uri,
         parentHeight: 0,
         depth: 0,
       });
 
-      const post = postThread.data.thread;
+      const postVal = postThread.thread;
 
-      if (!AppBskyFeedDefs.isThreadViewPost(post)) {
+      if (!isType(app.bsky.feed.defs.threadViewPost, postVal)) {
         throw new Error("Post not found");
       }
 
-      return post;
+      return postVal;
     },
   });
 

@@ -8,16 +8,7 @@ import {
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import {
-  AppBskyEmbedExternal,
-  AppBskyEmbedImages,
-  AppBskyEmbedRecord,
-  AppBskyEmbedRecordWithMedia,
-  AppBskyEmbedVideo,
-  AppBskyFeedDefs,
-  AppBskyFeedPost,
-  AppBskyGraphDefs,
-} from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -32,7 +23,7 @@ import {
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useContentFilter } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
-import { dangerousIsType } from "~/lib/utils/types";
+import { isType } from "~/lib/utils/types";
 import { Avatar } from "../avatar";
 import { TextButton } from "../text-button";
 import { Text } from "../themed/text";
@@ -42,7 +33,7 @@ import { VideoEmbed } from "./video";
 
 interface Props {
   uri: string;
-  content: AppBskyFeedDefs.FeedViewPost["post"]["embed"];
+  content: app.bsky.feed.defs.FeedViewPost["post"]["embed"];
   truncate?: boolean;
   depth?: number;
   transparent?: boolean;
@@ -63,7 +54,7 @@ export const Embed = ({
 
   try {
     // Case 1: Image
-    if (AppBskyEmbedImages.isView(content)) {
+    if (isType(app.bsky.embed.images.view, content)) {
       return (
         <ImageEmbed
           uri={uri}
@@ -75,7 +66,7 @@ export const Embed = ({
     }
 
     // Case 2: External link
-    if (AppBskyEmbedExternal.isView(content)) {
+    if (isType(app.bsky.embed.external.view, content)) {
       return (
         <ExternalEmbed
           content={content}
@@ -86,18 +77,13 @@ export const Embed = ({
     }
 
     // Case 3: Record (quote or linked post)
-    if (AppBskyEmbedRecord.isView(content)) {
+    if (isType(app.bsky.embed.record.view, content)) {
       const record = content.record;
 
       // Case 3.1: Post
-      if (AppBskyEmbedRecord.isViewRecord(record)) {
+      if (isType(app.bsky.embed.record.viewRecord, record)) {
         let text;
-        if (
-          dangerousIsType<AppBskyFeedPost.Record>(
-            record.value,
-            AppBskyFeedPost.isRecord,
-          )
-        ) {
+        if (isType(app.bsky.feed.post, record.value)) {
           text = record.value.text;
         }
         return (
@@ -128,22 +114,22 @@ export const Embed = ({
       }
 
       // Case 3.2: List
-      if (AppBskyGraphDefs.isListView(record)) {
+      if (isType(app.bsky.graph.defs.listView, record)) {
         return <ListEmbed list={record} />;
       }
 
       // Case 3.3: Feed
-      if (AppBskyFeedDefs.isGeneratorView(record)) {
+      if (isType(app.bsky.feed.defs.generatorView, record)) {
         return <FeedGeneratorEmbed generator={record} />;
       }
 
       // Case 3.4: Post not found
-      if (AppBskyEmbedRecord.isViewNotFound(record)) {
+      if (isType(app.bsky.embed.record.viewNotFound, record)) {
         return <ViewNotFound depth={depth} />;
       }
 
       // Case 3.5: Post blocked
-      if (AppBskyEmbedRecord.isViewBlocked(record)) {
+      if (isType(app.bsky.embed.record.viewBlocked, record)) {
         return <ViewBlocked depth={depth} />;
       }
 
@@ -151,7 +137,7 @@ export const Embed = ({
     }
 
     // Case 4: Record with media
-    if (AppBskyEmbedRecordWithMedia.isView(content)) {
+    if (isType(app.bsky.embed.recordWithMedia.view, content)) {
       return (
         <View className="mt-1.5 flex-1 gap-x-1.5">
           <Embed uri={uri} content={content.media} depth={depth} />
@@ -168,7 +154,7 @@ export const Embed = ({
     }
 
     // Case 5: Video
-    if (AppBskyEmbedVideo.isView(content)) {
+    if (isType(app.bsky.embed.video.view, content)) {
       return <VideoEmbed key={content.playlist} video={content} />;
     }
 
@@ -199,7 +185,7 @@ export const PostEmbed = ({
   className,
   style,
 }: React.PropsWithChildren<{
-  post: AppBskyEmbedRecord.ViewRecord;
+  post: app.bsky.embed.record.ViewRecord;
   transparent?: boolean;
   className?: string;
   style?: ViewStyle;
@@ -287,7 +273,7 @@ export const PostEmbed = ({
 const FeedGeneratorEmbed = ({
   generator,
 }: {
-  generator: AppBskyFeedDefs.GeneratorView;
+  generator: app.bsky.feed.defs.GeneratorView;
 }) => {
   const theme = useTheme();
   const path = useAbsolutePath();
@@ -339,7 +325,7 @@ const FeedGeneratorEmbed = ({
   );
 };
 
-const ListEmbed = ({ list }: { list: AppBskyGraphDefs.ListView }) => {
+const ListEmbed = ({ list }: { list: app.bsky.graph.defs.ListView }) => {
   const theme = useTheme();
   const path = useAbsolutePath();
   const href = path(
@@ -347,10 +333,10 @@ const ListEmbed = ({ list }: { list: AppBskyGraphDefs.ListView }) => {
   );
   let purposeText = "List";
   switch (list.purpose) {
-    case AppBskyGraphDefs.MODLIST:
+    case "app.bsky.graph.defs#modlist":
       purposeText = "Moderation list";
       break;
-    case AppBskyGraphDefs.CURATELIST:
+    case "app.bsky.graph.defs#curatelist":
       purposeText = "User list";
       break;
   }

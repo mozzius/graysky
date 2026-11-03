@@ -38,9 +38,10 @@ export default function AuthLayout() {
           }}
         />
         <Stack.Screen
-          name="reset-password"
+          name="reauth"
           options={{
-            title: _(msg`Reset password`),
+            title: "",
+            headerTransparent: true,
           }}
         />
         <Stack.Screen

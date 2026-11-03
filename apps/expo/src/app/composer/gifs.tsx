@@ -18,7 +18,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import Sentry from "@sentry/react-native";
 import { FlashList } from "@shopify/flash-list";
-import { keepPreviousData } from "@tanstack/react-query";
+import { keepPreviousData, useMutation } from "@tanstack/react-query";
 
 import { type TenorResponse } from "@graysky/api/src/router/gifs";
 
@@ -34,6 +34,7 @@ import { locale } from "~/lib/locale";
 import { api } from "~/lib/utils/api";
 import { produce } from "~/lib/utils/produce";
 import { useUserRefresh } from "~/lib/utils/query";
+import { uploadBlob } from "~/lib/utils/upload-blob";
 
 const useDebounce = <T,>(value: T, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -197,12 +198,49 @@ const Gif = ({ item }: GifProps) => {
   const [, setComposerState] = useComposerState();
   const { _ } = useLingui();
 
-  const select = api.gifs.select.useMutation({
+  const selectGif = api.gifs.select.useMutation();
+
+  const select = useMutation({
+    mutationKey: ["select-gif", item.id],
     onMutate: () => haptics.impact(),
-    onSuccess: (result) => {
+    mutationFn: async () => {
+      const gif = await selectGif.mutateAsync({
+        id: item.id,
+        previewUrl: item.media_formats.gifpreview.url,
+        description: item.content_description,
+      });
+      // upload the thumbnail to the user's own PDS
+      const thumb = await uploadBlob(
+        agent,
+        `data:${gif.thumb.mimeType};base64,${gif.thumb.data}`,
+        gif.thumb.mimeType,
+      );
+      return { gif, thumb };
+    },
+    onSuccess: ({ gif, thumb }) => {
       setComposerState(
         produce((draft) => {
-          draft.gif = result;
+          draft.gif = {
+            view: {
+              $type: "app.bsky.embed.external#view",
+              external: {
+                $type: "app.bsky.embed.external#viewExternal",
+                uri: gif.uri,
+                title: gif.title,
+                description: gif.description,
+              },
+            },
+            main: {
+              $type: "app.bsky.embed.external",
+              external: {
+                $type: "app.bsky.embed.external#external",
+                uri: gif.uri,
+                title: gif.title,
+                description: gif.description,
+                thumb,
+              },
+            },
+          };
         }),
       );
       router.navigate("../");
@@ -224,17 +262,8 @@ const Gif = ({ item }: GifProps) => {
     <View className="mb-2 flex-1 px-1">
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
-        onPress={() => {
-          if (!agent.session)
-            throw new Error("No session when trying to select a gif");
-          select.mutate({
-            id: item.id,
-            assetUrl: item.media_formats.mp4.url,
-            previewUrl: item.media_formats.gifpreview.url,
-            description: item.content_description,
-            token: agent.session.accessJwt,
-          });
-        }}
+        disabled={select.isPending}
+        onPress={() => select.mutate()}
         onLongPress={() => showLinkOptions(item.url)}
         style={{ aspectRatio }}
       >

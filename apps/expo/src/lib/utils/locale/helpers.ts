@@ -1,9 +1,10 @@
 // yoinked from the official app
 
-import { AppBskyFeedPost, type AppBskyFeedDefs } from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import * as bcp47Match from "bcp-47-match";
 import lande from "lande";
 
+import { isType } from "~/lib/utils/types";
 import { LANGUAGES_MAP_CODE2, LANGUAGES_MAP_CODE3 } from "./languages";
 
 export function hasProp<K extends PropertyKey>(
@@ -33,7 +34,7 @@ export function codeToLanguageName(lang: string): string {
 }
 
 export function getPostLanguage(
-  post: AppBskyFeedDefs.PostView,
+  post: app.bsky.feed.defs.PostView,
 ): string | undefined {
   let candidates: string[] = [];
   let postText = "";
@@ -42,7 +43,7 @@ export function getPostLanguage(
   }
 
   if (
-    AppBskyFeedPost.isRecord(post.record) &&
+    isType(app.bsky.feed.post, post.record) &&
     hasProp(post.record, "langs") &&
     Array.isArray(post.record.langs)
   ) {
@@ -79,7 +80,7 @@ export function getPostLanguage(
 }
 
 export function isPostInLanguage(
-  post: AppBskyFeedDefs.PostView,
+  post: app.bsky.feed.defs.PostView,
   targetLangs: string[],
 ): boolean {
   const lang = getPostLanguage(post);

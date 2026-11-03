@@ -1,4 +1,6 @@
 import { Stack, useLocalSearchParams } from "expo-router";
+import { type HandleString } from "@atproto/lex";
+import { com } from "@bsky/sdk/lexicons";
 import { useQuery } from "@tanstack/react-query";
 
 import { QueryWithoutData } from "~/components/query-without-data";
@@ -36,8 +38,9 @@ const ResolveHandle = ({
   const resolve = useQuery({
     queryKey: ["resolve", handle],
     queryFn: async () => {
-      const { data } = await agent.resolveHandle({ handle });
-      return data;
+      return await agent.call(com.atproto.identity.resolveHandle, {
+        handle: handle as HandleString,
+      });
     },
   });
 

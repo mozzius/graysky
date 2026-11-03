@@ -3,31 +3,39 @@ import { useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getDefaultHeaderHeight } from "expo-router/react-navigation";
 import {
-  AppBskyFeedDefs,
-  BskyAgent,
-  type AppBskyActorDefs,
-} from "@atproto/api";
+  type AtIdentifierString,
+  type AtUriString,
+  type Client,
+  type HandleString,
+} from "@atproto/lex";
+import { app, com } from "@bsky/sdk/lexicons";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { useAgent } from "~/lib/agent";
+import { createClient, useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
+import { isType } from "~/lib/utils/types";
 
 export const useProfile = (handle?: string) => {
   const agent = useAgent();
 
-  const actor = handle ?? agent.session?.did;
+  const actor = handle ?? agent.did;
 
   const query = useQuery({
     queryKey: ["profile", actor],
-    queryFn: async (): Promise<AppBskyActorDefs.ProfileViewDetailed> => {
+    queryFn: async (): Promise<app.bsky.actor.defs.ProfileViewDetailed> => {
       // Gets actor profile
       if (!actor) throw new Error("Not logged in");
       const did = actor.startsWith("did:")
-        ? actor
-        : await agent.resolveHandle({ handle: actor }).then((x) => x.data.did);
-      const profile = await agent.getProfile({ actor: did });
-      if (!profile.success) throw new Error("Profile not found");
+        ? (actor as AtIdentifierString)
+        : await agent
+            .call(com.atproto.identity.resolveHandle, {
+              handle: actor as HandleString,
+            })
+            .then((x) => x.did);
+      const profile = await agent.call(app.bsky.actor.getProfile, {
+        actor: did,
+      });
 
       // // Get actor creation date based on his audit log creation date
       // const res = await fetch(`https://plc.directory/${did}/log/audit`);
@@ -36,12 +44,12 @@ export const useProfile = (handle?: string) => {
 
       //   if (profileAuditLog[0]?.createdAt) {
       //     return {
-      //       ...profile.data,
+      //       ...profile,
       //       createdAt: new Date(profileAuditLog[0].createdAt).toISOString(),
       //     };
       //   }
       // }
-      return profile.data;
+      return profile;
     },
   });
 
@@ -53,18 +61,17 @@ export const useProfile = (handle?: string) => {
 export const useProfileFeeds = (handle?: string) => {
   const agent = useAgent();
 
-  const actor = handle ?? agent.session?.did;
+  const actor = handle ?? agent.did;
 
   return useInfiniteQuery({
     queryKey: ["profile", actor, "feeds"],
     queryFn: async ({ pageParam }) => {
       if (!actor) throw new Error("Not logged in");
-      const feeds = await agent.app.bsky.feed.getActorFeeds({
-        actor,
+      const feeds = await agent.call(app.bsky.feed.getActorFeeds, {
+        actor: actor as AtIdentifierString,
         cursor: pageParam,
       });
-      if (!feeds.success) throw new Error("Feeds not found");
-      return feeds.data;
+      return feeds;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -78,7 +85,7 @@ export const useProfilePosts = (
   const agent = useAgent();
   const { preferences, contentFilter } = useContentFilter();
 
-  const actor = did ?? agent.session?.did;
+  const actor = did ?? agent.did;
 
   const timeline = useInfiniteQuery({
     queryKey: ["profile", actor, "feed", mode],
@@ -89,52 +96,54 @@ export const useProfilePosts = (
 
       switch (mode) {
         case "posts": {
-          const feed = await agent.getAuthorFeed({
-            actor,
+          const feed = await agent.call(app.bsky.feed.getAuthorFeed, {
+            actor: actor as AtIdentifierString,
             cursor: pageParam,
             filter: "posts_no_replies",
           });
-          ({ cursor, feed: posts } = feed.data);
+          ({ cursor, feed: posts } = feed);
           break;
         }
         case "replies": {
-          const feed = await agent.getAuthorFeed({
-            actor,
+          const feed = await agent.call(app.bsky.feed.getAuthorFeed, {
+            actor: actor as AtIdentifierString,
             cursor: pageParam,
             filter: "posts_with_replies",
           });
-          ({ cursor, feed: posts } = feed.data);
+          ({ cursor, feed: posts } = feed);
           break;
         }
         case "media": {
-          const feed = await agent.getAuthorFeed({
-            actor,
+          const feed = await agent.call(app.bsky.feed.getAuthorFeed, {
+            actor: actor as AtIdentifierString,
             cursor: pageParam,
             filter: "posts_with_media",
           });
-          ({ cursor, feed: posts } = feed.data);
+          ({ cursor, feed: posts } = feed);
           break;
         }
         case "likes": {
-          const specificAgent = new BskyAgent({
-            service: await getPds(actor, agent),
-          });
-          const list = await specificAgent.app.bsky.feed.like.list({
-            repo: actor,
+          const specificAgent = createClient(await getPds(actor, agent));
+          const list = await specificAgent.list(app.bsky.feed.like, {
+            repo: actor as AtIdentifierString,
             cursor: pageParam,
           });
 
           // split subjects into chunks of 25
           const subjectChunks = list.records
-            .filter((record) =>
-              record.value.subject.uri.includes("app.bsky.feed.post"),
+            .flatMap((record) =>
+              // skip records that failed validation
+              record.valid &&
+              record.value.subject.uri.includes("app.bsky.feed.post")
+                ? [record.value.subject.uri]
+                : [],
             )
-            .reduce<string[][]>(
-              (acc, record) => {
+            .reduce<AtUriString[][]>(
+              (acc, uri) => {
                 if (acc[acc.length - 1]!.length === 25) {
-                  acc.push([record.value.subject.uri]);
+                  acc.push([uri]);
                 } else {
-                  acc[acc.length - 1]!.push(record.value.subject.uri);
+                  acc[acc.length - 1]!.push(uri);
                 }
                 return acc;
               },
@@ -143,13 +152,13 @@ export const useProfilePosts = (
 
           const likes = await Promise.all(
             subjectChunks.map((chunk) =>
-              agent.getPosts({
+              agent.call(app.bsky.feed.getPosts, {
                 uris: chunk,
               }),
             ),
           ).then((x) =>
             x
-              .flatMap((x) => x.data.posts)
+              .flatMap((x) => x.posts)
               .map((post) => ({ post, reply: undefined, reason: undefined })),
           );
 
@@ -178,7 +187,8 @@ export const useProfilePosts = (
           return [{ item, hasReply: false, filter }];
         case "replies":
           if (item.reply && !item.reason) {
-            if (!AppBskyFeedDefs.isPostView(item.reply.parent)) return [];
+            if (!isType(app.bsky.feed.defs.postView, item.reply.parent))
+              return [];
 
             const parentFilter = contentFilter(item.reply.parent.labels);
             if (parentFilter?.visibility === "hide")
@@ -211,18 +221,17 @@ export const useDefaultHeaderHeight = () => {
 export const useProfileLists = (did?: string) => {
   const agent = useAgent();
 
-  const actor = did ?? agent.session?.did;
+  const actor = did ?? agent.did;
 
   const query = useInfiniteQuery({
     queryKey: ["profile", actor, "lists"],
     queryFn: async ({ pageParam }) => {
       if (!actor) throw new Error("Not logged in");
-      const lists = await agent.app.bsky.graph.getLists({
-        actor,
+      const lists = await agent.call(app.bsky.graph.getLists, {
+        actor: actor as AtIdentifierString,
         cursor: pageParam,
       });
-      if (!lists.success) throw new Error("Profile lists not found");
-      return lists.data;
+      return lists;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -231,12 +240,13 @@ export const useProfileLists = (did?: string) => {
   return query;
 };
 
-const getPds = async (handle: string, agent: BskyAgent) => {
+const getPds = async (handle: string, agent: Client) => {
   let did = handle;
   if (!did.startsWith("did:")) {
-    const resolution = await agent.resolveHandle({ handle });
-    if (!resolution.success) throw new Error("Handle not found");
-    did = resolution.data.did;
+    const resolution = await agent.call(com.atproto.identity.resolveHandle, {
+      handle: handle as HandleString,
+    });
+    did = resolution.did;
   }
   const res = await fetch(`https://plc.directory/${did}`);
   if (!res.ok) throw new Error("PDS not found");

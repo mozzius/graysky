@@ -10,7 +10,9 @@ import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { RichText as RichTextHelper } from "@atproto/api";
+import { currentDatetimeString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
+import { RichText as RichTextHelper } from "@bsky/sdk/richtext";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -104,26 +106,21 @@ export default function CreateListScreen() {
           }),
           "image/jpeg",
         );
-        avatarUrl = uploadedAvatar.data.blob;
+        avatarUrl = uploadedAvatar;
       }
 
-      await agent.app.bsky.graph.list.create(
-        {
-          repo: agent.assertDid,
-        },
-        {
-          name,
-          description: description.trim(),
-          descriptionFacets,
-          avatar: avatarUrl,
-          purpose: purpose ?? "app.bsky.graph.defs#curatelist",
-          createdAt: new Date().toISOString(),
-        },
-      );
+      await agent.create(app.bsky.graph.list, {
+        name,
+        description: description.trim(),
+        descriptionFacets,
+        avatar: avatarUrl,
+        purpose: purpose ?? "app.bsky.graph.defs#curatelist",
+        createdAt: currentDatetimeString(),
+      });
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: [agent.session?.did, "lists"],
+        queryKey: [agent.did, "lists"],
       });
       router.push("../");
     },

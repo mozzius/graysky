@@ -1,4 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { type AtIdentifierString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -13,15 +15,14 @@ const useFollowers = (actor?: string) => {
     queryKey: ["followers", actor],
     queryFn: async ({ pageParam }) => {
       if (!actor) return { people: [], cursor: undefined };
-      if (!agent.hasSession) throw new Error("Not logged in");
-      const followers = await agent.getFollowers({
-        actor,
+      if (!agent.did) throw new Error("Not logged in");
+      const followers = await agent.call(app.bsky.graph.getFollowers, {
+        actor: actor as AtIdentifierString,
         cursor: pageParam,
       });
-      if (!followers.success) throw new Error("Could not fetch followers");
       return {
-        people: followers.data.followers,
-        cursor: followers.data.cursor,
+        people: followers.followers,
+        cursor: followers.cursor,
       };
     },
     enabled: !!actor,

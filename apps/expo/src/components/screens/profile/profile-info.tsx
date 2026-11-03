@@ -19,11 +19,8 @@ import { BlurView } from "expo-blur";
 import { Image, ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import {
-  ComAtprotoModerationDefs,
-  type AppBskyActorDefs,
-  type AppBskyEmbedImages,
-} from "@atproto/api";
+import { deleteFollow, follow } from "@bsky/sdk";
+import { app, com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -41,7 +38,7 @@ import { TextButton } from "~/components/text-button";
 import { Translation } from "~/components/translation";
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useAccountActions } from "~/lib/account-actions";
-import { useAgent } from "~/lib/agent";
+import { useAgent, useSession } from "~/lib/agent";
 import { useHaptics, useProfileModeration } from "~/lib/hooks/preferences";
 import { locale } from "~/lib/locale";
 import { cx } from "~/lib/utils/cx";
@@ -57,12 +54,13 @@ export const INITIAL_HEADER_HEIGHT = 90;
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface Props {
-  profile: AppBskyActorDefs.ProfileViewDetailed;
+  profile: app.bsky.actor.defs.ProfileViewDetailed;
   backButton?: boolean;
 }
 
 export const ProfileInfo = ({ profile, backButton }: Props) => {
   const agent = useAgent();
+  const session = useSession();
   const router = useRouter();
   const { openFollows, openFollowers } = useLists();
   const [translateBio, setTranslateBio] = useState(false);
@@ -79,13 +77,13 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     mutationKey: ["follow", profile.did],
     mutationFn: async () => {
       if (profile.viewer?.following) {
-        await agent.deleteFollow(profile.viewer?.following);
+        await agent.call(deleteFollow, profile.viewer?.following);
         await queryClient.invalidateQueries({
           queryKey: ["profile", profile.did],
         });
         return "unfollowed";
       } else {
-        await agent.follow(profile.did);
+        await agent.call(follow, { did: profile.did });
         await queryClient.invalidateQueries({
           queryKey: ["profile", profile.did],
         });
@@ -123,7 +121,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             fullsize: profile.avatar,
             thumb: profile.avatar,
             aspectRatio: { width: 1, height: 1 },
-          } satisfies AppBskyEmbedImages.ViewImage,
+          } satisfies app.bsky.embed.images.ViewImage,
         ],
       );
     }
@@ -352,7 +350,7 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
             className="h-10 flex-row items-center justify-end"
             pointerEvents="box-none"
           >
-            {agent.session?.handle !== profile.handle ? (
+            {session?.handle !== profile.handle ? (
               !profile.viewer?.blocking && (
                 <View className="flex-row justify-end" pointerEvents="box-none">
                   <TouchableOpacity
@@ -639,7 +637,7 @@ const OwnProfileOptions = ({ profile }: Pick<Props, "profile">) => {
 };
 
 interface OtherProfileOptionsProps {
-  profile: AppBskyActorDefs.ProfileViewDetailed;
+  profile: app.bsky.actor.defs.ProfileViewDetailed;
   onTranslate: () => void;
 }
 
@@ -654,20 +652,25 @@ const OtherProfileOptions = ({
 
   // prettier-ignore
   const reportOptions = [
-    { label: _(msg`Frequently Posts Unwanted Content`), value: ComAtprotoModerationDefs.REASONSPAM },
-    { label: _(msg`Misleading Account`), value: ComAtprotoModerationDefs.REASONMISLEADING },
-    { label: _(msg`Name or Description Violates Community Standards`), value: ComAtprotoModerationDefs.REASONVIOLATION },
-    { label: _(msg`Other`), value: ComAtprotoModerationDefs.REASONOTHER },
+    { label: _(msg`Frequently Posts Unwanted Content`), value: "com.atproto.moderation.defs#reasonSpam" as const },
+    { label: _(msg`Misleading Account`), value: "com.atproto.moderation.defs#reasonMisleading" as const },
+    { label: _(msg`Name or Description Violates Community Standards`), value: "com.atproto.moderation.defs#reasonViolation" as const },
+    { label: _(msg`Other`), value: "com.atproto.moderation.defs#reasonOther" as const },
   ] as const;
 
-  const report = async (reasonType: ComAtprotoModerationDefs.ReasonType) => {
-    await agent.createModerationReport({
-      reasonType,
-      subject: {
-        $type: "com.atproto.admin.defs#repoRef",
-        did: profile.did,
+  const report = async (reasonType: com.atproto.moderation.defs.ReasonType) => {
+    await agent.call(
+      com.atproto.moderation.createReport,
+      {
+        reasonType,
+        subject: {
+          $type: "com.atproto.admin.defs#repoRef",
+          did: profile.did,
+        },
       },
-    });
+      // no proxy - the PDS forwards reports to its own report service
+      { service: null },
+    );
     showToastable({
       title: _(msg`Report submitted`),
       message: _(msg`Thank you for making the skyline a safer place`),

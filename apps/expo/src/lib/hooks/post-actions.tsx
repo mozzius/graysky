@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { deleteLike, deleteRepost, like, repost } from "@bsky/sdk";
+import { app } from "@bsky/sdk/lexicons";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -13,7 +14,7 @@ import { actionSheetStyles } from "../utils/action-sheet";
 import { useHaptics } from "./preferences";
 
 export const useLike = (
-  post: AppBskyFeedDefs.FeedViewPost["post"],
+  post: app.bsky.feed.defs.FeedViewPost["post"],
   updated: number,
 ) => {
   const agent = useAgent();
@@ -31,8 +32,11 @@ export const useLike = (
       if (!likeUri) {
         try {
           setLiked(true);
-          const like = await agent.like(post.uri, post.cid);
-          setLikeUri(like.uri);
+          const result = await agent.call(like, {
+            uri: post.uri,
+            cid: post.cid,
+          });
+          setLikeUri(result.uri);
         } catch (err) {
           setLiked(false);
           console.warn(err);
@@ -40,7 +44,7 @@ export const useLike = (
       } else {
         try {
           setLiked(false);
-          await agent.deleteLike(likeUri);
+          await agent.call(deleteLike, likeUri);
           setLikeUri(undefined);
         } catch (err) {
           setLiked(true);
@@ -68,7 +72,7 @@ export const useLike = (
 };
 
 export const useRepost = (
-  post: AppBskyFeedDefs.FeedViewPost["post"],
+  post: app.bsky.feed.defs.FeedViewPost["post"],
   updated: number,
 ) => {
   const agent = useAgent();
@@ -86,8 +90,11 @@ export const useRepost = (
       if (!repostUri) {
         try {
           setReposted(true);
-          const repost = await agent.repost(post.uri, post.cid);
-          setRepostUri(repost.uri);
+          const result = await agent.call(repost, {
+            uri: post.uri,
+            cid: post.cid,
+          });
+          setRepostUri(result.uri);
         } catch (err) {
           setReposted(false);
           console.warn(err);
@@ -95,7 +102,7 @@ export const useRepost = (
       } else {
         try {
           setReposted(false);
-          await agent.deleteRepost(repostUri);
+          await agent.call(deleteRepost, repostUri);
           setRepostUri(undefined);
         } catch (err) {
           setReposted(true);
@@ -124,7 +131,7 @@ export const useRepost = (
 };
 
 export const useHandleRepost = (
-  post: AppBskyFeedDefs.PostView,
+  post: app.bsky.feed.defs.PostView,
   reposted: boolean,
   toggleRepost: () => void,
   anchor?: number,

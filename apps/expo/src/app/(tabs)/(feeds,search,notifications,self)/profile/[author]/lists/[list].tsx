@@ -16,7 +16,14 @@ import { showToastable } from "react-native-toastable";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyGraphDefs, type AppBskyFeedDefs } from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import {
+  blockActorList,
+  muteActorList,
+  unblockActorList,
+  unmuteActorList,
+} from "@bsky/sdk";
+import { app, com } from "@bsky/sdk/lexicons";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -71,7 +78,7 @@ export default function ListsScreen() {
 
   if (list.data) {
     if (!info) return null;
-    if (info.purpose === AppBskyGraphDefs.CURATELIST) {
+    if (info.purpose === "app.bsky.graph.defs#curatelist") {
       return (
         <Tabs.Container
           renderHeader={renderHeader}
@@ -134,12 +141,11 @@ const useListQuery = (uri: string) => {
   return useInfiniteQuery({
     queryKey: ["list", uri, "info"],
     queryFn: async ({ pageParam }) => {
-      const res = await agent.app.bsky.graph.getList({
-        list: uri,
+      const res = await agent.call(app.bsky.graph.getList, {
+        list: uri as AtUriString,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error(_(msg`Could not fetch list`));
-      return res.data;
+      return res;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -151,7 +157,7 @@ const ListHeader = ({
   author,
   rkey,
 }: {
-  info: AppBskyGraphDefs.ListView;
+  info: app.bsky.graph.defs.ListView;
   author?: string;
   rkey?: string;
 }) => {
@@ -169,7 +175,7 @@ const ListHeader = ({
 
   const deleteList = useDeleteList(author, rkey);
 
-  const setViewerState = (viewer: AppBskyGraphDefs.ListViewerState) => {
+  const setViewerState = (viewer: app.bsky.graph.defs.ListViewerState) => {
     queryClient.setQueryData(
       ["list", info.uri, "info"],
       (old: ReturnType<typeof useListQuery>["data"]) => {
@@ -187,7 +193,7 @@ const ListHeader = ({
     mutationFn: () =>
       new Promise<string | null>((resolve) => {
         switch (info.purpose) {
-          case AppBskyGraphDefs.MODLIST:
+          case "app.bsky.graph.defs#modlist":
             if (info.viewer?.blocked || info.viewer?.muted) {
               showActionSheetWithOptions(
                 {
@@ -198,10 +204,10 @@ const ListHeader = ({
                 async (buttonIndex) => {
                   if (buttonIndex === 0) {
                     if (info.viewer?.muted) {
-                      await agent.unmuteModList(info.uri);
+                      await agent.call(unmuteActorList, { list: info.uri });
                     }
                     if (info.viewer?.blocked) {
-                      await agent.unblockModList(info.uri);
+                      await agent.call(unblockActorList, { list: info.uri });
                     }
                     setViewerState({
                       blocked: undefined,
@@ -229,12 +235,14 @@ const ListHeader = ({
                 async (buttonIndex) => {
                   switch (buttonIndex) {
                     case 0:
-                      await agent.muteModList(info.uri);
+                      await agent.call(muteActorList, { list: info.uri });
                       setViewerState({ muted: true });
                       resolve(_(msg`List muted`));
                       break;
                     case 1: {
-                      const block = await agent.blockModList(info.uri);
+                      const block = await agent.call(blockActorList, {
+                        list: info.uri,
+                      });
                       setViewerState({ blocked: block.uri });
                       resolve(_(msg`List blocked`));
                       break;
@@ -247,7 +255,7 @@ const ListHeader = ({
               );
             }
             break;
-          case AppBskyGraphDefs.CURATELIST:
+          case "app.bsky.graph.defs#curatelist":
             void toggleSave
               .mutateAsync({
                 pin: info.uri,
@@ -278,7 +286,7 @@ const ListHeader = ({
   let actionClass: string | null = null;
   let purposeClass = "bg-neutral-500";
   switch (info.purpose) {
-    case AppBskyGraphDefs.MODLIST:
+    case "app.bsky.graph.defs#modlist":
       purposeText = _(msg`Moderation list`);
       actionText = _(msg`Subscribe to list`);
       actionClass = "bg-blue-500";
@@ -291,7 +299,7 @@ const ListHeader = ({
         actionClass = "bg-red-500";
       }
       break;
-    case AppBskyGraphDefs.CURATELIST:
+    case "app.bsky.graph.defs#curatelist":
       purposeText = _(msg`User list`);
       purposeClass = "bg-blue-500";
       actionText = _(msg`Add to favourites`);
@@ -305,9 +313,9 @@ const ListHeader = ({
 
   const handleOptions = () => {
     if (!info) return;
-    if (info.creator.did === agent.session?.did) {
+    if (info.creator.did === agent.did) {
       const options = [
-        info.purpose === AppBskyGraphDefs.CURATELIST
+        info.purpose === "app.bsky.graph.defs#curatelist"
           ? _(msg`Change to moderation list`)
           : _(msg`Change to user list`),
         _(msg`Share`),
@@ -354,31 +362,31 @@ const ListHeader = ({
             case _(msg`Change to user list`):
               // unmute and unblock before changing type
               if (info.viewer?.muted) {
-                await agent.unmuteModList(info.uri);
+                await agent.call(unmuteActorList, { list: info.uri });
               }
               if (info.viewer?.blocked) {
-                await agent.unblockModList(info.uri);
+                await agent.call(unblockActorList, { list: info.uri });
               }
             // eslint-disable-next-line no-fallthrough
             case _(msg`Change to moderation list`): {
               const collection = "app.bsky.graph.list";
               const repo = agent.assertDid;
               const rkey = info.uri.split("/").pop()!;
-              const record = await agent.com.atproto.repo.getRecord({
+              const record = await agent.call(com.atproto.repo.getRecord, {
                 collection,
                 repo,
                 rkey,
               });
-              await agent.com.atproto.repo.putRecord({
+              await agent.call(com.atproto.repo.putRecord, {
                 collection,
                 repo,
                 rkey,
                 record: {
-                  ...record.data.value,
+                  ...record.value,
                   purpose:
-                    info.purpose === AppBskyGraphDefs.CURATELIST
-                      ? AppBskyGraphDefs.MODLIST
-                      : AppBskyGraphDefs.CURATELIST,
+                    info.purpose === "app.bsky.graph.defs#curatelist"
+                      ? "app.bsky.graph.defs#modlist"
+                      : "app.bsky.graph.defs#curatelist",
                 },
               });
               await queryClient.refetchQueries({
@@ -489,7 +497,7 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
   const data = query.data.pages.flatMap((page) => page.items);
 
   return (
-    <Tabs.FlashList<AppBskyGraphDefs.ListItemView>
+    <Tabs.FlashList<app.bsky.graph.defs.ListItemView>
       removeClippedSubviews
       data={data}
       renderItem={({ item }) => <ListMemberItem item={item} />}
@@ -512,7 +520,11 @@ const ListMembers = ({ query }: { query: ReturnType<typeof useListQuery> }) => {
   );
 };
 
-const ListMemberItem = ({ item }: { item: AppBskyGraphDefs.ListItemView }) => {
+const ListMemberItem = ({
+  item,
+}: {
+  item: app.bsky.graph.defs.ListItemView;
+}) => {
   const theme = useTheme();
 
   const moderation = useProfileModeration(item.subject);
@@ -558,19 +570,18 @@ const ListFeed = ({ uri }: { uri: string }) => {
   const query = useInfiniteQuery({
     queryKey: ["list", uri, "feed"],
     queryFn: async ({ pageParam }) => {
-      const res = await agent.app.bsky.feed.getListFeed({
-        list: uri,
+      const res = await agent.call(app.bsky.feed.getListFeed, {
+        list: uri as AtUriString,
         cursor: pageParam,
       });
-      if (!res.success) throw new Error(_(msg`Could not fetch list feed`));
-      return res.data;
+      return res;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   const [ref, onScroll] = useTabPressScrollRef<{
-    item: AppBskyFeedDefs.FeedViewPost;
+    item: app.bsky.feed.defs.FeedViewPost;
     filter: FilterResult;
   }>(query.refetch, { setScrollDir });
 
@@ -606,7 +617,7 @@ const ListFeed = ({ uri }: { uri: string }) => {
     return (
       <>
         <Tabs.FlashList<{
-          item: AppBskyFeedDefs.FeedViewPost;
+          item: app.bsky.feed.defs.FeedViewPost;
           filter: FilterResult;
         }>
           removeClippedSubviews
@@ -660,16 +671,7 @@ const useDeleteList = (handle?: string, rkey?: string) => {
   return useMutation({
     mutationFn: async () => {
       if (!handle || !rkey) throw new Error("Missing route params");
-      await agent.com.atproto.repo.applyWrites({
-        repo: handle,
-        writes: [
-          {
-            $type: "com.atproto.repo.applyWrites#delete",
-            collection: "app.bsky.graph.list",
-            rkey: rkey,
-          },
-        ],
-      });
+      await agent.delete(app.bsky.graph.list, { rkey });
     },
     onSuccess: () => {
       router.back();

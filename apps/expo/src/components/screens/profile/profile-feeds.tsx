@@ -4,7 +4,7 @@ import { Tabs } from "react-native-collapsible-tab-view";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { ChevronRightIcon, HeartIcon } from "lucide-react-native";
 
 import { ListFooterComponent } from "~/components/list-footer";
@@ -76,7 +76,7 @@ const Feed = ({
   likeCount,
   viewer,
   // dataUpdatedAt is only passed to re-render when the query refreshes
-}: AppBskyFeedDefs.GeneratorView & { dataUpdatedAt: number }) => {
+}: app.bsky.feed.defs.GeneratorView & { dataUpdatedAt: number }) => {
   const theme = useTheme();
   const path = useAbsolutePath();
   const href = path(`/profile/${creator.did}/feed/${uri.split("/").pop()}`);

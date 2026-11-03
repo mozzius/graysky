@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 import { RefreshControl, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { BskyAgent, type AppBskyFeedDefs } from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -15,7 +16,7 @@ import { ListFooterComponent } from "~/components/list-footer";
 import { Menu } from "~/components/menu";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
-import { useAgent } from "~/lib/agent";
+import { createClient, useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
 import { useUserRefresh } from "~/lib/utils/query";
 
@@ -35,7 +36,7 @@ export default function TagScreen() {
   if (!tag) throw new Error("No tag provided");
   const decodedTag = decodeURIComponent(tag);
   const skyfeedAgent = useMemo(() => {
-    return new BskyAgent({ service: "https://skyfeed.me" });
+    return createClient("https://skyfeed.me");
   }, []);
   const agent = useAgent();
   const { contentFilter, preferences } = useContentFilter();
@@ -48,31 +49,29 @@ export default function TagScreen() {
   const feed = useInfiniteQuery({
     queryKey: ["feed", "tag", decodedTag, mode],
     queryFn: async ({ pageParam }) => {
-      const rawPosts = await skyfeedAgent.app.bsky.feed.getFeedSkeleton({
-        feed: `at://skyfeed:tags/app.bsky.feed.generator/${decodedTag.toLocaleLowerCase()}-${mode}`,
+      const rawPosts = await skyfeedAgent.call(app.bsky.feed.getFeedSkeleton, {
+        feed: `at://skyfeed:tags/app.bsky.feed.generator/${decodedTag.toLocaleLowerCase()}-${mode}` as AtUriString,
         cursor: pageParam,
       });
-      if (!rawPosts.success) throw new Error(_(msg`Failed to fetch feed`));
       // split to chunks of 25
-      const chunks = rawPosts.data.feed.reduce((acc, post, i) => {
+      const chunks = rawPosts.feed.reduce((acc, post, i) => {
         if (i % 25 === 0) acc.push([]);
         acc[acc.length - 1]!.push(post);
         return acc;
-      }, [] as AppBskyFeedDefs.SkeletonFeedPost[][]);
+      }, [] as app.bsky.feed.defs.SkeletonFeedPost[][]);
 
       const hydratedPosts = await Promise.all(
         chunks.map(async (chunk) => {
-          const posts = await agent.app.bsky.feed.getPosts({
+          const posts = await agent.call(app.bsky.feed.getPosts, {
             uris: chunk.map((post) => post.post),
           });
-          if (!posts.success) throw new Error(_(msg`Failed to hydrate feed`));
-          return posts.data.posts;
+          return posts.posts;
         }),
       );
 
       return {
         posts: hydratedPosts.flat(),
-        cursor: rawPosts.data.cursor,
+        cursor: rawPosts.cursor,
       };
     },
     initialPageParam: undefined as string | undefined,

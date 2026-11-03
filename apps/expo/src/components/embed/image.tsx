@@ -9,7 +9,7 @@ import {
 import { type ImageStyle } from "expo-image";
 import { Link } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyEmbedImages } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ import { ImageWithContextMenu } from "../image-with-context-menu";
 
 interface Props {
   uri: string;
-  content: AppBskyEmbedImages.View;
+  content: app.bsky.embed.images.View;
   depth: number;
   isNotification: boolean;
 }
@@ -165,7 +165,7 @@ export const ImageEmbed = ({ uri, content, depth, isNotification }: Props) => {
 };
 
 interface ImageProps {
-  image: AppBskyEmbedImages.ViewImage;
+  image: app.bsky.embed.images.ViewImage;
   href: string;
   depth: number;
   index?: number;
