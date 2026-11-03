@@ -1,35 +1,23 @@
 import { useState } from "react";
-import { ActivityIndicator, Alert, Platform, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition,
-} from "react-native-reanimated";
+import { Alert, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useTheme } from "expo-router/react-navigation";
 import { type HandleString } from "@atproto/lex";
 import { com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CheckIcon } from "lucide-react-native";
 
-import { ListGroup } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import {
   HandleAvailabilityResult,
   useHandleAvailability,
 } from "~/components/handle-availability";
-import { ItemSeparator } from "~/components/item-separator";
-import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
-import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent, useAuth, useSession } from "~/lib/agent";
 
 export default function ChangeHandle() {
-  const theme = useTheme();
   const agent = useAgent();
   const session = useSession();
   const { refreshSession } = useAuth();
@@ -81,103 +69,77 @@ export default function ChangeHandle() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <KeyboardAwareScrollView
-        className="flex-1 px-4"
-        contentInsetAdjustmentBehavior="automatic"
-        style={Platform.select({
-          android: { backgroundColor: theme.colors.card },
-        })}
-      >
-        <View className="my-4 flex-1">
-          <Text className="mx-4 mb-1.5 mt-2 text-xs uppercase text-neutral-500">
-            <Trans>Domain</Trans>
-          </Text>
-          <ListGroup
-            options={[
+      <Form
+        sections={[
+          {
+            title: _(msg`Domain`),
+            rows: [
               {
                 title: _(msg`bsky.social domain`),
-                icon: CheckIcon,
+                selected: true,
               },
               {
                 title: _(msg`Custom domain`),
-                icon: "SPACE",
                 onPress: () =>
                   Alert.alert(
                     _(msg`Not yet implemented`),
                     _(msg`Please use the official app in the meantime. Sorry!`),
                   ),
               },
-            ]}
-          />
-          <Text className="mx-4 mb-1.5 mt-8 text-xs uppercase text-neutral-500">
-            <Trans>Choose a handle</Trans>
-          </Text>
-          <View
-            style={{ backgroundColor: theme.colors.card }}
-            className="flex-1 overflow-hidden rounded-lg"
-          >
-            <TextInput
-              value={handle}
-              autoComplete="username"
-              autoCapitalize="none"
-              readOnly={changeHandle.isPending}
-              maxLength={20}
-              onChange={(evt) => {
-                setHandle(evt.nativeEvent.text.toLocaleLowerCase());
-                changeHandle.reset();
-              }}
-              className="flex-1 flex-row items-center px-4 py-3 text-base leading-5"
-              autoFocus
-            />
-            {Platform.OS === "android" && <ItemSeparator />}
-          </View>
-          {handle && (
-            <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
-              layout={LinearTransition}
-            >
-              <Text className="mx-4 mt-3 text-sm text-neutral-500">
-                <Trans>
-                  Your handle will be:{" "}
-                  <Text className="font-bold">@{derivedHandle}</Text>
-                </Trans>
-              </Text>
-            </Animated.View>
-          )}
-          {handle.length >= 3 && (
-            <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
-              layout={LinearTransition}
-              className="mx-4 mt-2 items-start"
-            >
-              <HandleAvailabilityResult
-                query={resolveHandle}
-                handle={derivedHandle}
-                success={
-                  changeHandle.isSuccess || session?.handle === derivedHandle
-                }
-              />
-            </Animated.View>
-          )}
-        </View>
-        <Animated.View
-          className="flex-row items-center justify-end pt-2"
-          layout={LinearTransition}
-        >
-          {!changeHandle.isPending ? (
-            <TextButton
-              disabled={resolveHandle.data !== "available"}
-              onPress={() => changeHandle.mutate()}
-              title={_(msg`Save`)}
-              className="font-medium"
-            />
-          ) : (
-            <ActivityIndicator className="px-2" />
-          )}
-        </Animated.View>
-      </KeyboardAwareScrollView>
+            ],
+          },
+          {
+            title: _(msg`Choose a handle`),
+            rows: [
+              {
+                type: "textField",
+                key: "handle",
+                value: handle,
+                textContentType: "username",
+                autoCapitalize: "none",
+                disabled: changeHandle.isPending,
+                maxLength: 20,
+                onChangeText: (text) => {
+                  setHandle(text.toLocaleLowerCase());
+                  changeHandle.reset();
+                },
+                autoFocus: true,
+              },
+            ],
+            footer: !!handle && (
+              <View className="items-start gap-y-2">
+                <Text className="text-sm text-neutral-500">
+                  <Trans>
+                    Your handle will be:{" "}
+                    <Text className="font-bold">@{derivedHandle}</Text>
+                  </Trans>
+                </Text>
+                {handle.length >= 3 && (
+                  <HandleAvailabilityResult
+                    query={resolveHandle}
+                    handle={derivedHandle}
+                    success={
+                      changeHandle.isSuccess ||
+                      session?.handle === derivedHandle
+                    }
+                  />
+                )}
+              </View>
+            ),
+          },
+          {
+            rows: [
+              {
+                type: "button",
+                title: _(msg`Save`),
+                disabled: resolveHandle.data !== "available",
+                loading: changeHandle.isPending,
+                onPress: () => changeHandle.mutate(),
+              },
+            ],
+          },
+        ]}
+      />
     </TransparentHeaderUntilScrolled>
   );
 }
