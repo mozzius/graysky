@@ -3,7 +3,7 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -18,6 +18,7 @@ import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
+import { getPopularFeedGenerators } from "~/lib/unspecced";
 import { useUserRefresh } from "~/lib/utils/query";
 import { isIOS26 } from "~/lib/utils/version";
 
@@ -32,29 +33,25 @@ const FeedSearch = ({ search }: Props) => {
   const query = useInfiniteQuery({
     queryKey: ["feed-search", search],
     queryFn: async ({ pageParam }) => {
-      const feeds = await agent.app.bsky.unspecced.getPopularFeedGenerators({
+      return await agent.call(getPopularFeedGenerators, {
         query: search,
         cursor: pageParam,
       });
-
-      if (!feeds.success) throw new Error("Failed to fetch feeds");
-      return feeds.data;
     },
     placeholderData: keepPreviousData,
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
-  const [ref, onScroll] = useTabPressScrollRef<AppBskyFeedDefs.GeneratorView>(
-    query.refetch,
-  );
+  const [ref, onScroll] =
+    useTabPressScrollRef<app.bsky.feed.defs.GeneratorView>(query.refetch);
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
 
   const data = query.data?.pages.flatMap((page) => page.feeds) ?? [];
 
   if (query.data) {
     return (
-      <FlashList<AppBskyFeedDefs.GeneratorView>
+      <FlashList<app.bsky.feed.defs.GeneratorView>
         removeClippedSubviews
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}

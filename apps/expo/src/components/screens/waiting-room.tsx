@@ -3,30 +3,30 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { useAgent } from "~/lib/agent";
+import { useAgent, useAuth } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
+import { checkSignupQueue } from "~/lib/unspecced";
 import { Button } from "../button";
 import { Confetti } from "../confetti";
 import { Text } from "../themed/text";
 
 export const WaitingRoom = () => {
   const agent = useAgent();
+  const { refreshSession } = useAuth();
   const logOut = useLogOut();
 
   const queue = useQuery({
     queryKey: ["waiting-room"],
     queryFn: async () => {
-      if (!agent?.hasSession) return null;
-      const queue = await agent.com.atproto.temp.checkSignupQueue();
-      if (!queue.success) throw new Error("Failed to fetch queue");
-      return queue.data;
+      if (!agent?.did) return null;
+      return await agent.call(checkSignupQueue);
     },
     refetchInterval: 5000,
   });
 
   const { mutate: logIn } = useMutation({
     mutationFn: async () => {
-      await agent.sessionManager.refreshSession();
+      await refreshSession();
     },
   });
 

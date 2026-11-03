@@ -11,6 +11,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack, usePathname, useRouter, useSegments } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
+import { type AtIdentifierString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -29,7 +31,7 @@ import { DrawerContent } from "~/components/drawer/drawer-content";
 import { StatusBar } from "~/components/status-bar";
 import { SwitchAccounts } from "~/components/switch-accounts";
 import { Text } from "~/components/themed/text";
-import { useOptionalAgent } from "~/lib/agent";
+import { useOptionalAgent, useSession } from "~/lib/agent";
 import { useBottomSheetStyles } from "~/lib/bottom-sheet";
 import { useNotifications } from "~/lib/hooks/notifications";
 import { useHaptics } from "~/lib/hooks/preferences";
@@ -39,6 +41,7 @@ import { useRefreshOnFocus } from "~/lib/utils/query";
 export default function AppLayout() {
   // agent might not be available yet
   const agent = useOptionalAgent();
+  const session = useSession();
   const [open, setOpen] = useState(false);
   const { _ } = useLingui();
 
@@ -47,14 +50,12 @@ export default function AppLayout() {
   const notifications = useQuery({
     queryKey: ["notifications", "unread"],
     queryFn: async () => {
-      if (!agent?.hasSession) return null;
-      const unreadCount = await agent.countUnreadNotifications();
-      if (!unreadCount.success)
-        throw new Error("Failed to fetch notifications");
-      await Notifications.setBadgeCountAsync(
-        Math.min(unreadCount.data.count, 30),
+      if (!agent?.did) return null;
+      const unreadCount = await agent.call(
+        app.bsky.notification.getUnreadCount,
       );
-      return unreadCount.data;
+      await Notifications.setBadgeCountAsync(Math.min(unreadCount.count, 30));
+      return unreadCount;
     },
     // refetch every 15 seconds
     refetchInterval: 1000 * 15,
@@ -120,7 +121,7 @@ export default function AppLayout() {
         </Text>
         <BottomSheetScrollView style={contentContainerStyle}>
           <SwitchAccounts
-            active={agent?.session?.did}
+            active={agent?.did}
             onSuccessfulSwitch={dismissSheet}
           />
         </BottomSheetScrollView>
@@ -225,22 +226,24 @@ export default function AppLayout() {
             }}
             listeners={{
               tabPress: () => {
-                if (agent?.hasSession) {
+                if (agent?.did) {
                   if (segments.at(-2) === "profile") {
                     const actor = pathname.split("/").pop()!;
                     try {
                       if (actor.startsWith("did:")) {
-                        if (actor === agent.session?.did)
+                        if (actor === agent.did)
                           throw new Error("Cannot mention yourself");
-                        void agent.getProfile({ actor }).then((profile) => {
-                          if (!profile.success)
-                            throw new Error("Failed to fetch profile");
-                          router.push(
-                            `/composer/?initialText=@${profile.data.handle}`,
-                          );
-                        });
+                        void agent
+                          .call(app.bsky.actor.getProfile, {
+                            actor: actor as AtIdentifierString,
+                          })
+                          .then((profile) => {
+                            router.push(
+                              `/composer/?initialText=@${profile.handle}`,
+                            );
+                          });
                       } else {
-                        if (actor === agent.session?.handle)
+                        if (actor === session?.handle)
                           throw new Error("Cannot mention yourself");
                         router.push(`/composer/?initialText=@${actor}`);
                       }

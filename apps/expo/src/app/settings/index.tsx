@@ -24,6 +24,7 @@ export default function SettingsPage() {
   const isPro = useIsPro();
   const enableNotifications = useEnableNotifications();
   const { _ } = useLingui();
+  const did = agent?.did;
 
   const groups = useMemo(
     () =>
@@ -95,7 +96,7 @@ export default function SettingsPage() {
   return (
     <GroupedList groups={groups}>
       <View className="mb-4 flex-1">
-        <SwitchAccounts active={agent?.session?.did} showAddAccount />
+        <SwitchAccounts active={did} showAddAccount />
       </View>
     </GroupedList>
   );

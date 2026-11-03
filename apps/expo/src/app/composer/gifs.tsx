@@ -14,6 +14,8 @@ import { showToastable } from "react-native-toastable";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import { useVideoPlayer, VideoView } from "expo-video";
+import { $typed, lexParse } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import Sentry from "@sentry/react-native";
@@ -25,7 +27,7 @@ import { type TenorResponse } from "@graysky/api/src/router/gifs";
 import { ListFooterComponent } from "~/components/list-footer";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
-import { useAgent } from "~/lib/agent";
+import { useSession } from "~/lib/agent";
 import { useComposerState } from "~/lib/composer/state";
 import { useLinkPress } from "~/lib/hooks/link-press";
 import { useHaptics } from "~/lib/hooks/preferences";
@@ -192,7 +194,7 @@ interface GifProps {
 const Gif = ({ item }: GifProps) => {
   const router = useRouter();
   const haptics = useHaptics();
-  const agent = useAgent();
+  const session = useSession();
   const { showLinkOptions } = useLinkPress();
   const [, setComposerState] = useComposerState();
   const { _ } = useLingui();
@@ -202,7 +204,19 @@ const Gif = ({ item }: GifProps) => {
     onSuccess: (result) => {
       setComposerState(
         produce((draft) => {
-          draft.gif = result;
+          draft.gif = {
+            view: result.view,
+            // the thumb blob ref comes back json encoded, so decode it
+            main: $typed(
+              app.bsky.embed.external.$parse(
+                lexParse(JSON.stringify(result.main)),
+                {
+                  strict: false,
+                },
+              ),
+              app.bsky.embed.external.$type,
+            ),
+          };
         }),
       );
       router.navigate("../");
@@ -225,14 +239,14 @@ const Gif = ({ item }: GifProps) => {
       <TouchableHighlight
         className="relative w-full flex-1 rounded-lg"
         onPress={() => {
-          if (!agent.session)
+          if (!session)
             throw new Error("No session when trying to select a gif");
           select.mutate({
             id: item.id,
             assetUrl: item.media_formats.mp4.url,
             previewUrl: item.media_formats.gifpreview.url,
             description: item.content_description,
-            token: agent.session.accessJwt,
+            token: session.accessJwt,
           });
         }}
         onLongPress={() => showLinkOptions(item.url)}

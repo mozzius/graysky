@@ -1,4 +1,4 @@
-import { type ComAtprotoServerDefs } from "@atproto/api";
+import { app, type com } from "@bsky/sdk/lexicons";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProfileList } from "~/components/profile-list";
@@ -7,7 +7,7 @@ import { useAgent } from "~/lib/agent";
 import { useInviteCodes } from "./_layout";
 
 interface Props {
-  people: ComAtprotoServerDefs.InviteCodeUse[];
+  people: com.atproto.server.defs.InviteCodeUse[];
 }
 
 const Invitees = ({ people }: Props) => {
@@ -21,7 +21,7 @@ const Invitees = ({ people }: Props) => {
         .sort(
           (a, b) => new Date(b.usedAt).getTime() - new Date(a.usedAt).getTime(),
         )
-        .reduce<ComAtprotoServerDefs.InviteCodeUse[][]>(
+        .reduce<com.atproto.server.defs.InviteCodeUse[][]>(
           (acc, x) => {
             if (acc[acc.length - 1]!.length >= 25) {
               acc.push([]);
@@ -33,11 +33,10 @@ const Invitees = ({ people }: Props) => {
         );
       const profiles = await Promise.all(
         groups.map(async (group) => {
-          const res = await agent.app.bsky.actor.getProfiles({
+          const res = await agent.call(app.bsky.actor.getProfiles, {
             actors: group.map((x) => x.usedBy),
           });
-          if (!res.success) throw new Error("Could not get profiles");
-          return res.data;
+          return res;
         }),
       );
 

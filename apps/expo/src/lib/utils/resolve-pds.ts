@@ -1,4 +1,7 @@
-import { defaultAgent } from "../agent";
+import { type HandleString } from "@atproto/lex";
+import { com } from "@bsky/sdk/lexicons";
+
+import { publicClient } from "../agent";
 
 interface DidDocument {
   service?: {
@@ -65,12 +68,12 @@ export async function resolvePdsUrl(identifier: string): Promise<string> {
 
   try {
     // Resolve handle to DID
-    const resolution = await defaultAgent.resolveHandle({ handle });
-    if (!resolution.success) {
-      return "https://bsky.social";
-    }
+    const resolution = await publicClient.call(
+      com.atproto.identity.resolveHandle,
+      { handle: handle as HandleString },
+    );
 
-    return resolvePdsFromDid(resolution.data.did);
+    return resolvePdsFromDid(resolution.did);
   } catch {
     // Fall through to default
   }

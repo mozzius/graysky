@@ -10,6 +10,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
+import { com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -21,13 +22,14 @@ import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent } from "~/lib/agent";
+import { useAgent, useSession } from "~/lib/agent";
 import { useLogOut } from "~/lib/log-out-context";
 import { useSelf } from ".";
 
 export default function DeleteAccount() {
   const theme = useTheme();
   const agent = useAgent();
+  const session = useSession();
   const router = useRouter();
   const { _ } = useLingui();
 
@@ -41,7 +43,7 @@ export default function DeleteAccount() {
   const sendEmail = useMutation({
     mutationKey: ["send-delete-email"],
     mutationFn: async () => {
-      await agent.com.atproto.server.requestAccountDelete();
+      await agent.call(com.atproto.server.requestAccountDelete);
     },
     onSettled: () => setStage(2),
   });
@@ -49,9 +51,9 @@ export default function DeleteAccount() {
   const changePassword = useMutation({
     mutationKey: ["delete-account"],
     mutationFn: async () => {
-      if (!agent.session) throw Error("No session");
-      await agent.com.atproto.server.deleteAccount({
-        did: agent.session.did,
+      if (!agent.did) throw Error("No session");
+      await agent.call(com.atproto.server.deleteAccount, {
+        did: agent.did,
         password,
         token: token.trim(),
       });
@@ -158,7 +160,7 @@ export default function DeleteAccount() {
                     {self.data?.displayName}
                   </Text>
                   <Text className="text-sm">
-                    @{self.data?.handle ?? agent?.session?.handle}
+                    @{self.data?.handle ?? session?.handle}
                   </Text>
                 </View>
               </View>

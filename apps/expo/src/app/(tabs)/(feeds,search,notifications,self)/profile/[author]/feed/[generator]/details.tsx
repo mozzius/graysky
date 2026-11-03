@@ -10,7 +10,9 @@ import {
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { deleteLike, like } from "@bsky/sdk";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -81,7 +83,7 @@ const FeedInfo = ({
   info,
 }: {
   feed: string;
-  info: AppBskyFeedGetFeedGenerator.OutputSchema;
+  info: app.bsky.feed.getFeedGenerator.$OutputBody;
 }) => {
   const agent = useAgent();
   const savedFeeds = useSavedFeeds();
@@ -100,9 +102,12 @@ const FeedInfo = ({
     onMutate: () => haptics.impact(),
     mutationFn: async () => {
       if (info.view.viewer?.like) {
-        await agent.deleteLike(info.view.viewer.like);
+        await agent.call(deleteLike, info.view.viewer.like);
       } else {
-        await agent.like(info.view.uri, info.view.cid);
+        await agent.call(like, {
+          uri: info.view.uri,
+          cid: info.view.cid,
+        });
       }
     },
     onSettled: () =>
@@ -112,25 +117,23 @@ const FeedInfo = ({
   const creator = useQuery({
     queryKey: ["profile", info.view.creator.did, "with-some-feeds"],
     queryFn: async () => {
-      const profile = await agent.getProfile({
+      const profile = await agent.call(app.bsky.actor.getProfile, {
         actor: info.view.creator.did,
       });
-      if (!profile.success) throw new Error("Profile not found");
-      const feeds = await agent.app.bsky.feed.getActorFeeds({
+      const feeds = await agent.call(app.bsky.feed.getActorFeeds, {
         actor: info.view.creator.did,
         limit: 6,
       });
-      if (!feeds.success) throw new Error("Could not get feeds");
       return {
-        profile: profile.data,
-        feeds: feeds.data.feeds,
+        profile,
+        feeds: feeds.feeds,
       };
     },
   });
 
   if (savedFeeds.data) {
-    const isSaved = savedFeeds.data.saved.includes(feed);
-    const isPinned = savedFeeds.data.pinned.includes(feed);
+    const isSaved = savedFeeds.data.saved.includes(feed as AtUriString);
+    const isPinned = savedFeeds.data.pinned.includes(feed as AtUriString);
 
     return (
       <ScrollView className="flex-1" contentInsetAdjustmentBehavior="automatic">

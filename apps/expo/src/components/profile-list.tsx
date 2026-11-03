@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { FlashList } from "@shopify/flash-list";
 
 import { ItemSeparator } from "./item-separator";
@@ -8,7 +8,7 @@ import { PersonRow } from "./lists/person-row";
 import { Text } from "./themed/text";
 
 type Profile =
-  AppBskyActorDefs.ProfileView | AppBskyActorDefs.ProfileViewDetailed;
+  app.bsky.actor.defs.ProfileView | app.bsky.actor.defs.ProfileViewDetailed;
 
 interface Props {
   profiles: Profile[];

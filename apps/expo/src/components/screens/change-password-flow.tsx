@@ -3,6 +3,7 @@ import { ActivityIndicator, ScrollView, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import { useTheme } from "expo-router/react-navigation";
+import { com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -47,7 +48,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
   const sendEmail = useMutation({
     mutationKey: ["send-reset-email"],
     mutationFn: async () => {
-      await agent.com.atproto.server.requestPasswordReset({
+      await agent.call(com.atproto.server.requestPasswordReset, {
         email,
       });
     },
@@ -60,7 +61,7 @@ export const ChangePasswordFlow = ({ defaultEmail = "" }: Props) => {
       if (newPassword.length < 8) {
         throw new PasswordError(_(msg`Password must be at least 8 characters`));
       }
-      await agent.com.atproto.server.resetPassword({
+      await agent.call(com.atproto.server.resetPassword, {
         password: newPassword,
         token: token.trim(),
       });

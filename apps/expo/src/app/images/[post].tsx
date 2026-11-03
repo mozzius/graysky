@@ -3,11 +3,8 @@ import { TouchableOpacity, View } from "react-native";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import {
-  AppBskyEmbedImages,
-  AppBskyEmbedRecordWithMedia,
-  AppBskyFeedDefs,
-} from "@atproto/api";
+import { type AtIdentifierString, type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +13,7 @@ import { XIcon } from "lucide-react-native";
 import { ImageViewer } from "~/components/image-viewer";
 import { StatusBar } from "~/components/status-bar";
 import { useAgent } from "~/lib/agent";
+import { isType } from "~/lib/utils/types";
 
 export default function ImageModal() {
   const agent = useAgent();
@@ -31,37 +29,39 @@ export default function ImageModal() {
     queryFn: async () => {
       if (source.startsWith("did:")) {
         // profile avatar
-        const profile = await agent.getProfile({
-          actor: source,
+        const profile = await agent.call(app.bsky.actor.getProfile, {
+          actor: source as AtIdentifierString,
         });
 
-        if (!profile.data.avatar) throw new Error("No avatar");
+        if (!profile.avatar) throw new Error("No avatar");
         return [
           {
-            alt: profile.data.displayName ?? `@${profile.data.handle}`,
-            fullsize: profile.data.avatar,
-            thumb: profile.data.avatar,
-          } satisfies AppBskyEmbedImages.ViewImage,
+            alt: profile.displayName ?? `@${profile.handle}`,
+            fullsize: profile.avatar,
+            thumb: profile.avatar,
+          } satisfies app.bsky.embed.images.ViewImage,
         ];
       } else {
         // post embeds
-        const record = await agent.getPostThread({
-          uri: source,
+        const record = await agent.call(app.bsky.feed.getPostThread, {
+          uri: source as AtUriString,
           depth: 0,
           parentHeight: 0,
         });
 
-        if (!AppBskyFeedDefs.isThreadViewPost(record.data.thread)) {
+        if (!isType(app.bsky.feed.defs.threadViewPost, record.thread)) {
           throw new Error("Invalid thread post");
         }
 
-        if (AppBskyEmbedImages.isView(record.data.thread.post.embed)) {
-          return record.data.thread.post.embed.images;
+        if (isType(app.bsky.embed.images.view, record.thread.post.embed)) {
+          return record.thread.post.embed.images;
         } else if (
-          AppBskyEmbedRecordWithMedia.isView(record.data.thread.post.embed)
+          isType(app.bsky.embed.recordWithMedia.view, record.thread.post.embed)
         ) {
-          if (AppBskyEmbedImages.isView(record.data.thread.post.embed.media)) {
-            return record.data.thread.post.embed.media.images;
+          if (
+            isType(app.bsky.embed.images.view, record.thread.post.embed.media)
+          ) {
+            return record.thread.post.embed.media.images;
           }
         }
         throw new Error("Invalid embed");

@@ -1,12 +1,13 @@
 import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
-import { AppBskyActorDefs, type ComAtprotoLabelDefs } from "@atproto/api";
+import { app, com } from "@bsky/sdk/lexicons";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "../agent";
 import { useHaptics as useHapticsPreference } from "../storage/app-preferences";
+import { isType } from "../utils/types";
 
 // TODO: Refactor to new Content Moderation API!
 // https://github.com/bluesky-social/atproto/blob/HEAD/packages/api/docs/moderation.md
@@ -75,11 +76,10 @@ const usePreferencesQuery = () => {
   const query = useQuery({
     queryKey: ["preferences"],
     queryFn: async () => {
-      const prefs = await agent.app.bsky.actor.getPreferences();
-      if (!prefs.success) throw new Error("Could not get preferences");
-      return prefs.data.preferences;
+      const { preferences } = await agent.call(app.bsky.actor.getPreferences);
+      return preferences;
     },
-    enabled: agent.hasSession,
+    enabled: !!agent.did,
   });
 
   return query;
@@ -141,9 +141,9 @@ export const useHaptics = () => {
 
 export const useProfileModeration = (
   profile:
-    | AppBskyActorDefs.ProfileViewBasic
-    | AppBskyActorDefs.ProfileView
-    | AppBskyActorDefs.ProfileViewDetailed,
+    | app.bsky.actor.defs.ProfileViewBasic
+    | app.bsky.actor.defs.ProfileView
+    | app.bsky.actor.defs.ProfileViewDetailed,
 ) => {
   const { _ } = useLingui();
   return useMemo(() => {
@@ -193,14 +193,14 @@ export const useContentFilter = () => {
   const preferences = usePreferences();
 
   const contentFilter = useCallback(
-    (labels?: ComAtprotoLabelDefs.Label[]): FilterResult => {
+    (labels?: com.atproto.label.defs.Label[]): FilterResult => {
       if (!labels || labels.length === 0) return null;
       if (!preferences.data) return null;
 
       let warn: FilterResult = null;
 
       const adultContentPref = preferences.data?.find((x) =>
-        AppBskyActorDefs.isAdultContentPref(x),
+        isType(app.bsky.actor.defs.adultContentPref, x),
       )?.enabled;
 
       const hasAdultContentPref = adultContentPref !== undefined;
@@ -225,7 +225,7 @@ export const useContentFilter = () => {
           };
 
         const pref = preferences.data
-          .filter(AppBskyActorDefs.isContentLabelPref)
+          .filter((x) => isType(app.bsky.actor.defs.contentLabelPref, x))
           .find((prefs) => prefs.label === foundLabel.key);
 
         if (!pref) continue;

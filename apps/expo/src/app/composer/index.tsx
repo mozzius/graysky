@@ -22,10 +22,8 @@ import Animated, {
 import { Image } from "expo-image";
 import { Stack, useNavigation, useRouter } from "expo-router";
 import { useHeaderHeight, useTheme } from "expo-router/react-navigation";
-import {
-  RichText as RichTextHelper,
-  type AppBskyEmbedRecord,
-} from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
+import { RichText as RichTextHelper } from "@bsky/sdk/richtext";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -155,12 +153,11 @@ export default function ComposerScreen() {
     queryKey: ["suggestions", prefix?.value],
     queryFn: async () => {
       if (!prefix?.value) return [];
-      const actors = await agent.searchActorsTypeahead({
+      const actors = await agent.call(app.bsky.actor.searchActorsTypeahead, {
         term: prefix.value,
         limit: 10,
       });
-      if (!actors.success) throw new Error("Cannot fetch suggestions");
-      return actors.data.actors;
+      return actors.actors;
     },
     placeholderData: keepPreviousData,
   });
@@ -581,11 +578,11 @@ export default function ComposerScreen() {
                       {
                         $type: "app.bsky.embed.record#view",
                         record: {
-                          $type: "app.bsky.embed.record#viewRecord",
                           ...quote.thread.data.post,
+                          $type: "app.bsky.embed.record#viewRecord",
                           value: quote.thread.data.post.record,
                         },
-                      } satisfies AppBskyEmbedRecord.View
+                      } satisfies app.bsky.embed.record.View
                     }
                   />
                 </View>

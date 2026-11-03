@@ -9,7 +9,7 @@ import { TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import {
   BottomSheetBackdrop,
   BottomSheetFlatList,
@@ -30,7 +30,7 @@ import { Text } from "../themed/text";
 import { PersonRow } from "./person-row";
 
 interface PeopleListResponse {
-  people: AppBskyActorDefs.ProfileView[];
+  people: app.bsky.actor.defs.ProfileView[];
   cursor: string | undefined;
 }
 
@@ -105,7 +105,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
               renderItem={({
                 item,
               }: {
-                item: AppBskyActorDefs.ProfileView;
+                item: app.bsky.actor.defs.ProfileView;
               }) => (
                 <PersonRow
                   bottomSheet
@@ -113,7 +113,7 @@ export const PeopleList = forwardRef<PeopleListRef, Props>(
                   onPress={() => bottomSheetRef.current?.close()}
                 />
               )}
-              keyExtractor={(item: AppBskyActorDefs.ProfileView) => item.did}
+              keyExtractor={(item: app.bsky.actor.defs.ProfileView) => item.did}
               ItemSeparatorComponent={() => (
                 <ItemSeparator iconWidth="w-10" containerClassName="pr-4" />
               )}

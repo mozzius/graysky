@@ -2,7 +2,14 @@ import { useCallback } from "react";
 import { ActivityIndicator, Platform, TouchableOpacity } from "react-native";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { AtUri, type AppBskyGraphDefs } from "@atproto/api";
+import {
+  currentDatetimeString,
+  type AtIdentifierString,
+  type AtUriString,
+  type DidString,
+} from "@atproto/lex";
+import { AtUri } from "@atproto/syntax";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -28,21 +35,19 @@ export default function AddToListScreen() {
     queryKey: ["profile", handle],
     queryFn: async () => {
       if (!handle) throw new Error("No DID provided");
-      const user = await agent.getProfile({ actor: handle });
-      if (!user.success) throw new Error("Couldn't fetch user");
-      return user.data;
+      return await agent.call(app.bsky.actor.getProfile, {
+        actor: handle as AtIdentifierString,
+      });
     },
   });
 
   const lists = useQuery({
-    queryKey: [agent.session?.did, "lists"],
+    queryKey: [agent.did, "lists"],
     queryFn: async () => {
-      if (!agent.session) return null;
-      const lists = await agent.app.bsky.graph.getLists({
-        actor: agent.session.did,
+      if (!agent.did) return null;
+      return await agent.call(app.bsky.graph.getLists, {
+        actor: agent.did,
       });
-      if (!lists.success) throw new Error(_(msg`Couldn't fetch lists`));
-      return lists.data;
     },
   });
 
@@ -66,7 +71,7 @@ export default function AddToListScreen() {
   const { mutate: removeFromList } = useListMembershipRemoveMutation();
 
   const renderList = useCallback(
-    (list: AppBskyGraphDefs.ListView) => ({
+    (list: app.bsky.graph.defs.ListView) => ({
       title: list.name,
       onPress: () => {
         const membership = getMembership(
@@ -77,13 +82,13 @@ export default function AddToListScreen() {
         if (membership) {
           removeFromList({
             membershipUri: membership,
-            actorDid: profile.data?.did ?? "",
+            actorDid: (profile.data?.did ?? "") as DidString,
             listUri: list.uri,
           });
         } else {
           addToList({
             listUri: list.uri,
-            actorDid: profile.data?.did ?? "",
+            actorDid: (profile.data?.did ?? "") as DidString,
           });
         }
       },
@@ -194,8 +199,8 @@ export const RQKEY = () => ["list-memberships"];
 
 export interface ListMembership {
   membershipUri: string;
-  listUri: string;
-  actorDid: string;
+  listUri: AtUriString;
+  actorDid: DidString;
 }
 
 /**
@@ -204,25 +209,27 @@ export interface ListMembership {
 export function useDangerousListMembershipsQuery() {
   const agent = useAgent();
   return useQuery<ListMembership[]>({
-    queryKey: ["list-membership", agent.session?.did],
+    queryKey: ["list-membership", agent.did],
     async queryFn() {
-      if (!agent.session?.did) {
+      if (!agent.did) {
         return [];
       }
-      let cursor;
+      let cursor: string | undefined;
       let arr: ListMembership[] = [];
       for (let i = 0; i < SANITY_PAGE_LIMIT; i++) {
-        const res = await agent.app.bsky.graph.listitem.list({
-          repo: agent.session.did,
+        const res = await agent.list(app.bsky.graph.listitem, {
+          repo: agent.did,
           limit: PAGE_SIZE,
           cursor,
         });
         arr = arr.concat(
-          res.records.map((r) => ({
-            membershipUri: r.uri,
-            listUri: r.value.list,
-            actorDid: r.value.subject,
-          })),
+          res.records
+            .filter((r): r is Extract<typeof r, { valid: true }> => r.valid)
+            .map((r) => ({
+              membershipUri: r.uri,
+              listUri: r.value.list,
+              actorDid: r.value.subject,
+            })),
         );
         cursor = res.cursor;
         if (!cursor) {
@@ -259,22 +266,18 @@ export function useListMembershipAddMutation() {
       listUri,
       actorDid,
     }: Pick<ListMembership, "actorDid" | "listUri">) => {
-      if (!agent.session) throw new Error("Not logged in");
-      const res = await agent.app.bsky.graph.listitem.create(
-        { repo: agent.session.did },
-        {
-          subject: actorDid,
-          list: listUri,
-          createdAt: new Date().toISOString(),
-        },
-      );
-      return res;
+      if (!agent.did) throw new Error("Not logged in");
+      return await agent.create(app.bsky.graph.listitem, {
+        subject: actorDid,
+        list: listUri,
+        createdAt: currentDatetimeString(),
+      });
     },
     onSuccess(data, variables) {
       // manually update the cache; a refetch is too expensive
       let memberships = queryClient.getQueryData<ListMembership[]>([
         "list-membership",
-        agent.session?.did,
+        agent.did,
       ]);
       if (memberships) {
         memberships = memberships
@@ -292,10 +295,7 @@ export function useListMembershipAddMutation() {
               membershipUri: data.uri,
             },
           ]);
-        queryClient.setQueryData(
-          ["list-membership", agent.session?.did],
-          memberships,
-        );
+        queryClient.setQueryData(["list-membership", agent.did], memberships);
       }
     },
   });
@@ -306,9 +306,8 @@ export function useListMembershipRemoveMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ membershipUri }: ListMembership) => {
-      if (!agent.session) throw new Error("Not logged in");
-      await agent.app.bsky.graph.listitem.delete({
-        repo: agent.session.did,
+      if (!agent.did) throw new Error("Not logged in");
+      await agent.delete(app.bsky.graph.listitem, {
         rkey: new AtUri(membershipUri).rkey,
       });
     },
@@ -316,7 +315,7 @@ export function useListMembershipRemoveMutation() {
       // manually update the cache; a refetch is too expensive
       let memberships = queryClient.getQueryData<ListMembership[]>([
         "list-membership",
-        agent.session?.did,
+        agent.did,
       ]);
       if (memberships) {
         memberships = memberships.filter(
@@ -326,10 +325,7 @@ export function useListMembershipRemoveMutation() {
               m.listUri === variables.listUri
             ),
         );
-        queryClient.setQueryData(
-          ["list-membership", agent.session?.did],
-          memberships,
-        );
+        queryClient.setQueryData(["list-membership", agent.did], memberships);
       }
     },
   });

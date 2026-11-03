@@ -4,11 +4,8 @@ import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import { useRouter, useSegments } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import {
-  AppBskyFeedPost,
-  ComAtprotoModerationDefs,
-  type AppBskyFeedDefs,
-} from "@atproto/api";
+import { deletePost } from "@bsky/sdk";
+import { app, com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -16,11 +13,14 @@ import { MoreHorizontalIcon } from "lucide-react-native";
 
 import { Menu } from "~/components/menu";
 import { useAccountActions } from "~/lib/account-actions";
-import { useAgent } from "~/lib/agent";
+import { useAgent, useSession } from "~/lib/agent";
+import { isType } from "~/lib/utils/types";
 import { useLists } from "./lists/context";
 
 interface Props {
-  post: AppBskyFeedDefs.PostView & { record: AppBskyFeedPost.Record };
+  post: app.bsky.feed.defs.PostView & {
+    record: app.bsky.feed.post.Main;
+  };
   showSeeInfo?: boolean;
   showCopyText?: boolean;
   onTranslate?: () => void;
@@ -33,6 +33,7 @@ const PostContextMenuButton = ({
   onTranslate,
 }: Props) => {
   const agent = useAgent();
+  const session = useSession();
   const { openLikes, openReposts } = useLists();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -75,7 +76,7 @@ const PostContextMenuButton = ({
   };
 
   const copy = async () => {
-    if (!AppBskyFeedPost.isRecord(post.record)) return;
+    if (!isType(app.bsky.feed.post, post.record)) return;
     await Clipboard.setStringAsync(post.record.text);
     showToastable({
       title: _(msg`Copied post text`),
@@ -97,7 +98,7 @@ const PostContextMenuButton = ({
           style: "destructive",
 
           onPress: async () => {
-            await agent.deletePost(post.uri);
+            await agent.call(deletePost, post.uri);
             await queryClient.refetchQueries({
               queryKey: ["profile", post.author.did, "post", post.uri],
             });
@@ -114,8 +115,8 @@ const PostContextMenuButton = ({
     );
   };
 
-  const report = async (reasonType: ComAtprotoModerationDefs.ReasonType) => {
-    await agent.createModerationReport({
+  const report = async (reasonType: com.atproto.moderation.defs.ReasonType) => {
+    await agent.call(com.atproto.moderation.createReport, {
       reasonType,
       subject: {
         $type: "com.atproto.repo.strongRef",
@@ -132,15 +133,15 @@ const PostContextMenuButton = ({
   const reportOptions = useMemo(() => {
     // prettier-ignore
     return [
-      { label: _(msg`Spam`), value: ComAtprotoModerationDefs.REASONSPAM },
-      { label: _(msg`Illegal and Urgent`), value: ComAtprotoModerationDefs.REASONVIOLATION },
-      { label: _(msg`Unwanted Sexual Content`), value: ComAtprotoModerationDefs.REASONSEXUAL },
-      { label: _(msg`Anti-Social Behavior`), value: ComAtprotoModerationDefs.REASONRUDE },
-      { label: _(msg`Other`), value: ComAtprotoModerationDefs.REASONOTHER },
+      { label: _(msg`Spam`), value: "com.atproto.moderation.defs#reasonSpam" as const },
+      { label: _(msg`Illegal and Urgent`), value: "com.atproto.moderation.defs#reasonViolation" as const },
+      { label: _(msg`Unwanted Sexual Content`), value: "com.atproto.moderation.defs#reasonSexual" as const },
+      { label: _(msg`Anti-Social Behavior`), value: "com.atproto.moderation.defs#reasonRude" as const },
+      { label: _(msg`Other`), value: "com.atproto.moderation.defs#reasonOther" as const },
     ]
   }, [_]);
 
-  const isOwnPost = post.author.handle === agent.session?.handle;
+  const isOwnPost = post.author.handle === session?.handle;
 
   return (
     <Menu

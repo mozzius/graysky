@@ -3,6 +3,7 @@ import { Platform } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
+import { app } from "@bsky/sdk/lexicons";
 import * as Sentry from "@sentry/react-native";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -34,7 +35,7 @@ export const useNotifications = () => {
   const hasPushed = useRef(false);
 
   useEffect(() => {
-    if (!agent?.hasSession) return;
+    if (!agent?.did) return;
 
     if (!hasPrompted && !hasPushed.current) {
       hasPushed.current = true;
@@ -57,8 +58,8 @@ export const useNotifications = () => {
       const token = await getPushToken();
       if (token) {
         try {
-          if (agent.hasSession) {
-            await agent.app.bsky.notification.registerPush({
+          if (agent.did) {
+            await agent.call(app.bsky.notification.registerPush, {
               serviceDid: SERVICE_DID,
               platform: Platform.OS,
               token: token.data,
@@ -110,13 +111,7 @@ export const useNotifications = () => {
       receivedSub.remove();
       responseSub.remove();
     };
-  }, [
-    agent?.session?.did,
-    router,
-    queryClient,
-    notificationsEnabled,
-    hasPrompted,
-  ]);
+  }, [agent?.did, router, queryClient, notificationsEnabled, hasPrompted]);
 };
 
 export async function getPushToken() {

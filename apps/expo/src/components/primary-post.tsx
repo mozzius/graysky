@@ -2,13 +2,7 @@ import { Fragment, useMemo, useState } from "react";
 import { TouchableOpacity, View, type ViewStyle } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import {
-  AppBskyFeedPost,
-  AppBskyFeedThreadgate,
-  type AppBskyActorDefs,
-  type AppBskyFeedDefs,
-  type AppBskyGraphDefs,
-} from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -20,7 +14,7 @@ import { locale } from "~/lib/locale";
 import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
-import { dangerousIsType } from "~/lib/utils/types";
+import { isType } from "~/lib/utils/types";
 import { Embed } from "./embed";
 import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
@@ -30,7 +24,7 @@ import { Text } from "./themed/text";
 import { Translation } from "./translation";
 
 interface Props {
-  post: AppBskyFeedDefs.PostView;
+  post: app.bsky.feed.defs.PostView;
   hasParent?: boolean;
   dataUpdatedAt: number;
   hideContextMenu?: boolean;
@@ -68,12 +62,7 @@ export const PrimaryPost = ({
 
   const moderation = useProfileModeration(post.author);
 
-  if (
-    !dangerousIsType<AppBskyFeedPost.Record>(
-      post.record,
-      AppBskyFeedPost.isRecord,
-    )
-  ) {
+  if (!isType(app.bsky.feed.post, post.record)) {
     return null;
   }
 
@@ -81,12 +70,7 @@ export const PrimaryPost = ({
 
   if (post.threadgate) {
     const record = post.threadgate.record;
-    if (
-      dangerousIsType<AppBskyFeedThreadgate.Record>(
-        record,
-        AppBskyFeedThreadgate.isRecord,
-      )
-    ) {
+    if (isType(app.bsky.feed.threadgate, record)) {
       threadgate = record;
     }
   }
@@ -208,9 +192,9 @@ const ThreadgateInfo = ({
   author,
   lists,
 }: {
-  threadgate: AppBskyFeedThreadgate.Record;
-  author: AppBskyActorDefs.ProfileViewBasic;
-  lists?: AppBskyGraphDefs.ListViewBasic[];
+  threadgate: app.bsky.feed.threadgate.Main;
+  author: app.bsky.actor.defs.ProfileViewBasic;
+  lists?: app.bsky.graph.defs.ListViewBasic[];
 }) => {
   const path = useAbsolutePath();
   const router = useRouter();
@@ -224,17 +208,17 @@ const ThreadgateInfo = ({
   }
 
   const renderRule = (
-    rule: NonNullable<AppBskyFeedThreadgate.Record["allow"]>[number],
+    rule: NonNullable<app.bsky.feed.threadgate.Main["allow"]>[number],
   ) => {
     switch (true) {
-      case AppBskyFeedThreadgate.isMentionRule(rule): {
+      case isType(app.bsky.feed.threadgate.mentionRule, rule): {
         return (
           <Text className="text-base">
             <Trans>Users mentioned in this thread</Trans>
           </Text>
         );
       }
-      case AppBskyFeedThreadgate.isFollowingRule(rule): {
+      case isType(app.bsky.feed.threadgate.followingRule, rule): {
         return (
           <Text className="text-base">
             <Trans>
@@ -247,7 +231,7 @@ const ThreadgateInfo = ({
           </Text>
         );
       }
-      case AppBskyFeedThreadgate.isListRule(rule): {
+      case isType(app.bsky.feed.threadgate.listRule, rule): {
         if (!lists || lists.length === 0) {
           return null;
         }

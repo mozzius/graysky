@@ -11,7 +11,7 @@ import { useEventListener } from "expo";
 import { Image } from "expo-image";
 import { useTheme } from "expo-router/react-navigation";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { type AppBskyEmbedExternal } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { LinkIcon, NewspaperIcon } from "lucide-react-native";
 
 import { useLinkPress } from "~/lib/hooks/link-press";
@@ -20,7 +20,7 @@ import { cx } from "~/lib/utils/cx";
 import { Text } from "../themed/text";
 
 interface Props {
-  content: AppBskyEmbedExternal.View;
+  content: app.bsky.embed.external.View;
   transparent: boolean;
   depth: number;
 }

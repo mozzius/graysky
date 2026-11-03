@@ -13,7 +13,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { RichText as RichTextHelper } from "@atproto/api";
+import { upsertProfile } from "@bsky/sdk";
+import { RichText as RichTextHelper } from "@bsky/sdk/richtext";
 import { type I18n } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -63,7 +64,7 @@ export default function EditBio() {
   const { mutate: save, isPending: saving } = useMutation({
     mutationKey: ["save-profile"],
     mutationFn: async () => {
-      await agent.upsertProfile(async (old) => {
+      await agent.call(upsertProfile, async (old) => {
         let newBanner, newAvatar;
         if (banner) {
           const uploadedBanner = await uploadBlob(
@@ -74,7 +75,7 @@ export default function EditBio() {
             }),
             "image/jpeg",
           );
-          newBanner = uploadedBanner.data.blob;
+          newBanner = uploadedBanner;
         }
         if (avatar) {
           const uploadedAvatar = await uploadBlob(
@@ -86,7 +87,7 @@ export default function EditBio() {
 
             "image/jpeg",
           );
-          newAvatar = uploadedAvatar.data.blob;
+          newAvatar = uploadedAvatar;
         }
         return {
           ...old,

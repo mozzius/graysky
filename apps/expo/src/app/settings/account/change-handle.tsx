@@ -8,6 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
+import { type HandleString } from "@atproto/lex";
+import { com } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -24,11 +26,12 @@ import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent } from "~/lib/agent";
+import { useAgent, useSession } from "~/lib/agent";
 
 export default function ChangeHandle() {
   const theme = useTheme();
   const agent = useAgent();
+  const session = useSession();
   const queryClient = useQueryClient();
   const [handle, setHandle] = useState("");
   const { _ } = useLingui();
@@ -41,7 +44,9 @@ export default function ChangeHandle() {
   const changeHandle = useMutation({
     mutationKey: ["change-handle"],
     mutationFn: async () => {
-      await agent.updateHandle({ handle: derivedHandle });
+      await agent.call(com.atproto.identity.updateHandle, {
+        handle: derivedHandle as HandleString,
+      });
     },
     onError: (err) => {
       if (err instanceof Error) {
@@ -146,8 +151,7 @@ export default function ChangeHandle() {
                 query={resolveHandle}
                 handle={derivedHandle}
                 success={
-                  changeHandle.isSuccess ||
-                  agent.session?.handle === derivedHandle
+                  changeHandle.isSuccess || session?.handle === derivedHandle
                 }
               />
             </Animated.View>

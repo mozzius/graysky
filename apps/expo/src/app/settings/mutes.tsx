@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -17,11 +18,9 @@ export default function MutedUsers() {
   const mutes = useInfiniteQuery({
     queryKey: ["mutes"],
     queryFn: async ({ pageParam }) => {
-      const mutes = await agent.app.bsky.graph.getMutes({
+      return await agent.call(app.bsky.graph.getMutes, {
         cursor: pageParam,
       });
-      if (!mutes.success) throw new Error(_(msg`Could not fetch mutes`));
-      return mutes.data;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,

@@ -7,7 +7,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
@@ -17,7 +17,7 @@ import { cx } from "~/lib/utils/cx";
 import { Text } from "./themed/text";
 
 interface Props {
-  post: AppBskyFeedDefs.PostView;
+  post: app.bsky.feed.defs.PostView;
   dataUpdatedAt: number;
   children?: React.ReactNode;
   className?: string;

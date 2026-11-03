@@ -2,10 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import * as ExpoNotifications from "expo-notifications";
 import { Stack, useFocusEffect } from "expo-router";
-import {
-  type AppBskyFeedDefs,
-  type AppBskyNotificationListNotifications,
-} from "@atproto/api";
+import { toDatetimeString, type AtUriString } from "@atproto/lex";
+import { updateSeenNotifications } from "@bsky/sdk";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { FlashList } from "@shopify/flash-list";
@@ -27,10 +26,10 @@ import { useRefreshOnFocus, useUserRefresh } from "~/lib/utils/query";
 import { isIOS26 } from "~/lib/utils/version";
 
 export interface NotificationGroup {
-  reason: AppBskyNotificationListNotifications.Notification["reason"];
-  subject: AppBskyNotificationListNotifications.Notification["reasonSubject"];
-  item?: AppBskyFeedDefs.ThreadViewPost;
-  actors: AppBskyNotificationListNotifications.Notification["author"][];
+  reason: app.bsky.notification.listNotifications.Notification["reason"];
+  subject: app.bsky.notification.listNotifications.Notification["reasonSubject"];
+  item?: app.bsky.feed.defs.ThreadViewPost;
+  actors: app.bsky.notification.listNotifications.Notification["author"][];
   isRead: boolean;
   indexedAt: string;
 }
@@ -45,16 +44,15 @@ function Notifications() {
   const notifications = useInfiniteQuery({
     queryKey: ["notifications", "list", groupNotifications],
     queryFn: async ({ pageParam }) => {
-      const notifs = await agent.listNotifications({
+      const notifs = await agent.call(app.bsky.notification.listNotifications, {
         cursor: pageParam,
       });
-      if (!notifs.success) throw new Error("Failed to fetch notifications");
 
       const grouped: NotificationGroup[] = [];
-      const subjects = new Set<string>();
+      const subjects = new Set<AtUriString>();
 
       if (groupNotifications) {
-        for (const notif of notifs.data.notifications) {
+        for (const notif of notifs.notifications) {
           const prior = grouped.find(
             (x) =>
               x.reason === notif.reason && x.subject === notif.reasonSubject,
@@ -83,7 +81,7 @@ function Notifications() {
           }
         }
       } else {
-        for (const notif of notifs.data.notifications) {
+        for (const notif of notifs.notifications) {
           let subject = notif.reasonSubject;
 
           if (["reply", "quote", "mention"].includes(notif.reason)) {
@@ -105,7 +103,7 @@ function Notifications() {
       }
 
       // split subjects into chunks of 25
-      const subjectChunks = Array.from(subjects).reduce<string[][]>(
+      const subjectChunks = Array.from(subjects).reduce<AtUriString[][]>(
         (acc, subject) => {
           if (acc[acc.length - 1]!.length === 25) {
             acc.push([subject]);
@@ -120,12 +118,12 @@ function Notifications() {
       const contextPosts = await Promise.all(
         subjectChunks.map((chunk) =>
           chunk.length > 0
-            ? agent.getPosts({
+            ? agent.call(app.bsky.feed.getPosts, {
                 uris: chunk,
               })
-            : Promise.resolve({ data: { posts: [] } }),
+            : Promise.resolve({ posts: [] }),
         ),
-      ).then((x) => x.flatMap((x) => x.data.posts));
+      ).then((x) => x.flatMap((x) => x.posts));
 
       const notifications = grouped.map((group) => {
         if (group.subject) {
@@ -141,7 +139,7 @@ function Notifications() {
       }) satisfies NotificationGroup[];
 
       return {
-        cursor: notifs.data.cursor,
+        cursor: notifs.cursor,
         notifications,
       };
     },
@@ -165,8 +163,9 @@ function Notifications() {
       return () => {
         if (lastUpdatedRef.current) {
           void agent
-            .updateSeenNotifications(
-              new Date(lastUpdatedRef.current).toISOString(),
+            .call(
+              updateSeenNotifications,
+              toDatetimeString(new Date(lastUpdatedRef.current)),
             )
             .then(() =>
               queryClient.invalidateQueries({
@@ -191,8 +190,9 @@ function Notifications() {
   const { refreshing, handleRefresh, tintColor } = useUserRefresh(
     useCallback(async () => {
       if (lastUpdatedRef.current) {
-        await agent.updateSeenNotifications(
-          new Date(lastUpdatedRef.current).toISOString(),
+        await agent.call(
+          updateSeenNotifications,
+          toDatetimeString(new Date(lastUpdatedRef.current)),
         );
         void ExpoNotifications.setBadgeCountAsync(0);
         void ExpoNotifications.dismissAllNotificationsAsync();
@@ -213,8 +213,9 @@ function Notifications() {
         haptics.selection();
 
         if (lastUpdatedRef.current) {
-          await agent.updateSeenNotifications(
-            new Date(lastUpdatedRef.current).toISOString(),
+          await agent.call(
+            updateSeenNotifications,
+            toDatetimeString(new Date(lastUpdatedRef.current)),
           );
           void ExpoNotifications.setBadgeCountAsync(0);
           void ExpoNotifications.dismissAllNotificationsAsync();

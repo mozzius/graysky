@@ -1,4 +1,6 @@
 import { ActivityIndicator, View } from "react-native";
+import { type HandleString } from "@atproto/lex";
+import { com } from "@bsky/sdk/lexicons";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2Icon, SmileIcon, XCircleIcon } from "lucide-react-native";
@@ -17,7 +19,9 @@ export const useHandleAvailability = (handle: string) => {
         // weird ones that are invalid but don't return as such
         if (["test.bsky.social", "bsky.bsky.social"].includes(handle))
           return "invalid";
-        await agent.resolveHandle({ handle });
+        await agent.call(com.atproto.identity.resolveHandle, {
+          handle: handle as HandleString,
+        });
         return "taken";
       } catch (err) {
         if (err instanceof Error) {

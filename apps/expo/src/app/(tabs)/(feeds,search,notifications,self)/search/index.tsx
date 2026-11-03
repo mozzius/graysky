@@ -13,7 +13,8 @@ import Animated, { FadeInUp } from "react-native-reanimated";
 import { type SearchBarCommands } from "react-native-screens";
 import { Link, Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { follow } from "@bsky/sdk";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -44,6 +45,7 @@ import { useAgent } from "~/lib/agent";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { useTabPress } from "~/lib/hooks/tab-press-scroll";
 import { useQuickAction } from "~/lib/quick-actions";
+import { getTrendingTopics } from "~/lib/unspecced";
 import { cx } from "~/lib/utils/cx";
 import { isIOS26 } from "~/lib/utils/version";
 
@@ -121,12 +123,10 @@ const SearchResults = ({ search }: Props) => {
     queryKey: ["search", "people", search, MAX_RESULTS],
     queryFn: async () => {
       if (!search) return { actors: [] };
-      const { data, success } = await agent.searchActors({
+      return await agent.call(app.bsky.actor.searchActors, {
         term: search,
         limit: MAX_RESULTS,
       });
-      if (!success) throw new Error("Failed to search");
-      return data;
     },
     placeholderData: keepPreviousData,
   });
@@ -212,34 +212,31 @@ const Suggestions = () => {
   const agent = useAgent();
   const theme = useTheme();
   const path = useAbsolutePath();
-  const ref = useRef<FlashListRef<AppBskyActorDefs.ProfileView>>(null);
+  const ref = useRef<FlashListRef<app.bsky.actor.defs.ProfileView>>(null);
 
   const trendingTopics = useQuery({
     queryKey: ["trending-topics"],
     queryFn: async () => {
-      const trending = await agent.app.bsky.unspecced.getTrendingTopics();
-      if (!trending.success) throw new Error("Failed to get trending topics");
-      return trending.data.topics;
+      const trending = await agent.call(getTrendingTopics);
+      return trending.topics;
     },
   });
 
   const suggestions = useInfiniteQuery({
     queryKey: ["network"],
     queryFn: async ({ pageParam }) => {
-      const result = await agent.getSuggestions({
+      return await agent.call(app.bsky.actor.getSuggestions, {
         cursor: pageParam,
       });
-      if (!result.success) throw new Error("Failed to get suggestions");
-      return result;
     },
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => lastPage.data.cursor,
+    getNextPageParam: (lastPage) => lastPage.cursor,
   });
 
   if (suggestions.data) {
-    const data = suggestions.data.pages.flatMap((page) => page.data.actors);
+    const data = suggestions.data.pages.flatMap((page) => page.actors);
     return (
-      <FlashList<AppBskyActorDefs.ProfileView>
+      <FlashList<app.bsky.actor.defs.ProfileView>
         removeClippedSubviews
         ref={ref}
         data={data}
@@ -310,7 +307,7 @@ const Suggestions = () => {
 };
 
 interface SuggestionCardProps {
-  item: AppBskyActorDefs.ProfileView;
+  item: app.bsky.actor.defs.ProfileView;
 }
 
 const SuggestionCard = ({ item }: SuggestionCardProps) => {
@@ -323,16 +320,16 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
 
   const href = path(`/profile/${item.handle}`);
 
-  const follow = useMutation({
+  const followMutation = useMutation({
     mutationKey: ["follow", item.did],
     mutationFn: async () => {
-      return await agent.follow(item.did);
+      return await agent.call(follow, { did: item.did });
     },
   });
 
   if (ref.current !== item.did) {
     ref.current = item.did;
-    follow.reset();
+    followMutation.reset();
   }
 
   return (
@@ -365,21 +362,21 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
             </View>
             {!item.viewer?.following && (
               <TouchableOpacity
-                disabled={follow.isPending}
+                disabled={followMutation.isPending}
                 onPress={() => {
-                  if (follow.isPending) return;
-                  if (follow.isSuccess) {
+                  if (followMutation.isPending) return;
+                  if (followMutation.isSuccess) {
                     router.push(href);
                     void queryClient.invalidateQueries({
                       queryKey: ["network"],
                     });
                   } else {
-                    follow.mutate();
+                    followMutation.mutate();
                   }
                 }}
                 className={cx(
                   "shrink-0 rounded-full border-white px-4 py-1",
-                  follow.isIdle
+                  followMutation.isIdle
                     ? theme.dark
                       ? theme.colors.card
                       : "bg-black"
@@ -390,10 +387,10 @@ const SuggestionCard = ({ item }: SuggestionCardProps) => {
                 <Text
                   className={cx(
                     "text-sm",
-                    follow.isIdle ? "text-white" : "text-black",
+                    followMutation.isIdle ? "text-white" : "text-black",
                   )}
                 >
-                  {follow.isIdle ? (
+                  {followMutation.isIdle ? (
                     <Trans>Follow</Trans>
                   ) : (
                     <Trans

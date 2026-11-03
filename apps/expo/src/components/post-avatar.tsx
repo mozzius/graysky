@@ -1,15 +1,15 @@
 import { TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { Avatar } from "./avatar";
 
 interface Props {
   profile:
-    | AppBskyActorDefs.ProfileViewBasic
-    | AppBskyActorDefs.ProfileView
-    | AppBskyActorDefs.ProfileViewDetailed;
+    | app.bsky.actor.defs.ProfileViewBasic
+    | app.bsky.actor.defs.ProfileView
+    | app.bsky.actor.defs.ProfileViewDetailed;
   moderation: { blur: boolean };
   avatarSize?: "normal" | "reduced";
 }

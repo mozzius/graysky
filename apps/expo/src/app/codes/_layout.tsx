@@ -2,6 +2,7 @@ import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
+import { com } from "@bsky/sdk/lexicons";
 import { useQuery } from "@tanstack/react-query";
 
 import { StatusBar } from "~/components/status-bar";
@@ -68,14 +69,10 @@ export const useInviteCodes = () => {
   const query = useQuery({
     queryKey: ["invite-codes"],
     queryFn: async () => {
-      const codes = await agent.com.atproto.server.getAccountInviteCodes({
+      const codes = await agent.call(com.atproto.server.getAccountInviteCodes, {
         includeUsed: true,
       });
-      if (!codes.success)
-        throw new Error(
-          "Could not get invite codes. This could be because you logged in using an App Password. Please log in using your main password.",
-        );
-      const all = codes.data.codes.sort(
+      const all = codes.codes.sort(
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { type AppBskyFeedDefs } from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -32,13 +32,11 @@ const PostsSearch = ({ search }: Props) => {
     queryKey: ["search", "posts", search],
     queryFn: async ({ pageParam }) => {
       if (!search) return Promise.resolve({ posts: [], cursor: undefined });
-      const posts = await agent.app.bsky.feed.searchPosts({
+      return await agent.call(app.bsky.feed.searchPosts, {
         q: search,
         cursor: pageParam,
         limit: 25,
       });
-      if (!posts.success) throw new Error("Could not get posts");
-      return posts.data;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
@@ -46,7 +44,7 @@ const PostsSearch = ({ search }: Props) => {
   });
 
   const [ref, onScroll] = useTabPressScrollRef<{
-    item: AppBskyFeedDefs.PostView;
+    item: app.bsky.feed.defs.PostView;
     filter: FilterResult;
   }>(query.refetch);
   const { handleRefresh, refreshing, tintColor } = useUserRefresh(
@@ -65,7 +63,7 @@ const PostsSearch = ({ search }: Props) => {
 
   if (query.data) {
     return (
-      <FlashList<{ item: AppBskyFeedDefs.PostView; filter: FilterResult }>
+      <FlashList<{ item: app.bsky.feed.defs.PostView; filter: FilterResult }>
         removeClippedSubviews
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}

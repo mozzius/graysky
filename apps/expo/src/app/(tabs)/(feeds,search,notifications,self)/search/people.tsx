@@ -3,7 +3,7 @@ import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AppBskyActorDefs } from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -32,19 +32,17 @@ const PeopleSearch = ({ search }: Props) => {
     queryKey: ["search", "people", search, "all"],
     queryFn: async ({ pageParam }) => {
       if (!search) return { actors: [] };
-      const profile = await agent.searchActors({
+      return await agent.call(app.bsky.actor.searchActors, {
         term: search,
         cursor: pageParam,
       });
-      if (!profile.success) throw new Error("Search failed");
-      return profile.data;
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => lastPage.cursor,
     placeholderData: keepPreviousData,
   });
 
-  const [ref, onScroll] = useTabPressScrollRef<AppBskyActorDefs.ProfileView>(
+  const [ref, onScroll] = useTabPressScrollRef<app.bsky.actor.defs.ProfileView>(
     query.refetch,
   );
   const { handleRefresh, refreshing } = useUserRefresh(query.refetch);
@@ -56,7 +54,7 @@ const PeopleSearch = ({ search }: Props) => {
 
   if (query.data) {
     return (
-      <FlashList<AppBskyActorDefs.ProfileView>
+      <FlashList<app.bsky.actor.defs.ProfileView>
         removeClippedSubviews
         contentInsetAdjustmentBehavior="automatic"
         ref={ref}

@@ -1,6 +1,7 @@
 import { ActivityIndicator, Switch, View } from "react-native";
 import { useTheme } from "expo-router/react-navigation";
-import { AppBskyActorDefs, type $Typed } from "@atproto/api";
+import { type $Typed } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -21,6 +22,7 @@ import {
   useSetAppPreferences,
 } from "~/lib/storage/app-preferences";
 import { produce } from "~/lib/utils/produce";
+import { isType } from "~/lib/utils/types";
 
 const defaultFeedViewPref = {
   hideReplies: false,
@@ -30,15 +32,17 @@ const defaultFeedViewPref = {
   hideQuotePosts: false,
   $type: "app.bsky.actor.defs#feedViewPref",
   feed: "home",
-} satisfies $Typed<AppBskyActorDefs.FeedViewPref>;
+} satisfies $Typed<app.bsky.actor.defs.FeedViewPref>;
 
-export const getFeedViewPref = (preferences?: AppBskyActorDefs.Preferences) => {
+export const getFeedViewPref = (
+  preferences?: app.bsky.actor.defs.Preferences,
+) => {
   if (!preferences) return defaultFeedViewPref;
 
   const feedViewPref =
     (preferences.find(
-      (x) => AppBskyActorDefs.isFeedViewPref(x) && x.feed === "home",
-    ) as AppBskyActorDefs.FeedViewPref | undefined) ?? defaultFeedViewPref;
+      (x) => isType(app.bsky.actor.defs.feedViewPref, x) && x.feed === "home",
+    ) as app.bsky.actor.defs.FeedViewPref | undefined) ?? defaultFeedViewPref;
 
   return feedViewPref;
 };
@@ -78,16 +82,17 @@ export default function FeedPreferences() {
 
   const setPreference = useMutation({
     mutationFn: async (
-      feedViewPref: Partial<Omit<AppBskyActorDefs.FeedViewPref, "feed">>,
+      feedViewPref: Partial<Omit<app.bsky.actor.defs.FeedViewPref, "feed">>,
     ) => {
       if (!preferences.data) throw new Error(_(msg`No preferences`));
 
-      await agent.app.bsky.actor.putPreferences({
+      await agent.call(app.bsky.actor.putPreferences, {
         preferences: produce(preferences.data, (draft) => {
           const existing = draft.find(
-            (x) => AppBskyActorDefs.isFeedViewPref(x) && x.feed === "home",
+            (x) =>
+              isType(app.bsky.actor.defs.feedViewPref, x) && x.feed === "home",
           );
-          if (existing && AppBskyActorDefs.isFeedViewPref(existing)) {
+          if (existing && isType(app.bsky.actor.defs.feedViewPref, existing)) {
             Object.assign(existing, feedViewPref);
           } else {
             draft.push({
@@ -332,7 +337,7 @@ const LoadingValue = ({
 }: {
   children: React.ReactNode;
   property: keyof Pick<
-    AppBskyActorDefs.FeedViewPref,
+    app.bsky.actor.defs.FeedViewPref,
     | "hideReplies"
     | "hideRepliesByUnfollowed"
     | "hideRepliesByLikeCount"
@@ -342,13 +347,13 @@ const LoadingValue = ({
   query: UseMutationResult<
     void,
     unknown,
-    Partial<Omit<AppBskyActorDefs.FeedViewPref, "feed">>,
+    Partial<Omit<app.bsky.actor.defs.FeedViewPref, "feed">>,
     unknown
   >;
 }) => {
   if (
     query.isPending &&
-    property in (query.variables as AppBskyActorDefs.FeedViewPref)
+    property in (query.variables as app.bsky.actor.defs.FeedViewPref)
   ) {
     return <ActivityIndicator size="small" />;
   }

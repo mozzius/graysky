@@ -6,21 +6,17 @@ import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import {
-  AppBskyFeedDefs,
-  AppBskyFeedPost,
-  AppBskyRichtextFacet,
-  RichText,
+  currentDatetimeString,
   type $Typed,
-  type AppBskyEmbedExternal,
-  type AppBskyEmbedImages,
-  type AppBskyEmbedRecord,
-  type AppBskyEmbedRecordWithMedia,
-  type AppBskyFeedThreadgate,
+  type AtUriString,
   type BlobRef,
-  type BskyAgent,
-  type ComAtprotoLabelDefs,
-  type ComAtprotoRepoStrongRef,
-} from "@atproto/api";
+  type Client,
+  type HandleString,
+  type UriString,
+} from "@atproto/lex";
+import { post as createPost } from "@bsky/sdk";
+import { app, com } from "@bsky/sdk/lexicons";
+import { RichText } from "@bsky/sdk/richtext";
 import { type I18n } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -33,7 +29,7 @@ import {
   useMostRecentLanguage,
   usePrimaryLanguage,
 } from "../storage/app-preferences";
-import { dangerousIsType } from "../utils/types";
+import { isType } from "../utils/types";
 import { uploadBlob } from "../utils/upload-blob";
 import { useComposerState } from "./state";
 
@@ -57,13 +53,8 @@ const replyRefSchema = z.object({
   root: strongRefSchema,
   parent: strongRefSchema,
 });
-const getReplyRef = (post: AppBskyFeedDefs.PostView) => {
-  if (
-    dangerousIsType<AppBskyFeedPost.Record>(
-      post.record,
-      AppBskyFeedPost.isRecord,
-    )
-  ) {
+const getReplyRef = (post: app.bsky.feed.defs.PostView) => {
+  if (isType(app.bsky.feed.post, post.record)) {
     return post.record.reply;
   }
 };
@@ -73,7 +64,7 @@ export const useComposer = () => {
   const queryClient = useQueryClient();
   return {
     open: () => router.push("/composer"),
-    reply: (post: AppBskyFeedDefs.PostView) => {
+    reply: (post: app.bsky.feed.defs.PostView) => {
       if (post.viewer?.replyDisabled) {
         Alert.alert(
           "Replying disabled",
@@ -83,32 +74,34 @@ export const useComposer = () => {
       }
       queryClient.setQueryData(["context", post.uri], {
         post,
-      } satisfies AppBskyFeedDefs.ThreadViewPost);
+      } satisfies app.bsky.feed.defs.ThreadViewPost);
 
       const parent = {
         uri: post.uri,
         cid: post.cid,
-      } satisfies ComAtprotoRepoStrongRef.Main;
+      } satisfies com.atproto.repo.strongRef.Main;
 
       const root = getReplyRef(post)?.root ?? parent;
 
       const replyRef = {
         parent,
         root,
-      } satisfies AppBskyFeedPost.ReplyRef;
+      } satisfies app.bsky.feed.post.ReplyRef;
 
       router.push(
         `/composer?reply=${encodeURIComponent(JSON.stringify(replyRef))}`,
       );
     },
-    quote: (ref: ComAtprotoRepoStrongRef.Main) =>
+    quote: (ref: com.atproto.repo.strongRef.Main) =>
       router.push(`/composer?quote=${encodeURIComponent(JSON.stringify(ref))}`),
   };
 };
 
 export const useReply = (reply?: string) => {
   const ref = reply
-    ? replyRefSchema.parse(JSON.parse(decodeURIComponent(reply)))
+    ? (replyRefSchema.parse(
+        JSON.parse(decodeURIComponent(reply)),
+      ) as app.bsky.feed.post.ReplyRef)
     : undefined;
 
   const thread = useContextualPost(ref?.parent.uri);
@@ -120,8 +113,10 @@ export const useQuote = (quote?: string) => {
   const ref = quote
     ? ({
         $type: "app.bsky.embed.record",
-        record: strongRefSchema.parse(JSON.parse(decodeURIComponent(quote))),
-      } satisfies $Typed<AppBskyEmbedRecord.Main>)
+        record: strongRefSchema.parse(
+          JSON.parse(decodeURIComponent(quote)),
+        ) as com.atproto.repo.strongRef.Main,
+      } satisfies $Typed<app.bsky.embed.record.Main>)
     : undefined;
 
   const thread = useContextualPost(ref?.record.uri);
@@ -136,11 +131,12 @@ const useContextualPost = (uri?: string) => {
     queryKey: ["context", uri],
     queryFn: async () => {
       if (!uri) return null;
-      const post = await agent.getPostThread({ uri });
-      if (!post.success) throw new Error("Failed to fetch post");
-      if (!AppBskyFeedDefs.isThreadViewPost(post.data.thread))
+      const { thread } = await agent.call(app.bsky.feed.getPostThread, {
+        uri: uri as AtUriString,
+      });
+      if (!isType(app.bsky.feed.defs.threadViewPost, thread))
         throw new Error("Invalid post");
-      return post.data.thread;
+      return thread;
     },
   });
 
@@ -157,8 +153,8 @@ export const useSendPost = ({
   text: string;
   images: ImageWithAlt[];
   external?: ReturnType<typeof useExternal>["external"]["query"]["data"];
-  reply?: AppBskyFeedPost.ReplyRef;
-  quote?: $Typed<AppBskyEmbedRecord.Main>;
+  reply?: app.bsky.feed.post.ReplyRef;
+  quote?: $Typed<app.bsky.embed.record.Main>;
 }) => {
   const agent = useAgent();
   const queryClient = useQueryClient();
@@ -171,7 +167,7 @@ export const useSendPost = ({
   return useMutation({
     mutationKey: ["send"],
     mutationFn: async () => {
-      if (!agent.hasSession) throw new Error("Not logged in");
+      if (!agent.did) throw new Error("Not logged in");
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
@@ -188,11 +184,14 @@ export const useSendPost = ({
         images.map(async (img) => {
           const uri = await compressToMaxSize(img);
 
-          const uploaded = await uploadBlob(agent, uri, "image/jpeg");
-          if (!uploaded.success)
-            throw new Error(_(msg`Failed to upload image`));
+          let blob;
+          try {
+            blob = await uploadBlob(agent, uri, "image/jpeg");
+          } catch (err) {
+            throw new Error(_(msg`Failed to upload image`), { cause: err });
+          }
           return {
-            image: uploaded.data.blob,
+            image: blob,
             alt: img.alt.trim(),
             aspectRatio: {
               // note: may not be the size of the compressed image,
@@ -200,7 +199,7 @@ export const useSendPost = ({
               width: img.asset.width,
               height: img.asset.height,
             },
-          } satisfies AppBskyEmbedImages.Image;
+          } satisfies app.bsky.embed.images.Image;
         }),
       );
 
@@ -209,7 +208,7 @@ export const useSendPost = ({
           ? ({
               $type: "app.bsky.embed.images",
               images: uploadedImages,
-            } satisfies $Typed<AppBskyEmbedImages.Main>)
+            } satisfies $Typed<app.bsky.embed.images.Main>)
           : undefined;
 
       // upload thumbnail. `external` is query data, so copy rather than mutate
@@ -221,7 +220,7 @@ export const useSendPost = ({
           let thumb: BlobRef | undefined;
 
           const thumbUri = await downloadThumbnail(thumbUrl);
-          let encoding;
+          let encoding: `${string}/${string}` | undefined;
           if (thumbUri.endsWith(".png")) {
             encoding = "image/png";
           } else if (thumbUri.endsWith(".jpeg") || thumbUri.endsWith(".jpg")) {
@@ -234,9 +233,10 @@ export const useSendPost = ({
             );
           }
           if (encoding) {
-            const thumbUploadRes = await uploadBlob(agent, thumbUri, encoding);
-            if (thumbUploadRes.success) {
-              thumb = thumbUploadRes.data.blob;
+            try {
+              thumb = await uploadBlob(agent, thumbUri, encoding);
+            } catch (err) {
+              console.warn("thumbnail upload failed", err);
             }
           }
 
@@ -253,7 +253,7 @@ export const useSendPost = ({
         Sentry.captureException(err);
       }
 
-      let mergedEmbed: AppBskyFeedPost.Record["embed"];
+      let mergedEmbed: app.bsky.feed.post.Main["embed"];
 
       // embed priorities
       // 1. quote with media
@@ -267,19 +267,19 @@ export const useSendPost = ({
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
             media: gif.main,
-          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
+          } satisfies $Typed<app.bsky.embed.recordWithMedia.Main>;
         } else if (media) {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
             media,
-          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
+          } satisfies $Typed<app.bsky.embed.recordWithMedia.Main>;
         } else if (embed?.type === "external") {
           mergedEmbed = {
             $type: "app.bsky.embed.recordWithMedia",
             record: quote,
             media: embed.main,
-          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
+          } satisfies $Typed<app.bsky.embed.recordWithMedia.Main>;
         } else {
           mergedEmbed = quote;
         }
@@ -291,7 +291,7 @@ export const useSendPost = ({
             $type: "app.bsky.embed.recordWithMedia",
             record: embed.main,
             media,
-          } satisfies $Typed<AppBskyEmbedRecordWithMedia.Main>;
+          } satisfies $Typed<app.bsky.embed.recordWithMedia.Main>;
         } else {
           mergedEmbed = media;
         }
@@ -299,7 +299,7 @@ export const useSendPost = ({
         mergedEmbed = embed.main;
       }
 
-      let selfLabels: $Typed<ComAtprotoLabelDefs.SelfLabels> | undefined;
+      let selfLabels: $Typed<com.atproto.label.defs.SelfLabels> | undefined;
       if (labels?.length) {
         selfLabels = {
           $type: "com.atproto.label.defs#selfLabels",
@@ -307,7 +307,7 @@ export const useSendPost = ({
         };
       }
 
-      const post = await agent.post({
+      const post = await agent.call(createPost, {
         text: rt.text,
         facets: rt.facets,
         reply,
@@ -317,7 +317,7 @@ export const useSendPost = ({
       });
 
       if (threadgate.length > 0) {
-        const allow: NonNullable<AppBskyFeedThreadgate.Record["allow"]> = [];
+        const allow: NonNullable<app.bsky.feed.threadgate.Main["allow"]> = [];
         if (!threadgate.find((v) => v.type === "nobody")) {
           for (const rule of threadgate) {
             if (rule.type === "mention") {
@@ -327,15 +327,18 @@ export const useSendPost = ({
             } else if (rule.type === "list") {
               allow.push({
                 $type: "app.bsky.feed.threadgate#listRule",
-                list: rule.list,
+                list: rule.list as AtUriString,
               });
             }
           }
         }
 
-        await agent.app.bsky.feed.threadgate.create(
-          { repo: agent.assertDid, rkey: post.uri.split("/").pop() },
-          { post: post.uri, createdAt: new Date().toISOString(), allow },
+        const rkey = post.uri.split("/").pop();
+        if (!rkey) throw new Error("Invalid post uri");
+        await agent.create(
+          app.bsky.feed.threadgate,
+          { post: post.uri, createdAt: currentDatetimeString(), allow },
+          { rkey },
         );
       }
     },
@@ -490,7 +493,7 @@ export const useImages = () => {
   };
 };
 
-export const generateRichText = async (text: string, agent: BskyAgent) => {
+export const generateRichText = async (text: string, agent: Client) => {
   const rt = new RichText({ text });
   await rt.detectFacets(agent);
   return rt;
@@ -621,7 +624,7 @@ const compressToMaxSize = async (image: ImageWithAlt) => {
   return uri;
 };
 
-export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
+export const useExternal = (facets: app.bsky.richtext.facet.Main[] = []) => {
   const [selectedEmbed, selectEmbed] = useState<string | null>(null);
   const agent = useAgent();
 
@@ -629,7 +632,7 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
 
   for (const facet of facets) {
     for (const feature of facet.features) {
-      if (AppBskyRichtextFacet.isLink(feature)) {
+      if (isType(app.bsky.richtext.facet.link, feature)) {
         set.add(feature.uri);
       }
     }
@@ -643,13 +646,13 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
     queryFn: async (): Promise<
       | {
           type: "record";
-          view: $Typed<AppBskyEmbedRecord.View>;
-          main: $Typed<AppBskyEmbedRecord.Main>;
+          view: $Typed<app.bsky.embed.record.View>;
+          main: $Typed<app.bsky.embed.record.Main>;
         }
       | {
           type: "external";
-          view: $Typed<AppBskyEmbedExternal.View>;
-          main: $Typed<AppBskyEmbedExternal.Main>;
+          view: $Typed<app.bsky.embed.external.View>;
+          main: $Typed<app.bsky.embed.external.Main>;
         }
       | null
     > => {
@@ -666,27 +669,26 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
       if (url.hostname === "bsky.app" && handle && type && rkey) {
         let did = handle;
         if (did && !did.startsWith("did:")) {
-          const { data } = await agent.resolveHandle({ handle: did });
+          const data = await agent.call(com.atproto.identity.resolveHandle, {
+            handle: did as HandleString,
+          });
           did = data.did;
         }
 
         switch (type) {
           case "post": {
-            const data = await agent.getPostThread({
-              uri: `at://${did}/app.bsky.feed.post/${rkey}`,
+            const { thread } = await agent.call(app.bsky.feed.getPostThread, {
+              uri: `at://${did}/app.bsky.feed.post/${rkey}` as AtUriString,
             });
-            if (!data.success) return null;
-
-            const thread = data.data.thread;
 
             if (
-              AppBskyFeedDefs.isBlockedPost(thread) ||
-              AppBskyFeedDefs.isNotFoundPost(thread)
+              isType(app.bsky.feed.defs.blockedPost, thread) ||
+              isType(app.bsky.feed.defs.notFoundPost, thread)
             ) {
               return null;
             }
 
-            if (AppBskyFeedDefs.isThreadViewPost(thread)) {
+            if (isType(app.bsky.feed.defs.threadViewPost, thread)) {
               return {
                 type: "record",
                 view: {
@@ -700,43 +702,41 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
                     labels: thread.post.labels,
                     value: thread.post.record,
                     embeds: thread.post.embed ? [thread.post.embed] : undefined,
-                  } satisfies AppBskyEmbedRecord.ViewRecord,
-                } satisfies AppBskyEmbedRecord.View,
+                  } satisfies app.bsky.embed.record.ViewRecord,
+                } satisfies app.bsky.embed.record.View,
                 main: {
                   $type: "app.bsky.embed.record",
                   record: {
                     uri: thread.post.uri,
                     cid: thread.post.cid,
                   },
-                } satisfies AppBskyEmbedRecord.Main,
+                } satisfies app.bsky.embed.record.Main,
               };
             }
 
             return null;
           }
           case "feed": {
-            const generator = await agent.app.bsky.feed.getFeedGenerator({
-              feed: `at://${did}/app.bsky.feed.generator/${rkey}`,
+            const generator = await agent.call(app.bsky.feed.getFeedGenerator, {
+              feed: `at://${did}/app.bsky.feed.generator/${rkey}` as AtUriString,
             });
-
-            if (!generator.success) return null;
 
             return {
               type: "record",
               view: {
                 $type: "app.bsky.embed.record#view",
                 record: {
-                  ...generator.data.view,
+                  ...generator.view,
                   $type: "app.bsky.feed.defs#generatorView",
                 },
-              } satisfies AppBskyEmbedRecord.View,
+              } satisfies app.bsky.embed.record.View,
               main: {
                 $type: "app.bsky.embed.record",
                 record: {
-                  uri: generator.data.view.uri,
-                  cid: generator.data.view.cid,
+                  uri: generator.view.uri,
+                  cid: generator.view.cid,
                 },
-              } satisfies AppBskyEmbedRecord.Main,
+              } satisfies app.bsky.embed.record.Main,
             };
           }
           default:
@@ -774,23 +774,23 @@ export const useExternal = (facets: AppBskyRichtextFacet.Main[] = []) => {
             $type: "app.bsky.embed.external#view",
             external: {
               $type: "app.bsky.embed.external#viewExternal",
-              uri: url.toString(),
+              uri: url.toString() as UriString,
               title,
               description,
-              thumb: image,
-            } satisfies AppBskyEmbedExternal.ViewExternal,
-          } satisfies AppBskyEmbedExternal.View,
+              thumb: image as UriString | undefined,
+            } satisfies app.bsky.embed.external.ViewExternal,
+          } satisfies app.bsky.embed.external.View,
           main: {
             $type: "app.bsky.embed.external",
             external: {
               $type: "app.bsky.embed.external#external",
-              uri: url.toString(),
+              uri: url.toString() as UriString,
               title,
               description,
               // thumb is filled in later
               thumb: undefined,
-            } satisfies AppBskyEmbedExternal.External,
-          } satisfies AppBskyEmbedExternal.Main,
+            } satisfies app.bsky.embed.external.External,
+          } satisfies app.bsky.embed.external.Main,
         };
       }
     },

@@ -1,6 +1,13 @@
 import { useCallback } from "react";
 import { Alert } from "react-native";
 import { showToastable } from "react-native-toastable";
+import {
+  currentDatetimeString,
+  type AtIdentifierString,
+  type DidString,
+} from "@atproto/lex";
+import { muteActor, unmuteActor } from "@bsky/sdk";
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -28,13 +35,15 @@ export const useMuteAccount = () => {
 
   return useCallback(
     (did: string, handle: string) => {
-      void agent.mute(did).then(() => {
-        void queryClient.invalidateQueries({ queryKey: ["profile", did] });
-        showToastable({
-          title: _(msg`Muted`),
-          message: _(msg`You will no longer see posts from @${handle}`),
+      void agent
+        .call(muteActor, { actor: did as AtIdentifierString })
+        .then(() => {
+          void queryClient.invalidateQueries({ queryKey: ["profile", did] });
+          showToastable({
+            title: _(msg`Muted`),
+            message: _(msg`You will no longer see posts from @${handle}`),
+          });
         });
-      });
     },
     [agent, queryClient, _],
   );
@@ -47,13 +56,15 @@ export const useUnmuteAccount = () => {
 
   return useCallback(
     (did: string, handle: string) => {
-      void agent.unmute(did).then(() => {
-        void queryClient.invalidateQueries({ queryKey: ["profile", did] });
-        showToastable({
-          title: _(msg`Unmuted`),
-          message: _(msg`@${handle} is no longer muted`),
+      void agent
+        .call(unmuteActor, { actor: did as AtIdentifierString })
+        .then(() => {
+          void queryClient.invalidateQueries({ queryKey: ["profile", did] });
+          showToastable({
+            title: _(msg`Unmuted`),
+            message: _(msg`@${handle} is no longer muted`),
+          });
         });
-      });
     },
     [agent, queryClient, _],
   );
@@ -79,15 +90,12 @@ export const useBlockAccount = () => {
             style: "destructive",
 
             onPress: async () => {
-              if (!agent.session)
+              if (!agent.did)
                 throw new Error("No session when trying to block someone");
-              await agent.app.bsky.graph.block.create(
-                { repo: agent.session.did },
-                {
-                  createdAt: new Date().toISOString(),
-                  subject: did,
-                },
-              );
+              await agent.create(app.bsky.graph.block, {
+                createdAt: currentDatetimeString(),
+                subject: did as DidString,
+              });
               if (queryClient)
                 void queryClient.invalidateQueries({
                   queryKey: ["profile", did],
@@ -125,15 +133,9 @@ export const useUnblockAccount = () => {
             style: "destructive",
 
             onPress: async () => {
-              if (!agent.session)
+              if (!agent.did)
                 throw new Error("No session when trying to unblock someone");
-              await agent.app.bsky.graph.block.delete(
-                {
-                  repo: agent.session.did,
-                  rkey,
-                },
-                {},
-              );
+              await agent.delete(app.bsky.graph.block, { rkey });
               if (queryClient)
                 void queryClient.invalidateQueries({
                   queryKey: ["profile", did],

@@ -1,20 +1,15 @@
 import { View } from "react-native";
-import {
-  AppBskyEmbedImages,
-  AppBskyEmbedRecordWithMedia,
-  AppBskyFeedPost,
-  type AppBskyFeedDefs,
-} from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 
 import { useContentFilter } from "~/lib/hooks/preferences";
-import { dangerousIsType } from "~/lib/utils/types";
+import { isType } from "~/lib/utils/types";
 import { Embed } from "../embed";
 import { FeedPost } from "../feed-post";
 import { RichText } from "../rich-text";
 import { NotificationItem } from "./item";
 
 interface Props {
-  item: AppBskyFeedDefs.ThreadViewPost;
+  item: app.bsky.feed.defs.ThreadViewPost;
   unread: boolean;
   inline?: boolean;
   dataUpdatedAt: number;
@@ -36,19 +31,13 @@ export const PostNotification = ({
     if (inline) {
       if (filter) return null;
 
-      if (
-        !dangerousIsType<AppBskyFeedPost.Record>(
-          item.post.record,
-          AppBskyFeedPost.isRecord,
-        )
-      )
-        return null;
+      if (!isType(app.bsky.feed.post, item.post.record)) return null;
 
       const embedImage =
-        item.post.embed && AppBskyEmbedImages.isView(item.post.embed)
+        item.post.embed && isType(app.bsky.embed.images.view, item.post.embed)
           ? item.post.embed
-          : AppBskyEmbedRecordWithMedia.isView(item.post.embed) &&
-            AppBskyEmbedImages.isView(item.post.embed.media) &&
+          : isType(app.bsky.embed.recordWithMedia.view, item.post.embed) &&
+            isType(app.bsky.embed.images.view, item.post.embed.media) &&
             item.post.embed.media;
 
       return (

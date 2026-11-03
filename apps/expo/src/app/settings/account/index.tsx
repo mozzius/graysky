@@ -1,3 +1,4 @@
+import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -11,10 +12,10 @@ import {
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent, useOptionalAgent } from "~/lib/agent";
+import { useOptionalAgent, useSession } from "~/lib/agent";
 
 export default function AccountSettings() {
-  const agent = useAgent();
+  const session = useSession();
   const { _ } = useLingui();
 
   // preload for other pages
@@ -24,12 +25,12 @@ export default function AccountSettings() {
     <TransparentHeaderUntilScrolled>
       <GroupedList
         groups={[
-          !!agent?.session?.email && {
+          !!session?.email && {
             title: _(msg`Account Details`),
             options: [
               {
                 icon: MailIcon,
-                title: agent.session.email,
+                title: session.email,
               },
             ],
           },
@@ -76,12 +77,10 @@ export const useSelf = () => {
   return useQuery({
     queryKey: ["self"],
     queryFn: async () => {
-      if (!agent?.session) throw new Error("Not logged in");
-      const self = await agent.getProfile({
-        actor: agent.session.did,
+      if (!agent?.did) throw new Error("Not logged in");
+      return await agent.call(app.bsky.actor.getProfile, {
+        actor: agent.did,
       });
-      if (!self.success) throw new Error("Could not fetch own profile");
-      return self.data;
     },
   });
 };
