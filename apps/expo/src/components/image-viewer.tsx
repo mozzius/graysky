@@ -1,12 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import Gallery, { type RenderItemInfo } from "react-native-awesome-gallery";
 import Animated, {
   FadeInDown,
@@ -104,14 +97,13 @@ export const ImageViewer = ({
         <Animated.View
           entering={FadeInUp}
           exiting={FadeOutUp}
-          className="absolute right-5 z-10 h-10 w-10 flex-1"
+          className="absolute right-5 z-10"
+          style={{ top: top + 10 }}
         >
-          <ImageOptionsButton
-            image={images[index]!}
-            className="flex-1"
-            style={{ top: top + 10 }}
-          >
-            <View className="flex-1 items-center justify-center rounded-full bg-black/50">
+          {/* the trigger needs a fixed size - the menu's host sizes itself to
+              its contents, so a flex-1 trigger resizes after the first layout */}
+          <ImageOptionsButton image={images[index]!}>
+            <View className="h-10 w-10 items-center justify-center rounded-full bg-black/50">
               <MoreHorizontalIcon color="white" />
             </View>
           </ImageOptionsButton>
@@ -221,11 +213,8 @@ const PlatformSpecificBackdrop: (props: {
 const ImageOptionsButton = ({
   image,
   children,
-  style,
 }: {
   image: AppBskyEmbedImages.ViewImage;
-  style: StyleProp<ViewStyle>;
-  className?: string;
   children: React.ReactElement;
 }) => {
   const items = useImageOptions();
@@ -236,7 +225,6 @@ const ImageOptionsButton = ({
     <Menu
       accessibilityLabel={_(msg`Image options`)}
       onOpen={() => haptics.impact()}
-      style={style}
       groups={[
         {
           key: "image",
