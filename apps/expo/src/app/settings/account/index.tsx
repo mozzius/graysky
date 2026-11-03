@@ -16,14 +16,12 @@ import { useLinkPress } from "~/lib/hooks/link-press";
 
 /**
  * password, email and account deletion aren't available to oauth apps, so
- * send people to their account provider for those
+ * send people to their account provider for those. the issuer is the account
+ * host they signed in with (bsky.social for bluesky-hosted accounts, otherwise
+ * their pds), which serves the account page at /account
  */
 function getAccountManagementUrl(session: SessionInfo) {
-  const issuer = new URL(session.issuer);
-  if (issuer.hostname === "bsky.social") {
-    return "https://bsky.app/settings/account";
-  }
-  return new URL("/account", issuer).toString();
+  return new URL("/account", session.issuer).toString();
 }
 
 export default function AccountSettings() {
