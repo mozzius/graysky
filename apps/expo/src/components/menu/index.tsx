@@ -2,14 +2,18 @@ import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { useTheme } from "expo-router/react-navigation";
 import {
-  DropdownMenu,
+  Box,
+  DropdownMenuGroup,
   DropdownMenuItem,
-  HorizontalDivider,
+  DropdownMenuPopup,
   Host,
   Icon,
   RNHostView,
+  SelectableDropdownMenuItem,
+  Spacer,
   Text,
 } from "@expo/ui/jetpack-compose";
+import { height } from "@expo/ui/jetpack-compose/modifiers";
 
 import {
   visibleGroups,
@@ -30,8 +34,14 @@ const chevronIcon =
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const backIcon = require("../../../assets/icons/arrow-back.xml") as number;
 
-// compose's DropdownMenu has no nested menus, so submenus replace the
-// contents of the menu, with a back item at the top
+// matches MenuDefaults.GroupSpacing
+const groupSpacing = [height(2)];
+
+/**
+ * material 3 expressive menu - each group is its own rounded container.
+ * compose has no nested menus, so submenus replace the contents of the
+ * menu, with a back item at the top
+ */
 export function Menu({
   groups,
   title,
@@ -73,108 +83,155 @@ export function Menu({
     }
   };
 
+  const shown = visibleGroups(currentGroups, submenu ? undefined : title);
+  const groupCount = shown.length + (submenu ? 1 : 0);
+  const groupOffset = submenu ? 1 : 0;
+
   return (
     <Host
       matchContents
       style={style}
       colorScheme={theme.dark ? "dark" : "light"}
     >
-      <DropdownMenu
-        expanded={expanded}
-        onDismissRequest={close}
-        color={theme.colors.card}
-      >
-        <DropdownMenu.Trigger>
-          <RNHostView matchContents>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={accessibilityLabel}
-              onPress={() => {
-                onOpen?.();
-                setExpanded(true);
-              }}
-            >
-              {children}
-            </Pressable>
-          </RNHostView>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Items>
+      <Box>
+        <RNHostView matchContents>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={accessibilityLabel}
+            onPress={() => {
+              onOpen?.();
+              setExpanded(true);
+            }}
+          >
+            {children}
+          </Pressable>
+        </RNHostView>
+        <DropdownMenuPopup expanded={expanded} onDismissRequest={close}>
           {submenu && (
             <>
-              <DropdownMenuItem onClick={() => setPath((p) => p.slice(0, -1))}>
-                <DropdownMenuItem.LeadingIcon>
-                  <Icon source={backIcon} size={20} tint={theme.colors.text} />
-                </DropdownMenuItem.LeadingIcon>
-                <DropdownMenuItem.Text>
-                  <Text color={theme.colors.text} style={{ fontWeight: "600" }}>
-                    {submenu.label}
-                  </Text>
-                </DropdownMenuItem.Text>
-              </DropdownMenuItem>
-              <HorizontalDivider />
-            </>
-          )}
-          {visibleGroups(currentGroups, submenu ? undefined : title).map(
-            (group, index) => [
-              index > 0 && <HorizontalDivider key={`${group.key}-divider`} />,
-              group.title && (
-                <DropdownMenuItem key={`${group.key}-title`} enabled={false}>
+              <DropdownMenuGroup
+                shapes={{ index: 0, count: groupCount }}
+                containerColor={theme.colors.card}
+              >
+                <DropdownMenuItem
+                  shape={{ index: 0, count: 1 }}
+                  onClick={() => setPath((p) => p.slice(0, -1))}
+                >
+                  <DropdownMenuItem.LeadingIcon>
+                    <Icon
+                      source={backIcon}
+                      size={20}
+                      tint={theme.colors.text}
+                    />
+                  </DropdownMenuItem.LeadingIcon>
                   <DropdownMenuItem.Text>
                     <Text
                       color={theme.colors.text}
-                      style={{ typography: "labelMedium" }}
+                      style={{ fontWeight: "600" }}
                     >
-                      {group.title}
+                      {submenu.label}
                     </Text>
                   </DropdownMenuItem.Text>
                 </DropdownMenuItem>
-              ),
-              ...group.items.map((item) => (
-                <DropdownMenuItem
-                  key={item.key}
-                  enabled={!item.disabled}
-                  onClick={() => onItemPress(item)}
-                >
-                  <DropdownMenuItem.Text>
-                    <Text
-                      color={
-                        item.type !== "toggle" &&
-                        item.type !== "submenu" &&
-                        item.destructive
-                          ? theme.colors.notification
-                          : theme.colors.text
-                      }
-                    >
-                      {item.type === "toggle" && item.subtitle
-                        ? `${item.label}\n${item.subtitle}`
-                        : item.label}
-                    </Text>
-                  </DropdownMenuItem.Text>
-                  {item.type === "toggle" && item.checked && (
-                    <DropdownMenuItem.TrailingIcon>
-                      <Icon
-                        source={checkIcon}
-                        size={20}
-                        tint={theme.colors.primary}
-                      />
-                    </DropdownMenuItem.TrailingIcon>
-                  )}
-                  {item.type === "submenu" && (
-                    <DropdownMenuItem.TrailingIcon>
-                      <Icon
-                        source={chevronIcon}
-                        size={20}
-                        tint={theme.colors.text}
-                      />
-                    </DropdownMenuItem.TrailingIcon>
-                  )}
-                </DropdownMenuItem>
-              )),
-            ],
+              </DropdownMenuGroup>
+              <Spacer modifiers={groupSpacing} />
+            </>
           )}
-        </DropdownMenu.Items>
-      </DropdownMenu>
+          {shown.map((group, index) => {
+            // the title is the group's first row, so it counts for the shape
+            const rowCount = group.items.length + (group.title ? 1 : 0);
+            const rowOffset = group.title ? 1 : 0;
+            return [
+              index > 0 && (
+                <Spacer key={`${group.key}-spacer`} modifiers={groupSpacing} />
+              ),
+              <DropdownMenuGroup
+                key={group.key}
+                shapes={{ index: index + groupOffset, count: groupCount }}
+                containerColor={theme.colors.card}
+              >
+                {group.title && (
+                  <DropdownMenuItem
+                    shape={{ index: 0, count: rowCount }}
+                    enabled={false}
+                  >
+                    <DropdownMenuItem.Text>
+                      <Text
+                        color={theme.colors.text}
+                        style={{ typography: "labelMedium" }}
+                      >
+                        {group.title}
+                      </Text>
+                    </DropdownMenuItem.Text>
+                  </DropdownMenuItem>
+                )}
+                {group.items.map((item, itemIndex) => (
+                  <MenuRow
+                    key={item.key}
+                    item={item}
+                    shape={{ index: itemIndex + rowOffset, count: rowCount }}
+                    onPress={() => onItemPress(item)}
+                  />
+                ))}
+              </DropdownMenuGroup>,
+            ];
+          })}
+        </DropdownMenuPopup>
+      </Box>
     </Host>
+  );
+}
+
+function MenuRow({
+  item,
+  shape,
+  onPress,
+}: {
+  item: MenuItem;
+  shape: { index: number; count: number };
+  onPress: () => void;
+}) {
+  const theme = useTheme();
+
+  if (item.type === "toggle") {
+    return (
+      <SelectableDropdownMenuItem
+        selected={item.checked}
+        shapes={shape}
+        enabled={!item.disabled}
+        onClick={onPress}
+      >
+        <SelectableDropdownMenuItem.Text>
+          <Text color={theme.colors.text}>{item.label}</Text>
+        </SelectableDropdownMenuItem.Text>
+        {item.subtitle && (
+          <SelectableDropdownMenuItem.SupportingText>
+            <Text>{item.subtitle}</Text>
+          </SelectableDropdownMenuItem.SupportingText>
+        )}
+        <SelectableDropdownMenuItem.SelectedLeadingIcon>
+          <Icon source={checkIcon} size={20} tint={theme.colors.text} />
+        </SelectableDropdownMenuItem.SelectedLeadingIcon>
+      </SelectableDropdownMenuItem>
+    );
+  }
+
+  const textColor =
+    item.type !== "submenu" && item.destructive
+      ? theme.colors.notification
+      : theme.colors.text;
+
+  return (
+    <DropdownMenuItem shape={shape} enabled={!item.disabled} onClick={onPress}>
+      <DropdownMenuItem.Text>
+        <Text color={textColor}>{item.label}</Text>
+      </DropdownMenuItem.Text>
+      {item.type === "submenu" && (
+        <DropdownMenuItem.TrailingIcon>
+          <Icon source={chevronIcon} size={20} tint={theme.colors.text} />
+        </DropdownMenuItem.TrailingIcon>
+      )}
+    </DropdownMenuItem>
   );
 }
 
