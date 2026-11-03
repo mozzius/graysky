@@ -1,4 +1,4 @@
-import { useEffect, type ComponentProps } from "react";
+import { useLayoutEffect, type ComponentProps } from "react";
 import { withLayoutContext } from "expo-router";
 import {
   type ParamListBase,
@@ -20,15 +20,22 @@ type LayoutProps = Parameters<
  * expo-router's TabRouter only adds a tab's route to the state once that tab
  * is visited, but react-native-bottom-tabs renders one native tab per route.
  * so add the missing routes up front, in declared order. tab contents are
- * still rendered lazily by react-native-bottom-tabs
+ * still rendered lazily by react-native-bottom-tabs.
+ *
+ * the tabs aren't rendered until every route exists. on android, adding tabs
+ * to an already-mounted native tab view inserts the new children before its
+ * `items` prop updates, which crashes (index out of bounds in RCTTabView)
  */
 function SeedAllTabs({
   state,
   navigation,
   children,
 }: Pick<LayoutProps, "state" | "navigation" | "children">) {
-  useEffect(() => {
-    if (state.routes.length === state.routeNames.length) return;
+  const seeded = state.routes.length === state.routeNames.length;
+
+  // layout effect, so the tabs appear in the same frame
+  useLayoutEffect(() => {
+    if (seeded) return;
     const focused = state.routes[state.index]?.name;
     const routes = state.routeNames.map(
       // no key - RESET mints one in expo-router's format
@@ -48,9 +55,9 @@ function SeedAllTabs({
       },
       target: state.key,
     });
-  }, [state, navigation]);
+  }, [seeded, state, navigation]);
 
-  return children;
+  return seeded ? children : null;
 }
 
 const layout = ({ state, navigation, children }: LayoutProps) => (
