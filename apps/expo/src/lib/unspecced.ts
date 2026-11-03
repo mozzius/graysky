@@ -1,7 +1,7 @@
 import { l } from "@atproto/lex";
 import { app } from "@bsky/sdk/lexicons";
 
-// @bsky/sdk deliberately leaves out app.bsky.unspecced.* and com.atproto.temp.*
+// @bsky/sdk deliberately leaves out app.bsky.unspecced.*
 // from its lexicons, so these are the few methods from them that we use,
 // written by hand. use them like any other schema:
 // `agent.call(getPopularFeedGenerators, { query })`
@@ -36,21 +36,12 @@ export const getTrendingTopics = l.query(
   "app.bsky.unspecced.getTrendingTopics",
   l.params({
     viewer: l.optional(l.string({ format: "did" })),
-    limit: l.optional(l.withDefault(l.integer({ minimum: 1, maximum: 25 }), 10)),
+    limit: l.optional(
+      l.withDefault(l.integer({ minimum: 1, maximum: 25 }), 10),
+    ),
   }),
   l.jsonPayload({
     topics: l.array(trendingTopic),
     suggested: l.array(trendingTopic),
-  }),
-);
-
-/** check the account's location in the signup queue */
-export const checkSignupQueue = l.query(
-  "com.atproto.temp.checkSignupQueue",
-  l.params(),
-  l.jsonPayload({
-    activated: l.boolean(),
-    placeInQueue: l.optional(l.integer()),
-    estimatedTimeMs: l.optional(l.integer()),
   }),
 );
