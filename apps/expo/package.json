@@ -28,8 +28,11 @@
     "postinstall": "lingui extract && lingui compile"
   },
   "dependencies": {
-    "@atproto/api": "^0.30.0",
+    "@atproto/lex": "^0.3.14",
+    "@atproto/lex-password-session": "^0.2.4",
+    "@atproto/syntax": "^0.7.7",
     "@bottom-tabs/react-navigation": "^1.5.0",
+    "@bsky/sdk": "^1.3.0",
     "@expo/react-native-action-sheet": "^4.1.1",
     "@expo/ui": "~58.0.26",
     "@formatjs/intl-getcanonicallocales": "^3.3.0",

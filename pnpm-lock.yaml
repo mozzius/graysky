@@ -27,12 +27,21 @@ importers:
 
   apps/expo:
     dependencies:
-      '@atproto/api':
-        specifier: ^0.30.0
-        version: 0.30.0
+      '@atproto/lex':
+        specifier: ^0.3.14
+        version: 0.3.14
+      '@atproto/lex-password-session':
+        specifier: ^0.2.4
+        version: 0.2.4
+      '@atproto/syntax':
+        specifier: ^0.7.7
+        version: 0.7.7
       '@bottom-tabs/react-navigation':
         specifier: ^1.5.0
         version: 1.5.0(@react-navigation/native@7.5.1(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0))(react-native-bottom-tabs@1.5.0(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0))(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      '@bsky/sdk':
+        specifier: ^1.3.0
+        version: 1.3.0(@atproto/lex@0.3.14)
       '@expo/react-native-action-sheet':
         specifier: ^4.1.1
         version: 4.1.1(@types/react@19.3.0)(react@19.3.0)
@@ -373,15 +382,18 @@ importers:
 
   apps/nextjs:
     dependencies:
-      '@atproto/api':
-        specifier: ^0.30.0
-        version: 0.30.0
       '@atproto/identity':
         specifier: ^0.5.20
         version: 0.5.20
+      '@atproto/lex':
+        specifier: ^0.3.14
+        version: 0.3.14
       '@atproto/xrpc-server':
         specifier: ^0.13.7
         version: 0.13.7(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@bsky/sdk':
+        specifier: ^1.3.0
+        version: 1.3.0(@atproto/lex@0.3.14)
       '@graysky/api':
         specifier: 0.1.0
         version: link:../../packages/api
@@ -549,15 +561,18 @@ importers:
 
   packages/api:
     dependencies:
-      '@atproto/api':
-        specifier: ^0.30.0
-        version: 0.30.0
       '@atproto/identity':
         specifier: ^0.5.20
         version: 0.5.20
+      '@atproto/lex':
+        specifier: ^0.3.14
+        version: 0.3.14
       '@atproto/xrpc-server':
         specifier: ^0.13.7
         version: 0.13.7(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@bsky/sdk':
+        specifier: ^1.3.0
+        version: 1.3.0(@atproto/lex@0.3.14)
       '@graysky/db':
         specifier: 0.1.0
         version: link:../db
@@ -758,6 +773,10 @@ packages:
     resolution: {integrity: sha512-9HEcZuCU4nWAzV3XZ7nwbDPdV8tbhICzyYeyE5SPHTPuuKS6C3i5WOdwGP1diCCUaYF3Vadw5ArVlQPtXnn73w==}
     engines: {node: '>=22'}
 
+  '@atproto-labs/handle-resolver@0.4.10':
+    resolution: {integrity: sha512-hsYYvGhi6Tv6f4Fti//i/vllVIb/wrJaOcbT3Yh7oo10VxBKAyxzVaB7mIJcho2YJ5kHd2kbCYYPWLw8pvm/bg==}
+    engines: {node: '>=22'}
+
   '@atproto-labs/pipe@0.2.4':
     resolution: {integrity: sha512-n67jCcrC+ouAeO10cWkpPzzLMlDi/lDCU30Us+LGqhOPhT6c4t5ASdBLQi9W3jUQtRzQBt3G9zipF+xKWNvVbw==}
     engines: {node: '>=22'}
@@ -768,10 +787,6 @@ packages:
 
   '@atproto-labs/simple-store@0.5.1':
     resolution: {integrity: sha512-vfvoDhu6ds6BT3Pqe+d2/LBU1WpDRtt69y6zltlfMCoucPm82m1j50/Wb6xTvv+oZ+2j0JyZVXsmXQ12SWYQJg==}
-    engines: {node: '>=22'}
-
-  '@atproto/api@0.30.0':
-    resolution: {integrity: sha512-OMDouol2f0vGur07LywJ3MhLhsZ2YZu1Kn76zBnPLqzh/PWlVqZyrRQl++BkA1PXwXhTsbLQLKPHT52wlaMicA==}
     engines: {node: '>=22'}
 
   '@atproto/common-web@0.5.15':
@@ -825,6 +840,10 @@ packages:
 
   '@atproto/lex-json@0.1.7':
     resolution: {integrity: sha512-4ABSfAkv+zLiPHvexZ7n/xR8wCLShbpEqcGxvniejZGsFrms980nl+BOaWPuU+OgLRNzpicMwSVOYDF6X62IHg==}
+    engines: {node: '>=22'}
+
+  '@atproto/lex-password-session@0.2.4':
+    resolution: {integrity: sha512-WUW/tdc5HuNRdUwOcgtQT5IXUWYxxG6WiUY8FM/Kj4M5eY2/N4TbFCaV4u6yFbmC1OuZfkbvD7OXMLhnPOWj6g==}
     engines: {node: '>=22'}
 
   '@atproto/lex-resolver@0.3.2':
@@ -1688,6 +1707,12 @@ packages:
   '@bsky/jetstream@1.0.0':
     resolution: {integrity: sha512-YtQYhG6NEo7GevmVhRAUp8koyjoj+zf7u+Mo5/Of8xmHFVGLhHyQ57jck8JTPjizFW59G3fqM1fifMCuHFzL0w==}
     engines: {node: '>=22.15.0'}
+    peerDependencies:
+      '@atproto/lex': ^0.3.0
+
+  '@bsky/sdk@1.3.0':
+    resolution: {integrity: sha512-6Gu7e2quyHQRLzRyN7FARcJ0cMsl+/h26eeIYe5btB3WoNKciasSHH0Cgrl+ZO5SfMzshhCeP4lG+ec80tOjQg==}
+    engines: {node: '>=22.12.0'}
     peerDependencies:
       '@atproto/lex': ^0.3.0
 
@@ -3775,9 +3800,6 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
-
-  await-lock@3.0.0:
-    resolution: {integrity: sha512-eO6fLiSnrJrMdjWMNK8zbVRXPs2TKJg78iKZd9wDpN3na5tcoV6EoeiOlMgk2QaAQ1gIrK1YuMsJHXWqz89tSA==}
 
   axe-core@4.14.0:
     resolution: {integrity: sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==}
@@ -8475,6 +8497,13 @@ snapshots:
     dependencies:
       '@atproto-labs/pipe': 0.2.4
 
+  '@atproto-labs/handle-resolver@0.4.10':
+    dependencies:
+      '@atproto-labs/simple-store': 0.5.1
+      '@atproto-labs/simple-store-memory': 0.2.6
+      '@atproto/did': 0.5.6
+      zod: 3.25.76
+
   '@atproto-labs/pipe@0.2.4': {}
 
   '@atproto-labs/simple-store-memory@0.2.6':
@@ -8483,17 +8512,6 @@ snapshots:
       lru-cache: 10.4.3
 
   '@atproto-labs/simple-store@0.5.1': {}
-
-  '@atproto/api@0.30.0':
-    dependencies:
-      '@atproto/common-web': 0.5.15
-      '@atproto/lexicon': 0.7.17
-      '@atproto/syntax': 0.7.7
-      '@atproto/xrpc': 0.8.16
-      await-lock: 3.0.0
-      multiformats: 13.4.2
-      tlds: 1.261.0
-      zod: 3.25.76
 
   '@atproto/common-web@0.5.15':
     dependencies:
@@ -8581,6 +8599,12 @@ snapshots:
   '@atproto/lex-json@0.1.7':
     dependencies:
       '@atproto/lex-data': 0.1.8
+      tslib: 2.9.1
+
+  '@atproto/lex-password-session@0.2.4':
+    dependencies:
+      '@atproto/lex-client': 0.3.7
+      '@atproto/lex-schema': 0.2.9
       tslib: 2.9.1
 
   '@atproto/lex-resolver@0.3.2':
@@ -9753,6 +9777,13 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  '@bsky/sdk@1.3.0(@atproto/lex@0.3.14)':
+    dependencies:
+      '@atproto-labs/handle-resolver': 0.4.10
+      '@atproto/lex': 0.3.14
+      '@atproto/syntax': 0.7.7
+      tlds: 1.261.0
 
   '@code-hike/lighter@1.0.3':
     dependencies:
@@ -12035,8 +12066,6 @@ snapshots:
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
-
-  await-lock@3.0.0: {}
 
   axe-core@4.14.0: {}
 
