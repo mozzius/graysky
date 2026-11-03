@@ -319,20 +319,25 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
               )}
               style={{ borderColor: theme.colors.card }}
             >
-              <AnimatedImage
-                // sharedTransitionTag={id}
-                source={{ uri: profile.avatar }}
-                className="h-full w-full rounded-full bg-neutral-200 dark:bg-neutral-800"
-                alt=""
-                onLoad={({ source: { width, height } }) => {
-                  queryClient.setQueryData(["image", profile.avatar, "size"], {
-                    width,
-                    height,
-                  });
-                }}
-                cachePolicy="memory-disk"
-                blurRadius={moderation.blur ? 90 : 0}
-              />
+              <Link.AppleZoom>
+                <AnimatedImage
+                  // sharedTransitionTag={id}
+                  source={{ uri: profile.avatar }}
+                  className="h-full w-full rounded-full bg-neutral-200 dark:bg-neutral-800"
+                  alt=""
+                  onLoad={({ source: { width, height } }) => {
+                    queryClient.setQueryData(
+                      ["image", profile.avatar, "size"],
+                      {
+                        width,
+                        height,
+                      },
+                    );
+                  }}
+                  cachePolicy="memory-disk"
+                  blurRadius={moderation.blur ? 90 : 0}
+                />
+              </Link.AppleZoom>
             </TouchableOpacity>
           </Link>
         </Animated.View>

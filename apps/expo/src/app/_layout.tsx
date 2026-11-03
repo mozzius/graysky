@@ -428,8 +428,18 @@ const App = () => {
                               name="images/[post]"
                               options={{
                                 headerShown: false,
-                                animation: "fade",
-                                animationMatchesGesture: true,
+                                // ios uses the zoom transition from
+                                // Link.AppleZoom, which a custom animation
+                                // would override. the gallery has its own
+                                // swipe to close, so turn off the native
+                                // zoom dismiss gesture to stop them fighting
+                                ...Platform.select({
+                                  ios: { gestureEnabled: false },
+                                  default: {
+                                    animation: "fade",
+                                    animationMatchesGesture: true,
+                                  },
+                                }),
                               }}
                             />
                             <Stack.Screen

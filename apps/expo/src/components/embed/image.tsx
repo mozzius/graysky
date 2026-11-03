@@ -188,14 +188,17 @@ const Image = ({
   return (
     <Link href={link} asChild>
       <TouchableWithoutFeedback accessibilityRole="image">
-        <ImageWithContextMenu
-          tag={tag}
-          image={image}
-          depth={depth}
-          className={className}
-          style={style}
-          useCappedAspectRatio={useCappedAspectRatio}
-        />
+        {/* ios zooms the lightbox out of the image. no-op on android */}
+        <Link.AppleZoom>
+          <ImageWithContextMenu
+            tag={tag}
+            image={image}
+            depth={depth}
+            className={className}
+            style={style}
+            useCappedAspectRatio={useCappedAspectRatio}
+          />
+        </Link.AppleZoom>
       </TouchableWithoutFeedback>
     </Link>
   );
