@@ -659,13 +659,18 @@ const OtherProfileOptions = ({
   ] as const;
 
   const report = async (reasonType: com.atproto.moderation.defs.ReasonType) => {
-    await agent.call(com.atproto.moderation.createReport, {
-      reasonType,
-      subject: {
-        $type: "com.atproto.admin.defs#repoRef",
-        did: profile.did,
+    await agent.call(
+      com.atproto.moderation.createReport,
+      {
+        reasonType,
+        subject: {
+          $type: "com.atproto.admin.defs#repoRef",
+          did: profile.did,
+        },
       },
-    });
+      // no proxy - the PDS forwards reports to its own report service
+      { service: null },
+    );
     showToastable({
       title: _(msg`Report submitted`),
       message: _(msg`Thank you for making the skyline a safer place`),

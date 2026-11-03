@@ -116,14 +116,19 @@ const PostContextMenuButton = ({
   };
 
   const report = async (reasonType: com.atproto.moderation.defs.ReasonType) => {
-    await agent.call(com.atproto.moderation.createReport, {
-      reasonType,
-      subject: {
-        $type: "com.atproto.repo.strongRef",
-        uri: post.uri,
-        cid: post.cid,
+    await agent.call(
+      com.atproto.moderation.createReport,
+      {
+        reasonType,
+        subject: {
+          $type: "com.atproto.repo.strongRef",
+          uri: post.uri,
+          cid: post.cid,
+        },
       },
-    });
+      // no proxy - the PDS forwards reports to its own report service
+      { service: null },
+    );
     showToastable({
       title: _(msg`Report submitted`),
       message: _(msg`Thank you for making the skyline a safer place`),
