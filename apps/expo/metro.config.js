@@ -37,11 +37,22 @@ if (config.resolver) {
   const resolveRequest = config.resolver.resolveRequest;
   config.resolver.resolveRequest = (context, moduleName, platform) => {
     const resolve = resolveRequest ?? context.resolveRequest;
-    return resolve(
-      context,
-      vendoredNavigation[moduleName] ?? moduleName,
-      platform,
-    );
+    try {
+      return resolve(
+        context,
+        vendoredNavigation[moduleName] ?? moduleName,
+        platform,
+      );
+    } catch (err) {
+      // 5. ESM packages import relative files with a `.js` extension, which
+      // stops metro from picking platform specific files. e.g.
+      // @atproto/oauth-client-expo imports "./expo-oauth-client.js", which
+      // only exists as expo-oauth-client.native.js / .web.js
+      if (moduleName.startsWith(".") && moduleName.endsWith(".js")) {
+        return resolve(context, moduleName.slice(0, -3), platform);
+      }
+      throw err;
+    }
   };
 }
 
