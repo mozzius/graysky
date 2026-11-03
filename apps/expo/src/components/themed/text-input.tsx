@@ -2,14 +2,15 @@ import { forwardRef } from "react";
 import {
   TextInput as RNTextInput,
   StyleSheet,
+  type TextInputInstance,
   type TextInputProps,
 } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 import colors from "tailwindcss/colors";
 
-export type TextInput = RNTextInput;
+export type TextInput = TextInputInstance;
 
-export const TextInput = forwardRef<RNTextInput, TextInputProps>(
+export const TextInput = forwardRef<TextInputInstance, TextInputProps>(
   ({ style, ...props }, ref) => {
     const theme = useTheme();
 

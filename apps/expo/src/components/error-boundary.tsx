@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { type ErrorBoundaryProps } from "expo-router";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
+import { Trans } from "@lingui/react/macro";
 import * as Sentry from "@sentry/react-native";
 import { RefreshCcwIcon } from "lucide-react-native";
 

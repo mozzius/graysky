@@ -18,20 +18,32 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 8\n"
 
-#: src/components/notification/index.tsx:190
+#. placeholder {0}: actor.displayName ?? ""
+#. placeholder {1}: actor.handle
+#: src/components/notification/index.tsx:191
 msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
-#: src/app/pro.tsx:221
+#. placeholder {0}: monthlyProduct.priceString
+#: src/app/pro.tsx:220
 msgid "{0} / month"
 msgstr "{0}/شهر"
 
-#: src/app/pro.tsx:254
+#. placeholder {0}: annualProduct.priceString
+#: src/app/pro.tsx:253
 msgid "{0} / year"
 msgstr "{0} سنة"
 
-#: src/components/notification/index.tsx:238
+#. placeholder {0}: actors[0].displayName?.trim() || `@${actors[0].handle}`
+#. placeholder {1}: actors[1]?.displayName?.trim() || `@${actors[1]?.handle}`
+#: src/components/notification/index.tsx:239
 msgid "{0} and {1}"
+msgstr ""
+
+#. placeholder {0}: actors[0].displayName?.trim() || `@${actors[0].handle}`
+#. placeholder {1}: actors.length - 1
+#: src/components/notification/index.tsx:244
+msgid "{0} and {1} others"
 msgstr ""
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:292
@@ -39,8 +51,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/notification/index.tsx:243
-msgid "{2} and {3} others"
-msgstr ""
+#~ msgid "{2} and {3} others"
+#~ msgstr ""
 
 #: src/lib/utils/time.ts:40
 msgid "{days} days ago"
@@ -66,7 +78,7 @@ msgstr "{minutes} منذ دقيقة"
 msgid "{minutes}m"
 msgstr "{minutes}م"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:188
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:181
 msgid "{modeName} feed for #{decodedTag} is empty"
 msgstr "{modeName} تغذية #{decodedTag} فارغة"
 
@@ -78,15 +90,18 @@ msgstr "قبل {month} أشهر"
 msgid "{months}M"
 msgstr "{months}م"
 
-#: src/components/feed-row.tsx:99
+#: src/components/feed-row.tsx:103
 msgid "{name} feed"
 msgstr "{name} موجز"
 
-#: src/components/feed-row.tsx:96
+#. placeholder {0}: feed.creator.handle
+#. placeholder {1}: sketchyIsGeneratorView(feed) ? (feed.likeCount ?? 0) : 0
+#: src/components/feed-row.tsx:100
 msgid "{name} feed by @{0}, {1} likes"
 msgstr "{name} يَعْرِضُ مُحتوىً @{0}, {1} أعجب"
 
-#: src/components/feed-row.tsx:98
+#. placeholder {0}: feed.creator.handle
+#: src/components/feed-row.tsx:102
 msgid "{name} list by @{0}"
 msgstr "{name} قائمة بواسطة @{0}"
 
@@ -123,27 +138,34 @@ msgstr "@{handle} لم يعد مكتوماً"
 #~ msgid "<0>{0, plural, =1 {{1}} =2 {{2} and {3}} other {{4} and {5} others}}</0><1>{6}</1>"
 #~ msgstr ""
 
+#. placeholder {0}: profile.followersCount
+#. placeholder {0}: self.followersCount
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:445
+#: src/components/screens/profile/profile-info.tsx:446
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> متابِعون"
 
+#. placeholder {0}: profile.followsCount
+#. placeholder {0}: self.followsCount
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:456
+#: src/components/screens/profile/profile-info.tsx:457
 msgid "<0>{0}</0> Following"
 msgstr "متابعة <0>{0}</0>"
 
-#: src/components/screens/profile/profile-info.tsx:464
+#. placeholder {0}: profile.postsCount ?? 0
+#: src/components/screens/profile/profile-info.tsx:465
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> المشاركات"
 
 #. This is the text from the notification tab. examples: 'Paul liked your post', 'Alice and Bob reposted your post', 'Eric and 4 others followed you'
-#: src/components/notification/index.tsx:223
+#. placeholder {4}: actors.length === 1 ? ( actors[0].displayName?.trim() || `@${actors[0].handle}` ) : actors.length === 2 ? ( <Trans> {actors[0].displayName?.trim() || `@${actors[0].handle}`} and{" "} {actors[1]?.displayName?.trim() || `@${actors[1]?.handle}`} </Trans> ) : ( <Trans> {actors[0].displayName?.trim() || `@${actors[0].handle}`} and{" "} {actors.length - 1} others </Trans> )
+#. placeholder {5}: " " + action
+#: src/components/notification/index.tsx:224
 msgid "<0>{4}</0><1>{5}</1>"
 msgstr ""
 
 #. be very careful not to leave spaces between the elements
-#: src/app/capture/[author]/[post].tsx:117
+#: src/app/capture/[author]/[post].tsx:118
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
 msgstr "<0> مشاركة عبر السماء الزرقاء</0><1/><2> تطبيق السماء الرمادية</2>"
 
@@ -208,7 +230,7 @@ msgstr "سهولة الاستخدام"
 msgid "Account"
 msgstr "حسابي"
 
-#: src/app/settings/account/delete-account.tsx:226
+#: src/app/settings/account/delete-account.tsx:227
 msgid "Account deleted. Goodbye!"
 msgstr "تم حذف الحساب. مع السلامة!"
 
@@ -220,7 +242,8 @@ msgstr "المعلومات التفصيلية عن الحساب"
 msgid "Account Settings"
 msgstr "إعدادات الحساب"
 
-#: src/app/add-to-list/[handle].tsx:124
+#. placeholder {0}: profile.data.displayName ?? `@${profile.data.handle}`
+#: src/app/add-to-list/[handle].tsx:125
 msgid "Add {0} to List"
 msgstr "إضافة {0} إلى القائمة"
 
@@ -228,11 +251,11 @@ msgstr "إضافة {0} إلى القائمة"
 msgid "Add a content warning"
 msgstr "إضافة تحذير من المحتوى"
 
-#: src/lib/composer/alt-text-editor.tsx:154
+#: src/lib/composer/alt-text-editor.tsx:156
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
 msgstr "أضف وصفًا للصورة. يعتبر النص البديل الجيد موجزًا ووافيا في الوقت نفسه. تأكد من كتابة أي نص موجود في الصورة نفسها."
 
-#: src/components/switch-accounts.tsx:177
+#: src/components/switch-accounts.tsx:173
 msgid "Add another account"
 msgstr "إضافة حساب آخر"
 
@@ -240,31 +263,31 @@ msgstr "إضافة حساب آخر"
 msgid "Add embed for <0>{potential}</0>"
 msgstr "إضافة مضمنة لـ <0>{potential}</0>"
 
-#: src/lib/composer/keyboard-accessory.tsx:70
+#: src/lib/composer/keyboard-accessory.tsx:96
 msgid "Add image"
 msgstr "أضف صورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:296
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:297
 msgid "Add to favourites"
 msgstr "الإضافة للمفضلة"
 
-#: src/components/screens/profile/profile-info.tsx:709
+#: src/components/screens/profile/profile-info.tsx:706
 msgid "Add to list"
 msgstr "أضف إلى القائمة"
 
-#: src/app/_layout.tsx:400
+#: src/app/_layout.tsx:432
 msgid "Add to List"
 msgstr "الإضافة إلى القائمة"
 
-#: src/app/add-to-list/[handle].tsx:155
+#: src/app/add-to-list/[handle].tsx:156
 msgid "Add to moderation list"
 msgstr "إضافة إلى قائمة الإشراف"
 
-#: src/app/add-to-list/[handle].tsx:146
+#: src/app/add-to-list/[handle].tsx:147
 msgid "Add to user list"
 msgstr "إضافة إلى قائمة المستخدمين"
 
-#: src/app/composer/index.tsx:234
+#: src/app/composer/index.tsx:235
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
 msgstr "إضافة وصف إلى صورتك يجعل Bluesky أيسر منالاً للمعوقين، ويساعد على إعطاء السياق للجميع. نوصي بشدة بإضافة نص بديل لجميع الصور."
 
@@ -276,8 +299,8 @@ msgstr "محتوى للكبار"
 msgid "Advanced Settings"
 msgstr "الإعدادات المُتقدّمة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:184
-#: src/components/feeds-button.tsx:207
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:185
+#: src/components/feeds-button.tsx:208
 msgid "All feeds"
 msgstr "كل الخلاصات"
 
@@ -293,50 +316,50 @@ msgstr "يسمح لك بفرز التغذية غير المفضلة يدوياً
 msgid "Alt"
 msgstr "مفتاح Alt"
 
-#: src/components/image-viewer.tsx:160
+#: src/components/image-viewer.tsx:159
 msgid "ALT"
 msgstr "ALT"
 
-#: src/components/embed/image.tsx:219
+#: src/components/embed/image.tsx:217
 msgid "ALT text"
 msgstr "نص ALT"
 
-#: src/components/image-viewer.tsx:191
+#: src/components/image-viewer.tsx:190
 msgid "ALT Text"
 msgstr "نص ALT"
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
-#: src/components/screens/change-password-flow.tsx:78
-#: src/components/translation.tsx:165
+#: src/components/screens/change-password-flow.tsx:79
+#: src/components/translation.tsx:166
 msgid "An error occurred"
 msgstr "حدث خطأ ما"
 
-#: src/components/image-with-context-menu.tsx:142
+#: src/components/image-with-context-menu.tsx:141
 msgid "An error occurred while trying to copy the image"
 msgstr "حدث خطأ أثناء محاولة نسخ الصورة"
 
-#: src/components/image-with-context-menu.tsx:174
+#: src/components/image-with-context-menu.tsx:173
 msgid "An error occurred while trying to save the image"
 msgstr "حدث خطأ أثناء محاولة نسخ الصورة"
 
-#: src/components/image-with-context-menu.tsx:198
+#: src/components/image-with-context-menu.tsx:197
 msgid "An error occurred while trying to share the image"
 msgstr "حدث خطأ أثناء محاولة نسخ الصورة"
 
-#: src/app/composer/index.tsx:344
+#: src/app/composer/index.tsx:345
 msgid "An unknown error occurred"
 msgstr "حصل خطأ غير معروف"
 
-#: src/app/settings/account/change-handle.tsx:58
+#: src/app/settings/account/change-handle.tsx:59
 msgid "An unknown error occurred."
 msgstr "حصل خطأ غير معروف."
 
-#: src/app/pro.tsx:236
+#: src/app/pro.tsx:235
 msgid "Annual Plan"
 msgstr "الخطة السنوية"
 
-#: src/components/post-context-menu.tsx:137
+#: src/components/post-context-menu.tsx:138
 msgid "Anti-Social Behavior"
 msgstr "السلوك المعادي للمجتمع"
 
@@ -349,11 +372,11 @@ msgstr "معلومات عن التطبيق"
 msgid "App language"
 msgstr "لغة التطبيق"
 
-#: src/app/(auth)/sign-in.tsx:92
+#: src/app/(auth)/sign-in.tsx:103
 msgid "App Password"
 msgstr "كلمة سر التطبيق"
 
-#: src/app/(auth)/sign-in.tsx:126
+#: src/app/(auth)/sign-in.tsx:137
 msgid "App Passwords"
 msgstr "كلمة سر التطبيق"
 
@@ -369,11 +392,11 @@ msgstr "إعدادات التطبيق"
 msgid "Are you sure you want to block @{handle}?"
 msgstr "هل ترغب حقا في حظر هذا المستخدم؟"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:329
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:330
 msgid "Are you sure you want to delete this list?"
 msgstr "هل تريد بالتأكيد حذف هذه القائمة؟"
 
-#: src/components/post-context-menu.tsx:88
+#: src/components/post-context-menu.tsx:89
 msgid "Are you sure you want to delete this post?"
 msgstr "هل أنت متأكد من أنك تريد أن تقوم بحذف هذه المشاركة؟"
 
@@ -385,23 +408,23 @@ msgstr "هل ترغب حقا في حظر هذا المستخدم؟"
 msgid "Available"
 msgstr "موجود"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:121
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:426
-#: src/app/settings/account/delete-account.tsx:203
-#: src/components/screens/change-password-flow.tsx:201
-#: src/components/screens/profile/profile-info.tsx:299
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:122
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:427
+#: src/app/settings/account/delete-account.tsx:204
+#: src/components/screens/change-password-flow.tsx:202
+#: src/components/screens/profile/profile-info.tsx:300
 msgid "Back"
 msgstr "الرجوع"
 
-#: src/app/pro.tsx:111
+#: src/app/pro.tsx:110
 msgid "Better translations"
 msgstr "ترجمات أفضل"
 
-#: src/app/pro.tsx:258
+#: src/app/pro.tsx:257
 msgid "Billed annually, cancel anytime"
 msgstr "فاتورة سنوية, الغاء في أي وقت"
 
-#: src/app/pro.tsx:225
+#: src/app/pro.tsx:224
 msgid "Billed monthly, cancel anytime"
 msgstr "فاتورة سنوية, الغاء في أي وقت"
 
@@ -410,12 +433,12 @@ msgstr "فاتورة سنوية, الغاء في أي وقت"
 msgid "Block"
 msgstr "بلوك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:218
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
 msgid "Block all members"
 msgstr "حظر جميع الأعضاء"
 
-#: src/components/post-context-menu.tsx:238
-#: src/components/screens/profile/profile-info.tsx:728
+#: src/components/post-context-menu.tsx:247
+#: src/components/screens/profile/profile-info.tsx:729
 msgid "Block user"
 msgstr "حظر مستخدم"
 
@@ -423,11 +446,11 @@ msgstr "حظر مستخدم"
 msgid "Blocked"
 msgstr "محظور"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:384
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:385
 msgid "Blocked post"
 msgstr "منشور محظور"
 
-#: src/app/settings/moderation.tsx:115
+#: src/app/settings/moderation.tsx:116
 msgid "Blocked users"
 msgstr "المُستَخدِمون المَحظورون"
 
@@ -435,61 +458,62 @@ msgstr "المُستَخدِمون المَحظورون"
 msgid "Blocked Users"
 msgstr "المستخدمون المحظورون"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:289
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
 msgid "Blocking list"
 msgstr "قائمة المحظورين"
 
-#: src/app/settings/moderation.tsx:112
+#: src/app/settings/moderation.tsx:113
 msgid "Blocks & Mutes"
 msgstr "حظر و كتم"
 
-#: src/app/settings/account/change-handle.tsx:87
+#: src/app/settings/account/change-handle.tsx:88
 msgid "bsky.social domain"
 msgstr "bsky.Social المجال"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:468
+#. placeholder {0}: info.creator.handle
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:469
 msgid "by @{0}"
 msgstr "من قبل @{0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:155
-#: src/app/settings/feed.tsx:224
+#. placeholder {0}: feed.creator.handle
+#. placeholder {0}: info.view.creator.handle
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:156
+#: src/app/settings/feed.tsx:195
 msgid "By @{0}"
 msgstr "من قبل @{0}"
 
-#: src/app/settings/account/delete-account.tsx:115
+#: src/app/settings/account/delete-account.tsx:116
 msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
 msgstr "بالضغط على التأكيد، أنت تفهم أن هذا هو حساب Bluesky الاجتماعي الخاص بك سوف تقوم بحذفه، ولا علاقة له بـ Graysky. سيتم حذف بياناتك بشكل دائم من التطبيق الرسمي أيضا."
 
-#: src/app/pro.tsx:317
+#: src/app/pro.tsx:316
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "من خلال الاشتراك، أنت توافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>. يتم تجديد الاشتراكات تلقائياً إلى أن يتم الإلغاء."
 
-#: src/app/pro.tsx:282
+#: src/app/pro.tsx:281
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "من خلال الاشتراك، أنت توافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>. يتم تجديد الاشتراكات تلقائياً إلى أن يتم الإلغاء."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:317
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:332
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:97
-#: src/app/capture/[author]/[post].tsx:171
-#: src/app/create-list.tsx:70
-#: src/app/create-list.tsx:137
-#: src/app/edit-bio.tsx:126
-#: src/app/settings/account/delete-account.tsx:119
-#: src/components/drawer/drawer-content.tsx:58
-#: src/components/feed-row.tsx:291
-#: src/components/image-viewer.tsx:274
-#: src/components/post-context-menu.tsx:91
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:194
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:224
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:333
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:395
+#: src/app/capture/[author]/[post].tsx:172
+#: src/app/create-list.tsx:71
+#: src/app/create-list.tsx:138
+#: src/app/edit-bio.tsx:127
+#: src/app/settings/account/delete-account.tsx:120
+#: src/components/drawer/drawer-content.tsx:59
+#: src/components/feed-row.tsx:297
+#: src/components/post-context-menu.tsx:92
 #: src/lib/account-actions.ts:74
 #: src/lib/account-actions.ts:120
-#: src/lib/composer/buttons.tsx:118
-#: src/lib/composer/buttons.tsx:163
-#: src/lib/composer/buttons.tsx:174
+#: src/lib/composer/buttons.tsx:120
+#: src/lib/composer/buttons.tsx:165
+#: src/lib/composer/buttons.tsx:176
 #: src/lib/hooks/link-press.tsx:40
-#: src/lib/hooks/link-press.tsx:101
+#: src/lib/hooks/link-press.tsx:102
 #: src/lib/hooks/post-actions.tsx:142
 msgid "Cancel"
 msgstr "إلغاء"
@@ -504,69 +528,69 @@ msgstr "تغيير الورق"
 msgid "Change Password"
 msgstr "غيّر كلمة السرّ"
 
-#: src/lib/composer/keyboard-accessory.tsx:113
+#: src/lib/composer/keyboard-accessory.tsx:103
 msgid "Change post language"
 msgstr "تغيير لغة النشر"
 
-#: src/app/pro.tsx:124
+#: src/app/pro.tsx:123
 msgid "Change the accent colour"
 msgstr "اختر لوننًا مميزًا"
 
-#: src/components/drawer/drawer-content.tsx:73
-#: src/components/drawer/drawer-content.tsx:197
-#: src/components/drawer/drawer-content.tsx:203
+#: src/components/drawer/drawer-content.tsx:74
+#: src/components/drawer/drawer-content.tsx:198
+#: src/components/drawer/drawer-content.tsx:204
 msgid "Change theme"
 msgstr "تغيير المظهر"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:310
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:362
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:311
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:363
 msgid "Change to moderation list"
 msgstr "تغيير إلى قائمة الإشراف"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:311
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:353
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:312
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
 msgid "Change to user list"
 msgstr "تغيير إلى قائمة المستخدمين"
 
-#: src/app/settings/account/change-handle.tsx:102
+#: src/app/settings/account/change-handle.tsx:103
 msgid "Choose a handle"
 msgstr "اختر اسم مستخدم"
 
-#: src/lib/composer/keyboard-accessory.tsx:88
+#: src/lib/composer/keyboard-accessory.tsx:70
 msgid "Choose from Library"
 msgstr "اختر من المكتبة"
 
-#: src/app/pro.tsx:129
+#: src/app/pro.tsx:128
 msgid "Circle graph"
 msgstr "رسم بياني للدائرة"
 
 #: src/app/(auth)/_layout.tsx:24
-#: src/app/add-to-list/[handle].tsx:134
-#: src/app/capture/[author]/[post].tsx:162
-#: src/app/circle.tsx:186
-#: src/app/composer/_layout.tsx:63
-#: src/app/composer/index.tsx:283
-#: src/app/composer/index.tsx:292
-#: src/app/create-list.tsx:155
-#: src/app/discover.tsx:126
-#: src/app/pro.tsx:168
+#: src/app/add-to-list/[handle].tsx:135
+#: src/app/capture/[author]/[post].tsx:163
+#: src/app/circle.tsx:188
+#: src/app/composer/_layout.tsx:64
+#: src/app/composer/index.tsx:284
+#: src/app/composer/index.tsx:293
+#: src/app/create-list.tsx:156
+#: src/app/discover.tsx:127
+#: src/app/pro.tsx:167
 #: src/app/settings/_layout.tsx:34
 msgid "Close"
 msgstr ""
 
-#: src/app/images/[post].tsx:89
+#: src/app/images/[post].tsx:87
 msgid "Close image modal"
 msgstr "أغلق نافذة عرض الصورة"
 
-#: src/app/settings/account/delete-account.tsx:123
+#: src/app/settings/account/delete-account.tsx:124
 msgid "Confirm and continue"
 msgstr "التأكيد والاستمرار"
 
-#: src/components/screens/change-password-flow.tsx:174
+#: src/components/screens/change-password-flow.tsx:175
 msgid "Confirm Password"
 msgstr "أكّد كلمة السر"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:33
+#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:41
 msgid "Connecting..."
 msgstr "جارٍ الاتصال..."
 
@@ -574,7 +598,7 @@ msgstr "جارٍ الاتصال..."
 msgid "Contact"
 msgstr "معلومات الاتصال"
 
-#: src/app/settings/moderation.tsx:127
+#: src/app/settings/moderation.tsx:128
 msgid "Content filters"
 msgstr "تصفية المحتوى"
 
@@ -582,7 +606,7 @@ msgstr "تصفية المحتوى"
 msgid "Content Languages"
 msgstr "لغة المحتوى"
 
-#: src/app/composer/_layout.tsx:93
+#: src/app/composer/_layout.tsx:94
 msgid "Content Warning"
 msgstr "تحذير من المُحتوى"
 
@@ -590,40 +614,40 @@ msgstr "تحذير من المُحتوى"
 msgid "Contributors"
 msgstr "المشاركون"
 
-#: src/components/image-with-context-menu.tsx:136
+#: src/components/image-with-context-menu.tsx:135
 msgid "Copied image to clipboard"
 msgstr "تم نسخ الصورة إلى الحافظة"
 
-#: src/components/post-context-menu.tsx:69
-#: src/lib/hooks/link-press.tsx:117
+#: src/components/post-context-menu.tsx:70
+#: src/lib/hooks/link-press.tsx:119
 msgid "Copied link"
 msgstr "تم نسخ الرابط"
 
-#: src/components/post-context-menu.tsx:80
+#: src/components/post-context-menu.tsx:81
 msgid "Copied post text"
 msgstr "تم نسخ نص المشاركة"
 
-#: src/components/image-with-context-menu.tsx:126
+#: src/components/image-with-context-menu.tsx:125
 msgid "Copy Image"
 msgstr "نسخ الصورة"
 
-#: src/lib/hooks/link-press.tsx:89
+#: src/lib/hooks/link-press.tsx:90
 msgid "Copy link"
 msgstr "نسخ الرابط"
 
-#: src/components/post-context-menu.tsx:174
+#: src/components/post-context-menu.tsx:179
 msgid "Copy link to post"
 msgstr "نسخ رابط المنشور"
 
-#: src/components/post-context-menu.tsx:191
+#: src/components/post-context-menu.tsx:197
 msgid "Copy post text"
 msgstr "نسخ نص المنشور"
 
-#: src/app/settings/account/change-handle.tsx:57
+#: src/app/settings/account/change-handle.tsx:58
 msgid "Could not change handle"
 msgstr "تعذر تغيير اسم المستخدم"
 
-#: src/app/pro.tsx:93
+#: src/app/pro.tsx:92
 msgid "Could not complete purchase"
 msgstr "تعذر إتمام عملية الشراء"
 
@@ -631,19 +655,19 @@ msgstr "تعذر إتمام عملية الشراء"
 #~ msgid "Could not create account"
 #~ msgstr ""
 
-#: src/app/settings/account/delete-account.tsx:68
+#: src/app/settings/account/delete-account.tsx:69
 msgid "Could not delete account"
 msgstr "لم نستطع إزالة حسابك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:684
 msgid "Could not delete list"
 msgstr "تعذر حذف القائمة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:140
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:141
 msgid "Could not fetch list"
 msgstr "القائمة غير متاحة حاليا"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:564
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:565
 msgid "Could not fetch list feed"
 msgstr "تعذر إحضار موجز القائمة"
 
@@ -651,25 +675,25 @@ msgstr "تعذر إحضار موجز القائمة"
 msgid "Could not fetch mutes"
 msgstr "القائمة السوداء غير متاحة حاليا"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:289
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
 msgid "Could not fetch trending topics"
 msgstr "لا يمكن الوصول إلى المواضيع الرائجة"
 
-#: src/components/screens/profile/profile-info.tsx:109
+#: src/components/screens/profile/profile-info.tsx:110
 msgid "Could not follow user"
 msgstr "لا يمكن متابعة المستخدم"
 
-#: src/app/(auth)/sign-in.tsx:50
-#: src/components/switch-accounts.tsx:71
-#: src/components/switch-accounts.tsx:76
+#: src/app/(auth)/sign-in.tsx:57
+#: src/components/switch-accounts.tsx:68
+#: src/components/switch-accounts.tsx:73
 msgid "Could not log you in"
 msgstr "تعذر تسجيل دخولك"
 
-#: src/app/composer/gifs.tsx:214
+#: src/app/composer/gifs.tsx:213
 msgid "Could not select GIF"
 msgstr "لا يمكن اختيار GIF"
 
-#: src/app/add-to-list/[handle].tsx:43
+#: src/app/add-to-list/[handle].tsx:44
 msgid "Couldn't fetch lists"
 msgstr "القائمة غير متاحة حاليا"
 
@@ -685,19 +709,19 @@ msgstr "القائمة غير متاحة حاليا"
 #~ msgid "Create an account"
 #~ msgstr ""
 
-#: src/app/create-list.tsx:255
+#: src/app/create-list.tsx:256
 msgid "Create list"
 msgstr "إنشاء قائمة"
 
-#: src/app/_layout.tsx:393
+#: src/app/_layout.tsx:425
 msgid "Create List"
 msgstr "إنشاء قائمة"
 
-#: src/app/add-to-list/[handle].tsx:168
+#: src/app/add-to-list/[handle].tsx:169
 msgid "Create new list"
 msgstr "قم بإنشاء قائمة جديدة"
 
-#: src/app/(auth)/sign-in.tsx:146
+#: src/app/(auth)/sign-in.tsx:157
 msgid "Create one at bsky.app/settings"
 msgstr "إنشاء واحد في bsky.app/إعدادات"
 
@@ -705,28 +729,28 @@ msgstr "إنشاء واحد في bsky.app/إعدادات"
 msgid "Created by"
 msgstr "أنشئ من طرف"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:289
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:290
 msgid "Creator"
 msgstr "مبتكر"
 
-#: src/app/pro.tsx:197
+#: src/app/pro.tsx:196
 msgid "Currently subscribed"
 msgstr "المنتجات المطلوبة حاليًا"
 
-#: src/app/settings/account/change-handle.tsx:91
+#: src/app/settings/account/change-handle.tsx:92
 msgid "Custom domain"
 msgstr "نطاق مخصص"
 
-#: src/app/pro.tsx:123
+#: src/app/pro.tsx:122
 msgid "Custom themes"
 msgstr "ثيم مخصص"
 
-#: src/components/drawer/drawer-content.tsx:68
+#: src/components/drawer/drawer-content.tsx:69
 msgid "dark"
 msgstr "مظلم"
 
-#: src/components/drawer/drawer-content.tsx:56
-#: src/components/drawer/drawer-content.tsx:88
+#: src/components/drawer/drawer-content.tsx:57
+#: src/components/drawer/drawer-content.tsx:89
 msgid "Dark"
 msgstr "داكن"
 
@@ -734,42 +758,42 @@ msgstr "داكن"
 #~ msgid "Date of Birth"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
-#: src/components/post-context-menu.tsx:87
-#: src/components/post-context-menu.tsx:95
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:337
+#: src/components/post-context-menu.tsx:88
+#: src/components/post-context-menu.tsx:96
 msgid "Delete"
 msgstr "حذف"
 
 #: src/app/settings/_layout.tsx:94
-#: src/app/settings/account/delete-account.tsx:208
+#: src/app/settings/account/delete-account.tsx:209
 #: src/app/settings/account/index.tsx:60
 msgid "Delete Account"
 msgstr "حذف الحساب"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:326
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:328
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:314
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:327
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:329
 msgid "Delete list"
 msgstr "حذف القائمة"
 
-#: src/components/post-context-menu.tsx:220
+#: src/components/post-context-menu.tsx:228
 msgid "Delete post"
 msgstr "حذف المنشور"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:398
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:399
 msgid "Deleted post"
 msgstr "المنشورات المحذوفة"
 
-#: src/app/settings/account/delete-account.tsx:99
+#: src/app/settings/account/delete-account.tsx:100
 msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
 msgstr "سيؤدي حذف حساب Bluesky الخاص بك إلى إزالة جميع بياناتك بشكل دائم، بما في ذلك ملفك الشخصي ومشاركاتك ومتابعتك وما إلى ذلك. لا يمكن التراجع عن هذا الإجراء."
 
-#: src/app/settings/account/delete-account.tsx:167
+#: src/app/settings/account/delete-account.tsx:168
 msgid "Deletion Code"
 msgstr "كود الحذف"
 
-#: src/app/create-list.tsx:206
-#: src/app/edit-bio.tsx:269
+#: src/app/create-list.tsx:207
+#: src/app/edit-bio.tsx:270
 msgid "Description"
 msgstr "الوصف"
 
@@ -786,13 +810,13 @@ msgstr "تعطيل اللمسات"
 msgid "Disable haptics (vibrations)"
 msgstr "إيقاف الاهتزازات (اللمسية)"
 
-#: src/app/edit-bio.tsx:180
+#: src/app/edit-bio.tsx:181
 msgid "Discard and close"
 msgstr ""
 
-#: src/app/composer/index.tsx:297
-#: src/lib/composer/buttons.tsx:118
-#: src/lib/composer/buttons.tsx:159
+#: src/app/composer/index.tsx:298
+#: src/lib/composer/buttons.tsx:120
+#: src/lib/composer/buttons.tsx:161
 msgid "Discard post"
 msgstr "تجاهُل المنشور"
 
@@ -800,19 +824,19 @@ msgstr "تجاهُل المنشور"
 msgid "Discover feeds"
 msgstr "اكتشف الخلاصات"
 
-#: src/app/_layout.tsx:311
+#: src/app/_layout.tsx:343
 msgid "Discover Feeds"
 msgstr "اكتشف الخلاصات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:220
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:221
 msgid "Discover more feeds"
 msgstr "اكتشف الخلاصات"
 
-#: src/app/edit-bio.tsx:252
+#: src/app/edit-bio.tsx:253
 msgid "Display name"
 msgstr "اسم المستخدم"
 
-#: src/app/settings/account/change-handle.tsx:82
+#: src/app/settings/account/change-handle.tsx:83
 msgid "Domain"
 msgstr "النطاق"
 
@@ -820,63 +844,63 @@ msgstr "النطاق"
 msgid "Don't enable"
 msgstr "يُرجى عدم التمكين"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:290
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:42
-#: src/app/add-to-list/[handle].tsx:56
-#: src/app/composer/_layout.tsx:50
-#: src/app/discover.tsx:68
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:291
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:43
+#: src/app/add-to-list/[handle].tsx:57
+#: src/app/composer/_layout.tsx:51
+#: src/app/discover.tsx:69
 #: src/app/success.tsx:68
-#: src/lib/composer/alt-text-editor.tsx:81
+#: src/lib/composer/alt-text-editor.tsx:83
 msgid "Done"
 msgstr "تم"
 
-#: src/app/settings/account/delete-account.tsx:113
+#: src/app/settings/account/delete-account.tsx:114
 msgid "Double check that you understand"
 msgstr "التحقق المزدوج الذي تفهمه"
 
-#: src/app/composer/_layout.tsx:85
+#: src/app/composer/_layout.tsx:86
 msgid "Drafts"
 msgstr "المسودات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:290
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:42
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:291
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:43
 msgid "Edit"
 msgstr "تحرير"
 
-#: src/lib/composer/alt-text-editor.tsx:68
+#: src/lib/composer/alt-text-editor.tsx:70
 msgid "Edit alt text"
 msgstr "تعديل نص بديل"
 
-#: src/app/edit-bio.tsx:225
+#: src/app/edit-bio.tsx:226
 msgid "Edit avatar"
 msgstr "تحرير الصورة الرمزية"
 
-#: src/app/edit-bio.tsx:207
+#: src/app/edit-bio.tsx:208
 msgid "Edit banner"
 msgstr "تحرير اللافتة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:35
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:36
 msgid "Edit feeds"
 msgstr "تحرير التغذية"
 
-#: src/components/screens/profile/profile-info.tsx:612
+#: src/components/screens/profile/profile-info.tsx:609
 msgid "Edit profile"
 msgstr ""
 
-#: src/app/_layout.tsx:368
+#: src/app/_layout.tsx:400
 #: src/app/settings/account/index.tsx:40
 msgid "Edit Profile"
 msgstr "تعديل الملف التعريف"
 
-#: src/app/composer/index.tsx:310
+#: src/app/composer/index.tsx:311
 msgid "Edit who can reply"
 msgstr ""
 
-#: src/components/screens/change-password-flow.tsx:98
+#: src/components/screens/change-password-flow.tsx:99
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: src/app/settings/moderation.tsx:143
+#: src/app/settings/moderation.tsx:144
 msgid "Enable Adult Content"
 msgstr "تمكين المحتوى للبالغين"
 
@@ -888,9 +912,9 @@ msgstr "فَعِل الإشعارات"
 #~ msgid "Enter your phone number"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
-#: src/app/capture/[author]/[post].tsx:89
-#: src/app/settings/account/change-handle.tsx:53
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
+#: src/app/capture/[author]/[post].tsx:90
+#: src/app/settings/account/change-handle.tsx:54
 msgid "Error"
 msgstr "حدث خطأ"
 
@@ -898,56 +922,56 @@ msgstr "حدث خطأ"
 msgid "Everyone can reply"
 msgstr "يمكن للجميع الرد"
 
-#: src/app/capture/[author]/[post].tsx:89
+#: src/app/capture/[author]/[post].tsx:90
 msgid "Failed to capture image"
 msgstr "فشل التقاط الصورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:57
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:56
 msgid "Failed to fetch feed"
 msgstr "فشل في جلب الخلاصة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:70
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:69
 msgid "Failed to hydrate feed"
 msgstr "فشل في تغذية الهيدر"
 
-#: src/lib/hooks/link-press.tsx:74
+#: src/lib/hooks/link-press.tsx:75
 msgid "Failed to open link"
 msgstr "فشل فتح الرابط"
 
-#: src/lib/composer/utils.tsx:186
+#: src/lib/composer/utils.tsx:193
 msgid "Failed to upload image"
 msgstr "فشل في تحميل الصورة"
 
-#: src/components/feed-row.tsx:221
+#: src/components/feed-row.tsx:227
 msgid "Favourited"
 msgstr "المفضلة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:146
-#: src/components/feeds-button.tsx:201
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:147
+#: src/components/feeds-button.tsx:202
 msgid "Favourites"
 msgstr "المُفضلات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:86
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:87
 msgid "Feed"
 msgstr "موجز"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:55
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:56
 msgid "Feed Details"
 msgstr "تفاصيل الموجز"
 
 #: src/app/(tabs)/_layout.tsx:170
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:273
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:25
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:274
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:26
 #: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "التغذية"
 
-#: src/app/settings/feed.tsx:130
-#: src/app/settings/feed.tsx:144
+#: src/app/settings/feed.tsx:131
+#: src/app/settings/feed.tsx:153
 msgid "Feeds list"
 msgstr "قائمة التغذيات"
 
-#: src/app/circle.tsx:283
+#: src/app/circle.tsx:285
 msgid "Fetch connections"
 msgstr "جلب الاتصالات"
 
@@ -955,8 +979,8 @@ msgstr "جلب الاتصالات"
 msgid "Find people to follow"
 msgstr "ابحث عن أشخاص لِمُتابعتهم"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:396
-#: src/components/screens/profile/profile-info.tsx:409
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:397
+#: src/components/screens/profile/profile-info.tsx:410
 msgid "Follow"
 msgstr "تابِع"
 
@@ -964,7 +988,7 @@ msgstr "تابِع"
 msgid "Follow people, and their posts will show up here"
 msgstr "تابع الناس، وستظهر مشاركتهم هنا"
 
-#: src/components/screens/profile/profile-info.tsx:99
+#: src/components/screens/profile/profile-info.tsx:100
 msgid "Followed user"
 msgstr "المستخدمون الذين اتابعهم"
 
@@ -977,9 +1001,9 @@ msgstr "المتابِعون"
 #. 'Following' - The name of the main feed
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:130
-#: src/app/settings/feed.tsx:56
-#: src/components/feeds-button.tsx:282
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:131
+#: src/app/settings/feed.tsx:57
+#: src/components/feeds-button.tsx:283
 #: src/lib/hooks/feeds.ts:128
 msgid "following.feed"
 msgstr "متابعة.موجز"
@@ -989,9 +1013,9 @@ msgstr "متابعة.موجز"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:398
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:399
 #: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:384
+#: src/components/screens/profile/profile-info.tsx:385
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "متابعة.الإجراء"
@@ -1003,16 +1027,16 @@ msgid "following.list"
 msgstr "قائمة المتابعة"
 
 #: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:430
+#: src/components/screens/profile/profile-info.tsx:431
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "يتابعك"
 
-#: src/app/(auth)/sign-in.tsx:106
+#: src/app/(auth)/sign-in.tsx:118
 msgid "Forgot?"
 msgstr "نسيت؟"
 
-#: src/components/screens/profile/profile-info.tsx:653
+#: src/components/screens/profile/profile-info.tsx:657
 msgid "Frequently Posts Unwanted Content"
 msgstr "تكرار نشر المحتوى غير المرغوب فيه"
 
@@ -1020,7 +1044,7 @@ msgstr "تكرار نشر المحتوى غير المرغوب فيه"
 msgid "General"
 msgstr "عامّ"
 
-#: src/app/settings/language/index.tsx:159
+#: src/app/settings/language/index.tsx:156
 msgid "Get Graysky Pro for access to DeepL translations. Google Translate is used otherwise."
 msgstr "احصل على Graysky Pro للوصول إلى ترجمة DeepL. يتم استخدام ترجمة Google خلاف ذلك."
 
@@ -1032,26 +1056,26 @@ msgstr "ابدأ الآن"
 msgid "Getting queue position..."
 msgstr "يتم تحديد موضعك في الانتظار..."
 
-#: src/app/composer/_layout.tsx:116
+#: src/app/composer/_layout.tsx:117
 msgid "GIFs"
 msgstr "الصور المتحركة"
 
-#: src/app/composer/index.tsx:236
+#: src/app/composer/index.tsx:237
 msgid "Go back"
 msgstr "الرجوع للخلف"
 
-#: src/app/settings/language/index.tsx:157
+#: src/app/settings/language/index.tsx:154
 #: src/app/settings/pro.tsx:50
 msgid "Google Translate is used otherwise."
 msgstr "يتم استخدام ترجمة جوجل خلاف ذلك."
 
-#: src/app/pro.tsx:182
+#: src/app/pro.tsx:181
 #: src/app/settings/index.tsx:34
-#: src/components/drawer/drawer-content.tsx:177
+#: src/components/drawer/drawer-content.tsx:178
 msgid "Graysky Pro"
 msgstr "سماء رمادية Pro"
 
-#: src/app/settings/account/change-handle.tsx:49
+#: src/app/settings/account/change-handle.tsx:50
 msgid "Handle already taken"
 msgstr "الاسم المستخدم بالفعل"
 
@@ -1067,13 +1091,13 @@ msgstr "اسم المستخدم مستخدم بالفعل"
 msgid "Haptics disabled"
 msgstr "ميزة اللمس مُعطلة"
 
-#: src/app/pro.tsx:136
+#: src/app/pro.tsx:135
 msgid "Help us keep the lights on"
 msgstr "ساعدنا على الحفاظ على الأضواء"
 
-#: src/app/settings/moderation.tsx:103
-#: src/components/embed/index.tsx:232
-#: src/components/feed-post.tsx:152
+#: src/app/settings/moderation.tsx:104
+#: src/components/embed/index.tsx:239
+#: src/components/feed-post.tsx:157
 msgid "Hide"
 msgstr "إخفاء"
 
@@ -1085,15 +1109,15 @@ msgstr "تفضيلات التغذية الرئيسية"
 msgid "Home Feed Preferences"
 msgstr "تفضيلات التغذية الرئيسية"
 
-#: src/app/settings/feed.tsx:120
+#: src/app/settings/feed.tsx:118
 msgid "Home screen"
 msgstr "الشاشة الرئيسية"
 
-#: src/app/settings/feed.tsx:123
+#: src/app/settings/feed.tsx:121
 msgid "Home screen layout"
 msgstr "ترتيب الشاشة الرئيسية"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:216
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:209
 msgid "Hot"
 msgstr "الأكثر نشاطًا"
 
@@ -1101,7 +1125,7 @@ msgstr "الأكثر نشاطًا"
 msgid "How should we open this link?"
 msgstr "بأي تطبيق نفتح هذا الرابط؟"
 
-#: src/app/settings/language/index.tsx:131
+#: src/app/settings/language/index.tsx:128
 msgid "If a post is marked as being in one of these languages, it will not be translated."
 msgstr "إذا تم وضع علامة على وظيفة على أنها موجودة بإحدى هاتين اللغتين، فلن يتم ترجمتها."
 
@@ -1109,23 +1133,24 @@ msgstr "إذا تم وضع علامة على وظيفة على أنها موجو
 msgid "If you have contributed to Graysky, for example helping with translations, please reach out to @graysky.app so we can add you to this list!"
 msgstr "إذا كنت قد ساهمت في Graysky، على سبيل المثال المساعدة في الترجمة، يرجى الوصول إلى @graysky.app حتى نتمكن من إضافتك إلى هذه القائمة!"
 
-#: src/components/post-context-menu.tsx:135
+#: src/components/post-context-menu.tsx:136
 msgid "Illegal and Urgent"
 msgstr "يواجه مشكلة ملحة و تتطلب استشارة قانونية"
 
-#: src/components/image-viewer.tsx:268
+#: src/components/image-viewer.tsx:237
 msgid "Image options"
 msgstr "خيارات الصورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:230
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
 msgid "Invalid mode"
 msgstr "الوضع غير صالح"
 
-#: src/components/drawer/drawer-content.tsx:74
+#: src/components/drawer/drawer-content.tsx:75
 msgid "It's currently set to the {current} theme"
 msgstr "تم تعيينه حاليا إلى السمة {current}"
 
-#: src/components/screens/profile/profile-info.tsx:505
+#. placeholder {0}: new Intl.DateTimeFormat(locale.languageTag, { month: "long", year: "numeric", }).format(new Date(profile.createdAt))
+#: src/components/screens/profile/profile-info.tsx:506
 msgid "Joined {0}"
 msgstr "انضم {0}"
 
@@ -1134,16 +1159,16 @@ msgstr "انضم {0}"
 msgid "Languages"
 msgstr "اللُّغة"
 
-#: src/components/drawer/drawer-content.tsx:67
+#: src/components/drawer/drawer-content.tsx:68
 msgid "light"
 msgstr "مضيئ"
 
-#: src/components/drawer/drawer-content.tsx:55
-#: src/components/drawer/drawer-content.tsx:85
+#: src/components/drawer/drawer-content.tsx:56
+#: src/components/drawer/drawer-content.tsx:86
 msgid "Light"
 msgstr "مضيئ"
 
-#: src/components/notification/index.tsx:68
+#: src/components/notification/index.tsx:69
 msgid "liked your post"
 msgstr "أعجب بمنشورك"
 
@@ -1152,7 +1177,7 @@ msgstr "أعجب بمنشورك"
 msgid "Likes"
 msgstr "الإعجابات"
 
-#: src/lib/hooks/link-press.tsx:118
+#: src/lib/hooks/link-press.tsx:120
 msgid "Link copied to clipboard"
 msgstr "رابط تم نسخه إلى الحافظة"
 
@@ -1160,35 +1185,35 @@ msgstr "رابط تم نسخه إلى الحافظة"
 msgid "Links will open in the app instead of your device's default browser"
 msgstr "سيتم فتح الروابط في التطبيق بدلاً من المتصفح الافتراضي لجهازك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:119
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:120
 msgid "List"
 msgstr "قائمة"
 
-#: src/app/create-list.tsx:170
+#: src/app/create-list.tsx:171
 msgid "List Avatar"
 msgstr "قائمة الصورة الرمزية"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:238
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:239
 msgid "List blocked"
 msgstr "قائمة محظورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
 msgid "List deleted"
 msgstr "القائمة تم حذفها"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:257
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
 msgid "List favourited"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:233
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:234
 msgid "List muted"
 msgstr "تم كتم القائمة"
 
-#: src/app/create-list.tsx:191
+#: src/app/create-list.tsx:192
 msgid "List name"
 msgstr "اسم القائمة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:259
 msgid "List unfavourited"
 msgstr ""
 
@@ -1202,7 +1227,7 @@ msgid "Log back in"
 msgstr "تسجيل الدخول مرة أخرى"
 
 #: src/app/(auth)/_layout.tsx:37
-#: src/app/(auth)/sign-in.tsx:163
+#: src/app/(auth)/sign-in.tsx:172
 #: src/app/index.tsx:53
 msgid "Log in"
 msgstr "الدخول"
@@ -1211,7 +1236,7 @@ msgstr "الدخول"
 msgid "Log out"
 msgstr "الخروج"
 
-#: src/components/switch-accounts.tsx:84
+#: src/components/switch-accounts.tsx:81
 msgid "Logged in"
 msgstr "تم تسجيل الدخول"
 
@@ -1227,11 +1252,11 @@ msgstr "يبدو أنه لا يوجد شيء هنا بعد!"
 msgid "Makes adding ALT text to your images mandatory"
 msgstr "يجعل إضافة نص ALT إلى صورك إلزامية"
 
-#: src/components/feeds-button.tsx:332
+#: src/components/feeds-button.tsx:333
 msgid "Manage my feeds"
 msgstr "إدارة خلاصتي"
 
-#: src/app/pro.tsx:209
+#: src/app/pro.tsx:208
 msgid "Manage my subscription"
 msgstr "إدارة الإشتراك"
 
@@ -1247,21 +1272,22 @@ msgstr "الفرز يدوياً للتغذية غير المفضلة"
 msgid "Media"
 msgstr "الوسائط"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:89
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:107
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:90
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:108
 msgid "Members"
 msgstr "الأعضاء"
 
+#. placeholder {0}: list.name
 #: src/app/composer/threadgate.tsx:137
 msgid "Members of list \"{0}\""
 msgstr "أعضاء القائمة\"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:654
+#: src/components/screens/profile/profile-info.tsx:658
 msgid "Misleading Account"
 msgstr "حساب مضلل"
 
-#: src/app/composer/index.tsx:221
-#: src/app/composer/index.tsx:232
+#: src/app/composer/index.tsx:222
+#: src/app/composer/index.tsx:233
 msgid "Missing alt text"
 msgstr "نص بديل مفقود"
 
@@ -1270,18 +1296,19 @@ msgstr "نص بديل مفقود"
 msgid "Moderation"
 msgstr "المُشرف"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:281
-#: src/app/create-list.tsx:67
-#: src/app/create-list.tsx:244
-#: src/components/feed-row.tsx:72
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:282
+#: src/app/create-list.tsx:68
+#: src/app/create-list.tsx:245
+#: src/components/feed-row.tsx:76
 msgid "Moderation list"
 msgstr "قائمة الإشراف"
 
-#: src/app/pro.tsx:218
+#: src/app/pro.tsx:217
 msgid "Monthly Plan"
 msgstr "خطة شهرية"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:326
+#. placeholder {0}: info.view.creator.displayName
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:327
 msgid "More from {0}"
 msgstr "المزيد من {0}"
 
@@ -1294,11 +1321,11 @@ msgctxt "video"
 msgid "Mute"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:218
 msgid "Mute all members"
 msgstr "حظر جميع الأعضاء"
 
-#: src/components/post-context-menu.tsx:231
+#: src/components/post-context-menu.tsx:240
 #: src/components/screens/profile/profile-info.tsx:719
 msgid "Mute user"
 msgstr "كتم المستخدم"
@@ -1307,11 +1334,11 @@ msgstr "كتم المستخدم"
 msgid "Muted"
 msgstr "تم كتم صوت"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:285
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:286
 msgid "Muted list"
 msgstr "قائمة مكتومة"
 
-#: src/app/settings/moderation.tsx:120
+#: src/app/settings/moderation.tsx:121
 msgid "Muted users"
 msgstr "المستخدمون المكتومون"
 
@@ -1324,61 +1351,63 @@ msgstr "المستخدمون المَكتومون"
 msgid "Mutuals"
 msgstr "المشتركة"
 
-#: src/components/drawer/drawer-content.tsx:190
+#: src/components/drawer/drawer-content.tsx:191
 msgid "My circle"
 msgstr "دائرتي"
 
-#: src/app/_layout.tsx:335
+#: src/app/_layout.tsx:367
 msgid "My Circle"
 msgstr "دائرتي"
 
-#: src/components/drawer/drawer-content.tsx:185
+#: src/components/drawer/drawer-content.tsx:186
 msgid "My circle of friends"
 msgstr "دائرة أصدقائي"
 
-#: src/components/drawer/drawer-content.tsx:122
+#: src/components/drawer/drawer-content.tsx:123
 msgid "My feeds"
 msgstr "تغذيتي"
 
-#: src/components/feeds-button.tsx:119
+#: src/components/feeds-button.tsx:120
 msgid "My Feeds"
 msgstr "تغذيتي"
 
-#: src/components/drawer/drawer-content.tsx:117
+#: src/components/drawer/drawer-content.tsx:118
 msgid "My Feeds screen"
 msgstr "شاشة التغذية الخاصة بي"
 
 #: src/app/composer/language.tsx:85
-#: src/app/settings/language/index.tsx:108
+#: src/app/settings/language/index.tsx:105
 msgid "My languages"
 msgstr "لغتي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:81
-#: src/components/feeds-button.tsx:211
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:82
+#: src/components/feeds-button.tsx:212
 msgid "My lists"
 msgstr "قائمتي"
 
-#: src/components/screens/profile/profile-info.tsx:655
+#: src/components/screens/profile/profile-info.tsx:659
 msgid "Name or Description Violates Community Standards"
 msgstr "الاسم أو الوصف يخالف معايير المجتمع"
 
-#: src/app/add-to-list/[handle].tsx:164
+#: src/app/add-to-list/[handle].tsx:165
 msgid "Need a new list?"
 msgstr "هل تحتاج إلى قائمة جديدة؟"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:214
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:207
 msgid "New"
 msgstr "جديد"
 
-#: src/components/notification/index.tsx:189
+#. placeholder {0}: actor.displayName ?? ""
+#. placeholder {1}: actor.handle
+#: src/components/notification/index.tsx:190
 msgid "New follower: {0} @{1}"
 msgstr "متابع جديد: {0} @{1}"
 
-#: src/components/screens/change-password-flow.tsx:153
+#: src/components/screens/change-password-flow.tsx:154
 msgid "New Password"
 msgstr "كلمة سر جديدة"
 
-#: src/app/composer/_layout.tsx:83
+#: src/app/composer/_layout.tsx:84
 #: src/lib/quick-actions.ts:53
 msgid "New Post"
 msgstr "منشور جديد"
@@ -1388,7 +1417,7 @@ msgstr "منشور جديد"
 #~ msgid "Next"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:76
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:77
 msgid "No feeds found - maybe try a different search term?"
 msgstr "لم يتم العثور على مستخدمين - ربما تجرب مصطلح بحث مختلف؟"
 
@@ -1396,36 +1425,36 @@ msgstr "لم يتم العثور على مستخدمين - ربما تجرب م�
 msgid "No one can reply"
 msgstr "لا أحد يستطيع الرد"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:103
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:104
 msgid "No posts found - maybe try a different search term?"
 msgstr "لم يتم العثور على مستخدمين - ربما تجرب مصطلح بحث مختلف؟"
 
-#: src/app/settings/feed.tsx:82
-#: src/app/settings/moderation.tsx:42
+#: src/app/settings/feed.tsx:83
+#: src/app/settings/moderation.tsx:43
 msgid "No preferences"
 msgstr "ليس لدي أي تفضيل"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:85
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:86
 msgid "No users found - maybe try a different search term?"
 msgstr "لم يتم العثور على مستخدمين - ربما تجرب مصطلح بحث مختلف؟"
 
-#: src/components/primary-post.tsx:209
+#: src/components/primary-post.tsx:221
 msgid "Nobody can reply"
 msgstr "لا أحد يستطيع الرد"
 
-#: src/components/feed-row.tsx:221
+#: src/components/feed-row.tsx:227
 msgid "Not favourited"
 msgstr "لم يتم الإعجاب به"
 
-#: src/lib/hooks/link-press.tsx:76
+#: src/lib/hooks/link-press.tsx:77
 msgid "Not sure why, sorry :("
 msgstr "لست متأكدا لماذا ، آسف :("
 
-#: src/app/settings/account/change-handle.tsx:95
+#: src/app/settings/account/change-handle.tsx:96
 msgid "Not yet implemented"
 msgstr "لم تنفذ حتى الآن"
 
-#: src/app/settings/moderation.tsx:132
+#: src/app/settings/moderation.tsx:133
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "ملاحظة: لا يمكن تغيير إعدادات المحتوى للبالغين على نظام iOS. الرجاء استخدام تطبيق الويب بدلاً من ذلك."
 
@@ -1438,7 +1467,7 @@ msgstr "الإشعارات"
 msgid "Nudity"
 msgstr "عري أو محتوى جنسي مبالغ فيه"
 
-#: src/app/settings/feed.tsx:260
+#: src/app/settings/feed.tsx:251
 msgid "Only show replies from your follows"
 msgstr "إظهار الردود من متابعتك فقط"
 
@@ -1447,48 +1476,48 @@ msgstr "إظهار الردود من متابعتك فقط"
 msgid "Open drawer menu"
 msgstr "فتح قائمة درج"
 
-#: src/lib/hooks/link-press.tsx:88
+#: src/lib/hooks/link-press.tsx:89
 msgid "Open link"
 msgstr "فتح الرابط"
 
-#: src/components/embed/index.tsx:242
+#: src/components/embed/index.tsx:249
 msgid "Opens embedded post"
 msgstr "فتح المشاركة المضمنة"
 
-#: src/components/feed-post.tsx:270
-#: src/components/feed-post.tsx:457
+#: src/components/feed-post.tsx:275
+#: src/components/feed-post.tsx:465
 msgid "Opens parent post"
 msgstr "فتح المشاركة الأصلية"
 
-#: src/components/feed-post.tsx:305
+#: src/components/feed-post.tsx:310
 msgid "Opens post details"
 msgstr "فتح تفاصيل المنشور"
 
-#: src/components/feed-post.tsx:216
-#: src/components/feed-post.tsx:373
-#: src/components/notification/index.tsx:179
-#: src/components/primary-post.tsx:99
+#: src/components/feed-post.tsx:221
+#: src/components/feed-post.tsx:378
+#: src/components/notification/index.tsx:180
+#: src/components/primary-post.tsx:111
 msgid "Opens profile"
 msgstr "فتح ملف شخصي"
 
-#: src/app/create-list.tsx:214
+#: src/app/create-list.tsx:215
 msgid "Optional"
 msgstr "إختياري"
 
-#: src/components/post-context-menu.tsx:138
-#: src/components/screens/profile/profile-info.tsx:656
+#: src/components/post-context-menu.tsx:139
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Other"
 msgstr "آخرى"
 
-#: src/app/settings/account/delete-account.tsx:183
+#: src/app/settings/account/delete-account.tsx:184
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: src/components/screens/change-password-flow.tsx:227
+#: src/components/screens/change-password-flow.tsx:228
 msgid "Password changed successfully!"
 msgstr "تم تغيير كلمة المرور بنجاح!"
 
-#: src/components/screens/change-password-flow.tsx:60
+#: src/components/screens/change-password-flow.tsx:61
 msgid "Password must be at least 8 characters"
 msgstr "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
 
@@ -1504,11 +1533,11 @@ msgstr "الأشخاص المشار إليهم في الموضوع"
 msgid "People you follow"
 msgstr "الأشخاص الذين تتابعهم"
 
-#: src/components/image-with-context-menu.tsx:156
-#: src/lib/composer/utils.tsx:497
+#: src/components/image-with-context-menu.tsx:155
 #: src/lib/composer/utils.tsx:507
-#: src/lib/composer/utils.tsx:526
-#: src/lib/composer/utils.tsx:534
+#: src/lib/composer/utils.tsx:517
+#: src/lib/composer/utils.tsx:536
+#: src/lib/composer/utils.tsx:544
 msgid "Permission required"
 msgstr "مطلوب إعطاء الإذن"
 
@@ -1520,18 +1549,18 @@ msgstr "مطلوب إعطاء الإذن"
 msgid "Play video"
 msgstr ""
 
-#: src/app/composer/index.tsx:223
+#: src/app/composer/index.tsx:224
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "الرجاء إضافة نص بديل وصفي لجميع الصور قبل النشر."
 
-#: src/lib/composer/utils.tsx:527
-#: src/lib/composer/utils.tsx:535
+#: src/lib/composer/utils.tsx:537
+#: src/lib/composer/utils.tsx:545
 msgid "Please enable camera access in your settings"
 msgstr "الرجاء تمكين الوصول إلى الكاميرا في الإعدادات الخاصة بك"
 
-#: src/components/image-with-context-menu.tsx:158
-#: src/lib/composer/utils.tsx:499
+#: src/components/image-with-context-menu.tsx:157
 #: src/lib/composer/utils.tsx:509
+#: src/lib/composer/utils.tsx:519
 msgid "Please enable photo gallery access in your settings"
 msgstr "الرجاء تمكين الوصول إلى الكاميرا في الإعدادات الخاصة بك"
 
@@ -1539,17 +1568,17 @@ msgstr "الرجاء تمكين الوصول إلى الكاميرا في الإ
 #~ msgid "Please enter a phone number that can receive SMS text messages."
 #~ msgstr ""
 
-#: src/app/composer/gifs.tsx:215
-#: src/app/composer/index.tsx:348
-#: src/components/screens/change-password-flow.tsx:72
+#: src/app/composer/gifs.tsx:214
+#: src/app/composer/index.tsx:349
+#: src/components/screens/change-password-flow.tsx:73
 msgid "Please try again"
 msgstr "من فضلك حاول مرة أخرى"
 
-#: src/components/screens/change-password-flow.tsx:80
+#: src/components/screens/change-password-flow.tsx:81
 msgid "Please try again - are you sure your reset code is correct?"
 msgstr "الرجاء المحاولة مرة أخرى - هل أنت متأكد من أن رمز إعادة التعيين صحيح؟"
 
-#: src/app/settings/account/change-handle.tsx:96
+#: src/app/settings/account/change-handle.tsx:97
 msgid "Please use the official app in the meantime. Sorry!"
 msgstr "الرجاء استخدام التطبيق الرسمي في هذه الأثناء. آسف!"
 
@@ -1558,45 +1587,49 @@ msgid "Pornographic content"
 msgstr "المحتوى الإباحي"
 
 #: src/app/(tabs)/_layout.tsx:212
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:356
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:369
-#: src/lib/composer/buttons.tsx:72
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:370
+#: src/lib/composer/buttons.tsx:74
 msgid "Post"
 msgstr "منشور"
 
-#: src/app/composer/index.tsx:236
+#: src/app/composer/index.tsx:237
 msgid "Post anyway"
 msgstr "نشر على أي حال"
 
-#: src/app/circle.tsx:281
+#: src/app/circle.tsx:283
 msgid "Post circle"
 msgstr "دائرة النشر"
 
-#: src/components/post-context-menu.tsx:104
+#: src/components/post-context-menu.tsx:105
 msgid "Post deleted"
 msgstr "تم حذف المنشور"
 
-#: src/app/composer/_layout.tsx:88
+#: src/app/composer/_layout.tsx:89
 msgid "Post Language"
 msgstr "لغة النشر"
 
-#: src/app/settings/language/index.tsx:85
+#: src/app/settings/language/index.tsx:82
 msgid "Post languages"
 msgstr "لغة النشر"
 
-#: src/components/post-context-menu.tsx:70
+#: src/components/post-context-menu.tsx:71
 msgid "Post link copied to clipboard"
 msgstr "تم نسخ رابط النشر إلى الحافظة"
 
-#: src/lib/composer/utils.tsx:336
+#: src/components/post-context-menu.tsx:147
+msgid "Post options"
+msgstr ""
+
+#: src/lib/composer/utils.tsx:346
 msgid "Post published!"
 msgstr "نُشِرَ المنشور!"
 
-#: src/app/circle.tsx:245
+#: src/app/circle.tsx:247
 msgid "Post text (optional)"
 msgstr "نص المشاركة (اختياري)"
 
-#: src/components/post-context-menu.tsx:81
+#: src/components/post-context-menu.tsx:82
 msgid "Post text copied to clipboard"
 msgstr "تم نسخ رابط النشر إلى الحافظة"
 
@@ -1604,26 +1637,26 @@ msgstr "تم نسخ رابط النشر إلى الحافظة"
 msgid "Posts"
 msgstr "المشاركات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:136
-#: src/components/feeds-button.tsx:288
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:137
+#: src/components/feeds-button.tsx:289
 msgid "Posts from people you follow"
 msgstr "المشاركات من الأشخاص الذين تتابعهم"
 
-#: src/app/settings/language/index.tsx:102
+#: src/app/settings/language/index.tsx:99
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "سيتم ترجمة المشاركات إلى {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:172
 msgid "Powered by Skyfeed"
 msgstr "مدعوم من سكايفيد"
 
-#: src/app/settings/feed.tsx:132
+#: src/app/settings/feed.tsx:140
 #: src/app/settings/feed.tsx:155
-#: src/app/settings/feed.tsx:171
+#: src/app/settings/feed.tsx:169
 msgid "Primary feed"
 msgstr "التغذية الأساسية"
 
-#: src/app/settings/language/index.tsx:88
+#: src/app/settings/language/index.tsx:85
 msgid "Primary language"
 msgstr "اللغة الأساسية"
 
@@ -1635,7 +1668,7 @@ msgstr "اللغة الأساسية"
 msgid "Pro Settings"
 msgstr "إعدادات متقدمة"
 
-#: src/components/drawer/drawer-content.tsx:172
+#: src/components/drawer/drawer-content.tsx:173
 msgid "Pro version information and purchase"
 msgstr "معلومات الإصدار الاحترافي والشراء"
 
@@ -1643,15 +1676,20 @@ msgstr "معلومات الإصدار الاحترافي والشراء"
 msgid "Profile"
 msgstr "الملف الشخصي"
 
+#: src/components/screens/profile/profile-info.tsx:602
+#: src/components/screens/profile/profile-info.tsx:679
+msgid "Profile options"
+msgstr ""
+
 #: src/app/settings/account/index.tsx:37
 msgid "Profile Settings"
 msgstr "إعدادات الملف الشخصي"
 
-#: src/app/_layout.tsx:343
+#: src/app/_layout.tsx:375
 msgid "Purchase Successful"
 msgstr "نجحت علمية الشراء"
 
-#: src/app/create-list.tsx:230
+#: src/app/create-list.tsx:231
 msgid "Purpose"
 msgstr "الغرض"
 
@@ -1659,7 +1697,7 @@ msgstr "الغرض"
 msgid "Push notifications"
 msgstr "الإشعارات المُرسلة"
 
-#: src/app/_layout.tsx:407
+#: src/app/_layout.tsx:439
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "إشعارات منبثقة"
@@ -1668,15 +1706,15 @@ msgstr "إشعارات منبثقة"
 msgid "Quote"
 msgstr "اقتباس"
 
-#: src/app/settings/feed.tsx:305
+#: src/app/settings/feed.tsx:296
 msgid "Quote post settings"
 msgstr "إعدادات مشاركة الاقتباس"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:228
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
 msgid "Random"
 msgstr "عشوائي"
 
-#: src/components/image-viewer.tsx:146
+#: src/components/image-viewer.tsx:145
 msgid "Read full ALT text"
 msgstr "قراءة نص ALT الكامل"
 
@@ -1684,57 +1722,61 @@ msgstr "قراءة نص ALT الكامل"
 msgid "Replies"
 msgstr "الردود"
 
-#: src/app/composer/_layout.tsx:103
+#: src/app/composer/_layout.tsx:104
 msgid "Reply Controls"
 msgstr "عناصر التحكم في الرد"
 
-#: src/app/settings/feed.tsx:241
+#: src/app/settings/feed.tsx:232
 msgid "Reply settings"
 msgstr "إعدادات الردود"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:330
+#. placeholder {0}: thread.data.main.author.displayName ?? `@${thread.data.main.author.handle}`
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:331
 msgid "Reply to {0}"
 msgstr "الرد على {0}"
 
-#: src/components/feed-post.tsx:284
-#: src/components/feed-post.tsx:469
+#. placeholder {0}: data.post.author.displayName ?? `@${data.post.author.handle}`
+#. placeholder {0}: item.reply.parent.author.displayName ?? `@${item.reply.parent.author.handle}`
+#: src/components/feed-post.tsx:289
+#: src/components/feed-post.tsx:477
 msgid "replying to {0}"
 msgstr "الردّ على {0}"
 
-#: src/app/composer/index.tsx:408
+#. placeholder {0}: reply.thread.data.post.author.handle
+#: src/app/composer/index.tsx:409
 msgid "Replying to @{0}"
 msgstr "الردّ على {0}"
 
-#: src/components/feed-post.tsx:428
+#: src/components/feed-post.tsx:436
 msgid "replying to a blocked user"
 msgstr "الرد على المستخدم المحظور"
 
-#: src/components/feed-post.tsx:431
+#: src/components/feed-post.tsx:439
 msgid "replying to a deleted post"
 msgstr "الرد على منشور محذوف"
 
-#: src/components/feed-post.tsx:423
+#: src/components/feed-post.tsx:431
 msgid "replying to a post that couldn't be fetched"
 msgstr "الرد على منشور لا يمكن إحضاره"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:416
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:417
 msgid "Replying to some sort of post"
 msgstr "الرد على نوع من المشاركة"
 
-#: src/components/feed-post.tsx:425
+#: src/components/feed-post.tsx:433
 msgid "replying to..."
 msgstr "الردّ على..."
 
-#: src/components/screens/profile/profile-info.tsx:737
+#: src/components/screens/profile/profile-info.tsx:738
 msgid "Report account"
 msgstr "الإبلاغ عن الحساب"
 
-#: src/components/post-context-menu.tsx:246
+#: src/components/post-context-menu.tsx:255
 msgid "Report post"
 msgstr "الإبلاغ عن المنشور"
 
-#: src/components/post-context-menu.tsx:126
-#: src/components/screens/profile/profile-info.tsx:668
+#: src/components/post-context-menu.tsx:127
+#: src/components/screens/profile/profile-info.tsx:672
 msgid "Report submitted"
 msgstr "تم إرسال البلاغ"
 
@@ -1742,7 +1784,7 @@ msgstr "تم إرسال البلاغ"
 msgid "Repost"
 msgstr "إعادة النشر"
 
-#: src/app/settings/feed.tsx:284
+#: src/app/settings/feed.tsx:275
 msgid "Repost settings"
 msgstr "إعدادات إعادة النشر"
 
@@ -1750,11 +1792,12 @@ msgstr "إعدادات إعادة النشر"
 msgid "Reposted by"
 msgstr "أُعيد نشرها بواسطة"
 
-#: src/components/feed-post.tsx:388
+#. placeholder {0}: item.reason.by.displayName || `@${item.reason.by.handle}`
+#: src/components/feed-post.tsx:393
 msgid "Reposted by {0}"
 msgstr "أعيد نشرها بواسطة {0}"
 
-#: src/components/notification/index.tsx:97
+#: src/components/notification/index.tsx:98
 msgid "reposted your post"
 msgstr "إعادة نشر مشاركتك"
 
@@ -1762,7 +1805,7 @@ msgstr "إعادة نشر مشاركتك"
 #~ msgid "Request code"
 #~ msgstr ""
 
-#: src/components/screens/change-password-flow.tsx:137
+#: src/components/screens/change-password-flow.tsx:138
 msgid "Reset Code"
 msgstr "كود إعادة تعيين"
 
@@ -1770,13 +1813,13 @@ msgstr "كود إعادة تعيين"
 msgid "Reset password"
 msgstr "إعادة تعيين كلمة المرور"
 
-#: src/app/pro.tsx:351
-#: src/app/pro.tsx:366
+#: src/app/pro.tsx:350
+#: src/app/pro.tsx:365
 msgid "Restore purchases"
 msgstr "استعادة المشتريات"
 
-#: src/app/pro.tsx:349
-#: src/app/pro.tsx:364
+#: src/app/pro.tsx:348
+#: src/app/pro.tsx:363
 msgid "Restoring purchases..."
 msgstr "جارِ استعادة المشتريات..."
 
@@ -1785,67 +1828,68 @@ msgstr "جارِ استعادة المشتريات..."
 msgid "Retry"
 msgstr "حاول مجددًا"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:218
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:211
 msgid "Rising"
 msgstr "صاعد"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:210
-#: src/app/edit-bio.tsx:146
-#: src/app/edit-bio.tsx:188
-#: src/app/settings/account/change-handle.tsx:163
-#: src/components/screens/change-password-flow.tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:211
+#: src/app/edit-bio.tsx:147
+#: src/app/edit-bio.tsx:189
+#: src/app/settings/account/change-handle.tsx:164
+#: src/components/screens/change-password-flow.tsx:210
 msgid "Save"
 msgstr "حفظ"
 
-#: src/app/pro.tsx:240
+#. placeholder {0}: Math.round( 1000 - (annualProduct.price / (monthlyProduct.price * 12)) * 1000, ) / 10
+#: src/app/pro.tsx:239
 msgid "Save {0}%"
 msgstr "حفظ {0}%"
 
-#: src/components/image-with-context-menu.tsx:151
+#: src/components/image-with-context-menu.tsx:150
 msgid "Save Image"
 msgstr "حفظ الصورة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:199
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:200
 msgid "Saved"
 msgstr "تم الحفظ"
 
-#: src/components/image-with-context-menu.tsx:168
+#: src/components/image-with-context-menu.tsx:167
 msgid "Saved image to gallery"
 msgstr "حفظ الصورة في معرض الصور"
 
 #: src/app/(tabs)/_layout.tsx:197
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:89
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:90
 #: src/lib/quick-actions.ts:47
 msgid "Search"
 msgstr "البحث في السماء الرمادية"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:185
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:186
 msgid "Search all users"
 msgstr "إبحث عن المستخدمين"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:116
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:154
-#: src/app/discover.tsx:30
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:117
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
+#: src/app/discover.tsx:31
 msgid "Search feeds"
 msgstr "البحث في الخلاصات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:127
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:128
 msgid "Search Feeds"
 msgstr "البحث في الخلاصات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:80
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:81
 msgid "Search for feeds"
 msgstr "البحث في الخلاصات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:107
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:108
 msgid "Search for posts"
 msgstr "البحث عن مشاركات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:89
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:90
 msgid "Search for users"
 msgstr "البحث عن المستخدمين"
 
-#: src/lib/composer/keyboard-accessory.tsx:99
+#: src/lib/composer/keyboard-accessory.tsx:77
 msgid "Search GIFs"
 msgstr "بحث عن صور متحركة GIFs"
 
@@ -1855,40 +1899,40 @@ msgstr "بحث عن صور متحركة GIFs"
 msgid "Search languages"
 msgstr "البحث عن اللغات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:117
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:118
 msgid "Search people"
 msgstr "البحث عن الأشخاص"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:129
 msgid "Search People"
 msgstr "البحث عن الأشخاص"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:149
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:136
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:150
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:137
 msgid "Search posts"
 msgstr "البحث عن المشاركات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:147
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:148
 msgid "Search Posts"
 msgstr "البحث عن المشاركات"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:160
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:161
 msgid "Search users"
 msgstr "ابحث في المستخدمين"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:61
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:62
 msgid "Search users, posts, feeds"
 msgstr "البحث عن المستخدمين، المشاركات، التغذية"
 
-#: src/components/post-context-menu.tsx:202
+#: src/components/post-context-menu.tsx:210
 msgid "See likes"
 msgstr "مشاهدة الإعجاب"
 
-#: src/components/post-context-menu.tsx:209
+#: src/components/post-context-menu.tsx:216
 msgid "See reposts"
 msgstr "رؤية المنشورات المعاد نشرها"
 
-#: src/app/pro.tsx:130
+#: src/app/pro.tsx:129
 msgid "See your closest connections"
 msgstr "شاهد أوثق اتصالاتك"
 
@@ -1896,7 +1940,7 @@ msgstr "شاهد أوثق اتصالاتك"
 #~ msgid "Select date of birth"
 #~ msgstr ""
 
-#: src/app/create-list.tsx:246
+#: src/app/create-list.tsx:247
 msgid "Select list purpose"
 msgstr "حدد الغرض من القائمة"
 
@@ -1904,25 +1948,25 @@ msgstr "حدد الغرض من القائمة"
 msgid "Select one or more options"
 msgstr "حدد واحد أو أكثر من الخيارات"
 
-#: src/app/composer/index.tsx:319
+#: src/app/composer/index.tsx:320
 msgid "Send"
 msgstr ""
 
-#: src/app/settings/account/delete-account.tsx:130
+#: src/app/settings/account/delete-account.tsx:131
 msgid "Send confirmation email"
 msgstr "إرسالة رسالة بريد إلكتروني للتأكيد"
 
-#: src/components/screens/change-password-flow.tsx:118
+#: src/components/screens/change-password-flow.tsx:119
 msgid "Send reset email"
 msgstr "إرسال إعادة تعيين البريد الإلكتروني"
 
 #: src/app/settings/_layout.tsx:56
-#: src/components/drawer/drawer-content.tsx:214
+#: src/components/drawer/drawer-content.tsx:215
 #: src/lib/quick-actions.ts:59
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: src/components/drawer/drawer-content.tsx:209
+#: src/components/drawer/drawer-content.tsx:210
 msgid "Settings menu"
 msgstr "قائمة الإعدادات"
 
@@ -1930,58 +1974,59 @@ msgstr "قائمة الإعدادات"
 msgid "Sexual content"
 msgstr "محتوى جنسي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:379
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:312
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:345
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:394
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:380
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:346
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:395
 msgid "Share"
 msgstr "مشاركة"
 
-#: src/app/capture/[author]/[post].tsx:83
+#. placeholder {0}: post.data.post.author.handle
+#: src/app/capture/[author]/[post].tsx:84
 msgid "Share {0}'s post"
 msgstr "مشاركة المنشور {0}"
 
-#: src/components/post-context-menu.tsx:181
+#: src/components/post-context-menu.tsx:185
 msgid "Share as image"
 msgstr "مشاركة كصورة"
 
-#: src/app/_layout.tsx:417
+#: src/app/_layout.tsx:449
 msgid "Share as Image"
 msgstr "مشاركة كصورة"
 
-#: src/app/capture/[author]/[post].tsx:146
-#: src/components/image-with-context-menu.tsx:191
+#: src/app/capture/[author]/[post].tsx:147
+#: src/components/image-with-context-menu.tsx:190
 msgid "Share image"
 msgstr "مشاركة الصورة"
 
-#: src/lib/hooks/link-press.tsx:90
+#: src/lib/hooks/link-press.tsx:91
 msgid "Share link"
 msgstr "مشاركة الرابط"
 
-#: src/components/post-context-menu.tsx:167
+#: src/components/post-context-menu.tsx:173
 msgid "Share link to post"
 msgstr "شارك رابط المنشور"
 
-#: src/components/post-context-menu.tsx:161
+#: src/components/post-context-menu.tsx:165
 msgid "Share post"
 msgstr "مُشاركة المنشور"
 
-#: src/components/screens/profile/profile-info.tsx:619
-#: src/components/screens/profile/profile-info.tsx:687
+#: src/components/screens/profile/profile-info.tsx:615
+#: src/components/screens/profile/profile-info.tsx:686
 msgid "Share profile"
 msgstr "مشاركة الملف الشخصي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:407
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:408
 msgid "Share this feed"
 msgstr "مشاركة هذه الخلاصة"
 
-#: src/components/image-with-context-menu.tsx:185
+#: src/components/image-with-context-menu.tsx:184
 msgid "Share via..."
 msgstr "شارك عبر..."
 
-#: src/app/settings/moderation.tsx:101
-#: src/components/embed/index.tsx:232
-#: src/components/feed-post.tsx:152
+#: src/app/settings/moderation.tsx:102
+#: src/components/embed/index.tsx:239
+#: src/components/feed-post.tsx:157
 msgid "Show"
 msgstr "إظهار"
 
@@ -1989,6 +2034,7 @@ msgstr "إظهار"
 msgid "Show \"My Lists\" above \"All Feeds\""
 msgstr "إظهار \"قائمتي\" أعلاه \"كل التغذية\""
 
+#. placeholder {0}: people.length - limit
 #: src/components/lists/people-list.tsx:128
 msgid "Show {0} more"
 msgstr "إظهار {0} المزيد"
@@ -2013,21 +2059,21 @@ msgstr "إظهار كل إشعار على حدة في علامة التبويب 
 msgid "Show lists above feeds in the feeds tab"
 msgstr "إظهار القوائم أعلاه للتغذية في علامة تبويب الخلاصات"
 
-#: src/app/settings/feed.tsx:308
+#: src/app/settings/feed.tsx:299
 msgid "Show quote posts"
 msgstr "إظهار المشاركات الاقتباس"
 
-#: src/app/settings/feed.tsx:244
+#: src/app/settings/feed.tsx:235
 msgid "Show replies"
 msgstr "عرض الردود"
 
-#: src/app/settings/feed.tsx:287
+#: src/app/settings/feed.tsx:278
 msgid "Show reposts"
 msgstr "عرض الردود"
 
-#: src/components/drawer/drawer-content.tsx:222
-#: src/components/drawer/drawer-content.tsx:228
-#: src/components/switch-accounts.tsx:146
+#: src/components/drawer/drawer-content.tsx:223
+#: src/components/drawer/drawer-content.tsx:229
+#: src/components/switch-accounts.tsx:142
 msgid "Sign out"
 msgstr "تسجيل الخروج"
 
@@ -2040,28 +2086,29 @@ msgid "Sign up for project updates"
 msgstr "تسجيل للحصول على تحديثات المشروع"
 
 #: src/app/(tabs)/_layout.tsx:170
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:255
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:256
 msgid "Skyline"
 msgstr "السماء"
 
-#: src/app/pro.tsx:94
+#: src/app/pro.tsx:93
 msgid "Something went wrong, please try again later."
 msgstr "حدث خطأ ما الرجاء المحاولة مرة أخرى في وقت لاحق."
 
-#: src/app/_layout.tsx:148
-#: src/app/_layout.tsx:166
+#: src/app/_layout.tsx:129
+#: src/app/_layout.tsx:231
 msgid "Sorry! Your session expired. Please log in again."
 msgstr "عذراً! انتهت مدة جلستك. الرجاء تسجيل الدخول مرة أخرى."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:100
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:91
 msgid "Sort posts by"
 msgstr "فرز المشاركات حسب"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:113
+#. placeholder {0}: getModeName(mode)
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:106
 msgid "Sort: {0}"
 msgstr "الفرز: {0}"
 
-#: src/components/post-context-menu.tsx:134
+#: src/components/post-context-menu.tsx:135
 msgid "Spam"
 msgstr "رسائل غير مرغوب فيها"
 
@@ -2077,32 +2124,33 @@ msgstr "راعي عملي"
 msgid "Star us on GitHub!"
 msgstr "ادعم مشروعنا على جيت هب!"
 
-#: src/components/notification/index.tsx:127
-#: src/components/notification/index.tsx:186
+#: src/components/notification/index.tsx:128
+#: src/components/notification/index.tsx:187
 msgid "started following you"
 msgstr "بدأ بمُتابعتك"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:35
+#: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:36
 msgid "Stop editing"
 msgstr "إيقاف التعديل"
 
-#: src/app/pro.tsx:275
+#: src/app/pro.tsx:274
 msgid "Subscribe & pay"
 msgstr "الاشتراك والدفع"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:222
+#. placeholder {0}: info.name
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
 msgid "Subscribe to {0}"
 msgstr "الاشتراك في {0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:282
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:283
 msgid "Subscribe to list"
 msgstr "الاشتراك في قائمة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:296
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:297
 msgid "Suggested follows"
 msgstr "المتابعة المقترحة"
 
-#: src/app/pro.tsx:135
+#: src/app/pro.tsx:134
 msgid "Support development"
 msgstr "دعم تطوير التطبيق"
 
@@ -2110,16 +2158,16 @@ msgstr "دعم تطوير التطبيق"
 msgid "Switch Accounts"
 msgstr "تبديل الحسابات"
 
-#: src/components/drawer/drawer-content.tsx:69
+#: src/components/drawer/drawer-content.tsx:70
 msgid "system"
 msgstr "النظام"
 
-#: src/components/drawer/drawer-content.tsx:57
-#: src/components/drawer/drawer-content.tsx:91
+#: src/components/drawer/drawer-content.tsx:58
+#: src/components/drawer/drawer-content.tsx:92
 msgid "System"
 msgstr "النظام"
 
-#: src/lib/composer/keyboard-accessory.tsx:77
+#: src/lib/composer/keyboard-accessory.tsx:63
 msgid "Take photo"
 msgstr "إلتقط صورة"
 
@@ -2131,8 +2179,8 @@ msgstr ""
 msgid "Tap to toggle sound"
 msgstr ""
 
-#: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:669
+#: src/components/post-context-menu.tsx:128
+#: src/components/screens/profile/profile-info.tsx:673
 msgid "Thank you for making the skyline a safer place"
 msgstr "نشكرك على جعل خط السماء مكانا أكثر أمانا"
 
@@ -2156,12 +2204,12 @@ msgstr "لا يوجد شيء هنا..."
 msgid "This feed is empty"
 msgstr "هذه التغذية فارغة"
 
-#: src/app/settings/account/change-handle.tsx:50
+#: src/app/settings/account/change-handle.tsx:51
 msgid "This handle is already taken. Please choose another."
 msgstr "هذا البريد الإلكتروني موجود بالفعل. الرجاء إدخال بريد إلكتروني آخر."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:506
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:634
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:507
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:635
 msgid "This list is empty"
 msgstr "هذه القائمة فارغة"
 
@@ -2177,29 +2225,31 @@ msgstr "يحتوي هذا المنشور على صور مخصصة للكبار."
 msgid "This post contains sexual activity or erotic nudity."
 msgstr "هذا المنشور يحتوي على عقل فني أو غير مثالي."
 
-#: src/components/embed/index.tsx:228
-#: src/components/feed-post.tsx:148
+#: src/components/embed/index.tsx:235
+#: src/components/feed-post.tsx:153
 msgid "This post is from someone you have blocked"
 msgstr "هذه المشاركة من شخص قمت بحظره"
 
-#: src/components/embed/index.tsx:226
-#: src/components/feed-post.tsx:146
+#: src/components/embed/index.tsx:233
+#: src/components/feed-post.tsx:151
 msgid "This post is from someone you have muted"
 msgstr "هذه المشاركة من شخص قمت بحظره"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:328
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:329
 msgid "This thread is locked"
 msgstr "هذا الموضوع مغلق"
 
-#: src/components/screens/profile/profile-info.tsx:585
+#: src/components/screens/profile/profile-info.tsx:586
 msgid "This user has blocked you"
 msgstr "قام هذا المستخدم بحظرك"
 
-#: src/components/screens/profile/profile-info.tsx:550
+#. placeholder {0}: profile.viewer.blockingByList.name
+#: src/components/screens/profile/profile-info.tsx:551
 msgid "This user is on the \"{0}\" block list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:519
+#. placeholder {0}: profile.viewer.mutedByList.name
+#: src/components/screens/profile/profile-info.tsx:520
 msgid "This user is on the \"{0}\" mute list"
 msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 
@@ -2207,52 +2257,52 @@ msgstr "هذا المستخدم موجود في قائمة الحظر \"{0}\""
 msgid "To get started, add some feeds to your home screen."
 msgstr "للبدء، أضف بعض الخلاصات إلى شاشتك الرئيسية."
 
-#: src/components/feed-row.tsx:224
+#: src/components/feed-row.tsx:230
 msgid "Toggle favourite status"
 msgstr "تبديل الوضعية المفضلة"
 
-#: src/lib/composer/utils.tsx:389
+#: src/lib/composer/utils.tsx:399
 msgid "Too many images selected"
 msgstr "تم تحديد صور كثيرة جداً"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:220
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
 msgid "Top (10h)"
 msgstr "أعلى (10 ساعات)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:222
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
 msgid "Top (24h)"
 msgstr "أعلى (24 ساعة)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:224
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
 msgid "Top (3d)"
 msgstr "أعلى (3د)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:226
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
 msgid "Top (7d)"
 msgstr "أعلى (3د)"
 
-#: src/components/screens/profile/profile-info.tsx:702
+#: src/components/screens/profile/profile-info.tsx:700
 msgid "Translate bio"
 msgstr "ترجمة النبذة التعريفية"
 
-#: src/components/post-context-menu.tsx:154
-#: src/components/translation.tsx:86
+#: src/components/post-context-menu.tsx:156
+#: src/components/translation.tsx:87
 msgid "Translate post"
 msgstr "ترجمة المنشور"
 
-#: src/app/pro.tsx:112
+#: src/app/pro.tsx:111
 msgid "Translate posts using DeepL"
 msgstr "ترجمة المشاركات باستخدام الـ DeepL"
 
-#: src/components/translation.tsx:146
+#: src/components/translation.tsx:147
 msgid "Translated by DeepL"
 msgstr "مترجم بواسطة DeepL"
 
-#: src/components/translation.tsx:135
+#: src/components/translation.tsx:136
 msgid "Translated by Google"
 msgstr "تمت ترجمتها بواسطة جوجل"
 
-#: src/app/settings/language/index.tsx:135
+#: src/app/settings/language/index.tsx:132
 #: src/app/settings/pro.tsx:29
 msgid "Translation provider"
 msgstr "مقدم خدمات الترجمة"
@@ -2261,11 +2311,11 @@ msgstr "مقدم خدمات الترجمة"
 msgid "Translations are now powered by DeepL"
 msgstr "الترجمات الآن مدعومة من طرف DeepL"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:252
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:253
 msgid "Trending topics"
 msgstr "المواضيع الشائعة"
 
-#: src/components/screens/profile/profile-info.tsx:560
+#: src/components/screens/profile/profile-info.tsx:561
 #: src/lib/account-actions.ts:116
 #: src/lib/account-actions.ts:124
 msgid "Unblock"
@@ -2279,60 +2329,60 @@ msgstr "إلغاء الحظر"
 msgid "Undo Repost"
 msgstr "التراجع عن إعادة النشر"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:299
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:300
 msgid "Unfavorite list"
 msgstr "القائمة غير المفضلة"
 
-#: src/components/screens/profile/profile-info.tsx:100
+#: src/components/screens/profile/profile-info.tsx:101
 msgid "Unfollowed user"
 msgstr "المستخدمون الذين اتابعهم"
 
-#: src/app/(auth)/sign-in.tsx:51
-#: src/app/settings/account/delete-account.tsx:69
-#: src/components/switch-accounts.tsx:72
-#: src/components/switch-accounts.tsx:77
+#: src/app/(auth)/sign-in.tsx:58
+#: src/app/settings/account/delete-account.tsx:70
+#: src/components/switch-accounts.tsx:69
+#: src/components/switch-accounts.tsx:74
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
+
+#: src/components/screens/profile/profile-info.tsx:530
+msgid "Unmute"
+msgstr "إلغاء كتم الصوت"
 
 #: src/components/embed/video.tsx:157
 msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:529
-msgid "Unmute"
-msgstr "إلغاء كتم الصوت"
-
 #: src/lib/account-actions.ts:53
 msgid "Unmuted"
 msgstr "غير مكتوم"
 
-#: src/components/feed-row.tsx:291
+#: src/components/feed-row.tsx:297
 msgid "Unsave"
 msgstr "لم يتم الحفظ"
 
-#: src/components/feed-row.tsx:290
+#: src/components/feed-row.tsx:296
 msgid "Unsave this feed?"
 msgstr "إلغاء حفظ هذه الخلاصة؟"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:193
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:194
 msgid "Unsubscribe from list"
 msgstr "إلغاء الاشتراك من القائمة"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:210
 msgid "Unsubscribed from list"
 msgstr "إلغاء الاشتراك من القائمة"
 
-#: src/components/post-context-menu.tsx:136
+#: src/components/post-context-menu.tsx:137
 msgid "Unwanted Sexual Content"
 msgstr "محتوى جنسي غير مرغوب فيه"
 
-#: src/app/settings/language/index.tsx:138
+#: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:32
 msgid "Use DeepL for translations"
 msgstr "استخدام الـ DeepL للترجمات"
 
-#: src/app/settings/language/index.tsx:150
+#: src/app/settings/language/index.tsx:147
 #: src/app/settings/pro.tsx:44
 msgid "Use DeepL for translations instead of Google Translate"
 msgstr "استخدام الـ DeepL للترجمات بدلاً من ترجمة Google"
@@ -2346,30 +2396,31 @@ msgstr "استخدام المتصفح داخل التطبيق"
 msgid "Use my default browser"
 msgstr "استخدم متصفحي الافتراضي"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:294
-#: src/app/create-list.tsx:67
-#: src/app/create-list.tsx:242
-#: src/components/feed-row.tsx:69
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:295
+#: src/app/create-list.tsx:68
+#: src/app/create-list.tsx:243
+#: src/components/feed-row.tsx:73
 msgid "User list"
 msgstr "قائمة المستخدمين"
 
-#: src/app/(auth)/sign-in.tsx:71
+#: src/app/(auth)/sign-in.tsx:82
 msgid "Username or email address"
 msgstr "إسم المستخدم او البريد الالكتروني"
 
-#: src/components/primary-post.tsx:267
+#: src/components/primary-post.tsx:276
 msgid "Users in the list"
 msgstr "المستخدمون في القائمة"
 
-#: src/components/primary-post.tsx:269
+#: src/components/primary-post.tsx:278
 msgid "Users in the lists"
 msgstr "المستخدمون في القائمة"
 
-#: src/components/primary-post.tsx:224
+#: src/components/primary-post.tsx:233
 msgid "Users mentioned in this thread"
 msgstr "الأشخاص المشار إليهم في الموضوع"
 
-#: src/components/primary-post.tsx:231
+#. placeholder {0}: author.displayName ?? `@${author.handle}`
+#: src/components/primary-post.tsx:240
 msgid "Users that <0>{0}</0> follows"
 msgstr "المستخدمين الذين يتبعون <0>{0}</0>"
 
@@ -2377,13 +2428,14 @@ msgstr "المستخدمين الذين يتبعون <0>{0}</0>"
 #~ msgid "Verification code"
 #~ msgstr ""
 
+#. placeholder {0}: Constants.expoConfig.version
 #: src/app/settings/about.tsx:211
-#: src/components/drawer/drawer-content.tsx:233
+#: src/components/drawer/drawer-content.tsx:234
 msgid "Version {0}"
 msgstr "الإصدار {0}"
 
 #: src/app/settings/about.tsx:212
-#: src/components/drawer/drawer-content.tsx:235
+#: src/components/drawer/drawer-content.tsx:236
 msgid "Version unknown"
 msgstr "نسخة غير معروفة"
 
@@ -2392,28 +2444,29 @@ msgstr "نسخة غير معروفة"
 msgid "Video"
 msgstr ""
 
+#. placeholder {0}: video.alt
 #: src/components/embed/video.tsx:80
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:529
-#: src/components/screens/profile/profile-info.tsx:560
+#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:561
 msgid "View"
 msgstr "شاهد"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:362
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:363
 msgid "View all feeds"
 msgstr "مشاهدة جميع الخلاصات"
 
-#: src/components/embed/image.tsx:216
+#: src/components/embed/image.tsx:214
 msgid "View ALT text"
 msgstr "عرض نص ALT"
 
-#: src/app/settings/moderation.tsx:102
+#: src/app/settings/moderation.tsx:103
 msgid "Warn"
 msgstr "حذّر"
 
-#: src/app/settings/account/delete-account.tsx:96
+#: src/app/settings/account/delete-account.tsx:97
 msgid "Warning: Account deletion is permanent"
 msgstr "تحذير: حذف الحساب دائم"
 
@@ -2429,32 +2482,35 @@ msgstr "مرحباً بك في !Bluesky يسعدنا انضمامك إلينا."
 msgid "Welcome to Graysky Pro!"
 msgstr "مرحبا بكم في Graysky Pro!"
 
-#: src/app/composer/index.tsx:410
+#: src/app/composer/index.tsx:411
 msgid "What's on your mind?"
 msgstr "فِيمَ تُفكِّر؟"
 
-#: src/components/screens/profile/profile-info.tsx:747
+#: src/components/screens/profile/profile-info.tsx:743
 msgid "What's the issue with this account?"
 msgstr "ما هي المشكلة في هذا الحساب؟"
 
-#: src/components/post-context-menu.tsx:256
+#: src/components/post-context-menu.tsx:260
 msgid "What's the issue with this post?"
 msgstr "ما هي المشكلة مع هذا المنشور؟"
 
 #: src/app/composer/threadgate.tsx:42
-#: src/components/primary-post.tsx:180
+#: src/components/primary-post.tsx:192
 msgid "Who can reply?"
 msgstr "من يستطيع الرد؟"
 
-#: src/components/screens/profile/profile-info.tsx:104
+#. placeholder {0}: profile.handle
+#: src/components/screens/profile/profile-info.tsx:105
 msgid "You are no longer following @{0}"
 msgstr "أنت لم تعد تتابع @{0}"
 
-#: src/components/screens/profile/profile-info.tsx:103
+#. placeholder {0}: profile.handle
+#: src/components/screens/profile/profile-info.tsx:104
 msgid "You are now following @{0}"
 msgstr "أنت الآن تتابع @{0}"
 
-#: src/components/switch-accounts.tsx:85
+#. placeholder {0}: session.handle
+#: src/components/switch-accounts.tsx:82
 msgid "You are now logged in as @{0}"
 msgstr "أنت الآن مسجل الدخول كـ @{0}"
 
@@ -2466,7 +2522,7 @@ msgstr "أنت الآن مسجل الدخول كـ @{0}"
 msgid "You can now change the accent colour"
 msgstr "يمكنك الآن تغيير لون التظليل"
 
-#: src/lib/composer/utils.tsx:391
+#: src/lib/composer/utils.tsx:401
 msgid "You can only attach up to {MAX_IMAGES} images, additional images will be ignored"
 msgstr "يمكنك فقط إرفاق صور {MAX_IMAGES} ، سيتم تجاهل الصور الإضافية"
 
@@ -2474,15 +2530,15 @@ msgstr "يمكنك فقط إرفاق صور {MAX_IMAGES} ، سيتم تجاهل 
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
 msgstr "يمكنك الآن تلقي إشعارات فورية للإعجابات والردود والمزيد! **ولكن، هناك بعض الأمور التي يجب أن تكون على علم بها."
 
-#: src/app/add-to-list/[handle].tsx:159
+#: src/app/add-to-list/[handle].tsx:160
 msgid "You don't have any moderation lists yet."
 msgstr "ليس لديك أي قوائم إدارة حتى الآن."
 
-#: src/components/screens/profile/profile-info.tsx:555
+#: src/components/screens/profile/profile-info.tsx:556
 msgid "You have blocked this user"
 msgstr "لقد قمت بحظر هذا المستخدم"
 
-#: src/components/screens/profile/profile-info.tsx:524
+#: src/components/screens/profile/profile-info.tsx:525
 msgid "You have muted this user"
 msgstr "لقد قمت بكتم هذا المستخدم"
 
@@ -2506,7 +2562,7 @@ msgstr "قد تتلقى إشعارات من الأشخاص الذين حظرته
 msgid "You might receive the same notifications via other Bluesky clients."
 msgstr "قد تتلقى نفس الإشعارات عن طريق عملاء بلوسكي الآخرين."
 
-#: src/app/(auth)/sign-in.tsx:129
+#: src/app/(auth)/sign-in.tsx:140
 msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
 msgstr "يمكنك التفكير في استخدام كلمة مرور خاصة بالتطبيق بدلاً من كلمة المرور الرئيسية الخاصة بك. يساعد هذا في الحفاظ على أمان حسابك، ولكنه ليس إلزاميًا."
 
@@ -2526,14 +2582,14 @@ msgstr "اهلا بك!"
 msgid "Your choice will be saved, but can be changed in settings"
 msgstr "سيتم حفظ اختيارك، ولكن يمكن تغييرها في الإعدادات"
 
-#: src/app/settings/account/change-handle.tsx:130
+#: src/app/settings/account/change-handle.tsx:131
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "سيكون اسم المستخدم الخاص بك: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
 msgid "Your list has been deleted"
 msgstr "تم حذف قائمتك"
 
-#: src/lib/composer/utils.tsx:175
+#: src/lib/composer/utils.tsx:182
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "مشاركتك طويلة جدًا - هناك حد للحرف يصل إلى 300 حرف"

@@ -1,6 +1,6 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
+import { Trans } from "@lingui/react/macro";
 import {
   type InfiniteData,
   type InfiniteQueryObserverLoadingErrorResult,

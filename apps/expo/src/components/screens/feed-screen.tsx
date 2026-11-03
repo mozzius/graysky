@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyFeedGetFeedGenerator } from "@atproto/api";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { FlashList } from "@shopify/flash-list";
 import { type UseQueryResult } from "@tanstack/react-query";
 import { RssIcon, SearchIcon } from "lucide-react-native";

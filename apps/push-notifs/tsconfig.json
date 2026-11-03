@@ -1,12 +1,15 @@
 {
   "extends": "@graysky/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
+      "~/*": ["./src/*"]
     },
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    // This service is bundled with esbuild, and @bsky/jetstream and
+    // @atproto/lex only expose types via "exports", which the base
+    // config's "node" resolution can't read.
+    "moduleResolution": "bundler",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
   "include": ["*.ts", "*.js", "src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

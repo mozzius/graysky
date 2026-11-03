@@ -1,10 +1,11 @@
 import { useCallback } from "react";
 import { ActivityIndicator, Platform, TouchableOpacity } from "react-native";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { type AppBskyGraphDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { AtUri, type AppBskyGraphDefs } from "@atproto/api";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckIcon, ListPlusIcon, PlusIcon } from "lucide-react-native";
 
@@ -308,7 +309,7 @@ export function useListMembershipRemoveMutation() {
       if (!agent.session) throw new Error("Not logged in");
       await agent.app.bsky.graph.listitem.delete({
         repo: agent.session.did,
-        rkey: membershipUri.split("/").pop(),
+        rkey: new AtUri(membershipUri).rkey,
       });
     },
     onSuccess(data, variables) {

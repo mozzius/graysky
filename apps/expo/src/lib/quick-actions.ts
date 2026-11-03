@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppState, Platform } from "react-native";
 import * as QuickActions from "expo-quick-actions";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 export function useQuickAction() {

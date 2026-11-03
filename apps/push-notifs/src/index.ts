@@ -1,11 +1,11 @@
-import { AppBskyGraphDefs, AtUri } from "@atproto/api";
-
 import { Accounts } from "./accounts";
 import { Cache } from "./cache";
 import { Redis } from "./db";
 import { Firehose, type Notification } from "./firehose";
+import { app } from "./lexicons";
 import { PushNotifications } from "./push-notifications";
 import { RateLimiter } from "./rate-limiter";
+import { parseUri } from "./utils/uri";
 
 // 10 notifications every 30 minutes
 const RATE_LIMIT = 10;
@@ -60,7 +60,7 @@ run(async () => {
         case "reply":
         case "quote":
         case "mention": {
-          const { host, collection, rkey } = new AtUri(notification.uri);
+          const { host, collection, rkey } = parseUri(notification.uri);
           const [name, post] = await Promise.all([
             cache.getProfile(notification.creator),
             collection === "app.bsky.feed.post"
@@ -87,17 +87,19 @@ run(async () => {
             // "followed you back" message
             // don't bother caching because it's very unlikely
             // we'd check the same relationship twice
-            const relationship =
-              await cache.agent.app.bsky.graph.getRelationships({
+            const { relationships } = await cache.client.call(
+              app.bsky.graph.getRelationships,
+              {
                 actor: notification.subject,
                 others: [notification.creator],
-              });
+              },
+            );
+            const relationship = relationships[0];
             if (
-              AppBskyGraphDefs.isRelationship(
-                relationship.data.relationships[0],
-              )
+              relationship != null &&
+              app.bsky.graph.defs.relationship.isTypeOf(relationship)
             ) {
-              if (relationship.data.relationships[0].following) {
+              if (relationship.following) {
                 message.body = `${name} followed you back`;
               }
             }

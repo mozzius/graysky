@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   AppBskyEmbedExternal,
   AppBskyEmbedImages,
@@ -17,9 +18,9 @@ import {
   AppBskyFeedPost,
   AppBskyGraphDefs,
 } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   CheckIcon,
   FileXIcon,
@@ -31,6 +32,7 @@ import {
 import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { useContentFilter } from "~/lib/hooks/preferences";
 import { cx } from "~/lib/utils/cx";
+import { dangerousIsType } from "~/lib/utils/types";
 import { Avatar } from "../avatar";
 import { TextButton } from "../text-button";
 import { Text } from "../themed/text";
@@ -90,7 +92,12 @@ export const Embed = ({
       // Case 3.1: Post
       if (AppBskyEmbedRecord.isViewRecord(record)) {
         let text;
-        if (AppBskyFeedPost.isRecord(record.value)) {
+        if (
+          dangerousIsType<AppBskyFeedPost.Record>(
+            record.value,
+            AppBskyFeedPost.isRecord,
+          )
+        ) {
           text = record.value.text;
         }
         return (

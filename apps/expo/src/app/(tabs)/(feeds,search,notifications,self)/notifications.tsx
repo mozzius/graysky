@@ -6,7 +6,7 @@ import {
   type AppBskyFeedDefs,
   type AppBskyNotificationListNotifications,
 } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";

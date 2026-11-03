@@ -1,6 +1,7 @@
 import { Fragment, useMemo, useState } from "react";
 import { TouchableOpacity, View, type ViewStyle } from "react-native";
 import { Link, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   AppBskyFeedPost,
   AppBskyFeedThreadgate,
@@ -8,9 +9,9 @@ import {
   type AppBskyFeedDefs,
   type AppBskyGraphDefs,
 } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { MessagesSquareIcon } from "lucide-react-native";
 
 import { useAbsolutePath } from "~/lib/absolute-path-context";
@@ -19,6 +20,7 @@ import { locale } from "~/lib/locale";
 import { useContentLanguages } from "~/lib/storage/app-preferences";
 import { cx } from "~/lib/utils/cx";
 import { isPostInLanguage } from "~/lib/utils/locale/helpers";
+import { dangerousIsType } from "~/lib/utils/types";
 import { Embed } from "./embed";
 import { PostActionRow } from "./post-action-row";
 import { PostAvatar } from "./post-avatar";
@@ -66,7 +68,12 @@ export const PrimaryPost = ({
 
   const moderation = useProfileModeration(post.author);
 
-  if (!AppBskyFeedPost.isRecord(post.record)) {
+  if (
+    !dangerousIsType<AppBskyFeedPost.Record>(
+      post.record,
+      AppBskyFeedPost.isRecord,
+    )
+  ) {
     return null;
   }
 
@@ -74,7 +81,12 @@ export const PrimaryPost = ({
 
   if (post.threadgate) {
     const record = post.threadgate.record;
-    if (AppBskyFeedThreadgate.isRecord(record)) {
+    if (
+      dangerousIsType<AppBskyFeedThreadgate.Record>(
+        record,
+        AppBskyFeedThreadgate.isRecord,
+      )
+    ) {
       threadgate = record;
     }
   }
@@ -212,10 +224,7 @@ const ThreadgateInfo = ({
   }
 
   const renderRule = (
-    rule:
-      | AppBskyFeedThreadgate.MentionRule
-      | AppBskyFeedThreadgate.FollowingRule
-      | AppBskyFeedThreadgate.ListRule,
+    rule: NonNullable<AppBskyFeedThreadgate.Record["allow"]>[number],
   ) => {
     switch (true) {
       case AppBskyFeedThreadgate.isMentionRule(rule): {

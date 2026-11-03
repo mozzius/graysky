@@ -6,10 +6,11 @@ import {
   TouchableHighlight,
   View,
   type AccessibilityRole,
+  type ScrollViewInstance,
   type ScrollViewProps,
 } from "react-native";
 import { Link } from "expo-router";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 import { ChevronRightIcon, type LucideIcon } from "lucide-react-native";
 
 import { cx } from "~/lib/utils/cx";
@@ -116,7 +117,7 @@ export type Groups = (
 interface GroupProps extends ScrollViewProps {
   groups: Groups;
   children?: React.ReactNode;
-  scrollRef?: React.Ref<ScrollView>;
+  scrollRef?: React.Ref<ScrollViewInstance>;
 }
 
 export const GroupedList = ({

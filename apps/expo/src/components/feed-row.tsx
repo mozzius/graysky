@@ -13,11 +13,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image } from "expo-image";
 import { Link, usePathname, useRouter } from "expo-router";
-import { AppBskyFeedDefs, type AppBskyGraphDefs } from "@atproto/api";
+import { useTheme } from "expo-router/react-navigation";
+import {
+  AppBskyFeedDefs,
+  type $Typed,
+  type AppBskyGraphDefs,
+} from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import {
   ChevronRightIcon,
   EqualIcon,
@@ -93,7 +97,7 @@ export const FeedRow = ({
         large
           ? segment === "feed"
             ? _(
-                msg`${name} feed by @${feed.creator.handle}, ${feed.likeCount} likes`,
+                msg`${name} feed by @${feed.creator.handle}, ${sketchyIsGeneratorView(feed) ? (feed.likeCount ?? 0) : 0} likes`,
               )
             : _(msg`${name} list by @${feed.creator.handle}`)
           : _(msg`${name} feed`)
@@ -185,7 +189,9 @@ export const DraggableFeedRow = ({
   editing,
   onUnsave,
 }: {
-  feed: (AppBskyFeedDefs.GeneratorView | AppBskyGraphDefs.ListView) & {
+  feed: (
+    $Typed<AppBskyFeedDefs.GeneratorView> | $Typed<AppBskyGraphDefs.ListView>
+  ) & {
     pinned: boolean;
   };
   onPressStar: () => void;

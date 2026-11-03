@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
-import { useTheme, type Theme } from "@react-navigation/native";
+import { useTheme, type Theme } from "expo-router/react-navigation";
 
 export const useBottomSheetStyles = (overrideTheme?: Theme) => {
   const appTheme = useTheme();

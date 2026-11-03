@@ -1,20 +1,24 @@
 import { useCallback } from "react";
-import { Platform } from "react-native";
-import { SystemBars } from "react-native-edge-to-edge";
-import { useFocusEffect } from "@react-navigation/native";
+import { Platform, StatusBar as RNStatusBar } from "react-native";
+import * as NavigationBar from "expo-navigation-bar";
+import { useFocusEffect, useTheme } from "expo-router/react-navigation";
 
 import { isIOS26 } from "~/lib/utils/version";
 
+type Style = "light" | "dark" | "auto";
+
 interface Props {
-  style?: "light" | "dark" | "auto";
+  style?: Style;
   modal?: boolean;
   applyToNavigationBar?: boolean;
 }
 
 export const StatusBar = ({ style, modal, applyToNavigationBar }: Props) => {
+  const theme = useTheme();
+
   useFocusEffect(
     useCallback(() => {
-      let statusBarStyle: "light" | "dark" | "auto" = style ?? "auto";
+      let statusBarStyle: Style = style ?? "auto";
       if (modal) {
         if (Platform.OS === "ios" ? Platform.isPad || isIOS26 : true) {
           // use whatever the underlying screen is using
@@ -23,16 +27,29 @@ export const StatusBar = ({ style, modal, applyToNavigationBar }: Props) => {
           statusBarStyle = style ?? "light";
         }
       }
-      const entry = SystemBars.pushStackEntry({
-        style: {
-          statusBar: statusBarStyle,
-          navigationBar: applyToNavigationBar ? statusBarStyle : undefined,
-        },
+      // "auto" follows the app theme rather than the system
+      const resolved =
+        statusBarStyle === "auto"
+          ? theme.dark
+            ? "light"
+            : "dark"
+          : statusBarStyle;
+      const entry = RNStatusBar.pushStackEntry({
+        barStyle: resolved === "light" ? "light-content" : "dark-content",
       });
+      // the navigation bar has no stack, so reset it to match the theme on blur.
+      // note its styles describe the bar, not the content - light content
+      // means a "dark" bar
+      if (applyToNavigationBar && Platform.OS === "android") {
+        NavigationBar.setStyle(resolved === "light" ? "dark" : "light");
+      }
       return () => {
-        SystemBars.popStackEntry(entry);
+        RNStatusBar.popStackEntry(entry);
+        if (applyToNavigationBar && Platform.OS === "android") {
+          NavigationBar.setStyle(theme.dark ? "dark" : "light");
+        }
       };
-    }, []),
+    }, [style, modal, applyToNavigationBar, theme.dark]),
   );
 
   return null;

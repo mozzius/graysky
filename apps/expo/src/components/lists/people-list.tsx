@@ -8,14 +8,14 @@ import {
 import { TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyActorDefs } from "@atproto/api";
 import {
   BottomSheetBackdrop,
   BottomSheetFlatList,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   type InfiniteData,
   type UseInfiniteQueryResult,

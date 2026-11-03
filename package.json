@@ -29,10 +29,10 @@
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "@crowdin/cli": "^4.12.0"
+    "@crowdin/cli": "^5.5.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19"
   },
   "packageManager": "pnpm@9.15.4",
   "pnpm": {
@@ -42,7 +42,8 @@
       "color": "4.2.3"
     },
     "patchedDependencies": {
-      "react-native-collapsible-tab-view": "patches/react-native-collapsible-tab-view.patch"
+      "react-native-collapsible-tab-view": "patches/react-native-collapsible-tab-view.patch",
+      "react-native-uitextview@2.7.1": "patches/react-native-uitextview@2.7.1.patch"
     }
   },
   "prettier": "@graysky/prettier-config"

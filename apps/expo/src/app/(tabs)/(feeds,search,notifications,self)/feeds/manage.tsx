@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Link, Stack } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { PlusIcon } from "lucide-react-native";
 
 import { Text } from "~/components/themed/text";

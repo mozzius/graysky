@@ -1,8 +1,8 @@
 import { Alert, ScrollView, TouchableHighlight, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
+import { Trans } from "@lingui/react/macro";
 import { BellRingIcon, DotIcon } from "lucide-react-native";
 
 import { BackButtonOverride } from "~/components/back-button-override";

@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { getDefaultHeaderHeight } from "expo-router/react-navigation";
 import {
   AppBskyFeedDefs,
   BskyAgent,
   type AppBskyActorDefs,
 } from "@atproto/api";
-import { getDefaultHeaderHeight } from "@react-navigation/elements";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "~/lib/agent";

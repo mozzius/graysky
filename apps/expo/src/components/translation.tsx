@@ -2,9 +2,10 @@
 import { useCallback, useEffect } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import * as Sentry from "@sentry/react-native";
 import {
   AlertTriangleIcon,

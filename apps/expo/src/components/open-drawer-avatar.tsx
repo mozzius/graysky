@@ -1,5 +1,5 @@
 import { Platform, TouchableHighlight, TouchableOpacity } from "react-native";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { Avatar } from "./avatar";

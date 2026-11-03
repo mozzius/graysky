@@ -140,7 +140,10 @@ export const useHaptics = () => {
 // ====== MODERATION ======
 
 export const useProfileModeration = (
-  profile: AppBskyActorDefs.ProfileViewBasic,
+  profile:
+    | AppBskyActorDefs.ProfileViewBasic
+    | AppBskyActorDefs.ProfileView
+    | AppBskyActorDefs.ProfileViewDetailed,
 ) => {
   const { _ } = useLingui();
   return useMemo(() => {
@@ -221,11 +224,9 @@ export const useContentFilter = () => {
             message: foundLabel.message,
           };
 
-        const pref = preferences.data.find(
-          (prefs) =>
-            AppBskyActorDefs.isContentLabelPref(prefs) &&
-            prefs.label === foundLabel.key,
-        );
+        const pref = preferences.data
+          .filter(AppBskyActorDefs.isContentLabelPref)
+          .find((prefs) => prefs.label === foundLabel.key);
 
         if (!pref) continue;
 

@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { useBottomTabBarHeight } from "react-native-bottom-tabs";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useHeaderHeight, useTheme } from "expo-router/react-navigation";
 import { AppBskyFeedDefs, type ComAtprotoLabelDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { FlashList, type FlashListRef } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 import {

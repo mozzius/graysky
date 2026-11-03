@@ -3,11 +3,11 @@ import { Platform, Share } from "react-native";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
+import { useTheme } from "expo-router/react-navigation";
 import * as WebBrowser from "expo-web-browser";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { CopyIcon, ExternalLinkIcon, Share2Icon } from "lucide-react-native";
 
@@ -50,7 +50,8 @@ export const useLinkPress = () => {
                   void WebBrowser.openBrowserAsync(url, {
                     presentationStyle:
                       WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
-                    toolbarColor: theme.colors.card,
+                    // theme colours are typed as ColorValue, but ours are always strings
+                    toolbarColor: theme.colors.card as string,
                   });
                   break;
                 case 1:
@@ -64,7 +65,7 @@ export const useLinkPress = () => {
           await WebBrowser.openBrowserAsync(url, {
             presentationStyle:
               WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
-            toolbarColor: theme.colors.card,
+            toolbarColor: theme.colors.card as string,
           });
         } else {
           await Linking.openURL(url);
@@ -109,10 +110,11 @@ export const useLinkPress = () => {
               void openLink(url);
               break;
             case 1:
-              await Platform.select({
-                ios: Clipboard.setUrlAsync(url),
-                default: Clipboard.setStringAsync(url) as Promise<unknown>,
-              });
+              if (Platform.OS === "ios") {
+                await Clipboard.setUrlAsync(url);
+              } else {
+                await Clipboard.setStringAsync(url);
+              }
               showToastable({
                 title: _(msg`Copied link`),
                 message: _(msg`Link copied to clipboard`),

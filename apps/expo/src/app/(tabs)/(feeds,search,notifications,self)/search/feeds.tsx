@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { RefreshControl, View } from "react-native";
 import { type SearchBarCommands } from "react-native-screens";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyFeedDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { FlashList } from "@shopify/flash-list";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 

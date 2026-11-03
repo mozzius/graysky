@@ -1,4 +1,4 @@
-import type { AppBskyEmbedExternal, BlobRef } from "@atproto/api";
+import  { type AppBskyEmbedExternal, type BlobRef } from "@atproto/api";
 import { track } from "@vercel/analytics/server";
 import sharp from "sharp";
 import { z } from "zod";

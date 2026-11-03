@@ -98,7 +98,7 @@ export const useNotifications = () => {
             queryKey: ["notifications", "list"],
           });
           const notificationData = response.notification.request.content.data;
-          if (typeof notificationData.path === "string") {
+          if (typeof notificationData?.path === "string") {
             router.push(notificationData.path);
           } else {
             router.push("/notifications");
@@ -124,7 +124,6 @@ export async function getPushToken() {
   // however expo-constants doesn't seem to work :/
   const token = await Notifications.getExpoPushTokenAsync({
     projectId:
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,
       (Constants.expoConfig?.extra?.eas?.projectId as string | undefined) ??
       "7e8ff69c-ba23-4bd8-98ce-7b61b05766c4",
   });

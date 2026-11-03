@@ -1,5 +1,5 @@
 import { type I18n } from "@lingui/core";
-import { t } from "@lingui/macro";
+import { t } from "@lingui/core/macro";
 
 export const timeSince = (date: Date, i18n: I18n) => {
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);

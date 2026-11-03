@@ -13,14 +13,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Link, usePathname, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetSectionList,
 } from "@gorhom/bottom-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   ChevronRightIcon,
   CircleDotIcon,
@@ -143,7 +144,7 @@ export const FeedsButton = ({ show = true }: Props) => {
         <ErrorBoundary
           fallbackRender={({ error, resetErrorBoundary }) => (
             <ErrorBoundaryDisplay
-              error={error}
+              error={error as Error}
               retry={() => Promise.resolve(resetErrorBoundary())}
             />
           )}

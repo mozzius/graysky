@@ -9,11 +9,12 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { RichText } from "~/components/rich-text";
@@ -108,7 +109,7 @@ export default function CreateListScreen() {
 
       await agent.app.bsky.graph.list.create(
         {
-          repo: agent.session?.did,
+          repo: agent.assertDid,
         },
         {
           name,

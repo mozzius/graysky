@@ -1,8 +1,8 @@
 import { Platform, Pressable } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { msg } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { XIcon } from "lucide-react-native";
 
 import { StatusBar } from "~/components/status-bar";

@@ -1,18 +1,21 @@
 import { View } from "react-native";
+import { useTheme } from "expo-router/react-navigation";
 import { type AppBskyActorDefs } from "@atproto/api";
-import { useTheme } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 
 import { ItemSeparator } from "./item-separator";
 import { PersonRow } from "./lists/person-row";
 import { Text } from "./themed/text";
 
+type Profile =
+  AppBskyActorDefs.ProfileView | AppBskyActorDefs.ProfileViewDetailed;
+
 interface Props {
-  profiles: AppBskyActorDefs.ProfileView[];
+  profiles: Profile[];
   emptyText?: string;
   onProfilePress?: (evt: {
     preventDefault: () => void;
-    person: AppBskyActorDefs.ProfileView;
+    person: Profile;
   }) => void;
 }
 
@@ -24,7 +27,7 @@ export const ProfileList = ({
   const theme = useTheme();
 
   return (
-    <FlashList<AppBskyActorDefs.ProfileView>
+    <FlashList<Profile>
       removeClippedSubviews
       data={profiles}
       renderItem={({ item }) => (

@@ -2,7 +2,7 @@
 #
 # This is for the push notification service, not the app itself!
 
-ARG NODE_VERSION=18.19.0
+ARG NODE_VERSION=24.11.0
 FROM node:${NODE_VERSION}-slim as base
 
 # Set production environment
@@ -10,7 +10,7 @@ ENV NODE_ENV=production
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
 RUN pnpm i -g turbo dotenv-cli
 
 FROM base AS builder

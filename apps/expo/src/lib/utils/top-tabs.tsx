@@ -1,5 +1,5 @@
 import { type MaterialTabBarProps } from "react-native-collapsible-tab-view";
-import { type Theme } from "@react-navigation/native";
+import { type Theme } from "expo-router/react-navigation";
 
 export function createTopTabsScreenOptions(theme: Theme) {
   return {
@@ -22,7 +22,8 @@ export function createTopTabsScreenOptions(theme: Theme) {
     },
     scrollEnabled: true,
     keepActiveTabCentered: true,
-    activeColor: theme.colors.text,
-    inactiveColor: theme.colors.text,
+    // the theme type now allows any ColorValue, but our themes only use string colours
+    activeColor: theme.colors.text as string,
+    inactiveColor: theme.colors.text as string,
   } satisfies Partial<MaterialTabBarProps<string>>;
 }

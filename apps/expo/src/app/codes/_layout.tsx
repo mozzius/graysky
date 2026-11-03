@@ -1,7 +1,7 @@
 import { Platform, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Stack, useRouter } from "expo-router";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 import { useQuery } from "@tanstack/react-query";
 
 import { StatusBar } from "~/components/status-bar";

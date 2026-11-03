@@ -30,16 +30,18 @@ export function useThrottledValue<T>(value: T, time: number) {
   return throttledValue;
 }
 
-function useNonReactiveCallback<T extends Function>(fn: T): T {
+function useNonReactiveCallback<A extends unknown[], R>(
+  fn: (...args: A) => R,
+): (...args: A) => R {
   const ref = useRef(fn);
   useInsertionEffect(() => {
     ref.current = fn;
   }, [fn]);
   return useCallback(
-    (...args: any) => {
+    (...args: A) => {
       const latestFn = ref.current;
       return latestFn(...args);
     },
     [ref],
-  ) as unknown as T;
+  );
 }

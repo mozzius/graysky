@@ -12,11 +12,12 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { RichText as RichTextHelper } from "@atproto/api";
 import { type I18n } from "@lingui/core";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ImagePlusIcon, XIcon } from "lucide-react-native";
 

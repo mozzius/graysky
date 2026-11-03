@@ -1,5 +1,5 @@
 import { type SearchBarProps } from "react-native-screens";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 
 export const useSearchBarOptions = (overrides: SearchBarProps) => {
   const theme = useTheme();

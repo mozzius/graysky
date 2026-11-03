@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   AppBskyFeedDefs,
   AppBskyFeedPost,
+  asPredicate,
   RichText,
   type AppBskyFeedGetPostThread,
 } from "@atproto/api";
@@ -11,6 +12,8 @@ import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react";
 interface Props {
   uri?: string;
 }
+
+const isPostRecord = asPredicate(AppBskyFeedPost.validateRecord);
 
 export const CommentSection = async ({ uri }: Props) => {
   if (!uri) return <p className="text-center">No comments</p>;
@@ -65,7 +68,7 @@ const Comment = ({ comment }: { comment: AppBskyFeedDefs.ThreadViewPost }) => {
   const author = comment.post.author;
   const avatarClassName = "h-4 w-4 shrink-0 rounded-full bg-gray-300";
 
-  if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
+  if (!isPostRecord(comment.post.record)) return null;
 
   const rt = new RichText({
     text: comment.post.record.text,
@@ -197,7 +200,9 @@ const getPostThread = async (uri: string) => {
   return data.thread;
 };
 
-const sortByLikes = (a: unknown, b: unknown) => {
+type Reply = NonNullable<AppBskyFeedDefs.ThreadViewPost["replies"]>[number];
+
+const sortByLikes = (a: Reply, b: Reply) => {
   if (
     !AppBskyFeedDefs.isThreadViewPost(a) ||
     !AppBskyFeedDefs.isThreadViewPost(b)

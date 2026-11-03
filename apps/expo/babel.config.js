@@ -28,7 +28,7 @@ module.exports = function (api) {
       ],
     ],
     plugins: [
-      "macros",
+      "@lingui/babel-plugin-lingui-macro",
       ["nativewind/babel", { tailwindConfig: lazyLoadConfig() }],
       "react-native-worklets/plugin",
     ],

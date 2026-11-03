@@ -1,8 +1,9 @@
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { HeartIcon, RepeatIcon, UserPlusIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
@@ -186,8 +187,8 @@ const ProfileList = ({
                     action === _(msg`started following you`)
                       ? _(
                           index === 0
-                            ? msg`New follower: ${actor.displayName} @${actor.handle}`
-                            : msg`${actor.displayName} @${actor.handle}`,
+                            ? msg`New follower: ${actor.displayName ?? ""} @${actor.handle}`
+                            : msg`${actor.displayName ?? ""} @${actor.handle}`,
                         )
                       : ""
                   }

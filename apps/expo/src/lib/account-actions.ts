@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { Alert } from "react-native";
 import { showToastable } from "react-native-toastable";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -77,7 +77,7 @@ export const useBlockAccount = () => {
           {
             text: _(msg`Block`),
             style: "destructive",
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+
             onPress: async () => {
               if (!agent.session)
                 throw new Error("No session when trying to block someone");
@@ -123,7 +123,7 @@ export const useUnblockAccount = () => {
           {
             text: _(msg`Unblock`),
             style: "destructive",
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+
             onPress: async () => {
               if (!agent.session)
                 throw new Error("No session when trying to unblock someone");

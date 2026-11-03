@@ -1,7 +1,6 @@
 {
   "extends": "@graysky/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
     },
@@ -9,6 +8,6 @@
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "types": ["nativewind/types"]
   },
-  "include": ["expo-plugins", "*.ts", "*.js", "index.tsx", "src"],
+  "include": ["*.ts", "*.js", "index.tsx", "src"],
   "exclude": ["node_modules", "metro.config.js"]
 }

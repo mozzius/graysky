@@ -2,7 +2,7 @@ import { TouchableWithoutFeedback, View } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { useSelf } from "~/app/settings/account";

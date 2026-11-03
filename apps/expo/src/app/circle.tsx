@@ -8,18 +8,19 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
-import ViewShot from "react-native-view-shot";
+import ViewShot, { type ViewShotRef } from "react-native-view-shot";
 import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageSource } from "expo-image";
 import { Stack, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   AppBskyFeedLike,
   RichText as RichTextHelper,
   type BskyAgent,
 } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { XIcon } from "lucide-react-native";
 
@@ -31,6 +32,7 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { usePrimaryLanguage } from "~/lib/storage/app-preferences";
+import { dangerousIsType } from "~/lib/utils/types";
 import { uploadBlob } from "~/lib/utils/upload-blob";
 import { isIOS26 } from "~/lib/utils/version";
 import { useSelf } from "./settings/account";
@@ -42,7 +44,7 @@ export default function MyCircle() {
   const self = useSelf();
   const agent = useAgent();
   const theme = useTheme();
-  const captureRef = useRef<ViewShot>(null!);
+  const captureRef = useRef<ViewShotRef>(null!);
   const router = useRouter();
   const { _ } = useLingui();
   const primaryLanguage = usePrimaryLanguage();
@@ -355,7 +357,12 @@ async function getRecords(agent: BskyAgent, collection: string) {
     });
     cursor = records.data.cursor;
     for (const record of records.data.records) {
-      if (AppBskyFeedLike.isRecord(record.value)) {
+      if (
+        dangerousIsType<AppBskyFeedLike.Record>(
+          record.value,
+          AppBskyFeedLike.isRecord,
+        )
+      ) {
         const date = record.value.createdAt;
         if (
           date &&

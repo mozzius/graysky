@@ -2,8 +2,8 @@ import { TouchableHighlight, View } from "react-native";
 import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
+import { Trans } from "@lingui/react/macro";
 import { CheckIcon, SparklesIcon } from "lucide-react-native";
 
 import { AccentColourSelect } from "~/components/accent-colour-select";

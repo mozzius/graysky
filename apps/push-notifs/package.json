@@ -3,30 +3,34 @@
   "version": "0.1.0",
   "main": "./src/index.ts",
   "scripts": {
-    "build": "pnpm with-env esbuild ./src/index.ts --bundle --outdir=dist --platform=node",
-    "dev": "pnpm with-env tsx watch ./src/index.ts",
-    "start": "pnpm with-env node ./dist/index.js",
-    "with-env": "dotenv -e ../../.env --"
+    "prebuild": "pnpm lexicons:generate",
+    "build": "esbuild ./src/index.ts --bundle --outdir=dist --platform=node",
+    "predev": "pnpm lexicons:generate",
+    "dev": "tsx watch --env-file-if-exists=../../.env ./src/index.ts",
+    "start": "node --env-file-if-exists=../../.env ./dist/index.js",
+    "typecheck": "pnpm lexicons:generate && tsc --noEmit",
+    "lexicons:generate": "lex build --clear --index-file --import-ext \"\"",
+    "lexicons:install": "lex install",
+    "lexicons:update": "lex install --update"
   },
   "devDependencies": {
     "@graysky/eslint-config": "0.1.0",
     "@graysky/tsconfig": "0.1.0",
-    "@types/node": "^25.0.3",
-    "eslint": "^9.39.2",
-    "prettier": "^3.7.4",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "@types/node": "^26.6.6",
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
   },
   "prettier": "@graysky/prettier-config",
   "private": true,
   "dependencies": {
-    "@atproto/api": "^0.13.31",
+    "@atproto/lex": "^0.3.14",
+    "@bsky/jetstream": "^1.0.0",
     "@graysky/db": "0.1.0",
-    "atproto-firehose": "^0.2.2",
-    "cron": "^3.1.7",
-    "dotenv-cli": "^11.0.0",
-    "esbuild": "^0.24.0",
+    "cron": "^4.4.0",
+    "esbuild": "^0.28.2",
     "expo-server-sdk": "^3.9.0",
-    "redis": "^4.6.13"
+    "redis": "^6.3.1"
   }
 }

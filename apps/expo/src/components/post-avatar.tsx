@@ -6,7 +6,10 @@ import { useAbsolutePath } from "~/lib/absolute-path-context";
 import { Avatar } from "./avatar";
 
 interface Props {
-  profile: AppBskyActorDefs.ProfileViewBasic;
+  profile:
+    | AppBskyActorDefs.ProfileViewBasic
+    | AppBskyActorDefs.ProfileView
+    | AppBskyActorDefs.ProfileViewDetailed;
   moderation: { blur: boolean };
   avatarSize?: "normal" | "reduced";
 }

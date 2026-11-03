@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { View, type StyleProp } from "react-native";
 import { Image, type ImageProps, type ImageStyle } from "expo-image";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 import { UserCircle } from "lucide-react-native";
 import { ErrorBoundary } from "react-error-boundary";
 import colors from "tailwindcss/colors";
@@ -11,12 +11,7 @@ import { cx } from "~/lib/utils/cx";
 
 interface Props {
   size?:
-    | "extraLarge"
-    | "large"
-    | "medium"
-    | "smallMedium"
-    | "small"
-    | "extraSmall";
+    "extraLarge" | "large" | "medium" | "smallMedium" | "small" | "extraSmall";
   uri?: string;
   alt?: string;
   self?: boolean;

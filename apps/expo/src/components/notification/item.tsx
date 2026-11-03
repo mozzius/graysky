@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 
 import { cx } from "~/lib/utils/cx";
 

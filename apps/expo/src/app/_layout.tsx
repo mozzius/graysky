@@ -12,13 +12,13 @@ import {
   useRouter,
   useSegments,
 } from "expo-router";
+import { ThemeProvider } from "expo-router/react-navigation";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
 import { AtpAgent, type AtpSessionData } from "@atproto/api";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { ThemeProvider } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -479,6 +479,11 @@ const getSession = (): StoredSession | null => {
     return { session: parsed, pdsUrl: "https://bsky.social" };
   }
   return parsed as StoredSession;
+};
+
+// keeps the tabs underneath modals (settings, composer etc) when deep linking
+export const unstable_settings = {
+  anchor: "(tabs)",
 };
 
 function RootLayout() {

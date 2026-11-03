@@ -63,3 +63,6 @@ Graysky.app
 crytography/venv
 
 redis-data
+
+# generated lexicon schemas (pnpm --filter @graysky/push-notifs lexicons:generate)
+apps/push-notifs/src/lexicons/

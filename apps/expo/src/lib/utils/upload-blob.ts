@@ -41,7 +41,7 @@ async function asBlob(uri: string): Promise<Blob> {
 
     return await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = () => resolve(xhr.response);
+      xhr.onload = () => resolve(xhr.response as Blob);
       xhr.onerror = () => reject(new Error("Failed to load blob"));
       xhr.responseType = "blob";
       xhr.open("GET", safeUri, true);

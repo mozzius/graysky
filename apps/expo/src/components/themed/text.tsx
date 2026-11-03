@@ -1,6 +1,6 @@
 import { Text as RNText, StyleSheet, type TextProps } from "react-native";
 import { UITextView } from "react-native-uitextview";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
 
 export const Text = ({
   style,

@@ -7,12 +7,14 @@ import {
   Pressable,
   TouchableOpacity,
   View,
+  type HostInstance,
 } from "react-native";
 import { Link, useFocusEffect, useRouter } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   CheckIcon,
   GlobeIcon,
@@ -37,7 +39,7 @@ export const PostButton = ({
   disabled: boolean;
 }) => {
   const theme = useTheme();
-  const ref = useRef<View>(null);
+  const ref = useRef<HostInstance>(null);
   const [{ threadgate }] = useComposerState();
 
   return (
@@ -100,7 +102,7 @@ export const CancelButton = ({
   const theme = useTheme();
   const router = useRouter();
   const { showActionSheetWithOptions } = useActionSheet();
-  const ref = useRef<View>(null);
+  const ref = useRef<HostInstance>(null);
   const [currentScreen, setCurrentScreen] = useState(false);
   const haptics = useHaptics();
   const { _ } = useLingui();

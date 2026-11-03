@@ -3,13 +3,14 @@ import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { msg, Trans } from "@lingui/macro";
+import { useTheme } from "expo-router/react-navigation";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { LanguagesIcon, PaperclipIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
-import * as DropdownMenu from "zeego/dropdown-menu";
 
+import { Menu } from "~/components/menu";
 import { Text } from "~/components/themed/text";
 import { useHaptics } from "../hooks/preferences";
 import { cx } from "../utils/cx";
@@ -51,62 +52,51 @@ export const KeyboardAccessory = ({
     >
       <View className="flex-1 flex-row items-center justify-start gap-2">
         <View>
-          <DropdownMenu.Root
-            onOpenChange={(willOpen) => {
-              if (willOpen) haptics.selection();
-            }}
+          <Menu
+            onOpen={() => haptics.selection()}
+            groups={[
+              {
+                key: "image",
+                items: [
+                  {
+                    key: "camera",
+                    label: _(msg`Take photo`),
+                    icon: "camera",
+                    disabled: imageCount >= MAX_IMAGES,
+                    onSelect: () => onPressImage("camera"),
+                  },
+                  {
+                    key: "gallery",
+                    label: _(msg`Choose from Library`),
+                    icon: "photo",
+                    disabled: imageCount >= MAX_IMAGES,
+                    onSelect: () => onPressImage("gallery"),
+                  },
+                  {
+                    key: "gifs",
+                    label: _(msg`Search GIFs`),
+                    icon: "magnifyingglass",
+                    disabled: imageCount > 0,
+                    onSelect: () => router.push("/composer/gifs"),
+                  },
+                ],
+              },
+            ]}
           >
-            <DropdownMenu.Trigger>
-              <View
-                className="h-9 flex-row items-center justify-center rounded-full px-2.5"
-                style={{
-                  backgroundColor: theme.dark
-                    ? colors.neutral[800]
-                    : theme.colors.background,
-                }}
-              >
-                <PaperclipIcon size={20} color={theme.colors.primary} />
-                <Text primary className="ml-2.5 mr-1 font-medium">
-                  <Trans>Add image</Trans>
-                </Text>
-              </View>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
-              <DropdownMenu.Item
-                key="camera"
-                textValue={_(msg`Take photo`)}
-                onSelect={() => onPressImage("camera")}
-                disabled={imageCount >= MAX_IMAGES}
-              >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "camera" }}
-                  androidIconName="ic_menu_camera"
-                />
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                key="gallery"
-                textValue={_(msg`Choose from Library`)}
-                onSelect={() => onPressImage("gallery")}
-                disabled={imageCount >= MAX_IMAGES}
-              >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "photo" }}
-                  androidIconName="ic_menu_gallery"
-                />
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                key="gifs"
-                textValue={_(msg`Search GIFs`)}
-                onSelect={() => router.push("/composer/gifs")}
-                disabled={imageCount > 0}
-              >
-                <DropdownMenu.ItemIcon
-                  ios={{ name: "magnifyingglass" }}
-                  androidIconName="ic_menu_search"
-                />
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+            <View
+              className="h-9 flex-row items-center justify-center rounded-full px-2.5"
+              style={{
+                backgroundColor: theme.dark
+                  ? colors.neutral[800]
+                  : theme.colors.background,
+              }}
+            >
+              <PaperclipIcon size={20} color={theme.colors.primary} />
+              <Text primary className="ml-2.5 mr-1 font-medium">
+                <Trans>Add image</Trans>
+              </Text>
+            </View>
+          </Menu>
         </View>
         <TouchableHighlight
           className="rounded-full"
@@ -148,10 +138,15 @@ export const KeyboardAccessory = ({
         size={28}
         width={5}
         rotation={0}
+        // theme colours are typed as ColorValue, but ours are always strings
         backgroundColor={
-          theme.dark ? colors.neutral[800] : theme.colors.background
+          theme.dark ? colors.neutral[800] : (theme.colors.background as string)
         }
-        tintColor={!tooLong ? theme.colors.primary : theme.colors.notification}
+        tintColor={
+          (!tooLong
+            ? theme.colors.primary
+            : theme.colors.notification) as string
+        }
       />
     </View>
   );

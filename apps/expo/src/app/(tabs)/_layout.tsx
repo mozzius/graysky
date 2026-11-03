@@ -10,14 +10,15 @@ import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import { Stack, usePathname, useRouter, useSegments } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import colors from "tailwindcss/colors";
 
@@ -34,7 +35,6 @@ import { useNotifications } from "~/lib/hooks/notifications";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useHomepage } from "~/lib/storage/app-preferences";
 import { useRefreshOnFocus } from "~/lib/utils/query";
-import { isIOS26 } from "~/lib/utils/version";
 
 export default function AppLayout() {
   // agent might not be available yet

@@ -3,10 +3,11 @@ import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { Link } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import {
   CircleDotDashedIcon,
   CloudyIcon,

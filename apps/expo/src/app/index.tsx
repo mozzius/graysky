@@ -1,16 +1,16 @@
-import { View, type ImageSourcePropType } from "react-native";
+import { View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ImageBackground } from "expo-image";
+import { ImageBackground, type ImageSource } from "expo-image";
 import { type AtpSessionData } from "@atproto/api";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 
 import { LinkButton } from "~/components/button";
 import { StatusBar } from "~/components/status-bar";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const background = require("../../assets/graysky.jpg") as ImageSourcePropType;
+const background = require("../../assets/graysky.jpg") as ImageSource;
 
 export default function LandingPage() {
   const [sessions] = useMMKVObject<AtpSessionData[]>("sessions");

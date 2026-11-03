@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Stack } from "expo-router";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react/macro";
 import { jwtDecode } from "jwt-decode";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -11,6 +11,14 @@ import { Text } from "~/components/themed/text";
 import { AbsolutePathProvider } from "~/lib/absolute-path-context";
 import { useOptionalAgent } from "~/lib/agent";
 import { isIOS26 } from "~/lib/utils/version";
+
+// each tab shares this layout, so the initial route is set per group
+export const unstable_settings = {
+  feeds: { anchor: "feeds/index" },
+  search: { anchor: "search/index" },
+  notifications: { anchor: "notifications" },
+  self: { anchor: "self" },
+};
 
 export default function SubStack({
   segment,
@@ -53,7 +61,6 @@ export default function SubStack({
             )}
           >
             <Stack
-              initialRouteName={getInitialRouteName(segment)}
               screenOptions={{
                 headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
               }}
@@ -63,18 +70,3 @@ export default function SubStack({
       );
   }
 }
-
-const getInitialRouteName = (
-  segment: "(feeds)" | "(search)" | "(notifications)" | "(self)",
-) => {
-  switch (segment) {
-    case "(feeds)":
-      return "feeds/index";
-    case "(search)":
-      return "search/index";
-    case "(notifications)":
-      return "notifications";
-    case "(self)":
-      return "self";
-  }
-};

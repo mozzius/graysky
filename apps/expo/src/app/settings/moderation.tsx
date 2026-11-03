@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { Platform, Switch, View } from "react-native";
+import { useTheme } from "expo-router/react-navigation";
 import { AppBskyActorDefs } from "@atproto/api";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import {
   ChevronsUpDownIcon,
   MegaphoneOffIcon,
   ShieldXIcon,
 } from "lucide-react-native";
-import * as DropdownMenu from "zeego/dropdown-menu";
 
 import { GroupedList } from "~/components/grouped-list";
 import { ItemSeparator } from "~/components/item-separator";
+import { Menu } from "~/components/menu";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
@@ -49,7 +50,7 @@ export default function ModerationSettings() {
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences.data, (draft) => {
           const index = draft.findIndex(
-            (x) => x.$type === newPref.$type && x.label === label,
+            (x) => AppBskyActorDefs.isContentLabelPref(x) && x.label === label,
           );
           if (index === -1) {
             draft.push(newPref);
@@ -80,16 +81,16 @@ export default function ModerationSettings() {
       setOptimisticSwitchValue(!adultContentEnabled);
       await agent.app.bsky.actor.putPreferences({
         preferences: produce(preferences.data, (draft) => {
-          const index = draft.findIndex((x) =>
+          const existing = draft.find((x) =>
             AppBskyActorDefs.isAdultContentPref(x),
           );
-          if (index === -1) {
+          if (existing && AppBskyActorDefs.isAdultContentPref(existing)) {
+            existing.enabled = !existing.enabled;
+          } else {
             draft.push({
               $type: "app.bsky.actor.defs#adultContentPref",
               enabled: true,
             });
-          } else {
-            draft[index]!.enabled = !draft[index]!.enabled;
           }
         }),
       });
@@ -155,9 +156,9 @@ export default function ModerationSettings() {
                 },
                 ...Object.entries(contentLabels).map(
                   ([key, { label, defaultValue, adult }]) => {
-                    let visibility = preferences.data.find(
-                      (x) => x.label === key,
-                    )?.visibility as Pref;
+                    let visibility = preferences.data
+                      .filter(AppBskyActorDefs.isContentLabelPref)
+                      .find((x) => x.label === key)?.visibility as Pref;
 
                     if (!["show", "warn", "hide"].includes(visibility)) {
                       visibility = defaultValue as Pref;
@@ -190,42 +191,38 @@ export default function ModerationSettings() {
                     return {
                       title: label,
                       action: (
-                        <DropdownMenu.Root>
-                          <DropdownMenu.Trigger>
-                            <View className="flex-row items-center gap-x-1">
-                              <Text
-                                className="text-base font-medium capitalize"
-                                primary
-                              >
-                                {visibility}
-                              </Text>
-                              <ChevronsUpDownIcon
-                                size={16}
-                                color={theme.colors.primary}
-                              />
-                            </View>
-                          </DropdownMenu.Trigger>
-                          <DropdownMenu.Content>
-                            {options.map((option) => (
-                              <DropdownMenu.CheckboxItem
-                                key={option}
-                                value={visibility === option ? "on" : "off"}
-                                onValueChange={(value) =>
-                                  value === "on" &&
+                        <Menu
+                          groups={[
+                            {
+                              key: "visibility",
+                              items: options.map((option) => ({
+                                type: "toggle",
+                                key: option,
+                                label: translateMap[option],
+                                checked: visibility === option,
+                                onCheckedChange: (checked) =>
+                                  checked &&
                                   setPreference.mutate({
                                     label: key,
                                     visibility: option,
-                                  })
-                                }
-                              >
-                                <DropdownMenu.ItemTitle>
-                                  {translateMap[option]}
-                                </DropdownMenu.ItemTitle>
-                                <DropdownMenu.ItemIndicator />
-                              </DropdownMenu.CheckboxItem>
-                            ))}
-                          </DropdownMenu.Content>
-                        </DropdownMenu.Root>
+                                  }),
+                              })),
+                            },
+                          ]}
+                        >
+                          <View className="flex-row items-center gap-x-1">
+                            <Text
+                              className="text-base font-medium capitalize"
+                              primary
+                            >
+                              {visibility}
+                            </Text>
+                            <ChevronsUpDownIcon
+                              size={16}
+                              color={theme.colors.primary}
+                            />
+                          </View>
+                        </Menu>
                       ),
                     };
                   },

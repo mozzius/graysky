@@ -6,8 +6,8 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Link } from "expo-router";
-import { Trans } from "@lingui/macro";
-import { useTheme } from "@react-navigation/native";
+import { useTheme } from "expo-router/react-navigation";
+import { Trans } from "@lingui/react/macro";
 import { CompassIcon } from "lucide-react-native";
 
 import { Text } from "~/components/themed/text";

@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { ContextMenuView } from "react-native-ios-context-menu";
 import Animated from "react-native-reanimated";
 import { showToastable } from "react-native-toastable";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageStyle } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
+import { useTheme } from "expo-router/react-navigation";
 import * as Sharing from "expo-sharing";
 import { type AppBskyEmbedImages } from "@atproto/api";
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CopyIcon, SaveIcon, Share2Icon } from "lucide-react-native";
+
+import { ContextMenu, type MenuIcon } from "~/components/menu";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -23,7 +24,6 @@ interface Props {
   className?: string;
   style?: ImageStyle | ImageStyle[];
   useCappedAspectRatio?: boolean;
-  onPressMenuPreview?: () => void;
   tag?: string;
 }
 
@@ -33,7 +33,6 @@ export const ImageWithContextMenu = ({
   className: _,
   useCappedAspectRatio,
   style,
-  onPressMenuPreview,
   // tag,
   ...props
 }: Props) => {
@@ -45,43 +44,33 @@ export const ImageWithContextMenu = ({
   const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
 
   const imageStyle = useCappedAspectRatio
-    ? (StyleSheet.compose(
-        { aspectRatio: cappedAspectRatio },
-        style,
-      ) as ImageStyle)
+    ? [{ aspectRatio: cappedAspectRatio }, style]
     : style;
 
   const queryClient = useQueryClient();
 
   return (
-    <ContextMenuView
-      // TODO: Figure out how to grow preview to correct aspect ratio
-      menuConfig={{
-        menuTitle: image.alt,
-        menuItems: items.map((item) => ({
-          actionKey: item.key,
-          actionTitle: item.label,
-          icon: {
-            iconType: "SYSTEM",
-            iconValue: item.icon,
-          },
-        })),
-      }}
-      onPressMenuItem={(evt) => {
-        const item = items.find(
-          (item) => item.key === evt.nativeEvent.actionKey,
-        );
-        if (!item) return;
-        void item.action(image.fullsize);
-      }}
-      onPressMenuPreview={onPressMenuPreview}
+    <ContextMenu
+      title={image.alt || undefined}
+      style={imageStyle}
+      groups={[
+        {
+          key: "image",
+          items: items.map((item) => ({
+            key: item.key,
+            label: item.label,
+            icon: item.icon,
+            onSelect: () => void item.action(image.fullsize),
+          })),
+        },
+      ]}
     >
       <AnimatedImage
         // sharedTransitionTag={tag}
         source={{ uri: image.thumb }}
         alt={image.alt}
         recyclingKey={image.thumb}
-        style={imageStyle}
+        style={styles.fill}
         onLoad={({ source: { width, height } }) => {
           setAspectRatio(width / height);
           // I don't like this in the slightest
@@ -92,9 +81,13 @@ export const ImageWithContextMenu = ({
         }}
         {...props}
       />
-    </ContextMenuView>
+    </ContextMenu>
   );
 };
+
+const styles = StyleSheet.create({
+  fill: { width: "100%", height: "100%" },
+});
 
 export const useImageOptions = () => {
   const theme = useTheme();
@@ -120,7 +113,13 @@ export const useImageOptions = () => {
     };
   };
 
-  const items = [
+  const items: {
+    key: string;
+    label: string;
+    reactIcon: React.JSX.Element;
+    action: (uri: string) => Promise<void>;
+    icon: MenuIcon;
+  }[] = [
     {
       key: "copy",
       label: _(msg`Copy Image`),

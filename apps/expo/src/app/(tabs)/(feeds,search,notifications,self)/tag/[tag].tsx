@@ -1,23 +1,22 @@
 import { useCallback, useMemo, useState } from "react";
-import { View } from "react-native";
-import { RefreshControl, TouchableOpacity } from "react-native-gesture-handler";
+import { RefreshControl, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useTheme } from "expo-router/react-navigation";
 import { BskyAgent, type AppBskyFeedDefs } from "@atproto/api";
-import { useActionSheet } from "@expo/react-native-action-sheet";
-import { msg, Trans } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { useTheme } from "@react-navigation/native";
+import { Trans } from "@lingui/react/macro";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { RssIcon } from "lucide-react-native";
 
 import { FeedPost } from "~/components/feed-post";
 import { ListFooterComponent } from "~/components/list-footer";
+import { Menu } from "~/components/menu";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
 import { useContentFilter } from "~/lib/hooks/preferences";
-import { actionSheetStyles } from "~/lib/utils/action-sheet";
 import { useUserRefresh } from "~/lib/utils/query";
 
 const OPTIONS = [
@@ -40,7 +39,6 @@ export default function TagScreen() {
   }, []);
   const agent = useAgent();
   const { contentFilter, preferences } = useContentFilter();
-  const { showActionSheetWithOptions } = useActionSheet();
   const theme = useTheme();
   const getModeName = useGetModeName();
   const { _ } = useLingui();
@@ -88,37 +86,31 @@ export default function TagScreen() {
           title: `#${decodedTag}`,
           headerRight: () => {
             return (
-              <TouchableOpacity
-                onPress={() => {
-                  showActionSheetWithOptions(
-                    {
-                      options: [
-                        ...OPTIONS.map((mode) => getModeName(mode)),
-                        _(msg`Cancel`),
-                      ],
-                      cancelButtonIndex: OPTIONS.length,
-                      title: _(msg`Sort posts by`),
-                      ...actionSheetStyles(theme),
-                    },
-                    (index) => {
-                      if (index === undefined || index === OPTIONS.length)
-                        return;
-                      const selected = OPTIONS[index];
-                      if (selected) setMode(selected);
-                    },
-                  );
-                }}
+              <Menu
+                title={_(msg`Sort posts by`)}
+                groups={[
+                  {
+                    key: "sort",
+                    items: OPTIONS.map((option) => ({
+                      type: "toggle",
+                      key: option,
+                      label: getModeName(option),
+                      checked: mode === option,
+                      onCheckedChange: (checked) => checked && setMode(option),
+                    })),
+                  },
+                ]}
               >
                 <Text primary className="text-base">
                   <Trans>Sort: {getModeName(mode)}</Trans>
                 </Text>
-              </TouchableOpacity>
+              </Menu>
             );
           },
         }}
       />
     );
-  }, [mode, decodedTag, theme, showActionSheetWithOptions, getModeName, _]);
+  }, [mode, decodedTag, getModeName, _]);
 
   const { refetch } = feed;
 
