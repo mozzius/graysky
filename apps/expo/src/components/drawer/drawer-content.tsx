@@ -40,7 +40,6 @@ interface Props {
 export const DrawerContent = ({ open }: Props) => {
   const logOut = useLogOut();
   const { showActionSheetWithOptions } = useActionSheet();
-  // const codes = useInviteCodes();
   const setOpenDrawer = useDrawer();
   const theme = useTheme();
   const homepage = useHomepage();
@@ -99,11 +98,6 @@ export const DrawerContent = ({ open }: Props) => {
     );
   };
 
-  // const numCodes = (codes.data?.unused ?? []).reduce(
-  //   (acc, code) => (acc += code.available),
-  //   0,
-  // );
-
   const ChangeThemeIcon = theme.dark ? MoonIcon : SunIcon;
 
   return (
@@ -125,48 +119,6 @@ export const DrawerContent = ({ open }: Props) => {
             </TouchableOpacity>
           </Link>
         )}
-        {/* <Link
-          href="/codes"
-          asChild
-          onPress={(evt) => {
-            switch (codes.status) {
-              case "pending":
-                evt.preventDefault();
-                Alert.alert("Loading codes...");
-                break;
-              case "error":
-                evt.preventDefault();
-                Alert.alert(
-                  "Viewing invite codes is not available",
-                  "To protect your codes, you must be logged in with your main password to use this feature.",
-                );
-                break;
-              default:
-                closeDrawer();
-                break;
-            }
-          }}
-        >
-          <TouchableOpacity
-            accessibilityRole="link"
-            accessibilityLabel="Invite codes"
-            className={cx(
-              "mt-2 w-full flex-row items-center py-2",
-              !codes.isSuccess && "opacity-30",
-            )}
-          >
-            <TicketIcon color={theme.colors.text} />
-            <Text className="ml-6 text-base font-medium">
-              Invite codes
-              {numCodes > 0 && (
-                <>
-                  {" "}
-                  <Text primary>({numCodes})</Text>
-                </>
-              )}
-            </Text>
-          </TouchableOpacity>
-        </Link> */}
         <Link href="/pro" asChild onPress={closeDrawer}>
           <TouchableOpacity
             accessibilityRole="link"
