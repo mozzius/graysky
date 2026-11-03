@@ -205,7 +205,7 @@ function LinkRow({ row }: { row: FallbackLinkRow }) {
   if (row.onPress) {
     return (
       <TouchableHighlight
-        onPress={row.onPress}
+        onPress={() => void row.onPress?.()}
         accessibilityRole={row.accessibilityRole}
       >
         {content}

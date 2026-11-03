@@ -41,7 +41,7 @@ interface BaseRow {
 export interface FormLinkRow extends BaseRow {
   type?: "link";
   href?: Href;
-  onPress?: () => void;
+  onPress?: () => void | Promise<void>;
   /** secondary text on the trailing side */
   value?: string;
   /** defaults to true for `href` rows. iOS only - not a material pattern */

@@ -175,7 +175,9 @@ function LinkRowView({ row }: { row: FormLinkRow }) {
     ? undefined
     : row.href
       ? () => router.push(row.href!)
-      : row.onPress;
+      : row.onPress
+        ? () => void row.onPress?.()
+        : undefined;
 
   return (
     <ListItem

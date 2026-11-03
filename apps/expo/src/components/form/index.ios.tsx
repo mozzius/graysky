@@ -197,7 +197,7 @@ function LinkRowView({ row, modifiers }: RowProps<FormLinkRow>) {
   const onPress = row.href
     ? () => router.push(row.href!)
     : row.onPress
-      ? () => row.onPress?.()
+      ? () => void row.onPress?.()
       : undefined;
   const chevron = row.chevron ?? !!row.href;
 
