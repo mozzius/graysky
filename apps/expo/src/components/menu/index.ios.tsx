@@ -10,7 +10,7 @@ import {
   Text,
   Toggle,
 } from "@expo/ui/swift-ui";
-import { disabled } from "@expo/ui/swift-ui/modifiers";
+import { disabled, tint } from "@expo/ui/swift-ui/modifiers";
 
 import {
   visibleGroups,
@@ -21,6 +21,10 @@ import {
 } from "./types";
 
 export * from "./types";
+
+// menu icons pick up the accent color (blue) by default. tint them with the
+// label color instead so they match the text. destructive items stay red
+const menuModifiers = [tint({ type: "hierarchical", style: "primary" })];
 
 export function Menu({
   groups,
@@ -38,6 +42,7 @@ export function Menu({
       colorScheme={theme.dark ? "dark" : "light"}
     >
       <SwiftUIMenu
+        modifiers={menuModifiers}
         label={
           <RNHostView matchContents>
             <RNTrigger accessibilityLabel={accessibilityLabel}>
@@ -63,7 +68,7 @@ export function ContextMenu({
 
   return (
     <Host style={style} colorScheme={theme.dark ? "dark" : "light"}>
-      <SwiftUIContextMenu>
+      <SwiftUIContextMenu modifiers={menuModifiers}>
         <SwiftUIContextMenu.Trigger>
           <RNHostView>{children}</RNHostView>
         </SwiftUIContextMenu.Trigger>
