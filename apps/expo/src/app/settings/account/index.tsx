@@ -4,19 +4,32 @@ import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import {
   AtSignIcon,
-  LockIcon,
+  ExternalLinkIcon,
   MailIcon,
   UserIcon,
-  UserX,
 } from "lucide-react-native";
 
 import { GroupedList } from "~/components/grouped-list";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useOptionalAgent, useSession } from "~/lib/agent";
+import { useOptionalAgent, useSession, type SessionInfo } from "~/lib/agent";
+import { useLinkPress } from "~/lib/hooks/link-press";
+
+/**
+ * password, email and account deletion aren't available to oauth apps, so
+ * send people to their account provider for those
+ */
+function getAccountManagementUrl(session: SessionInfo) {
+  const issuer = new URL(session.issuer);
+  if (issuer.hostname === "bsky.social") {
+    return "https://bsky.app/settings/account";
+  }
+  return new URL("/account", issuer).toString();
+}
 
 export default function AccountSettings() {
   const session = useSession();
   const { _ } = useLingui();
+  const { openLink } = useLinkPress();
 
   // preload for other pages
   useSelf();
@@ -49,21 +62,18 @@ export default function AccountSettings() {
               },
             ],
           },
-          {
-            title: _(msg`Advanced Settings`),
+          !!session && {
+            title: _(msg`Account Management`),
             options: [
               {
-                title: _(msg`Change Password`),
-                icon: LockIcon,
-                href: "/settings/account/change-password",
-              },
-              {
-                title: _(msg`Delete Account`),
-                icon: UserX,
-                destructive: true,
-                href: "/settings/account/delete-account",
+                title: _(msg`Manage Account`),
+                icon: ExternalLinkIcon,
+                onPress: () => openLink(getAccountManagementUrl(session)),
               },
             ],
+            footer: _(
+              msg`Your password, email address and account deletion are managed by your account provider.`,
+            ),
           },
         ]}
       />
