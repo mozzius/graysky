@@ -3,6 +3,7 @@ import { ActivityIndicator, RefreshControl } from "react-native";
 import * as ExpoNotifications from "expo-notifications";
 import { Stack, useFocusEffect } from "expo-router";
 import { toDatetimeString, type AtUriString } from "@atproto/lex";
+import { AtUri } from "@atproto/syntax";
 import { updateSeenNotifications } from "@bsky/sdk";
 import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
@@ -24,6 +25,11 @@ import { useHaptics } from "~/lib/hooks/preferences";
 import { useGroupNotifications } from "~/lib/storage/app-preferences";
 import { useRefreshOnFocus, useUserRefresh } from "~/lib/utils/query";
 import { isIOS26 } from "~/lib/utils/version";
+
+// subjects can be other records, e.g. starter packs for "starterpack-joined".
+// getPosts 500s if you give it a starter pack uri, so only look up posts
+const isPostUri = (uri: AtUriString) =>
+  new AtUri(uri).collection === "app.bsky.feed.post";
 
 export interface NotificationGroup {
   reason: app.bsky.notification.listNotifications.Notification["reason"];
@@ -67,7 +73,7 @@ function Notifications() {
               subject = notif.uri;
             }
 
-            if (subject) {
+            if (subject && isPostUri(subject)) {
               subjects.add(subject);
             }
 
@@ -88,7 +94,7 @@ function Notifications() {
             subject = notif.uri;
           }
 
-          if (subject) {
+          if (subject && isPostUri(subject)) {
             subjects.add(subject);
           }
 
@@ -118,9 +124,13 @@ function Notifications() {
       const contextPosts = await Promise.all(
         subjectChunks.map((chunk) =>
           chunk.length > 0
-            ? agent.call(app.bsky.feed.getPosts, {
-                uris: chunk,
-              })
+            ? agent
+                .call(app.bsky.feed.getPosts, {
+                  uris: chunk,
+                })
+                // the posts are just context - show the notifications without
+                // them rather than failing the whole page
+                .catch(() => ({ posts: [] }))
             : Promise.resolve({ posts: [] }),
         ),
       ).then((x) => x.flatMap((x) => x.posts));
