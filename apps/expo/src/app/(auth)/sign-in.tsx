@@ -13,7 +13,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
-import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
+import { LockIcon, ShieldAlertIcon, UserIcon, RectangleEllipsis } from "lucide-react-native";
 import { z } from "zod";
 
 import { Button } from "~/components/button";
@@ -23,6 +23,8 @@ import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAuth } from "~/lib/agent";
 import { useLinkPress } from "~/lib/hooks/link-press";
+import { is2FactorError } from "~/lib/utils/login";
+
 
 export default function SignIn() {
   const { login: authLogin } = useAuth();
@@ -35,6 +37,8 @@ export default function SignIn() {
 
   const [identifier, setIdentifier] = useState(handle ?? "");
   const [password, setPassword] = useState("");
+  const [requiredTwoFactor, setRequiredTwoFactor] = useState(false);
+  const [twoFactor, setTwoFactor] = useState<string>("");
   const [hasFocusedPassword, setHasFocusedPassword] = useState(false);
 
   const login = useMutation({
@@ -43,7 +47,7 @@ export default function SignIn() {
       const normalizedIdentifier = identifier.startsWith("@")
         ? identifier.slice(1).trim()
         : identifier.trim();
-      await authLogin(normalizedIdentifier, password);
+      await authLogin(normalizedIdentifier, password, twoFactor !== '' ? twoFactor : undefined);
     },
     onSuccess: () => {
       // Dismiss the auth modal and navigate to feeds
@@ -52,12 +56,17 @@ export default function SignIn() {
       }
       router.replace("/(feeds)/feeds");
     },
-    onError: (err) =>
+    onError: (err) => {
+      if (is2FactorError(err)) {
+        setRequiredTwoFactor(true);
+        return;
+      }
       showToastable({
         title: _(msg`Could not log you in`),
         message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
-      }),
+      })
+    },
   });
 
   return (
@@ -159,6 +168,20 @@ export default function SignIn() {
               </View>
             </Animated.View>
           )}
+
+          {requiredTwoFactor && (<View
+            className="mb-1 flex-row items-center rounded-b-sm rounded-t-lg pl-3"
+            style={{ backgroundColor: theme.colors.card }}
+          >
+            <RectangleEllipsis size={18} color="rgb(163 163 163)" />
+            <TextInput
+              className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
+              placeholder={_(msg`2Factor Code`)}
+              value={twoFactor}
+              onChangeText={setTwoFactor}
+              autoCapitalize="none"
+            />
+          </View>)}
         </KeyboardAwareScrollView>
       </TransparentHeaderUntilScrolled>
       <KeyboardStickyView
