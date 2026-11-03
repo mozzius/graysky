@@ -26,6 +26,10 @@ export * from "./types";
 // label color instead so they match the text. destructive items stay red
 const menuModifiers = [tint({ type: "hierarchical", style: "primary" })];
 
+// both hosts use ignoreSafeArea="all": swiftui insets hosted content to keep it
+// out of the safe area, so triggers inside scroll views (e.g. post images)
+// got squished as they scrolled under the tab bar or header
+
 export function Menu({
   groups,
   title,
@@ -38,6 +42,7 @@ export function Menu({
   return (
     <Host
       matchContents
+      ignoreSafeArea="all"
       style={style}
       colorScheme={theme.dark ? "dark" : "light"}
     >
@@ -67,7 +72,11 @@ export function ContextMenu({
   const theme = useTheme();
 
   return (
-    <Host style={style} colorScheme={theme.dark ? "dark" : "light"}>
+    <Host
+      ignoreSafeArea="all"
+      style={style}
+      colorScheme={theme.dark ? "dark" : "light"}
+    >
       <SwiftUIContextMenu modifiers={menuModifiers}>
         <SwiftUIContextMenu.Trigger>
           <RNHostView>{children}</RNHostView>
