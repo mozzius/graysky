@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef } from "react";
 import {
+  Pressable,
   StyleSheet,
   TouchableHighlight,
   useWindowDimensions,
@@ -12,6 +13,11 @@ import Animated, {
   useReducedMotion,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  GlassView,
+  isGlassEffectAPIAvailable,
+  isLiquidGlassAvailable,
+} from "expo-glass-effect";
 import { Link, usePathname, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import {
@@ -55,6 +61,9 @@ import {
 } from "./screens/feeds-screen-elements";
 import { Text } from "./themed/text";
 
+// some iOS 26 betas have liquid glass but crash using the API, hence both
+const hasLiquidGlass = isLiquidGlassAvailable() && isGlassEffectAPIAvailable();
+
 interface Props {
   show?: boolean;
 }
@@ -81,6 +90,29 @@ export const FeedsButton = ({ show = true }: Props) => {
 
   const reducedMotion = useReducedMotion();
 
+  const onPress = () => {
+    haptics.selection();
+    bottomSheetRef.current?.present();
+  };
+
+  const onLongPress = () => {
+    haptics.selection();
+    if (homepage === "feeds") {
+      router.push("/feeds");
+    } else {
+      router.push("/feeds/manage");
+    }
+  };
+
+  const label = (
+    <>
+      <CloudyIcon size={20} color={theme.colors.text} />
+      <Text className="ml-3 mr-2 text-base">
+        <Trans>My Feeds</Trans>
+      </Text>
+    </>
+  );
+
   return (
     <>
       {show && (
@@ -90,37 +122,42 @@ export const FeedsButton = ({ show = true }: Props) => {
           exiting={FadeOutDown}
           style={isIOS26 && { bottom: bottomBarHeight + 16 }}
         >
-          <TouchableHighlight
-            onPress={() => {
-              haptics.selection();
-              bottomSheetRef.current?.present();
-            }}
-            onLongPress={() => {
-              haptics.selection();
-              if (homepage === "feeds") {
-                router.push("/feeds");
-              } else {
-                router.push("/feeds/manage");
-              }
-            }}
-            accessibilityLabel="Open feed switch modal"
-            className="flex-1 rounded-full"
-          >
-            <View
-              className="flex-1 flex-row items-center rounded-full border py-2 pl-3.5 pr-2"
-              style={{
-                backgroundColor: theme.colors.card,
-                borderColor: theme.colors.border,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderCurve: "continuous",
-              }}
+          {hasLiquidGlass ? (
+            <GlassView
+              isInteractive
+              colorScheme={theme.dark ? "dark" : "light"}
+              style={styles.glass}
             >
-              <CloudyIcon size={20} color={theme.colors.text} />
-              <Text className="ml-3 mr-2 text-base">
-                <Trans>My Feeds</Trans>
-              </Text>
-            </View>
-          </TouchableHighlight>
+              <Pressable
+                onPress={onPress}
+                onLongPress={onLongPress}
+                accessibilityRole="button"
+                accessibilityLabel="Open feed switch modal"
+                className="flex-row items-center py-2.5 pl-4 pr-2.5"
+              >
+                {label}
+              </Pressable>
+            </GlassView>
+          ) : (
+            <TouchableHighlight
+              onPress={onPress}
+              onLongPress={onLongPress}
+              accessibilityLabel="Open feed switch modal"
+              className="flex-1 rounded-full"
+            >
+              <View
+                className="flex-1 flex-row items-center rounded-full border py-2 pl-3.5 pr-2"
+                style={{
+                  backgroundColor: theme.colors.card,
+                  borderColor: theme.colors.border,
+                  borderWidth: StyleSheet.hairlineWidth,
+                  borderCurve: "continuous",
+                }}
+              >
+                {label}
+              </View>
+            </TouchableHighlight>
+          )}
         </Animated.View>
       )}
       <BottomSheetModal
@@ -345,3 +382,11 @@ const SheetContent = ({
 
   return <QueryWithoutData query={feeds} />;
 };
+
+const styles = StyleSheet.create({
+  // the glass takes its shape from the view's corner radius
+  glass: {
+    borderRadius: 999,
+    borderCurve: "continuous",
+  },
+});
