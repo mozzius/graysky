@@ -1,13 +1,7 @@
-import { View } from "react-native";
-import { Switch } from "react-native-gesture-handler";
-import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { ChevronsUpDownIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
-import { Menu } from "~/components/menu";
-import { Text } from "~/components/themed/text";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { languageCodeToName } from "~/i18n/config";
 import { useIsPro } from "~/lib/purchases";
@@ -31,7 +25,6 @@ export default function LanguageSettings() {
   const isPro = useIsPro();
 
   const { _ } = useLingui();
-  const theme = useTheme();
 
   const translationService = isPro ? translationMethod : "GOOGLE";
 
@@ -41,58 +34,33 @@ export default function LanguageSettings() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        sections={[
           {
             title: _(msg`App language`),
-            options: [
+            rows: [
               {
+                type: "picker",
                 title: _(msg`App language`),
-                action: (
-                  <Menu
-                    groups={[
-                      {
-                        key: "languages",
-                        items: availableAppLanguages.map((lang) => ({
-                          type: "toggle",
-                          key: lang,
-                          label: languageCodeToName(lang),
-                          checked: appLanguage === lang,
-                          onCheckedChange: (checked) =>
-                            checked && setAppPreferences({ appLanguage: lang }),
-                        })),
-                      },
-                    ]}
-                  >
-                    <View className="flex-row items-center gap-x-1">
-                      <Text primary className="text-base font-medium">
-                        {languageCodeToName(appLanguage)}
-                      </Text>
-                      <ChevronsUpDownIcon
-                        size={16}
-                        color={theme.colors.primary}
-                      />
-                    </View>
-                  </Menu>
-                ),
+                value: appLanguage,
+                options: availableAppLanguages.map((lang) => ({
+                  value: lang,
+                  label: languageCodeToName(lang),
+                })),
+                onValueChange: (lang) =>
+                  setAppPreferences({
+                    appLanguage: lang as (typeof availableAppLanguages)[number],
+                  }),
               },
             ],
           },
           {
             title: _(msg`Post languages`),
-            options: [
+            rows: [
               {
                 title: _(msg`Primary language`),
                 href: "/settings/language/primary",
-                chevron: true,
-                action: (
-                  <Text
-                    className="text-base text-neutral-500"
-                    numberOfLines={1}
-                  >
-                    {primaryLanguageLabel}
-                  </Text>
-                ),
+                value: primaryLanguageLabel,
               },
             ],
             footer: _(
@@ -100,28 +68,20 @@ export default function LanguageSettings() {
             ),
           },
           {
-            options: [
+            rows: [
               {
                 title: _(msg`My languages`),
                 href: "/settings/language/content",
-                chevron: true,
-                action: (
-                  <Text
-                    className="text-base text-neutral-500"
-                    numberOfLines={1}
-                  >
-                    {contentLanguages.length > 2
-                      ? contentLanguages.length
-                      : contentLanguages
-                          .map(
-                            (contentLang) =>
-                              LANGUAGES.find(
-                                (lang) => lang.code2 === contentLang,
-                              )?.name ?? contentLang,
-                          )
-                          .join(", ")}
-                  </Text>
-                ),
+                value:
+                  contentLanguages.length > 2
+                    ? String(contentLanguages.length)
+                    : contentLanguages
+                        .map(
+                          (contentLang) =>
+                            LANGUAGES.find((lang) => lang.code2 === contentLang)
+                              ?.name ?? contentLang,
+                        )
+                        .join(", "),
               },
             ],
             footer: _(
@@ -130,23 +90,19 @@ export default function LanguageSettings() {
           },
           {
             title: _(msg`Translation provider`),
-            options: [
+            rows: [
               {
+                type: "toggle",
                 title: _(msg`Use DeepL for translations`),
                 disabled: !isPro,
-                action: (
-                  <Switch
-                    value={translationService === "DEEPL"}
-                    disabled={!isPro}
-                    onValueChange={(useDeepL) => {
-                      setAppPreferences({
-                        translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
-                      });
-                    }}
-                    accessibilityHint={_(
-                      msg`Use DeepL for translations instead of Google Translate`,
-                    )}
-                  />
+                value: translationService === "DEEPL",
+                onValueChange: (useDeepL) => {
+                  setAppPreferences({
+                    translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
+                  });
+                },
+                accessibilityHint: _(
+                  msg`Use DeepL for translations instead of Google Translate`,
                 ),
               },
             ],

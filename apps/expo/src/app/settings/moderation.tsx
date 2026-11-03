@@ -1,20 +1,12 @@
 import { useState } from "react";
-import { Platform, Switch, View } from "react-native";
-import { useTheme } from "expo-router/react-navigation";
+import { Platform, View } from "react-native";
 import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
-import {
-  ChevronsUpDownIcon,
-  MegaphoneOffIcon,
-  ShieldXIcon,
-} from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
-import { ItemSeparator } from "~/components/item-separator";
-import { Menu } from "~/components/menu";
+import { Form } from "~/components/form";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
@@ -33,7 +25,6 @@ type Pref = (typeof options)[number];
 
 export default function ModerationSettings() {
   const agent = useAgent();
-  const theme = useTheme();
   const { _ } = useLingui();
 
   const [optimisticSwitchValue, setOptimisticSwitchValue] = useState(false);
@@ -119,52 +110,48 @@ export default function ModerationSettings() {
   if (preferences.data) {
     return (
       <TransparentHeaderUntilScrolled>
-        <GroupedList
-          groups={[
+        <Form
+          sections={[
             {
               title: _(msg`Blocks & Mutes`),
-              options: [
+              rows: [
                 {
                   title: _(msg`Blocked users`),
                   href: "/settings/blocks",
-                  icon: ShieldXIcon,
+                  icon: "block",
                 },
                 {
                   title: _(msg`Muted users`),
                   href: "/settings/mutes",
-                  icon: MegaphoneOffIcon,
+                  icon: "mute",
                 },
               ],
             },
             {
               title: _(msg`Content filters`),
-              children: Platform.OS === "ios" && (
-                <>
-                  <View className="px-4 py-3">
-                    <Text>
-                      <Trans>
-                        Note: Adult content settings cannot be changed on iOS.
-                        Please use the web app instead.
-                      </Trans>
-                    </Text>
-                  </View>
-                  <ItemSeparator />
-                </>
-              ),
-              options: [
-                {
-                  title: _(msg`Enable Adult Content`),
-                  action: (
-                    <Switch
-                      disabled={Platform.OS === "ios"}
-                      value={
-                        toggleAdultContent.isPending
-                          ? optimisticSwitchValue
-                          : adultContentEnabled
-                      }
-                      onValueChange={() => toggleAdultContent.mutate()}
-                    />
+              rows: [
+                Platform.OS === "ios" && {
+                  type: "custom",
+                  key: "ios-note",
+                  children: (
+                    <View className="px-4 py-3">
+                      <Text>
+                        <Trans>
+                          Note: Adult content settings cannot be changed on iOS.
+                          Please use the web app instead.
+                        </Trans>
+                      </Text>
+                    </View>
                   ),
+                },
+                {
+                  type: "toggle",
+                  title: _(msg`Enable Adult Content`),
+                  disabled: Platform.OS === "ios",
+                  value: toggleAdultContent.isPending
+                    ? optimisticSwitchValue
+                    : adultContentEnabled,
+                  onValueChange: () => toggleAdultContent.mutate(),
                 },
                 ...Object.entries(contentLabels).map(
                   ([key, { label, defaultValue, adult }]) => {
@@ -178,66 +165,25 @@ export default function ModerationSettings() {
                       visibility = defaultValue as Pref;
                     }
 
-                    if (
-                      adult &&
-                      (!adultContentEnabled || Platform.OS === "ios")
-                    ) {
-                      return {
-                        title: label,
-                        action: (
-                          <View className="flex-row items-center gap-x-1">
-                            <Text className="text-base font-medium text-neutral-400 dark:text-neutral-300">
-                              {
-                                translateMap[
-                                  adultContentEnabled ? visibility : "hide"
-                                ]
-                              }
-                            </Text>
-                            <ChevronsUpDownIcon
-                              size={16}
-                              className="text-neutral-400 dark:text-neutral-300"
-                            />
-                          </View>
-                        ),
-                      };
-                    }
+                    const locked =
+                      adult && (!adultContentEnabled || Platform.OS === "ios");
 
                     return {
+                      type: "picker" as const,
+                      key,
                       title: label,
-                      action: (
-                        <Menu
-                          groups={[
-                            {
-                              key: "visibility",
-                              items: options.map((option) => ({
-                                type: "toggle",
-                                key: option,
-                                label: translateMap[option],
-                                checked: visibility === option,
-                                onCheckedChange: (checked) =>
-                                  checked &&
-                                  setPreference.mutate({
-                                    label: key,
-                                    visibility: option,
-                                  }),
-                              })),
-                            },
-                          ]}
-                        >
-                          <View className="flex-row items-center gap-x-1">
-                            <Text
-                              className="text-base font-medium capitalize"
-                              primary
-                            >
-                              {visibility}
-                            </Text>
-                            <ChevronsUpDownIcon
-                              size={16}
-                              color={theme.colors.primary}
-                            />
-                          </View>
-                        </Menu>
-                      ),
+                      disabled: locked,
+                      value:
+                        locked && !adultContentEnabled ? "hide" : visibility,
+                      options: options.map((option) => ({
+                        value: option,
+                        label: translateMap[option],
+                      })),
+                      onValueChange: (option: string) =>
+                        setPreference.mutate({
+                          label: key,
+                          visibility: option,
+                        }),
                     };
                   },
                 ),

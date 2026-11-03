@@ -1,10 +1,9 @@
-import { Switch } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { AccentColourSelect } from "~/components/accent-colour-select";
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useIsPro } from "~/lib/purchases";
 import {
@@ -23,27 +22,23 @@ export default function ProSettings() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        sections={[
           {
             title: _(msg`Translation provider`),
-            options: [
+            rows: [
               {
+                type: "toggle",
                 title: _(msg`Use DeepL for translations`),
                 disabled: !isPro,
-                action: (
-                  <Switch
-                    value={translationMethod === "DEEPL"}
-                    disabled={!isPro}
-                    onValueChange={(useDeepL) => {
-                      setAppPreferences({
-                        translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
-                      });
-                    }}
-                    accessibilityHint={_(
-                      msg`Use DeepL for translations instead of Google Translate`,
-                    )}
-                  />
+                value: translationMethod === "DEEPL",
+                onValueChange: (useDeepL) => {
+                  setAppPreferences({
+                    translationMethod: useDeepL ? "DEEPL" : "GOOGLE",
+                  });
+                },
+                accessibilityHint: _(
+                  msg`Use DeepL for translations instead of Google Translate`,
                 ),
               },
             ],
@@ -51,7 +46,13 @@ export default function ProSettings() {
           },
           {
             title: _(msg`Accent colour`),
-            children: <AccentColourSelect />,
+            rows: [
+              {
+                type: "custom",
+                key: "accent-colour",
+                children: <AccentColourSelect />,
+              },
+            ],
           },
         ]}
       />

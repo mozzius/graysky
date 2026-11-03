@@ -1,17 +1,11 @@
-import { ActivityIndicator, Switch, View } from "react-native";
-import { useTheme } from "expo-router/react-navigation";
 import { type $Typed } from "@atproto/lex";
 import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { Trans } from "@lingui/react/macro";
-import { useMutation, type UseMutationResult } from "@tanstack/react-query";
-import { ChevronsUpDownIcon } from "lucide-react-native";
+import { useMutation } from "@tanstack/react-query";
 
-import { GroupedList } from "~/components/grouped-list";
-import { Menu } from "~/components/menu";
+import { Form } from "~/components/form";
 import { QueryWithoutData } from "~/components/query-without-data";
-import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds } from "~/lib/hooks";
@@ -53,7 +47,6 @@ export default function FeedPreferences() {
   const homepage = useHomepage();
   const setAppPreferences = useSetAppPreferences();
 
-  const theme = useTheme();
   const savedFeeds = useSavedFeeds();
   const { _ } = useLingui();
 
@@ -116,209 +109,120 @@ export default function FeedPreferences() {
           .filter((x) => x !== undefined)
       : [];
 
+    // show a spinner in place of the switch that's being changed
+    const isSaving = (property: keyof typeof defaultFeedViewPref) =>
+      setPreference.isPending &&
+      !!setPreference.variables &&
+      property in setPreference.variables;
+
     return (
       <TransparentHeaderUntilScrolled>
-        <GroupedList
-          groups={[
+        <Form
+          sections={[
             {
               title: _(msg`Home screen`),
-              options: [
+              rows: [
                 {
+                  type: "picker",
                   title: _(msg`Home screen layout`),
-                  action: (
-                    <Menu
-                      groups={[
-                        {
-                          key: "layout",
-                          items: [
-                            {
-                              type: "toggle",
-                              key: "feeds list",
-                              label: _(msg`Feeds list`),
-                              checked: homepage === "feeds",
-                              onCheckedChange: (checked) =>
-                                checked &&
-                                setAppPreferences({ homepage: "feeds" }),
-                            },
-                            {
-                              type: "toggle",
-                              key: "specific feed",
-                              label: _(msg`Primary feed`),
-                              checked: homepage === "skyline",
-                              onCheckedChange: (checked) =>
-                                checked &&
-                                setAppPreferences({ homepage: "skyline" }),
-                            },
-                          ],
-                        },
-                      ]}
-                    >
-                      <View className="flex-row items-center gap-x-1">
-                        <Text primary className="text-base font-medium">
-                          {homepage === "feeds" ? (
-                            <Trans>Feeds list</Trans>
-                          ) : (
-                            <Trans>Primary feed</Trans>
-                          )}
-                        </Text>
-                        <ChevronsUpDownIcon
-                          size={16}
-                          color={theme.colors.primary}
-                        />
-                      </View>
-                    </Menu>
-                  ),
+                  value: homepage,
+                  options: [
+                    { value: "feeds", label: _(msg`Feeds list`) },
+                    { value: "skyline", label: _(msg`Primary feed`) },
+                  ],
+                  onValueChange: (value) =>
+                    setAppPreferences({
+                      homepage: value === "feeds" ? "feeds" : "skyline",
+                    }),
                 },
-                ...(homepage === "skyline"
-                  ? [
-                      {
-                        title: _(msg`Primary feed`),
-                        action: savedFeeds.isSuccess ? (
-                          <Menu
-                            groups={[
-                              {
-                                key: "following",
-                                items: [
-                                  {
-                                    type: "toggle",
-                                    key: "following",
-                                    label: followingFeedName,
-                                    checked: defaultFeed === "following",
-                                    onCheckedChange: (checked) =>
-                                      checked &&
-                                      setAppPreferences({
-                                        defaultFeed: "following",
-                                      }),
-                                  },
-                                ],
-                              },
-                              {
-                                key: "feeds",
-                                items: feeds.map((feed) => ({
-                                  type: "toggle",
-                                  key: feed.uri,
-                                  label: feed.displayName,
-                                  subtitle: _(msg`By @${feed.creator.handle}`),
-                                  checked: feed.uri === defaultFeed,
-                                  onCheckedChange: (checked) =>
-                                    checked &&
-                                    setAppPreferences({
-                                      defaultFeed: feed.uri,
-                                    }),
-                                })),
-                              },
-                            ]}
-                          >
-                            <View className="flex-row items-center gap-x-1">
-                              <Text
-                                style={{
-                                  color: unknown
-                                    ? theme.colors.notification
-                                    : theme.colors.primary,
-                                }}
-                                className="text-base font-medium"
-                              >
-                                {unknown ? "Unknown" : feedName}
-                              </Text>
-                              <ChevronsUpDownIcon
-                                size={16}
-                                color={theme.colors.primary}
-                              />
-                            </View>
-                          </Menu>
-                        ) : (
-                          <ActivityIndicator />
-                        ),
-                      },
-                    ]
-                  : []),
+                homepage === "skyline" && {
+                  type: "picker",
+                  title: _(msg`Primary feed`),
+                  loading: !savedFeeds.isSuccess,
+                  value: defaultFeed,
+                  options: [
+                    { value: "following", label: followingFeedName },
+                    ...feeds.map((feed) => ({
+                      value: feed.uri,
+                      label: feed.displayName,
+                      subtitle: _(msg`By @${feed.creator.handle}`),
+                    })),
+                    // the current feed might not be pinned
+                    ...(defaultFeed !== "following" &&
+                    !feeds.some((feed) => feed.uri === defaultFeed)
+                      ? [
+                          {
+                            value: defaultFeed,
+                            label: unknown ? "Unknown" : feedName,
+                          },
+                        ]
+                      : []),
+                  ],
+                  onValueChange: (value) =>
+                    setAppPreferences({ defaultFeed: value }),
+                },
               ],
             },
             {
               title: _(msg`Reply settings`),
-              options: [
+              rows: [
                 {
+                  type: "toggle",
                   title: _(msg`Show replies`),
-                  action: (
-                    <LoadingValue query={setPreference} property="hideReplies">
-                      <Switch
-                        disabled={setPreference.isPending}
-                        value={!feedViewPref.hideReplies}
-                        onValueChange={(value) => {
-                          setPreference.mutate({
-                            hideReplies: !value,
-                          });
-                        }}
-                      />
-                    </LoadingValue>
-                  ),
+                  loading: isSaving("hideReplies"),
+                  disabled: setPreference.isPending,
+                  value: !feedViewPref.hideReplies,
+                  onValueChange: (value) => {
+                    setPreference.mutate({
+                      hideReplies: !value,
+                    });
+                  },
                 },
                 {
+                  type: "toggle",
                   title: _(msg`Only show replies from your follows`),
-                  action: (
-                    <LoadingValue
-                      query={setPreference}
-                      property="hideRepliesByUnfollowed"
-                    >
-                      <Switch
-                        disabled={
-                          setPreference.isPending || feedViewPref.hideReplies
-                        }
-                        value={feedViewPref.hideRepliesByUnfollowed}
-                        onValueChange={(value) => {
-                          setPreference.mutate({
-                            hideRepliesByUnfollowed: value,
-                          });
-                        }}
-                      />
-                    </LoadingValue>
-                  ),
-                  disabled: feedViewPref.hideReplies,
+                  loading: isSaving("hideRepliesByUnfollowed"),
+                  disabled: setPreference.isPending || feedViewPref.hideReplies,
+                  value: feedViewPref.hideRepliesByUnfollowed,
+                  onValueChange: (value) => {
+                    setPreference.mutate({
+                      hideRepliesByUnfollowed: value,
+                    });
+                  },
                 },
               ],
             },
             {
               title: _(msg`Repost settings`),
-              options: [
+              rows: [
                 {
+                  type: "toggle",
                   title: _(msg`Show reposts`),
-                  action: (
-                    <LoadingValue query={setPreference} property="hideReposts">
-                      <Switch
-                        disabled={setPreference.isPending}
-                        value={!feedViewPref.hideReposts}
-                        onValueChange={(value) => {
-                          setPreference.mutate({
-                            hideReposts: !value,
-                          });
-                        }}
-                      />
-                    </LoadingValue>
-                  ),
+                  loading: isSaving("hideReposts"),
+                  disabled: setPreference.isPending,
+                  value: !feedViewPref.hideReposts,
+                  onValueChange: (value) => {
+                    setPreference.mutate({
+                      hideReposts: !value,
+                    });
+                  },
                 },
               ],
             },
             {
               title: _(msg`Quote post settings`),
-              options: [
+              rows: [
                 {
+                  type: "toggle",
                   title: _(msg`Show quote posts`),
-                  action: (
-                    <LoadingValue
-                      query={setPreference}
-                      property="hideQuotePosts"
-                    >
-                      <Switch
-                        disabled={setPreference.isPending}
-                        value={!feedViewPref.hideQuotePosts}
-                        onValueChange={(value) => {
-                          setPreference.mutate({
-                            hideQuotePosts: !value,
-                          });
-                        }}
-                      />
-                    </LoadingValue>
-                  ),
+                  loading: isSaving("hideQuotePosts"),
+                  disabled: setPreference.isPending,
+                  value: !feedViewPref.hideQuotePosts,
+                  onValueChange: (value) => {
+                    setPreference.mutate({
+                      hideQuotePosts: !value,
+                    });
+                  },
                 },
               ],
             },
@@ -330,33 +234,3 @@ export default function FeedPreferences() {
 
   return <QueryWithoutData query={preferences} />;
 }
-
-const LoadingValue = ({
-  children,
-  property,
-  query,
-}: {
-  children: React.ReactNode;
-  property: keyof Pick<
-    app.bsky.actor.defs.FeedViewPref,
-    | "hideReplies"
-    | "hideRepliesByUnfollowed"
-    | "hideRepliesByLikeCount"
-    | "hideReposts"
-    | "hideQuotePosts"
-  >;
-  query: UseMutationResult<
-    void,
-    unknown,
-    Partial<Omit<app.bsky.actor.defs.FeedViewPref, "feed">>,
-    unknown
-  >;
-}) => {
-  if (
-    query.isPending &&
-    property in (query.variables as app.bsky.actor.defs.FeedViewPref)
-  ) {
-    return <ActivityIndicator size="small" />;
-  }
-  return <>{children}</>;
-};

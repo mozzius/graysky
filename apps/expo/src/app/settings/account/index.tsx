@@ -2,14 +2,8 @@ import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AtSignIcon,
-  ExternalLinkIcon,
-  MailIcon,
-  UserIcon,
-} from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useOptionalAgent, useSession, type SessionInfo } from "~/lib/agent";
 import { useLinkPress } from "~/lib/hooks/link-press";
@@ -34,38 +28,37 @@ export default function AccountSettings() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        sections={[
           !!session?.email && {
             title: _(msg`Account Details`),
-            options: [
+            rows: [
               {
-                icon: MailIcon,
+                icon: "mail",
                 title: session.email,
               },
             ],
           },
           {
             title: _(msg`Profile Settings`),
-            options: [
+            rows: [
               {
                 title: _(msg`Edit Profile`),
                 href: "/edit-bio",
-                icon: UserIcon,
+                icon: "person",
               },
               {
                 title: _(msg`Change Handle`),
                 href: "/settings/account/change-handle",
-                icon: AtSignIcon,
+                icon: "at",
               },
             ],
           },
           !!session && {
             title: _(msg`Account Management`),
-            options: [
+            rows: [
               {
                 title: _(msg`Manage Account`),
-                icon: ExternalLinkIcon,
                 onPress: () => openLink(getAccountManagementUrl(session)),
               },
             ],

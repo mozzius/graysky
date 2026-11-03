@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
-import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { CheckIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import {
@@ -19,7 +17,6 @@ export default function PrimaryLanguageSettings() {
   const primaryLanguage = usePrimaryLanguage();
   const contentLanguages = useContentLanguages();
   const setAppPreferences = useSetAppPreferences();
-  const theme = useTheme();
   const router = useRouter();
   const { _ } = useLingui();
 
@@ -34,10 +31,10 @@ export default function PrimaryLanguageSettings() {
     <>
       <Stack.Screen options={{ headerSearchBarOptions }} />
       <TransparentHeaderUntilScrolled>
-        <GroupedList
-          groups={[
+        <Form
+          sections={[
             {
-              options: SELECTABLE_LANGUAGES.filter((l) =>
+              rows: SELECTABLE_LANGUAGES.filter((l) =>
                 Boolean(l.code2) && query
                   ? l.name
                       .toLocaleLowerCase()
@@ -54,10 +51,7 @@ export default function PrimaryLanguageSettings() {
                   });
                   router.back();
                 },
-                action:
-                  lang.code2 === primaryLanguage ? (
-                    <CheckIcon color={theme.colors.primary} size={20} />
-                  ) : null,
+                selected: lang.code2 === primaryLanguage,
               })),
             },
           ]}

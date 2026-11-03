@@ -4,16 +4,8 @@ import { Image, type ImageSource } from "expo-image";
 import { Link } from "expo-router";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import {
-  AtSignIcon,
-  HeartIcon,
-  MailIcon,
-  SendIcon,
-  StarIcon,
-  WrenchIcon,
-} from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useLinkPress } from "~/lib/hooks/link-press";
@@ -27,165 +19,185 @@ export default function AboutPage() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        header={
+          <View className="flex-row items-center justify-center pb-8">
+            <View
+              className="h-20 w-20 overflow-hidden rounded-2xl"
+              style={{ borderCurve: "continuous" }}
+            >
+              <Image alt="graysky" source={appIcon} className="flex-1" />
+            </View>
+            <View className="ml-6">
+              <Text className="text-lg font-medium">Graysky</Text>
+              <Link href="/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep" asChild>
+                <TouchableOpacity>
+                  <Text className="text-base text-neutral-600 dark:text-neutral-400">
+                    by @mozzius.dev
+                  </Text>
+                </TouchableOpacity>
+              </Link>
+            </View>
+          </View>
+        }
+        sections={[
           {
-            options: [
+            rows: [
               {
                 title: _(msg`Star us on GitHub!`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/mozzius/graysky"),
-                icon: StarIcon,
+                icon: "star",
                 chevron: true,
               },
               {
                 title: _(msg`Sign up for project updates`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://graysky.app"),
-                icon: MailIcon,
+                icon: "mail",
                 chevron: true,
               },
               {
                 title: _(msg`Contact`),
                 accessibilityRole: "link",
                 onPress: () => Linking.openURL("mailto:hello@graysky.app"),
-                icon: SendIcon,
+                icon: "send",
                 chevron: true,
               },
             ],
           },
           {
             title: _(msg`Created by`),
-            options: [
+            rows: [
               {
                 title: "mozzius.dev",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: _(msg`Sponsor my work`),
                 accessibilityRole: "link",
                 onPress: () => openLink("https://github.com/sponsors/mozzius"),
-                icon: HeartIcon,
+                icon: "heart",
                 chevron: true,
               },
             ],
           },
           {
             title: _(msg`Contributors`),
-            options: [
+            rows: [
               {
                 title: "alice.bsky.sh",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:by3jhwdqgbtrcc7q4tkkv3cf",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "holden.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:tzq3i67wnarn6x2kbjcprnfx",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "matthewstanciu.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:ming7lqd64h7zh4da2c6sgxx",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "jcsalterego.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:vc7f4oafdgxsihk4cry2xpze",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "st-cyr.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:5rcf7fsqqx3ckxps3ir6etsg",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "haileyok.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:oisofpd7lj26yvgiivf3lxsi",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 title: "surfdude29.ispost.ing",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:sflxm2fxohaqpfgahgdlm7rl",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // ja translator
                 title: "reindex.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:aeh2msk2nvakndnhovbdmzqq",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // ja translator
                 title: "narooo.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:2wlwhbmg2yga6vvei4zpwcjt",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // fr translator
                 title: "yanyannoche.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:5on2afqpkkltppdaongk2ywo",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // be translator
                 title: "bielarusajed.gay",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:cc6igt4stjocuhiz4mlarhu4",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // de translator
                 title: "turbotommi.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:poeyfpephkz63koenojgtzsm",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // cs translator
                 title: "poniczech.gay",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:4mxujtveqpcqv4mlwwhcqqpt",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // ml translator
                 title: "abhijithgopan.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:wmy6jwdxbkizrbhegvegy3xs",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // pt-BR translator
                 title: "deck.blue",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:w342borqxtyo2pul67ec2pwt",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // uk translator
                 title: "cpthorn1100.bsky.social",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:3loo4eggng7s7njjox2qbdcv",
-                icon: AtSignIcon,
+                icon: "at",
               },
               {
                 // hr translator
                 title: "mattmarenic.com",
                 accessibilityRole: "link",
                 href: "/profile/did:plc:5fd357reo5rjbjbf6n3iji2s",
-                icon: AtSignIcon,
+                icon: "at",
               },
             ],
             footer: _(
@@ -194,47 +206,28 @@ export default function AboutPage() {
           },
           {
             title: _(msg`Logo designed by`),
-            options: [
+            rows: [
               {
                 title: "roselia.gay",
                 accessibilityRole: "link",
                 href: "/profile/roselia.gay",
-                icon: AtSignIcon,
+                icon: "at",
               },
             ],
           },
           {
             title: _(msg`App info`),
-            options: [
+            rows: [
               {
                 title: Constants.expoConfig?.version
                   ? _(msg`Version ${Constants.expoConfig.version}`)
                   : _(msg`Version unknown`),
-                icon: WrenchIcon,
+                icon: "wrench",
               },
             ],
           },
         ]}
-      >
-        <View className="flex-row items-center justify-center pb-8">
-          <View
-            className="h-20 w-20 overflow-hidden rounded-2xl"
-            style={{ borderCurve: "continuous" }}
-          >
-            <Image alt="graysky" source={appIcon} className="flex-1" />
-          </View>
-          <View className="ml-6">
-            <Text className="text-lg font-medium">Graysky</Text>
-            <Link href="/profile/did:plc:p2cp5gopk7mgjegy6wadk3ep" asChild>
-              <TouchableOpacity>
-                <Text className="text-base text-neutral-600 dark:text-neutral-400">
-                  by @mozzius.dev
-                </Text>
-              </TouchableOpacity>
-            </Link>
-          </View>
-        </View>
-      </GroupedList>
+      />
     </TransparentHeaderUntilScrolled>
   );
 }

@@ -1,19 +1,8 @@
 import { useMemo } from "react";
-import { View } from "react-native";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import {
-  AtSignIcon,
-  BellRingIcon,
-  LanguagesIcon,
-  NewspaperIcon,
-  ShieldIcon,
-  SmartphoneIcon,
-  StarIcon,
-  UserIcon,
-} from "lucide-react-native";
 
-import { GroupedList, type Groups } from "~/components/grouped-list";
+import { Form, type FormSections } from "~/components/form";
 import { SwitchAccounts } from "~/components/switch-accounts";
 import { useOptionalAgent } from "~/lib/agent";
 import { useIsPro } from "~/lib/purchases";
@@ -24,80 +13,78 @@ export default function SettingsPage() {
   const isPro = useIsPro();
   const enableNotifications = useEnableNotifications();
   const { _ } = useLingui();
-  const did = agent?.did;
 
-  const groups = useMemo(
-    () =>
-      [
-        {
-          options: [
-            {
-              title: _(msg`Graysky Pro`),
-              href: isPro ? "/settings/pro" : "/pro",
-              icon: StarIcon,
-            },
-          ],
-        },
-        {
-          options: [
-            {
-              title: _(msg`Account`),
-              href: "/settings/account",
-              icon: UserIcon,
-            },
-            {
-              title: _(msg`Moderation`),
-              href: "/settings/moderation",
-              icon: ShieldIcon,
-            },
-            {
-              title: _(msg`Home feed preferences`),
-              href: "/settings/feed",
-              icon: NewspaperIcon,
-            },
-            {
-              title: _(msg`Languages`),
-              href: "/settings/language",
-              icon: LanguagesIcon,
-            },
-            {
-              title: _(msg`App settings`),
-              href: "/settings/app",
-              icon: SmartphoneIcon,
-            },
-          ],
-        },
-        ...(enableNotifications
-          ? []
-          : [
-              {
-                options: [
-                  {
-                    title: _(msg`Push notifications`),
-                    href: "/push-notifications",
-                    icon: BellRingIcon,
-                  },
-                ],
-              },
-            ]),
-        {
-          options: [
-            {
-              title: _(msg`About Graysky`),
-              href: "/settings/about",
-              icon: AtSignIcon,
-            },
-          ],
-        },
-      ] satisfies Groups,
-    [isPro, enableNotifications, _],
+  const sections = useMemo<FormSections>(
+    () => [
+      {
+        key: "accounts",
+        rows: [
+          {
+            type: "custom",
+            key: "accounts",
+            children: <SwitchAccounts active={agent?.did} showAddAccount />,
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            title: _(msg`Graysky Pro`),
+            href: isPro ? "/settings/pro" : "/pro",
+            icon: "star",
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            title: _(msg`Account`),
+            href: "/settings/account",
+            icon: "person",
+          },
+          {
+            title: _(msg`Moderation`),
+            href: "/settings/moderation",
+            icon: "shield",
+          },
+          {
+            title: _(msg`Home feed preferences`),
+            href: "/settings/feed",
+            icon: "newspaper",
+          },
+          {
+            title: _(msg`Languages`),
+            href: "/settings/language",
+            icon: "languages",
+          },
+          {
+            title: _(msg`App settings`),
+            href: "/settings/app",
+            icon: "smartphone",
+          },
+        ],
+      },
+      !enableNotifications && {
+        rows: [
+          {
+            title: _(msg`Push notifications`),
+            href: "/push-notifications",
+            icon: "bell",
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            title: _(msg`About Graysky`),
+            href: "/settings/about",
+            icon: "at",
+          },
+        ],
+      },
+    ],
+    [agent?.did, isPro, enableNotifications, _],
   );
 
-  return (
-    <GroupedList groups={groups}>
-      <View className="mb-4 flex-1">
-        <SwitchAccounts active={did} showAddAccount />
-      </View>
-    </GroupedList>
-  );
+  return <Form sections={sections} />;
 }
