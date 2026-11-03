@@ -35,6 +35,7 @@ import {
   sectionKey,
   visibleRows,
   visibleSections,
+  type FormButtonRow,
   type FormCustomRow,
   type FormIcon,
   type FormLinkRow,
@@ -65,7 +66,9 @@ export function Form({ sections, header, style }: FormProps) {
         contentPadding={{ top: 8, bottom: 64 }}
         modifiers={[imePadding()]}
       >
-        {header && <HostedRow>{header}</HostedRow>}
+        {header && (
+          <HostedRow modifiers={[padding(16, 0, 16, 0)]}>{header}</HostedRow>
+        )}
         {visibleSections(sections).map((section, index) => [
           index > 0 && (
             <HorizontalDivider
@@ -100,7 +103,10 @@ export function Form({ sections, header, style }: FormProps) {
                 {section.footer}
               </Text>
             ) : (
-              <HostedRow key={`${sectionKey(section, index)}-footer`}>
+              <HostedRow
+                key={`${sectionKey(section, index)}-footer`}
+                modifiers={[padding(16, 8, 16, 8)]}
+              >
                 {section.footer}
               </HostedRow>
             )),
@@ -112,6 +118,8 @@ export function Form({ sections, header, style }: FormProps) {
 
 function RowView({ row }: { row: FormRow }) {
   switch (row.type) {
+    case "button":
+      return <ButtonRowView row={row} />;
     case "toggle":
       return <ToggleRowView row={row} />;
     case "picker":
@@ -227,6 +235,36 @@ function LinkRowView({ row }: { row: FormLinkRow }) {
               }
             />
           )}
+        </ListItem.TrailingContent>
+      )}
+    </ListItem>
+  );
+}
+
+function ButtonRowView({ row }: { row: FormButtonRow }) {
+  const theme = useTheme();
+  const colors = useListItemColors();
+  const enabled = !row.disabled && !row.loading;
+
+  return (
+    <ListItem
+      colors={colors}
+      modifiers={[
+        ...(enabled ? [clickable(() => void row.onPress())] : []),
+        ...(row.disabled ? [alpha(DISABLED_ALPHA)] : []),
+      ]}
+    >
+      <ListItem.HeadlineContent>
+        <Text
+          color={row.destructive ? DESTRUCTIVE : theme.colors.primary}
+          style={{ fontWeight: "500" }}
+        >
+          {row.title}
+        </Text>
+      </ListItem.HeadlineContent>
+      {row.loading && (
+        <ListItem.TrailingContent>
+          <Spinner />
         </ListItem.TrailingContent>
       )}
     </ListItem>
@@ -366,7 +404,11 @@ function TextFieldRowView({ row }: { row: FormTextFieldRow }) {
       keyboardOptions={{
         capitalization: row.autoCapitalize === "none" ? "none" : "sentences",
         autoCorrectEnabled: row.autoCapitalize !== "none" && !row.secure,
-        keyboardType: row.secure ? "password" : "text",
+        keyboardType: row.secure
+          ? "password"
+          : row.textContentType === "emailAddress"
+            ? "email"
+            : "text",
       }}
       onValueChange={(text) => {
         nativeText.current = text;
@@ -388,9 +430,8 @@ function TextFieldRowView({ row }: { row: FormTextFieldRow }) {
         ...(row.accessibilityLabel
           ? [semantics({ contentDescription: row.accessibilityLabel })]
           : []),
-        // autofill hints
-        ...(row.textContentType === "username" ||
-        row.textContentType === "password"
+        // autofill hints - these match the androidx AutofillHints names
+        ...(row.textContentType && row.textContentType !== "oneTimeCode"
           ? [semantics({ contentType: row.textContentType })]
           : []),
       ]}

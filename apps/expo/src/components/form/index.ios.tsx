@@ -32,6 +32,7 @@ import {
   font,
   foregroundStyle,
   frame,
+  keyboardType,
   lineLimit,
   listRowBackground,
   listRowInsets,
@@ -52,6 +53,7 @@ import {
   sectionKey,
   visibleRows,
   visibleSections,
+  type FormButtonRow,
   type FormCustomRow,
   type FormIcon,
   type FormLinkRow,
@@ -150,6 +152,8 @@ interface RowProps<T extends FormRow> {
 
 function RowView({ row, modifiers }: RowProps<FormRow>) {
   switch (row.type) {
+    case "button":
+      return <ButtonRowView row={row} modifiers={modifiers} />;
     case "toggle":
       return <ToggleRowView row={row} modifiers={modifiers} />;
     case "picker":
@@ -265,6 +269,27 @@ function LinkRowView({ row, modifiers }: RowProps<FormLinkRow>) {
   );
 }
 
+function ButtonRowView({ row, modifiers }: RowProps<FormButtonRow>) {
+  if (row.loading) {
+    return (
+      <HStack modifiers={modifiers}>
+        <Spacer />
+        <ProgressView />
+        <Spacer />
+      </HStack>
+    );
+  }
+
+  return (
+    <Button
+      label={row.title}
+      role={row.destructive ? "destructive" : undefined}
+      onPress={() => void row.onPress()}
+      modifiers={[...modifiers, ...(row.disabled ? [disabled()] : [])]}
+    />
+  );
+}
+
 function ToggleRowView({ row, modifiers }: RowProps<FormToggleRow>) {
   const label = <RowLabel title={row.title} icon={row.icon} />;
 
@@ -352,6 +377,9 @@ function TextFieldRowView({ row, modifiers }: RowProps<FormTextFieldRow>) {
 
   const fieldModifiers = [
     ...modifiers,
+    ...(row.textContentType === "emailAddress"
+      ? [keyboardType("email-address")]
+      : []),
     ...(row.autoCapitalize === "none"
       ? [textInputAutocapitalization("never"), autocorrectionDisabled()]
       : []),

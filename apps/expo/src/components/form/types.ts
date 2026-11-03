@@ -53,6 +53,18 @@ export interface FormLinkRow extends BaseRow {
   accessibilityRole?: "link" | "button";
 }
 
+/** an action, styled as a button rather than a navigation row */
+export interface FormButtonRow {
+  type: "button";
+  key?: string;
+  title: string;
+  onPress: () => void | Promise<void>;
+  destructive?: boolean;
+  disabled?: boolean;
+  /** replaces the button with a spinner */
+  loading?: boolean;
+}
+
 export interface FormToggleRow extends BaseRow {
   type: "toggle";
   value: boolean;
@@ -86,7 +98,12 @@ export interface FormTextFieldRow {
   placeholder?: string;
   secure?: boolean;
   autoCapitalize?: "none" | "sentences";
-  textContentType?: "username" | "password" | "oneTimeCode";
+  textContentType?:
+    | "username"
+    | "password"
+    | "newPassword"
+    | "emailAddress"
+    | "oneTimeCode";
   maxLength?: number;
   autoFocus?: boolean;
   disabled?: boolean;
@@ -105,6 +122,7 @@ export interface FormCustomRow {
 
 export type FormRow =
   | FormLinkRow
+  | FormButtonRow
   | FormToggleRow
   | FormPickerRow
   | FormTextFieldRow
@@ -117,7 +135,10 @@ export interface FormSection {
   /** defaults to the title, then the index */
   key?: string;
   title?: string;
-  /** an element is treated as RN content */
+  /**
+   * an element is treated as RN content. it's inset to line up with the
+   * rows, so don't give it horizontal padding
+   */
   footer?: string | ReactElement | false | null;
   rows: FormRows;
 }
@@ -132,7 +153,7 @@ export interface FormScrollEvent {
 
 export interface FormProps {
   sections: FormSections;
-  /** RN content above the first section, with no background */
+  /** RN content above the first section, with no background. lines up with the rows */
   header?: ReactElement;
   /** iOS 18+ - also fires once on mount on older versions */
   onScroll?: (evt: FormScrollEvent) => void;
