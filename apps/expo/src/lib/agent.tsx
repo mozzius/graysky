@@ -1,9 +1,12 @@
 import { createContext, useContext } from "react";
-import { Client, type Agent, type AgentOptions } from "@atproto/lex";
-import { type SessionData } from "@atproto/lex-password-session";
+import {
+  Client,
+  type Agent,
+  type AgentOptions,
+  type DidString,
+  type HandleString,
+} from "@atproto/lex";
 import { api } from "@bsky/sdk";
-
-import { type StoredSessionData } from "./session";
 
 /**
  * every client in the app should be created through this, so they share the
@@ -14,16 +17,32 @@ import { type StoredSessionData } from "./session";
  *   these, so we need to as well or feeds start failing
  * - `appLabelers` - the old AtpAgent always sent the bluesky moderation service
  *   (with `;redact`) in the `atproto-accept-labelers` header, so we keep that
- *
- * note: no `service` (atproto-proxy) is set. the old agent didn't set one
- * either, so app.bsky.* calls go to the PDS, which proxies them to its
- * configured appview. this also means com.atproto.* and preferences calls hit
- * the PDS without needing `{ service: null }`
  */
 export function createClient(agent: Agent | AgentOptions) {
   return new Client(agent, {
     strictResponseProcessing: false,
     appLabelers: [api.moderation.did],
+  });
+}
+
+/**
+ * the client for a signed in (oauth) session.
+ *
+ * the oauth scopes grant app.bsky.* calls for the bluesky appview only
+ * (`aud=did:web:api.bsky.app#bsky_appview`), so we always proxy to it rather
+ * than relying on the PDS's default appview matching.
+ *
+ * the PDS still handles the methods it implements itself (com.atproto.repo.*,
+ * identity, preferences, registerPush etc) regardless of the proxy header.
+ * the one exception is `com.atproto.moderation.createReport`, which the PDS
+ * would otherwise forward to the appview - pass `{ service: null }` so it goes
+ * to the PDS's report service
+ */
+export function createAuthenticatedClient(agent: Agent) {
+  return new Client(agent, {
+    strictResponseProcessing: false,
+    appLabelers: [api.moderation.did],
+    service: api.app.service,
   });
 }
 
@@ -50,14 +69,24 @@ export const useOptionalAgent = () => {
   return useContext(agentContext);
 };
 
-// session context - the current session data (handle, email, tokens etc)
-const sessionContext = createContext<SessionData | null>(null);
+/** what we know about the signed in account */
+export interface SessionInfo {
+  did: DidString;
+  handle: HandleString;
+  /** only available if the `account:email` scope was granted */
+  email?: string;
+  emailConfirmed?: boolean;
+  /** the oauth authorization server, e.g. https://bsky.social */
+  issuer: string;
+}
+
+// session context - the current session's account info
+const sessionContext = createContext<SessionInfo | null>(null);
 
 export const SessionProvider = sessionContext.Provider;
 
 /**
- * the current session's data, or null if logged out. updates whenever the
- * session is refreshed
+ * the current session's account info, or null if logged out
  */
 export const useSession = () => {
   return useContext(sessionContext);
@@ -65,16 +94,16 @@ export const useSession = () => {
 
 // auth context - provides auth actions
 export interface AuthContextValue {
-  login: (
-    identifier: string,
-    password: string,
-    authFactorToken?: string,
-  ) => Promise<void>;
-  resumeSession: (
-    session: StoredSessionData,
-    pdsUrl?: string,
-  ) => Promise<void>;
-  /** force a token refresh, e.g. to pick up a new access token scope */
+  /**
+   * start an oauth sign in. `input` is a handle, did, or PDS url (a PDS url
+   * lets the user pick an account, or create one, on the PDS's page).
+   * resolves to `false` if the user backed out. `create` asks the PDS to show
+   * its sign up page
+   */
+  signIn: (input: string, options?: { create?: boolean }) => Promise<boolean>;
+  /** switch to a saved account. throws if it needs to sign in again */
+  switchAccount: (did: string) => Promise<void>;
+  /** re-fetch the account info, e.g. after changing handle */
   refreshSession: () => Promise<void>;
   logout: () => void;
 }

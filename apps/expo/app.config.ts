@@ -10,10 +10,23 @@ try {
   // no .env file (e.g. on EAS)
 }
 
+/**
+ * atproto oauth redirects use a custom scheme that's the reverse of the oauth
+ * client id's host (graysky.app -> app.graysky). keep in sync with
+ * packages/api/src/oauth.ts
+ */
+const oauthRedirectScheme = new URL(
+  process.env.EXPO_PUBLIC_OAUTH_CLIENT_ID ||
+    "https://graysky.app/oauth-client-metadata.json",
+).hostname
+  .split(".")
+  .reverse()
+  .join(".");
+
 const defineConfig = (_: ConfigContext): ExpoConfig => ({
   name: "Graysky",
   slug: "graysky",
-  scheme: "graysky",
+  scheme: ["graysky", oauthRedirectScheme],
   version,
   owner: process.env.OWNER ?? "mozzius",
   orientation: "portrait",

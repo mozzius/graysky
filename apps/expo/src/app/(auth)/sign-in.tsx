@@ -4,7 +4,6 @@ import {
   KeyboardAwareScrollView,
   KeyboardStickyView,
 } from "react-native-keyboard-controller";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { showToastable } from "react-native-toastable";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -13,51 +12,66 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
-import { LockIcon, ShieldAlertIcon, UserIcon } from "lucide-react-native";
-import { z } from "zod";
+import { AtSignIcon, ShieldCheckIcon } from "lucide-react-native";
 
 import { Button } from "~/components/button";
-import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAuth } from "~/lib/agent";
-import { useLinkPress } from "~/lib/hooks/link-press";
+
+/** the PDS that hosts sign up for new bluesky accounts */
+const SIGN_UP_PDS = "https://bsky.social";
+
+/**
+ * tidy up what the user typed. handles get the leading @ removed and
+ * `.bsky.social` added if there's no domain. dids and PDS urls are left as is
+ */
+function normalizeIdentifier(input: string) {
+  let identifier = input.trim();
+  if (identifier.startsWith("@")) identifier = identifier.slice(1);
+  if (
+    identifier.length > 0 &&
+    !identifier.includes(".") &&
+    !identifier.includes(":")
+  ) {
+    identifier = `${identifier}.bsky.social`;
+  }
+  return identifier;
+}
 
 export default function SignIn() {
-  const { login: authLogin } = useAuth();
+  const { signIn } = useAuth();
   const router = useRouter();
   const theme = useTheme();
   const { handle } = useLocalSearchParams<{ handle?: string }>();
-  const { openLink, showLinkOptions } = useLinkPress();
   const { _ } = useLingui();
   const insets = useSafeAreaInsets();
 
   const [identifier, setIdentifier] = useState(handle ?? "");
-  const [password, setPassword] = useState("");
-  const [hasFocusedPassword, setHasFocusedPassword] = useState(false);
 
   const login = useMutation({
     mutationKey: ["login"],
-    mutationFn: async () => {
-      const normalizedIdentifier = identifier.startsWith("@")
-        ? identifier.slice(1).trim()
-        : identifier.trim();
-      await authLogin(normalizedIdentifier, password);
+    mutationFn: async (variables: { input: string; create?: boolean }) => {
+      return await signIn(variables.input, { create: variables.create });
     },
-    onSuccess: () => {
+    onSuccess: (signedIn) => {
+      // they closed the browser - let them try again
+      if (!signedIn) return;
       // Dismiss the auth modal and navigate to feeds
       if (router.canDismiss()) {
         router.dismissAll();
       }
       router.replace("/(feeds)/feeds");
     },
-    onError: (err) =>
+    onError: (err) => {
+      console.error(err);
       showToastable({
         title: _(msg`Could not log you in`),
         message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
-      }),
+      });
+    },
   });
 
   return (
@@ -71,94 +85,68 @@ export default function SignIn() {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View className="justify-stretch">
-            <View
-              className="mb-1 flex-row items-center rounded-b-sm rounded-t-lg pl-3"
-              style={{ backgroundColor: theme.colors.card }}
-            >
-              <UserIcon size={18} color="rgb(163 163 163)" />
-              <TextInput
-                className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-                placeholder={_(msg`Username or email address`)}
-                value={identifier}
-                onChangeText={setIdentifier}
-                autoCapitalize="none"
-                onBlur={() => {
-                  let fixed = identifier;
-                  if (identifier.startsWith("@")) fixed = identifier.slice(1);
-                  if (!identifier.includes(".") && identifier.length > 0)
-                    fixed = `${fixed}.bsky.social`;
-                  setIdentifier(fixed);
-                }}
-                autoFocus={!handle}
-              />
-            </View>
-            <View
-              className="flex-row items-center rounded-b-lg rounded-t-sm pl-3"
-              style={{ backgroundColor: theme.colors.card }}
-            >
-              <LockIcon size={18} color="rgb(163 163 163)" />
-              <TextInput
-                className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
-                placeholder={_(msg`App Password`)}
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                onFocus={() => setHasFocusedPassword(true)}
-                autoFocus={!!handle}
-              />
-              <TextButton
-                onPress={() => {
-                  if (z.string().email().safeParse(identifier).success) {
-                    router.push("/reset-password?email=" + identifier);
-                  } else {
-                    router.push("/reset-password");
-                  }
-                }}
-                title={_(msg`Forgot?`)}
-                className="pr-3 text-sm"
-              />
+          <View
+            className="flex-row items-center rounded-lg pl-3"
+            style={{ backgroundColor: theme.colors.card }}
+          >
+            <AtSignIcon size={18} color="rgb(163 163 163)" />
+            <TextInput
+              className="flex-1 flex-row items-center px-2 py-3 text-base leading-5"
+              placeholder={_(msg`Handle, e.g. alice.bsky.social`)}
+              value={identifier}
+              onChangeText={setIdentifier}
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoComplete="username"
+              textContentType="username"
+              keyboardType="url"
+              returnKeyType="go"
+              onBlur={() => setIdentifier(normalizeIdentifier(identifier))}
+              onSubmitEditing={() => {
+                const input = normalizeIdentifier(identifier);
+                if (input && !login.isPending) login.mutate({ input });
+              }}
+              autoFocus={!handle}
+            />
+          </View>
+          <View
+            className="flex-row rounded border-blue-500 bg-blue-50 p-3 pb-4 dark:bg-blue-950"
+            style={{ borderWidth: StyleSheet.hairlineWidth }}
+          >
+            <ShieldCheckIcon
+              size={18}
+              className="mt-px"
+              color={theme.colors.text}
+            />
+            <View className="ml-3 flex-1">
+              <Text className="text-base font-medium leading-5">
+                <Trans>Sign in with your Bluesky account</Trans>
+              </Text>
+              <Text className="mt-1">
+                <Trans>
+                  You{"'"}ll be taken to your account provider to sign in, so
+                  Graysky never sees your password. If you host your own
+                  account, you can enter your PDS address instead.
+                </Trans>
+              </Text>
             </View>
           </View>
-          {hasFocusedPassword && (
-            <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
-              className="flex-row rounded border-blue-500 bg-blue-50 p-3 pb-4 dark:bg-blue-950"
-              style={{ borderWidth: StyleSheet.hairlineWidth }}
-            >
-              <ShieldAlertIcon
-                size={18}
-                className="mt-px"
-                color={theme.colors.text}
-              />
-              <View className="ml-3 flex-1">
-                <Text className="text-base font-medium leading-5">
-                  <Trans>App Passwords</Trans>
-                </Text>
-                <Text className="mt-1">
-                  <Trans>
-                    You might want to use an App Password rather than your main
-                    password - this helps keep your account secure, but it{"'"}s
-                    not required.
-                  </Trans>
-                </Text>
-                <Text
-                  className="mt-2"
-                  primary
-                  accessibilityRole="link"
-                  onPress={() =>
-                    openLink("https://bsky.app/settings/app-passwords")
-                  }
-                  onLongPress={() =>
-                    showLinkOptions("https://bsky.app/settings/app-passwords")
-                  }
-                >
-                  <Trans>Create one at bsky.app/settings</Trans>
-                </Text>
-              </View>
-            </Animated.View>
-          )}
+          <Text className="text-center text-neutral-500">
+            <Trans>
+              Don{"'"}t have an account?{" "}
+              <Text
+                primary
+                className="font-medium"
+                accessibilityRole="link"
+                onPress={() => {
+                  if (login.isPending) return;
+                  login.mutate({ input: SIGN_UP_PDS, create: true });
+                }}
+              >
+                Create one
+              </Text>
+            </Trans>
+          </Text>
         </KeyboardAwareScrollView>
       </TransparentHeaderUntilScrolled>
       <KeyboardStickyView
@@ -166,10 +154,12 @@ export default function SignIn() {
         offset={{ closed: insets.bottom * -1, opened: 16 * -1 }}
       >
         <Button
-          disabled={!identifier || !password || login.isPending}
-          onPress={() => login.mutate()}
+          disabled={!identifier.trim() || login.isPending}
+          onPress={() =>
+            login.mutate({ input: normalizeIdentifier(identifier) })
+          }
         >
-          <Trans>Log in</Trans>
+          <Trans>Continue</Trans>
         </Button>
       </KeyboardStickyView>
     </>

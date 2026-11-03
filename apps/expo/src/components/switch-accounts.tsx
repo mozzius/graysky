@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import {
   ActivityIndicator,
-  Alert,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -13,12 +12,13 @@ import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 
 import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
 import { useAuth } from "~/lib/agent";
+import { isSessionGoneError } from "~/lib/oauth";
 import { type SavedSession } from "~/lib/session";
 import { store } from "~/lib/storage/storage";
 import { cx } from "~/lib/utils/cx";
@@ -39,40 +39,41 @@ export function SwitchAccounts({
   chevrons,
   showAddAccount,
 }: Props) {
-  const { resumeSession, logout } = useAuth();
+  const { switchAccount, logout } = useAuth();
   const theme = useTheme();
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { _ } = useLingui();
 
   const [sessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
 
+  const signInAgain = (account: SavedSession) => {
+    router.push(`/sign-in?handle=${encodeURIComponent(account.handle)}`);
+  };
+
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
     mutationFn: async (account: SavedSession) => {
-      // Clear all cached data from the previous account
-      queryClient.clear();
-      // Creates a fresh agent for the new session
-      await resumeSession(account.session, account.pdsUrl);
-      return account.session;
+      // restores the stored oauth session for this account
+      await switchAccount(account.did);
+      return account;
     },
     onError: (err, account) => {
-      Alert.alert(
-        _(msg`Could not log you in`),
-        err instanceof Error ? err.message : _(msg`Unknown error`),
-      );
       console.error(err);
+      if (isSessionGoneError(err)) {
+        // needs to go through oauth again
+        signInAgain(account);
+        return;
+      }
       showToastable({
         title: _(msg`Could not log you in`),
         message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
       });
-      router.push(`/sign-in?handle=${account.handle}`);
     },
-    onSuccess: (session) => {
+    onSuccess: (account) => {
       showToastable({
         title: _(msg`Logged in`),
-        message: _(msg`You are now logged in as @${session.handle}`),
+        message: _(msg`You are now logged in as @${account.handle}`),
         status: "success",
       });
       router.replace("/(feeds)/feeds");
@@ -97,7 +98,7 @@ export function SwitchAccounts({
               className={cx("flex-1", resume.isPending && "opacity-50")}
               onPress={() => {
                 if (account.signedOut) {
-                  router.push(`/sign-in?handle=${account.handle}`);
+                  signInAgain(account);
                 } else {
                   resume.mutate(account);
                 }
@@ -121,6 +122,11 @@ export function SwitchAccounts({
                     </Text>
                   )}
                   <Text className="text-neutral-500">@{account.handle}</Text>
+                  {account.signedOut && account.did !== active && (
+                    <Text className="text-xs text-neutral-500">
+                      <Trans>Tap to sign in again</Trans>
+                    </Text>
+                  )}
                 </View>
                 {resume.isPending && resume.variables?.did === account.did ? (
                   <ActivityIndicator />

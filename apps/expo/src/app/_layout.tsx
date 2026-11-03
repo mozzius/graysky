@@ -15,13 +15,9 @@ import {
 import { ThemeProvider } from "expo-router/react-navigation";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
-import { type Client } from "@atproto/lex";
-import {
-  PasswordSession,
-  type PasswordSessionOptions,
-  type SessionData,
-} from "@atproto/lex-password-session";
-import { app } from "@bsky/sdk/lexicons";
+import { type Client, type DidString, type HandleString } from "@atproto/lex";
+import { type OAuthSession } from "@atproto/oauth-client-expo";
+import { app, com } from "@bsky/sdk/lexicons";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -35,28 +31,32 @@ import I18nProvider, { initializeI18n } from "~/i18n/config";
 import {
   AgentProvider,
   AuthProvider,
-  createClient,
+  createAuthenticatedClient,
   publicClient,
   SessionProvider,
   type AuthContextValue,
+  type SessionInfo,
 } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
+import {
+  getOAuthClient,
+  isOAuthCancellation,
+  isSessionGoneError,
+  onOAuthSessionDeleted,
+} from "~/lib/oauth";
 import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import {
+  getActiveDid,
   getSavedSessions,
-  getStoredSession,
-  isSessionData,
+  markSignedOut,
+  migrateLegacySessions,
+  setActiveDid,
   setSavedSessions,
-  setStoredSession,
-  toSessionData,
   type SavedSession,
-  type StoredSessionData,
 } from "~/lib/session";
 import { useThemeSetup } from "~/lib/storage/app-preferences";
-import { store } from "~/lib/storage/storage";
 import { TRPCProvider } from "~/lib/utils/api";
-import { resolvePdsFromDid, resolvePdsUrl } from "~/lib/utils/resolve-pds";
 import { isIOS26 } from "~/lib/utils/version";
 
 const routingInstrumentation = Sentry.reactNavigationIntegration();
@@ -91,9 +91,9 @@ void SplashScreen.preventAutoHideAsync();
 initializeI18n();
 
 interface ActiveSession {
-  session: PasswordSession;
+  session: OAuthSession;
   client: Client;
-  data: SessionData;
+  info: SessionInfo;
 }
 
 const App = () => {
@@ -109,157 +109,176 @@ const App = () => {
   const routerRef = useRef(router);
   routerRef.current = router;
   const resumingRef = useRef(false);
-  // the session that's currently in use. session callbacks from any other
-  // session (e.g. one we switched away from) are ignored
-  const currentSessionRef = useRef<Omit<ActiveSession, "data"> | null>(null);
+  // the session that's currently in use. updates from any other session (e.g.
+  // one we switched away from) are ignored
+  const currentSessionRef = useRef<Omit<ActiveSession, "info"> | null>(null);
 
-  // Save session to storage and update saved sessions list
-  const saveSessionToStorage = useCallback(
-    (sess: SessionData, client: Client) => {
-      setStoredSession(sess);
-      // Update saved sessions list with profile info
-      void client
-        .call(app.bsky.actor.getProfile, { actor: sess.did })
-        .then((profile) => {
-          const newSession: SavedSession = {
-            session: sess,
-            did: sess.did,
-            handle: profile.handle,
-            avatar: profile.avatar,
-            displayName: profile.displayName,
-            pdsUrl: sess.service,
-            signedOut: false,
-          };
-          setSavedSessions([
-            newSession,
-            ...getSavedSessions().filter((s) => s.did !== sess.did),
-          ]);
-        })
-        .catch((err) => {
-          console.warn("failed to update saved sessions", err);
-        });
-    },
-    [],
-  );
-
-  // Helper to handle session expiry
-  const handleSessionExpired = useCallback(() => {
-    currentSessionRef.current = null;
-    store.remove("session");
-    showToastable({
-      message: tRef.current(
-        msg`Sorry! Your session expired. Please log in again.`,
-      ),
-    });
-    setAuth(null);
-    // Dismiss any modals and go to landing
+  // close everything and go to the landing page, then open sign in for the
+  // given account so they can get back in
+  const promptSignIn = useCallback((did: string) => {
+    const handle = getSavedSessions().find((s) => s.did === did)?.handle;
     if (routerRef.current.canDismiss()) {
       routerRef.current.dismissAll();
     }
     routerRef.current.replace("/");
+    setTimeout(() => {
+      routerRef.current.push(
+        handle ? `/sign-in?handle=${encodeURIComponent(handle)}` : "/sign-in",
+      );
+    });
   }, []);
 
-  const sessionOptions = useMemo<PasswordSessionOptions>(
-    () => ({
-      onUpdated(data) {
-        // these callbacks must not throw
-        try {
-          const current = currentSessionRef.current;
-          if (current?.session !== this) return;
-          saveSessionToStorage(data, current.client);
-          setAuth((prev) =>
-            prev?.session === this ? { ...prev, data } : prev,
-          );
-        } catch (err) {
-          console.error("failed to persist session", err);
-        }
-      },
-      onDeleted() {
-        try {
-          if (currentSessionRef.current?.session !== this) return;
-          handleSessionExpired();
-        } catch (err) {
-          console.error("failed to handle session expiry", err);
-        }
-      },
-      onUpdateFailure(_data, err) {
-        // network error or similar - the session might still be valid
-        console.warn("failed to refresh session", err);
-      },
-    }),
-    [saveSessionToStorage, handleSessionExpired],
-  );
+  // the oauth client deleted a session, e.g. its refresh token was revoked
+  useEffect(() => {
+    return onOAuthSessionDeleted((did) => {
+      markSignedOut(did);
+      if (currentSessionRef.current?.session.did !== did) return;
+      currentSessionRef.current = null;
+      setActiveDid(null);
+      queryClient.clear();
+      setAuth(null);
+      showToastable({
+        message: tRef.current(
+          msg`Sorry! Your session expired. Please log in again.`,
+        ),
+      });
+      promptSignIn(did);
+    });
+  }, [queryClient, promptSignIn]);
+
+  // update the saved accounts list with the latest profile info
+  const saveAccount = useCallback(async (did: DidString, client: Client) => {
+    try {
+      const profile = await client.call(app.bsky.actor.getProfile, {
+        actor: did,
+      });
+      const account: SavedSession = {
+        did,
+        handle: profile.handle,
+        avatar: profile.avatar,
+        displayName: profile.displayName,
+        signedOut: false,
+      };
+      setSavedSessions([
+        account,
+        ...getSavedSessions().filter((s) => s.did !== did),
+      ]);
+    } catch (err) {
+      console.warn("failed to update saved sessions", err);
+    }
+  }, []);
 
   // make a session the current one
   const activateSession = useCallback(
-    (session: PasswordSession) => {
-      const client = createClient(session);
+    async (session: OAuthSession) => {
+      const client = createAuthenticatedClient(session);
+      const issuer = session.serverMetadata.issuer;
+      const fetchInfo = async (): Promise<SessionInfo> => {
+        const res = await client.call(com.atproto.server.getSession);
+        return {
+          did: session.did,
+          handle: res.handle,
+          email: res.email,
+          emailConfirmed: res.emailConfirmed,
+          issuer,
+        };
+      };
+
+      // if we already know the handle, don't wait for the network
+      const saved = getSavedSessions().find((s) => s.did === session.did);
+      let info: SessionInfo;
+      if (saved) {
+        info = {
+          did: session.did,
+          handle: saved.handle as HandleString,
+          issuer,
+        };
+        void fetchInfo()
+          .then((fresh) =>
+            setAuth((prev) =>
+              prev?.session === session ? { ...prev, info: fresh } : prev,
+            ),
+          )
+          .catch((err) => console.warn("failed to fetch session info", err));
+      } else {
+        info = await fetchInfo();
+      }
+
       currentSessionRef.current = { session, client };
-      const data = session.session;
-      setAuth({ session, client, data });
-      saveSessionToStorage(data, client);
+      setActiveDid(session.did);
+      setAuth({ session, client, info });
+      void saveAccount(session.did, client);
     },
-    [saveSessionToStorage],
+    [saveAccount],
   );
 
   // Auth functions
-  const login = useCallback(
-    async (identifier: string, password: string, authFactorToken?: string) => {
-      // Resolve the PDS URL from the handle
-      const pdsUrl = await resolvePdsUrl(identifier);
-
-      const session = await PasswordSession.login({
-        service: pdsUrl,
-        identifier,
-        password,
-        authFactorToken,
-        ...sessionOptions,
-      });
-
-      activateSession(session);
+  const signIn = useCallback(
+    async (input: string, options?: { create?: boolean }) => {
+      let session: OAuthSession;
+      try {
+        session = await getOAuthClient().signIn(
+          input,
+          options?.create ? { prompt: "create" } : undefined,
+        );
+      } catch (err) {
+        if (isOAuthCancellation(err)) return false;
+        throw err;
+      }
+      // Clear all cached data from the previous account
+      queryClient.clear();
+      await activateSession(session);
+      return true;
     },
-    [sessionOptions, activateSession],
+    [queryClient, activateSession],
   );
 
-  const resumeSession = useCallback(
-    async (stored: StoredSessionData, pdsUrl?: string) => {
-      // legacy sessions don't have a service url. use the provided PDS URL,
-      // or resolve it from the DID as a fallback
-      const data = isSessionData(stored)
-        ? stored
-        : toSessionData(
-            stored,
-            pdsUrl ?? (await resolvePdsFromDid(stored.did)),
-          );
-
-      // refreshes the session. only throws if the session is definitely
-      // invalid - network errors go to `onUpdateFailure`
-      const session = await PasswordSession.resume(data, sessionOptions);
-
-      activateSession(session);
+  const switchAccount = useCallback(
+    async (did: string) => {
+      let session: OAuthSession;
+      try {
+        session = await getOAuthClient().restore(did);
+      } catch (err) {
+        if (isSessionGoneError(err)) markSignedOut(did);
+        throw err;
+      }
+      // Clear all cached data from the previous account
+      queryClient.clear();
+      await activateSession(session);
     },
-    [sessionOptions, activateSession],
+    [queryClient, activateSession],
   );
 
   const refreshSession = useCallback(async () => {
-    if (!auth) throw new Error("Not logged in");
-    // `onUpdated` will save and update the session data
-    await auth.session.refresh();
-  }, [auth]);
-
-  const currentDid = auth?.data.did;
+    const current = currentSessionRef.current;
+    if (!current) throw new Error("Not logged in");
+    const res = await current.client.call(com.atproto.server.getSession);
+    setAuth((prev) =>
+      prev?.session === current.session
+        ? {
+            ...prev,
+            info: {
+              ...prev.info,
+              handle: res.handle,
+              email: res.email,
+              emailConfirmed: res.emailConfirmed,
+            },
+          }
+        : prev,
+    );
+  }, []);
 
   const logout = useCallback(() => {
-    // Mark current session as signed out in saved sessions
-    if (currentDid) {
-      setSavedSessions(
-        getSavedSessions().map((s) =>
-          s.did === currentDid ? { ...s, signedOut: true } : s,
-        ),
-      );
-    }
+    const current = currentSessionRef.current;
     currentSessionRef.current = null;
-    store.remove("session");
+    if (current) {
+      // revokes the tokens and deletes the stored session
+      current.session.signOut().catch((err: unknown) => {
+        console.warn("failed to sign out", err);
+      });
+      markSignedOut(current.session.did);
+    }
+    setActiveDid(null);
     queryClient.clear();
     setAuth(null);
     // Dismiss any modals and go to landing
@@ -267,11 +286,11 @@ const App = () => {
       router.dismissAll();
     }
     router.replace("/");
-  }, [currentDid, queryClient, router]);
+  }, [queryClient, router]);
 
   const authValue = useMemo<AuthContextValue>(
-    () => ({ login, resumeSession, refreshSession, logout }),
-    [login, resumeSession, refreshSession, logout],
+    () => ({ signIn, switchAccount, refreshSession, logout }),
+    [signIn, switchAccount, refreshSession, logout],
   );
 
   // Resume session on app launch
@@ -279,20 +298,40 @@ const App = () => {
     if (resumingRef.current) return;
     resumingRef.current = true;
 
-    const stored = getStoredSession();
-    if (stored) {
-      resumeSession(stored.session, stored.pdsUrl)
+    // password sessions from older versions get signed out here, and the
+    // landing page shows the "sign in again" screen
+    migrateLegacySessions();
+
+    const did = getActiveDid();
+    if (did) {
+      getOAuthClient()
+        .restore(did)
+        .then((session) => activateSession(session))
         .then(() => {
           router.replace("/(feeds)/feeds");
         })
-        .catch(() => {
-          showToastable({
-            message: tRef.current(
-              msg`Sorry! Your session expired. Please log in again.`,
-            ),
-          });
-          store.remove("session");
-          router.replace("/");
+        .catch((err: unknown) => {
+          console.warn("failed to restore session", err);
+          if (isSessionGoneError(err)) {
+            markSignedOut(did);
+            setActiveDid(null);
+            showToastable({
+              message: tRef.current(
+                msg`Sorry! Your session expired. Please log in again.`,
+              ),
+            });
+            promptSignIn(did);
+          } else {
+            // probably offline. keep the account active so the next launch
+            // tries again
+            showToastable({
+              message: tRef.current(
+                msg`Could not connect to your account. Check your connection and try again.`,
+              ),
+              status: "warning",
+            });
+            router.replace("/");
+          }
         })
         .finally(() => {
           setReady(true);
@@ -300,7 +339,7 @@ const App = () => {
     } else {
       setReady(true);
     }
-  }, [resumeSession, router]);
+  }, [activateSession, promptSignIn, router]);
 
   const isLoggedIn = !!auth;
 
@@ -356,7 +395,7 @@ const App = () => {
             <CustomerInfoProvider>
               <AuthProvider value={authValue}>
                 <AgentProvider value={auth?.client ?? publicClient}>
-                  <SessionProvider value={auth?.data ?? null}>
+                  <SessionProvider value={auth?.info ?? null}>
                     <PreferencesProvider>
                       <ActionSheetProvider>
                         <ListProvider>
@@ -380,13 +419,6 @@ const App = () => {
                             />
                             <Stack.Screen
                               name="settings"
-                              options={{
-                                headerShown: false,
-                                presentation: "modal",
-                              }}
-                            />
-                            <Stack.Screen
-                              name="codes"
                               options={{
                                 headerShown: false,
                                 presentation: "modal",

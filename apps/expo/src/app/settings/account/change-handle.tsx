@@ -26,12 +26,13 @@ import { TextButton } from "~/components/text-button";
 import { Text } from "~/components/themed/text";
 import { TextInput } from "~/components/themed/text-input";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
-import { useAgent, useSession } from "~/lib/agent";
+import { useAgent, useAuth, useSession } from "~/lib/agent";
 
 export default function ChangeHandle() {
   const theme = useTheme();
   const agent = useAgent();
   const session = useSession();
+  const { refreshSession } = useAuth();
   const queryClient = useQueryClient();
   const [handle, setHandle] = useState("");
   const { _ } = useLingui();
@@ -66,6 +67,10 @@ export default function ChangeHandle() {
       }
     },
     onSuccess: () => {
+      // pick up the new handle
+      refreshSession().catch((err: unknown) =>
+        console.warn("failed to refresh session", err),
+      );
       void queryClient.invalidateQueries({ queryKey: ["self"] });
       void queryClient.invalidateQueries({
         queryKey: ["resolve-handle", handle],
