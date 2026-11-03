@@ -213,8 +213,8 @@ const FeedPostInner = ({
               href={profileHref}
               accessibilityLabel={
                 isReply
-                  ? `Reply by ${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
-                  : `${postAuthorDisplayName} @${postAuthorHandle} ${timeSincePost.accessible}`
+                  ? `Reply by ${postAuthorDisplayName ?? ""} @${postAuthorHandle} ${timeSincePost.accessible}`
+                  : `${postAuthorDisplayName ?? ""} @${postAuthorHandle} ${timeSincePost.accessible}`
               }
               accessibilityHint={_(msg`Opens profile`)}
               asChild
