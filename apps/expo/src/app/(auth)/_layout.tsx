@@ -1,4 +1,8 @@
 import { Stack, useRouter } from "expo-router";
+import {
+  type NavigationProp,
+  type ParamListBase,
+} from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
@@ -13,22 +17,32 @@ export default function AuthLayout() {
     <>
       <StatusBar modal />
       <Stack
-        screenOptions={{
-          headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
-          unstable_headerLeftItems: ({ canGoBack }) =>
-            canGoBack
-              ? [
-                  {
-                    type: "button",
-                    icon: { type: "sfSymbol", name: "xmark" },
-                    label: _(msg`Close`),
-                    onPress: () => router.dismiss(),
-                  },
-                ]
-              : [],
-          contentStyle: {
-            height: "100%",
-          },
+        screenOptions={({ navigation, route }) => {
+          // only the first screen in this stack gets a close button. screens
+          // pushed on top of it keep the native back button
+          const { routes } = (
+            navigation as NavigationProp<ParamListBase>
+          ).getState();
+          const isFirstScreen = routes[0]?.key === route.key;
+          return {
+            headerBackButtonDisplayMode: isIOS26 ? "minimal" : "default",
+            // for the first screen, `canGoBack` comes from the root stack, so
+            // it's true when the modal has a screen under it to close to
+            unstable_headerLeftItems: ({ canGoBack }) =>
+              isFirstScreen && canGoBack
+                ? [
+                    {
+                      type: "button",
+                      icon: { type: "sfSymbol", name: "xmark" },
+                      label: _(msg`Close`),
+                      onPress: () => router.dismiss(),
+                    },
+                  ]
+                : [],
+            contentStyle: {
+              height: "100%",
+            },
+          };
         }}
       >
         <Stack.Screen
