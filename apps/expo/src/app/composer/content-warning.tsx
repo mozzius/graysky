@@ -1,9 +1,8 @@
 import { useMemo } from "react";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { CheckIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useComposerState } from "~/lib/composer/state";
 import { produce } from "~/lib/utils/produce";
@@ -41,13 +40,13 @@ export default function ContentWarningScreen() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        sections={[
           {
             title: _(msg`Adult content`),
-            options: ADULT_CONTENT_WARNINGS.map((warning) => ({
+            rows: ADULT_CONTENT_WARNINGS.map((warning) => ({
               title: warning.title,
-              icon: labels.includes(warning.label) ? CheckIcon : "SPACE",
+              selected: labels.includes(warning.label),
               onPress: () => {
                 setComposerState(
                   produce((draft) => {

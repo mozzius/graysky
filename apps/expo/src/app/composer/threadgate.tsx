@@ -3,9 +3,8 @@ import { app } from "@bsky/sdk/lexicons";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
-import { CheckIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useComposerState } from "~/lib/composer/state";
@@ -35,14 +34,14 @@ export default function ThreadgateScreen() {
         />
       )}
       <TransparentHeaderUntilScrolled>
-        <GroupedList
-          groups={[
+        <Form
+          sections={[
             {
               title: _(msg`Who can reply?`),
-              options: [
+              rows: [
                 {
                   title: _(msg`Everyone can reply`),
-                  icon: threadgate.length === 0 ? CheckIcon : "SPACE",
+                  selected: threadgate.length === 0,
                   onPress: () =>
                     setComposerState(
                       produce((draft) => {
@@ -52,9 +51,7 @@ export default function ThreadgateScreen() {
                 },
                 {
                   title: _(msg`No one can reply`),
-                  icon: threadgate.find((gate) => gate.type === "nobody")
-                    ? CheckIcon
-                    : "SPACE",
+                  selected: !!threadgate.find((gate) => gate.type === "nobody"),
                   onPress: () =>
                     setComposerState(
                       produce((draft) => {
@@ -64,11 +61,9 @@ export default function ThreadgateScreen() {
                 },
                 {
                   title: _(msg`Specific people can reply`),
-                  icon:
+                  selected:
                     threadgate.length > 0 &&
-                    !threadgate.find((gate) => gate.type === "nobody")
-                      ? CheckIcon
-                      : "SPACE",
+                    !threadgate.find((gate) => gate.type === "nobody"),
                   onPress: () => {
                     if (
                       threadgate.length === 0 ||
@@ -87,12 +82,12 @@ export default function ThreadgateScreen() {
             threadgate.length > 0 &&
               !threadgate.find((gate) => gate.type === "nobody") && {
                 title: _(msg`Select one or more options`),
-                options: [
+                rows: [
                   {
                     title: _(msg`People mentioned in the thread`),
-                    icon: threadgate.find((gate) => gate.type === "mention")
-                      ? CheckIcon
-                      : "SPACE",
+                    selected: !!threadgate.find(
+                      (gate) => gate.type === "mention",
+                    ),
                     onPress: () =>
                       setComposerState(
                         produce((draft) => {
@@ -112,9 +107,9 @@ export default function ThreadgateScreen() {
                   },
                   {
                     title: _(msg`People you follow`),
-                    icon: threadgate.find((gate) => gate.type === "following")
-                      ? CheckIcon
-                      : "SPACE",
+                    selected: !!threadgate.find(
+                      (gate) => gate.type === "following",
+                    ),
                     onPress: () =>
                       setComposerState(
                         produce((draft) => {
@@ -134,11 +129,9 @@ export default function ThreadgateScreen() {
                   },
                   ...(lists.data?.lists?.map((list) => ({
                     title: _(msg`Members of list "${list.name}"`),
-                    icon: threadgate.find(
+                    selected: !!threadgate.find(
                       (gate) => gate.type === "list" && gate.list === list.uri,
-                    )
-                      ? CheckIcon
-                      : "SPACE",
+                    ),
                     onPress: () =>
                       setComposerState(
                         produce((draft) => {
@@ -160,7 +153,7 @@ export default function ThreadgateScreen() {
                           }
                         }),
                       ),
-                  })) ?? ([] as { title: string }[])),
+                  })) ?? []),
                 ],
               },
           ]}

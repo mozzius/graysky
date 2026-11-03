@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Stack, useRouter } from "expo-router";
-import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { CheckIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useComposerState } from "~/lib/composer/state";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
@@ -25,7 +23,6 @@ export default function PostLanguage() {
   const contentLanguages = useContentLanguages();
   const setAppPreferences = useSetAppPreferences();
 
-  const theme = useTheme();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const headerSearchBarOptions = useSearchBarOptions({
@@ -60,12 +57,12 @@ export default function PostLanguage() {
     <>
       <Stack.Screen options={{ headerSearchBarOptions }} />
       <TransparentHeaderUntilScrolled>
-        <GroupedList
-          groups={
+        <Form
+          sections={
             query
               ? [
                   {
-                    options: SELECTABLE_LANGUAGES.filter(
+                    rows: SELECTABLE_LANGUAGES.filter(
                       (l) =>
                         Boolean(l.code2) &&
                         l.name
@@ -74,36 +71,30 @@ export default function PostLanguage() {
                     ).map((lang) => ({
                       title: lang.name,
                       onPress: () => selectLanguage(lang.code2),
-                      action: selected.includes(lang.code2) ? (
-                        <CheckIcon color={theme.colors.primary} size={20} />
-                      ) : null,
+                      selected: selected.includes(lang.code2),
                     })),
                   },
                 ]
               : [
                   {
                     title: _(msg`My languages`),
-                    options: SELECTABLE_LANGUAGES.filter(
+                    rows: SELECTABLE_LANGUAGES.filter(
                       (l) =>
                         Boolean(l.code2) && suggestedLangs.includes(l.code2),
                     ).map((lang) => ({
                       title: lang.name,
                       onPress: () => selectLanguage(lang.code2),
-                      action: selected.includes(lang.code2) ? (
-                        <CheckIcon color={theme.colors.primary} size={20} />
-                      ) : null,
+                      selected: selected.includes(lang.code2),
                     })),
                   },
                   {
                     title: _(msg`All languages`),
-                    options: SELECTABLE_LANGUAGES.filter((l) =>
+                    rows: SELECTABLE_LANGUAGES.filter((l) =>
                       Boolean(l.code2),
                     ).map((lang) => ({
                       title: lang.name,
                       onPress: () => selectLanguage(lang.code2),
-                      action: selected.includes(lang.code2) ? (
-                        <CheckIcon color={theme.colors.primary} size={20} />
-                      ) : null,
+                      selected: selected.includes(lang.code2),
                     })),
                   },
                 ]
