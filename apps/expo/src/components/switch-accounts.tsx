@@ -39,38 +39,39 @@ export function SwitchAccounts({
   chevrons,
   showAddAccount,
 }: Props) {
-  const { switchAccount, logout } = useAuth();
+  const { signIn, switchAccount, logout } = useAuth();
   const theme = useTheme();
   const router = useRouter();
   const { _ } = useLingui();
 
   const [sessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
 
-  const signInAgain = (account: SavedSession) => {
-    router.push(`/sign-in?handle=${encodeURIComponent(account.handle)}`);
-  };
-
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
+    // resolves false if they backed out of the browser sheet
     mutationFn: async (account: SavedSession) => {
-      // restores the stored oauth session for this account
-      await switchAccount(account.did);
-      return account;
-    },
-    onError: (err, account) => {
-      console.error(err);
-      if (isSessionGoneError(err)) {
-        // needs to go through oauth again
-        signInAgain(account);
-        return;
+      if (!account.signedOut) {
+        try {
+          // restores the stored oauth session for this account
+          await switchAccount(account.did);
+          return true;
+        } catch (err) {
+          if (!isSessionGoneError(err)) throw err;
+        }
       }
+      // needs to go through oauth again
+      return await signIn(account.handle);
+    },
+    onError: (err) => {
+      console.error(err);
       showToastable({
         title: _(msg`Could not log you in`),
         message: err instanceof Error ? err.message : _(msg`Unknown error`),
         status: "warning",
       });
     },
-    onSuccess: (account) => {
+    onSuccess: (signedIn, account) => {
+      if (!signedIn) return;
       showToastable({
         title: _(msg`Logged in`),
         message: _(msg`You are now logged in as @${account.handle}`),
@@ -96,13 +97,7 @@ export function SwitchAccounts({
           <Fragment key={account.did}>
             <TouchableHighlight
               className={cx("flex-1", resume.isPending && "opacity-50")}
-              onPress={() => {
-                if (account.signedOut) {
-                  signInAgain(account);
-                } else {
-                  resume.mutate(account);
-                }
-              }}
+              onPress={() => resume.mutate(account)}
               disabled={resume.isPending || account.did === active}
             >
               <View
