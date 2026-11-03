@@ -83,9 +83,20 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       // top-level `splash` was removed from the expo config in sdk 58
       "expo-splash-screen",
       {
-        image: "./assets/graysky.jpg",
-        resizeMode: "cover",
-        backgroundColor: "#888888",
+        // full-bleed cloud photo on ios. without the legacy flag the plugin
+        // draws the image as a small square in the middle of the screen
+        ios: {
+          image: "./assets/graysky.jpg",
+          resizeMode: "cover",
+          enableFullScreenImage_legacy: true,
+          backgroundColor: "#121212",
+        },
+        // android 12+ splash screens can only show a centred icon
+        android: {
+          image: "./assets/icon.png",
+          imageWidth: 200,
+          backgroundColor: "#121212",
+        },
       },
     ],
     "expo-localization",
