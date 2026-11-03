@@ -1,4 +1,3 @@
-import { type app } from "@bsky/sdk/lexicons";
 import { track } from "@vercel/analytics/server";
 import sharp from "sharp";
 import { z } from "zod";
@@ -42,10 +41,8 @@ export const gifsRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        assetUrl: z.string(),
         previewUrl: z.string(),
         description: z.string().optional(),
-        token: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -53,27 +50,23 @@ export const gifsRouter = createTRPCRouter({
         id: input.id,
       });
 
-      // fetch preview image, which is a one frame gif, convert to to jpeg, and send to bsky.social
-
-      const res = await fetch(input.previewUrl);
+      // fetch preview image, which is a one frame gif, and convert it to a
+      // jpeg. the app uploads it to the user's PDS itself and uses it as the
+      // embed's thumbnail
+      const previewUrl = new URL(input.previewUrl);
+      if (
+        previewUrl.protocol !== "https:" ||
+        !previewUrl.hostname.endsWith(".tenor.com")
+      ) {
+        throw new Error("Invalid preview URL");
+      }
+      const res = await fetch(previewUrl);
+      if (!res.ok) {
+        throw new Error(`Could not fetch GIF preview: ${res.status}`);
+      }
       const buffer = await res.arrayBuffer();
 
       const image = await sharp(buffer).toFormat("jpeg").toBuffer();
-
-      const uploadRes = await fetch(
-        "https://bsky.social/xrpc/com.atproto.repo.uploadBlob",
-        {
-          method: "POST",
-          // @ts-expect-error some sorta arraybuffer thingy
-          body: image,
-          headers: {
-            "Content-Type": "image/jpeg",
-            Authorization: `Bearer ${input.token}`,
-          },
-        },
-      );
-
-      const blobRef = (await uploadRes.json()) as { blob: JsonBlobRef };
 
       const title = input.description ?? "Tenor GIF";
       const description =
@@ -81,37 +74,19 @@ export const gifsRouter = createTRPCRouter({
 
       const uri = `https://tenor.com/view/${input.id}` as const;
 
-      // const assetPath = new URL(input.assetUrl).pathname;
-
-      // const uri = `https://graysky.app/gif${assetPath}?title=${encodeURIComponent(
-      //   title,
-      // )}`;
-
       await track("post gif", {
         title: input.description ?? "No description",
         url: uri,
       });
 
       return {
-        view: {
-          $type: "app.bsky.embed.external#view",
-          external: {
-            $type: "app.bsky.embed.external#viewExternal",
-            uri,
-            title,
-            description,
-          },
-        } satisfies app.bsky.embed.external.View,
-        main: {
-          $type: "app.bsky.embed.external" as const,
-          external: {
-            $type: "app.bsky.embed.external#external" as const,
-            uri,
-            title,
-            description,
-            // json encoded - the app decodes this with `lexParse`
-            thumb: blobRef.blob,
-          },
+        uri,
+        title,
+        description,
+        thumb: {
+          mimeType: "image/jpeg" as const,
+          /** base64 encoded */
+          data: image.toString("base64"),
         },
       };
     }),
@@ -208,16 +183,6 @@ export const gifsRouter = createTRPCRouter({
       }),
   }),
 });
-
-/**
- * the json (wire) encoding of a blob ref, as returned by uploadBlob
- */
-interface JsonBlobRef {
-  $type: "blob";
-  ref: { $link: string };
-  mimeType: string;
-  size: number;
-}
 
 // tenor response types
 
