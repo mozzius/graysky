@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -26,11 +26,9 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { SearchIcon } from "lucide-react-native";
 
 import { Avatar } from "~/components/avatar";
-import { GroupedList } from "~/components/grouped-list";
-import { ItemSeparator } from "~/components/item-separator";
+import { FallbackForm } from "~/components/form/fallback";
 import { ListFooterComponent } from "~/components/list-footer";
 import { PersonRow } from "~/components/lists/person-row";
 import {
@@ -140,59 +138,49 @@ const SearchResults = ({ search }: Props) => {
     return (
       <KeyboardAvoidingView behavior="padding" className="flex-1">
         <Animated.View entering={FadeInUp} className="flex-1">
-          <GroupedList
+          {/* not a native form - this sits under the header search bar and
+              re-renders on every keystroke, and most rows are RN anyway */}
+          <FallbackForm
             contentInsetAdjustmentBehavior="automatic"
-            groups={[
+            sections={[
               {
-                options: [
+                rows: [
                   {
-                    icon: SearchIcon,
+                    icon: "search",
                     title: _(msg`Search posts`),
                     href: path(`/search/posts?q=${encodeURIComponent(search)}`),
                   },
                   {
-                    icon: SearchIcon,
+                    icon: "search",
                     title: _(msg`Search feeds`),
                     href: path(`/search/feeds?q=${encodeURIComponent(search)}`),
                   },
-                  data.length === 0
-                    ? {
-                        icon: SearchIcon,
-                        title: _(msg`Search users`),
-                        href: path(
-                          `/search/people?q=${encodeURIComponent(search)}`,
-                        ),
-                      }
-                    : [],
-                ].flat(),
+                  data.length === 0 && {
+                    icon: "search",
+                    title: _(msg`Search users`),
+                    href: path(
+                      `/search/people?q=${encodeURIComponent(search)}`,
+                    ),
+                  },
+                ],
               },
-              data.length > 0
-                ? {
-                    children: data.slice(0, 5).map((item, i, arr) => (
-                      <Fragment key={item.did}>
-                        <PersonRow person={item} />
-                        {i !== arr.length - 1 ? (
-                          <ItemSeparator iconWidth="w-10" />
-                        ) : (
-                          data.length === MAX_RESULTS && <ItemSeparator />
-                        )}
-                      </Fragment>
-                    )),
-                    options:
-                      data.length === MAX_RESULTS
-                        ? [
-                            {
-                              icon: SearchIcon,
-                              title: _(msg`Search all users`),
-                              href: path(
-                                `/search/people?q=${encodeURIComponent(search)}`,
-                              ),
-                            },
-                          ]
-                        : [],
-                  }
-                : [],
-            ].flat()}
+              data.length > 0 && {
+                rows: [
+                  ...data.slice(0, 5).map((item) => ({
+                    type: "custom" as const,
+                    key: item.did,
+                    children: <PersonRow person={item} />,
+                  })),
+                  data.length === MAX_RESULTS && {
+                    icon: "search" as const,
+                    title: _(msg`Search all users`),
+                    href: path(
+                      `/search/people?q=${encodeURIComponent(search)}`,
+                    ),
+                  },
+                ],
+              },
+            ]}
           />
         </Animated.View>
       </KeyboardAvoidingView>
