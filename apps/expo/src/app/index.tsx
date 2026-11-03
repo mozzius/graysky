@@ -3,17 +3,17 @@ import { useMMKVObject } from "react-native-mmkv";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground, type ImageSource } from "expo-image";
-import { type AtpSessionData } from "@atproto/api";
 import { Trans } from "@lingui/react/macro";
 
 import { LinkButton } from "~/components/button";
 import { StatusBar } from "~/components/status-bar";
+import { type SavedSession } from "~/lib/session";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const background = require("../../assets/graysky.jpg") as ImageSource;
 
 export default function LandingPage() {
-  const [sessions] = useMMKVObject<AtpSessionData[]>("sessions");
+  const [sessions] = useMMKVObject<SavedSession[]>("sessions");
 
   return (
     <View className="flex-1 bg-[#3B4245]">

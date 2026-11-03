@@ -15,7 +15,13 @@ import {
 import { ThemeProvider } from "expo-router/react-navigation";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as SplashScreen from "expo-splash-screen";
-import { AtpAgent, type AtpSessionData } from "@atproto/api";
+import { type Client } from "@atproto/lex";
+import {
+  PasswordSession,
+  type PasswordSessionOptions,
+  type SessionData,
+} from "@atproto/lex-password-session";
+import { app } from "@bsky/sdk/lexicons";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -24,18 +30,29 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
-import { type SavedSession } from "~/components/switch-accounts";
 import { Toastable } from "~/components/toastable/toastable";
 import I18nProvider, { initializeI18n } from "~/i18n/config";
 import {
   AgentProvider,
   AuthProvider,
-  defaultAgent,
+  createClient,
+  publicClient,
+  SessionProvider,
   type AuthContextValue,
 } from "~/lib/agent";
 import { PreferencesProvider } from "~/lib/hooks/preferences";
 import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
+import {
+  getSavedSessions,
+  getStoredSession,
+  isSessionData,
+  setSavedSessions,
+  setStoredSession,
+  toSessionData,
+  type SavedSession,
+  type StoredSessionData,
+} from "~/lib/session";
 import { useThemeSetup } from "~/lib/storage/app-preferences";
 import { store } from "~/lib/storage/storage";
 import { TRPCProvider } from "~/lib/utils/api";
@@ -73,12 +90,18 @@ void SplashScreen.preventAutoHideAsync();
 
 initializeI18n();
 
+interface ActiveSession {
+  session: PasswordSession;
+  client: Client;
+  data: SessionData;
+}
+
 const App = () => {
   const segments = useSegments();
   const router = useRouter();
   const queryClient = useQueryClient();
   const [ready, setReady] = useState(false);
-  const [agent, setAgent] = useState<AtpAgent | null>(null);
+  const [auth, setAuth] = useState<ActiveSession | null>(null);
   const theme = useThemeSetup();
   const { _ } = useLingui();
   const tRef = useRef(_);
@@ -86,50 +109,49 @@ const App = () => {
   const routerRef = useRef(router);
   routerRef.current = router;
   const resumingRef = useRef(false);
+  // the session that's currently in use. session callbacks from any other
+  // session (e.g. one we switched away from) are ignored
+  const currentSessionRef = useRef<Omit<ActiveSession, "data"> | null>(null);
 
   // Save session to storage and update saved sessions list
   const saveSessionToStorage = useCallback(
-    (sess: AtpSessionData, pdsUrl: string, currentAgent: AtpAgent) => {
-      const storedSession: StoredSession = { session: sess, pdsUrl };
-      store.set("session", JSON.stringify(storedSession));
+    (sess: SessionData, client: Client) => {
+      setStoredSession(sess);
       // Update saved sessions list with profile info
-      void currentAgent.getProfile({ actor: sess.did }).then((res) => {
-        if (res.success) {
-          const sessions = store.getString("sessions");
+      void client
+        .call(app.bsky.actor.getProfile, { actor: sess.did })
+        .then((profile) => {
           const newSession: SavedSession = {
             session: sess,
             did: sess.did,
-            handle: res.data.handle,
-            avatar: res.data.avatar,
-            displayName: res.data.displayName,
-            pdsUrl,
+            handle: profile.handle,
+            avatar: profile.avatar,
+            displayName: profile.displayName,
+            pdsUrl: sess.service,
             signedOut: false,
           };
-          if (sessions) {
-            const old = JSON.parse(sessions) as SavedSession[];
-            const newSessions = [
-              newSession,
-              ...old.filter((s) => s.did !== sess.did),
-            ];
-            store.set("sessions", JSON.stringify(newSessions));
-          } else {
-            store.set("sessions", JSON.stringify([newSession]));
-          }
-        }
-      });
+          setSavedSessions([
+            newSession,
+            ...getSavedSessions().filter((s) => s.did !== sess.did),
+          ]);
+        })
+        .catch((err) => {
+          console.warn("failed to update saved sessions", err);
+        });
     },
     [],
   );
 
   // Helper to handle session expiry
   const handleSessionExpired = useCallback(() => {
+    currentSessionRef.current = null;
     store.remove("session");
     showToastable({
       message: tRef.current(
         msg`Sorry! Your session expired. Please log in again.`,
       ),
     });
-    setAgent(null);
+    setAuth(null);
     // Dismiss any modals and go to landing
     if (routerRef.current.canDismiss()) {
       routerRef.current.dismissAll();
@@ -137,81 +159,119 @@ const App = () => {
     routerRef.current.replace("/");
   }, []);
 
+  const sessionOptions = useMemo<PasswordSessionOptions>(
+    () => ({
+      onUpdated(data) {
+        // these callbacks must not throw
+        try {
+          const current = currentSessionRef.current;
+          if (current?.session !== this) return;
+          saveSessionToStorage(data, current.client);
+          setAuth((prev) =>
+            prev?.session === this ? { ...prev, data } : prev,
+          );
+        } catch (err) {
+          console.error("failed to persist session", err);
+        }
+      },
+      onDeleted() {
+        try {
+          if (currentSessionRef.current?.session !== this) return;
+          handleSessionExpired();
+        } catch (err) {
+          console.error("failed to handle session expiry", err);
+        }
+      },
+      onUpdateFailure(_data, err) {
+        // network error or similar - the session might still be valid
+        console.warn("failed to refresh session", err);
+      },
+    }),
+    [saveSessionToStorage, handleSessionExpired],
+  );
+
+  // make a session the current one
+  const activateSession = useCallback(
+    (session: PasswordSession) => {
+      const client = createClient(session);
+      currentSessionRef.current = { session, client };
+      const data = session.session;
+      setAuth({ session, client, data });
+      saveSessionToStorage(data, client);
+    },
+    [saveSessionToStorage],
+  );
+
   // Auth functions
   const login = useCallback(
     async (identifier: string, password: string, authFactorToken?: string) => {
       // Resolve the PDS URL from the handle
       const pdsUrl = await resolvePdsUrl(identifier);
 
-      const newAgent = new AtpAgent({
+      const session = await PasswordSession.login({
         service: pdsUrl,
-        persistSession(evt, sess) {
-          if (evt === "create" || evt === "update") {
-            if (sess) {
-              saveSessionToStorage(sess, pdsUrl, newAgent);
-            }
-          } else if (evt === "expired") {
-            handleSessionExpired();
-          }
-        },
+        identifier,
+        password,
+        authFactorToken,
+        ...sessionOptions,
       });
 
-      await newAgent.login({ identifier, password, authFactorToken });
-      setAgent(newAgent);
+      activateSession(session);
     },
-    [saveSessionToStorage, handleSessionExpired],
+    [sessionOptions, activateSession],
   );
 
   const resumeSession = useCallback(
-    async (session: AtpSessionData, pdsUrl?: string) => {
-      // Use provided PDS URL or resolve from DID as fallback
-      const resolvedPdsUrl = pdsUrl ?? (await resolvePdsFromDid(session.did));
+    async (stored: StoredSessionData, pdsUrl?: string) => {
+      // legacy sessions don't have a service url. use the provided PDS URL,
+      // or resolve it from the DID as a fallback
+      const data = isSessionData(stored)
+        ? stored
+        : toSessionData(
+            stored,
+            pdsUrl ?? (await resolvePdsFromDid(stored.did)),
+          );
 
-      const newAgent = new AtpAgent({
-        service: resolvedPdsUrl,
-        persistSession(evt, sess) {
-          if (evt === "create" || evt === "update") {
-            if (sess) {
-              saveSessionToStorage(sess, resolvedPdsUrl, newAgent);
-            }
-          } else if (evt === "expired") {
-            handleSessionExpired();
-          }
-        },
-      });
+      // refreshes the session. only throws if the session is definitely
+      // invalid - network errors go to `onUpdateFailure`
+      const session = await PasswordSession.resume(data, sessionOptions);
 
-      await newAgent.resumeSession(session);
-      setAgent(newAgent);
+      activateSession(session);
     },
-    [saveSessionToStorage, handleSessionExpired],
+    [sessionOptions, activateSession],
   );
+
+  const refreshSession = useCallback(async () => {
+    if (!auth) throw new Error("Not logged in");
+    // `onUpdated` will save and update the session data
+    await auth.session.refresh();
+  }, [auth]);
+
+  const currentDid = auth?.data.did;
 
   const logout = useCallback(() => {
     // Mark current session as signed out in saved sessions
-    const currentDid = agent?.session?.did;
     if (currentDid) {
-      const sessions = store.getString("sessions");
-      if (sessions) {
-        const old = JSON.parse(sessions) as SavedSession[];
-        const newSessions = old.map((s) =>
+      setSavedSessions(
+        getSavedSessions().map((s) =>
           s.did === currentDid ? { ...s, signedOut: true } : s,
-        );
-        store.set("sessions", JSON.stringify(newSessions));
-      }
+        ),
+      );
     }
+    currentSessionRef.current = null;
     store.remove("session");
     queryClient.clear();
-    setAgent(null);
+    setAuth(null);
     // Dismiss any modals and go to landing
     if (router.canDismiss()) {
       router.dismissAll();
     }
     router.replace("/");
-  }, [agent?.session?.did, queryClient, router]);
+  }, [currentDid, queryClient, router]);
 
   const authValue = useMemo<AuthContextValue>(
-    () => ({ login, resumeSession, logout }),
-    [login, resumeSession, logout],
+    () => ({ login, resumeSession, refreshSession, logout }),
+    [login, resumeSession, refreshSession, logout],
   );
 
   // Resume session on app launch
@@ -219,7 +279,7 @@ const App = () => {
     if (resumingRef.current) return;
     resumingRef.current = true;
 
-    const stored = getSession();
+    const stored = getStoredSession();
     if (stored) {
       resumeSession(stored.session, stored.pdsUrl)
         .then(() => {
@@ -242,6 +302,8 @@ const App = () => {
     }
   }, [resumeSession, router]);
 
+  const isLoggedIn = !!auth;
+
   // Redirect depending on login state
   useEffect(() => {
     if (!ready) return;
@@ -253,16 +315,16 @@ const App = () => {
     if (inAuthGroup) return;
 
     // Redirect to landing if not logged in and trying to access protected routes
-    if (!agent?.hasSession && !atRoot) {
+    if (!isLoggedIn && !atRoot) {
       console.log("redirecting to /");
       router.replace("/");
     }
     // Redirect to feeds if at root with session (initial app launch)
-    else if (agent?.hasSession && atRoot) {
+    else if (isLoggedIn && atRoot) {
       console.log("redirecting to /feeds");
       router.replace("/(feeds)/feeds");
     }
-  }, [segments, router, agent?.hasSession, ready]);
+  }, [segments, router, isLoggedIn, ready]);
 
   const splashscreenHidden = useRef(false);
 
@@ -290,170 +352,172 @@ const App = () => {
         <StatusBar style="auto" applyToNavigationBar />
         <KeyboardProvider>
           <SafeAreaProvider>
-            {agent?.hasSession && <QuickActions />}
+            {isLoggedIn && <QuickActions />}
             <CustomerInfoProvider>
               <AuthProvider value={authValue}>
-                <AgentProvider value={agent ?? defaultAgent}>
-                  <PreferencesProvider>
-                    <ActionSheetProvider>
-                      <ListProvider>
-                        <Stack>
-                          <Stack.Screen
-                            name="index"
-                            options={{
-                              headerShown: false,
-                              gestureEnabled: false,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="(auth)"
-                            options={{
-                              headerShown: false,
-                              presentation: "formSheet",
-                              contentStyle: {
-                                height: "100%",
-                              },
-                            }}
-                          />
-                          <Stack.Screen
-                            name="settings"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="codes"
-                            options={{
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="images/[post]"
-                            options={{
-                              headerShown: false,
-                              animation: "fade",
-                              animationMatchesGesture: true,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="discover"
-                            options={{
-                              title: _(msg`Discover Feeds`),
-                              presentation: "modal",
-                              headerLargeTitle: true,
-                              headerLargeTitleShadowVisible: !isIOS26,
-                              headerTransparent: isIOS26,
-                              headerLargeStyle: {
-                                backgroundColor: isIOS26
-                                  ? "transparent"
-                                  : theme.colors.background,
-                              },
-                              headerSearchBarOptions: {},
-                            }}
-                          />
-                          <Stack.Screen
-                            name="pro"
-                            options={{
-                              title: "",
-                              headerTransparent: true,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="circle"
-                            options={{
-                              title: _(msg`My Circle`),
-                              headerTransparent: true,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="success"
-                            options={{
-                              title: _(msg`Purchase Successful`),
-                              headerShown: false,
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="composer"
-                            options={{
-                              headerShown: false,
-                              ...Platform.select({
-                                ios: {
-                                  presentation: "formSheet",
-                                  contentStyle: {
-                                    height: "100%",
+                <AgentProvider value={auth?.client ?? publicClient}>
+                  <SessionProvider value={auth?.data ?? null}>
+                    <PreferencesProvider>
+                      <ActionSheetProvider>
+                        <ListProvider>
+                          <Stack>
+                            <Stack.Screen
+                              name="index"
+                              options={{
+                                headerShown: false,
+                                gestureEnabled: false,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="(auth)"
+                              options={{
+                                headerShown: false,
+                                presentation: "formSheet",
+                                contentStyle: {
+                                  height: "100%",
+                                },
+                              }}
+                            />
+                            <Stack.Screen
+                              name="settings"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="codes"
+                              options={{
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="images/[post]"
+                              options={{
+                                headerShown: false,
+                                animation: "fade",
+                                animationMatchesGesture: true,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="discover"
+                              options={{
+                                title: _(msg`Discover Feeds`),
+                                presentation: "modal",
+                                headerLargeTitle: true,
+                                headerLargeTitleShadowVisible: !isIOS26,
+                                headerTransparent: isIOS26,
+                                headerLargeStyle: {
+                                  backgroundColor: isIOS26
+                                    ? "transparent"
+                                    : theme.colors.background,
+                                },
+                                headerSearchBarOptions: {},
+                              }}
+                            />
+                            <Stack.Screen
+                              name="pro"
+                              options={{
+                                title: "",
+                                headerTransparent: true,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="circle"
+                              options={{
+                                title: _(msg`My Circle`),
+                                headerTransparent: true,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="success"
+                              options={{
+                                title: _(msg`Purchase Successful`),
+                                headerShown: false,
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="composer"
+                              options={{
+                                headerShown: false,
+                                ...Platform.select({
+                                  ios: {
+                                    presentation: "formSheet",
+                                    contentStyle: {
+                                      height: "100%",
+                                    },
                                   },
-                                },
-                                android: {
-                                  animation: "fade_from_bottom",
-                                },
-                              }),
-                            }}
-                          />
-                          <Stack.Screen
-                            name="edit-bio"
-                            options={{
-                              title: _(msg`Edit Profile`),
-                              ...Platform.select({
-                                ios: {
-                                  presentation: "modal",
-                                  headerTransparent: true,
-                                  headerShadowVisible: true,
-                                  headerBlurEffect: !isIOS26
-                                    ? theme.dark
-                                      ? "systemThickMaterialDark"
-                                      : "systemChromeMaterialLight"
-                                    : undefined,
-                                  headerStyle: {
-                                    backgroundColor: !isIOS26
+                                  android: {
+                                    animation: "fade_from_bottom",
+                                  },
+                                }),
+                              }}
+                            />
+                            <Stack.Screen
+                              name="edit-bio"
+                              options={{
+                                title: _(msg`Edit Profile`),
+                                ...Platform.select({
+                                  ios: {
+                                    presentation: "modal",
+                                    headerTransparent: true,
+                                    headerShadowVisible: true,
+                                    headerBlurEffect: !isIOS26
                                       ? theme.dark
-                                        ? "rgba(0,0,0,0.4)"
-                                        : "rgba(255,255,255,0.1)"
+                                        ? "systemThickMaterialDark"
+                                        : "systemChromeMaterialLight"
                                       : undefined,
+                                    headerStyle: {
+                                      backgroundColor: !isIOS26
+                                        ? theme.dark
+                                          ? "rgba(0,0,0,0.4)"
+                                          : "rgba(255,255,255,0.1)"
+                                        : undefined,
+                                    },
                                   },
-                                },
-                              }),
-                            }}
-                          />
-                          <Stack.Screen
-                            name="create-list"
-                            options={{
-                              title: _(msg`Create List`),
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="add-to-list/[handle]"
-                            options={{
-                              title: _(msg`Add to List`),
-                              presentation: "modal",
-                            }}
-                          />
-                          <Stack.Screen
-                            name="push-notifications"
-                            options={{
-                              title: _(msg`Push Notifications`),
-                              presentation: "modal",
-                              headerShown: false,
-                              headerTransparent: true,
-                              gestureEnabled: false,
-                            }}
-                          />
-                          <Stack.Screen
-                            name="capture/[author]/[post]"
-                            options={{
-                              title: _(msg`Share as Image`),
-                              presentation: "formSheet",
-                            }}
-                          />
-                        </Stack>
-                      </ListProvider>
-                    </ActionSheetProvider>
-                  </PreferencesProvider>
+                                }),
+                              }}
+                            />
+                            <Stack.Screen
+                              name="create-list"
+                              options={{
+                                title: _(msg`Create List`),
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="add-to-list/[handle]"
+                              options={{
+                                title: _(msg`Add to List`),
+                                presentation: "modal",
+                              }}
+                            />
+                            <Stack.Screen
+                              name="push-notifications"
+                              options={{
+                                title: _(msg`Push Notifications`),
+                                presentation: "modal",
+                                headerShown: false,
+                                headerTransparent: true,
+                                gestureEnabled: false,
+                              }}
+                            />
+                            <Stack.Screen
+                              name="capture/[author]/[post]"
+                              options={{
+                                title: _(msg`Share as Image`),
+                                presentation: "formSheet",
+                              }}
+                            />
+                          </Stack>
+                        </ListProvider>
+                      </ActionSheetProvider>
+                    </PreferencesProvider>
+                  </SessionProvider>
                 </AgentProvider>
               </AuthProvider>
             </CustomerInfoProvider>
@@ -463,22 +527,6 @@ const App = () => {
       </ThemeProvider>
     </GestureHandlerRootView>
   );
-};
-
-interface StoredSession {
-  session: AtpSessionData;
-  pdsUrl: string;
-}
-
-const getSession = (): StoredSession | null => {
-  const raw = store.getString("session");
-  if (!raw) return null;
-  const parsed = JSON.parse(raw) as StoredSession | AtpSessionData;
-  // Handle legacy format (just AtpSessionData without pdsUrl)
-  if ("did" in parsed && !("session" in parsed)) {
-    return { session: parsed, pdsUrl: "https://bsky.social" };
-  }
-  return parsed as StoredSession;
 };
 
 // keeps the tabs underneath modals (settings, composer etc) when deep linking

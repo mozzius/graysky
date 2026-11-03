@@ -10,7 +10,6 @@ import { useMMKVObject } from "react-native-mmkv";
 import { showToastable } from "react-native-toastable";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
-import { type AtpSessionData } from "@atproto/api";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -20,19 +19,13 @@ import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
 import { useAuth } from "~/lib/agent";
+import { type SavedSession } from "~/lib/session";
 import { store } from "~/lib/storage/storage";
 import { cx } from "~/lib/utils/cx";
 import { Avatar } from "./avatar";
 
-export interface SavedSession {
-  displayName?: string;
-  avatar?: string;
-  handle: string;
-  did: string;
-  session: AtpSessionData;
-  pdsUrl?: string;
-  signedOut?: boolean;
-}
+export type { SavedSession };
+
 interface Props {
   active?: string;
   onSuccessfulSwitch?: () => void;
