@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Platform, Share } from "react-native";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 import { useTheme } from "expo-router/react-navigation";
@@ -71,11 +71,9 @@ export const useLinkPress = () => {
           await Linking.openURL(url);
         }
       } catch (err) {
-        showToastable({
-          title: _(msg`Failed to open link`),
-          message:
+        toast.error(_(msg`Failed to open link`), {
+          description:
             err instanceof Error ? err.message : _(msg`Not sure why, sorry :(`),
-          status: "danger",
         });
         Sentry.captureException(err);
       }
@@ -115,9 +113,8 @@ export const useLinkPress = () => {
               } else {
                 await Clipboard.setStringAsync(url);
               }
-              showToastable({
-                title: _(msg`Copied link`),
-                message: _(msg`Link copied to clipboard`),
+              toast.success(_(msg`Copied link`), {
+                description: _(msg`Link copied to clipboard`),
               });
               break;
             case 2:

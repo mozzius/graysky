@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import * as FileSystem from "expo-file-system/legacy";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
@@ -345,9 +345,7 @@ export const useSendPost = ({
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["profile"] });
       router.push("../");
-      showToastable({
-        message: _(msg`Post published!`),
-      });
+      toast.success(_(msg`Post published!`));
     },
     onError: (err) => Sentry.captureException(err),
   });
@@ -398,9 +396,8 @@ export const useImages = () => {
               setImages((prev) => {
                 // max images prop not enforced on android due to the `browse` patch
                 if (result.assets.length + prev.length > MAX_IMAGES) {
-                  showToastable({
-                    title: _(msg`Too many images selected`),
-                    message: _(
+                  toast.warning(_(msg`Too many images selected`), {
+                    description: _(
                       msg`You can only attach up to ${MAX_IMAGES} images, additional images will be ignored`,
                     ),
                   });
@@ -506,22 +503,18 @@ export const getGalleryPermission = async (i18n: I18n) => {
       const { granted } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!granted) {
-        showToastable({
-          title: i18n._(msg`Permission required`),
-          message: i18n._(
+        toast.warning(i18n._(msg`Permission required`), {
+          description: i18n._(
             msg`Please enable photo gallery access in your settings`,
           ),
-          status: "warning",
         });
         return false;
       }
     } else {
-      showToastable({
-        title: i18n._(msg`Permission required`),
-        message: i18n._(
+      toast.warning(i18n._(msg`Permission required`), {
+        description: i18n._(
           msg`Please enable photo gallery access in your settings`,
         ),
-        status: "warning",
       });
       return false;
     }
@@ -535,18 +528,14 @@ export const getCameraPermission = async (i18n: I18n) => {
     if (canTakePhoto.canAskAgain) {
       const { granted } = await ImagePicker.requestCameraPermissionsAsync();
       if (!granted) {
-        showToastable({
-          title: i18n._(msg`Permission required`),
-          message: i18n._(msg`Please enable camera access in your settings`),
-          status: "warning",
+        toast.warning(i18n._(msg`Permission required`), {
+          description: i18n._(msg`Please enable camera access in your settings`),
         });
         return false;
       }
     } else {
-      showToastable({
-        title: i18n._(msg`Permission required`),
-        message: i18n._(msg`Please enable camera access in your settings`),
-        status: "warning",
+      toast.warning(i18n._(msg`Permission required`), {
+        description: i18n._(msg`Please enable camera access in your settings`),
       });
       return false;
     }

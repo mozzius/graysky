@@ -14,7 +14,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { BlurView } from "expo-blur";
 import { Image, ImageBackground } from "expo-image";
 import { Link, useRouter } from "expo-router";
@@ -92,22 +92,20 @@ export const ProfileInfo = ({ profile, backButton }: Props) => {
     },
     onMutate: () => haptics.impact(),
     onSuccess: (result) => {
-      showToastable({
-        title:
-          result === "followed"
-            ? _(msg`Followed user`)
-            : _(msg`Unfollowed user`),
-        message:
-          result === "followed"
-            ? _(msg`You are now following @${profile.handle}`)
-            : _(msg`You are no longer following @${profile.handle}`),
-      });
+      toast.success(
+        result === "followed"
+          ? _(msg`Followed user`)
+          : _(msg`Unfollowed user`),
+        {
+          description:
+            result === "followed"
+              ? _(msg`You are now following @${profile.handle}`)
+              : _(msg`You are no longer following @${profile.handle}`),
+        },
+      );
     },
     onError: () => {
-      showToastable({
-        message: _(msg`Could not follow user`),
-        status: "danger",
-      });
+      toast.error(_(msg`Could not follow user`));
     },
   });
 
@@ -676,9 +674,8 @@ const OtherProfileOptions = ({
       // no proxy - the PDS forwards reports to its own report service
       { service: null },
     );
-    showToastable({
-      title: _(msg`Report submitted`),
-      message: _(msg`Thank you for making the skyline a safer place`),
+    toast.success(_(msg`Report submitted`), {
+      description: _(msg`Thank you for making the skyline a safer place`),
     });
   };
 

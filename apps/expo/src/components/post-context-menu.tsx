@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Alert, Platform, Share, View } from "react-native";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import * as Clipboard from "expo-clipboard";
 import { useRouter, useSegments } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
@@ -67,9 +67,8 @@ const PostContextMenuButton = ({
         } else {
           await Clipboard.setStringAsync(url);
         }
-        showToastable({
-          title: _(msg`Copied link`),
-          message: _(msg`Post link copied to clipboard`),
+        toast.success(_(msg`Copied link`), {
+          description: _(msg`Post link copied to clipboard`),
         });
         break;
     }
@@ -78,9 +77,8 @@ const PostContextMenuButton = ({
   const copy = async () => {
     if (!isType(app.bsky.feed.post, post.record)) return;
     await Clipboard.setStringAsync(post.record.text);
-    showToastable({
-      title: _(msg`Copied post text`),
-      message: _(msg`Post text copied to clipboard`),
+    toast.success(_(msg`Copied post text`), {
+      description: _(msg`Post text copied to clipboard`),
     });
   };
 
@@ -102,10 +100,7 @@ const PostContextMenuButton = ({
             await queryClient.refetchQueries({
               queryKey: ["profile", post.author.did, "post", post.uri],
             });
-            showToastable({
-              message: _(msg`Post deleted`),
-              status: "danger",
-            });
+            toast.error(_(msg`Post deleted`));
             if (segments.at(-1) === rkey) {
               router.back();
             }
@@ -129,9 +124,8 @@ const PostContextMenuButton = ({
       // no proxy - the PDS forwards reports to its own report service
       { service: null },
     );
-    showToastable({
-      title: _(msg`Report submitted`),
-      message: _(msg`Thank you for making the skyline a safer place`),
+    toast.success(_(msg`Report submitted`), {
+      description: _(msg`Thank you for making the skyline a safer place`),
     });
   };
 

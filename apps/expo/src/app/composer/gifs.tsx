@@ -10,7 +10,7 @@ import {
 import Animated, { FadeInUp } from "react-native-reanimated";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { type SearchBarCommands } from "react-native-screens";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { Stack, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import { useVideoPlayer, VideoView } from "expo-video";
@@ -247,10 +247,8 @@ const Gif = ({ item }: GifProps) => {
     },
     onError: (err) => {
       Sentry.captureException(err);
-      showToastable({
-        title: _(msg`Could not select GIF`),
-        message: _(msg`Please try again`),
-        status: "warning",
+      toast.warning(_(msg`Could not select GIF`), {
+        description: _(msg`Please try again`),
       });
     },
   });

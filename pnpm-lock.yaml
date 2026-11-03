@@ -294,9 +294,6 @@ importers:
       react-native-svg:
         specifier: 15.16.0
         version: 15.16.0(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
-      react-native-toastable:
-        specifier: ^1.0.6
-        version: 1.0.6(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
       react-native-uitextview:
         specifier: 2.7.1
         version: 2.7.1(patch_hash=xtqkddwdhwyqonb3zmwha6l3oq)(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
@@ -309,6 +306,9 @@ importers:
       react-native-worklets:
         specifier: ^0.13.0
         version: 0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      sonner-native:
+        specifier: ^0.27.0
+        version: 0.27.0(rblqsly37b7b5rwo6ctxahn6xu)
       superjson:
         specifier: 2.2.6
         version: 2.2.6
@@ -7270,13 +7270,6 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-toastable@1.0.6:
-    resolution: {integrity: sha512-UP0rrsGjpz22zGZmedpYZCEuQfR/fLSU0OwPemEl7Z6RpRmWXYVRekyvfxgOQcX0Tob+KOqTuVfCHI8ssOHYWw==}
-    engines: {node: '>= 16.0.0'}
-    peerDependencies:
-      react: '*'
-      react-native: '*'
-
   react-native-uitextview@2.7.1:
     resolution: {integrity: sha512-BT4agx2Gg/idbbqUyCudg/Ml0qB7ar0pwKImgSrzspPAaYNCz6fFh9zypF0GUMGUbGrrlq1PHtXHh1oTSXCYkg==}
     peerDependencies:
@@ -7683,6 +7676,18 @@ packages:
 
   sonic-boom@4.2.1:
     resolution: {integrity: sha512-w6AxtubXa2wTXAUsZMMWERrsIRAdrK0Sc+FUytWvYAhBJLyuI4llrMIC1DtlNSdI99EI86KZum2MMq3EAZlF9Q==}
+
+  sonner-native@0.27.0:
+    resolution: {integrity: sha512-TKX4mXoMnwx3m51bSTqrbmiImIjs18g9L6t0sv4XemR+s6XsKf1+l3yn3C4/psOHj3E+sdc2Bh5P/7+AG/41eA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-gesture-handler: '>=2.28.0'
+      react-native-reanimated: ^4.1.1
+      react-native-safe-area-context: ^5.6.0
+      react-native-screens: ^4.16.0
+      react-native-svg: ^15.12.1
+      react-native-worklets: '>=0.6.1'
 
   source-map-js@1.2.2:
     resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
@@ -10137,7 +10142,7 @@ snapshots:
       terminal-link: 2.1.1
       toqr: 0.1.1
       wrap-ansi: 7.0.0
-      ws: 8.22.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      ws: 8.22.1(bufferutil@4.0.9)
     optionalDependencies:
       expo-router: 58.0.29(lm2bq5cimc4imu535sse4icova)
       react-native: 0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0)
@@ -10522,7 +10527,7 @@ snapshots:
 
   '@expo/ws-tunnel@2.0.1(ws@8.22.1(bufferutil@4.0.9))':
     dependencies:
-      ws: 8.22.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      ws: 8.22.1(bufferutil@4.0.9)
 
   '@expo/xcpretty@4.4.7':
     dependencies:
@@ -16374,11 +16379,6 @@ snapshots:
       react: 19.3.0
       react-native: 0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0)
 
-  react-native-toastable@1.0.6(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0):
-    dependencies:
-      react: 19.3.0
-      react-native: 0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0)
-
   react-native-uitextview@2.7.1(patch_hash=xtqkddwdhwyqonb3zmwha6l3oq)(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0):
     dependencies:
       react: 19.3.0
@@ -16933,6 +16933,17 @@ snapshots:
   sonic-boom@4.2.1:
     dependencies:
       atomic-sleep: 1.0.0
+
+  sonner-native@0.27.0(rblqsly37b7b5rwo6ctxahn6xu):
+    dependencies:
+      react: 19.3.0
+      react-native: 0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0)
+      react-native-gesture-handler: 3.3.0(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      react-native-reanimated: 4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0))(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      react-native-safe-area-context: 5.10.1(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      react-native-screens: 4.30.1(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      react-native-svg: 15.16.0(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
+      react-native-worklets: 0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(react-native@0.88.1(@babel/core@7.29.7)(@react-native-community/cli@14.1.0(bufferutil@4.0.9)(typescript@6.0.3))(@react-native/metro-config@0.88.1(@babel/core@7.29.7)(bufferutil@4.0.9))(@types/react@19.3.0)(bufferutil@4.0.9)(react@19.3.0))(react@19.3.0)
 
   source-map-js@1.2.2: {}
 
@@ -17674,6 +17685,10 @@ snapshots:
       bufferutil: 4.0.9
 
   ws@7.5.13(bufferutil@4.0.9):
+    optionalDependencies:
+      bufferutil: 4.0.9
+
+  ws@8.22.1(bufferutil@4.0.9):
     optionalDependencies:
       bufferutil: 4.0.9
 

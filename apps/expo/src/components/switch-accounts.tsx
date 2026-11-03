@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
-import { showToastable } from "react-native-toastable";
 import { Link, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
@@ -14,6 +13,7 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
+import { toast } from "sonner-native";
 
 import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
@@ -64,18 +64,14 @@ export function SwitchAccounts({
     },
     onError: (err) => {
       console.error(err);
-      showToastable({
-        title: _(msg`Could not log you in`),
-        message: err instanceof Error ? err.message : _(msg`Unknown error`),
-        status: "warning",
+      toast.warning(_(msg`Could not log you in`), {
+        description: err instanceof Error ? err.message : _(msg`Unknown error`),
       });
     },
     onSuccess: (signedIn, account) => {
       if (!signedIn) return;
-      showToastable({
-        title: _(msg`Logged in`),
-        message: _(msg`You are now logged in as @${account.handle}`),
-        status: "success",
+      toast.success(_(msg`Logged in`), {
+        description: _(msg`You are now logged in as @${account.handle}`),
       });
       router.replace("/(feeds)/feeds");
       onSuccessfulSwitch?.();

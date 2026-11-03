@@ -5,7 +5,7 @@ import {
   KeyboardStickyView,
 } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import { msg } from "@lingui/core/macro";
@@ -66,10 +66,8 @@ export default function SignIn() {
     },
     onError: (err) => {
       console.error(err);
-      showToastable({
-        title: _(msg`Could not log you in`),
-        message: err instanceof Error ? err.message : _(msg`Unknown error`),
-        status: "warning",
+      toast.warning(_(msg`Could not log you in`), {
+        description: err instanceof Error ? err.message : _(msg`Unknown error`),
       });
     },
   });

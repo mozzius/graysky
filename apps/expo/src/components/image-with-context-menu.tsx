@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageStyle } from "expo-image";
@@ -131,16 +131,10 @@ export const useImageOptions = () => {
             encoding: FileSystem.EncodingType.Base64,
           });
           await Clipboard.setImageAsync(base64);
-          showToastable({
-            message: _(msg`Copied image to clipboard`),
-            status: "success",
-          });
+          toast.success(_(msg`Copied image to clipboard`));
         } catch (err) {
           console.error(err);
-          showToastable({
-            message: _(msg`An error occurred while trying to copy the image`),
-            status: "danger",
-          });
+          toast.error(_(msg`An error occurred while trying to copy the image`));
         }
       },
       icon: "doc.on.doc",
@@ -151,28 +145,20 @@ export const useImageOptions = () => {
       reactIcon: <SaveIcon size={24} color={theme.colors.text} />,
       action: async (uri: string) => {
         if (!(await MediaLibrary.requestPermissionsAsync()).granted) {
-          showToastable({
-            title: _(msg`Permission required`),
-            message: _(
+          toast.warning(_(msg`Permission required`), {
+            description: _(
               msg`Please enable photo gallery access in your settings`,
             ),
-            status: "warning",
           });
           return;
         }
         try {
           const download = await downloadImage(uri);
           await MediaLibrary.saveToLibraryAsync(download.uri);
-          showToastable({
-            message: _(msg`Saved image to gallery`),
-            status: "success",
-          });
+          toast.success(_(msg`Saved image to gallery`));
         } catch (err) {
           console.error(err);
-          showToastable({
-            message: _(msg`An error occurred while trying to save the image`),
-            status: "danger",
-          });
+          toast.error(_(msg`An error occurred while trying to save the image`));
         }
       },
       icon: "arrow.down.to.line",
@@ -193,10 +179,7 @@ export const useImageOptions = () => {
           });
         } catch (err) {
           console.error(err);
-          showToastable({
-            message: _(msg`An error occurred while trying to share the image`),
-            status: "danger",
-          });
+          toast.error(_(msg`An error occurred while trying to share the image`));
         }
       },
       icon: "square.and.arrow.up",

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -50,10 +50,8 @@ export default function Reauth() {
     },
     onError: (err) => {
       console.error(err);
-      showToastable({
-        title: _(msg`Could not log you in`),
-        message: err instanceof Error ? err.message : _(msg`Unknown error`),
-        status: "warning",
+      toast.warning(_(msg`Could not log you in`), {
+        description: err instanceof Error ? err.message : _(msg`Unknown error`),
       });
     },
   });

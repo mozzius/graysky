@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import * as Tabs from "react-native-collapsible-tab-view";
 import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
@@ -272,9 +272,7 @@ const ListHeader = ({
       }),
     onSuccess: (message) => {
       if (message) {
-        showToastable({
-          message,
-        });
+        toast.success(message);
       }
     },
     onSettled: () =>
@@ -675,16 +673,13 @@ const useDeleteList = (handle?: string, rkey?: string) => {
     },
     onSuccess: () => {
       router.back();
-      showToastable({
-        title: _(msg`List deleted`),
-        message: _(msg`Your list has been deleted`),
+      toast.success(_(msg`List deleted`), {
+        description: _(msg`Your list has been deleted`),
       });
     },
     onError: () => {
-      showToastable({
-        title: _(msg`Error`),
-        message: _(msg`Could not delete list`),
-        status: "danger",
+      toast.error(_(msg`Error`), {
+        description: _(msg`Could not delete list`),
       });
     },
   });

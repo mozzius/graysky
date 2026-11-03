@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import ViewShot, { type ViewShotRef } from "react-native-view-shot";
 import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageSource } from "expo-image";
@@ -139,9 +139,7 @@ export default function MyCircle() {
     },
     onSuccess: () => {
       router.navigate("../");
-      showToastable({
-        message: "Circle posted",
-      });
+      toast.success("Circle posted");
     },
     onError: (error) => console.error(error),
   });

@@ -3,7 +3,6 @@ import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { showToastable } from "react-native-toastable";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import {
@@ -23,10 +22,10 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import * as Sentry from "@sentry/react-native";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast, Toaster } from "sonner-native";
 
 import { ListProvider } from "~/components/lists/context";
 import { StatusBar } from "~/components/status-bar";
-import { Toastable } from "~/components/toastable/toastable";
 import I18nProvider, { initializeI18n } from "~/i18n/config";
 import {
   AgentProvider,
@@ -144,11 +143,9 @@ const App = () => {
       setActiveDid(null);
       queryClient.clear();
       setAuth(null);
-      showToastable({
-        message: tRef.current(
-          msg`Sorry! Your session expired. Please log in again.`,
-        ),
-      });
+      toast.error(
+        tRef.current(msg`Sorry! Your session expired. Please log in again.`),
+      );
       promptSignIn(did);
     });
   }, [queryClient, promptSignIn]);
@@ -320,21 +317,20 @@ const App = () => {
           if (isSessionGoneError(err)) {
             markSignedOut(did);
             setActiveDid(null);
-            showToastable({
-              message: tRef.current(
+            toast.error(
+              tRef.current(
                 msg`Sorry! Your session expired. Please log in again.`,
               ),
-            });
+            );
             promptSignIn(did);
           } else {
             // probably offline. keep the account active so the next launch
             // tries again
-            showToastable({
-              message: tRef.current(
+            toast.warning(
+              tRef.current(
                 msg`Could not connect to your account. Check your connection and try again.`,
               ),
-              status: "warning",
-            });
+            );
             router.replace("/");
           }
         })
@@ -568,7 +564,10 @@ const App = () => {
                 </AgentProvider>
               </AuthProvider>
             </CustomerInfoProvider>
-            <Toastable />
+            <Toaster
+              theme={theme.dark ? "dark" : "light"}
+              position="top-center"
+            />
           </SafeAreaProvider>
         </KeyboardProvider>
       </ThemeProvider>

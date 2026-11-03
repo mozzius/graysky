@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Alert } from "react-native";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import {
   currentDatetimeString,
   type AtIdentifierString,
@@ -39,9 +39,8 @@ export const useMuteAccount = () => {
         .call(muteActor, { actor: did as AtIdentifierString })
         .then(() => {
           void queryClient.invalidateQueries({ queryKey: ["profile", did] });
-          showToastable({
-            title: _(msg`Muted`),
-            message: _(msg`You will no longer see posts from @${handle}`),
+          toast.success(_(msg`Muted`), {
+            description: _(msg`You will no longer see posts from @${handle}`),
           });
         });
     },
@@ -60,9 +59,8 @@ export const useUnmuteAccount = () => {
         .call(unmuteActor, { actor: did as AtIdentifierString })
         .then(() => {
           void queryClient.invalidateQueries({ queryKey: ["profile", did] });
-          showToastable({
-            title: _(msg`Unmuted`),
-            message: _(msg`@${handle} is no longer muted`),
+          toast.success(_(msg`Unmuted`), {
+            description: _(msg`@${handle} is no longer muted`),
           });
         });
     },
@@ -100,9 +98,8 @@ export const useBlockAccount = () => {
                 void queryClient.invalidateQueries({
                   queryKey: ["profile", did],
                 });
-              showToastable({
-                title: _(msg`Blocked`),
-                message: _(msg`@${handle} has been blocked`),
+              toast.success(_(msg`Blocked`), {
+                description: _(msg`@${handle} has been blocked`),
               });
             },
           },
@@ -140,9 +137,8 @@ export const useUnblockAccount = () => {
                 void queryClient.invalidateQueries({
                   queryKey: ["profile", did],
                 });
-              showToastable({
-                title: _(msg`Unblocked`),
-                message: _(msg`@${handle} has been unblocked`),
+              toast.success(_(msg`Unblocked`), {
+                description: _(msg`@${handle} has been unblocked`),
               });
             },
           },

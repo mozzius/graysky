@@ -13,7 +13,7 @@ import {
 import Purchases from "react-native-purchases";
 import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { showToastable } from "react-native-toastable";
+import { toast } from "sonner-native";
 import { BlurView } from "expo-blur";
 import { ImageBackground, type ImageSource } from "expo-image";
 import { Stack, useRouter } from "expo-router";
@@ -88,10 +88,8 @@ export default function Pro() {
     onError: (err) => {
       console.error(err);
       Sentry.captureException(err, { extra: { annual } });
-      showToastable({
-        title: _(msg`Could not complete purchase`),
-        message: _(msg`Something went wrong, please try again later.`),
-        status: "danger",
+      toast.error(_(msg`Could not complete purchase`), {
+        description: _(msg`Something went wrong, please try again later.`),
       });
     },
   });
