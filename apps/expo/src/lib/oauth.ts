@@ -32,6 +32,51 @@ const ExpoOAuthClient = UntypedExpoOAuthClient as new (
   options: ExpoOAuthClientOptions,
 ) => ExpoOAuthClientInterface;
 
+type Fetch = NonNullable<ExpoOAuthClientOptions["fetch"]>;
+
+/**
+ * when the auth server answers `use_dpop_nonce`, `@atproto/oauth-client` is
+ * meant to retry once with the new nonce. to spot that answer it peeks at the
+ * json body by piping `response.body` into a new `Response`. but in RN, `fetch`
+ * is expo's (which has a stream body) while `Response` is still RN's
+ * whatwg-fetch one, which can't be built that way. the peek throws, the retry
+ * is skipped and the request fails with the `use_dpop_nonce` error.
+ *
+ * so buffer those responses into a `Response` with no `body`, which the
+ * library already handles (it reads them with `clone().json()`)
+ */
+const oauthFetch: Fetch = async (input, init) => {
+  const response = await fetch(
+    input instanceof Request ? input : String(input),
+    init,
+  );
+  if (
+    response.status !== 400 ||
+    !response.headers.has("DPoP-Nonce") ||
+    // the pds sends its nonce errors as a 401 header, not in the body, so
+    // those requests are left alone
+    getHeader(input, init, "Authorization")?.startsWith("DPoP ")
+  ) {
+    return response;
+  }
+  const headers = new Headers();
+  response.headers.forEach((value, name) => headers.append(name, value));
+  return new Response(await response.text(), {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+};
+
+function getHeader(
+  input: unknown,
+  init: RequestInit | undefined,
+  name: string,
+) {
+  if (init?.headers) return new Headers(init.headers).get(name);
+  return input instanceof Request ? input.headers.get(name) : null;
+}
+
 type SessionDeletedListener = (did: AtprotoDid, cause: unknown) => void;
 
 const deletedListeners = new Set<SessionDeletedListener>();
@@ -58,6 +103,7 @@ export function getOAuthClient() {
   if (!client) {
     client = new ExpoOAuthClient({
       handleResolver: "https://bsky.social",
+      fetch: oauthFetch,
       clientMetadata: buildOAuthClientMetadata(OAUTH_CLIENT_ID),
       onSessionDeleted(did, cause) {
         for (const listener of deletedListeners) {
