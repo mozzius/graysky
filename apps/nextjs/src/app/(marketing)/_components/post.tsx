@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  AppBskyFeedPost,
-  asPredicate,
-  type AppBskyFeedDefs,
-} from "@atproto/api";
+import { app } from "@bsky/sdk/lexicons";
 import { HeartIcon, MessageSquareIcon, RepeatIcon } from "lucide-react";
 
 interface Props {
-  data: AppBskyFeedDefs.PostView;
+  data: app.bsky.feed.defs.PostView;
 }
 
-const isPostRecord = asPredicate(AppBskyFeedPost.validateRecord);
+const isPostRecord = (record: unknown): record is app.bsky.feed.post.Main =>
+  app.bsky.feed.post.$matches(record, { strict: false });
 
 export const Post = ({ data: post }: Props) => {
   return (

@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
-import { type AppBskyNotificationRegisterPush } from "@atproto/api";
 import { DidResolver, MemoryCache } from "@atproto/identity";
 import { AuthRequiredError, verifyJwt } from "@atproto/xrpc-server";
+import { type app } from "@bsky/sdk/lexicons";
 
 import { db } from "@graysky/db";
 
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     if (aud !== SERVICE_DID) throw new AuthRequiredError("invalid audience");
 
     const body =
-      (await req.json()) as AppBskyNotificationRegisterPush.InputSchema;
+      (await req.json()) as app.bsky.notification.registerPush.$InputBody;
 
     if (body.platform === "ios" || body.platform === "android") {
       const platform = body.platform as "ios" | "android";

@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { type AppBskyFeedGetPosts } from "@atproto/api";
+import { type AtUriString } from "@atproto/lex";
+import { app } from "@bsky/sdk/lexicons";
 import Balancer from "react-wrap-balancer";
 
 import background from "~/assets/graysky.jpg";
+import { createPublicClient } from "~/lib/bsky";
 import { AppleBadge } from "./_components/apple-badge";
 import { EmailInput } from "./_components/email-input";
 import { Features } from "./_components/features";
@@ -106,7 +108,7 @@ export default async function LandingPage({
   );
 }
 
-const nicePostsUris = [
+const nicePostsUris: AtUriString[] = [
   // https://bsky.app/profile/thisfeedis.gay/post/3k7wqoxqcxk2f
   "at://did:plc:hpu7oaq76zlbzi4scasp47bz/app.bsky.feed.post/3k7wqoxqcxk2f",
   // https://bsky.app/profile/osc.ac/post/3k7wpjkkxee27
@@ -133,26 +135,9 @@ const nicePostsUris = [
 
 async function getNicePosts() {
   try {
-    const params = new URLSearchParams(
-      nicePostsUris.map((post) => ["uris", post]),
-    );
-
-    const res = await fetch(
-      "https://public.api.bsky.app/xrpc/app.bsky.feed.getPosts?" +
-        params.toString(),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (!res.ok) {
-      console.error(await res.text());
-      return [];
-    }
-
-    const data = (await res.json()) as AppBskyFeedGetPosts.OutputSchema;
+    const data = await createPublicClient().call(app.bsky.feed.getPosts, {
+      uris: nicePostsUris,
+    });
 
     return data.posts;
   } catch (err) {

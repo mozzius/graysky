@@ -1,4 +1,4 @@
-import  { type AppBskyEmbedExternal, type BlobRef } from "@atproto/api";
+import { type app } from "@bsky/sdk/lexicons";
 import { track } from "@vercel/analytics/server";
 import sharp from "sharp";
 import { z } from "zod";
@@ -73,13 +73,13 @@ export const gifsRouter = createTRPCRouter({
         },
       );
 
-      const blobRef = (await uploadRes.json()) as { blob: BlobRef };
+      const blobRef = (await uploadRes.json()) as { blob: JsonBlobRef };
 
       const title = input.description ?? "Tenor GIF";
       const description =
         "Posted from Graysky - get the app to view and post GIFs!";
 
-      const uri = `https://tenor.com/view/${input.id}`;
+      const uri = `https://tenor.com/view/${input.id}` as const;
 
       // const assetPath = new URL(input.assetUrl).pathname;
 
@@ -101,17 +101,18 @@ export const gifsRouter = createTRPCRouter({
             title,
             description,
           },
-        } satisfies AppBskyEmbedExternal.View,
+        } satisfies app.bsky.embed.external.View,
         main: {
-          $type: "app.bsky.embed.external",
+          $type: "app.bsky.embed.external" as const,
           external: {
-            $type: "app.bsky.embed.external#external",
+            $type: "app.bsky.embed.external#external" as const,
             uri,
             title,
             description,
+            // json encoded - the app decodes this with `lexParse`
             thumb: blobRef.blob,
           },
-        } satisfies AppBskyEmbedExternal.Main,
+        },
       };
     }),
   tenor: createTRPCRouter({
@@ -207,6 +208,16 @@ export const gifsRouter = createTRPCRouter({
       }),
   }),
 });
+
+/**
+ * the json (wire) encoding of a blob ref, as returned by uploadBlob
+ */
+interface JsonBlobRef {
+  $type: "blob";
+  ref: { $link: string };
+  mimeType: string;
+  size: number;
+}
 
 // tenor response types
 
