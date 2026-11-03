@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   KeyboardAwareScrollView,
   KeyboardStickyView,
@@ -131,22 +131,23 @@ export default function SignIn() {
               </Text>
             </View>
           </View>
-          <Text className="text-center text-neutral-500">
-            <Trans>
-              Don{"'"}t have an account?{" "}
-              <Text
-                primary
-                className="font-medium"
-                accessibilityRole="link"
-                onPress={() => {
-                  if (login.isPending) return;
-                  login.mutate({ input: SIGN_UP_PDS, create: true });
-                }}
-              >
-                Create one
+          {/* not a link nested in the sentence - presses on nested text
+              didn't register */}
+          <View className="flex-row flex-wrap items-center justify-center">
+            <Text className="text-neutral-500">
+              <Trans>Don{"'"}t have an account?</Trans>{" "}
+            </Text>
+            <TouchableOpacity
+              accessibilityRole="link"
+              hitSlop={12}
+              disabled={login.isPending}
+              onPress={() => login.mutate({ input: SIGN_UP_PDS, create: true })}
+            >
+              <Text primary className="font-medium">
+                <Trans>Create one</Trans>
               </Text>
-            </Trans>
-          </Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAwareScrollView>
       </TransparentHeaderUntilScrolled>
       <KeyboardStickyView
