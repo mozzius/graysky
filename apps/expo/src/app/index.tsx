@@ -9,7 +9,12 @@ import { Trans } from "@lingui/react/macro";
 
 import { LinkButton } from "~/components/button";
 import { StatusBar } from "~/components/status-bar";
-import { getReauthDid, type SavedSession } from "~/lib/session";
+import {
+  clearReauthDid,
+  getReauthDid,
+  getSavedSessions,
+  type SavedSession,
+} from "~/lib/session";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const background = require("../../assets/graysky.jpg") as ImageSource;
@@ -23,6 +28,13 @@ export default function LandingPage() {
   useEffect(() => {
     const did = getReauthDid();
     if (!did) return;
+    // not needed if the account already has an oauth session it can restore
+    // (it's not marked as signed out), or if it's been removed
+    const account = getSavedSessions().find((s) => s.did === did);
+    if (!account?.signedOut) {
+      clearReauthDid();
+      return;
+    }
     const timeout = setTimeout(() => {
       router.push(`/reauth?did=${encodeURIComponent(did)}`);
     });

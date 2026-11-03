@@ -47,6 +47,7 @@ import {
 import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import {
+  clearReauthDid,
   getActiveDid,
   getSavedSessions,
   markSignedOut,
@@ -89,6 +90,12 @@ const useSentryTracing = () => {
 void SplashScreen.preventAutoHideAsync();
 
 initializeI18n();
+
+// password sessions from older versions get signed out here, and the landing
+// page shows the "sign in again" screen. this runs before the first render
+// because the landing page checks for that when it mounts, and its effects run
+// before the root layout's
+migrateLegacySessions();
 
 interface ActiveSession {
   session: OAuthSession;
@@ -206,6 +213,8 @@ const App = () => {
 
       currentSessionRef.current = { session, client };
       setActiveDid(session.did);
+      // signed in with oauth, so the "sign in again" screen isn't needed
+      clearReauthDid();
       setAuth({ session, client, info });
       void saveAccount(session.did, client);
     },
@@ -297,10 +306,6 @@ const App = () => {
   useEffect(() => {
     if (resumingRef.current) return;
     resumingRef.current = true;
-
-    // password sessions from older versions get signed out here, and the
-    // landing page shows the "sign in again" screen
-    migrateLegacySessions();
 
     const did = getActiveDid();
     if (did) {
