@@ -1,7 +1,6 @@
 import { useCallback } from "react";
-import { ActivityIndicator, Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { useTheme } from "expo-router/react-navigation";
 import {
   currentDatetimeString,
   type AtIdentifierString,
@@ -14,9 +13,8 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckIcon, ListPlusIcon, PlusIcon } from "lucide-react-native";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form, type FormLinkRow } from "~/components/form";
 import { QueryWithoutData } from "~/components/query-without-data";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
@@ -28,7 +26,6 @@ export default function AddToListScreen() {
   const { handle } = useLocalSearchParams<{ handle: string }>();
   const router = useRouter();
   const agent = useAgent();
-  const theme = useTheme();
   const { _ } = useLingui();
 
   const profile = useQuery({
@@ -71,7 +68,7 @@ export default function AddToListScreen() {
   const { mutate: removeFromList } = useListMembershipRemoveMutation();
 
   const renderList = useCallback(
-    (list: app.bsky.graph.defs.ListView) => ({
+    (list: app.bsky.graph.defs.ListView): FormLinkRow => ({
       title: list.name,
       onPress: () => {
         const membership = getMembership(
@@ -92,23 +89,13 @@ export default function AddToListScreen() {
           });
         }
       },
-      action: members.data ? (
-        getMembership(members.data, list.uri, profile.data?.did) ? (
-          <CheckIcon size={24} color={theme.colors.primary} />
-        ) : (
-          <PlusIcon size={24} color={theme.colors.primary} />
-        )
-      ) : (
-        <ActivityIndicator size="small" />
-      ),
+      ...(members.data
+        ? getMembership(members.data, list.uri, profile.data?.did)
+          ? { selected: true }
+          : { accessory: "plus" as const }
+        : { accessory: "loading" as const }),
     }),
-    [
-      members.data,
-      profile.data?.did,
-      theme.colors.primary,
-      removeFromList,
-      addToList,
-    ],
+    [members.data, profile.data?.did, removeFromList, addToList],
   );
 
   if (!handle) return <Redirect href="../" />;
@@ -146,31 +133,45 @@ export default function AddToListScreen() {
           }}
         />
         <TransparentHeaderUntilScrolled>
-          <GroupedList
-            groups={[
+          <Form
+            sections={[
               {
                 title: _(msg`Add to user list`),
-                options: userLists?.map(renderList),
-                children: userLists?.length === 0 && (
-                  <Text className="my-3 text-center text-base text-neutral-500">
-                    You don{"'"}t have any user lists yet.
-                  </Text>
-                ),
+                rows: [
+                  userLists?.length === 0 && {
+                    type: "custom",
+                    key: "empty",
+                    children: (
+                      <Text className="my-3 text-center text-base text-neutral-500">
+                        You don{"'"}t have any user lists yet.
+                      </Text>
+                    ),
+                  },
+                  ...(userLists?.map(renderList) ?? []),
+                ],
               },
               {
                 title: _(msg`Add to moderation list`),
-                options: moderationLists?.map(renderList),
-                children: moderationLists?.length === 0 && (
-                  <Text className="my-3 text-center text-base text-neutral-500">
-                    <Trans>You don{"'"}t have any moderation lists yet.</Trans>
-                  </Text>
-                ),
+                rows: [
+                  moderationLists?.length === 0 && {
+                    type: "custom",
+                    key: "empty",
+                    children: (
+                      <Text className="my-3 text-center text-base text-neutral-500">
+                        <Trans>
+                          You don{"'"}t have any moderation lists yet.
+                        </Trans>
+                      </Text>
+                    ),
+                  },
+                  ...(moderationLists?.map(renderList) ?? []),
+                ],
               },
               {
                 title: _(msg`Need a new list?`),
-                options: [
+                rows: [
                   {
-                    icon: ListPlusIcon,
+                    icon: "list-plus",
                     title: _(msg`Create new list`),
                     href: "/create-list",
                   },

@@ -3,7 +3,7 @@ import { Redirect } from "expo-router";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
-import { GroupedList } from "~/components/grouped-list";
+import { Form } from "~/components/form";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { store } from "~/lib/storage/storage";
 import {
@@ -21,11 +21,17 @@ export default function ResumeSession() {
 
   return (
     <TransparentHeaderUntilScrolled>
-      <GroupedList
-        groups={[
+      <Form
+        sections={[
           {
             title: _(msg`Log back in`),
-            children: <SwitchAccounts chevrons showAddAccount />,
+            rows: [
+              {
+                type: "custom",
+                key: "accounts",
+                children: <SwitchAccounts chevrons showAddAccount />,
+              },
+            ],
           },
         ]}
       />
