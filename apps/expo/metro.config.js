@@ -56,10 +56,29 @@ if (config.resolver) {
   };
 }
 
+// core-js (pulled in by @atproto/oauth-client-expo) depends on its modules
+// running in order. with inline requires, internals/inspect-source runs after
+// make-built-in has replaced Function.prototype.toString, captures the
+// replacement, and the two call each other until the stack overflows
+const listFiles = (dir) =>
+  require("fs")
+    .readdirSync(dir, { withFileTypes: true })
+    .flatMap((entry) => {
+      const file = path.join(dir, entry.name);
+      if (entry.isDirectory()) return listFiles(file);
+      return entry.name.endsWith(".js") ? [file] : [];
+    });
+const coreJsDir = path.dirname(
+  require.resolve("core-js/package.json", { paths: [projectRoot] }),
+);
+const inlineRequiresBlockList = Object.fromEntries(
+  listFiles(coreJsDir).map((file) => [file, true]),
+);
+
 // inline requires for better performance
 config.transformer.getTransformOptions = async () => ({
   transform: {
-    inlineRequires: true,
+    inlineRequires: { blockList: inlineRequiresBlockList },
   },
 });
 
