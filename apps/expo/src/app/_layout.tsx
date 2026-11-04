@@ -412,7 +412,9 @@ const App = () => {
                               name="(auth)"
                               options={{
                                 headerShown: false,
-                                presentation: "formSheet",
+                                presentation: Platform.select({
+                                  ios: "formSheet",
+                                }),
                                 contentStyle: {
                                   height: "100%",
                                 },

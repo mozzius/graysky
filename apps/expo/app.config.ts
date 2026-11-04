@@ -114,6 +114,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
       },
     ],
     "expo-localization",
+    "react-native-bottom-tabs",
     [
       "@sentry/react-native/expo",
       {
