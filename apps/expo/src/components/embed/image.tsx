@@ -1,6 +1,7 @@
 import { useEffect, useId } from "react";
 import {
   Alert,
+  Platform,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -170,7 +171,7 @@ interface ImageProps {
   depth: number;
   index?: number;
   className?: string;
-  style?: ImageStyle | ImageStyle[];
+  style?: ImageStyle;
   useCappedAspectRatio?: boolean;
 }
 
@@ -185,20 +186,25 @@ const Image = ({
 }: ImageProps) => {
   const tag = useId();
   const link = `${href}?initial=${index}&tag=${tag}`;
+  const content = (
+    <ImageWithContextMenu
+      tag={tag}
+      image={image}
+      depth={depth}
+      className={className}
+      imageStyle={style}
+      useCappedAspectRatio={useCappedAspectRatio}
+    />
+  );
   return (
     <Link href={link} asChild>
       <TouchableWithoutFeedback accessibilityRole="image">
-        {/* ios zooms the lightbox out of the image. no-op on android */}
-        <Link.AppleZoom>
-          <ImageWithContextMenu
-            tag={tag}
-            image={image}
-            depth={depth}
-            className={className}
-            style={style}
-            useCappedAspectRatio={useCappedAspectRatio}
-          />
-        </Link.AppleZoom>
+        {Platform.OS === "ios" ? (
+          // zooms the lightbox out of the image
+          <Link.AppleZoom>{content}</Link.AppleZoom>
+        ) : (
+          content
+        )}
       </TouchableWithoutFeedback>
     </Link>
   );

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
-import { toast } from "sonner-native";
 import * as Clipboard from "expo-clipboard";
 import * as FileSystem from "expo-file-system/legacy";
 import { Image, type ImageStyle } from "expo-image";
@@ -13,6 +12,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CopyIcon, SaveIcon, Share2Icon } from "lucide-react-native";
+import { toast } from "sonner-native";
 
 import { ContextMenu, type MenuIcon } from "~/components/menu";
 
@@ -22,7 +22,13 @@ interface Props {
   image: app.bsky.embed.images.ViewImage;
   depth: number;
   className?: string;
+  /** styles from `className`, filled in by nativewind */
   style?: ImageStyle | ImageStyle[];
+  /**
+   * extra styles. not `style`, because expo-router's Slot (used by
+   * Link.AppleZoom) throws in dev if its child gets an array `style` prop
+   */
+  imageStyle?: ImageStyle;
   useCappedAspectRatio?: boolean;
   tag?: string;
 }
@@ -33,6 +39,7 @@ export const ImageWithContextMenu = ({
   className: _,
   useCappedAspectRatio,
   style,
+  imageStyle: extraStyle,
   // tag,
   ...props
 }: Props) => {
@@ -43,9 +50,11 @@ export const ImageWithContextMenu = ({
 
   const cappedAspectRatio = Math.max(depth === 0 ? 0.66 : 2, aspectRatio);
 
-  const imageStyle = useCappedAspectRatio
-    ? [{ aspectRatio: cappedAspectRatio }, style]
-    : style;
+  const imageStyle = [
+    useCappedAspectRatio && { aspectRatio: cappedAspectRatio },
+    style,
+    extraStyle,
+  ];
 
   const queryClient = useQueryClient();
 
@@ -179,7 +188,9 @@ export const useImageOptions = () => {
           });
         } catch (err) {
           console.error(err);
-          toast.error(_(msg`An error occurred while trying to share the image`));
+          toast.error(
+            _(msg`An error occurred while trying to share the image`),
+          );
         }
       },
       icon: "square.and.arrow.up",
