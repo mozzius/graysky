@@ -25,12 +25,12 @@ msgid "{0} @{1}"
 msgstr "{0} @{1}"
 
 #. placeholder {0}: monthlyProduct.priceString
-#: src/app/pro.tsx:220
+#: src/app/pro.tsx:218
 msgid "{0} / month"
 msgstr "{0} / місяць"
 
 #. placeholder {0}: annualProduct.priceString
-#: src/app/pro.tsx:253
+#: src/app/pro.tsx:251
 msgid "{0} / year"
 msgstr "{0} / рік"
 
@@ -78,7 +78,7 @@ msgstr "{minutes} хвилин тому"
 msgid "{minutes}m"
 msgstr "{minutes} хв"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:181
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:179
 msgid "{modeName} feed for #{decodedTag} is empty"
 msgstr "{modeName} стрічка #{decodedTag} порожня"
 
@@ -90,18 +90,18 @@ msgstr "{months} місяців тому"
 msgid "{months}M"
 msgstr "{months} міс"
 
-#: src/components/feed-row.tsx:103
+#: src/components/feed-row.tsx:101
 msgid "{name} feed"
 msgstr "Стрічка {name}"
 
 #. placeholder {0}: feed.creator.handle
 #. placeholder {1}: sketchyIsGeneratorView(feed) ? (feed.likeCount ?? 0) : 0
-#: src/components/feed-row.tsx:100
+#: src/components/feed-row.tsx:98
 msgid "{name} feed by @{0}, {1} likes"
 msgstr "Стрічка {name} від @{0}, {1} уподобань"
 
 #. placeholder {0}: feed.creator.handle
-#: src/components/feed-row.tsx:102
+#: src/components/feed-row.tsx:100
 msgid "{name} list by @{0}"
 msgstr "Список {name} від @{0}"
 
@@ -121,15 +121,15 @@ msgstr "{years} років тому"
 msgid "{years}y"
 msgstr "{years} р"
 
-#: src/lib/account-actions.ts:97
+#: src/lib/account-actions.ts:102
 msgid "@{handle} has been blocked"
 msgstr "@{handle} був заблокований"
 
-#: src/lib/account-actions.ts:143
+#: src/lib/account-actions.ts:141
 msgid "@{handle} has been unblocked"
 msgstr "@{handle} був розблокований"
 
-#: src/lib/account-actions.ts:54
+#: src/lib/account-actions.ts:63
 msgid "@{handle} is no longer muted"
 msgstr "@{handle} більше не ігнорується"
 
@@ -141,19 +141,19 @@ msgstr "@{handle} більше не ігнорується"
 #. placeholder {0}: profile.followersCount
 #. placeholder {0}: self.followersCount
 #: src/components/drawer/actor-details.tsx:49
-#: src/components/screens/profile/profile-info.tsx:446
+#: src/components/screens/profile/profile-info.tsx:447
 msgid "<0>{0}</0> Followers"
 msgstr "<0>{0}</0> підписників"
 
 #. placeholder {0}: profile.followsCount
 #. placeholder {0}: self.followsCount
 #: src/components/drawer/actor-details.tsx:56
-#: src/components/screens/profile/profile-info.tsx:457
+#: src/components/screens/profile/profile-info.tsx:458
 msgid "<0>{0}</0> Following"
 msgstr "<0>{0}</0> підписок"
 
 #. placeholder {0}: profile.postsCount ?? 0
-#: src/components/screens/profile/profile-info.tsx:465
+#: src/components/screens/profile/profile-info.tsx:466
 msgid "<0>{0}</0> Posts"
 msgstr "<0>{0}</0> дописів"
 
@@ -165,7 +165,7 @@ msgid "<0>{4}</0><1>{5}</1>"
 msgstr ""
 
 #. be very careful not to leave spaces between the elements
-#: src/app/capture/[author]/[post].tsx:118
+#: src/app/capture/[author]/[post].tsx:128
 msgid "<0>a bluesky post, via</0><1/><2>graysky.app</2>"
 msgstr "<0>допис bluesky, через</0><1/><2>graysky.app</2>"
 
@@ -209,12 +209,12 @@ msgstr "1 рік тому"
 #~ msgid "A code has been sent to {phone}. <0>Change phone number.</0>"
 #~ msgstr ""
 
-#: src/app/settings/_layout.tsx:130
+#: src/app/settings/_layout.tsx:118
 #: src/lib/quick-actions.ts:65
 msgid "About"
 msgstr "Про програму"
 
-#: src/app/settings/index.tsx:85
+#: src/app/settings/index.tsx:86
 msgid "About Graysky"
 msgstr "Про Graysky"
 
@@ -226,40 +226,44 @@ msgstr "Колір акценту"
 msgid "Accessibility"
 msgstr "Спеціальні можливості"
 
-#: src/app/settings/index.tsx:43
+#: src/app/settings/index.tsx:44
 msgid "Account"
 msgstr "Обліковий запис"
 
 #: src/app/settings/account/delete-account.tsx:227
-msgid "Account deleted. Goodbye!"
-msgstr "Обліковий запис видалено. До побачення!"
+#~ msgid "Account deleted. Goodbye!"
+#~ msgstr "Обліковий запис видалено. До побачення!"
 
-#: src/app/settings/account/index.tsx:28
+#: src/app/settings/account/index.tsx:40
 msgid "Account Details"
 msgstr "Деталі облікового запису"
+
+#: src/app/settings/account/index.tsx:64
+msgid "Account Management"
+msgstr ""
 
 #: src/app/settings/_layout.tsx:76
 msgid "Account Settings"
 msgstr "Налаштування облікового запису"
 
 #. placeholder {0}: profile.data.displayName ?? `@${profile.data.handle}`
-#: src/app/add-to-list/[handle].tsx:125
+#: src/app/add-to-list/[handle].tsx:130
 msgid "Add {0} to List"
 msgstr "Додати {0} до списку"
 
-#: src/app/composer/index.tsx:715
+#: src/app/composer/index.tsx:711
 msgid "Add a content warning"
 msgstr "Додати попередження про вміст"
 
-#: src/lib/composer/alt-text-editor.tsx:156
+#: src/lib/composer/alt-text-editor.tsx:155
 msgid "Add a description to the image. Good alt text is concise yet detailed. Make sure to write out any text in the image itself."
 msgstr "Додайте опис до зображення. Гарний опис стислий, але водночас зрозумілий. Не забудьте додати будь-який текст, який присутній на самому зображенні."
 
-#: src/components/switch-accounts.tsx:173
+#: src/components/switch-accounts.tsx:163
 msgid "Add another account"
 msgstr "Додати інший обліковий запис"
 
-#: src/app/composer/index.tsx:625
+#: src/app/composer/index.tsx:621
 msgid "Add embed for <0>{potential}</0>"
 msgstr "Додати вставку для <0>{potential}</0>"
 
@@ -267,27 +271,27 @@ msgstr "Додати вставку для <0>{potential}</0>"
 msgid "Add image"
 msgstr "Зображення"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:297
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:303
 msgid "Add to favourites"
 msgstr "Додати в улюблене"
 
-#: src/components/screens/profile/profile-info.tsx:706
+#: src/components/screens/profile/profile-info.tsx:711
 msgid "Add to list"
 msgstr "Додати до списку"
 
-#: src/app/_layout.tsx:432
+#: src/app/_layout.tsx:538
 msgid "Add to List"
 msgstr "Додати до списку"
 
-#: src/app/add-to-list/[handle].tsx:156
+#: src/app/add-to-list/[handle].tsx:161
 msgid "Add to moderation list"
 msgstr "Додати до списку модерації"
 
-#: src/app/add-to-list/[handle].tsx:147
+#: src/app/add-to-list/[handle].tsx:152
 msgid "Add to user list"
 msgstr "Додати до списку користувачів"
 
-#: src/app/composer/index.tsx:235
+#: src/app/composer/index.tsx:231
 msgid "Adding a description to your image makes Bluesky more accessible to people with disabilities, and helps give context to everyone. We strongly recommend adding alt text to all images."
 msgstr "Додавання опису до зображення робить Bluesky більш доступним для людей з обмеженими можливостями та допомагає надати контекст для всіх. Ми наполегливо рекомендуємо додавати альтернативний текст до всіх зображень."
 
@@ -296,11 +300,11 @@ msgid "Adult content"
 msgstr "Вміст для дорослих"
 
 #: src/app/settings/account/index.tsx:52
-msgid "Advanced Settings"
-msgstr "Додаткові налаштування"
+#~ msgid "Advanced Settings"
+#~ msgstr "Додаткові налаштування"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:185
-#: src/components/feeds-button.tsx:208
+#: src/components/feeds-button.tsx:245
 msgid "All feeds"
 msgstr "Всі стрічки"
 
@@ -312,50 +316,49 @@ msgstr "Всі мови"
 msgid "Allows you to manually sort non-favourite feeds in the feeds tab"
 msgstr "Дозволяє вручну сортувати неулюблені стрічки на вкладці \"Стрічки\""
 
-#: src/app/composer/index.tsx:501
+#: src/app/composer/index.tsx:497
 msgid "Alt"
 msgstr "Alt"
 
-#: src/components/image-viewer.tsx:159
+#: src/components/image-viewer.tsx:153
 msgid "ALT"
 msgstr "ALT"
 
-#: src/components/embed/image.tsx:217
+#: src/components/embed/image.tsx:226
 msgid "ALT text"
 msgstr "ALT текст"
 
-#: src/components/image-viewer.tsx:190
+#: src/components/image-viewer.tsx:184
 msgid "ALT Text"
 msgstr "ALT текст"
 
 #: src/components/error-boundary.tsx:22
 #: src/components/query-without-data.tsx:34
-#: src/components/screens/change-password-flow.tsx:79
 #: src/components/translation.tsx:166
 msgid "An error occurred"
 msgstr "Сталася помилка"
 
-#: src/components/image-with-context-menu.tsx:141
+#: src/components/image-with-context-menu.tsx:146
 msgid "An error occurred while trying to copy the image"
 msgstr "Сталася помилка при спробі копіювання зображення"
 
-#: src/components/image-with-context-menu.tsx:173
+#: src/components/image-with-context-menu.tsx:170
 msgid "An error occurred while trying to save the image"
 msgstr "Сталася помилка при спробі збереження зображення"
 
-#: src/components/image-with-context-menu.tsx:197
+#: src/components/image-with-context-menu.tsx:192
 msgid "An error occurred while trying to share the image"
 msgstr "Сталася помилка при спробі поширення зображення"
 
-#: src/app/composer/index.tsx:345
+#: src/app/composer/index.tsx:341
 msgid "An unknown error occurred"
 msgstr "Сталася невідома помилка"
 
-#: src/app/settings/account/change-handle.tsx:59
+#: src/app/settings/account/change-handle.tsx:65
 msgid "An unknown error occurred."
 msgstr "Сталася невідома помилка."
 
-#: src/app/pro.tsx:235
+#: src/app/pro.tsx:233
 msgid "Annual Plan"
 msgstr "Річна підписка"
 
@@ -373,186 +376,183 @@ msgid "App language"
 msgstr "Мова застосунку"
 
 #: src/app/(auth)/sign-in.tsx:103
-msgid "App Password"
-msgstr "Пароль застосунку"
+#~ msgid "App Password"
+#~ msgstr "Пароль застосунку"
 
 #: src/app/(auth)/sign-in.tsx:137
-msgid "App Passwords"
-msgstr "Паролі застосунку"
+#~ msgid "App Passwords"
+#~ msgstr "Паролі застосунку"
 
-#: src/app/settings/index.tsx:63
+#: src/app/settings/index.tsx:64
 msgid "App settings"
 msgstr "Налаштування застосунку"
 
-#: src/app/settings/_layout.tsx:118
+#: src/app/settings/_layout.tsx:106
 msgid "App Settings"
 msgstr "Налаштування застосунку"
 
-#: src/lib/account-actions.ts:71
+#: src/lib/account-actions.ts:80
 msgid "Are you sure you want to block @{handle}?"
 msgstr "Ви впевнені, що хочете заблокувати @{handle}?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:330
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:336
 msgid "Are you sure you want to delete this list?"
 msgstr "Ви впевнені, що хочете видалити цей список?"
 
-#: src/components/post-context-menu.tsx:89
+#: src/components/post-context-menu.tsx:88
 msgid "Are you sure you want to delete this post?"
 msgstr "Ви впевнені, що хочете видалити цей допис?"
 
-#: src/lib/account-actions.ts:117
+#: src/lib/account-actions.ts:122
 msgid "Are you sure you want to unblock @{handle}?"
 msgstr "Ви впевнені, що хочете розблокувати @{handle}?"
 
-#: src/components/handle-availability.tsx:61
+#: src/components/handle-availability.tsx:65
 msgid "Available"
 msgstr "Доступно"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:122
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:427
-#: src/app/settings/account/delete-account.tsx:204
-#: src/components/screens/change-password-flow.tsx:202
-#: src/components/screens/profile/profile-info.tsx:300
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:129
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:433
+#: src/components/screens/profile/profile-info.tsx:296
 msgid "Back"
 msgstr "Назад"
 
-#: src/app/pro.tsx:110
+#: src/app/pro.tsx:108
 msgid "Better translations"
 msgstr "Кращі переклади"
 
-#: src/app/pro.tsx:257
+#: src/app/pro.tsx:255
 msgid "Billed annually, cancel anytime"
 msgstr "Оплачуйте щорічно, скасуйте у будь-який час"
 
-#: src/app/pro.tsx:224
+#: src/app/pro.tsx:222
 msgid "Billed monthly, cancel anytime"
 msgstr "Оплачуйте щомісяця, скасуйте у будь-який час"
 
-#: src/lib/account-actions.ts:70
-#: src/lib/account-actions.ts:78
+#: src/lib/account-actions.ts:79
+#: src/lib/account-actions.ts:87
 msgid "Block"
 msgstr "Заблокувати"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:225
 msgid "Block all members"
 msgstr "Заблокувати всіх учасників"
 
 #: src/components/post-context-menu.tsx:247
-#: src/components/screens/profile/profile-info.tsx:729
+#: src/components/screens/profile/profile-info.tsx:734
 msgid "Block user"
 msgstr "Заблокувати користувача"
 
-#: src/lib/account-actions.ts:96
+#: src/lib/account-actions.ts:101
 msgid "Blocked"
 msgstr "Заблоковано"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:385
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:388
 msgid "Blocked post"
 msgstr "Заблокований допис"
 
-#: src/app/settings/moderation.tsx:116
+#: src/app/settings/moderation.tsx:122
 msgid "Blocked users"
 msgstr "Заблоковані користувачі"
 
-#: src/app/settings/_layout.tsx:106
+#: src/app/settings/_layout.tsx:94
 msgid "Blocked Users"
 msgstr "Заблоковані користувачі"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:296
 msgid "Blocking list"
 msgstr "Список блокувань"
 
-#: src/app/settings/moderation.tsx:113
+#: src/app/settings/moderation.tsx:119
 msgid "Blocks & Mutes"
 msgstr "Блокування та ігнорування"
 
-#: src/app/settings/account/change-handle.tsx:88
+#: src/app/settings/account/change-handle.tsx:98
 msgid "bsky.social domain"
 msgstr "домен bsky.social"
 
 #. placeholder {0}: info.creator.handle
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:469
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:475
 msgid "by @{0}"
 msgstr "від @{0}"
 
 #. placeholder {0}: feed.creator.handle
 #. placeholder {0}: info.view.creator.handle
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:156
-#: src/app/settings/feed.tsx:195
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:159
+#: src/app/settings/feed.tsx:200
 msgid "By @{0}"
 msgstr "Від @{0}"
 
 #: src/app/settings/account/delete-account.tsx:116
-msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
-msgstr "Натискаючи \"Підтвердити\", ви розумієте, що повністю видаляєте ваш обліковий запис Bluesky, а не тільки дані з Graysky. Ваші дані також будуть назавжди видалені з офіційного застосунку."
+#~ msgid "By pressing confirm, you understand that this is your actual Bluesky social account you will be deleting, and it is nothing to do with Graysky. Your data will be permanently deleted from the official app too."
+#~ msgstr "Натискаючи \"Підтвердити\", ви розумієте, що повністю видаляєте ваш обліковий запис Bluesky, а не тільки дані з Graysky. Ваші дані також будуть назавжди видалені з офіційного застосунку."
 
-#: src/app/pro.tsx:316
+#: src/app/pro.tsx:314
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0> and <1>Privacy Policy</1>. Subscriptions renew automatically until cancelled."
 msgstr "Підписуючись, ви погоджуєтеся з нашими <0>Умовами та положеннями</0> та <1>Політикою конфіденційності</1>. Підписка поновлюється автоматично, поки не буде скасована."
 
-#: src/app/pro.tsx:281
+#: src/app/pro.tsx:279
 msgid "By subscribing, you agree to our <0>Terms and Conditions</0>, the <1>Terms of Use (EULA)</1>, and our <2>Privacy Policy</2>. Subscriptions renew automatically until cancelled."
 msgstr "Підписуючись, ви погоджуєтеся з нашими <0>Умовами та положеннями</0>, <1>Умовами використання (EULA)</1> та <2>Політикою конфіденційності</2>. Підписка поновлюється автоматично, доки її не буде скасовано."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:194
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:224
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:333
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:395
-#: src/app/capture/[author]/[post].tsx:172
-#: src/app/create-list.tsx:71
-#: src/app/create-list.tsx:138
-#: src/app/edit-bio.tsx:127
-#: src/app/settings/account/delete-account.tsx:120
-#: src/components/drawer/drawer-content.tsx:59
-#: src/components/feed-row.tsx:297
-#: src/components/post-context-menu.tsx:92
-#: src/lib/account-actions.ts:74
-#: src/lib/account-actions.ts:120
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:200
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:230
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:324
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:339
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:401
+#: src/app/capture/[author]/[post].tsx:182
+#: src/app/create-list.tsx:73
+#: src/app/create-list.tsx:135
+#: src/app/edit-bio.tsx:128
+#: src/components/drawer/drawer-content.tsx:58
+#: src/components/feed-row.tsx:296
+#: src/components/post-context-menu.tsx:91
+#: src/lib/account-actions.ts:83
+#: src/lib/account-actions.ts:125
 #: src/lib/composer/buttons.tsx:120
 #: src/lib/composer/buttons.tsx:165
 #: src/lib/composer/buttons.tsx:176
 #: src/lib/hooks/link-press.tsx:40
-#: src/lib/hooks/link-press.tsx:102
-#: src/lib/hooks/post-actions.tsx:142
+#: src/lib/hooks/link-press.tsx:100
+#: src/lib/hooks/post-actions.tsx:149
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/app/settings/_layout.tsx:82
-#: src/app/settings/account/index.tsx:45
+#: src/app/settings/account/index.tsx:57
 msgid "Change Handle"
 msgstr "Змінити псевдонім"
 
 #: src/app/settings/_layout.tsx:88
 #: src/app/settings/account/index.tsx:55
-msgid "Change Password"
-msgstr "Змінити пароль"
+#~ msgid "Change Password"
+#~ msgstr "Змінити пароль"
 
 #: src/lib/composer/keyboard-accessory.tsx:103
 msgid "Change post language"
 msgstr "Змінити мову допису"
 
-#: src/app/pro.tsx:123
+#: src/app/pro.tsx:121
 msgid "Change the accent colour"
 msgstr "Змінити колір акценту"
 
-#: src/components/drawer/drawer-content.tsx:74
-#: src/components/drawer/drawer-content.tsx:198
-#: src/components/drawer/drawer-content.tsx:204
+#: src/components/drawer/drawer-content.tsx:73
+#: src/components/drawer/drawer-content.tsx:150
+#: src/components/drawer/drawer-content.tsx:156
 msgid "Change theme"
 msgstr "Змінити тему"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:311
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:363
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:317
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:369
 msgid "Change to moderation list"
 msgstr "Перетворити на список модерації"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:312
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:354
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:318
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:360
 msgid "Change to user list"
 msgstr "Перетворити на список користувачів"
 
-#: src/app/settings/account/change-handle.tsx:103
+#: src/app/settings/account/change-handle.tsx:113
 msgid "Choose a handle"
 msgstr "Обрати псевдонім"
 
@@ -560,20 +560,20 @@ msgstr "Обрати псевдонім"
 msgid "Choose from Library"
 msgstr "Обрати з бібліотеки"
 
-#: src/app/pro.tsx:128
+#: src/app/pro.tsx:126
 msgid "Circle graph"
 msgstr "Круговий графік"
 
-#: src/app/(auth)/_layout.tsx:24
-#: src/app/add-to-list/[handle].tsx:135
-#: src/app/capture/[author]/[post].tsx:163
-#: src/app/circle.tsx:188
+#: src/app/(auth)/_layout.tsx:37
+#: src/app/add-to-list/[handle].tsx:140
+#: src/app/capture/[author]/[post].tsx:173
+#: src/app/circle.tsx:189
 #: src/app/composer/_layout.tsx:64
-#: src/app/composer/index.tsx:284
-#: src/app/composer/index.tsx:293
-#: src/app/create-list.tsx:156
-#: src/app/discover.tsx:127
-#: src/app/pro.tsx:167
+#: src/app/composer/index.tsx:280
+#: src/app/composer/index.tsx:289
+#: src/app/create-list.tsx:153
+#: src/app/discover.tsx:125
+#: src/app/pro.tsx:165
 #: src/app/settings/_layout.tsx:34
 msgid "Close"
 msgstr ""
@@ -583,14 +583,14 @@ msgid "Close image modal"
 msgstr "Закрити модальне зображення"
 
 #: src/app/settings/account/delete-account.tsx:124
-msgid "Confirm and continue"
-msgstr "Підтвердити та продовжити"
+#~ msgid "Confirm and continue"
+#~ msgstr "Підтвердити та продовжити"
 
 #: src/components/screens/change-password-flow.tsx:175
-msgid "Confirm Password"
-msgstr "Підтвердити пароль"
+#~ msgid "Confirm Password"
+#~ msgstr "Підтвердити пароль"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:41
+#: src/app/(tabs)/(feeds,search,notifications,self)/_layout.tsx:32
 msgid "Connecting..."
 msgstr "З'єднання..."
 
@@ -598,11 +598,11 @@ msgstr "З'єднання..."
 msgid "Contact"
 msgstr "Контактувати"
 
-#: src/app/settings/moderation.tsx:128
+#: src/app/settings/moderation.tsx:134
 msgid "Content filters"
 msgstr "Фільтри вмісту"
 
-#: src/app/settings/_layout.tsx:148
+#: src/app/settings/_layout.tsx:136
 msgid "Content Languages"
 msgstr "Мови вмісту"
 
@@ -610,28 +610,37 @@ msgstr "Мови вмісту"
 msgid "Content Warning"
 msgstr "Попередження про вміст"
 
+#: src/app/(auth)/sign-in.tsx:161
+msgid "Continue"
+msgstr ""
+
+#. placeholder {0}: account.handle
+#: src/app/(auth)/reauth.tsx:88
+msgid "Continue as @{0}"
+msgstr ""
+
 #: src/app/settings/about.tsx:76
 msgid "Contributors"
 msgstr "Зробили внесок"
 
-#: src/components/image-with-context-menu.tsx:135
+#: src/components/image-with-context-menu.tsx:143
 msgid "Copied image to clipboard"
 msgstr "Зображення скопійоване в буфер"
 
 #: src/components/post-context-menu.tsx:70
-#: src/lib/hooks/link-press.tsx:119
+#: src/lib/hooks/link-press.tsx:116
 msgid "Copied link"
 msgstr "Скопійоване посилання"
 
-#: src/components/post-context-menu.tsx:81
+#: src/components/post-context-menu.tsx:80
 msgid "Copied post text"
 msgstr "Скопійований текст допису"
 
-#: src/components/image-with-context-menu.tsx:125
+#: src/components/image-with-context-menu.tsx:134
 msgid "Copy Image"
 msgstr "Копіювати зображення"
 
-#: src/lib/hooks/link-press.tsx:90
+#: src/lib/hooks/link-press.tsx:88
 msgid "Copy link"
 msgstr "Копіювати посилання"
 
@@ -643,59 +652,63 @@ msgstr "Копіювати посилання на допис"
 msgid "Copy post text"
 msgstr "Копіювати текст допису"
 
-#: src/app/settings/account/change-handle.tsx:58
+#: src/app/settings/account/change-handle.tsx:64
 msgid "Could not change handle"
 msgstr "Не вдалося змінити псевдонім"
 
-#: src/app/pro.tsx:92
+#: src/app/pro.tsx:91
 msgid "Could not complete purchase"
 msgstr "Не вдалося завершити покупку"
+
+#: src/app/_layout.tsx:331
+msgid "Could not connect to your account. Check your connection and try again."
+msgstr ""
 
 #: src/app/(auth)/sign-up.tsx:93
 #~ msgid "Could not create account"
 #~ msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:69
-msgid "Could not delete account"
-msgstr "Не вдалося видалити обліковий запис"
+#~ msgid "Could not delete account"
+#~ msgstr "Не вдалося видалити обліковий запис"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:684
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:682
 msgid "Could not delete list"
 msgstr "Не вдалося видалити список"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:141
-msgid "Could not fetch list"
-msgstr "Не вдалося отримати список"
+#~ msgid "Could not fetch list"
+#~ msgstr "Не вдалося отримати список"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:565
-msgid "Could not fetch list feed"
-msgstr "Не вдалося отримати стрічку зі списками"
+#~ msgid "Could not fetch list feed"
+#~ msgstr "Не вдалося отримати стрічку зі списками"
 
 #: src/app/settings/mutes.tsx:23
-msgid "Could not fetch mutes"
-msgstr "Не вдалося отримати список ігнорувань"
+#~ msgid "Could not fetch mutes"
+#~ msgstr "Не вдалося отримати список ігнорувань"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:287
 msgid "Could not fetch trending topics"
 msgstr "Не вдалося отримати популярні теми"
 
-#: src/components/screens/profile/profile-info.tsx:110
+#: src/components/screens/profile/profile-info.tsx:108
 msgid "Could not follow user"
 msgstr "Не вдалося підписатися на користувача"
 
-#: src/app/(auth)/sign-in.tsx:57
-#: src/components/switch-accounts.tsx:68
-#: src/components/switch-accounts.tsx:73
+#: src/app/(auth)/reauth.tsx:53
+#: src/app/(auth)/sign-in.tsx:69
+#: src/components/switch-accounts.tsx:67
 msgid "Could not log you in"
 msgstr "Не вдалося увійти"
 
-#: src/app/composer/gifs.tsx:213
+#: src/app/composer/gifs.tsx:250
 msgid "Could not select GIF"
 msgstr "Не вдалося обрати GIF"
 
 #: src/app/add-to-list/[handle].tsx:44
-msgid "Couldn't fetch lists"
-msgstr "Не вдалося отримати списки"
+#~ msgid "Couldn't fetch lists"
+#~ msgstr "Не вдалося отримати списки"
 
 #: src/app/(tabs)/_layout.tsx:182
 #~ msgid "Create a new post"
@@ -709,48 +722,52 @@ msgstr "Не вдалося отримати списки"
 #~ msgid "Create an account"
 #~ msgstr ""
 
-#: src/app/create-list.tsx:256
+#: src/app/create-list.tsx:253
 msgid "Create list"
 msgstr "Створити список"
 
-#: src/app/_layout.tsx:425
+#: src/app/_layout.tsx:531
 msgid "Create List"
 msgstr "Створити список"
 
-#: src/app/add-to-list/[handle].tsx:169
+#: src/app/add-to-list/[handle].tsx:174
 msgid "Create new list"
 msgstr "Створити новий список"
 
+#: src/app/(auth)/sign-in.tsx:145
+msgid "Create one"
+msgstr ""
+
 #: src/app/(auth)/sign-in.tsx:157
-msgid "Create one at bsky.app/settings"
-msgstr "Створити у bsky.app/settings"
+#~ msgid "Create one at bsky.app/settings"
+#~ msgstr "Створити у bsky.app/settings"
 
 #: src/app/settings/about.tsx:58
 msgid "Created by"
 msgstr "Створено"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:290
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:293
 msgid "Creator"
 msgstr "Автор"
 
-#: src/app/pro.tsx:196
+#: src/app/pro.tsx:194
 msgid "Currently subscribed"
 msgstr "Поточна підписка"
 
-#: src/app/settings/account/change-handle.tsx:92
+#: src/app/settings/account/change-handle.tsx:102
 msgid "Custom domain"
 msgstr "Власний домен"
 
-#: src/app/pro.tsx:122
+#: src/app/pro.tsx:120
 msgid "Custom themes"
 msgstr "Власні теми"
 
-#: src/components/drawer/drawer-content.tsx:69
+#: src/components/drawer/drawer-content.tsx:68
 msgid "dark"
 msgstr "темна"
 
-#: src/components/drawer/drawer-content.tsx:57
-#: src/components/drawer/drawer-content.tsx:89
+#: src/components/drawer/drawer-content.tsx:56
+#: src/components/drawer/drawer-content.tsx:88
 msgid "Dark"
 msgstr "Темна"
 
@@ -758,21 +775,21 @@ msgstr "Темна"
 #~ msgid "Date of Birth"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:337
-#: src/components/post-context-menu.tsx:88
-#: src/components/post-context-menu.tsx:96
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:343
+#: src/components/post-context-menu.tsx:87
+#: src/components/post-context-menu.tsx:95
 msgid "Delete"
 msgstr "Видалити"
 
 #: src/app/settings/_layout.tsx:94
 #: src/app/settings/account/delete-account.tsx:209
 #: src/app/settings/account/index.tsx:60
-msgid "Delete Account"
-msgstr "Видалити обліковий запис"
+#~ msgid "Delete Account"
+#~ msgstr "Видалити обліковий запис"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:314
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:327
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:329
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:320
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:333
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:335
 msgid "Delete list"
 msgstr "Видалити список"
 
@@ -780,20 +797,20 @@ msgstr "Видалити список"
 msgid "Delete post"
 msgstr "Видалити допис"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:399
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:402
 msgid "Deleted post"
 msgstr "Видалений допис"
 
 #: src/app/settings/account/delete-account.tsx:100
-msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
-msgstr "Видалення вашого облікового запису Bluesky назавжди видалить всі ваші дані, включаючи ваш профіль, публікації, підписки та вподобання. Цю дію неможливо скасувати."
+#~ msgid "Deleting your Bluesky account will permanently remove all of your data, including your profile, posts, follows, and likes. This action cannot be undone."
+#~ msgstr "Видалення вашого облікового запису Bluesky назавжди видалить всі ваші дані, включаючи ваш профіль, публікації, підписки та вподобання. Цю дію неможливо скасувати."
 
 #: src/app/settings/account/delete-account.tsx:168
-msgid "Deletion Code"
-msgstr "Код видалення"
+#~ msgid "Deletion Code"
+#~ msgstr "Код видалення"
 
-#: src/app/create-list.tsx:207
-#: src/app/edit-bio.tsx:270
+#: src/app/create-list.tsx:204
+#: src/app/edit-bio.tsx:271
 msgid "Description"
 msgstr "Опис"
 
@@ -810,11 +827,11 @@ msgstr "Вимкнути тактильні ефекти"
 msgid "Disable haptics (vibrations)"
 msgstr "Вимкнути тактильні ефекти (вібрацію)"
 
-#: src/app/edit-bio.tsx:181
+#: src/app/edit-bio.tsx:182
 msgid "Discard and close"
 msgstr ""
 
-#: src/app/composer/index.tsx:298
+#: src/app/composer/index.tsx:294
 #: src/lib/composer/buttons.tsx:120
 #: src/lib/composer/buttons.tsx:161
 msgid "Discard post"
@@ -824,7 +841,7 @@ msgstr "Видалити чернетку"
 msgid "Discover feeds"
 msgstr "Знайти стрічки"
 
-#: src/app/_layout.tsx:343
+#: src/app/_layout.tsx:449
 msgid "Discover Feeds"
 msgstr "Знайти стрічки"
 
@@ -832,11 +849,11 @@ msgstr "Знайти стрічки"
 msgid "Discover more feeds"
 msgstr "Знайти більше стрічок"
 
-#: src/app/edit-bio.tsx:253
+#: src/app/edit-bio.tsx:254
 msgid "Display name"
 msgstr "Ім'я"
 
-#: src/app/settings/account/change-handle.tsx:83
+#: src/app/settings/account/change-handle.tsx:93
 msgid "Domain"
 msgstr "Домен"
 
@@ -844,19 +861,23 @@ msgstr "Домен"
 msgid "Don't enable"
 msgstr "Не вмикати"
 
+#: src/app/(auth)/sign-in.tsx:136
+msgid "Don't have an account?"
+msgstr ""
+
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:291
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:43
-#: src/app/add-to-list/[handle].tsx:57
+#: src/app/add-to-list/[handle].tsx:62
 #: src/app/composer/_layout.tsx:51
-#: src/app/discover.tsx:69
+#: src/app/discover.tsx:67
 #: src/app/success.tsx:68
-#: src/lib/composer/alt-text-editor.tsx:83
+#: src/lib/composer/alt-text-editor.tsx:82
 msgid "Done"
 msgstr "Готово"
 
 #: src/app/settings/account/delete-account.tsx:114
-msgid "Double check that you understand"
-msgstr "Перевірте ще раз, чи ви все зрозуміли"
+#~ msgid "Double check that you understand"
+#~ msgstr "Перевірте ще раз, чи ви все зрозуміли"
 
 #: src/app/composer/_layout.tsx:86
 msgid "Drafts"
@@ -867,15 +888,15 @@ msgstr "Чернетки"
 msgid "Edit"
 msgstr "Редагувати"
 
-#: src/lib/composer/alt-text-editor.tsx:70
+#: src/lib/composer/alt-text-editor.tsx:69
 msgid "Edit alt text"
 msgstr "Редагувати alt текст"
 
-#: src/app/edit-bio.tsx:226
+#: src/app/edit-bio.tsx:227
 msgid "Edit avatar"
 msgstr "Змінити аватар"
 
-#: src/app/edit-bio.tsx:208
+#: src/app/edit-bio.tsx:209
 msgid "Edit banner"
 msgstr "Змінити банер"
 
@@ -883,24 +904,24 @@ msgstr "Змінити банер"
 msgid "Edit feeds"
 msgstr "Редагувати стрічки"
 
-#: src/components/screens/profile/profile-info.tsx:609
+#: src/components/screens/profile/profile-info.tsx:610
 msgid "Edit profile"
 msgstr ""
 
-#: src/app/_layout.tsx:400
-#: src/app/settings/account/index.tsx:40
+#: src/app/_layout.tsx:506
+#: src/app/settings/account/index.tsx:52
 msgid "Edit Profile"
 msgstr "Редагувати профіль"
 
-#: src/app/composer/index.tsx:311
+#: src/app/composer/index.tsx:307
 msgid "Edit who can reply"
 msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:99
-msgid "Email"
-msgstr "Електронна пошта"
+#~ msgid "Email"
+#~ msgstr "Електронна пошта"
 
-#: src/app/settings/moderation.tsx:144
+#: src/app/settings/moderation.tsx:150
 msgid "Enable Adult Content"
 msgstr "Дозволити вміст для дорослих"
 
@@ -912,87 +933,87 @@ msgstr "Увімкнути сповіщення"
 #~ msgid "Enter your phone number"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:683
-#: src/app/capture/[author]/[post].tsx:90
-#: src/app/settings/account/change-handle.tsx:54
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:681
+#: src/app/capture/[author]/[post].tsx:100
+#: src/app/settings/account/change-handle.tsx:60
 msgid "Error"
 msgstr "Помилка"
 
-#: src/app/composer/threadgate.tsx:45
+#: src/app/composer/threadgate.tsx:44
 msgid "Everyone can reply"
 msgstr "Всі можуть відповідати"
 
-#: src/app/capture/[author]/[post].tsx:90
+#: src/app/capture/[author]/[post].tsx:100
 msgid "Failed to capture image"
 msgstr "Не вдалося створити зображення"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:56
-msgid "Failed to fetch feed"
-msgstr "Не вдалося завантажити стрічку"
+#~ msgid "Failed to fetch feed"
+#~ msgstr "Не вдалося завантажити стрічку"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:69
-msgid "Failed to hydrate feed"
-msgstr "Не вдалося заповнити стрічку"
+#~ msgid "Failed to hydrate feed"
+#~ msgstr "Не вдалося заповнити стрічку"
 
-#: src/lib/hooks/link-press.tsx:75
+#: src/lib/hooks/link-press.tsx:74
 msgid "Failed to open link"
 msgstr "Не вдалося відкрити посилання"
 
-#: src/lib/composer/utils.tsx:193
+#: src/lib/composer/utils.tsx:191
 msgid "Failed to upload image"
 msgstr "Не вдалося завантажити зображення"
 
-#: src/components/feed-row.tsx:227
+#: src/components/feed-row.tsx:226
 msgid "Favourited"
 msgstr "Улюблене"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:147
-#: src/components/feeds-button.tsx:202
+#: src/components/feeds-button.tsx:239
 msgid "Favourites"
 msgstr "Улюблене"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:87
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:94
 msgid "Feed"
 msgstr "Стрічка"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:56
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:58
 msgid "Feed Details"
 msgstr "Деталі стрічки"
 
-#: src/app/(tabs)/_layout.tsx:170
+#: src/app/(tabs)/_layout.tsx:171
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:274
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/manage.tsx:26
 #: src/components/screens/profile/profile-tab-view.tsx:89
 msgid "Feeds"
 msgstr "Стрічки"
 
-#: src/app/settings/feed.tsx:131
-#: src/app/settings/feed.tsx:153
+#: src/app/settings/feed.tsx:136
+#: src/app/settings/feed.tsx:158
 msgid "Feeds list"
 msgstr "Список стрічок"
 
-#: src/app/circle.tsx:285
+#: src/app/circle.tsx:286
 msgid "Fetch connections"
 msgstr "Отримати зв'язки"
 
-#: src/components/screens/feed-screen.tsx:118
+#: src/components/screens/feed-screen.tsx:116
 msgid "Find people to follow"
 msgstr "Знайти людей, щоб підписатися"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:397
-#: src/components/screens/profile/profile-info.tsx:410
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:394
+#: src/components/screens/profile/profile-info.tsx:411
 msgid "Follow"
 msgstr "Підписатися"
 
-#: src/components/screens/feed-screen.tsx:107
+#: src/components/screens/feed-screen.tsx:105
 msgid "Follow people, and their posts will show up here"
 msgstr "Підписуйтесь на людей, і їх дописи з'являться тут"
 
-#: src/components/screens/profile/profile-info.tsx:100
+#: src/components/screens/profile/profile-info.tsx:97
 msgid "Followed user"
 msgstr "У підписках"
 
-#: src/components/lists/followers-list.tsx:54
+#: src/components/lists/followers-list.tsx:55
 msgid "Followers"
 msgstr "Підписники"
 
@@ -1002,9 +1023,9 @@ msgstr "Підписники"
 #. 'Following' - The name of the main feed
 #. js-lingui-explicit-id
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:131
-#: src/app/settings/feed.tsx:57
-#: src/components/feeds-button.tsx:283
-#: src/lib/hooks/feeds.ts:128
+#: src/app/settings/feed.tsx:61
+#: src/components/feeds-button.tsx:320
+#: src/lib/hooks/feeds.ts:116
 msgid "following.feed"
 msgstr "Підписки"
 
@@ -1013,30 +1034,30 @@ msgstr "Підписки"
 #. 'Following' - following a user
 #. 'Following' - following a user
 #. js-lingui-explicit-id
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:399
-#: src/components/lists/person-row.tsx:47
-#: src/components/screens/profile/profile-info.tsx:385
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:396
+#: src/components/lists/person-row.tsx:48
+#: src/components/screens/profile/profile-info.tsx:386
 #: src/lib/composer/suggestion-list.tsx:52
 msgid "following.action"
 msgstr "Ви підписані"
 
 #. 'Following' - List of follows
 #. js-lingui-explicit-id
-#: src/components/lists/follows-list.tsx:55
+#: src/components/lists/follows-list.tsx:56
 msgid "following.list"
 msgstr "Підписки"
 
-#: src/components/lists/person-row.tsx:54
-#: src/components/screens/profile/profile-info.tsx:431
+#: src/components/lists/person-row.tsx:55
+#: src/components/screens/profile/profile-info.tsx:432
 #: src/lib/composer/suggestion-list.tsx:59
 msgid "Follows you"
 msgstr "Підписаний(-на) на вас"
 
 #: src/app/(auth)/sign-in.tsx:118
-msgid "Forgot?"
-msgstr "Забули?"
+#~ msgid "Forgot?"
+#~ msgstr "Забули?"
 
-#: src/components/screens/profile/profile-info.tsx:657
+#: src/components/screens/profile/profile-info.tsx:658
 msgid "Frequently Posts Unwanted Content"
 msgstr "Часто публікує неприйнятний контент"
 
@@ -1049,18 +1070,18 @@ msgid "Get Graysky Pro for access to DeepL translations. Google Translate is use
 msgstr "Отримати Graysky Pro для доступу до перекладів DeepL. Інакше буде використовуватись Google Translate."
 
 #: src/components/screens/waiting-room.tsx:91
-msgid "Get started"
-msgstr "З чого почати"
+#~ msgid "Get started"
+#~ msgstr "З чого почати"
 
 #: src/components/screens/waiting-room.tsx:38
-msgid "Getting queue position..."
-msgstr "Отримання розташування у черзі..."
+#~ msgid "Getting queue position..."
+#~ msgstr "Отримання розташування у черзі..."
 
 #: src/app/composer/_layout.tsx:117
 msgid "GIFs"
 msgstr "GIF зображення"
 
-#: src/app/composer/index.tsx:237
+#: src/app/composer/index.tsx:233
 msgid "Go back"
 msgstr "Назад"
 
@@ -1069,55 +1090,63 @@ msgstr "Назад"
 msgid "Google Translate is used otherwise."
 msgstr "В іншому разі використовується перекладач Google."
 
-#: src/app/pro.tsx:181
-#: src/app/settings/index.tsx:34
-#: src/components/drawer/drawer-content.tsx:178
+#: src/app/(auth)/reauth.tsx:78
+msgid "Graysky now signs in through your account provider, so your password never touches the app. You'll need to sign in once more - your accounts and settings are all still here."
+msgstr ""
+
+#: src/app/pro.tsx:179
+#: src/app/settings/index.tsx:35
+#: src/components/drawer/drawer-content.tsx:130
 msgid "Graysky Pro"
 msgstr "Graysky Pro"
 
-#: src/app/settings/account/change-handle.tsx:50
+#: src/app/settings/account/change-handle.tsx:56
 msgid "Handle already taken"
 msgstr "Псевдонім вже зайнятий"
 
-#: src/components/handle-availability.tsx:79
+#: src/components/handle-availability.tsx:83
 msgid "Handle is invalid"
 msgstr "Псевдонім недійсний"
 
-#: src/components/handle-availability.tsx:70
+#: src/components/handle-availability.tsx:74
 msgid "Handle is taken"
 msgstr "Псевдонім зайнятий"
+
+#: src/app/(auth)/sign-in.tsx:93
+msgid "Handle, e.g. alice.bsky.social"
+msgstr ""
 
 #: src/app/settings/app.tsx:108
 msgid "Haptics disabled"
 msgstr "Тактильні ефекти вимкнені"
 
-#: src/app/pro.tsx:135
+#: src/app/pro.tsx:133
 msgid "Help us keep the lights on"
 msgstr "Допоможіть нам платити за світло"
 
-#: src/app/settings/moderation.tsx:104
-#: src/components/embed/index.tsx:239
-#: src/components/feed-post.tsx:157
+#: src/app/settings/moderation.tsx:110
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:151
 msgid "Hide"
 msgstr "Приховувати"
 
-#: src/app/settings/index.tsx:53
+#: src/app/settings/index.tsx:54
 msgid "Home feed preferences"
 msgstr "Налаштування домашньої стрічки"
 
-#: src/app/settings/_layout.tsx:124
+#: src/app/settings/_layout.tsx:112
 msgid "Home Feed Preferences"
 msgstr "Налаштування домашньої стрічки"
 
-#: src/app/settings/feed.tsx:118
+#: src/app/settings/feed.tsx:123
 msgid "Home screen"
 msgstr "Головний екран"
 
-#: src/app/settings/feed.tsx:121
+#: src/app/settings/feed.tsx:126
 msgid "Home screen layout"
 msgstr "Вигляд головного екрану"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:209
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:207
 msgid "Hot"
 msgstr "Популярні"
 
@@ -1137,34 +1166,34 @@ msgstr "Якщо ви зробили свій внесок у розвиток G
 msgid "Illegal and Urgent"
 msgstr "Незаконно і невідкладно"
 
-#: src/components/image-viewer.tsx:237
+#: src/components/image-viewer.tsx:228
 msgid "Image options"
 msgstr "Параметри зображення"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
 msgid "Invalid mode"
 msgstr "Неприпустимий режим"
 
-#: src/components/drawer/drawer-content.tsx:75
+#: src/components/drawer/drawer-content.tsx:74
 msgid "It's currently set to the {current} theme"
 msgstr "Поточна тема: {current}"
 
 #. placeholder {0}: new Intl.DateTimeFormat(locale.languageTag, { month: "long", year: "numeric", }).format(new Date(profile.createdAt))
-#: src/components/screens/profile/profile-info.tsx:506
+#: src/components/screens/profile/profile-info.tsx:507
 msgid "Joined {0}"
 msgstr "Дата приєднання: {0}"
 
-#: src/app/settings/_layout.tsx:136
-#: src/app/settings/index.tsx:58
+#: src/app/settings/_layout.tsx:124
+#: src/app/settings/index.tsx:59
 msgid "Languages"
 msgstr "Мови"
 
-#: src/components/drawer/drawer-content.tsx:68
+#: src/components/drawer/drawer-content.tsx:67
 msgid "light"
 msgstr "світла"
 
-#: src/components/drawer/drawer-content.tsx:56
-#: src/components/drawer/drawer-content.tsx:86
+#: src/components/drawer/drawer-content.tsx:55
+#: src/components/drawer/drawer-content.tsx:85
 msgid "Light"
 msgstr "Світла"
 
@@ -1172,12 +1201,12 @@ msgstr "Світла"
 msgid "liked your post"
 msgstr "сподобався ваш допис"
 
-#: src/components/lists/likes-list.tsx:56
+#: src/components/lists/likes-list.tsx:57
 #: src/components/screens/profile/profile-tab-view.tsx:85
 msgid "Likes"
 msgstr "Вподобання"
 
-#: src/lib/hooks/link-press.tsx:120
+#: src/lib/hooks/link-press.tsx:117
 msgid "Link copied to clipboard"
 msgstr "Посилання скопійоване в буфер обміну"
 
@@ -1185,35 +1214,35 @@ msgstr "Посилання скопійоване в буфер обміну"
 msgid "Links will open in the app instead of your device's default browser"
 msgstr "Посилання відкриватимуться в застосунку замість браузера за замовчуванням на вашому пристрої"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:120
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:127
 msgid "List"
 msgstr "Список"
 
-#: src/app/create-list.tsx:171
+#: src/app/create-list.tsx:168
 msgid "List Avatar"
 msgstr "Аватар списку"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:239
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:247
 msgid "List blocked"
 msgstr "Список заблоковано"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:676
 msgid "List deleted"
 msgstr "Список видалено"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:258
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:266
 msgid "List favourited"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:234
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:240
 msgid "List muted"
 msgstr "Список ігнорується"
 
-#: src/app/create-list.tsx:192
+#: src/app/create-list.tsx:189
 msgid "List name"
 msgstr "Назва списку"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:259
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:267
 msgid "List unfavourited"
 msgstr ""
 
@@ -1221,22 +1250,21 @@ msgstr ""
 msgid "Lists"
 msgstr "Списки"
 
-#: src/app/(auth)/_layout.tsx:49
+#: src/app/(auth)/_layout.tsx:64
 #: src/app/(auth)/resume.tsx:27
 msgid "Log back in"
 msgstr "Увійдіть знову"
 
-#: src/app/(auth)/_layout.tsx:37
-#: src/app/(auth)/sign-in.tsx:172
-#: src/app/index.tsx:53
+#: src/app/(auth)/_layout.tsx:51
+#: src/app/index.tsx:79
 msgid "Log in"
 msgstr "Увійти"
 
 #: src/components/screens/waiting-room.tsx:95
-msgid "Log out"
-msgstr "Вийти"
+#~ msgid "Log out"
+#~ msgstr "Вийти"
 
-#: src/components/switch-accounts.tsx:81
+#: src/components/switch-accounts.tsx:73
 msgid "Logged in"
 msgstr "Вхід виконано"
 
@@ -1244,7 +1272,7 @@ msgstr "Вхід виконано"
 msgid "Logo designed by"
 msgstr "Логотип розроблений"
 
-#: src/components/screens/feed-screen.tsx:104
+#: src/components/screens/feed-screen.tsx:102
 msgid "Looks like there's nothing here yet!"
 msgstr "Схоже, тут ще нічого немає!"
 
@@ -1252,11 +1280,15 @@ msgstr "Схоже, тут ще нічого немає!"
 msgid "Makes adding ALT text to your images mandatory"
 msgstr "Робить додавання ALT тексту до ваших зображень обов'язковим"
 
-#: src/components/feeds-button.tsx:333
+#: src/app/settings/account/index.tsx:67
+msgid "Manage Account"
+msgstr ""
+
+#: src/components/feeds-button.tsx:370
 msgid "Manage my feeds"
 msgstr "Керувати моїми стрічками"
 
-#: src/app/pro.tsx:208
+#: src/app/pro.tsx:206
 msgid "Manage my subscription"
 msgstr "Керувати моєю підпискою"
 
@@ -1272,43 +1304,43 @@ msgstr "Вручну сортувати неулюблені стрічки"
 msgid "Media"
 msgstr "Медіа"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:90
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:108
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:97
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:115
 msgid "Members"
 msgstr "Учасники"
 
 #. placeholder {0}: list.name
-#: src/app/composer/threadgate.tsx:137
+#: src/app/composer/threadgate.tsx:136
 msgid "Members of list \"{0}\""
 msgstr "Учасники списку \"{0}\""
 
-#: src/components/screens/profile/profile-info.tsx:658
+#: src/components/screens/profile/profile-info.tsx:659
 msgid "Misleading Account"
 msgstr "Оманливий обліковий запис"
 
-#: src/app/composer/index.tsx:222
-#: src/app/composer/index.tsx:233
+#: src/app/composer/index.tsx:218
+#: src/app/composer/index.tsx:229
 msgid "Missing alt text"
 msgstr "Відсутній alt текст"
 
-#: src/app/settings/_layout.tsx:100
-#: src/app/settings/index.tsx:48
+#: src/app/settings/_layout.tsx:88
+#: src/app/settings/index.tsx:49
 msgid "Moderation"
 msgstr "Модерація"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:282
-#: src/app/create-list.tsx:68
-#: src/app/create-list.tsx:245
-#: src/components/feed-row.tsx:76
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:288
+#: src/app/create-list.tsx:70
+#: src/app/create-list.tsx:242
+#: src/components/feed-row.tsx:74
 msgid "Moderation list"
 msgstr "Список модерації"
 
-#: src/app/pro.tsx:217
+#: src/app/pro.tsx:215
 msgid "Monthly Plan"
 msgstr "Місячна підписка"
 
 #. placeholder {0}: info.view.creator.displayName
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:327
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:330
 msgid "More from {0}"
 msgstr "Більше від {0}"
 
@@ -1321,57 +1353,57 @@ msgctxt "video"
 msgid "Mute"
 msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:218
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:224
 msgid "Mute all members"
 msgstr "Ігнорувати всіх учасників"
 
 #: src/components/post-context-menu.tsx:240
-#: src/components/screens/profile/profile-info.tsx:719
+#: src/components/screens/profile/profile-info.tsx:724
 msgid "Mute user"
 msgstr "Ігнорувати користувача"
 
-#: src/lib/account-actions.ts:34
+#: src/lib/account-actions.ts:42
 msgid "Muted"
 msgstr "Ігнорується"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:286
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:292
 msgid "Muted list"
 msgstr "Список ігнорованих"
 
-#: src/app/settings/moderation.tsx:121
+#: src/app/settings/moderation.tsx:127
 msgid "Muted users"
 msgstr "Ігноровані користувачі"
 
-#: src/app/settings/_layout.tsx:112
+#: src/app/settings/_layout.tsx:100
 msgid "Muted Users"
 msgstr "Ігноровані користувачі"
 
-#: src/components/lists/person-row.tsx:44
+#: src/components/lists/person-row.tsx:45
 #: src/lib/composer/suggestion-list.tsx:49
 msgid "Mutuals"
 msgstr "Взаємні підписники"
 
-#: src/components/drawer/drawer-content.tsx:191
+#: src/components/drawer/drawer-content.tsx:143
 msgid "My circle"
 msgstr "Моє коло"
 
-#: src/app/_layout.tsx:367
+#: src/app/_layout.tsx:473
 msgid "My Circle"
 msgstr "Моє Коло"
 
-#: src/components/drawer/drawer-content.tsx:186
+#: src/components/drawer/drawer-content.tsx:138
 msgid "My circle of friends"
 msgstr "Моє коло друзів"
 
-#: src/components/drawer/drawer-content.tsx:123
+#: src/components/drawer/drawer-content.tsx:117
 msgid "My feeds"
 msgstr "Мої стрічки"
 
-#: src/components/feeds-button.tsx:120
+#: src/components/feeds-button.tsx:111
 msgid "My Feeds"
 msgstr "Мої стрічки"
 
-#: src/components/drawer/drawer-content.tsx:118
+#: src/components/drawer/drawer-content.tsx:112
 msgid "My Feeds screen"
 msgstr "Екран моїх стрічок"
 
@@ -1381,19 +1413,19 @@ msgid "My languages"
 msgstr "Мої мови"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:82
-#: src/components/feeds-button.tsx:212
+#: src/components/feeds-button.tsx:249
 msgid "My lists"
 msgstr "Мої списки"
 
-#: src/components/screens/profile/profile-info.tsx:659
+#: src/components/screens/profile/profile-info.tsx:660
 msgid "Name or Description Violates Community Standards"
 msgstr "Ім'я або Опис порушує стандарти спільноти"
 
-#: src/app/add-to-list/[handle].tsx:165
+#: src/app/add-to-list/[handle].tsx:170
 msgid "Need a new list?"
 msgstr "Потрібен новий список?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:207
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:205
 msgid "New"
 msgstr "Новий"
 
@@ -1404,8 +1436,8 @@ msgid "New follower: {0} @{1}"
 msgstr "Новий підписник: {0} @{1}"
 
 #: src/components/screens/change-password-flow.tsx:154
-msgid "New Password"
-msgstr "Новий пароль"
+#~ msgid "New Password"
+#~ msgstr "Новий пароль"
 
 #: src/app/composer/_layout.tsx:84
 #: src/lib/quick-actions.ts:53
@@ -1417,49 +1449,49 @@ msgstr "Новий допис"
 #~ msgid "Next"
 #~ msgstr ""
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:77
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:74
 msgid "No feeds found - maybe try a different search term?"
 msgstr "Не знайдено стрічок - можливо спробувати інший пошуковий запит?"
 
-#: src/app/composer/threadgate.tsx:55
+#: src/app/composer/threadgate.tsx:54
 msgid "No one can reply"
 msgstr "Ніхто не може відповідати"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:104
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:102
 msgid "No posts found - maybe try a different search term?"
 msgstr "Не знайдено дописів - можливо спробувати інший пошуковий запит?"
 
-#: src/app/settings/feed.tsx:83
-#: src/app/settings/moderation.tsx:43
+#: src/app/settings/feed.tsx:87
+#: src/app/settings/moderation.tsx:44
 msgid "No preferences"
 msgstr "Без налаштувань"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:86
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:84
 msgid "No users found - maybe try a different search term?"
 msgstr "Не знайдено користувачів - можливо спробувати інший пошуковий запит?"
 
-#: src/components/primary-post.tsx:221
+#: src/components/primary-post.tsx:205
 msgid "Nobody can reply"
 msgstr "Ніхто не може відповідати"
 
-#: src/components/feed-row.tsx:227
+#: src/components/feed-row.tsx:226
 msgid "Not favourited"
 msgstr "Не в улюбленому"
 
-#: src/lib/hooks/link-press.tsx:77
+#: src/lib/hooks/link-press.tsx:76
 msgid "Not sure why, sorry :("
 msgstr "Не знаю чому, вибачте :("
 
-#: src/app/settings/account/change-handle.tsx:96
+#: src/app/settings/account/change-handle.tsx:106
 msgid "Not yet implemented"
 msgstr "Ще не реалізовано"
 
-#: src/app/settings/moderation.tsx:133
+#: src/app/settings/moderation.tsx:139
 msgid "Note: Adult content settings cannot be changed on iOS. Please use the web app instead."
 msgstr "Примітка: Налаштування вмісту для дорослих не можна змінити на iOS. Будь ласка, використовуйте веб-додаток."
 
-#: src/app/(tabs)/_layout.tsx:261
-#: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:299
+#: src/app/(tabs)/_layout.tsx:264
+#: src/app/(tabs)/(feeds,search,notifications,self)/notifications.tsx:310
 msgid "Notifications"
 msgstr "Сповіщення"
 
@@ -1467,7 +1499,7 @@ msgstr "Сповіщення"
 msgid "Nudity"
 msgstr "Оголеність"
 
-#: src/app/settings/feed.tsx:251
+#: src/app/settings/feed.tsx:256
 msgid "Only show replies from your follows"
 msgstr "Показувати відповіді тільки від тих, на кого ви підписані"
 
@@ -1476,68 +1508,68 @@ msgstr "Показувати відповіді тільки від тих, на
 msgid "Open drawer menu"
 msgstr "Відкрити меню"
 
-#: src/lib/hooks/link-press.tsx:89
+#: src/lib/hooks/link-press.tsx:87
 msgid "Open link"
 msgstr "Відкрити посилання"
 
-#: src/components/embed/index.tsx:249
+#: src/components/embed/index.tsx:235
 msgid "Opens embedded post"
 msgstr "Відкриється вбудований допис"
 
-#: src/components/feed-post.tsx:275
-#: src/components/feed-post.tsx:465
+#: src/components/feed-post.tsx:269
+#: src/components/feed-post.tsx:460
 msgid "Opens parent post"
 msgstr "Відкриється батьківський допис"
 
-#: src/components/feed-post.tsx:310
+#: src/components/feed-post.tsx:304
 msgid "Opens post details"
 msgstr "Відкриється інформація про допис"
 
-#: src/components/feed-post.tsx:221
-#: src/components/feed-post.tsx:378
+#: src/components/feed-post.tsx:215
+#: src/components/feed-post.tsx:372
 #: src/components/notification/index.tsx:180
-#: src/components/primary-post.tsx:111
+#: src/components/primary-post.tsx:95
 msgid "Opens profile"
 msgstr "Відкриється профіль"
 
-#: src/app/create-list.tsx:215
+#: src/app/create-list.tsx:212
 msgid "Optional"
 msgstr "Необов'язково"
 
 #: src/components/post-context-menu.tsx:139
-#: src/components/screens/profile/profile-info.tsx:660
+#: src/components/screens/profile/profile-info.tsx:661
 msgid "Other"
 msgstr "Інше"
 
 #: src/app/settings/account/delete-account.tsx:184
-msgid "Password"
-msgstr "Пароль"
+#~ msgid "Password"
+#~ msgstr "Пароль"
 
 #: src/components/screens/change-password-flow.tsx:228
-msgid "Password changed successfully!"
-msgstr "Пароль успішно змінений!"
+#~ msgid "Password changed successfully!"
+#~ msgstr "Пароль успішно змінений!"
 
 #: src/components/screens/change-password-flow.tsx:61
-msgid "Password must be at least 8 characters"
-msgstr "Пароль має містити щонайменше 8 символів"
+#~ msgid "Password must be at least 8 characters"
+#~ msgstr "Пароль має містити щонайменше 8 символів"
 
 #: src/components/screens/waiting-room.tsx:74
-msgid "people ahead of you."
-msgstr "людей попереду вас."
+#~ msgid "people ahead of you."
+#~ msgstr "людей попереду вас."
 
-#: src/app/composer/threadgate.tsx:93
+#: src/app/composer/threadgate.tsx:92
 msgid "People mentioned in the thread"
 msgstr "Люди згадані у гілці"
 
-#: src/app/composer/threadgate.tsx:115
+#: src/app/composer/threadgate.tsx:114
 msgid "People you follow"
 msgstr "Люди, на яких ви підписані"
 
-#: src/components/image-with-context-menu.tsx:155
-#: src/lib/composer/utils.tsx:507
-#: src/lib/composer/utils.tsx:517
-#: src/lib/composer/utils.tsx:536
-#: src/lib/composer/utils.tsx:544
+#: src/components/image-with-context-menu.tsx:157
+#: src/lib/composer/utils.tsx:506
+#: src/lib/composer/utils.tsx:514
+#: src/lib/composer/utils.tsx:531
+#: src/lib/composer/utils.tsx:537
 msgid "Permission required"
 msgstr "Необхідний дозвіл"
 
@@ -1549,18 +1581,18 @@ msgstr "Необхідний дозвіл"
 msgid "Play video"
 msgstr ""
 
-#: src/app/composer/index.tsx:224
+#: src/app/composer/index.tsx:220
 msgid "Please add descriptive alt text to all images before posting."
 msgstr "Будь ласка, додайте alt опис до всіх зображень перед публікацією."
 
-#: src/lib/composer/utils.tsx:537
-#: src/lib/composer/utils.tsx:545
+#: src/lib/composer/utils.tsx:532
+#: src/lib/composer/utils.tsx:538
 msgid "Please enable camera access in your settings"
 msgstr "Увімкніть доступ до фотогалереї у ваших налаштуваннях"
 
-#: src/components/image-with-context-menu.tsx:157
-#: src/lib/composer/utils.tsx:509
-#: src/lib/composer/utils.tsx:519
+#: src/components/image-with-context-menu.tsx:159
+#: src/lib/composer/utils.tsx:508
+#: src/lib/composer/utils.tsx:516
 msgid "Please enable photo gallery access in your settings"
 msgstr "Увімкніть доступ до фотогалереї у ваших налаштуваннях"
 
@@ -1568,17 +1600,20 @@ msgstr "Увімкніть доступ до фотогалереї у ваши�
 #~ msgid "Please enter a phone number that can receive SMS text messages."
 #~ msgstr ""
 
-#: src/app/composer/gifs.tsx:214
-#: src/app/composer/index.tsx:349
-#: src/components/screens/change-password-flow.tsx:73
+#: src/app/(auth)/reauth.tsx:75
+msgid "Please sign in again"
+msgstr ""
+
+#: src/app/composer/gifs.tsx:251
+#: src/app/composer/index.tsx:345
 msgid "Please try again"
 msgstr "Будь ласка, спробуйте знову"
 
 #: src/components/screens/change-password-flow.tsx:81
-msgid "Please try again - are you sure your reset code is correct?"
-msgstr "Будь ласка, спробуйте ще раз - ви впевнені, що ваш код скидання правильний?"
+#~ msgid "Please try again - are you sure your reset code is correct?"
+#~ msgstr "Будь ласка, спробуйте ще раз - ви впевнені, що ваш код скидання правильний?"
 
-#: src/app/settings/account/change-handle.tsx:97
+#: src/app/settings/account/change-handle.tsx:107
 msgid "Please use the official app in the meantime. Sorry!"
 msgstr "Будь ласка, використовуйте офіційний застосунок для цього. Вибачте!"
 
@@ -1586,22 +1621,22 @@ msgstr "Будь ласка, використовуйте офіційний з�
 msgid "Pornographic content"
 msgstr "Порнографічний вміст"
 
-#: src/app/(tabs)/_layout.tsx:212
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:357
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:370
+#: src/app/(tabs)/_layout.tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:360
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:373
 #: src/lib/composer/buttons.tsx:74
 msgid "Post"
 msgstr "Допис"
 
-#: src/app/composer/index.tsx:237
+#: src/app/composer/index.tsx:233
 msgid "Post anyway"
 msgstr "Все одно опублікувати"
 
-#: src/app/circle.tsx:283
+#: src/app/circle.tsx:284
 msgid "Post circle"
 msgstr "Опублікувати коло"
 
-#: src/components/post-context-menu.tsx:105
+#: src/components/post-context-menu.tsx:103
 msgid "Post deleted"
 msgstr "Допис видалено"
 
@@ -1621,15 +1656,15 @@ msgstr "Текст допису скопійовано в буфер обмін�
 msgid "Post options"
 msgstr ""
 
-#: src/lib/composer/utils.tsx:346
+#: src/lib/composer/utils.tsx:348
 msgid "Post published!"
 msgstr "Допис опубліковано!"
 
-#: src/app/circle.tsx:247
+#: src/app/circle.tsx:248
 msgid "Post text (optional)"
 msgstr "Текст публікації (необов'язково)"
 
-#: src/components/post-context-menu.tsx:82
+#: src/components/post-context-menu.tsx:81
 msgid "Post text copied to clipboard"
 msgstr "Текст допису скопійовано в буфер обміну"
 
@@ -1638,7 +1673,7 @@ msgid "Posts"
 msgstr "Дописи"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:137
-#: src/components/feeds-button.tsx:289
+#: src/components/feeds-button.tsx:326
 msgid "Posts from people you follow"
 msgstr "Дописи від людей, на яких ви підписані"
 
@@ -1646,13 +1681,13 @@ msgstr "Дописи від людей, на яких ви підписані"
 msgid "Posts will be translated into {primaryLanguageLabel}."
 msgstr "Дописи будуть перекладені на {primaryLanguageLabel}."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:172
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:170
 msgid "Powered by Skyfeed"
 msgstr "Працює на Skyfeed"
 
-#: src/app/settings/feed.tsx:140
-#: src/app/settings/feed.tsx:155
-#: src/app/settings/feed.tsx:169
+#: src/app/settings/feed.tsx:145
+#: src/app/settings/feed.tsx:160
+#: src/app/settings/feed.tsx:174
 msgid "Primary feed"
 msgstr "Основна стрічка"
 
@@ -1660,7 +1695,7 @@ msgstr "Основна стрічка"
 msgid "Primary language"
 msgstr "Основна мова"
 
-#: src/app/settings/_layout.tsx:142
+#: src/app/settings/_layout.tsx:130
 msgid "Primary Language"
 msgstr "Основна мова"
 
@@ -1668,53 +1703,53 @@ msgstr "Основна мова"
 msgid "Pro Settings"
 msgstr "Налаштування Pro"
 
-#: src/components/drawer/drawer-content.tsx:173
+#: src/components/drawer/drawer-content.tsx:125
 msgid "Pro version information and purchase"
 msgstr "Інформація про версію Pro та покупка"
 
-#: src/app/(tabs)/_layout.tsx:281
+#: src/app/(tabs)/_layout.tsx:284
 msgid "Profile"
 msgstr "Профіль"
 
-#: src/components/screens/profile/profile-info.tsx:602
-#: src/components/screens/profile/profile-info.tsx:679
+#: src/components/screens/profile/profile-info.tsx:603
+#: src/components/screens/profile/profile-info.tsx:684
 msgid "Profile options"
 msgstr ""
 
-#: src/app/settings/account/index.tsx:37
+#: src/app/settings/account/index.tsx:49
 msgid "Profile Settings"
 msgstr "Налаштування профілю"
 
-#: src/app/_layout.tsx:375
+#: src/app/_layout.tsx:481
 msgid "Purchase Successful"
 msgstr "Покупку успішно здійснено"
 
-#: src/app/create-list.tsx:231
+#: src/app/create-list.tsx:228
 msgid "Purpose"
 msgstr "Призначення"
 
-#: src/app/settings/index.tsx:75
+#: src/app/settings/index.tsx:76
 msgid "Push notifications"
 msgstr "Push-сповіщення"
 
-#: src/app/_layout.tsx:439
+#: src/app/_layout.tsx:545
 #: src/app/push-notifications.tsx:35
 msgid "Push Notifications"
 msgstr "Push-сповіщення"
 
-#: src/lib/hooks/post-actions.tsx:141
+#: src/lib/hooks/post-actions.tsx:148
 msgid "Quote"
 msgstr "Цитата"
 
-#: src/app/settings/feed.tsx:296
+#: src/app/settings/feed.tsx:301
 msgid "Quote post settings"
 msgstr "Налаштування цитат"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:221
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
 msgid "Random"
 msgstr "Випадкове"
 
-#: src/components/image-viewer.tsx:145
+#: src/components/image-viewer.tsx:139
 msgid "Read full ALT text"
 msgstr "Читати повний ALT текст"
 
@@ -1726,48 +1761,48 @@ msgstr "Відповіді"
 msgid "Reply Controls"
 msgstr "Елементи керування відповідями"
 
-#: src/app/settings/feed.tsx:232
+#: src/app/settings/feed.tsx:237
 msgid "Reply settings"
 msgstr "Налаштування відповідей"
 
 #. placeholder {0}: thread.data.main.author.displayName ?? `@${thread.data.main.author.handle}`
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:331
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:334
 msgid "Reply to {0}"
 msgstr "Відповісти {0}"
 
 #. placeholder {0}: data.post.author.displayName ?? `@${data.post.author.handle}`
 #. placeholder {0}: item.reply.parent.author.displayName ?? `@${item.reply.parent.author.handle}`
-#: src/components/feed-post.tsx:289
-#: src/components/feed-post.tsx:477
+#: src/components/feed-post.tsx:283
+#: src/components/feed-post.tsx:472
 msgid "replying to {0}"
 msgstr "відповідь {0}"
 
 #. placeholder {0}: reply.thread.data.post.author.handle
-#: src/app/composer/index.tsx:409
+#: src/app/composer/index.tsx:405
 msgid "Replying to @{0}"
 msgstr "Відповідь @{0}"
 
-#: src/components/feed-post.tsx:436
+#: src/components/feed-post.tsx:431
 msgid "replying to a blocked user"
 msgstr "відповідь заблокованому користувачу"
 
-#: src/components/feed-post.tsx:439
+#: src/components/feed-post.tsx:434
 msgid "replying to a deleted post"
 msgstr "відповідь на видалений допис"
 
-#: src/components/feed-post.tsx:431
+#: src/components/feed-post.tsx:426
 msgid "replying to a post that couldn't be fetched"
 msgstr "відповідь на допис, який не вдалося отримати"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:417
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:420
 msgid "Replying to some sort of post"
 msgstr "Відповідь на якийсь допис"
 
-#: src/components/feed-post.tsx:433
+#: src/components/feed-post.tsx:428
 msgid "replying to..."
 msgstr "відповідь..."
 
-#: src/components/screens/profile/profile-info.tsx:738
+#: src/components/screens/profile/profile-info.tsx:743
 msgid "Report account"
 msgstr "Поскаржитись на користувача"
 
@@ -1776,24 +1811,24 @@ msgid "Report post"
 msgstr "Поскаржитися на допис"
 
 #: src/components/post-context-menu.tsx:127
-#: src/components/screens/profile/profile-info.tsx:672
+#: src/components/screens/profile/profile-info.tsx:677
 msgid "Report submitted"
 msgstr "Скаргу надіслано"
 
-#: src/lib/hooks/post-actions.tsx:140
+#: src/lib/hooks/post-actions.tsx:147
 msgid "Repost"
 msgstr "Репост"
 
-#: src/app/settings/feed.tsx:275
+#: src/app/settings/feed.tsx:280
 msgid "Repost settings"
 msgstr "Налаштування репостів"
 
-#: src/components/lists/reposts-list.tsx:54
+#: src/components/lists/reposts-list.tsx:55
 msgid "Reposted by"
 msgstr "Репост від"
 
 #. placeholder {0}: item.reason.by.displayName || `@${item.reason.by.handle}`
-#: src/components/feed-post.tsx:393
+#: src/components/feed-post.tsx:387
 msgid "Reposted by {0}"
 msgstr "Репост від {0}"
 
@@ -1806,20 +1841,20 @@ msgstr "зробили репост вашого допису"
 #~ msgstr ""
 
 #: src/components/screens/change-password-flow.tsx:138
-msgid "Reset Code"
-msgstr "Код для скидання"
+#~ msgid "Reset Code"
+#~ msgstr "Код для скидання"
 
 #: src/app/(auth)/_layout.tsx:43
-msgid "Reset password"
-msgstr "Скинути пароль"
-
-#: src/app/pro.tsx:350
-#: src/app/pro.tsx:365
-msgid "Restore purchases"
-msgstr "Відновити покупки"
+#~ msgid "Reset password"
+#~ msgstr "Скинути пароль"
 
 #: src/app/pro.tsx:348
 #: src/app/pro.tsx:363
+msgid "Restore purchases"
+msgstr "Відновити покупки"
+
+#: src/app/pro.tsx:346
+#: src/app/pro.tsx:361
 msgid "Restoring purchases..."
 msgstr "Відновлення покупок…"
 
@@ -1828,28 +1863,27 @@ msgstr "Відновлення покупок…"
 msgid "Retry"
 msgstr "Спробувати знову"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:211
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:209
 msgid "Rising"
 msgstr "Зростаючі"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:211
-#: src/app/edit-bio.tsx:147
-#: src/app/edit-bio.tsx:189
-#: src/app/settings/account/change-handle.tsx:164
-#: src/components/screens/change-password-flow.tsx:210
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:214
+#: src/app/edit-bio.tsx:148
+#: src/app/edit-bio.tsx:190
+#: src/app/settings/account/change-handle.tsx:173
 msgid "Save"
 msgstr "Зберегти"
 
 #. placeholder {0}: Math.round( 1000 - (annualProduct.price / (monthlyProduct.price * 12)) * 1000, ) / 10
-#: src/app/pro.tsx:239
+#: src/app/pro.tsx:237
 msgid "Save {0}%"
 msgstr "Зберегти {0}%"
 
-#: src/components/image-with-context-menu.tsx:150
+#: src/components/image-with-context-menu.tsx:153
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:200
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:203
 msgid "Saved"
 msgstr "Збережено"
 
@@ -1857,8 +1891,8 @@ msgstr "Збережено"
 msgid "Saved image to gallery"
 msgstr "Зображення збережено в галерею"
 
-#: src/app/(tabs)/_layout.tsx:197
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:90
+#: src/app/(tabs)/_layout.tsx:198
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:92
 #: src/lib/quick-actions.ts:47
 msgid "Search"
 msgstr "Пошук"
@@ -1867,25 +1901,25 @@ msgstr "Пошук"
 msgid "Search all users"
 msgstr "Пошук всіх користувачів"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:117
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:114
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:155
-#: src/app/discover.tsx:31
+#: src/app/discover.tsx:33
 msgid "Search feeds"
 msgstr "Пошук стрічок"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:128
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:125
 msgid "Search Feeds"
 msgstr "Пошук стрічок"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:81
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/feeds.tsx:78
 msgid "Search for feeds"
 msgstr "Пошук стрічок"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:108
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:106
 msgid "Search for posts"
 msgstr "Пошук дописів"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:90
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:88
 msgid "Search for users"
 msgstr "Пошук користувачів"
 
@@ -1899,20 +1933,20 @@ msgstr "Пошук GIF"
 msgid "Search languages"
 msgstr "Пошук мов"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:118
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:116
 msgid "Search people"
 msgstr "Пошук людей"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:129
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/people.tsx:127
 msgid "Search People"
 msgstr "Пошук людей"
 
 #: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:150
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:137
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:135
 msgid "Search posts"
 msgstr "Пошук дописів"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:148
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/posts.tsx:146
 msgid "Search Posts"
 msgstr "Пошук дописів"
 
@@ -1920,7 +1954,7 @@ msgstr "Пошук дописів"
 msgid "Search users"
 msgstr "Пошук користувачів"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:62
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:64
 msgid "Search users, posts, feeds"
 msgstr "Пошук користувачів, дописів, стрічок"
 
@@ -1932,7 +1966,7 @@ msgstr "Показати вподобання"
 msgid "See reposts"
 msgstr "Показати репости"
 
-#: src/app/pro.tsx:129
+#: src/app/pro.tsx:127
 msgid "See your closest connections"
 msgstr "Перегляньте свої найближчі зв'язки"
 
@@ -1940,33 +1974,33 @@ msgstr "Перегляньте свої найближчі зв'язки"
 #~ msgid "Select date of birth"
 #~ msgstr ""
 
-#: src/app/create-list.tsx:247
+#: src/app/create-list.tsx:244
 msgid "Select list purpose"
 msgstr "Оберіть призначення списку"
 
-#: src/app/composer/threadgate.tsx:90
+#: src/app/composer/threadgate.tsx:89
 msgid "Select one or more options"
 msgstr "Оберіть один або більше варіантів"
 
-#: src/app/composer/index.tsx:320
+#: src/app/composer/index.tsx:316
 msgid "Send"
 msgstr ""
 
 #: src/app/settings/account/delete-account.tsx:131
-msgid "Send confirmation email"
-msgstr "Надіслати підтвердження електронною поштою"
+#~ msgid "Send confirmation email"
+#~ msgstr "Надіслати підтвердження електронною поштою"
 
 #: src/components/screens/change-password-flow.tsx:119
-msgid "Send reset email"
-msgstr "Надіслати електронний лист для скидання"
+#~ msgid "Send reset email"
+#~ msgstr "Надіслати електронний лист для скидання"
 
 #: src/app/settings/_layout.tsx:56
-#: src/components/drawer/drawer-content.tsx:215
+#: src/components/drawer/drawer-content.tsx:167
 #: src/lib/quick-actions.ts:59
 msgid "Settings"
 msgstr "Налаштування"
 
-#: src/components/drawer/drawer-content.tsx:210
+#: src/components/drawer/drawer-content.tsx:162
 msgid "Settings menu"
 msgstr "Меню налаштувань"
 
@@ -1974,15 +2008,15 @@ msgstr "Меню налаштувань"
 msgid "Sexual content"
 msgstr "Вміст сексуального характеру"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:380
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:313
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:346
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:395
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:383
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:319
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:352
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:401
 msgid "Share"
 msgstr "Поширити"
 
 #. placeholder {0}: post.data.post.author.handle
-#: src/app/capture/[author]/[post].tsx:84
+#: src/app/capture/[author]/[post].tsx:94
 msgid "Share {0}'s post"
 msgstr "Поширити допис від {0}"
 
@@ -1990,16 +2024,16 @@ msgstr "Поширити допис від {0}"
 msgid "Share as image"
 msgstr "Поширити як зображення"
 
-#: src/app/_layout.tsx:449
+#: src/app/_layout.tsx:555
 msgid "Share as Image"
 msgstr "Поширити як зображення"
 
-#: src/app/capture/[author]/[post].tsx:147
-#: src/components/image-with-context-menu.tsx:190
+#: src/app/capture/[author]/[post].tsx:157
+#: src/components/image-with-context-menu.tsx:185
 msgid "Share image"
 msgstr "Поширити зображення"
 
-#: src/lib/hooks/link-press.tsx:91
+#: src/lib/hooks/link-press.tsx:89
 msgid "Share link"
 msgstr "Поширити посилання"
 
@@ -2011,22 +2045,22 @@ msgstr "Поширити посилання на допис"
 msgid "Share post"
 msgstr "Поширити допис"
 
-#: src/components/screens/profile/profile-info.tsx:615
-#: src/components/screens/profile/profile-info.tsx:686
+#: src/components/screens/profile/profile-info.tsx:616
+#: src/components/screens/profile/profile-info.tsx:691
 msgid "Share profile"
 msgstr "Поширити профіль"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:408
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:411
 msgid "Share this feed"
 msgstr "Поширити цю стрічку"
 
-#: src/components/image-with-context-menu.tsx:184
+#: src/components/image-with-context-menu.tsx:179
 msgid "Share via..."
 msgstr "Поширити через..."
 
-#: src/app/settings/moderation.tsx:102
-#: src/components/embed/index.tsx:239
-#: src/components/feed-post.tsx:157
+#: src/app/settings/moderation.tsx:108
+#: src/components/embed/index.tsx:225
+#: src/components/feed-post.tsx:151
 msgid "Show"
 msgstr "Показувати"
 
@@ -2059,21 +2093,25 @@ msgstr "Показувати кожне сповіщення окремо на �
 msgid "Show lists above feeds in the feeds tab"
 msgstr "Показувати списки над стрічками у вкладці зі стрічками"
 
-#: src/app/settings/feed.tsx:299
+#: src/app/settings/feed.tsx:304
 msgid "Show quote posts"
 msgstr "Показувати цитати"
 
-#: src/app/settings/feed.tsx:235
+#: src/app/settings/feed.tsx:240
 msgid "Show replies"
 msgstr "Показувати відповіді"
 
-#: src/app/settings/feed.tsx:278
+#: src/app/settings/feed.tsx:283
 msgid "Show reposts"
 msgstr "Показувати репости"
 
-#: src/components/drawer/drawer-content.tsx:223
-#: src/components/drawer/drawer-content.tsx:229
-#: src/components/switch-accounts.tsx:142
+#: src/app/(auth)/sign-in.tsx:121
+msgid "Sign in with your Bluesky account"
+msgstr ""
+
+#: src/components/drawer/drawer-content.tsx:175
+#: src/components/drawer/drawer-content.tsx:181
+#: src/components/switch-accounts.tsx:132
 msgid "Sign out"
 msgstr "Вийти"
 
@@ -2085,26 +2123,26 @@ msgstr "Вийти"
 msgid "Sign up for project updates"
 msgstr "Підпишіться на новини про оновлення проєкту"
 
-#: src/app/(tabs)/_layout.tsx:170
+#: src/app/(tabs)/_layout.tsx:171
 #: src/app/(tabs)/(feeds,search,notifications,self)/feeds/index.tsx:256
 msgid "Skyline"
 msgstr "Небосхил"
 
-#: src/app/pro.tsx:93
+#: src/app/pro.tsx:92
 msgid "Something went wrong, please try again later."
 msgstr "Сталася помилка. Повторіть спробу пізніше"
 
-#: src/app/_layout.tsx:129
-#: src/app/_layout.tsx:231
+#: src/app/_layout.tsx:147
+#: src/app/_layout.tsx:322
 msgid "Sorry! Your session expired. Please log in again."
 msgstr "Вибачте! Час вашої сесії минув. Будь ласка, увійдіть знову."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:91
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:89
 msgid "Sort posts by"
 msgstr "Сортувати дописи від"
 
 #. placeholder {0}: getModeName(mode)
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:106
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:104
 msgid "Sort: {0}"
 msgstr "Сортувати: {0}"
 
@@ -2112,7 +2150,7 @@ msgstr "Сортувати: {0}"
 msgid "Spam"
 msgstr "Спам"
 
-#: src/app/composer/threadgate.tsx:67
+#: src/app/composer/threadgate.tsx:66
 msgid "Specific people can reply"
 msgstr "Обрані люди можуть відповідати"
 
@@ -2133,37 +2171,37 @@ msgstr "підписались на вас"
 msgid "Stop editing"
 msgstr "Завершити редагування"
 
-#: src/app/pro.tsx:274
+#: src/app/pro.tsx:272
 msgid "Subscribe & pay"
 msgstr "Підписатися та оплатити"
 
 #. placeholder {0}: info.name
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:223
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:229
 msgid "Subscribe to {0}"
 msgstr "Підписатися на {0}"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:283
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:289
 msgid "Subscribe to list"
 msgstr "Підписатись на список"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:297
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:294
 msgid "Suggested follows"
 msgstr "Рекомендовані підписки"
 
-#: src/app/pro.tsx:134
+#: src/app/pro.tsx:132
 msgid "Support development"
 msgstr "Підтримати розробку"
 
-#: src/app/(tabs)/_layout.tsx:119
+#: src/app/(tabs)/_layout.tsx:120
 msgid "Switch Accounts"
 msgstr "Змінити обліковий запис"
 
-#: src/components/drawer/drawer-content.tsx:70
+#: src/components/drawer/drawer-content.tsx:69
 msgid "system"
 msgstr "системна"
 
-#: src/components/drawer/drawer-content.tsx:58
-#: src/components/drawer/drawer-content.tsx:92
+#: src/components/drawer/drawer-content.tsx:57
+#: src/components/drawer/drawer-content.tsx:91
 msgid "System"
 msgstr "Системна"
 
@@ -2175,12 +2213,16 @@ msgstr "Зробити світлину"
 msgid "Tap to enter full screen"
 msgstr ""
 
+#: src/components/switch-accounts.tsx:118
+msgid "Tap to sign in again"
+msgstr ""
+
 #: src/components/embed/video.tsx:160
 msgid "Tap to toggle sound"
 msgstr ""
 
 #: src/components/post-context-menu.tsx:128
-#: src/components/screens/profile/profile-info.tsx:673
+#: src/components/screens/profile/profile-info.tsx:678
 msgid "Thank you for making the skyline a safer place"
 msgstr "Дякуємо, що робите небосхил безпечнішим місцем"
 
@@ -2188,7 +2230,7 @@ msgstr "Дякуємо, що робите небосхил безпечніши�
 msgid "That's everything!"
 msgstr "Це все!"
 
-#: src/components/handle-availability.tsx:50
+#: src/components/handle-availability.tsx:54
 msgid "That's you!"
 msgstr "Це ви!"
 
@@ -2200,16 +2242,16 @@ msgstr "Застосунок більше не викликатиме такти
 msgid "There's nothing here..."
 msgstr "Тут нічого немає..."
 
-#: src/components/screens/feed-screen.tsx:127
+#: src/components/screens/feed-screen.tsx:125
 msgid "This feed is empty"
 msgstr "Ця стрічка порожня"
 
-#: src/app/settings/account/change-handle.tsx:51
+#: src/app/settings/account/change-handle.tsx:57
 msgid "This handle is already taken. Please choose another."
 msgstr "Цей псевдонім вже зайнятий. Будь ласка, оберіть інший."
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:507
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:635
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:513
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:644
 msgid "This list is empty"
 msgstr "Цей список порожній"
 
@@ -2225,31 +2267,31 @@ msgstr "У цьому дописі містяться зображення, пр
 msgid "This post contains sexual activity or erotic nudity."
 msgstr "Цей допис містить сексуальну активність або еротичну оголеність."
 
-#: src/components/embed/index.tsx:235
-#: src/components/feed-post.tsx:153
+#: src/components/embed/index.tsx:221
+#: src/components/feed-post.tsx:147
 msgid "This post is from someone you have blocked"
 msgstr "Цей допис від користувача, якого ви заблокували"
 
-#: src/components/embed/index.tsx:233
-#: src/components/feed-post.tsx:151
+#: src/components/embed/index.tsx:219
+#: src/components/feed-post.tsx:145
 msgid "This post is from someone you have muted"
 msgstr "Цей допис від користувача, якого ви ігноруєте"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:329
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/post/[post].tsx:332
 msgid "This thread is locked"
 msgstr "Ця гілка замкнена"
 
-#: src/components/screens/profile/profile-info.tsx:586
+#: src/components/screens/profile/profile-info.tsx:587
 msgid "This user has blocked you"
 msgstr "Цей користувач заблокував вас"
 
 #. placeholder {0}: profile.viewer.blockingByList.name
-#: src/components/screens/profile/profile-info.tsx:551
+#: src/components/screens/profile/profile-info.tsx:552
 msgid "This user is on the \"{0}\" block list"
 msgstr "Цей користувач знаходиться у списку блокування \"{0}\""
 
 #. placeholder {0}: profile.viewer.mutedByList.name
-#: src/components/screens/profile/profile-info.tsx:520
+#: src/components/screens/profile/profile-info.tsx:521
 msgid "This user is on the \"{0}\" mute list"
 msgstr "Цей користувач знаходиться у списку ігнорування \"{0}\""
 
@@ -2257,7 +2299,7 @@ msgstr "Цей користувач знаходиться у списку іг�
 msgid "To get started, add some feeds to your home screen."
 msgstr "Для початку додайте деякі стрічки на головний екран."
 
-#: src/components/feed-row.tsx:230
+#: src/components/feed-row.tsx:229
 msgid "Toggle favourite status"
 msgstr "Перемкнути статус улюбленого"
 
@@ -2265,23 +2307,23 @@ msgstr "Перемкнути статус улюбленого"
 msgid "Too many images selected"
 msgstr "Вибрано забагато зображень"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:211
 msgid "Top (10h)"
 msgstr "Топ (10 год)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:213
 msgid "Top (24h)"
 msgstr "Топ (24 год)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:215
 msgid "Top (3d)"
 msgstr "Топ (3 дні)"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:219
+#: src/app/(tabs)/(feeds,search,notifications,self)/tag/[tag].tsx:217
 msgid "Top (7d)"
 msgstr "Топ (7 днів)"
 
-#: src/components/screens/profile/profile-info.tsx:700
+#: src/components/screens/profile/profile-info.tsx:705
 msgid "Translate bio"
 msgstr "Перекласти біографію"
 
@@ -2290,7 +2332,7 @@ msgstr "Перекласти біографію"
 msgid "Translate post"
 msgstr "Перекласти допис"
 
-#: src/app/pro.tsx:111
+#: src/app/pro.tsx:109
 msgid "Translate posts using DeepL"
 msgstr "Перекладати дописи за допомогою DeepL"
 
@@ -2311,40 +2353,39 @@ msgstr "Сервіс перекладу"
 msgid "Translations are now powered by DeepL"
 msgstr "Переклади відтепер працюють на DeepL"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:253
+#: src/app/(tabs)/(feeds,search,notifications,self)/search/index.tsx:250
 msgid "Trending topics"
 msgstr "Популярні теми"
 
-#: src/components/screens/profile/profile-info.tsx:561
-#: src/lib/account-actions.ts:116
-#: src/lib/account-actions.ts:124
+#: src/components/screens/profile/profile-info.tsx:562
+#: src/lib/account-actions.ts:121
+#: src/lib/account-actions.ts:129
 msgid "Unblock"
 msgstr "Розблокувати"
 
-#: src/lib/account-actions.ts:142
+#: src/lib/account-actions.ts:140
 msgid "Unblocked"
 msgstr "Розблоковано"
 
-#: src/lib/hooks/post-actions.tsx:140
+#: src/lib/hooks/post-actions.tsx:147
 msgid "Undo Repost"
 msgstr "Скасувати репост"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:300
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:306
 msgid "Unfavorite list"
 msgstr "Вилучити з улюбленого"
 
-#: src/components/screens/profile/profile-info.tsx:101
+#: src/components/screens/profile/profile-info.tsx:98
 msgid "Unfollowed user"
 msgstr "Ви відписались від користувача"
 
-#: src/app/(auth)/sign-in.tsx:58
-#: src/app/settings/account/delete-account.tsx:70
-#: src/components/switch-accounts.tsx:69
-#: src/components/switch-accounts.tsx:74
+#: src/app/(auth)/reauth.tsx:54
+#: src/app/(auth)/sign-in.tsx:70
+#: src/components/switch-accounts.tsx:68
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#: src/components/screens/profile/profile-info.tsx:530
+#: src/components/screens/profile/profile-info.tsx:531
 msgid "Unmute"
 msgstr "Не ігнорувати"
 
@@ -2353,29 +2394,33 @@ msgctxt "video"
 msgid "Unmute"
 msgstr ""
 
-#: src/lib/account-actions.ts:53
+#: src/lib/account-actions.ts:62
 msgid "Unmuted"
 msgstr "Більше не ігнорується"
 
-#: src/components/feed-row.tsx:297
+#: src/components/feed-row.tsx:296
 msgid "Unsave"
 msgstr "Вилучити зі збережених"
 
-#: src/components/feed-row.tsx:296
+#: src/components/feed-row.tsx:295
 msgid "Unsave this feed?"
 msgstr "Вилучити цю стрічку зі збережених?"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:194
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:200
 msgid "Unsubscribe from list"
 msgstr "Відписатися від списку"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:210
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:216
 msgid "Unsubscribed from list"
 msgstr "Ви відписались від списку"
 
 #: src/components/post-context-menu.tsx:137
 msgid "Unwanted Sexual Content"
 msgstr "Небажаний сексуальний вміст"
+
+#: src/app/(auth)/reauth.tsx:93
+msgid "Use a different account"
+msgstr ""
 
 #: src/app/settings/language/index.tsx:135
 #: src/app/settings/pro.tsx:32
@@ -2396,31 +2441,31 @@ msgstr "Використовувати вбудований браузер"
 msgid "Use my default browser"
 msgstr "Використовувати мій типовий браузер"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:295
-#: src/app/create-list.tsx:68
-#: src/app/create-list.tsx:243
-#: src/components/feed-row.tsx:73
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:301
+#: src/app/create-list.tsx:70
+#: src/app/create-list.tsx:240
+#: src/components/feed-row.tsx:71
 msgid "User list"
 msgstr "Список користувачів"
 
 #: src/app/(auth)/sign-in.tsx:82
-msgid "Username or email address"
-msgstr "Ім'я користувача або адреса електронної пошти"
+#~ msgid "Username or email address"
+#~ msgstr "Ім'я користувача або адреса електронної пошти"
 
-#: src/components/primary-post.tsx:276
+#: src/components/primary-post.tsx:260
 msgid "Users in the list"
 msgstr "Користувачі в списку"
 
-#: src/components/primary-post.tsx:278
+#: src/components/primary-post.tsx:262
 msgid "Users in the lists"
 msgstr "Користувачі в списках"
 
-#: src/components/primary-post.tsx:233
+#: src/components/primary-post.tsx:217
 msgid "Users mentioned in this thread"
 msgstr "Люди згадані у цій гілці"
 
 #. placeholder {0}: author.displayName ?? `@${author.handle}`
-#: src/components/primary-post.tsx:240
+#: src/components/primary-post.tsx:224
 msgid "Users that <0>{0}</0> follows"
 msgstr "Користувачі, на яких підписаний <0>{0}</0>"
 
@@ -2430,12 +2475,12 @@ msgstr "Користувачі, на яких підписаний <0>{0}</0>"
 
 #. placeholder {0}: Constants.expoConfig.version
 #: src/app/settings/about.tsx:211
-#: src/components/drawer/drawer-content.tsx:234
+#: src/components/drawer/drawer-content.tsx:186
 msgid "Version {0}"
 msgstr "Версія {0}"
 
 #: src/app/settings/about.tsx:212
-#: src/components/drawer/drawer-content.tsx:236
+#: src/components/drawer/drawer-content.tsx:188
 msgid "Version unknown"
 msgstr "Версія невідома"
 
@@ -2449,44 +2494,44 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/components/screens/profile/profile-info.tsx:530
-#: src/components/screens/profile/profile-info.tsx:561
+#: src/components/screens/profile/profile-info.tsx:531
+#: src/components/screens/profile/profile-info.tsx:562
 msgid "View"
 msgstr "Перегляд"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:363
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/feed/[generator]/details.tsx:366
 msgid "View all feeds"
 msgstr "Переглянути всі стрічки"
 
-#: src/components/embed/image.tsx:214
+#: src/components/embed/image.tsx:223
 msgid "View ALT text"
 msgstr "Перегляд ALT тексту"
 
-#: src/app/settings/moderation.tsx:103
+#: src/app/settings/moderation.tsx:109
 msgid "Warn"
 msgstr "Попереджувати"
 
 #: src/app/settings/account/delete-account.tsx:97
-msgid "Warning: Account deletion is permanent"
-msgstr "Попередження: Видалення облікового запису є незворотнім"
+#~ msgid "Warning: Account deletion is permanent"
+#~ msgstr "Попередження: Видалення облікового запису є незворотнім"
 
 #: src/components/screens/feeds-screen-elements.tsx:22
 msgid "Welcome to Bluesky!"
 msgstr "Ласкаво просимо до Bluesky!"
 
 #: src/components/screens/waiting-room.tsx:59
-msgid "Welcome to Bluesky! We're excited to have you."
-msgstr "Ласкаво просимо до Bluesky! Ми раді, що ви з вами."
+#~ msgid "Welcome to Bluesky! We're excited to have you."
+#~ msgstr "Ласкаво просимо до Bluesky! Ми раді, що ви з вами."
 
 #: src/app/success.tsx:29
 msgid "Welcome to Graysky Pro!"
 msgstr "Ласкаво просимо до Graysky Pro!"
 
-#: src/app/composer/index.tsx:411
+#: src/app/composer/index.tsx:407
 msgid "What's on your mind?"
 msgstr "Що у вас на думці?"
 
-#: src/components/screens/profile/profile-info.tsx:743
+#: src/components/screens/profile/profile-info.tsx:748
 msgid "What's the issue with this account?"
 msgstr "У чому проблема з цим обліковим записом?"
 
@@ -2494,23 +2539,23 @@ msgstr "У чому проблема з цим обліковим записом
 msgid "What's the issue with this post?"
 msgstr "У чому проблема з цим дописом?"
 
-#: src/app/composer/threadgate.tsx:42
-#: src/components/primary-post.tsx:192
+#: src/app/composer/threadgate.tsx:41
+#: src/components/primary-post.tsx:176
 msgid "Who can reply?"
 msgstr "Хто може відповідати?"
 
 #. placeholder {0}: profile.handle
-#: src/components/screens/profile/profile-info.tsx:105
+#: src/components/screens/profile/profile-info.tsx:103
 msgid "You are no longer following @{0}"
 msgstr "Ви більше не слідкуєте за @{0}"
 
 #. placeholder {0}: profile.handle
-#: src/components/screens/profile/profile-info.tsx:104
+#: src/components/screens/profile/profile-info.tsx:102
 msgid "You are now following @{0}"
 msgstr "Ви слідкуєте за @{0}"
 
-#. placeholder {0}: session.handle
-#: src/components/switch-accounts.tsx:82
+#. placeholder {0}: account.handle
+#: src/components/switch-accounts.tsx:74
 msgid "You are now logged in as @{0}"
 msgstr "Ви увійшли як @{0}"
 
@@ -2530,23 +2575,23 @@ msgstr "Ви можете прикріпити лише {MAX_IMAGES} зобра�
 msgid "You can receive push notifications for likes, replies, and more! However, there are some caveats you should be aware of."
 msgstr "Ви можете отримувати push-сповіщення про вподобання, відповіді та багато іншого! Однак є деякі застереження, про які вам слід знати."
 
-#: src/app/add-to-list/[handle].tsx:160
+#: src/app/add-to-list/[handle].tsx:165
 msgid "You don't have any moderation lists yet."
 msgstr "У вас поки що немає жодного списку модерації."
 
-#: src/components/screens/profile/profile-info.tsx:556
+#: src/components/screens/profile/profile-info.tsx:557
 msgid "You have blocked this user"
 msgstr "Ви заблокували цього користувача"
 
-#: src/components/screens/profile/profile-info.tsx:525
+#: src/components/screens/profile/profile-info.tsx:526
 msgid "You have muted this user"
 msgstr "Ви ігноруєте цього користувача"
 
-#: src/app/settings/blocks.tsx:45
+#: src/app/settings/blocks.tsx:44
 msgid "You haven't blocked anyone"
 msgstr "Ви не заблокували нікого"
 
-#: src/app/settings/mutes.tsx:45
+#: src/app/settings/mutes.tsx:44
 msgid "You haven't muted anyone"
 msgstr "Ви не ігноруєте нікого"
 
@@ -2563,33 +2608,41 @@ msgid "You might receive the same notifications via other Bluesky clients."
 msgstr "Ви можете отримувати ті ж самі сповіщення через інші клієнти Bluesky."
 
 #: src/app/(auth)/sign-in.tsx:140
-msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
-msgstr "Ви можете використовувати App Password замість вашого основного паролю - це допоможе захистити ваш обліковий запис, але це не обов'язково."
+#~ msgid "You might want to use an App Password rather than your main password - this helps keep your account secure, but it's not required."
+#~ msgstr "Ви можете використовувати App Password замість вашого основного паролю - це допоможе захистити ваш обліковий запис, але це не обов'язково."
 
-#: src/lib/account-actions.ts:35
+#: src/lib/account-actions.ts:43
 msgid "You will no longer see posts from @{handle}"
 msgstr "Ви більше не будете бачити дописів від @{handle}"
 
+#: src/app/(auth)/sign-in.tsx:124
+msgid "You'll be taken to your account provider to sign in, so Graysky never sees your password. If you host your own account, you can enter your PDS address instead."
+msgstr ""
+
 #: src/components/screens/waiting-room.tsx:65
-msgid "You're in the queue to join Bluesky!"
-msgstr "Ви у черзі на приєднання до Bluesky!"
+#~ msgid "You're in the queue to join Bluesky!"
+#~ msgstr "Ви у черзі на приєднання до Bluesky!"
 
 #: src/components/screens/waiting-room.tsx:53
-msgid "You're in!"
-msgstr "Ви увійшли!"
+#~ msgid "You're in!"
+#~ msgstr "Ви увійшли!"
 
 #: src/lib/hooks/link-press.tsx:35
 msgid "Your choice will be saved, but can be changed in settings"
 msgstr "Ваш вибір буде збережений, але він може бути змінений в налаштуваннях"
 
-#: src/app/settings/account/change-handle.tsx:131
+#: src/app/settings/account/change-handle.tsx:141
 msgid "Your handle will be: <0>@{derivedHandle}</0>"
 msgstr "Ваш псевдонім буде: <0>@{derivedHandle}</0>"
 
-#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:678
+#: src/app/(tabs)/(feeds,search,notifications,self)/profile/[author]/lists/[list].tsx:677
 msgid "Your list has been deleted"
 msgstr "Ваш список був видалений"
 
-#: src/lib/composer/utils.tsx:182
+#: src/app/settings/account/index.tsx:73
+msgid "Your password, email address and account deletion are managed by your account provider."
+msgstr ""
+
+#: src/lib/composer/utils.tsx:178
 msgid "Your post is too long - there is a character limit of 300 characters"
 msgstr "Ваш пост задовгий - є обмеження на 300 символів"

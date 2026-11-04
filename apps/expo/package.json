@@ -142,6 +142,7 @@
     "@types/react": "^19.3.0",
     "@types/webpack-env": "^1.18.8",
     "autoprefixer": "^10.6.2",
+    "eas-build-cache-provider": "^27.4.1",
     "eslint": "^9.39.5",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",

@@ -82,6 +82,7 @@ const defineConfig = (_: ConfigContext): ExpoConfig => ({
     typedRoutes: false, // too much string interpolation :(
     reactCompiler: true,
   },
+  buildCacheProvider: "eas",
   plugins: [
     [
       "expo-build-properties",
