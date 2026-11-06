@@ -15,6 +15,7 @@ import { CopyIcon, SaveIcon, Share2Icon } from "lucide-react-native";
 import { toast } from "sonner-native";
 
 import { ContextMenu, type MenuIcon } from "~/components/menu";
+import { getDownloadableImageUri, getImageFormat } from "~/lib/utils/image";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -110,12 +111,15 @@ export const useImageOptions = () => {
     uri: string,
     directory = FileSystem.cacheDirectory,
   ) => {
-    let imgType = uri.split("@").pop();
-    imgType ||= "jpeg";
+    const downloadUri = getDownloadableImageUri(uri);
+    const imgType = getImageFormat(downloadUri);
     const date = Date.now();
     if (!directory) throw new Error("Invalid directory");
     const fileUri = directory + `${date}.${imgType}`;
-    const download = await FileSystem.downloadAsync(uri, fileUri, {});
+    const download = await FileSystem.downloadAsync(downloadUri, fileUri, {});
+    if (download.status !== 200) {
+      throw new Error(`Failed to download image: ${download.status}`);
+    }
     return {
       uri: download.uri,
       type: `image/${imgType}`,
