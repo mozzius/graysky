@@ -167,6 +167,8 @@ function RowView({ row, modifiers }: RowProps<FormRow>) {
   }
 }
 
+const iconModifiers = [font({ textStyle: "body" })];
+
 function RowLabel({
   title,
   icon,
@@ -186,6 +188,10 @@ function RowLabel({
         <Image
           systemName={formIcons[icon]}
           color={destructive ? "red" : theme.colors.primary}
+          // expo/ui's Image defaults to a 24pt font without one, much bigger
+          // than a native list row icon. body matches the label and follows
+          // dynamic type
+          modifiers={iconModifiers}
         />
       }
     >
