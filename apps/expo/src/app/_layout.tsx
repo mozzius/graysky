@@ -47,6 +47,7 @@ import {
 import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
 import {
+  cleanUpSavedSessions,
   clearReauthDid,
   getActiveDid,
   getSavedSessions,
@@ -96,6 +97,8 @@ initializeI18n();
 // because the landing page checks for that when it mounts, and its effects run
 // before the root layout's
 migrateLegacySessions();
+// older versions could leave broken or duplicate entries in the account list
+cleanUpSavedSessions();
 
 interface ActiveSession {
   session: OAuthSession;
@@ -171,9 +174,16 @@ const App = () => {
         displayName: profile.displayName,
         signedOut: false,
       };
+      const handle = profile.handle.toLowerCase();
       setSavedSessions([
         account,
-        ...getSavedSessions().filter((s) => s.did !== did),
+        ...getSavedSessions().filter(
+          (s) =>
+            s.did !== did &&
+            // a signed out entry with this handle signs in by handle, so it'd
+            // just end up as this account again (e.g. a stale did)
+            !(s.signedOut && s.handle.toLowerCase() === handle),
+        ),
       ]);
     } catch (err) {
       console.warn("failed to update saved sessions", err);

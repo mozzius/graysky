@@ -31,18 +31,102 @@ export function setActiveDid(did: string | null) {
   }
 }
 
-export function getSavedSessions(): SavedSession[] {
+/** the "sessions" key as stored, which might have legacy or broken entries */
+function readSavedSessions(): Partial<LegacySavedSession>[] {
   const raw = store.getString("sessions");
   if (!raw) return [];
   try {
-    return JSON.parse(raw) as SavedSession[];
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return (parsed as unknown[]).filter(
+      (s): s is Partial<LegacySavedSession> => !!s && typeof s === "object",
+    );
   } catch {
     return [];
   }
 }
 
+export function getSavedSessions(): SavedSession[] {
+  return cleanSavedSessions(readSavedSessions());
+}
+
 export function setSavedSessions(sessions: SavedSession[]) {
-  store.set("sessions", JSON.stringify(sessions));
+  store.set("sessions", JSON.stringify(cleanSavedSessions(sessions)));
+}
+
+/** remove an account from the account switcher */
+export function removeSavedSession(did: string) {
+  setSavedSessions(getSavedSessions().filter((s) => s.did !== did));
+}
+
+/**
+ * write the cleaned up list back, so the account switcher (which reads the
+ * key directly) doesn't show broken or duplicate entries. run on launch, after
+ * `migrateLegacySessions`
+ */
+export function cleanUpSavedSessions() {
+  const raw = store.getString("sessions");
+  if (!raw) return;
+  const cleaned = JSON.stringify(getSavedSessions());
+  if (cleaned !== raw) store.set("sessions", cleaned);
+}
+
+function isDid(value: unknown): value is string {
+  return typeof value === "string" && value.startsWith("did:");
+}
+
+/** how much we know about an account, to pick between duplicates */
+function completeness(session: SavedSession) {
+  return (
+    (session.signedOut ? 0 : 4) +
+    (session.avatar ? 2 : 0) +
+    (session.displayName ? 1 : 0)
+  );
+}
+
+/**
+ * the list can have entries without a top level did (legacy entries might only
+ * have it in `session.did`), and duplicates of the same account. those show up
+ * as extra rows that never get replaced, since everything matches by did.
+ *
+ * - recover the did from `session.did`, and drop entries that still have none
+ * - merge duplicates, keeping the most complete one in the first one's place
+ * - drop the legacy token fields
+ */
+function cleanSavedSessions(
+  sessions: readonly Partial<LegacySavedSession>[],
+): SavedSession[] {
+  const byDid = new Map<string, SavedSession>();
+  for (const s of sessions) {
+    const did = isDid(s.did)
+      ? s.did
+      : isDid(s.session?.did)
+        ? s.session.did
+        : null;
+    if (!did) continue;
+    const entry: SavedSession = {
+      did,
+      handle: s.handle || s.session?.handle || did,
+      displayName: s.displayName,
+      avatar: s.avatar,
+      signedOut: s.signedOut,
+    };
+    const existing = byDid.get(did);
+    if (!existing) {
+      byDid.set(did, entry);
+      continue;
+    }
+    const [best, other] =
+      completeness(entry) > completeness(existing)
+        ? [entry, existing]
+        : [existing, entry];
+    byDid.set(did, {
+      ...best,
+      displayName: best.displayName ?? other.displayName,
+      avatar: best.avatar ?? other.avatar,
+    });
+  }
+  return [...byDid.values()];
 }
 
 export function updateSavedSession(
@@ -74,8 +158,8 @@ export function clearReauthDid() {
  * `SessionData` shapes)
  */
 interface LegacySessionData {
-  did: string;
-  handle: string;
+  did?: string;
+  handle?: string;
   accessJwt?: string;
   refreshJwt?: string;
   service?: string;
@@ -104,7 +188,7 @@ type LegacySavedSession = SavedSession & {
  */
 export function migrateLegacySessions(): boolean {
   const rawCurrent = store.getString("session");
-  const saved = getSavedSessions() as LegacySavedSession[];
+  const saved = readSavedSessions();
   const hasLegacySaved = saved.some((s) => s.session || s.pdsUrl);
 
   if (!rawCurrent && !hasLegacySaved) return false;
@@ -112,8 +196,14 @@ export function migrateLegacySessions(): boolean {
   let current: { session: LegacySessionData; pdsUrl?: string } | null = null;
   if (rawCurrent) {
     try {
-      const parsed = JSON.parse(rawCurrent) as LegacyStoredSession;
-      current = "session" in parsed ? parsed : { session: parsed };
+      const parsed = JSON.parse(rawCurrent) as LegacyStoredSession | null;
+      if (parsed && typeof parsed === "object") {
+        if (!("session" in parsed)) {
+          current = { session: parsed };
+        } else if (parsed.session && typeof parsed.session === "object") {
+          current = parsed;
+        }
+      }
     } catch {
       // corrupt - just drop it
     }
@@ -136,26 +226,29 @@ export function migrateLegacySessions(): boolean {
     void revokeLegacySession(service, refreshJwt);
   }
 
-  // keep the accounts listed, minus the tokens
-  const stripped: SavedSession[] = saved.map((s) => ({
-    did: s.did,
-    handle: s.handle,
-    displayName: s.displayName,
-    avatar: s.avatar,
+  // keep the accounts listed, minus the tokens. very old entries only have
+  // the did inside `session`, and ones without a did at all get dropped by
+  // `cleanSavedSessions`
+  const stripped: Partial<LegacySavedSession>[] = saved.map((s) => ({
+    ...s,
+    did: s.did ?? s.session?.did,
+    handle: s.handle ?? s.session?.handle,
     signedOut: true,
   }));
-  if (current && !stripped.some((s) => s.did === current.session.did)) {
+  const currentDid = current?.session.did;
+  const currentHandle = current?.session.handle;
+  if (isDid(currentDid) && !stripped.some((s) => s.did === currentDid)) {
     stripped.unshift({
-      did: current.session.did,
-      handle: current.session.handle,
+      did: currentDid,
+      handle: currentHandle ?? currentDid,
       signedOut: true,
     });
   }
-  setSavedSessions(stripped);
+  store.set("sessions", JSON.stringify(cleanSavedSessions(stripped)));
   store.remove("session");
 
-  if (current) {
-    store.set(REAUTH_DID_KEY, current.session.did);
+  if (isDid(currentDid)) {
+    store.set(REAUTH_DID_KEY, currentDid);
   }
 
   return true;

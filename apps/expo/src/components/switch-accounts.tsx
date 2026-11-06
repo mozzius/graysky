@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import {
   ActivityIndicator,
+  Alert,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -12,14 +13,19 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
-import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
+import {
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+  PlusIcon,
+} from "lucide-react-native";
 import { toast } from "sonner-native";
 
 import { ItemSeparator } from "~/components/item-separator";
+import { Menu } from "~/components/menu";
 import { Text } from "~/components/themed/text";
 import { useAuth } from "~/lib/agent";
-import { isSessionGoneError } from "~/lib/oauth";
-import { type SavedSession } from "~/lib/session";
+import { getOAuthClient, isSessionGoneError } from "~/lib/oauth";
+import { removeSavedSession, type SavedSession } from "~/lib/session";
 import { store } from "~/lib/storage/storage";
 import { cx } from "~/lib/utils/cx";
 import { Avatar } from "./avatar";
@@ -78,6 +84,32 @@ export function SwitchAccounts({
     },
   });
 
+  const removeAccount = (account: SavedSession) => {
+    Alert.alert(
+      _(msg`Remove account?`),
+      _(
+        msg`@${account.handle} will be removed from this device. You can add it again by signing in.`,
+      ),
+      [
+        { text: _(msg`Cancel`), style: "cancel" },
+        {
+          text: _(msg`Remove`),
+          style: "destructive",
+          onPress: () => {
+            removeSavedSession(account.did);
+            // like signing out - revoke the tokens and delete the stored
+            // session, if there is one
+            getOAuthClient()
+              .revoke(account.did)
+              .catch((err: unknown) => {
+                console.warn("failed to revoke session", err);
+              });
+          },
+        },
+      ],
+    );
+  };
+
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
@@ -133,9 +165,38 @@ export function SwitchAccounts({
                     </Text>
                   </TouchableOpacity>
                 ) : (
-                  chevrons && (
-                    <ChevronRightIcon size={16} className="text-neutral-500" />
-                  )
+                  <>
+                    <Menu
+                      accessibilityLabel={_(msg`Account options`)}
+                      groups={[
+                        {
+                          key: "account",
+                          items: [
+                            {
+                              key: "remove",
+                              label: _(msg`Remove account`),
+                              icon: "trash",
+                              destructive: true,
+                              onSelect: () => removeAccount(account),
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <View className="px-2 py-2">
+                        <MoreHorizontalIcon
+                          size={20}
+                          className="text-neutral-500"
+                        />
+                      </View>
+                    </Menu>
+                    {chevrons && (
+                      <ChevronRightIcon
+                        size={16}
+                        className="text-neutral-500"
+                      />
+                    )}
+                  </>
                 )}
               </View>
             </TouchableHighlight>
