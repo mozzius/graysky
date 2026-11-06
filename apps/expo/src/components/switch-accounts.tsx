@@ -16,6 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 import { toast } from "sonner-native";
 
+import { type FormRows } from "~/components/form";
 import { ItemSeparator } from "~/components/item-separator";
 import { Text } from "~/components/themed/text";
 import { useAuth } from "~/lib/agent";
@@ -27,25 +28,22 @@ import { Avatar } from "./avatar";
 
 export type { SavedSession };
 
-interface Props {
+interface Options {
   active?: string;
   onSuccessfulSwitch?: () => void;
-  chevrons?: boolean;
-  showAddAccount?: boolean;
 }
 
-export function SwitchAccounts({
-  active,
-  onSuccessfulSwitch,
-  chevrons,
-  showAddAccount,
-}: Props) {
+/** the saved accounts, and switching between, removing and signing out of them */
+export function useSwitchAccounts({ active, onSuccessfulSwitch }: Options) {
   const { signIn, switchAccount, logout } = useAuth();
-  const theme = useTheme();
   const router = useRouter();
   const { _ } = useLingui();
 
-  const [sessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
+  const [savedSessions = []] = useMMKVObject<SavedSession[]>("sessions", store);
+  // active account first
+  const sessions = [...savedSessions].sort(
+    (a, b) => Number(b.did === active) - Number(a.did === active),
+  );
 
   const resume = useMutation({
     mutationKey: ["switch-accounts"],
@@ -105,82 +103,173 @@ export function SwitchAccounts({
     );
   };
 
+  const signOut = () => {
+    router.push("../");
+    logout();
+  };
+
+  const isSwitchingTo = (account: SavedSession) =>
+    resume.isPending && resume.variables?.did === account.did;
+
+  return { sessions, resume, removeAccount, signOut, isSwitchingTo };
+}
+
+/**
+ * The saved accounts as form rows: one per account, then sign out (if
+ * there's an `active` account) and add account
+ */
+export function useAccountRows({
+  active,
+  chevrons,
+  showAddAccount,
+}: {
+  active?: string;
+  /** on non-active accounts. iOS only */
+  chevrons?: boolean;
+  showAddAccount?: boolean;
+}): FormRows {
+  const { sessions, resume, removeAccount, signOut, isSwitchingTo } =
+    useSwitchAccounts({ active });
+  const { _ } = useLingui();
+
+  return [
+    ...sessions.map((account) => {
+      const isActive = account.did === active;
+      const handle = `@${account.handle}`;
+      return {
+        key: account.did,
+        title: account.displayName ?? handle,
+        subtitle:
+          account.signedOut && !isActive
+            ? _(msg`Tap to sign in again`)
+            : account.displayName
+              ? handle
+              : undefined,
+        leading: (
+          <Avatar
+            uri={account.avatar}
+            alt={account.displayName ?? handle}
+            size="medium"
+          />
+        ),
+        // pressing the active account signs out of it
+        ...(isActive && {
+          onPress: signOut,
+          value: _(msg`Sign out`),
+          valueTone: "primary" as const,
+          disabled: resume.isPending,
+        }),
+        ...(!isActive && {
+          onPress: () => resume.mutate(account),
+          disabled: resume.isPending,
+          chevron: chevrons,
+          accessory: isSwitchingTo(account) ? ("loading" as const) : undefined,
+          longPress: {
+            label: _(msg`Remove`),
+            destructive: true,
+            onPress: () => removeAccount(account),
+          },
+        }),
+      };
+    }),
+    showAddAccount && {
+      key: "add-account",
+      title: _(msg`Add another account`),
+      href: "/sign-in",
+      leading: <AddAccountIcon />,
+      disabled: resume.isPending,
+    },
+  ];
+}
+
+// the same size as an avatar, so the titles line up
+function AddAccountIcon() {
+  return (
+    <View className="h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700">
+      <PlusIcon size={24} className="text-neutral-500 dark:text-neutral-300" />
+    </View>
+  );
+}
+
+interface Props extends Options {
+  chevrons?: boolean;
+  showAddAccount?: boolean;
+}
+
+/** the RN version, for outside a form (the account switcher sheet) */
+export function SwitchAccounts({
+  active,
+  onSuccessfulSwitch,
+  chevrons,
+  showAddAccount,
+}: Props) {
+  const theme = useTheme();
+  const { sessions, resume, removeAccount, signOut, isSwitchingTo } =
+    useSwitchAccounts({ active, onSuccessfulSwitch });
+
   return (
     <View
       style={{ backgroundColor: theme.colors.card }}
       className="flex-1 overflow-hidden rounded-2xl"
     >
-      {sessions
-        .sort((a) => {
-          // move active account to top
-          if (a.did === active) return -1;
-          return 0;
-        })
-        .map((account) => {
-          const isActive = account.did === active;
-          const content = (
-            <View
-              className="flex-row items-center px-4 py-2"
-              style={{ backgroundColor: theme.colors.card }}
-            >
-              <Avatar
-                uri={account.avatar}
-                alt={account.displayName ?? `@${account.handle}`}
-                className="shrink-0"
-                size="medium"
-              />
-              <View className="ml-3 flex-1">
-                {account.displayName && (
-                  <Text className="text-base font-medium">
-                    {account.displayName}
-                  </Text>
-                )}
-                <Text className="text-neutral-500">@{account.handle}</Text>
-                {account.signedOut && !isActive && (
-                  <Text className="text-xs text-neutral-500">
-                    <Trans>Tap to sign in again</Trans>
-                  </Text>
-                )}
-              </View>
-              {resume.isPending && resume.variables?.did === account.did ? (
-                <ActivityIndicator />
-              ) : isActive ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    router.push("../");
-                    logout();
-                  }}
-                >
-                  <Text primary className="font-medium">
-                    <Trans>Sign out</Trans>
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                chevrons && (
-                  <ChevronRightIcon size={16} className="text-neutral-500" />
-                )
+      {sessions.map((account) => {
+        const isActive = account.did === active;
+        const content = (
+          <View
+            className="flex-row items-center px-4 py-2"
+            style={{ backgroundColor: theme.colors.card }}
+          >
+            <Avatar
+              uri={account.avatar}
+              alt={account.displayName ?? `@${account.handle}`}
+              className="shrink-0"
+              size="medium"
+            />
+            <View className="ml-3 flex-1">
+              {account.displayName && (
+                <Text className="text-base font-medium">
+                  {account.displayName}
+                </Text>
+              )}
+              <Text className="text-neutral-500">@{account.handle}</Text>
+              {account.signedOut && !isActive && (
+                <Text className="text-xs text-neutral-500">
+                  <Trans>Tap to sign in again</Trans>
+                </Text>
               )}
             </View>
-          );
+            {isSwitchingTo(account) ? (
+              <ActivityIndicator />
+            ) : isActive ? (
+              <TouchableOpacity onPress={signOut}>
+                <Text primary className="font-medium">
+                  <Trans>Sign out</Trans>
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              chevrons && (
+                <ChevronRightIcon size={16} className="text-neutral-500" />
+              )
+            )}
+          </View>
+        );
 
-          return (
-            <Fragment key={account.did}>
-              <TouchableHighlight
-                className={cx(resume.isPending && "opacity-50")}
-                onPress={() => resume.mutate(account)}
-                // long press to remove. not a menu button inside the row -
-                // pressing that also triggered the row's onPress
-                onLongPress={
-                  isActive ? undefined : () => removeAccount(account)
-                }
-                disabled={resume.isPending || isActive}
-              >
-                {content}
-              </TouchableHighlight>
-              <ItemSeparator iconWidth="w-10" />
-            </Fragment>
-          );
-        })}
+        return (
+          <Fragment key={account.did}>
+            <TouchableHighlight
+              className={cx(resume.isPending && "opacity-50")}
+              onPress={() => resume.mutate(account)}
+              // long press to remove. not a menu button inside the row -
+              // pressing that also triggered the row's onPress
+              onLongPress={isActive ? undefined : () => removeAccount(account)}
+              disabled={resume.isPending || isActive}
+            >
+              {content}
+            </TouchableHighlight>
+            <ItemSeparator iconWidth="w-10" />
+          </Fragment>
+        );
+      })}
       {showAddAccount && (
         <Link href="/sign-in" asChild>
           <TouchableHighlight

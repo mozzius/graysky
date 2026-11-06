@@ -3,7 +3,7 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 
 import { Form, type FormSections } from "~/components/form";
-import { SwitchAccounts } from "~/components/switch-accounts";
+import { useAccountRows } from "~/components/switch-accounts";
 import { useOptionalAgent } from "~/lib/agent";
 import { useIsPro } from "~/lib/purchases";
 import { useEnableNotifications } from "~/lib/storage/app-preferences";
@@ -13,18 +13,16 @@ export default function SettingsPage() {
   const isPro = useIsPro();
   const enableNotifications = useEnableNotifications();
   const { _ } = useLingui();
+  const accountRows = useAccountRows({
+    active: agent?.did,
+    showAddAccount: true,
+  });
 
   const sections = useMemo<FormSections>(
     () => [
       {
         key: "accounts",
-        rows: [
-          {
-            type: "custom",
-            key: "accounts",
-            children: <SwitchAccounts active={agent?.did} showAddAccount />,
-          },
-        ],
+        rows: accountRows,
       },
       {
         rows: [
@@ -83,7 +81,7 @@ export default function SettingsPage() {
         ],
       },
     ],
-    [agent?.did, isPro, enableNotifications, _],
+    [accountRows, isPro, enableNotifications, _],
   );
 
   return <Form sections={sections} />;
