@@ -149,5 +149,11 @@
     "tailwindcss": "3.3.2",
     "typescript": "^6.0.3"
   },
-  "prettier": "@graysky/prettier-config"
+  "prettier": "@graysky/prettier-config",
+  "reanimated": {
+    "staticFeatureFlags": {
+      "FORCE_REACT_RENDER_FOR_SETTLED_ANIMATIONS": false,
+      "USE_COMMIT_HOOK_ONLY_FOR_REACT_COMMITS": false
+    }
+  }
 }
