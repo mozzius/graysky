@@ -13,6 +13,7 @@ import {
 import { CheckIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
 
+import { useFormRowInset } from "~/components/form";
 import {
   useAccentColor,
   useSetAppPreferences,
@@ -28,11 +29,17 @@ export const AccentColourSelect = ({ className, style }: Props) => {
   const accentColor = useAccentColor();
   const setAppPreferences = useSetAppPreferences();
   const theme = useTheme();
+  // inside an android form row, which already pads its content
+  const inset = useFormRowInset();
 
   return (
     <ScrollView
       horizontal
-      className={cx("flex-1 flex-row gap-x-2 px-4 py-2", className)}
+      className={cx(
+        "flex-1 flex-row gap-x-2 py-2",
+        !inset && "px-4",
+        className,
+      )}
       style={style}
     >
       {[
