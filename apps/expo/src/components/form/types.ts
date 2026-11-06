@@ -44,6 +44,9 @@ export interface FormLinkRow extends BaseRow {
   onPress?: () => void | Promise<void>;
   /** secondary text on the trailing side */
   value?: string;
+  /** "primary" colours `value` with the accent colour, for a row whose press
+   * is an action named by the value, e.g. "Sign out" */
+  valueTone?: "secondary" | "primary";
   /** defaults to true for `href` rows. iOS only - not a material pattern */
   chevron?: boolean;
   /** shows a checkmark */
@@ -51,6 +54,22 @@ export interface FormLinkRow extends BaseRow {
   accessory?: "plus" | "copy" | "loading";
   destructive?: boolean;
   accessibilityRole?: "link" | "button";
+  /** a second, secondary line under the title */
+  subtitle?: string;
+  /**
+   * RN content in place of the icon, e.g. an avatar. it's measured, so give
+   * it a fixed size
+   */
+  leading?: ReactElement;
+  /**
+   * a secondary action. a long click on Android. on iOS it's the one item
+   * in the row's context menu, hence the label
+   */
+  longPress?: {
+    label: string;
+    destructive?: boolean;
+    onPress: () => void;
+  };
 }
 
 /** an action, styled as a button rather than a navigation row */
@@ -99,11 +118,7 @@ export interface FormTextFieldRow {
   secure?: boolean;
   autoCapitalize?: "none" | "sentences";
   textContentType?:
-    | "username"
-    | "password"
-    | "newPassword"
-    | "emailAddress"
-    | "oneTimeCode";
+    "username" | "password" | "newPassword" | "emailAddress" | "oneTimeCode";
   maxLength?: number;
   autoFocus?: boolean;
   disabled?: boolean;

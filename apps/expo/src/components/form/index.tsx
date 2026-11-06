@@ -2,467 +2,231 @@ import { useEffect, useRef, useState, type ReactElement } from "react";
 import { useRouter } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
 import {
-  CircularProgressIndicator,
-  DropdownMenu,
-  DropdownMenuItem,
-  HorizontalDivider,
-  Host,
-  Icon,
-  LazyColumn,
+  FieldGroup,
   ListItem,
   RNHostView,
-  Switch,
   Text,
-  TextField,
-  type TextFieldRef,
-} from "@expo/ui/jetpack-compose";
-import {
-  alpha,
-  clickable,
-  fillMaxWidth,
-  imePadding,
-  padding,
-  selectable,
-  semantics,
-  size,
-  toggleable,
-  type ModifierConfig,
-} from "@expo/ui/jetpack-compose/modifiers";
+  TextInput,
+  useNativeState,
+  type TextInputProps,
+} from "@expo/ui";
 
-import { addIcon, checkIcon, copyIcon, formIcons } from "./icons";
+import { platform as P } from "./platform";
+import { type RowBase, type RowContext } from "./platform-api";
 import {
   rowKey,
   sectionKey,
   visibleRows,
   visibleSections,
   type FormButtonRow,
-  type FormCustomRow,
-  type FormIcon,
   type FormLinkRow,
-  type FormPickerRow,
   type FormProps,
   type FormRow,
   type FormTextFieldRow,
-  type FormToggleRow,
 } from "./types";
 
 export * from "./types";
+export { useFormRowInset } from "./row-inset";
 
-const DESTRUCTIVE = "#ef4444";
-const SECONDARY = "#737373";
-const DISABLED_ALPHA = 0.38;
-
-// a material settings list - full width rows, primary coloured section
-// headers and dividers between sections
-export function Form({ sections, header, style }: FormProps) {
+// One implementation on @expo/ui's universal FieldGroup: SwiftUI `Form` on
+// iOS, a Material 3 connected list on Android. What the universal API can't
+// express lives in `platform.ios.tsx` / `platform.tsx`
+export function Form({ sections, header, onScroll, style }: FormProps) {
   const theme = useTheme();
+  const router = useRouter();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const groupModifiers = P.useGroupModifiers(onScroll);
+
+  const ctx: RowContext = {
+    theme,
+    router,
+    rowModifiers: P.rowModifiers(theme),
+    openMenu,
+    setOpenMenu,
+  };
 
   return (
-    <Host
-      style={[{ flex: 1, backgroundColor: theme.colors.card }, style]}
-      colorScheme={theme.dark ? "dark" : "light"}
-    >
-      <LazyColumn
-        contentPadding={{ top: 8, bottom: 64 }}
-        modifiers={[imePadding()]}
-      >
-        {header && (
-          <HostedRow modifiers={[padding(16, 0, 16, 0)]}>{header}</HostedRow>
-        )}
-        {visibleSections(sections).map((section, index) => [
-          index > 0 && (
-            <HorizontalDivider
-              key={`${sectionKey(section, index)}-divider`}
-              modifiers={[padding(0, 8, 0, 8)]}
-            />
-          ),
-          section.title && (
-            <Text
-              key={`${sectionKey(section, index)}-title`}
-              color={theme.colors.primary}
-              style={{ typography: "titleSmall" }}
-              modifiers={[padding(16, 16, 16, 8)]}
-            >
-              {section.title}
-            </Text>
-          ),
-          ...visibleRows(section.rows).map((row) => (
-            <RowView
-              key={`${sectionKey(section, index)}-${rowKey(row)}`}
-              row={row}
-            />
-          )),
-          section.footer &&
-            (typeof section.footer === "string" ? (
-              <Text
-                key={`${sectionKey(section, index)}-footer`}
-                color={SECONDARY}
-                style={{ typography: "bodyMedium" }}
-                modifiers={[padding(16, 8, 16, 8)]}
-              >
-                {section.footer}
-              </Text>
-            ) : (
-              <HostedRow
-                key={`${sectionKey(section, index)}-footer`}
-                modifiers={[padding(16, 8, 16, 8)]}
-              >
-                {section.footer}
-              </HostedRow>
-            )),
-        ])}
-      </LazyColumn>
-    </Host>
+    <P.FormHost style={style}>
+      <FieldGroup modifiers={groupModifiers}>
+        {header && P.headerSection(header, ctx)}
+        {visibleSections(sections).map((section, index) => {
+          const key = sectionKey(section, index);
+          return (
+            <FieldGroup.Section key={key} title={section.title}>
+              {/* rows are built by functions, not components - see platform-api.ts */}
+              {visibleRows(section.rows).map((row) =>
+                renderRow(row, `${key}-${rowKey(row)}`, ctx),
+              )}
+              {section.footer && (
+                <FieldGroup.SectionFooter>
+                  {typeof section.footer === "string" ? (
+                    <Text textStyle={P.footerTextStyle}>{section.footer}</Text>
+                  ) : (
+                    <RNHostView
+                      matchContents={{ vertical: true }}
+                      modifiers={P.hostedModifiers}
+                    >
+                      {section.footer}
+                    </RNHostView>
+                  )}
+                </FieldGroup.SectionFooter>
+              )}
+            </FieldGroup.Section>
+          );
+        })}
+      </FieldGroup>
+    </P.FormHost>
   );
 }
 
-function RowView({ row }: { row: FormRow }) {
+function renderRow(row: FormRow, id: string, ctx: RowContext) {
   switch (row.type) {
     case "button":
-      return <ButtonRowView row={row} />;
+      return buttonRow(row, id, ctx);
     case "toggle":
-      return <ToggleRowView row={row} />;
+      return P.toggleRow(row, rowBase(row, id), ctx);
     case "picker":
-      return <PickerRowView row={row} />;
+      return P.pickerRow(row, rowBase(row, id), ctx);
     case "textField":
-      return <TextFieldRowView row={row} />;
+      return <TextFieldRow key={id} row={row} ctx={ctx} />;
     case "custom":
-      return <CustomRowView row={row} />;
+      return P.customRow(row, id, ctx);
     default:
-      return <LinkRowView row={row} />;
+      return linkRow(row, id, ctx);
   }
 }
 
-function useListItemColors() {
-  const theme = useTheme();
+function rowBase(
+  row: {
+    title: string;
+    icon?: FormLinkRow["icon"];
+    destructive?: boolean;
+    subtitle?: string;
+    leading?: ReactElement;
+  },
+  id: string,
+): RowBase {
+  const tone = row.destructive ? "destructive" : "text";
+  const leading = row.leading ? (
+    <RNHostView matchContents>{row.leading}</RNHostView>
+  ) : row.icon ? (
+    <P.RowIcon icon={row.icon} destructive={row.destructive} />
+  ) : undefined;
+
   return {
-    containerColor: theme.colors.card,
-    contentColor: theme.colors.text,
-    leadingContentColor: theme.colors.primary,
-    trailingContentColor: theme.colors.text,
-    supportingContentColor: SECONDARY,
+    id,
+    title: (
+      <P.Title
+        title={row.title}
+        subtitle={row.subtitle}
+        tone={tone}
+        leading={P.iconInLeadingSlot ? undefined : leading}
+      />
+    ),
+    leading: P.iconInLeadingSlot ? leading : undefined,
   };
 }
 
-function LeadingIcon({
-  icon,
-  destructive,
-}: {
-  icon?: FormIcon;
-  destructive?: boolean;
-}) {
-  const theme = useTheme();
-  if (!icon) return null;
-  return (
-    <ListItem.LeadingContent>
-      <Icon
-        source={formIcons[icon]}
-        size={24}
-        tint={destructive ? DESTRUCTIVE : theme.colors.primary}
-      />
-    </ListItem.LeadingContent>
-  );
-}
-
-function Spinner() {
-  const theme = useTheme();
-  return (
-    <CircularProgressIndicator
-      color={theme.colors.primary}
-      modifiers={[size(24, 24)]}
-    />
-  );
-}
-
-function LinkRowView({ row }: { row: FormLinkRow }) {
-  const theme = useTheme();
-  const router = useRouter();
-  const colors = useListItemColors();
-
+function linkRow(row: FormLinkRow, id: string, ctx: RowContext) {
   const onPress = row.disabled
     ? undefined
     : row.href
-      ? () => router.push(row.href!)
+      ? () => ctx.router.push(row.href!)
       : row.onPress
         ? () => void row.onPress?.()
         : undefined;
+  const base = rowBase(row, id);
+  const parts = P.linkRowParts(row, onPress, ctx);
 
-  return (
+  const item = (
     <ListItem
-      colors={colors}
-      modifiers={[
-        ...(onPress
-          ? [
-              row.selected !== undefined
-                ? selectable(row.selected, onPress)
-                : clickable(onPress),
-            ]
-          : []),
-        ...(row.disabled ? [alpha(DISABLED_ALPHA)] : []),
-      ]}
+      key={id}
+      onPress={parts.onPress}
+      leading={base.leading}
+      trailing={parts.trailing}
+      supportingText={parts.supportingText}
+      modifiers={parts.modifiers}
     >
-      <ListItem.HeadlineContent>
-        <Text color={row.destructive ? DESTRUCTIVE : theme.colors.text}>
-          {row.title}
-        </Text>
-      </ListItem.HeadlineContent>
-      {row.value !== undefined && (
-        <ListItem.SupportingContent>
-          <Text color={SECONDARY} maxLines={1} overflow="ellipsis">
-            {row.value}
-          </Text>
-        </ListItem.SupportingContent>
-      )}
-      <LeadingIcon icon={row.icon} destructive={row.destructive} />
-      {(row.selected || row.accessory) && (
-        <ListItem.TrailingContent>
-          {row.accessory === "loading" ? (
-            <Spinner />
-          ) : (
-            <Icon
-              source={
-                row.accessory === "plus"
-                  ? addIcon
-                  : row.accessory === "copy"
-                    ? copyIcon
-                    : checkIcon
-              }
-              size={24}
-              tint={
-                row.accessory === "copy"
-                  ? theme.colors.text
-                  : theme.colors.primary
-              }
-            />
-          )}
-        </ListItem.TrailingContent>
-      )}
+      {base.title}
     </ListItem>
   );
+
+  return row.longPress && !row.disabled
+    ? P.withLongPress(item, row, id, ctx)
+    : item;
 }
 
-function ButtonRowView({ row }: { row: FormButtonRow }) {
-  const theme = useTheme();
-  const colors = useListItemColors();
+function buttonRow(row: FormButtonRow, id: string, ctx: RowContext) {
   const enabled = !row.disabled && !row.loading;
 
   return (
     <ListItem
-      colors={colors}
-      modifiers={[
-        ...(enabled ? [clickable(() => void row.onPress())] : []),
-        ...(row.disabled ? [alpha(DISABLED_ALPHA)] : []),
-      ]}
+      key={id}
+      onPress={enabled ? () => void row.onPress() : undefined}
+      trailing={row.loading ? <P.Spinner /> : undefined}
+      modifiers={P.buttonRowModifiers(row, enabled, ctx)}
     >
-      <ListItem.HeadlineContent>
-        <Text
-          color={row.destructive ? DESTRUCTIVE : theme.colors.primary}
-          style={{ fontWeight: "500" }}
-        >
-          {row.title}
-        </Text>
-      </ListItem.HeadlineContent>
-      {row.loading && (
-        <ListItem.TrailingContent>
-          <Spinner />
-        </ListItem.TrailingContent>
-      )}
+      <P.Title
+        title={row.title}
+        tone={row.destructive ? "destructive" : "primary"}
+      />
     </ListItem>
   );
 }
 
-function ToggleRowView({ row }: { row: FormToggleRow }) {
-  const theme = useTheme();
-  const colors = useListItemColors();
-  const enabled = !row.disabled && !row.loading;
+const AUTO_COMPLETE: Record<
+  NonNullable<FormTextFieldRow["textContentType"]>,
+  NonNullable<TextInputProps["autoComplete"]>
+> = {
+  username: "username",
+  password: "password",
+  newPassword: "new-password",
+  emailAddress: "email",
+  oneTimeCode: "one-time-code",
+};
 
-  return (
-    <ListItem
-      colors={colors}
-      modifiers={[
-        toggleable(row.value, () => row.onValueChange(!row.value), {
-          role: "switch",
-          enabled,
-        }),
-        ...(row.disabled ? [alpha(DISABLED_ALPHA)] : []),
-      ]}
-    >
-      <ListItem.HeadlineContent>
-        <Text color={theme.colors.text}>{row.title}</Text>
-      </ListItem.HeadlineContent>
-      <LeadingIcon icon={row.icon} />
-      <ListItem.TrailingContent>
-        {row.loading ? (
-          <Spinner />
-        ) : (
-          // no onCheckedChange - the row handles the toggling
-          <Switch
-            value={row.value}
-            enabled={!row.disabled}
-            colors={{ checkedTrackColor: theme.colors.primary }}
-          />
-        )}
-      </ListItem.TrailingContent>
-    </ListItem>
-  );
-}
-
-// compose has no inline picker, so the row opens a dropdown menu anchored to it
-function PickerRowView({ row }: { row: FormPickerRow }) {
-  const theme = useTheme();
-  const colors = useListItemColors();
-  const [expanded, setExpanded] = useState(false);
-
-  const selected = row.options.find((option) => option.value === row.value);
-  const enabled = !row.disabled && !row.loading;
-
-  return (
-    <DropdownMenu
-      expanded={expanded}
-      onDismissRequest={() => setExpanded(false)}
-      color={theme.colors.card}
-      modifiers={[fillMaxWidth()]}
-    >
-      <DropdownMenu.Trigger>
-        <ListItem
-          colors={colors}
-          modifiers={[
-            ...(enabled ? [clickable(() => setExpanded(true))] : []),
-            ...(row.disabled ? [alpha(DISABLED_ALPHA)] : []),
-          ]}
-        >
-          <ListItem.HeadlineContent>
-            <Text color={theme.colors.text}>{row.title}</Text>
-          </ListItem.HeadlineContent>
-          {selected && (
-            <ListItem.SupportingContent>
-              <Text color={SECONDARY}>{selected.label}</Text>
-            </ListItem.SupportingContent>
-          )}
-          <LeadingIcon icon={row.icon} />
-          {row.loading && (
-            <ListItem.TrailingContent>
-              <Spinner />
-            </ListItem.TrailingContent>
-          )}
-        </ListItem>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Items>
-        {row.options.map((option) => (
-          <DropdownMenuItem
-            key={option.value}
-            onClick={() => {
-              setExpanded(false);
-              if (option.value !== row.value) row.onValueChange(option.value);
-            }}
-          >
-            <DropdownMenuItem.Text>
-              <Text color={theme.colors.text}>{option.label}</Text>
-            </DropdownMenuItem.Text>
-            {option.subtitle && (
-              <DropdownMenuItem.SupportingText>
-                <Text color={SECONDARY}>{option.subtitle}</Text>
-              </DropdownMenuItem.SupportingText>
-            )}
-            {option.value === row.value && (
-              <DropdownMenuItem.TrailingIcon>
-                <Icon
-                  source={checkIcon}
-                  size={20}
-                  tint={theme.colors.primary}
-                />
-              </DropdownMenuItem.TrailingIcon>
-            )}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenu.Items>
-    </DropdownMenu>
-  );
-}
-
-function TextFieldRowView({ row }: { row: FormTextFieldRow }) {
-  const theme = useTheme();
-  const ref = useRef<TextFieldRef>(null);
-  // the field is uncontrolled, so push changes made in JS (e.g. lowercasing)
-  const nativeText = useRef("");
+function TextFieldRow({
+  row,
+  ctx,
+}: {
+  row: FormTextFieldRow;
+  ctx: RowContext;
+}) {
+  const text = useNativeState(row.value);
+  // the native state only flows one way, so push changes made in JS
+  // (e.g. lowercasing) back into the field
+  const nativeText = useRef(row.value);
 
   useEffect(() => {
     if (row.value !== nativeText.current) {
       nativeText.current = row.value;
-      void ref.current?.setText(row.value);
+      text.set(row.value);
     }
-  }, [row.value]);
+  }, [row.value, text]);
 
   return (
-    <TextField
-      ref={ref}
-      singleLine
-      autoFocus={row.autoFocus}
-      enabled={!row.disabled}
+    <TextInput
+      {...P.textField(ctx)}
+      value={text}
+      onChangeText={(value) => {
+        nativeText.current = value;
+        row.onChangeText(value);
+      }}
+      placeholder={row.placeholder}
+      secureTextEntry={row.secure}
+      autoCapitalize={row.autoCapitalize}
+      autoCorrect={row.autoCapitalize === "none" ? false : undefined}
+      keyboardType={
+        row.textContentType === "emailAddress" ? "email-address" : undefined
+      }
+      autoComplete={
+        row.textContentType ? AUTO_COMPLETE[row.textContentType] : undefined
+      }
       maxLength={row.maxLength}
-      visualTransformation={row.secure ? "password" : "none"}
-      keyboardOptions={{
-        capitalization: row.autoCapitalize === "none" ? "none" : "sentences",
-        autoCorrectEnabled: row.autoCapitalize !== "none" && !row.secure,
-        keyboardType: row.secure
-          ? "password"
-          : row.textContentType === "emailAddress"
-            ? "email"
-            : "text",
-      }}
-      onValueChange={(text) => {
-        nativeText.current = text;
-        row.onChangeText(text);
-      }}
-      colors={{
-        focusedContainerColor: theme.colors.card,
-        unfocusedContainerColor: theme.colors.card,
-        disabledContainerColor: theme.colors.card,
-        focusedIndicatorColor: theme.colors.primary,
-        cursorColor: theme.colors.primary,
-        focusedTextColor: theme.colors.text,
-        unfocusedTextColor: theme.colors.text,
-        focusedLabelColor: theme.colors.primary,
-      }}
-      modifiers={[
-        fillMaxWidth(),
-        padding(16, 8, 16, 8),
-        ...(row.accessibilityLabel
-          ? [semantics({ contentDescription: row.accessibilityLabel })]
-          : []),
-        // autofill hints - these match the androidx AutofillHints names
-        ...(row.textContentType && row.textContentType !== "oneTimeCode"
-          ? [semantics({ contentType: row.textContentType })]
-          : []),
-      ]}
-    >
-      {row.placeholder !== undefined && (
-        <TextField.Placeholder>
-          <Text>{row.placeholder}</Text>
-        </TextField.Placeholder>
-      )}
-    </TextField>
-  );
-}
-
-function CustomRowView({ row }: { row: FormCustomRow }) {
-  return <HostedRow>{row.children}</HostedRow>;
-}
-
-// RN content filling the row edge to edge
-function HostedRow({
-  children,
-  modifiers = [],
-}: {
-  children: ReactElement;
-  modifiers?: ModifierConfig[];
-}) {
-  return (
-    <RNHostView
-      matchContents={{ vertical: true }}
-      modifiers={[fillMaxWidth(), ...modifiers]}
-    >
-      {children}
-    </RNHostView>
+      autoFocus={row.autoFocus}
+      editable={!row.disabled}
+      accessibilityLabel={row.accessibilityLabel}
+      cursorColor={ctx.theme.colors.primary}
+    />
   );
 }
