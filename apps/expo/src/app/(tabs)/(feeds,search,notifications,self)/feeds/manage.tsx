@@ -37,7 +37,9 @@ export default function Page() {
                 }
               >
                 <Text
-                  primary
+                  // header buttons sit in liquid glass on ios 26, where
+                  // the accent colour looks out of place
+                  primary={!isIOS26}
                   className={cx("text-lg", editing && "font-medium")}
                 >
                   {editing ? <Trans>Done</Trans> : <Trans>Edit</Trans>}
@@ -50,7 +52,10 @@ export default function Page() {
                     accessibilityLabel="Discover feeds"
                     accessibilityRole="link"
                   >
-                    <PlusIcon size={24} color={theme.colors.primary} />
+                    <PlusIcon
+                      size={24}
+                      color={isIOS26 ? theme.colors.text : theme.colors.primary}
+                    />
                   </TouchableOpacity>
                 </Link>
               )}
