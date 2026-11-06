@@ -23,6 +23,7 @@ import { useAgent } from "~/lib/agent";
 import { useTabPressScrollRef } from "~/lib/hooks";
 import { useHaptics } from "~/lib/hooks/preferences";
 import { useGroupNotifications } from "~/lib/storage/app-preferences";
+import { chunk } from "~/lib/utils/chunk";
 import { useRefreshOnFocus, useUserRefresh } from "~/lib/utils/query";
 import { isIOS26 } from "~/lib/utils/version";
 
@@ -108,30 +109,14 @@ function Notifications() {
         }
       }
 
-      // split subjects into chunks of 25
-      const subjectChunks = Array.from(subjects).reduce<AtUriString[][]>(
-        (acc, subject) => {
-          if (acc[acc.length - 1]!.length === 25) {
-            acc.push([subject]);
-          } else {
-            acc[acc.length - 1]!.push(subject);
-          }
-          return acc;
-        },
-        [[]],
-      );
-
+      // getPosts takes at most 25 uris
       const contextPosts = await Promise.all(
-        subjectChunks.map((chunk) =>
-          chunk.length > 0
-            ? agent
-                .call(app.bsky.feed.getPosts, {
-                  uris: chunk,
-                })
-                // the posts are just context - show the notifications without
-                // them rather than failing the whole page
-                .catch(() => ({ posts: [] }))
-            : Promise.resolve({ posts: [] }),
+        chunk(Array.from(subjects)).map((uris) =>
+          agent
+            .call(app.bsky.feed.getPosts, { uris })
+            // the posts are just context - show the notifications without
+            // them rather than failing the whole page
+            .catch(() => ({ posts: [] })),
         ),
       ).then((x) => x.flatMap((x) => x.posts));
 

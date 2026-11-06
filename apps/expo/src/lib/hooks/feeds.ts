@@ -17,6 +17,7 @@ import {
   useDefaultFeed,
   useHomepage,
 } from "../storage/app-preferences";
+import { chunk } from "../utils/chunk";
 import { produce } from "../utils/produce";
 import { isType } from "../utils/types";
 import {
@@ -47,20 +48,39 @@ export const useSavedFeeds = () => {
 
       const allUris = [...new Set([...feeds.pinned, ...feeds.saved])];
 
-      // fetch all feed generators
+      // fetch all feed generators. long-time accounts can have hundreds, which
+      // makes the url too long (414), so fetch them in chunks
       const feedGeneratorsUris = allUris.filter((x) =>
         x.includes("app.bsky.feed.generator"),
       );
-      const generators =
-        feedGeneratorsUris.length === 0
-          ? { feeds: [] }
-          : await agent.call(app.bsky.feed.getFeedGenerators, {
-              feeds: feedGeneratorsUris,
-            });
-
-      const myLists = await agent.call(app.bsky.graph.getLists, {
-        actor: agent.assertDid,
-      });
+      const [generatorChunks, myLists] = await Promise.all([
+        Promise.allSettled(
+          chunk(feedGeneratorsUris).map((uris) =>
+            agent.call(app.bsky.feed.getFeedGenerators, { feeds: uris }),
+          ),
+        ),
+        agent
+          .call(app.bsky.graph.getLists, { actor: agent.assertDid })
+          .catch((err: unknown) => {
+            // not fatal - the lists get fetched one by one below instead
+            console.warn("failed to fetch own lists", err);
+            return { lists: [] };
+          }),
+      ]);
+      // show what we can if some chunks fail, but don't pretend there are no
+      // feeds if they all failed
+      const failedChunk = generatorChunks.find((x) => x.status === "rejected");
+      if (
+        failedChunk &&
+        !generatorChunks.some((x) => x.status === "fulfilled")
+      ) {
+        throw failedChunk.reason as Error;
+      }
+      const generators = {
+        feeds: generatorChunks.flatMap((x) =>
+          x.status === "fulfilled" ? x.value.feeds : [],
+        ),
+      };
 
       // fetch all lists
       const listUris = allUris.filter(
