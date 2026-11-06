@@ -13,15 +13,10 @@ import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
-import {
-  ChevronRightIcon,
-  MoreHorizontalIcon,
-  PlusIcon,
-} from "lucide-react-native";
+import { ChevronRightIcon, PlusIcon } from "lucide-react-native";
 import { toast } from "sonner-native";
 
 import { ItemSeparator } from "~/components/item-separator";
-import { Menu } from "~/components/menu";
 import { Text } from "~/components/themed/text";
 import { useAuth } from "~/lib/agent";
 import { getOAuthClient, isSessionGoneError } from "~/lib/oauth";
@@ -121,88 +116,71 @@ export function SwitchAccounts({
           if (a.did === active) return -1;
           return 0;
         })
-        .map((account) => (
-          <Fragment key={account.did}>
-            <TouchableHighlight
-              className={cx("flex-1", resume.isPending && "opacity-50")}
-              onPress={() => resume.mutate(account)}
-              disabled={resume.isPending || account.did === active}
+        .map((account) => {
+          const isActive = account.did === active;
+          const content = (
+            <View
+              className="flex-row items-center px-4 py-2"
+              style={{ backgroundColor: theme.colors.card }}
             >
-              <View
-                className="flex-1 flex-row items-center px-4 py-2"
-                style={{ backgroundColor: theme.colors.card }}
-              >
-                <Avatar
-                  uri={account.avatar}
-                  alt={account.displayName ?? `@${account.handle}`}
-                  className="shrink-0"
-                  size="medium"
-                />
-                <View className="ml-3 flex-1">
-                  {account.displayName && (
-                    <Text className="text-base font-medium">
-                      {account.displayName}
-                    </Text>
-                  )}
-                  <Text className="text-neutral-500">@{account.handle}</Text>
-                  {account.signedOut && account.did !== active && (
-                    <Text className="text-xs text-neutral-500">
-                      <Trans>Tap to sign in again</Trans>
-                    </Text>
-                  )}
-                </View>
-                {resume.isPending && resume.variables?.did === account.did ? (
-                  <ActivityIndicator />
-                ) : account.did === active ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      router.push("../");
-                      logout();
-                    }}
-                  >
-                    <Text primary className="font-medium">
-                      <Trans>Sign out</Trans>
-                    </Text>
-                  </TouchableOpacity>
-                ) : (
-                  <>
-                    <Menu
-                      accessibilityLabel={_(msg`Account options`)}
-                      groups={[
-                        {
-                          key: "account",
-                          items: [
-                            {
-                              key: "remove",
-                              label: _(msg`Remove account`),
-                              icon: "trash",
-                              destructive: true,
-                              onSelect: () => removeAccount(account),
-                            },
-                          ],
-                        },
-                      ]}
-                    >
-                      <View className="px-2 py-2">
-                        <MoreHorizontalIcon
-                          size={20}
-                          className="text-neutral-500"
-                        />
-                      </View>
-                    </Menu>
-                    {chevrons && (
-                      <ChevronRightIcon
-                        size={16}
-                        className="text-neutral-500"
-                      />
-                    )}
-                  </>
+              <Avatar
+                uri={account.avatar}
+                alt={account.displayName ?? `@${account.handle}`}
+                className="shrink-0"
+                size="medium"
+              />
+              <View className="ml-3 flex-1">
+                {account.displayName && (
+                  <Text className="text-base font-medium">
+                    {account.displayName}
+                  </Text>
+                )}
+                <Text className="text-neutral-500">@{account.handle}</Text>
+                {account.signedOut && !isActive && (
+                  <Text className="text-xs text-neutral-500">
+                    <Trans>Tap to sign in again</Trans>
+                  </Text>
                 )}
               </View>
-            </TouchableHighlight>
-            <ItemSeparator iconWidth="w-10" />
-          </Fragment>
-        ))}
+              {resume.isPending && resume.variables?.did === account.did ? (
+                <ActivityIndicator />
+              ) : isActive ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push("../");
+                    logout();
+                  }}
+                >
+                  <Text primary className="font-medium">
+                    <Trans>Sign out</Trans>
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                chevrons && (
+                  <ChevronRightIcon size={16} className="text-neutral-500" />
+                )
+              )}
+            </View>
+          );
+
+          return (
+            <Fragment key={account.did}>
+              <TouchableHighlight
+                className={cx(resume.isPending && "opacity-50")}
+                onPress={() => resume.mutate(account)}
+                // long press to remove. not a menu button inside the row -
+                // pressing that also triggered the row's onPress
+                onLongPress={
+                  isActive ? undefined : () => removeAccount(account)
+                }
+                disabled={resume.isPending || isActive}
+              >
+                {content}
+              </TouchableHighlight>
+              <ItemSeparator iconWidth="w-10" />
+            </Fragment>
+          );
+        })}
       {showAddAccount && (
         <Link href="/sign-in" asChild>
           <TouchableHighlight
