@@ -8,6 +8,7 @@ import { AppleIcon } from "react-native-bottom-tabs";
 import { Drawer } from "react-native-drawer-layout";
 import { useReducedMotion } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Stack, usePathname, useRouter, useSegments } from "expo-router";
 import { useTheme } from "expo-router/react-navigation";
@@ -149,7 +150,9 @@ export default function AppLayout() {
         swipeEnabled={segments.length === 3}
       >
         <Tabs
-          sidebarAdaptable
+          // the sidebar overlaps the content when the ipad app runs on a mac,
+          // so only use it on actual ipads
+          sidebarAdaptable={Device.deviceType !== Device.DeviceType.DESKTOP}
           labeled={Platform.OS !== "ios"}
           tabBarStyle={
             Platform.OS === "android"
