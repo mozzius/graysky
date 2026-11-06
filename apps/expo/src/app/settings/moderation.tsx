@@ -19,7 +19,11 @@ import { QueryWithoutData } from "~/components/query-without-data";
 import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
-import { contentLabels, usePreferences } from "~/lib/hooks/preferences";
+import {
+  contentLabels,
+  putPreferences,
+  usePreferences,
+} from "~/lib/hooks/preferences";
 import { produce } from "~/lib/utils/produce";
 import { isType } from "~/lib/utils/types";
 
@@ -48,8 +52,9 @@ export default function ModerationSettings() {
         visibility,
       } satisfies app.bsky.actor.defs.ContentLabelPref;
 
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(preferences.data, (draft) => {
+      await putPreferences(
+        agent,
+        produce(preferences.data, (draft) => {
           const index = draft.findIndex(
             (x) =>
               isType(app.bsky.actor.defs.contentLabelPref, x) &&
@@ -61,7 +66,7 @@ export default function ModerationSettings() {
             draft[index] = newPref;
           }
         }),
-      });
+      );
     },
     onSettled: () => preferences.refetch(),
   });
@@ -82,8 +87,9 @@ export default function ModerationSettings() {
     mutationFn: async () => {
       if (!preferences.data) throw new Error("No preferences");
       setOptimisticSwitchValue(!adultContentEnabled);
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(preferences.data, (draft) => {
+      await putPreferences(
+        agent,
+        produce(preferences.data, (draft) => {
           const existing = draft.find((x) =>
             isType(app.bsky.actor.defs.adultContentPref, x),
           );
@@ -99,7 +105,7 @@ export default function ModerationSettings() {
             });
           }
         }),
-      });
+      );
     },
     onSettled: () => preferences.refetch(),
   });

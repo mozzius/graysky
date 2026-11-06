@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform } from "react-native";
+import { Alert, Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -42,6 +42,7 @@ import {
   isOAuthCancellation,
   isSessionGoneError,
   onOAuthSessionDeleted,
+  onScopeError,
 } from "~/lib/oauth";
 import { CustomerInfoProvider, useConfigurePurchases } from "~/lib/purchases";
 import { useQuickAction, useSetupQuickActions } from "~/lib/quick-actions";
@@ -118,6 +119,12 @@ const App = () => {
   // the session that's currently in use. updates from any other session (e.g.
   // one we switched away from) are ignored
   const currentSessionRef = useRef<Omit<ActiveSession, "info"> | null>(null);
+  // set while the current account signs in again. the oauth client revokes the
+  // old session when the new one comes in, which shouldn't sign them out
+  const reauthorizingRef = useRef<string | null>(null);
+  // accounts already asked to sign in again for missing scopes, so it's only
+  // asked once per launch
+  const scopePromptedRef = useRef(new Set<string>());
 
   // close everything and go to the landing page, then open sign in for the
   // given account so they can get back in
@@ -138,6 +145,7 @@ const App = () => {
   useEffect(() => {
     return onOAuthSessionDeleted((did) => {
       markSignedOut(did);
+      if (reauthorizingRef.current === did) return;
       if (currentSessionRef.current?.session.did !== did) return;
       currentSessionRef.current = null;
       setActiveDid(null);
@@ -238,6 +246,58 @@ const App = () => {
     },
     [queryClient, activateSession],
   );
+
+  // sessions from before we added a scope get scope errors on the calls that
+  // need it (e.g. preferences). ask once to sign in again for the new scopes
+  useEffect(() => {
+    return onScopeError(() => {
+      const current = currentSessionRef.current;
+      if (!current) return;
+      const did = current.session.did;
+      if (scopePromptedRef.current.has(did)) return;
+      scopePromptedRef.current.add(did);
+      const handle =
+        getSavedSessions().find((s) => s.did === did)?.handle ?? did;
+      const t = tRef.current;
+      Alert.alert(
+        t(msg`Please sign in again`),
+        t(
+          msg`Graysky needs some new permissions for your account. Sign in again to keep your feeds and settings working.`,
+        ),
+        [
+          { text: t(msg`Not now`), style: "cancel" },
+          {
+            text: t(msg`Sign in`),
+            onPress: () => {
+              reauthorizingRef.current = did;
+              signIn(handle)
+                .then((signedIn) => {
+                  if (!signedIn) return;
+                  if (routerRef.current.canDismiss()) {
+                    routerRef.current.dismissAll();
+                  }
+                  routerRef.current.replace("/(feeds)/feeds");
+                })
+                .catch((err: unknown) => {
+                  console.error(err);
+                  toast.warning(tRef.current(msg`Could not log you in`), {
+                    description:
+                      err instanceof Error
+                        ? err.message
+                        : tRef.current(msg`Unknown error`),
+                  });
+                })
+                .finally(() => {
+                  if (reauthorizingRef.current === did) {
+                    reauthorizingRef.current = null;
+                  }
+                });
+            },
+          },
+        ],
+      );
+    });
+  }, [signIn]);
 
   const switchAccount = useCallback(
     async (did: string) => {

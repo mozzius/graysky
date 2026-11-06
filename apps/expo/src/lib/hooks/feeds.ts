@@ -19,7 +19,12 @@ import {
 } from "../storage/app-preferences";
 import { produce } from "../utils/produce";
 import { isType } from "../utils/types";
-import { useContentFilter, useHaptics } from "./preferences";
+import {
+  getPreferences,
+  putPreferences,
+  useContentFilter,
+  useHaptics,
+} from "./preferences";
 
 export const useSavedFeeds = () => {
   const agent = useAgent();
@@ -27,7 +32,7 @@ export const useSavedFeeds = () => {
   return useQuery({
     queryKey: ["feeds", "saved"],
     queryFn: async () => {
-      const { preferences } = await agent.call(app.bsky.actor.getPreferences);
+      const preferences = await getPreferences(agent);
       const feeds = preferences.find((pref) =>
         isType(app.bsky.actor.defs.savedFeedsPref, pref),
       ) as app.bsky.actor.defs.SavedFeedsPref | undefined;
@@ -157,8 +162,9 @@ export const useToggleFeedPref = (
       const saveUri = save as AtUriString | undefined;
       const pinUri = pin as AtUriString | undefined;
 
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(preferences, (draft) => {
+      await putPreferences(
+        agent,
+        produce(preferences, (draft) => {
           let hasPref;
           for (const pref of draft) {
             if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
@@ -187,7 +193,7 @@ export const useToggleFeedPref = (
             });
           }
         }),
-      });
+      );
     },
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),
@@ -227,15 +233,16 @@ export const useReorderFeeds = (
     mutationFn: async (pins: AtUriString[]) => {
       if (!savedFeeds.data) return;
       setPinned(pins);
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(savedFeeds.data.preferences, (draft) => {
+      await putPreferences(
+        agent,
+        produce(savedFeeds.data.preferences, (draft) => {
           for (const pref of draft) {
             if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
               pref.pinned = pins;
             }
           }
         }),
-      });
+      );
     },
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),
@@ -246,15 +253,16 @@ export const useReorderFeeds = (
       if (!savedFeeds.data) return;
       const saved = [...pinned, ...uris];
       setSaved(saved);
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(savedFeeds.data.preferences, (draft) => {
+      await putPreferences(
+        agent,
+        produce(savedFeeds.data.preferences, (draft) => {
           for (const pref of draft) {
             if (isType(app.bsky.actor.defs.savedFeedsPref, pref)) {
               pref.saved = saved;
             }
           }
         }),
-      });
+      );
     },
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: ["feeds", "saved"] }),

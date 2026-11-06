@@ -15,7 +15,7 @@ import { Text } from "~/components/themed/text";
 import { TransparentHeaderUntilScrolled } from "~/components/transparent-header";
 import { useAgent } from "~/lib/agent";
 import { useSavedFeeds } from "~/lib/hooks";
-import { usePreferences } from "~/lib/hooks/preferences";
+import { putPreferences, usePreferences } from "~/lib/hooks/preferences";
 import {
   useDefaultFeed,
   useHomepage,
@@ -86,8 +86,9 @@ export default function FeedPreferences() {
     ) => {
       if (!preferences.data) throw new Error(_(msg`No preferences`));
 
-      await agent.call(app.bsky.actor.putPreferences, {
-        preferences: produce(preferences.data, (draft) => {
+      await putPreferences(
+        agent,
+        produce(preferences.data, (draft) => {
           const existing = draft.find(
             (x) =>
               isType(app.bsky.actor.defs.feedViewPref, x) && x.feed === "home",
@@ -101,7 +102,7 @@ export default function FeedPreferences() {
             });
           }
         }),
-      });
+      );
     },
     onSettled: () => preferences.refetch(),
   });

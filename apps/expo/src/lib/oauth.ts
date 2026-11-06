@@ -1,3 +1,4 @@
+import { XrpcResponseError } from "@atproto/lex";
 import {
   OAuthCallbackError,
   TokenInvalidError,
@@ -130,6 +131,50 @@ export function isSessionGoneError(err: unknown) {
     err instanceof TokenRevokedError ||
     err instanceof TokenInvalidError
   );
+}
+
+/**
+ * the session's token doesn't have a scope the call needs, e.g. it was granted
+ * before we added that scope. the reference PDS answers `ScopeMissingError`,
+ * rsky (blacksky) answers `InsufficientScope`
+ */
+export function isScopeError(err: unknown) {
+  if (err instanceof XrpcResponseError) {
+    return (
+      err.error === "ScopeMissingError" ||
+      err.error === "InsufficientScope" ||
+      err.message.startsWith("Token scope does not permit") ||
+      err.message.startsWith("Missing required scope")
+    );
+  }
+  return (
+    err instanceof Error &&
+    err.message.startsWith("Token scope does not permit")
+  );
+}
+
+type ScopeErrorListener = () => void;
+
+const scopeErrorListeners = new Set<ScopeErrorListener>();
+
+/** called when a call fails because the session is missing a scope */
+export function onScopeError(listener: ScopeErrorListener) {
+  scopeErrorListeners.add(listener);
+  return () => {
+    scopeErrorListeners.delete(listener);
+  };
+}
+
+/** if `err` is a scope error, let the listeners know (to ask to sign in again) */
+export function reportScopeError(err: unknown) {
+  if (!isScopeError(err)) return;
+  for (const listener of scopeErrorListeners) {
+    try {
+      listener();
+    } catch (err) {
+      console.error("scope error listener failed", err);
+    }
+  }
 }
 
 /**

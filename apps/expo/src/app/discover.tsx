@@ -15,6 +15,7 @@ import { QueryWithoutData } from "~/components/query-without-data";
 import { StatusBar } from "~/components/status-bar";
 import { Text } from "~/components/themed/text";
 import { useAgent } from "~/lib/agent";
+import { getPreferences } from "~/lib/hooks/preferences";
 import { useSearchBarOptions } from "~/lib/hooks/search-bar";
 import { getPopularFeedGenerators } from "~/lib/unspecced";
 import { cx } from "~/lib/utils/cx";
@@ -39,8 +40,8 @@ export default function DiscoveryPage() {
   const saved = useQuery({
     queryKey: ["feeds", "saved", "plain"],
     queryFn: async () => {
-      const prefs = await agent.call(app.bsky.actor.getPreferences);
-      const feeds = prefs.preferences.find((pref) =>
+      const preferences = await getPreferences(agent);
+      const feeds = preferences.find((pref) =>
         isType(app.bsky.actor.defs.savedFeedsPref, pref),
       ) as app.bsky.actor.defs.SavedFeedsPref | undefined;
       return feeds?.saved ?? [];

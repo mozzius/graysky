@@ -1,11 +1,13 @@
 import { createContext, useCallback, useContext, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
+import { type Client } from "@atproto/lex";
 import { app, com } from "@bsky/sdk/lexicons";
 import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAgent } from "../agent";
+import { reportScopeError } from "../oauth";
 import { useHaptics as useHapticsPreference } from "../storage/app-preferences";
 import { isType } from "../utils/types";
 
@@ -66,6 +68,42 @@ export const contentLabels = {
   },
 };
 
+/**
+ * preferences live on the PDS, so these go there without a proxy header (the
+ * client's bsky.app one would make some PDSes forward them to bluesky's
+ * appview). sessions from before we added the preferences scopes get a scope
+ * error, which asks them to sign in again
+ */
+export async function getPreferences(agent: Client) {
+  try {
+    const { preferences } = await agent.call(
+      app.bsky.actor.getPreferences,
+      {},
+      { service: null },
+    );
+    return preferences;
+  } catch (err) {
+    reportScopeError(err);
+    throw err;
+  }
+}
+
+export async function putPreferences(
+  agent: Client,
+  preferences: app.bsky.actor.defs.Preferences,
+) {
+  try {
+    await agent.call(
+      app.bsky.actor.putPreferences,
+      { preferences },
+      { service: null },
+    );
+  } catch (err) {
+    reportScopeError(err);
+    throw err;
+  }
+}
+
 const PreferencesContext = createContext<ReturnType<
   typeof usePreferencesQuery
 > | null>(null);
@@ -75,10 +113,7 @@ const usePreferencesQuery = () => {
 
   const query = useQuery({
     queryKey: ["preferences"],
-    queryFn: async () => {
-      const { preferences } = await agent.call(app.bsky.actor.getPreferences);
-      return preferences;
-    },
+    queryFn: () => getPreferences(agent),
     enabled: !!agent.did,
   });
 

@@ -33,10 +33,12 @@ export function createClient(agent: Agent | AgentOptions) {
  * than relying on the PDS's default appview matching.
  *
  * the PDS still handles the methods it implements itself (com.atproto.repo.*,
- * identity, preferences, registerPush etc) regardless of the proxy header.
- * the one exception is `com.atproto.moderation.createReport`, which the PDS
- * would otherwise forward to the appview - pass `{ service: null }` so it goes
- * to the PDS's report service
+ * identity, registerPush etc) regardless of the proxy header. the exceptions
+ * are `com.atproto.moderation.createReport`, which the PDS would otherwise
+ * forward to the appview - pass `{ service: null }` so it goes to the PDS's
+ * report service - and get/putPreferences, which a PDS forwards to the named
+ * appview if it isn't its default. use `getPreferences` / `putPreferences`
+ * from `~/lib/hooks/preferences`, which pass `{ service: null }`
  */
 export function createAuthenticatedClient(agent: Agent) {
   return new Client(agent, {

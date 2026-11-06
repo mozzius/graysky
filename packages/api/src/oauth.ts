@@ -21,12 +21,20 @@ export const DEFAULT_OAUTH_CLIENT_ID =
  *   graysky's own notification service (did:web:graysky.app#bsky_notif)
  * - `rpc:com.atproto.moderation.createReport`: reports. the PDS routes these to
  *   its configured report service, so the audience isn't known ahead of time
+ * - `rpc:app.bsky.actor.getPreferences` / `putPreferences`: preferences live
+ *   on the PDS, so we call these without a proxy header. the PDS then checks
+ *   the scope against its *own* default appview (e.g. blacksky's), which the
+ *   include above doesn't cover, hence `aud=*`. sending the bsky.app header
+ *   instead isn't an option - a PDS whose default appview isn't bluesky's
+ *   would forward the call to bluesky's appview
  * - `account:email`: reading the account's email, shown in account settings
  * - `identity:handle`: changing handle
  */
 export const OAUTH_SCOPE = [
   "atproto",
   "include:app.bsky.authFullApp?aud=did:web:api.bsky.app%23bsky_appview",
+  "rpc:app.bsky.actor.getPreferences?aud=*",
+  "rpc:app.bsky.actor.putPreferences?aud=*",
   "blob:image/*",
   "rpc:app.bsky.notification.registerPush?aud=did:web:graysky.app%23bsky_notif",
   "rpc:com.atproto.moderation.createReport?aud=*",
