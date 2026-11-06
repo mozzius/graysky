@@ -275,12 +275,12 @@ const ImageWithFallback = ({
     <>
       <AnimatedImage
         // sharedTransitionTag={tag}
-        // weird postitioning
-        // placeholder={{
-        //   width: size.data?.width,
-        //   height: size.data?.height,
-        //   uri: item.thumb,
-        // }}
+        // show the thumbnail (already cached from the feed) until the fullsize
+        // image loads. the placeholder needs the same fit as the image -
+        // the default (scale-down) leaves it small in the middle of the box
+        placeholder={{ uri: item.thumb }}
+        placeholderContentFit="cover"
+        contentFit="cover"
         source={{ uri: item.fullsize }}
         alt={item.alt}
         style={[
