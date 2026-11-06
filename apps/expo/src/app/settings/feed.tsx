@@ -183,7 +183,7 @@ export default function FeedPreferences() {
                   title: _(msg`Only show replies from your follows`),
                   loading: isSaving("hideRepliesByUnfollowed"),
                   disabled: setPreference.isPending || feedViewPref.hideReplies,
-                  value: feedViewPref.hideRepliesByUnfollowed,
+                  value: !!feedViewPref.hideRepliesByUnfollowed,
                   onValueChange: (value) => {
                     setPreference.mutate({
                       hideRepliesByUnfollowed: value,
